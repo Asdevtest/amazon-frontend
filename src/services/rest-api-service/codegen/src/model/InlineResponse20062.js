@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse2004 from './InlineResponse2004';
 
 /**
  * The InlineResponse20062 model module.
@@ -47,29 +48,11 @@ class InlineResponse20062 {
         if (data) {
             obj = obj || new InlineResponse20062();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
-            }
-            if (data.hasOwnProperty('numberOfPositiveFeedbacks')) {
-                obj['numberOfPositiveFeedbacks'] = ApiClient.convertToType(data['numberOfPositiveFeedbacks'], 'Number');
-            }
-            if (data.hasOwnProperty('numberOfNegativeFeedbacks')) {
-                obj['numberOfNegativeFeedbacks'] = ApiClient.convertToType(data['numberOfNegativeFeedbacks'], 'Number');
-            }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
-            }
-            if (data.hasOwnProperty('isOnline')) {
-                obj['isOnline'] = ApiClient.convertToType(data['isOnline'], 'Boolean');
-            }
-            if (data.hasOwnProperty('countsOfDeals')) {
-                obj['countsOfDeals'] = ApiClient.convertToType(data['countsOfDeals'], 'Number');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse2004]);
             }
         }
         return obj;
@@ -79,52 +62,15 @@ class InlineResponse20062 {
 }
 
 /**
- * GUID пользователя.
- * @member {String} _id
+ * Общее кол-во записей
+ * @member {Number} count
  */
-InlineResponse20062.prototype['_id'] = undefined;
+InlineResponse20062.prototype['count'] = undefined;
 
 /**
- * Имя пользователя.
- * @member {String} name
+ * @member {Array.<module:model/InlineResponse2004>} rows
  */
-InlineResponse20062.prototype['name'] = undefined;
-
-/**
- * Рейтинг пользователя.
- * @member {Number} rating
- */
-InlineResponse20062.prototype['rating'] = undefined;
-
-/**
- * Количество положительных отзыв
- * @member {Number} numberOfPositiveFeedbacks
- */
-InlineResponse20062.prototype['numberOfPositiveFeedbacks'] = undefined;
-
-/**
- * Количество негативных отзыв
- * @member {Number} numberOfNegativeFeedbacks
- */
-InlineResponse20062.prototype['numberOfNegativeFeedbacks'] = undefined;
-
-/**
- * Страна
- * @member {String} country
- */
-InlineResponse20062.prototype['country'] = undefined;
-
-/**
- * Пользователь онлайн
- * @member {Boolean} isOnline
- */
-InlineResponse20062.prototype['isOnline'] = undefined;
-
-/**
- * Количество общих сделок
- * @member {Number} countsOfDeals
- */
-InlineResponse20062.prototype['countsOfDeals'] = undefined;
+InlineResponse20062.prototype['rows'] = undefined;
 
 
 

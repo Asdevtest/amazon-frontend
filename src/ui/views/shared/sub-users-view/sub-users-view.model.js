@@ -73,6 +73,15 @@ export class SubUsersViewModel {
     return UserModel.userInfo
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = subUsersColumns(this.rowHandlers, this.firstRowId).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   constructor({history}) {
     runInAction(() => {
       this.history = history
@@ -96,6 +105,14 @@ export class SubUsersViewModel {
           this.currentData = this.getCurrentData()
         }),
     )
+
+    reaction(
+      () => this.nameSearchValue,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
+    )
   }
 
   async updateColumnsModel() {
@@ -112,7 +129,7 @@ export class SubUsersViewModel {
 
   async onClickSaveComment(id, comment) {
     try {
-      console.log(id, comment)
+      // console.log(id, comment)
       await UserModel.patchSubNote(id, comment)
 
       this.loadData()

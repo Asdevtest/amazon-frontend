@@ -65,7 +65,6 @@ class BuyerPendingOrdersViewRaw extends Component {
       rowsPerPage,
       selectedOrder,
       hsCodeData,
-      showEditHSCodeModal,
       showOrderModal,
       showSuccessModal,
       showNoDimensionsErrorModal,
@@ -73,12 +72,12 @@ class BuyerPendingOrdersViewRaw extends Component {
       showOrderPriceMismatchModal,
       showWarningInfoModal,
       showConfirmModal,
+      showEditHSCodeModal,
 
       showProgress,
       progressValue,
 
       onClickHsCode,
-      onClickSaveHsCode,
       onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -97,6 +96,8 @@ class BuyerPendingOrdersViewRaw extends Component {
       onSubmitChangeBoxFields,
       setPhotosToLoad,
       onClickSaveSupplierBtn,
+      onClickSaveHsCode,
+      changeColumnsModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -146,6 +147,9 @@ class BuyerPendingOrdersViewRaw extends Component {
                   }}
                   componentsProps={{
                     columnMenu: {orderStatusData},
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   density={densityModel}
                   columns={columnsModel}
@@ -173,6 +177,7 @@ class BuyerPendingOrdersViewRaw extends Component {
         >
           <EditOrderModal
             isPendingOrder
+            hsCodeData={hsCodeData}
             yuanToDollarRate={yuanToDollarRate}
             userInfo={userInfo}
             volumeWeightCoefficient={volumeWeightCoefficient}
@@ -204,14 +209,6 @@ class BuyerPendingOrdersViewRaw extends Component {
           onClickSuccessBtn={onSubmitCancelOrder}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
-
-        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
-          <EditHSCodeModal
-            hsCodeData={hsCodeData}
-            onClickSaveHsCode={onClickSaveHsCode}
-            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
-          />
-        </Modal>
 
         <WarningInfoModal
           openModal={showNoDimensionsErrorModal}
@@ -267,6 +264,14 @@ class BuyerPendingOrdersViewRaw extends Component {
             onTriggerOpenModal('showSuccessModal')
           }}
         />
+
+        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
+          <EditHSCodeModal
+            hsCodeData={hsCodeData}
+            onClickSaveHsCode={onClickSaveHsCode}
+            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
+          />
+        </Modal>
       </React.Fragment>
     )
   }

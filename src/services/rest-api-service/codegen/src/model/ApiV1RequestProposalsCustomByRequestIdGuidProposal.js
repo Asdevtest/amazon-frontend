@@ -12,7 +12,10 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy from './ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy';
+import ApiV1RequestProposalsMedia from './ApiV1RequestProposalsMedia';
+import ApiV1RequestProposalsSourceFiles from './ApiV1RequestProposalsSourceFiles';
 
 /**
  * The ApiV1RequestProposalsCustomByRequestIdGuidProposal model module.
@@ -89,6 +92,15 @@ class ApiV1RequestProposalsCustomByRequestIdGuidProposal {
             }
             if (data.hasOwnProperty('lastModifiedById')) {
                 obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
+            }
+            if (data.hasOwnProperty('sub')) {
+                obj['sub'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['sub']);
+            }
+            if (data.hasOwnProperty('sourceFiles')) {
+                obj['sourceFiles'] = ApiClient.convertToType(data['sourceFiles'], [ApiV1RequestProposalsSourceFiles]);
+            }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [ApiV1RequestProposalsMedia]);
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -192,6 +204,21 @@ ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['chatId'] = undefin
  * @member {String} lastModifiedById
  */
 ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['lastModifiedById'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} sub
+ */
+ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['sub'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1RequestProposalsSourceFiles>} sourceFiles
+ */
+ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['sourceFiles'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1RequestProposalsMedia>} media
+ */
+ApiV1RequestProposalsCustomByRequestIdGuidProposal.prototype['media'] = undefined;
 
 /**
  * Дата создания

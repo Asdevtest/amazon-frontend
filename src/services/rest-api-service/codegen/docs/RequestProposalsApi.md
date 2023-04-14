@@ -7,6 +7,10 @@ Method | HTTP request | Description
 [**apiV1RequestProposalsCustomByRequestIdGuidGet**](RequestProposalsApi.md#apiV1RequestProposalsCustomByRequestIdGuidGet) | **GET** /api/v1/request-proposals/custom/by_request_id/{guid} | Получить список предложений по guid заявки.
 [**apiV1RequestProposalsCustomGuidGet**](RequestProposalsApi.md#apiV1RequestProposalsCustomGuidGet) | **GET** /api/v1/request-proposals/custom/{guid} | Получить предложение по его id.
 [**apiV1RequestProposalsCustomGuidResultEditPatch**](RequestProposalsApi.md#apiV1RequestProposalsCustomGuidResultEditPatch) | **PATCH** /api/v1/request-proposals/custom/{guid}/result_edit | #  Редактировать результат работы.
+[**apiV1RequestProposalsFreelanceSourcesGet**](RequestProposalsApi.md#apiV1RequestProposalsFreelanceSourcesGet) | **GET** /api/v1/request-proposals/freelance-sources | #  Получить исходники.
+[**apiV1RequestProposalsFreelanceSourcesGuidDelete**](RequestProposalsApi.md#apiV1RequestProposalsFreelanceSourcesGuidDelete) | **DELETE** /api/v1/request-proposals/freelance-sources/{guid} | #  Изменить исходник.
+[**apiV1RequestProposalsFreelanceSourcesGuidPatch**](RequestProposalsApi.md#apiV1RequestProposalsFreelanceSourcesGuidPatch) | **PATCH** /api/v1/request-proposals/freelance-sources/{guid} | #  Изменить исходник.
+[**apiV1RequestProposalsFreelanceSourcesPost**](RequestProposalsApi.md#apiV1RequestProposalsFreelanceSourcesPost) | **POST** /api/v1/request-proposals/freelance-sources | #  Создать исходник.
 [**apiV1RequestProposalsGet**](RequestProposalsApi.md#apiV1RequestProposalsGet) | **GET** /api/v1/request-proposals/ | Получить все предложения для супервизора.
 [**apiV1RequestProposalsGuidCancelBeforeDealPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidCancelBeforeDealPatch) | **PATCH** /api/v1/request-proposals/{guid}/cancel_before_deal | # Отмена предложения до заключения сделки.
 [**apiV1RequestProposalsGuidCancelPatch**](RequestProposalsApi.md#apiV1RequestProposalsGuidCancelPatch) | **PATCH** /api/v1/request-proposals/{guid}/cancel | # Отмена предложения после заключения сделки, в зависимости от того кто вызвал ставится статус.
@@ -24,7 +28,7 @@ Method | HTTP request | Description
 
 ## apiV1RequestProposalsCustomByRequestIdGuidGet
 
-> [InlineResponse20063] apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts)
+> [InlineResponse20069] apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts)
 
 Получить список предложений по guid заявки.
 
@@ -64,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20063]**](InlineResponse20063.md)
+[**[InlineResponse20069]**](InlineResponse20069.md)
 
 ### Authorization
 
@@ -153,7 +157,7 @@ let apiInstance = new TestSwagger.RequestProposalsApi();
 let guid = null; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject113() // InlineObject113 | 
+  'body': new TestSwagger.InlineObject121() // InlineObject121 | 
 };
 apiInstance.apiV1RequestProposalsCustomGuidResultEditPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -170,7 +174,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject113**](InlineObject113.md)|  | [optional] 
+ **body** | [**InlineObject121**](InlineObject121.md)|  | [optional] 
 
 ### Return type
 
@@ -186,9 +190,225 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## apiV1RequestProposalsFreelanceSourcesGet
+
+> [InlineResponse20053] apiV1RequestProposalsFreelanceSourcesGet(opts)
+
+#  Получить исходники.
+
+## Получить исходники
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.RequestProposalsApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1RequestProposalsFreelanceSourcesGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[InlineResponse20053]**](InlineResponse20053.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1RequestProposalsFreelanceSourcesGuidDelete
+
+> String apiV1RequestProposalsFreelanceSourcesGuidDelete(guid, opts)
+
+#  Изменить исходник.
+
+## Изменить исходник
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.RequestProposalsApi();
+let guid = null; // String | GUID в сущности в БД
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1RequestProposalsFreelanceSourcesGuidDelete(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID в сущности в БД | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1RequestProposalsFreelanceSourcesGuidPatch
+
+> String apiV1RequestProposalsFreelanceSourcesGuidPatch(guid, opts)
+
+#  Изменить исходник.
+
+## Изменить исходник
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.RequestProposalsApi();
+let guid = null; // String | GUID в сущности в БД
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject89() // InlineObject89 | 
+};
+apiInstance.apiV1RequestProposalsFreelanceSourcesGuidPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID в сущности в БД | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject89**](InlineObject89.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1RequestProposalsFreelanceSourcesPost
+
+> InlineResponse20111 apiV1RequestProposalsFreelanceSourcesPost(opts)
+
+#  Создать исходник.
+
+## Создать исходник
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.RequestProposalsApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject88() // InlineObject88 | 
+};
+apiInstance.apiV1RequestProposalsFreelanceSourcesPost(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject88**](InlineObject88.md)|  | [optional] 
+
+### Return type
+
+[**InlineResponse20111**](InlineResponse20111.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
 ## apiV1RequestProposalsGet
 
-> [InlineResponse20050] apiV1RequestProposalsGet(type, kind, opts)
+> [InlineResponse20052] apiV1RequestProposalsGet(type, kind, opts)
 
 Получить все предложения для супервизора.
 
@@ -232,7 +452,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20050]**](InlineResponse20050.md)
+[**[InlineResponse20052]**](InlineResponse20052.md)
 
 ### Authorization
 
@@ -267,7 +487,7 @@ let apiInstance = new TestSwagger.RequestProposalsApi();
 let guid = null; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject77() // InlineObject77 | 
+  'body': new TestSwagger.InlineObject79() // InlineObject79 | 
 };
 apiInstance.apiV1RequestProposalsGuidCancelBeforeDealPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -284,7 +504,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject77**](InlineObject77.md)|  | [optional] 
+ **body** | [**InlineObject79**](InlineObject79.md)|  | [optional] 
 
 ### Return type
 
@@ -323,7 +543,7 @@ let apiInstance = new TestSwagger.RequestProposalsApi();
 let guid = null; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject84() // InlineObject84 | 
+  'body': new TestSwagger.InlineObject86() // InlineObject86 | 
 };
 apiInstance.apiV1RequestProposalsGuidCancelPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -340,7 +560,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject84**](InlineObject84.md)|  | [optional] 
+ **body** | [**InlineObject86**](InlineObject86.md)|  | [optional] 
 
 ### Return type
 
@@ -379,7 +599,7 @@ let apiInstance = new TestSwagger.RequestProposalsApi();
 let guid = null; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject85() // InlineObject85 | 
+  'body': new TestSwagger.InlineObject87() // InlineObject87 | 
 };
 apiInstance.apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -396,7 +616,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject85**](InlineObject85.md)|  | [optional] 
+ **body** | [**InlineObject87**](InlineObject87.md)|  | [optional] 
 
 ### Return type
 
@@ -491,7 +711,7 @@ let apiInstance = new TestSwagger.RequestProposalsApi();
 let guid = null; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject80() // InlineObject80 | 
+  'body': new TestSwagger.InlineObject82() // InlineObject82 | 
 };
 apiInstance.apiV1RequestProposalsGuidProposalCorrectedPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -508,7 +728,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject80**](InlineObject80.md)|  | [optional] 
+ **body** | [**InlineObject82**](InlineObject82.md)|  | [optional] 
 
 ### Return type
 
@@ -547,7 +767,7 @@ let apiInstance = new TestSwagger.RequestProposalsApi();
 let guid = null; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject79() // InlineObject79 | 
+  'body': new TestSwagger.InlineObject81() // InlineObject81 | 
 };
 apiInstance.apiV1RequestProposalsGuidProposalEditPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -564,7 +784,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject79**](InlineObject79.md)|  | [optional] 
+ **body** | [**InlineObject81**](InlineObject81.md)|  | [optional] 
 
 ### Return type
 
@@ -603,7 +823,7 @@ let apiInstance = new TestSwagger.RequestProposalsApi();
 let guid = null; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject78() // InlineObject78 | 
+  'body': new TestSwagger.InlineObject80() // InlineObject80 | 
 };
 apiInstance.apiV1RequestProposalsGuidProposalRejectPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -620,7 +840,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject78**](InlineObject78.md)|  | [optional] 
+ **body** | [**InlineObject80**](InlineObject80.md)|  | [optional] 
 
 ### Return type
 
@@ -715,7 +935,7 @@ let apiInstance = new TestSwagger.RequestProposalsApi();
 let guid = null; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject83() // InlineObject83 | 
+  'body': new TestSwagger.InlineObject85() // InlineObject85 | 
 };
 apiInstance.apiV1RequestProposalsGuidResultAcceptPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -732,7 +952,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject83**](InlineObject83.md)|  | [optional] 
+ **body** | [**InlineObject85**](InlineObject85.md)|  | [optional] 
 
 ### Return type
 
@@ -771,7 +991,7 @@ let apiInstance = new TestSwagger.RequestProposalsApi();
 let guid = null; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject82() // InlineObject82 | 
+  'body': new TestSwagger.InlineObject84() // InlineObject84 | 
 };
 apiInstance.apiV1RequestProposalsGuidResultCorrectedPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -788,7 +1008,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject82**](InlineObject82.md)|  | [optional] 
+ **body** | [**InlineObject84**](InlineObject84.md)|  | [optional] 
 
 ### Return type
 
@@ -827,7 +1047,7 @@ let apiInstance = new TestSwagger.RequestProposalsApi();
 let guid = null; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject81() // InlineObject81 | 
+  'body': new TestSwagger.InlineObject83() // InlineObject83 | 
 };
 apiInstance.apiV1RequestProposalsGuidResultToCorrectPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -844,7 +1064,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject81**](InlineObject81.md)|  | [optional] 
+ **body** | [**InlineObject83**](InlineObject83.md)|  | [optional] 
 
 ### Return type
 

@@ -64,7 +64,7 @@ class InlineObject18 {
                 obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
             }
             if (data.hasOwnProperty('trackNumberFile')) {
-                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], 'String');
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], ['String']);
             }
             if (data.hasOwnProperty('upsTrackNumber')) {
                 obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
@@ -123,9 +123,6 @@ class InlineObject18 {
             if (data.hasOwnProperty('prepId')) {
                 obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
-            }
         }
         return obj;
     }
@@ -158,8 +155,7 @@ InlineObject18.prototype['lengthCmSupplier'] = undefined;
 InlineObject18.prototype['trackNumberText'] = undefined;
 
 /**
- * Ссылка на фото трек номера
- * @member {String} trackNumberFile
+ * @member {Array.<String>} trackNumberFile
  */
 InlineObject18.prototype['trackNumberFile'] = undefined;
 
@@ -266,7 +262,7 @@ InlineObject18.prototype['images'] = undefined;
 InlineObject18.prototype['destinationId'] = undefined;
 
 /**
- * GUID тарифа доставки 
+ *  logicsTariff GUID
  * @member {String} logicsTariffId
  */
 InlineObject18.prototype['logicsTariffId'] = undefined;
@@ -276,12 +272,6 @@ InlineObject18.prototype['logicsTariffId'] = undefined;
  * @member {String} prepId
  */
 InlineObject18.prototype['prepId'] = undefined;
-
-/**
- * GUID сторкипера
- * @member {String} storekeeperId
- */
-InlineObject18.prototype['storekeeperId'] = undefined;
 
 
 

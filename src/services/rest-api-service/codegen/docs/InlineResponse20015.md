@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **isFormed** | **Boolean** | Сформирована ли коробка | [optional] 
 **shippingLabel** | **String** | Ссылка на наклейку для коробки | [optional] 
 **trackNumberText** | **String** | Текст трек номера | [optional] 
-**trackNumberFile** | **String** | Ссылка на фото трек номера | [optional] 
+**trackNumberFile** | **[String]** |  | [optional] 
 **prepId** | **String** | Значение информационного ключа | [optional] 
 **upsTrackNumber** | **String** | Идентификатор UPS | [optional] 
 **referenceId** | **String** | Дополнительное поле shippingLabel для доставки грузовиками | [optional] 

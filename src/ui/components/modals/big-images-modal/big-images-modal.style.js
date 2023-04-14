@@ -4,11 +4,18 @@ export const useClassNames = makeStyles()(() => ({
   imgBox: {
     objectFit: 'contain',
     width: '50vw',
-    height: '70vh',
+    // maxWidth: "565px",
+    maxHeight: '70vh',
   },
   carouselWrapper: {
     textAlign: 'center',
+    height: '100%',
     width: '55vw',
+  },
+
+  body: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 
   closeIcon: {
@@ -38,6 +45,39 @@ export const useClassNames = makeStyles()(() => ({
     position: 'relative',
     overflow: 'visible',
     // width: '50vw',
-    // height: '70vh',
+    height: '70vh',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
+  previewList: {
+    overflowY: 'auto',
+    height: '70vh',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+  },
+
+  previewListItem: {
+    maxWidth: '75px',
+    maxHeight: '75px',
+  },
+
+  previewListImage: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    border: '1px solid #E0E0E0',
+  },
+
+  activeImage: {
+    borderColor: '#5BA0FE !important',
+  },
+
+  controls: {
+    display: 'flex',
+    alignItems: 'flex-end',
   },
 }))

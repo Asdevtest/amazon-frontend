@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusTags from './ApiV1AdminsGetProductsByStatusTags';
 
 /**
  * The InlineResponse20020 model module.
@@ -100,6 +101,9 @@ class InlineResponse20020 {
             }
             if (data.hasOwnProperty('ideaCount')) {
                 obj['ideaCount'] = ApiClient.convertToType(data['ideaCount'], 'Number');
+            }
+            if (data.hasOwnProperty('tags')) {
+                obj['tags'] = ApiClient.convertToType(data['tags'], [ApiV1AdminsGetProductsByStatusTags]);
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -219,6 +223,11 @@ InlineResponse20020.prototype['chinaTitle'] = undefined;
  * @member {Number} ideaCount
  */
 InlineResponse20020.prototype['ideaCount'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusTags>} tags
+ */
+InlineResponse20020.prototype['tags'] = undefined;
 
 /**
  * Дата создания

@@ -22,12 +22,10 @@ class InlineObject109 {
     /**
      * Constructs a new <code>InlineObject109</code>.
      * @alias module:model/InlineObject109
-     * @param userId {String} Гуид саба
-     * @param comment {String} Заметка о сабе написаная мастером
      */
-    constructor(userId, comment) { 
+    constructor() { 
         
-        InlineObject109.initialize(this, userId, comment);
+        InlineObject109.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject109 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, userId, comment) { 
-        obj['userId'] = userId;
-        obj['comment'] = comment;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,14 @@ class InlineObject109 {
         if (data) {
             obj = obj || new InlineObject109();
 
-            if (data.hasOwnProperty('userId')) {
-                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
         }
         return obj;
@@ -65,16 +64,22 @@ class InlineObject109 {
 }
 
 /**
- * Гуид саба
- * @member {String} userId
+ * Название услуги
+ * @member {String} name
  */
-InlineObject109.prototype['userId'] = undefined;
+InlineObject109.prototype['name'] = undefined;
 
 /**
- * Заметка о сабе написаная мастером
- * @member {String} comment
+ * Описание услуги
+ * @member {String} description
  */
-InlineObject109.prototype['comment'] = undefined;
+InlineObject109.prototype['description'] = undefined;
+
+/**
+ * Цена услуги.
+ * @member {Number} price
+ */
+InlineObject109.prototype['price'] = undefined;
 
 
 

@@ -13,7 +13,7 @@ import {ChatModel} from '@models/chat-model'
 
 import {useClassNames} from '@components/dashboards/dashboard-buttons/dashboard-buttons.style'
 
-import {checkIsAdmin, checkIsStorekeeper, checkIsSupervisor} from '@utils/checks'
+import {checkIsAdmin, checkIsResearcher, checkIsStorekeeper, checkIsSupervisor} from '@utils/checks'
 import {t} from '@utils/translations'
 
 export const DashboardButtons = ({user, routes}) => {
@@ -29,17 +29,19 @@ export const DashboardButtons = ({user, routes}) => {
 
   return (
     <div className={classNames.buttonsWrapper}>
-      <div
-        className={classNames.buttonWrapper}
-        onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)}
-      >
-        <div className={classNames.iconWrapper}>
-          <MyNotificationsIcon classes={{root: classNames.fontSizeLarge}} fontSize="large" />
-          {Number(notices) > 0 ? <div className={classNames.badge}>{notices}</div> : undefined}
-        </div>
+      {!checkIsResearcher(UserRoleCodeMap[user.role]) && (
+        <div
+          className={classNames.buttonWrapper}
+          onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)}
+        >
+          <div className={classNames.iconWrapper}>
+            <MyNotificationsIcon classes={{root: classNames.fontSizeLarge}} fontSize="large" />
+            {Number(notices) > 0 ? <div className={classNames.badge}>{notices}</div> : undefined}
+          </div>
 
-        <Typography className={classNames.title}>{t(TranslationKey.Notifications)}</Typography>
-      </div>
+          <Typography className={classNames.title}>{t(TranslationKey.Notifications)}</Typography>
+        </div>
+      )}
       <div
         className={classNames.buttonWrapper}
         onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.messages}`)}

@@ -22,10 +22,11 @@ class InlineObject21 {
     /**
      * Constructs a new <code>InlineObject21</code>.
      * @alias module:model/InlineObject21
+     * @param boxesIds {Array.<String>} 
      */
-    constructor() { 
+    constructor(boxesIds) { 
         
-        InlineObject21.initialize(this);
+        InlineObject21.initialize(this, boxesIds);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject21 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -47,8 +49,29 @@ class InlineObject21 {
         if (data) {
             obj = obj || new InlineObject21();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            }
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            }
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            }
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            }
+            if (data.hasOwnProperty('fbaShipment')) {
+                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            }
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
+            }
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            }
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
         }
         return obj;
@@ -58,10 +81,51 @@ class InlineObject21 {
 }
 
 /**
- * GUID коробки, объединение которой нужно отменить
- * @member {String} guid
+ * Штрихкод продукта
+ * @member {String} barCode
  */
-InlineObject21.prototype['guid'] = undefined;
+InlineObject21.prototype['barCode'] = undefined;
+
+/**
+ *  logicsTariff GUID
+ * @member {String} logicsTariffId
+ */
+InlineObject21.prototype['logicsTariffId'] = undefined;
+
+/**
+ * GUID сотрудника склада
+ * @member {String} storekeeperId
+ */
+InlineObject21.prototype['storekeeperId'] = undefined;
+
+/**
+ * Ссылка на наклейку для коробки
+ * @member {String} shippingLabel
+ */
+InlineObject21.prototype['shippingLabel'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaShipment
+ */
+InlineObject21.prototype['fbaShipment'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
+ */
+InlineObject21.prototype['fbaNumber'] = undefined;
+
+/**
+ * Гуид модели destination
+ * @member {String} destinationId
+ */
+InlineObject21.prototype['destinationId'] = undefined;
+
+/**
+ * @member {Array.<String>} boxesIds
+ */
+InlineObject21.prototype['boxesIds'] = undefined;
 
 
 

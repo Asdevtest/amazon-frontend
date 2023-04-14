@@ -12,6 +12,7 @@ import {
   calcPriceForBox,
   calcTotalPriceForBatch,
   calcVolumeWeightForBox,
+  checkActualBatchWeightGreaterVolumeBatchWeight,
   getTariffRateForBoxOrOrder,
 } from './calculation'
 import {getFullTariffTextForBoxOrOrder} from './text'
@@ -91,6 +92,7 @@ export const researcherProductsDataConverter = data =>
     bsr: item.bsr,
     asin: item.asin,
     id: item._id,
+    supervisorComment: item.checkednotes,
   }))
 
 export const researcherFinancesDataConverter = data =>
@@ -119,7 +121,7 @@ export const supervisorProductsDataConverter = data =>
   data.map(item => ({
     originalData: item,
 
-    status: t(productStatusTranslateKey(ProductStatusByCode[item.status])),
+    status: item.status,
     statusForAttention: ProductStatusByCode[item.status],
     researcherName: item.createdBy?.name,
     buyerName: item.buyer?.name,
@@ -131,6 +133,7 @@ export const supervisorProductsDataConverter = data =>
     id: item._id,
     fbafee: item.fbafee,
     asin: item.asin,
+    ordered: item.ordered,
   }))
 
 export const buyerFinancesDataConverter = data =>
@@ -356,6 +359,7 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
 
     destination: item.destination?.name,
     storekeeper: item.storekeeper?.name,
+
     logicsTariff: getFullTariffTextForBoxOrOrder(item),
     client: item.client?.name,
 
@@ -399,7 +403,14 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
       .slice(0, -2),
   }))
 
-export const addOrEditBatchDataConverter = (data, volumeWeightCoefficient, finalWeightCalculationMethod) =>
+export const addOrEditBatchDataConverter = (
+  data,
+  volumeWeightCoefficient,
+  finalWeightCalculationMethod,
+  getBatchWeightCalculationMethodForBox,
+  calculationMethod,
+  // isDifferentMethodForEach,
+) =>
   data.map(item => ({
     originalData: item,
     id: item._id,
@@ -409,7 +420,12 @@ export const addOrEditBatchDataConverter = (data, volumeWeightCoefficient, final
 
     amazonPrice: calcPriceForBox(item),
 
-    finalWeight: finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount,
+    finalWeight: getBatchWeightCalculationMethodForBox
+      ? getBatchWeightCalculationMethodForBox(
+          calculationMethod,
+          checkActualBatchWeightGreaterVolumeBatchWeight([item], volumeWeightCoefficient),
+        )(item, volumeWeightCoefficient) * item.amount
+      : finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount,
     grossWeight: item.weighGrossKgWarehouse,
 
     destination: item.destination?.name,
@@ -426,7 +442,13 @@ export const addOrEditBatchDataConverter = (data, volumeWeightCoefficient, final
 
     humanFriendlyId: item.humanFriendlyId,
     deliveryTotalPrice:
-      getTariffRateForBoxOrOrder(item) * finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount,
+      getTariffRateForBoxOrOrder(item) *
+      (getBatchWeightCalculationMethodForBox
+        ? getBatchWeightCalculationMethodForBox(
+            calculationMethod,
+            checkActualBatchWeightGreaterVolumeBatchWeight([item], volumeWeightCoefficient),
+          )(item, volumeWeightCoefficient) * item.amount
+        : finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount),
 
     deliveryTotalPriceChanged: item.deliveryTotalPriceChanged,
 
@@ -733,7 +755,7 @@ export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
     client: item?.client?.name,
 
     humanFriendlyId: item?.humanFriendlyId,
-    qty: item?.items?.reduce((acc, cur) => (acc += cur?.amount), 0),
+    amount: item?.items?.reduce((acc, cur) => (acc += cur?.amount), 0),
 
     isDraft: item?.isDraft,
     createdAt: item?.createdAt,
@@ -746,7 +768,7 @@ export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
     orderIdsItems: `${t(TranslationKey.Order)} №: ${item?.items
       .reduce((acc, cur) => (acc += cur?.order?.id + ', '), '')
       .slice(0, -2)}  item №: ${item?.items
-      // .reduce((acc, cur) => (acc += (cur?.order?.item ? cur.order?.item : '-') + ', '), '')
+      .reduce((acc, cur) => (acc += (cur?.order?.item ? cur.order?.item : '-') + ', '), '')
       .slice(0, -2)}`,
   }))
 

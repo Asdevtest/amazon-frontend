@@ -22,11 +22,10 @@ class InlineObject112 {
     /**
      * Constructs a new <code>InlineObject112</code>.
      * @alias module:model/InlineObject112
-     * @param hash {String} Токен, который юзер получает через почту
      */
-    constructor(hash) { 
+    constructor() { 
         
-        InlineObject112.initialize(this, hash);
+        InlineObject112.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject112 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, hash) { 
-        obj['hash'] = hash;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +47,26 @@ class InlineObject112 {
         if (data) {
             obj = obj || new InlineObject112();
 
-            if (data.hasOwnProperty('hash')) {
-                obj['hash'] = ApiClient.convertToType(data['hash'], 'String');
+            if (data.hasOwnProperty('listingName')) {
+                obj['listingName'] = ApiClient.convertToType(data['listingName'], 'String');
             }
-            if (data.hasOwnProperty('password')) {
-                obj['password'] = ApiClient.convertToType(data['password'], 'String');
+            if (data.hasOwnProperty('listingBulletPoints')) {
+                obj['listingBulletPoints'] = ApiClient.convertToType(data['listingBulletPoints'], ['String']);
+            }
+            if (data.hasOwnProperty('listingProductDetails')) {
+                obj['listingProductDetails'] = ApiClient.convertToType(data['listingProductDetails'], 'String');
+            }
+            if (data.hasOwnProperty('listingSearchTerms')) {
+                obj['listingSearchTerms'] = ApiClient.convertToType(data['listingSearchTerms'], 'String');
+            }
+            if (data.hasOwnProperty('listingSubjectMatters')) {
+                obj['listingSubjectMatters'] = ApiClient.convertToType(data['listingSubjectMatters'], ['String']);
+            }
+            if (data.hasOwnProperty('listingImages')) {
+                obj['listingImages'] = ApiClient.convertToType(data['listingImages'], ['String']);
+            }
+            if (data.hasOwnProperty('strategyStatus')) {
+                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
             }
         }
         return obj;
@@ -63,16 +76,46 @@ class InlineObject112 {
 }
 
 /**
- * Токен, который юзер получает через почту
- * @member {String} hash
+ * 
+ * @member {String} listingName
  */
-InlineObject112.prototype['hash'] = undefined;
+InlineObject112.prototype['listingName'] = undefined;
 
 /**
- * Новый пароль
- * @member {String} password
+ * Массив ...
+ * @member {Array.<String>} listingBulletPoints
  */
-InlineObject112.prototype['password'] = undefined;
+InlineObject112.prototype['listingBulletPoints'] = undefined;
+
+/**
+ * 
+ * @member {String} listingProductDetails
+ */
+InlineObject112.prototype['listingProductDetails'] = undefined;
+
+/**
+ * 
+ * @member {String} listingSearchTerms
+ */
+InlineObject112.prototype['listingSearchTerms'] = undefined;
+
+/**
+ * Массив ...
+ * @member {Array.<String>} listingSubjectMatters
+ */
+InlineObject112.prototype['listingSubjectMatters'] = undefined;
+
+/**
+ * массив картинок(в виде прямых ссылок).
+ * @member {Array.<String>} listingImages
+ */
+InlineObject112.prototype['listingImages'] = undefined;
+
+/**
+ * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+ * @member {Number} strategyStatus
+ */
+InlineObject112.prototype['strategyStatus'] = undefined;
 
 
 

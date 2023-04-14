@@ -126,11 +126,44 @@ class UserInfoSchema {
             if (data.hasOwnProperty('allowedSpec')) {
                 obj['allowedSpec'] = ApiClient.convertToType(data['allowedSpec'], ['Number']);
             }
-            if (data.hasOwnProperty('tasksNew')) {
-                obj['tasksNew'] = ApiClient.convertToType(data['tasksNew'], 'Number');
+            if (data.hasOwnProperty('tasksNewAll')) {
+                obj['tasksNewAll'] = ApiClient.convertToType(data['tasksNewAll'], 'Number');
             }
-            if (data.hasOwnProperty('tasksAtProcess')) {
-                obj['tasksAtProcess'] = ApiClient.convertToType(data['tasksAtProcess'], 'Number');
+            if (data.hasOwnProperty('tasksAtProcessAll')) {
+                obj['tasksAtProcessAll'] = ApiClient.convertToType(data['tasksAtProcessAll'], 'Number');
+            }
+            if (data.hasOwnProperty('tasksNewHigh')) {
+                obj['tasksNewHigh'] = ApiClient.convertToType(data['tasksNewHigh'], 'Number');
+            }
+            if (data.hasOwnProperty('tasksAtProcessHigh')) {
+                obj['tasksAtProcessHigh'] = ApiClient.convertToType(data['tasksAtProcessHigh'], 'Number');
+            }
+            if (data.hasOwnProperty('freeOrders')) {
+                obj['freeOrders'] = ApiClient.convertToType(data['freeOrders'], 'Number');
+            }
+            if (data.hasOwnProperty('pendingOrders')) {
+                obj['pendingOrders'] = ApiClient.convertToType(data['pendingOrders'], 'Number');
+            }
+            if (data.hasOwnProperty('notPaid')) {
+                obj['notPaid'] = ApiClient.convertToType(data['notPaid'], 'Number');
+            }
+            if (data.hasOwnProperty('readyForPayment')) {
+                obj['readyForPayment'] = ApiClient.convertToType(data['readyForPayment'], 'Number');
+            }
+            if (data.hasOwnProperty('needTrackNumber')) {
+                obj['needTrackNumber'] = ApiClient.convertToType(data['needTrackNumber'], 'Number');
+            }
+            if (data.hasOwnProperty('inbound')) {
+                obj['inbound'] = ApiClient.convertToType(data['inbound'], 'Number');
+            }
+            if (data.hasOwnProperty('confirmationRequired')) {
+                obj['confirmationRequired'] = ApiClient.convertToType(data['confirmationRequired'], 'Number');
+            }
+            if (data.hasOwnProperty('closedAndCanceled')) {
+                obj['closedAndCanceled'] = ApiClient.convertToType(data['closedAndCanceled'], 'Number');
+            }
+            if (data.hasOwnProperty('allOrders')) {
+                obj['allOrders'] = ApiClient.convertToType(data['allOrders'], 'Number');
             }
         }
         return obj;
@@ -279,15 +312,81 @@ UserInfoSchema.prototype['allowedSpec'] = undefined;
 
 /**
  * Количество новых заданий у пользователя
- * @member {Number} tasksNew
+ * @member {Number} tasksNewAll
  */
-UserInfoSchema.prototype['tasksNew'] = undefined;
+UserInfoSchema.prototype['tasksNewAll'] = undefined;
 
 /**
  * Количество заданий в работе у пользователя
- * @member {Number} tasksAtProcess
+ * @member {Number} tasksAtProcessAll
  */
-UserInfoSchema.prototype['tasksAtProcess'] = undefined;
+UserInfoSchema.prototype['tasksAtProcessAll'] = undefined;
+
+/**
+ * Количество новых заданий у пользователя с высоким приоритетом
+ * @member {Number} tasksNewHigh
+ */
+UserInfoSchema.prototype['tasksNewHigh'] = undefined;
+
+/**
+ * Количество заданий в работе у пользователяс высоким приоритетом
+ * @member {Number} tasksAtProcessHigh
+ */
+UserInfoSchema.prototype['tasksAtProcessHigh'] = undefined;
+
+/**
+ * Количество заказов из /buyers/orders/vac
+ * @member {Number} freeOrders
+ */
+UserInfoSchema.prototype['freeOrders'] = undefined;
+
+/**
+ * Количество заказов 2, 3 статусы
+ * @member {Number} pendingOrders
+ */
+UserInfoSchema.prototype['pendingOrders'] = undefined;
+
+/**
+ * Количество заказов 15, 19 статусы
+ * @member {Number} notPaid
+ */
+UserInfoSchema.prototype['notPaid'] = undefined;
+
+/**
+ * Количество заказов 16 статусы
+ * @member {Number} readyForPayment
+ */
+UserInfoSchema.prototype['readyForPayment'] = undefined;
+
+/**
+ * Количество заказов 20 статус
+ * @member {Number} needTrackNumber
+ */
+UserInfoSchema.prototype['needTrackNumber'] = undefined;
+
+/**
+ * Количество заказов 25 статус
+ * @member {Number} inbound
+ */
+UserInfoSchema.prototype['inbound'] = undefined;
+
+/**
+ * Количество заказов 27 статус
+ * @member {Number} confirmationRequired
+ */
+UserInfoSchema.prototype['confirmationRequired'] = undefined;
+
+/**
+ * Количество заказов 30,35,40 статусы
+ * @member {Number} closedAndCanceled
+ */
+UserInfoSchema.prototype['closedAndCanceled'] = undefined;
+
+/**
+ * Количество заказов 15, 20, 25, 27, 19, 30, 35, 40 статусы
+ * @member {Number} allOrders
+ */
+UserInfoSchema.prototype['allOrders'] = undefined;
 
 
 

@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {
+  convertDaysToSeconds,
   formatDate,
   formatDateDayMonthYear,
   formatDateDistanceFromNow,
@@ -125,6 +126,16 @@ describe('Test formatDateDistanceFromNow(date)', () => {
     test('Valid props', () => {
       expect(formatDateDistanceFromNow(value.enter)).not.toBeNull()
       expect(typeof formatDateDistanceFromNow(value.enter)).toBe('string')
+    })
+  })
+})
+
+describe('Test convertDaysToSeconds(days)', () => {
+  const validTestValue = [{enter: 5, expect: 432000}]
+
+  validTestValue.forEach(value => {
+    test('Valid props', () => {
+      expect(convertDaysToSeconds(value.enter)).toBe(value.expect)
     })
   })
 })

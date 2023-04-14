@@ -150,6 +150,15 @@ export class ClientOrdersViewModel {
     )
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = this.columnsModel.map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   setDestinationsFavouritesItem(item) {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
@@ -324,6 +333,7 @@ export class ClientOrdersViewModel {
           return [
             OrderStatus.AT_PROCESS,
             OrderStatus.READY_TO_PROCESS,
+            OrderStatus.READY_FOR_PAYMENT,
             OrderStatus.PAID_TO_SUPPLIER,
             OrderStatus.TRACK_NUMBER_ISSUED,
             OrderStatus.VERIFY_RECEIPT,

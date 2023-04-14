@@ -1455,6 +1455,11 @@ export const styles = theme => ({
     },
   },
 
+  warehouseMyTasksCancelBtn: {
+    height: '40px',
+    width: '166px',
+  },
+
   sizesSubWrapper: {
     display: 'flex',
     width: '100%',
@@ -1598,6 +1603,11 @@ export const styles = theme => ({
       width: 108,
     },
     // width: '210px',
+    '& > div': {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
   },
 
   colorYellow: {
@@ -1645,5 +1655,24 @@ export const styles = theme => ({
       display: 'flex',
       width: '100%',
     },
+  },
+
+  menuItem: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  rushOrderImg: {
+    width: '12px',
+    height: '13px',
+  },
+
+  dapTitle: {
+    color: theme.palette.text.second,
+    fontSize: '12px',
+  },
+
+  dapBtn: {
+    padding: '6px 44px',
   },
 })

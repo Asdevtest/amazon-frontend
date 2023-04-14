@@ -1,7 +1,7 @@
 import {cx} from '@emotion/css'
 import {Typography} from '@mui/material'
 
-import React, {FC} from 'react'
+import React, {FC, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import Highlighter from 'react-highlight-words'
@@ -9,7 +9,9 @@ import Linkify from 'react-linkify-always-blank'
 
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {Button} from '@components/buttons/button'
+import {ChatMessageFiles} from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files'
+import {ImagesTile} from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile'
 import {UserLink} from '@components/user-link'
 
 import {formatDateTimeHourAndMinutes} from '@utils/date-time'
@@ -79,9 +81,14 @@ const findChunks = ({/* autoEscape, caseSensitive, sanitize, */ searchWords, tex
   return chunks
 }
 
+const imagesRegex =
+  /(http[s]?:\/\/.*\.(?:bmp|cdr|gif|heif|ico|jpeg|jpg|pbm|pcx|pgm|png|ppm|psd|raw|svg|tga|tif|wbmp|webp|xbm|xpm))/i
+
 export const ChatMessageBasicText: FC<Props> = observer(
   ({message, isIncomming, unReadMessage, isFound, searchPhrase, showName}) => {
     const {classes: classNames} = useClassNames()
+    const [photoFiles] = useState(() => message.files.filter(url => imagesRegex.test(url)))
+    const [anotherFiles] = useState(() => message.files.filter(url => !imagesRegex.test(url)))
 
     return (
       <div
@@ -108,6 +115,12 @@ export const ChatMessageBasicText: FC<Props> = observer(
             />
           ) : null}
 
+          {!!photoFiles.length && !anotherFiles.length ? (
+            <div className={classNames.filesMainWrapper}>
+              <ImagesTile images={photoFiles} controls={(imageIndex, image) => <Button>Download</Button>} />
+            </div>
+          ) : undefined}
+
           {message.text && (
             <Highlighter
               autoEscape
@@ -131,15 +144,9 @@ export const ChatMessageBasicText: FC<Props> = observer(
               )}
             />
           )}
-
-          {message.files.length ? (
+          {anotherFiles.length ? (
             <div className={classNames.filesMainWrapper}>
-              <PhotoAndFilesCarousel
-                notToShowEmpty
-                small
-                files={message.files}
-                width={window.innerWidth < 768 ? '150px' : '250px'}
-              />
+              <ChatMessageFiles files={message.files} />
             </div>
           ) : undefined}
         </div>

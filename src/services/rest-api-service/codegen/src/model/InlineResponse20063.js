@@ -12,9 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './ApiV1RequestProposalsCustomByRequestIdGuidDetails';
-import ApiV1RequestProposalsCustomByRequestIdGuidProposal from './ApiV1RequestProposalsCustomByRequestIdGuidProposal';
-import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './ApiV1RequestProposalsCustomByRequestIdGuidRequest';
+import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
 
 /**
  * The InlineResponse20063 model module.
@@ -24,7 +22,7 @@ import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './ApiV1RequestPro
 class InlineResponse20063 {
     /**
      * Constructs a new <code>InlineResponse20063</code>.
-     * Схема универсального предложения
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20063
      */
     constructor() { 
@@ -51,14 +49,11 @@ class InlineResponse20063 {
         if (data) {
             obj = obj || new InlineResponse20063();
 
-            if (data.hasOwnProperty('proposal')) {
-                obj['proposal'] = ApiV1RequestProposalsCustomByRequestIdGuidProposal.constructFromObject(data['proposal']);
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestProposalsCustomByRequestIdGuidDetails.constructFromObject(data['details']);
-            }
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestProposalsCustomByRequestIdGuidRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [ApiV1BatchesBoxes]);
             }
         }
         return obj;
@@ -68,19 +63,16 @@ class InlineResponse20063 {
 }
 
 /**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidProposal} proposal
+ * Всего кол-во записей в результате запроса
+ * @member {Number} count
  */
-InlineResponse20063.prototype['proposal'] = undefined;
+InlineResponse20063.prototype['count'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidDetails} details
+ * Массив коробок c пагинацией(заданная страничка).
+ * @member {Array.<module:model/ApiV1BatchesBoxes>} rows
  */
-InlineResponse20063.prototype['details'] = undefined;
-
-/**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidRequest} request
- */
-InlineResponse20063.prototype['request'] = undefined;
+InlineResponse20063.prototype['rows'] = undefined;
 
 
 

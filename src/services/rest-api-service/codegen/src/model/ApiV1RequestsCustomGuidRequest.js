@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestsCustomRequestLinksToMediaFiles from './ApiV1RequestsCustomRequestLinksToMediaFiles';
 
 /**
  * The ApiV1RequestsCustomGuidRequest model module.
@@ -49,6 +50,9 @@ class ApiV1RequestsCustomGuidRequest {
 
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('withoutConfirmation')) {
+                obj['withoutConfirmation'] = ApiClient.convertToType(data['withoutConfirmation'], 'Boolean');
             }
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
@@ -89,6 +93,9 @@ class ApiV1RequestsCustomGuidRequest {
             if (data.hasOwnProperty('announcementId')) {
                 obj['announcementId'] = ApiClient.convertToType(data['announcementId'], 'String');
             }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], [ApiV1RequestsCustomRequestLinksToMediaFiles]);
+            }
         }
         return obj;
     }
@@ -101,6 +108,12 @@ class ApiV1RequestsCustomGuidRequest {
  * @member {String} title
  */
 ApiV1RequestsCustomGuidRequest.prototype['title'] = undefined;
+
+/**
+ * Если у заявки стоит withoutConfirmation: true - статус предложения автоматически становится OFFER_CONDITIONS_ACCEPTED при pickup'е
+ * @member {Boolean} withoutConfirmation
+ */
+ApiV1RequestsCustomGuidRequest.prototype['withoutConfirmation'] = undefined;
 
 /**
  * Цена за каждое предложение.
@@ -179,6 +192,11 @@ ApiV1RequestsCustomGuidRequest.prototype['cashBackInPercent'] = undefined;
  * @member {String} announcementId
  */
 ApiV1RequestsCustomGuidRequest.prototype['announcementId'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1RequestsCustomRequestLinksToMediaFiles>} linksToMediaFiles
+ */
+ApiV1RequestsCustomGuidRequest.prototype['linksToMediaFiles'] = undefined;
 
 
 

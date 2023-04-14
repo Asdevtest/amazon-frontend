@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**userId** | **String** |  | [optional] 
-**productId** | **String** |  | [optional] 
+**_id** | **String** | GUID заказа | [optional] 
+**id** | **Number** | id заказа | [optional] 
 
 

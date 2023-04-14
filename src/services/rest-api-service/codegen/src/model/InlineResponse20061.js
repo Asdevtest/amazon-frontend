@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
-import ApiV1StorekeepersTariffWarehouses from './ApiV1StorekeepersTariffWarehouses';
 
 /**
  * The InlineResponse20061 model module.
@@ -24,11 +22,12 @@ class InlineResponse20061 {
     /**
      * Constructs a new <code>InlineResponse20061</code>.
      * @alias module:model/InlineResponse20061
-     * @param _id {String} GUID сторкипера в DB
+     * @param _id {String} Гуид магазина
+     * @param name {String} Название магазина
      */
-    constructor(_id) { 
+    constructor(_id, name) { 
         
-        InlineResponse20061.initialize(this, _id);
+        InlineResponse20061.initialize(this, _id, name);
     }
 
     /**
@@ -36,8 +35,9 @@ class InlineResponse20061 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id) { 
+    static initialize(obj, _id, name) { 
         obj['_id'] = _id;
+        obj['name'] = name;
     }
 
     /**
@@ -51,17 +51,11 @@ class InlineResponse20061 {
         if (data) {
             obj = obj || new InlineResponse20061();
 
-            if (data.hasOwnProperty('yuanToDollarRate')) {
-                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('volumeWeightCoefficient')) {
-                obj['volumeWeightCoefficient'] = ApiClient.convertToType(data['volumeWeightCoefficient'], 'Number');
-            }
-            if (data.hasOwnProperty('requestMinAmountPriceOfProposal')) {
-                obj['requestMinAmountPriceOfProposal'] = ApiClient.convertToType(data['requestMinAmountPriceOfProposal'], 'Number');
-            }
-            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
-                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
         }
         return obj;
@@ -71,28 +65,16 @@ class InlineResponse20061 {
 }
 
 /**
- * Курс юаня к доллару.
- * @member {Number} yuanToDollarRate
+ * Гуид магазина
+ * @member {String} _id
  */
-InlineResponse20061.prototype['yuanToDollarRate'] = undefined;
+InlineResponse20061.prototype['_id'] = undefined;
 
 /**
- * Коэффициент расчета объемного веса.
- * @member {Number} volumeWeightCoefficient
+ * Название магазина
+ * @member {String} name
  */
-InlineResponse20061.prototype['volumeWeightCoefficient'] = undefined;
-
-/**
- * Минимальная стоимость предложения (может быть .01 для практического отсутствия)
- * @member {Number} requestMinAmountPriceOfProposal
- */
-InlineResponse20061.prototype['requestMinAmountPriceOfProposal'] = undefined;
-
-/**
- * Комиссия за оплату предложения
- * @member {Number} requestPlatformMarginInPercent
- */
-InlineResponse20061.prototype['requestPlatformMarginInPercent'] = undefined;
+InlineResponse20061.prototype['name'] = undefined;
 
 
 

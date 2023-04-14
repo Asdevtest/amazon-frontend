@@ -14,7 +14,6 @@ Name | Type | Description | Notes
 **comment** | **String** | Комментарий | [optional] 
 **yuanRate** | **Number** | Курс доллара к юаню поставщика.  | [optional] 
 **multiplicity** | **Boolean** | Имеет ли обязательный делитель на кол-во в заказе поставщик | [optional] 
-**paymentMethod** | **[Number]** | Тип оплаты | [optional] 
 **priceInYuan** | **Number** | Цена за еденицу, yuan | [optional] 
 **batchDeliveryCostInDollar** | **Number** | Доставка партии, dollar | [optional] 
 **batchDeliveryCostInYuan** | **Number** | Доставка партии, yuan | [optional] 
@@ -23,6 +22,7 @@ Name | Type | Description | Notes
 **boxProperties** | [**ApiV1AdminsGetProductsByStatusBoxProperties**](ApiV1AdminsGetProductsByStatusBoxProperties.md) |  | [optional] 
 **productionTerm** | **Number** |  | [optional] 
 **createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
+**paymentMethods** | [**[ApiV1AdminsGetProductsByStatusPaymentMethods]**](ApiV1AdminsGetProductsByStatusPaymentMethods.md) |  | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата обновления | [optional] 
 

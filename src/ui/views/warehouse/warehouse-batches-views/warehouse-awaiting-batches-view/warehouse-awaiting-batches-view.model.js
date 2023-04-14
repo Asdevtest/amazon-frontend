@@ -67,6 +67,15 @@ export class WarehouseAwaitingBatchesViewModel {
   densityModel = 'compact'
   columnsModel = batchesViewColumns(this.rowHandlers)
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = batchesViewColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   get isInvalidTariffBoxSelected() {
     return this.selectedBatches.some(batchId => {
       const findBatch = this.batches.find(batch => batch._id === batchId)
@@ -212,7 +221,8 @@ export class WarehouseAwaitingBatchesViewModel {
         referenceId: data.referenceId,
         fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
-        trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
+        trackNumberFile: [...data.trackNumberFile, ...this.uploadedFiles],
+
         upsTrackNumber: data.upsTrackNumber,
         prepId: data.prepId,
       })

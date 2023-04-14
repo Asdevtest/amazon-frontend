@@ -65,6 +65,15 @@ export class WarehouseTariffModel {
     }
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = warehouseTariffsColumns(this.rowHandlers, this.firstRowId).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   onChangeFilterModel(model) {
     this.filterModel = model
   }

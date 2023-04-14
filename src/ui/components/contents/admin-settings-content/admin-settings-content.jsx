@@ -73,6 +73,7 @@ export const AdminSettingsContent = observer(() => {
     destinationToEdit,
     confirmModalSettings,
     showConfirmModal,
+    changeColumnsModel,
     onSubmitCreateDestination,
     onSubmitEditDestination,
     createAdminSettings,
@@ -344,6 +345,11 @@ export const AdminSettingsContent = observer(() => {
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   density={densityModel}
                   columns={columnsModel}

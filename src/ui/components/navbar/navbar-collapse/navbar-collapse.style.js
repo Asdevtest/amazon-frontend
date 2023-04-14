@@ -17,13 +17,24 @@ export const useClassNames = makeStyles()(theme => ({
     color: `${theme.palette.primary.main} !important`,
   },
 
+  badgeContainer: {
+    display: 'flex',
+    width: '100%',
+    maxWidth: '56px',
+    paddingLeft: '5px',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   badge: {
-    position: 'absolute',
-    top: 15,
-    left: 20,
+    margin: '0 auto',
     height: 20,
-    width: 20,
+    width: 'fit-content',
     background: theme.palette.primary.main,
+
+    padding: '1px 6px',
+
+    fontSize: '12px',
 
     borderRadius: 30,
     display: 'flex',
@@ -33,12 +44,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   redBadge: {
-    position: 'absolute',
-    top: 15,
-    left: 20,
+    margin: '0 auto',
+    width: 'fit-content',
     height: 20,
-    width: 20,
     background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
+
+    padding: '1px 6px',
+
+    fontSize: '12px',
 
     borderRadius: 30,
     display: 'flex',
@@ -62,7 +75,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   subCategory: {
-    padding: '0 20px 0 56px',
+    padding: '0 20px 0 0',
     width: '100%',
     // color: theme.palette.text.second,
   },

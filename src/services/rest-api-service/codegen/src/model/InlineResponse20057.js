@@ -21,14 +21,12 @@ import ApiClient from '../ApiClient';
 class InlineResponse20057 {
     /**
      * Constructs a new <code>InlineResponse20057</code>.
-     * Схема магазина.
+     * Успешный ответ.
      * @alias module:model/InlineResponse20057
-     * @param _id {String} Гуид магазина
-     * @param name {String} Название магазина
      */
-    constructor(_id, name) { 
+    constructor() { 
         
-        InlineResponse20057.initialize(this, _id, name);
+        InlineResponse20057.initialize(this);
     }
 
     /**
@@ -36,9 +34,7 @@ class InlineResponse20057 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, name) { 
-        obj['_id'] = _id;
-        obj['name'] = name;
+    static initialize(obj) { 
     }
 
     /**
@@ -52,11 +48,11 @@ class InlineResponse20057 {
         if (data) {
             obj = obj || new InlineResponse20057();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('isExist')) {
+                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -66,16 +62,16 @@ class InlineResponse20057 {
 }
 
 /**
- * Гуид магазина
- * @member {String} _id
+ * Флаг, показывает есть ли такой ASIN в базе или нет
+ * @member {Boolean} isExist
  */
-InlineResponse20057.prototype['_id'] = undefined;
+InlineResponse20057.prototype['isExist'] = undefined;
 
 /**
- * Название магазина
- * @member {String} name
+ * Причина из таблицы с асинами
+ * @member {String} reason
  */
-InlineResponse20057.prototype['name'] = undefined;
+InlineResponse20057.prototype['reason'] = undefined;
 
 
 

@@ -5,7 +5,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import CloseIcon from '@mui/icons-material/Close'
 import {Drawer, Hidden, IconButton, List, Typography} from '@mui/material'
 
-import React, {useRef, useState, useEffect} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 
 import MenuIcon from '@material-ui/icons/Menu'
 import {observer} from 'mobx-react'
@@ -115,16 +115,20 @@ export const Navbar = observer(
                         userInfo.needConfirmPriceChange?.boxes +
                           userInfo.needConfirmPriceChange?.orders +
                           userInfo.needUpdateTariff?.boxes +
-                          userInfo.updatesOnIdeas?.length) ||
-                      (category.route?.includes('/buyer/notifications') && userInfo.updatesOnIdeas?.length) ||
+                          userInfo.updatesOnIdeas) ||
+                      (category.route?.includes('/buyer/notifications') && userInfo.updatesOnIdeas) ||
                       (category.route?.includes('/client/my-orders/orders') &&
                         userInfo.purchaseOrderRequired?.length &&
                         userInfo.purchaseOrderRequired.length) ||
-                      (category.route?.includes('/warehouse/tasks') && userInfo.tasksAtProcess + userInfo.tasksNew)
+                      (category.route?.includes('/warehouse/tasks') &&
+                        userInfo.tasksAtProcessAll + userInfo.tasksNewAll) ||
+                      (category.route?.includes('/buyer/free-orders') && userInfo.freeOrders) ||
+                      (category.route?.includes('/buyer/pending-orders') && userInfo.pendingOrders)
                     }
                   />
 
                   <NavbarCollapse
+                    showHighPriorityNotification
                     shortNavbar={shortNavbar}
                     activeCategory={activeCategory}
                     activeSubCategory={activeSubCategory}

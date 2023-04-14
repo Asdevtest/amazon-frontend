@@ -1,19 +1,22 @@
 import React from 'react'
 
+import {columnnsKeys} from '@constants/data-grid-columns-keys'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  MultilineTextHeaderCell, // ShortDateCell,
+  ChangeInputCell,
+  DownloadAndPrintFilesCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
   OrderCell,
   OrderManyItemsCell,
-  MultilineTextCell,
+  OrdersIdsItemsCell,
   ShortBoxDimensions,
   UserLinkCell,
   WarehouseBoxesBtnsCell,
-  OrdersIdsItemsCell,
-  ChangeInputCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
+import {getFileNameFromUrl} from '@utils/get-file-name-from-url'
 import {t} from '@utils/translations'
 
 export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
@@ -24,6 +27,7 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     type: 'number',
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 120,
+    columnKey: columnnsKeys.client.WAREHOUSE_ID,
   },
 
   {
@@ -34,6 +38,8 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     renderCell: params => <OrdersIdsItemsCell value={params.value} />,
     width: 140,
     sortable: false,
+
+    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
   },
 
   {
@@ -55,10 +61,40 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
       ),
     filterable: false,
     sortable: false,
+
+    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
   },
 
   {
-    field: 'qty',
+    field: 'shippingLabel',
+    headerName: 'Shipping label/Barcode',
+    renderHeader: () => <MultilineTextHeaderCell text={'Shipping label / Barcode'} />,
+
+    width: 250,
+    renderCell: params => (
+      <DownloadAndPrintFilesCell
+        files={[
+          {
+            title: 'Shipping label',
+            fileUrl: params.row.originalData.shippingLabel,
+            fileName: getFileNameFromUrl(params.row.originalData.shippingLabel).fullName,
+          },
+          {
+            title: 'Barcode',
+            fileUrl: params.row.originalData.items[0].product.barCode,
+            fileName: getFileNameFromUrl(params.row.originalData.items[0].product.barCode).fullName,
+          },
+        ]}
+      />
+    ),
+    filterable: false,
+    sortable: false,
+
+    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
+  },
+
+  {
+    field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
@@ -72,10 +108,11 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     width: 110,
     type: 'number',
     sortable: false,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
-    field: 'warehouse',
+    field: 'destination',
     headerName: t(TranslationKey['Destination and tariff']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Destination and tariff'])} />,
 
@@ -88,6 +125,8 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     width: 170,
     filterable: false,
     sortable: false,
+
+    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_DESTINATION,
   },
 
   {
@@ -108,6 +147,8 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     renderCell: params => <MultilineTextCell text={params.value} noTextText={t(TranslationKey['Outside Batch'])} />,
     type: 'number',
     width: 110,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -166,8 +207,8 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
         onClickSubmit={handlers.onClickSavePrepId}
       />
     ),
-    width: 220,
+    width: 240,
 
-    // columnKey: columnnsKeys.shared.STRING,
+    columnKey: columnnsKeys.shared.STRING,
   },
 ]

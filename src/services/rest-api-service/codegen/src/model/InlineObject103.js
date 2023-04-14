@@ -47,14 +47,8 @@ class InlineObject103 {
         if (data) {
             obj = obj || new InlineObject103();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
         }
         return obj;
@@ -64,22 +58,10 @@ class InlineObject103 {
 }
 
 /**
- * Название услуги
- * @member {String} name
+ * Статус
+ * @member {Number} status
  */
-InlineObject103.prototype['name'] = undefined;
-
-/**
- * Описание услуги
- * @member {String} description
- */
-InlineObject103.prototype['description'] = undefined;
-
-/**
- * Цена услуги.
- * @member {Number} price
- */
-InlineObject103.prototype['price'] = undefined;
+InlineObject103.prototype['status'] = undefined;
 
 
 

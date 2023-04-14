@@ -26,7 +26,9 @@ export const styles = theme => ({
 
   headerWrapper: {
     display: 'flex',
-    justifyContent: 'center',
+    flexWrap: 'wrap',
+
+    gap: 20,
   },
 
   footerContainer: {
@@ -52,6 +54,50 @@ export const styles = theme => ({
   },
   dataGridWrapper: {
     marginTop: '20px',
-    height: '83vh',
+    height: 'calc(100vh - 230px)',
+  },
+
+  selectStatusFilterButton: {
+    padding: '0 20px',
+    height: 40,
+    whiteSpace: 'nowrap',
+    marginBottom: 5,
+    color: theme.palette.primary.main,
+
+    fontSize: 14,
+    fontWeight: 600,
+
+    '&.Mui-disabled': {
+      opacity: '.3',
+      backgroundColor: 'transparent',
+    },
+  },
+  badge: {
+    margin: '0 auto',
+    height: 20,
+    width: 'fit-content',
+    background: theme.palette.primary.main,
+
+    padding: '1px 6px',
+
+    fontSize: '12px',
+
+    borderRadius: 30,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+  },
+  selectedStatusFilterButton: {
+    marginBottom: 0,
+    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
+
+    borderBottom: '5px solid #0460DE',
+
+    color: `${theme.palette.primary.main} !important`,
+  },
+
+  searchInputWrapper: {
+    marginLeft: '50%',
   },
 })

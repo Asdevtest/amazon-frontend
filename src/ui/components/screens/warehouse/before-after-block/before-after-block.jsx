@@ -51,6 +51,7 @@ const Box = observer(
     newBoxes,
     volumeWeightCoefficient,
     referenceEditingBox,
+    onClickApplyAllBtn,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -635,19 +636,24 @@ const Box = observer(
                 />
 
                 <div className={classNames.trackNumberPhotoWrapper}>
-                  {box.trackNumberFile ? (
-                    <img
-                      className={classNames.trackNumberPhoto}
-                      src={box.trackNumberFile}
-                      onClick={() => {
-                        setShowPhotosModal(!showPhotosModal)
-                        setBigImagesOptions({
-                          ...bigImagesOptions,
+                  {box.trackNumberFile.length ? (
+                    <CustomCarousel>
+                      {box.trackNumberFile.map((el, index) => (
+                        <img
+                          key={index}
+                          className={classNames.trackNumberPhoto}
+                          src={box.trackNumberFile[index]}
+                          onClick={() => {
+                            setShowPhotosModal(!showPhotosModal)
+                            setBigImagesOptions({
+                              ...bigImagesOptions,
 
-                          images: [box.trackNumberFile],
-                        })
-                      }}
-                    />
+                              images: box.trackNumberFile,
+                            })
+                          }}
+                        />
+                      ))}
+                    </CustomCarousel>
                   ) : (
                     <Typography className={classNames.trackNumberNoPhotoText}>{'no photo track number...'}</Typography>
                   )}
@@ -661,7 +667,7 @@ const Box = observer(
           <div className={classNames.bottomBlockWrapper}>
             <div className={cx(classNames.editBtnWrapper, {[classNames.noEditBtnWrapper]: readOnly})}>
               {isEdit && !readOnly && (
-                <div>
+                <div className={classNames.btnsWrapper}>
                   <Button
                     className={classNames.editBtn}
                     tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
@@ -671,6 +677,21 @@ const Box = observer(
                     }}
                   >
                     {t(TranslationKey.Edit)}
+                  </Button>
+
+                  <Button
+                    disabled={
+                      !box.widthCmWarehouse ||
+                      !box.weighGrossKgWarehouse ||
+                      !box.lengthCmWarehouse ||
+                      !box.heightCmWarehouse
+                    }
+                    className={classNames.applyAllBtn}
+                    onClick={() => {
+                      onClickApplyAllBtn(box)
+                    }}
+                  >
+                    {t(TranslationKey['Apply to all'])}
                   </Button>
                 </div>
               )}
@@ -750,6 +771,7 @@ const NewBoxes = observer(
     setNewBoxes,
     volumeWeightCoefficient,
     readOnly,
+    onClickApplyAllBtn,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -757,13 +779,21 @@ const NewBoxes = observer(
 
     return (
       <div className={classNames.newBoxes}>
-        <Text
-          tooltipInfoContent={t(TranslationKey['New box condition'])}
-          className={classNames.sectionTitle}
-          containerClasses={classNames.sectionTitleWrapper}
-        >
-          {t(TranslationKey['New boxes'])}
-        </Text>
+        <div className={classNames.titleWrapper}>
+          <Text
+            tooltipInfoContent={t(TranslationKey['New box condition'])}
+            className={classNames.sectionTitle}
+            containerClasses={classNames.sectionTitleWrapper}
+          >
+            {t(TranslationKey['New boxes'])}
+          </Text>
+
+          <Typography>{`${t(TranslationKey['Total number of boxes'])}: ${newBoxes.reduce(
+            (acc, cur) => (acc += cur.amount),
+            0,
+          )}`}</Typography>
+        </div>
+
         <div className={classNames.newBoxesWrapper}>
           {newBoxes.map((box, boxIndex) => (
             <Box
@@ -783,6 +813,7 @@ const NewBoxes = observer(
               showEditBoxModal={showEditBoxModal}
               onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
               onClickEditBox={onClickEditBox}
+              onClickApplyAllBtn={onClickApplyAllBtn}
             />
           ))}
         </div>
@@ -818,6 +849,7 @@ export const BeforeAfterBlock = observer(
     volumeWeightCoefficient,
     onClickOpenModal,
     readOnly,
+    onClickApplyAllBtn,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -828,13 +860,20 @@ export const BeforeAfterBlock = observer(
     return (
       <div className={classNames.boxesWrapper}>
         <div className={classNames.currentBox}>
-          <Text
-            tooltipInfoContent={t(TranslationKey['Previous condition of the box'])}
-            className={classNames.sectionTitle}
-            containerClasses={classNames.sectionTitleWrapper}
-          >
-            {t(TranslationKey.Incoming)}
-          </Text>
+          <div className={classNames.titleWrapper}>
+            <Text
+              tooltipInfoContent={t(TranslationKey['Previous condition of the box'])}
+              className={classNames.sectionTitle}
+              containerClasses={classNames.sectionTitleWrapper}
+            >
+              {t(TranslationKey.Incoming)}
+            </Text>
+
+            <Typography>{`${t(TranslationKey['Total number of boxes'])}: ${incomingBoxes.reduce(
+              (acc, cur) => (acc += cur.amount),
+              0,
+            )}`}</Typography>
+          </div>
 
           {/* {taskType !== TaskOperationType.MERGE && taskType !== TaskOperationType.SPLIT && (
           <div className={classNames.fieldsWrapper}>
@@ -900,6 +939,7 @@ export const BeforeAfterBlock = observer(
             showEditBoxModal={showEditBoxModal}
             onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
             onClickEditBox={onClickEditBox}
+            onClickApplyAllBtn={onClickApplyAllBtn}
           />
         )}
         {taskType === TaskOperationType.RECEIVE &&

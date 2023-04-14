@@ -60,4 +60,10 @@ export const useClassNames = makeStyles()(theme => ({
     marginRight: '20px',
     width: '450px',
   },
+
+  buttonsWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gap: 30,
+  },
 }))

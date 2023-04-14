@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
+import InlineObject18 from './InlineObject18';
 
 /**
  * The InlineObject101 model module.
@@ -48,32 +48,8 @@ class InlineObject101 {
         if (data) {
             obj = obj || new InlineObject101();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
-            }
-            if (data.hasOwnProperty('deliveryTimeInDay')) {
-                obj['deliveryTimeInDay'] = ApiClient.convertToType(data['deliveryTimeInDay'], 'String');
-            }
-            if (data.hasOwnProperty('cls')) {
-                obj['cls'] = ApiClient.convertToType(data['cls'], 'Date');
-            }
-            if (data.hasOwnProperty('etd')) {
-                obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
-            }
-            if (data.hasOwnProperty('eta')) {
-                obj['eta'] = ApiClient.convertToType(data['eta'], 'Date');
-            }
-            if (data.hasOwnProperty('minWeightInKg')) {
-                obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
-            }
-            if (data.hasOwnProperty('archive')) {
-                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
-            }
-            if (data.hasOwnProperty('conditionsByRegion')) {
-                obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
+            if (data.hasOwnProperty('additionalBoxes')) {
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject18]);
             }
         }
         return obj;
@@ -83,57 +59,10 @@ class InlineObject101 {
 }
 
 /**
- * Название тарифа
- * @member {String} name
+ * Массив дополнительных коробок которые случились при обработки.
+ * @member {Array.<module:model/InlineObject18>} additionalBoxes
  */
-InlineObject101.prototype['name'] = undefined;
-
-/**
- * Описание тарифа
- * @member {String} description
- */
-InlineObject101.prototype['description'] = undefined;
-
-/**
- * Время доставки, днях
- * @member {String} deliveryTimeInDay
- */
-InlineObject101.prototype['deliveryTimeInDay'] = undefined;
-
-/**
- * Дата закрытия приема новых грузов.
- * @member {Date} cls
- */
-InlineObject101.prototype['cls'] = undefined;
-
-/**
- * Ожидаема дата отбытия.
- * @member {Date} etd
- */
-InlineObject101.prototype['etd'] = undefined;
-
-/**
- * Ожидаема дата прибытия.
- * @member {Date} eta
- */
-InlineObject101.prototype['eta'] = undefined;
-
-/**
- * Минимальный вес, в кг
- * @member {Number} minWeightInKg
- */
-InlineObject101.prototype['minWeightInKg'] = undefined;
-
-/**
- * Заархивирован ли тариф
- * @member {Boolean} archive
- */
-InlineObject101.prototype['archive'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
- */
-InlineObject101.prototype['conditionsByRegion'] = undefined;
+InlineObject101.prototype['additionalBoxes'] = undefined;
 
 
 

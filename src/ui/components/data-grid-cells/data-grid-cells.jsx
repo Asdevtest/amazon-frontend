@@ -1,40 +1,39 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import AutorenewIcon from '@mui/icons-material/Autorenew'
 import ClearIcon from '@mui/icons-material/Clear'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DoneIcon from '@mui/icons-material/Done'
-import DoneOutlineRoundedIcon from '@mui/icons-material/DoneOutlineRounded'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined'
+import PrintIcon from '@mui/icons-material/Print'
 import {
   Avatar,
-  Badge,
+  Box,
+  Checkbox,
   Chip,
   Grid,
-  Link,
-  TextareaAutosize,
-  Tooltip,
-  Typography,
-  Rating,
-  InputAdornment,
-  Checkbox,
   IconButton,
+  InputAdornment,
+  Link,
   Menu,
   MenuItem,
+  Rating,
   Select,
+  Tooltip,
+  Typography,
 } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 
 import {fromUnixTime} from 'date-fns'
-import {TextArea} from 'react-mde'
-import {useHistory} from 'react-router-dom'
+import {flushSync} from 'react-dom'
+import {useReactToPrint} from 'react-to-print'
 import {withStyles} from 'tss-react/mui'
 
 import {BoxStatus} from '@constants/box-status'
-import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByKey, OrderStatusTranslate} from '@constants/order-status'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {MyRequestStatusTranslate} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
 import {ClockIcon} from '@constants/svg-icons'
@@ -48,29 +47,22 @@ import {
 } from '@constants/task-priority-status'
 import {mapTaskStatusEmumToKey, TaskStatus, TaskStatusTranslate} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap, UserRolePrettyMap} from '@constants/user-roles'
+import {mapUserRoleEnumToKey, UserRole, UserRolePrettyMap} from '@constants/user-roles'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Input} from '@components/input'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 import {SearchInput} from '@components/search-input'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
+import {calcFinalWeightForBox, calcVolumeWeightForBox, getTariffRateForBoxOrOrder, roundHalf} from '@utils/calculation'
+import {checkIsPositiveNum, checkIsString} from '@utils/checks'
 import {
-  calcFinalWeightForBox,
-  calcSupplierPriceForUnit,
-  calculateDeliveryCostPerPcs,
-  calcVolumeWeightForBox,
-  getTariffRateForBoxOrOrder,
-  roundHalf,
-} from '@utils/calculation'
-import {checkIsPositiveNum, checkIsStorekeeper, checkIsString} from '@utils/checks'
-import {
-  formatDateDistanceFromNow,
   formatDateForShowWithoutParseISO,
   formatDateTime,
   formatDateWithoutTime,
@@ -82,16 +74,17 @@ import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {
-  toFixedWithDollarSign,
-  trimBarcode,
-  toFixedWithKg,
   checkAndMakeAbsoluteUrl,
-  toFixed,
-  shortSku,
-  shortAsin,
   getShortenStringIfLongerThanCount,
+  shortAsin,
+  shortSku,
+  toFixed,
+  toFixedWithDollarSign,
+  toFixedWithKg,
+  trimBarcode,
 } from '@utils/text'
 import {t} from '@utils/translations'
+import {downloadFileByLink} from '@utils/upload-files'
 
 import {styles} from './data-grid-cells.style'
 
@@ -604,40 +597,39 @@ export const ChangeInputCell = React.memo(
 )
 
 export const ChangeInputCommentCell = React.memo(
-  withStyles(({classes: classNames, id, onClickSubmit, text, disabled, isInts, maxLength}) => {
-    const sourceValue = text ? text : ''
-
-    const [value, setValue] = useState(sourceValue)
+  withStyles(({classes: classNames, id, onClickSubmit, text, disabled, maxLength}) => {
+    const [value, setValue] = useState(text)
 
     useEffect(() => {
-      setValue(sourceValue)
+      setValue(text)
     }, [text])
 
-    const [isMyInputFocused, setIsMyInputFocused] = useState(false)
+    // const [isMyInputFocused, setIsMyInputFocused] = useState(false)
 
     const [isShow, setShow] = useState(false)
 
-    useEffect(() => {
-      const listener = event => {
-        if (isMyInputFocused && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
-          event.preventDefault()
-          setShow(true)
-          setTimeout(() => {
-            setShow(false)
-          }, 2000)
-          onClickSubmit(id, value)
-        }
-      }
-      document.addEventListener('keydown', listener)
-      return () => {
-        document.removeEventListener('keydown', listener)
-      }
-    }, [value])
+    // useEffect(() => {
+    //   const listener = event => {
+    //     if (isMyInputFocused && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
+    //       event.preventDefault()
+    //       setShow(true)
+    //       setTimeout(() => {
+    //         setShow(false)
+    //       }, 2000)
+    //       onClickSubmit(id, value)
+    //     }
+    //   }
+    //   document.addEventListener('keydown', listener)
+    //   return () => {
+    //     document.removeEventListener('keydown', listener)
+    //   }
+    // }, [value])
 
     return (
       <div className={classNames.ChangeInputCommentCellWrapper}>
         <Input
           multiline
+          autoFocus={false}
           minRows={2}
           maxRows={2}
           inputProps={{maxLength: maxLength ? maxLength : 1000}}
@@ -648,9 +640,9 @@ export const ChangeInputCommentCell = React.memo(
           value={value}
           endAdornment={
             <InputAdornment position="start">
-              {isShow && sourceValue !== value ? (
+              {isShow && text !== value ? (
                 <DoneIcon classes={{root: classNames.doneIcon}} />
-              ) : sourceValue !== value ? (
+              ) : text !== value ? (
                 <div className={classNames.iconWrapper}>
                   <img
                     src={'/assets/icons/save-discet.svg'}
@@ -663,18 +655,22 @@ export const ChangeInputCommentCell = React.memo(
                       onClickSubmit(id, value)
                     }}
                   />
-                  <ClearIcon classes={{root: classNames.clearIcon}} onClick={() => setValue(sourceValue)} />
+                  <ClearIcon classes={{root: classNames.clearIcon}} onClick={() => setValue(text)} />
                 </div>
               ) : null}
             </InputAdornment>
           }
-          onChange={e =>
-            isInts
-              ? setValue(checkIsPositiveNum(e.target.value) && e.target.value ? parseInt(e.target.value) : '')
-              : setValue(e.target.value)
-          }
-          onBlur={() => setIsMyInputFocused(false)}
-          onFocus={() => setIsMyInputFocused(true)}
+          onChange={e => {
+            // isInts
+            //   ? setValue(checkIsPositiveNum(e.target.value) && e.target.value ? parseInt(e.target.value) : '')
+            //   :
+            setValue(e.target.value)
+          }}
+          onKeyDown={event => {
+            event.stopPropagation()
+          }}
+          // onBlur={() => setIsMyInputFocused(false)}
+          // onFocus={() => setIsMyInputFocused(true)}
         />
       </div>
     )
@@ -860,6 +856,82 @@ export const OrderCell = React.memo(
   ),
 )
 
+export const DownloadAndPrintFilesCell = React.memo(
+  withStyles(props => {
+    const {classes: styles, files} = props
+    const imageRef = useRef(null)
+    const [isOpenModal, setIsOpenModal] = useState(false)
+    const [selectedImage, setSelectedImage] = useState({})
+
+    const handlePrint = useReactToPrint({
+      content: () => imageRef.current,
+      documentTitle: 'AwesomeFileName',
+      removeAfterPrint: true,
+    })
+
+    const handleImagePreview = el => {
+      setSelectedImage(el)
+      setIsOpenModal(true)
+    }
+
+    const printFile = el => {
+      flushSync(() => setSelectedImage(el))
+      handlePrint()
+    }
+
+    return (
+      <>
+        <Box display="flex" flexDirection="column" gap="10px" py="14px">
+          {files.map((el, index) => (
+            <div key={index}>
+              <Typography className={styles.dapTitle}>{el.title}</Typography>
+              {el.fileUrl && (
+                <Box display="flex" gap="8px" alignItems="center">
+                  <Button className={styles.dapBtn} onClick={() => handleImagePreview(el)}>
+                    {el.fileName}
+                  </Button>
+
+                  <IconButton sx={{color: '#0164F4'}} onClick={() => printFile(el)}>
+                    <PrintIcon color="inherit" />
+                  </IconButton>
+                </Box>
+              )}
+              {!el.fileUrl && (
+                <Typography sx={{marginLeft: '25px', width: 'fit-content'}}>
+                  {t(TranslationKey['Not added'])}
+                </Typography>
+              )}
+            </div>
+          ))}
+        </Box>
+
+        <Box display="none">
+          <img ref={imageRef} src={getAmazonImageUrl(selectedImage.fileUrl)} alt="Printed Image" />
+        </Box>
+
+        <BigImagesModal
+          openModal={isOpenModal}
+          setOpenModal={() => setIsOpenModal(prevState => !prevState)}
+          images={[selectedImage.fileUrl]}
+          controls={() => (
+            <Box display="flex" gap="20px">
+              <Button
+                onClick={() => downloadFileByLink(getAmazonImageUrl(selectedImage.fileUrl), selectedImage.fileName)}
+              >
+                <FileDownloadOutlinedIcon color="inherit" />
+              </Button>
+
+              <Button onClick={() => handlePrint()}>
+                <PrintIcon color="inherit" />
+              </Button>
+            </Box>
+          )}
+        />
+      </>
+    )
+  }, styles),
+)
+
 export const OrderBoxesCell = React.memo(
   withStyles(
     ({classes: classNames, superbox, superboxQty, qty, box, product, withoutSku, withQuantity}) =>
@@ -983,8 +1055,13 @@ export const TaskPriorityCell =
               key={statusIndex}
               value={statusCode}
               style={{color: colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[statusCode])}}
+              className={classNames.menuItem}
             >
               {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[statusCode])}
+
+              {TaskPriorityStatus.URGENT === mapTaskPriorityStatusEnum[statusCode] && (
+                <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" alt="Fire" />
+              )}
             </MenuItem>
           ))}
       </Select>
@@ -1359,9 +1436,11 @@ export const TextHeaderCell = React.memo(
 
 export const MultilineStatusCell = React.memo(
   withStyles(
-    ({classes: classNames, status}) => (
+    ({classes: classNames, status, leftAlign}) => (
       <div className={classNames.multilineTextWrapper}>
-        <Typography className={classNames.statusMultilineText}>{status?.replace(/_/g, ' ')}</Typography>
+        <Typography className={cx(classNames.statusMultilineText, {[classNames.multilineLeftAlignText]: leftAlign})}>
+          {status?.replace(/_/g, ' ')}
+        </Typography>
       </div>
     ),
     styles,
@@ -1704,14 +1783,14 @@ export const FourMonthesStockCell = React.memo(
 )
 
 export const CommentUsersCell = React.memo(
-  withStyles(({classes: classNames, handler, params}) => {
-    const ss = 1
-    return (
+  withStyles(
+    ({classes: classNames, handler, params}) => (
       <div className={classNames.CommentUsersCellWrapper}>
         <ChangeInputCommentCell id={params.row._id} text={params?.row?.note?.comment} onClickSubmit={handler} />
       </div>
-    )
-  }, styles),
+    ),
+    styles,
+  ),
 )
 
 export const ActiveBarcodeCell = React.memo(
@@ -1772,9 +1851,9 @@ export const ToFixedCell = React.memo(
 
 export const ToFixedWithDollarSignCell = React.memo(
   withStyles(
-    ({classes: classNames, value, fix}) => (
+    ({classes: classNames, value, fix, leftAlign}) => (
       <div className={classNames.multilineTextWrapper}>
-        <Typography className={classNames.multilineText}>
+        <Typography className={cx(classNames.multilineText, {[classNames.multilineLeftAlignText]: leftAlign})}>
           {!value ? (value === 0 ? 0 : '-') : toFixedWithDollarSign(value, fix)}
         </Typography>
       </div>

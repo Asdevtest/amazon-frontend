@@ -54,6 +54,7 @@ export class AdminInventoryViewRaw extends Component {
       onClickTableRow,
       onChangeFilterModel,
       onSearchSubmit,
+      changeColumnsModel,
     } = this.viewModel
 
     const activeCategory = navBarActiveCategory.NAVBAR_INVENTORY
@@ -95,6 +96,11 @@ export class AdminInventoryViewRaw extends Component {
                 components={{
                   Toolbar: DataGridCustomToolbar,
                   ColumnMenuIcon: FilterAltOutlinedIcon,
+                }}
+                componentsProps={{
+                  toolbar: {
+                    columsBtnSettings: {columnsModel, changeColumnsModel},
+                  },
                 }}
                 rows={currentData}
                 onSelectionModelChange={newSelection => {

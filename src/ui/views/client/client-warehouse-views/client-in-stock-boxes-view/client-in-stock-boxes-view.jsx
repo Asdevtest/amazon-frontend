@@ -175,6 +175,8 @@ export class ClientInStockBoxesViewRaw extends Component {
 
     const getRowClassName = params => params.row.isDraft === true && classNames.isDraftRow
 
+    const disableSelectionCells = ['prepId']
+
     // console.log('columnMenuSettings', columnMenuSettings)
 
     return (
@@ -396,7 +398,11 @@ export class ClientInStockBoxesViewRaw extends Component {
                 onPageChange={onChangeCurPage}
                 onFilterModelChange={onChangeFilterModel}
                 onStateChange={setDataGridState}
-                onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+                // onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+                // onCellDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+                onCellDoubleClick={params =>
+                  !disableSelectionCells.includes(params.field) && setCurrentOpenedBox(params.row.originalData)
+                }
               />
 
               <div className={classNames.tasksWrapper}>

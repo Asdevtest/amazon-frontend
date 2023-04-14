@@ -82,6 +82,8 @@ export const AddOrEditBatchForm = observer(
           batchFields.calculationMethod,
           checkActualBatchWeightGreaterVolumeBatchWeight(boxesData, batchFields.volumeWeightDivide),
         ),
+        getBatchWeightCalculationMethodForBox,
+        batchFields.calculationMethod,
       ),
     )
 
@@ -145,6 +147,8 @@ export const AddOrEditBatchForm = observer(
           batchFields.calculationMethod,
           getCheckActualBatchWeightGreaterVolumeBatchWeight(),
         ),
+        getBatchWeightCalculationMethodForBox,
+        batchFields.calculationMethod,
       ).filter(
         box =>
           (chosenBoxesBase[0]
@@ -214,6 +218,8 @@ export const AddOrEditBatchForm = observer(
                 batchFields.calculationMethod,
                 getCheckActualBatchWeightGreaterVolumeBatchWeight(),
               ),
+              getBatchWeightCalculationMethodForBox,
+              batchFields.calculationMethod,
             ).filter(
               box =>
                 box.originalData?.destination?.name === batchToEdit.destination &&
@@ -254,7 +260,7 @@ export const AddOrEditBatchForm = observer(
           ),
         ),
       ])
-    }, [batchFields.volumeWeightDivide, batchFields.calculationMethod])
+    }, [batchFields.volumeWeightDivide, batchFields.calculationMethod, chosenBoxes])
 
     // useEffect(() => {
     //   setIsActualGreaterTheVolume(
@@ -290,6 +296,8 @@ export const AddOrEditBatchForm = observer(
                 batchFields.calculationMethod,
                 getCheckActualBatchWeightGreaterVolumeBatchWeight(),
               ),
+              getBatchWeightCalculationMethodForBox,
+              batchFields.calculationMethod,
             ).filter(
               box =>
                 box.originalData?.destination?.name === batchToEdit.destination &&
@@ -306,6 +314,8 @@ export const AddOrEditBatchForm = observer(
       const curChosenGoodsIds = chosenBoxesBase.map(el => el.id)
 
       const newRowIds = boxesToAddIds.filter(el => !curChosenGoodsIds.includes(el))
+
+      console.log('boxesData', boxesData)
 
       const newSelectedItems = [
         ...addOrEditBatchDataConverter(
@@ -478,6 +488,11 @@ export const AddOrEditBatchForm = observer(
               pagination
               checkboxSelection
               keepNonExistentRowsSelected
+              initialState={{
+                sorting: {
+                  sortModel: [{field: 'updatedAt', sort: 'desc'}],
+                },
+              }}
               localeText={getLocalizationByLanguageTag()}
               rowsPerPageOptions={[50, 100]}
               components={{

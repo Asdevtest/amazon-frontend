@@ -113,6 +113,17 @@ export const EditTaskModal = observer(
       ),
     ])
 
+    const onClickApplyAllBtn = box => {
+      const arr = newBoxes.map(el => ({
+        ...el,
+        widthCmWarehouse: box.widthCmWarehouse,
+        weighGrossKgWarehouse: box.weighGrossKgWarehouse,
+        lengthCmWarehouse: box.lengthCmWarehouse,
+        heightCmWarehouse: box.heightCmWarehouse,
+      }))
+      setNewBoxes([...arr])
+    }
+
     const [photosOfTask, setPhotosOfTask] = useState([])
 
     const uploadTemplateFile = async () => {
@@ -133,7 +144,7 @@ export const EditTaskModal = observer(
 
             {task.operationType === TaskOperationType.RECEIVE && (
               <Button className={classNames.downloadButton} onClick={uploadTemplateFile}>
-                {t(TranslationKey['Download box file'])}
+                {t(TranslationKey['Download task file'])}
                 <FileDownloadIcon />
               </Button>
             )}
@@ -231,6 +242,7 @@ export const EditTaskModal = observer(
             onSetBarcode={onSetBarcode}
             onEditBox={onEditBox}
             onClickOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}
+            onClickApplyAllBtn={onClickApplyAllBtn}
           />
         </div>
         <div className={classNames.buttonsMainWrapper}>

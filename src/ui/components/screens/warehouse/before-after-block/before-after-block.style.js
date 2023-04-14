@@ -35,6 +35,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: 30,
   },
 
   trackNumberPhoto: {
@@ -635,6 +636,26 @@ export const useClassNames = makeStyles()(theme => ({
     },
     [theme.breakpoints.down(768)]: {
       width: '180px',
+    },
+  },
+
+  titleWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  btnsWrapper: {
+    display: 'flex',
+    gap: 20,
+  },
+
+  applyAllBtn: {
+    transition: '.3s ease',
+    '&:hover:not(:active)': {
+      // background: theme.palette.background.green,
+
+      background: 'green',
     },
   },
 }))

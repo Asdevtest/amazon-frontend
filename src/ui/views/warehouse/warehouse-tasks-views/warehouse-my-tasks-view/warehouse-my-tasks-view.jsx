@@ -14,7 +14,11 @@ import {
   TaskOperationType,
   taskOperationTypeTranslate,
 } from '@constants/task-operation-type'
-import {mapTaskPriorityStatusEnum, taskPriorityStatusTranslate} from '@constants/task-priority-status'
+import {
+  mapTaskPriorityStatusEnum,
+  TaskPriorityStatus,
+  taskPriorityStatusTranslate,
+} from '@constants/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -94,6 +98,7 @@ export class WarehouseMyTasksViewRaw extends Component {
       onClickOperationTypeBtn,
       onClickReportBtn,
       onClickTaskPriorityBtn,
+      changeColumnsModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -136,6 +141,10 @@ export class WarehouseMyTasksViewRaw extends Component {
                         onClick={() => onClickTaskPriorityBtn(type)}
                       >
                         {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[type])}
+
+                        {TaskPriorityStatus.URGENT === mapTaskPriorityStatusEnum[type] && (
+                          <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" alt="Fire" />
+                        )}
                       </Button>
                     ))}
                 </div>
@@ -218,6 +227,11 @@ export class WarehouseMyTasksViewRaw extends Component {
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   density={densityModel}
                   columns={columnsModel}

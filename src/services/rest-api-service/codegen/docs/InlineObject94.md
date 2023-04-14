@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами. | [optional] 
-**sellerBoardWarehouseReportUrlDaily** | **String** | uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard. | [optional] 
-**sellerBoardWarehouseReportUrlMonthly** | **String** | uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц. | [optional] 
+**requestId** | **String** | Guid заявки | [optional] 
+**proposalId** | **String** | Guid предложения | [optional] 
+**commentByClient** | **String** | комментарий клиента | [optional] 
+**commentByPerformer** | **String** | комментарий исполнителя | [optional] 
+**fileLink** | **String** | Ссылка на файл | 
 
 

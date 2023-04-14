@@ -42,6 +42,12 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '5px',
   },
 
+  buttonsWrapper: {
+    display: 'flex',
+    gap: 30,
+    justifyContent: 'flex-end',
+  },
+
   urlInput: {
     overflowY: 'auto',
     whiteSpace: 'wrap',

@@ -46,8 +46,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
   table: {
     width: '100%',
+    maxHeight: 'calc(151px * 5)',
+    overflow: 'auto',
 
     border: '1px solid rgb(224, 224, 224)',
+
     '& td': {
       flexShrink: 0,
       borderBottom: 'none',

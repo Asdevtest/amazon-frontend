@@ -5,6 +5,7 @@ import {Chip, Typography, TableCell, TableRow, IconButton, Checkbox} from '@mui/
 import React, {useEffect, useState} from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
+import dayjs from 'dayjs'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
@@ -126,6 +127,8 @@ export const OrderModalBodyRow = ({
     item.currentSupplier?.minlot &&
     item.currentSupplier?.priceInYuan &&
     item.currentSupplier?.price
+
+  const minDate = dayjs().add(2, 'day')
 
   return (
     <React.Fragment>
@@ -287,7 +290,12 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={classNames.cell}>
           <div className={classNames.datePickerWrapper}>
-            <NewDatePicker disablePast value={item.deadline} onChange={e => onChangeInput(e, 'deadline')} />
+            <NewDatePicker
+              disablePast
+              minDate={minDate}
+              value={item.deadline}
+              onChange={e => onChangeInput(e, 'deadline')}
+            />
           </div>
         </TableCell>
 

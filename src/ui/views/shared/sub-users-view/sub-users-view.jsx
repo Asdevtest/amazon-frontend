@@ -83,6 +83,7 @@ class SubUsersViewRaw extends Component {
       onSubmitlinkSubUser,
       onSubmitUserPermissionsForm,
       onSubmitUnlinkSubUser,
+      changeColumnsModel,
 
       onChangeNameSearchValue,
     } = this.viewModel
@@ -124,6 +125,7 @@ class SubUsersViewRaw extends Component {
               <div className={classNames.datagridWrapper}>
                 <MemoDataGrid
                   pagination
+                  disableEnforceFocus
                   useResizeContainer
                   disableSelectionOnClick
                   classes={{
@@ -144,6 +146,11 @@ class SubUsersViewRaw extends Component {
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   density={densityModel}
                   columns={columnsModel}

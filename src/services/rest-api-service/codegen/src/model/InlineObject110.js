@@ -22,12 +22,10 @@ class InlineObject110 {
     /**
      * Constructs a new <code>InlineObject110</code>.
      * @alias module:model/InlineObject110
-     * @param oldPassword {String} Старый ароль
-     * @param newPassword {String} Новый пароль
      */
-    constructor(oldPassword, newPassword) { 
+    constructor() { 
         
-        InlineObject110.initialize(this, oldPassword, newPassword);
+        InlineObject110.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject110 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, oldPassword, newPassword) { 
-        obj['oldPassword'] = oldPassword;
-        obj['newPassword'] = newPassword;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,26 @@ class InlineObject110 {
         if (data) {
             obj = obj || new InlineObject110();
 
-            if (data.hasOwnProperty('oldPassword')) {
-                obj['oldPassword'] = ApiClient.convertToType(data['oldPassword'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('newPassword')) {
-                obj['newPassword'] = ApiClient.convertToType(data['newPassword'], 'String');
+            if (data.hasOwnProperty('country')) {
+                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            }
+            if (data.hasOwnProperty('zipCode')) {
+                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
+            }
+            if (data.hasOwnProperty('state')) {
+                obj['state'] = ApiClient.convertToType(data['state'], 'String');
+            }
+            if (data.hasOwnProperty('city')) {
+                obj['city'] = ApiClient.convertToType(data['city'], 'String');
+            }
+            if (data.hasOwnProperty('address')) {
+                obj['address'] = ApiClient.convertToType(data['address'], 'String');
+            }
+            if (data.hasOwnProperty('fontColor')) {
+                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
             }
         }
         return obj;
@@ -65,16 +76,46 @@ class InlineObject110 {
 }
 
 /**
- * Старый ароль
- * @member {String} oldPassword
+ * Название склада.
+ * @member {String} name
  */
-InlineObject110.prototype['oldPassword'] = undefined;
+InlineObject110.prototype['name'] = undefined;
 
 /**
- * Новый пароль
- * @member {String} newPassword
+ * Страна.
+ * @member {String} country
  */
-InlineObject110.prototype['newPassword'] = undefined;
+InlineObject110.prototype['country'] = undefined;
+
+/**
+ * Индекс. 5 цифр.
+ * @member {String} zipCode
+ */
+InlineObject110.prototype['zipCode'] = undefined;
+
+/**
+ * Штат.
+ * @member {String} state
+ */
+InlineObject110.prototype['state'] = undefined;
+
+/**
+ * Город.
+ * @member {String} city
+ */
+InlineObject110.prototype['city'] = undefined;
+
+/**
+ * Адрес склада.
+ * @member {String} address
+ */
+InlineObject110.prototype['address'] = undefined;
+
+/**
+ * Цвет шрифта
+ * @member {String} fontColor
+ */
+InlineObject110.prototype['fontColor'] = undefined;
 
 
 

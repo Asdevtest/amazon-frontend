@@ -133,6 +133,11 @@ export const styles = theme => ({
     marginBottom: 5,
     color: theme.palette.primary.main,
 
+    display: 'flex',
+    alignItems: 'center !important',
+    gap: '12px',
+    justifyContent: 'center',
+
     fontSize: 14,
     fontWeight: 600,
 

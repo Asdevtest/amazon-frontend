@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**attachedDocuments** | **[String]** |  | 
+**boxesIds** | **[String]** |  | 
 
 

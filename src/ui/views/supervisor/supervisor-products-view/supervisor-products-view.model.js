@@ -2,6 +2,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 
 import {SettingsModel} from '@models/settings-model'
 import {SupervisorModel} from '@models/supervisor-model'
@@ -22,7 +23,11 @@ export class SupervisorProductsViewModel {
 
   nameSearchValue = ''
 
-  baseNoConvertedProducts = []
+  currentFilterStatus = ProductStatusByKey[ProductStatus.DEFAULT]
+
+  currentData = []
+
+  baseProducts = []
   productsMy = []
 
   sortModel = []
@@ -53,6 +58,29 @@ export class SupervisorProductsViewModel {
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.productsMy,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
+    )
+
+    reaction(
+      () => this.nameSearchValue,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
+    )
+  }
+
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = supervisorProductsViewColumns().map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
   }
 
   async updateColumnsModel() {
@@ -60,9 +88,7 @@ export class SupervisorProductsViewModel {
       this.getDataGridState()
 
       runInAction(() => {
-        this.productsMy = supervisorProductsDataConverter(
-          this.baseNoConvertedProducts.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
-        )
+        this.productsMy = this.baseProducts
       })
     }
   }
@@ -118,6 +144,86 @@ export class SupervisorProductsViewModel {
     runInAction(() => {
       this.rowsPerPage = e
     })
+  }
+
+  onClickStatusFilterButton(status) {
+    runInAction(() => {
+      this.currentFilterStatus = status
+
+      if (Number(status) === Number(ProductStatusByKey[ProductStatus.DEFAULT])) {
+        runInAction(() => {
+          this.productsMy = this.baseProducts
+        })
+      } else if (Number(status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT])) {
+        runInAction(() => {
+          this.productsMy = this.baseProducts.filter(
+            product => Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT]),
+          )
+        })
+      } else if (Number(status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS])) {
+        runInAction(() => {
+          this.productsMy = this.baseProducts.filter(
+            product =>
+              Number(product.status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
+              Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS]),
+          )
+        })
+      } else if (Number(status) === Number(ProductStatusByKey[ProductStatus.SUPPLIER_FOUND])) {
+        runInAction(() => {
+          this.productsMy = this.baseProducts.filter(
+            product =>
+              Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER]) ||
+              Number(product.status) === Number(ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER]) ||
+              Number(product.status) === Number(ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER]),
+          )
+        })
+      } else if (Number(status) === Number(ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT])) {
+        runInAction(() => {
+          this.productsMy = this.baseProducts.filter(
+            product =>
+              Number(product.status) === Number(ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT]) ||
+              Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT]) ||
+              Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH]) ||
+              Number(product.status) === Number(ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]),
+          )
+        })
+      } else if (Number(status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND])) {
+        runInAction(() => {
+          this.productsMy = this.baseProducts.filter(
+            product =>
+              Number(product.status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND]) ||
+              Number(product.status) ===
+                Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND]),
+          )
+        })
+      } else if (
+        Number(status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR])
+      ) {
+        runInAction(() => {
+          this.productsMy = this.baseProducts.filter(
+            product =>
+              Number(product.status) ===
+                Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR]) ||
+              Number(ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]),
+          )
+        })
+      } else if (Number(status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE])) {
+        runInAction(() => {
+          this.productsMy = this.baseProducts.filter(
+            product =>
+              Number(product.status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE]) ||
+              Number(product.status) ===
+                Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE]),
+          )
+        })
+      }
+    })
+  }
+
+  getProductsCountByStatus(status) {
+    return supervisorProductsDataConverter(this.baseNoConvertedProducts).filter(
+      product => Number(product.status) === Number(status),
+    )
   }
 
   setRequestStatus(requestStatus) {
@@ -176,11 +282,11 @@ export class SupervisorProductsViewModel {
       const result = await SupervisorModel.getProductsMy()
 
       runInAction(() => {
-        this.baseNoConvertedProducts = result
-
-        this.productsMy = supervisorProductsDataConverter(result).sort(
+        this.baseProducts = supervisorProductsDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
+
+        this.productsMy = this.baseProducts
       })
     } catch (error) {
       console.log(error)
@@ -212,6 +318,7 @@ export class SupervisorProductsViewModel {
       this.curPage = e
     })
   }
+
   onTriggerOpenModal(modal) {
     runInAction(() => {
       this[modal] = !this[modal]

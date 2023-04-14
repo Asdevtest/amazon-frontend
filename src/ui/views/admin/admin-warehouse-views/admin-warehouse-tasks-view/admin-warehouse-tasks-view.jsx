@@ -61,6 +61,7 @@ export class AdminWarehouseTasksViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      changeColumnsModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -97,6 +98,11 @@ export class AdminWarehouseTasksViewRaw extends Component {
                 components={{
                   Toolbar: DataGridCustomToolbar,
                   ColumnMenuIcon: FilterAltOutlinedIcon,
+                }}
+                componentsProps={{
+                  toolbar: {
+                    columsBtnSettings: {columnsModel, changeColumnsModel},
+                  },
                 }}
                 density={densityModel}
                 columns={columnsModel}

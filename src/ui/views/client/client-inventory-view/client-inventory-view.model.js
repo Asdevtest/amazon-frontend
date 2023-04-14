@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
-import QueryString from 'qs'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -593,6 +592,10 @@ export class ClientInventoryViewModel {
 
   async onClickOrderBtn() {
     try {
+      runInAction(() => {
+        this.showCircularProgressModal = true
+      })
+
       const pendingOrders = []
       const correctIds = []
 
@@ -614,10 +617,14 @@ export class ClientInventoryViewModel {
 
         this.onTriggerOpenModal('showCheckPendingOrderFormModal')
       } else {
-        this.onClickContinueBtn()
+        await this.onClickContinueBtn()
       }
     } catch (error) {
       console.log(error)
+    } finally {
+      runInAction(() => {
+        this.showCircularProgressModal = false
+      })
     }
   }
 

@@ -231,7 +231,7 @@ export const useClassNames = makeStyles()(theme => ({
   tablePanelSortWrapper: {
     display: 'flex',
     alignItems: 'center',
-    gap: '27px',
+    gap: 5,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
   tablePanelViewText: {
@@ -287,5 +287,14 @@ export const useClassNames = makeStyles()(theme => ({
   editBtnYellow: {
     border: '3px solid #F5CF00',
     borderRadius: 4,
+  },
+
+  applyAllBtn: {
+    transition: '.3s ease',
+    '&:hover:not(:active)': {
+      // background: theme.palette.background.green,
+
+      background: 'green',
+    },
   },
 }))

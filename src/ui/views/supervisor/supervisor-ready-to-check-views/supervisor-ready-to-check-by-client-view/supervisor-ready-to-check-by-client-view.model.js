@@ -7,7 +7,7 @@ import {SupervisorModel} from '@models/supervisor-model'
 import {depersonalizedPickColumns} from '@components/table-columns/depersonalized-pick-columns'
 
 import {depersonalizedPickDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 
 export class SupervisorReadyToCheckByClientViewModel {
   history = undefined
@@ -35,6 +35,15 @@ export class SupervisorReadyToCheckByClientViewModel {
       this.history = history
     })
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor, this.firstRowId).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
   }
 
   getCurrentData() {
@@ -78,7 +87,7 @@ export class SupervisorReadyToCheckByClientViewModel {
 
       runInAction(() => {
         this.productsReadyToCheck = depersonalizedPickDataConverter(
-          result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+          result.sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt')),
         )
       })
     } catch (error) {

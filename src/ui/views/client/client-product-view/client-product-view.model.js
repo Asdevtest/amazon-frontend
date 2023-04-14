@@ -90,6 +90,8 @@ const fieldsOfProductAllowedToUpdate = [
   'avgPrice',
   'avgReviews',
   'shopIds',
+  'redFlags',
+  'tags',
   // 'totalFba'
 ]
 
@@ -223,6 +225,8 @@ export class ClientProductViewModel {
           'niche',
           'asins',
           'shopIds',
+          'redFlags',
+          'tags',
         ].includes(fieldName)
       ) {
         runInAction(() => {
@@ -490,6 +494,7 @@ export class ClientProductViewModel {
       // this.warningModalTitle = t(TranslationKey['Data was successfully saved'])
 
       // this.onTriggerOpenModal('showWarningModal')
+      this.setActionStatus(loadingStatuses.success)
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
       console.log('error', error)

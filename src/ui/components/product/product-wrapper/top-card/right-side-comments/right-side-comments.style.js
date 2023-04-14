@@ -131,7 +131,8 @@ export const useClassNames = makeStyles()(theme => ({
 
     zIndex: 999,
     display: 'grid',
-    gridTemplateColumns: 'repeat(3,auto)',
+    gridTemplateColumns: 'repeat(4,auto)',
+    justifyContent: 'flex-end',
     gap: '10px',
     marginBottom: '20px',
     width: '33%',
@@ -153,6 +154,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
   buttonNormalNoMargin: {
     marginRight: 0,
+  },
+  buttonAccept: {
+    backgroundColor: '#00B746',
+    '&:hover': {
+      opacity: '0.8',
+      backgroundColor: '#00B746',
+    },
   },
   buttonDelete: {
     flexGrow: 1,

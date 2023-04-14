@@ -47,6 +47,7 @@ const Box = ({
   setDestinationsFavouritesItem,
   onClickEditBox,
   setCurBox,
+  onClickApplyAllBtn,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -291,24 +292,37 @@ const Box = ({
               <IconButton classes={{root: classNames.icon}} onClick={() => onRemoveBox(box._id)}>
                 <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
               </IconButton>
-              <div>
-                <Button
-                  className={cx(classNames.editBtn, {
-                    [classNames.editBtnYellow]:
-                      !box.widthCmWarehouse ||
-                      !box.weighGrossKgWarehouse ||
-                      !box.lengthCmWarehouse ||
-                      !box.heightCmWarehouse,
-                  })}
-                  tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
-                  onClick={() => {
-                    setCurBox(box)
-                    onClickEditBox(box)
-                  }}
-                >
-                  {t(TranslationKey.Edit)}
-                </Button>
-              </div>
+              <Button
+                className={cx(classNames.editBtn, {
+                  [classNames.editBtnYellow]:
+                    !box.widthCmWarehouse ||
+                    !box.weighGrossKgWarehouse ||
+                    !box.lengthCmWarehouse ||
+                    !box.heightCmWarehouse,
+                })}
+                tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
+                onClick={() => {
+                  setCurBox(box)
+                  onClickEditBox(box)
+                }}
+              >
+                {t(TranslationKey.Edit)}
+              </Button>
+
+              <Button
+                disabled={
+                  !box.widthCmWarehouse ||
+                  !box.weighGrossKgWarehouse ||
+                  !box.lengthCmWarehouse ||
+                  !box.heightCmWarehouse
+                }
+                className={classNames.applyAllBtn}
+                onClick={() => {
+                  onClickApplyAllBtn(box)
+                }}
+              >
+                {t(TranslationKey['Apply to all'])}
+              </Button>
               <div className={classNames.incomingBtnWrapper}>
                 <div className={classNames.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
                   <Typography className={classNames.tablePanelViewText}>
@@ -369,6 +383,7 @@ const NewBoxes = ({
   volumeWeightCoefficient,
   onClickEditBox,
   setNewBoxes,
+  onClickApplyAllBtn,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -401,6 +416,7 @@ const NewBoxes = ({
             onRemoveBox={onRemoveBox}
             onTriggerShowEditBoxModalR={onTriggerShowEditBoxModalR}
             onClickEditBox={onClickEditBox}
+            onClickApplyAllBtn={onClickApplyAllBtn}
           />
         </div>
       ))}
@@ -554,6 +570,17 @@ export const StorekeeperRedistributeBox = observer(
       }
     }
 
+    const onClickApplyAllBtn = box => {
+      const arr = newBoxes.map(el => ({
+        ...el,
+        widthCmWarehouse: box.widthCmWarehouse,
+        weighGrossKgWarehouse: box.weighGrossKgWarehouse,
+        lengthCmWarehouse: box.lengthCmWarehouse,
+        heightCmWarehouse: box.heightCmWarehouse,
+      }))
+      setNewBoxes([...arr])
+    }
+
     const disabledSubmitBtn =
       totalProductsAmount !== 0 ||
       requestStatus === loadingStatuses.isLoading ||
@@ -625,6 +652,7 @@ export const StorekeeperRedistributeBox = observer(
             onChangeField={onChangeField}
             onRemoveBox={onRemoveBox}
             onClickEditBox={onClickEditBox}
+            onClickApplyAllBtn={onClickApplyAllBtn}
           />
         </div>
 

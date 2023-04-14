@@ -4,12 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**listingName** | **String** |  | [optional] 
-**listingBulletPoints** | **[String]** | Массив ... | [optional] 
-**listingProductDetails** | **String** |  | [optional] 
-**listingSearchTerms** | **String** |  | [optional] 
-**listingSubjectMatters** | **[String]** | Массив ... | [optional] 
-**listingImages** | **[String]** | массив картинок(в виде прямых ссылок). | [optional] 
-**strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
+**name** | **String** | Название тарифа | 
+**description** | **String** | Описание тарифа | [optional] 
+**deliveryTimeInDay** | **String** | Время доставки, днях | [optional] 
+**cls** | **Date** | Дата закрытия приема новых грузов. | [optional] 
+**etd** | **Date** | Ожидаема дата отбытия. | [optional] 
+**eta** | **Date** | Ожидаема дата прибытия. | [optional] 
+**minWeightInKg** | **Number** | Минимальный вес, в кг | [optional] 
+**archive** | **Boolean** | Заархивирован ли тариф | [optional] 
+**conditionsByRegion** | [**ApiV1AdminsOrdersLogicsTariffConditionsByRegion**](ApiV1AdminsOrdersLogicsTariffConditionsByRegion.md) |  | 
 
 
