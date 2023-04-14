@@ -272,7 +272,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
-                  getRowHeight={() => 'auto'}
+                  getRowHeight={() => '148px'}
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,

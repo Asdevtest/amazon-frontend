@@ -236,7 +236,7 @@ export const AddOrEditUserPermissionsForm = observer(
                     >
                       <Checkbox
                         color="primary"
-                        checked={item.permissions.every(el => formFields.includes(el._id))}
+                        checked={!!item.permissions.length && item.permissions.every(el => formFields.includes(el._id))}
                         indeterminate={
                           item.permissions.some(el => formFields.includes(el._id)) &&
                           !item.permissions.every(el => formFields.includes(el._id))

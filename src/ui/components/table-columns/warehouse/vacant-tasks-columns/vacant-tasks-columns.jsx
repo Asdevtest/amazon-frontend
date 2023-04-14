@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -12,6 +13,7 @@ import {
   CheckboxCell,
   StringListCell,
   TaskPriorityCell,
+  ChangeInputCommentCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -51,11 +53,20 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
   },
 
   {
+    field: 'comment',
+    headerName: t(TranslationKey.Comment),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+
+    width: 271,
+    renderCell: params => <ChangeInputCommentCell rowsCount={4} />,
+  },
+
+  {
     field: 'operationType',
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
-    width: window.innerWidth < 1282 ? 115 : 170,
+    width: window.innerWidth < 1282 ? 115 : 123,
     renderCell: params => <TaskTypeCell task={params.row.originalData} />,
   },
 
@@ -79,7 +90,8 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: window.innerWidth < 1282 ? 338 : 850,
+    // width: window.innerWidth < 1282 ? 338 : 850,
+    width: 290,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
@@ -104,8 +116,9 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     renderCell: params => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
     ),
-    width: window.innerWidth < 1282 ? 85 : 160,
+    width: window.innerWidth < 1282 ? 85 : 119,
     sortable: false,
+    align: 'center',
   },
 
   {
@@ -116,7 +129,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
     align: 'center',
     type: 'number',
-    width: window.innerWidth < 1282 ? 75 : 160,
+    width: window.innerWidth < 1282 ? 75 : 134,
     sortable: false,
   },
 

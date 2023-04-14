@@ -78,7 +78,9 @@ export async function onSubmitPostImages({images, type, withoutShowProgress}) {
   for (let i = 0; i < images.length; i++) {
     const image = images[i]
 
-    if (typeof image === 'string') {
+    if (typeof image === 'string' && image.includes(BACKEND_API_URL + '/uploads/')) {
+      this[type].push(image)
+    } else if (typeof image === 'string') {
       const res = await uploadFileByUrl(image)
 
       this[type].push(res)

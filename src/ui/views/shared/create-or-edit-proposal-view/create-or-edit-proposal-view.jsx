@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
@@ -71,17 +72,18 @@ export class CreateOrEditProposalViewRaw extends Component {
             setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
-              <div className={classNames.backBtnWrapper}>
+              {/* <div className={classNames.backBtnWrapper}>
                 <Button variant="contained" color="primary" className={classNames.backBtn} onClick={onClickBackBtn}>
                   {t(TranslationKey.Back)}
                 </Button>
-              </div>
+              </div> */}
 
               <CreateOrEditProposalContent
                 progressValue={progressValue}
                 showProgress={showProgress}
                 request={request}
                 proposalToEdit={proposalToEdit}
+                onClickBackBtn={onClickBackBtn}
                 onCreateSubmit={onSubmitCreateProposal}
                 onEditSubmit={onSubmitEditProposal}
               />

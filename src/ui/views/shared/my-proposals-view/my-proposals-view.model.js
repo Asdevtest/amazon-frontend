@@ -1,8 +1,10 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+/* eslint-disable no-unused-vars */
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
+import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/user-roles'
 import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
 
 import {RequestModel} from '@models/request-model'
@@ -10,6 +12,7 @@ import {RequestProposalModel} from '@models/request-proposal'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
+import {checkIsFreelancer} from '@utils/checks'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 
 export class MyProposalsViewModel {
@@ -20,8 +23,18 @@ export class MyProposalsViewModel {
 
   drawerOpen = false
 
+  currentData = []
+
   searchMyRequestsIds = []
   requests = []
+  requestsBase = []
+
+  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+
+  nameSearchValue = ''
+
+  userInfo = []
+  userRole = undefined
 
   showConfirmModal = false
   selectedProposal = undefined
@@ -38,6 +51,22 @@ export class MyProposalsViewModel {
       this.history = history
     })
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => this.requests,
+      () => {
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        })
+      },
+    )
+
+    reaction(
+      () => this.nameSearchValue,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
+    )
   }
 
   onChangeViewMode(event, nextView) {
@@ -47,7 +76,20 @@ export class MyProposalsViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.requests)
+    if (this.nameSearchValue) {
+      return toJS(this.requests).filter(
+        el =>
+          el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el?.proposals?.some(item =>
+            item.createdBy?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          ) ||
+          el?.humanFriendlyId?.toString().toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+        // String(el?.humanFriendlyId)?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
+    } else {
+      return toJS(this.requests)
+    }
   }
 
   onClickDeleteBtn(item) {
@@ -85,6 +127,19 @@ export class MyProposalsViewModel {
     })
 
     this.setTableModeState()
+  }
+
+  onClickTaskType(taskType) {
+    runInAction(() => {
+      this.selectedTaskType = taskType
+    })
+    // this.getRequestsCustom()
+
+    if (Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])) {
+      this.requests = this.requestsBase
+    } else {
+      this.requests = this.requestsBase.filter(el => Number(el.typeTask) === Number(this.selectedTaskType))
+    }
   }
 
   onClickEditBtn(request, proposal) {
@@ -133,10 +188,16 @@ export class MyProposalsViewModel {
     }
   }
 
+  async getUserInfo() {
+    const result = await UserModel.userInfo
+    this.userInfo = result
+    this.userRole = UserRoleCodeMap[result.role]
+  }
+
   async loadData() {
     try {
+      await this.getUserInfo()
       await this.getRequestsCustom()
-
       this.getTableModeState()
     } catch (error) {
       console.log(error)
@@ -148,11 +209,29 @@ export class MyProposalsViewModel {
       const result = await RequestModel.getRequestsCustom(this.user._id)
 
       runInAction(() => {
-        this.requests = result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+        this.requestsBase = result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+
+        this.requests = result
+          .filter(el => {
+            if (this.selectedTaskType === freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]) {
+              return el
+            } else {
+              return Number(el.typeTask) === Number(this.selectedTaskType)
+            }
+          })
+          .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+
+        // console.log('this.requests', this.requests)
       })
     } catch (error) {
       console.log(error)
     }
+  }
+
+  onChangeNameSearchValue(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
   }
 
   // async onClickViewMore(id) {

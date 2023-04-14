@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import {Grid, Typography} from '@mui/material'
@@ -7,18 +9,33 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
+import {
+  freelanceRequestType,
+  freelanceRequestTypeByCode,
+  freelanceRequestTypeByKey,
+  freelanceRequestTypeTranslate,
+} from '@constants/freelance-request-type'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {MyProposalsListCard} from '@components/cards/my-proposals-list-card'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
+import {SearchInput} from '@components/search-input'
 
-import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
+import {checkIsFreelancer} from '@utils/checks'
+import {
+  sortObjectsArrayByArrayObjectFiledDateWithParseISO,
+  sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc,
+  sortObjectsArrayByFiledDateWithParseISO,
+  sortObjectsArrayByFiledDateWithParseISOAsc,
+} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 
 import {MyProposalsViewModel} from './my-proposals-view.model'
@@ -37,11 +54,18 @@ class MyProposalsViewRaw extends Component {
 
   render() {
     const {
+      selectedTaskType,
       sortMode,
       viewMode,
-      getCurrentData,
+      currentData,
       drawerOpen,
       showConfirmModal,
+      nameSearchValue,
+      userInfo,
+      userRole,
+      requestsBase,
+
+      onChangeNameSearchValue,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
       onSubmitDeleteProposal,
@@ -49,16 +73,29 @@ class MyProposalsViewRaw extends Component {
       onClickEditBtn,
       onClickOpenBtn,
       onTriggerSortMode,
+      onClickTaskType,
     } = this.viewModel
     const {classes: classNames} = this.props
+
+    const whiteList =
+      !!userInfo && checkIsFreelancer(userRole)
+        ? [
+            String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
+            ...(Object.keys(freelanceRequestTypeByCode)
+              ?.filter(spec => requestsBase.some(item => Number(item?.typeTask) === Number(spec)))
+              ?.map(item => String(item)) || []),
+          ]
+        : Object.keys(freelanceRequestTypeByCode)
 
     const getSortedData = mode => {
       switch (mode) {
         case tableSortMode.DESK:
-          return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+          // return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+          return sortObjectsArrayByArrayObjectFiledDateWithParseISO(currentData, 'updatedAt', 'proposals')
 
         case tableSortMode.ASC:
-          return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+          // return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+          return sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc(currentData, 'updatedAt', 'proposals')
       }
     }
 
@@ -74,27 +111,36 @@ class MyProposalsViewRaw extends Component {
           <Appbar title={t(TranslationKey['My proposals'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.tablePanelWrapper}>
-                {/* <div className={classNames.tablePanelViewWrapper}>
-                  <Typography className={classNames.tablePanelViewText}>{t(TranslationKey.Location)}</Typography>
+                <div className={classNames.taskTypeWrapper}>
+                  {Object.keys({
+                    ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
+                    // freelanceRequestTypeByCode
+                  }).map((taskType, taskIndex) => (
+                    <Button
+                      key={taskIndex}
+                      variant="text"
+                      disabled={taskType === selectedTaskType}
+                      btnWrapperStyle={classNames.btnWrapperStyle}
+                      className={cx(classNames.button, {
+                        [classNames.selectedBoxesBtn]: Number(taskType) === Number(selectedTaskType),
+                      })}
+                      onClick={() => onClickTaskType(taskType)}
+                    >
+                      {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
+                    </Button>
+                  ))}
+                </div>
 
-                  <ToggleButtonGroup exclusive value={viewMode} onChange={onChangeViewMode}>
-                    <ToggleButton value={tableViewMode.LIST}>
-                      <TableRowsIcon color="primary" />
-                    </ToggleButton>
-                    <ToggleButton value={tableViewMode.BLOCKS}>
-                      <ViewModuleIcon color="primary" />
-                    </ToggleButton>
-                  </ToggleButtonGroup>
-                </div> */}
-
-                {/* <div>
+                <div>
                   <SearchInput
                     inputClasses={classNames.searchInput}
+                    placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.ASIN)}, ${t(
+                      TranslationKey.Title,
+                    )}, User, ${t(TranslationKey.ID)}`}
                     value={nameSearchValue}
-                
                     onChange={onChangeNameSearchValue}
                   />
-                </div> */}
+                </div>
 
                 <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
                   <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
@@ -111,7 +157,7 @@ class MyProposalsViewRaw extends Component {
                 <Grid
                   container
                   classes={{root: classNames.dashboardCardWrapper}}
-                  // spacing={3}
+                  // spacing={4}
                   direction="row"
                   justifyContent="flex-start"
                   alignItems="flex-start"

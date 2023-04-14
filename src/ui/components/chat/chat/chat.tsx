@@ -319,6 +319,7 @@ export const Chat: FC<Props> = observer(
             <TextField
               multiline
               autoFocus
+              disabled={!chat.users.some(el => el._id === userId)}
               type="text"
               id="outlined-multiline-flexible"
               size="small"

@@ -352,9 +352,9 @@ export const styles = theme => ({
   },
 
   taskDescriptionImg: {
-    width: '60px',
-    height: '60px',
-    objectFit: 'contain',
+    width: '100%',
+    maxHeight: '30px',
+    height: '100%',
     objectPosition: 'center',
 
     [theme.breakpoints.down(1282)]: {
@@ -479,6 +479,12 @@ export const styles = theme => ({
     alignItems: 'flex-end',
     justifyContent: 'flex-start',
     gap: 10,
+    height: 50,
+
+    'img:first-of-type': {
+      width: 'fit-content',
+      height: '100%',
+    },
   },
 
   taskDescriptionIcon: {
@@ -606,6 +612,8 @@ export const styles = theme => ({
 
   taskDescriptionScrollWrapper: {
     width: '100%',
+    maxWidth: '250px',
+    overflowX: 'auto',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
@@ -745,6 +753,11 @@ export const styles = theme => ({
 
     padding: '5px 0',
   },
+
+  illuminationCell: {
+    backgroundColor: theme.palette.background.green,
+  },
+
   multilineSuperBoxWrapper: {
     width: '100%',
     height: '100%',
@@ -779,6 +792,7 @@ export const styles = theme => ({
 
   threeMultilineText: {
     justifyContent: 'center',
+    alignItems: 'center',
     height: 48,
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
@@ -990,20 +1004,6 @@ export const styles = theme => ({
     lineHeight: '16px',
     fontWeight: '400',
     padding: '0 10px',
-  },
-
-  linkText: {
-    color: theme.palette.primary.main,
-    fontSize: '16px',
-    lineHeight: '140%',
-    fontWeight: '400',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    transition: '.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.01)',
-      opacity: '0.8',
-    },
   },
 
   blackLinkText: {
@@ -1238,6 +1238,14 @@ export const styles = theme => ({
     },
   },
 
+  smallActionBtn: {
+    display: 'flex',
+    height: 30,
+    width: 'auto',
+
+    padding: '0 15px',
+  },
+
   successActionBtnWrapper: {
     width: '100%',
     display: 'flex',
@@ -1355,6 +1363,17 @@ export const styles = theme => ({
   notificationBtn: {
     width: '140px',
     height: '40px',
+  },
+
+  productMyRequestsBtnsWrapper: {
+    display: 'flex',
+    width: '100%',
+    gap: '30px',
+  },
+
+  productMyRequestsBtn: {
+    width: '140px',
+    height: 30,
   },
 
   multilineLink: {
@@ -1591,13 +1610,115 @@ export const styles = theme => ({
     width: '100%',
     height: '100%',
   },
+  userMainWrapper: {
+    width: '100%',
+    height: '100%',
 
-  stringListMenuWrapper: {
-    width: 150,
-    padding: '10px',
-    maxHeight: 400,
+    display: 'flex',
+    gap: 10,
+    alignItems: 'center',
+  },
+  userCellAvatar: {
+    width: 28,
+    height: 28,
+    searchInputWrapper: {
+      width: '100%',
+      height: 30,
+      marginBottom: 10,
+    },
+    searchInput: {
+      border: '1px solid #E0E0E0',
+      width: '100%',
+      height: '100%',
+    },
+
+    // nativeSelect: {
+    //   [theme.breakpoints.down(1282)]: {
+    //     width: 108,
+    //   },
+    //   // width: '210px',
+    //   '& > div': {
+    //     display: 'flex',
+    //     justifyContent: 'space-between',
+    //     alignItems: 'center',
+    //   },
+    // },
+    stringListMenuWrapper: {
+      width: 150,
+      padding: '10px',
+      maxHeight: 400,
+    },
+
+    colorYellow: {
+      color: '#F3AF00 !important',
+    },
+
+    colorRed: {
+      color: '#FF1616 !important',
+    },
+
+    colorGreen: {
+      color: '#00B746 !important',
+      userMainWrapper: {
+        width: '100%',
+        height: '100%',
+
+        display: 'flex',
+        gap: 10,
+        alignItems: 'center',
+      },
+      userCellAvatar: {
+        width: 28,
+        height: 28,
+      },
+    },
+    userMainWrapper: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 5,
+      colorGreen: {
+        color: '#00B746 !important',
+      },
+    },
   },
 
+  asinCellMainWrapper: {
+    display: 'flex',
+    width: 'fit-content',
+    height: '100%',
+
+    gap: 5,
+  },
+  imgMini: {
+    height: 33,
+    width: 33,
+    objectFit: 'contain',
+    objectPosition: 'center',
+  },
+  attributeWrapper: {
+    display: 'flex',
+
+    gap: 5,
+  },
+  asinAndSkuTitle: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+
+    maxWidth: 115,
+
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+
+    fontWeight: 400,
+    fontSize: 12,
+    lineHeight: '16px',
+
+    color: theme.palette.text.second,
+  },
+  attributeLink: {
+    color: theme.palette.text.general,
+  },
   nativeSelect: {
     [theme.breakpoints.down(1282)]: {
       width: 108,
@@ -1609,9 +1730,16 @@ export const styles = theme => ({
       alignItems: 'center',
     },
   },
-
-  colorYellow: {
-    color: '#F3AF00 !important',
+  attributeMissing: {
+    color: theme.palette.text.second,
+    // nativeSelect: {
+    //   // width: '210px',
+    //   '& > div': {
+    //     display: 'flex',
+    //     justifyContent: 'space-between',
+    //     alignItems: 'center',
+    //   },
+    // },
   },
 
   colorRed: {
@@ -1627,6 +1755,11 @@ export const styles = theme => ({
       fontSize: 14,
       lineHeight: '16px',
     },
+  },
+  ratingScore: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
   },
   bigBoxSvg: {
     [theme.breakpoints.down(1282)]: {
@@ -1674,5 +1807,62 @@ export const styles = theme => ({
 
   dapBtn: {
     padding: '6px 44px',
+  },
+  priceCellWrapper: {
+    width: '100%',
+    height: '100%',
+
+    display: 'flex',
+    gap: 5,
+    flexWrap: 'wrap',
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  priceCellWrapperAlignLeft: {
+    justifyContent: 'flex-start',
+  },
+  priceText: {
+    color: theme.palette.text.main,
+    fontWeight: 400,
+    fontSize: '14px',
+    lineHeight: '19px',
+  },
+  newPrice: {
+    color: '#FB1D5B',
+    fontWeight: 600,
+  },
+  oldPrice: {
+    textDecoration: 'line-through',
+  },
+
+  CopyLinkWrapper: {
+    width: '100%',
+
+    display: 'flex',
+    gap: 5,
+  },
+  linkText: {
+    width: 'fit-content',
+    maxWidth: 'calc(100% - 25px)',
+  },
+  linkTextClass: {
+    whiteSpace: 'nowrap',
+    // maxWidth: 'calc(100% - 20px)',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+
+    color: theme.palette.primary.main,
+    fontSize: 14,
+    lineHeight: '140%',
+    fontWeight: 400,
+
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    transition: '.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.01)',
+      opacity: '0.8',
+    },
   },
 })

@@ -7,13 +7,15 @@ export const useClassNames = makeStyles()(theme => ({
 
   cardWrapper: {
     width: '100%',
-    height: '263px',
+    height: 200,
 
     borderRadius: '4px',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
+    backgroundColor: theme.palette.background.general,
 
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'flex-end',
     padding: '30px',
   },
 
@@ -47,9 +49,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     color: theme.palette.text.general,
-    overflowY: 'auto',
-    width: '395px',
-    height: '160px',
   },
 
   cardSubTitle: {
@@ -176,5 +175,80 @@ export const useClassNames = makeStyles()(theme => ({
 
   standartText: {
     color: theme.palette.text.general,
+  },
+
+  fieldLabel: {
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    color: theme.palette.text.second,
+  },
+
+  fieldContainer: {
+    minHeight: 55,
+    marginBottom: '25px !important',
+
+    '&:last-child': {
+      marginBottom: '0px !important',
+    },
+  },
+
+  mainInfosWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    width: '100%',
+    // margin: '0px auto',
+    gap: '7%',
+    // height: 300,
+    paddingRight: 30,
+  },
+
+  priceAmazonWrapper: {
+    display: 'flex',
+  },
+
+  redText: {
+    color: '#FB1D5B',
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    textDecorationLine: 'line-through',
+    marginLeft: 5,
+  },
+
+  cashBackPrice: {
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    // color: '#656565',
+  },
+
+  accentText: {
+    fontSize: 14,
+    fontWeight: 600,
+    color: theme.palette.text.general,
+  },
+
+  mainInfosSubWrapper: {
+    width: 180,
+  },
+
+  titleWrapper: {
+    display: 'flex',
+
+    overflowY: 'auto',
+    width: '395px',
+    height: 80,
+  },
+  idTitle: {
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    color: theme.palette.text.general,
+  },
+  idText: {
+    color: `${theme.palette.text.second} !important`,
   },
 }))

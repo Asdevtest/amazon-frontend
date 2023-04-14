@@ -139,12 +139,181 @@ export class ChatMessageDataProposalResultEditedRequestContract
   public title!: string
 }
 
+export class ChatMessageDataRequestCreateNewBloggerProposalContract
+  implements TWebsocketChatService.ChatMessageDataRequestCreateNewBloggerProposal
+{
+  @IsNotEmpty()
+  @IsString()
+  public _id!: string
+  @IsNotEmpty()
+  @IsNumber()
+  public price!: number
+  @IsNotEmpty()
+  @IsString()
+  public status!: keyof typeof RequestStatus
+  @IsNotEmpty()
+  @IsString()
+  public title!: string
+
+  @IsOptional()
+  public cashBackInPercent!: number
+
+  @IsNotEmpty()
+  public details!: {conditions: string; linksToMediaFiles: [string]}
+
+  @IsNotEmpty()
+  public media!: {fileLink: string; commentByClient: string}[]
+
+  // @IsNotEmpty()
+  // public media!: string[]
+
+  @IsNotEmpty()
+  public createdBy!: {_id: string}
+
+  @IsNumber()
+  public priceAmazon!: number
+  @IsNotEmpty()
+  @IsString()
+  public timeoutAt!: string
+}
+
+export class ChatMessageDataRequestCreateNewDesignerProposalContract
+  implements TWebsocketChatService.ChatMessageDataRequestCreateNewDesignerProposal
+{
+  @IsNotEmpty()
+  @IsString()
+  public _id!: string
+  @IsNotEmpty()
+  @IsNumber()
+  public price!: number
+  @IsNotEmpty()
+  @IsString()
+  public status!: keyof typeof RequestStatus
+  @IsNotEmpty()
+  @IsString()
+  public title!: string
+
+  @IsOptional()
+  public cashBackInPercent!: number
+
+  @IsNotEmpty()
+  public details!: {conditions: string; linksToMediaFiles: [string]}
+
+  @IsNotEmpty()
+  public media!: {fileLink: string; commentByClient: string}[]
+
+  // @IsNotEmpty()
+  // public media!: string[]
+
+  @IsNotEmpty()
+  public createdBy!: {_id: string}
+
+  @IsNumber()
+  public priceAmazon!: number
+  @IsNotEmpty()
+  @IsString()
+  public timeoutAt!: string
+}
+
+export class ChatMessageDataRequestDesignerProposalContract
+  implements TWebsocketChatService.ChatMessageDataRequestDesignerProposal
+{
+  @IsNotEmpty()
+  @IsString()
+  public asin!: string
+}
+
+export class ChatMessageDataProposalCreateNewBloggerProposalContract
+  implements TWebsocketChatService.ChatMessageDataProposalCreateNewBloggerProposal
+{
+  @IsString()
+  _id!: string
+  @IsString()
+  public comment!: string
+  @IsNotEmpty()
+  public linksToMediaFiles!: [string]
+
+  @IsNotEmpty()
+  public execution_time!: number
+
+  @IsNotEmpty()
+  @IsNumber()
+  public price!: number
+  @IsNotEmpty()
+  @IsString()
+  public status!: keyof typeof RequestStatus
+  @IsNotEmpty()
+  @IsString()
+  public title!: string
+}
+
+export class ChatMessageDataProposalCreateNewDesignerProposalContract
+  implements TWebsocketChatService.ChatMessageDataProposalCreateNewDesignerProposal
+{
+  @IsString()
+  _id!: string
+  @IsString()
+  public comment!: string
+  @IsNotEmpty()
+  public linksToMediaFiles!: [string]
+
+  @IsNotEmpty()
+  public execution_time!: number
+
+  @IsNotEmpty()
+  @IsNumber()
+  public price!: number
+  @IsNotEmpty()
+  @IsString()
+  public status!: keyof typeof RequestStatus
+  @IsNotEmpty()
+  @IsString()
+  public title!: string
+}
+
+export class ChatMessageDataProposalBloggerProposalResultEdited
+  implements TWebsocketChatService.ChatMessageDataProposalBloggerProposalResultEditedProposal
+{
+  @IsNotEmpty()
+  public _id!: string
+
+  @IsNotEmpty()
+  public details!: {
+    amazonOrderId: string | null
+    linksToMediaFiles: [string]
+    publicationLinks: [string]
+    result: string
+  }
+}
+
+export class ChatMessageDataProposalDesignerProposalResultEdited
+  implements TWebsocketChatService.ChatMessageDataProposalDesignerProposalResultEditedProposal
+{
+  @IsNotEmpty()
+  public _id!: string
+
+  @IsNotEmpty()
+  public comment!: string
+
+  @IsNotEmpty()
+  public execution_time!: number
+
+  @IsNotEmpty()
+  public title!: string
+
+  @IsNotEmpty()
+  public details!: {result: string}
+
+  @IsNotEmpty()
+  public media!: {fileLink: string}[]
+}
+
 export class ChatMessageDataProposalResultEditedEdited
   implements TWebsocketChatService.ChatMessageDataProposalResultEditedEdited
 {
   @IsOptional()
   @IsString({each: true})
-  public linksToMediaFiles?: string[]
+  public linksToMediaFiles?: {fileLink: string; commentByPerformer: string}[] | string[]
   @IsNotEmpty()
   @IsString()
   public result!: string
@@ -173,4 +342,39 @@ export class ChatMessageDataProposalResultEditedContract
   public request!: ChatMessageDataProposalResultEditedRequestContract
   @Type(() => ChatMessageDataProposalResultEditedProposalContract)
   public proposal!: ChatMessageDataProposalResultEditedProposalContract
+}
+
+export class ChatMessageDataCreateNewBloggerProposalContract
+  implements TWebsocketChatService.ChatMessageDataCreateNewBloggerProposal
+{
+  @Type(() => ChatMessageDataRequestCreateNewBloggerProposalContract)
+  public request!: ChatMessageDataRequestCreateNewBloggerProposalContract
+  @Type(() => ChatMessageDataProposalCreateNewBloggerProposalContract)
+  public proposal!: ChatMessageDataProposalCreateNewBloggerProposalContract
+}
+
+export class ChatMessageDataCreateNewDesignerProposalContract
+  implements TWebsocketChatService.ChatMessageDataCreateNewDesignerProposal
+{
+  @Type(() => ChatMessageDataRequestCreateNewDesignerProposalContract)
+  public request!: ChatMessageDataRequestCreateNewDesignerProposalContract
+  @Type(() => ChatMessageDataProposalCreateNewDesignerProposalContract)
+  public proposal!: ChatMessageDataProposalCreateNewDesignerProposalContract
+}
+
+export class ChatMessageDataBloggerProposalResultEditedContract
+  implements TWebsocketChatService.ChatMessageDataBloggerProposalResultEdited
+{
+  @Type(() => ChatMessageDataProposalBloggerProposalResultEdited)
+  public proposal!: ChatMessageDataProposalBloggerProposalResultEdited
+}
+
+export class ChatMessageDataDesignerProposalResultEditedContract
+  implements TWebsocketChatService.ChatMessageDataDesignerProposalResultEdited
+{
+  @Type(() => ChatMessageDataProposalDesignerProposalResultEdited)
+  public proposal!: ChatMessageDataProposalDesignerProposalResultEdited
+
+  @Type(() => ChatMessageDataRequestDesignerProposalContract)
+  public request!: ChatMessageDataRequestDesignerProposalContract
 }

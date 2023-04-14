@@ -47,6 +47,7 @@ export const ITab /* : FC<Props> */ = observer(
           }
           iconPosition="end"
           className={classNames.root}
+          // classes={{selected: classNames.selected}}
           value={value}
           label={label}
           {...restProps}

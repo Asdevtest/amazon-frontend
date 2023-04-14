@@ -45,22 +45,46 @@ export const useClassNames = makeStyles()(theme => ({
   reasonText: {
     color: theme.palette.text.general,
   },
+
+  headerAndTimeWrapper: {
+    flexDirection: 'row',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  timeWrapper: {
+    marginLeft: '20px',
+  },
+  timeText: {
+    color: theme.palette.text.second,
+    fontSize: 14,
+    fontWeight: 400,
+    lineHeight: '16px',
+  },
   footerWrapper: {
     marginTop: 25,
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
   },
   footerRow: {
+    width: '100%',
+
     display: 'flex',
-    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+
     '&:not(:first-of-type)': {
       marginTop: '20px',
     },
   },
-  labelValueBlockWrapper: {},
+  labelValueBlockWrapper: {
+    display: 'flex',
+    gap: 10,
+    alignItems: 'center',
+  },
 
   rightSide: {
     alignItems: 'flex-end',
@@ -70,6 +94,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   actionButton: {
     height: '40px',
+    width: 217,
   },
   successBtn: {
     width: '107px',

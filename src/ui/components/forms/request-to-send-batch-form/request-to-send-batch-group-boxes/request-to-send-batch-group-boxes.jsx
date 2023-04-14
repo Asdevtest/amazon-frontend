@@ -11,7 +11,7 @@ import {UserLink} from '@components/user-link'
 
 import {calcFinalWeightForBox} from '@utils/calculation'
 import {findTariffInStorekeepersData} from '@utils/checks'
-import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
+import {toFixed, toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {RequestToSendBatchBox} from '../request-to-send-batch-box'
@@ -135,7 +135,7 @@ export const RequestToSendBatchesGroupBoxes = ({
               <div className={classNames.footerSubWrapper}>
                 <Text className={classNames.footerTitle}>{t(TranslationKey['Total CBM'])}</Text>
 
-                <Typography className={classNames.footerSpanText}>{totalCubicMeters}</Typography>
+                <Typography className={classNames.footerSpanText}>{toFixed(totalCubicMeters, 6)}</Typography>
               </div>
             </div>
 

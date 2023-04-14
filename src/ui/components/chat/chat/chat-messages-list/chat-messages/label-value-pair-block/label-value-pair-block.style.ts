@@ -8,19 +8,25 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+    gap: 20,
   },
   rootGreen: {
     // backgroundColor: '#D9FAE5',
 
-    backgroundColor: theme.palette.background.second,
+    backgroundColor: theme.palette.background.green,
   },
+
+  rootYellow: {
+    backgroundColor: theme.palette.background.yellow,
+  },
+
   labelWrapper: {},
   labelText: {
     fontWeight: 400,
     fontSize: '16px',
     lineHeight: '19px',
     color: theme.palette.text.general,
-
+    whiteSpace: 'nowrap',
     textAlign: 'center',
   },
   valueWrapper: {},
@@ -29,7 +35,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '16px',
     lineHeight: '19px',
     color: theme.palette.text.general,
-
+    whiteSpace: 'nowrap',
     textAlign: 'center',
   },
 }))

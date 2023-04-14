@@ -784,11 +784,3 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/ApiV1AdminsGetProductsByStatusPaymentMethods.spec.js
-test/model/ApiV1BuyersProductsGuidTags.spec.js
-test/model/ApiV1ClientsProductsGuidRedFlags.spec.js
-test/model/ApiV1SuppliersPaymentMethods.spec.js
-test/model/InlineObject122.spec.js
-test/model/InlineObject123.spec.js
-test/model/InlineResponse20071.spec.js
-test/model/InlineResponse20071Details.spec.js

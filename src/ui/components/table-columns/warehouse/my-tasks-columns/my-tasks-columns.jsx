@@ -35,21 +35,6 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
   },
 
   {
-    field: 'priority',
-    headerName: t(TranslationKey.Priority),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
-
-    width: 170,
-    renderCell: params => (
-      <TaskPriorityCell
-        curPriority={params.value}
-        taskId={params.row.originalData._id}
-        onChangePriority={handlers.updateTaskPriority}
-      />
-    ),
-  },
-
-  {
     field: 'operationType',
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
@@ -78,7 +63,8 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: window.innerWidth < 1282 ? 338 : 850,
+    // width: window.innerWidth < 1282 ? 338 : 850,
+    width: 290,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,

@@ -17,10 +17,13 @@ export const useClassNames = makeStyles()(theme => ({
 
   accordion: {
     width: '100%',
+    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
+    borderRadius: 4,
     // backgroundColor: theme.palette,
   },
 
   title: {
+    paddingLeft: 14,
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '21px',

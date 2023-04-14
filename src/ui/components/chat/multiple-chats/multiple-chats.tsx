@@ -41,6 +41,7 @@ export interface CurrentOpponent {
   _id: string
 }
 interface Props {
+  isFreelanceOwner: boolean
   searchFilter: string
   chats: ChatContract[]
   userId: string
@@ -67,6 +68,7 @@ export const MultipleChats = observer(
   forwardRef<HTMLDivElement, Props>(
     (
       {
+        isFreelanceOwner,
         searchPhrase,
         toScrollMesId,
         messagesFound,
@@ -121,6 +123,7 @@ export const MultipleChats = observer(
               <ChatsList
                 userId={userId}
                 typingUsers={typingUsers}
+                isFreelanceOwner={isFreelanceOwner}
                 chats={filteredChats}
                 chatSelectedId={chatSelectedId}
                 onClickChat={onClickChat}
