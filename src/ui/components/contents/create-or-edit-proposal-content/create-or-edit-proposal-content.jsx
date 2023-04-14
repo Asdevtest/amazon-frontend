@@ -37,16 +37,20 @@ export const CreateOrEditProposalContent = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState(
+    proposalToEdit?.linksToMediaFiles.length ? proposalToEdit?.linksToMediaFiles : [],
+  )
 
   const newProductPrice =
     calcNumberMinusPercent(request?.request?.priceAmazon, request?.request?.cashBackInPercent) || null
+
+  console.log('proposalToEdit', proposalToEdit)
 
   const sourceFormFields = {
     price: proposalToEdit?.price || request?.request.price,
     execution_time: proposalToEdit?.execution_time || '',
     comment: proposalToEdit?.comment || '',
-    linksToMediaFiles: proposalToEdit?.linksToMediaFiles || [],
+    linksToMediaFiles: proposalToEdit?.linksToMediaFiles.length ? proposalToEdit?.linksToMediaFiles : [],
     title: proposalToEdit?.title || '',
   }
 
