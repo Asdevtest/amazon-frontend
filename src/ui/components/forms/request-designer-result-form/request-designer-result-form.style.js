@@ -178,6 +178,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 20,
     color: theme.palette.text.second,
     marginRight: 10,
+    alignSelf: 'flex-start',
   },
 
   imageObjSubWrapper: {
