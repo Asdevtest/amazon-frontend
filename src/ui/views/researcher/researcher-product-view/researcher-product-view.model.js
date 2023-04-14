@@ -18,9 +18,9 @@ import {
   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
 } from '@utils/checks'
 import {
-  getObjectFilteredByKeyArrayWhiteList,
-  getObjectFilteredByKeyArrayBlackList,
   getNewObjectWithDefaultValue,
+  getObjectFilteredByKeyArrayBlackList,
+  getObjectFilteredByKeyArrayWhiteList,
 } from '@utils/object'
 import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
 import {t} from '@utils/translations'
@@ -100,6 +100,7 @@ const fieldsOfProductAllowedToUpdate = [
   'coefficient',
   'avgPrice',
   'avgReviews',
+  'redFlags',
   // 'totalFba'
 ]
 
@@ -263,9 +264,16 @@ export class ResearcherProductViewModel {
         this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
       })
       if (
-        ['icomment', 'niche', 'asins', 'amazonTitle', 'amazonDescription', 'amazonDetail', 'category'].includes(
-          fieldName,
-        )
+        [
+          'icomment',
+          'niche',
+          'asins',
+          'amazonTitle',
+          'amazonDescription',
+          'amazonDetail',
+          'category',
+          'redFlags',
+        ].includes(fieldName)
       ) {
         runInAction(() => {
           this.product = {...this.product, [fieldName]: e.target.value}
