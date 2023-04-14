@@ -34,6 +34,7 @@ import {useReactToPrint} from 'react-to-print'
 import {withStyles} from 'tss-react/mui'
 
 import {BoxStatus} from '@constants/box-status'
+import {imageTypes} from '@constants/image-types'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {MyRequestStatusTranslate} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
@@ -64,15 +65,12 @@ import {UserLink} from '@components/user-link'
 import {
   calcFinalWeightForBox,
   calcNumberMinusPercent,
-  calcSupplierPriceForUnit,
-  calculateDeliveryCostPerPcs,
   calcVolumeWeightForBox,
   getTariffRateForBoxOrOrder,
   roundHalf,
 } from '@utils/calculation'
-import {checkIsPositiveNum, checkIsStorekeeper, checkIsString} from '@utils/checks'
+import {checkIsPositiveNum, checkIsString} from '@utils/checks'
 import {
-  formatDateDistanceFromNow,
   formatDateForShowWithoutParseISO,
   formatDateTime,
   formatDateWithoutTime,
@@ -930,11 +928,19 @@ export const DownloadAndPrintFilesCell = React.memo(
     })
 
     const handleImagePreview = el => {
+      if (!imageTypes.includes(el.fileType)) {
+        window.open(el.fileUrl, '_blank')
+        return
+      }
       setSelectedImage(el)
       setIsOpenModal(true)
     }
 
     const printFile = el => {
+      if (!imageTypes.includes(el.fileType)) {
+        window.open(el.fileUrl, '_blank')
+        return
+      }
       flushSync(() => setSelectedImage(el))
       handlePrint()
     }
@@ -948,7 +954,7 @@ export const DownloadAndPrintFilesCell = React.memo(
               {el.fileUrl && (
                 <Box display="flex" gap="8px" alignItems="center">
                   <Button className={styles.dapBtn} onClick={() => handleImagePreview(el)}>
-                    {el.fileName}
+                    <span>{el.fileName}</span>.{el.fileType}
                   </Button>
 
                   <IconButton sx={{color: '#0164F4'}} onClick={() => printFile(el)}>

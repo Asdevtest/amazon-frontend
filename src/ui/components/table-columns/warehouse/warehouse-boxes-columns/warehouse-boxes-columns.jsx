@@ -77,12 +77,18 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
           {
             title: 'Shipping label',
             fileUrl: params.row.originalData.shippingLabel,
-            fileName: getFileNameFromUrl(params.row.originalData.shippingLabel).fullName,
+            fileName: getFileNameFromUrl(params.row.originalData.shippingLabel).name,
+            fileType: getFileNameFromUrl(params.row.originalData.shippingLabel).type,
           },
           {
             title: 'Barcode',
-            fileUrl: params.row.originalData.items[0].product.barCode,
-            fileName: getFileNameFromUrl(params.row.originalData.items[0].product.barCode).fullName,
+            fileUrl: params.row.originalData.items[0].barCode ?? params.row.originalData.items[0].product.barCode,
+            fileName: getFileNameFromUrl(
+              params.row.originalData.items[0].barCode ?? params.row.originalData.items[0].product.barCode,
+            ).name,
+            fileType: getFileNameFromUrl(
+              params.row.originalData.items[0].barCode ?? params.row.originalData.items[0].product.barCode,
+            ).type,
           },
         ]}
       />
