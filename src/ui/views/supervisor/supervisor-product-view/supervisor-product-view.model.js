@@ -65,6 +65,7 @@ const fieldsOfProductAllowedToUpdate = [
   'coefficient',
   'avgPrice',
   'avgReviews',
+  'redFlags',
   // 'totalFba'
 ]
 
@@ -236,9 +237,16 @@ export class SupervisorProductViewModel {
       })
 
       if (
-        ['checkednotes', 'niche', 'asins', 'amazonTitle', 'amazonDescription', 'amazonDetail', 'category'].includes(
-          fieldName,
-        )
+        [
+          'checkednotes',
+          'niche',
+          'asins',
+          'amazonTitle',
+          'amazonDescription',
+          'amazonDetail',
+          'category',
+          'redFlags',
+        ].includes(fieldName)
       ) {
         runInAction(() => {
           this.product = {...this.product, [fieldName]: e.target.value}

@@ -116,7 +116,7 @@ class SupervisorProductsViewRaw extends Component {
                 {Object.keys({
                   ...getObjectFilteredByKeyArrayWhiteList(ProductStatusByCode, allowProductStatuses),
                 }).map((status, statusIndex) => {
-                  const count = getProductsCountByStatus(status).length
+                  const count = getProductsCountByStatus(status)?.length
 
                   return (
                     <Button

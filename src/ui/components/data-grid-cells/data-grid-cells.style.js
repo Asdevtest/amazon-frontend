@@ -352,9 +352,9 @@ export const styles = theme => ({
   },
 
   taskDescriptionImg: {
-    width: '60px',
-    height: '60px',
-    objectFit: 'contain',
+    width: '100%',
+    maxHeight: '30px',
+    height: '100%',
     objectPosition: 'center',
   },
   descriptionWrapper: {
@@ -464,6 +464,12 @@ export const styles = theme => ({
     alignItems: 'flex-end',
     justifyContent: 'flex-start',
     gap: 10,
+    height: 50,
+
+    'img:first-of-type': {
+      width: 'fit-content',
+      height: '100%',
+    },
   },
 
   taskDescriptionIcon: {
@@ -564,6 +570,8 @@ export const styles = theme => ({
 
   taskDescriptionScrollWrapper: {
     width: '100%',
+    maxWidth: '250px',
+    overflowX: 'auto',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',

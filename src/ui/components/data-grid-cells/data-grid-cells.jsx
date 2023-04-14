@@ -2558,7 +2558,7 @@ export const EditOrRemoveIconBtnsCell = React.memo(
               // className={classNames.rowCancelBtn}
               className={classNames.removeOrEditBtn}
               onClick={() => {
-                handlers.onClickRemoveBtn(row)
+                handlers?.onClickRemoveBtn(row)
               }}
             >
               <DeleteOutlineOutlinedIcon />

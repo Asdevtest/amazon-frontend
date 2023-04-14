@@ -121,7 +121,7 @@ export const supervisorFinancesDataConverter = data =>
   }))
 
 export const supervisorProductsDataConverter = data =>
-  data.map(item => ({
+  data?.map(item => ({
     originalData: item,
 
     status: item.status,

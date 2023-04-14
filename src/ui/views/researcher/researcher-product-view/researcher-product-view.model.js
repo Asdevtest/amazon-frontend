@@ -19,9 +19,9 @@ import {
 } from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {
-  getObjectFilteredByKeyArrayWhiteList,
-  getObjectFilteredByKeyArrayBlackList,
   getNewObjectWithDefaultValue,
+  getObjectFilteredByKeyArrayBlackList,
+  getObjectFilteredByKeyArrayWhiteList,
 } from '@utils/object'
 import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
 import {t} from '@utils/translations'
@@ -101,6 +101,7 @@ const fieldsOfProductAllowedToUpdate = [
   'coefficient',
   'avgPrice',
   'avgReviews',
+  'redFlags',
   // 'totalFba'
 ]
 
@@ -278,9 +279,16 @@ export class ResearcherProductViewModel {
         this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
       })
       if (
-        ['icomment', 'niche', 'asins', 'amazonTitle', 'amazonDescription', 'amazonDetail', 'category'].includes(
-          fieldName,
-        )
+        [
+          'icomment',
+          'niche',
+          'asins',
+          'amazonTitle',
+          'amazonDescription',
+          'amazonDetail',
+          'category',
+          'redFlags',
+        ].includes(fieldName)
       ) {
         runInAction(() => {
           this.product = {...this.product, [fieldName]: e.target.value}
