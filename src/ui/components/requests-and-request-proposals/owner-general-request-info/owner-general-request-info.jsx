@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Typography, Paper, Avatar} from '@mui/material'
+import {Typography, Paper, Avatar, Rating} from '@mui/material'
 
 import React from 'react'
 
@@ -17,6 +17,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {AsinLink} from '@components/asin-link'
 import {Button} from '@components/buttons/button'
 import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
+import {UserLink} from '@components/user-link'
 
 import {calcNumberMinusPercent, calcPercentAfterMinusNumbers} from '@utils/calculation'
 import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-time'
@@ -50,7 +51,26 @@ export const OwnerGeneralRequestInfo = ({
     <Paper className={classNames.root}>
       <div className={classNames.mainBlockWrapper}>
         <div className={classNames.titleBlockWrapper}>
-          <Avatar src={getUserAvatarSrc(request?.request.createdById)} className={classNames.userPhoto} />
+          {request.request.sub ? (
+            <div className={classNames.userInfo}>
+              <Avatar src={getUserAvatarSrc(request.request.sub._id)} className={classNames.userPhoto} />
+
+              <div className={classNames.nameWrapper}>
+                <UserLink
+                  blackText
+                  name={request.request.sub.name}
+                  userId={request.request.sub._id}
+                  customStyles={{fontSize: 18}}
+                  withAvatar={undefined}
+                  maxNameWidth={undefined}
+                  customClassNames={undefined}
+                />
+                <Rating disabled value={request.request.sub.rating} size="small" />
+              </div>
+            </div>
+          ) : (
+            <Avatar src={getUserAvatarSrc(request?.request.createdById)} className={classNames.userPhoto} />
+          )}
 
           <div className={classNames.titleWrapper}>
             <div className={classNames.titleAndAsinWrapper}>
