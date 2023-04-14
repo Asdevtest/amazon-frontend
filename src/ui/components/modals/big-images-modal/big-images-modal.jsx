@@ -32,27 +32,29 @@ export const BigImagesModal = props => {
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.body}>
         {showPreviews && (
-          <div className={classNames.previewList}>
-            {images?.map((el, index) => (
-              <div key={index} className={classNames.previewListItem} onClick={() => handlePreview(index)}>
-                <img
-                  className={cx(classNames.previewListImage, {
-                    [classNames.activeImage]: index === imgIndex,
-                  })}
-                  // src={el}
-                  // srcSet={el}
-                  // alt={el}
-                  src={
-                    typeof el === 'string'
-                      ? getAmazonImageUrl(el, true)
-                      : el?.file.type.includes('image')
-                      ? el?.data_url
-                      : '/assets/icons/file.png'
-                  }
-                  loading="lazy"
-                />
-              </div>
-            ))}
+          <div className={classNames.previewListWrapper}>
+            <div className={classNames.previewList}>
+              {images?.map((el, index) => (
+                <div key={index} className={classNames.previewListItem} onClick={() => handlePreview(index)}>
+                  <img
+                    className={cx(classNames.previewListImage, {
+                      [classNames.activeImage]: index === imgIndex,
+                    })}
+                    // src={el}
+                    // srcSet={el}
+                    // alt={el}
+                    src={
+                      typeof el === 'string'
+                        ? getAmazonImageUrl(el, true)
+                        : el?.file.type.includes('image')
+                        ? el?.data_url
+                        : '/assets/icons/file.png'
+                    }
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
