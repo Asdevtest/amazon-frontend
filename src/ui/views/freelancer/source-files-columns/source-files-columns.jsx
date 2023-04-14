@@ -1,42 +1,24 @@
 /* eslint-disable no-unused-vars */
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React from 'react'
-
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   ShortDateCell,
   MultilineTextHeaderCell,
   MultilineTextCell,
-  MultilineRequestStatusCell,
   UserMiniCell,
-  NormalActionBtnCell,
   AsinCell,
-  VacantRequestPriceCell,
   EditOrRemoveIconBtnsCell,
-  ScrollingLinkCell,
   CopyAndEditLinkCell,
   ChangeInputCommentCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const sourceFilesColumns = (rowHandlers, languageTag, editField) => [
-  // {
-  //   field: 'title2',
-  //   headerName: t(TranslationKey.Title),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
-  //   renderCell: params => console.log('params', params),
-  //   width: 205,
-  // },
-
   {
     field: 'title',
-    headerName: t(TranslationKey.Title),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
+    headerName: t(TranslationKey['Request title']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
     renderCell: params => <MultilineTextCell text={params.value || '-'} />,
     width: 205,
   },
