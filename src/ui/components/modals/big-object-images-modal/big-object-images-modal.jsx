@@ -59,40 +59,42 @@ export const BigObjectImagesModal = ({
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.imageModalWrapper}>
-        <div className={classNames.imageModalSubWrapper}>
-          {filteredImagesData.map(item => (
-            <div
-              key={item._id}
-              className={cx(classNames.imageModalImageWrapperLeftSide, {
-                [classNames.imageModalImageWrapperLeftSideSelected]: item._id === curImageId,
-              })}
-              onClick={() => onClickLeftSideImage(item._id)}
-            >
-              <Avatar
-                className={classNames.imageModalImageLeftSide}
-                classes={{img: classNames.imageModalImageLeftSide}}
-                src={
-                  typeof item.image === 'string'
-                    ? item.image
-                    : item.image?.file.type.includes('image')
-                    ? item.image?.data_url
-                    : '/assets/icons/file.png'
-                }
-                alt={item.image?.file?.name || ''}
-                variant="square"
-              />
+        <div className={classNames.leftImagesWrapper}>
+          <div className={classNames.leftImagesSubWrapper}>
+            {filteredImagesData.map(item => (
+              <div
+                key={item._id}
+                className={cx(classNames.imageModalImageWrapperLeftSide, {
+                  [classNames.imageModalImageWrapperLeftSideSelected]: item._id === curImageId,
+                })}
+                onClick={() => onClickLeftSideImage(item._id)}
+              >
+                <Avatar
+                  className={classNames.imageModalImageLeftSide}
+                  classes={{img: classNames.imageModalImageLeftSide}}
+                  src={
+                    typeof item.image === 'string'
+                      ? item.image
+                      : item.image?.file.type.includes('image')
+                      ? item.image?.data_url
+                      : '/assets/icons/file.png'
+                  }
+                  alt={item.image?.file?.name || ''}
+                  variant="square"
+                />
 
-              {/* {!!item.comment && ( */}
-              <div>
-                <Typography className={cx(classNames.imageName, classNames.shortText)}>{item.comment}</Typography>
+                {/* {!!item.comment && ( */}
+                <div>
+                  <Typography className={cx(classNames.imageName, classNames.shortText)}>{item.comment}</Typography>
 
-                <Typography className={cx(classNames.imageLeftSideComment)}>
-                  {getShortenStringIfLongerThanCount(item.imageComment, 20)}
-                </Typography>
+                  <Typography className={cx(classNames.imageLeftSideComment)}>
+                    {getShortenStringIfLongerThanCount(item.imageComment, 20)}
+                  </Typography>
+                </div>
+                {/* )} */}
               </div>
-              {/* )} */}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         <div className={classNames.carouselWrapper}>
@@ -123,7 +125,7 @@ export const BigObjectImagesModal = ({
           </CustomCarousel>
         </div>
 
-        <div className={cx(classNames.imageModalSubWrapper, classNames.imageModalSubWrapperRightSide)}>
+        <div className={cx(/* classNames.imageModalSubWrapper, */ classNames.imageModalSubWrapperRightSide)}>
           {renderBtns ? (
             renderBtns()
           ) : (

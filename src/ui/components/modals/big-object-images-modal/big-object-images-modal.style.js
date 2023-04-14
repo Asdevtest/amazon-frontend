@@ -2,7 +2,7 @@ import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   imageModalWrapper: {
-    minWidth: '60vw',
+    // minWidth: '60vw',
     // height: '80vh',
     display: 'flex',
     justifyContent: 'space-between',
@@ -23,6 +23,21 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 10,
   },
 
+  leftImagesWrapper: {
+    height: 630,
+    overflowY: 'auto',
+    minWidth: 220,
+    display: 'flex',
+    flexDirection: 'column',
+    alignSelf: 'flex-end',
+  },
+
+  leftImagesSubWrapper: {
+    marginTop: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
   imageModalSubWrapper: {
     // display: 'flex',
     // flexDirection: 'column',
@@ -41,6 +56,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
+
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
   },
 
   imageModalImageWrapperLeftSide: {
