@@ -1,5 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close'
-import {Autocomplete, InputAdornment} from '@mui/material'
+import {Autocomplete} from '@mui/material'
 import TextField from '@mui/material/TextField'
 
 import React, {FC, useEffect, useState} from 'react'
@@ -82,6 +82,9 @@ export const TagSelector: FC<TagSelectorProps> = props => {
                 // }}
                 style={{width: '100%'}}
                 label={placeholder}
+                onInput={(event: any) => {
+                  event.target.value = event?.target.value.slice(0, 12) // Ограничиваем длину ввода
+                }}
               />
             )}
             renderOption={(_, option) => <li {..._}>{prefix + option.title}</li>}
