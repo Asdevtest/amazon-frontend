@@ -75,8 +75,7 @@ export const CreateOrEditRequestContent = ({
   const {classes: classNames} = useClassNames()
 
   const mainContentRefElement = mainContentRef.current
-  const parentRef = useRef(null)
-  const childRef = useRef(null)
+  const componentRef = useRef(null)
 
   const [showScrollUp, setShowScrollUp] = useState(false)
   const [showScrollDown, setShowScrollDown] = useState(false)
@@ -112,16 +111,16 @@ export const CreateOrEditRequestContent = ({
   useEffect(() => {
     const resizeObserver = new ResizeObserver(entries => {
       for (const entry of entries) {
-        if (entry.target === parentRef.current) {
-          parentRef.current.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'nearest'})
+        if (entry.target === componentRef.current) {
+          componentRef.current.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'nearest'})
         }
       }
     })
 
-    resizeObserver.observe(parentRef.current)
+    resizeObserver.observe(componentRef.current)
 
     return () => {
-      resizeObserver.unobserve(parentRef.current)
+      resizeObserver.unobserve(componentRef.current)
     }
   }, [])
 
@@ -312,14 +311,14 @@ export const CreateOrEditRequestContent = ({
     platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price
 
   return (
-    <div ref={parentRef} className={classNames.mainWrapper}>
+    <div ref={componentRef} className={classNames.mainWrapper}>
       <div className={classNames.mainSubWrapper}>
         {showScrollArrows && (
           <ScrollToTopOrBottom
             showScrollUp={showScrollUp}
             showScrollDown={showScrollDown}
             customStyles={{bottom: '180px', right: '55px'}}
-            сomponentWillScroll={parentRef}
+            сomponentWillScroll={componentRef}
           />
         )}
         <div className={classNames.headerWrapper}>

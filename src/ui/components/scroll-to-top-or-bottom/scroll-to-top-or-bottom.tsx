@@ -2,14 +2,25 @@
 import {cx} from '@emotion/css'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
+import {FC, CSSProperties} from 'react'
+
 import {useClassNames} from './scroll-to-top-or-bottom.style'
 
-export const ScrollToTopOrBottom = props => {
+interface ScrollToTopOrBottomProps {
+  customStyles?: CSSProperties
+  showScrollUp?: boolean
+  showScrollDown?: boolean
+  сomponentWillScroll: React.RefObject<HTMLInputElement>
+}
+
+// сomponentWillScroll - компонент к границам которого будет происходить скролл
+
+export const ScrollToTopOrBottom: FC<ScrollToTopOrBottomProps> = props => {
   const {classes: classNames} = useClassNames()
   const {customStyles, showScrollUp, showScrollDown, сomponentWillScroll} = props
 
-  const scrollTo = block => {
-    сomponentWillScroll.current.scrollIntoView({behavior: 'smooth', block: `${block}`, inline: 'center'})
+  const scrollTo = (block: ScrollLogicalPosition): void => {
+    сomponentWillScroll?.current?.scrollIntoView({behavior: 'smooth', block: `${block}`, inline: 'center'})
   }
 
   return (
