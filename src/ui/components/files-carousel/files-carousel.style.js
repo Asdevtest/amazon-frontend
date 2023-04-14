@@ -34,6 +34,7 @@ export const useClassNames = makeStyles()(theme => ({
       color: theme.palette.text.general,
     },
   },
+  emptyProposalsDescriptionWrapper: {},
   documentTitle: {
     fontSize: '12px',
     textAlign: 'center',
