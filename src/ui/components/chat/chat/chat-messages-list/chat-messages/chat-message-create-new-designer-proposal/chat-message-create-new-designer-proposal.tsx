@@ -106,6 +106,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
             notToShowEmpty
             small
             files={message.data.request?.media?.map(el => el.fileLink)}
+            imagesTitles={message.data.request?.media?.map(el => el.commentByClient)}
             width="340px"
             withoutPhotos={undefined}
             whithoutFiles={undefined}
