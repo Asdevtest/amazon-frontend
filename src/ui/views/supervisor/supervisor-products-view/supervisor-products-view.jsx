@@ -38,13 +38,11 @@ const allowProductStatuses = [
   `${ProductStatusByKey[ProductStatus.DEFAULT]}`,
   `${ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT]}`,
   `${ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]}`,
-  `${ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]}`,
-  `${ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER]}`,
-  `${ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT]}`,
+  `${ProductStatusByKey[ProductStatus.SUPPLIER_FOUND]}`,
+  `${ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT]}`,
+  `${ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND]}`,
   `${ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR]}`,
-  `${ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER]}`,
-  `${ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE]}`,
-  `${ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND]}`,
+  `${ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE]}`,
 ]
 
 const attentionStatuses = [
