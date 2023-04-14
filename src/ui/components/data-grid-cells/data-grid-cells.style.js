@@ -594,6 +594,8 @@ export const styles = theme => ({
     fontWeight: '600',
     textAlign: 'center',
 
+    whiteSpace: 'pre-wrap',
+
     [theme.breakpoints.down(1282)]: {
       fontWeight: 400,
       fontSize: 12,
@@ -1778,16 +1780,11 @@ export const styles = theme => ({
       width: 22,
       height: 22,
     },
-    ratingScore: {
-      fontWeight: 400,
-      fontSize: 14,
-      lineHeight: '19px',
-    },
+  },
 
-    ChangeInputCommentCellWrapper: {
-      display: 'flex',
-      width: '100%',
-    },
+  ChangeInputCommentCellWrapper: {
+    display: 'flex',
+    width: '100%',
   },
 
   menuItem: {

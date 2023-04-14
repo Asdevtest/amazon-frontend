@@ -104,7 +104,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     renderCell: params => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
     ),
-    width: window.innerWidth < 1282 ? 101 : 160,
+    width: window.innerWidth < 1282 ? 101 : 135,
     sortable: false,
   },
 
@@ -132,16 +132,6 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     width: window.innerWidth < 1282 ? 75 : 134,
     sortable: false,
   },
-
-  // {
-  //   field: 'barcode',
-  //   headerName: 'barcode',
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-
-  //   renderCell: params => <CheckboxCell checked={params.value} />,
-  //   width: 160,
-  //   type: 'boolean',
-  // },
 
   {
     field: 'isBarCodeAttached',

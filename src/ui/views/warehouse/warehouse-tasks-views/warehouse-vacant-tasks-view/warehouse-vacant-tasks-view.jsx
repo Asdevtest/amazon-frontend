@@ -208,33 +208,6 @@ export class WarehouseVacantTasksViewRaw extends Component {
                     ))}
                 </div>
 
-                <div className={classNames.boxesFiltersWrapper}>
-                  <Button
-                    disabled={curTaskType === null}
-                    className={cx(classNames.button, {[classNames.selectedBoxesBtn]: curTaskType === null})}
-                    variant="text"
-                    onClick={() => onClickOperationTypeBtn(null)}
-                  >
-                    {t(TranslationKey['All tasks'])}
-                  </Button>
-
-                  {Object.keys(mapTaskOperationTypeKeyToEnum)
-                    .filter(el => el !== TaskOperationType.EDIT_BY_STOREKEEPER)
-                    .map(type => (
-                      <Button
-                        key={type}
-                        disabled={curTaskType === type}
-                        className={cx(classNames.button, {
-                          [classNames.selectedBoxesBtn]: curTaskType === type,
-                        })}
-                        variant="text"
-                        onClick={() => onClickOperationTypeBtn(type)}
-                      >
-                        {taskOperationTypeTranslate(type)}
-                      </Button>
-                    ))}
-                </div>
-
                 <SearchInput
                   value={nameSearchValue}
                   inputClasses={classNames.searchInput}

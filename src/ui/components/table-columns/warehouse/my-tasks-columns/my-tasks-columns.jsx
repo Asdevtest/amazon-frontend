@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -11,6 +12,7 @@ import {
   CheckboxCell,
   StringListCell,
   TaskPriorityCell,
+  ChangeInputCommentCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -48,7 +50,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Priority),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
 
-    width: window.innerWidth < 1282 ? 115 : 170,
+    width: window.innerWidth < 1282 ? 120 : 170,
     renderCell: params => (
       <TaskPriorityCell
         curPriority={params.value}
@@ -56,6 +58,15 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
         onChangePriority={handlers.updateTaskPriority}
       />
     ),
+  },
+
+  {
+    field: 'comment',
+    headerName: t(TranslationKey.Comment),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+
+    width: 271,
+    renderCell: params => <ChangeInputCommentCell rowsCount={4} />,
   },
 
   {
