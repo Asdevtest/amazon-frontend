@@ -92,6 +92,7 @@ class BuyerMyOrdersViewRaw extends Component {
 
       showProgress,
       progressValue,
+      imagesForLoad,
 
       onClickHsCode,
       onTriggerDrawerOpen,
@@ -115,6 +116,7 @@ class BuyerMyOrdersViewRaw extends Component {
       onClickSaveHsCode,
 
       changeColumnsModel,
+      onChangeImagesForLoad,
 
       setPhotosToLoad,
     } = this.viewModel
@@ -208,6 +210,7 @@ class BuyerMyOrdersViewRaw extends Component {
           dialogContextClassName={classNames.dialogContextClassName}
         >
           <EditOrderModal
+            imagesForLoad={imagesForLoad}
             hsCodeData={hsCodeData}
             userInfo={userInfo}
             updateSupplierData={updateSupplierData}
@@ -223,6 +226,7 @@ class BuyerMyOrdersViewRaw extends Component {
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}
             setUpdateSupplierData={setUpdateSupplierData}
+            onChangeImagesForLoad={onChangeImagesForLoad}
             onClickUpdataSupplierData={onClickUpdataSupplierData}
             onClickSaveWithoutUpdateSupData={onClickSaveWithoutUpdateSupData}
             onTriggerOpenModal={onTriggerOpenModal}

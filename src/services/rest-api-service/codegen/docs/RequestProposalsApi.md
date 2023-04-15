@@ -28,7 +28,7 @@ Method | HTTP request | Description
 
 ## apiV1RequestProposalsCustomByRequestIdGuidGet
 
-> [InlineResponse20068] apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts)
+> [InlineResponse20069] apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts)
 
 Получить список предложений по guid заявки.
 
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20068]**](InlineResponse20068.md)
+[**[InlineResponse20069]**](InlineResponse20069.md)
 
 ### Authorization
 
@@ -157,7 +157,7 @@ let apiInstance = new TestSwagger.RequestProposalsApi();
 let guid = null; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject119() // InlineObject119 | 
+  'body': new TestSwagger.InlineObject121() // InlineObject121 | 
 };
 apiInstance.apiV1RequestProposalsCustomGuidResultEditPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -174,7 +174,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject119**](InlineObject119.md)|  | [optional] 
+ **body** | [**InlineObject121**](InlineObject121.md)|  | [optional] 
 
 ### Return type
 

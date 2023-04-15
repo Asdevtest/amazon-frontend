@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BuyersProductsGuidTags from './ApiV1BuyersProductsGuidTags';
 
 /**
  * The InlineObject48 model module.
@@ -193,7 +194,7 @@ class InlineObject48 {
                 obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
             if (data.hasOwnProperty('tags')) {
-                obj['tags'] = ApiClient.convertToType(data['tags'], ['String']);
+                obj['tags'] = ApiClient.convertToType(data['tags'], [ApiV1BuyersProductsGuidTags]);
             }
         }
         return obj;
@@ -475,7 +476,7 @@ InlineObject48.prototype['fourMonthesStock'] = undefined;
 InlineObject48.prototype['suppliersIds'] = undefined;
 
 /**
- * @member {Array.<String>} tags
+ * @member {Array.<module:model/ApiV1BuyersProductsGuidTags>} tags
  */
 InlineObject48.prototype['tags'] = undefined;
 

@@ -14,6 +14,7 @@
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusBoxProperties from './ApiV1AdminsGetProductsByStatusBoxProperties';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AdminsGetProductsByStatusPaymentMethods from './ApiV1AdminsGetProductsByStatusPaymentMethods';
 
 /**
  * The ApiV1AdminsGetProductsByStatusSuppliers model module.
@@ -80,9 +81,6 @@ class ApiV1AdminsGetProductsByStatusSuppliers {
             if (data.hasOwnProperty('multiplicity')) {
                 obj['multiplicity'] = ApiClient.convertToType(data['multiplicity'], 'Boolean');
             }
-            if (data.hasOwnProperty('paymentMethod')) {
-                obj['paymentMethod'] = ApiClient.convertToType(data['paymentMethod'], ['Number']);
-            }
             if (data.hasOwnProperty('priceInYuan')) {
                 obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
             }
@@ -106,6 +104,9 @@ class ApiV1AdminsGetProductsByStatusSuppliers {
             }
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('paymentMethods')) {
+                obj['paymentMethods'] = ApiClient.convertToType(data['paymentMethods'], [ApiV1AdminsGetProductsByStatusPaymentMethods]);
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -181,12 +182,6 @@ ApiV1AdminsGetProductsByStatusSuppliers.prototype['yuanRate'] = undefined;
 ApiV1AdminsGetProductsByStatusSuppliers.prototype['multiplicity'] = undefined;
 
 /**
- * Тип оплаты
- * @member {Array.<Number>} paymentMethod
- */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['paymentMethod'] = undefined;
-
-/**
  * Цена за еденицу, yuan
  * @member {Number} priceInYuan
  */
@@ -230,6 +225,11 @@ ApiV1AdminsGetProductsByStatusSuppliers.prototype['productionTerm'] = undefined;
  * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
  */
 ApiV1AdminsGetProductsByStatusSuppliers.prototype['createdBy'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusPaymentMethods>} paymentMethods
+ */
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['paymentMethods'] = undefined;
 
 /**
  * Дата создания

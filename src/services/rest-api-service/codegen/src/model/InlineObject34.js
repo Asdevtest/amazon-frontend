@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BuyersProductsGuidTags from './ApiV1BuyersProductsGuidTags';
 
 /**
  * The InlineObject34 model module.
@@ -71,6 +72,9 @@ class InlineObject34 {
             if (data.hasOwnProperty('buyersComment')) {
                 obj['buyersComment'] = ApiClient.convertToType(data['buyersComment'], 'String');
             }
+            if (data.hasOwnProperty('tags')) {
+                obj['tags'] = ApiClient.convertToType(data['tags'], [ApiV1BuyersProductsGuidTags]);
+            }
         }
         return obj;
     }
@@ -125,6 +129,11 @@ InlineObject34.prototype['margin'] = undefined;
  * @member {String} buyersComment
  */
 InlineObject34.prototype['buyersComment'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1BuyersProductsGuidTags>} tags
+ */
+InlineObject34.prototype['tags'] = undefined;
 
 
 

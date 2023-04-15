@@ -106,6 +106,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
   }
 
   const onUploadFile = imageId => async evt => {
+    console.log('sss')
     if (evt.target.files.length === 0) {
       return
     } else {

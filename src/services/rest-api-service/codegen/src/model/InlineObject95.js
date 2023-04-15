@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BuyersProductsGuidTags from './ApiV1BuyersProductsGuidTags';
 
 /**
  * The InlineObject95 model module.
@@ -124,7 +125,7 @@ class InlineObject95 {
                 obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
             if (data.hasOwnProperty('tags')) {
-                obj['tags'] = ApiClient.convertToType(data['tags'], ['String']);
+                obj['tags'] = ApiClient.convertToType(data['tags'], [ApiV1BuyersProductsGuidTags]);
             }
         }
         return obj;
@@ -278,7 +279,7 @@ InlineObject95.prototype['fourMonthesStock'] = undefined;
 InlineObject95.prototype['shopIds'] = undefined;
 
 /**
- * @member {Array.<String>} tags
+ * @member {Array.<module:model/ApiV1BuyersProductsGuidTags>} tags
  */
 InlineObject95.prototype['tags'] = undefined;
 

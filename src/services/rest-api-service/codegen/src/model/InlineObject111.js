@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BuyersProductsGuidTags from './ApiV1BuyersProductsGuidTags';
+import ApiV1ClientsProductsGuidRedFlags from './ApiV1ClientsProductsGuidRedFlags';
 
 /**
  * The InlineObject111 model module.
@@ -168,10 +170,10 @@ class InlineObject111 {
                 obj['avgReviews'] = ApiClient.convertToType(data['avgReviews'], 'String');
             }
             if (data.hasOwnProperty('redFlags')) {
-                obj['redFlags'] = ApiClient.convertToType(data['redFlags'], ['String']);
+                obj['redFlags'] = ApiClient.convertToType(data['redFlags'], [ApiV1ClientsProductsGuidRedFlags]);
             }
             if (data.hasOwnProperty('tags')) {
-                obj['tags'] = ApiClient.convertToType(data['tags'], ['String']);
+                obj['tags'] = ApiClient.convertToType(data['tags'], [ApiV1BuyersProductsGuidTags]);
             }
             if (data.hasOwnProperty('checkednotes')) {
                 obj['checkednotes'] = ApiClient.convertToType(data['checkednotes'], 'String');
@@ -415,12 +417,12 @@ InlineObject111.prototype['avgPrice'] = undefined;
 InlineObject111.prototype['avgReviews'] = undefined;
 
 /**
- * @member {Array.<String>} redFlags
+ * @member {Array.<module:model/ApiV1ClientsProductsGuidRedFlags>} redFlags
  */
 InlineObject111.prototype['redFlags'] = undefined;
 
 /**
- * @member {Array.<String>} tags
+ * @member {Array.<module:model/ApiV1BuyersProductsGuidTags>} tags
  */
 InlineObject111.prototype['tags'] = undefined;
 
