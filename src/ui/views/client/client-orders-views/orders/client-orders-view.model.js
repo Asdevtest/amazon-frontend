@@ -447,6 +447,7 @@ export class ClientOrdersViewModel {
 
   async onClickManyReorder() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       runInAction(() => {
         this.reorderOrdersData = []
       })
@@ -476,7 +477,9 @@ export class ClientOrdersViewModel {
       })
 
       this.onTriggerOpenModal('showOrderModal')
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
