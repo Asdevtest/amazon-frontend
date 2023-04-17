@@ -58,7 +58,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'absolute',
     bottom: 20,
     left: 30,
-    paddingBottom: '10px',
+    // paddingBottom: '10px',
     marginLeft: 20,
 
     overflowY: 'auto',
