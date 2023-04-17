@@ -148,6 +148,9 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
             width="340px"
             withoutPhotos={undefined}
             whithoutFiles={undefined}
+            imagesForLoad={undefined}
+            isEditable={undefined}
+            onChangeImagesForLoad={undefined}
           />
         </div>
 
@@ -197,6 +200,9 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
             width="340px"
             withoutPhotos={undefined}
             whithoutFiles={undefined}
+            imagesForLoad={undefined}
+            isEditable={undefined}
+            onChangeImagesForLoad={undefined}
           />
         </div>
       </div>

@@ -159,6 +159,11 @@ export const AddOrEditSupplierModalContent = observer(
     const [makeMainSupplier, setMakeMainSupplier] = useState(false)
 
     const [photosOfSupplier, setPhotosOfSupplier] = useState([])
+    const [editPhotosOfSupplier, setEditPhotosOfSupplier] = useState(supplier?.images || [])
+
+    const onChangeDetailsPhotosToLoad = value => {
+      setEditPhotosOfSupplier(value)
+    }
 
     const [showPhotosModal, setShowPhotosModal] = useState(false)
 
@@ -182,6 +187,7 @@ export const AddOrEditSupplierModalContent = observer(
                     photosOfSupplier,
                     addMore: false,
                     makeMainSupplier,
+                    editPhotosOfSupplier,
                   })
                 }}
               >
@@ -198,6 +204,7 @@ export const AddOrEditSupplierModalContent = observer(
                     photosOfSupplier,
                     addMore: false,
                     makeMainSupplier,
+                    editPhotosOfSupplier,
                   })
                   // setTmpSupplier({
                   //   amount: '',
@@ -257,6 +264,7 @@ export const AddOrEditSupplierModalContent = observer(
                 onClickSaveBtn({
                   supplier: {...calculateFieldsToSubmit(), _id: supplier && supplier._id},
                   photosOfSupplier,
+                  editPhotosOfSupplier,
                 })
 
                 setPhotosOfSupplier(() => [])
@@ -933,7 +941,14 @@ export const AddOrEditSupplierModalContent = observer(
               </div>
             ) : null}
             <div className={classNames.photoAndFilesWrapper}>
-              <PhotoAndFilesCarousel small files={tmpSupplier.images} width="300px" />
+              <PhotoAndFilesCarousel
+                small
+                isEditable={!onlyRead}
+                files={tmpSupplier.images}
+                width="300px"
+                imagesForLoad={editPhotosOfSupplier}
+                onChangeImagesForLoad={onChangeDetailsPhotosToLoad}
+              />
             </div>
           </div>
         </div>

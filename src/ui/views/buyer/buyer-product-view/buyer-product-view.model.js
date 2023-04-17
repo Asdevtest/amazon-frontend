@@ -3,6 +3,7 @@ import {action, makeAutoObservable, reaction, runInAction} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {patchSuppliers} from '@constants/white-list'
 
 import {BuyerModel} from '@models/buyer-model'
 import {ProductModel} from '@models/product-model'
@@ -13,11 +14,7 @@ import {UserModel} from '@models/user-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
 import {isUndefined} from '@utils/checks'
-import {
-  getNewObjectWithDefaultValue,
-  getObjectFilteredByKeyArrayBlackList,
-  getObjectFilteredByKeyArrayWhiteList,
-} from '@utils/object'
+import {getNewObjectWithDefaultValue, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
@@ -446,14 +443,14 @@ export class BuyerProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({supplier, photosOfSupplier}) {
+  async onClickSaveSupplierBtn({supplier, photosOfSupplier, editPhotosOfSupplier}) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      this.readyImages = []
+      this.clearReadyImages()
 
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+      if (editPhotosOfSupplier.length) {
+        await onSubmitPostImages.call(this, {images: editPhotosOfSupplier, type: 'readyImages'})
       }
 
       supplier = {
@@ -462,11 +459,21 @@ export class BuyerProductViewModel {
 
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
-        images: supplier.images.concat(this.readyImages),
+        images: this.readyImages,
+      }
+
+      this.clearReadyImages()
+
+      if (photosOfSupplier.length) {
+        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+        supplier = {
+          ...supplier,
+          images: [...supplier.images, ...this.readyImages],
+        }
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
 
         if (supplier._id === this.product.currentSupplierId) {
@@ -529,5 +536,11 @@ export class BuyerProductViewModel {
 
   setActionStatus(actionStatus) {
     this.actionStatus = actionStatus
+  }
+
+  clearReadyImages() {
+    runInAction(() => {
+      this.readyImages = []
+    })
   }
 }
