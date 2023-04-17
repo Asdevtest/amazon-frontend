@@ -8,6 +8,7 @@ export const useRedFlagStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: '15px',
     cursor: 'pointer',
+    color: theme.palette.text.general,
   },
   flagIcon: {
     display: 'flex',
