@@ -310,7 +310,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersGet
 
-> [InlineResponse20064] apiV1StorekeepersGet(opts)
+> [InlineResponse20065] apiV1StorekeepersGet(opts)
 
 # Получить всех сторкиперов(все склады).
 
@@ -350,7 +350,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20064]**](InlineResponse20064.md)
+[**[InlineResponse20065]**](InlineResponse20065.md)
 
 ### Authorization
 
@@ -420,7 +420,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersPagBoxesGet
 
-> InlineResponse20063 apiV1StorekeepersPagBoxesGet(opts)
+> InlineResponse20064 apiV1StorekeepersPagBoxesGet(opts)
 
 # Получить коробки и их строки по текущему сторкиперу с пагинацией.
 
@@ -468,7 +468,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20063**](InlineResponse20063.md)
+[**InlineResponse20064**](InlineResponse20064.md)
 
 ### Authorization
 
@@ -1190,7 +1190,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksLightPagMyGet
 
-> InlineResponse20062 apiV1StorekeepersTasksLightPagMyGet(opts)
+> InlineResponse20063 apiV1StorekeepersTasksLightPagMyGet(opts)
 
 # Получить задачи закрепленные за данным сторкипером с пагинацией
 
@@ -1244,7 +1244,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20062**](InlineResponse20062.md)
+[**InlineResponse20063**](InlineResponse20063.md)
 
 ### Authorization
 
@@ -1258,7 +1258,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksLightPagVacGet
 
-> InlineResponse20062 apiV1StorekeepersTasksLightPagVacGet(opts)
+> InlineResponse20063 apiV1StorekeepersTasksLightPagVacGet(opts)
 
 # Получить вакантные задачи закрепленные за данным сторкипером с пагинацией
 
@@ -1312,7 +1312,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20062**](InlineResponse20062.md)
+[**InlineResponse20063**](InlineResponse20063.md)
 
 ### Authorization
 
@@ -1378,7 +1378,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksMyGet
 
-> [InlineResponse20025] apiV1StorekeepersTasksMyGet(opts)
+> [InlineResponse20026] apiV1StorekeepersTasksMyGet(opts)
 
 # Получить задачи закрепленные за данным сборщиком..
 
@@ -1418,7 +1418,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20025]**](InlineResponse20025.md)
+[**[InlineResponse20026]**](InlineResponse20026.md)
 
 ### Authorization
 
@@ -1594,7 +1594,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksVacGet
 
-> [InlineResponse20025] apiV1StorekeepersTasksVacGet(opts)
+> [InlineResponse20026] apiV1StorekeepersTasksVacGet(opts)
 
 # Deprecated! Получить задачи не закрепленные за сотрудниками склада.
 
@@ -1632,7 +1632,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20025]**](InlineResponse20025.md)
+[**[InlineResponse20026]**](InlineResponse20026.md)
 
 ### Authorization
 

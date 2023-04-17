@@ -246,7 +246,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasGet
 
-> [InlineResponse20041] apiV1IdeasGet(opts)
+> [InlineResponse20042] apiV1IdeasGet(opts)
 
 Список всех идей
 
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20041]**](InlineResponse20041.md)
+[**[InlineResponse20042]**](InlineResponse20042.md)
 
 ### Authorization
 
@@ -570,7 +570,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasNotificationsGet
 
-> [InlineResponse20042] apiV1IdeasNotificationsGet(opts)
+> [InlineResponse20043] apiV1IdeasNotificationsGet(opts)
 
 Получить нотификации идей
 
@@ -610,7 +610,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20042]**](InlineResponse20042.md)
+[**[InlineResponse20043]**](InlineResponse20043.md)
 
 ### Authorization
 

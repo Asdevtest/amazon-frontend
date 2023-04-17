@@ -108,6 +108,9 @@ class ApiV1AdminsGetProductsByStatusSuppliers {
             if (data.hasOwnProperty('paymentMethods')) {
                 obj['paymentMethods'] = ApiClient.convertToType(data['paymentMethods'], [ApiV1AdminsGetProductsByStatusPaymentMethods]);
             }
+            if (data.hasOwnProperty('priceVariations')) {
+                obj['priceVariations'] = ApiClient.convertToType(data['priceVariations'], [Object]);
+            }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
@@ -230,6 +233,11 @@ ApiV1AdminsGetProductsByStatusSuppliers.prototype['createdBy'] = undefined;
  * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusPaymentMethods>} paymentMethods
  */
 ApiV1AdminsGetProductsByStatusSuppliers.prototype['paymentMethods'] = undefined;
+
+/**
+ * @member {Array.<Object>} priceVariations
+ */
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['priceVariations'] = undefined;
 
 /**
  * Дата создания

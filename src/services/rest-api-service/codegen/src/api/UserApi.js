@@ -22,8 +22,8 @@ import InlineObject117 from '../model/InlineObject117';
 import InlineObject118 from '../model/InlineObject118';
 import InlineObject119 from '../model/InlineObject119';
 import InlineObject120 from '../model/InlineObject120';
-import InlineResponse20067 from '../model/InlineResponse20067';
 import InlineResponse20068 from '../model/InlineResponse20068';
+import InlineResponse20069 from '../model/InlineResponse20069';
 import InternalServerError from '../model/InternalServerError';
 import LinkSubuserInputSchema from '../model/LinkSubuserInputSchema';
 import MePatchInputSchema from '../model/MePatchInputSchema';
@@ -208,7 +208,7 @@ export default class UserApi {
      * ## Выдача массива перечень всех контактов пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20068>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20069>} and HTTP response
      */
     apiV1UsersContactsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -227,7 +227,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20068];
+      let returnType = [InlineResponse20069];
       return this.apiClient.callApi(
         '/api/v1/users/contacts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -240,7 +240,7 @@ export default class UserApi {
      * ## Выдача массива перечень всех контактов пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20068>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20069>}
      */
     apiV1UsersContactsGet(opts) {
       return this.apiV1UsersContactsGetWithHttpInfo(opts)
@@ -606,7 +606,7 @@ export default class UserApi {
      * ## Выдача настроек сервера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20067} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20068} and HTTP response
      */
     apiV1UsersPlatformSettingsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -625,7 +625,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20067;
+      let returnType = InlineResponse20068;
       return this.apiClient.callApi(
         '/api/v1/users/platform_settings', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -638,7 +638,7 @@ export default class UserApi {
      * ## Выдача настроек сервера.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20067}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20068}
      */
     apiV1UsersPlatformSettingsGet(opts) {
       return this.apiV1UsersPlatformSettingsGetWithHttpInfo(opts)

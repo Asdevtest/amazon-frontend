@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **productionTerm** | **Number** |  | [optional] 
 **createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **paymentMethods** | [**[ApiV1AdminsGetProductsByStatusPaymentMethods]**](ApiV1AdminsGetProductsByStatusPaymentMethods.md) |  | [optional] 
+**priceVariations** | **[Object]** |  | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата обновления | [optional] 
 

@@ -64,6 +64,9 @@ class InlineResponse2009 {
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
+            if (data.hasOwnProperty('trackingNumber')) {
+                obj['trackingNumber'] = ApiClient.convertToType(data['trackingNumber'], 'String');
+            }
             if (data.hasOwnProperty('attachedDocuments')) {
                 obj['attachedDocuments'] = ApiClient.convertToType(data['attachedDocuments'], ['String']);
             }
@@ -96,6 +99,9 @@ class InlineResponse2009 {
             }
             if (data.hasOwnProperty('lastModifiedBy')) {
                 obj['lastModifiedBy'] = ApiV1BatchesStorekeeper.constructFromObject(data['lastModifiedBy']);
+            }
+            if (data.hasOwnProperty('arrivalDate')) {
+                obj['arrivalDate'] = ApiClient.convertToType(data['arrivalDate'], 'Date');
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -139,6 +145,12 @@ InlineResponse2009.prototype['shipId'] = undefined;
  * @member {String} title
  */
 InlineResponse2009.prototype['title'] = undefined;
+
+/**
+ * Трек номер партии
+ * @member {String} trackingNumber
+ */
+InlineResponse2009.prototype['trackingNumber'] = undefined;
 
 /**
  * Массив ссылок на файлов документации к партии.
@@ -202,6 +214,11 @@ InlineResponse2009.prototype['createdBy'] = undefined;
  * @member {module:model/ApiV1BatchesStorekeeper} lastModifiedBy
  */
 InlineResponse2009.prototype['lastModifiedBy'] = undefined;
+
+/**
+ * @member {Date} arrivalDate
+ */
+InlineResponse2009.prototype['arrivalDate'] = undefined;
 
 /**
  * Дата создания.

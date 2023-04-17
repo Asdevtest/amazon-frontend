@@ -14,6 +14,7 @@
 import ApiClient from '../ApiClient';
 import ApiV1SuppliersBoxProperties from './ApiV1SuppliersBoxProperties';
 import ApiV1SuppliersPaymentMethods from './ApiV1SuppliersPaymentMethods';
+import ApiV1SuppliersPriceVariations from './ApiV1SuppliersPriceVariations';
 
 /**
  * The InlineObject113 model module.
@@ -114,6 +115,9 @@ class InlineObject113 {
             }
             if (data.hasOwnProperty('boxProperties')) {
                 obj['boxProperties'] = ApiV1SuppliersBoxProperties.constructFromObject(data['boxProperties']);
+            }
+            if (data.hasOwnProperty('priceVariations')) {
+                obj['priceVariations'] = ApiClient.convertToType(data['priceVariations'], [ApiV1SuppliersPriceVariations]);
             }
         }
         return obj;
@@ -220,6 +224,11 @@ InlineObject113.prototype['productionTerm'] = undefined;
  * @member {module:model/ApiV1SuppliersBoxProperties} boxProperties
  */
 InlineObject113.prototype['boxProperties'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1SuppliersPriceVariations>} priceVariations
+ */
+InlineObject113.prototype['priceVariations'] = undefined;
 
 
 

@@ -12,6 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1RequestsCountProposalsByStatuses from './ApiV1RequestsCountProposalsByStatuses';
+import ApiV1RequestsMedia from './ApiV1RequestsMedia';
 
 /**
  * The InlineResponse20056 model module.
@@ -21,11 +24,18 @@ import ApiClient from '../ApiClient';
 class InlineResponse20056 {
     /**
      * Constructs a new <code>InlineResponse20056</code>.
+     * Схема заявки.
      * @alias module:model/InlineResponse20056
+     * @param _id {String} GUID заявки в базе данных.
+     * @param type {String} Тип заявки.
+     * @param maxAmountOfProposals {Number} Количество предложений.
+     * @param price {Number} Цена за каждое предложение.
+     * @param status {module:model/InlineResponse20056.StatusEnum}  DRAFT - черновик, заявка создана, но не опубликована  PUBLISHED - заявка опубликована, изменять такую заявку можно! Для того чтобы не произошло неожиданных изменений при  установке этого статуса рассчитываем чек сумму на основе данных самой заявки и деталей при создании и каждом изменении. После этого при публикации предложения будем отправлять этот хеш. Если хеш был изменен то предложение не публикуется и  сервер отдает соответствующую ошибку. Так же из этого статуса можно перевести обратно в статус CREATED (черновик) IN_PROGRESS - по заявке уже есть хотябы одно предложение, изменять такую заявку нельзя, можно только закрыть или снять  с публикации, остановить прием предложений по этой заявке. После этого статуса можно закрыть заявку или она может быть  закрыта автоматически FORBID_NEW_PROPOSALS - снять с публикации, остановить прием предложений по этой заявке, этот статус разрешает закрыть  заявку или перевести ее обратно в статус PUBLISHED/IN_PROGRESS в зависимости от того есть ли по этой заявке уже предложения.  Так же после этого статуса можно закрыть заявку или она может быть автоматически закрыта. Финальные статусы, после них нельзя менять ни заявку ни статус: COMPLETE_PROPOSALS_AMOUNT_ACHIEVED - заявка закрылась автоматически при достижении кол-ва выполненных предложений CANCELED_BY_CREATOR - заявка закрыта пользователем EXPIRED - истек срок заявки, автоматически закрылась Технические статусы: VERIFYING_BY_ADMIN - проверяется адином, такая заявка не отображается в общей выдаче, этот статус выставляет сам админ TO_CORRECT_BY_ADMIN - статус выставляет админ после проверки заявки, после этого статуса можно выставить только статус  READY_TO_VERIFY_BY_ADMIN и эта заявка должна попасть обратно на проверку админу. Если админ проверил все и все ок, то он  выставляет статус CREATED. READY_TO_VERIFY_BY_ADMIN - статус устанавливается клиентом для того чтобы админ проверил изменения по заявке CANCELED_BY_ADMIN - закрыто админом  Статусы для проверки заявки у супервизера (пока вроде не нужно, но статусы можно создать): READY_TO_VERIFY_BY_SUPERVISOR - клиент отправляет заявку на проверку спервизеру, в этом статусе заявка не опубликована  на бирже и подавать предложения нельзя, изменять заявку так же нельзя. Заявки с таким статусом доступны всем супервизерам.  (пока этот функционал вроде не нужен) VERIFYING_BY_SUPERVISOR - в процессе проверки заявки супервизером, в этом статусе заявка не опубликована на бирже и  подавать предложения нельзя, изменять заявку так же нельзя (пока этот функционал вроде не нужен) TO_CORRECT_BY_SUPERVISOR - статус выставляет супервизор после проверки заявки, после этого статуса можно выставить только  статус READY_TO_VERIFY и эта заявка должна попасть обратно на проверку ТОМУ ЖЕ супервизеру что и проверял ее ранее.  (поле supervisorId). Если супервизор проверил все и все ок, то он выставляет статус PUBLISHED. (опять же пока можно заложить  статус но логику не реализовывать) 
+     * @param direction {module:model/InlineResponse20056.DirectionEnum} Направление заявки, исходящая или входящая.
      */
-    constructor() { 
+    constructor(_id, type, maxAmountOfProposals, price, status, direction) { 
         
-        InlineResponse20056.initialize(this);
+        InlineResponse20056.initialize(this, _id, type, maxAmountOfProposals, price, status, direction);
     }
 
     /**
@@ -33,7 +43,13 @@ class InlineResponse20056 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, _id, type, maxAmountOfProposals, price, status, direction) { 
+        obj['_id'] = _id;
+        obj['type'] = type;
+        obj['maxAmountOfProposals'] = maxAmountOfProposals;
+        obj['price'] = price;
+        obj['status'] = status;
+        obj['direction'] = direction;
     }
 
     /**
@@ -50,26 +66,89 @@ class InlineResponse20056 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('requestId')) {
-                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
             }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            if (data.hasOwnProperty('type')) {
+                obj['type'] = ApiClient.convertToType(data['type'], 'String');
             }
-            if (data.hasOwnProperty('commentByClient')) {
-                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
+            if (data.hasOwnProperty('withoutConfirmation')) {
+                obj['withoutConfirmation'] = ApiClient.convertToType(data['withoutConfirmation'], 'Boolean');
             }
-            if (data.hasOwnProperty('commentByPerformer')) {
-                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('fileLink')) {
-                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
+            if (data.hasOwnProperty('maxAmountOfProposals')) {
+                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            }
+            if (data.hasOwnProperty('timeoutAt')) {
+                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
+            }
+            if (data.hasOwnProperty('timeLimitInMinutes')) {
+                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
+            }
+            if (data.hasOwnProperty('assignees')) {
+                obj['assignees'] = ApiClient.convertToType(data['assignees'], ['String']);
+            }
+            if (data.hasOwnProperty('direction')) {
+                obj['direction'] = ApiClient.convertToType(data['direction'], 'String');
+            }
+            if (data.hasOwnProperty('roles')) {
+                obj['roles'] = ApiClient.convertToType(data['roles'], ['Number']);
+            }
+            if (data.hasOwnProperty('needCheckBySupervisor')) {
+                obj['needCheckBySupervisor'] = ApiClient.convertToType(data['needCheckBySupervisor'], 'Boolean');
+            }
+            if (data.hasOwnProperty('restrictMoreThanOneProposalFromOneAssignee')) {
+                obj['restrictMoreThanOneProposalFromOneAssignee'] = ApiClient.convertToType(data['restrictMoreThanOneProposalFromOneAssignee'], 'Boolean');
+            }
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            }
+            if (data.hasOwnProperty('lastModifiedById')) {
+                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
+            }
+            if (data.hasOwnProperty('typeTask')) {
+                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
+            }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            }
+            if (data.hasOwnProperty('priceAmazon')) {
+                obj['priceAmazon'] = ApiClient.convertToType(data['priceAmazon'], 'Number');
+            }
+            if (data.hasOwnProperty('cashBackInPercent')) {
+                obj['cashBackInPercent'] = ApiClient.convertToType(data['cashBackInPercent'], 'Number');
+            }
+            if (data.hasOwnProperty('announcementId')) {
+                obj['announcementId'] = ApiClient.convertToType(data['announcementId'], 'String');
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [ApiV1RequestsMedia]);
+            }
+            if (data.hasOwnProperty('sub')) {
+                obj['sub'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['sub']);
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('countProposalsByStatuses')) {
+                obj['countProposalsByStatuses'] = ApiV1RequestsCountProposalsByStatuses.constructFromObject(data['countProposalsByStatuses']);
             }
         }
         return obj;
@@ -79,55 +158,291 @@ class InlineResponse20056 {
 }
 
 /**
- * GUID в базе данных
+ * GUID заявки в базе данных.
  * @member {String} _id
  */
 InlineResponse20056.prototype['_id'] = undefined;
 
 /**
- * Guid заявки к которой относится данное media.
- * @member {String} requestId
+ * Ключ заявки числом
+ * @member {Number} humanFriendlyId
  */
-InlineResponse20056.prototype['requestId'] = undefined;
+InlineResponse20056.prototype['humanFriendlyId'] = undefined;
 
 /**
- * Guid предложения к которой относится данное media.
- * @member {String} proposalId
+ * Тип заявки.
+ * @member {String} type
  */
-InlineResponse20056.prototype['proposalId'] = undefined;
+InlineResponse20056.prototype['type'] = undefined;
 
 /**
- * комментарий клиента
- * @member {String} commentByClient
+ * Заявка без подтверждения
+ * @member {Boolean} withoutConfirmation
  */
-InlineResponse20056.prototype['commentByClient'] = undefined;
+InlineResponse20056.prototype['withoutConfirmation'] = undefined;
 
 /**
- * комментарий исполнителя
- * @member {String} commentByPerformer
+ * Title заявки.
+ * @member {String} title
  */
-InlineResponse20056.prototype['commentByPerformer'] = undefined;
+InlineResponse20056.prototype['title'] = undefined;
 
 /**
- * Ссылка на файл
- * @member {String} fileLink
+ * Количество предложений.
+ * @member {Number} maxAmountOfProposals
  */
-InlineResponse20056.prototype['fileLink'] = undefined;
+InlineResponse20056.prototype['maxAmountOfProposals'] = undefined;
 
 /**
- * Дата создания.
+ * Цена за каждое предложение.
+ * @member {Number} price
+ */
+InlineResponse20056.prototype['price'] = undefined;
+
+/**
+ *  DRAFT - черновик, заявка создана, но не опубликована  PUBLISHED - заявка опубликована, изменять такую заявку можно! Для того чтобы не произошло неожиданных изменений при  установке этого статуса рассчитываем чек сумму на основе данных самой заявки и деталей при создании и каждом изменении. После этого при публикации предложения будем отправлять этот хеш. Если хеш был изменен то предложение не публикуется и  сервер отдает соответствующую ошибку. Так же из этого статуса можно перевести обратно в статус CREATED (черновик) IN_PROGRESS - по заявке уже есть хотябы одно предложение, изменять такую заявку нельзя, можно только закрыть или снять  с публикации, остановить прием предложений по этой заявке. После этого статуса можно закрыть заявку или она может быть  закрыта автоматически FORBID_NEW_PROPOSALS - снять с публикации, остановить прием предложений по этой заявке, этот статус разрешает закрыть  заявку или перевести ее обратно в статус PUBLISHED/IN_PROGRESS в зависимости от того есть ли по этой заявке уже предложения.  Так же после этого статуса можно закрыть заявку или она может быть автоматически закрыта. Финальные статусы, после них нельзя менять ни заявку ни статус: COMPLETE_PROPOSALS_AMOUNT_ACHIEVED - заявка закрылась автоматически при достижении кол-ва выполненных предложений CANCELED_BY_CREATOR - заявка закрыта пользователем EXPIRED - истек срок заявки, автоматически закрылась Технические статусы: VERIFYING_BY_ADMIN - проверяется адином, такая заявка не отображается в общей выдаче, этот статус выставляет сам админ TO_CORRECT_BY_ADMIN - статус выставляет админ после проверки заявки, после этого статуса можно выставить только статус  READY_TO_VERIFY_BY_ADMIN и эта заявка должна попасть обратно на проверку админу. Если админ проверил все и все ок, то он  выставляет статус CREATED. READY_TO_VERIFY_BY_ADMIN - статус устанавливается клиентом для того чтобы админ проверил изменения по заявке CANCELED_BY_ADMIN - закрыто админом  Статусы для проверки заявки у супервизера (пока вроде не нужно, но статусы можно создать): READY_TO_VERIFY_BY_SUPERVISOR - клиент отправляет заявку на проверку спервизеру, в этом статусе заявка не опубликована  на бирже и подавать предложения нельзя, изменять заявку так же нельзя. Заявки с таким статусом доступны всем супервизерам.  (пока этот функционал вроде не нужен) VERIFYING_BY_SUPERVISOR - в процессе проверки заявки супервизером, в этом статусе заявка не опубликована на бирже и  подавать предложения нельзя, изменять заявку так же нельзя (пока этот функционал вроде не нужен) TO_CORRECT_BY_SUPERVISOR - статус выставляет супервизор после проверки заявки, после этого статуса можно выставить только  статус READY_TO_VERIFY и эта заявка должна попасть обратно на проверку ТОМУ ЖЕ супервизеру что и проверял ее ранее.  (поле supervisorId). Если супервизор проверил все и все ок, то он выставляет статус PUBLISHED. (опять же пока можно заложить  статус но логику не реализовывать) 
+ * @member {module:model/InlineResponse20056.StatusEnum} status
+ */
+InlineResponse20056.prototype['status'] = undefined;
+
+/**
+ * Время закрытия заявки.
+ * @member {Date} timeoutAt
+ */
+InlineResponse20056.prototype['timeoutAt'] = undefined;
+
+/**
+ * Время за которое должен отправить предложение после бронирования. В минутах.
+ * @member {Number} timeLimitInMinutes
+ */
+InlineResponse20056.prototype['timeLimitInMinutes'] = undefined;
+
+/**
+ * Массив id пользователей.
+ * @member {Array.<String>} assignees
+ */
+InlineResponse20056.prototype['assignees'] = undefined;
+
+/**
+ * Направление заявки, исходящая или входящая.
+ * @member {module:model/InlineResponse20056.DirectionEnum} direction
+ */
+InlineResponse20056.prototype['direction'] = undefined;
+
+/**
+ * Массив массив ролей.
+ * @member {Array.<Number>} roles
+ */
+InlineResponse20056.prototype['roles'] = undefined;
+
+/**
+ * Если требуется проверка супервайзером.
+ * @member {Boolean} needCheckBySupervisor
+ */
+InlineResponse20056.prototype['needCheckBySupervisor'] = undefined;
+
+/**
+ * Запретить фрилансеру повторное отправление предложений.
+ * @member {Boolean} restrictMoreThanOneProposalFromOneAssignee
+ */
+InlineResponse20056.prototype['restrictMoreThanOneProposalFromOneAssignee'] = undefined;
+
+/**
+ * GUID клиента, который создал заявку.
+ * @member {String} createdById
+ */
+InlineResponse20056.prototype['createdById'] = undefined;
+
+/**
+ * GUID клиента, который обновил запрос на поиск товара.
+ * @member {String} lastModifiedById
+ */
+InlineResponse20056.prototype['lastModifiedById'] = undefined;
+
+/**
+ * Код специализации фрилансера
+ * @member {Number} typeTask
+ */
+InlineResponse20056.prototype['typeTask'] = undefined;
+
+/**
+ * Гуид продукта
+ * @member {String} productId
+ */
+InlineResponse20056.prototype['productId'] = undefined;
+
+/**
+ * Привязанный асин
+ * @member {String} asin
+ */
+InlineResponse20056.prototype['asin'] = undefined;
+
+/**
+ * Цена на амазоне
+ * @member {Number} priceAmazon
+ */
+InlineResponse20056.prototype['priceAmazon'] = undefined;
+
+/**
+ * Возврат средств с покупки в процентах
+ * @member {Number} cashBackInPercent
+ */
+InlineResponse20056.prototype['cashBackInPercent'] = undefined;
+
+/**
+ * Гуид анонса
+ * @member {String} announcementId
+ */
+InlineResponse20056.prototype['announcementId'] = undefined;
+
+/**
+ * Дата создания
  * @member {Date} createdAt
  */
 InlineResponse20056.prototype['createdAt'] = undefined;
 
 /**
- * Дата обновления.
+ * Дата изменения
  * @member {Date} updatedAt
  */
 InlineResponse20056.prototype['updatedAt'] = undefined;
 
+/**
+ * @member {Array.<module:model/ApiV1RequestsMedia>} media
+ */
+InlineResponse20056.prototype['media'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} sub
+ */
+InlineResponse20056.prototype['sub'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
+ */
+InlineResponse20056.prototype['createdBy'] = undefined;
+
+/**
+ * @member {module:model/ApiV1RequestsCountProposalsByStatuses} countProposalsByStatuses
+ */
+InlineResponse20056.prototype['countProposalsByStatuses'] = undefined;
 
 
+
+
+
+/**
+ * Allowed values for the <code>status</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse20056['StatusEnum'] = {
+
+    /**
+     * value: "DRAFT"
+     * @const
+     */
+    "DRAFT": "DRAFT",
+
+    /**
+     * value: "PUBLISHED"
+     * @const
+     */
+    "PUBLISHED": "PUBLISHED",
+
+    /**
+     * value: "IN_PROCESS"
+     * @const
+     */
+    "IN_PROCESS": "IN_PROCESS",
+
+    /**
+     * value: "FORBID_NEW_PROPOSALS"
+     * @const
+     */
+    "FORBID_NEW_PROPOSALS": "FORBID_NEW_PROPOSALS",
+
+    /**
+     * value: "COMPLETE_PROPOSALS_AMOUNT_ACHIEVED"
+     * @const
+     */
+    "COMPLETE_PROPOSALS_AMOUNT_ACHIEVED": "COMPLETE_PROPOSALS_AMOUNT_ACHIEVED",
+
+    /**
+     * value: "CANCELED_BY_CREATOR"
+     * @const
+     */
+    "CANCELED_BY_CREATOR": "CANCELED_BY_CREATOR",
+
+    /**
+     * value: "EXPIRED"
+     * @const
+     */
+    "EXPIRED": "EXPIRED",
+
+    /**
+     * value: "READY_TO_VERIFY_BY_ADMIN"
+     * @const
+     */
+    "READY_TO_VERIFY_BY_ADMIN": "READY_TO_VERIFY_BY_ADMIN",
+
+    /**
+     * value: "VERIFYING_BY_ADMIN"
+     * @const
+     */
+    "VERIFYING_BY_ADMIN": "VERIFYING_BY_ADMIN",
+
+    /**
+     * value: "TO_CORRECT_BY_ADMIN"
+     * @const
+     */
+    "TO_CORRECT_BY_ADMIN": "TO_CORRECT_BY_ADMIN",
+
+    /**
+     * value: "CANCELED_BY_ADMIN"
+     * @const
+     */
+    "CANCELED_BY_ADMIN": "CANCELED_BY_ADMIN",
+
+    /**
+     * value: "READY_TO_VERIFY_BY_SUPERVISOR"
+     * @const
+     */
+    "READY_TO_VERIFY_BY_SUPERVISOR": "READY_TO_VERIFY_BY_SUPERVISOR",
+
+    /**
+     * value: "VERIFYING_BY_SUPERVISOR"
+     * @const
+     */
+    "VERIFYING_BY_SUPERVISOR": "VERIFYING_BY_SUPERVISOR",
+
+    /**
+     * value: "TO_CORRECT_BY_SUPERVISOR"
+     * @const
+     */
+    "TO_CORRECT_BY_SUPERVISOR": "TO_CORRECT_BY_SUPERVISOR"
+};
+
+
+/**
+ * Allowed values for the <code>direction</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse20056['DirectionEnum'] = {
+
+    /**
+     * value: "IN"
+     * @const
+     */
+    "IN": "IN",
+
+    /**
+     * value: "OUT"
+     * @const
+     */
+    "OUT": "OUT"
+};
 
 
 

@@ -19,7 +19,7 @@ import InlineObject113 from '../model/InlineObject113';
 import InlineObject114 from '../model/InlineObject114';
 import InlineObject115 from '../model/InlineObject115';
 import InlineObject116 from '../model/InlineObject116';
-import InlineResponse20066 from '../model/InlineResponse20066';
+import InlineResponse20067 from '../model/InlineResponse20067';
 import InlineResponse20114 from '../model/InlineResponse20114';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -260,7 +260,7 @@ export default class SupplierApi {
      * ##  Получить все доступные методы оплаты для поставщика
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20066>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20067>} and HTTP response
      */
     apiV1SuppliersPaymentMethodsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -279,7 +279,7 @@ export default class SupplierApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20066];
+      let returnType = [InlineResponse20067];
       return this.apiClient.callApi(
         '/api/v1/suppliers/payment_methods', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -292,7 +292,7 @@ export default class SupplierApi {
      * ##  Получить все доступные методы оплаты для поставщика
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20066>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20067>}
      */
     apiV1SuppliersPaymentMethodsGet(opts) {
       return this.apiV1SuppliersPaymentMethodsGetWithHttpInfo(opts)

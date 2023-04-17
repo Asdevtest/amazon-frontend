@@ -21,5 +21,6 @@ Name | Type | Description | Notes
 **batchTotalCostInYuan** | **Number** | Цена партии, yuan | [optional] 
 **productionTerm** | **Number** |  | [optional] 
 **boxProperties** | [**ApiV1SuppliersBoxProperties**](ApiV1SuppliersBoxProperties.md) |  | [optional] 
+**priceVariations** | [**[ApiV1SuppliersPriceVariations]**](ApiV1SuppliersPriceVariations.md) |  | [optional] 
 
 

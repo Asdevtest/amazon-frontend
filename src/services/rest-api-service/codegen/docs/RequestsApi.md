@@ -24,7 +24,7 @@ Method | HTTP request | Description
 
 ## apiV1RequestsCalculateRequestCostGuidGet
 
-> InlineResponse20054 apiV1RequestsCalculateRequestCostGuidGet(guid, opts)
+> InlineResponse20055 apiV1RequestsCalculateRequestCostGuidGet(guid, opts)
 
 Получить детализацию стоимости заявки
 
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20054**](InlineResponse20054.md)
+[**InlineResponse20055**](InlineResponse20055.md)
 
 ### Authorization
 
@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomGet
 
-> [InlineResponse20070] apiV1RequestsCustomGet(guid, opts)
+> [InlineResponse20071] apiV1RequestsCustomGet(guid, opts)
 
 Получить все уникальные заявки для исполнителя.
 
@@ -118,7 +118,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20070]**](InlineResponse20070.md)
+[**[InlineResponse20071]**](InlineResponse20071.md)
 
 ### Authorization
 
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomGuidGet
 
-> InlineResponse20071 apiV1RequestsCustomGuidGet(guid, opts)
+> InlineResponse20072 apiV1RequestsCustomGuidGet(guid, opts)
 
 Получить уникальную заявку по его guid.
 
@@ -172,7 +172,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20071**](InlineResponse20071.md)
+[**InlineResponse20072**](InlineResponse20072.md)
 
 ### Authorization
 
@@ -296,7 +296,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsGet
 
-> [InlineResponse20055] apiV1RequestsGet(type, kind, opts)
+> [InlineResponse20056] apiV1RequestsGet(type, kind, opts)
 
 Получить список заявок
 
@@ -342,7 +342,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20055]**](InlineResponse20055.md)
+[**[InlineResponse20056]**](InlineResponse20056.md)
 
 ### Authorization
 
@@ -686,7 +686,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsMediaGuidGet
 
-> [InlineResponse20056] apiV1RequestsMediaGuidGet(guid, opts)
+> [InlineResponse20057] apiV1RequestsMediaGuidGet(guid, opts)
 
 #  Получить медиа.
 
@@ -726,7 +726,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20056]**](InlineResponse20056.md)
+[**[InlineResponse20057]**](InlineResponse20057.md)
 
 ### Authorization
 
