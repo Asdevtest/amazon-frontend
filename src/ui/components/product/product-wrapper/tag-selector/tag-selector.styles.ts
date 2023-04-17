@@ -6,6 +6,7 @@ export const useTagSelectorStyles = makeStyles()(theme => ({
     position: 'relative',
     '.MuiAutocomplete-input': {
       padding: '0 !important',
+      width: '100%',
     },
     '.MuiInputLabel-root ': {
       lineHeight: '1 !important',
@@ -29,6 +30,9 @@ export const useTagSelectorStyles = makeStyles()(theme => ({
     color: '#FFF',
     backgroundColor: '#0164F4',
     borderRadius: '4px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
 
     '&:disabled': {
       cursor: 'unset',
@@ -50,14 +54,29 @@ export const useTagSelectorStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: '10px',
     alignItems: 'center',
+
+    p: {
+      maxWidth: 170,
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      lineHeight: 1,
+      margin: 'unset',
+    },
   },
   removeTeg: {
     cursor: 'pointer',
-    color: theme.palette.text.second,
-    fontSize: '12px',
-    height: '12px',
+    height: '100%',
+    width: 20,
+    marginRight: -10,
     background: 'none',
     border: 'none',
     padding: 'unset',
+
+    div: {
+      color: theme.palette.text.second,
+      fontSize: '12px',
+      height: '12px',
+    },
   },
 }))
