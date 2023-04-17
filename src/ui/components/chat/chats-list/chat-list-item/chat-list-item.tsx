@@ -3,6 +3,7 @@ import {Avatar} from '@mui/material'
 
 import React, {FC} from 'react'
 
+import he from 'he'
 import {observer} from 'mobx-react'
 
 import {chatsType} from '@constants/chats'
@@ -77,7 +78,7 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
           case ChatMessageTextType.PATCH_INFO:
             return t(TranslationKey['changed the chat info'])
           default:
-            return lastMessage.text
+            return he.decode(lastMessage.text)
         }
       })()
     : ''
