@@ -1950,7 +1950,7 @@ export enum TranslationKey {
   'Not added' = 'Not added',
   'Product tags' = 'Product tags',
   'Input tag' = 'Input tag',
-  // '' = '',
+  'The deadline for redemption is overdue by' = 'The deadline for redemption is overdue by',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -1922,5 +1922,6 @@
   "Enter remarks": "Введите замечания",
   "Do you want to delete the source file?": "Желаете удалить исходный файл?",
   "New orders available": "Доступны новые заказы",
-  "Orders need confirmation": "Заказы нуждаются в подтверждении"
+  "Orders need confirmation": "Заказы нуждаются в подтверждении",
+  "The deadline for redemption is overdue by": "Срок выкупа просрочен на"
 }

@@ -1,8 +1,8 @@
 import {Avatar, Typography} from '@mui/material'
 
-import {FC, useEffect} from 'react'
+import {FC} from 'react'
 
-import {format, secondsToHours} from 'date-fns'
+import {format} from 'date-fns'
 
 import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -57,7 +57,11 @@ export const OrderDeadlineNotification: FC<OrderDeadlineNotificationProps> = pro
                 </div>
 
                 <Typography className={classNames.messageText}>{`${t(
-                  TranslationKey['The redemption deadline expires in'],
+                  TranslationKey[
+                    getDistanceBetweenDatesInSeconds(el.deadline) < 0
+                      ? 'The redemption deadline expires in'
+                      : 'The deadline for redemption is overdue by'
+                  ],
                 )}: ${formatDateDistanceFromNowStrict(el.deadline)}`}</Typography>
               </div>
             ))}
