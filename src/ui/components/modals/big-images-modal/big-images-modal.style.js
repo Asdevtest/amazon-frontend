@@ -93,8 +93,16 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   controls: {
+    // display: 'flex',
+    // alignItems: 'flex-end',
+
     display: 'flex',
-    alignItems: 'flex-end',
+    // flexDirection: 'column',
+    gap: 20,
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
+    marginRight: 20,
   },
 
   indicator: {
@@ -104,5 +112,14 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
     fontSize: 18,
     transform: 'translate(-50%,0)',
+  },
+
+  imagesModalBtn: {
+    width: 40,
+    height: 40,
+  },
+
+  zoomDialogContext: {
+    padding: 0,
   },
 }))
