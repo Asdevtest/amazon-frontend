@@ -92,6 +92,9 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers, 
                 width="340px"
                 withoutPhotos={undefined}
                 whithoutFiles={undefined}
+                imagesForLoad={undefined}
+                isEditable={undefined}
+                onChangeImagesForLoad={undefined}
               />
             )}
 

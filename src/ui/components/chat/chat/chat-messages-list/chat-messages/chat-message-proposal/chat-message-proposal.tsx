@@ -81,6 +81,9 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
               width="352px"
               withoutPhotos={undefined}
               whithoutFiles={undefined}
+              imagesForLoad={undefined}
+              isEditable={undefined}
+              onChangeImagesForLoad={undefined}
             />
           </div>
 

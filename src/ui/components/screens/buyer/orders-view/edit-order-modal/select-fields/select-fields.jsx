@@ -82,58 +82,6 @@ export const SelectFields = ({
 
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
-  const onUploadFile = imageIndex => async evt => {
-    if (evt.target.files.length === 0) {
-      return
-    } else {
-      const filesArr = Array.from(evt.target.files)
-
-      evt.preventDefault()
-
-      const readyFilesArr = filesArr.map(el => ({
-        data_url: URL.createObjectURL(el),
-        file: new File([el], el.name?.replace(/ /g, ''), {
-          type: el.type,
-          lastModified: el.lastModified,
-        }),
-      }))
-
-      onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0] : el)))
-      setBigImagesOptions(() => ({
-        ...bigImagesOptions,
-        images: imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0] : el)),
-      }))
-    }
-  }
-
-  const onClickRemoveImageObj = imageIndex => {
-    const newArr = imagesForLoad.filter((el, i) => i !== imageIndex)
-
-    onChangeImagesForLoad(newArr)
-    setBigImagesOptions(() => ({
-      ...bigImagesOptions,
-      imgIndex: bigImagesOptions.imgIndex - 1 < 0 ? 0 : bigImagesOptions.imgIndex - 1,
-      images: newArr,
-    }))
-
-    if (!newArr.length) {
-      setShowImageModal(false)
-    }
-  }
-
-  const bigImagesModalControls = (imageIndex /* , image */) => (
-    <>
-      <Button danger className={cx(classNames.imagesModalBtn)} onClick={() => onClickRemoveImageObj(imageIndex)}>
-        <DeleteOutlineOutlinedIcon />
-      </Button>
-
-      <Button className={cx(classNames.imagesModalBtn)}>
-        <AutorenewIcon />
-        <input type={'file'} className={classNames.pasteInput} defaultValue={''} onChange={onUploadFile(imageIndex)} />
-      </Button>
-    </>
-  )
-
   return (
     <Grid container justifyContent="space-between" className={classNames.container}>
       <Grid item>
@@ -741,7 +689,14 @@ export const SelectFields = ({
               </div>
             )
           }
-          <PhotoAndFilesCarousel small files={order.images} width="400px" />
+          <PhotoAndFilesCarousel
+            isEditable
+            small
+            files={order.images}
+            width="400px"
+            imagesForLoad={imagesForLoad}
+            onChangeImagesForLoad={onChangeImagesForLoad}
+          />
         </div>
 
         {order.product.subUsers?.length ? (

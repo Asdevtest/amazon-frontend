@@ -635,6 +635,7 @@ export class BuyerMyOrdersViewModel {
     trackNumber,
     commentToWarehouse,
     paymentDetailsPhotosToLoad,
+    editPaymentDetailsPhotos,
   }) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -647,39 +648,51 @@ export class BuyerMyOrdersViewModel {
 
       this.clearReadyImages()
 
-      if (photosToLoad.length) {
-        await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
-      }
-
-      const orderFieldsToSave = {
-        ...orderFields,
-        images: this.readyImages,
-      }
-
-      this.clearReadyImages()
-
       if (this.imagesForLoad.length) {
         await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'readyImages'})
 
         this.clearImagesForLoad()
+
+        orderFields = {
+          ...orderFields,
+          images: this.readyImages,
+        }
       }
 
-      const orderFieldsToSaveWithImagesForLoad = {
-        ...orderFieldsToSave,
-        // ...orderFields,
-        images: [...orderFieldsToSave.images, ...this.readyImages],
+      this.clearReadyImages()
+
+      if (photosToLoad.length) {
+        await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
+
+        orderFields = {
+          ...orderFields,
+          images: [...orderFields.images, ...this.readyImages],
+        }
+      }
+
+      this.clearReadyImages()
+
+      if (editPaymentDetailsPhotos?.length) {
+        await onSubmitPostImages.call(this, {images: editPaymentDetailsPhotos, type: 'readyImages'})
+
+        orderFields = {
+          ...orderFields,
+          paymentDetails: this.readyImages,
+        }
       }
 
       this.clearReadyImages()
 
       if (paymentDetailsPhotosToLoad?.length) {
         await onSubmitPostImages.call(this, {images: paymentDetailsPhotosToLoad, type: 'readyImages'})
+
+        orderFields = {
+          ...orderFields,
+          paymentDetails: [...orderFields.paymentDetails, ...this.readyImages],
+        }
       }
 
-      await this.onSaveOrder(order, {
-        ...orderFieldsToSaveWithImagesForLoad,
-        paymentDetails: [...orderFields.paymentDetails, ...this.readyImages],
-      })
+      await this.onSaveOrder(order, orderFields)
 
       if (
         boxesForCreation.length > 0 &&
