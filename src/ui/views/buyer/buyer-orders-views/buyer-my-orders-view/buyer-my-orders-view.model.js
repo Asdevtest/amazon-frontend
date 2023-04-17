@@ -95,6 +95,8 @@ export class BuyerMyOrdersViewModel {
 
   imagesForLoad = []
 
+  paymentAmount = undefined
+
   volumeWeightCoefficient = undefined
 
   nameSearchValue = ''
@@ -277,6 +279,18 @@ export class BuyerMyOrdersViewModel {
         default:
           return [OrderStatus.AT_PROCESS, OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
       }
+    }
+  }
+
+  async getBuyersOrdersPaymentByStatus() {
+    if (
+      Number(OrderStatusByKey[this.orderStatusDataBase]) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])
+    ) {
+      this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(
+        OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT],
+      )
+
+      console.log('this.paymentAmount', this.paymentAmount)
     }
   }
 
@@ -527,6 +541,7 @@ export class BuyerMyOrdersViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getOrdersMy()
+      this.getBuyersOrdersPaymentByStatus()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
