@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BuyersProductsGuidTags from './ApiV1BuyersProductsGuidTags';
+import ApiV1ClientsProductsGuidRedFlags from './ApiV1ClientsProductsGuidRedFlags';
 
 /**
  * The InlineObject96 model module.
@@ -168,10 +170,10 @@ class InlineObject96 {
                 obj['avgReviews'] = ApiClient.convertToType(data['avgReviews'], 'String');
             }
             if (data.hasOwnProperty('redFlags')) {
-                obj['redFlags'] = ApiClient.convertToType(data['redFlags'], ['String']);
+                obj['redFlags'] = ApiClient.convertToType(data['redFlags'], [ApiV1ClientsProductsGuidRedFlags]);
             }
             if (data.hasOwnProperty('tags')) {
-                obj['tags'] = ApiClient.convertToType(data['tags'], ['String']);
+                obj['tags'] = ApiClient.convertToType(data['tags'], [ApiV1BuyersProductsGuidTags]);
             }
         }
         return obj;
@@ -412,12 +414,12 @@ InlineObject96.prototype['avgPrice'] = undefined;
 InlineObject96.prototype['avgReviews'] = undefined;
 
 /**
- * @member {Array.<String>} redFlags
+ * @member {Array.<module:model/ApiV1ClientsProductsGuidRedFlags>} redFlags
  */
 InlineObject96.prototype['redFlags'] = undefined;
 
 /**
- * @member {Array.<String>} tags
+ * @member {Array.<module:model/ApiV1BuyersProductsGuidTags>} tags
  */
 InlineObject96.prototype['tags'] = undefined;
 

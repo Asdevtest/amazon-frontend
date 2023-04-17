@@ -57,6 +57,10 @@ export const useClassNames = makeStyles()(theme => ({
   currentBox: {
     marginBottom: '20px',
     width: '690px',
+
+    [theme.breakpoints.down(1282)]: {
+      width: 550,
+    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
@@ -73,6 +77,9 @@ export const useClassNames = makeStyles()(theme => ({
   //   overflowX: 'hidden',
   // },
   newBoxes: {
+    [theme.breakpoints.down(1282)]: {
+      width: 550,
+    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
@@ -103,6 +110,9 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '30px',
+    [theme.breakpoints.down(1282)]: {
+      gap: 10,
+    },
     [theme.breakpoints.down(768)]: {
       gap: '10px',
     },
@@ -243,6 +253,10 @@ export const useClassNames = makeStyles()(theme => ({
     // justifyContent: 'space-between',
     width: '100%',
     margin: 0,
+
+    [theme.breakpoints.down(1282)]: {
+      width: 210,
+    },
   },
 
   imageLinkListItem: {
@@ -341,7 +355,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   field: {
-    width: '330px',
+    width: 330,
+    height: 40,
+    [theme.breakpoints.down(1282)]: {
+      width: 260,
+    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
@@ -405,6 +423,10 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.general,
     fontWeight: 400,
+
+    [theme.breakpoints.down(1282)]: {
+      width: 'fit-content',
+    },
   },
   labelShipping: {
     fontSize: '14px',
@@ -494,6 +516,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start',
+
+    [theme.breakpoints.down(1282)]: {
+      alignItems: 'center',
+    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
       marginBottom: '50px',
@@ -605,6 +631,9 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   imageBox: {
+    [theme.breakpoints.down(1282)]: {
+      width: 200,
+    },
     [theme.breakpoints.down(768)]: {
       width: '180px',
     },

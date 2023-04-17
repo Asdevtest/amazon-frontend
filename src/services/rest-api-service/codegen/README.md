@@ -430,6 +430,9 @@ Class | Method | HTTP request | Description
 *TestSwagger.SupplierApi* | [**apiV1SuppliersGuidDelete**](docs/SupplierApi.md#apiV1SuppliersGuidDelete) | **DELETE** /api/v1/suppliers/{guid} | # Удалить поставщика.
 *TestSwagger.SupplierApi* | [**apiV1SuppliersGuidGet**](docs/SupplierApi.md#apiV1SuppliersGuidGet) | **GET** /api/v1/suppliers/{guid} | # Получить одного поставщика.
 *TestSwagger.SupplierApi* | [**apiV1SuppliersGuidPatch**](docs/SupplierApi.md#apiV1SuppliersGuidPatch) | **PATCH** /api/v1/suppliers/{guid} | # Изменить поставщика.
+*TestSwagger.SupplierApi* | [**apiV1SuppliersPaymentMethodsGet**](docs/SupplierApi.md#apiV1SuppliersPaymentMethodsGet) | **GET** /api/v1/suppliers/payment_methods | # Получить все доступные методы оплаты для поставщика
+*TestSwagger.SupplierApi* | [**apiV1SuppliersPaymentMethodsGuidPatch**](docs/SupplierApi.md#apiV1SuppliersPaymentMethodsGuidPatch) | **PATCH** /api/v1/suppliers/payment_methods/{guid} | # Получить все доступные методы оплаты для поставщика
+*TestSwagger.SupplierApi* | [**apiV1SuppliersPaymentMethodsPost**](docs/SupplierApi.md#apiV1SuppliersPaymentMethodsPost) | **POST** /api/v1/suppliers/payment_methods | # Получить все доступные методы оплаты для поставщика
 *TestSwagger.SupplierApi* | [**apiV1SuppliersPost**](docs/SupplierApi.md#apiV1SuppliersPost) | **POST** /api/v1/suppliers/ | # Добавить нового поставщика.
 *TestSwagger.UserApi* | [**apiV1UsersChangeForgottenPasswordPost**](docs/UserApi.md#apiV1UsersChangeForgottenPasswordPost) | **POST** /api/v1/users/change_forgotten_password | Поменять пароль, если его забыли
 *TestSwagger.UserApi* | [**apiV1UsersChangePasswordPatch**](docs/UserApi.md#apiV1UsersChangePasswordPatch) | **PATCH** /api/v1/users/change_password | Сменить пароль
@@ -457,6 +460,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1AdminsGetProductsByStatusBoxAmounts](docs/ApiV1AdminsGetProductsByStatusBoxAmounts.md)
  - [TestSwagger.ApiV1AdminsGetProductsByStatusBoxProperties](docs/ApiV1AdminsGetProductsByStatusBoxProperties.md)
  - [TestSwagger.ApiV1AdminsGetProductsByStatusCreatedBy](docs/ApiV1AdminsGetProductsByStatusCreatedBy.md)
+ - [TestSwagger.ApiV1AdminsGetProductsByStatusPaymentMethods](docs/ApiV1AdminsGetProductsByStatusPaymentMethods.md)
  - [TestSwagger.ApiV1AdminsGetProductsByStatusRedFlags](docs/ApiV1AdminsGetProductsByStatusRedFlags.md)
  - [TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers](docs/ApiV1AdminsGetProductsByStatusSuppliers.md)
  - [TestSwagger.ApiV1AdminsGetProductsByStatusTags](docs/ApiV1AdminsGetProductsByStatusTags.md)
@@ -494,6 +498,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1BoxesStorekeepersSentToBatchOrder](docs/ApiV1BoxesStorekeepersSentToBatchOrder.md)
  - [TestSwagger.ApiV1BuyersOrdersMyOrderSupplier](docs/ApiV1BuyersOrdersMyOrderSupplier.md)
  - [TestSwagger.ApiV1BuyersOrdersMyProduct](docs/ApiV1BuyersOrdersMyProduct.md)
+ - [TestSwagger.ApiV1BuyersProductsGuidTags](docs/ApiV1BuyersProductsGuidTags.md)
+ - [TestSwagger.ApiV1ClientsProductsGuidRedFlags](docs/ApiV1ClientsProductsGuidRedFlags.md)
  - [TestSwagger.ApiV1GologinProfileNavigator](docs/ApiV1GologinProfileNavigator.md)
  - [TestSwagger.ApiV1IdeasNotificationsCreatedBy](docs/ApiV1IdeasNotificationsCreatedBy.md)
  - [TestSwagger.ApiV1IdeasNotificationsIdea](docs/ApiV1IdeasNotificationsIdea.md)
@@ -530,6 +536,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1StorekeepersBoxesGuidItems](docs/ApiV1StorekeepersBoxesGuidItems.md)
  - [TestSwagger.ApiV1StorekeepersTariffWarehouses](docs/ApiV1StorekeepersTariffWarehouses.md)
  - [TestSwagger.ApiV1SuppliersBoxProperties](docs/ApiV1SuppliersBoxProperties.md)
+ - [TestSwagger.ApiV1SuppliersPaymentMethods](docs/ApiV1SuppliersPaymentMethods.md)
  - [TestSwagger.BadRequestError](docs/BadRequestError.md)
  - [TestSwagger.CheckIsUniqueNameOrEmailReqSchema](docs/CheckIsUniqueNameOrEmailReqSchema.md)
  - [TestSwagger.CheckIsUniqueNameOrEmailSchema](docs/CheckIsUniqueNameOrEmailSchema.md)
@@ -563,6 +570,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject12](docs/InlineObject12.md)
  - [TestSwagger.InlineObject120](docs/InlineObject120.md)
  - [TestSwagger.InlineObject121](docs/InlineObject121.md)
+ - [TestSwagger.InlineObject122](docs/InlineObject122.md)
+ - [TestSwagger.InlineObject123](docs/InlineObject123.md)
  - [TestSwagger.InlineObject13](docs/InlineObject13.md)
  - [TestSwagger.InlineObject14](docs/InlineObject14.md)
  - [TestSwagger.InlineObject15](docs/InlineObject15.md)
@@ -752,7 +761,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20069](docs/InlineResponse20069.md)
  - [TestSwagger.InlineResponse2007](docs/InlineResponse2007.md)
  - [TestSwagger.InlineResponse20070](docs/InlineResponse20070.md)
- - [TestSwagger.InlineResponse20070Details](docs/InlineResponse20070Details.md)
+ - [TestSwagger.InlineResponse20071](docs/InlineResponse20071.md)
+ - [TestSwagger.InlineResponse20071Details](docs/InlineResponse20071Details.md)
  - [TestSwagger.InlineResponse2008](docs/InlineResponse2008.md)
  - [TestSwagger.InlineResponse2009](docs/InlineResponse2009.md)
  - [TestSwagger.InlineResponse201](docs/InlineResponse201.md)

@@ -18,6 +18,7 @@ import ApiV1AdminsFeedbackUser from './model/ApiV1AdminsFeedbackUser';
 import ApiV1AdminsGetProductsByStatusBoxAmounts from './model/ApiV1AdminsGetProductsByStatusBoxAmounts';
 import ApiV1AdminsGetProductsByStatusBoxProperties from './model/ApiV1AdminsGetProductsByStatusBoxProperties';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './model/ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AdminsGetProductsByStatusPaymentMethods from './model/ApiV1AdminsGetProductsByStatusPaymentMethods';
 import ApiV1AdminsGetProductsByStatusRedFlags from './model/ApiV1AdminsGetProductsByStatusRedFlags';
 import ApiV1AdminsGetProductsByStatusSuppliers from './model/ApiV1AdminsGetProductsByStatusSuppliers';
 import ApiV1AdminsGetProductsByStatusTags from './model/ApiV1AdminsGetProductsByStatusTags';
@@ -55,6 +56,8 @@ import ApiV1BoxesStorekeepersSentToBatchItems from './model/ApiV1BoxesStorekeepe
 import ApiV1BoxesStorekeepersSentToBatchOrder from './model/ApiV1BoxesStorekeepersSentToBatchOrder';
 import ApiV1BuyersOrdersMyOrderSupplier from './model/ApiV1BuyersOrdersMyOrderSupplier';
 import ApiV1BuyersOrdersMyProduct from './model/ApiV1BuyersOrdersMyProduct';
+import ApiV1BuyersProductsGuidTags from './model/ApiV1BuyersProductsGuidTags';
+import ApiV1ClientsProductsGuidRedFlags from './model/ApiV1ClientsProductsGuidRedFlags';
 import ApiV1GologinProfileNavigator from './model/ApiV1GologinProfileNavigator';
 import ApiV1IdeasNotificationsCreatedBy from './model/ApiV1IdeasNotificationsCreatedBy';
 import ApiV1IdeasNotificationsIdea from './model/ApiV1IdeasNotificationsIdea';
@@ -91,6 +94,7 @@ import ApiV1ShopSellStatistics1 from './model/ApiV1ShopSellStatistics1';
 import ApiV1StorekeepersBoxesGuidItems from './model/ApiV1StorekeepersBoxesGuidItems';
 import ApiV1StorekeepersTariffWarehouses from './model/ApiV1StorekeepersTariffWarehouses';
 import ApiV1SuppliersBoxProperties from './model/ApiV1SuppliersBoxProperties';
+import ApiV1SuppliersPaymentMethods from './model/ApiV1SuppliersPaymentMethods';
 import BadRequestError from './model/BadRequestError';
 import CheckIsUniqueNameOrEmailReqSchema from './model/CheckIsUniqueNameOrEmailReqSchema';
 import CheckIsUniqueNameOrEmailSchema from './model/CheckIsUniqueNameOrEmailSchema';
@@ -124,6 +128,8 @@ import InlineObject119 from './model/InlineObject119';
 import InlineObject12 from './model/InlineObject12';
 import InlineObject120 from './model/InlineObject120';
 import InlineObject121 from './model/InlineObject121';
+import InlineObject122 from './model/InlineObject122';
+import InlineObject123 from './model/InlineObject123';
 import InlineObject13 from './model/InlineObject13';
 import InlineObject14 from './model/InlineObject14';
 import InlineObject15 from './model/InlineObject15';
@@ -313,7 +319,8 @@ import InlineResponse20068 from './model/InlineResponse20068';
 import InlineResponse20069 from './model/InlineResponse20069';
 import InlineResponse2007 from './model/InlineResponse2007';
 import InlineResponse20070 from './model/InlineResponse20070';
-import InlineResponse20070Details from './model/InlineResponse20070Details';
+import InlineResponse20071 from './model/InlineResponse20071';
+import InlineResponse20071Details from './model/InlineResponse20071Details';
 import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse201 from './model/InlineResponse201';
@@ -464,6 +471,12 @@ export {
      * @property {module:model/ApiV1AdminsGetProductsByStatusCreatedBy}
      */
     ApiV1AdminsGetProductsByStatusCreatedBy,
+
+    /**
+     * The ApiV1AdminsGetProductsByStatusPaymentMethods model constructor.
+     * @property {module:model/ApiV1AdminsGetProductsByStatusPaymentMethods}
+     */
+    ApiV1AdminsGetProductsByStatusPaymentMethods,
 
     /**
      * The ApiV1AdminsGetProductsByStatusRedFlags model constructor.
@@ -688,6 +701,18 @@ export {
     ApiV1BuyersOrdersMyProduct,
 
     /**
+     * The ApiV1BuyersProductsGuidTags model constructor.
+     * @property {module:model/ApiV1BuyersProductsGuidTags}
+     */
+    ApiV1BuyersProductsGuidTags,
+
+    /**
+     * The ApiV1ClientsProductsGuidRedFlags model constructor.
+     * @property {module:model/ApiV1ClientsProductsGuidRedFlags}
+     */
+    ApiV1ClientsProductsGuidRedFlags,
+
+    /**
      * The ApiV1GologinProfileNavigator model constructor.
      * @property {module:model/ApiV1GologinProfileNavigator}
      */
@@ -904,6 +929,12 @@ export {
     ApiV1SuppliersBoxProperties,
 
     /**
+     * The ApiV1SuppliersPaymentMethods model constructor.
+     * @property {module:model/ApiV1SuppliersPaymentMethods}
+     */
+    ApiV1SuppliersPaymentMethods,
+
+    /**
      * The BadRequestError model constructor.
      * @property {module:model/BadRequestError}
      */
@@ -1100,6 +1131,18 @@ export {
      * @property {module:model/InlineObject121}
      */
     InlineObject121,
+
+    /**
+     * The InlineObject122 model constructor.
+     * @property {module:model/InlineObject122}
+     */
+    InlineObject122,
+
+    /**
+     * The InlineObject123 model constructor.
+     * @property {module:model/InlineObject123}
+     */
+    InlineObject123,
 
     /**
      * The InlineObject13 model constructor.
@@ -2236,10 +2279,16 @@ export {
     InlineResponse20070,
 
     /**
-     * The InlineResponse20070Details model constructor.
-     * @property {module:model/InlineResponse20070Details}
+     * The InlineResponse20071 model constructor.
+     * @property {module:model/InlineResponse20071}
      */
-    InlineResponse20070Details,
+    InlineResponse20071,
+
+    /**
+     * The InlineResponse20071Details model constructor.
+     * @property {module:model/InlineResponse20071Details}
+     */
+    InlineResponse20071Details,
 
     /**
      * The InlineResponse2008 model constructor.

@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1SuppliersBoxProperties from './ApiV1SuppliersBoxProperties';
+import ApiV1SuppliersPaymentMethods from './ApiV1SuppliersPaymentMethods';
 
 /**
  * The InlineObject113 model module.
@@ -81,8 +82,8 @@ class InlineObject113 {
             if (data.hasOwnProperty('multiplicity')) {
                 obj['multiplicity'] = ApiClient.convertToType(data['multiplicity'], 'Boolean');
             }
-            if (data.hasOwnProperty('paymentMethod')) {
-                obj['paymentMethod'] = ApiClient.convertToType(data['paymentMethod'], ['Number']);
+            if (data.hasOwnProperty('paymentMethods')) {
+                obj['paymentMethods'] = ApiClient.convertToType(data['paymentMethods'], [ApiV1SuppliersPaymentMethods]);
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
@@ -158,10 +159,9 @@ InlineObject113.prototype['minlot'] = undefined;
 InlineObject113.prototype['multiplicity'] = undefined;
 
 /**
- * Тип оплаты
- * @member {Array.<Number>} paymentMethod
+ * @member {Array.<module:model/ApiV1SuppliersPaymentMethods>} paymentMethods
  */
-InlineObject113.prototype['paymentMethod'] = undefined;
+InlineObject113.prototype['paymentMethods'] = undefined;
 
 /**
  * Массив картинок.

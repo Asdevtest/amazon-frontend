@@ -86,3 +86,5 @@ export const checkIsStringFilesSame = (str1, str2) => {
     return str1 === str2
   }
 }
+
+export const isStringInArray = (str, arr) => arr.includes(str)
