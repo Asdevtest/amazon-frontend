@@ -7,6 +7,10 @@ export const styles = theme => ({
     display: 'visible !important',
   },
 
+  selectHeight: {
+    height: 40,
+  },
+
   disableRoot: {
     opacity: '.8',
   },
@@ -18,6 +22,9 @@ export const styles = theme => ({
 
   icon: {
     color: theme.palette.primary.main,
+  },
+  darkIcon: {
+    color: theme.palette.text.second,
   },
 
   disabledSelectedItemName: {
@@ -34,6 +41,12 @@ export const styles = theme => ({
     maxHeight: 36,
     overflow: 'hidden',
     position: 'absolute',
+  },
+
+  grayBorder: {
+    height: 40,
+    maxHeight: 40,
+    border: `1px solid ${theme.palette.input.customBorder}`,
   },
 
   selectorIsOpen: {
@@ -63,6 +76,14 @@ export const styles = theme => ({
     '&:hover': {
       transform: 'scale(1.01)',
       backgroundColor: '#F4F4F4',
+    },
+  },
+
+  chosenItemNoHover: {
+    height: 40,
+    '&:hover': {
+      transform: 'unset',
+      backgroundColor: 'unset',
     },
   },
 
@@ -152,5 +173,8 @@ export const styles = theme => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
+  },
+  blackSelectedItem: {
+    color: theme.palette.text.general,
   },
 })

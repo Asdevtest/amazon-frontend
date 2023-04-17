@@ -17,6 +17,9 @@ import ApiV1AdminsGetProductsByStatusSuppliers from '../model/ApiV1AdminsGetProd
 import BadRequestError from '../model/BadRequestError';
 import InlineObject113 from '../model/InlineObject113';
 import InlineObject114 from '../model/InlineObject114';
+import InlineObject115 from '../model/InlineObject115';
+import InlineObject116 from '../model/InlineObject116';
+import InlineResponse20067 from '../model/InlineResponse20067';
 import InlineResponse20114 from '../model/InlineResponse20114';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -246,6 +249,158 @@ export default class SupplierApi {
      */
     apiV1SuppliersGuidPatch(guid, opts) {
       return this.apiV1SuppliersGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить все доступные методы оплаты для поставщика
+     * ##  Получить все доступные методы оплаты для поставщика
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20067>} and HTTP response
+     */
+    apiV1SuppliersPaymentMethodsGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [InlineResponse20067];
+      return this.apiClient.callApi(
+        '/api/v1/suppliers/payment_methods', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить все доступные методы оплаты для поставщика
+     * ##  Получить все доступные методы оплаты для поставщика
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20067>}
+     */
+    apiV1SuppliersPaymentMethodsGet(opts) {
+      return this.apiV1SuppliersPaymentMethodsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить все доступные методы оплаты для поставщика
+     * ##  Получить все доступные методы оплаты для поставщика
+     * @param {String} guid GUID в сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject116} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1SuppliersPaymentMethodsGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1SuppliersPaymentMethodsGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/suppliers/payment_methods/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить все доступные методы оплаты для поставщика
+     * ##  Получить все доступные методы оплаты для поставщика
+     * @param {String} guid GUID в сущности в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject116} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1SuppliersPaymentMethodsGuidPatch(guid, opts) {
+      return this.apiV1SuppliersPaymentMethodsGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить все доступные методы оплаты для поставщика
+     * ##  Получить все доступные методы оплаты для поставщика
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject115} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object.<String, {String: Object}>} and HTTP response
+     */
+    apiV1SuppliersPaymentMethodsPostWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = {'String': Object};
+      return this.apiClient.callApi(
+        '/api/v1/suppliers/payment_methods', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить все доступные методы оплаты для поставщика
+     * ##  Получить все доступные методы оплаты для поставщика
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject115} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object.<String, {String: Object}>}
+     */
+    apiV1SuppliersPaymentMethodsPost(opts) {
+      return this.apiV1SuppliersPaymentMethodsPostWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

@@ -3,7 +3,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 
 import React, {useEffect, useState} from 'react'
 
-import ImageGallery from 'react-image-gallery'
+// import ImageGallery from 'react-image-gallery'
 import 'react-image-gallery/styles/css/image-gallery.css'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
@@ -40,21 +40,20 @@ export const CustomImageGallery = ({images, imgIndex = 0}) => {
   }, [images])
 
   return (
-    // <div className={classNames.carouselWrapper}>
-    <ImageGallery
-      items={curItems}
-      startIndex={imgIndex}
-      thumbnailPosition="left"
-      additionalClass={classNames.mainWrapper}
-      renderCustomControls={() => (
-        <DeleteOutlineOutlinedIcon
-          onClick={(event1, event2) => {
-            console.log(event1, event1)
-            console.log(event2, event2)
-          }}
-        />
-      )}
-    />
-    // </div>
+    <div className={classNames.carouselWrapper}></div>
+    // <ImageGallery
+    //   items={curItems}
+    //   startIndex={imgIndex}
+    //   thumbnailPosition="left"
+    //   additionalClass={classNames.mainWrapper}
+    //   renderCustomControls={() => (
+    //     <DeleteOutlineOutlinedIcon
+    //       onClick={(event1, event2) => {
+    //         console.log(event1, event1)
+    //         console.log(event2, event2)
+    //       }}
+    //     />
+    //   )}
+    // />
   )
 }

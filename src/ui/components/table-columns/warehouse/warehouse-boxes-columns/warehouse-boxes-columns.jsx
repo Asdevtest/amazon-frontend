@@ -4,17 +4,19 @@ import {columnnsKeys} from '@constants/data-grid-columns-keys'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  MultilineTextHeaderCell, // ShortDateCell,
+  ChangeInputCell,
+  DownloadAndPrintFilesCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
   OrderCell,
   OrderManyItemsCell,
-  MultilineTextCell,
+  OrdersIdsItemsCell,
   ShortBoxDimensions,
   UserLinkCell,
   WarehouseBoxesBtnsCell,
-  OrdersIdsItemsCell,
-  ChangeInputCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
+import {getFileNameFromUrl} from '@utils/get-file-name-from-url'
 import {t} from '@utils/translations'
 
 export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
@@ -57,6 +59,40 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
           superboxProductAmount={params.row.originalData}
         />
       ),
+    filterable: false,
+    sortable: false,
+
+    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
+  },
+
+  {
+    field: 'shippingLabel',
+    headerName: 'Shipping label/Barcode',
+    renderHeader: () => <MultilineTextHeaderCell text={'Shipping label / Barcode'} />,
+
+    width: 250,
+    renderCell: params => (
+      <DownloadAndPrintFilesCell
+        files={[
+          {
+            title: 'Shipping label',
+            fileUrl: params.row.originalData.shippingLabel,
+            fileName: getFileNameFromUrl(params.row.originalData.shippingLabel).name,
+            fileType: getFileNameFromUrl(params.row.originalData.shippingLabel).type,
+          },
+          {
+            title: 'Barcode',
+            fileUrl: params.row.originalData.items[0].barCode ?? params.row.originalData.items[0].product.barCode,
+            fileName: getFileNameFromUrl(
+              params.row.originalData.items[0].barCode ?? params.row.originalData.items[0].product.barCode,
+            ).name,
+            fileType: getFileNameFromUrl(
+              params.row.originalData.items[0].barCode ?? params.row.originalData.items[0].product.barCode,
+            ).type,
+          },
+        ]}
+      />
+    ),
     filterable: false,
     sortable: false,
 

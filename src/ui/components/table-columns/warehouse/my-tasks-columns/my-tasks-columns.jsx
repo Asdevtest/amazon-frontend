@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -11,6 +12,7 @@ import {
   CheckboxCell,
   StringListCell,
   TaskPriorityCell,
+  ChangeInputCommentCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -21,7 +23,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 190,
+    width: window.innerWidth < 1282 ? 115 : 190,
 
     renderCell: params => (
       <WarehouseMyTasksBtnsCell
@@ -35,11 +37,20 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
   },
 
   {
+    field: 'operationType',
+    headerName: t(TranslationKey.Type),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
+
+    width: window.innerWidth < 1282 ? 125 : 155,
+    renderCell: params => <TaskTypeCell task={params.row.originalData} />,
+  },
+
+  {
     field: 'priority',
     headerName: t(TranslationKey.Priority),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
 
-    width: 170,
+    width: window.innerWidth < 1282 ? 120 : 170,
     renderCell: params => (
       <TaskPriorityCell
         curPriority={params.value}
@@ -50,12 +61,12 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
   },
 
   {
-    field: 'operationType',
-    headerName: t(TranslationKey.Type),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
+    field: 'comment',
+    headerName: t(TranslationKey.Comment),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-    width: 155,
-    renderCell: params => <TaskTypeCell task={params.row.originalData} />,
+    width: 271,
+    renderCell: params => <ChangeInputCommentCell rowsCount={4} />,
   },
 
   {
@@ -63,7 +74,8 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 850,
+    // width: window.innerWidth < 1282 ? 338 : 850,
+    width: 290,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
@@ -80,7 +92,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     ),
 
     sortable: false,
-    width: 160,
+    width: window.innerWidth < 1282 ? 100 : 160,
   },
 
   {
@@ -92,8 +104,9 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     renderCell: params => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
     ),
+    align: 'center',
     sortable: false,
-    width: 160,
+    width: window.innerWidth < 1282 ? 60 : 160,
   },
 
   {
@@ -105,7 +118,18 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
     type: 'number',
     sortable: false,
-    width: 160,
+    width: window.innerWidth < 1282 ? 73 : 160,
+  },
+
+  {
+    field: 'item',
+    headerName: 'item',
+    renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
+
+    // renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
+    sortable: false,
+    width: window.innerWidth < 1282 ? 54 : 160,
   },
 
   // {
@@ -124,19 +148,8 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
     renderCell: params => <CheckboxCell checked={params.value} />,
-    width: 160,
+    width: window.innerWidth < 1282 ? 65 : 160,
     type: 'boolean',
-  },
-
-  {
-    field: 'item',
-    headerName: 'item',
-    renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
-
-    // renderCell: params => <MultilineTextCell text={params.value} />,
-    renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
-    sortable: false,
-    width: 160,
   },
 
   {
@@ -144,7 +157,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    width: 120,
+    width: window.innerWidth < 1282 ? 95 : 120,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },

@@ -54,22 +54,42 @@ export const styles = theme => ({
   },
   dataGridWrapper: {
     marginTop: '20px',
-    height: '83vh',
+    height: 'calc(100vh - 230px)',
   },
 
   selectStatusFilterButton: {
-    padding: '0 15px',
+    padding: '0 20px',
     height: 40,
     whiteSpace: 'nowrap',
     marginBottom: 5,
     color: theme.palette.primary.main,
 
+    display: 'flex',
+    gap: '10px',
+
     fontSize: 14,
     fontWeight: 600,
 
-    '&>disabled': {
-      backgroundColor: 'inherit',
+    '&.Mui-disabled': {
+      opacity: '.3',
+      backgroundColor: 'transparent',
     },
+  },
+  badge: {
+    margin: '0 auto',
+    height: 20,
+    width: 'fit-content',
+    background: theme.palette.primary.main,
+
+    padding: '1px 6px',
+
+    fontSize: '12px',
+
+    borderRadius: 30,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
   },
   selectedStatusFilterButton: {
     marginBottom: 0,
@@ -81,6 +101,6 @@ export const styles = theme => ({
   },
 
   searchInputWrapper: {
-    marginLeft: '40%',
+    marginLeft: '50%',
   },
 })

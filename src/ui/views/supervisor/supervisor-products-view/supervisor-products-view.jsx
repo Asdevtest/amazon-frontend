@@ -38,13 +38,11 @@ const allowProductStatuses = [
   `${ProductStatusByKey[ProductStatus.DEFAULT]}`,
   `${ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT]}`,
   `${ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]}`,
-  `${ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]}`,
-  `${ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER]}`,
-  `${ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT]}`,
+  `${ProductStatusByKey[ProductStatus.SUPPLIER_FOUND]}`,
+  `${ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT]}`,
+  `${ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND]}`,
   `${ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR]}`,
-  `${ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER]}`,
-  `${ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE]}`,
-  `${ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND]}`,
+  `${ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE]}`,
 ]
 
 const attentionStatuses = [
@@ -100,6 +98,7 @@ class SupervisorProductsViewRaw extends Component {
       onChangeNameSearchValue,
       onClickStatusFilterButton,
       changeColumnsModel,
+      getProductsCountByStatus,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -116,19 +115,25 @@ class SupervisorProductsViewRaw extends Component {
               <div className={classNames.headerWrapper}>
                 {Object.keys({
                   ...getObjectFilteredByKeyArrayWhiteList(ProductStatusByCode, allowProductStatuses),
-                }).map((status, statusIndex) => (
-                  <Button
-                    key={statusIndex}
-                    variant="text"
-                    // disabled={Number(statusIndex) === Number(currentFilterStatus)}
-                    className={cx(classNames.selectStatusFilterButton, {
-                      [classNames.selectedStatusFilterButton]: Number(status) === Number(currentFilterStatus),
-                    })}
-                    onClick={() => onClickStatusFilterButton(status)}
-                  >
-                    {t(productStatusTranslateKey(ProductStatusByCode[status]))}
-                  </Button>
-                ))}
+                }).map((status, statusIndex) => {
+                  const count = getProductsCountByStatus(status)
+
+                  return (
+                    <Button
+                      key={statusIndex}
+                      variant="text"
+                      disabled={!count}
+                      // disabled={Number(statusIndex) === Number(currentFilterStatus)}
+                      className={cx(classNames.selectStatusFilterButton, {
+                        [classNames.selectedStatusFilterButton]: Number(status) === Number(currentFilterStatus),
+                      })}
+                      onClick={() => onClickStatusFilterButton(status)}
+                    >
+                      {t(productStatusTranslateKey(ProductStatusByCode[status]))}{' '}
+                      {count >= 1 && <span className={classNames.badge}>{count}</span>}
+                    </Button>
+                  )
+                })}
 
                 <div className={classNames.searchInputWrapper}>
                   <SearchInput

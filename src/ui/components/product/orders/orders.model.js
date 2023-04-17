@@ -100,6 +100,15 @@ export class OrdersModel {
     )
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = this.columnsModel.map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.columnsModel = clientProductOrdersViewColumns(this.rowHandlers, this.firstRowId)
@@ -284,8 +293,6 @@ export class OrdersModel {
         } else if (!product.barCode) {
           await ClientModel.updateProductBarCode(product.productId, {barCode: null})
         }
-
-        console.log('product', product)
 
         if (this.isPendingOrdering) {
           const dataToRequest = getObjectFilteredByKeyArrayWhiteList(product, [

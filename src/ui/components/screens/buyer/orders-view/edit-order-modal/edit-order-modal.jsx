@@ -67,6 +67,7 @@ const confirmModalModes = {
 
 export const EditOrderModal = observer(
   ({
+    imagesForLoad,
     yuanToDollarRate,
     isPendingOrder,
     userInfo,
@@ -88,6 +89,7 @@ export const EditOrderModal = observer(
     setUpdateSupplierData,
     onClickSaveWithoutUpdateSupData,
     onClickUpdataSupplierData,
+    onChangeImagesForLoad,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -698,6 +700,8 @@ export const EditOrderModal = observer(
 
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
+            imagesForLoad={imagesForLoad}
+            userInfo={userInfo}
             paymentDetailsPhotosToLoad={paymentDetailsPhotosToLoad}
             hsCode={hsCode}
             setHsCode={setHsCode}
@@ -717,6 +721,7 @@ export const EditOrderModal = observer(
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}
             setUsePriceInDollars={setUsePriceInDollars}
+            onChangeImagesForLoad={onChangeImagesForLoad}
             onClickHsCode={onClickHsCode}
             onClickUpdateButton={onClickUpdateButton}
             onClickSupplierPaymentButton={() => setSupplierPaymentModal(!supplierPaymentModal)}

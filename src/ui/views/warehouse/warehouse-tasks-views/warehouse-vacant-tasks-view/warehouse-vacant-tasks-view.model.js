@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
@@ -12,10 +13,13 @@ import {UserModel} from '@models/user-model'
 
 import {warehouseVacantTasksViewColumns} from '@components/table-columns/warehouse/vacant-tasks-columns'
 
+import {isStringInArray} from '@utils/checks'
 import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {objectToUrlQs} from '@utils/text'
 import {t} from '@utils/translations'
+
+const adaptationHiddenFields = ['barcode']
 
 export class WarehouseVacantViewModel {
   history = undefined
@@ -124,9 +128,15 @@ export class WarehouseVacantViewModel {
         this.densityModel = state.density.value
         this.columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
           ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
+          hide:
+            window.innerWidth < 1282
+              ? isStringInArray(adaptationHiddenFields, el?.field)
+              : state.columns?.lookup[el?.field]?.hide,
         }))
       }
+
+      console.log('state', state)
+      console.log('this.columnsModel', this.columnsModel)
     })
   }
 

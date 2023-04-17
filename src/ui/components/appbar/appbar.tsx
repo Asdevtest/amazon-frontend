@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // import NotificationsIcon from '@material-ui/icons/Notifications'
 import {cx} from '@emotion/css'
 import Brightness3RoundedIcon from '@mui/icons-material/Brightness3Rounded'
@@ -109,13 +110,13 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
 
   const savedLastCrumbAdditionalText = localStorage.getItem('last')
 
-  const renderNavbarButton = (
-    <Hidden mdUp>
-      <IconButton onClick={setDrawerOpen}>
-        <MenuIcon classes={{root: classNames.menuIcon}} />
-      </IconButton>
-    </Hidden>
-  )
+  // const renderNavbarButton = (
+  //   <Hidden lgUp>
+  //     <IconButton onClick={setDrawerOpen}>
+  //       <MenuIcon classes={{root: classNames.menuIcon}} />
+  //     </IconButton>
+  //   </Hidden>
+  // )
 
   useEffect(() => {
     if (location.pathname !== '/profile') {
@@ -160,7 +161,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
       <div className={classNames.mainWrapper}>
         <Paper className={classNames.appbar}>
           <div className={classNames.toolbar}>
-            {renderNavbarButton}
+            {/* {renderNavbarButton} */}
 
             <div className={classNames.titleWrapper}>
               <Typography className={classNames.title}>{title}</Typography>

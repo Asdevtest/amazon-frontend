@@ -1,6 +1,16 @@
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
 
+import {
+  ChatMessageDataBloggerProposalResultEditedContract,
+  ChatMessageDataCreateNewBloggerProposalContract,
+  ChatMessageDataDesignerProposalResultEditedContract,
+  ChatMessageDataProposalBloggerProposalResultEdited,
+  ChatMessageDataProposalCreateNewBloggerProposalContract,
+  ChatMessageDataProposalDesignerProposalResultEdited,
+  ChatMessageDataRequestDesignerProposalContract,
+} from '@models/chat-model/contracts/chat-message-data.contract'
+
 import {ChatHandlerName} from '../event-handler-mappings'
 
 export interface WebsocketChatServiceHandlers {
@@ -77,6 +87,10 @@ export enum ChatMessageType {
   'CREATED_NEW_PROPOSAL_REQUEST_DESCRIPTION' = 'CREATED_NEW_PROPOSAL_REQUEST_DESCRIPTION',
   'PROPOSAL_STATUS_CHANGED' = 'PROPOSAL_STATUS_CHANGED',
   'PROPOSAL_RESULT_EDITED' = 'PROPOSAL_RESULT_EDITED',
+  'CREATED_NEW_BLOGGER_PROPOSAL' = 'CREATED_NEW_BLOGGER_PROPOSAL',
+  'CREATED_NEW_DESIGNER_PROPOSAL' = 'CREATED_NEW_DESIGNER_PROPOSAL',
+  'BLOGGER_PROPOSAL_RESULT_EDITED' = 'BLOGGER_PROPOSAL_RESULT_EDITED',
+  'DESIGNER_PROPOSAL_RESULT_EDITED' = 'DESIGNER_PROPOSAL_RESULT_EDITED',
   'SYSTEM' = 'system:default',
   'USER' = 'user:default',
 }
@@ -95,6 +109,9 @@ export type ChatMessageDataUniversal =
   | ChatMessageDataAddUsersToGroupChat
   | ChatMessageRemoveUsersFromGroupChat
   | ChatMessagePatchInfoGroupChat
+  | ChatMessageDataCreateNewBloggerProposalContract
+  | ChatMessageDataBloggerProposalResultEditedContract
+  | ChatMessageDataDesignerProposalResultEditedContract
   | undefined
 
 export interface ChatMessageDataCreatedNewProposalProposalDescription {
@@ -145,7 +162,7 @@ export interface ChatMessageDataProposalStatusChanged {
 }
 
 export interface ChatMessageDataProposalResultEditedEdited {
-  linksToMediaFiles?: string[]
+  linksToMediaFiles?: {fileLink: string; commentByPerformer: string}[] | string[]
   result: string
 }
 
@@ -154,6 +171,78 @@ export interface ChatMessageDataProposalResultEditedRequest {
   price: number
   status: keyof typeof RequestStatus
   title: string
+  media?: {fileLink: string; commentByClient: string}[] | string[]
+}
+
+export interface ChatMessageDataRequestCreateNewBloggerProposal {
+  _id: string
+  price: number
+  status: keyof typeof RequestStatus
+  title: string
+
+  details: {conditions: string; linksToMediaFiles: [string]}
+
+  media: {fileLink: string; commentByClient: string}[]
+
+  createdBy: {_id: string}
+  timeoutAt: string
+  priceAmazon: number
+  cashBackInPercent: number
+}
+
+export interface ChatMessageDataRequestCreateNewDesignerProposal {
+  _id: string
+  price: number
+  status: keyof typeof RequestStatus
+  title: string
+
+  details: {conditions: string; linksToMediaFiles: [string]}
+  media: {fileLink: string; commentByClient: string}[]
+
+  createdBy: {_id: string}
+  timeoutAt: string
+  priceAmazon: number
+  cashBackInPercent: number
+}
+
+export interface ChatMessageDataRequestDesignerProposal {
+  asin: string
+}
+
+export interface ChatMessageDataProposalCreateNewBloggerProposal {
+  _id: string
+  comment: string
+  linksToMediaFiles: [string]
+  execution_time: number
+
+  price: number
+  status: keyof typeof RequestStatus
+  title: string
+}
+
+export interface ChatMessageDataProposalCreateNewDesignerProposal {
+  _id: string
+  comment: string
+  linksToMediaFiles: [string]
+  execution_time: number
+
+  price: number
+  status: keyof typeof RequestStatus
+  title: string
+}
+
+export interface ChatMessageDataProposalBloggerProposalResultEditedProposal {
+  _id: string
+  details: {amazonOrderId: string | null; linksToMediaFiles: [string]; publicationLinks: [string]; result: string}
+}
+
+export interface ChatMessageDataProposalDesignerProposalResultEditedProposal {
+  _id: string
+  comment: string
+
+  execution_time: number
+  title: string
+  media: {fileLink: string}[]
 }
 
 export interface ChatMessageDataProposalResultEditedProposal {
@@ -168,6 +257,24 @@ export interface ChatMessageDataProposalResultEdited {
   proposal: ChatMessageDataProposalResultEditedProposal
 }
 
+export interface ChatMessageDataCreateNewBloggerProposal {
+  request: ChatMessageDataProposalResultEditedRequest
+  proposal: ChatMessageDataProposalCreateNewBloggerProposalContract
+}
+
+export interface ChatMessageDataCreateNewDesignerProposal {
+  request: ChatMessageDataProposalResultEditedRequest
+  proposal: ChatMessageDataProposalCreateNewBloggerProposalContract
+}
+
+export interface ChatMessageDataBloggerProposalResultEdited {
+  proposal: ChatMessageDataProposalBloggerProposalResultEdited
+}
+
+export interface ChatMessageDataDesignerProposalResultEdited {
+  proposal: ChatMessageDataProposalDesignerProposalResultEdited
+  request: ChatMessageDataRequestDesignerProposalContract
+}
 export interface ChatUser {
   _id: string
   [x: string]: unknown

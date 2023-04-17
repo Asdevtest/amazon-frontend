@@ -44,8 +44,8 @@ Name | Type | Description | Notes
 **avgBSR** | **String** | Средний BSR | [optional] 
 **avgPrice** | **String** | Средняя цена | [optional] 
 **avgReviews** | **String** | Средний отзывы | [optional] 
-**redFlags** | **[String]** |  | [optional] 
-**tags** | **[String]** |  | [optional] 
+**redFlags** | [**[ApiV1ClientsProductsGuidRedFlags]**](ApiV1ClientsProductsGuidRedFlags.md) |  | [optional] 
+**tags** | [**[ApiV1BuyersProductsGuidTags]**](ApiV1BuyersProductsGuidTags.md) |  | [optional] 
 **checkednotes** | **String** | Комментарий к статусу проверки. | [optional] 
 
 

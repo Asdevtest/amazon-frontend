@@ -51,6 +51,6 @@ Name | Type | Description | Notes
 **avgReviews** | **String** | Средний отзывы | [optional] 
 **fourMonthesStock** | **Number** | Поле для калькуляции дозакупок | [optional] 
 **suppliersIds** | **[String]** | GUIDы поставщиков продукта | [optional] 
-**tags** | **[String]** |  | [optional] 
+**tags** | [**[ApiV1BuyersProductsGuidTags]**](ApiV1BuyersProductsGuidTags.md) |  | [optional] 
 
 

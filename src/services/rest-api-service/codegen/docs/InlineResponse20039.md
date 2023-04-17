@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | Гуид тега | [optional] 
-**title** | **String** | Тег | [optional] 
-**productCount** | **Number** | Кол-во продуктов, которые используют этот тег | [optional] 
+**products** | [**InlineResponse20039Products**](InlineResponse20039Products.md) |  | [optional] 
+**checking** | [**InlineResponse20039Checking**](InlineResponse20039Checking.md) |  | [optional] 
+**finances** | [**InlineResponse20035Finances**](InlineResponse20035Finances.md) |  | [optional] 
 
 

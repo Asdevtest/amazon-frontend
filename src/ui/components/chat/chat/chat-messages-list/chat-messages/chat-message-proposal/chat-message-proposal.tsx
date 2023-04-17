@@ -13,6 +13,7 @@ import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.con
 
 import {Button} from '@components/buttons/button'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {CustomTextEditor} from '@components/custom-text-editor'
 
 import {formatDateTimeHourAndMinutes} from '@utils/date-time'
 import {minsToTime, toFixedWithDollarSign} from '@utils/text'
@@ -73,7 +74,14 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
         </div>
         <div className={classNames.rightSideWrapper}>
           <div>
-            <PhotoAndFilesCarousel notToShowEmpty small files={message.images} width="352px" />
+            <PhotoAndFilesCarousel
+              notToShowEmpty
+              small
+              files={message.images}
+              width="352px"
+              withoutPhotos={undefined}
+              whithoutFiles={undefined}
+            />
           </div>
 
           <div className={classNames.footerWrapper}>

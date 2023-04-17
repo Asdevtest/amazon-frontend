@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -12,6 +13,7 @@ import {withStyles} from 'tss-react/mui'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {ProductAsinCell, SelectProductAsinCellWithourTitle} from '@components/data-grid-cells/data-grid-cells'
 import {SearchInput} from '@components/search-input'
 
 import {t} from '@utils/translations'
@@ -37,7 +39,15 @@ const WithSearchSelectRaw = observer(
     onClickSetDestinationFavourite,
     checkbox,
     currentShops,
+    searchOnlyFields,
+    asinSelect,
+    customSubMainWrapper,
+    customSearchInput,
+    grayBorder,
+    blackSelectedItem,
+    darkIcon,
     notCloseOneClick,
+    chosenItemNoHover,
   }) => {
     const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -62,11 +72,17 @@ const WithSearchSelectRaw = observer(
     useEffect(() => {
       if (nameSearchValue) {
         setDataToRender(
-          data
-            .slice()
-            .filter(el =>
-              searchFields.some(fieldName => el[fieldName]?.toLowerCase().includes(nameSearchValue.toLowerCase())),
-            ),
+          data.slice().filter(
+            el =>
+              searchFields?.some(fieldName => el[fieldName]?.toLowerCase()?.includes(nameSearchValue?.toLowerCase())) ||
+              searchOnlyFields?.some(fieldName => {
+                if (Array.isArray(el[fieldName])) {
+                  return el[fieldName][0]?.toLowerCase()?.includes(nameSearchValue?.toLowerCase())
+                } else {
+                  return el[fieldName]?.toLowerCase()?.includes(nameSearchValue?.toLowerCase())
+                }
+              }),
+          ),
         )
       } else {
         setDataToRender(data)
@@ -93,25 +109,37 @@ const WithSearchSelectRaw = observer(
 
     return (
       <ClickAwayListener mouseEvent="onMouseDown" onClickAway={handleClose}>
-        <div className={cx(classNames.root, {[classNames.disableRoot]: disabled})} style={width && {width}}>
-          <div className={classNames.mainWrapper}>
+        <div
+          className={cx(classNames.root, {
+            [classNames.selectHeight]: asinSelect,
+            [classNames.disableRoot]: disabled,
+          })}
+          style={width && {width}}
+        >
+          <div className={cx(classNames.mainWrapper, {[classNames.grayBorder]: grayBorder})}>
             <div
-              className={cx(classNames.chosenItem, {[classNames.disabledChosenItem]: disabled})}
+              className={cx(classNames.chosenItem, {
+                [classNames.disabledChosenItem]: disabled,
+                [classNames.chosenItemNoHover]: chosenItemNoHover,
+              })}
               onClick={e => {
                 e.stopPropagation()
                 !disabled && handleClick(e)
               }}
             >
               <Typography
-                className={cx(classNames.selectedItemName, {[classNames.disabledSelectedItemName]: disabled})}
+                className={cx(classNames.selectedItemName, {
+                  [classNames.disabledSelectedItemName]: disabled,
+                  [classNames.blackSelectedItem]: blackSelectedItem,
+                })}
               >
                 {selectedItemName}
               </Typography>
 
               {open ? (
-                <ArrowDropUpIcon className={classNames.icon} />
+                <ArrowDropUpIcon className={(cx(classNames.icon), {[classNames.darkIcon]: darkIcon})} />
               ) : (
-                <ArrowDropDownIcon className={classNames.icon} />
+                <ArrowDropDownIcon className={(cx(classNames.icon), {[classNames.darkIcon]: darkIcon})} />
               )}
             </div>
 
@@ -124,10 +152,13 @@ const WithSearchSelectRaw = observer(
               }}
               onClose={handleClose}
             >
-              <div className={classNames.subMainWrapper} style={widthPopover && {width: widthPopover || width}}>
+              <div
+                className={cx(classNames.subMainWrapper, customSubMainWrapper)}
+                style={widthPopover && {width: widthPopover || width}}
+              >
                 {!withoutSearch ? (
                   <SearchInput
-                    inputClasses={classNames.searchInput}
+                    inputClasses={cx(classNames.searchInput, customSearchInput)}
                     value={nameSearchValue}
                     placeholder={placeholder ? placeholder : t(TranslationKey.search)}
                     onChange={e => setNameSearchValue(e.target.value)}
@@ -193,6 +224,8 @@ const WithSearchSelectRaw = observer(
                               </Tooltip>
                             </>
                           ))}
+
+                          {asinSelect && <SelectProductAsinCellWithourTitle preventDefault product={el} />}
 
                           {favourites ? (
                             <StarOutlinedIcon

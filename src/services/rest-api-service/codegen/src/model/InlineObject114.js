@@ -13,6 +13,8 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1SuppliersBoxProperties from './ApiV1SuppliersBoxProperties';
+import ApiV1SuppliersPaymentMethods from './ApiV1SuppliersPaymentMethods';
+import ApiV1SuppliersPriceVariations from './ApiV1SuppliersPriceVariations';
 
 /**
  * The InlineObject114 model module.
@@ -66,8 +68,8 @@ class InlineObject114 {
             if (data.hasOwnProperty('multiplicity')) {
                 obj['multiplicity'] = ApiClient.convertToType(data['multiplicity'], 'Boolean');
             }
-            if (data.hasOwnProperty('paymentMethod')) {
-                obj['paymentMethod'] = ApiClient.convertToType(data['paymentMethod'], ['Number']);
+            if (data.hasOwnProperty('paymentMethods')) {
+                obj['paymentMethods'] = ApiClient.convertToType(data['paymentMethods'], [ApiV1SuppliersPaymentMethods]);
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
@@ -98,6 +100,9 @@ class InlineObject114 {
             }
             if (data.hasOwnProperty('boxProperties')) {
                 obj['boxProperties'] = ApiV1SuppliersBoxProperties.constructFromObject(data['boxProperties']);
+            }
+            if (data.hasOwnProperty('priceVariations')) {
+                obj['priceVariations'] = ApiClient.convertToType(data['priceVariations'], [ApiV1SuppliersPriceVariations]);
             }
         }
         return obj;
@@ -143,10 +148,9 @@ InlineObject114.prototype['minlot'] = undefined;
 InlineObject114.prototype['multiplicity'] = undefined;
 
 /**
- * Тип оплаты
- * @member {Array.<Number>} paymentMethod
+ * @member {Array.<module:model/ApiV1SuppliersPaymentMethods>} paymentMethods
  */
-InlineObject114.prototype['paymentMethod'] = undefined;
+InlineObject114.prototype['paymentMethods'] = undefined;
 
 /**
  * Массив картинок.
@@ -205,6 +209,11 @@ InlineObject114.prototype['productionTerm'] = undefined;
  * @member {module:model/ApiV1SuppliersBoxProperties} boxProperties
  */
 InlineObject114.prototype['boxProperties'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1SuppliersPriceVariations>} priceVariations
+ */
+InlineObject114.prototype['priceVariations'] = undefined;
 
 
 

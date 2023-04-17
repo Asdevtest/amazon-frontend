@@ -29,6 +29,7 @@ export const ChatMessageAddUsersToGroupChat: FC<Props> = ({message}) => {
         withAvatar={undefined}
         maxNameWidth={undefined}
         customStyles={undefined}
+        customClassNames={undefined}
       />
 
       <Typography className={classNames.groupText}>{t(TranslationKey['added to the group chat'])}</Typography>
@@ -45,6 +46,7 @@ export const ChatMessageAddUsersToGroupChat: FC<Props> = ({message}) => {
             withAvatar={undefined}
             maxNameWidth={undefined}
             customStyles={undefined}
+            customClassNames={undefined}
           />
         ))}
       </div>

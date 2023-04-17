@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **amount** | **Number** | кол-во | 
 **minlot** | **Number** | Минимальный лот. | 
 **multiplicity** | **Boolean** | Имеет ли обязательный делитель на кол-во в заказе поставщик | [optional] 
-**paymentMethod** | **[Number]** | Тип оплаты | [optional] 
+**paymentMethods** | [**[ApiV1SuppliersPaymentMethods]**](ApiV1SuppliersPaymentMethods.md) |  | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
 **comment** | **String** | Комментарий | 
 **yuanRate** | **Number** | Курс доллара к юаню поставщика.  | [optional] 
@@ -21,5 +21,6 @@ Name | Type | Description | Notes
 **batchTotalCostInYuan** | **Number** | Цена партии, yuan | [optional] 
 **productionTerm** | **Number** |  | [optional] 
 **boxProperties** | [**ApiV1SuppliersBoxProperties**](ApiV1SuppliersBoxProperties.md) |  | [optional] 
+**priceVariations** | [**[ApiV1SuppliersPriceVariations]**](ApiV1SuppliersPriceVariations.md) |  | [optional] 
 
 

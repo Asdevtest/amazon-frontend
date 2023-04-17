@@ -76,6 +76,7 @@ export const IdeaNotification: FC<IdeaNotificationProps> = props => {
               withAvatar={undefined}
               maxNameWidth={undefined}
               customStyles={undefined}
+              customClassNames={undefined}
             />
             <Typography className={classNames.messageText}>
               {t(TranslationKey['updated data on idea to product']) + ':'}

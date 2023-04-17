@@ -51,6 +51,9 @@ class ApiV1RequestProposalsCustomByRequestIdGuidRequest {
             if (data.hasOwnProperty('humanFriendlyId')) {
                 obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
             }
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            }
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
@@ -66,6 +69,12 @@ class ApiV1RequestProposalsCustomByRequestIdGuidRequest {
  * @member {Number} humanFriendlyId
  */
 ApiV1RequestProposalsCustomByRequestIdGuidRequest.prototype['humanFriendlyId'] = undefined;
+
+/**
+ * ASIN
+ * @member {String} asin
+ */
+ApiV1RequestProposalsCustomByRequestIdGuidRequest.prototype['asin'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy

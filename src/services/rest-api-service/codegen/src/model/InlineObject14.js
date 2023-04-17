@@ -56,8 +56,14 @@ class InlineObject14 {
             if (data.hasOwnProperty('volumeWeightDivide')) {
                 obj['volumeWeightDivide'] = ApiClient.convertToType(data['volumeWeightDivide'], 'Number');
             }
+            if (data.hasOwnProperty('trackingNumber')) {
+                obj['trackingNumber'] = ApiClient.convertToType(data['trackingNumber'], 'String');
+            }
             if (data.hasOwnProperty('actualShippingCost')) {
                 obj['actualShippingCost'] = ApiClient.convertToType(data['actualShippingCost'], 'Number');
+            }
+            if (data.hasOwnProperty('arrivalDate')) {
+                obj['arrivalDate'] = ApiClient.convertToType(data['arrivalDate'], 'Number');
             }
         }
         return obj;
@@ -85,10 +91,22 @@ InlineObject14.prototype['calculationMethod'] = undefined;
 InlineObject14.prototype['volumeWeightDivide'] = undefined;
 
 /**
+ * Трек номер партии
+ * @member {String} trackingNumber
+ */
+InlineObject14.prototype['trackingNumber'] = undefined;
+
+/**
  * Настоящая стоимость доставки
  * @member {Number} actualShippingCost
  */
 InlineObject14.prototype['actualShippingCost'] = undefined;
+
+/**
+ * Время epoch
+ * @member {Number} arrivalDate
+ */
+InlineObject14.prototype['arrivalDate'] = undefined;
 
 
 

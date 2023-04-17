@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestProposalsGuidResultToCorrectMedia from './ApiV1RequestProposalsGuidResultToCorrectMedia';
 
 /**
  * The InlineObject83 model module.
@@ -59,6 +60,9 @@ class InlineObject83 {
             if (data.hasOwnProperty('timeLimitInMinutes')) {
                 obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
             }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [ApiV1RequestProposalsGuidResultToCorrectMedia]);
+            }
         }
         return obj;
     }
@@ -88,6 +92,11 @@ InlineObject83.prototype['linksToMediaFiles'] = undefined;
  * @member {Number} timeLimitInMinutes
  */
 InlineObject83.prototype['timeLimitInMinutes'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1RequestProposalsGuidResultToCorrectMedia>} media
+ */
+InlineObject83.prototype['media'] = undefined;
 
 
 

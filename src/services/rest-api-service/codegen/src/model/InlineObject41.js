@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BuyersProductsGuidTags from './ApiV1BuyersProductsGuidTags';
+import ApiV1ClientsProductsGuidRedFlags from './ApiV1ClientsProductsGuidRedFlags';
 
 /**
  * The InlineObject41 model module.
@@ -186,10 +188,10 @@ class InlineObject41 {
                 obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
             if (data.hasOwnProperty('redFlags')) {
-                obj['redFlags'] = ApiClient.convertToType(data['redFlags'], ['String']);
+                obj['redFlags'] = ApiClient.convertToType(data['redFlags'], [ApiV1ClientsProductsGuidRedFlags]);
             }
             if (data.hasOwnProperty('tags')) {
-                obj['tags'] = ApiClient.convertToType(data['tags'], ['String']);
+                obj['tags'] = ApiClient.convertToType(data['tags'], [ApiV1BuyersProductsGuidTags]);
             }
         }
         return obj;
@@ -466,12 +468,12 @@ InlineObject41.prototype['fourMonthesStock'] = undefined;
 InlineObject41.prototype['shopIds'] = undefined;
 
 /**
- * @member {Array.<String>} redFlags
+ * @member {Array.<module:model/ApiV1ClientsProductsGuidRedFlags>} redFlags
  */
 InlineObject41.prototype['redFlags'] = undefined;
 
 /**
- * @member {Array.<String>} tags
+ * @member {Array.<module:model/ApiV1BuyersProductsGuidTags>} tags
  */
 InlineObject41.prototype['tags'] = undefined;
 

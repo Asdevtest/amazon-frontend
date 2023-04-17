@@ -9,6 +9,9 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: 30,
     width: '630px',
     gap: '20px',
+    [theme.breakpoints.down(1282)]: {
+      width: '100%',
+    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
@@ -47,6 +50,9 @@ export const useClassNames = makeStyles()(theme => ({
     overflow: 'hidden',
     overflowY: 'auto',
     color: theme.palette.text.general,
+    [theme.breakpoints.down(1282)]: {
+      width: '100%',
+    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
@@ -129,6 +135,10 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: '25px',
+    [theme.breakpoints.down(1282)]: {
+      width: 'fit-content',
+      gap: 5,
+    },
     [theme.breakpoints.down(768)]: {
       gap: '10px',
     },
@@ -195,6 +205,9 @@ export const useClassNames = makeStyles()(theme => ({
   attributeHeaderWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(1282)]: {
+      justifyContent: 'space-between',
+    },
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       alignItems: 'end',
@@ -221,6 +234,11 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '15px',
     alignItems: 'center',
     marginTop: '10px',
+
+    [theme.breakpoints.down(1282)]: {
+      width: 150,
+      gap: 0,
+    },
     [theme.breakpoints.down(768)]: {
       width: '200px',
     },
@@ -229,6 +247,15 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: '12px',
     alignItems: 'center',
+
+    [theme.breakpoints.down(1282)]: {
+      gap: 5,
+    },
+  },
+  checkboxContainer: {
+    width: 'fit-content !important',
+    margin: 0,
+    padding: 0,
   },
   attributeFooterWrapper: {
     display: 'flex',

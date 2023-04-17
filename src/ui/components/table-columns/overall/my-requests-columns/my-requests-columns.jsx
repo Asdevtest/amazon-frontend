@@ -1,10 +1,12 @@
 import React from 'react'
 
+import {columnnsKeys} from '@constants/data-grid-columns-keys'
+import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
+  AsinCell,
   MultilineRequestStatusCell,
-  MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ShortDateCell,
@@ -13,24 +15,43 @@ import {
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const myRequestsViewColumns = languageTag => [
+export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <ShortDateCell params={params} />,
-    width: 120,
+    width: 117,
     type: 'date',
+  },
+
+  {
+    field: 'humanFriendlyId',
+    headerName: t(TranslationKey.ID),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
+    width: 62,
   },
 
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Status)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
 
     renderCell: params => <MultilineRequestStatusCell languageTag={languageTag} status={params.value} />,
-    width: 160,
+    width: 161,
+    filterable: false,
+
+    columnKey: columnnsKeys.shared.MY_REQUESTS_ORDERS_STATUS,
   },
 
   {
@@ -38,8 +59,10 @@ export const myRequestsViewColumns = languageTag => [
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
-    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
-    width: 230,
+    renderCell: params => (
+      <MultilineTextCell withTooltip leftAlign threeLines={params.value.length > 50} text={params.value} />
+    ),
+    width: 228,
   },
 
   {
@@ -47,8 +70,19 @@ export const myRequestsViewColumns = languageTag => [
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
 
-    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
-    width: 145,
+    renderCell: params => (
+      <MultilineTextCell leftAlign text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value])} />
+    ),
+    width: 146,
+  },
+
+  {
+    field: 'asin',
+    headerName: t(TranslationKey.ASIN),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
+
+    renderCell: params => <AsinCell text={params.value} product={params.row.originalData} />,
+    width: 123,
   },
 
   {
@@ -75,9 +109,7 @@ export const myRequestsViewColumns = languageTag => [
     field: 'allProposals',
     headerName: t(TranslationKey['Total proposals']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total proposals'])} />, // ПРИМЕР МНОГОСТРОЧНОГО ХЕДЕРА
-    renderCell: params => (
-      <MultilineTextCell text={`${params.value} / ${params.row.originalData.maxAmountOfProposals} `} />
-    ),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 115,
   },
 

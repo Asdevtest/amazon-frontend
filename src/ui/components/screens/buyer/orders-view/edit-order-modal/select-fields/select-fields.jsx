@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import AddIcon from '@mui/icons-material/Add'
+import AutorenewIcon from '@mui/icons-material/Autorenew'
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import {Box, Checkbox, Grid, Link, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
@@ -11,6 +13,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {CopyValue} from '@components/copy-value/copy-value'
+import {CustomCarousel} from '@components/custom-carousel'
 import {PhotoAndFilesCarousel, PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field/field'
@@ -25,6 +28,7 @@ import {
 } from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {convertDaysToSeconds, formatDateWithoutTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {
   checkAndMakeAbsoluteUrl,
   getFullTariffTextForBoxOrOrder,
@@ -33,10 +37,13 @@ import {
   toFixedWithYuanSign,
 } from '@utils/text'
 import {t} from '@utils/translations'
+import {downloadFileByLink} from '@utils/upload-files'
 
 import {useClassNames} from './select-fields.style'
 
 export const SelectFields = ({
+  userInfo,
+  imagesForLoad,
   paymentDetailsPhotosToLoad,
   yuanToDollarRate,
   usePriceInDollars,
@@ -58,10 +65,9 @@ export const SelectFields = ({
   setCheckIsPlanningPrice,
   onClickUpdateButton,
   onClickSupplierPaymentButton,
+  onChangeImagesForLoad,
 }) => {
   const {classes: classNames} = useClassNames()
-
-  const [showPhotosModal, setShowPhotosModal] = useState(false)
 
   const onChangeHsField = fieldName => event => {
     const newFormFields = {...hsCode}
@@ -69,15 +75,102 @@ export const SelectFields = ({
 
     setHsCode(newFormFields)
   }
+  console.log('order', order)
+  console.log('imagesForLoad', imagesForLoad)
 
-  console.log('@', orderFields.orderSupplier.productionTerm)
+  const [showImageModal, setShowImageModal] = useState(false)
+
+  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+
+  const onUploadFile = imageIndex => async evt => {
+    if (evt.target.files.length === 0) {
+      return
+    } else {
+      const filesArr = Array.from(evt.target.files)
+
+      evt.preventDefault()
+
+      const readyFilesArr = filesArr.map(el => ({
+        data_url: URL.createObjectURL(el),
+        file: new File([el], el.name?.replace(/ /g, ''), {
+          type: el.type,
+          lastModified: el.lastModified,
+        }),
+      }))
+
+      onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0] : el)))
+      setBigImagesOptions(() => ({
+        ...bigImagesOptions,
+        images: imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0] : el)),
+      }))
+    }
+  }
+
+  const onClickRemoveImageObj = imageIndex => {
+    const newArr = imagesForLoad.filter((el, i) => i !== imageIndex)
+
+    onChangeImagesForLoad(newArr)
+    setBigImagesOptions(() => ({
+      ...bigImagesOptions,
+      imgIndex: bigImagesOptions.imgIndex - 1 < 0 ? 0 : bigImagesOptions.imgIndex - 1,
+      images: newArr,
+    }))
+
+    if (!newArr.length) {
+      setShowImageModal(false)
+    }
+  }
+
+  const bigImagesModalControls = (imageIndex /* , image */) => (
+    <>
+      <Button danger className={cx(classNames.imagesModalBtn)} onClick={() => onClickRemoveImageObj(imageIndex)}>
+        <DeleteOutlineOutlinedIcon />
+      </Button>
+
+      <Button className={cx(classNames.imagesModalBtn)}>
+        <AutorenewIcon />
+        <input type={'file'} className={classNames.pasteInput} defaultValue={''} onChange={onUploadFile(imageIndex)} />
+      </Button>
+    </>
+  )
 
   return (
     <Grid container justifyContent="space-between" className={classNames.container}>
       <Grid item>
         <div className={classNames.photoAndFieldsWrapper}>
           <div className={classNames.photoWrapper}>
-            <PhotoCarousel isAmazonPhoto files={order.product.images} />
+            {/* <PhotoCarousel isAmazonPhoto files={order.product.images} /> */}
+
+            {!!imagesForLoad.length && (
+              <div className={classNames.carouselWrapper}>
+                <CustomCarousel>
+                  {imagesForLoad.map((imageHash, index) => (
+                    <img
+                      key={index}
+                      alt=""
+                      className={classNames.carouselImage}
+                      // src={getAmazonImageUrl(imageHash, true)}
+
+                      src={
+                        typeof imageHash === 'string'
+                          ? getAmazonImageUrl(imageHash, true)
+                          : imageHash?.file.type.includes('image')
+                          ? imageHash?.data_url
+                          : '/assets/icons/file.png'
+                      }
+                      onClick={() => {
+                        setShowImageModal(!showImageModal)
+                        setBigImagesOptions({
+                          images:
+                            /* checkIsBuyer(curUserRole) || checkIsAdmin(curUserRole) ? photos : photos */ imagesForLoad,
+                          imgIndex: index,
+                        })
+                      }}
+                    />
+                  ))}
+                </CustomCarousel>
+              </div>
+            )}
           </div>
 
           <div>
@@ -680,10 +773,20 @@ export const SelectFields = ({
         <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
       )}
 
-      <BigImagesModal
+      {/* <BigImagesModal
         openModal={showPhotosModal}
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={order.images || []}
+      /> */}
+
+      <BigImagesModal
+        showPreviews
+        openModal={showImageModal}
+        setOpenModal={() => setShowImageModal(!showImageModal)}
+        images={bigImagesOptions.images}
+        imgIndex={bigImagesOptions.imgIndex}
+        setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
+        controls={bigImagesModalControls}
       />
     </Grid>
   )
