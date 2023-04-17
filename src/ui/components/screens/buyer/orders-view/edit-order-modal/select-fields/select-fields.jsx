@@ -3,17 +3,12 @@ import {cx} from '@emotion/css'
 import AddIcon from '@mui/icons-material/Add'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import {Box, Checkbox, Grid, Link, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
 
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
@@ -31,14 +26,7 @@ import {
   calcOrderTotalPriceInYuann,
   calcPriceForItem,
 } from '@utils/calculation'
-import {
-  checkIsAdmin,
-  checkIsBuyer,
-  checkIsClient,
-  checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
-  checkIsResearcher,
-  checkIsSupervisor,
-} from '@utils/checks'
+import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {convertDaysToSeconds, formatDateWithoutTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {
@@ -94,10 +82,6 @@ export const SelectFields = ({
 
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
-  const onClickDownloadBtn = image => {
-    downloadFileByLink(typeof image === 'string' ? getAmazonImageUrl(image, true) : image.image.data_url)
-  }
-
   const onUploadFile = imageIndex => async evt => {
     if (evt.target.files.length === 0) {
       return
@@ -137,28 +121,17 @@ export const SelectFields = ({
     }
   }
 
-  const bigImagesModalControls = (imageIndex, image) => (
-    <div className={cx(classNames.imagesModalBtnsWrapper)}>
-      <>
-        <Button danger className={cx(classNames.imagesModalBtn)} onClick={() => onClickRemoveImageObj(imageIndex)}>
-          <DeleteOutlineOutlinedIcon />
-        </Button>
-
-        <Button className={cx(classNames.imagesModalBtn)}>
-          <AutorenewIcon />
-          <input
-            type={'file'}
-            className={classNames.pasteInput}
-            defaultValue={''}
-            onChange={onUploadFile(imageIndex)}
-          />
-        </Button>
-      </>
-
-      <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickDownloadBtn(image)}>
-        <DownloadOutlinedIcon />
+  const bigImagesModalControls = (imageIndex /* , image */) => (
+    <>
+      <Button danger className={cx(classNames.imagesModalBtn)} onClick={() => onClickRemoveImageObj(imageIndex)}>
+        <DeleteOutlineOutlinedIcon />
       </Button>
-    </div>
+
+      <Button className={cx(classNames.imagesModalBtn)}>
+        <AutorenewIcon />
+        <input type={'file'} className={classNames.pasteInput} defaultValue={''} onChange={onUploadFile(imageIndex)} />
+      </Button>
+    </>
   )
 
   return (
