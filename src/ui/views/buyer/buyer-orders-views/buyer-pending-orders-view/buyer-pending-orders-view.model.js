@@ -6,6 +6,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {routsPathes} from '@constants/routs-pathes'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {patchSuppliers} from '@constants/white-list'
 
 import {BoxesModel} from '@models/boxes-model'
 import {BuyerModel} from '@models/buyer-model'
@@ -492,12 +493,12 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({supplier, photosOfSupplier, productId}) {
+  async onClickSaveSupplierBtn({supplier, photosOfSupplier, productId, editPhotosOfSupplier}) {
     try {
-      this.readyImages = []
+      this.clearReadyImages()
 
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+      if (editPhotosOfSupplier.length) {
+        await onSubmitPostImages.call(this, {images: editPhotosOfSupplier, type: 'readyImages'})
       }
 
       supplier = {
@@ -506,9 +507,20 @@ export class BuyerMyOrdersViewModel {
 
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
-        images: supplier.images.concat(this.readyImages),
+        images: this.readyImages,
       }
-      const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
+
+      this.clearReadyImages()
+
+      if (photosOfSupplier.length) {
+        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+        supplier = {
+          ...supplier,
+          images: [...supplier.images, ...this.readyImages],
+        }
+      }
+
+      const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
 
       if (supplier._id) {
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)

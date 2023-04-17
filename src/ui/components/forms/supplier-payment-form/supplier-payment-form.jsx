@@ -30,18 +30,9 @@ export const SupplierPaymentForm = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('editPaymentDetailsPhotos', editPaymentDetailsPhotos)
-
   const [files, setFiles] = useState(uploadedFiles || [])
 
-  const [editPhotos, setEditPhotos] = useState(editPaymentDetailsPhotos)
-
-  const updateImagesForLoad = images => {
-    if (!Array.isArray(images)) {
-      return
-    }
-    setEditPhotos([...editPaymentDetailsPhotos, ...images.map(el => getAmazonImageUrl(el, true))])
-  }
+  const [editPhotos, setEditPhotos] = useState(editPaymentDetailsPhotos || [])
 
   const onChangeDetailsPhotosToLoad = value => {
     setEditPhotos(value)
