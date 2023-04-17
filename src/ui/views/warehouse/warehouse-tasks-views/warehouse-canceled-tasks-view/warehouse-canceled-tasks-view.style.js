@@ -1,6 +1,11 @@
 export const styles = theme => ({
   tableWrapper: {
+    // height: 'calc(100vh - 180px)',
     height: 'calc(100vh - 250px)',
+
+    [theme.breakpoints.down(1282)]: {
+      height: 'calc(100vh - 250px)',
+    },
   },
   modalMessageWrapper: {
     display: 'flex',

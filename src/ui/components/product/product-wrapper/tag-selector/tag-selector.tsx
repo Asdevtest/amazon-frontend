@@ -4,8 +4,6 @@ import TextField from '@mui/material/TextField'
 
 import React, {FC, useEffect, useState} from 'react'
 
-import {AddOutlined} from '@material-ui/icons'
-
 import {GeneralModel} from '@models/general-model'
 
 import {useTagSelectorStyles} from '@components/product/product-wrapper/tag-selector/tag-selector.styles'
@@ -55,7 +53,7 @@ export const TagSelector: FC<TagSelectorProps> = props => {
       setSelectedTags(newValue)
     } else {
       GeneralModel.createTag(selectValue!.title).then(res => {
-        newValue = [...selectedTags, {title: selectValue?.title.replace(prefix, ''), _id: res._id} as Tag]
+        newValue = [...selectedTags, {title: selectValue?.title, _id: res._id} as Tag]
         setSelectedTags(newValue)
         getTags().then(value => setTagList(value))
       })
@@ -71,12 +69,25 @@ export const TagSelector: FC<TagSelectorProps> = props => {
           <Autocomplete
             disablePortal
             freeSolo
+            autoSelect
             id="combo-box-demo"
             options={tagList}
-            getOptionLabel={el => prefix + (typeof el === 'string' ? el : el.title).replace(prefix, '')}
-            sx={{width: 300}}
-            renderInput={params => <TextField {...params} label={placeholder} />}
-            noOptionsText={'Not found'}
+            getOptionLabel={el => (typeof el === 'string' ? el : el.title)}
+            sx={{width: '100%', minWidth: 300}}
+            renderInput={params => (
+              <TextField
+                {...params}
+                // InputProps={{
+                //   startAdornment: selectValue ? <InputAdornment position="start">{prefix}</InputAdornment> : null,
+                // }}
+                style={{width: '100%'}}
+                label={placeholder}
+                onInput={(event: any) => {
+                  event.target.value = event?.target.value.slice(0, 75) // Ограничиваем длину ввода
+                }}
+              />
+            )}
+            renderOption={(_, option) => <li {..._}>{prefix + option.title}</li>}
             value={selectValue}
             onChange={(_, value) => setSelectValue(typeof value === 'string' ? ({title: value} as Tag) : value)}
           />
@@ -85,7 +96,7 @@ export const TagSelector: FC<TagSelectorProps> = props => {
             disabled={!selectValue?.title.length || selectedTags.some(el => el.title === selectValue?.title)}
             onClick={handleAddTags}
           >
-            <AddOutlined fontSize="inherit" />
+            <img src="/assets/icons/addTag.svg" alt="+" />
           </button>
         </div>
       )}
@@ -93,10 +104,12 @@ export const TagSelector: FC<TagSelectorProps> = props => {
       <div className={styles.tagList}>
         {selectedTags.map(el => (
           <div key={el._id} className={styles.tagListItem}>
-            {prefix + el.title}
+            <p>{prefix + el.title}</p>
             {isEditMode && (
               <button className={styles.removeTeg} onClick={() => handleRemoveTags(el)}>
-                <CloseIcon fontSize="inherit" />
+                <div>
+                  <CloseIcon fontSize="inherit" />
+                </div>
               </button>
             )}
           </div>

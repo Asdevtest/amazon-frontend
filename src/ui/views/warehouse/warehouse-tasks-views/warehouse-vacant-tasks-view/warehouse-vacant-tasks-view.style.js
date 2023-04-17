@@ -19,7 +19,12 @@ export const styles = theme => ({
   // },
 
   tableWrapper: {
+    // height: 'calc(100vh - 180px)',
     height: 'calc(100vh - 250px)',
+
+    [theme.breakpoints.down(1282)]: {
+      height: 'calc(100vh - 250px)',
+    },
   },
   root: {
     border: '0 !important',
@@ -29,11 +34,30 @@ export const styles = theme => ({
     backgroundColor: theme.palette.background.general,
   },
 
+  columnHeaderDraggableContainer: {
+    flexDirection: 'row !important',
+  },
+  columnHeaderTitleContainer: {
+    flexDirection: 'row !important',
+    display: 'flex !important',
+    alignItems: 'center !important',
+  },
+  iconSeparator: {
+    padding: '0 1px',
+  },
+
   headerWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
+    [theme.breakpoints.down(1282)]: {},
+  },
+
+  alignmentUnit: {
+    [theme.breakpoints.down(1282)]: {
+      display: 'none',
+    },
   },
 
   footerContainer: {

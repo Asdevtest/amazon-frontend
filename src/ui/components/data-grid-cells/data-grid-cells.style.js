@@ -356,6 +356,11 @@ export const styles = theme => ({
     maxHeight: '30px',
     height: '100%',
     objectPosition: 'center',
+
+    [theme.breakpoints.down(1282)]: {
+      width: 39,
+      height: 39,
+    },
   },
   descriptionWrapper: {
     display: 'flex',
@@ -392,6 +397,10 @@ export const styles = theme => ({
     gap: 5,
 
     maxHeight: 200,
+
+    [theme.breakpoints.down(1282)]: {
+      gridTemplateColumns: 'none',
+    },
   },
 
   isOneBoxWrapper: {
@@ -435,6 +444,12 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     gap: '2px',
+
+    [theme.breakpoints.down(1282)]: {
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
   },
 
   gridBoxWrapper: {
@@ -497,13 +512,35 @@ export const styles = theme => ({
   },
 
   rowCancelBtn: {
-    height: 30,
-    padding: '0 27px',
+    height: '40px',
+    width: '166px',
+    // color: '#fff',
+    // backgroundColor: '#ff0000',
+    // '&:hover': {
+    //   backgroundColor: '#c51a1c',
+    //   '@media (hover: none)': {
+    //     backgroundColor: '#c51a1c',
+    //   },
+    // },
+    // '&$disabled': {
+    //   backgroundColor: 'rgba(210, 35, 35, 0.5)',
+    // },
+    [theme.breakpoints.down(1282)]: {
+      height: 30,
+      width: 90,
+    },
+    // height: 30,
+    // padding: '0 27px',
   },
 
   warehouseMyTasksSuccessBtn: {
     height: '40px',
     width: '166px',
+
+    [theme.breakpoints.down(1282)]: {
+      height: 30,
+      width: 90,
+    },
   },
 
   marginRightBtn: {
@@ -555,8 +592,15 @@ export const styles = theme => ({
   normDateCellTypo: {
     fontSize: '10px',
     fontWeight: '600',
-
     textAlign: 'center',
+
+    whiteSpace: 'pre-wrap',
+
+    [theme.breakpoints.down(1282)]: {
+      fontWeight: 400,
+      fontSize: 12,
+      lineHeight: '16px',
+    },
   },
 
   shortDateCellTypo: {
@@ -929,17 +973,17 @@ export const styles = theme => ({
     textAlign: 'center',
     whiteSpace: 'normal',
 
-    // textOverflow: 'ellipsis',
-    // overflow: 'hidden',
-    // whiteSpace: 'nowrap',
-    // overflow: 'hidden',
-
-    // color: theme.palette.text.general,
     color: theme.palette.text.general,
 
     fontWeight: '600',
     fontSize: '12px',
     lineHeight: '14px',
+  },
+
+  adaptText: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 
   headerText: {
@@ -1186,6 +1230,14 @@ export const styles = theme => ({
     display: 'flex',
     width: '175px',
     height: '40px',
+
+    [theme.breakpoints.down(1282)]: {
+      width: 128,
+      height: 30,
+      fontWeight: 400,
+      fontSize: 13,
+      lineHeight: '18px',
+    },
   },
 
   smallActionBtn: {
@@ -1416,6 +1468,11 @@ export const styles = theme => ({
     warehouseMyTasksCancelBtn: {
       width: '114px',
       height: '36px',
+
+      [theme.breakpoints.down(1282)]: {
+        height: 30,
+        width: 90,
+      },
     },
   },
 
@@ -1577,14 +1634,21 @@ export const styles = theme => ({
       height: '100%',
     },
 
+    // nativeSelect: {
+    //   [theme.breakpoints.down(1282)]: {
+    //     width: 108,
+    //   },
+    //   // width: '210px',
+    //   '& > div': {
+    //     display: 'flex',
+    //     justifyContent: 'space-between',
+    //     alignItems: 'center',
+    //   },
+    // },
     stringListMenuWrapper: {
       width: 150,
       padding: '10px',
       maxHeight: 400,
-    },
-
-    nativeSelect: {
-      // width: '210px',
     },
 
     colorYellow: {
@@ -1657,22 +1721,65 @@ export const styles = theme => ({
   attributeLink: {
     color: theme.palette.text.general,
   },
-  attributeMissing: {
-    color: theme.palette.text.second,
-    nativeSelect: {
-      // width: '210px',
-      '& > div': {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      },
+  nativeSelect: {
+    [theme.breakpoints.down(1282)]: {
+      width: 108,
+    },
+    // width: '210px',
+    '& > div': {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
     },
   },
+  attributeMissing: {
+    color: theme.palette.text.second,
+    // nativeSelect: {
+    //   // width: '210px',
+    //   '& > div': {
+    //     display: 'flex',
+    //     justifyContent: 'space-between',
+    //     alignItems: 'center',
+    //   },
+    // },
+  },
 
+  colorRed: {
+    color: '#FF1616 !important',
+  },
+
+  colorGreen: {
+    color: '#00B746 !important',
+  },
+  operationTypeText: {
+    [theme.breakpoints.down(1282)]: {
+      fontWeight: 400,
+      fontSize: 14,
+      lineHeight: '16px',
+    },
+  },
   ratingScore: {
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
+  },
+  bigBoxSvg: {
+    [theme.breakpoints.down(1282)]: {
+      width: 47,
+      height: 51,
+    },
+  },
+  boxArrowSvg: {
+    [theme.breakpoints.down(1282)]: {
+      width: 22,
+      height: 22,
+    },
+  },
+  boxEditSvg: {
+    [theme.breakpoints.down(1282)]: {
+      width: 22,
+      height: 22,
+    },
   },
 
   ChangeInputCommentCellWrapper: {
@@ -1696,7 +1803,16 @@ export const styles = theme => ({
   },
 
   dapBtn: {
-    padding: '6px 44px',
+    padding: '0px 44px',
+    height: 30,
+    fontSize: '14px',
+    lineHeight: 1,
+    span: {
+      maxWidth: '90px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+    },
   },
   priceCellWrapper: {
     width: '100%',

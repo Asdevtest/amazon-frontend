@@ -25,6 +25,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
         <Field
           inputProps={{maxLength: 6}}
           error={Number(box.lengthCmWarehouse) === 0 && true}
+          className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
           labelClasses={classNames.label}
           label={t(TranslationKey.Length) + ': '}
@@ -36,6 +37,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
           inputProps={{maxLength: 6}}
           error={Number(box.heightCmWarehouse) === 0 && true}
           labelClasses={classNames.label}
+          className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey.Height) + ': '}
           value={box.heightCmWarehouse}
@@ -44,6 +46,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
 
         <Field
           disabled
+          className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey['Volume weight']) + ', ' + t(TranslationKey.Kg) + ': '}
           labelClasses={classNames.label}
@@ -64,6 +67,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
         <Field
           inputProps={{maxLength: 6}}
           error={Number(box.widthCmWarehouse) === 0 && true}
+          className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
           labelClasses={classNames.label}
           label={t(TranslationKey.Width) + ': '}
@@ -74,6 +78,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
         <Field
           inputProps={{maxLength: 6}}
           error={Number(box.weighGrossKgWarehouse) === 0 && true}
+          className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
           labelClasses={classNames.label}
           label={t(TranslationKey.Weight) + ', ' + t(TranslationKey.Kg) + ': '}
@@ -83,6 +88,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
 
         <Field
           disabled
+          className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey['Final weight']) + ', ' + t(TranslationKey.Kg) + ': '}
           labelClasses={classNames.label}
@@ -106,158 +112,6 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
   )
 }
 
-// const AttributesEditBlock = ({
-//   box,
-//   setNewBoxField,
-//   volumeWeightCoefficient,
-//   sizeSetting,
-//   isShippingSizes,
-
-//   isNoActive,
-// }) => {
-//   const {classes: classNames} = useClassNames()
-//   return (
-//     <div className={classNames.numberInputFieldsBlocksWrapper}>
-//       <div className={classNames.numberInputFieldsWrapper}>
-//         <Field
-//           disabled={isNoActive}
-//           inputProps={{maxLength: 6}}
-//           error={
-//             Number(isShippingSizes ? box.deliveryLength : box.lengthCmWarehouse) === 0 &&
-//             !isNoActive &&
-//             !box.fitsInitialDimensions &&
-//             true
-//           }
-//           containerClasses={classNames.numberInputField}
-//           labelClasses={classNames.label}
-//           label={t(TranslationKey.Length) + ': '}
-//           value={isShippingSizes ? box.deliveryLength : box.lengthCmWarehouse}
-//           onChange={setNewBoxField(isShippingSizes ? 'deliveryLength' : 'lengthCmWarehouse')}
-//         />
-
-//         <Field
-//           disabled={isNoActive}
-//           inputProps={{maxLength: 6}}
-//           error={
-//             Number(isShippingSizes ? box.deliveryHeight : box.heightCmWarehouse) === 0 &&
-//             !isNoActive &&
-//             !box.fitsInitialDimensions &&
-//             true
-//           }
-//           labelClasses={classNames.label}
-//           containerClasses={classNames.numberInputField}
-//           label={t(TranslationKey.Height) + ': '}
-//           value={isShippingSizes ? box.deliveryHeight : box.heightCmWarehouse}
-//           onChange={setNewBoxField(isShippingSizes ? 'deliveryHeight' : 'heightCmWarehouse')}
-//         />
-
-//         <Field
-//           disabled
-//           containerClasses={classNames.numberInputField}
-//           label={t(TranslationKey['Volume weight']) + ', ' + t(TranslationKey.Kg) + ': '}
-//           labelClasses={classNames.label}
-//           value={
-//             isShippingSizes
-//               ? toFixed(
-//                   (sizeSetting === sizesType.INCHES
-//                     ? box.deliveryHeight *
-//                       inchesCoefficient *
-//                       box.deliveryWidth *
-//                       inchesCoefficient *
-//                       box.deliveryLength *
-//                       inchesCoefficient
-//                     : box.deliveryHeight * box.deliveryWidth * box.deliveryLength) / volumeWeightCoefficient,
-//                   2,
-//                 )
-//               : toFixed(
-//                   (sizeSetting === sizesType.INCHES
-//                     ? box.heightCmWarehouse *
-//                       inchesCoefficient *
-//                       box.widthCmWarehouse *
-//                       inchesCoefficient *
-//                       box.lengthCmWarehouse *
-//                       inchesCoefficient
-//                     : box.heightCmWarehouse * box.widthCmWarehouse * box.lengthCmWarehouse) / volumeWeightCoefficient,
-//                   2,
-//                 )
-//           }
-//         />
-//       </div>
-//       <div className={classNames.numberInputFieldsWrapper}>
-//         <Field
-//           disabled={isNoActive}
-//           inputProps={{maxLength: 6}}
-//           error={
-//             Number(isShippingSizes ? box.deliveryWidth : box.widthCmWarehouse) === 0 &&
-//             !isNoActive &&
-//             !box.fitsInitialDimensions &&
-//             true
-//           }
-//           containerClasses={classNames.numberInputField}
-//           labelClasses={classNames.label}
-//           label={t(TranslationKey.Width) + ': '}
-//           value={isShippingSizes ? box.deliveryWidth : box.widthCmWarehouse}
-//           onChange={setNewBoxField(isShippingSizes ? 'deliveryWidth' : 'widthCmWarehouse')}
-//         />
-
-//         <Field
-//           disabled={isNoActive}
-//           inputProps={{maxLength: 6}}
-//           error={
-//             Number(isShippingSizes ? box.deliveryMass : box.weighGrossKgWarehouse) === 0 &&
-//             !isNoActive &&
-//             !box.fitsInitialDimensions &&
-//             true
-//           }
-//           containerClasses={classNames.numberInputField}
-//           labelClasses={classNames.label}
-//           label={t(TranslationKey.Weight) + ', ' + t(TranslationKey.Kg) + ': '}
-//           value={isShippingSizes ? box.deliveryMass : box.weighGrossKgWarehouse}
-//           onChange={setNewBoxField(isShippingSizes ? 'deliveryMass' : 'weighGrossKgWarehouse')}
-//         />
-
-//         <Field
-//           disabled
-//           containerClasses={classNames.numberInputField}
-//           label={t(TranslationKey['Final weight']) + ', ' + t(TranslationKey.Kg) + ': '}
-//           labelClasses={classNames.label}
-//           value={
-//             isShippingSizes
-//               ? Math.max(
-//                   toFixed(
-//                     (sizeSetting === sizesType.INCHES
-//                       ? box.deliveryHeight *
-//                         inchesCoefficient *
-//                         box.deliveryWidth *
-//                         inchesCoefficient *
-//                         box.deliveryLength *
-//                         inchesCoefficient
-//                       : box.deliveryHeight * box.deliveryWidth * box.deliveryLength) / volumeWeightCoefficient,
-//                     2,
-//                   ),
-//                   box.deliveryMass,
-//                 )
-//               : Math.max(
-//                   toFixed(
-//                     (sizeSetting === sizesType.INCHES
-//                       ? box.heightCmWarehouse *
-//                         inchesCoefficient *
-//                         box.widthCmWarehouse *
-//                         inchesCoefficient *
-//                         box.lengthCmWarehouse *
-//                         inchesCoefficient
-//                       : box.heightCmWarehouse * box.widthCmWarehouse * box.lengthCmWarehouse) / volumeWeightCoefficient,
-//                     2,
-//                   ),
-//                   box.weighGrossKgWarehouse,
-//                 )
-//           }
-//         />
-//       </div>
-//     </div>
-//   )
-// }
-
 export const EditBoxTasksModal = ({
   isInStorekeeperWarehouse,
   setEditModal,
@@ -268,8 +122,6 @@ export const EditBoxTasksModal = ({
   newBoxes,
   volumeWeightCoefficient,
   storekeeperWarehouseSubmit,
-  // isReceive,
-  // primarySizeSuitableCheckbox,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -318,25 +170,6 @@ export const EditBoxTasksModal = ({
             ? Math.round(editingBox.heightCmWarehouse * inchesCoefficient * 100) / 100
             : editingBox.heightCmWarehouse) || 0,
       }
-
-      // const lastStepEditBox = {
-      //   ...editingBox,
-
-      //   deliveryLength:
-      //     (sizeSetting === sizesType.INCHES
-      //       ? Math.round(editingBox.deliveryLength * inchesCoefficient * 100) / 100
-      //       : editingBox.deliveryLength) || 0,
-
-      //   deliveryWidth:
-      //     (sizeSetting === sizesType.INCHES
-      //       ? Math.round(editingBox.deliveryWidth * inchesCoefficient * 100) / 100
-      //       : editingBox.deliveryWidth) || 0,
-
-      //   deliveryHeight:
-      //     (sizeSetting === sizesType.INCHES
-      //       ? Math.round(editingBox.deliveryHeight * inchesCoefficient * 100) / 100
-      //       : editingBox.deliveryHeight) || 0,
-      // }
 
       storekeeperWarehouseSubmit(box._id, lastStepEditBox)
     } else {
@@ -396,32 +229,21 @@ export const EditBoxTasksModal = ({
     !Number(editingBox.heightCmWarehouse) ||
     !Number(editingBox.weighGrossKgWarehouse)
 
-  // const disabledSubmit =
-  //   ((!Number(editingBox.lengthCmWarehouse) ||
-  //     !Number(editingBox.widthCmWarehouse) ||
-  //     !Number(editingBox.heightCmWarehouse) ||
-  //     !Number(editingBox.weighGrossKgWarehouse)) &&
-  //     isReceive) ||
-  //   ((!Number(editingBox.deliveryLength) ||
-  //     !Number(editingBox.deliveryWidth) ||
-  //     !Number(editingBox.deliveryHeight) ||
-  //     !Number(editingBox.deliveryMass)) &&
-  //     !isReceive &&
-  //     !editingBox.fitsInitialDimensions)
-
   return (
     <Container disableGutters className={classNames.modalWrapper}>
-      <Typography className={classNames.modalTitle}>{t(TranslationKey['Editing the box'])}</Typography>
+      <div className={classNames.modalHeaderWrapper}>
+        <Typography className={classNames.modalTitle}>{t(TranslationKey['Editing the box'])}</Typography>
 
-      <div className={classNames.sizesSubWrapper}>
-        <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-          <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-            {'In'}
-          </ToggleBtn>
-          <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-            {'Cm'}
-          </ToggleBtn>
-        </ToggleBtnGroup>
+        <div className={classNames.sizesSubWrapper}>
+          <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+            <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+              {'In'}
+            </ToggleBtn>
+            <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+              {'Cm'}
+            </ToggleBtn>
+          </ToggleBtnGroup>
+        </div>
       </div>
 
       <AttributesEditBlock
@@ -431,58 +253,16 @@ export const EditBoxTasksModal = ({
         volumeWeightCoefficient={volumeWeightCoefficient}
         sizeSetting={sizeSetting}
       />
-      {/* 
-      <div className={classNames.dimensionsWrapper}>
-        <div>
-          <Typography className={classNames.subTitle}>{t(TranslationKey['Primary dimensions'])}</Typography>
-
-          <AttributesEditBlock
-            isNoActive={!isReceive}
-            // isReceive={isReceive}
-            box={editingBox}
-            operationType={operationType}
-            setNewBoxField={setNewBoxField}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            sizeSetting={sizeSetting}
-          />
-        </div>
-
-        <Divider orientation="vertical" className={classNames.divider} />
-
-        <div>
-          <Typography className={classNames.subTitle}>{t(TranslationKey['Shipping dimensions'])}</Typography>
-
-          <AttributesEditBlock
-            isShippingSizes
-            isNoActive={isReceive}
-            box={editingBox}
-            operationType={operationType}
-            setNewBoxField={setNewBoxField}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            sizeSetting={sizeSetting}
-          />
-        </div>
-      </div> */}
-
-      {/* {primarySizeSuitableCheckbox ? (
-        <Field
-          oneLine
-          containerClasses={classNames.checkboxContainer}
-          labelClasses={classNames.label}
-          label={t(TranslationKey['The primary size suitable for shipment'])}
-          inputComponent={
-            <Checkbox
-              color="primary"
-              checked={editingBox.fitsInitialDimensions}
-              onChange={setNewBoxField('fitsInitialDimensions')}
-            />
-          }
-        />
-      ) : null} */}
 
       <Box className={classNames.boxCode}>
         <div className={classNames.imageFileInputWrapper}>
-          <UploadFilesInput images={editingBox.tmpImages} setImages={setImagesOfBox} maxNumber={50} />
+          <UploadFilesInput
+            withoutLinks
+            dragAndDropBtnHeight={67}
+            images={editingBox.tmpImages}
+            setImages={setImagesOfBox}
+            maxNumber={50}
+          />
         </div>
       </Box>
       <div className={classNames.photoWrapper}>
