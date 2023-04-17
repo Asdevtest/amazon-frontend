@@ -141,10 +141,10 @@ export const SelectFields = ({
           <div className={classNames.photoWrapper}>
             {/* <PhotoCarousel isAmazonPhoto files={order.product.images} /> */}
 
-            {!!imagesForLoad.length && (
+            {!!order.product.images.length && (
               <div className={classNames.carouselWrapper}>
                 <CustomCarousel>
-                  {imagesForLoad.map((imageHash, index) => (
+                  {order.product.images.map((imageHash, index) => (
                     <img
                       key={index}
                       alt=""
@@ -161,8 +161,7 @@ export const SelectFields = ({
                       onClick={() => {
                         setShowImageModal(!showImageModal)
                         setBigImagesOptions({
-                          images:
-                            /* checkIsBuyer(curUserRole) || checkIsAdmin(curUserRole) ? photos : photos */ imagesForLoad,
+                          images: order?.product?.images,
                           imgIndex: index,
                         })
                       }}
@@ -786,7 +785,7 @@ export const SelectFields = ({
         images={bigImagesOptions.images}
         imgIndex={bigImagesOptions.imgIndex}
         setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
-        controls={bigImagesModalControls}
+        // controls={bigImagesModalControls}
       />
     </Grid>
   )

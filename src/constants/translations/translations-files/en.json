@@ -212,7 +212,6 @@
   "Paid orders": "Paid orders",
   "Canceled orders": "Canceled orders",
   "Boxes ready to send": "Boxes ready to send",
-
   "Sent boxes": "Sent boxes",
   "Freelance": "Freelance",
   "My requests": "My requests",
@@ -427,7 +426,7 @@
   "Allow multiple performances by the same performer": "Allow multiple performances by the same performer",
   "Step": "Step",
   "Back to editing": "Back to editing",
-  "Request title": "Request title",
+  "Request title": "Request title*",
   "Your request": "Your request",
   "Price and time": "Price and time",
   "Number of proposals": "Number of proposals",
@@ -1048,7 +1047,6 @@
   "Length must be a number conforming to the specified constraints": "Length must be a number conforming to the specified constraints",
   "Weight must be a number conforming to the specified constraints": "Weight must be a number conforming to the specified constraints",
   "Fbafee must be a number conforming to the specified constraints": "Fbafee must be a number conforming to the specified constraints",
-
   "Money transfer is possible with the administrator at the link below:": "Money transfer is possible with the administrator at the link below:",
   "Money transfer link": "Money transfer link",
   "Requests and proposals for them": "Requests and proposals for them",
@@ -1918,5 +1916,7 @@
   "Number of illustrations": "Number of illustrations",
   "Remarks": "Remarks",
   "Enter remarks": "Enter remarks",
-  "Do you want to delete the source file?": "Do you want to delete the source file?"
+  "Do you want to delete the source file?": "Do you want to delete the source file?",
+  "New orders available": "New orders available",
+  "Orders need confirmation": "Orders need confirmation"
 }
