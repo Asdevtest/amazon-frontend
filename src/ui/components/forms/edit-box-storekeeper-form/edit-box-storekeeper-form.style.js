@@ -81,10 +81,6 @@ export const useClassNames = makeStyles()(theme => ({
     padding: 0,
   },
 
-  shippingField: {
-    width: '230px !important',
-  },
-
   hsCodeBtn: {
     height: 30,
     width: 230,
