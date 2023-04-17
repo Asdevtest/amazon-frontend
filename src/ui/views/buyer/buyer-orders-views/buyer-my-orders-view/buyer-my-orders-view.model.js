@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {transformAndValidate} from 'class-transformer-validator'
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
@@ -22,6 +23,7 @@ import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my
 // import {calcOrderTotalPrice} from '@utils/calculation'
 import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 // import {resetDataGridFilter} from '@utils/filters'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {objectToUrlQs, toFixed} from '@utils/text'
@@ -90,6 +92,8 @@ export class BuyerMyOrdersViewModel {
   curBoxesOfOrder = []
 
   createBoxesResult = []
+
+  imagesForLoad = []
 
   volumeWeightCoefficient = undefined
 
@@ -574,6 +578,10 @@ export class BuyerMyOrdersViewModel {
       runInAction(() => {
         this.hsCodeData = hsCode
         this.selectedOrder = orderData
+
+        this.clearImagesForLoad()
+
+        this.updateImagesForLoad(orderData.images)
       })
       this.getBoxesOfOrder(orderId)
 
@@ -588,6 +596,22 @@ export class BuyerMyOrdersViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  updateImagesForLoad(images) {
+    if (!Array.isArray(images)) {
+      return
+    }
+
+    runInAction(() => {
+      this.imagesForLoad = [...this.imagesForLoad, ...images.map(el => getAmazonImageUrl(el, true))]
+    })
+  }
+
+  onChangeImagesForLoad(value) {
+    runInAction(() => {
+      this.imagesForLoad = value
+    })
   }
 
   async onSubmitCancelOrder() {
@@ -621,27 +645,39 @@ export class BuyerMyOrdersViewModel {
         this.onTriggerOpenModal('showOrderPriceMismatchModal')
       }
 
-      runInAction(() => {
-        this.readyImages = []
-      })
+      this.clearReadyImages()
+
       if (photosToLoad.length) {
         await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
       }
 
       const orderFieldsToSave = {
         ...orderFields,
-        images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
+        images: this.readyImages,
       }
 
-      runInAction(() => {
-        this.readyImages = []
-      })
+      this.clearReadyImages()
+
+      if (this.imagesForLoad.length) {
+        await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'readyImages'})
+
+        this.clearImagesForLoad()
+      }
+
+      const orderFieldsToSaveWithImagesForLoad = {
+        ...orderFieldsToSave,
+        // ...orderFields,
+        images: [...orderFieldsToSave.images, ...this.readyImages],
+      }
+
+      this.clearReadyImages()
+
       if (paymentDetailsPhotosToLoad?.length) {
         await onSubmitPostImages.call(this, {images: paymentDetailsPhotosToLoad, type: 'readyImages'})
       }
 
       await this.onSaveOrder(order, {
-        ...orderFieldsToSave,
+        ...orderFieldsToSaveWithImagesForLoad,
         paymentDetails: [...orderFields.paymentDetails, ...this.readyImages],
       })
 
@@ -939,11 +975,6 @@ export class BuyerMyOrdersViewModel {
 
   async getOrdersMy() {
     try {
-      // const filter =
-      //   isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))
-      //     ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};`
-      //     : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};`
-
       const filter = objectToUrlQs({
         or: [
           {asin: {$contains: this.nameSearchValue}},
@@ -1012,5 +1043,17 @@ export class BuyerMyOrdersViewModel {
     })
     this.setDataGridState()
     this.getOrdersMy()
+  }
+
+  clearReadyImages() {
+    runInAction(() => {
+      this.readyImages = []
+    })
+  }
+
+  clearImagesForLoad() {
+    runInAction(() => {
+      this.imagesForLoad = []
+    })
   }
 }

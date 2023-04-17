@@ -20,6 +20,7 @@ import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my
 import {calcOrderTotalPrice, calcOrderTotalPriceInYuann} from '@utils/calculation'
 import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {objectToUrlQs, toFixed} from '@utils/text'
 import {t} from '@utils/translations'
@@ -66,6 +67,8 @@ export class BuyerMyOrdersViewModel {
   showOrderPriceMismatchModal = false
   showConfirmModal = false
   showWarningInfoModal = false
+
+  imagesForLoad = []
 
   showSuccessModalText = ''
 
@@ -317,6 +320,10 @@ export class BuyerMyOrdersViewModel {
       runInAction(() => {
         this.hsCodeData = hsCode
         this.selectedOrder = orderData
+
+        this.clearImagesForLoad()
+
+        this.updateImagesForLoad(orderData.images)
       })
       this.getBoxesOfOrder(orderId)
 
@@ -330,6 +337,22 @@ export class BuyerMyOrdersViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  updateImagesForLoad(images) {
+    if (!Array.isArray(images)) {
+      return
+    }
+
+    runInAction(() => {
+      this.imagesForLoad = [...this.imagesForLoad, ...images.map(el => getAmazonImageUrl(el, true))]
+    })
+  }
+
+  onChangeImagesForLoad(value) {
+    runInAction(() => {
+      this.imagesForLoad = value
+    })
   }
 
   async onSubmitCancelOrder() {
@@ -348,20 +371,46 @@ export class BuyerMyOrdersViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      this.readyImages = []
+      // this.readyImages = []
+      // if (photosToLoad.length) {
+      //   await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
+      // }
+
+      // const orderFieldsToSave = {
+      //   ...orderFields,
+      //   images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
+      // }
+
+      this.clearReadyImages()
+
       if (photosToLoad.length) {
         await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
       }
 
       const orderFieldsToSave = {
         ...orderFields,
-        images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
+        images: this.readyImages,
       }
+
+      this.clearReadyImages()
+
+      if (this.imagesForLoad.length) {
+        await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'readyImages'})
+
+        this.clearImagesForLoad()
+      }
+
+      const orderFieldsToSaveWithImagesForLoad = {
+        ...orderFieldsToSave,
+        images: [...orderFieldsToSave.images, ...this.readyImages],
+      }
+
+      this.clearReadyImages()
 
       if (order.status === OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) {
         await OrderModel.changeOrderComments(order._id, {buyerComment: orderFields.buyerComment})
       } else {
-        await this.onSaveOrder(order, orderFieldsToSave)
+        await this.onSaveOrder(order, orderFieldsToSaveWithImagesForLoad)
 
         if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}`) {
           await OrderModel.orderReadyForBoyout(order._id)
@@ -589,5 +638,17 @@ export class BuyerMyOrdersViewModel {
   onChangeCurPage(e) {
     this.curPage = e
     this.getOrdersMy()
+  }
+
+  clearReadyImages() {
+    runInAction(() => {
+      this.readyImages = []
+    })
+  }
+
+  clearImagesForLoad() {
+    runInAction(() => {
+      this.imagesForLoad = []
+    })
   }
 }

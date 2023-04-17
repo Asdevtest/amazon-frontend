@@ -397,4 +397,42 @@ export const useClassNames = makeStyles()(theme => ({
     height: '13px !important',
     color: theme.palette.primary.main,
   },
+
+  imagesModalBtnsWrapper: {
+    display: 'flex',
+    // flexDirection: 'column',
+    gap: 20,
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
+    marginRight: 20,
+  },
+
+  imagesModalBtn: {
+    width: 40,
+    height: 40,
+  },
+
+  carouselImage: {
+    // height: '100%',
+    height: '300px',
+    objectFit: 'contain',
+
+    transition: '.2s ease',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    '&:hover': {
+      transform: 'scale(1.02)',
+    },
+  },
+
+  pasteInput: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    borderRadius: '10px',
+    top: 0,
+    left: 0,
+    opacity: 0,
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+  },
 }))
