@@ -4,7 +4,7 @@ import {cx} from '@emotion/css'
 import Brightness3RoundedIcon from '@mui/icons-material/Brightness3Rounded'
 import PersonIcon from '@mui/icons-material/Person'
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
-import {Avatar, Divider, Hidden, IconButton, Paper, Typography} from '@mui/material'
+import {Avatar, Divider, Paper, Typography} from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
@@ -12,7 +12,6 @@ import Tooltip from '@mui/material/Tooltip'
 import React, {FC, ReactElement, useEffect, useRef, useState} from 'react'
 
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import MenuIcon from '@material-ui/icons/Menu'
 import {observer} from 'mobx-react'
 import {useHistory, useLocation} from 'react-router-dom'
 import {toast} from 'react-toastify'
@@ -82,22 +81,25 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
 
     if (snackNotifications[snackNoticeKey.ORDER_DEADLINE]) {
       toast(<OrderDeadlineNotification noticeItem={snackNotifications[snackNoticeKey.ORDER_DEADLINE]} />, {
-        autoClose: 25000,
+        autoClose: 5000,
       })
       markNotificationAsReaded(snackNoticeKey.ORDER_DEADLINE)
     }
 
     if (snackNotifications[snackNoticeKey.IDEAS]) {
       toast(<IdeaNotification role={role} noticeItem={snackNotifications[snackNoticeKey.IDEAS]} />, {
-        autoClose: 25000,
+        autoClose: 5000,
       })
       markNotificationAsReaded(snackNoticeKey.IDEAS)
     }
 
     if (snackNotifications[snackNoticeKey.ORDERS_UPDATES]) {
-      toast(<OrdersUpdatesNotification noticeItem={snackNotifications[snackNoticeKey.ORDERS_UPDATES]} />, {
-        autoClose: 25000,
-      })
+      toast(
+        <OrdersUpdatesNotification noticeItem={snackNotifications[snackNoticeKey.ORDERS_UPDATES]} history={history} />,
+        {
+          autoClose: 5000,
+        },
+      )
       markNotificationAsReaded(snackNoticeKey.ORDERS_UPDATES)
     }
   }, [snackNotifications])

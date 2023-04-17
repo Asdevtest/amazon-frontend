@@ -14,6 +14,7 @@ export const useOrdersUpdatesNotificationStyle = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    paddingRight: '5px',
   },
   attentionTitle: {
     color: '#FF1616',

@@ -3,6 +3,7 @@ import {Avatar, Typography} from '@mui/material'
 import React, {FC} from 'react'
 
 import {format} from 'date-fns'
+import {History} from 'history'
 
 import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -20,11 +21,12 @@ interface OrdersUpdatesNotificationProps {
     needConfirmOrders: OrdersUpdatesNotificationItem[]
     vacOrders: OrdersUpdatesNotificationItem[]
   } | null
+  history: History
 }
 
 export const OrdersUpdatesNotification: FC<OrdersUpdatesNotificationProps> = props => {
   const {classes: styles} = useOrdersUpdatesNotificationStyle()
-  const {noticeItem} = props
+  const {noticeItem, history} = props
   return (
     <div className={styles.body}>
       <Avatar
@@ -33,14 +35,18 @@ export const OrdersUpdatesNotification: FC<OrdersUpdatesNotificationProps> = pro
       />
 
       <div className={styles.centerWrapper}>
+        <Typography className={styles.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</Typography>
+
         {noticeItem?.vacOrders && (
           <OrdersUpdatesNotificationRow
+            history={history}
             orders={noticeItem.vacOrders}
             title={t(TranslationKey['New orders available']) + ':'}
           />
         )}
         {noticeItem?.needConfirmOrders && (
           <OrdersUpdatesNotificationRow
+            history={history}
             orders={noticeItem.needConfirmOrders}
             title={t(TranslationKey['Orders need confirmation']) + ':'}
             idHref={'/buyer/confirmation-required-orders'}

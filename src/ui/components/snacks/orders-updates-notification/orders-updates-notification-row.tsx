@@ -1,8 +1,8 @@
-import {Typography} from '@mui/material'
+import {Link, Typography} from '@mui/material'
 
 import React, {FC} from 'react'
 
-import {Link} from 'react-router-dom'
+import {History} from 'history'
 
 import {OrdersUpdatesNotificationItem} from '@components/snacks/orders-updates-notification/orders-updates-notification-types'
 import {useOrdersUpdatesNotificationStyle} from '@components/snacks/orders-updates-notification/orders-updates-notification.styles'
@@ -11,11 +11,17 @@ interface OrdersUpdatesNotificationRowProps {
   orders: OrdersUpdatesNotificationItem[]
   title: string
   idHref?: string
+  history: History
 }
 
 export const OrdersUpdatesNotificationRow: FC<OrdersUpdatesNotificationRowProps> = props => {
   const {classes: styles} = useOrdersUpdatesNotificationStyle()
-  const {idHref, orders, title} = props
+  const {idHref, orders, title, history} = props
+
+  const goToHref = (id: string) => {
+    if (!idHref) return
+    history.push(`${idHref}`, {orderId: id})
+  }
 
   return (
     <div className={styles.list}>
@@ -26,7 +32,7 @@ export const OrdersUpdatesNotificationRow: FC<OrdersUpdatesNotificationRowProps>
             <div>
               <span>ID:</span>{' '}
               {idHref ? (
-                <Link to={`${idHref}/${el.id}`} target="_blank" rel="noreferrer">
+                <Link underline="none" onClick={() => goToHref(el._id)}>
                   {el.id}
                 </Link>
               ) : (
