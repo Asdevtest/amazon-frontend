@@ -1696,7 +1696,16 @@ export const styles = theme => ({
   },
 
   dapBtn: {
-    padding: '6px 44px',
+    padding: '0px 44px',
+    height: 30,
+    fontSize: '14px',
+    lineHeight: 1,
+    span: {
+      maxWidth: '90px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+    },
   },
   priceCellWrapper: {
     width: '100%',
