@@ -64,6 +64,9 @@ export const styles = theme => ({
     marginBottom: 5,
     color: theme.palette.primary.main,
 
+    display: 'flex',
+    gap: '10px',
+
     fontSize: 14,
     fontWeight: 600,
 

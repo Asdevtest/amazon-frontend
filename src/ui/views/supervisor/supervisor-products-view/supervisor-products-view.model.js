@@ -149,81 +149,78 @@ export class SupervisorProductsViewModel {
   onClickStatusFilterButton(status) {
     runInAction(() => {
       this.currentFilterStatus = status
-
-      if (Number(status) === Number(ProductStatusByKey[ProductStatus.DEFAULT])) {
-        runInAction(() => {
-          this.productsMy = this.baseProducts
-        })
-      } else if (Number(status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT])) {
-        runInAction(() => {
-          this.productsMy = this.baseProducts.filter(
-            product => Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT]),
-          )
-        })
-      } else if (Number(status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS])) {
-        runInAction(() => {
-          this.productsMy = this.baseProducts.filter(
-            product =>
-              Number(product.status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
-              Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS]),
-          )
-        })
-      } else if (Number(status) === Number(ProductStatusByKey[ProductStatus.SUPPLIER_FOUND])) {
-        runInAction(() => {
-          this.productsMy = this.baseProducts.filter(
-            product =>
-              Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER]) ||
-              Number(product.status) === Number(ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER]) ||
-              Number(product.status) === Number(ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER]),
-          )
-        })
-      } else if (Number(status) === Number(ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT])) {
-        runInAction(() => {
-          this.productsMy = this.baseProducts.filter(
-            product =>
-              Number(product.status) === Number(ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT]) ||
-              Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT]) ||
-              Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH]) ||
-              Number(product.status) === Number(ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]),
-          )
-        })
-      } else if (Number(status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND])) {
-        runInAction(() => {
-          this.productsMy = this.baseProducts.filter(
-            product =>
-              Number(product.status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND]) ||
-              Number(product.status) ===
-                Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND]),
-          )
-        })
-      } else if (
-        Number(status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR])
-      ) {
-        runInAction(() => {
-          this.productsMy = this.baseProducts.filter(
-            product =>
-              Number(product.status) ===
-                Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR]) ||
-              Number(ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]),
-          )
-        })
-      } else if (Number(status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE])) {
-        runInAction(() => {
-          this.productsMy = this.baseProducts.filter(
-            product =>
-              Number(product.status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE]) ||
-              Number(product.status) ===
-                Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE]),
-          )
-        })
-      }
+      this.productsMy = this.getFilteredProductsByStatus(status)
     })
   }
 
   getProductsCountByStatus(status) {
-    return supervisorProductsDataConverter(this.baseNoConvertedProducts)?.filter(
-      product => Number(product.status) === Number(status),
-    )
+    return this.getFilteredProductsByStatus(status).length
+  }
+
+  getFilteredProductsByStatus(status) {
+    if (Number(status) === Number(ProductStatusByKey[ProductStatus.DEFAULT])) {
+      return this.baseProducts
+    }
+
+    if (Number(status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT])) {
+      return this.baseProducts.filter(
+        product => Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT]),
+      )
+    }
+
+    if (Number(status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS])) {
+      return this.baseProducts.filter(
+        product =>
+          Number(product.status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
+          Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS]),
+      )
+    }
+
+    if (Number(status) === Number(ProductStatusByKey[ProductStatus.SUPPLIER_FOUND])) {
+      return this.baseProducts.filter(
+        product =>
+          Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER]) ||
+          Number(product.status) === Number(ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER]) ||
+          Number(product.status) === Number(ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER]),
+      )
+    }
+
+    if (Number(status) === Number(ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT])) {
+      return this.baseProducts.filter(
+        product =>
+          Number(product.status) === Number(ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT]) ||
+          Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT]) ||
+          Number(product.status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH]) ||
+          Number(product.status) === Number(ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]),
+      )
+    }
+
+    if (Number(status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND])) {
+      return this.baseProducts.filter(
+        product =>
+          Number(product.status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND]) ||
+          Number(product.status) ===
+            Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND]),
+      )
+    }
+
+    if (Number(status) === Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR])) {
+      return this.baseProducts.filter(
+        product =>
+          Number(product.status) ===
+            Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR]) ||
+          Number(ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]),
+      )
+    }
+
+    if (Number(status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE])) {
+      return this.baseProducts.filter(
+        product =>
+          Number(product.status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE]) ||
+          Number(product.status) ===
+            Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE]),
+      )
+    }
   }
 
   setRequestStatus(requestStatus) {
