@@ -8,6 +8,7 @@ import {RequestModel} from '@models/request-model'
 import {UserModel} from '@models/user-model'
 
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -36,10 +37,19 @@ export class CreateOrEditRequestViewModel {
   bigImagesOptions = {}
 
   showImageModal = false
+  showConfirmModal = false
 
   readyImages = []
   progressValue = 0
   showProgress = false
+
+  confirmModalSettings = {
+    isWarning: false,
+    message: '',
+    smallMessage: '',
+    onSubmit: () => {},
+    onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+  }
 
   constructor({history, location}) {
     runInAction(() => {
@@ -82,7 +92,32 @@ export class CreateOrEditRequestViewModel {
     }
   }
 
-  async onSubmitCreateRequest(data, files) {
+  async toPublishRequest(requestId, totalCost) {
+    try {
+      await RequestModel.toPublishRequest(requestId, {totalCost})
+
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  pushSuccess() {
+    runInAction(() => {
+      this.showAcceptMessage = true
+      this.acceptMessage = t(TranslationKey['An request has been created'])
+    })
+
+    this.history.push('/client/freelance/my-requests', {
+      showAcceptMessage: this.showAcceptMessage,
+      acceptMessage: this.acceptMessage,
+    })
+  }
+
+  async onSubmitCreateRequest(data, files, withPublish) {
     try {
       runInAction(() => {
         this.uploadedFiles = []
@@ -108,17 +143,33 @@ export class CreateOrEditRequestViewModel {
         },
       }
 
-      await RequestModel.createRequest(dataWithFiles)
+      const resp = await RequestModel.createRequest(dataWithFiles)
 
-      runInAction(() => {
-        this.showAcceptMessage = true
-        this.acceptMessage = t(TranslationKey['An request has been created'])
-      })
+      if (withPublish) {
+        const result = await RequestModel.calculateRequestCost(resp.guid)
 
-      this.history.push('/client/freelance/my-requests', {
-        showAcceptMessage: this.showAcceptMessage,
-        acceptMessage: this.acceptMessage,
-      })
+        runInAction(() => {
+          this.confirmModalSettings = {
+            isWarning: false,
+            message: `${t(TranslationKey['The exact cost of the request will be:'])} ${toFixed(
+              result.totalCost,
+              2,
+            )} $. ${t(TranslationKey['Confirm the publication?'])}`,
+            onSubmit: () => {
+              this.toPublishRequest(resp.guid, result.totalCost)
+              this.pushSuccess()
+            },
+
+            onCancel: () => {
+              this.pushSuccess()
+            },
+          }
+        })
+
+        this.onTriggerOpenModal('showConfirmModal')
+      } else {
+        this.pushSuccess()
+      }
     } catch (error) {
       console.log(error)
 
