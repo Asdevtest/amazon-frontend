@@ -1923,5 +1923,6 @@
   "Do you want to delete the source file?": "Желаете удалить исходный файл?",
   "New orders available": "Доступны новые заказы",
   "Orders need confirmation": "Заказы нуждаются в подтверждении",
-  "Payment to all suppliers": "К оплате всем поставщикам"
+  "Payment to all suppliers": "К оплате всем поставщикам",
+  "Create and publish a request": "Создать и опубликовать заявку"
 }

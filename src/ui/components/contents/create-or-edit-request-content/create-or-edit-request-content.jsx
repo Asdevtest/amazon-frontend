@@ -274,14 +274,14 @@ export const CreateOrEditRequestContent = ({
 
   const isDeadlineError = formFields.request.timeoutAt < new Date()
 
-  const onSuccessSubmit = () => {
+  const onSuccessSubmit = ({withPublish}) => {
     if (isDeadlineError) {
       setDeadlineError(!deadlineError)
     } else {
       if (curStep === stepVariant.STEP_ONE) {
         setCurStep(stepVariant.STEP_TWO)
       } else {
-        onCreateSubmit(formFields, images)
+        onCreateSubmit(formFields, images, withPublish)
       }
     }
   }
@@ -1229,6 +1229,17 @@ export const CreateOrEditRequestContent = ({
                     </div>
                   )}
                 </Button>
+
+                {curStep === stepVariant.STEP_TWO && (
+                  <Button
+                    success
+                    disabled={disableSubmit}
+                    className={classNames.successBtn}
+                    onClick={() => onSuccessSubmit({withPublish: true})}
+                  >
+                    {t(TranslationKey['Create and publish a request'])}
+                  </Button>
+                )}
               </div>
             </div>
           </div>
