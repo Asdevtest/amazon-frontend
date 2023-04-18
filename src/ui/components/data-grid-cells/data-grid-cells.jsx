@@ -976,7 +976,7 @@ export const DownloadAndPrintFilesCell = React.memo(
           setOpenModal={() => setIsOpenModal(prevState => !prevState)}
           images={[selectedImage.fileUrl]}
           controls={() => (
-            <Box display="flex" gap="20px">
+            <>
               <Button
                 onClick={() => downloadFileByLink(getAmazonImageUrl(selectedImage.fileUrl), selectedImage.fileName)}
               >
@@ -986,7 +986,7 @@ export const DownloadAndPrintFilesCell = React.memo(
               <Button onClick={() => handlePrint()}>
                 <PrintIcon color="inherit" />
               </Button>
-            </Box>
+            </>
           )}
         />
       </>
