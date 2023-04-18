@@ -1694,7 +1694,7 @@
   "Priority and Express Delivery": "Priority and Express Delivery",
   "Value multiple of": "Value multiple of",
   "Notice": "Notice",
-  "The redemption deadline expires in": "The redemption deadline expires in",
+  "The redemption deadline expires": "The redemption deadline expires",
   "Download the batch file": "Download the batch file",
   "Product usage": "Product usage",
   "Users with access to the product": "Users with access to the product",
@@ -1922,6 +1922,7 @@
   "Remarks": "Remarks",
   "Enter remarks": "Enter remarks",
   "Do you want to delete the source file?": "Do you want to delete the source file?",
+  "The redemption deadline has expired": "The redemption deadline has expired",
   "Payment to all suppliers": "Payment to all suppliers",
   "System message": "System message",
   "Create and publish a request": "Create and publish a request"
