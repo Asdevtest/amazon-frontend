@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
+import AddIcon from '@mui/icons-material/Add'
 import {
   Checkbox,
   Container,
@@ -739,8 +740,25 @@ export const AddOrEditSupplierModalContent = observer(
               inputComponent={
                 <Select
                   displayEmpty
-                  value={tmpSupplier?.paymentMethods ?? null}
-                  renderValue={selected => selected?.map(method => method?.title).join(', ')}
+                  value={tmpSupplier?.paymentMethods}
+                  renderValue={
+                    selected =>
+                      // selected.length ? (
+                      selected?.map(method => method?.title).join(', ')
+                    // ) : (
+                    //   <div className={classNames.paymentMethodsPlaccholder}>
+                    //     <Typography className={classNames.standartText}>{t(TranslationKey.Add)}</Typography>
+                    //     <AddIcon className={classNames.addIcon} />
+                    //   </div>
+                    // )
+                    //   {
+                    //   if (!selected.length) {
+                    //     return
+                    //   } else {
+                    //     return selected?.map(method => method?.title).join(', ')
+                    //   }
+                    // }
+                  }
                   className={classNames.paymentMethodsField}
                   input={<Input startAdornment={<InputAdornment position="start" />} />}
                   onChange={event => {
