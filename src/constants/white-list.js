@@ -18,3 +18,24 @@ export const patchSuppliers = [
   'boxProperties',
   'priceVariations',
 ]
+
+export const creatSupplier = [
+  'name',
+  'link',
+  'price',
+  'amount',
+  'minlot',
+  'multiplicity',
+  'paymentMethods',
+  'images',
+  'comment',
+  'yuanRate',
+  'priceInYuan',
+  'batchDeliveryCostInDollar',
+  'batchDeliveryCostInYuan',
+  'batchTotalCostInDollar',
+  'batchTotalCostInYuan',
+  'productionTerm',
+  'boxProperties',
+  'priceVariations',
+]
