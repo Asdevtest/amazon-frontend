@@ -751,7 +751,10 @@ export const AddOrEditSupplierModalContent = observer(
                 >
                   {!onlyRead && (
                     <MenuItem value={paymentMethods}>
-                      <Checkbox color="primary" checked={tmpSupplier.paymentMethods.length === paymentMethods.length} />
+                      <Checkbox
+                        color="primary"
+                        checked={tmpSupplier?.paymentMethods?.length === paymentMethods?.length}
+                      />
                       <Typography className={classNames.standartText}>{t(TranslationKey.All)}</Typography>
                     </MenuItem>
                   )}
@@ -762,11 +765,11 @@ export const AddOrEditSupplierModalContent = observer(
                         <Checkbox
                           color="primary"
                           checked={
-                            tmpSupplier.paymentMethods.length !== paymentMethods.length &&
-                            tmpSupplier.paymentMethods.some(item => item._id === paymentMethod._id)
+                            tmpSupplier?.paymentMethods?.length !== paymentMethods?.length &&
+                            tmpSupplier?.paymentMethods?.some(item => item._id === paymentMethod?._id)
                           }
                         />
-                        <Typography className={classNames.standartText}>{paymentMethod.title}</Typography>
+                        <Typography className={classNames.standartText}>{paymentMethod?.title}</Typography>
                       </MenuItem>
                     ))}
 

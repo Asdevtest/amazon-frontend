@@ -8,6 +8,7 @@ import {ProductStatus, ProductStatusByCode} from '@constants/product-status'
 import {RequestStatus} from '@constants/request-status'
 import {poundsWeightCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {creatSupplier} from '@constants/white-list'
 
 import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
@@ -1302,13 +1303,14 @@ export class ClientInventoryViewModel {
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
         images: supplier.images.concat(this.readyImages),
       }
 
-      const createSupplierResult = await SupplierModel.createSupplier(supplier)
+      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+      const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
       await ProductModel.addSuppliersToProduct(this.selectedRowId, [createSupplierResult.guid])
 
       if (makeMainSupplier) {

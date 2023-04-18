@@ -5,7 +5,7 @@ import {ProductDataParser} from '@constants/product-data-parser'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {poundsWeightCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {patchSuppliers} from '@constants/white-list'
+import {creatSupplier, patchSuppliers} from '@constants/white-list'
 
 import {ProductModel} from '@models/product-model'
 import {ResearcherModel} from '@models/researcher-model'
@@ -572,7 +572,7 @@ export class ResearcherProductViewModel {
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
         images: this.readyImages,
@@ -597,7 +597,8 @@ export class ResearcherProductViewModel {
           updateProductAutoCalculatedFields.call(this)
         }
       } else {
-        const createSupplierResult = await SupplierModel.createSupplier(supplier)
+        const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+        const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
         await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
         runInAction(() => {
           this.product.suppliers.push(createSupplierResult.guid)

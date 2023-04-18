@@ -42,6 +42,7 @@ export class SuppliersAndIdeasModel {
   readyFiles = []
   progressValue = 0
   showProgress = false
+  paymentMethods = []
 
   showConfirmModal = false
   showSuccessModal = false
@@ -291,6 +292,10 @@ export class SuppliersAndIdeasModel {
     this[modal] = !this[modal]
   }
 
+  async getSuppliersPaymentMethods() {
+    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+  }
+
   async onTriggerAddOrEditSupplierModal() {
     try {
       if (this.showAddOrEditSupplierModal) {
@@ -320,6 +325,7 @@ export class SuppliersAndIdeasModel {
     if (callBack) {
       this.forceUpdateCallBack = callBack
     }
+    this.getSuppliersPaymentMethods()
 
     switch (actionType) {
       case 'add':

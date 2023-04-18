@@ -9,7 +9,7 @@ import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {routsPathes} from '@constants/routs-pathes'
 import {mapTaskPriorityStatusEnumToKey, TaskPriorityStatus} from '@constants/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {patchSuppliers} from '@constants/white-list'
+import {creatSupplier, patchSuppliers} from '@constants/white-list'
 
 import {BoxesModel} from '@models/boxes-model'
 import {BoxesCreateBoxContract} from '@models/boxes-model/boxes-model.contracts'
@@ -347,16 +347,17 @@ export class BuyerMyOrdersViewModel {
 
         supplier = {
           ...supplier,
+          paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
           images: [...supplier.images, ...this.readyImages],
         }
       }
 
-      const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
-
       if (supplier._id) {
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
       } else {
-        const createSupplierResult = await SupplierModel.createSupplier(supplierUpdateData)
+        const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+        const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
         await ProductModel.addSuppliersToProduct(productId, [createSupplierResult.guid])
       }
 
@@ -403,6 +404,7 @@ export class BuyerMyOrdersViewModel {
     try {
       supplier = {
         ...supplier,
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         yuanRate: this.yuanToDollarRate,
         amount: orderFields.amount,
         price: orderFields.price,
@@ -411,12 +413,13 @@ export class BuyerMyOrdersViewModel {
         batchDeliveryCostInDollar: orderFields.batchDeliveryCostInDollar,
         batchTotalCostInDollar: orderFields.batchTotalCostInDollar,
       }
-      const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
 
       if (supplier._id) {
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
       } else {
-        const createSupplierResult = await SupplierModel.createSupplier(supplierUpdateData)
+        const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+        const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
         await ProductModel.addSuppliersToProduct(productId, [createSupplierResult.guid])
       }
 

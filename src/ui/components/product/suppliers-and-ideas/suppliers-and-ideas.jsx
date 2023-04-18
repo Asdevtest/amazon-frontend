@@ -52,6 +52,7 @@ export const SuppliersAndIdeas = observer(({productId}) => {
     showAddOrEditSupplierModal,
     confirmModalSettings,
     successModalTitle,
+    paymentMethods,
     onTriggerOpenModal,
     onClickRemoveIdea,
     onCreateIdea,
@@ -135,6 +136,7 @@ export const SuppliersAndIdeas = observer(({productId}) => {
         setOpenModal={onTriggerAddOrEditSupplierModal}
       >
         <AddOrEditSupplierModalContent
+          paymentMethods={paymentMethods}
           onlyRead={supplierModalReadOnly}
           requestStatus={requestStatus}
           sourceYuanToDollarRate={yuanToDollarRate}
