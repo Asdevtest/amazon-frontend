@@ -1690,7 +1690,7 @@
   "Priority and Express Delivery": "Priority and Express Delivery",
   "Value multiple of": "Value multiple of",
   "Notice": "Notice",
-  "The redemption deadline expires in": "The redemption deadline expires in",
+  "The redemption deadline expires": "The redemption deadline expires",
   "Download the batch file": "Download the batch file",
   "Product usage": "Product usage",
   "Users with access to the product": "Users with access to the product",
@@ -1919,5 +1919,5 @@
   "Do you want to delete the source file?": "Do you want to delete the source file?",
   "New orders available": "New orders available",
   "Orders need confirmation": "Orders need confirmation",
-  "The deadline for redemption is overdue by": "The deadline for redemption is overdue by"
+  "The redemption deadline has expired": "The redemption deadline has expired"
 }

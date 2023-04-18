@@ -58,11 +58,11 @@ export const OrderDeadlineNotification: FC<OrderDeadlineNotificationProps> = pro
 
                 <Typography className={classNames.messageText}>{`${t(
                   TranslationKey[
-                    getDistanceBetweenDatesInSeconds(el.deadline) < 0
-                      ? 'The redemption deadline expires in'
-                      : 'The deadline for redemption is overdue by'
+                    getDistanceBetweenDatesInSeconds(el.deadline) > 0
+                      ? 'The redemption deadline expires'
+                      : 'The redemption deadline has expired'
                   ],
-                )}: ${formatDateDistanceFromNowStrict(el.deadline)}`}</Typography>
+                )} ${formatDateDistanceFromNowStrict(el.deadline)}`}</Typography>
               </div>
             ))}
         </div>
