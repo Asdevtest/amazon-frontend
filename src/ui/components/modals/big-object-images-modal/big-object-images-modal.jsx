@@ -1,5 +1,6 @@
 import {cx} from '@emotion/css'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
+import ZoomOutMapOutlinedIcon from '@mui/icons-material/ZoomOutMapOutlined'
 import {Avatar, Typography} from '@mui/material'
 
 import {useEffect, useState} from 'react'
@@ -7,6 +8,7 @@ import {useEffect, useState} from 'react'
 import {Button} from '@components/buttons/button'
 // import React, {useEffect, useState} from 'react'
 import {CustomCarousel} from '@components/custom-carousel'
+import {ImageZoomForm} from '@components/forms/image-zoom-form'
 import {Modal} from '@components/modal'
 
 import {getShortenStringIfLongerThanCount} from '@utils/text'
@@ -26,6 +28,10 @@ export const BigObjectImagesModal = ({
   const {classes: classNames} = useClassNames()
 
   const filteredImagesData = imagesData.filter(el => !!el.image)
+
+  const [zoomOpen, setZoomOpen] = useState(false)
+
+  const [zoomImage, setZoomImage] = useState(null)
 
   // const curImageIndex = filteredImagesData.findIndex(el => el._id === curImageId) || 0
 
@@ -54,6 +60,14 @@ export const BigObjectImagesModal = ({
     const imageObj = {...imagesData.find(el => el._id === curImageId)}
 
     downloadFileByLink(typeof imageObj.image === 'string' ? imageObj.image : imageObj.image.data_url, imageObj.comment)
+  }
+
+  const onClickZoomBtn = () => {
+    const imageObj = {...imagesData.find(el => el._id === curImageId)}
+
+    setZoomImage(typeof imageObj.image === 'string' ? imageObj.image : imageObj.image.data_url)
+
+    setZoomOpen(true)
   }
 
   return (
@@ -126,15 +140,25 @@ export const BigObjectImagesModal = ({
         </div>
 
         <div className={cx(/* classNames.imageModalSubWrapper, */ classNames.imageModalSubWrapperRightSide)}>
-          {renderBtns ? (
-            renderBtns()
-          ) : (
-            <Button className={cx(classNames.imagesModalBtn)} onClick={onClickDownloadBtn}>
-              <DownloadOutlinedIcon />
-            </Button>
-          )}
+          <Button className={cx(classNames.imagesModalBtn)} onClick={onClickDownloadBtn}>
+            <DownloadOutlinedIcon />
+          </Button>
+
+          <Button className={cx(classNames.imagesModalBtn)} onClick={onClickZoomBtn}>
+            <ZoomOutMapOutlinedIcon />
+          </Button>
+
+          {renderBtns && renderBtns()}
         </div>
       </div>
+
+      <Modal
+        openModal={zoomOpen}
+        setOpenModal={() => setZoomOpen(!zoomOpen)}
+        dialogContextClassName={classNames.zoomDialogContext}
+      >
+        <ImageZoomForm item={zoomImage} />
+      </Modal>
     </Modal>
   )
 }

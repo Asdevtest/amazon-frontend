@@ -66,9 +66,6 @@ export const BigImagesModal = props => {
                     className={cx(classNames.previewListImage, {
                       [classNames.activeImage]: index === imgIndex,
                     })}
-                    // src={el}
-                    // srcSet={el}
-                    // alt={el}
                     src={
                       typeof el === 'string'
                         ? getAmazonImageUrl(el, true)

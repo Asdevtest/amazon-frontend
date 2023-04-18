@@ -52,10 +52,12 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imageModalSubWrapperRightSide: {
-    alignItems: 'flex-end',
+    // alignItems: 'flex-end',
     display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
+    // flexDirection: 'column',
+    // justifyContent: 'flex-end',
+
+    gap: 20,
 
     position: 'absolute',
     bottom: 30,
@@ -129,5 +131,14 @@ export const useClassNames = makeStyles()(theme => ({
 
   redText: {
     color: '#DF0C0C',
+  },
+
+  zoomDialogContext: {
+    padding: 0,
+  },
+
+  imagesModalBtn: {
+    width: 40,
+    height: 40,
   },
 }))
