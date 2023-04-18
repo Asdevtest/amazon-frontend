@@ -10,6 +10,7 @@ import {CreateOrEditRequestContent} from '@components/contents/create-or-edit-re
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {BigImagesModal} from '@components/modals/big-images-modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
 import {t} from '@utils/translations'
@@ -32,6 +33,7 @@ export class CreateOrEditRequestView extends Component {
 
   render() {
     const {
+      confirmModalSettings,
       progressValue,
       showProgress,
       requestToEdit,
@@ -42,6 +44,7 @@ export class CreateOrEditRequestView extends Component {
       bigImagesOptions,
       permissionsData,
       platformSettingsData,
+      showConfirmModal,
 
       onClickChoosePerformer,
       onTriggerDrawerOpen,
@@ -85,6 +88,19 @@ export class CreateOrEditRequestView extends Component {
             setOpenModal={() => onTriggerOpenModal('showImageModal')}
             images={bigImagesOptions.images}
             imgIndex={bigImagesOptions.imgIndex}
+          />
+
+          <ConfirmationModal
+            isWarning={confirmModalSettings.isWarning}
+            openModal={showConfirmModal}
+            setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+            title={t(TranslationKey.Attention)}
+            message={confirmModalSettings.message}
+            smallMessage={confirmModalSettings.smallMessage}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.Cancel)}
+            onClickSuccessBtn={confirmModalSettings.onSubmit}
+            onClickCancelBtn={confirmModalSettings.onCancel}
           />
         </Main>
       </React.Fragment>

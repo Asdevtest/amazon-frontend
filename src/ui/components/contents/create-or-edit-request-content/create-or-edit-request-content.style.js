@@ -137,7 +137,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   footerWrapper: {
-    position: 'fixed',
+    marginTop: 'auto',
+    // position: 'sticky',
     bottom: 100,
     display: 'flex',
     alignSelf: 'flex-end',
@@ -160,8 +161,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   successBtn: {
     marginLeft: '60px',
-    width: '211px',
+    // width: '211px',
     height: '42px',
+    padding: '0 25px',
   },
 
   successBtnTextWrapper: {
