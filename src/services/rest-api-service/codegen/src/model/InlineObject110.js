@@ -50,23 +50,11 @@ class InlineObject110 {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('zipCode')) {
-                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
-            }
-            if (data.hasOwnProperty('state')) {
-                obj['state'] = ApiClient.convertToType(data['state'], 'String');
-            }
-            if (data.hasOwnProperty('city')) {
-                obj['city'] = ApiClient.convertToType(data['city'], 'String');
-            }
-            if (data.hasOwnProperty('address')) {
-                obj['address'] = ApiClient.convertToType(data['address'], 'String');
-            }
-            if (data.hasOwnProperty('fontColor')) {
-                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
         }
         return obj;
@@ -76,46 +64,22 @@ class InlineObject110 {
 }
 
 /**
- * Название склада.
+ * Название услуги
  * @member {String} name
  */
 InlineObject110.prototype['name'] = undefined;
 
 /**
- * Страна.
- * @member {String} country
+ * Описание услуги
+ * @member {String} description
  */
-InlineObject110.prototype['country'] = undefined;
+InlineObject110.prototype['description'] = undefined;
 
 /**
- * Индекс. 5 цифр.
- * @member {String} zipCode
+ * Цена услуги.
+ * @member {Number} price
  */
-InlineObject110.prototype['zipCode'] = undefined;
-
-/**
- * Штат.
- * @member {String} state
- */
-InlineObject110.prototype['state'] = undefined;
-
-/**
- * Город.
- * @member {String} city
- */
-InlineObject110.prototype['city'] = undefined;
-
-/**
- * Адрес склада.
- * @member {String} address
- */
-InlineObject110.prototype['address'] = undefined;
-
-/**
- * Цвет шрифта
- * @member {String} fontColor
- */
-InlineObject110.prototype['fontColor'] = undefined;
+InlineObject110.prototype['price'] = undefined;
 
 
 

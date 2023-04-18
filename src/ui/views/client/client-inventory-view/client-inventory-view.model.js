@@ -129,6 +129,8 @@ export class ClientInventoryViewModel {
 
   receivedFiles = undefined
 
+  paymentMethods = []
+
   hsCodeData = {}
 
   existingOrders = []
@@ -574,6 +576,10 @@ export class ClientInventoryViewModel {
       : this.history.push('/client/inventory/archive', {isArchive: !this.isArchive})
   }
 
+  async getSuppliersPaymentMethods() {
+    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+  }
+
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -583,6 +589,7 @@ export class ClientInventoryViewModel {
 
       await this.getProductsMy()
       this.isModalOpen && this.onTriggerOpenModal('showSendOwnProductModal')
+      this.getSuppliersPaymentMethods()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

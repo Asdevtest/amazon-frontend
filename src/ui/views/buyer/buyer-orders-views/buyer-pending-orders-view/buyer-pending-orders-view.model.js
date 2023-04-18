@@ -69,6 +69,8 @@ export class BuyerMyOrdersViewModel {
   showConfirmModal = false
   showWarningInfoModal = false
 
+  paymentMethods = []
+
   imagesForLoad = []
 
   showSuccessModalText = ''
@@ -252,6 +254,7 @@ export class BuyerMyOrdersViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getOrdersMy()
+      this.getSuppliersPaymentMethods()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -491,6 +494,10 @@ export class BuyerMyOrdersViewModel {
         this.error = error.body.message
       }
     }
+  }
+
+  async getSuppliersPaymentMethods() {
+    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
   }
 
   async onClickSaveSupplierBtn({supplier, photosOfSupplier, productId, editPhotosOfSupplier}) {

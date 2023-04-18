@@ -4,6 +4,7 @@ import {makeAutoObservable, runInAction} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {creatSupplier} from '@constants/white-list'
+import {patchSuppliers} from '@constants/white-list'
 
 import {ClientModel} from '@models/client-model'
 import {IdeaModel} from '@models/ideas-model'
@@ -387,7 +388,8 @@ export class SuppliersAndIdeasModel {
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
+        console.log('supplierUpdateData', supplierUpdateData)
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)

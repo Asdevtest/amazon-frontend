@@ -15,7 +15,7 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject121 from '../model/InlineObject121';
+import InlineObject122 from '../model/InlineObject122';
 import InlineObject79 from '../model/InlineObject79';
 import InlineObject80 from '../model/InlineObject80';
 import InlineObject81 from '../model/InlineObject81';
@@ -168,7 +168,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject121} opts.body 
+     * @param {module:model/InlineObject122} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsCustomGuidResultEditPatchWithHttpInfo(guid, opts) {
@@ -207,7 +207,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject121} opts.body 
+     * @param {module:model/InlineObject122} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsCustomGuidResultEditPatch(guid, opts) {

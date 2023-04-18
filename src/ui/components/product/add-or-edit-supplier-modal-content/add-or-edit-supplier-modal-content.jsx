@@ -760,7 +760,7 @@ export const AddOrEditSupplierModalContent = observer(
                   )}
 
                   {!onlyRead &&
-                    paymentMethods.map((paymentMethod, paymentMethodIndex) => (
+                    paymentMethods?.map((paymentMethod, paymentMethodIndex) => (
                       <MenuItem key={paymentMethodIndex} value={paymentMethod}>
                         <Checkbox
                           color="primary"
@@ -777,6 +777,7 @@ export const AddOrEditSupplierModalContent = observer(
                     tmpSupplier?.paymentMethods.map((paymentMethod, paymentMethodIndex) => (
                       <MenuItem key={paymentMethodIndex} value={paymentMethod}>
                         <Checkbox
+                          disabled
                           color="primary"
                           checked={tmpSupplier.paymentMethods.some(item => item._id === paymentMethod._id)}
                         />

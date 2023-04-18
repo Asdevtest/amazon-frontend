@@ -83,6 +83,8 @@ export class BuyerMyOrdersViewModel {
   chosenStatus = []
   filteredStatus = []
 
+  paymentMethods = []
+
   yuanToDollarRate = undefined
 
   ordersMy = []
@@ -323,6 +325,10 @@ export class BuyerMyOrdersViewModel {
     this.orderStatusDataBase = this.setOrderStatus(this.history.location.pathname)
   }
 
+  async getSuppliersPaymentMethods() {
+    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+  }
+
   async onClickSaveSupplierBtn({supplier, photosOfSupplier, productId, editPhotosOfSupplier}) {
     try {
       this.clearReadyImages()
@@ -334,7 +340,7 @@ export class BuyerMyOrdersViewModel {
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
         images: this.readyImages,
@@ -347,7 +353,6 @@ export class BuyerMyOrdersViewModel {
 
         supplier = {
           ...supplier,
-          paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
           images: [...supplier.images, ...this.readyImages],
         }
       }
@@ -552,6 +557,7 @@ export class BuyerMyOrdersViewModel {
       this.getDataGridState()
       await this.getOrdersMy()
       this.getBuyersOrdersPaymentByStatus()
+      this.getSuppliersPaymentMethods()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
