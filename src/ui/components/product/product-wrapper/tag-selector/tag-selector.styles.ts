@@ -12,7 +12,8 @@ export const useTagSelectorStyles = makeStyles()(theme => ({
       lineHeight: '1 !important',
     },
     '.MuiAutocomplete-clearIndicator': {
-      display: 'none',
+      // display: 'none',
+      marginRight: 20,
     },
   },
   addBtn: {
