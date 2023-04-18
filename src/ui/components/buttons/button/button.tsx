@@ -26,12 +26,12 @@ interface Props {
   color?: string
   success?: boolean
   danger?: boolean
-  className: string
+  className?: string
   disabled?: boolean
   onClick?: () => void
   disableElevation?: boolean
   btnWrapperStyle?: string
-  children?: string
+  children?: ReactElement | string
 }
 
 export const Button: FC<Props> = observer(

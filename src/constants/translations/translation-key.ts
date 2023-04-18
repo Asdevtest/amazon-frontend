@@ -1922,7 +1922,7 @@ export enum TranslationKey {
   'Product tags' = 'Product tags',
   'Input tag' = 'Input tag',
   'Payment to all suppliers' = 'Payment to all suppliers',
-  // '' = '',
+  'System message' = 'System message',
   // '' = '',
   // '' = '',
   // '' = '',
