@@ -611,28 +611,22 @@ export default class BuyerApi {
 
 
     /**
-     * # Получить конкретный заказ по его GUID.
-     * ## Получить конкретный заказ по его GUID.   
+     * # Получить общую стоимость заказов по статусам
+     * ## Получить общую стоимость заказов по статусам
      * @param {String} status Order status
-     * @param {String} guid GUID заказа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20023} and HTTP response
      */
-    apiV1BuyersOrdersPaymentAmountGetWithHttpInfo(status, guid, opts) {
+    apiV1BuyersOrdersPaymentAmountGetWithHttpInfo(status, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'status' is set
       if (status === undefined || status === null) {
         throw new Error("Missing the required parameter 'status' when calling apiV1BuyersOrdersPaymentAmountGet");
       }
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1BuyersOrdersPaymentAmountGet");
-      }
 
       let pathParams = {
-        'guid': guid
       };
       let queryParams = {
         'status': status
@@ -655,16 +649,15 @@ export default class BuyerApi {
     }
 
     /**
-     * # Получить конкретный заказ по его GUID.
-     * ## Получить конкретный заказ по его GUID.   
+     * # Получить общую стоимость заказов по статусам
+     * ## Получить общую стоимость заказов по статусам
      * @param {String} status Order status
-     * @param {String} guid GUID заказа.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20023}
      */
-    apiV1BuyersOrdersPaymentAmountGet(status, guid, opts) {
-      return this.apiV1BuyersOrdersPaymentAmountGetWithHttpInfo(status, guid, opts)
+    apiV1BuyersOrdersPaymentAmountGet(status, opts) {
+      return this.apiV1BuyersOrdersPaymentAmountGetWithHttpInfo(status, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

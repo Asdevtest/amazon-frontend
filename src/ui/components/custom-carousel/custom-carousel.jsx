@@ -1,9 +1,13 @@
 import {cx} from '@emotion/css'
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
+import AutorenewIcon from '@mui/icons-material/Autorenew'
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import InboxIcon from '@mui/icons-material/Inbox'
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
+// import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
+import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
 import {Avatar, Link, Typography} from '@mui/material'
 
 import {Children, cloneElement, useEffect, useState} from 'react'
@@ -14,6 +18,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
+import {Button} from '@components/buttons/button'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {checkIsImageLink} from '@utils/checks'
@@ -221,10 +226,16 @@ export const PhotoAndFilesCarousel = ({
   withoutPhotos,
   whithoutFiles,
   imagesTitles = [],
+
+  imagesForLoad,
+  onChangeImagesForLoad,
+  isEditable,
 }) => {
   const {classes: classNames} = useClassNames()
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
   const [showPhotosModal, setShowPhotosModal] = useState(false)
+
+  // console.log('imagesForLoad', imagesForLoad)
 
   const notEmptyFiles = files?.length ? files.filter(el => !checkIsImageLink(el?.file?.name || el)) : []
 
@@ -233,6 +244,107 @@ export const PhotoAndFilesCarousel = ({
     : []
 
   const notEmptyPhotos = files?.length ? files.filter(el => checkIsImageLink(el?.file?.name || el)) : []
+
+  const onClickRemoveImageObj = imageIndex => {
+    const newArr = imagesForLoad.filter((el, i) => i !== imageIndex)
+
+    onChangeImagesForLoad(newArr)
+    setBigImagesOptions(() => ({
+      ...bigImagesOptions,
+      imgIndex: bigImagesOptions.imgIndex - 1 < 0 ? 0 : bigImagesOptions.imgIndex - 1,
+      images: newArr,
+    }))
+
+    if (!newArr.length) {
+      setShowPhotosModal(false)
+    }
+  }
+
+  const onUploadFile = imageIndex => async evt => {
+    if (evt.target.files.length === 0) {
+      return
+    } else {
+      const filesArr = Array.from(evt.target.files)
+
+      evt.preventDefault()
+
+      const readyFilesArr = filesArr.map(el => ({
+        data_url: URL.createObjectURL(el),
+        file: new File([el], el.name?.replace(/ /g, ''), {
+          type: el.type,
+          lastModified: el.lastModified,
+        }),
+      }))
+
+      // setImagesData(() => imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)))
+
+      onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0] : el)))
+      setBigImagesOptions(() => ({
+        ...bigImagesOptions,
+        images: imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0] : el)),
+      }))
+    }
+  }
+
+  const onClickMakeMainImageObj = (imageIndex, image) => {
+    onChangeImagesForLoad([image, ...imagesForLoad.filter((el, i) => i !== imageIndex)])
+    setBigImagesOptions(() => ({
+      ...bigImagesOptions,
+      imgIndex: 0,
+      images: [image, ...imagesForLoad.filter((el, i) => i !== imageIndex)],
+    }))
+  }
+
+  const bigImagesModalControls = (imageIndex, image) => (
+    <>
+      {/* {(checkIsResearcher(curUserRole) || checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) &&
+        !product.archive &&
+        showActionBtns && ( */}
+      <>
+        <>
+          {imageIndex === 0 ? (
+            <div className={cx(classNames.imagesModalBtn, classNames.activeMainIcon)}>
+              <StarOutlinedIcon />
+            </div>
+          ) : (
+            <Button
+              disabled={imageIndex === 0}
+              // success={imageIndex === 0}
+              className={cx(classNames.imagesModalBtn)}
+              onClick={() => onClickMakeMainImageObj(imageIndex, image)}
+            >
+              <StarOutlinedIcon />
+            </Button>
+          )}
+        </>
+
+        {/* <Button className={cx(classNames.imagesModalBtn)}>
+          <ModeOutlinedIcon />
+          <input
+            type={'file'}
+            className={classNames.pasteInput}
+            defaultValue={''}
+            onChange={onUploadFile(imageIndex)}
+          />
+        </Button> */}
+
+        <Button className={cx(classNames.imagesModalBtn)}>
+          <AutorenewIcon />
+          <input
+            type={'file'}
+            className={classNames.pasteInput}
+            defaultValue={''}
+            onChange={onUploadFile(imageIndex)}
+          />
+        </Button>
+
+        <Button danger className={cx(classNames.imagesModalBtn)} onClick={() => onClickRemoveImageObj(imageIndex)}>
+          <DeleteOutlineOutlinedIcon />
+        </Button>
+      </>
+      {/* )} */}
+    </>
+  )
 
   return files?.length ? (
     <div
@@ -248,7 +360,7 @@ export const PhotoAndFilesCarousel = ({
             <div className={cx(classNames.imagesWrapper, {[classNames.notToShowEmptyWrapper]: notToShowEmpty})}>
               {notEmptyPhotos?.length ? (
                 <CustomCarousel>
-                  {notEmptyPhotos.map((photo, index) => (
+                  {(isEditable ? imagesForLoad : notEmptyPhotos)?.map((photo, index) => (
                     <div key={index} className={classNames.imageSubWrapper}>
                       <>
                         <Avatar
@@ -262,9 +374,11 @@ export const PhotoAndFilesCarousel = ({
                             setShowPhotosModal(!showPhotosModal)
 
                             setBigImagesOptions({
-                              images: files
-                                .filter(el => checkIsImageLink(el?.file?.name || el))
-                                .map(img => img?.data_url || img),
+                              images: isEditable
+                                ? imagesForLoad
+                                : files
+                                    .filter(el => checkIsImageLink(el?.file?.name || el))
+                                    .map(img => img?.data_url || img),
                               imgIndex: index,
                             })
                           }}
@@ -337,11 +451,21 @@ export const PhotoAndFilesCarousel = ({
         </>
       )}
 
-      <BigImagesModal
+      {/* <BigImagesModal
         openModal={showPhotosModal}
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={bigImagesOptions.images}
         imgIndex={bigImagesOptions.imgIndex}
+      /> */}
+
+      <BigImagesModal
+        showPreviews
+        openModal={showPhotosModal}
+        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        images={bigImagesOptions.images}
+        imgIndex={bigImagesOptions.imgIndex}
+        setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
+        controls={isEditable ? bigImagesModalControls : undefined}
       />
     </div>
   ) : (

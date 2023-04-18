@@ -1923,5 +1923,6 @@
   "Do you want to delete the source file?": "Желаете удалить исходный файл?",
   "New orders available": "Доступны новые заказы",
   "Orders need confirmation": "Заказы нуждаются в подтверждении",
-  "The redemption deadline has expired": "Срок выкупа истёк"
+  "The redemption deadline has expired": "Срок выкупа истёк",
+  "Payment to all suppliers": "К оплате всем поставщикам"
 }

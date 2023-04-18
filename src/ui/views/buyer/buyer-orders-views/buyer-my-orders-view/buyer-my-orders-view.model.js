@@ -9,6 +9,7 @@ import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {routsPathes} from '@constants/routs-pathes'
 import {mapTaskPriorityStatusEnumToKey, TaskPriorityStatus} from '@constants/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {patchSuppliers} from '@constants/white-list'
 
 import {BoxesModel} from '@models/boxes-model'
 import {BoxesCreateBoxContract} from '@models/boxes-model/boxes-model.contracts'
@@ -94,6 +95,8 @@ export class BuyerMyOrdersViewModel {
   createBoxesResult = []
 
   imagesForLoad = []
+
+  paymentAmount = undefined
 
   volumeWeightCoefficient = undefined
 
@@ -280,6 +283,18 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
+  async getBuyersOrdersPaymentByStatus() {
+    if (
+      Number(OrderStatusByKey[this.orderStatusDataBase]) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])
+    ) {
+      this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(
+        OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT],
+      )
+
+      console.log('this.paymentAmount', this.paymentAmount)
+    }
+  }
+
   // Убирает и добавляет статусы в массив выбранных статусов
   onClickOrderStatusData(status) {
     runInAction(() => {
@@ -308,12 +323,12 @@ export class BuyerMyOrdersViewModel {
     this.orderStatusDataBase = this.setOrderStatus(this.history.location.pathname)
   }
 
-  async onClickSaveSupplierBtn({supplier, photosOfSupplier, productId}) {
+  async onClickSaveSupplierBtn({supplier, photosOfSupplier, productId, editPhotosOfSupplier}) {
     try {
-      this.readyImages = []
+      this.clearReadyImages()
 
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+      if (editPhotosOfSupplier?.length) {
+        await onSubmitPostImages.call(this, {images: editPhotosOfSupplier, type: 'readyImages'})
       }
 
       supplier = {
@@ -322,9 +337,21 @@ export class BuyerMyOrdersViewModel {
 
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
-        images: supplier.images.concat(this.readyImages),
+        images: this.readyImages,
       }
-      const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
+
+      this.clearReadyImages()
+
+      if (photosOfSupplier?.length) {
+        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+
+        supplier = {
+          ...supplier,
+          images: [...supplier.images, ...this.readyImages],
+        }
+      }
+
+      const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
 
       if (supplier._id) {
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
@@ -384,13 +411,7 @@ export class BuyerMyOrdersViewModel {
         batchDeliveryCostInDollar: orderFields.batchDeliveryCostInDollar,
         batchTotalCostInDollar: orderFields.batchTotalCostInDollar,
       }
-      const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, [
-        '_id',
-        'createdAt',
-        'createdBy',
-        'paymentMethod',
-        'updatedAt',
-      ])
+      const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
 
       if (supplier._id) {
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
@@ -527,6 +548,7 @@ export class BuyerMyOrdersViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getOrdersMy()
+      this.getBuyersOrdersPaymentByStatus()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -635,6 +657,7 @@ export class BuyerMyOrdersViewModel {
     trackNumber,
     commentToWarehouse,
     paymentDetailsPhotosToLoad,
+    editPaymentDetailsPhotos,
   }) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -647,39 +670,51 @@ export class BuyerMyOrdersViewModel {
 
       this.clearReadyImages()
 
-      if (photosToLoad.length) {
-        await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
-      }
-
-      const orderFieldsToSave = {
-        ...orderFields,
-        images: this.readyImages,
-      }
-
-      this.clearReadyImages()
-
       if (this.imagesForLoad.length) {
         await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'readyImages'})
 
         this.clearImagesForLoad()
+
+        orderFields = {
+          ...orderFields,
+          images: this.readyImages,
+        }
       }
 
-      const orderFieldsToSaveWithImagesForLoad = {
-        ...orderFieldsToSave,
-        // ...orderFields,
-        images: [...orderFieldsToSave.images, ...this.readyImages],
+      this.clearReadyImages()
+
+      if (photosToLoad.length) {
+        await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
+
+        orderFields = {
+          ...orderFields,
+          images: [...orderFields.images, ...this.readyImages],
+        }
+      }
+
+      this.clearReadyImages()
+
+      if (editPaymentDetailsPhotos?.length) {
+        await onSubmitPostImages.call(this, {images: editPaymentDetailsPhotos, type: 'readyImages'})
+
+        orderFields = {
+          ...orderFields,
+          paymentDetails: this.readyImages,
+        }
       }
 
       this.clearReadyImages()
 
       if (paymentDetailsPhotosToLoad?.length) {
         await onSubmitPostImages.call(this, {images: paymentDetailsPhotosToLoad, type: 'readyImages'})
+
+        orderFields = {
+          ...orderFields,
+          paymentDetails: [...orderFields.paymentDetails, ...this.readyImages],
+        }
       }
 
-      await this.onSaveOrder(order, {
-        ...orderFieldsToSaveWithImagesForLoad,
-        paymentDetails: [...orderFields.paymentDetails, ...this.readyImages],
-      })
+      await this.onSaveOrder(order, orderFields)
 
       if (
         boxesForCreation.length > 0 &&
@@ -861,7 +896,7 @@ export class BuyerMyOrdersViewModel {
         await this.onCreateBox(elementOrderBox, order)
 
         if (elementOrderBox.tmpUseToUpdateSupplierBoxDimensions) {
-          const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(
+          const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
             {
               ...order.orderSupplier,
               boxProperties: {
@@ -872,7 +907,7 @@ export class BuyerMyOrdersViewModel {
                 boxWidthCm: parseFloat(elementOrderBox?.widthCmSupplier) || 0,
               },
             },
-            ['_id', 'yuanRate', 'createdAt', 'updatedAt', 'createdBy'],
+            patchSuppliers,
           )
 
           await SupplierModel.updateSupplier(order.orderSupplier._id, supplierUpdateData)

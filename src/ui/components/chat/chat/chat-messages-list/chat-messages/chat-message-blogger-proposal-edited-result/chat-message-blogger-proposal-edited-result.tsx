@@ -71,6 +71,9 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({message, hand
                   width="340px"
                   withoutPhotos={undefined}
                   whithoutFiles={undefined}
+                  imagesForLoad={undefined}
+                  isEditable={undefined}
+                  onChangeImagesForLoad={undefined}
                 />
               }
             />
