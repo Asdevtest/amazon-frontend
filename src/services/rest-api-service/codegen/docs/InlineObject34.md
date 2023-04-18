@@ -12,5 +12,6 @@ Name | Type | Description | Notes
 **profit** | **Number** | Прибыль | [optional] 
 **margin** | **Number** | Маржа | [optional] 
 **buyersComment** | **String** | Примечания байера. | [optional] 
+**tags** | [**[ApiV1BuyersProductsGuidTags]**](ApiV1BuyersProductsGuidTags.md) |  | [optional] 
 
 

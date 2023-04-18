@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {Box, Container, Link, Typography} from '@mui/material'
 
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -15,15 +15,28 @@ import {
 import {Field} from '@components/field/field'
 import {UploadFilesInput} from '@components/upload-files-input'
 
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './supplier-payment-form.style'
 
-export const SupplierPaymentForm = ({item, onClickSaveButton, onCloseModal, uploadedFiles}) => {
+export const SupplierPaymentForm = ({
+  item,
+  onClickSaveButton,
+  onCloseModal,
+  uploadedFiles,
+  editPaymentDetailsPhotos,
+}) => {
   const {classes: classNames} = useClassNames()
 
   const [files, setFiles] = useState(uploadedFiles || [])
+
+  const [editPhotos, setEditPhotos] = useState(editPaymentDetailsPhotos || [])
+
+  const onChangeDetailsPhotosToLoad = value => {
+    setEditPhotos(value)
+  }
 
   return (
     <Container disableGutters className={classNames.modalWrapper}>
@@ -32,14 +45,23 @@ export const SupplierPaymentForm = ({item, onClickSaveButton, onCloseModal, uplo
       <div className={classNames.imageFileInputWrapper}>
         <UploadFilesInput images={files} setImages={setFiles} maxNumber={50 - item?.paymentDetails.length} />
       </div>
-      {!!item?.paymentDetails.length && <PhotoAndFilesCarouselMini small files={item?.paymentDetails} width="400px" />}
+      {!!item?.paymentDetails.length && (
+        <PhotoAndFilesCarousel
+          isEditable
+          small
+          width="400px"
+          files={item?.paymentDetails}
+          imagesForLoad={editPhotos}
+          onChangeImagesForLoad={onChangeDetailsPhotosToLoad}
+        />
+      )}
 
       <Box className={classNames.saveBox}>
         <Button
           // disabled={!files.length}
           className={classNames.actionButton}
           onClick={() => {
-            onClickSaveButton(files)
+            onClickSaveButton(files, editPhotos)
             onCloseModal()
           }}
         >

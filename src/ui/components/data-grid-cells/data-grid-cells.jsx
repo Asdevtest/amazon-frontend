@@ -354,21 +354,19 @@ export const StringListCell = React.memo(
     }, [nameSearchValue])
 
     return (
-      <div className={classNames.flexDirectionColumn}>
+      <div className={cx(classNames.flexDirectionColumn, classNames.adaptText)}>
         {items
           .slice(0, maxItemsDisplay)
           .filter(el => el)
           .map((item, i) => (
             <div key={i} className={classNames.multilineTextHeaderWrapper}>
-              <Tooltip title={item}>
-                <Typography className={classNames.typoCell}>
-                  {
-                    <span className={classNames.multilineHeaderText}>
-                      {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
-                    </span>
-                  }
-                </Typography>
-              </Tooltip>
+              <Typography className={cx(classNames.typoCell, classNames.adaptText)}>
+                {
+                  <span className={cx(classNames.multilineHeaderText, classNames.adaptText)}>
+                    {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
+                  </span>
+                }
+              </Typography>
               {withCopy && <CopyValue text={item} />}
             </div>
           ))}
@@ -403,15 +401,13 @@ export const StringListCell = React.memo(
               <div className={classNames.shopsBody}>
                 {itemsForRender.map((item, i) => (
                   <div key={i} className={classNames.multilineTextHeaderWrapper}>
-                    <Tooltip title={item}>
-                      <Typography className={classNames.typoCell}>
-                        {
-                          <span className={classNames.multilineHeaderText}>
-                            {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
-                          </span>
-                        }
-                      </Typography>
-                    </Tooltip>
+                    <Typography className={classNames.typoCell}>
+                      {
+                        <span className={classNames.multilineHeaderText}>
+                          {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
+                        </span>
+                      }
+                    </Typography>
                     {withCopy && <CopyValue text={item} />}
                   </div>
                 ))}
@@ -674,7 +670,7 @@ export const ChangeInputCell = React.memo(
 )
 
 export const ChangeInputCommentCell = React.memo(
-  withStyles(({classes: classNames, id, onClickSubmit, onChangeText, text, disabled, maxLength}) => {
+  withStyles(({classes: classNames, id, onClickSubmit, onChangeText, text, disabled, maxLength, rowsCount}) => {
     const [value, setValue] = useState(text)
 
     useEffect(() => {
@@ -688,8 +684,8 @@ export const ChangeInputCommentCell = React.memo(
         <Input
           multiline
           autoFocus={false}
-          minRows={2}
-          maxRows={2}
+          minRows={rowsCount ?? 2}
+          maxRows={rowsCount ?? 2}
           inputProps={{maxLength: maxLength ? maxLength : 256}}
           placeholder={t(TranslationKey.Comment)}
           disabled={disabled}
@@ -980,7 +976,7 @@ export const DownloadAndPrintFilesCell = React.memo(
           setOpenModal={() => setIsOpenModal(prevState => !prevState)}
           images={[selectedImage.fileUrl]}
           controls={() => (
-            <Box display="flex" gap="20px">
+            <>
               <Button
                 onClick={() => downloadFileByLink(getAmazonImageUrl(selectedImage.fileUrl), selectedImage.fileName)}
               >
@@ -990,7 +986,7 @@ export const DownloadAndPrintFilesCell = React.memo(
               <Button onClick={() => handlePrint()}>
                 <PrintIcon color="inherit" />
               </Button>
-            </Box>
+            </>
           )}
         />
       </>
@@ -1681,19 +1677,23 @@ export const TaskTypeCell = React.memo(
     const renderTaskDescription = type => {
       switch (type) {
         case TaskOperationType.MERGE:
-          return <Typography>{t(TranslationKey.Merge)}</Typography>
+          return t(TranslationKey.Merge)
         case TaskOperationType.SPLIT:
-          return <Typography>{t(TranslationKey.Split)}</Typography>
+          return t(TranslationKey.Split)
         case TaskOperationType.RECEIVE:
-          return <Typography>{t(TranslationKey.Receive)}</Typography>
+          return t(TranslationKey.Receive)
         case TaskOperationType.EDIT:
-          return <Typography>{t(TranslationKey.Edit)}</Typography>
+          return t(TranslationKey.Edit)
         case TaskOperationType.EDIT_BY_STOREKEEPER:
-          return <Typography>{t(TranslationKey['Storekeeper edit'])}</Typography>
+          return t(TranslationKey['Storekeeper edit'])
       }
     }
 
-    return <div className={classNames.taskDescriptionScrollWrapper}>{renderTaskDescription(task.operationType)}</div>
+    return (
+      <div className={classNames.taskDescriptionScrollWrapper}>
+        <Typography className={classNames.operationTypeText}>{renderTaskDescription(task.operationType)}</Typography>
+      </div>
+    )
   }, styles),
 )
 
@@ -1761,19 +1761,8 @@ export const TaskDescriptionCell = React.memo(
     const taskReceiveDescription = () => (
       <div className={classNames.blockProductsImagesWrapper}>
         <div className={classNames.receiveOrEditWrapper}>
-          <img src="/assets/icons/big-box.svg" />
-          <img src="/assets/icons/box-arrow.svg" />
-
-          {/* {task.boxesBefore[0]?.amount > 1 && (
-            <div className={classNames.superboxWrapper}>
-              <img src="/assets/icons/cube.svg" />
-              <Typography className={classNames.imgNum}>
-                {task.boxesBefore[0].amount > 1 && ` x${task.boxesBefore[0].amount}`}
-              </Typography>
-            </div>
-          )} */}
-
-          {/* {task.boxesBefore.map((box, index) => renderProductImages(box?.items[0], index))} */}
+          <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} />
+          <img src="/assets/icons/box-arrow.svg" className={classNames.boxArrowSvg} />
 
           <div className={classNames.gridBoxesWrapper}>
             {task.boxesBefore.map((el, i) => (
@@ -1789,7 +1778,6 @@ export const TaskDescriptionCell = React.memo(
                 </Grid>
               </div>
             ))}
-            {/* {task.boxesBefore[0]?.items.map((product, productIndex) => renderProductImages(product, productIndex))} */}
           </div>
         </div>
       </div>
@@ -1798,8 +1786,8 @@ export const TaskDescriptionCell = React.memo(
     const taskEditDescription = () => (
       <div className={classNames.blockProductsImagesWrapper}>
         <div className={classNames.receiveOrEditWrapper}>
-          <img src="/assets/icons/big-box.svg" />
-          <img src="/assets/icons/box-edit.svg" />
+          <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} />
+          <img src="/assets/icons/box-edit.svg" className={classNames.boxEditSvg} />
 
           {task.boxesBefore[0]?.amount > 1 && (
             <div className={classNames.superboxWrapper}>

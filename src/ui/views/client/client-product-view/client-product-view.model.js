@@ -4,6 +4,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
 import {poundsWeightCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {patchSuppliers} from '@constants/white-list'
 
 import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
@@ -576,16 +577,14 @@ export class ClientProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({supplier, photosOfSupplier}) {
+  async onClickSaveSupplierBtn({supplier, photosOfSupplier, editPhotosOfSupplier}) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      runInAction(() => {
-        this.readyImages = []
-      })
+      this.clearReadyImages()
 
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+      if (editPhotosOfSupplier.length) {
+        await onSubmitPostImages.call(this, {images: editPhotosOfSupplier, type: 'readyImages'})
       }
 
       supplier = {
@@ -594,11 +593,19 @@ export class ClientProductViewModel {
 
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
-        images: supplier.images.concat(this.readyImages),
+        images: this.readyImages,
+      }
+
+      if (photosOfSupplier.length) {
+        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+        supplier = {
+          ...supplier,
+          images: [...supplier.images, ...this.readyImages],
+        }
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
 
         if (supplier._id === this.product.currentSupplierId) {
@@ -807,6 +814,12 @@ export class ClientProductViewModel {
       this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)
       this.onTriggerOpenModal('showWarningModal')
     }
+  }
+
+  clearReadyImages() {
+    runInAction(() => {
+      this.readyImages = []
+    })
   }
 
   // async onClickParseProductData(productDataParser, product) {

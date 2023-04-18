@@ -3,6 +3,11 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   modalWrapper: {
     width: '700px',
+    [theme.breakpoints.down(1282)]: {
+      height: 'calc(100vh - 145px)',
+      width: 715,
+      overflowY: 'auto',
+    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
       maxWidth: '520px',
@@ -14,6 +19,9 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     lineHeight: '140%',
     marginBottom: '24px',
+    [theme.breakpoints.down(1282)]: {
+      marginBottom: 0,
+    },
     [theme.breakpoints.down(768)]: {
       color: theme.palette.text.general,
       fontSize: '16px',
@@ -132,6 +140,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   numberInputField: {
     width: 222,
+    height: 40,
     margin: 0,
   },
   blockOfNewBoxWrapper: {
@@ -217,6 +226,16 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       display: 'flex',
       justifyContent: 'center',
+    },
+  },
+
+  modalHeaderWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    [theme.breakpoints.down(1282)]: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
     },
   },
 }))

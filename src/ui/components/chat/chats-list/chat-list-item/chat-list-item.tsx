@@ -3,6 +3,7 @@ import {Avatar} from '@mui/material'
 
 import React, {FC} from 'react'
 
+import he from 'he'
 import {observer} from 'mobx-react'
 
 import {chatsType} from '@constants/chats'
@@ -37,15 +38,15 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
 
   const isGroupChat = chat.type === chatsType.GROUP
 
-  // console.log('chat', chat)
+  // console.log('lastMessage', lastMessage)
 
   // console.log('users', users)
 
-  const oponentUser = users.filter((user: ChatUserContract) => user._id !== userId)?.[0]
+  const oponentUser = lastMessage.user // users.filter((user: ChatUserContract) => user._id !== userId)?.[0]
 
   // console.log('oponentUser', oponentUser)
 
-  const title = typeof oponentUser?.name === 'string' ? oponentUser.name : 'User'
+  const title = typeof oponentUser?.name === 'string' ? oponentUser.name : t(TranslationKey['System message'])
 
   const unReadMessages = messages.filter(el => !el.isRead && el.user?._id !== userId)
 
@@ -77,7 +78,7 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
           case ChatMessageTextType.PATCH_INFO:
             return t(TranslationKey['changed the chat info'])
           default:
-            return lastMessage.text
+            return he.decode(lastMessage.text)
         }
       })()
     : ''

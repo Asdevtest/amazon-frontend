@@ -2,8 +2,8 @@
 import {cx} from '@emotion/css'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
+import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import {Box, Grid, Paper, Typography, Alert} from '@mui/material'
@@ -24,6 +24,7 @@ import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {CustomCarousel} from '@components/custom-carousel'
 import {CustomImageGallery} from '@components/custom-image-gallery'
+import {ImageEditForm} from '@components/forms/image-edit-form'
 import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
@@ -77,26 +78,15 @@ export const TopCard = observer(
 
     const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
+    const [imageEditOpen, setImageEditOpen] = useState(false)
+
     const clientToEdit =
       checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)
 
     const isSupplierAcceptRevokeActive =
       selectedSupplier && product.currentSupplierId && product.currentSupplierId === selectedSupplier._id
 
-    const onClickDownloadBtn = image => {
-      downloadFileByLink(
-        typeof image === 'string' ? getAmazonImageUrl(image, true) : image.image.data_url,
-        // imageObj.comment,
-      )
-    }
-
     const onClickRemoveImageObj = imageIndex => {
-      // setImagesData(() => imagesData.filter(el => el._id !== curImageId))
-      // setCurImageId(() => null)
-
-      // onChangeImagesForLoad(imagesForLoad.filter(el => el !== image))
-      // setBigImagesOptions(() => ({...bigImagesOptions, images: imagesForLoad.filter(el => el !== image)}))
-
       const newArr = imagesForLoad.filter((el, i) => i !== imageIndex)
 
       onChangeImagesForLoad(newArr)
@@ -146,18 +136,50 @@ export const TopCard = observer(
       }))
     }
 
+    const onClickEditImage = () => {
+      setImageEditOpen(!imageEditOpen)
+    }
+
+    const onClickEditImageSubmit = image => {
+      // bigImagesOptions.images[bigImagesOptions.imgIndex]
+
+      onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image : el)))
+      setBigImagesOptions(() => ({
+        ...bigImagesOptions,
+        images: imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image : el)),
+      }))
+    }
+
     const bigImagesModalControls = (imageIndex, image) => (
-      <div className={cx(classNames.imagesModalBtnsWrapper)}>
+      <>
         {(checkIsResearcher(curUserRole) || checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) &&
           !product.archive &&
           showActionBtns && (
             <>
-              <Button
-                danger
-                className={cx(classNames.imagesModalBtn)}
-                onClick={() => onClickRemoveImageObj(imageIndex)}
-              >
-                <DeleteOutlineOutlinedIcon />
+              <>
+                {imageIndex === 0 ? (
+                  <div className={cx(classNames.imagesModalBtn, classNames.activeMainIcon)}>
+                    <StarOutlinedIcon />
+                  </div>
+                ) : (
+                  <Button
+                    disabled={imageIndex === 0}
+                    // success={imageIndex === 0}
+                    className={cx(classNames.imagesModalBtn)}
+                    onClick={() => onClickMakeMainImageObj(imageIndex, image)}
+                  >
+                    <StarOutlinedIcon />
+                  </Button>
+                )}
+              </>
+              <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickEditImage()}>
+                <ModeOutlinedIcon />
+                {/* <input
+                  type={'file'}
+                  className={classNames.pasteInput}
+                  defaultValue={''}
+                  onChange={onUploadFile(imageIndex)}
+                /> */}
               </Button>
 
               <Button className={cx(classNames.imagesModalBtn)}>
@@ -169,34 +191,17 @@ export const TopCard = observer(
                   onChange={onUploadFile(imageIndex)}
                 />
               </Button>
+
+              <Button
+                danger
+                className={cx(classNames.imagesModalBtn)}
+                onClick={() => onClickRemoveImageObj(imageIndex)}
+              >
+                <DeleteOutlineOutlinedIcon />
+              </Button>
             </>
           )}
-
-        <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickDownloadBtn(image)}>
-          <DownloadOutlinedIcon />
-        </Button>
-
-        {(checkIsResearcher(curUserRole) || checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) &&
-          !product.archive &&
-          showActionBtns && (
-            <>
-              {imageIndex === 0 ? (
-                <div className={cx(classNames.imagesModalBtn, classNames.activeMainIcon)}>
-                  <StarOutlinedIcon />
-                </div>
-              ) : (
-                <Button
-                  disabled={imageIndex === 0}
-                  // success={imageIndex === 0}
-                  className={cx(classNames.imagesModalBtn)}
-                  onClick={() => onClickMakeMainImageObj(imageIndex, image)}
-                >
-                  <StarOutlinedIcon />
-                </Button>
-              )}
-            </>
-          )}
-      </div>
+      </>
     )
 
     const showActionBtns =
@@ -217,6 +222,8 @@ export const TopCard = observer(
       (checkIsBuyer(curUserRole) &&
         productBase.status > ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT] &&
         productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS])
+
+    // console.log('product', product)
 
     return (
       <React.Fragment>
@@ -544,6 +551,14 @@ export const TopCard = observer(
           setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
           controls={bigImagesModalControls}
         />
+
+        <Modal openModal={imageEditOpen} setOpenModal={() => setImageEditOpen(!imageEditOpen)}>
+          <ImageEditForm
+            item={bigImagesOptions.images[bigImagesOptions.imgIndex]}
+            setOpenModal={() => setImageEditOpen(!imageEditOpen)}
+            onSave={onClickEditImageSubmit}
+          />
+        </Modal>
 
         {/* <Modal openModal={showImageModal} setOpenModal={() => setShowImageModal(!showImageModal)}>
           <CustomImageGallery images={bigImagesOptions.images} imgIndex={bigImagesOptions.imgIndex} />

@@ -290,6 +290,15 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  attachFiles: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    color: theme.palette.text.second,
+
+    marginBottom: 5,
+  },
   imageObjInput: {
     width: 133,
     height: 55,

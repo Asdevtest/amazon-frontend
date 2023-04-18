@@ -105,12 +105,6 @@ export const RequestDesignerResultClientForm = ({
     setImagesData(() => imagesData.map(el => (el._id === imageId ? findImage : el)))
   }
 
-  const onClickDownloadBtn = () => {
-    const imageObj = {...imagesData.find(el => el._id === curImageId)}
-
-    downloadFileByLink(typeof imageObj.image === 'string' ? imageObj.image : imageObj.image.data_url, imageObj.comment)
-  }
-
   const onClickAddDownload = item => {
     if (imagesForDownload.some(el => el._id === item._id)) {
       setImagesForDownload(() => imagesForDownload.filter(el => el._id !== item._id))
@@ -415,27 +409,6 @@ export const RequestDesignerResultClientForm = ({
         setOpenModal={() => setShowImageModal(!showImageModal)}
         imagesData={imagesData.map(el => ({...el, imageComment: el.commentByClient || ''}))}
         curImageId={curImageId}
-        renderBtns={() => (
-          <div className={cx(classNames.imagesModalBtnsWrapper)}>
-            {/* <Button danger className={cx(classNames.imagesModalBtn)} onClick={onClickRemoveImageObj}>
-              <DeleteOutlineOutlinedIcon />
-            </Button>
-
-            <Button className={cx(classNames.imagesModalBtn)}>
-              <AutorenewIcon />
-              <input
-                type={'file'}
-                className={classNames.pasteInput}
-                defaultValue={''}
-                onChange={onUploadFile(curImageId)}
-              />
-            </Button> */}
-
-            <Button className={cx(classNames.imagesModalBtn)} onClick={onClickDownloadBtn}>
-              <DownloadOutlinedIcon />
-            </Button>
-          </div>
-        )}
         setCurImageId={setCurImageId}
       />
     </div>

@@ -30,3 +30,5 @@ yarn-error.log*
 .vscode
 
 /src/services/rest-api-service
+
+.schema.json

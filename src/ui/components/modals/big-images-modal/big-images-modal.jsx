@@ -1,13 +1,18 @@
 import {cx} from '@emotion/css'
+import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
+import ZoomOutMapOutlinedIcon from '@mui/icons-material/ZoomOutMapOutlined'
 import {Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
 import Carousel from 'react-material-ui-carousel'
 
+import {Button} from '@components/buttons/button'
+import {ImageZoomForm} from '@components/forms/image-zoom-form'
 import {Modal} from '@components/modal'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import {downloadFileByLink} from '@utils/upload-files'
 
 import {useClassNames} from './big-images-modal.style'
 
@@ -15,6 +20,10 @@ export const BigImagesModal = props => {
   const {openModal, setOpenModal, images, imgIndex = 0, showPreviews = false, setImageIndex, controls} = props
   const {classes: classNames} = useClassNames()
   const [currentScreenWidth, setCurrentScreenWidth] = useState(window.innerWidth)
+
+  const [zoomOpen, setZoomOpen] = useState(false)
+
+  const [zoomImage, setZoomImage] = useState(null)
 
   useEffect(() => {
     const resizeScreen = () => {
@@ -26,6 +35,23 @@ export const BigImagesModal = props => {
 
   const handlePreview = index => {
     setImageIndex && setImageIndex(index)
+  }
+
+  const onClickDownloadBtn = image => {
+    downloadFileByLink(
+      typeof image === 'string' ? getAmazonImageUrl(image, true) : image.data_url,
+      // imageObj.comment,
+    )
+  }
+
+  const onClickZoomBtn = image => {
+    setZoomImage(
+      // typeof image === 'string' ? getAmazonImageUrl(image, true) : image.image.data_url,
+      // imageObj.comment,
+      image,
+    )
+
+    setZoomOpen(true)
   }
 
   return (
@@ -40,9 +66,6 @@ export const BigImagesModal = props => {
                     className={cx(classNames.previewListImage, {
                       [classNames.activeImage]: index === imgIndex,
                     })}
-                    // src={el}
-                    // srcSet={el}
-                    // alt={el}
                     src={
                       typeof el === 'string'
                         ? getAmazonImageUrl(el, true)
@@ -74,8 +97,6 @@ export const BigImagesModal = props => {
               <div key={index} className={classNames.mainWrapper}>
                 <img
                   className={classNames.imgBox}
-                  // src={getAmazonImageUrl(el, true)}
-
                   src={
                     typeof el === 'string'
                       ? getAmazonImageUrl(el, true)
@@ -92,8 +113,26 @@ export const BigImagesModal = props => {
 
         <Typography className={classNames.indicator}>{`${imgIndex + 1} / ${images?.length}`}</Typography>
 
-        {controls && <div className={classNames.controls}>{controls(imgIndex, images?.[imgIndex])}</div>}
+        <div className={classNames.controls}>
+          <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickDownloadBtn(images?.[imgIndex])}>
+            <DownloadOutlinedIcon />
+          </Button>
+
+          <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickZoomBtn(images?.[imgIndex])}>
+            <ZoomOutMapOutlinedIcon />
+          </Button>
+
+          {controls && controls(imgIndex, images?.[imgIndex])}
+        </div>
       </div>
+
+      <Modal
+        openModal={zoomOpen}
+        setOpenModal={() => setZoomOpen(!zoomOpen)}
+        dialogContextClassName={classNames.zoomDialogContext}
+      >
+        <ImageZoomForm item={zoomImage} />
+      </Modal>
     </Modal>
   )
 }

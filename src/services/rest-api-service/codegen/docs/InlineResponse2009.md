@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **status** | **String** | Статус партии. | [optional] 
 **shipId** | **String** | id корабля. | [optional] 
 **title** | **String** | Название партии | [optional] 
+**trackingNumber** | **String** | Трек номер партии | [optional] 
 **attachedDocuments** | **[String]** | Массив ссылок на файлов документации к партии. | [optional] 
 **finalWeightAsOneBox** | **Number** | Финальный вес партии, если считать все коробки как одну большую коробу. | [optional] 
 **finalWeightSumEachBoxAmount** | **Number** | Финальный вес партии, если сложить все веса коробок по отдельности. | [optional] 
@@ -20,6 +21,7 @@ Name | Type | Description | Notes
 **storekeeper** | [**ApiV1BatchesStorekeeper**](ApiV1BatchesStorekeeper.md) |  | [optional] 
 **createdBy** | [**ApiV1BatchesStorekeeper**](ApiV1BatchesStorekeeper.md) |  | [optional] 
 **lastModifiedBy** | [**ApiV1BatchesStorekeeper**](ApiV1BatchesStorekeeper.md) |  | [optional] 
+**arrivalDate** | **Date** |  | [optional] 
 **createdAt** | **Date** | Дата создания. | [optional] 
 **updatedAt** | **Date** | Дата создания. | [optional] 
 

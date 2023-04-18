@@ -50,7 +50,7 @@ Name | Type | Description | Notes
 **avgReviews** | **String** | Средний отзывы | [optional] 
 **fourMonthesStock** | **Number** | Поле для калькуляции дозакупок | [optional] 
 **shopIds** | **[String]** | ID магазинов для продукта | [optional] 
-**redFlags** | **[String]** |  | [optional] 
-**tags** | **[String]** |  | [optional] 
+**redFlags** | [**[ApiV1ClientsProductsGuidRedFlags]**](ApiV1ClientsProductsGuidRedFlags.md) |  | [optional] 
+**tags** | [**[ApiV1BuyersProductsGuidTags]**](ApiV1BuyersProductsGuidTags.md) |  | [optional] 
 
 

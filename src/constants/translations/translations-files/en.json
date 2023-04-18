@@ -212,7 +212,6 @@
   "Paid orders": "Paid orders",
   "Canceled orders": "Canceled orders",
   "Boxes ready to send": "Boxes ready to send",
-
   "Sent boxes": "Sent boxes",
   "Freelance": "Freelance",
   "My requests": "My requests",
@@ -427,7 +426,7 @@
   "Allow multiple performances by the same performer": "Allow multiple performances by the same performer",
   "Step": "Step",
   "Back to editing": "Back to editing",
-  "Request title": "Request title",
+  "Request title": "Request title*",
   "Your request": "Your request",
   "Price and time": "Price and time",
   "Number of proposals": "Number of proposals",
@@ -1048,7 +1047,6 @@
   "Length must be a number conforming to the specified constraints": "Length must be a number conforming to the specified constraints",
   "Weight must be a number conforming to the specified constraints": "Weight must be a number conforming to the specified constraints",
   "Fbafee must be a number conforming to the specified constraints": "Fbafee must be a number conforming to the specified constraints",
-
   "Money transfer is possible with the administrator at the link below:": "Money transfer is possible with the administrator at the link below:",
   "Money transfer link": "Money transfer link",
   "Requests and proposals for them": "Requests and proposals for them",
@@ -1692,7 +1690,7 @@
   "Priority and Express Delivery": "Priority and Express Delivery",
   "Value multiple of": "Value multiple of",
   "Notice": "Notice",
-  "The redemption deadline expires in": "The redemption deadline expires in",
+  "The redemption deadline expires": "The redemption deadline expires",
   "Download the batch file": "Download the batch file",
   "Product usage": "Product usage",
   "Users with access to the product": "Users with access to the product",
@@ -1918,5 +1916,11 @@
   "Number of illustrations": "Number of illustrations",
   "Remarks": "Remarks",
   "Enter remarks": "Enter remarks",
-  "Do you want to delete the source file?": "Do you want to delete the source file?"
+  "Do you want to delete the source file?": "Do you want to delete the source file?",
+  "New orders available": "New orders available",
+  "Orders need confirmation": "Orders need confirmation",
+  "The redemption deadline has expired": "The redemption deadline has expired",
+  "Payment to all suppliers": "Payment to all suppliers",
+  "System message": "System message",
+  "Create and publish a request": "Create and publish a request"
 }

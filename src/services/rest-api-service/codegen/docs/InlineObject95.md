@@ -28,6 +28,6 @@ Name | Type | Description | Notes
 **avgReviews** | **String** | Средний отзывы | [optional] 
 **fourMonthesStock** | **Number** | Дополнительная инфа для дозакупок | [optional] 
 **shopIds** | **[String]** | ID магазинов для продукта | [optional] 
-**tags** | **[String]** |  | [optional] 
+**tags** | [**[ApiV1BuyersProductsGuidTags]**](ApiV1BuyersProductsGuidTags.md) |  | [optional] 
 
 

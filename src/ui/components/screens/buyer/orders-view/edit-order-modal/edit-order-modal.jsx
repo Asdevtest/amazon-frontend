@@ -44,6 +44,7 @@ import {Text} from '@components/text'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull} from '@utils/checks'
 import {formatDateWithoutTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {
   clearEverythingExceptNumbers,
@@ -67,6 +68,7 @@ const confirmModalModes = {
 
 export const EditOrderModal = observer(
   ({
+    imagesForLoad,
     yuanToDollarRate,
     isPendingOrder,
     userInfo,
@@ -88,6 +90,7 @@ export const EditOrderModal = observer(
     setUpdateSupplierData,
     onClickSaveWithoutUpdateSupData,
     onClickUpdataSupplierData,
+    onChangeImagesForLoad,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -211,6 +214,8 @@ export const EditOrderModal = observer(
 
     const [orderFields, setOrderFields] = useState(initialState)
 
+    console.log('paymentDetails', orderFields.paymentDetails)
+
     const [hsCode, setHsCode] = useState({...hsCodeData})
 
     // console.log('orderFields', orderFields)
@@ -250,6 +255,7 @@ export const EditOrderModal = observer(
       trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
       commentToWarehouse,
       paymentDetailsPhotosToLoad,
+      editPaymentDetailsPhotos,
     })
 
     const onClickSaveOrder = () => {
@@ -458,6 +464,12 @@ export const EditOrderModal = observer(
 
     const [photosToLoad, setPhotosToLoad] = useState([])
     const [paymentDetailsPhotosToLoad, setPaymentDetailsPhotosToLoad] = useState([])
+    const [editPaymentDetailsPhotos, setEditPaymentDetailsPhotos] = useState(orderFields.paymentDetails)
+
+    const onClickSavePaymentDetails = (loadedFiles, editedFiles) => {
+      setPaymentDetailsPhotosToLoad(loadedFiles)
+      setEditPaymentDetailsPhotos(editedFiles)
+    }
 
     const disableSubmit =
       requestStatus === loadingStatuses.isLoading ||
@@ -698,6 +710,8 @@ export const EditOrderModal = observer(
 
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
+            imagesForLoad={imagesForLoad}
+            userInfo={userInfo}
             paymentDetailsPhotosToLoad={paymentDetailsPhotosToLoad}
             hsCode={hsCode}
             setHsCode={setHsCode}
@@ -717,6 +731,7 @@ export const EditOrderModal = observer(
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}
             setUsePriceInDollars={setUsePriceInDollars}
+            onChangeImagesForLoad={onChangeImagesForLoad}
             onClickHsCode={onClickHsCode}
             onClickUpdateButton={onClickUpdateButton}
             onClickSupplierPaymentButton={() => setSupplierPaymentModal(!supplierPaymentModal)}
@@ -1125,7 +1140,8 @@ export const EditOrderModal = observer(
           <SupplierPaymentForm
             item={orderFields}
             uploadedFiles={paymentDetailsPhotosToLoad}
-            onClickSaveButton={setPaymentDetailsPhotosToLoad}
+            editPaymentDetailsPhotos={editPaymentDetailsPhotos}
+            onClickSaveButton={onClickSavePaymentDetails}
             onCloseModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
           />
         </Modal>

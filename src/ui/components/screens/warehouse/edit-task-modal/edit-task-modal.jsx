@@ -1,3 +1,4 @@
+import {cx} from '@emotion/css'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import {Divider, Typography} from '@mui/material'
 
@@ -163,8 +164,8 @@ export const EditTaskModal = observer(
                   multiline
                   disabled
                   className={[classNames.heightFieldAuto, classNames.clientAndBuyerComment]}
-                  minRows={currentScreenWidth < 768 ? 2 : 4}
-                  maxRows={currentScreenWidth < 768 ? 2 : 4}
+                  minRows={currentScreenWidth < 1282 ? 2 : 4}
+                  maxRows={currentScreenWidth < 1282 ? 2 : 4}
                   label={t(TranslationKey['Client comment'])}
                   placeholder={t(TranslationKey['Client comment on the task'])}
                   value={task.clientComment || ''}
@@ -173,8 +174,8 @@ export const EditTaskModal = observer(
                   multiline
                   disabled
                   className={[classNames.heightFieldAuto, classNames.clientAndBuyerComment]}
-                  minRows={currentScreenWidth < 768 ? 2 : 4}
-                  maxRows={currentScreenWidth < 768 ? 2 : 4}
+                  minRows={currentScreenWidth < 1282 ? 2 : 4}
+                  maxRows={currentScreenWidth < 1282 ? 2 : 4}
                   label={t(TranslationKey['Buyer comment'])}
                   placeholder={t(TranslationKey['Buyer comments to the task'])}
                   value={task.buyerComment || ''}
@@ -182,10 +183,10 @@ export const EditTaskModal = observer(
               </div>
               <Field
                 multiline
-                className={classNames.heightFieldAuto}
+                className={cx(classNames.heightFieldAuto, classNames.storekeeperCommentField)}
                 disabled={readOnly}
-                minRows={currentScreenWidth < 768 ? 4 : 11}
-                maxRows={currentScreenWidth < 768 ? 4 : 11}
+                minRows={currentScreenWidth < 768 ? 4 : currentScreenWidth < 1282 ? 7 : 11}
+                maxRows={currentScreenWidth < 768 ? 4 : currentScreenWidth < 1282 ? 7 : 11}
                 inputProps={{maxLength: 2000}}
                 label={t(TranslationKey['Storekeeper comment'])}
                 placeholder={t(TranslationKey['Storekeeper comment to client'])}
@@ -195,7 +196,12 @@ export const EditTaskModal = observer(
             </div>
             {!readOnly ? (
               <div className={classNames.imageFileInputWrapper}>
-                <UploadFilesInput images={photosOfTask} setImages={setPhotosOfTask} maxNumber={50} />
+                <UploadFilesInput
+                  dragAndDropBtnHeight={74}
+                  images={photosOfTask}
+                  setImages={setPhotosOfTask}
+                  maxNumber={50}
+                />
               </div>
             ) : (
               <div className={classNames.imageAndFileInputWrapper}>

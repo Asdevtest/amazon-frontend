@@ -141,6 +141,18 @@ export class WarehouseVacantTasksViewRaw extends Component {
                       </Button>
                     ))}
                 </div>
+
+                {window.innerWidth < 1282 && (
+                  <Button
+                    variant="contained"
+                    disabled={!selectedTasks.length}
+                    className={classNames.pickupOrdersButton}
+                    onClick={onClickPickupManyTasksBtn}
+                  >
+                    {t(TranslationKey['Take on the work of the selected'])}
+                  </Button>
+                )}
+
                 <Button
                   variant="contained"
                   disabled={
@@ -158,14 +170,16 @@ export class WarehouseVacantTasksViewRaw extends Component {
               </div>
 
               <div className={classNames.headerWrapper}>
-                <Button
-                  variant="contained"
-                  disabled={!selectedTasks.length}
-                  className={classNames.pickupOrdersButton}
-                  onClick={onClickPickupManyTasksBtn}
-                >
-                  {t(TranslationKey['Take on the work of the selected'])}
-                </Button>
+                {window.innerWidth > 1281 && (
+                  <Button
+                    variant="contained"
+                    disabled={!selectedTasks.length}
+                    className={classNames.pickupOrdersButton}
+                    onClick={onClickPickupManyTasksBtn}
+                  >
+                    {t(TranslationKey['Take on the work of the selected'])}
+                  </Button>
+                )}
 
                 <div className={classNames.boxesFiltersWrapper}>
                   <Button
@@ -216,6 +230,10 @@ export class WarehouseVacantTasksViewRaw extends Component {
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
                     filterForm: classNames.filterForm,
+
+                    columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
+                    columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
+                    iconSeparator: classNames.iconSeparator,
                   }}
                   getRowClassName={getRowClassName}
                   sortingMode="server"
@@ -227,7 +245,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
-                  getRowHeight={() => 'auto'}
+                  getRowHeight={() => '148px'}
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,

@@ -3,6 +3,7 @@ import {Typography} from '@mui/material'
 
 import React, {FC, useState} from 'react'
 
+import he from 'he'
 import {observer} from 'mobx-react'
 import Highlighter from 'react-highlight-words'
 import Linkify from 'react-linkify-always-blank'
@@ -90,6 +91,10 @@ export const ChatMessageBasicText: FC<Props> = observer(
     const [photoFiles] = useState(() => message.files.filter(url => imagesRegex.test(url)))
     const [anotherFiles] = useState(() => message.files.filter(url => !imagesRegex.test(url)))
 
+    // console.log('message', message)
+
+    // console.log('message.text', message.text, he.decode(message.text))
+
     return (
       <div
         className={cx(
@@ -127,7 +132,7 @@ export const ChatMessageBasicText: FC<Props> = observer(
               autoEscape
               highlightClassName="YourHighlightClass"
               searchWords={searchPhrase ? ['http', '.com', '.ru', searchPhrase] : ['http', '.com', '.ru']}
-              textToHighlight={message.text}
+              textToHighlight={he.decode(message.text)}
               className={classNames.messageText}
               findChunks={findChunks}
               highlightTag={({children /* , highlightIndex*/}: HighlightTag) => (

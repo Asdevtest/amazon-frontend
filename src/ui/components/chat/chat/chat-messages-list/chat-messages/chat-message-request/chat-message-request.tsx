@@ -64,6 +64,9 @@ export const ChatMessageRequest: FC<Props> = ({message}) => {
           width="352px"
           withoutPhotos={undefined}
           whithoutFiles={undefined}
+          imagesForLoad={undefined}
+          isEditable={undefined}
+          onChangeImagesForLoad={undefined}
         />
       </div>
       <div className={classNames.footerWrapper}>

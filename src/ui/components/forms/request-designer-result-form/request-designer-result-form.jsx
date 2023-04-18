@@ -106,6 +106,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
   }
 
   const onUploadFile = imageId => async evt => {
+    console.log('sss')
     if (evt.target.files.length === 0) {
       return
     } else {
@@ -343,11 +344,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         imagesData={imagesData.map(el => ({...el, imageComment: el.commentByClient || ''}))}
         curImageId={curImageId}
         renderBtns={() => (
-          <div className={cx(classNames.imagesModalBtnsWrapper)}>
-            <Button danger className={cx(classNames.imagesModalBtn)} onClick={onClickRemoveImageObj}>
-              <DeleteOutlineOutlinedIcon />
-            </Button>
-
+          <>
             <Button className={cx(classNames.imagesModalBtn)}>
               <AutorenewIcon />
               <input
@@ -358,10 +355,10 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
               />
             </Button>
 
-            <Button className={cx(classNames.imagesModalBtn)} onClick={onClickDownloadBtn}>
-              <DownloadOutlinedIcon />
+            <Button danger className={cx(classNames.imagesModalBtn)} onClick={onClickRemoveImageObj}>
+              <DeleteOutlineOutlinedIcon />
             </Button>
-          </div>
+          </>
         )}
         setCurImageId={setCurImageId}
       />
