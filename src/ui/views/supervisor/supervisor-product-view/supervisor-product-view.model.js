@@ -66,6 +66,7 @@ const fieldsOfProductAllowedToUpdate = [
   'avgPrice',
   'avgReviews',
   'redFlags',
+  'tags',
   // 'totalFba'
 ]
 
@@ -246,6 +247,7 @@ export class SupervisorProductViewModel {
           'amazonDetail',
           'category',
           'redFlags',
+          'tags',
         ].includes(fieldName)
       ) {
         runInAction(() => {
