@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **completed** | **Number** |  | [optional] 
 **rejected** | **Number** |  | [optional] 
 **inWork** | **Number** |  | [optional] 
+**searchSupplierFromBuyer** | **Number** |  | [optional] 
 **withoutStatus** | **Number** |  | [optional] 
 
 

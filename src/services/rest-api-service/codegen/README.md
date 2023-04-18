@@ -215,7 +215,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersGuidTrackNumberIssuedPatch**](docs/BuyerApi.md#apiV1BuyersOrdersGuidTrackNumberIssuedPatch) | **PATCH** /api/v1/buyers/orders/{guid}/track_number_issued | # Выставить статус \&quot;выдан трек номер\&quot;.
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersMyGet**](docs/BuyerApi.md#apiV1BuyersOrdersMyGet) | **GET** /api/v1/buyers/orders/my | # Получить список заказов текущего байера.
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersPagMyGet**](docs/BuyerApi.md#apiV1BuyersOrdersPagMyGet) | **GET** /api/v1/buyers/orders/pag/my | # Получить список заказов текущего байера с пагинацией.
-*TestSwagger.BuyerApi* | [**apiV1BuyersOrdersPaymentAmountGet**](docs/BuyerApi.md#apiV1BuyersOrdersPaymentAmountGet) | **GET** /api/v1/buyers/orders/payment_amount | # Получить конкретный заказ по его GUID.
+*TestSwagger.BuyerApi* | [**apiV1BuyersOrdersPaymentAmountGet**](docs/BuyerApi.md#apiV1BuyersOrdersPaymentAmountGet) | **GET** /api/v1/buyers/orders/payment_amount | # Получить общую стоимость заказов по статусам
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersPickupGuidPost**](docs/BuyerApi.md#apiV1BuyersOrdersPickupGuidPost) | **POST** /api/v1/buyers/orders/pickup/{guid} | # Закрепить заказ за байером. Взять его в работу.
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersReadyForPaymentGuidPatch**](docs/BuyerApi.md#apiV1BuyersOrdersReadyForPaymentGuidPatch) | **PATCH** /api/v1/buyers/orders/ready_for_payment/{guid} | # Переместить заказ в статус readyForPayment
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersSetInStockGuidPatch**](docs/BuyerApi.md#apiV1BuyersOrdersSetInStockGuidPatch) | **PATCH** /api/v1/buyers/orders/set_in_stock/{guid} | # Редактировать номер заказа на inStock (30).

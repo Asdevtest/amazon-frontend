@@ -14,7 +14,7 @@ Method | HTTP request | Description
 [**apiV1BuyersOrdersGuidTrackNumberIssuedPatch**](BuyerApi.md#apiV1BuyersOrdersGuidTrackNumberIssuedPatch) | **PATCH** /api/v1/buyers/orders/{guid}/track_number_issued | # Выставить статус \&quot;выдан трек номер\&quot;.
 [**apiV1BuyersOrdersMyGet**](BuyerApi.md#apiV1BuyersOrdersMyGet) | **GET** /api/v1/buyers/orders/my | # Получить список заказов текущего байера.
 [**apiV1BuyersOrdersPagMyGet**](BuyerApi.md#apiV1BuyersOrdersPagMyGet) | **GET** /api/v1/buyers/orders/pag/my | # Получить список заказов текущего байера с пагинацией.
-[**apiV1BuyersOrdersPaymentAmountGet**](BuyerApi.md#apiV1BuyersOrdersPaymentAmountGet) | **GET** /api/v1/buyers/orders/payment_amount | # Получить конкретный заказ по его GUID.
+[**apiV1BuyersOrdersPaymentAmountGet**](BuyerApi.md#apiV1BuyersOrdersPaymentAmountGet) | **GET** /api/v1/buyers/orders/payment_amount | # Получить общую стоимость заказов по статусам
 [**apiV1BuyersOrdersPickupGuidPost**](BuyerApi.md#apiV1BuyersOrdersPickupGuidPost) | **POST** /api/v1/buyers/orders/pickup/{guid} | # Закрепить заказ за байером. Взять его в работу.
 [**apiV1BuyersOrdersReadyForPaymentGuidPatch**](BuyerApi.md#apiV1BuyersOrdersReadyForPaymentGuidPatch) | **PATCH** /api/v1/buyers/orders/ready_for_payment/{guid} | # Переместить заказ в статус readyForPayment
 [**apiV1BuyersOrdersSetInStockGuidPatch**](BuyerApi.md#apiV1BuyersOrdersSetInStockGuidPatch) | **PATCH** /api/v1/buyers/orders/set_in_stock/{guid} | # Редактировать номер заказа на inStock (30).
@@ -589,11 +589,11 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersOrdersPaymentAmountGet
 
-> InlineResponse20023 apiV1BuyersOrdersPaymentAmountGet(status, guid, opts)
+> InlineResponse20023 apiV1BuyersOrdersPaymentAmountGet(status, opts)
 
-# Получить конкретный заказ по его GUID.
+# Получить общую стоимость заказов по статусам
 
-## Получить конкретный заказ по его GUID.   
+## Получить общую стоимость заказов по статусам
 
 ### Example
 
@@ -608,11 +608,10 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.BuyerApi();
 let status = "status_example"; // String | Order status
-let guid = null; // String | GUID заказа.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1BuyersOrdersPaymentAmountGet(status, guid, opts).then((data) => {
+apiInstance.apiV1BuyersOrdersPaymentAmountGet(status, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -626,7 +625,6 @@ apiInstance.apiV1BuyersOrdersPaymentAmountGet(status, guid, opts).then((data) =>
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **status** | **String**| Order status | 
- **guid** | [**String**](.md)| GUID заказа. | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

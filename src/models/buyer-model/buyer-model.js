@@ -149,6 +149,11 @@ class BuyerModelStatic {
     const response = await restApiService.buyerApi.apiV1BuyersOrdersAtProcessGuidPatch(id)
     return response
   }
+
+  getBuyersOrdersPaymentByStatus = async status => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersPaymentAmountGet(status)
+    return response
+  }
 }
 
 export const BuyerModel = new BuyerModelStatic()
