@@ -1929,7 +1929,7 @@ export enum TranslationKey {
   'Delete row from report' = 'Delete row from report',
   'After confirmation, the row will be deleted. Confirm?' = 'After confirmation, the row will be deleted. Confirm?',
   'Row deleted' = 'Row deleted',
-  // '' = '',
+  'Go to request' = 'Go to request',
   // '' = '',
   // '' = '',
   // '' = '',
