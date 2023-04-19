@@ -59,6 +59,7 @@ import {Input} from '@components/input'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {SearchInput} from '@components/search-input'
 import {WithSearchSelect} from '@components/selects/with-search-select'
+import {RedFlags} from '@components/shared/redFlags/red-flags'
 import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
@@ -977,12 +978,6 @@ export const DownloadAndPrintFilesCell = React.memo(
           images={[selectedImage.fileUrl]}
           controls={() => (
             <>
-              <Button
-                onClick={() => downloadFileByLink(getAmazonImageUrl(selectedImage.fileUrl), selectedImage.fileName)}
-              >
-                <FileDownloadOutlinedIcon color="inherit" />
-              </Button>
-
               <Button onClick={() => handlePrint()}>
                 <PrintIcon color="inherit" />
               </Button>
@@ -1714,7 +1709,7 @@ export const TaskDescriptionCell = React.memo(
 
     const renderBox = (box, key, isOneBox) => (
       <div key={key && key} className={classNames.imagesWrapper}>
-        <div className={cx(classNames.standartBoxWrapper, {[classNames.isOneBoxWrapper]: isOneBox})}>
+        <div className={cx(classNames.standartBoxWrapper)}>
           {box.items && box.items.map((product, productIndex) => renderProductImages(product, productIndex, box))}
         </div>
       </div>
@@ -2832,6 +2827,28 @@ export const ShortBoxDimensions = React.memo(
             {t(TranslationKey.Set)}
           </Button>
         ) : null} */}
+      </div>
+    )
+  }, styles),
+)
+
+export const RedFlagsCell = React.memo(
+  withStyles(
+    ({classes: classNames, flags}) => (
+      <div className={classNames.redFlags}>
+        <RedFlags activeFlags={flags} />
+      </div>
+    ),
+    styles,
+  ),
+)
+export const TagsCell = React.memo(
+  withStyles(({classes: classNames, tags}) => {
+    const tagList = tags?.map(el => `#${el.title}`) || []
+
+    return (
+      <div className={classNames.tags}>
+        <MultilineTextHeaderCell text={tagList.join(', ')} />
       </div>
     )
   }, styles),

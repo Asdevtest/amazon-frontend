@@ -68,6 +68,7 @@ const confirmModalModes = {
 
 export const EditOrderModal = observer(
   ({
+    paymentMethods,
     imagesForLoad,
     yuanToDollarRate,
     isPendingOrder,
@@ -1108,6 +1109,7 @@ export const EditOrderModal = observer(
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
+          setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
         />
 
         <Modal
@@ -1152,6 +1154,7 @@ export const EditOrderModal = observer(
           setOpenModal={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
         >
           <AddOrEditSupplierModalContent
+            paymentMethods={paymentMethods}
             requestStatus={requestStatus}
             sourceYuanToDollarRate={yuanToDollarRate}
             volumeWeightCoefficient={volumeWeightCoefficient}

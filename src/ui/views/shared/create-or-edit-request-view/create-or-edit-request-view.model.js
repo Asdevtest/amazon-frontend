@@ -282,4 +282,10 @@ export class CreateOrEditRequestViewModel {
       this.drawerOpen = !this.drawerOpen
     })
   }
+
+  setBigImagesOptions(data) {
+    runInAction(() => {
+      this.bigImagesOptions = data
+    })
+  }
 }

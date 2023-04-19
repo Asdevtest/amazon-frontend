@@ -403,16 +403,6 @@ export const styles = theme => ({
     },
   },
 
-  isOneBoxWrapper: {
-    gridAutoFlow: 'row',
-
-    gridTemplateRows: 'repeat(auto, 1fr)',
-    gridTemplateColumns: 'repeat(4, min-content)',
-
-    maxHeight: 400,
-    overflow: 'auto',
-  },
-
   imagesWrapper: {
     width: 'max-content',
 
@@ -1806,9 +1796,11 @@ export const styles = theme => ({
     padding: '0px 44px',
     height: 30,
     fontSize: '14px',
+    maxWidth: '200px !important',
+    minWidth: '200px !important',
     lineHeight: 1,
     span: {
-      maxWidth: '90px',
+      maxWidth: '92px',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       whiteSpace: 'nowrap',
@@ -1869,6 +1861,23 @@ export const styles = theme => ({
     '&:hover': {
       transform: 'scale(1.01)',
       opacity: '0.8',
+    },
+  },
+
+  redFlags: {
+    display: 'flex',
+    gap: 15,
+
+    p: {
+      padding: 0,
+      margin: 0,
+    },
+  },
+
+  tags: {
+    p: {
+      padding: 0,
+      margin: 0,
     },
   },
 })

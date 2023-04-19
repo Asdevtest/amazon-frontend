@@ -6,7 +6,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {routsPathes} from '@constants/routs-pathes'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {patchSuppliers} from '@constants/white-list'
+import {creatSupplier, patchSuppliers} from '@constants/white-list'
 
 import {BoxesModel} from '@models/boxes-model'
 import {BuyerModel} from '@models/buyer-model'
@@ -68,6 +68,8 @@ export class BuyerMyOrdersViewModel {
   showOrderPriceMismatchModal = false
   showConfirmModal = false
   showWarningInfoModal = false
+
+  paymentMethods = []
 
   imagesForLoad = []
 
@@ -252,6 +254,7 @@ export class BuyerMyOrdersViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getOrdersMy()
+      this.getSuppliersPaymentMethods()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -345,8 +348,10 @@ export class BuyerMyOrdersViewModel {
       return
     }
 
+    const filteredImages = images.filter(el => !this.imagesForLoad.some(item => item.includes(el)))
+
     runInAction(() => {
-      this.imagesForLoad = [...this.imagesForLoad, ...images.map(el => getAmazonImageUrl(el, true))]
+      this.imagesForLoad = [...this.imagesForLoad, ...filteredImages.map(el => getAmazonImageUrl(el, true))]
     })
   }
 
@@ -493,6 +498,10 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
+  async getSuppliersPaymentMethods() {
+    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+  }
+
   async onClickSaveSupplierBtn({supplier, photosOfSupplier, productId, editPhotosOfSupplier}) {
     try {
       this.clearReadyImages()
@@ -504,7 +513,7 @@ export class BuyerMyOrdersViewModel {
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
         images: this.readyImages,
@@ -520,12 +529,12 @@ export class BuyerMyOrdersViewModel {
         }
       }
 
-      const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
-
       if (supplier._id) {
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
       } else {
-        const createSupplierResult = await SupplierModel.createSupplier(supplierUpdateData)
+        const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+        const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
         await ProductModel.addSuppliersToProduct(productId, [createSupplierResult.guid])
       }
 
