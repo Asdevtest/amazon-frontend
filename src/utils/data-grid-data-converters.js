@@ -39,10 +39,10 @@ export const ideaNoticeDataConverter = data =>
   }))
 
 export const stockReportDataConverter = data =>
-  data.map((item, index) => ({
+  data.map(item => ({
     ...item,
     originalData: item,
-    id: index,
+    id: item._id,
 
     shopName: item.shop.name,
   }))
