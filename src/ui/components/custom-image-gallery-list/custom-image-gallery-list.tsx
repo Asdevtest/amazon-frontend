@@ -130,6 +130,7 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
+          setImageIndex={(imgIndex: number) => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
         />
       )}
     </div>
