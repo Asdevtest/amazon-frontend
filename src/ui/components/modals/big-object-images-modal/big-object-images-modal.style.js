@@ -10,7 +10,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   carouselWrapper: {
-    width: 660,
+    width: 720,
   },
 
   imageModalImageWrapper: {

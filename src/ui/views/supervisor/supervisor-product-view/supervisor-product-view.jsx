@@ -53,6 +53,7 @@ export class SupervisorProductView extends Component {
       showConfirmModal,
       confirmMessage,
       warningModalTitle,
+      paymentMethods,
       onChangeProductFields,
       onClickSupplierButtons,
       onChangeSelectedSupplier,
@@ -106,6 +107,7 @@ export class SupervisorProductView extends Component {
           setOpenModal={onTriggerAddOrEditSupplierModal}
         >
           <AddOrEditSupplierModalContent
+            paymentMethods={paymentMethods}
             product={product}
             storekeepersData={storekeepersData}
             onlyRead={supplierModalReadOnly}

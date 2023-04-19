@@ -30,6 +30,11 @@ class SupplierModelStatic {
     const response = await restApiService.supplierApi.apiV1SuppliersGuidDelete(id)
     return response
   }
+
+  getSuppliersPaymentMethods = async () => {
+    const response = await restApiService.supplierApi.apiV1SuppliersPaymentMethodsGet()
+    return response
+  }
 }
 
 export const SupplierModel = new SupplierModelStatic()

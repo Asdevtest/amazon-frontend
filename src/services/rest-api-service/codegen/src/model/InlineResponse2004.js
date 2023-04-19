@@ -70,6 +70,9 @@ class InlineResponse2004 {
             if (data.hasOwnProperty('priority')) {
                 obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
             }
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
             if (data.hasOwnProperty('storekeeper')) {
                 obj['storekeeper'] = ApiV1AdminsTasksLightStorekeeper.constructFromObject(data['storekeeper']);
             }
@@ -127,6 +130,12 @@ InlineResponse2004.prototype['isBarCodeAttached'] = undefined;
  * @member {Number} priority
  */
 InlineResponse2004.prototype['priority'] = undefined;
+
+/**
+ * reason of priority
+ * @member {String} reason
+ */
+InlineResponse2004.prototype['reason'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsTasksLightStorekeeper} storekeeper

@@ -98,6 +98,7 @@ class BuyerMyOrdersViewRaw extends Component {
       showProgress,
       progressValue,
       imagesForLoad,
+      paymentMethods,
 
       onClickHsCode,
       onTriggerDrawerOpen,
@@ -232,6 +233,7 @@ class BuyerMyOrdersViewRaw extends Component {
           dialogContextClassName={classNames.dialogContextClassName}
         >
           <EditOrderModal
+            paymentMethods={paymentMethods}
             imagesForLoad={imagesForLoad}
             hsCodeData={hsCodeData}
             userInfo={userInfo}

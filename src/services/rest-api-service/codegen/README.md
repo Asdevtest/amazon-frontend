@@ -421,6 +421,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksMyGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksMyGet) | **GET** /api/v1/storekeepers/tasks/my | # Получить задачи закрепленные за данным сборщиком..
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksPickupGuidPost**](docs/StorekeepersApi.md#apiV1StorekeepersTasksPickupGuidPost) | **POST** /api/v1/storekeepers/tasks/pickup/{guid} | # Закрепить задачу за сборщиком.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksPickupManyPost**](docs/StorekeepersApi.md#apiV1StorekeepersTasksPickupManyPost) | **POST** /api/v1/storekeepers/tasks/pickup/many | # Взять несколько задач сторкипером
+*TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksPriorityGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersTasksPriorityGuidPatch) | **PATCH** /api/v1/storekeepers/tasks/priority/{guid} | # Изменить приоритет задачи.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksReportGuidGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksReportGuidGet) | **GET** /api/v1/storekeepers/tasks/report/{guid} | # Получить данные из boxesBefore в формате XLSX
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksVacGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksVacGet) | **GET** /api/v1/storekeepers/tasks/vac | # Deprecated! Получить задачи не закрепленные за сотрудниками склада.
 *TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsGuidPatch**](docs/SupervisorApi.md#apiV1SupervisorsProductsGuidPatch) | **PATCH** /api/v1/supervisors/products/{guid} | # Изменить продукт.
@@ -576,6 +577,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject121](docs/InlineObject121.md)
  - [TestSwagger.InlineObject122](docs/InlineObject122.md)
  - [TestSwagger.InlineObject123](docs/InlineObject123.md)
+ - [TestSwagger.InlineObject124](docs/InlineObject124.md)
  - [TestSwagger.InlineObject13](docs/InlineObject13.md)
  - [TestSwagger.InlineObject14](docs/InlineObject14.md)
  - [TestSwagger.InlineObject15](docs/InlineObject15.md)
