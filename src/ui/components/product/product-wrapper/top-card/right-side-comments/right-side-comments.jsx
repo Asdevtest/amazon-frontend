@@ -130,15 +130,18 @@ export const RightSideComments = observer(
 
           {showActionBtns ? (
             <div className={classNames.buttonsWrapper}>
-              <Button
-                tooltipInfoContent={translateTooltipSaveBtnMessage(curUserRole)}
-                className={cx(classNames.buttonNormal, classNames.buttonAccept)}
-                color="primary"
-                variant="contained"
-                onClick={() => handleProductActionButtons('accept', false)}
-              >
-                {checkIsClient(curUserRole) ? t(TranslationKey.Save) : t(TranslationKey.Receive)}
-              </Button>
+              {product?.status === ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
+              checkIsBuyer(curUserRole) ? null : (
+                <Button
+                  tooltipInfoContent={translateTooltipSaveBtnMessage(curUserRole)}
+                  className={cx(classNames.buttonNormal, classNames.buttonAccept)}
+                  color="primary"
+                  variant="contained"
+                  onClick={() => handleProductActionButtons('accept', false)}
+                >
+                  {checkIsClient(curUserRole) ? t(TranslationKey.Save) : t(TranslationKey.Receive)}
+                </Button>
+              )}
 
               {checkIsResearcher(curUserRole) && (
                 <Button
