@@ -1714,7 +1714,7 @@ export const TaskDescriptionCell = React.memo(
 
     const renderBox = (box, key, isOneBox) => (
       <div key={key && key} className={classNames.imagesWrapper}>
-        <div className={cx(classNames.standartBoxWrapper, {[classNames.isOneBoxWrapper]: isOneBox})}>
+        <div className={cx(classNames.standartBoxWrapper)}>
           {box.items && box.items.map((product, productIndex) => renderProductImages(product, productIndex, box))}
         </div>
       </div>

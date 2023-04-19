@@ -403,16 +403,6 @@ export const styles = theme => ({
     },
   },
 
-  isOneBoxWrapper: {
-    gridAutoFlow: 'row',
-
-    gridTemplateRows: 'repeat(auto, 1fr)',
-    gridTemplateColumns: 'repeat(4, min-content)',
-
-    maxHeight: 400,
-    overflow: 'auto',
-  },
-
   imagesWrapper: {
     width: 'max-content',
 
