@@ -48,6 +48,7 @@ export const SupplierPaymentForm = ({
       {!!item?.paymentDetails.length && (
         <PhotoAndFilesCarousel
           isEditable
+          withoutMakeMainImage
           small
           width="400px"
           files={item?.paymentDetails}
