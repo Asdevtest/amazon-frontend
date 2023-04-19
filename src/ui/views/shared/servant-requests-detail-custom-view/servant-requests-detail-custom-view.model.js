@@ -164,6 +164,8 @@ export class RequestDetailCustomViewModel {
 
       runInAction(() => {
         this.requestProposals = result
+
+        this.chatSelectedId = this.chatSelectedId ? this.chatSelectedId : result[0]?.proposal?.chatId
       })
     } catch (error) {
       runInAction(() => {
