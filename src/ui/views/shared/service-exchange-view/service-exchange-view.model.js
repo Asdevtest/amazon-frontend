@@ -138,6 +138,12 @@ export class ServiceExchangeViewModel {
     this.onTriggerOpenModal('showImageModal')
   }
 
+  setBigImagesOptions(data) {
+    runInAction(() => {
+      this.bigImagesOptions = data
+    })
+  }
+
   onTriggerOpenModal(modalState) {
     runInAction(() => {
       this[modalState] = !this[modalState]

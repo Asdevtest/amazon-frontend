@@ -89,7 +89,7 @@ export const BigImagesModal = props => {
             timeout={100}
             animation="fade"
             // IndicatorIcon={<div>{`${imgIndex + 1}/ ${images.length}`}</div>}
-            indicators={false}
+            indicators={setImageIndex ? false : true}
             index={imgIndex}
             onChange={now => handlePreview(now)}
           >
@@ -111,7 +111,9 @@ export const BigImagesModal = props => {
           </Carousel>
         </div>
 
-        <Typography className={classNames.indicator}>{`${imgIndex + 1} / ${images?.length}`}</Typography>
+        {setImageIndex && (
+          <Typography className={classNames.indicator}>{`${imgIndex + 1} / ${images?.length}`}</Typography>
+        )}
 
         <div className={classNames.controls}>
           <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickDownloadBtn(images?.[imgIndex])}>
