@@ -37,20 +37,11 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
   },
 
   {
-    field: 'operationType',
-    headerName: t(TranslationKey.Type),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
-
-    width: window.innerWidth < 1282 ? 125 : 155,
-    renderCell: params => <TaskTypeCell task={params.row.originalData} />,
-  },
-
-  {
     field: 'priority',
     headerName: t(TranslationKey.Priority),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
 
-    width: window.innerWidth < 1282 ? 120 : 170,
+    width: window.innerWidth < 1282 ? 140 : 170,
     renderCell: params => (
       <TaskPriorityCell
         curPriority={params.value}
@@ -67,6 +58,15 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
 
     width: 271,
     renderCell: params => <ChangeInputCommentCell rowsCount={4} />,
+  },
+
+  {
+    field: 'operationType',
+    headerName: t(TranslationKey.Type),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
+
+    width: window.innerWidth < 1282 ? 140 : 155,
+    renderCell: params => <TaskTypeCell task={params.row.originalData} />,
   },
 
   {
