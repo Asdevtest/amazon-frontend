@@ -1,6 +1,18 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Checkbox, Container, Divider, Grid, Link, Typography} from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
+import {
+  Checkbox,
+  Container,
+  Divider,
+  Grid,
+  Input,
+  InputAdornment,
+  Link,
+  MenuItem,
+  Select,
+  Typography,
+} from '@mui/material'
 
 import {React, useState} from 'react'
 
@@ -30,6 +42,7 @@ import {useClassNames} from './add-or-edit-supplier-modal-content.style'
 
 export const AddOrEditSupplierModalContent = observer(
   ({
+    paymentMethods,
     product,
     storekeepersData,
     onlyRead,
@@ -89,7 +102,7 @@ export const AddOrEditSupplierModalContent = observer(
       multiplicity: supplier?.multiplicity || false,
 
       productionTerm: supplier?.productionTerm || '',
-      paymentMethod: supplier?.paymentMethod || [],
+      paymentMethods: supplier?.paymentMethods || [],
 
       yuanRate: supplier?.yuanRate || sourceYuanToDollarRate,
 
@@ -109,6 +122,8 @@ export const AddOrEditSupplierModalContent = observer(
         boxWeighGrossKg: supplier?.boxProperties?.boxWeighGrossKg || '',
       },
     })
+
+    console.log('tmpSupplier', tmpSupplier)
 
     const calculateFieldsToSubmit = () => {
       let res = {
@@ -216,7 +231,7 @@ export const AddOrEditSupplierModalContent = observer(
                   //   price: '',
                   //   images: [],
 
-                  //   paymentMethod: [],
+                  //   paymentMethods: [],
 
                   //   priceInYuan: '',
                   //   batchDeliveryCostInDollar: 0,
@@ -286,14 +301,29 @@ export const AddOrEditSupplierModalContent = observer(
       }
     }
 
-    const onChangePaymentMethod = method => {
-      if (tmpSupplier.paymentMethod.includes(paymentsMethodByKey[method])) {
+    const onChangePaymentMethod = event => {
+      if (Array.isArray(event.target.value)) {
         setTmpSupplier({
           ...tmpSupplier,
-          paymentMethod: tmpSupplier.paymentMethod.filter(el => el !== paymentsMethodByKey[method]),
+          paymentMethods: event.target.value,
+        })
+      } else if (tmpSupplier.paymentMethods.length === paymentMethods.length) {
+        setTmpSupplier({
+          ...tmpSupplier,
+          paymentMethods: [event.target.value],
         })
       } else {
-        setTmpSupplier({...tmpSupplier, paymentMethod: tmpSupplier.paymentMethod.concat(paymentsMethodByKey[method])})
+        if (tmpSupplier.paymentMethods.some(item => item._id === event.target.value._id)) {
+          setTmpSupplier({
+            ...tmpSupplier,
+            paymentMethods: tmpSupplier.paymentMethods.filter(item => item._id !== event.target.value._id),
+          })
+        } else {
+          setTmpSupplier({
+            ...tmpSupplier,
+            paymentMethods: [...tmpSupplier.paymentMethods, event.target.value],
+          })
+        }
       }
     }
 
@@ -702,48 +732,79 @@ export const AddOrEditSupplierModalContent = observer(
           </div>
 
           <div className={classNames.paymentsBlock}>
-            <Typography className={classNames.modalTitle}>{t(TranslationKey['Payment methods']) + ':'}</Typography>
+            <Field
+              label={t(TranslationKey['Payment methods']) + ':'}
+              labelClasses={classNames.paymentMethodsLabel}
+              // tooltipInfoContent={t(TranslationKey['Current request type'])}
+              containerClasses={classNames.paymentMethodsContainer}
+              inputComponent={
+                <Select
+                  displayEmpty
+                  value={tmpSupplier?.paymentMethods}
+                  renderValue={
+                    selected =>
+                      // selected.length ? (
+                      selected?.map(method => method?.title).join(', ')
+                    // ) : (
+                    //   <div className={classNames.paymentMethodsPlaccholder}>
+                    //     <Typography className={classNames.standartText}>{t(TranslationKey.Add)}</Typography>
+                    //     <AddIcon className={classNames.addIcon} />
+                    //   </div>
+                    // )
+                    //   {
+                    //   if (!selected.length) {
+                    //     return
+                    //   } else {
+                    //     return selected?.map(method => method?.title).join(', ')
+                    //   }
+                    // }
+                  }
+                  className={classNames.paymentMethodsField}
+                  input={<Input startAdornment={<InputAdornment position="start" />} />}
+                  onChange={event => {
+                    if (!onlyRead) {
+                      onChangePaymentMethod(event)
+                    }
+                  }}
+                >
+                  {!onlyRead && (
+                    <MenuItem value={paymentMethods}>
+                      <Checkbox
+                        color="primary"
+                        checked={tmpSupplier?.paymentMethods?.length === paymentMethods?.length}
+                      />
+                      <Typography className={classNames.standartText}>{t(TranslationKey.All)}</Typography>
+                    </MenuItem>
+                  )}
 
-            <div className={classNames.paymentsWrapper}>
-              <div
-                className={cx(classNames.checkboxWrapper, {[classNames.disabledCheckboxWrapper]: onlyRead})}
-                onClick={() => !onlyRead && onChangePaymentMethod(paymentsMethod.ALIPAY)}
-              >
-                <Checkbox
-                  disabled={onlyRead}
-                  className={classNames.checkbox}
-                  checked={tmpSupplier.paymentMethod?.includes(paymentsMethodByKey[paymentsMethod.ALIPAY])}
-                  color="primary"
-                />
-                <Typography className={classNames.normalLabel}>{'Alipay'}</Typography>
-              </div>
+                  {!onlyRead &&
+                    paymentMethods?.map((paymentMethod, paymentMethodIndex) => (
+                      <MenuItem key={paymentMethodIndex} value={paymentMethod}>
+                        <Checkbox
+                          color="primary"
+                          checked={
+                            tmpSupplier?.paymentMethods?.length !== paymentMethods?.length &&
+                            tmpSupplier?.paymentMethods?.some(item => item._id === paymentMethod?._id)
+                          }
+                        />
+                        <Typography className={classNames.standartText}>{paymentMethod?.title}</Typography>
+                      </MenuItem>
+                    ))}
 
-              <div
-                className={cx(classNames.checkboxWrapper, {[classNames.disabledCheckboxWrapper]: onlyRead})}
-                onClick={() => !onlyRead && onChangePaymentMethod(paymentsMethod.PAYONEER)}
-              >
-                <Checkbox
-                  disabled={onlyRead}
-                  className={classNames.checkbox}
-                  checked={tmpSupplier.paymentMethod?.includes(paymentsMethodByKey[paymentsMethod.PAYONEER])}
-                  color="primary"
-                />
-                <Typography className={classNames.normalLabel}>{'Payoneer'}</Typography>
-              </div>
-
-              <div
-                className={cx(classNames.checkboxWrapper, {[classNames.disabledCheckboxWrapper]: onlyRead})}
-                onClick={() => !onlyRead && onChangePaymentMethod(paymentsMethod.BANK_TRANSACTION)}
-              >
-                <Checkbox
-                  disabled={onlyRead}
-                  className={classNames.checkbox}
-                  checked={tmpSupplier.paymentMethod?.includes(paymentsMethodByKey[paymentsMethod.BANK_TRANSACTION])}
-                  color="primary"
-                />
-                <Typography className={classNames.normalLabel}>{t(TranslationKey['Bank transaction'])}</Typography>
-              </div>
-            </div>
+                  {onlyRead &&
+                    tmpSupplier?.paymentMethods.map((paymentMethod, paymentMethodIndex) => (
+                      <MenuItem key={paymentMethodIndex} value={paymentMethod}>
+                        <Checkbox
+                          disabled
+                          color="primary"
+                          checked={tmpSupplier.paymentMethods.some(item => item._id === paymentMethod._id)}
+                        />
+                        <Typography className={classNames.standartText}>{paymentMethod.title}</Typography>
+                      </MenuItem>
+                    ))}
+                </Select>
+              }
+            />
           </div>
 
           <div>

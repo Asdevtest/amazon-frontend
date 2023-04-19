@@ -131,6 +131,7 @@ docs/InlineObject120.md
 docs/InlineObject121.md
 docs/InlineObject122.md
 docs/InlineObject123.md
+docs/InlineObject124.md
 docs/InlineObject13.md
 docs/InlineObject14.md
 docs/InlineObject15.md
@@ -540,6 +541,7 @@ src/model/InlineObject120.js
 src/model/InlineObject121.js
 src/model/InlineObject122.js
 src/model/InlineObject123.js
+src/model/InlineObject124.js
 src/model/InlineObject13.js
 src/model/InlineObject14.js
 src/model/InlineObject15.js

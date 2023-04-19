@@ -77,6 +77,7 @@ class BuyerPendingOrdersViewRaw extends Component {
       showProgress,
       progressValue,
       imagesForLoad,
+      paymentMethods,
 
       onClickHsCode,
       onTriggerDrawerOpen,
@@ -179,6 +180,7 @@ class BuyerPendingOrdersViewRaw extends Component {
         >
           <EditOrderModal
             isPendingOrder
+            paymentMethods={paymentMethods}
             imagesForLoad={imagesForLoad}
             hsCodeData={hsCodeData}
             yuanToDollarRate={yuanToDollarRate}

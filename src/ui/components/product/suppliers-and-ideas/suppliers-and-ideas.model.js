@@ -3,6 +3,8 @@ import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {creatSupplier} from '@constants/white-list'
+import {patchSuppliers} from '@constants/white-list'
 
 import {ClientModel} from '@models/client-model'
 import {IdeaModel} from '@models/ideas-model'
@@ -41,6 +43,7 @@ export class SuppliersAndIdeasModel {
   readyFiles = []
   progressValue = 0
   showProgress = false
+  paymentMethods = []
 
   showConfirmModal = false
   showSuccessModal = false
@@ -290,6 +293,10 @@ export class SuppliersAndIdeasModel {
     this[modal] = !this[modal]
   }
 
+  async getSuppliersPaymentMethods() {
+    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+  }
+
   async onTriggerAddOrEditSupplierModal() {
     try {
       if (this.showAddOrEditSupplierModal) {
@@ -319,6 +326,7 @@ export class SuppliersAndIdeasModel {
     if (callBack) {
       this.forceUpdateCallBack = callBack
     }
+    this.getSuppliersPaymentMethods()
 
     switch (actionType) {
       case 'add':
@@ -369,6 +377,7 @@ export class SuppliersAndIdeasModel {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
 
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
         images: supplier.images.concat(this.readyImages),
@@ -379,10 +388,12 @@ export class SuppliersAndIdeasModel {
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
+        console.log('supplierUpdateData', supplierUpdateData)
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
       } else {
-        const createSupplierResult = await SupplierModel.createSupplier(supplier)
+        const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+        const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
         await IdeaModel.addSuppliersToIdea(this.curIdea._id, {suppliersIds: [createSupplierResult.guid]})
       }

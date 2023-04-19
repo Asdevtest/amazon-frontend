@@ -12,6 +12,7 @@ import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {SupervisorModel} from '@models/supervisor-model'
 import {SupervisorUpdateProductContract} from '@models/supervisor-model/supervisor-model.contracts'
+import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
@@ -137,6 +138,8 @@ export class SupervisorProductViewModel {
   volumeWeightCoefficient = undefined
 
   supplierModalReadOnly = false
+
+  paymentMethods = []
 
   weightParserAmazon = 0
   weightParserSELLCENTRAL = 0
@@ -471,7 +474,12 @@ export class SupervisorProductViewModel {
     })
   }
 
+  async getSuppliersPaymentMethods() {
+    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+  }
+
   async onClickSupplierButtons(actionType) {
+    this.getSuppliersPaymentMethods()
     switch (actionType) {
       case 'view':
         runInAction(() => {
