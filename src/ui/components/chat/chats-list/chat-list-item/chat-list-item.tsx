@@ -1,7 +1,7 @@
 import {cx} from '@emotion/css'
 import {Avatar} from '@mui/material'
 
-import React, {FC} from 'react'
+import React, {FC, useContext} from 'react'
 
 import he from 'he'
 import {observer} from 'mobx-react'
@@ -10,6 +10,7 @@ import {chatsType} from '@constants/chats'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatContract, ChatUserContract} from '@models/chat-model/contracts'
+import {UserModel} from '@models/user-model'
 
 import {ChatMessageType} from '@services/websocket-chat-service'
 import {ChatMessageTextType, OnTypingMessageResponse} from '@services/websocket-chat-service/interfaces'
@@ -17,6 +18,8 @@ import {ChatMessageTextType, OnTypingMessageResponse} from '@services/websocket-
 import {formatDateWithoutTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
+
+import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
 
 import {useClassNames} from './chat-list-item.style'
 
@@ -32,17 +35,18 @@ interface Props {
 export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onClick, typingUsers}) => {
   const {classes: classNames} = useClassNames()
 
+  const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
+
   const {messages, users} = chat
 
   const lastMessage = messages[messages.length - 1] || {}
 
   const isGroupChat = chat.type === chatsType.GROUP
 
-  // console.log('lastMessage', lastMessage)
-
-  // console.log('users', users)
-
-  const oponentUser = lastMessage.user // users.filter((user: ChatUserContract) => user._id !== userId)?.[0]
+  const oponentUser = users.filter(
+    (user: ChatUserContract) =>
+      user._id !== userId && user._id !== chatRequestAndRequestProposal.request?.request?.sub?._id,
+  )?.[0]
 
   // console.log('oponentUser', oponentUser)
 
