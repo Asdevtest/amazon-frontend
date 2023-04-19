@@ -21,9 +21,9 @@ import {checkIsImageLink} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {t} from '@utils/translations'
 
-import {useClassNames} from './custom-select.style'
+import {useClassNames} from './custom-select-payment-details.style'
 
-export const CustomSelectPay = props => {
+export const CustomSelectPaymentDetails = props => {
   const {classes: classNames} = useClassNames()
   const {tmpSupplier, paymentMethods, onlyRead, onChangePaymentMethod} = props
 

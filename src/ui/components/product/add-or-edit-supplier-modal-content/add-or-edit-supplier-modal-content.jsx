@@ -26,7 +26,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {CustomSelectPay} from '@components/custom-select'
+import {CustomSelectPaymentDetails} from '@components/custom-select-payment-details'
 import {Field} from '@components/field'
 import {SupplierApproximateCalculationsForm} from '@components/forms/supplier-approximate-calculations-form'
 import {Modal} from '@components/modal'
@@ -731,7 +731,7 @@ export const AddOrEditSupplierModalContent = observer(
           </div>
 
           <div className={classNames.paymentsBlock}>
-            <CustomSelectPay
+            <CustomSelectPaymentDetails
               tmpSupplier={tmpSupplier}
               paymentMethods={paymentMethods}
               onlyRead={onlyRead}
