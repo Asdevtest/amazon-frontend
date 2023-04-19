@@ -67,6 +67,7 @@ const fieldsOfProductAllowedToUpdate = [
   'avgPrice',
   'avgReviews',
   'redFlags',
+  'tags',
   // 'totalFba'
 ]
 
@@ -202,8 +203,10 @@ export class SupervisorProductViewModel {
       return
     }
 
+    const filteredImages = images.filter(el => !this.imagesForLoad.some(item => item.includes(el)))
+
     runInAction(() => {
-      this.imagesForLoad = [...this.imagesForLoad, ...images.map(el => getAmazonImageUrl(el, true))]
+      this.imagesForLoad = [...this.imagesForLoad, ...filteredImages.map(el => getAmazonImageUrl(el, true))]
     })
   }
 
@@ -249,6 +252,7 @@ export class SupervisorProductViewModel {
           'amazonDetail',
           'category',
           'redFlags',
+          'tags',
         ].includes(fieldName)
       ) {
         runInAction(() => {
