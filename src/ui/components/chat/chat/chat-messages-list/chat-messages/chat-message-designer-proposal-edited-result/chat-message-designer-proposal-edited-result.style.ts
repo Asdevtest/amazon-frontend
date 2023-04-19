@@ -471,6 +471,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   moreImagesText: {
     fontSize: 36,
+    color: '#fff',
   },
 
   containerField: {
