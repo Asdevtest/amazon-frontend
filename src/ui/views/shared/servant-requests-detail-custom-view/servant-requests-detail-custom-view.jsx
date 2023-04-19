@@ -135,6 +135,7 @@ export class RequestDetailCustomViewRaw extends Component {
                     value={{
                       request,
                       requestProposal: findRequestProposalForCurChat,
+                      requestProposals,
                     }}
                   >
                     <MultipleChats
