@@ -1871,4 +1871,21 @@ export const styles = theme => ({
       opacity: '0.8',
     },
   },
+
+  redFlags: {
+    display: 'flex',
+    gap: 15,
+
+    p: {
+      padding: 0,
+      margin: 0,
+    },
+  },
+
+  tags: {
+    p: {
+      padding: 0,
+      margin: 0,
+    },
+  },
 })

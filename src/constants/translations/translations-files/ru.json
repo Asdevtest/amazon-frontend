@@ -1926,5 +1926,6 @@
   "The redemption deadline has expired": "Срок выкупа истёк",
   "Payment to all suppliers": "К оплате всем поставщикам",
   "System message": "Системное сообщение",
-  "Create and publish a request": "Создать и опубликовать заявку"
+  "Create and publish a request": "Создать и опубликовать заявку",
+  "Tags": "Теги"
 }
