@@ -209,7 +209,7 @@ export class SupervisorProductsViewModel {
         product =>
           Number(product.status) ===
             Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR]) ||
-          Number(ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]),
+          Number(product.status) === Number(ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]),
       )
     }
 
