@@ -54,6 +54,19 @@ class SellerBoardModelStatic {
     })
     return response
   }
+
+  deleteStockGoodsById = async id => {
+    const response = await restApiService.integrationsApi.apiV1IntegrationsSellerboardWarehouseStocksGuidDelete(id)
+    return response
+  }
+
+  deleteMyDailyReportsLast30DaysById = async id => {
+    const response =
+      await restApiService.integrationsApi.apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGuidDelete(
+        id,
+      )
+    return response
+  }
 }
 
 export const SellerBoardModel = new SellerBoardModelStatic()

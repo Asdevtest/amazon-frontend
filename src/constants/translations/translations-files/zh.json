@@ -1925,5 +1925,8 @@
   "The redemption deadline has expired": "The redemption deadline has expired",
   "Payment to all suppliers": "Payment to all suppliers",
   "System message": "System message",
-  "Create and publish a request": "Create and publish a request"
+  "Create and publish a request": "Create and publish a request",
+  "Delete row from report": "Delete row from report",
+  "After confirmation, the row will be deleted. Confirm?": "After confirmation, the row will be deleted. Confirm?",
+  "Row deleted": "Row deleted"
 }

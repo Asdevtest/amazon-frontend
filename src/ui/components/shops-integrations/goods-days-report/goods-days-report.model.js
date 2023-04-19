@@ -2,6 +2,7 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SellerBoardModel} from '@models/seller-board-model'
 import {SettingsModel} from '@models/settings-model'
@@ -12,6 +13,7 @@ import {clientLast30DaySellerBoardColumns} from '@components/table-columns/clien
 import {addIdDataConverter, stockReportDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {t} from '@utils/translations'
 
 export class GoodsDaysReportModel {
   history = undefined
@@ -25,12 +27,27 @@ export class GoodsDaysReportModel {
 
   shopsData = []
 
+  selectedRows = []
+
+  showSuccessModal = false
+  showConfirmModal = false
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = clientLast30DaySellerBoardColumns()
+
+  successModalText = ''
+
+  confirmModalSettings = {
+    isWarning: false,
+    title: '',
+    message: '',
+    onSubmit: () => {},
+    onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+  }
 
   constructor({history, curShop}) {
     this.history = history
@@ -76,6 +93,11 @@ export class GoodsDaysReportModel {
       }))
     }
   }
+
+  onSelectionModel(model) {
+    this.selectedRows = model
+  }
+
   onChangeFilterModel(model) {
     this.filterModel = model
   }
@@ -154,6 +176,36 @@ export class GoodsDaysReportModel {
       console.log(error)
       this.error = error
     }
+  }
+
+  async onSubmitDeleteRow() {
+    try {
+      await SellerBoardModel.deleteMyDailyReportsLast30DaysById(this.selectedRows[0])
+
+      this.loadData()
+
+      this.onTriggerOpenModal('showConfirmModal')
+
+      this.successModalText = t(TranslationKey['Row deleted'])
+      this.onTriggerOpenModal('showSuccessModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onClickDeleteBtn() {
+    this.confirmModalSettings = {
+      isWarning: true,
+      title: t(TranslationKey['Delete row from report']),
+      message: t(TranslationKey['After confirmation, the row will be deleted. Confirm?']),
+      onSubmit: () => {
+        this.onSubmitDeleteRow()
+      },
+
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   onTriggerOpenModal(modal) {
