@@ -184,7 +184,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
                   containerClasses={classNames.infoContainer}
                   inputClasses={classNames.infoInput}
                   inputProps={{maxLength: 15}}
-                  label={'Fba fee'}
+                  label={'FBA fees'}
                   value={product.fbafee === 0 ? 0 : toFixed(product.fbafee, 2) || ''}
                   onChange={onChangeField('fbafee')}
                 />
