@@ -52,6 +52,7 @@ export class CreateOrEditRequestView extends Component {
       onSubmitEditRequest,
       onTriggerOpenModal,
       onClickThumbnail,
+      setBigImagesOptions,
     } = this.viewModel
 
     return (
@@ -88,6 +89,7 @@ export class CreateOrEditRequestView extends Component {
             setOpenModal={() => onTriggerOpenModal('showImageModal')}
             images={bigImagesOptions.images}
             imgIndex={bigImagesOptions.imgIndex}
+            setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
           />
 
           <ConfirmationModal

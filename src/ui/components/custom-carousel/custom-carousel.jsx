@@ -581,6 +581,7 @@ export const PhotoAndFilesCarouselMini = ({files, width, small = false, directio
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={bigImagesOptions.images}
         imgIndex={bigImagesOptions.imgIndex}
+        setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
       />
     </div>
   ) : (
@@ -644,6 +645,7 @@ export const PhotoCarousel = observer(({files, isAmazonPhoto, view, alignButtons
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={bigImagesOptions.images}
         imgIndex={bigImagesOptions.imgIndex}
+        setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
       />
     </div>
   ) : (
