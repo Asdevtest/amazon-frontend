@@ -26,6 +26,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {CustomSelectPaymentDetails} from '@components/custom-select-payment-details'
 import {Field} from '@components/field'
 import {SupplierApproximateCalculationsForm} from '@components/forms/supplier-approximate-calculations-form'
 import {Modal} from '@components/modal'
@@ -301,29 +302,27 @@ export const AddOrEditSupplierModalContent = observer(
       }
     }
 
-    const onChangePaymentMethod = event => {
-      if (Array.isArray(event.target.value)) {
-        setTmpSupplier({
-          ...tmpSupplier,
-          paymentMethods: event.target.value,
-        })
-      } else if (tmpSupplier.paymentMethods.length === paymentMethods.length) {
-        setTmpSupplier({
-          ...tmpSupplier,
-          paymentMethods: [event.target.value],
-        })
-      } else {
-        if (tmpSupplier.paymentMethods.some(item => item._id === event.target.value._id)) {
+    const onChangePaymentMethod = (event, setAll) => {
+      // console.lo
+      const isHaveUndefined = event.some(item => typeof item === 'undefined')
+
+      if (event.length && !isHaveUndefined && setAll) {
+        if (tmpSupplier.paymentMethods.length === paymentMethods.length) {
           setTmpSupplier({
             ...tmpSupplier,
-            paymentMethods: tmpSupplier.paymentMethods.filter(item => item._id !== event.target.value._id),
+            paymentMethods: [],
           })
         } else {
           setTmpSupplier({
             ...tmpSupplier,
-            paymentMethods: [...tmpSupplier.paymentMethods, event.target.value],
+            paymentMethods: event,
           })
         }
+      } else if (!isHaveUndefined) {
+        setTmpSupplier({
+          ...tmpSupplier,
+          paymentMethods: event,
+        })
       }
     }
 
@@ -732,7 +731,13 @@ export const AddOrEditSupplierModalContent = observer(
           </div>
 
           <div className={classNames.paymentsBlock}>
-            <Field
+            <CustomSelectPaymentDetails
+              tmpSupplier={tmpSupplier}
+              paymentMethods={paymentMethods}
+              onlyRead={onlyRead}
+              onChangePaymentMethod={onChangePaymentMethod}
+            />
+            {/* <Field
               label={t(TranslationKey['Payment methods']) + ':'}
               labelClasses={classNames.paymentMethodsLabel}
               // tooltipInfoContent={t(TranslationKey['Current request type'])}
@@ -804,7 +809,7 @@ export const AddOrEditSupplierModalContent = observer(
                     ))}
                 </Select>
               }
-            />
+            /> */}
           </div>
 
           <div>
