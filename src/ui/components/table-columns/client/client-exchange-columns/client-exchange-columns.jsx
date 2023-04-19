@@ -2,21 +2,23 @@ import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {Button} from '@components/buttons/button'
 import {
+  MultilineStatusCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  MultilineTextCell,
+  RedFlagsCell,
   SmallRowImageCell,
-  SuccessActionBtnCell,
+  TagsCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
-  MultilineStatusCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const clientExchangeViewColumns = (handlers, firstRowId) => [
+export const clientExchangeViewColumns = rowHandlers => [
   {
     field: 'image',
     headerName: t(TranslationKey.Image),
@@ -26,16 +28,6 @@ export const clientExchangeViewColumns = (handlers, firstRowId) => [
     renderCell: params => <SmallRowImageCell images={params.row.images} />,
     filterable: false,
     sortable: false,
-  },
-
-  {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-
-    renderCell: params => <NormDateCell params={params} />,
-    minWidth: 120,
-    type: 'date',
   },
 
   {
@@ -129,20 +121,43 @@ export const clientExchangeViewColumns = (handlers, firstRowId) => [
   },
 
   {
-    field: 'action',
+    field: 'priceForClient',
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 190,
     renderCell: params => (
-      <SuccessActionBtnCell
-        tooltipText={t(TranslationKey['Purchase a product card'])}
-        bTnText={`${t(TranslationKey['Buy for'])} ${toFixedWithDollarSign(params.row.originalData.priceForClient, 2)}`}
-        isFirstRow={firstRowId === params.row.id}
-        onClickOkBtn={() => handlers.onClickLaunchPrivateLabelBtn(params.row.originalData)}
-      />
+      <Button success width="100%" onClick={() => rowHandlers.onClickLaunchPrivateLabelBtn(params.row.originalData)}>
+        {t(TranslationKey['Buy for'])} {toFixedWithDollarSign(params.row.originalData.priceForClient, 2)}
+      </Button>
     ),
-    filterable: false,
-    sortable: false,
+  },
+
+  {
+    field: 'redFlags',
+    headerName: t(TranslationKey['Red flags']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
+
+    width: 120,
+    renderCell: params => <RedFlagsCell flags={params.value} />,
+  },
+
+  {
+    field: 'tags',
+    headerName: t(TranslationKey.Tags),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
+
+    width: 300,
+    renderCell: params => <TagsCell tags={params.value} />,
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
+    renderCell: params => <NormDateCell params={params} />,
+    minWidth: 120,
+    type: 'date',
   },
 ]

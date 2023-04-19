@@ -59,6 +59,7 @@ import {Input} from '@components/input'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {SearchInput} from '@components/search-input'
 import {WithSearchSelect} from '@components/selects/with-search-select'
+import {RedFlags} from '@components/shared/redFlags/red-flags'
 import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
@@ -2826,6 +2827,28 @@ export const ShortBoxDimensions = React.memo(
             {t(TranslationKey.Set)}
           </Button>
         ) : null} */}
+      </div>
+    )
+  }, styles),
+)
+
+export const RedFlagsCell = React.memo(
+  withStyles(
+    ({classes: classNames, flags}) => (
+      <div className={classNames.redFlags}>
+        <RedFlags activeFlags={flags} />
+      </div>
+    ),
+    styles,
+  ),
+)
+export const TagsCell = React.memo(
+  withStyles(({classes: classNames, tags}) => {
+    const tagList = tags?.map(el => `#${el.title}`) || []
+
+    return (
+      <div className={classNames.tags}>
+        <MultilineTextHeaderCell text={tagList.join(', ')} />
       </div>
     )
   }, styles),

@@ -37,7 +37,6 @@ export class StockReportModel {
   drawerOpen = false
 
   successModalText = ''
-  confirmMessage = ''
   clientComment = ''
   priceForSeekSupplier = 0
   yuanToDollarRate = undefined
@@ -76,6 +75,14 @@ export class StockReportModel {
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = clientDailySellerBoardColumns(this.selectedRow, this.rowHandlers)
+
+  confirmModalSettings = {
+    isWarning: false,
+    title: '',
+    message: '',
+    onSubmit: () => {},
+    onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+  }
 
   constructor({history, curShop}) {
     this.history = history
@@ -345,15 +352,56 @@ export class StockReportModel {
 
       this.priceForSeekSupplier = result.priceForClient
 
-      this.confirmMessage = `Стоимость услуги поиска поставщика составит $${toFixed(
-        result.priceForClient,
-        2,
-      )}.\n Подать заявку?`
+      // this.confirmMessage = `Стоимость услуги поиска поставщика составит $${toFixed(
+      //   result.priceForClient,
+      //   2,
+      // )}.\n Подать заявку?`
+
+      this.confirmModalSettings = {
+        isWarning: false,
+        title: t(TranslationKey.Attention),
+        message: `Стоимость услуги поиска поставщика составит $${toFixed(result.priceForClient, 2)}.\n Подать заявку?`,
+        onSubmit: () => {
+          this.onSubmitSeekSupplier()
+        },
+
+        onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+      }
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
     }
+  }
+
+  async onSubmitDeleteRow() {
+    try {
+      await SellerBoardModel.deleteStockGoodsById(this.selectedRows[0])
+
+      this.loadData()
+
+      this.onTriggerOpenModal('showConfirmModal')
+
+      this.successModalText = t(TranslationKey['Row deleted'])
+      this.onTriggerOpenModal('showSuccessModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onClickDeleteBtn() {
+    this.confirmModalSettings = {
+      isWarning: true,
+      title: t(TranslationKey['Delete row from report']),
+      message: t(TranslationKey['After confirmation, the row will be deleted. Confirm?']),
+      onSubmit: () => {
+        this.onSubmitDeleteRow()
+      },
+
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   async onSubmitSeekSupplier() {
