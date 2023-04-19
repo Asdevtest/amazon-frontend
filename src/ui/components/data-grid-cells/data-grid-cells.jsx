@@ -977,12 +977,6 @@ export const DownloadAndPrintFilesCell = React.memo(
           images={[selectedImage.fileUrl]}
           controls={() => (
             <>
-              <Button
-                onClick={() => downloadFileByLink(getAmazonImageUrl(selectedImage.fileUrl), selectedImage.fileName)}
-              >
-                <FileDownloadOutlinedIcon color="inherit" />
-              </Button>
-
               <Button onClick={() => handlePrint()}>
                 <PrintIcon color="inherit" />
               </Button>
