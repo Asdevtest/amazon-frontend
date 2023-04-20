@@ -5,9 +5,12 @@ import React, {useState} from 'react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
+import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 import {zipCodeGroups} from '@constants/zip-code-groups'
+
+import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
 // import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
@@ -299,6 +302,7 @@ export const MergeBoxesModal = ({
                     variant={boxBody.logicsTariffId && 'text'}
                     className={cx(classNames.storekeeperBtnDefault, {
                       [classNames.storekeeperBtn]: !boxBody.logicsTariffId,
+                      [classNames.storekeeperBtnDark]: SettingsModel.uiTheme === UiTheme.dark,
                     })}
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
