@@ -52,6 +52,20 @@ export const MyProposalsListCard = ({
     RequestProposalStatus.EXPIRED,
   ]
 
+  const showDesignerResultBtnStatuses = [
+    RequestProposalStatus.READY_TO_VERIFY,
+    RequestProposalStatus.VERIFYING_BY_SUPERVISOR,
+    RequestProposalStatus.TO_CORRECT,
+    RequestProposalStatus.CORRECTED,
+
+    RequestProposalStatus.ACCEPTED_BY_CLIENT,
+    RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST,
+    RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+
+    RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
+    RequestProposalStatus.PROPOSAL_EDITED,
+  ]
+
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
@@ -157,7 +171,7 @@ export const MyProposalsListCard = ({
                     <div className={classNames.editAndOpenButtonWrapper}>
                       {freelanceRequestTypeByCode[item.typeTask] === freelanceRequestType.DESIGNER && (
                         <Button
-                          disabled={proposal.status !== RequestProposalStatus.READY_TO_VERIFY}
+                          disabled={!showDesignerResultBtnStatuses.includes(proposal.status)}
                           className={classNames.button}
                           variant="contained"
                           onClick={() => onClickResultBtn(item, proposal._id)}
