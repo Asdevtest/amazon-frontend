@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import {borderRadius} from '@mui/system'
+
 import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
@@ -114,7 +116,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     gap: 27,
-    marginTop: 30,
+    paddingTop: 30,
     // background: 'grey',
     overflowY: 'auto',
     overflowX: 'hidden',
@@ -126,6 +128,8 @@ export const useClassNames = makeStyles()(theme => ({
     width: 161,
     // border: '1px solid red',
     height: 'min-content',
+
+    position: 'relative',
   },
 
   imageWrapper: {
@@ -294,5 +298,29 @@ export const useClassNames = makeStyles()(theme => ({
   imagesModalBtn: {
     width: 40,
     height: 40,
+  },
+
+  removeIconWrapper: {
+    background: 'rgba(73, 73, 73, 0.65)',
+    borderRadius: 50,
+    width: 37,
+    height: 37,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    right: -18,
+    top: -18,
+
+    cursor: 'pointer',
+    transition: '.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+
+  removeIcon: {
+    color: '#fff',
   },
 }))
