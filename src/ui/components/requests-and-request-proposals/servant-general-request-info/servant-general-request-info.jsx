@@ -288,6 +288,24 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
           <CustomCarousel view="complex" title={t(TranslationKey.Proposal)}>
             {requestProposals.map((proposal, index) => (
               <div key={index} className={classNames.proposalWrapper}>
+                <Field
+                  oneLine
+                  labelClasses={classNames.fieldLabel}
+                  containerClasses={classNames.subNameContainer}
+                  label={t(TranslationKey.Performer) + ':'}
+                  inputComponent={
+                    // <Typography className={classNames.subName}>
+                    //   {proposal.proposal.sub?.name || proposal.proposal.createdBy?.name}
+                    // </Typography>
+
+                    <UserLink
+                      blackText
+                      name={proposal.proposal.sub?.name || proposal.proposal.createdBy?.name}
+                      userId={proposal.proposal.sub?._id || proposal.proposal.createdBy?._id}
+                    />
+                  }
+                />
+
                 <Typography className={classNames.proposalComment}>{proposal.proposal.comment}</Typography>
 
                 <div className={classNames.rightSubWrapper}>
