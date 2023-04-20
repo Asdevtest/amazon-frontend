@@ -3,6 +3,7 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
@@ -85,6 +86,10 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
     setCurImageId(() => null)
   }
 
+  const onClickRemoveItem = imageId => {
+    setImagesData(() => imagesData.filter(el => el._id !== imageId))
+  }
+
   const onPasteFiles = imageId => async evt => {
     if (evt.clipboardData.files.length === 0) {
       return
@@ -124,12 +129,6 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
       setImagesData(() => imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)))
     }
-  }
-
-  const onClickDownloadBtn = () => {
-    const imageObj = {...imagesData.find(el => el._id === curImageId)}
-
-    downloadFileByLink(typeof imageObj.image === 'string' ? imageObj.image : imageObj.image.data_url, imageObj.comment)
   }
 
   const disableSubmit = imagesData.every(el => !el.image)
@@ -240,6 +239,18 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
               )}
             >
               {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
+              {index !== 0 && (
+                <div
+                  className={classNames.removeIconWrapper}
+                  onClick={e => {
+                    e.stopPropagation()
+
+                    onClickRemoveItem(item._id)
+                  }}
+                >
+                  <CloseOutlinedIcon className={classNames.removeIcon} />
+                </div>
+              )}
               {item.image ? (
                 <div className={classNames.imageListItem}>
                   <Avatar
