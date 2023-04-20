@@ -498,7 +498,9 @@ export const styles = theme => ({
 
   rowCancelBtn: {
     height: '40px',
-    width: '166px',
+    padding: '0 25px',
+    // width: '166px',
+
     // color: '#fff',
     // backgroundColor: '#ff0000',
     // '&:hover': {
@@ -1116,7 +1118,7 @@ export const styles = theme => ({
     gap: '40px',
   },
   addPermissionBtn: {
-    padding: '0 21px',
+    padding: '0 15px',
   },
 
   sabUserWrapper: {
