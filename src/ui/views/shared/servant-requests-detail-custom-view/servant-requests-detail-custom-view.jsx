@@ -162,7 +162,8 @@ export class RequestDetailCustomViewRaw extends Component {
 
                           {findRequestProposalForCurChat?.proposal?.status ===
                             RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-                          findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.TO_CORRECT ? (
+                          findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.TO_CORRECT ||
+                          findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY ? (
                             // ||
                             // findRequestProposalForCurChat.proposal.status ===
                             //   RequestProposalStatus.OFFER_CONDITIONS_REJECTED
@@ -181,7 +182,7 @@ export class RequestDetailCustomViewRaw extends Component {
                                 onClickResultBtn()
                               }}
                             >
-                              {t(TranslationKey['Send as a result'])}
+                              {/* t(TranslationKey['Send as a result']) */ t(TranslationKey.Result)}
                             </Button>
                           ) : undefined}
                           {/* {findRequestProposalForCurChat?.proposal.status ===
