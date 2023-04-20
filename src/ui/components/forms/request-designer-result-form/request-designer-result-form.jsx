@@ -280,16 +280,15 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
                   <Typography className={cx(classNames.imageUploadText /* , classNames.textMargin */)}>
                     {'Upload'}
                   </Typography>
-
-                  <input
-                    type={'file'}
-                    className={classNames.pasteInput}
-                    defaultValue={''}
-                    onPaste={onPasteFiles(item._id)}
-                    onChange={onUploadFile(item._id)}
-                  />
                 </div>
               )}
+              <input
+                type={'file'}
+                className={classNames.pasteInput}
+                defaultValue={''}
+                onPaste={onPasteFiles(item._id)}
+                onChange={onUploadFile(item._id)}
+              />
             </div>
 
             <div className={classNames.imageObjSubWrapper}>
