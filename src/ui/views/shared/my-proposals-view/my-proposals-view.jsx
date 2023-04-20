@@ -46,7 +46,7 @@ const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS
 
 @observer
 class MyProposalsViewRaw extends Component {
-  viewModel = new MyProposalsViewModel({history: this.props.history})
+  viewModel = new MyProposalsViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.loadData()

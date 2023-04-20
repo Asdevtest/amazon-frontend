@@ -46,10 +46,19 @@ export class MyProposalsViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({history, location}) {
     runInAction(() => {
       this.history = history
     })
+
+    if (location.state) {
+      this.onClickOpenBtn(location.state?.request)
+
+      const state = {...history.location.state}
+      delete state.task
+      history.replace({...history.location, state})
+    }
+
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
