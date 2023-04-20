@@ -62,7 +62,7 @@ export const CustomSearchRequestDetails = ({request}) => {
             <div className={classNames.conditionsFieldWrapper}>
               <Typography className={classNames.conditionsLabel}>{t(TranslationKey.Description)}</Typography>
 
-              <CustomTextEditor readOnly conditions={request?.details?.conditions} />
+              <CustomTextEditor readOnly conditions={request?.details?.conditions} changeConditions={undefined} />
             </div>
           </div>
         </AccordionDetails>

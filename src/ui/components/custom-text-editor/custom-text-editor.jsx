@@ -137,7 +137,7 @@ export const CustomTextEditor = observer(props => {
           }
         }}
         onSave={text => {
-          changeConditions(text)
+          changeConditions && changeConditions(text)
         }}
       />
     </div>
