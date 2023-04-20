@@ -27,6 +27,7 @@ import {SettingsModel} from '@models/settings-model'
 import {BreadCrumbsLine} from '@components/bread-crumbs-line'
 import {Button} from '@components/buttons/button'
 import {LanguageSelector} from '@components/selectors/language-selector'
+import {BoxesUpdatesNotification} from '@components/snacks/boxes-updates-notification'
 import {IdeaNotification} from '@components/snacks/idea-notification'
 import {OrderDeadlineNotification} from '@components/snacks/order-deadline-notification'
 import {OrdersUpdatesNotification} from '@components/snacks/orders-updates-notification/orders-updates-notification'
@@ -64,6 +65,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
   } = componentModel.current
 
   useEffect(() => {
+    console.log('====>', snackNotifications)
     if (
       snackNotifications[snackNoticeKey.SIMPLE_MESSAGE] &&
       !location.pathname.includes('/messages') &&
@@ -79,12 +81,12 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
       markNotificationAsReaded(snackNoticeKey.SIMPLE_MESSAGE)
     }
 
-    if (snackNotifications[snackNoticeKey.ORDER_DEADLINE]) {
-      toast(<OrderDeadlineNotification noticeItem={snackNotifications[snackNoticeKey.ORDER_DEADLINE]} />, {
-        autoClose: 5000,
-      })
-      markNotificationAsReaded(snackNoticeKey.ORDER_DEADLINE)
-    }
+    // if (snackNotifications[snackNoticeKey.ORDER_DEADLINE]) {
+    //   toast(<OrderDeadlineNotification noticeItem={snackNotifications[snackNoticeKey.ORDER_DEADLINE]} />, {
+    //     autoClose: 5000,
+    //   })
+    //   markNotificationAsReaded(snackNoticeKey.ORDER_DEADLINE)
+    // }
 
     if (snackNotifications[snackNoticeKey.IDEAS]) {
       toast(<IdeaNotification role={role} noticeItem={snackNotifications[snackNoticeKey.IDEAS]} />, {
@@ -101,6 +103,16 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
         },
       )
       markNotificationAsReaded(snackNoticeKey.ORDERS_UPDATES)
+    }
+
+    if (snackNotifications[snackNoticeKey.BOXES_UPDATES]) {
+      toast(
+        <BoxesUpdatesNotification noticeItem={snackNotifications[snackNoticeKey.BOXES_UPDATES]} history={history} />,
+        {
+          autoClose: 5000,
+        },
+      )
+      markNotificationAsReaded(snackNoticeKey.BOXES_UPDATES)
     }
   }, [snackNotifications])
 
