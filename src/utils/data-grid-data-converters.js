@@ -332,6 +332,7 @@ export const depersonalizedPickDataConverter = data =>
     number: index + 1,
     checkednotes: item.checkednotes,
     clientComment: item.clientComment,
+    updatedAt: item.updatedAt,
   }))
 
 export const clientOrdersDataConverter = data =>
