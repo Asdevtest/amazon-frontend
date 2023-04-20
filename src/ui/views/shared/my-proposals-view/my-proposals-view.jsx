@@ -22,8 +22,10 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {MyProposalsListCard} from '@components/cards/my-proposals-list-card'
+import {RequestDesignerResultClientForm} from '@components/forms/request-designer-result-client-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
@@ -54,12 +56,15 @@ class MyProposalsViewRaw extends Component {
 
   render() {
     const {
+      currentRequest,
+      currentProposal,
       selectedTaskType,
       sortMode,
       viewMode,
       currentData,
       drawerOpen,
       showConfirmModal,
+      showRequestDesignerResultClientModal,
       nameSearchValue,
       userInfo,
       userRole,
@@ -74,6 +79,7 @@ class MyProposalsViewRaw extends Component {
       onClickOpenBtn,
       onTriggerSortMode,
       onClickTaskType,
+      onClickResultBtn,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -171,6 +177,7 @@ class MyProposalsViewRaw extends Component {
                         onClickEditBtn={onClickEditBtn}
                         onClickDeleteBtn={onClickDeleteBtn}
                         onClickOpenBtn={onClickOpenBtn}
+                        onClickResultBtn={onClickResultBtn}
                       />
                     ) : null,
                   )}
@@ -197,6 +204,21 @@ class MyProposalsViewRaw extends Component {
             onClickSuccessBtn={onSubmitDeleteProposal}
             onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
           />
+
+          {currentRequest && currentProposal && (
+            <Modal
+              openModal={showRequestDesignerResultClientModal}
+              setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
+            >
+              <RequestDesignerResultClientForm
+                userInfo={userInfo}
+                request={{request: currentRequest}}
+                proposal={currentProposal}
+                setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
+                // onClickSendAsResult={onClickSendAsResult}
+              />
+            </Modal>
+          )}
         </Main>
       </React.Fragment>
     )
