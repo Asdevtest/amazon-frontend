@@ -65,6 +65,7 @@ export class WarehouseMyTasksViewModel {
     onClickResolveBtn: item => this.onClickResolveBtn(item),
     onClickCancelTask: (boxid, id, operationType) => this.onClickCancelTask(boxid, id, operationType),
     updateTaskPriority: (taskId, newPriority) => this.startEditTaskPriority(taskId, newPriority),
+    updateTaskComment: (taskId, priority, reason) => this.updateTaskComment(taskId, priority, reason),
   }
 
   firstRowId = undefined
@@ -586,6 +587,17 @@ export class WarehouseMyTasksViewModel {
 
       UserModel.getUserInfo()
       await this.getTasksMy()
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async updateTaskComment(taskId, priority, reason) {
+    try {
+      await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
     } catch (error) {
       console.log(error)
       runInAction(() => {

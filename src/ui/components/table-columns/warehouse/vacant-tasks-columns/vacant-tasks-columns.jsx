@@ -4,16 +4,15 @@ import React from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  // AsinCopyCell,
-  NormDateFromUnixCell,
-  TaskDescriptionCell,
-  NormalActionBtnCell,
-  TaskTypeCell,
-  MultilineTextHeaderCell, // MultilineTextCell,
-  CheckboxCell,
-  StringListCell,
-  TaskPriorityCell,
   ChangeInputCommentCell,
+  CheckboxCell,
+  MultilineTextHeaderCell,
+  NormalActionBtnCell,
+  NormDateFromUnixCell,
+  StringListCell,
+  TaskDescriptionCell,
+  TaskPriorityCell,
+  TaskTypeCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -53,12 +52,19 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
   },
 
   {
-    field: 'comment',
+    field: 'reason',
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
     width: 271,
-    renderCell: params => <ChangeInputCommentCell rowsCount={4} />,
+    renderCell: params => (
+      <ChangeInputCommentCell
+        rowsCount={4}
+        text={params.row.originalData.reason}
+        id={params.row.originalData._id}
+        onClickSubmit={(id, reason) => handlers.updateTaskComment(id, params.row.originalData.priority, reason)}
+      />
+    ),
   },
 
   {
