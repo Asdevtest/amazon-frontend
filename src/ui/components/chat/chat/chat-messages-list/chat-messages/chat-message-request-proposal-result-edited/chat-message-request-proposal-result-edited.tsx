@@ -75,6 +75,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
           whithoutFiles={undefined}
           imagesForLoad={undefined}
           isEditable={undefined}
+          withoutMakeMainImage={undefined}
           onChangeImagesForLoad={undefined}
         />
 

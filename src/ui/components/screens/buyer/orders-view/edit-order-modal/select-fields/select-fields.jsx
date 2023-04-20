@@ -690,6 +690,7 @@ export const SelectFields = ({
             )
           }
           <PhotoAndFilesCarousel
+            withoutMakeMainImage
             isEditable
             small
             files={order.images}

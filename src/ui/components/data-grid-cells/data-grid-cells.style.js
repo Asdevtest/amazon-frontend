@@ -486,11 +486,6 @@ export const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
 
-    maxWidth: 620,
-
-    // maxWidth: '50%',
-
-    overflow: 'auto',
     padding: '10px 0',
   },
 
@@ -1713,7 +1708,7 @@ export const styles = theme => ({
   },
   nativeSelect: {
     [theme.breakpoints.down(1282)]: {
-      width: 108,
+      width: 130,
     },
     // width: '210px',
     '& > div': {
