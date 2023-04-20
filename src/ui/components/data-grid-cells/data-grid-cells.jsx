@@ -4,7 +4,6 @@ import ClearIcon from '@mui/icons-material/Clear'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DoneIcon from '@mui/icons-material/Done'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined'
 import PrintIcon from '@mui/icons-material/Print'
@@ -93,7 +92,6 @@ import {
   trimBarcode,
 } from '@utils/text'
 import {t} from '@utils/translations'
-import {downloadFileByLink} from '@utils/upload-files'
 
 import {styles} from './data-grid-cells.style'
 
@@ -1100,7 +1098,10 @@ export const TaskPriorityCell =
           select: cx({
             [classNames.colorYellow]: curPriority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.STANDART],
             [classNames.colorGreen]: curPriority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.LONG],
-            [classNames.colorRed]: curPriority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.URGENT],
+            [classNames.colorRed]: [
+              mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.URGENT],
+              mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC],
+            ].includes(curPriority),
           }),
         }}
         onChange={e => onChangePriority(taskId, e.target.value)}

@@ -31,6 +31,7 @@ import {Modal} from '@components/modal'
 import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
+import {EditTaskPriorityModal} from '@components/screens/warehouse/edit-task-priority-modal'
 import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -73,6 +74,8 @@ export class WarehouseVacantTasksViewRaw extends Component {
       drawerOpen,
       curPage,
       rowsPerPage,
+      editPriorityData,
+      showEditPriorityData,
 
       goToMyTasks,
       onClickPickupManyTasksBtn,
@@ -80,6 +83,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
       onChangeCurPage,
       onChangeRowsPerPage,
       onTriggerOpenModal,
+      updateTaskPriority,
 
       onSelectionModel,
       setDataGridState,
@@ -277,6 +281,14 @@ export class WarehouseVacantTasksViewRaw extends Component {
             volumeWeightCoefficient={volumeWeightCoefficient}
             task={curOpenedTask}
             onClickOpenCloseModal={() => onTriggerOpenModal('showTaskInfoModal')}
+          />
+        </Modal>
+
+        <Modal openModal={showEditPriorityData} setOpenModal={() => onTriggerOpenModal('showEditPriorityData')}>
+          <EditTaskPriorityModal
+            data={editPriorityData}
+            handleClose={() => onTriggerOpenModal('showEditPriorityData')}
+            onSubmitHandler={updateTaskPriority}
           />
         </Modal>
 

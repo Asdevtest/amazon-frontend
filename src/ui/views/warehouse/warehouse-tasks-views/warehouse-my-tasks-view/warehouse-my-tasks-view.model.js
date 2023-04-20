@@ -3,15 +3,12 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {OrderStatusByKey, OrderStatus} from '@constants/order-status'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
 import {BoxesModel} from '@models/boxes-model'
-import {
-  BoxesWarehouseUpdateBoxInTaskContract, // BoxesWarehouseUpdateBoxInReceiveTaskContract,
-  // BoxesWarehouseUpdateBoxInTaskSplitMergeEditContract,
-} from '@models/boxes-model/boxes-model.contracts'
+import {BoxesWarehouseUpdateBoxInTaskContract} from '@models/boxes-model/boxes-model.contracts'
 import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
@@ -57,11 +54,17 @@ export class WarehouseMyTasksViewModel {
   showEditBoxModal = false
   showCancelTaskModal = false
   showConfirmModal = false
+  showEditPriorityData = false
+
+  editPriorityData = {
+    taskId: null,
+    newPriority: null,
+  }
 
   rowHandlers = {
     onClickResolveBtn: item => this.onClickResolveBtn(item),
     onClickCancelTask: (boxid, id, operationType) => this.onClickCancelTask(boxid, id, operationType),
-    updateTaskPriority: (taskId, newPriority) => this.updateTaskPriority(taskId, newPriority),
+    updateTaskPriority: (taskId, newPriority) => this.startEditTaskPriority(taskId, newPriority),
   }
 
   firstRowId = undefined
@@ -309,7 +312,10 @@ export class WarehouseMyTasksViewModel {
         // this.tasksMyBase = result.rows
 
         this.tasksMy = warehouseTasksDataConverter(
-          result.rows.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({...el, beforeBoxes: el.boxesBefore})),
+          result.rows.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({
+            ...el,
+            beforeBoxes: el.boxesBefore,
+          })),
         )
       })
 
@@ -567,14 +573,19 @@ export class WarehouseMyTasksViewModel {
     }
   }
 
-  async updateTaskPriority(taskId, priority) {
+  startEditTaskPriority(taskId, newPriority) {
+    runInAction(() => {
+      this.editPriorityData = {taskId, newPriority}
+      this.showEditPriorityData = true
+    })
+  }
+
+  async updateTaskPriority(taskId, priority, reason) {
     try {
-      await StorekeeperModel.updateTask(taskId, {
-        priority,
-      })
+      await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
 
       UserModel.getUserInfo()
-      this.getTasksMy()
+      await this.getTasksMy()
     } catch (error) {
       console.log(error)
       runInAction(() => {
