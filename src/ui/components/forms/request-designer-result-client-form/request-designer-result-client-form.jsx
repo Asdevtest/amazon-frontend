@@ -215,8 +215,8 @@ export const RequestDesignerResultClientForm = ({
             containerClasses={classNames.containerField}
             inputComponent={
               <Typography className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-                <a target="_blank" rel="noreferrer" href={`https://www.amazon.com/dp/${proposal.request.asin}`}>
-                  <span className={classNames.linkSpan}>{proposal.request.asin}</span>
+                <a target="_blank" rel="noreferrer" href={`https://www.amazon.com/dp/${request.request.asin}`}>
+                  <span className={classNames.linkSpan}>{request.request.asin}</span>
                 </a>
               </Typography>
             }

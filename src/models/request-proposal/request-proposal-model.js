@@ -50,8 +50,8 @@ class RequestProposalModelStatic {
     return response
   }
 
-  getRequestProposalsCustom = async requestId => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsCustomGuidGet(requestId)
+  getRequestProposalsCustom = async proposalId => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsCustomGuidGet(proposalId)
     return response
   }
 
