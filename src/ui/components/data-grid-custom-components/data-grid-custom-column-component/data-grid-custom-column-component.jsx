@@ -259,8 +259,10 @@ export const DataGridCustomColumnMenuComponent = props => {
   }
 
   if ([columnnsKeys.client.FREELANCE_REQUEST_TYPE].includes(currentColumn.columnKey)) {
+    // eslint-disable-next-line no-unused-vars
+    const {typeTask, ...rest} = other
     return (
-      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...rest}>
         <FreelanceRequestType
           data={props[currentColumn.field]}
           field={currentColumn.field}
