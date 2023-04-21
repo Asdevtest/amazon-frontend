@@ -16,6 +16,7 @@ import {
   Typography,
   Avatar,
   Checkbox,
+  ClickAwayListener,
 } from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
@@ -284,24 +285,27 @@ export const RequestDesignerResultClientForm = ({
             )}
 
             {item.isEditCommentOpen && !noShowActions && (
-              <div>
-                <div className={cx(classNames.commentHideBtn)} onClick={() => onClickCommentBtn(item._id)}>
-                  <Typography>{t(TranslationKey.Comment)}</Typography>
+              <ClickAwayListener mouseEvent="onMouseUp" onClickAway={() => onClickCommentBtn(item._id)}>
+                <div className={cx(classNames.commentBtnWrapper)}>
+                  <div className={cx(classNames.commentHideBtn)} onClick={() => onClickCommentBtn(item._id)}>
+                    <Typography>{t(TranslationKey.Comment)}</Typography>
 
-                  <ArrowDropUpIcon />
+                    <ArrowDropUpIcon />
+                  </div>
+
+                  <Input
+                    multiline
+                    inputProps={{maxLength: 500}}
+                    minRows={5}
+                    maxRows={10}
+                    variant="filled"
+                    className={classNames.imageObjInput}
+                    classes={{input: classNames.subImageObjInput}}
+                    value={item.commentByClient}
+                    onChange={onChangeImageFileds('commentByClient', item._id)}
+                  />
                 </div>
-
-                <Input
-                  multiline
-                  inputProps={{maxLength: 128}}
-                  maxRows={3}
-                  variant="filled"
-                  className={classNames.imageObjInput}
-                  classes={{input: classNames.subImageObjInput}}
-                  value={item.commentByClient}
-                  onChange={onChangeImageFileds('commentByClient', item._id)}
-                />
-              </div>
+              </ClickAwayListener>
             )}
 
             {/* <div className={classNames.imageObjSubWrapper}>
