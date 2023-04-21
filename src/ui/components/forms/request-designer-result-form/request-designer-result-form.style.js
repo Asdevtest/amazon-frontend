@@ -93,7 +93,16 @@ export const useClassNames = makeStyles()(theme => ({
 
   footerWrapper: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    marginTop: 30,
+    // marginBottom: 30,
+    gap: 30,
+  },
+
+  footerSubWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
     alignItems: 'flex-end',
     marginTop: 30,
     // marginBottom: 30,
@@ -120,6 +129,16 @@ export const useClassNames = makeStyles()(theme => ({
     // background: 'grey',
     overflowY: 'auto',
     overflowX: 'hidden',
+  },
+
+  bodySubWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: 27,
+    // paddingTop: 30,
+    // // background: 'grey',
+    // overflowY: 'auto',
+    // overflowX: 'hidden',
   },
 
   imageObjWrapper: {
@@ -204,11 +223,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   bigPlusWrapper: {
-    height: 205,
-    width: 161,
+    // height: 205,
+    // width: 161,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    justifySelf: 'flex-start',
+
+    marginLeft: 100,
   },
 
   bigPlus: {
