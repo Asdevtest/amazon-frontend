@@ -1201,6 +1201,7 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
+    paddingRight: 10,
   },
 
   warehouseMyTasksBtnsWrapper: {
