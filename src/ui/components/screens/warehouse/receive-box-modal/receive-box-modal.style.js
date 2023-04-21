@@ -5,6 +5,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: 'min-content',
     [theme.breakpoints.down(1282)]: {
       width: 'fit-content',
+      minHeight: 500,
     },
     [theme.breakpoints.down(768)]: {
       width: '100%',
@@ -17,6 +18,11 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     color: theme.palette.text.general,
     marginBottom: '27px',
+
+    [theme.breakpoints.down(1282)]: {
+      marginBottom: 15,
+    },
+
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
       lineHeight: '22px',
@@ -68,6 +74,7 @@ export const useClassNames = makeStyles()(theme => ({
       padding: 20,
       flexDirection: 'row',
       width: '100%',
+      minHeight: 200,
 
       justifyContent: 'space-between',
       gap: 'unset',
@@ -287,6 +294,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'end',
     gap: '20px',
+
+    [theme.breakpoints.down(1282)]: {
+      marginTop: 15,
+    },
+
     [theme.breakpoints.down(768)]: {
       marginTop: '30px',
       display: 'flex',

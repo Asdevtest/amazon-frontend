@@ -4,8 +4,9 @@ export const useClassNames = makeStyles()(theme => ({
   modalWrapper: {
     width: '700px',
     [theme.breakpoints.down(1282)]: {
-      height: 'calc(100vh - 145px)',
-      width: 715,
+      // height: 'calc(100vh - 145px)',
+      minHeight: 500,
+      minWidth: 715,
       overflowY: 'auto',
     },
     [theme.breakpoints.down(768)]: {
@@ -80,9 +81,14 @@ export const useClassNames = makeStyles()(theme => ({
 
   boxCode: {
     display: 'flex',
+    width: 'fit-content',
     flexDirection: 'column',
     alignItems: 'flex-start',
     margin: '30px 0px',
+
+    [theme.breakpoints.down(1282)]: {
+      margin: '15px 0px',
+    },
   },
 
   imageFileInputWrapper: {
@@ -123,6 +129,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     marginTop: '20px',
     gap: 15,
+    [theme.breakpoints.down(1282)]: {
+      marginTop: 10,
+      gap: 5,
+    },
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       width: '100%',
@@ -153,6 +163,10 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'end',
     marginTop: '30px',
     gap: '20px',
+
+    [theme.breakpoints.down(1282)]: {
+      marginTop: 10,
+    },
     [theme.breakpoints.down(768)]: {
       justifyContent: 'center',
       marginTop: '30px',
@@ -164,6 +178,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     marginTop: 10,
+
+    [theme.breakpoints.down(1282)]: {
+      marginTop: 0,
+    },
   },
 
   imgBox: {

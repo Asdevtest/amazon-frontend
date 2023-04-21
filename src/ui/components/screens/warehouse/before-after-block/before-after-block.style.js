@@ -36,6 +36,10 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     paddingBottom: 30,
+
+    [theme.breakpoints.down(1282)]: {
+      width: 270,
+    },
   },
 
   trackNumberPhoto: {
@@ -106,12 +110,14 @@ export const useClassNames = makeStyles()(theme => ({
     // padding: '10px',
     width: '100%',
   },
+  boxSizeInfoWrapper: {},
   chipWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: '30px',
     [theme.breakpoints.down(1282)]: {
-      gap: 10,
+      width: '100%',
+      justifyContent: 'space-between',
     },
     [theme.breakpoints.down(768)]: {
       gap: '10px',
@@ -132,6 +138,10 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '5px',
     marginTop: '10px',
     height: '220px',
+
+    [theme.breakpoints.down(1282)]: {
+      minWidth: 180,
+    },
   },
   editBtn: {
     width: '183px',
@@ -198,6 +208,10 @@ export const useClassNames = makeStyles()(theme => ({
   imagesWrapper: {
     display: 'flex',
     flexDirection: 'column',
+
+    [theme.breakpoints.down(1282)]: {
+      paddingLeft: 20,
+    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
@@ -207,6 +221,12 @@ export const useClassNames = makeStyles()(theme => ({
     width: '300px',
     marginLeft: '20px',
     minHeight: '150px',
+
+    [theme.breakpoints.down(1282)]: {
+      width: '100%',
+      minHeight: 200,
+    },
+
     [theme.breakpoints.down(768)]: {
       width: '100%',
       display: 'flex',
@@ -250,13 +270,27 @@ export const useClassNames = makeStyles()(theme => ({
 
   checkboxContainer: {
     display: 'flex',
-    // justifyContent: 'space-between',
+    justifyContent: 'space-between',
     width: '100%',
     margin: 0,
 
     [theme.breakpoints.down(1282)]: {
-      width: 210,
+      width: '100%',
     },
+  },
+
+  warningAccent: {
+    outline: '2px solid red',
+    borderRadius: 4,
+    paddingLeft: 5,
+    marginBottom: 5,
+  },
+
+  successAccent: {
+    outline: '2px solid green',
+    borderRadius: 4,
+    paddingLeft: 5,
+    marginBottom: 5,
   },
 
   imageLinkListItem: {
@@ -447,6 +481,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     // alignItems: 'center',
+    [theme.breakpoints.down(1282)]: {
+      flexDirection: 'column',
+    },
+
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       gap: '14px',
@@ -461,6 +499,9 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     // alignItems: 'center',
+    [theme.breakpoints.down(1282)]: {
+      flexDirection: 'column',
+    },
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       gap: '14px',
@@ -486,6 +527,9 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.general,
     fontWeight: 600,
+    [theme.breakpoints.down(1282)]: {
+      width: '100%',
+    },
     [theme.breakpoints.down(768)]: {
       padding: 0,
     },
@@ -657,5 +701,40 @@ export const useClassNames = makeStyles()(theme => ({
 
       background: 'green',
     },
+  },
+
+  countSuperBoxWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 5,
+    marginBottom: 5,
+  },
+
+  countSubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '25px',
+    marginBottom: 5,
+    [theme.breakpoints.down(1282)]: {
+      gap: 5,
+    },
+  },
+
+  subTitleOne: {
+    fontSize: '14px',
+    color: theme.palette.text.second,
+    lineHeight: '19px',
+    // marginRight: theme.spacing(1),
+    whiteSpace: 'nowrap',
+  },
+
+  subValue: {
+    fontSize: '16px',
+
+    color: theme.palette.text.general,
+    lineHeight: '19px',
+    fontWeight: 600,
   },
 }))
