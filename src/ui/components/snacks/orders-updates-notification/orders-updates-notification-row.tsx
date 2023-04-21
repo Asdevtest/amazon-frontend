@@ -32,7 +32,7 @@ export const OrdersUpdatesNotificationRow: FC<OrdersUpdatesNotificationRowProps>
             <div>
               <span>ID:</span>{' '}
               {idHref ? (
-                <Link underline="none" onClick={() => goToHref(el._id)}>
+                <Link underline="none" sx={{cursor: 'pointer'}} onClick={() => goToHref(el._id)}>
                   {el.id}
                 </Link>
               ) : (
