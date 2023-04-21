@@ -48,10 +48,17 @@ export class WarehouseVacantViewModel {
 
   showTwoVerticalChoicesModal = false
   showTaskInfoModal = false
+  showEditPriorityData = false
+
+  editPriorityData = {
+    taskId: null,
+    newPriority: null,
+  }
 
   rowHandlers = {
     onClickPickupBtn: item => this.onClickPickupBtn(item),
-    updateTaskPriority: (taskId, newPriority) => this.updateTaskPriority(taskId, newPriority),
+    updateTaskPriority: (taskId, newPriority) => this.startEditTaskPriority(taskId, newPriority),
+    updateTaskComment: (taskId, priority, reason) => this.updateTaskComment(taskId, priority, reason),
   }
 
   firstRowId = undefined
@@ -305,14 +312,30 @@ export class WarehouseVacantViewModel {
     this.getTasksVacant()
   }
 
-  async updateTaskPriority(taskId, priority) {
+  startEditTaskPriority(taskId, newPriority) {
+    runInAction(() => {
+      this.editPriorityData = {taskId, newPriority}
+      this.showEditPriorityData = true
+    })
+  }
+
+  async updateTaskPriority(taskId, priority, reason) {
     try {
-      await StorekeeperModel.updateTask(taskId, {
-        priority,
-      })
+      await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
 
       UserModel.getUserInfo()
-      this.getTasksVacant()
+      await this.getTasksVacant()
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async updateTaskComment(taskId, priority, reason) {
+    try {
+      await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -360,7 +383,12 @@ export class WarehouseVacantViewModel {
 
         // this.tasksMyBase = result.rows
 
-        this.tasksVacant = warehouseTasksDataConverter(result?.rows?.map(el => ({...el, beforeBoxes: el?.boxesBefore})))
+        this.tasksVacant = warehouseTasksDataConverter(
+          result?.rows?.map(el => ({
+            ...el,
+            beforeBoxes: el?.boxesBefore,
+          })),
+        )
       })
 
       this.setRequestStatus(loadingStatuses.success)

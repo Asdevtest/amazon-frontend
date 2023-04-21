@@ -1931,6 +1931,8 @@ export enum TranslationKey {
   'Row deleted' = 'Row deleted',
   'Go to request' = 'Go to request',
   'Is accepted for processing' = 'Is accepted for processing',
+  'Problematic' = 'Problematic',
+  'Change the priority to' = 'Change the priority to',
   // '' = '',
   // '' = '',
   // '' = '',
