@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
+import {BatchStatus} from '@constants/batch-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -9,12 +11,14 @@ import {
   WarehouseTariffDatesCell,
   MultilineTextHeaderCell,
   MultilineTextCell,
+  Ayaya,
+  BatchTrackingCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const batchesViewColumns = () => [
+export const batchesViewColumns = (rowHandlers, status) => [
   {
     field: 'orders',
     headerName: t(TranslationKey.Product),
@@ -73,6 +77,24 @@ export const batchesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 250,
+    filterable: false,
+    sortable: false,
+  },
+
+  {
+    field: 'batchTracking',
+    headerName: t(TranslationKey['Batch tracking']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch tracking'])} />,
+    renderCell: params => (
+      <BatchTrackingCell
+        disabled={status !== BatchStatus.HAS_DISPATCHED}
+        id={params.row?.originalData?._id}
+        arrivalDate={params.row?.originalData?.arrivalDate}
+        trackingNumber={params.row?.originalData?.trackingNumber}
+        rowHandlers={rowHandlers}
+      />
+    ),
+    width: 198,
     filterable: false,
     sortable: false,
   },

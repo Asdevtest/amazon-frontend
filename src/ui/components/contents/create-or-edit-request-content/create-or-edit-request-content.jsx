@@ -194,6 +194,8 @@ export const CreateOrEditRequestContent = ({
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
 
+  console.log('formFields', formFields)
+
   useEffect(() => {
     if (requestToEdit) {
       setFormFields(() => getSourceFormFields())
@@ -535,7 +537,9 @@ export const CreateOrEditRequestContent = ({
                             disablePast
                             className={classNames.dateField}
                             value={formFields.request.timeoutAt}
-                            onChange={onChangeField('request')('timeoutAt')}
+                            onChange={e => {
+                              onChangeField('request')('timeoutAt')(e)
+                            }}
                           />
                           {deadlineError && (
                             <span className={classNames.deadlineErrorText}>

@@ -253,6 +253,10 @@ export const styles = theme => ({
   changeInputComment: {
     width: '100%',
     height: 'auto',
+
+    '&::placeholder': {
+      fontSize: 14,
+    },
   },
 
   changeInputIcon: {
@@ -1876,5 +1880,44 @@ export const styles = theme => ({
       padding: 0,
       margin: 0,
     },
+  },
+
+  // as: {
+  //   border: '1px solid #E0E0E0',
+  //   borderRadius: 4,
+  // },
+
+  trackingNumberWrapper: {
+    width: '100%',
+  },
+
+  batchTrackingWrapper: {
+    width: '100%',
+  },
+
+  batchTrackingTitle: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    color: theme.palette.text.second,
+
+    margin: '0 !important',
+  },
+  batchTrackingContainer: {
+    width: '100%',
+  },
+  arrivalDateWrapper: {
+    display: 'flex',
+  },
+  iconWrapperArrivalDate: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  arrivalDateIcon: {
+    width: 15,
+    height: 15,
   },
 })

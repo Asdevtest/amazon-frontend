@@ -585,6 +585,8 @@ export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
     // deliveryTotalPrice: item.boxes.reduce((prev, box) => (prev = prev + box.deliveryTotalPrice), 0),
 
     deliveryTotalPrice: getTariffRateForBoxOrOrder(item.boxes[0]) * item.finalWeight,
+    arrivalDate: item?.arrivalDate,
+    trackingNumber: item?.trackingNumber,
   }))
 
 export const warehouseTasksDataConverter = data =>
