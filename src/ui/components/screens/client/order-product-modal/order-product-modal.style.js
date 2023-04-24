@@ -201,7 +201,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   totalCell: {
-    width: 80,
+    maxWidth: 135,
+    minWidth: 135,
     padding: '0 10px',
     borderRight: '1px solid #e0e0e0',
     margin: 0,

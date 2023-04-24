@@ -343,6 +343,12 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  subNameContainer: {
+    minHeight: 55,
+    gap: 10,
+    margin: '0 !important',
+  },
+
   priceAmazonWrapper: {
     display: 'flex',
   },

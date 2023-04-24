@@ -1,6 +1,7 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
+import {freelanceRequestTypeByCode} from '@constants/freelance-request-type'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {RequestStatus} from '@constants/request-status'
 import {RequestSubType, RequestType} from '@constants/request-type'
@@ -17,7 +18,7 @@ import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 
 const allowStatuses = [RequestStatus.DRAFT, RequestStatus.PUBLISHED, RequestStatus.IN_PROCESS]
 
-const filtersFields = ['status']
+const filtersFields = ['status', 'typeTask']
 
 export class MyRequestsViewModel {
   history = undefined
@@ -242,12 +243,23 @@ export class MyRequestsViewModel {
             ? this.columnMenuSettings.status.currentFilterData.includes(el.status)
             : el,
         )
+        .filter(el =>
+          this.columnMenuSettings.typeTask.currentFilterData.length
+            ? this.columnMenuSettings.typeTask.currentFilterData.includes(freelanceRequestTypeByCode[el.typeTask])
+            : el,
+        )
     } else {
-      return toJS(this.searchRequests).filter(el =>
-        this.columnMenuSettings.status.currentFilterData.length
-          ? this.columnMenuSettings.status.currentFilterData.includes(el.status)
-          : el,
-      )
+      return toJS(this.searchRequests)
+        .filter(el =>
+          this.columnMenuSettings.status.currentFilterData.length
+            ? this.columnMenuSettings.status.currentFilterData.includes(el.status)
+            : el,
+        )
+        .filter(el =>
+          this.columnMenuSettings.typeTask.currentFilterData.length
+            ? this.columnMenuSettings.typeTask.currentFilterData.includes(freelanceRequestTypeByCode[el.typeTask])
+            : el,
+        )
     }
   }
 

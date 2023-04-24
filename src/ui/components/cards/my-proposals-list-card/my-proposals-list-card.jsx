@@ -6,6 +6,7 @@ import Rating from '@mui/material/Rating'
 import React from 'react'
 
 import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
+import {freelanceRequestType} from '@constants/freelance-request-type'
 import {
   RequestProposalStatus,
   RequestProposalStatusColor,
@@ -25,7 +26,14 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './my-proposals-list-card.style'
 
-export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onClickOpenBtn, isFirst}) => {
+export const MyProposalsListCard = ({
+  item,
+  onClickEditBtn,
+  onClickDeleteBtn,
+  onClickOpenBtn,
+  onClickResultBtn,
+  isFirst,
+}) => {
   const {classes: classNames} = useClassNames()
 
   const noDisabledEditBtnStatuses = [
@@ -42,6 +50,20 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
     RequestProposalStatus.CANCELED_BY_CREATOR_OF_REQUEST,
     RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
     RequestProposalStatus.EXPIRED,
+  ]
+
+  const showDesignerResultBtnStatuses = [
+    RequestProposalStatus.READY_TO_VERIFY,
+    RequestProposalStatus.VERIFYING_BY_SUPERVISOR,
+    RequestProposalStatus.TO_CORRECT,
+    RequestProposalStatus.CORRECTED,
+
+    RequestProposalStatus.ACCEPTED_BY_CLIENT,
+    RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST,
+    RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+
+    RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
+    RequestProposalStatus.PROPOSAL_EDITED,
   ]
 
   return (
@@ -139,7 +161,6 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
                   <div className={classNames.proposalFooter}>
                     <Button
                       danger
-                      disableElevation
                       tooltipInfoContent={isFirst && t(TranslationKey['Cancel current proposal'])}
                       disabled={disabledCancelBtnStatuses.includes(proposal.status)}
                       className={[classNames.button, classNames.cancelBtn]}
@@ -148,8 +169,18 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
                       {t(TranslationKey.Cancel)}
                     </Button>
                     <div className={classNames.editAndOpenButtonWrapper}>
+                      {freelanceRequestTypeByCode[item.typeTask] === freelanceRequestType.DESIGNER && (
+                        <Button
+                          disabled={!showDesignerResultBtnStatuses.includes(proposal.status)}
+                          className={classNames.button}
+                          variant="contained"
+                          onClick={() => onClickResultBtn(item, proposal._id)}
+                        >
+                          {t(TranslationKey.Result)}
+                        </Button>
+                      )}
+
                       <Button
-                        disableElevation
                         tooltipInfoContent={isFirst && t(TranslationKey['Change the current proposal'])}
                         disabled={!noDisabledEditBtnStatuses.includes(proposal.status)}
                         className={classNames.button}
@@ -160,7 +191,6 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
                       </Button>
 
                       <Button
-                        disableElevation
                         tooltipInfoContent={isFirst && t(TranslationKey['Open an request for the selected proposal'])}
                         variant="contained"
                         className={classNames.button}

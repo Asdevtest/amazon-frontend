@@ -86,10 +86,6 @@ export class RequestDetailCustomViewRaw extends Component {
       onClickOpenRequest,
     } = this.viewModel
 
-    // const findRequestProposalForCurChat = requestProposals?.find(
-    //   requestProposal => requestProposal.proposal.chatId === chatSelectedId,
-    // )
-
     const findRequestProposalForCurChat =
       chatSelectedId && requestProposals?.find(requestProposal => requestProposal.proposal.chatId === chatSelectedId)
 
@@ -160,9 +156,15 @@ export class RequestDetailCustomViewRaw extends Component {
                             <div />
                           )}
 
-                          {findRequestProposalForCurChat?.proposal?.status ===
+                          {((findRequestProposalForCurChat.proposal.sub &&
+                            findRequestProposalForCurChat.proposal.sub._id === userInfo._id) ||
+                            (!findRequestProposalForCurChat.proposal.sub &&
+                              findRequestProposalForCurChat.proposal.createdBy._id === userInfo._id)) &&
+                          (findRequestProposalForCurChat?.proposal?.status ===
                             RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-                          findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.TO_CORRECT ? (
+                            findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.TO_CORRECT ||
+                            findRequestProposalForCurChat?.proposal?.status ===
+                              RequestProposalStatus.READY_TO_VERIFY) ? (
                             // ||
                             // findRequestProposalForCurChat.proposal.status ===
                             //   RequestProposalStatus.OFFER_CONDITIONS_REJECTED
@@ -181,7 +183,7 @@ export class RequestDetailCustomViewRaw extends Component {
                                 onClickResultBtn()
                               }}
                             >
-                              {t(TranslationKey['Send as a result'])}
+                              {/* t(TranslationKey['Send as a result']) */ t(TranslationKey.Result)}
                             </Button>
                           ) : undefined}
                           {/* {findRequestProposalForCurChat?.proposal.status ===

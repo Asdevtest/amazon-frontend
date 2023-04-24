@@ -486,11 +486,6 @@ export const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
 
-    maxWidth: 620,
-
-    // maxWidth: '50%',
-
-    overflow: 'auto',
     padding: '10px 0',
   },
 
@@ -503,7 +498,9 @@ export const styles = theme => ({
 
   rowCancelBtn: {
     height: '40px',
-    width: '166px',
+    padding: '0 25px',
+    // width: '166px',
+
     // color: '#fff',
     // backgroundColor: '#ff0000',
     // '&:hover': {
@@ -1121,7 +1118,7 @@ export const styles = theme => ({
     gap: '40px',
   },
   addPermissionBtn: {
-    padding: '0 21px',
+    padding: '0 15px',
   },
 
   sabUserWrapper: {
@@ -1204,6 +1201,7 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
+    paddingRight: 10,
   },
 
   warehouseMyTasksBtnsWrapper: {
@@ -1713,7 +1711,7 @@ export const styles = theme => ({
   },
   nativeSelect: {
     [theme.breakpoints.down(1282)]: {
-      width: 108,
+      width: 130,
     },
     // width: '210px',
     '& > div': {

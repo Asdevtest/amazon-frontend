@@ -37,14 +37,14 @@ export const OrdersUpdatesNotification: FC<OrdersUpdatesNotificationProps> = pro
       <div className={styles.centerWrapper}>
         <Typography className={styles.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</Typography>
 
-        {noticeItem?.vacOrders && (
+        {!!noticeItem?.vacOrders.length && (
           <OrdersUpdatesNotificationRow
             history={history}
             orders={noticeItem.vacOrders}
             title={t(TranslationKey['New orders available']) + ':'}
           />
         )}
-        {noticeItem?.needConfirmOrders && (
+        {!!noticeItem?.needConfirmOrders.length && (
           <OrdersUpdatesNotificationRow
             history={history}
             orders={noticeItem.needConfirmOrders}

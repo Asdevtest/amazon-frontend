@@ -3,12 +3,16 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {Accordion, AccordionDetails, AccordionSummary, IconButton, Link, Typography, Avatar} from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
+
+import {DndProvider, useDrag, useDrop, DndContext} from 'react-dnd'
+import {HTML5Backend} from 'react-dnd-html5-backend'
 
 import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {BigPlus, PhotoCameraWithPlus} from '@constants/svg-icons'
@@ -29,6 +33,157 @@ import {t} from '@utils/translations'
 import {downloadFileByLink} from '@utils/upload-files'
 
 import {useClassNames} from './request-designer-result-form.style'
+
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list)
+  const [removed] = result.splice(startIndex, 1)
+  result.splice(endIndex, 0, removed)
+  return result
+}
+
+const Slot = ({
+  slot,
+  index,
+  imagesData,
+  setImagesData,
+  setCurImageId,
+  setShowImageModal,
+  showImageModal,
+  onPasteFiles,
+  onUploadFile,
+  onChangeImageFileds,
+  isRework,
+  onClickRemoveItem,
+}) => {
+  const {classes: classNames} = useClassNames()
+
+  const [{isDragging}, drag] = useDrag({
+    item: {type: 'slot', id: slot?._id, index},
+    type: 'slot',
+    collect: monitor => ({
+      isDragging: monitor.isDragging(),
+    }),
+  })
+
+  const [, drop] = useDrop({
+    accept: 'slot',
+    drop: (item, monitor) => {
+      if (!monitor.isOver({shallow: true})) {
+        return
+      }
+      if (item.index === index) {
+        return
+      }
+
+      const dropIndex = index
+      slot.index = dropIndex
+
+      const newSlots = reorder(imagesData, item.index, dropIndex)
+
+      setImagesData(() => newSlots)
+    },
+  })
+
+  const opacity = isDragging ? 0.4 : 1
+
+  return (
+    <div key={slot._id} ref={drop}>
+      <div ref={drag} style={{opacity}} className={classNames.imageObjWrapper}>
+        <div
+          key={slot._id + 'comment3'}
+          className={cx(
+            classNames.imageWrapper,
+
+            {[classNames.isHaveImage]: !!slot?.image},
+            {[classNames.mainImageWrapper]: index === 0},
+          )}
+        >
+          {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
+          {index !== 0 && (
+            <div
+              className={classNames.removeIconWrapper}
+              onClick={e => {
+                e.stopPropagation()
+
+                onClickRemoveItem(slot._id)
+              }}
+            >
+              <CloseOutlinedIcon className={classNames.removeIcon} />
+            </div>
+          )}
+          {slot.image ? (
+            <div className={classNames.imageListItem}>
+              <Avatar
+                className={classNames.image}
+                classes={{img: classNames.image}}
+                src={
+                  typeof slot.image === 'string'
+                    ? slot.image
+                    : slot.image?.file.type.includes('image')
+                    ? slot.image?.data_url
+                    : '/assets/icons/file.png'
+                }
+                alt={isRework ? '' : slot?.imageitem?.image?.file?.name}
+                variant="square"
+                onClick={() => {
+                  setCurImageId(slot._id)
+                  setShowImageModal(!showImageModal)
+                }}
+              />
+            </div>
+          ) : (
+            <div className={classNames.imageSubWrapper}>
+              <div className={classNames.cameraIconWrapper}>
+                <PhotoCameraWithPlus className={classNames.cameraIcon} />
+              </div>
+
+              <Typography className={cx(classNames.imageUploadText)}>{'Upload'}</Typography>
+            </div>
+          )}
+          <input
+            type={'file'}
+            className={classNames.pasteInput}
+            defaultValue={''}
+            onPaste={onPasteFiles(slot._id)}
+            onChange={onUploadFile(slot._id)}
+            onClick={e => {
+              if (slot.image) {
+                e.preventDefault()
+
+                setCurImageId(slot._id)
+                setShowImageModal(!showImageModal)
+              } else {
+                return e
+              }
+            }}
+          />
+        </div>
+
+        <div className={classNames.imageObjSubWrapper}>
+          <Typography className={cx(classNames.imageObjIndex)}>{index + 1}</Typography>
+
+          <Input
+            multiline
+            inputProps={{maxLength: 128}}
+            maxRows={3}
+            variant="filled"
+            className={classNames.imageObjInput}
+            value={slot.comment}
+            onChange={e => {
+              onChangeImageFileds('comment', slot._id)(e)
+            }}
+          />
+        </div>
+
+        <div className={classNames.imageObjSubWrapper}>
+          <Typography className={cx(classNames.clientComment)}>
+            {getShortenStringIfLongerThanCount(slot.commentByClient, 30)}
+          </Typography>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpenModal, proposal}) => {
   const {classes: classNames} = useClassNames()
@@ -66,13 +221,16 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
 
-  const onChangeImageFileds = (field, imageId) => event => {
-    const findImage = {...imagesData.find(el => el._id === imageId)}
+  const onChangeImageFileds = useCallback(
+    (field, imageId) => event => {
+      const findImage = {...imagesData.find(el => el._id === imageId)}
 
-    findImage[field] = event.target.value
+      findImage[field] = event.target.value
 
-    setImagesData(() => imagesData.map(el => (el._id === imageId ? findImage : el)))
-  }
+      setImagesData(() => imagesData.map(el => (el._id === imageId ? findImage : el)))
+    },
+    [imagesData],
+  )
 
   // console.log('imagesData', imagesData)
 
@@ -83,6 +241,10 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
   const onClickRemoveImageObj = () => {
     setImagesData(() => imagesData.filter(el => el._id !== curImageId))
     setCurImageId(() => null)
+  }
+
+  const onClickRemoveItem = imageId => {
+    setImagesData(() => imagesData.filter(el => el._id !== imageId))
   }
 
   const onPasteFiles = imageId => async evt => {
@@ -126,13 +288,9 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
     }
   }
 
-  const onClickDownloadBtn = () => {
-    const imageObj = {...imagesData.find(el => el._id === curImageId)}
-
-    downloadFileByLink(typeof imageObj.image === 'string' ? imageObj.image : imageObj.image.data_url, imageObj.comment)
-  }
-
   const disableSubmit = imagesData.every(el => !el.image)
+
+  // console.log('imagesData', imagesData)
 
   return (
     <div className={classNames.modalMainWrapper}>
@@ -229,119 +387,71 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
       </div>
 
       <div className={classNames.bodyWrapper}>
-        {imagesData.map((item, index) => (
-          <div key={item._id} className={classNames.imageObjWrapper}>
-            <div
-              className={cx(
-                classNames.imageWrapper,
-
-                {[classNames.isHaveImage]: !!item.image},
-                {[classNames.mainImageWrapper]: index === 0},
-              )}
-            >
-              {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
-              {item.image ? (
-                <div className={classNames.imageListItem}>
-                  <Avatar
-                    className={classNames.image}
-                    classes={{img: classNames.image}}
-                    src={
-                      typeof item.image === 'string'
-                        ? item.image
-                        : item.image?.file.type.includes('image')
-                        ? item.image?.data_url
-                        : '/assets/icons/file.png'
-                    }
-                    alt={isRework ? '' : item?.imageitem?.image?.file?.name}
-                    variant="square"
-                    onClick={() => {
-                      setCurImageId(item._id)
-                      setShowImageModal(!showImageModal)
-                    }}
-                  />
-                </div>
-              ) : (
-                <div className={classNames.imageSubWrapper}>
-                  <div className={classNames.cameraIconWrapper}>
-                    <PhotoCameraWithPlus className={classNames.cameraIcon} />
-                  </div>
-
-                  <Typography className={cx(classNames.imageUploadText /* , classNames.textMargin */)}>
-                    {'Upload'}
-                  </Typography>
-
-                  <input
-                    type={'file'}
-                    className={classNames.pasteInput}
-                    defaultValue={''}
-                    onPaste={onPasteFiles(item._id)}
-                    onChange={onUploadFile(item._id)}
-                  />
-                </div>
-              )}
-            </div>
-
-            <div className={classNames.imageObjSubWrapper}>
-              <Typography className={cx(classNames.imageObjIndex /* , classNames.textMargin */)}>
-                {index + 1}
-              </Typography>
-
-              <Input
-                multiline
-                inputProps={{maxLength: 128}}
-                maxRows={3}
-                variant="filled"
-                className={classNames.imageObjInput}
-                value={item.comment}
-                onChange={onChangeImageFileds('comment', item._id)}
+        <DndProvider backend={HTML5Backend}>
+          <div className={classNames.bodySubWrapper}>
+            {imagesData.map((slot, index) => (
+              <Slot
+                key={slot?._id}
+                slot={slot}
+                index={index}
+                imagesData={imagesData}
+                setImagesData={setImagesData}
+                setCurImageId={setCurImageId}
+                setShowImageModal={setShowImageModal}
+                showImageModal={showImageModal}
+                isRework={isRework}
+                onPasteFiles={onPasteFiles}
+                onUploadFile={onUploadFile}
+                onClickRemoveItem={onClickRemoveItem}
+                onChangeImageFileds={onChangeImageFileds}
               />
-            </div>
-
-            <div className={classNames.imageObjSubWrapper}>
-              <Typography className={cx(classNames.clientComment /* , classNames.textMargin */)}>
-                {getShortenStringIfLongerThanCount(item.commentByClient, 30)}
-              </Typography>
-            </div>
+            ))}
           </div>
-        ))}
+        </DndProvider>
 
-        <div className={classNames.bigPlusWrapper}>
+        {/* <div className={classNames.bigPlusWrapper}>
           <BigPlus className={classNames.bigPlus} onClick={onClickAddImageObj} />
-        </div>
+        </div> */}
       </div>
 
       <div className={classNames.footerWrapper}>
-        <Field
-          labelClasses={classNames.fieldLabel}
-          inputClasses={classNames.linkInput}
-          inputProps={{maxLength: 500}}
-          label={t(TranslationKey['Link to sources']) + ':'}
-          containerClasses={classNames.containerField}
-          value={sourceLink}
-          onChange={e => setSourceLink(e.target.value)}
-        />
+        <div className={classNames.bigPlusWrapper}>
+          <BigPlus className={classNames.bigPlus} onClick={onClickAddImageObj} />
+        </div>
 
-        <Button variant="text" className={cx(classNames.button, classNames.cancelButton)} onClick={setOpenModal}>
-          {t(TranslationKey.Back)}
-        </Button>
+        <div className={classNames.footerWrapper}>
+          <Field
+            labelClasses={classNames.fieldLabel}
+            inputClasses={classNames.linkInput}
+            inputProps={{maxLength: 500}}
+            label={t(TranslationKey['Link to sources']) + ':'}
+            containerClasses={classNames.containerField}
+            value={sourceLink}
+            onChange={e => setSourceLink(e.target.value)}
+          />
 
-        <Button
-          disabled={disableSubmit}
-          className={cx(classNames.button)}
-          onClick={() => {
-            onClickSendAsResult({message: comment, files: imagesData.filter(el => el.image), sourceLink})
-            setOpenModal()
-          }}
-        >
-          {t(TranslationKey.Send)}
-        </Button>
+          <Button variant="text" className={cx(classNames.button, classNames.cancelButton)} onClick={setOpenModal}>
+            {t(TranslationKey.Back)}
+          </Button>
+
+          <Button
+            disabled={disableSubmit}
+            className={cx(classNames.button)}
+            onClick={() => {
+              onClickSendAsResult({message: comment, files: imagesData.filter(el => el.image), sourceLink})
+              setOpenModal()
+            }}
+          >
+            {t(TranslationKey.Send)}
+          </Button>
+        </div>
       </div>
 
       <BigObjectImagesModal
         isRedImageComment
         openModal={showImageModal}
         setOpenModal={() => setShowImageModal(!showImageModal)}
-        imagesData={imagesData.map(el => ({...el, imageComment: el.commentByClient || ''}))}
+        imagesData={imagesData.map(el => ({...el, imageComment: el?.commentByClient || ''}))}
         curImageId={curImageId}
         renderBtns={() => (
           <>

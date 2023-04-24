@@ -1930,5 +1930,9 @@
   "Tags": "Теги",
   "Delete row from report": "Удалить строку из отчета",
   "After confirmation, the row will be deleted. Confirm?": "После подтверждения строка будет удалена. Подтвердить?",
-  "Row deleted": "Строка удалена"
+  "Row deleted": "Строка удалена",
+  "Go to request": "Перейти к заявке",
+  "Is accepted for processing": "Принята в обработку",
+  "Problematic": "Проблемный",
+  "Change the priority to": "Сменить приоритет на"
 }

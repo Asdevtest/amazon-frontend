@@ -1,7 +1,7 @@
 import {cx} from '@emotion/css'
 import {Box, Tabs} from '@mui/material'
 
-import React, {FC, ReactElement, useMemo} from 'react'
+import React, {FC, ReactElement, useEffect, useMemo} from 'react'
 
 import {observer} from 'mobx-react'
 
@@ -76,6 +76,10 @@ export const ChatsList: FC<Props> = observer(
     const inWorkChats = useMemo(() => chats.filter(el => !solvedChats.find(chat => chat._id === el._id)), [solvedChats])
 
     const [tabIndex, setTabIndex] = React.useState(tabsValues.IN_WORK)
+
+    useEffect(() => {
+      setTabIndex(() => (inWorkChats.some(el => el._id === chatSelectedId) ? tabsValues.IN_WORK : tabsValues.SOLVED))
+    }, [chatSelectedId])
 
     return (
       <div className={classNames.root}>

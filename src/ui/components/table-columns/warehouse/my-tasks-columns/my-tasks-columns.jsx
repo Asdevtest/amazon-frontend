@@ -37,20 +37,11 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
   },
 
   {
-    field: 'operationType',
-    headerName: t(TranslationKey.Type),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
-
-    width: window.innerWidth < 1282 ? 125 : 155,
-    renderCell: params => <TaskTypeCell task={params.row.originalData} />,
-  },
-
-  {
     field: 'priority',
     headerName: t(TranslationKey.Priority),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
 
-    width: window.innerWidth < 1282 ? 120 : 170,
+    width: window.innerWidth < 1282 ? 140 : 170,
     renderCell: params => (
       <TaskPriorityCell
         curPriority={params.value}
@@ -61,12 +52,28 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
   },
 
   {
-    field: 'comment',
+    field: 'reason',
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
     width: 271,
-    renderCell: params => <ChangeInputCommentCell rowsCount={4} />,
+    renderCell: params => (
+      <ChangeInputCommentCell
+        rowsCount={4}
+        text={params.row.originalData.reason}
+        id={params.row.originalData._id}
+        onClickSubmit={(id, reason) => handlers.updateTaskComment(id, params.row.originalData.priority, reason)}
+      />
+    ),
+  },
+
+  {
+    field: 'operationType',
+    headerName: t(TranslationKey.Type),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
+
+    width: window.innerWidth < 1282 ? 140 : 155,
+    renderCell: params => <TaskTypeCell task={params.row.originalData} />,
   },
 
   {

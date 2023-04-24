@@ -268,7 +268,7 @@ export const lightTheme = createTheme({
       red: '#FFC7C7',
       green: '#D9FAE5',
       greenGradient: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
-      yellow: '#FEF0A6',
+      yellow: '#F5CF00',
       entryLeftPanel: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
       disabled: 'rgba(0, 0, 0, 0.12)',
       disabledDangerBtn: 'linear-gradient(180deg, rgba(255,22,22, .5) 0%, rgb(223,12,12,.5) 100%)',
@@ -715,7 +715,7 @@ export const darkTheme = createTheme({
         red: '#2E0505',
         green: '#001A15',
         greenGradient: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
-        yellow: '#F5CF00',
+        yellow: '#FEF0A6',
         entryLeftPanel: '#2B2B34',
         disabled: '#a0a0a4',
 

@@ -33,6 +33,7 @@ import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comm
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
+import {EditTaskPriorityModal} from '@components/screens/warehouse/edit-task-priority-modal'
 import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -78,6 +79,9 @@ export class WarehouseMyTasksViewRaw extends Component {
       showNoDimensionsErrorModal,
       showCancelTaskModal,
       showConfirmModal,
+      showEditPriorityData,
+      editPriorityData,
+      updateTaskPriority,
       onChangeTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -248,6 +252,15 @@ export class WarehouseMyTasksViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
+
+        <Modal openModal={showEditPriorityData} setOpenModal={() => onTriggerOpenModal('showEditPriorityData')}>
+          <EditTaskPriorityModal
+            data={editPriorityData}
+            handleClose={() => onTriggerOpenModal('showEditPriorityData')}
+            onSubmitHandler={updateTaskPriority}
+          />
+        </Modal>
+
         <Modal missClickModalOn openModal={showEditTaskModal} setOpenModal={onTriggerEditTaskModal}>
           <EditTaskModal
             requestStatus={requestStatus}

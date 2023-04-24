@@ -39,6 +39,7 @@ export class CreateOrEditProposalViewRaw extends Component {
       drawerOpen,
       showInfoModal,
       showResultModal,
+
       onTriggerDrawerOpen,
       onTriggerOpenModal,
       onSubmitCreateProposal,
@@ -46,9 +47,12 @@ export class CreateOrEditProposalViewRaw extends Component {
       onClickOkInfoModal,
       onSubmitEditProposal,
       onClickResultModal,
+      goToMyRequest,
     } = this.viewModel
 
     const {classes: classNames} = this.props
+
+    console.log('request', request)
 
     return (
       <React.Fragment>
@@ -98,10 +102,15 @@ export class CreateOrEditProposalViewRaw extends Component {
             onClickResultModal({goBack: true})
           }}
           title={infoModalText}
-          topBtnText={t(TranslationKey['To vacant requests'])}
-          bottomBtnText={t(TranslationKey['To the list of proposals'])}
-          onClickTopBtn={() => onClickResultModal({goBack: true})}
-          onClickBottomBtn={() => onClickResultModal({goBack: false})}
+          // topBtnText={t(TranslationKey['To vacant requests'])}
+          // bottomBtnText={t(TranslationKey['To the list of proposals'])}
+          // onClickTopBtn={() => onClickResultModal({goBack: true})}
+          // onClickBottomBtn={() => onClickResultModal({goBack: false})}
+
+          topBtnText={t(TranslationKey['Go to request'])}
+          bottomBtnText={t(TranslationKey['To vacant requests'])}
+          onClickTopBtn={() => goToMyRequest()}
+          onClickBottomBtn={() => onClickResultModal({goBack: true})}
         />
 
         <WarningInfoModal

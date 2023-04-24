@@ -415,7 +415,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   carouselImage: {
     // height: '100%',
-    height: '300px',
+    height: '100% !important',
+    maxHeight: '254px !important',
     objectFit: 'contain',
 
     transition: '.2s ease',
