@@ -177,6 +177,8 @@ export const AddOrEditSupplierModalContent = observer(
     const [photosOfSupplier, setPhotosOfSupplier] = useState([])
     const [editPhotosOfSupplier, setEditPhotosOfSupplier] = useState(supplier?.images || [])
 
+    console.log('editPhotosOfSupplier', editPhotosOfSupplier)
+
     const onChangeDetailsPhotosToLoad = value => {
       setEditPhotosOfSupplier(value)
     }
@@ -1009,6 +1011,7 @@ export const AddOrEditSupplierModalContent = observer(
             <div className={classNames.photoAndFilesWrapper}>
               <PhotoAndFilesCarousel
                 small
+                withoutMakeMainImage
                 isEditable={!onlyRead}
                 files={tmpSupplier.images}
                 width="300px"
