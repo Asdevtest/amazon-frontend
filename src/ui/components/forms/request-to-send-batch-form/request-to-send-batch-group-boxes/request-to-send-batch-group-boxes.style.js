@@ -34,6 +34,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+    // padding: '0 70px 0 60px',
     padding: '0 85px 0 65px',
     zIndex: 999,
 
@@ -73,6 +74,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+    // paddingRight: '80px',
+    // padding: '0 70px 0 60px',
     paddingRight: '85px',
     paddingLeft: '65px',
 

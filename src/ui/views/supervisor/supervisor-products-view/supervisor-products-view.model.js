@@ -200,7 +200,10 @@ export class SupervisorProductsViewModel {
         product =>
           Number(product.status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND]) ||
           Number(product.status) ===
-            Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND]),
+            Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND]) ||
+          Number(product.status) === Number(ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER]) ||
+          Number(product.status) ===
+            Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER]),
       )
     }
 
@@ -219,6 +222,19 @@ export class SupervisorProductsViewModel {
           Number(product.status) === Number(ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE]) ||
           Number(product.status) ===
             Number(ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE]),
+      )
+    }
+
+    if (Number(status) === Number(ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP])) {
+      return this.baseProducts.filter(
+        product =>
+          Number(product.status) === Number(ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP]),
+      )
+    }
+
+    if (Number(status) === Number(ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT])) {
+      return this.baseProducts.filter(
+        product => Number(product.status) === Number(ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT]),
       )
     }
   }

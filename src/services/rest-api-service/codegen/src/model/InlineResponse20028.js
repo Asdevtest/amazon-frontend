@@ -13,7 +13,9 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AdminsGetProductsByStatusRedFlags from './ApiV1AdminsGetProductsByStatusRedFlags';
 import ApiV1AdminsGetProductsByStatusSuppliers from './ApiV1AdminsGetProductsByStatusSuppliers';
+import ApiV1AdminsGetProductsByStatusTags from './ApiV1AdminsGetProductsByStatusTags';
 
 /**
  * The InlineResponse20028 model module.
@@ -111,6 +113,12 @@ class InlineResponse20028 {
             }
             if (data.hasOwnProperty('buyerRate')) {
                 obj['buyerRate'] = ApiClient.convertToType(data['buyerRate'], 'Number');
+            }
+            if (data.hasOwnProperty('redFlags')) {
+                obj['redFlags'] = ApiClient.convertToType(data['redFlags'], [ApiV1AdminsGetProductsByStatusRedFlags]);
+            }
+            if (data.hasOwnProperty('tags')) {
+                obj['tags'] = ApiClient.convertToType(data['tags'], [ApiV1AdminsGetProductsByStatusTags]);
             }
             if (data.hasOwnProperty('strategyStatus')) {
                 obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
@@ -254,6 +262,16 @@ InlineResponse20028.prototype['supervisorRate'] = undefined;
  * @member {Number} buyerRate
  */
 InlineResponse20028.prototype['buyerRate'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusRedFlags>} redFlags
+ */
+InlineResponse20028.prototype['redFlags'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusTags>} tags
+ */
+InlineResponse20028.prototype['tags'] = undefined;
 
 /**
  * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40

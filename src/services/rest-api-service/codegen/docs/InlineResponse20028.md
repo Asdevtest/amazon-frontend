@@ -25,6 +25,8 @@ Name | Type | Description | Notes
 **buyer** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **supervisorRate** | **Number** | Савка супервайзера. | [optional] 
 **buyerRate** | **Number** | Савка байера. | [optional] 
+**redFlags** | [**[ApiV1AdminsGetProductsByStatusRedFlags]**](ApiV1AdminsGetProductsByStatusRedFlags.md) |  | [optional] 
+**tags** | [**[ApiV1AdminsGetProductsByStatusTags]**](ApiV1AdminsGetProductsByStatusTags.md) |  | [optional] 
 **strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
 **avgRevenue** | **String** | Средний доход | [optional] 
 **avgBSR** | **String** | Средний BSR | [optional] 

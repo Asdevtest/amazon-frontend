@@ -9,6 +9,6 @@ Name | Type | Description | Notes
 **volumeWeightDivide** | **Number** | Делитель объема партии | [optional] 
 **trackingNumber** | **String** | Трек номер партии | [optional] 
 **actualShippingCost** | **Number** | Настоящая стоимость доставки | [optional] 
-**arrivalDate** | **Number** | Время epoch | [optional] 
+**arrivalDate** | **Date** |  | [optional] 
 
 

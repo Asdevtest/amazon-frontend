@@ -179,7 +179,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SupervisorsProductsMyGet
 
-> [InlineResponse20066] apiV1SupervisorsProductsMyGet(opts)
+> [InlineResponse20067] apiV1SupervisorsProductsMyGet(opts)
 
 # Получить список товаров взятых на проверку супервайзером.
 
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20066]**](InlineResponse20066.md)
+[**[InlineResponse20067]**](InlineResponse20067.md)
 
 ### Authorization
 

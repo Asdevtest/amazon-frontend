@@ -47,8 +47,14 @@ class InlineResponse20041 {
         if (data) {
             obj = obj || new InlineResponse20041();
 
-            if (data.hasOwnProperty('profileId')) {
-                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('productCount')) {
+                obj['productCount'] = ApiClient.convertToType(data['productCount'], 'Number');
             }
         }
         return obj;
@@ -58,10 +64,22 @@ class InlineResponse20041 {
 }
 
 /**
- * id созданного профайла
- * @member {String} profileId
+ * Гуид тега
+ * @member {String} _id
  */
-InlineResponse20041.prototype['profileId'] = undefined;
+InlineResponse20041.prototype['_id'] = undefined;
+
+/**
+ * Тег
+ * @member {String} title
+ */
+InlineResponse20041.prototype['title'] = undefined;
+
+/**
+ * Кол-во продуктов, которые используют этот тег
+ * @member {Number} productCount
+ */
+InlineResponse20041.prototype['productCount'] = undefined;
 
 
 

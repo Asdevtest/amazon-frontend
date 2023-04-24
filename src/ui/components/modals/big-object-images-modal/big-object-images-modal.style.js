@@ -121,6 +121,7 @@ export const useClassNames = makeStyles()(theme => ({
   imageComment: {
     fontSize: 18,
     color: theme.palette.text.second,
+    wordBreak: 'break-all',
   },
 
   imageLeftSideComment: {

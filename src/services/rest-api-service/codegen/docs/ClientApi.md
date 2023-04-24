@@ -1034,7 +1034,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsGetPriceForClientPost
 
-> InlineResponse20033 apiV1ClientsProductsGetPriceForClientPost(opts)
+> InlineResponse20034 apiV1ClientsProductsGetPriceForClientPost(opts)
 
 # Получить цену для клиента на поиск поставщика множества товаров
 
@@ -1074,7 +1074,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20033**](InlineResponse20033.md)
+[**InlineResponse20034**](InlineResponse20034.md)
 
 ### Authorization
 
@@ -1256,7 +1256,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsGuidGetPriceForClientGet
 
-> InlineResponse20033 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
+> InlineResponse20034 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
 
 # Получить цену для клиента на поиск поставщика
 
@@ -1296,7 +1296,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20033**](InlineResponse20033.md)
+[**InlineResponse20034**](InlineResponse20034.md)
 
 ### Authorization
 
@@ -1702,7 +1702,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsTasksByBoxesGet
 
-> [InlineResponse2004] apiV1ClientsTasksByBoxesGet(opts)
+> InlineResponse20033 apiV1ClientsTasksByBoxesGet(opts)
 
 # Показать все задачи с коробками данного юзера
 
@@ -1721,7 +1721,14 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
-  'storekeeperId': null, // String | GUID сторкипера
+  'limit': 10.0, // Number | Лимит записей для пагинации
+  'offset': 0.0, // Number | Смещение для пагинации
+  'sortField': "sortField_example", // String | Название поля
+  'sortType': "sortType_example", // String | Тип сортировки
+  'storekeeperId': "storekeeperId_example", // String | GUID сторкипера
+  'operationType': "operationType_example", // String | Тип операции
+  'priority': "priority_example", // String | Приоритет задачи
+  'status': "status_example", // String | Статус задачи
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1ClientsTasksByBoxesGet(opts).then((data) => {
@@ -1737,12 +1744,19 @@ apiInstance.apiV1ClientsTasksByBoxesGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **storekeeperId** | [**String**](.md)| GUID сторкипера | [optional] 
+ **limit** | **Number**| Лимит записей для пагинации | [optional] [default to 10.0]
+ **offset** | **Number**| Смещение для пагинации | [optional] [default to 0.0]
+ **sortField** | **String**| Название поля | [optional] 
+ **sortType** | **String**| Тип сортировки | [optional] 
+ **storekeeperId** | **String**| GUID сторкипера | [optional] 
+ **operationType** | **String**| Тип операции | [optional] 
+ **priority** | **String**| Приоритет задачи | [optional] 
+ **status** | **String**| Статус задачи | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
-[**[InlineResponse2004]**](InlineResponse2004.md)
+[**InlineResponse20033**](InlineResponse20033.md)
 
 ### Authorization
 

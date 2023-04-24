@@ -81,12 +81,12 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
       markNotificationAsReaded(snackNoticeKey.SIMPLE_MESSAGE)
     }
 
-    // if (snackNotifications[snackNoticeKey.ORDER_DEADLINE]) {
-    //   toast(<OrderDeadlineNotification noticeItem={snackNotifications[snackNoticeKey.ORDER_DEADLINE]} />, {
-    //     autoClose: 5000,
-    //   })
-    //   markNotificationAsReaded(snackNoticeKey.ORDER_DEADLINE)
-    // }
+    if (snackNotifications[snackNoticeKey.ORDER_DEADLINE]) {
+      toast(<OrderDeadlineNotification noticeItem={snackNotifications[snackNoticeKey.ORDER_DEADLINE]} />, {
+        autoClose: 5000,
+      })
+      markNotificationAsReaded(snackNoticeKey.ORDER_DEADLINE)
+    }
 
     if (snackNotifications[snackNoticeKey.IDEAS]) {
       toast(<IdeaNotification role={role} noticeItem={snackNotifications[snackNoticeKey.IDEAS]} />, {

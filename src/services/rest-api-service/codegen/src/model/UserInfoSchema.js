@@ -144,6 +144,9 @@ class UserInfoSchema {
             if (data.hasOwnProperty('pendingOrders')) {
                 obj['pendingOrders'] = ApiClient.convertToType(data['pendingOrders'], 'Number');
             }
+            if (data.hasOwnProperty('pendingOrdersByDeadline')) {
+                obj['pendingOrdersByDeadline'] = ApiClient.convertToType(data['pendingOrdersByDeadline'], 'Number');
+            }
             if (data.hasOwnProperty('notPaid')) {
                 obj['notPaid'] = ApiClient.convertToType(data['notPaid'], 'Number');
             }
@@ -345,6 +348,12 @@ UserInfoSchema.prototype['freeOrders'] = undefined;
  * @member {Number} pendingOrders
  */
 UserInfoSchema.prototype['pendingOrders'] = undefined;
+
+/**
+ * Количество заказов 2, 3 статусы у которых до дедлайна меньше суток
+ * @member {Number} pendingOrdersByDeadline
+ */
+UserInfoSchema.prototype['pendingOrdersByDeadline'] = undefined;
 
 /**
  * Количество заказов 15, 19 статусы

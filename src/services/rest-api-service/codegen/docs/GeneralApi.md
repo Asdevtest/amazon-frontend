@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ## apiV1GeneralTagsGet
 
-> [InlineResponse20040] apiV1GeneralTagsGet(opts)
+> [InlineResponse20041] apiV1GeneralTagsGet(opts)
 
 Получить теги
 
@@ -108,7 +108,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20040]**](InlineResponse20040.md)
+[**[InlineResponse20041]**](InlineResponse20041.md)
 
 ### Authorization
 

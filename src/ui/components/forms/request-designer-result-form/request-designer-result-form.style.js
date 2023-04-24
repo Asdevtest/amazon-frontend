@@ -93,7 +93,16 @@ export const useClassNames = makeStyles()(theme => ({
 
   footerWrapper: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    marginTop: 30,
+    // marginBottom: 30,
+    gap: 30,
+  },
+
+  footerSubWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
     alignItems: 'flex-end',
     marginTop: 30,
     // marginBottom: 30,
@@ -120,6 +129,16 @@ export const useClassNames = makeStyles()(theme => ({
     // background: 'grey',
     overflowY: 'auto',
     overflowX: 'hidden',
+  },
+
+  bodySubWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: 27,
+    // paddingTop: 30,
+    // // background: 'grey',
+    // overflowY: 'auto',
+    // overflowX: 'hidden',
   },
 
   imageObjWrapper: {
@@ -195,6 +214,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 18,
     // color: theme.palette.text.red,
     color: '#DF0C0C',
+    wordBreak: 'break-all',
   },
 
   imageObjInput: {
@@ -204,11 +224,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   bigPlusWrapper: {
-    height: 205,
-    width: 161,
+    // height: 205,
+    // width: 161,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    justifySelf: 'flex-start',
+
+    marginLeft: 100,
   },
 
   bigPlus: {
@@ -311,6 +334,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'absolute',
     right: -18,
     top: -18,
+    zIndex: 99,
 
     cursor: 'pointer',
     transition: '.3s ease',
