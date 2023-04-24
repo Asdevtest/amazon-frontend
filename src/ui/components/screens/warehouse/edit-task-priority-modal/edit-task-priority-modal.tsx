@@ -39,6 +39,10 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
         {t(TranslationKey['Change the priority to'])}{' '}
         <span style={{color: colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[data.newPriority])}}>
           {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[data.newPriority])}
+          {Number(data.newPriority) ===
+            mapTaskPriorityStatusEnumToKey[
+              TaskPriorityStatus.PROBLEMATIC as keyof typeof mapTaskPriorityStatusEnumToKey
+            ] && '*'}
         </span>
       </Typography>
 
@@ -53,6 +57,7 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
             maxRows={2}
             className={styles.reasonInput}
             value={reason}
+            inputProps={{maxLength: 250}}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => setReason(event.target.value)}
           />
         }

@@ -671,6 +671,7 @@ export const ChangeInputCell = React.memo(
 export const ChangeInputCommentCell = React.memo(
   withStyles(({classes: classNames, id, onClickSubmit, onChangeText, text, disabled, maxLength, rowsCount}) => {
     const [value, setValue] = useState(text)
+    const [isEdited, setIsEdited] = useState(false)
 
     useEffect(() => {
       setValue(text)
@@ -682,10 +683,11 @@ export const ChangeInputCommentCell = React.memo(
       <div className={classNames.ChangeInputCommentCellWrapper}>
         <Input
           multiline
+          max
           autoFocus={false}
           minRows={rowsCount ?? 2}
           maxRows={rowsCount ?? 2}
-          inputProps={{maxLength: maxLength ? maxLength : 256}}
+          inputProps={{maxLength: maxLength ? maxLength : 250}}
           placeholder={t(TranslationKey.Comment)}
           disabled={disabled}
           className={classNames.changeInputComment}
@@ -696,20 +698,27 @@ export const ChangeInputCommentCell = React.memo(
               <InputAdornment position="start">
                 {isShow && text !== value ? (
                   <DoneIcon classes={{root: classNames.doneIcon}} />
-                ) : text !== value ? (
+                ) : isEdited ? (
                   <div className={classNames.iconWrapper}>
                     <img
                       src={'/assets/icons/save-discet.svg'}
                       className={classNames.changeInputIcon}
                       onClick={() => {
                         setShow(true)
+                        setIsEdited(false)
                         setTimeout(() => {
                           setShow(false)
                         }, 2000)
                         onClickSubmit(id, value)
                       }}
                     />
-                    <ClearIcon classes={{root: classNames.clearIcon}} onClick={() => setValue(text)} />
+                    <ClearIcon
+                      classes={{root: classNames.clearIcon}}
+                      onClick={() => {
+                        setIsEdited(false)
+                        setValue(text)
+                      }}
+                    />
                   </div>
                 ) : null}
               </InputAdornment>
@@ -717,6 +726,7 @@ export const ChangeInputCommentCell = React.memo(
           }
           onChange={e => {
             setValue(e.target.value)
+            setIsEdited(true)
             if (onChangeText) {
               onChangeText('comments')(e.target.value)
             }
