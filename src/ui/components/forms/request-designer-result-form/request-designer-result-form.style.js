@@ -214,6 +214,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 18,
     // color: theme.palette.text.red,
     color: '#DF0C0C',
+    wordBreak: 'break-all',
   },
 
   imageObjInput: {

@@ -27,7 +27,7 @@ export const CustomTextEditor = observer(props => {
 
   const {classes: classNames} = useClassNames()
 
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState(conditions || '')
 
   const richTextEditorRef = useRef(null)
 
@@ -137,6 +137,7 @@ export const CustomTextEditor = observer(props => {
           }
         }}
         onSave={text => {
+          console.log('SAVE')
           changeConditions && changeConditions(text)
         }}
       />
