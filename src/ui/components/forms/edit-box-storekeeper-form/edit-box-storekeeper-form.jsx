@@ -8,8 +8,11 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
+import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
+
+import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
 import {ColoredChip} from '@components/colored-chip'
@@ -339,6 +342,8 @@ export const EditBoxStorekeeperForm = observer(
 
     const [barcodeModalSetting, setBarcodeModalSetting] = useState({
       title: '',
+      maxNumber: 1,
+
       tmpCode: curProductToEditBarcode?.tmpBarCode,
       item: curProductToEditBarcode,
       onClickSaveBarcode: data => onClickSaveBarcode(curProductToEditBarcode)(data),
@@ -349,6 +354,8 @@ export const EditBoxStorekeeperForm = observer(
 
       setBarcodeModalSetting({
         title: '',
+        maxNumber: 1,
+
         tmpCode: item?.tmpBarCode,
         item,
         onClickSaveBarcode: data => onClickSaveBarcode(item)(data),
@@ -362,6 +369,8 @@ export const EditBoxStorekeeperForm = observer(
 
       setBarcodeModalSetting({
         title: '',
+        maxNumber: 1,
+
         tmpCode: item?.tmpBarCode,
         item,
         onClickSaveBarcode: data => onClickSaveBarcode(item)(data),
@@ -405,37 +414,46 @@ export const EditBoxStorekeeperForm = observer(
             inputComponent={
               <div className={classNames.editBlockWrapper}>
                 <div className={classNames.editBlockHeaderWrapper}>
-                  <Field
-                    oneLine
-                    labelClasses={classNames.standartLabel}
-                    label={`${t(TranslationKey.Box)} №`}
-                    inputComponent={
-                      <div className={classNames.boxTitleWrapper}>
-                        <Typography className={classNames.tableTitle}>{`${
-                          formItem && formItem.humanFriendlyId
-                        }`}</Typography>
+                  <div className={classNames.titlePrepIdSubWrapper}>
+                    <Field
+                      oneLine
+                      labelClasses={classNames.standartLabel}
+                      containerClasses={classNames.containerTitleField}
+                      label={`${t(TranslationKey.Box)} №`}
+                      inputComponent={
+                        <div className={classNames.boxTitleWrapper}>
+                          <Typography className={classNames.tableTitle}>{`${
+                            formItem && formItem.humanFriendlyId
+                          }`}</Typography>
 
-                        <Typography className={classNames.standartLabel}>{` / ID:`}</Typography>
+                          {/* <Typography className={classNames.amountSpan}>
+                            {boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}
+                          </Typography> */}
+                        </div>
+                      }
+                    />
 
+                    <Field
+                      oneLine
+                      labelClasses={classNames.standartLabel}
+                      label={`ID:`}
+                      inputComponent={
                         <Input
                           className={classNames.itemInput}
                           classes={{input: classNames.input}}
-                          inputProps={{maxLength: 14}}
+                          inputProps={{maxLength: 25}}
                           value={boxFields.prepId}
                           onChange={setFormField('prepId')}
                         />
-
-                        {/* <Typography className={classNames.amountSpan}>
-                          {boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}
-                        </Typography> */}
-                      </div>
-                    }
-                  />
+                      }
+                    />
+                  </div>
                   <Field
                     oneLine
                     disabled
                     labelClasses={classNames.standartLabel}
                     inputClasses={classNames.disabledNumInput}
+                    containerClasses={classNames.containerField}
                     label={t(TranslationKey['Total goods In Box'])}
                     value={allItemsCount}
                   />
@@ -637,6 +655,8 @@ export const EditBoxStorekeeperForm = observer(
                           variant={boxFields.storekeeperId && 'text'}
                           className={cx(classNames.storekeeperBtnDefault, {
                             [classNames.storekeeperBtn]: !boxFields.storekeeperId,
+                            [classNames.storekeeperBtnColored]:
+                              !boxFields.storekeeperId && SettingsModel.uiTheme === UiTheme.light,
                           })}
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
@@ -756,6 +776,8 @@ export const EditBoxStorekeeperForm = observer(
                         onClick={() => {
                           setBarcodeModalSetting({
                             title: 'Track number',
+                            maxNumber: 50 - boxFields.tmpTrackNumberFile.length - boxFields.trackNumberFile.length,
+
                             tmpCode: boxFields.tmpTrackNumberFile,
                             item: null,
                             onClickSaveBarcode: value => {
@@ -772,31 +794,40 @@ export const EditBoxStorekeeperForm = observer(
                     </div>
 
                     <div className={classNames.trackNumberPhotoWrapper}>
-                      {boxFields.trackNumberFile || boxFields.tmpTrackNumberFile[0] ? (
-                        <img
-                          className={classNames.trackNumberPhoto}
-                          src={
-                            boxFields.tmpTrackNumberFile[0]
-                              ? typeof boxFields.tmpTrackNumberFile[0] === 'string'
-                                ? boxFields.tmpTrackNumberFile[0]
-                                : boxFields.tmpTrackNumberFile[0]?.data_url
-                              : boxFields.trackNumberFile
-                          }
-                          onClick={() => {
-                            setShowPhotosModal(!showPhotosModal)
-                            setBigImagesOptions({
-                              ...bigImagesOptions,
+                      {boxFields.trackNumberFile[0] || boxFields.tmpTrackNumberFile[0] ? (
+                        <CustomCarousel>
+                          {(boxFields.trackNumberFile.length
+                            ? boxFields.trackNumberFile
+                            : boxFields.tmpTrackNumberFile
+                          ).map((el, index) => (
+                            <img
+                              key={index}
+                              className={classNames.trackNumberPhoto}
+                              src={
+                                boxFields.tmpTrackNumberFile[index]
+                                  ? typeof boxFields.tmpTrackNumberFile[index] === 'string'
+                                    ? boxFields.tmpTrackNumberFile[index]
+                                    : boxFields.tmpTrackNumberFile[index]?.data_url
+                                  : boxFields.trackNumberFile[index]
+                              }
+                              // variant="square"
+                              onClick={() => {
+                                setShowPhotosModal(!showPhotosModal)
+                                setBigImagesOptions({
+                                  ...bigImagesOptions,
 
-                              images: [
-                                boxFields.tmpTrackNumberFile[0]
-                                  ? typeof boxFields.tmpTrackNumberFile[0] === 'string'
-                                    ? boxFields.tmpTrackNumberFile[0]
-                                    : boxFields.tmpTrackNumberFile[0]?.data_url
-                                  : boxFields.trackNumberFile,
-                              ],
-                            })
-                          }}
-                        />
+                                  images: [
+                                    boxFields.tmpTrackNumberFile[index]
+                                      ? typeof boxFields.tmpTrackNumberFile[index] === 'string'
+                                        ? boxFields.tmpTrackNumberFile[index]
+                                        : boxFields.tmpTrackNumberFile[index]?.data_url
+                                      : boxFields.trackNumberFile[index],
+                                  ],
+                                })
+                              }}
+                            />
+                          ))}
+                        </CustomCarousel>
                       ) : (
                         <Typography>{'no photo track number...'}</Typography>
                       )}
@@ -926,6 +957,7 @@ export const EditBoxStorekeeperForm = observer(
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
+          setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
         />
 
         <Modal
@@ -958,6 +990,7 @@ export const EditBoxStorekeeperForm = observer(
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
             title={barcodeModalSetting.title}
+            maxNumber={barcodeModalSetting.maxNumber}
             tmpCode={barcodeModalSetting.tmpCode}
             item={barcodeModalSetting.item}
             onClickSaveBarcode={barcodeModalSetting.onClickSaveBarcode}

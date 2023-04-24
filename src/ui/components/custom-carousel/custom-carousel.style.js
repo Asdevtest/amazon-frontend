@@ -87,6 +87,14 @@ export const useClassNames = makeStyles()(theme => ({
     textAlign: 'center',
   },
 
+  imageTitle: {
+    fontSize: '12px',
+    textAlign: 'center',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    width: '100%',
+  },
+
   documentHover: {
     display: 'none',
   },
@@ -99,7 +107,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imagesAndFilesWrapper: {
-    height: '100%',
+    // height: '100%', вернуть если что-то сломается
+    height: 'auto',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'baseline',
@@ -135,6 +144,12 @@ export const useClassNames = makeStyles()(theme => ({
     width: '50%',
 
     height: '100%',
+  },
+
+  imageSubWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 
   notToShowEmptyWrapper: {
@@ -267,9 +282,7 @@ export const useClassNames = makeStyles()(theme => ({
   image: {
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     minWidth: 60,
-    minHeight: 60,
-    // height: 50,
-    maxHeight: '100%',
+    height: 110,
     objectFit: 'contain',
 
     // objectPosition: 'center center',
@@ -313,5 +326,35 @@ export const useClassNames = makeStyles()(theme => ({
   noPhotoText: {
     textAlign: 'center',
     color: theme.palette.text.second,
+  },
+
+  imagesModalBtn: {
+    width: 40,
+    height: 40,
+  },
+
+  activeMainIcon: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    background: 'rgb(53, 112, 155)',
+    // background: '#F5CF00',
+    // background: theme.palette.background.yellow,
+
+    // color: 'yellow',
+    // color: '#fff',
+    color: '#F5CF00',
+  },
+
+  pasteInput: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    borderRadius: '10px',
+    top: 0,
+    left: 0,
+    opacity: 0,
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 }))

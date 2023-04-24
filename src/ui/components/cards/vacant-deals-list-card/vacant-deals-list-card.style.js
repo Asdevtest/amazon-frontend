@@ -10,7 +10,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '326px',
 
     borderRadius: '4px',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
 
     display: 'flex',
     justifyContent: 'space-between',

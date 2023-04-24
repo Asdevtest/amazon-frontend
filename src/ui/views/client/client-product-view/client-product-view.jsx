@@ -55,6 +55,7 @@ export class ClientProductView extends Component {
       showConfirmModal,
       showAddOrEditSupplierModal,
       confirmModalSettings,
+      paymentMethods,
       onTriggerDrawerOpen,
       onChangeProductFields,
       handleProductActionButtons,
@@ -107,6 +108,7 @@ export class ClientProductView extends Component {
           setOpenModal={onTriggerAddOrEditSupplierModal}
         >
           <AddOrEditSupplierModalContent
+            paymentMethods={paymentMethods}
             product={product}
             storekeepersData={storekeepersData}
             onlyRead={supplierModalReadOnly}

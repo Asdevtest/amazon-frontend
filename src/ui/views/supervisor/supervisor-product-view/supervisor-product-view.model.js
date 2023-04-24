@@ -12,6 +12,7 @@ import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {SupervisorModel} from '@models/supervisor-model'
 import {SupervisorUpdateProductContract} from '@models/supervisor-model/supervisor-model.contracts'
+import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
@@ -19,6 +20,7 @@ import {
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
 } from '@utils/checks'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {
   getNewObjectWithDefaultValue,
   getObjectFilteredByKeyArrayWhiteList,
@@ -64,6 +66,8 @@ const fieldsOfProductAllowedToUpdate = [
   'coefficient',
   'avgPrice',
   'avgReviews',
+  'redFlags',
+  'tags',
   // 'totalFba'
 ]
 
@@ -135,6 +139,8 @@ export class SupervisorProductViewModel {
 
   supplierModalReadOnly = false
 
+  paymentMethods = []
+
   weightParserAmazon = 0
   weightParserSELLCENTRAL = 0
 
@@ -192,6 +198,18 @@ export class SupervisorProductViewModel {
     return toJS(this.product)
   }
 
+  updateImagesForLoad(images) {
+    if (!Array.isArray(images)) {
+      return
+    }
+
+    const filteredImages = images.filter(el => !this.imagesForLoad.some(item => item.includes(el)))
+
+    runInAction(() => {
+      this.imagesForLoad = [...this.imagesForLoad, ...filteredImages.map(el => getAmazonImageUrl(el, true))]
+    })
+  }
+
   async getProductById() {
     try {
       const result = await ProductModel.getProductById(this.productId)
@@ -200,6 +218,11 @@ export class SupervisorProductViewModel {
         this.product = result
 
         this.productBase = result
+
+        // this.imagesForLoad = result.images.map(el => getAmazonImageUrl(el, true))
+
+        this.updateImagesForLoad(result.images)
+
         updateProductAutoCalculatedFields.call(this)
       })
     } catch (error) {
@@ -220,9 +243,17 @@ export class SupervisorProductViewModel {
       })
 
       if (
-        ['checkednotes', 'niche', 'asins', 'amazonTitle', 'amazonDescription', 'amazonDetail', 'category'].includes(
-          fieldName,
-        )
+        [
+          'checkednotes',
+          'niche',
+          'asins',
+          'amazonTitle',
+          'amazonDescription',
+          'amazonDetail',
+          'category',
+          'redFlags',
+          'tags',
+        ].includes(fieldName)
       ) {
         runInAction(() => {
           this.product = {...this.product, [fieldName]: e.target.value}
@@ -417,7 +448,7 @@ export class SupervisorProductViewModel {
       const dataToUpdate = {
         ...this.curUpdateProductData,
         images: this.uploadedImages.length
-          ? [...this.curUpdateProductData.images, ...this.uploadedImages]
+          ? [/* ...this.curUpdateProductData.images, */ ...this.uploadedImages]
           : this.curUpdateProductData.images,
 
         buyerId: checkToBuyerNeedClear ? null : this.product.buyer?._id,
@@ -443,7 +474,12 @@ export class SupervisorProductViewModel {
     })
   }
 
+  async getSuppliersPaymentMethods() {
+    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+  }
+
   async onClickSupplierButtons(actionType) {
+    this.getSuppliersPaymentMethods()
     switch (actionType) {
       case 'view':
         runInAction(() => {
@@ -543,6 +579,8 @@ export class SupervisorProductViewModel {
                 // fbafee: this.product.fbafee,
               }
             })
+
+            this.updateImagesForLoad(amazonResult.images)
           }
           updateProductAutoCalculatedFields.call(this)
         })

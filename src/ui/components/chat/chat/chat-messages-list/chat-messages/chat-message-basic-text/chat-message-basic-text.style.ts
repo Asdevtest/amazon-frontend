@@ -41,6 +41,7 @@ export const useClassNames = makeStyles()(theme => ({
   timeText: {
     fontSize: '14px',
     minWidth: 40,
+    paddingLeft: '5px',
 
     color: theme.palette.text.second,
   },
@@ -91,7 +92,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   filesMainWrapper: {
-    padding: '14px 10px',
+    paddingBottom: '10px',
     borderRadius: '4px',
   },
 

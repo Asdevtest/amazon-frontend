@@ -4,6 +4,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
 import {poundsWeightCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {creatSupplier, patchSuppliers} from '@constants/white-list'
 
 import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
@@ -19,6 +20,7 @@ import {
   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
 } from '@utils/checks'
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {
   getNewObjectWithDefaultValue,
   getObjectFilteredByKeyArrayBlackList,
@@ -90,6 +92,8 @@ const fieldsOfProductAllowedToUpdate = [
   'avgPrice',
   'avgReviews',
   'shopIds',
+  'redFlags',
+  'tags',
   // 'totalFba'
 ]
 
@@ -108,6 +112,8 @@ export class ClientProductViewModel {
 
   curUpdateProductData = {}
   warningModalTitle = ''
+
+  paymentMethods = []
 
   yuanToDollarRate = undefined
   volumeWeightCoefficient = undefined
@@ -190,6 +196,18 @@ export class ClientProductViewModel {
     }
   }
 
+  updateImagesForLoad(images) {
+    if (!Array.isArray(images)) {
+      return
+    }
+
+    const filteredImages = images.filter(el => !this.imagesForLoad.some(item => item.includes(el)))
+
+    runInAction(() => {
+      this.imagesForLoad = [...this.imagesForLoad, ...filteredImages.map(el => getAmazonImageUrl(el, true))]
+    })
+  }
+
   async getProductById() {
     try {
       const result = await ProductModel.getProductById(this.productId)
@@ -198,6 +216,11 @@ export class ClientProductViewModel {
         this.product = result
 
         this.productBase = result
+
+        // this.imagesForLoad = result.images.map(el => getAmazonImageUrl(el, true))
+
+        this.updateImagesForLoad(result.images)
+
         updateProductAutoCalculatedFields.call(this)
       })
     } catch (error) {
@@ -223,6 +246,8 @@ export class ClientProductViewModel {
           'niche',
           'asins',
           'shopIds',
+          'redFlags',
+          'tags',
         ].includes(fieldName)
       ) {
         runInAction(() => {
@@ -474,7 +499,7 @@ export class ClientProductViewModel {
           {
             ...this.curUpdateProductData,
             images: this.uploadedImages.length
-              ? [...this.curUpdateProductData.images, ...this.uploadedImages]
+              ? [/* ...this.curUpdateProductData.images, */ ...this.uploadedImages]
               : this.curUpdateProductData.images,
           },
           ['suppliers'],
@@ -490,13 +515,19 @@ export class ClientProductViewModel {
       // this.warningModalTitle = t(TranslationKey['Data was successfully saved'])
 
       // this.onTriggerOpenModal('showWarningModal')
+      this.setActionStatus(loadingStatuses.success)
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
       console.log('error', error)
     }
   }
 
+  async getSuppliersPaymentMethods() {
+    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+  }
+
   async onClickSupplierButtons(actionType) {
+    this.getSuppliersPaymentMethods()
     switch (actionType) {
       case 'add':
         runInAction(() => {
@@ -555,29 +586,35 @@ export class ClientProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({supplier, photosOfSupplier}) {
+  async onClickSaveSupplierBtn({supplier, photosOfSupplier, editPhotosOfSupplier}) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      runInAction(() => {
-        this.readyImages = []
-      })
+      this.clearReadyImages()
 
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+      if (editPhotosOfSupplier.length) {
+        await onSubmitPostImages.call(this, {images: editPhotosOfSupplier, type: 'readyImages'})
       }
 
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
-        images: supplier.images.concat(this.readyImages),
+        images: this.readyImages,
+      }
+
+      if (photosOfSupplier.length) {
+        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+        supplier = {
+          ...supplier,
+          images: [...supplier.images, ...this.readyImages],
+        }
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
 
         if (supplier._id === this.product.currentSupplierId) {
@@ -587,7 +624,8 @@ export class ClientProductViewModel {
           updateProductAutoCalculatedFields.call(this)
         }
       } else {
-        const createSupplierResult = await SupplierModel.createSupplier(supplier)
+        const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+        const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
         await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
         runInAction(() => {
           this.product.suppliers.push(createSupplierResult.guid)
@@ -730,6 +768,8 @@ export class ClientProductViewModel {
                 // fbafee: this.product.fbafee,
               }
             })
+
+            this.updateImagesForLoad(amazonResult.images)
           }
           updateProductAutoCalculatedFields.call(this)
         })
@@ -784,6 +824,12 @@ export class ClientProductViewModel {
       this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)
       this.onTriggerOpenModal('showWarningModal')
     }
+  }
+
+  clearReadyImages() {
+    runInAction(() => {
+      this.readyImages = []
+    })
   }
 
   // async onClickParseProductData(productDataParser, product) {

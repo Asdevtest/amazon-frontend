@@ -15,7 +15,11 @@ import {
   TaskOperationType,
   taskOperationTypeTranslate,
 } from '@constants/task-operation-type'
-import {mapTaskPriorityStatusEnum, taskPriorityStatusTranslate} from '@constants/task-priority-status'
+import {
+  mapTaskPriorityStatusEnum,
+  TaskPriorityStatus,
+  taskPriorityStatusTranslate,
+} from '@constants/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -27,6 +31,7 @@ import {Modal} from '@components/modal'
 import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
+import {EditTaskPriorityModal} from '@components/screens/warehouse/edit-task-priority-modal'
 import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -69,6 +74,8 @@ export class WarehouseVacantTasksViewRaw extends Component {
       drawerOpen,
       curPage,
       rowsPerPage,
+      editPriorityData,
+      showEditPriorityData,
 
       goToMyTasks,
       onClickPickupManyTasksBtn,
@@ -76,6 +83,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
       onChangeCurPage,
       onChangeRowsPerPage,
       onTriggerOpenModal,
+      updateTaskPriority,
 
       onSelectionModel,
       setDataGridState,
@@ -87,6 +95,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
       onClickOperationTypeBtn,
       onClickTaskPriorityBtn,
       onClickReportBtn,
+      changeColumnsModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -129,9 +138,25 @@ export class WarehouseVacantTasksViewRaw extends Component {
                         onClick={() => onClickTaskPriorityBtn(type)}
                       >
                         {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[type])}
+
+                        {TaskPriorityStatus.URGENT === mapTaskPriorityStatusEnum[type] && (
+                          <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" alt="Fire" />
+                        )}
                       </Button>
                     ))}
                 </div>
+
+                {window.innerWidth < 1282 && (
+                  <Button
+                    variant="contained"
+                    disabled={!selectedTasks.length}
+                    className={classNames.pickupOrdersButton}
+                    onClick={onClickPickupManyTasksBtn}
+                  >
+                    {t(TranslationKey['Take on the work of the selected'])}
+                  </Button>
+                )}
+
                 <Button
                   variant="contained"
                   disabled={
@@ -149,14 +174,16 @@ export class WarehouseVacantTasksViewRaw extends Component {
               </div>
 
               <div className={classNames.headerWrapper}>
-                <Button
-                  variant="contained"
-                  disabled={!selectedTasks.length}
-                  className={classNames.pickupOrdersButton}
-                  onClick={onClickPickupManyTasksBtn}
-                >
-                  {t(TranslationKey['Take on the work of the selected'])}
-                </Button>
+                {window.innerWidth > 1281 && (
+                  <Button
+                    variant="contained"
+                    disabled={!selectedTasks.length}
+                    className={classNames.pickupOrdersButton}
+                    onClick={onClickPickupManyTasksBtn}
+                  >
+                    {t(TranslationKey['Take on the work of the selected'])}
+                  </Button>
+                )}
 
                 <div className={classNames.boxesFiltersWrapper}>
                   <Button
@@ -207,6 +234,10 @@ export class WarehouseVacantTasksViewRaw extends Component {
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
                     filterForm: classNames.filterForm,
+
+                    columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
+                    columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
+                    iconSeparator: classNames.iconSeparator,
                   }}
                   getRowClassName={getRowClassName}
                   sortingMode="server"
@@ -218,10 +249,15 @@ export class WarehouseVacantTasksViewRaw extends Component {
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
-                  getRowHeight={() => 'auto'}
+                  getRowHeight={() => '148px'}
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   density={densityModel}
                   columns={columnsModel}
@@ -245,6 +281,14 @@ export class WarehouseVacantTasksViewRaw extends Component {
             volumeWeightCoefficient={volumeWeightCoefficient}
             task={curOpenedTask}
             onClickOpenCloseModal={() => onTriggerOpenModal('showTaskInfoModal')}
+          />
+        </Modal>
+
+        <Modal openModal={showEditPriorityData} setOpenModal={() => onTriggerOpenModal('showEditPriorityData')}>
+          <EditTaskPriorityModal
+            data={editPriorityData}
+            handleClose={() => onTriggerOpenModal('showEditPriorityData')}
+            onSubmitHandler={updateTaskPriority}
           />
         </Modal>
 

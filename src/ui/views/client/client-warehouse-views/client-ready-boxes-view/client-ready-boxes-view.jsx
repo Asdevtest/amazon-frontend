@@ -88,6 +88,7 @@ export class ClientReadyBoxesViewRaw extends Component {
       onChangeNameSearchValue,
       onSubmitChangeBoxFields,
       onClickDestinationBtn,
+      changeColumnsModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -235,6 +236,11 @@ export class ClientReadyBoxesViewRaw extends Component {
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   density={densityModel}
                   columns={columnsModel}

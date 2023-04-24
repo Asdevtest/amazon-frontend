@@ -127,11 +127,16 @@ export const useClassNames = makeStyles()(theme => ({
     borderRight: '1px solid #e0e0e0',
   },
 
+  tableRow: {
+    height: 90,
+  },
+
   priceCellBtn: {
     width: '100%',
     cursor: 'auto',
     border: 'none',
     borderRadius: 0,
+    // height: 'auto',
 
     '&:hover': {
       backgroundColor: 'inherit !important',
@@ -155,7 +160,8 @@ export const useClassNames = makeStyles()(theme => ({
   deliveryCellBtn: {
     width: '100%',
 
-    height: 'auto',
+    // height: 'auto',
+    // height: 80,
 
     cursor: 'auto',
     border: 'none',
@@ -195,7 +201,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   totalCell: {
-    width: 80,
+    maxWidth: 135,
+    minWidth: 135,
     padding: '0 10px',
     borderRight: '1px solid #e0e0e0',
     margin: 0,

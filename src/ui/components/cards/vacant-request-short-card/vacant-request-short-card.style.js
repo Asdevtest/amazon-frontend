@@ -2,25 +2,35 @@ import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
-    minHeight: '373px',
+    // minHeight: '373px',
     borderRadius: '4px',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
+    backgroundColor: theme.palette.background.general,
     padding: '30px 20px ',
+    width: 300,
+    height: 500,
+  },
+
+  cardHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 
   cardTitleBlockWrapper: {
-    marginBottom: '20px',
+    marginBottom: '10px',
   },
 
   cardTitle: {
     fontWeight: '600',
-    fontSize: '18px',
+    fontSize: 14,
     lineHeight: '140%',
     color: theme.palette.text.general,
     marginBottom: '20px',
-    height: '50px',
+    // height: '50px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    width: '100%',
   },
 
   cardSubTitle: {
@@ -133,5 +143,83 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '16px',
     color: theme.palette.text.second,
+  },
+
+  mainInfosWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: 280,
+  },
+
+  fieldLabel: {
+    fontSize: 12,
+    lineHeight: '16px',
+    fontWeight: '400',
+    color: theme.palette.text.second,
+  },
+
+  fieldContainer: {
+    minHeight: 55,
+    marginBottom: '10px !important',
+  },
+
+  priceAmazonWrapper: {
+    display: 'flex',
+    // flexWrap: 'nowrap',
+    maxWidth: 150,
+  },
+
+  redText: {
+    color: '#FB1D5B',
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    textDecorationLine: 'line-through',
+    marginLeft: 5,
+  },
+
+  cashBackPrice: {
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    // color: '#656565',
+  },
+
+  accentText: {
+    fontSize: 14,
+    fontWeight: 600,
+    color: theme.palette.text.general,
+  },
+
+  rightLieldLabel: {
+    textAlign: 'right',
+    justifySelf: 'end',
+    margin: '0 0 12px auto !important',
+  },
+
+  rightText: {
+    textAlign: 'right',
+  },
+
+  dontWrapText: {
+    whiteSpace: 'nowrap',
+  },
+
+  idWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
+
+  idTitle: {
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    color: theme.palette.text.second,
+  },
+
+  idText: {
+    color: theme.palette.text.general,
   },
 }))

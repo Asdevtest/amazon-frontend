@@ -96,19 +96,22 @@ export const BoxViewForm = observer(
     return (
       <div className={classNames.formContainer}>
         <div className={classNames.titleWrapper}>
-          <div className={classNames.titleSubWrapper}>
+          <div className={classNames.titlePrepIdWrapper}>
             <Typography variant="h6" className={classNames.title}>{`${t(TranslationKey.Box)} № ${
               box.humanFriendlyId
-            } / ID:`}</Typography>
+            } `}</Typography>
 
-            <Input
-              disabled={!(isClient || isStorekeeper)}
-              className={classNames.itemInput}
-              classes={{input: classNames.input}}
-              inputProps={{maxLength: 14}}
-              value={formFields.prepId}
-              onChange={onChangeField('prepId')}
-            />
+            <div className={classNames.titlePrepIdSubWrapper}>
+              <Typography variant="h6" className={classNames.title}>{`ID:`}</Typography>
+              <Input
+                disabled={!(isClient || isStorekeeper)}
+                className={classNames.itemInput}
+                classes={{input: classNames.input}}
+                inputProps={{maxLength: 25}}
+                value={formFields.prepId}
+                onChange={onChangeField('prepId')}
+              />
+            </div>
           </div>
 
           <div className={classNames.titleSubWrapper}>
@@ -512,32 +515,40 @@ export const BoxViewForm = observer(
                   </div>
 
                   <div className={classNames.trackNumberPhotoWrapper}>
-                    {formFields.trackNumberFile || formFields.tmpTrackNumberFile[0] ? (
-                      <img
-                        className={classNames.trackNumberPhoto}
-                        src={
-                          formFields.tmpTrackNumberFile[0]
-                            ? typeof formFields.tmpTrackNumberFile[0] === 'string'
-                              ? formFields.tmpTrackNumberFile[0]
-                              : formFields.tmpTrackNumberFile[0]?.data_url
-                            : formFields.trackNumberFile
-                        }
-                        // variant="square"
-                        onClick={() => {
-                          setShowPhotosModal(!showPhotosModal)
-                          setBigImagesOptions({
-                            ...bigImagesOptions,
+                    {formFields.trackNumberFile[0] || formFields.tmpTrackNumberFile[0] ? (
+                      <CustomCarousel>
+                        {(formFields.trackNumberFile.length
+                          ? formFields.trackNumberFile
+                          : formFields.tmpTrackNumberFile
+                        ).map((el, index) => (
+                          <img
+                            key={index}
+                            className={classNames.trackNumberPhoto}
+                            src={
+                              formFields.tmpTrackNumberFile[index]
+                                ? typeof formFields.tmpTrackNumberFile[index] === 'string'
+                                  ? formFields.tmpTrackNumberFile[index]
+                                  : formFields.tmpTrackNumberFile[index]?.data_url
+                                : formFields.trackNumberFile[index]
+                            }
+                            // variant="square"
+                            onClick={() => {
+                              setShowPhotosModal(!showPhotosModal)
+                              setBigImagesOptions({
+                                ...bigImagesOptions,
 
-                            images: [
-                              formFields.tmpTrackNumberFile[0]
-                                ? typeof formFields.tmpTrackNumberFile[0] === 'string'
-                                  ? formFields.tmpTrackNumberFile[0]
-                                  : formFields.tmpTrackNumberFile[0]?.data_url
-                                : formFields.trackNumberFile,
-                            ],
-                          })
-                        }}
-                      />
+                                images: [
+                                  formFields.tmpTrackNumberFile[index]
+                                    ? typeof formFields.tmpTrackNumberFile[index] === 'string'
+                                      ? formFields.tmpTrackNumberFile[index]
+                                      : formFields.tmpTrackNumberFile[index]?.data_url
+                                    : formFields.trackNumberFile[index],
+                                ],
+                              })
+                            }}
+                          />
+                        ))}
+                      </CustomCarousel>
                     ) : (
                       <Typography>{'no photo track number...'}</Typography>
                     )}
@@ -591,6 +602,7 @@ export const BoxViewForm = observer(
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
             title={'Track number'}
+            maxNumber={50 - formFields.tmpTrackNumberFile.length - formFields.trackNumberFile.length}
             tmpCode={formFields.tmpTrackNumberFile}
             item={formFields}
             onClickSaveBarcode={value => {
@@ -606,6 +618,7 @@ export const BoxViewForm = observer(
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
+          setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
         />
       </div>
     )

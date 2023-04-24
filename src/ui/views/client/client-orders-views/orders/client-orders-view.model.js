@@ -150,6 +150,15 @@ export class ClientOrdersViewModel {
     )
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = this.columnsModel.map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   setDestinationsFavouritesItem(item) {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
@@ -229,6 +238,7 @@ export class ClientOrdersViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
+      console.log('requestStatus', requestStatus)
     })
   }
 
@@ -324,6 +334,7 @@ export class ClientOrdersViewModel {
           return [
             OrderStatus.AT_PROCESS,
             OrderStatus.READY_TO_PROCESS,
+            OrderStatus.READY_FOR_PAYMENT,
             OrderStatus.PAID_TO_SUPPLIER,
             OrderStatus.TRACK_NUMBER_ISSUED,
             OrderStatus.VERIFY_RECEIPT,
@@ -436,6 +447,7 @@ export class ClientOrdersViewModel {
 
   async onClickManyReorder() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       runInAction(() => {
         this.reorderOrdersData = []
       })
@@ -465,7 +477,9 @@ export class ClientOrdersViewModel {
       })
 
       this.onTriggerOpenModal('showOrderModal')
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -505,34 +519,9 @@ export class ClientOrdersViewModel {
     }
   }
 
-  // async onClickReorder(item) {
-  //   try {
-  //     const storekeepers = await StorekeeperModel.getStorekeepers()
-
-  //     const destinations = await ClientModel.getDestinations()
-
-  //     const result = await UserModel.getPlatformSettings()
-
-  //     const order = await ClientModel.getOrderById(item._id)
-
-  //     runInAction(() => {
-  //       this.storekeepers = storekeepers
-
-  //       this.destinations = destinations
-
-  //       this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
-  //       this.reorderOrdersData = [order]
-  //     })
-
-  //     this.onTriggerOpenModal('showOrderModal')
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
   async onClickReorder(item) {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       const pendingOrders = []
       const correctIds = []
 
@@ -546,21 +535,19 @@ export class ClientOrdersViewModel {
       this.checkPendingData = pendingOrders
 
       if (this.checkPendingData.length > 0 && this.checkPendingData[0].length > 0) {
-        this.existingOrders = this.currentData
+        this.existingOrders = await this.currentData
           .filter(product => correctIds.includes(product.originalData.product._id))
           .map(prod => prod.originalData.product)
-
-        // this.isOrder = this.currentData
-        //   .filter(product => correctIds.includes(product.originalData.product._id))
-        //   .map(prod => prod.originalData)
 
         this.isOrder = item
 
         this.onTriggerOpenModal('showCheckPendingOrderFormModal')
       } else {
-        this.onClickContinueBtn(item)
+        await this.onClickContinueBtn(item)
       }
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }

@@ -45,7 +45,8 @@ export const BreadCrumbsLine = observer(({lastCrumbAdditionalText, savedLastCrum
 
   const onClickCrumb = (to, isPreLast, index) => {
     if (isPreLast && index !== 1) {
-      hostory.goBack()
+      // hostory.goBack()
+      hostory.push(to)
     } else {
       hostory.push(to)
     }

@@ -153,6 +153,10 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.negativeMain,
   },
 
+  storekeeperBtnDark: {
+    color: theme.palette.text.general,
+  },
+
   storekeeperBtnDefault: {
     color: theme.palette.text.general,
   },

@@ -22,10 +22,12 @@ class InlineResponse20063 {
     /**
      * Constructs a new <code>InlineResponse20063</code>.
      * @alias module:model/InlineResponse20063
+     * @param _id {String} Гуид магазина
+     * @param name {String} Название магазина
      */
-    constructor() { 
+    constructor(_id, name) { 
         
-        InlineResponse20063.initialize(this);
+        InlineResponse20063.initialize(this, _id, name);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineResponse20063 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, _id, name) { 
+        obj['_id'] = _id;
+        obj['name'] = name;
     }
 
     /**
@@ -53,24 +57,6 @@ class InlineResponse20063 {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
-            }
-            if (data.hasOwnProperty('numberOfPositiveFeedbacks')) {
-                obj['numberOfPositiveFeedbacks'] = ApiClient.convertToType(data['numberOfPositiveFeedbacks'], 'Number');
-            }
-            if (data.hasOwnProperty('numberOfNegativeFeedbacks')) {
-                obj['numberOfNegativeFeedbacks'] = ApiClient.convertToType(data['numberOfNegativeFeedbacks'], 'Number');
-            }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
-            }
-            if (data.hasOwnProperty('isOnline')) {
-                obj['isOnline'] = ApiClient.convertToType(data['isOnline'], 'Boolean');
-            }
-            if (data.hasOwnProperty('countsOfDeals')) {
-                obj['countsOfDeals'] = ApiClient.convertToType(data['countsOfDeals'], 'Number');
-            }
         }
         return obj;
     }
@@ -79,52 +65,16 @@ class InlineResponse20063 {
 }
 
 /**
- * GUID пользователя.
+ * Гуид магазина
  * @member {String} _id
  */
 InlineResponse20063.prototype['_id'] = undefined;
 
 /**
- * Имя пользователя.
+ * Название магазина
  * @member {String} name
  */
 InlineResponse20063.prototype['name'] = undefined;
-
-/**
- * Рейтинг пользователя.
- * @member {Number} rating
- */
-InlineResponse20063.prototype['rating'] = undefined;
-
-/**
- * Количество положительных отзыв
- * @member {Number} numberOfPositiveFeedbacks
- */
-InlineResponse20063.prototype['numberOfPositiveFeedbacks'] = undefined;
-
-/**
- * Количество негативных отзыв
- * @member {Number} numberOfNegativeFeedbacks
- */
-InlineResponse20063.prototype['numberOfNegativeFeedbacks'] = undefined;
-
-/**
- * Страна
- * @member {String} country
- */
-InlineResponse20063.prototype['country'] = undefined;
-
-/**
- * Пользователь онлайн
- * @member {Boolean} isOnline
- */
-InlineResponse20063.prototype['isOnline'] = undefined;
-
-/**
- * Количество общих сделок
- * @member {Number} countsOfDeals
- */
-InlineResponse20063.prototype['countsOfDeals'] = undefined;
 
 
 

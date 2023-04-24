@@ -15,9 +15,9 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject72 from '../model/InlineObject72';
-import InlineResponse20047 from '../model/InlineResponse20047';
-import InlineResponse20048 from '../model/InlineResponse20048';
+import InlineObject74 from '../model/InlineObject74';
+import InlineResponse20050 from '../model/InlineResponse20050';
+import InlineResponse20051 from '../model/InlineResponse20051';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 import PermissionGetDtoSchema from '../model/PermissionGetDtoSchema';
@@ -472,7 +472,7 @@ export default class PermissionsApi {
      * ## Получить список разрешений для продуктов всех сабъюзеров.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20047>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20050>} and HTTP response
      */
     apiV1PermissionsProductsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -491,7 +491,7 @@ export default class PermissionsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20047];
+      let returnType = [InlineResponse20050];
       return this.apiClient.callApi(
         '/api/v1/permissions/products', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -504,7 +504,7 @@ export default class PermissionsApi {
      * ## Получить список разрешений для продуктов всех сабъюзеров.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20047>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20050>}
      */
     apiV1PermissionsProductsGet(opts) {
       return this.apiV1PermissionsProductsGetWithHttpInfo(opts)
@@ -520,7 +520,7 @@ export default class PermissionsApi {
      * @param {String} guid GUID permission в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20048>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20051>} and HTTP response
      */
     apiV1PermissionsProductsGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -544,7 +544,7 @@ export default class PermissionsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20048];
+      let returnType = [InlineResponse20051];
       return this.apiClient.callApi(
         '/api/v1/permissions/products/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -558,7 +558,7 @@ export default class PermissionsApi {
      * @param {String} guid GUID permission в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20048>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20051>}
      */
     apiV1PermissionsProductsGuidGet(guid, opts) {
       return this.apiV1PermissionsProductsGuidGetWithHttpInfo(guid, opts)
@@ -573,7 +573,7 @@ export default class PermissionsApi {
      * ## Переписать разрешения для продукта для саба.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject72} opts.body 
+     * @param {module:model/InlineObject74} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1PermissionsProductsPatchWithHttpInfo(opts) {
@@ -606,7 +606,7 @@ export default class PermissionsApi {
      * ## Переписать разрешения для продукта для саба.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject72} opts.body 
+     * @param {module:model/InlineObject74} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1PermissionsProductsPatch(opts) {

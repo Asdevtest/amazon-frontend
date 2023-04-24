@@ -4,6 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**email** | **String** | Почта от аккаунта, пароль которого Вы забыли | 
+**name** | **String** | Название склада. | [optional] 
+**country** | **String** | Страна. | [optional] 
+**zipCode** | **String** | Индекс. 5 цифр. | [optional] 
+**state** | **String** | Штат. | [optional] 
+**city** | **String** | Город. | [optional] 
+**address** | **String** | Адрес склада. | [optional] 
+**fontColor** | **String** | Цвет шрифта | [optional] 
 
 

@@ -8,8 +8,11 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
+import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
+
+import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
 import {ColoredChip} from '@components/colored-chip'
@@ -256,37 +259,46 @@ export const EditBoxForm = observer(
             inputComponent={
               <div className={classNames.editBlockWrapper}>
                 <div className={classNames.editBlockHeaderWrapper}>
-                  <Field
-                    oneLine
-                    labelClasses={classNames.standartLabel}
-                    label={`${t(TranslationKey.Box)} №`}
-                    inputComponent={
-                      <div className={classNames.boxTitleWrapper}>
-                        <Typography className={classNames.tableTitle}>{`${
-                          formItem && formItem.humanFriendlyId
-                        }`}</Typography>
+                  <div className={classNames.titlePrepIdSubWrapper}>
+                    <Field
+                      oneLine
+                      labelClasses={classNames.standartLabel}
+                      containerClasses={classNames.containerTitleField}
+                      label={`${t(TranslationKey.Box)} №`}
+                      inputComponent={
+                        <div className={classNames.boxTitleWrapper}>
+                          <Typography className={classNames.tableTitle}>{`${
+                            formItem && formItem.humanFriendlyId
+                          }`}</Typography>
 
-                        <Typography className={classNames.standartLabel}>{` / ID:`}</Typography>
+                          {/* <Typography className={classNames.amountSpan}>
+                            {boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}
+                          </Typography> */}
+                        </div>
+                      }
+                    />
 
+                    <Field
+                      oneLine
+                      labelClasses={classNames.standartLabel}
+                      label={`ID:`}
+                      inputComponent={
                         <Input
                           className={classNames.itemInput}
                           classes={{input: classNames.input}}
-                          inputProps={{maxLength: 14}}
+                          inputProps={{maxLength: 25}}
                           value={boxFields.prepId}
                           onChange={setFormField('prepId')}
                         />
-
-                        {/* <Typography className={classNames.amountSpan}>
-                            {boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}
-                          </Typography> */}
-                      </div>
-                    }
-                  />
+                      }
+                    />
+                  </div>
                   <Field
                     oneLine
                     disabled
                     labelClasses={classNames.standartLabel}
                     inputClasses={classNames.disabledNumInput}
+                    containerClasses={classNames.containerField}
                     label={t(TranslationKey['Total goods In Box'])}
                     value={allItemsCount}
                   />
@@ -492,6 +504,8 @@ export const EditBoxForm = observer(
                           variant={boxFields.storekeeperId && 'text'}
                           className={cx(classNames.storekeeperBtnDefault, {
                             [classNames.storekeeperBtn]: !boxFields.storekeeperId,
+                            [classNames.storekeeperBtnColored]:
+                              !boxFields.storekeeperId && SettingsModel.uiTheme === UiTheme.light,
                           })}
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
@@ -692,6 +706,7 @@ export const EditBoxForm = observer(
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
+          setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
         />
 
         <Modal

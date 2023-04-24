@@ -47,26 +47,8 @@ class InlineObject104 {
         if (data) {
             obj = obj || new InlineObject104();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
-            }
-            if (data.hasOwnProperty('zipCode')) {
-                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
-            }
-            if (data.hasOwnProperty('state')) {
-                obj['state'] = ApiClient.convertToType(data['state'], 'String');
-            }
-            if (data.hasOwnProperty('city')) {
-                obj['city'] = ApiClient.convertToType(data['city'], 'String');
-            }
-            if (data.hasOwnProperty('address')) {
-                obj['address'] = ApiClient.convertToType(data['address'], 'String');
-            }
-            if (data.hasOwnProperty('fontColor')) {
-                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
         }
         return obj;
@@ -76,46 +58,10 @@ class InlineObject104 {
 }
 
 /**
- * Название склада.
- * @member {String} name
+ * Статус
+ * @member {Number} status
  */
-InlineObject104.prototype['name'] = undefined;
-
-/**
- * Страна.
- * @member {String} country
- */
-InlineObject104.prototype['country'] = undefined;
-
-/**
- * Индекс. 5 цифр.
- * @member {String} zipCode
- */
-InlineObject104.prototype['zipCode'] = undefined;
-
-/**
- * Штат.
- * @member {String} state
- */
-InlineObject104.prototype['state'] = undefined;
-
-/**
- * Город.
- * @member {String} city
- */
-InlineObject104.prototype['city'] = undefined;
-
-/**
- * Адрес склада.
- * @member {String} address
- */
-InlineObject104.prototype['address'] = undefined;
-
-/**
- * Цвет шрифта
- * @member {String} fontColor
- */
-InlineObject104.prototype['fontColor'] = undefined;
+InlineObject104.prototype['status'] = undefined;
 
 
 

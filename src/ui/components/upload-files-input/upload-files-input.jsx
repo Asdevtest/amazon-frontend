@@ -1,7 +1,7 @@
 import {cx} from '@emotion/css'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
-import {Grid, Typography, Avatar, Link} from '@mui/material'
+import {Grid, Typography, Avatar, InputAdornment} from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
 import React, {useState} from 'react'
@@ -17,7 +17,7 @@ import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 import {Input} from '@components/input'
 
-import {checkAndMakeAbsoluteUrl} from '@utils/text'
+// import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './upload-files-input.style'
@@ -40,6 +40,9 @@ export const UploadFilesInput = observer(
     title = false,
     disabled = false,
     dragAndDropBtnHeight = undefined,
+    withComment = false,
+    maxHeight = undefined,
+    oneLineMaxHeight = false,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -56,15 +59,34 @@ export const UploadFilesInput = observer(
       const linkIsValid = regExpUriChecking.test(linkInput)
 
       if (linkIsValid) {
-        setImages([...images, linkInput])
+        if (withComment) {
+          setImages([...images, {file: linkInput, comment: '', _id: `${Date.now()}`}])
+        } else {
+          setImages([...images, linkInput])
+        }
+
+        // setImages([...images, linkInput])
         setLinkInput('')
       } else {
         setLinkInputError(true)
       }
     }
 
-    const onChange = (imageList /* , addUpdateIndex тут можно индекс получить*/) => {
-      setImages(imageList)
+    const onChange = (imageList /* , addUpdateIndex  тут можно индекс получить*/) => {
+      // console.log('addUpdateIndex', addUpdateIndex)
+
+      if (withComment) {
+        setImages(
+          imageList.map((el, i) => ({
+            file: el,
+            comment: images[i]?.comment || '',
+            _id: images[i]?._id || `${Date.now()}${i}`,
+          })),
+        )
+      } else {
+        setImages(imageList)
+      }
+      // setImages(imageList)
     }
 
     const onPasteFiles = async evt => {
@@ -85,7 +107,16 @@ export const UploadFilesInput = observer(
           }),
         }))
 
-        setImages([...images, ...readyFilesArr.slice(0, filesAlowLength)])
+        if (withComment) {
+          setImages([
+            ...images,
+            ...readyFilesArr
+              .slice(0, filesAlowLength)
+              .map((el, i) => ({file: el, comment: '', _id: `${Date.now()}${i}`})),
+          ])
+        } else {
+          setImages([...images, ...readyFilesArr.slice(0, filesAlowLength)])
+        }
       }
     }
 
@@ -106,12 +137,22 @@ export const UploadFilesInput = observer(
       </div>
     )
 
+    const onChangeComment = index => e => {
+      setImages(() => images.map((el, i) => (i === index ? {...el, comment: e.target.value} : el)))
+    }
+
+    const onClickImageRemove = index => {
+      const removeImageId = images[index]._id
+
+      setImages(() => images.filter(el => el._id !== removeImageId))
+    }
+
     const [showImages, setShowImages] = useState(true)
 
     return (
       SettingsModel.languageTag && (
         <div>
-          {!withoutLinks && (
+          {!withoutLinks ? (
             <Field
               tooltipInfoContent={t(TranslationKey['Ability to attach photos/documents/links'])}
               label={withoutTitle ? '' : title ? title : t(TranslationKey['Attach file'])}
@@ -142,12 +183,14 @@ export const UploadFilesInput = observer(
                 </div>
               }
             />
+          ) : (
+            <Typography className={classNames.attachFiles}>{t(TranslationKey['Attach files to the ad'])}</Typography>
           )}
 
           <ImageUploading
             multiple
             acceptType={acceptType}
-            value={images}
+            value={withComment ? images.map(el => el.file) : images}
             maxNumber={maxNumber}
             dataURLKey="data_url"
             maxFileSize={maxSizeInBytes}
@@ -202,7 +245,7 @@ export const UploadFilesInput = observer(
                   </div>
                 </div>
 
-                {showImages && (
+                {/* {showImages && (
                   <Grid container className={classNames.imageListWrapper} justifyContent="flex-start" spacing={2}>
                     {imageList.map((image, index) =>
                       typeof image === 'string' ? (
@@ -246,6 +289,116 @@ export const UploadFilesInput = observer(
                               <HighlightOffIcon
                                 className={classNames.actionIcon}
                                 onClick={() => onImageRemove(index)}
+                              />
+                            </div>
+                          </div>
+                        </Grid>
+                      ),
+                    )}
+                  </Grid>
+                )} */}
+
+                {showImages && (
+                  <Grid
+                    container
+                    className={cx(classNames.imageListWrapper, {[classNames.oneLineMaxHeight]: oneLineMaxHeight})}
+                    style={maxHeight && {maxHeight}}
+                    justifyContent="flex-start"
+                    spacing={2}
+                  >
+                    {imageList.map((image, index) =>
+                      typeof image === 'string' ? (
+                        <Grid key={index} item>
+                          <div className={classNames.imageLinkListItem}>
+                            <Tooltip title={renderImageInfo(image, image)} classes={{popper: classNames.imgTooltip}}>
+                              <Avatar className={classNames.image} src={image} alt={image} variant="square" />
+                            </Tooltip>
+
+                            {/* <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(image)}>
+                              <Typography className={classNames.linkName}>{image}</Typography>
+                            </Link> */}
+
+                            {withComment && (
+                              <Input
+                                multiline
+                                inputProps={{maxLength: 64}}
+                                startAdornment={
+                                  <InputAdornment position="start">
+                                    <Typography className={classNames.inputIndex}>{index + 1 + '.'}</Typography>
+                                  </InputAdornment>
+                                }
+                                placeholder={'Title'}
+                                maxRows={3}
+                                variant="filled"
+                                className={classNames.imageObjInput}
+                                classes={{input: classNames.subImageObjInput}}
+                                value={images[index]?.comment}
+                                onChange={onChangeComment(index)}
+                              />
+                            )}
+
+                            <div className={classNames.actionIconsWrapper}>
+                              <AutorenewIcon
+                                className={classNames.actionIcon}
+                                fontSize="small"
+                                onClick={() => onImageUpdate(index)}
+                              />
+
+                              <HighlightOffIcon
+                                className={classNames.actionIcon}
+                                fontSize="small"
+                                onClick={() => (withComment ? onClickImageRemove(index) : onImageRemove(index))}
+                              />
+                            </div>
+                          </div>
+                        </Grid>
+                      ) : (
+                        <Grid key={index} item>
+                          <div className={classNames.imageLinkListItem /* imageListItem */}>
+                            <Tooltip
+                              title={renderImageInfo(image?.data_url, image?.file.name)}
+                              classes={{popper: classNames.imgTooltip}}
+                            >
+                              <Avatar
+                                className={classNames.image}
+                                src={image?.file.type.includes('image') ? image?.data_url : '/assets/icons/file.png'}
+                                alt={image?.file.name}
+                                variant="square"
+                              />
+                            </Tooltip>
+
+                            {/* <Typography className={classNames.fileName}>{image?.file.name} </Typography> */}
+
+                            {withComment && (
+                              <Input
+                                multiline
+                                inputProps={{maxLength: 64}}
+                                startAdornment={
+                                  <InputAdornment position="start">
+                                    <Typography className={classNames.inputIndex}>{index + 1 + '.'}</Typography>
+                                  </InputAdornment>
+                                }
+                                placeholder={'Title'}
+                                maxRows={3}
+                                variant="filled"
+                                className={classNames.imageObjInput}
+                                classes={{input: classNames.subImageObjInput}}
+                                value={images[index]?.comment}
+                                onChange={onChangeComment(index)}
+                              />
+                            )}
+
+                            <div className={classNames.actionIconsWrapper}>
+                              <AutorenewIcon
+                                className={classNames.actionIcon}
+                                fontSize="small"
+                                onClick={() => onImageUpdate(index)}
+                              />
+                              <HighlightOffIcon
+                                className={classNames.actionIcon}
+                                // onClick={() => onImageRemove(index)}
+                                fontSize="small"
+                                onClick={() => (withComment ? onClickImageRemove(index) : onImageRemove(index))}
                               />
                             </div>
                           </div>

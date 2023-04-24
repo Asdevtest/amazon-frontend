@@ -1,4 +1,5 @@
 import {cx} from '@emotion/css'
+import {Box} from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
 import React, {FC, ReactElement, useEffect, useState} from 'react'
@@ -25,12 +26,12 @@ interface Props {
   color?: string
   success?: boolean
   danger?: boolean
-  className: string
+  className?: string
   disabled?: boolean
   onClick?: () => void
   disableElevation?: boolean
   btnWrapperStyle?: string
-  children?: string
+  children?: ReactElement | string
 }
 
 export const Button: FC<Props> = observer(
@@ -113,14 +114,14 @@ export const Button: FC<Props> = observer(
                 onClose={() => setOpenInfoTooltip(false)}
                 onOpen={() => setOpenInfoTooltip(true)}
               >
-                <div>
+                <Box display="flex" alignItems="center">
                   <TooltipInfoIcon
                     className={cx(classNames.tooltip, classNames.tooltipInfo)}
                     // fontSize={'small'}
-                    // viewBox={'0 0 20 20'}
+                    viewBox={'0 0 18 18'}
                     onClick={() => setOpenInfoTooltip(true)}
                   />
-                </div>
+                </Box>
               </Tooltip>
             ) : null}
           </div>

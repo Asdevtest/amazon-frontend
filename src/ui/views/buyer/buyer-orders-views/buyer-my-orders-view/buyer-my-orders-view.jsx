@@ -1,4 +1,6 @@
+import {cx} from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import {Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
@@ -28,6 +30,7 @@ import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-m
 import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
+import {toFixedWithYuanSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {BuyerMyOrdersViewModel} from './buyer-my-orders-view.model'
@@ -74,6 +77,8 @@ class BuyerMyOrdersViewRaw extends Component {
       columnsModel,
       columnVisibilityModel,
 
+      paymentAmount,
+
       curBoxesOfOrder,
       drawerOpen,
       curPage,
@@ -86,15 +91,16 @@ class BuyerMyOrdersViewRaw extends Component {
       showOrderPriceMismatchModal,
       showWarningInfoModal,
       showConfirmModal,
+      showEditHSCodeModal,
       navbarActiveSubCategory,
       hsCodeData,
-      showEditHSCodeModal,
 
       showProgress,
       progressValue,
+      imagesForLoad,
+      paymentMethods,
 
       onClickHsCode,
-      onClickSaveHsCode,
       onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -113,6 +119,10 @@ class BuyerMyOrdersViewRaw extends Component {
 
       onSearchSubmit,
       onSubmitChangeBoxFields,
+      onClickSaveHsCode,
+
+      changeColumnsModel,
+      onChangeImagesForLoad,
 
       setPhotosToLoad,
     } = this.viewModel
@@ -135,12 +145,29 @@ class BuyerMyOrdersViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['My orders'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <div className={classNames.headerWrapper}>
+              <div
+                className={cx(classNames.headerWrapper, {
+                  [classNames.headerWrapperCenter]: !paymentAmount?.totalPriceInYuan,
+                })}
+              >
+                {paymentAmount?.totalPriceInYuan && <div className={classNames.totalPriceWrapper} />}
+
                 <SearchInput
                   inputClasses={classNames.searchInput}
                   placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
                   onSubmit={onSearchSubmit}
                 />
+
+                {paymentAmount?.totalPriceInYuan && (
+                  <div className={classNames.totalPriceWrapper}>
+                    <Typography className={classNames.totalPriceText}>
+                      {t(TranslationKey['Payment to all suppliers']) + ':'}
+                    </Typography>
+                    <Typography className={cx(classNames.totalPriceText, classNames.totalPrice)}>
+                      {toFixedWithYuanSign(paymentAmount?.totalPriceInYuan, 2)}
+                    </Typography>
+                  </div>
+                )}
               </div>
 
               <div className={classNames.dataGridWrapper}>
@@ -175,6 +202,9 @@ class BuyerMyOrdersViewRaw extends Component {
                   }}
                   componentsProps={{
                     columnMenu: {orderStatusData},
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   columnVisibilityModel={columnVisibilityModel}
                   density={densityModel}
@@ -203,6 +233,9 @@ class BuyerMyOrdersViewRaw extends Component {
           dialogContextClassName={classNames.dialogContextClassName}
         >
           <EditOrderModal
+            paymentMethods={paymentMethods}
+            imagesForLoad={imagesForLoad}
+            hsCodeData={hsCodeData}
             userInfo={userInfo}
             updateSupplierData={updateSupplierData}
             pathnameNotPaid={pathnameNotPaid}
@@ -217,6 +250,7 @@ class BuyerMyOrdersViewRaw extends Component {
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}
             setUpdateSupplierData={setUpdateSupplierData}
+            onChangeImagesForLoad={onChangeImagesForLoad}
             onClickUpdataSupplierData={onClickUpdataSupplierData}
             onClickSaveWithoutUpdateSupData={onClickSaveWithoutUpdateSupData}
             onTriggerOpenModal={onTriggerOpenModal}
@@ -239,14 +273,6 @@ class BuyerMyOrdersViewRaw extends Component {
           onClickSuccessBtn={confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
-
-        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
-          <EditHSCodeModal
-            hsCodeData={hsCodeData}
-            onClickSaveHsCode={onClickSaveHsCode}
-            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
-          />
-        </Modal>
 
         <WarningInfoModal
           openModal={showNoDimensionsErrorModal}
@@ -302,6 +328,14 @@ class BuyerMyOrdersViewRaw extends Component {
             onTriggerOpenModal('showSuccessModal')
           }}
         />
+
+        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
+          <EditHSCodeModal
+            hsCodeData={hsCodeData}
+            onClickSaveHsCode={onClickSaveHsCode}
+            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
+          />
+        </Modal>
       </React.Fragment>
     )
   }

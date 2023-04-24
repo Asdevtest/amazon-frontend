@@ -1,10 +1,13 @@
+/* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import {Drawer, Hidden, List, Typography} from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
+import {Drawer, Hidden, IconButton, List, Typography} from '@mui/material'
 
-import React, {useRef, useState, useEffect} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 
+import MenuIcon from '@material-ui/icons/Menu'
 import {observer} from 'mobx-react'
 
 import {appVersion} from '@constants/app-version'
@@ -37,11 +40,13 @@ export const Navbar = observer(
     const {showFeedbackModal, showWarningModal, onTriggerOpenModal, sendFeedbackAboutPlatform, userInfo} =
       viewModel.current
 
+    const [showOverlayNavBar, setShowOverlayNavBar] = useState(false)
+
     const [curNavbar, setCurNavbar] = useState(navbarConfig())
     const [shortNavbar, setShortNavbar] = useState(() => {
       const saved = localStorage.getItem('shortNavbar')
       const initialValue = JSON.parse(saved)
-      return initialValue || false
+      return initialValue || window.innerWidth < 1282 ? true : false
     })
     useEffect(() => {
       setCurNavbar(navbarConfig())
@@ -50,6 +55,31 @@ export const Navbar = observer(
     useEffect(() => {
       localStorage.setItem('shortNavbar', JSON.stringify(shortNavbar))
     }, [shortNavbar])
+
+    const renderNavbarButton = (
+      <div className={cx(classNames.iconButtonWrapper, {[classNames.iconButtonWrapperLeft]: !shortNavbar})}>
+        {shortNavbar && (
+          <IconButton
+            onClick={() => {
+              setShortNavbar(!shortNavbar)
+              setShowOverlayNavBar(!showOverlayNavBar)
+            }}
+          >
+            <MenuIcon classes={{root: classNames.menuIcon}} />
+          </IconButton>
+        )}
+
+        {!shortNavbar && (
+          <CloseIcon
+            className={classNames.closeIcon}
+            onClick={() => {
+              setShortNavbar(!shortNavbar)
+              setShowOverlayNavBar(!showOverlayNavBar)
+            }}
+          />
+        )}
+      </div>
+    )
 
     const drawerContent = (
       <div className={cx(classNames.mainSubWrapper, {[classNames.reverseMainSubWrapper]: shortNavbar})}>
@@ -68,6 +98,7 @@ export const Navbar = observer(
         ) : null}
         {/* {!shortNavbar ? ( */}
         <List className={classNames.categoriesWrapper}>
+          {window.innerWidth < 1282 && renderNavbarButton}
           {curNavbar[UserRoleCodeMap[userInfo.role]]
             .filter(el => !el.route?.includes('/messages'))
             .map((category, index) =>
@@ -84,16 +115,20 @@ export const Navbar = observer(
                         userInfo.needConfirmPriceChange?.boxes +
                           userInfo.needConfirmPriceChange?.orders +
                           userInfo.needUpdateTariff?.boxes +
-                          userInfo.updatesOnIdeas?.length) ||
-                      (category.route?.includes('/buyer/notifications') && userInfo.updatesOnIdeas?.length) ||
+                          userInfo.updatesOnIdeas) ||
+                      (category.route?.includes('/buyer/notifications') && userInfo.updatesOnIdeas) ||
                       (category.route?.includes('/client/my-orders/orders') &&
                         userInfo.purchaseOrderRequired?.length &&
                         userInfo.purchaseOrderRequired.length) ||
-                      (category.route?.includes('/warehouse/tasks') && userInfo.tasksAtProcess + userInfo.tasksNew)
+                      (category.route?.includes('/warehouse/tasks') &&
+                        userInfo.tasksAtProcessAll + userInfo.tasksNewAll) ||
+                      (category.route?.includes('/buyer/free-orders') && userInfo.freeOrders) ||
+                      (category.route?.includes('/buyer/pending-orders') && userInfo.pendingOrders)
                     }
                   />
 
                   <NavbarCollapse
+                    showHighPriorityNotification
                     shortNavbar={shortNavbar}
                     activeCategory={activeCategory}
                     activeSubCategory={activeSubCategory}
@@ -177,7 +212,7 @@ export const Navbar = observer(
     )
     return (
       <div className={classNames.mainWrapper}>
-        <Hidden mdDown>
+        {/* <Hidden mdDown>
           <Drawer
             open
             classes={{
@@ -188,8 +223,40 @@ export const Navbar = observer(
           >
             {drawerContent}
           </Drawer>
-        </Hidden>
-        <Hidden mdUp>
+        </Hidden> */}
+
+        {!showOverlayNavBar && (
+          <Drawer
+            open={false}
+            classes={{
+              root: cx(classNames.root, {[classNames.hideNavbar]: shortNavbar}),
+              paper: cx(classNames.paper, classNames.positionStatic),
+            }}
+            variant="permanent"
+          >
+            {drawerContent}
+          </Drawer>
+        )}
+
+        {showOverlayNavBar && (
+          <Drawer
+            open
+            anchor="left"
+            classes={{
+              root: classNames.root,
+              paper: cx(classNames.paper, {[classNames.moreWidth]: window.innerWidth < 1282}),
+            }}
+            onClose={() => {
+              setDrawerOpen()
+              setShortNavbar(!shortNavbar)
+              setShowOverlayNavBar(!showOverlayNavBar)
+            }}
+          >
+            {drawerContent}
+          </Drawer>
+        )}
+
+        {/* <Hidden mdUp>
           <Drawer
             anchor="left"
             classes={{root: classNames.root, paper: classNames.paper}}
@@ -198,7 +265,7 @@ export const Navbar = observer(
           >
             {drawerContent}
           </Drawer>
-        </Hidden>
+        </Hidden> */}
         <div
           className={cx(classNames.hideAndShowIconWrapper, {[classNames.hideAndShowIcon]: shortNavbar})}
           onClick={() => setShortNavbar(!shortNavbar)}

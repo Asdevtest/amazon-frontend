@@ -1,15 +1,13 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import ClearIcon from '@mui/icons-material/Clear'
-import {Box, Grid, Typography, Link, Select, MenuItem, Checkbox, ListItemText, Tooltip} from '@mui/material'
+import {Box, Grid, Link, ListItemText, MenuItem, Select, Tooltip, Typography} from '@mui/material'
 import MuiCheckbox from '@mui/material/Checkbox'
 
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {ProductDataParser} from '@constants/product-data-parser'
-import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
+import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {
   mapProductStrategyStatusEnum,
   mapProductStrategyStatusEnumToKey,
@@ -17,13 +15,17 @@ import {
 } from '@constants/product-strategy-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {GeneralModel} from '@models/general-model'
+
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
+import {TagSelector} from '@components/product/product-wrapper/tag-selector/tag-selector'
+import {RedFlags} from '@components/shared/redFlags/red-flags'
 
-import {checkIsClient, checkIsSupervisor, checkIsResearcher, checkIsBuyer} from '@utils/checks'
+import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -58,6 +60,9 @@ export const FieldsAndSuppliers = observer(
       onChangeField('shopIds')({target: {value: e.target.value ? [e.target.value] : []}})
     }
 
+    const isEditRedFlags =
+      showActionBtns && (checkIsSupervisor(curUserRole) || checkIsResearcher(curUserRole) || checkIsClient(curUserRole))
+
     const disabledPrivateLabelFields = !(
       checkIsResearcher(curUserRole) ||
       (checkIsSupervisor(curUserRole) && showActionBtns) ||
@@ -74,7 +79,7 @@ export const FieldsAndSuppliers = observer(
           disabled
           label={t(TranslationKey['Amazon product link'])}
           inputComponent={
-            <div>
+            <>
               <div className={classNames.linkAndButtonWrapper}>
                 <div className={classNames.copyLink}>
                   {edit && product.lamazon ? (
@@ -121,31 +126,33 @@ export const FieldsAndSuppliers = observer(
                 ) : null}
               </div>
 
-              {checkIsClient(curUserRole) &&
-                product.isCreatedByClient &&
-                !product.archive &&
-                clientToEditStatuses.includes(productBase.status) &&
-                (edit ? (
-                  <Button
-                    tooltipInfoContent={t(TranslationKey['Open the field to edit the link'])}
-                    disabled={!checkIsClient(curUserRole)}
-                    className={classNames.editButton}
-                    onClick={() => setEdit(!edit)}
-                  >
-                    {t(TranslationKey.Edit)}
-                  </Button>
-                ) : (
-                  <Button
-                    success
-                    tooltipInfoContent={t(TranslationKey['Saves a link to an Amazon product'])}
-                    disabled={!checkIsClient(curUserRole)}
-                    className={classNames.editButton}
-                    onClick={() => setEdit(!edit)}
-                  >
-                    {t(TranslationKey.Save)}
-                  </Button>
-                ))}
-            </div>
+              <div className={classNames.editButtonWrapper}>
+                {checkIsClient(curUserRole) &&
+                  product.isCreatedByClient &&
+                  !product.archive &&
+                  clientToEditStatuses.includes(productBase.status) &&
+                  (edit ? (
+                    <Button
+                      tooltipInfoContent={t(TranslationKey['Open the field to edit the link'])}
+                      disabled={!checkIsClient(curUserRole)}
+                      className={classNames.editButton}
+                      onClick={() => setEdit(!edit)}
+                    >
+                      {t(TranslationKey.Edit)}
+                    </Button>
+                  ) : (
+                    <Button
+                      success
+                      tooltipInfoContent={t(TranslationKey['Saves a link to an Amazon product'])}
+                      disabled={!checkIsClient(curUserRole)}
+                      className={classNames.editButton}
+                      onClick={() => setEdit(!edit)}
+                    >
+                      {t(TranslationKey.Save)}
+                    </Button>
+                  ))}
+              </div>
+            </>
           }
         />
 
@@ -304,6 +311,38 @@ export const FieldsAndSuppliers = observer(
               </div>
             </Box>
           </div>
+
+          {(showActionBtns || !!product?.tags?.length) && (
+            <Box maxWidth={300}>
+              <div className={classNames.subUsersTitleWrapper}>
+                <Typography className={classNames.subUsersTitle}>{t(TranslationKey['Product tags'])}</Typography>
+              </div>
+              <TagSelector
+                isEditMode={showActionBtns}
+                handleSaveTags={tags => onChangeField('tags')({target: {value: tags}})}
+                currentTags={product.tags}
+                getTags={GeneralModel.getTagList}
+                prefix="# "
+                placeholder={'# ' + t(TranslationKey['Input tag'])}
+              />
+            </Box>
+          )}
+
+          {(isEditRedFlags || !!product?.redFlags?.length) && (
+            <div>
+              <div className={classNames.subUsersTitleWrapper}>
+                <Typography className={classNames.subUsersTitle}>{t(TranslationKey['Red flags'])}</Typography>
+              </div>
+              <div className={cx(classNames.redFlags, {[classNames.redFlagsView]: !isEditRedFlags})}>
+                <RedFlags
+                  isEditMode={isEditRedFlags}
+                  activeFlags={product.redFlags}
+                  handleSaveFlags={flags => onChangeField('redFlags')({target: {value: flags || []}})}
+                />
+              </div>
+            </div>
+          )}
+
           <div className={classNames.strategyAndSubUsersWrapper}>
             {Number(product.strategyStatus) ===
               mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL] && (

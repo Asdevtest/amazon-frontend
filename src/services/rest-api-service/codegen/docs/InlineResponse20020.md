@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **productUsage** | **String** | Применение продукта | [optional] 
 **chinaTitle** | **String** | chinese title? | [optional] 
 **ideaCount** | **Number** |  | [optional] 
+**tags** | [**[ApiV1AdminsGetProductsByStatusTags]**](ApiV1AdminsGetProductsByStatusTags.md) |  | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
 

@@ -37,6 +37,7 @@ class StockReportRaw extends Component {
 
   render() {
     const {
+      confirmModalSettings,
       getCurrentData,
       infoModalText,
       currentShop,
@@ -46,7 +47,6 @@ class StockReportRaw extends Component {
       requestStatus,
       densityModel,
       columnsModel,
-      confirmMessage,
       successModalText,
       progressValue,
       showProgress,
@@ -75,12 +75,14 @@ class StockReportRaw extends Component {
       onSelectionModel,
 
       onSubmitSaveSupplier,
-      onSubmitSeekSupplier,
       onSubmitCalculateSeekSupplier,
 
       onClickShopBtn,
       onSubmitMoveToInventoryGoods,
       onClickAddSupplierButton,
+
+      changeColumnsModel,
+      onClickDeleteBtn,
     } = this.viewModel
     const {classes: className} = this.props
 
@@ -119,31 +121,38 @@ class StockReportRaw extends Component {
         </div>
 
         <div className={className.btnsWrapper}>
-          <Button
-            disableElevation
-            tooltipInfoContent={t(
-              TranslationKey['Moves selected products to the "Inventory" section with linked integration'],
-            )}
-            disabled={selectedRows.length === 0}
-            variant="contained"
-            color="primary"
-            onClick={onSubmitMoveToInventoryGoods}
-          >
-            {t(TranslationKey['Move to inventory'])}
-          </Button>
+          <div className={className.btnsSubWrapper}>
+            <Button
+              tooltipInfoContent={t(
+                TranslationKey['Moves selected products to the "Inventory" section with linked integration'],
+              )}
+              disabled={selectedRows.length === 0}
+              variant="contained"
+              onClick={onSubmitMoveToInventoryGoods}
+            >
+              {t(TranslationKey['Move to inventory'])}
+            </Button>
+
+            <Button
+              tooltipInfoContent={t(
+                TranslationKey['Adds integration from the report to the selected item from the inventory'],
+              )}
+              disabled={selectedRows.length === 0}
+              className={className.rightButton}
+              variant="contained"
+              onClick={onClickBindStockGoodsToInventoryBtn}
+            >
+              {t(TranslationKey['Bind to an item in the inventory'])}
+            </Button>
+          </div>
 
           <Button
-            disableElevation
-            tooltipInfoContent={t(
-              TranslationKey['Adds integration from the report to the selected item from the inventory'],
-            )}
-            disabled={selectedRows.length === 0}
-            className={className.rightButton}
+            danger
+            disabled={!selectedRows.length || selectedRows.length > 1}
             variant="contained"
-            color="primary"
-            onClick={onClickBindStockGoodsToInventoryBtn}
+            onClick={onClickDeleteBtn}
           >
-            {t(TranslationKey['Bind to an item in the inventory'])}
+            {t(TranslationKey.Remove)}
           </Button>
         </div>
 
@@ -173,15 +182,20 @@ class StockReportRaw extends Component {
               Toolbar: DataGridCustomToolbar,
               ColumnMenuIcon: FilterAltOutlinedIcon,
             }}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {columnsModel, changeColumnsModel},
+              },
+            }}
             density={densityModel}
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.isLoading}
-            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+            onSelectionModelChange={onSelectionModel}
             onSortModelChange={onChangeSortingModel}
             onPageSizeChange={onChangeRowsPerPage}
             onPageChange={onChangeCurPage}
             onStateChange={setDataGridState}
-            onFilterModelChange={model => onChangeFilterModel(model)}
+            onFilterModelChange={onChangeFilterModel}
           />
         </div>
 
@@ -259,7 +273,7 @@ class StockReportRaw extends Component {
           }}
         />
 
-        <ConfirmationModal
+        {/* <ConfirmationModal
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
           title={t(TranslationKey.Attention)}
@@ -270,6 +284,18 @@ class StockReportRaw extends Component {
             onSubmitSeekSupplier()
           }}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        /> */}
+
+        <ConfirmationModal
+          isWarning={confirmModalSettings.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={confirmModalSettings.title}
+          message={confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings.onSubmit}
+          onClickCancelBtn={confirmModalSettings.onCancel}
         />
       </React.Fragment>
     )

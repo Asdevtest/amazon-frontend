@@ -44,6 +44,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: 30,
   },
 
   trackNumberPhoto: {
@@ -78,10 +79,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
 
     padding: 0,
-  },
-
-  shippingField: {
-    width: '230px !important',
   },
 
   hsCodeBtn: {
@@ -233,6 +230,9 @@ export const useClassNames = makeStyles()(theme => ({
   storekeeperBtn: {
     height: '32px',
     width: '230px',
+  },
+
+  storekeeperBtnColored: {
     color: theme.palette.text.negativeMain,
   },
 
@@ -289,6 +289,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     padding: '10px 20px 0',
     gap: 20,
+    justifyContent: 'space-between',
   },
 
   disabledNumContainer: {
@@ -296,7 +297,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   productsWrapper: {
-    // width: 500,
+    width: 700,
   },
 
   productWrapper: {
@@ -383,7 +384,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   itemInput: {
-    width: 145,
+    width: 310,
     height: 40,
     marginLeft: 10,
     textAlign: 'center',
@@ -392,5 +393,13 @@ export const useClassNames = makeStyles()(theme => ({
   input: {
     textAlign: 'center',
     fontSize: 16,
+  },
+
+  containerTitleField: {
+    marginBottom: '5px !important',
+  },
+
+  containerField: {
+    width: 'min-content',
   },
 }))

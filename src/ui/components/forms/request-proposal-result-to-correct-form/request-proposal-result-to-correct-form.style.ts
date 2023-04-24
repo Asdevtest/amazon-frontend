@@ -70,12 +70,14 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   inputField: {
-    padding: 0,
-    margin: 0,
+    padding: '0 !important',
+    margin: '0 !important',
   },
 
   inputLabel: {
     color: theme.palette.text.second,
+    padding: 0,
+    margin: 0,
   },
 
   btnSubmit: {

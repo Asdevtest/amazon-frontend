@@ -49,6 +49,7 @@ export const clientBoxesViewColumns = (
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 100,
     sortable: false,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -371,13 +372,13 @@ export const clientBoxesViewColumns = (
 
     renderCell: params => (
       <ChangeInputCell
-        maxLength={14}
+        maxLength={25}
         row={params.row.originalData}
         text={params.value}
         onClickSubmit={handlers.onClickSavePrepId}
       />
     ),
-    width: 220,
+    width: 240,
 
     columnKey: columnnsKeys.shared.STRING,
   },

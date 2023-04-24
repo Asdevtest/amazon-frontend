@@ -8,6 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     minHeight: '82vh',
   },
+
   placeAddBtnWrapper: {
     width: '100%',
     display: 'flex',
@@ -52,6 +53,7 @@ export const useClassNames = makeStyles()(theme => ({
       },
     },
   },
+
   toolbarContainer: {
     height: '52px',
     [theme.breakpoints.down(768)]: {
@@ -80,6 +82,18 @@ export const useClassNames = makeStyles()(theme => ({
   filterForm: {
     [theme.breakpoints.down(768)]: {
       display: 'flex',
+      flexDirection: 'column',
+
+      '& > div': {
+        width: '100%',
+      },
+    },
+  },
+
+  filterForm343: {
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+
       flexDirection: 'column',
 
       '& > div': {

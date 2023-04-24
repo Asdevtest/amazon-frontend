@@ -123,9 +123,6 @@ class InlineObject18 {
             if (data.hasOwnProperty('prepId')) {
                 obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
-            }
         }
         return obj;
     }
@@ -265,7 +262,7 @@ InlineObject18.prototype['images'] = undefined;
 InlineObject18.prototype['destinationId'] = undefined;
 
 /**
- * GUID тарифа доставки 
+ *  logicsTariff GUID
  * @member {String} logicsTariffId
  */
 InlineObject18.prototype['logicsTariffId'] = undefined;
@@ -275,12 +272,6 @@ InlineObject18.prototype['logicsTariffId'] = undefined;
  * @member {String} prepId
  */
 InlineObject18.prototype['prepId'] = undefined;
-
-/**
- * GUID сторкипера
- * @member {String} storekeeperId
- */
-InlineObject18.prototype['storekeeperId'] = undefined;
 
 
 

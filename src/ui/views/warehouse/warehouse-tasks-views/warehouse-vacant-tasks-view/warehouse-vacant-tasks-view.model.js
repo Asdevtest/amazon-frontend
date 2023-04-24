@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
@@ -12,10 +13,13 @@ import {UserModel} from '@models/user-model'
 
 import {warehouseVacantTasksViewColumns} from '@components/table-columns/warehouse/vacant-tasks-columns'
 
+import {isStringInArray} from '@utils/checks'
 import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {objectToUrlQs} from '@utils/text'
 import {t} from '@utils/translations'
+
+const adaptationHiddenFields = ['barcode']
 
 export class WarehouseVacantViewModel {
   history = undefined
@@ -44,10 +48,17 @@ export class WarehouseVacantViewModel {
 
   showTwoVerticalChoicesModal = false
   showTaskInfoModal = false
+  showEditPriorityData = false
+
+  editPriorityData = {
+    taskId: null,
+    newPriority: null,
+  }
 
   rowHandlers = {
     onClickPickupBtn: item => this.onClickPickupBtn(item),
-    updateTaskPriority: (taskId, newPriority) => this.updateTaskPriority(taskId, newPriority),
+    updateTaskPriority: (taskId, newPriority) => this.startEditTaskPriority(taskId, newPriority),
+    updateTaskComment: (taskId, priority, reason) => this.updateTaskComment(taskId, priority, reason),
   }
 
   firstRowId = undefined
@@ -78,6 +89,15 @@ export class WarehouseVacantViewModel {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
     }
+  }
+
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
   }
 
   onChangeFilterModel(model) {
@@ -115,9 +135,15 @@ export class WarehouseVacantViewModel {
         this.densityModel = state.density.value
         this.columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
           ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
+          hide:
+            window.innerWidth < 1282
+              ? isStringInArray(adaptationHiddenFields, el?.field)
+              : state.columns?.lookup[el?.field]?.hide,
         }))
       }
+
+      console.log('state', state)
+      console.log('this.columnsModel', this.columnsModel)
     })
   }
 
@@ -286,13 +312,30 @@ export class WarehouseVacantViewModel {
     this.getTasksVacant()
   }
 
-  async updateTaskPriority(taskId, priority) {
-    try {
-      await StorekeeperModel.updateTask(taskId, {
-        priority,
-      })
+  startEditTaskPriority(taskId, newPriority) {
+    runInAction(() => {
+      this.editPriorityData = {taskId, newPriority}
+      this.showEditPriorityData = true
+    })
+  }
 
-      this.getTasksVacant()
+  async updateTaskPriority(taskId, priority, reason) {
+    try {
+      await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
+
+      UserModel.getUserInfo()
+      await this.getTasksVacant()
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async updateTaskComment(taskId, priority, reason) {
+    try {
+      await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -340,7 +383,12 @@ export class WarehouseVacantViewModel {
 
         // this.tasksMyBase = result.rows
 
-        this.tasksVacant = warehouseTasksDataConverter(result.rows.map(el => ({...el, beforeBoxes: el.boxesBefore})))
+        this.tasksVacant = warehouseTasksDataConverter(
+          result?.rows?.map(el => ({
+            ...el,
+            beforeBoxes: el?.boxesBefore,
+          })),
+        )
       })
 
       this.setRequestStatus(loadingStatuses.success)

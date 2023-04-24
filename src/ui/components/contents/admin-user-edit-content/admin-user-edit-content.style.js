@@ -22,7 +22,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   buttonWrapper: {
-    textAlign: 'right',
+    display: 'flex',
+    gap: 30,
+    justifyContent: 'flex-end',
+    // textAlign: 'right',
     marginTop: 30,
   },
   rightBtn: {
@@ -255,6 +258,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   allowedStrategiesContainer: {
+    width: '470px !important',
     marginTop: '20px',
   },
 
@@ -274,6 +278,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   standartText: {
+    width: '100%',
+    height: 40,
     color: theme.palette.text.general,
   },
 

@@ -12,6 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1IdeasNotificationsCreatedBy from './ApiV1IdeasNotificationsCreatedBy';
+import ApiV1IdeasNotificationsIdea from './ApiV1IdeasNotificationsIdea';
+import ApiV1IdeasNotificationsProduct from './ApiV1IdeasNotificationsProduct';
 
 /**
  * The InlineResponse20044 model module.
@@ -47,8 +50,17 @@ class InlineResponse20044 {
         if (data) {
             obj = obj || new InlineResponse20044();
 
-            if (data.hasOwnProperty('failed')) {
-                obj['failed'] = ApiClient.convertToType(data['failed'], ['String']);
+            if (data.hasOwnProperty('product')) {
+                obj['product'] = ApiV1IdeasNotificationsProduct.constructFromObject(data['product']);
+            }
+            if (data.hasOwnProperty('idea')) {
+                obj['idea'] = ApiV1IdeasNotificationsIdea.constructFromObject(data['idea']);
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1IdeasNotificationsCreatedBy.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
             }
         }
         return obj;
@@ -58,9 +70,24 @@ class InlineResponse20044 {
 }
 
 /**
- * @member {Array.<String>} failed
+ * @member {module:model/ApiV1IdeasNotificationsProduct} product
  */
-InlineResponse20044.prototype['failed'] = undefined;
+InlineResponse20044.prototype['product'] = undefined;
+
+/**
+ * @member {module:model/ApiV1IdeasNotificationsIdea} idea
+ */
+InlineResponse20044.prototype['idea'] = undefined;
+
+/**
+ * @member {module:model/ApiV1IdeasNotificationsCreatedBy} createdBy
+ */
+InlineResponse20044.prototype['createdBy'] = undefined;
+
+/**
+ * @member {String} createdAt
+ */
+InlineResponse20044.prototype['createdAt'] = undefined;
 
 
 

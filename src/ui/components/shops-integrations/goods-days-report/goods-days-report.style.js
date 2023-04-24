@@ -5,6 +5,7 @@ export const styles = theme => ({
   },
   button: {
     marginBottom: 5,
+    color: theme.palette.primary.main,
 
     width: '100%',
     display: 'flex',
@@ -58,5 +59,11 @@ export const styles = theme => ({
   },
   toolbarContainer: {
     height: '52px',
+  },
+
+  btnsWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginBottom: 10,
   },
 })

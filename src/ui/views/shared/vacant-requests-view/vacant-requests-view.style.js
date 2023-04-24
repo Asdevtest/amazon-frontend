@@ -1,4 +1,56 @@
 export const styles = theme => ({
+  dataGridWrapper: {
+    height: 'calc(100vh - 200px)',
+  },
+
+  taskTypeWrapper: {
+    display: 'flex',
+  },
+
+  btnWrapperStyle: {
+    width: 'fit-content',
+  },
+
+  row: {
+    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+  },
+  root: {
+    border: '0 !important',
+    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    // backgroundColor: theme.palette.background.general,
+
+    backgroundColor: theme.palette.background.general,
+  },
+  footerContainer: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    borderTop: 'none !important',
+  },
+  footerCell: {
+    padding: 0,
+    margin: 0,
+  },
+  toolbarContainer: {
+    height: '52px',
+  },
+
+  columnHeaderDraggableContainer: {
+    flexDirection: 'row !important',
+  },
+  columnHeaderTitleContainer: {
+    flexDirection: 'row !important',
+    display: 'flex !important',
+    alignItems: 'center !important',
+  },
+  iconSeparator: {
+    padding: '0 1px',
+  },
+
   card: {
     padding: '16px 20px',
     marginBottom: '42px',
@@ -12,16 +64,9 @@ export const styles = theme => ({
     height: '100%',
   },
 
-  row: {
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
-  },
-
   dashboardCardWrapper: {
     width: '100%',
+    gap: 35,
   },
 
   tablePanelViewWrapper: {
@@ -33,7 +78,7 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
 
-    marginBottom: '20px',
+    // marginBottom: '20px',
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
@@ -87,7 +132,50 @@ export const styles = theme => ({
 
     color: theme.palette.text.second,
   },
+
   viewCartSelected: {
     color: theme.palette.primary.main,
+  },
+
+  button: {
+    padding: '0 15px',
+    height: 40,
+    whiteSpace: 'nowrap',
+    marginBottom: 5,
+    color: theme.palette.primary.main,
+
+    fontSize: 14,
+    fontWeight: 600,
+
+    '&>disabled': {
+      backgroundColor: 'inherit',
+    },
+  },
+  selectedBoxesBtn: {
+    marginBottom: 0,
+    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
+
+    borderBottom: '5px solid #0460DE',
+
+    color: `${theme.palette.primary.main} !important`,
+  },
+
+  tablePanelSubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
+
+  yellowBorder: {
+    background:
+      'linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(234, 169, 1, 0) 17.27%, rgba(227, 164, 3, 0) 84.43%, rgba(224, 162, 3, 0.5) 100%)',
+  },
+  redBorder: {
+    background:
+      'linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
+  },
+
+  buttonsWrapper: {
+    display: 'flex',
   },
 })

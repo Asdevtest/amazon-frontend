@@ -11,6 +11,8 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {MemoDataGrid} from '@components/memo-data-grid'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -29,6 +31,9 @@ class GoodsDaysReportRaw extends Component {
 
   render() {
     const {
+      successModalText,
+      selectedRows,
+      confirmModalSettings,
       currentShop,
       shopsData,
       getCurrentData,
@@ -37,6 +42,8 @@ class GoodsDaysReportRaw extends Component {
       requestStatus,
       densityModel,
       columnsModel,
+      showConfirmModal,
+      showSuccessModal,
 
       curPage,
       rowsPerPage,
@@ -47,6 +54,10 @@ class GoodsDaysReportRaw extends Component {
       onChangeSortingModel,
       onChangeFilterModel,
       onClickShopBtn,
+      changeColumnsModel,
+      onTriggerOpenModal,
+      onSelectionModel,
+      onClickDeleteBtn,
     } = this.viewModel
     const {classes: className} = this.props
 
@@ -80,10 +91,22 @@ class GoodsDaysReportRaw extends Component {
             />
           </div>
 
+          <div className={className.btnsWrapper}>
+            <Button
+              danger
+              disabled={!selectedRows.length || selectedRows.length > 1}
+              variant="contained"
+              onClick={onClickDeleteBtn}
+            >
+              {t(TranslationKey.Remove)}
+            </Button>
+          </div>
+
           <div className={className.dataGridWrapper}>
             <MemoDataGrid
               pagination
               useResizeContainer
+              checkboxSelection
               localeText={getLocalizationByLanguageTag()}
               classes={{
                 row: className.row,
@@ -92,6 +115,7 @@ class GoodsDaysReportRaw extends Component {
                 footerCell: className.footerCell,
                 toolbarContainer: className.toolbarContainer,
               }}
+              selectionModel={selectedRows}
               sortModel={sortModel}
               filterModel={filterModel}
               page={curPage}
@@ -104,9 +128,15 @@ class GoodsDaysReportRaw extends Component {
                 Toolbar: DataGridCustomToolbar,
                 ColumnMenuIcon: FilterAltOutlinedIcon,
               }}
+              componentsProps={{
+                toolbar: {
+                  columsBtnSettings: {columnsModel, changeColumnsModel},
+                },
+              }}
               density={densityModel}
               columns={columnsModel}
               loading={requestStatus === loadingStatuses.isLoading}
+              onSelectionModelChange={onSelectionModel}
               onSortModelChange={onChangeSortingModel}
               onPageSizeChange={onChangeRowsPerPage}
               onPageChange={onChangeCurPage}
@@ -114,6 +144,28 @@ class GoodsDaysReportRaw extends Component {
               onFilterModelChange={model => onChangeFilterModel(model)}
             />
           </div>
+
+          <SuccessInfoModal
+            openModal={showSuccessModal}
+            setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+            title={successModalText}
+            successBtnText={t(TranslationKey.Ok)}
+            onClickSuccessBtn={() => {
+              onTriggerOpenModal('showSuccessModal')
+            }}
+          />
+
+          <ConfirmationModal
+            isWarning={confirmModalSettings.isWarning}
+            openModal={showConfirmModal}
+            setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+            title={confirmModalSettings.title}
+            message={confirmModalSettings.message}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={confirmModalSettings.onSubmit}
+            onClickCancelBtn={confirmModalSettings.onCancel}
+          />
         </div>
       </React.Fragment>
     )

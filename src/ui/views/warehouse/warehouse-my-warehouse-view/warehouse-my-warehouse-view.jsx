@@ -13,6 +13,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {DataGridCustomColumnMenuComponent} from '@components/data-grid-custom-components/data-grid-custom-column-component'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
 import {AddOrEditHsCodeInBox} from '@components/forms/add-or-edit-hs-code-in-box-form'
@@ -95,6 +96,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       selectedBoxes,
       showEditHSCodeModal,
       hsCodeData,
+      columnMenuSettings,
       onClickConfirmMerge,
       onRemoveBoxFromSelected,
       onModalRedistributeBoxAddNewBox,
@@ -119,16 +121,20 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       onSubmitAddOrEditHsCode,
       onSubmitEditBox,
       onSearchSubmit,
-
       onClickSubmitEditBox,
       onSubmitChangeBoxFields,
       onClickSubmitEditMultipleBoxes,
+      onClickResetFilters,
+      isSomeFilterOn,
       setDestinationsFavouritesItem,
+      changeColumnsModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
 
     const getRowClassName = params => params.row.isDraft && classNames.isDraftRow
+
+    const disableSelectionCells = ['prepId']
 
     return (
       <React.Fragment>
@@ -182,7 +188,20 @@ export class WarehouseMyWarehouseViewRaw extends Component {
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
+                    ColumnMenu: DataGridCustomColumnMenuComponent,
                   }}
+                  componentsProps={{
+                    columnMenu: columnMenuSettings,
+                    toolbar: {
+                      resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
+                  }}
+                  // componentsProps={{
+                  //   toolbar: {
+                  //     columsBtnSettings: {columnsModel, changeColumnsModel},
+                  //   },
+                  // }}
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
@@ -192,7 +211,11 @@ export class WarehouseMyWarehouseViewRaw extends Component {
                   onPageChange={onChangeCurPage}
                   onFilterModelChange={onChangeFilterModel}
                   onStateChange={setDataGridState}
-                  onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+                  // onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+
+                  onCellDoubleClick={params =>
+                    !disableSelectionCells.includes(params.field) && setCurrentOpenedBox(params.row.originalData)
+                  }
                 />
               </div>
             </MainContent>

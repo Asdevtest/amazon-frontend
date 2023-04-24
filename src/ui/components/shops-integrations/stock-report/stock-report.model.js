@@ -3,6 +3,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {creatSupplier} from '@constants/white-list'
 
 import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
@@ -36,7 +37,6 @@ export class StockReportModel {
   drawerOpen = false
 
   successModalText = ''
-  confirmMessage = ''
   clientComment = ''
   priceForSeekSupplier = 0
   yuanToDollarRate = undefined
@@ -76,6 +76,14 @@ export class StockReportModel {
   densityModel = 'compact'
   columnsModel = clientDailySellerBoardColumns(this.selectedRow, this.rowHandlers)
 
+  confirmModalSettings = {
+    isWarning: false,
+    title: '',
+    message: '',
+    onSubmit: () => {},
+    onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+  }
+
   constructor({history, curShop}) {
     this.history = history
 
@@ -86,6 +94,15 @@ export class StockReportModel {
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
     )
+  }
+
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = this.columnsModel.map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
   }
 
   async updateColumnsModel() {
@@ -335,15 +352,56 @@ export class StockReportModel {
 
       this.priceForSeekSupplier = result.priceForClient
 
-      this.confirmMessage = `Стоимость услуги поиска поставщика составит $${toFixed(
-        result.priceForClient,
-        2,
-      )}.\n Подать заявку?`
+      // this.confirmMessage = `Стоимость услуги поиска поставщика составит $${toFixed(
+      //   result.priceForClient,
+      //   2,
+      // )}.\n Подать заявку?`
+
+      this.confirmModalSettings = {
+        isWarning: false,
+        title: t(TranslationKey.Attention),
+        message: `Стоимость услуги поиска поставщика составит $${toFixed(result.priceForClient, 2)}.\n Подать заявку?`,
+        onSubmit: () => {
+          this.onSubmitSeekSupplier()
+        },
+
+        onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+      }
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
     }
+  }
+
+  async onSubmitDeleteRow() {
+    try {
+      await SellerBoardModel.deleteStockGoodsById(this.selectedRows[0])
+
+      this.loadData()
+
+      this.onTriggerOpenModal('showConfirmModal')
+
+      this.successModalText = t(TranslationKey['Row deleted'])
+      this.onTriggerOpenModal('showSuccessModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onClickDeleteBtn() {
+    this.confirmModalSettings = {
+      isWarning: true,
+      title: t(TranslationKey['Delete row from report']),
+      message: t(TranslationKey['After confirmation, the row will be deleted. Confirm?']),
+      onSubmit: () => {
+        this.onSubmitDeleteRow()
+      },
+
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   async onSubmitSeekSupplier() {
@@ -376,12 +434,14 @@ export class StockReportModel {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
 
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
         images: supplier.images.concat(this.readyImages),
       }
 
-      const createSupplierResult = await SupplierModel.createSupplier(supplier)
+      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+      const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
       await ProductModel.addSuppliersToProduct(this.selectedRowId, [createSupplierResult.guid])
 
       if (makeMainSupplier) {

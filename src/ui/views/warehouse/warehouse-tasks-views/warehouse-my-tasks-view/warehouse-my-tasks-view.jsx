@@ -14,7 +14,11 @@ import {
   TaskOperationType,
   taskOperationTypeTranslate,
 } from '@constants/task-operation-type'
-import {mapTaskPriorityStatusEnum, taskPriorityStatusTranslate} from '@constants/task-priority-status'
+import {
+  mapTaskPriorityStatusEnum,
+  TaskPriorityStatus,
+  taskPriorityStatusTranslate,
+} from '@constants/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -29,6 +33,7 @@ import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comm
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
+import {EditTaskPriorityModal} from '@components/screens/warehouse/edit-task-priority-modal'
 import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -74,6 +79,9 @@ export class WarehouseMyTasksViewRaw extends Component {
       showNoDimensionsErrorModal,
       showCancelTaskModal,
       showConfirmModal,
+      showEditPriorityData,
+      editPriorityData,
+      updateTaskPriority,
       onChangeTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -94,6 +102,7 @@ export class WarehouseMyTasksViewRaw extends Component {
       onClickOperationTypeBtn,
       onClickReportBtn,
       onClickTaskPriorityBtn,
+      changeColumnsModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -136,6 +145,10 @@ export class WarehouseMyTasksViewRaw extends Component {
                         onClick={() => onClickTaskPriorityBtn(type)}
                       >
                         {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[type])}
+
+                        {TaskPriorityStatus.URGENT === mapTaskPriorityStatusEnum[type] && (
+                          <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" alt="Fire" />
+                        )}
                       </Button>
                     ))}
                 </div>
@@ -214,10 +227,15 @@ export class WarehouseMyTasksViewRaw extends Component {
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
-                  getRowHeight={() => 'auto'}
+                  getRowHeight={() => '147px'}
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   density={densityModel}
                   columns={columnsModel}
@@ -234,6 +252,15 @@ export class WarehouseMyTasksViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
+
+        <Modal openModal={showEditPriorityData} setOpenModal={() => onTriggerOpenModal('showEditPriorityData')}>
+          <EditTaskPriorityModal
+            data={editPriorityData}
+            handleClose={() => onTriggerOpenModal('showEditPriorityData')}
+            onSubmitHandler={updateTaskPriority}
+          />
+        </Modal>
+
         <Modal missClickModalOn openModal={showEditTaskModal} setOpenModal={onTriggerEditTaskModal}>
           <EditTaskModal
             requestStatus={requestStatus}

@@ -55,6 +55,7 @@ export const WarehouseTariffs = observer(() => {
     onChangeFilterModel,
     onSubmitCreateTariff,
     onSubmitEditTariff,
+    changeColumnsModel,
   } = spModel.current
 
   return (
@@ -86,6 +87,11 @@ export const WarehouseTariffs = observer(() => {
         components={{
           Toolbar: DataGridCustomToolbar,
           ColumnMenuIcon: FilterAltOutlinedIcon,
+        }}
+        componentsProps={{
+          toolbar: {
+            columsBtnSettings: {columnsModel, changeColumnsModel},
+          },
         }}
         density={densityModel}
         columns={columnsModel}

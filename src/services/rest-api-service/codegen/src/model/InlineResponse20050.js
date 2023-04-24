@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1ProductsKeepaOffers from './ApiV1ProductsKeepaOffers';
-import ApiV1ProductsKeepaStats from './ApiV1ProductsKeepaStats';
 
 /**
  * The InlineResponse20050 model module.
@@ -49,71 +47,11 @@ class InlineResponse20050 {
         if (data) {
             obj = obj || new InlineResponse20050();
 
-            if (data.hasOwnProperty('isRecommended')) {
-                obj['isRecommended'] = ApiClient.convertToType(data['isRecommended'], 'Boolean');
+            if (data.hasOwnProperty('userId')) {
+                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
             }
-            if (data.hasOwnProperty('trackingSince')) {
-                obj['trackingSince'] = ApiClient.convertToType(data['trackingSince'], 'Number');
-            }
-            if (data.hasOwnProperty('lastRatingUpdate')) {
-                obj['lastRatingUpdate'] = ApiClient.convertToType(data['lastRatingUpdate'], 'Number');
-            }
-            if (data.hasOwnProperty('rootCategory')) {
-                obj['rootCategory'] = ApiClient.convertToType(data['rootCategory'], 'Number');
-            }
-            if (data.hasOwnProperty('categories')) {
-                obj['categories'] = ApiClient.convertToType(data['categories'], ['Number']);
-            }
-            if (data.hasOwnProperty('parentAsin')) {
-                obj['parentAsin'] = ApiClient.convertToType(data['parentAsin'], 'String');
-            }
-            if (data.hasOwnProperty('variationCSV')) {
-                obj['variationCSV'] = ApiClient.convertToType(data['variationCSV'], 'String');
-            }
-            if (data.hasOwnProperty('frequentlyBoughtTogether')) {
-                obj['frequentlyBoughtTogether'] = ApiClient.convertToType(data['frequentlyBoughtTogether'], ['String']);
-            }
-            if (data.hasOwnProperty('manufacturer')) {
-                obj['manufacturer'] = ApiClient.convertToType(data['manufacturer'], 'String');
-            }
-            if (data.hasOwnProperty('brand')) {
-                obj['brand'] = ApiClient.convertToType(data['brand'], 'String');
-            }
-            if (data.hasOwnProperty('productGroup')) {
-                obj['productGroup'] = ApiClient.convertToType(data['productGroup'], 'String');
-            }
-            if (data.hasOwnProperty('publicationDate')) {
-                obj['publicationDate'] = ApiClient.convertToType(data['publicationDate'], 'Number');
-            }
-            if (data.hasOwnProperty('releaseDate')) {
-                obj['releaseDate'] = ApiClient.convertToType(data['releaseDate'], 'Number');
-            }
-            if (data.hasOwnProperty('contributors')) {
-                obj['contributors'] = ApiClient.convertToType(data['contributors'], [['Number']]);
-            }
-            if (data.hasOwnProperty('size')) {
-                obj['size'] = ApiClient.convertToType(data['size'], 'String');
-            }
-            if (data.hasOwnProperty('salesRanks')) {
-                obj['salesRanks'] = ApiClient.convertToType(data['salesRanks'], Object);
-            }
-            if (data.hasOwnProperty('offers')) {
-                obj['offers'] = ApiClient.convertToType(data['offers'], [ApiV1ProductsKeepaOffers]);
-            }
-            if (data.hasOwnProperty('liveOffersOrder')) {
-                obj['liveOffersOrder'] = ApiClient.convertToType(data['liveOffersOrder'], ['Number']);
-            }
-            if (data.hasOwnProperty('buyBoxSellerIdHistory')) {
-                obj['buyBoxSellerIdHistory'] = ApiClient.convertToType(data['buyBoxSellerIdHistory'], ['String']);
-            }
-            if (data.hasOwnProperty('availabilityAmazon')) {
-                obj['availabilityAmazon'] = ApiClient.convertToType(data['availabilityAmazon'], 'Number');
-            }
-            if (data.hasOwnProperty('newPriceIsMAP')) {
-                obj['newPriceIsMAP'] = ApiClient.convertToType(data['newPriceIsMAP'], 'Boolean');
-            }
-            if (data.hasOwnProperty('stats')) {
-                obj['stats'] = ApiV1ProductsKeepaStats.constructFromObject(data['stats']);
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
         }
         return obj;
@@ -123,114 +61,14 @@ class InlineResponse20050 {
 }
 
 /**
- * @member {Boolean} isRecommended
+ * @member {String} userId
  */
-InlineResponse20050.prototype['isRecommended'] = undefined;
+InlineResponse20050.prototype['userId'] = undefined;
 
 /**
- * @member {Number} trackingSince
+ * @member {String} productId
  */
-InlineResponse20050.prototype['trackingSince'] = undefined;
-
-/**
- * @member {Number} lastRatingUpdate
- */
-InlineResponse20050.prototype['lastRatingUpdate'] = undefined;
-
-/**
- * @member {Number} rootCategory
- */
-InlineResponse20050.prototype['rootCategory'] = undefined;
-
-/**
- * @member {Array.<Number>} categories
- */
-InlineResponse20050.prototype['categories'] = undefined;
-
-/**
- * @member {String} parentAsin
- */
-InlineResponse20050.prototype['parentAsin'] = undefined;
-
-/**
- * @member {String} variationCSV
- */
-InlineResponse20050.prototype['variationCSV'] = undefined;
-
-/**
- * @member {Array.<String>} frequentlyBoughtTogether
- */
-InlineResponse20050.prototype['frequentlyBoughtTogether'] = undefined;
-
-/**
- * @member {String} manufacturer
- */
-InlineResponse20050.prototype['manufacturer'] = undefined;
-
-/**
- * @member {String} brand
- */
-InlineResponse20050.prototype['brand'] = undefined;
-
-/**
- * @member {String} productGroup
- */
-InlineResponse20050.prototype['productGroup'] = undefined;
-
-/**
- * @member {Number} publicationDate
- */
-InlineResponse20050.prototype['publicationDate'] = undefined;
-
-/**
- * @member {Number} releaseDate
- */
-InlineResponse20050.prototype['releaseDate'] = undefined;
-
-/**
- * @member {Array.<Array.<Number>>} contributors
- */
-InlineResponse20050.prototype['contributors'] = undefined;
-
-/**
- * @member {String} size
- */
-InlineResponse20050.prototype['size'] = undefined;
-
-/**
- * @member {Object} salesRanks
- */
-InlineResponse20050.prototype['salesRanks'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1ProductsKeepaOffers>} offers
- */
-InlineResponse20050.prototype['offers'] = undefined;
-
-/**
- * @member {Array.<Number>} liveOffersOrder
- */
-InlineResponse20050.prototype['liveOffersOrder'] = undefined;
-
-/**
- * @member {Array.<String>} buyBoxSellerIdHistory
- */
-InlineResponse20050.prototype['buyBoxSellerIdHistory'] = undefined;
-
-/**
- * @member {Number} availabilityAmazon
- */
-InlineResponse20050.prototype['availabilityAmazon'] = undefined;
-
-/**
- * @member {Boolean} newPriceIsMAP
- */
-InlineResponse20050.prototype['newPriceIsMAP'] = undefined;
-
-/**
- * @member {module:model/ApiV1ProductsKeepaStats} stats
- */
-InlineResponse20050.prototype['stats'] = undefined;
+InlineResponse20050.prototype['productId'] = undefined;
 
 
 

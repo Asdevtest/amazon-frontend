@@ -82,6 +82,7 @@ export class ClientInventoryViewRaw extends Component {
       densityModel,
       columnsModel,
       successModalText,
+      paymentMethods,
 
       confirmModalSettings,
       storekeepers,
@@ -190,8 +191,6 @@ export class ClientInventoryViewRaw extends Component {
     const getCellClassName = params => clickableCells.includes(params.field) && classNames.clickableCell
 
     const getRowClassName = params => !!params.row.originalData.ideaCount && classNames.ideaRow
-
-    // console.log('columnsModel', columnsModel)
 
     return (
       <React.Fragment>
@@ -380,10 +379,9 @@ export class ClientInventoryViewRaw extends Component {
 
                     columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
                     columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-                    columnHeader: classNames.columnHeader,
+                    iconSeparator: classNames.iconSeparator,
                     menuIconButton: classNames.menuIconButton,
                     iconButtonContainer: classNames.iconButtonContainer,
-                    iconSeparator: classNames.iconSeparator,
                   }}
                   sx={{
                     '.MuiDataGrid-sortIcon': {
@@ -544,6 +542,7 @@ export class ClientInventoryViewRaw extends Component {
         >
           <AddOrEditSupplierModalContent
             outsideProduct
+            paymentMethods={paymentMethods}
             sourceYuanToDollarRate={yuanToDollarRate}
             volumeWeightCoefficient={volumeWeightCoefficient}
             title={t(TranslationKey['Add a new supplier'])}

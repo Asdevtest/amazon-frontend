@@ -300,4 +300,24 @@ export const useClassNames = makeStyles()(theme => ({
   courseInput: {
     width: 95,
   },
+
+  paymentMethodsLabel: {
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19pх',
+
+    color: theme.palette.text.general,
+    margin: '0 !important',
+  },
+
+  paymentMethodsContainer: {
+    display: 'flex',
+    gap: 30,
+  },
+
+  paymentMethodsField: {
+    width: 240,
+    height: 40,
+    borderRadius: 4,
+  },
 }))

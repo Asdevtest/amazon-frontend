@@ -4,6 +4,8 @@ import {Checkbox, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
 
+import dayjs from 'dayjs'
+
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
@@ -56,6 +58,8 @@ export const DeliveryParameters = ({
     ?.find(el => el._id === formFields.storekeeperId)
     ?.tariffLogistics.find(el => el._id === formFields.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
 
+  const minDate = dayjs().add(2, 'day')
+
   return (
     <div className={classNames.root}>
       {order.status < 20 && (
@@ -69,6 +73,7 @@ export const DeliveryParameters = ({
               <NewDatePicker
                 disablePast
                 disabled={!isCanChange}
+                minDate={minDate}
                 value={formFields.deadline}
                 onChange={onChangeField('deadline')}
               />

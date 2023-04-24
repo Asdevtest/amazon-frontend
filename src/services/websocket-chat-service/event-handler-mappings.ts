@@ -11,6 +11,8 @@ export enum ChatEventListenName {
 
   NOTICE_USER_NEW_ORDER_DEADLINE_NOTICE = 'Notify:User:order-deadline',
   NOTICE_USER_IDEA = 'Notify:User:idea',
+  NOTICE_USER_ORDERS_UPDATES = 'Notify:User:order',
+  NOTICE_USER_BOXES_UPDATES = 'Notify:User:box',
 }
 
 export enum ChatHandlerName {
@@ -20,9 +22,11 @@ export enum ChatHandlerName {
   onNewMessage = 'onNewMessage',
   onNewOrderDeadlineNotification = 'onNewOrderDeadlineNotification',
   onUserIdea = 'onUserIdea',
+  onUserOrdersUpdates = 'onUserOrdersUpdates',
   onNewChat = 'onNewChat',
   onReadMessage = 'onReadMessage',
   onTypingMessage = 'onTypingMessage',
+  onUserBoxesUpdate = 'onUserBoxesUpdate',
 }
 
 export const eventToHandlerMapping: Record<ChatEventListenName, ChatHandlerName> = {
@@ -33,6 +37,8 @@ export const eventToHandlerMapping: Record<ChatEventListenName, ChatHandlerName>
 
   [ChatEventListenName.NOTICE_USER_NEW_ORDER_DEADLINE_NOTICE]: ChatHandlerName.onNewOrderDeadlineNotification,
   [ChatEventListenName.NOTICE_USER_IDEA]: ChatHandlerName.onUserIdea,
+  [ChatEventListenName.NOTICE_USER_ORDERS_UPDATES]: ChatHandlerName.onUserOrdersUpdates,
+  [ChatEventListenName.NOTICE_USER_BOXES_UPDATES]: ChatHandlerName.onUserBoxesUpdate,
 
   [ChatEventListenName.CHAT_APP_NEW_CHAT]: ChatHandlerName.onNewChat,
   [ChatEventListenName.CHAT_APP_MESSAGE_READ]: ChatHandlerName.onReadMessage,

@@ -1,6 +1,18 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Checkbox, Container, Divider, Grid, Link, Typography} from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
+import {
+  Checkbox,
+  Container,
+  Divider,
+  Grid,
+  Input,
+  InputAdornment,
+  Link,
+  MenuItem,
+  Select,
+  Typography,
+} from '@mui/material'
 
 import {React, useState} from 'react'
 
@@ -14,6 +26,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {CustomSelectPaymentDetails} from '@components/custom-select-payment-details'
 import {Field} from '@components/field'
 import {SupplierApproximateCalculationsForm} from '@components/forms/supplier-approximate-calculations-form'
 import {Modal} from '@components/modal'
@@ -30,6 +43,7 @@ import {useClassNames} from './add-or-edit-supplier-modal-content.style'
 
 export const AddOrEditSupplierModalContent = observer(
   ({
+    paymentMethods,
     product,
     storekeepersData,
     onlyRead,
@@ -89,15 +103,15 @@ export const AddOrEditSupplierModalContent = observer(
       multiplicity: supplier?.multiplicity || false,
 
       productionTerm: supplier?.productionTerm || '',
-      paymentMethod: supplier?.paymentMethod || [],
+      paymentMethods: supplier?.paymentMethods || [],
 
       yuanRate: supplier?.yuanRate || sourceYuanToDollarRate,
 
       priceInYuan: supplier?.priceInYuan || '',
       // batchDeliveryCostInDollar: supplier?.batchDeliveryCostInDollar || 0,
       batchDeliveryCostInDollar:
-        supplier?.batchDeliveryCostInYuan / (supplier?.yuanRate || sourceYuanToDollarRate) || '',
-      batchDeliveryCostInYuan: supplier?.batchDeliveryCostInYuan || '',
+        supplier?.batchDeliveryCostInYuan / (supplier?.yuanRate || sourceYuanToDollarRate) || 0,
+      batchDeliveryCostInYuan: supplier?.batchDeliveryCostInYuan || 0,
       batchTotalCostInDollar: supplier?.batchTotalCostInDollar || '',
       batchTotalCostInYuan: supplier?.batchTotalCostInYuan || '',
 
@@ -109,6 +123,8 @@ export const AddOrEditSupplierModalContent = observer(
         boxWeighGrossKg: supplier?.boxProperties?.boxWeighGrossKg || '',
       },
     })
+
+    console.log('tmpSupplier', tmpSupplier)
 
     const calculateFieldsToSubmit = () => {
       let res = {
@@ -159,6 +175,11 @@ export const AddOrEditSupplierModalContent = observer(
     const [makeMainSupplier, setMakeMainSupplier] = useState(false)
 
     const [photosOfSupplier, setPhotosOfSupplier] = useState([])
+    const [editPhotosOfSupplier, setEditPhotosOfSupplier] = useState(supplier?.images || [])
+
+    const onChangeDetailsPhotosToLoad = value => {
+      setEditPhotosOfSupplier(value)
+    }
 
     const [showPhotosModal, setShowPhotosModal] = useState(false)
 
@@ -182,6 +203,7 @@ export const AddOrEditSupplierModalContent = observer(
                     photosOfSupplier,
                     addMore: false,
                     makeMainSupplier,
+                    editPhotosOfSupplier,
                   })
                 }}
               >
@@ -198,6 +220,7 @@ export const AddOrEditSupplierModalContent = observer(
                     photosOfSupplier,
                     addMore: false,
                     makeMainSupplier,
+                    editPhotosOfSupplier,
                   })
                   // setTmpSupplier({
                   //   amount: '',
@@ -209,7 +232,7 @@ export const AddOrEditSupplierModalContent = observer(
                   //   price: '',
                   //   images: [],
 
-                  //   paymentMethod: [],
+                  //   paymentMethods: [],
 
                   //   priceInYuan: '',
                   //   batchDeliveryCostInDollar: 0,
@@ -257,6 +280,7 @@ export const AddOrEditSupplierModalContent = observer(
                 onClickSaveBtn({
                   supplier: {...calculateFieldsToSubmit(), _id: supplier && supplier._id},
                   photosOfSupplier,
+                  editPhotosOfSupplier,
                 })
 
                 setPhotosOfSupplier(() => [])
@@ -278,14 +302,27 @@ export const AddOrEditSupplierModalContent = observer(
       }
     }
 
-    const onChangePaymentMethod = method => {
-      if (tmpSupplier.paymentMethod.includes(paymentsMethodByKey[method])) {
+    const onChangePaymentMethod = (event, setAll) => {
+      // console.lo
+      const isHaveUndefined = event.some(item => typeof item === 'undefined')
+
+      if (event.length && !isHaveUndefined && setAll) {
+        if (tmpSupplier.paymentMethods.length === paymentMethods.length) {
+          setTmpSupplier({
+            ...tmpSupplier,
+            paymentMethods: [],
+          })
+        } else {
+          setTmpSupplier({
+            ...tmpSupplier,
+            paymentMethods: event,
+          })
+        }
+      } else if (!isHaveUndefined) {
         setTmpSupplier({
           ...tmpSupplier,
-          paymentMethod: tmpSupplier.paymentMethod.filter(el => el !== paymentsMethodByKey[method]),
+          paymentMethods: event,
         })
-      } else {
-        setTmpSupplier({...tmpSupplier, paymentMethod: tmpSupplier.paymentMethod.concat(paymentsMethodByKey[method])})
       }
     }
 
@@ -694,48 +731,85 @@ export const AddOrEditSupplierModalContent = observer(
           </div>
 
           <div className={classNames.paymentsBlock}>
-            <Typography className={classNames.modalTitle}>{t(TranslationKey['Payment methods']) + ':'}</Typography>
+            <CustomSelectPaymentDetails
+              tmpSupplier={tmpSupplier}
+              paymentMethods={paymentMethods}
+              onlyRead={onlyRead}
+              onChangePaymentMethod={onChangePaymentMethod}
+            />
+            {/* <Field
+              label={t(TranslationKey['Payment methods']) + ':'}
+              labelClasses={classNames.paymentMethodsLabel}
+              // tooltipInfoContent={t(TranslationKey['Current request type'])}
+              containerClasses={classNames.paymentMethodsContainer}
+              inputComponent={
+                <Select
+                  displayEmpty
+                  value={tmpSupplier?.paymentMethods}
+                  renderValue={
+                    selected =>
+                      // selected.length ? (
+                      selected?.map(method => method?.title).join(', ')
+                    // ) : (
+                    //   <div className={classNames.paymentMethodsPlaccholder}>
+                    //     <Typography className={classNames.standartText}>{t(TranslationKey.Add)}</Typography>
+                    //     <AddIcon className={classNames.addIcon} />
+                    //   </div>
+                    // )
+                    //   {
+                    //   if (!selected.length) {
+                    //     return
+                    //   } else {
+                    //     return selected?.map(method => method?.title).join(', ')
+                    //   }
+                    // }
+                  }
+                  className={classNames.paymentMethodsField}
+                  input={<Input startAdornment={<InputAdornment position="start" />} />}
+                  onChange={event => {
+                    if (!onlyRead) {
+                      onChangePaymentMethod(event)
+                    }
+                  }}
+                >
+                  {!onlyRead && (
+                    <MenuItem value={paymentMethods}>
+                      <Checkbox
+                        color="primary"
+                        checked={tmpSupplier?.paymentMethods?.length === paymentMethods?.length}
+                      />
+                      <Typography className={classNames.standartText}>{t(TranslationKey.All)}</Typography>
+                    </MenuItem>
+                  )}
 
-            <div className={classNames.paymentsWrapper}>
-              <div
-                className={cx(classNames.checkboxWrapper, {[classNames.disabledCheckboxWrapper]: onlyRead})}
-                onClick={() => !onlyRead && onChangePaymentMethod(paymentsMethod.ALIPAY)}
-              >
-                <Checkbox
-                  disabled={onlyRead}
-                  className={classNames.checkbox}
-                  checked={tmpSupplier.paymentMethod?.includes(paymentsMethodByKey[paymentsMethod.ALIPAY])}
-                  color="primary"
-                />
-                <Typography className={classNames.normalLabel}>{'Alipay'}</Typography>
-              </div>
+                  {!onlyRead &&
+                    paymentMethods?.map((paymentMethod, paymentMethodIndex) => (
+                      <MenuItem key={paymentMethodIndex} value={paymentMethod}>
+                        <Checkbox
+                          color="primary"
+                          checked={
+                            tmpSupplier?.paymentMethods?.length !== paymentMethods?.length &&
+                            tmpSupplier?.paymentMethods?.some(item => item._id === paymentMethod?._id)
+                          }
+                        />
+                        <Typography className={classNames.standartText}>{paymentMethod?.title}</Typography>
+                      </MenuItem>
+                    ))}
 
-              <div
-                className={cx(classNames.checkboxWrapper, {[classNames.disabledCheckboxWrapper]: onlyRead})}
-                onClick={() => !onlyRead && onChangePaymentMethod(paymentsMethod.PAYONEER)}
-              >
-                <Checkbox
-                  disabled={onlyRead}
-                  className={classNames.checkbox}
-                  checked={tmpSupplier.paymentMethod?.includes(paymentsMethodByKey[paymentsMethod.PAYONEER])}
-                  color="primary"
-                />
-                <Typography className={classNames.normalLabel}>{'Payoneer'}</Typography>
-              </div>
-
-              <div
-                className={cx(classNames.checkboxWrapper, {[classNames.disabledCheckboxWrapper]: onlyRead})}
-                onClick={() => !onlyRead && onChangePaymentMethod(paymentsMethod.BANK_TRANSACTION)}
-              >
-                <Checkbox
-                  disabled={onlyRead}
-                  className={classNames.checkbox}
-                  checked={tmpSupplier.paymentMethod?.includes(paymentsMethodByKey[paymentsMethod.BANK_TRANSACTION])}
-                  color="primary"
-                />
-                <Typography className={classNames.normalLabel}>{t(TranslationKey['Bank transaction'])}</Typography>
-              </div>
-            </div>
+                  {onlyRead &&
+                    tmpSupplier?.paymentMethods.map((paymentMethod, paymentMethodIndex) => (
+                      <MenuItem key={paymentMethodIndex} value={paymentMethod}>
+                        <Checkbox
+                          disabled
+                          color="primary"
+                          checked={tmpSupplier.paymentMethods.some(item => item._id === paymentMethod._id)}
+                        />
+                        <Typography className={classNames.standartText}>{paymentMethod.title}</Typography>
+                      </MenuItem>
+                    ))}
+                </Select>
+              }
+            /> */}
           </div>
 
           <div>
@@ -933,7 +1007,14 @@ export const AddOrEditSupplierModalContent = observer(
               </div>
             ) : null}
             <div className={classNames.photoAndFilesWrapper}>
-              <PhotoAndFilesCarousel small files={tmpSupplier.images} width="300px" />
+              <PhotoAndFilesCarousel
+                small
+                isEditable={!onlyRead}
+                files={tmpSupplier.images}
+                width="300px"
+                imagesForLoad={editPhotosOfSupplier}
+                onChangeImagesForLoad={onChangeDetailsPhotosToLoad}
+              />
             </div>
           </div>
         </div>

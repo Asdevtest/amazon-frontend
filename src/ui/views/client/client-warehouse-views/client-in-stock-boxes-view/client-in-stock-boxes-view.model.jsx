@@ -72,6 +72,7 @@ const filtersFields = [
   'amount',
   'prepId',
   'status',
+  'storekeeper',
 ]
 
 export class ClientInStockBoxesViewModel {
@@ -453,7 +454,9 @@ export class ClientInStockBoxesViewModel {
         referenceId: data.referenceId,
         fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
-        trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
+        // trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
+        trackNumberFile: [...data.trackNumberFile, ...this.uploadedFiles],
+
         prepId: data.prepId,
       })
 
@@ -1680,18 +1683,22 @@ export class ClientInStockBoxesViewModel {
 
       const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
 
-      const data = await GeneralModel.getDataForColumn(
-        getTableByColumn(column, 'boxes'),
-        column,
+      const data =
+        // column === 'storekeeperId'
+        //   ? this.storekeepersData
+        //   :
+        await GeneralModel.getDataForColumn(
+          getTableByColumn(column, 'boxes'),
+          column,
 
-        // `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter(column)}${
-        //   shopFilter ? ';&' + 'shopIds=' + shopFilter : ''
-        // }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
+          // `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter(column)}${
+          //   shopFilter ? ';&' + 'shopIds=' + shopFilter : ''
+          // }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
 
-        `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter(column)}${
-          shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
-        }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
-      )
+          `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter(column)}${
+            shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
+          }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
+        )
 
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
@@ -1749,10 +1756,8 @@ export class ClientInStockBoxesViewModel {
     const amountFilter = exclusion !== 'amount' && this.columnMenuSettings.amount.currentFilterData.join(',')
     const prepIdFilter = exclusion !== 'prepId' && this.columnMenuSettings.prepId.currentFilterData.join(',')
 
-    // const statusFilter =
-    //   exclusion !== 'status' &&
-    //   this.columnMenuSettings.status.currentFilterData.length &&
-    //   this.columnMenuSettings.status.currentFilterData.join(',')
+    const storekeeperIdFilter =
+      exclusion !== 'storekeeper' && this.columnMenuSettings.storekeeper.currentFilterData.map(el => el._id).join(',')
 
     const filter = objectToUrlQs({
       or: [
@@ -1815,10 +1820,15 @@ export class ClientInStockBoxesViewModel {
         prepId: {$eq: prepIdFilter},
       }),
 
-      // ...(statusFilter && {
-      //   status: {$eq: statusFilter},
-      // }),
+      ...(storekeeperIdFilter && {
+        storekeeperId: {$eq: storekeeperIdFilter},
+      }),
     })
+
+    // ...(statusFilter && {
+    //   status: {$eq: statusFilter},
+    // }),
+    // })
 
     return filter
   }
@@ -1835,6 +1845,8 @@ export class ClientInStockBoxesViewModel {
         filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
 
         storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
+
+        // storekeeperId: 'add51a2a-3f0b-4796-9497-73eaa992de24,402b6b17-280f-4a3a-a04c-543b17a10c28',
 
         destinationId: this.curDestination && this.curDestination._id,
 

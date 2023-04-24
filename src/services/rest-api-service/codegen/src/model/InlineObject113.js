@@ -47,17 +47,26 @@ class InlineObject113 {
         if (data) {
             obj = obj || new InlineObject113();
 
-            if (data.hasOwnProperty('result')) {
-                obj['result'] = ApiClient.convertToType(data['result'], 'String');
+            if (data.hasOwnProperty('listingName')) {
+                obj['listingName'] = ApiClient.convertToType(data['listingName'], 'String');
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('listingBulletPoints')) {
+                obj['listingBulletPoints'] = ApiClient.convertToType(data['listingBulletPoints'], ['String']);
             }
-            if (data.hasOwnProperty('amazonOrderId')) {
-                obj['amazonOrderId'] = ApiClient.convertToType(data['amazonOrderId'], 'String');
+            if (data.hasOwnProperty('listingProductDetails')) {
+                obj['listingProductDetails'] = ApiClient.convertToType(data['listingProductDetails'], 'String');
             }
-            if (data.hasOwnProperty('publicationLinks')) {
-                obj['publicationLinks'] = ApiClient.convertToType(data['publicationLinks'], ['String']);
+            if (data.hasOwnProperty('listingSearchTerms')) {
+                obj['listingSearchTerms'] = ApiClient.convertToType(data['listingSearchTerms'], 'String');
+            }
+            if (data.hasOwnProperty('listingSubjectMatters')) {
+                obj['listingSubjectMatters'] = ApiClient.convertToType(data['listingSubjectMatters'], ['String']);
+            }
+            if (data.hasOwnProperty('listingImages')) {
+                obj['listingImages'] = ApiClient.convertToType(data['listingImages'], ['String']);
+            }
+            if (data.hasOwnProperty('strategyStatus')) {
+                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
             }
         }
         return obj;
@@ -67,27 +76,46 @@ class InlineObject113 {
 }
 
 /**
- * Результат работы исполнителя.
- * @member {String} result
+ * 
+ * @member {String} listingName
  */
-InlineObject113.prototype['result'] = undefined;
+InlineObject113.prototype['listingName'] = undefined;
 
 /**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
+ * Массив ...
+ * @member {Array.<String>} listingBulletPoints
  */
-InlineObject113.prototype['linksToMediaFiles'] = undefined;
+InlineObject113.prototype['listingBulletPoints'] = undefined;
 
 /**
- * ключ с Амазона
- * @member {String} amazonOrderId
+ * 
+ * @member {String} listingProductDetails
  */
-InlineObject113.prototype['amazonOrderId'] = undefined;
+InlineObject113.prototype['listingProductDetails'] = undefined;
 
 /**
- * @member {Array.<String>} publicationLinks
+ * 
+ * @member {String} listingSearchTerms
  */
-InlineObject113.prototype['publicationLinks'] = undefined;
+InlineObject113.prototype['listingSearchTerms'] = undefined;
+
+/**
+ * Массив ...
+ * @member {Array.<String>} listingSubjectMatters
+ */
+InlineObject113.prototype['listingSubjectMatters'] = undefined;
+
+/**
+ * массив картинок(в виде прямых ссылок).
+ * @member {Array.<String>} listingImages
+ */
+InlineObject113.prototype['listingImages'] = undefined;
+
+/**
+ * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+ * @member {Number} strategyStatus
+ */
+InlineObject113.prototype['strategyStatus'] = undefined;
 
 
 

@@ -81,6 +81,7 @@ export class WarehouseCanceledTasksViewRaw extends Component {
       onClickTaskPriorityBtn,
       onSelectionModel,
       onClickReportBtn,
+      changeColumnsModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -208,6 +209,11 @@ export class WarehouseCanceledTasksViewRaw extends Component {
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   density={densityModel}
                   columns={columnsModel}

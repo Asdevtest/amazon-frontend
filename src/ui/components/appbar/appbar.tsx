@@ -1,20 +1,20 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // import NotificationsIcon from '@material-ui/icons/Notifications'
 import {cx} from '@emotion/css'
 import Brightness3RoundedIcon from '@mui/icons-material/Brightness3Rounded'
 import PersonIcon from '@mui/icons-material/Person'
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
-import {Avatar, Divider, Paper, Typography, Hidden, IconButton} from '@mui/material'
+import {Avatar, Divider, Paper, Typography} from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
 
-import React, {useRef, useState, FC, useEffect, ReactElement} from 'react'
+import React, {FC, ReactElement, useEffect, useRef, useState} from 'react'
 
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import MenuIcon from '@material-ui/icons/Menu'
 import {observer} from 'mobx-react'
-import {useSnackbar} from 'notistack'
 import {useHistory, useLocation} from 'react-router-dom'
+import {toast} from 'react-toastify'
 
 import {snackNoticeKey} from '@constants/snack-notifications'
 import {HintsOff, HintsOn} from '@constants/svg-icons'
@@ -27,12 +27,15 @@ import {SettingsModel} from '@models/settings-model'
 import {BreadCrumbsLine} from '@components/bread-crumbs-line'
 import {Button} from '@components/buttons/button'
 import {LanguageSelector} from '@components/selectors/language-selector'
-import {IdeaSnack} from '@components/snacks/idea-snack'
-import {OrderDeadlineSnack} from '@components/snacks/order-deadline-snack'
-import {SimpleMessagesSnack} from '@components/snacks/simple-messages-snack'
+import {BoxesUpdatesNotification} from '@components/snacks/boxes-updates-notification'
+import {IdeaNotification} from '@components/snacks/idea-notification'
+import {OrderDeadlineNotification} from '@components/snacks/order-deadline-notification'
+import {OrdersUpdatesNotification} from '@components/snacks/orders-updates-notification/orders-updates-notification'
+import {SimpleMessagesNotification} from '@components/snacks/simple-messages-notification'
 
+import {checkIsResearcher} from '@utils/checks'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixedWithDollarSign, getShortenStringIfLongerThanCount} from '@utils/text'
+import {getShortenStringIfLongerThanCount, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {AppbarModel} from './appbar.model'
@@ -53,78 +56,63 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
   const {classes: classNames} = useClassNames()
   const componentModel = useRef(new AppbarModel({history}))
 
-  const {role, snackNotifications, clearSnackNoticeByKey, onClickMessage, checkMessageIsRead} = componentModel.current
-
-  const {enqueueSnackbar} = useSnackbar()
+  const {
+    role,
+    snackNotifications,
+    clearSnackNoticeByKey: markNotificationAsReaded,
+    onClickMessage,
+    checkMessageIsRead,
+  } = componentModel.current
 
   useEffect(() => {
+    console.log('====>', snackNotifications)
     if (
       snackNotifications[snackNoticeKey.SIMPLE_MESSAGE] &&
       !location.pathname.includes('/messages') &&
       !checkMessageIsRead(snackNotifications[snackNoticeKey.SIMPLE_MESSAGE])
     ) {
-      // console.log(
-      //   'snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]',
-      //   snackNotifications[snackNoticeKey.SIMPLE_MESSAGE],
-      // )
-      enqueueSnackbar('', {
-        // persist: true,
-        anchorOrigin: {
-          vertical: 'bottom',
-          horizontal: 'right',
-        },
-
-        content: (key /* , message*/) => (
-          <SimpleMessagesSnack
-            id={key}
-            autoHideDuration={5000}
-            snackBarMessageLast={snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]}
-            onClickMessage={onClickMessage}
-          />
-        ),
-      })
-
-      clearSnackNoticeByKey(snackNoticeKey.SIMPLE_MESSAGE)
+      toast(
+        <SimpleMessagesNotification
+          noticeItem={snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]}
+          onClickMessage={onClickMessage}
+        />,
+        {autoClose: 5000},
+      )
+      markNotificationAsReaded(snackNoticeKey.SIMPLE_MESSAGE)
     }
 
     if (snackNotifications[snackNoticeKey.ORDER_DEADLINE]) {
-      enqueueSnackbar('', {
-        // persist: true,
-        anchorOrigin: {
-          vertical: 'bottom',
-          horizontal: 'right',
-        },
-
-        content: key => (
-          <OrderDeadlineSnack
-            id={key}
-            autoHideDuration={25000}
-            noticeItem={snackNotifications[snackNoticeKey.ORDER_DEADLINE]}
-          />
-        ),
+      toast(<OrderDeadlineNotification noticeItem={snackNotifications[snackNoticeKey.ORDER_DEADLINE]} />, {
+        autoClose: 5000,
       })
-
-      clearSnackNoticeByKey(snackNoticeKey.ORDER_DEADLINE)
+      markNotificationAsReaded(snackNoticeKey.ORDER_DEADLINE)
     }
 
     if (snackNotifications[snackNoticeKey.IDEAS]) {
-      enqueueSnackbar('', {
-        anchorOrigin: {
-          vertical: 'bottom',
-          horizontal: 'right',
-        },
-
-        content: key => (
-          <IdeaSnack
-            id={key}
-            role={role}
-            autoHideDuration={25000}
-            noticeItem={snackNotifications[snackNoticeKey.IDEAS]}
-          />
-        ),
+      toast(<IdeaNotification role={role} noticeItem={snackNotifications[snackNoticeKey.IDEAS]} />, {
+        autoClose: 5000,
       })
+      markNotificationAsReaded(snackNoticeKey.IDEAS)
+    }
 
-      clearSnackNoticeByKey(snackNoticeKey.IDEAS)
+    if (snackNotifications[snackNoticeKey.ORDERS_UPDATES]) {
+      toast(
+        <OrdersUpdatesNotification noticeItem={snackNotifications[snackNoticeKey.ORDERS_UPDATES]} history={history} />,
+        {
+          autoClose: 5000,
+        },
+      )
+      markNotificationAsReaded(snackNoticeKey.ORDERS_UPDATES)
+    }
+
+    if (snackNotifications[snackNoticeKey.BOXES_UPDATES]) {
+      toast(
+        <BoxesUpdatesNotification noticeItem={snackNotifications[snackNoticeKey.BOXES_UPDATES]} history={history} />,
+        {
+          autoClose: 5000,
+        },
+      )
+      markNotificationAsReaded(snackNoticeKey.BOXES_UPDATES)
     }
   }, [snackNotifications])
 
@@ -136,13 +124,13 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
 
   const savedLastCrumbAdditionalText = localStorage.getItem('last')
 
-  const renderNavbarButton = (
-    <Hidden mdUp>
-      <IconButton onClick={setDrawerOpen}>
-        <MenuIcon classes={{root: classNames.menuIcon}} />
-      </IconButton>
-    </Hidden>
-  )
+  // const renderNavbarButton = (
+  //   <Hidden lgUp>
+  //     <IconButton onClick={setDrawerOpen}>
+  //       <MenuIcon classes={{root: classNames.menuIcon}} />
+  //     </IconButton>
+  //   </Hidden>
+  // )
 
   useEffect(() => {
     if (location.pathname !== '/profile') {
@@ -187,7 +175,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
       <div className={classNames.mainWrapper}>
         <Paper className={classNames.appbar}>
           <div className={classNames.toolbar}>
-            {renderNavbarButton}
+            {/* {renderNavbarButton} */}
 
             <div className={classNames.titleWrapper}>
               <Typography className={classNames.title}>{title}</Typography>
@@ -266,9 +254,11 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                   </Typography>
                 </Tooltip>
 
-                <Typography className={classNames.balance}>
-                  {toFixedWithDollarSign(componentModel.current.balance, 2)}
-                </Typography>
+                {!checkIsResearcher((UserRoleCodeMap as {[key: number]: string})[role]) && (
+                  <Typography className={classNames.balance}>
+                    {toFixedWithDollarSign(componentModel.current.balance, 2)}
+                  </Typography>
+                )}
               </div>
               <ArrowDropDownIcon className={classNames.hideOnModile} />
             </div>
@@ -290,9 +280,11 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                     {getShortenStringIfLongerThanCount(componentModel.current.userName, 10)}
                   </Typography>
 
-                  <Typography className={classNames.menuClientInfoText}>
-                    {toFixedWithDollarSign(componentModel.current.balance, 2)}
-                  </Typography>
+                  {!checkIsResearcher((UserRoleCodeMap as {[key: number]: string})[role]) && (
+                    <Typography className={classNames.menuClientInfoText}>
+                      {toFixedWithDollarSign(componentModel.current.balance, 2)}
+                    </Typography>
+                  )}
                 </div>
 
                 <Avatar className={classNames.avatar} src={getUserAvatarSrc(componentModel.current.userId)} />

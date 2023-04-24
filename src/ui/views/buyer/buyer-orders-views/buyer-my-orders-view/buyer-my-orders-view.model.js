@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {transformAndValidate} from 'class-transformer-validator'
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
@@ -6,7 +7,9 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {routsPathes} from '@constants/routs-pathes'
+import {mapTaskPriorityStatusEnumToKey, TaskPriorityStatus} from '@constants/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {creatSupplier, patchSuppliers} from '@constants/white-list'
 
 import {BoxesModel} from '@models/boxes-model'
 import {BoxesCreateBoxContract} from '@models/boxes-model/boxes-model.contracts'
@@ -21,6 +24,7 @@ import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my
 // import {calcOrderTotalPrice} from '@utils/calculation'
 import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 // import {resetDataGridFilter} from '@utils/filters'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {objectToUrlQs, toFixed} from '@utils/text'
@@ -38,6 +42,7 @@ const updateOrderKeys = [
   'buyerComment',
   'images',
   'yuanToDollarRate',
+  'paymentDetails',
 
   'amount',
   'orderSupplierId',
@@ -60,6 +65,8 @@ const setNavbarActiveSubCategory = pathname => {
         return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CLOSED_AND_CANCELED
       case routsPathes.BUYER_MY_ORDERS_ALL_ORDERS:
         return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_ALL_ORDERS
+      case routsPathes.BUYER_MY_ORDERS_READY_FOR_PAYMENT:
+        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_READY_FOR_PAYMENT
       default:
         return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NOT_PAID
     }
@@ -76,6 +83,8 @@ export class BuyerMyOrdersViewModel {
   chosenStatus = []
   filteredStatus = []
 
+  paymentMethods = []
+
   yuanToDollarRate = undefined
 
   ordersMy = []
@@ -86,6 +95,10 @@ export class BuyerMyOrdersViewModel {
   curBoxesOfOrder = []
 
   createBoxesResult = []
+
+  imagesForLoad = []
+
+  paymentAmount = undefined
 
   volumeWeightCoefficient = undefined
 
@@ -198,6 +211,15 @@ export class BuyerMyOrdersViewModel {
     )
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = this.columnsModel.map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
@@ -240,6 +262,8 @@ export class BuyerMyOrdersViewModel {
           return [OrderStatus.TRACK_NUMBER_ISSUED]
         case routsPathes.BUYER_MY_ORDERS_CONFIRMATION_REQUIRED:
           return [OrderStatus.VERIFY_RECEIPT]
+        case routsPathes.BUYER_MY_ORDERS_READY_FOR_PAYMENT:
+          return [OrderStatus.READY_FOR_PAYMENT]
         case routsPathes.BUYER_MY_ORDERS_CLOSED_AND_CANCELED:
           return [OrderStatus.IN_STOCK, OrderStatus.CANCELED_BY_BUYER, OrderStatus.CANCELED_BY_CLIENT]
 
@@ -253,10 +277,23 @@ export class BuyerMyOrdersViewModel {
             OrderStatus.IN_STOCK,
             OrderStatus.CANCELED_BY_BUYER,
             OrderStatus.CANCELED_BY_CLIENT,
+            OrderStatus.READY_FOR_PAYMENT,
           ]
         default:
           return [OrderStatus.AT_PROCESS, OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
       }
+    }
+  }
+
+  async getBuyersOrdersPaymentByStatus() {
+    if (
+      Number(OrderStatusByKey[this.orderStatusDataBase]) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])
+    ) {
+      this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(
+        OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT],
+      )
+
+      console.log('this.paymentAmount', this.paymentAmount)
     }
   }
 
@@ -288,28 +325,44 @@ export class BuyerMyOrdersViewModel {
     this.orderStatusDataBase = this.setOrderStatus(this.history.location.pathname)
   }
 
-  async onClickSaveSupplierBtn({supplier, photosOfSupplier, productId}) {
-    try {
-      this.readyImages = []
+  async getSuppliersPaymentMethods() {
+    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+  }
 
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+  async onClickSaveSupplierBtn({supplier, photosOfSupplier, productId, editPhotosOfSupplier}) {
+    try {
+      this.clearReadyImages()
+
+      if (editPhotosOfSupplier?.length) {
+        await onSubmitPostImages.call(this, {images: editPhotosOfSupplier, type: 'readyImages'})
       }
 
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
-        images: supplier.images.concat(this.readyImages),
+        images: this.readyImages,
       }
-      const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
+
+      this.clearReadyImages()
+
+      if (photosOfSupplier?.length) {
+        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+
+        supplier = {
+          ...supplier,
+          images: [...supplier.images, ...this.readyImages],
+        }
+      }
 
       if (supplier._id) {
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
       } else {
-        const createSupplierResult = await SupplierModel.createSupplier(supplierUpdateData)
+        const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+        const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
         await ProductModel.addSuppliersToProduct(productId, [createSupplierResult.guid])
       }
 
@@ -356,6 +409,7 @@ export class BuyerMyOrdersViewModel {
     try {
       supplier = {
         ...supplier,
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         yuanRate: this.yuanToDollarRate,
         amount: orderFields.amount,
         price: orderFields.price,
@@ -364,18 +418,13 @@ export class BuyerMyOrdersViewModel {
         batchDeliveryCostInDollar: orderFields.batchDeliveryCostInDollar,
         batchTotalCostInDollar: orderFields.batchTotalCostInDollar,
       }
-      const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, [
-        '_id',
-        'createdAt',
-        'createdBy',
-        'paymentMethod',
-        'updatedAt',
-      ])
 
       if (supplier._id) {
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
       } else {
-        const createSupplierResult = await SupplierModel.createSupplier(supplierUpdateData)
+        const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+        const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
         await ProductModel.addSuppliersToProduct(productId, [createSupplierResult.guid])
       }
 
@@ -507,6 +556,8 @@ export class BuyerMyOrdersViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getOrdersMy()
+      this.getBuyersOrdersPaymentByStatus()
+      this.getSuppliersPaymentMethods()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -553,9 +604,15 @@ export class BuyerMyOrdersViewModel {
   async onClickOrder(orderId) {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
+      const hsCode = await ProductModel.getProductsHsCodeByGuid(orderData.product._id)
 
       runInAction(() => {
+        this.hsCodeData = hsCode
         this.selectedOrder = orderData
+
+        this.clearImagesForLoad()
+
+        this.updateImagesForLoad(orderData.images)
       })
       this.getBoxesOfOrder(orderId)
 
@@ -572,10 +629,28 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
+  updateImagesForLoad(images) {
+    if (!Array.isArray(images)) {
+      return
+    }
+
+    const filteredImages = images.filter(el => !this.imagesForLoad.some(item => item.includes(el)))
+
+    runInAction(() => {
+      this.imagesForLoad = [...this.imagesForLoad, ...filteredImages.map(el => getAmazonImageUrl(el, true))]
+    })
+  }
+
+  onChangeImagesForLoad(value) {
+    runInAction(() => {
+      this.imagesForLoad = value
+    })
+  }
+
   async onSubmitCancelOrder() {
     try {
       await BuyerModel.returnOrder(this.dataToCancelOrder.orderId, {buyerComment: this.dataToCancelOrder.buyerComment})
-
+      await UserModel.getUserInfo()
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showOrderModal')
@@ -589,9 +664,11 @@ export class BuyerMyOrdersViewModel {
     orderFields,
     boxesForCreation,
     photosToLoad,
-    // hsCode,
+    hsCode,
     trackNumber,
     commentToWarehouse,
+    paymentDetailsPhotosToLoad,
+    editPaymentDetailsPhotos,
   }) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -602,19 +679,53 @@ export class BuyerMyOrdersViewModel {
         this.onTriggerOpenModal('showOrderPriceMismatchModal')
       }
 
-      runInAction(() => {
-        this.readyImages = []
-      })
+      this.clearReadyImages()
+
+      if (this.imagesForLoad.length) {
+        await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'readyImages'})
+
+        this.clearImagesForLoad()
+
+        orderFields = {
+          ...orderFields,
+          images: this.readyImages,
+        }
+      }
+
+      this.clearReadyImages()
+
       if (photosToLoad.length) {
         await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
+
+        orderFields = {
+          ...orderFields,
+          images: [...orderFields.images, ...this.readyImages],
+        }
       }
 
-      const orderFieldsToSave = {
-        ...orderFields,
-        images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
+      this.clearReadyImages()
+
+      if (editPaymentDetailsPhotos?.length) {
+        await onSubmitPostImages.call(this, {images: editPaymentDetailsPhotos, type: 'readyImages'})
+
+        orderFields = {
+          ...orderFields,
+          paymentDetails: this.readyImages,
+        }
       }
 
-      await this.onSaveOrder(order, orderFieldsToSave)
+      this.clearReadyImages()
+
+      if (paymentDetailsPhotosToLoad?.length) {
+        await onSubmitPostImages.call(this, {images: paymentDetailsPhotosToLoad, type: 'readyImages'})
+
+        orderFields = {
+          ...orderFields,
+          paymentDetails: [...orderFields.paymentDetails, ...this.readyImages],
+        }
+      }
+
+      await this.onSaveOrder(order, orderFields)
 
       if (
         boxesForCreation.length > 0 &&
@@ -651,6 +762,10 @@ export class BuyerMyOrdersViewModel {
         await BuyerModel.orderSetInStock(order._id, {refundPrice: Number(orderFields.tmpRefundToClient)})
       }
 
+      if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}`) {
+        await BuyerModel.orderReadyForPayment(order._id)
+      }
+
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
         runInAction(() => {
           this.dataToCancelOrder = {orderId: order._id, buyerComment: orderFields.buyerComment}
@@ -669,12 +784,25 @@ export class BuyerMyOrdersViewModel {
       }
       // }
 
+      if (hsCode) {
+        await ProductModel.editProductsHsCods([
+          {
+            productId: hsCode._id,
+            chinaTitle: hsCode.chinaTitle || null,
+            hsCode: hsCode.hsCode || null,
+            material: hsCode.material || null,
+            productUsage: hsCode.productUsage || null,
+          },
+        ])
+      }
+
       this.setRequestStatus(loadingStatuses.success)
       if (orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
         runInAction(() => {
           this.dataToCancelOrder = {orderId: order._id, buyerComment: orderFields.buyerComment}
         })
         this.onTriggerOpenModal('showOrderModal')
+        UserModel.getUserInfo()
         // await BuyerModel.returnOrder(order._id, {buyerComment: orderFields.buyerComment})
       }
 
@@ -695,7 +823,8 @@ export class BuyerMyOrdersViewModel {
 
       await BoxesModel.editAdditionalInfo(data._id, {
         trackNumberText: data.trackNumberText,
-        trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
+        // trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
+        trackNumberFile: [...data.trackNumberFile, ...this.uploadedFiles],
       })
 
       // const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
@@ -772,13 +901,13 @@ export class BuyerMyOrdersViewModel {
         const elementOrderBox = {
           ...boxesForCreation[i],
           trackNumberText: trackNumber?.text || '',
-          trackNumberFile: this.readyImages.length ? this.readyImages[0] : '',
+          trackNumberFile: this.readyImages.length ? this.readyImages : [],
         }
 
         await this.onCreateBox(elementOrderBox, order)
 
         if (elementOrderBox.tmpUseToUpdateSupplierBoxDimensions) {
-          const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(
+          const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
             {
               ...order.orderSupplier,
               boxProperties: {
@@ -789,7 +918,7 @@ export class BuyerMyOrdersViewModel {
                 boxWidthCm: parseFloat(elementOrderBox?.widthCmSupplier) || 0,
               },
             },
-            ['_id', 'yuanRate', 'createdAt', 'updatedAt', 'createdBy'],
+            patchSuppliers,
           )
 
           await SupplierModel.updateSupplier(order.orderSupplier._id, supplierUpdateData)
@@ -803,6 +932,10 @@ export class BuyerMyOrdersViewModel {
         operationType: 'receive',
         clientComment: order.clientComment || '',
         buyerComment: commentToWarehouse || '',
+        priority:
+          order.priority === '40'
+            ? mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.URGENT]
+            : mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.STANDART],
       })
 
       if (!this.error) {
@@ -888,11 +1021,6 @@ export class BuyerMyOrdersViewModel {
 
   async getOrdersMy() {
     try {
-      // const filter =
-      //   isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))
-      //     ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};`
-      //     : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};`
-
       const filter = objectToUrlQs({
         or: [
           {asin: {$contains: this.nameSearchValue}},
@@ -961,5 +1089,17 @@ export class BuyerMyOrdersViewModel {
     })
     this.setDataGridState()
     this.getOrdersMy()
+  }
+
+  clearReadyImages() {
+    runInAction(() => {
+      this.readyImages = []
+    })
+  }
+
+  clearImagesForLoad() {
+    runInAction(() => {
+      this.imagesForLoad = []
+    })
   }
 }

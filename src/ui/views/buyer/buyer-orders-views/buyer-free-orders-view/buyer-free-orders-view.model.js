@@ -8,6 +8,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BuyerModel} from '@models/buyer-model'
 import {SettingsModel} from '@models/settings-model'
+import {UserModel} from '@models/user-model'
 
 import {buyerFreeOrdersViewColumns} from '@components/table-columns/buyer/buyer-fre-orders-columns'
 
@@ -61,6 +62,15 @@ export class BuyerFreeOrdersViewModel {
       () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
+  }
+
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = this.columnsModel.map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
   }
 
   async updateColumnsModel() {
@@ -183,6 +193,8 @@ export class BuyerFreeOrdersViewModel {
 
         this.onTriggerOpenModal('showTwoVerticalChoicesModal')
       }
+
+      UserModel.getUserInfo()
     } catch (error) {
       this.warningTitle = t(TranslationKey['Not found'])
 
@@ -208,6 +220,7 @@ export class BuyerFreeOrdersViewModel {
       this.warningTitle = t(TranslationKey['Taken to Work'])
 
       this.onTriggerOpenModal('showWarningModal')
+      UserModel.getUserInfo()
       this.loadData()
     } catch (error) {
       console.log(error)

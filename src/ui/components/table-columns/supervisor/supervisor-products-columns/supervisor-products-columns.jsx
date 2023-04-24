@@ -1,16 +1,16 @@
 import React from 'react'
 
-import {colorByProductStatus, ProductStatusByCode} from '@constants/product-status'
+import {colorByProductStatus, ProductStatusByCode, productStatusTranslateKey} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  ProductAsinCell,
+  MultilineStatusCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  MultilineTextCell,
-  UserLinkCell,
+  ProductAsinCell,
   ToFixedWithDollarSignCell,
-  MultilineStatusCell,
+  UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -33,7 +33,7 @@ export const supervisorProductsViewColumns = () => [
     width: 150,
     renderCell: params => (
       <MultilineTextCell
-        text={params.value}
+        text={t(productStatusTranslateKey(ProductStatusByCode[params.value]))}
         color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
       />
     ),
@@ -96,6 +96,35 @@ export const supervisorProductsViewColumns = () => [
     type: 'number',
     minWidth: 100,
   },
+
+  {
+    field: 'ordered',
+    headerName: t(TranslationKey.Ordered),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Ordered)} />,
+
+    renderCell: params => (
+      <MultilineTextCell
+        customTextStyles={
+          params.value
+            ? {
+                background: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
+                '-webkit-background-clip': 'text',
+                '-webkit-text-fill-color': 'transparent',
+              }
+            : {
+                background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
+                '-webkit-background-clip': 'text',
+                '-webkit-text-fill-color': 'transparent',
+              }
+        }
+        color={params.value ? '#00b746' : 'red'}
+        text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)}
+      />
+    ),
+    minWidth: 50,
+    type: 'boolean',
+  },
+
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),

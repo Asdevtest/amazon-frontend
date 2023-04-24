@@ -18,6 +18,7 @@ export const styles = theme => ({
 
   button: {
     marginBottom: 5,
+    color: theme.palette.primary.main,
 
     width: '100%',
     display: 'flex',
@@ -40,6 +41,11 @@ export const styles = theme => ({
 
   btnsWrapper: {
     marginBottom: '10px',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  btnsSubWrapper: {
     display: 'flex',
   },
 

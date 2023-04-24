@@ -1,40 +1,140 @@
+import {cx} from '@emotion/css'
+import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
+import ZoomOutMapOutlinedIcon from '@mui/icons-material/ZoomOutMapOutlined'
+import {Typography} from '@mui/material'
+
 import React, {useEffect, useState} from 'react'
 
 import Carousel from 'react-material-ui-carousel'
 
+import {Button} from '@components/buttons/button'
+import {ImageZoomForm} from '@components/forms/image-zoom-form'
 import {Modal} from '@components/modal'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import {downloadFileByLink} from '@utils/upload-files'
 
 import {useClassNames} from './big-images-modal.style'
 
-export const BigImagesModal = ({openModal, setOpenModal, images, imgIndex = 0}) => {
+export const BigImagesModal = props => {
+  const {openModal, setOpenModal, images, imgIndex = 0, showPreviews = false, setImageIndex, controls} = props
   const {classes: classNames} = useClassNames()
   const [currentScreenWidth, setCurrentScreenWidth] = useState(window.innerWidth)
+
+  const [zoomOpen, setZoomOpen] = useState(false)
+
+  const [zoomImage, setZoomImage] = useState(null)
 
   useEffect(() => {
     const resizeScreen = () => {
       setCurrentScreenWidth(window.innerWidth)
     }
+
     window.addEventListener('resize', resizeScreen)
   }, [window.innerWidth])
+
+  const handlePreview = index => {
+    setImageIndex && setImageIndex(index)
+  }
+
+  const onClickDownloadBtn = image => {
+    downloadFileByLink(
+      typeof image === 'string' ? getAmazonImageUrl(image, true) : image.data_url,
+      // imageObj.comment,
+    )
+  }
+
+  const onClickZoomBtn = image => {
+    setZoomImage(
+      // typeof image === 'string' ? getAmazonImageUrl(image, true) : image.image.data_url,
+      // imageObj.comment,
+      image,
+    )
+
+    setZoomOpen(true)
+  }
+
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
-      <div className={classNames.carouselWrapper}>
-        <Carousel
-          navButtonsAlwaysInvisible={currentScreenWidth < 768}
-          autoPlay={false}
-          timeout={100}
-          animation="fade"
-          index={imgIndex}
-        >
-          {images.map((el, index) => (
-            <div key={index} className={classNames.mainWrapper}>
-              <img alt="" className={classNames.imgBox} src={getAmazonImageUrl(el, true)} />
+      <div className={classNames.body}>
+        {showPreviews && (
+          <div className={classNames.previewListWrapper}>
+            <div className={classNames.previewList}>
+              {images?.map((el, index) => (
+                <div key={index} className={classNames.previewListItem} onClick={() => handlePreview(index)}>
+                  <img
+                    className={cx(classNames.previewListImage, {
+                      [classNames.activeImage]: index === imgIndex,
+                    })}
+                    src={
+                      typeof el === 'string'
+                        ? getAmazonImageUrl(el, true)
+                        : el?.file.type.includes('image')
+                        ? el?.data_url
+                        : '/assets/icons/file.png'
+                    }
+                    loading="lazy"
+                  />
+                </div>
+              ))}
             </div>
-          ))}
-        </Carousel>
+          </div>
+        )}
+
+        <div className={classNames.carouselWrapper}>
+          <Carousel
+            navButtonsAlwaysVisible
+            navButtonsAlwaysInvisible={currentScreenWidth < 768}
+            autoPlay={false}
+            timeout={100}
+            animation="fade"
+            // IndicatorIcon={<div>{`${imgIndex + 1}/ ${images.length}`}</div>}
+            indicators={setImageIndex ? false : true}
+            index={imgIndex}
+            onChange={now => handlePreview(now)}
+          >
+            {images?.map((el, index) => (
+              <div key={index} className={classNames.mainWrapper}>
+                <img
+                  className={classNames.imgBox}
+                  src={
+                    typeof el === 'string'
+                      ? getAmazonImageUrl(el, true)
+                      : el?.file.type.includes('image')
+                      ? el?.data_url
+                      : '/assets/icons/file.png'
+                  }
+                  alt=""
+                />
+              </div>
+            ))}
+          </Carousel>
+        </div>
+
+        {setImageIndex && (
+          <Typography className={classNames.indicator}>{`${imgIndex + 1} / ${images?.length}`}</Typography>
+        )}
+
+        <div className={classNames.controls}>
+          <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickDownloadBtn(images?.[imgIndex])}>
+            <DownloadOutlinedIcon />
+          </Button>
+
+          <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickZoomBtn(images?.[imgIndex])}>
+            <ZoomOutMapOutlinedIcon />
+          </Button>
+
+          {controls && controls(imgIndex, images?.[imgIndex])}
+        </div>
       </div>
+
+      <Modal
+        openModal={zoomOpen}
+        setOpenModal={() => setZoomOpen(!zoomOpen)}
+        dialogContextClassName={classNames.zoomDialogContext}
+      >
+        <ImageZoomForm item={zoomImage} />
+      </Modal>
     </Modal>
   )
 }

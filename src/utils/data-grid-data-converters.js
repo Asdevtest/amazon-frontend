@@ -1,6 +1,11 @@
 import {ideaStatusByCode, ideaStatusTranslate} from '@constants/idea-status'
 import {OrderStatusByCode, OrderStatusTranslate} from '@constants/order-status'
-import {ProductStatusByCode, productStatusTranslateKey} from '@constants/product-status'
+import {
+  ProductStatus,
+  ProductStatusByCode,
+  ProductStatusByKey,
+  productStatusTranslateKey,
+} from '@constants/product-status'
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 import {mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel} from '@constants/task-operation-type'
 import {mapTaskStatusKeyToEnum} from '@constants/task-status'
@@ -12,6 +17,7 @@ import {
   calcPriceForBox,
   calcTotalPriceForBatch,
   calcVolumeWeightForBox,
+  checkActualBatchWeightGreaterVolumeBatchWeight,
   getTariffRateForBoxOrOrder,
 } from './calculation'
 import {getFullTariffTextForBoxOrOrder} from './text'
@@ -33,10 +39,10 @@ export const ideaNoticeDataConverter = data =>
   }))
 
 export const stockReportDataConverter = data =>
-  data.map((item, index) => ({
+  data.map(item => ({
     ...item,
     originalData: item,
-    id: index,
+    id: item._id,
 
     shopName: item.shop.name,
   }))
@@ -61,13 +67,16 @@ export const myRequestsDataConverter = data =>
     status: item.status,
     title: item.title,
     price: item.price,
+    asin: item.asin,
+    humanFriendlyId: item.humanFriendlyId,
     updatedAt: item.updatedAt,
     timeoutAt: item.timeoutAt,
-    acceptedProposals: item.countProposalsByStatuses.acceptedProposals,
-    allProposals: item.countProposalsByStatuses.allProposals,
-    atWorkProposals: item.countProposalsByStatuses.atWorkProposals,
-    verifyingProposals: item.countProposalsByStatuses.verifyingProposals,
-    waitedProposals: item.countProposalsByStatuses.waitedProposals,
+    acceptedProposals: item?.countProposalsByStatuses?.acceptedProposals,
+    allProposals: item?.countProposalsByStatuses?.allProposals,
+    atWorkProposals: item?.countProposalsByStatuses?.atWorkProposals,
+    verifyingProposals: item?.countProposalsByStatuses?.verifyingProposals,
+    waitedProposals: item?.countProposalsByStatuses?.waitedProposals,
+    typeTask: item?.typeTask,
   }))
 
 export const researcherCustomRequestsDataConverter = data =>
@@ -84,13 +93,23 @@ export const researcherCustomRequestsDataConverter = data =>
 export const researcherProductsDataConverter = data =>
   data.map(item => ({
     originalData: item,
-    status: t(productStatusTranslateKey(ProductStatusByCode[item.status])),
+    status: [
+      ProductStatusByKey[ProductStatus.NEW_PRODUCT],
+      ProductStatusByKey[ProductStatus.DEFAULT],
+      ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
+      // ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER],
+      ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
+      ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
+    ].includes(item.status)
+      ? t(productStatusTranslateKey(ProductStatusByCode[item.status]))
+      : 'OK',
     strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
     createdAt: item.createdAt,
     amazon: item.amazon,
     bsr: item.bsr,
     asin: item.asin,
     id: item._id,
+    supervisorComment: item.checkednotes,
   }))
 
 export const researcherFinancesDataConverter = data =>
@@ -116,10 +135,10 @@ export const supervisorFinancesDataConverter = data =>
   }))
 
 export const supervisorProductsDataConverter = data =>
-  data.map(item => ({
+  data?.map(item => ({
     originalData: item,
 
-    status: t(productStatusTranslateKey(ProductStatusByCode[item.status])),
+    status: item.status,
     statusForAttention: ProductStatusByCode[item.status],
     researcherName: item.createdBy?.name,
     buyerName: item.buyer?.name,
@@ -131,6 +150,7 @@ export const supervisorProductsDataConverter = data =>
     id: item._id,
     fbafee: item.fbafee,
     asin: item.asin,
+    ordered: item.ordered,
   }))
 
 export const buyerFinancesDataConverter = data =>
@@ -312,6 +332,7 @@ export const depersonalizedPickDataConverter = data =>
     number: index + 1,
     checkednotes: item.checkednotes,
     clientComment: item.clientComment,
+    updatedAt: item.updatedAt,
   }))
 
 export const clientOrdersDataConverter = data =>
@@ -356,6 +377,7 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
 
     destination: item.destination?.name,
     storekeeper: item.storekeeper?.name,
+
     logicsTariff: getFullTariffTextForBoxOrOrder(item),
     client: item.client?.name,
 
@@ -402,7 +424,14 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
       .slice(0, -2),
   }))
 
-export const addOrEditBatchDataConverter = (data, volumeWeightCoefficient, finalWeightCalculationMethod) =>
+export const addOrEditBatchDataConverter = (
+  data,
+  volumeWeightCoefficient,
+  finalWeightCalculationMethod,
+  getBatchWeightCalculationMethodForBox,
+  calculationMethod,
+  // isDifferentMethodForEach,
+) =>
   data.map(item => ({
     originalData: item,
     id: item._id,
@@ -412,7 +441,12 @@ export const addOrEditBatchDataConverter = (data, volumeWeightCoefficient, final
 
     amazonPrice: calcPriceForBox(item),
 
-    finalWeight: finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount,
+    finalWeight: getBatchWeightCalculationMethodForBox
+      ? getBatchWeightCalculationMethodForBox(
+          calculationMethod,
+          checkActualBatchWeightGreaterVolumeBatchWeight([item], volumeWeightCoefficient),
+        )(item, volumeWeightCoefficient) * item.amount
+      : finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount,
     grossWeight: item.weighGrossKgWarehouse,
 
     destination: item.destination?.name,
@@ -429,7 +463,13 @@ export const addOrEditBatchDataConverter = (data, volumeWeightCoefficient, final
 
     humanFriendlyId: item.humanFriendlyId,
     deliveryTotalPrice:
-      getTariffRateForBoxOrOrder(item) * finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount,
+      getTariffRateForBoxOrOrder(item) *
+      (getBatchWeightCalculationMethodForBox
+        ? getBatchWeightCalculationMethodForBox(
+            calculationMethod,
+            checkActualBatchWeightGreaterVolumeBatchWeight([item], volumeWeightCoefficient),
+          )(item, volumeWeightCoefficient) * item.amount
+        : finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount),
 
     deliveryTotalPriceChanged: item.deliveryTotalPriceChanged,
 
@@ -554,16 +594,16 @@ export const warehouseTasksDataConverter = data =>
   data.map(item => ({
     originalData: item,
 
-    id: item._id,
-    operationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item.operationType]],
-    status: mapTaskStatusKeyToEnum[item.status],
+    id: item?._id,
+    operationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item?.operationType]],
+    status: mapTaskStatusKeyToEnum[item?.status],
 
-    priority: item.priority,
-    isBarCodeAttached: item.isBarCodeAttached,
+    priority: item?.priority,
+    isBarCodeAttached: item?.isBarCodeAttached,
 
-    createdAt: item.createdAt,
-    updatedAt: item.updatedAt,
-    storekeeper: item.storekeeper?.name,
+    createdAt: item?.createdAt,
+    updatedAt: item?.updatedAt,
+    storekeeper: item?.storekeeper?.name,
     // asin: Array.from(
     //   new Set(
     //     `${item.boxesBefore.reduce(
@@ -575,8 +615,8 @@ export const warehouseTasksDataConverter = data =>
 
     asin: Array.from(
       new Set(
-        item.boxesBefore.reduce(
-          (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur.product.asin && cur.product.asin], [])],
+        item?.boxesBefore?.reduce(
+          (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur?.product?.asin && cur?.product?.asin], [])],
           [],
         ),
       ),
@@ -727,29 +767,29 @@ export const adminBoxesDataConverter = data =>
 export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
   data?.map(item => ({
     originalData: item,
-    id: item._id,
-    _id: item._id,
+    id: item?._id,
+    _id: item?._id,
 
-    warehouse: item.destination?.name,
+    warehouse: item?.destination?.name,
     logicsTariff: getFullTariffTextForBoxOrOrder(item),
 
-    client: item.client?.name,
+    client: item?.client?.name,
 
-    humanFriendlyId: item.humanFriendlyId,
-    qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
+    humanFriendlyId: item?.humanFriendlyId,
+    amount: item?.items?.reduce((acc, cur) => (acc += cur?.amount), 0),
 
-    isDraft: item.isDraft,
-    createdAt: item.createdAt,
-    updatedAt: item.updatedAt,
-    batchId: item.batch?.humanFriendlyId,
+    isDraft: item?.isDraft,
+    createdAt: item?.createdAt,
+    updatedAt: item?.updatedAt,
+    batchId: item?.batch?.humanFriendlyId,
     volumeWeightCoefficient,
 
-    prepId: item.prepId,
+    prepId: item?.prepId,
 
-    orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
-      .reduce((acc, cur) => (acc += cur.order?.id + ', '), '')
-      .slice(0, -2)}  item №: ${item.items
-      .reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
+    orderIdsItems: `${t(TranslationKey.Order)} №: ${item?.items
+      .reduce((acc, cur) => (acc += cur?.order?.id + ', '), '')
+      .slice(0, -2)}  item №: ${item?.items
+      .reduce((acc, cur) => (acc += (cur?.order?.item ? cur.order?.item : '-') + ', '), '')
       .slice(0, -2)}`,
   }))
 
@@ -822,4 +862,41 @@ export const adminGroupPermissionsDataConverter = data =>
     key: item.key,
     title: item.title,
     description: item.description,
+  }))
+
+export const freelancerServiceDetaildsDataConverter = data =>
+  data.requests.map(item => ({
+    id: item?._id,
+    originalData: item,
+    createdBy: item.createdBy,
+    price: item?.price,
+    status: item?.status,
+    timeoutAt: item?.timeoutAt,
+    updatedAt: item?.updatedAt,
+    title: item?.title,
+    humanFriendlyId: item?.humanFriendlyId,
+  }))
+
+export const SourceFilesDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item?._id,
+
+    _id: item?._id,
+    sourceFile: item?.sourceFile,
+    comments: item?.comments,
+    proposal: item?.proposal,
+    typeTask: item?.typeTask,
+    productId: item?.productId,
+
+    performer: item?.createdBy,
+    sub: item?.proposal?.sub,
+
+    createdAt: item?.createdAt,
+    updatedAt: item?.updatedAt,
+
+    humanFriendlyId: item?.proposal?.request?.humanFriendlyId,
+    title: item?.proposal?.request?.title,
+    asin: item?.proposal?.request?.asin,
+    client: item?.proposal?.client,
   }))

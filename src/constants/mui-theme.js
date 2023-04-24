@@ -55,13 +55,67 @@ export const lightTheme = createTheme({
     },
 
     MuiDataGrid: {
+      // Убрать
+      defaultProps: {
+        headerHeight: 65,
+      },
+
       styleOverrides: {
         root: {
           backgroundColor: '#fff',
           border: '0 !important',
           boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)', // Старый вид
+          // boxShadow: '0px 2px 8px 2px rgba(31, 31, 31, 0.6)',
           color: '#001029',
         },
+        // Убрать
+        columnHeaders: {
+          height: 65,
+        },
+
+        sortIcon: {
+          width: 14,
+          height: 14,
+        },
+
+        columnHeaderDraggableContainer: {
+          flexDirection: 'row !important',
+
+          position: 'relative',
+          paddingRight: 20,
+        },
+        columnHeaderTitleContainer: {
+          flexDirection: 'row !important',
+          display: 'flex !important',
+          alignItems: 'center !important',
+        },
+        menuIconButton: {
+          zIndex: 1000,
+          position: 'absolute !important',
+          right: -7,
+          top: 13,
+          // visibility: 'visible !important',
+
+          width: '18px !important',
+          height: '18px !important',
+
+          '.MuiSvgIcon-root': {
+            // display: 'none',
+            width: 14,
+            height: 14,
+          },
+        },
+        iconButtonContainer: {
+          '.MuiIconButton-root': {
+            width: '18px !important',
+            height: '18px !important',
+          },
+        },
+        iconSeparator: {
+          padding: '0 1px',
+        },
+
+        //
       },
     },
 
@@ -199,6 +253,7 @@ export const lightTheme = createTheme({
       second: '#656565',
 
       negativeMain: '#fff',
+      gray: '#C4C4C4',
       green: 'green',
     },
 
@@ -212,7 +267,8 @@ export const lightTheme = createTheme({
       tableCurRow: '#baffba',
       red: '#FFC7C7',
       green: '#D9FAE5',
-      yellow: '#007bff',
+      greenGradient: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
+      yellow: '#F5CF00',
       entryLeftPanel: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
       disabled: 'rgba(0, 0, 0, 0.12)',
       disabledDangerBtn: 'linear-gradient(180deg, rgba(255,22,22, .5) 0%, rgb(223,12,12,.5) 100%)',
@@ -228,6 +284,13 @@ export const lightTheme = createTheme({
 
     boxShadow: {
       general: 'rgba(190, 190, 190, 0.15)',
+
+      yellow:
+        'linear-gradient(90deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 0.77%, rgba(243, 175, 0, 0) 99.23%, rgba(243, 175, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 18.05%, rgba(243, 175, 0, 0) 83.72%, rgba(243, 175, 0, 0.5) 100%)',
+
+      red: 'linear-gradient(90deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 0.77%, rgba(243, 0, 0, 0) 99.23%, rgba(243, 0, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
+
+      imageList: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
     },
 
     input: {
@@ -264,6 +327,11 @@ export const darkTheme = createTheme({
     },
 
     MuiDataGrid: {
+      // Убрать
+      defaultProps: {
+        headerHeight: 65,
+      },
+
       styleOverrides: {
         root: {
           backgroundColor: '#2B2B34',
@@ -281,6 +349,9 @@ export const darkTheme = createTheme({
 
         columnHeaders: {
           borderBottom: '1px solid rgba(81, 81, 81, 1)',
+
+          // Убрать
+          height: 65,
         },
 
         row: {
@@ -304,6 +375,22 @@ export const darkTheme = createTheme({
 
         menuIconButton: {
           color: '#fff',
+
+          // Убрать
+          zIndex: 1000,
+          position: 'absolute !important',
+          right: -7,
+          top: 13,
+          // visibility: 'visible !important',
+
+          width: '18px !important',
+          height: '18px !important',
+
+          '.MuiSvgIcon-root': {
+            // display: 'none',
+            width: 14,
+            height: 14,
+          },
         },
 
         sortIcon: {
@@ -314,12 +401,39 @@ export const darkTheme = createTheme({
           // '& > disabled': {
           //   color: 'red',
           // },
+
+          // Убрать
+          width: 14,
+          height: 14,
         },
 
         cell: {
           borderBottom: '1px solid rgba(81, 81, 81, 1)',
           // border: 'none',
         },
+
+        // Убрать
+        columnHeaderDraggableContainer: {
+          flexDirection: 'row !important',
+
+          position: 'relative',
+          paddingRight: 20,
+        },
+        columnHeaderTitleContainer: {
+          flexDirection: 'row !important',
+          display: 'flex !important',
+          alignItems: 'center !important',
+        },
+        iconButtonContainer: {
+          '.MuiIconButton-root': {
+            width: '18px !important',
+            height: '18px !important',
+          },
+        },
+        iconSeparator: {
+          padding: '0 1px',
+        },
+        //
       },
     },
 
@@ -575,6 +689,8 @@ export const darkTheme = createTheme({
         general: '#fff',
         second: '#E1E1E1',
 
+        gray: 'gray',
+
         negativeMain: '#001029',
         green: '#2FE341',
         disabled: '#001029', // 'rgba(255, 255, 255, 0.5)',
@@ -597,8 +713,9 @@ export const darkTheme = createTheme({
 
         tableCurRow: '#001A15', // '#388E3C',
         red: '#2E0505',
-        green: '#388E3C',
-        yellow: '#F5CF00',
+        green: '#001A15',
+        greenGradient: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
+        yellow: '#FEF0A6',
         entryLeftPanel: '#2B2B34',
         disabled: '#a0a0a4',
 
@@ -620,6 +737,13 @@ export const darkTheme = createTheme({
 
       boxShadow: {
         general: 'rgba(31, 31, 31, 0.6)',
+
+        yellow:
+          'linear-gradient(90deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 0.77%, rgba(243, 175, 0, 0) 99.23%, rgba(243, 175, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 18.05%, rgba(243, 175, 0, 0) 83.72%, rgba(243, 175, 0, 0.5) 100%)',
+
+        red: 'linear-gradient(90deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 0.77%, rgba(243, 0, 0, 0) 99.23%, rgba(243, 0, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
+
+        imageList: 'inset -4px -4px 13px rgba(1, 1, 1, 0.17)',
       },
 
       input: {

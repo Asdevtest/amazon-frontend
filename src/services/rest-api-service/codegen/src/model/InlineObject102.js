@@ -22,11 +22,10 @@ class InlineObject102 {
     /**
      * Constructs a new <code>InlineObject102</code>.
      * @alias module:model/InlineObject102
-     * @param price {Number} Цена услуги.
      */
-    constructor(price) { 
+    constructor() { 
         
-        InlineObject102.initialize(this, price);
+        InlineObject102.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject102 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, price) { 
-        obj['price'] = price;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,14 +47,17 @@ class InlineObject102 {
         if (data) {
             obj = obj || new InlineObject102();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            }
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
             }
         }
         return obj;
@@ -66,22 +67,28 @@ class InlineObject102 {
 }
 
 /**
- * Название услуги
- * @member {String} name
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+ * @member {Number} status
  */
-InlineObject102.prototype['name'] = undefined;
+InlineObject102.prototype['status'] = undefined;
 
 /**
- * Описание услуги
- * @member {String} description
+ * Массив картинок.
+ * @member {Array.<String>} images
  */
-InlineObject102.prototype['description'] = undefined;
+InlineObject102.prototype['images'] = undefined;
 
 /**
- * Цена услуги.
- * @member {Number} price
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
  */
-InlineObject102.prototype['price'] = undefined;
+InlineObject102.prototype['storekeeperComment'] = undefined;
+
+/**
+ * Приоритет задачи
+ * @member {Number} priority
+ */
+InlineObject102.prototype['priority'] = undefined;
 
 
 

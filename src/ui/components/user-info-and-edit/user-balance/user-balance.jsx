@@ -46,6 +46,7 @@ export const UserBalance = observer(({userId}) => {
 
     rowsPerPage,
     curPage,
+    changeColumnsModel,
     onChangeCurPage,
     onChangeRowsPerPage,
     onSelectionModel,
@@ -61,24 +62,26 @@ export const UserBalance = observer(({userId}) => {
     <div className={classNames.mainWrapper}>
       <DashboardBalance user={user} title={t(TranslationKey.Balance)} />
 
-      <Button
-        disableElevation
-        className={[classNames.button, classNames.depositBtn]}
-        color="primary"
-        variant="contained"
-        onClick={onTriggerReplenishModal}
-      >
-        {t(TranslationKey.Deposit)}
-      </Button>
-      <Button
-        disableElevation
-        className={[classNames.button, classNames.cancelBtn]}
-        color="primary"
-        variant="text"
-        onClick={onTriggerWithdrawModal}
-      >
-        {t(TranslationKey.Withdraw)}
-      </Button>
+      <div className={classNames.btnsWrapper}>
+        <Button
+          disableElevation
+          className={[classNames.button, classNames.depositBtn]}
+          color="primary"
+          variant="contained"
+          onClick={onTriggerReplenishModal}
+        >
+          {t(TranslationKey.Deposit)}
+        </Button>
+        <Button
+          disableElevation
+          className={[classNames.button, classNames.cancelBtn]}
+          color="primary"
+          variant="text"
+          onClick={onTriggerWithdrawModal}
+        >
+          {t(TranslationKey.Withdraw)}
+        </Button>
+      </div>
       <div className={classNames.tableWrapper}>
         <MemoDataGrid
           pagination
@@ -103,6 +106,11 @@ export const UserBalance = observer(({userId}) => {
           density={densityModel}
           columns={columnsModel}
           loading={requestStatus === loadingStatuses.isLoading}
+          componentsProps={{
+            toolbar: {
+              columsBtnSettings: {columnsModel, changeColumnsModel},
+            },
+          }}
           onSelectionModelChange={newSelection => {
             onSelectionModel(newSelection[0])
           }}

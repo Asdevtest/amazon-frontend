@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestsCustomRequestLinksToMediaFiles from './ApiV1RequestsCustomRequestLinksToMediaFiles';
 
 /**
  * The ApiV1RequestsCustomRequest model module.
@@ -23,14 +24,15 @@ class ApiV1RequestsCustomRequest {
      * Constructs a new <code>ApiV1RequestsCustomRequest</code>.
      * @alias module:model/ApiV1RequestsCustomRequest
      * @param title {String} Title заявки.
+     * @param withoutConfirmation {Boolean} Если у заявки стоит withoutConfirmation: true - статус предложения автоматически становится OFFER_CONDITIONS_ACCEPTED при pickup'е
      * @param price {Number} Цена за каждое предложение.
      * @param timeoutAt {Date} Время закрытия заявки.
      * @param direction {module:model/ApiV1RequestsCustomRequest.DirectionEnum} Направление заявки, исходящая или входящая.
      * @param roles {Array.<Number>} Массив массив ролей.
      */
-    constructor(title, price, timeoutAt, direction, roles) { 
+    constructor(title, withoutConfirmation, price, timeoutAt, direction, roles) { 
         
-        ApiV1RequestsCustomRequest.initialize(this, title, price, timeoutAt, direction, roles);
+        ApiV1RequestsCustomRequest.initialize(this, title, withoutConfirmation, price, timeoutAt, direction, roles);
     }
 
     /**
@@ -38,8 +40,9 @@ class ApiV1RequestsCustomRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, title, price, timeoutAt, direction, roles) { 
+    static initialize(obj, title, withoutConfirmation, price, timeoutAt, direction, roles) { 
         obj['title'] = title;
+        obj['withoutConfirmation'] = withoutConfirmation;
         obj['price'] = price;
         obj['timeoutAt'] = timeoutAt;
         obj['direction'] = direction;
@@ -59,6 +62,9 @@ class ApiV1RequestsCustomRequest {
 
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('withoutConfirmation')) {
+                obj['withoutConfirmation'] = ApiClient.convertToType(data['withoutConfirmation'], 'Boolean');
             }
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
@@ -99,6 +105,9 @@ class ApiV1RequestsCustomRequest {
             if (data.hasOwnProperty('announcementId')) {
                 obj['announcementId'] = ApiClient.convertToType(data['announcementId'], 'String');
             }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], [ApiV1RequestsCustomRequestLinksToMediaFiles]);
+            }
         }
         return obj;
     }
@@ -111,6 +120,12 @@ class ApiV1RequestsCustomRequest {
  * @member {String} title
  */
 ApiV1RequestsCustomRequest.prototype['title'] = undefined;
+
+/**
+ * Если у заявки стоит withoutConfirmation: true - статус предложения автоматически становится OFFER_CONDITIONS_ACCEPTED при pickup'е
+ * @member {Boolean} withoutConfirmation
+ */
+ApiV1RequestsCustomRequest.prototype['withoutConfirmation'] = undefined;
 
 /**
  * Цена за каждое предложение.
@@ -189,6 +204,11 @@ ApiV1RequestsCustomRequest.prototype['cashBackInPercent'] = undefined;
  * @member {String} announcementId
  */
 ApiV1RequestsCustomRequest.prototype['announcementId'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1RequestsCustomRequestLinksToMediaFiles>} linksToMediaFiles
+ */
+ApiV1RequestsCustomRequest.prototype['linksToMediaFiles'] = undefined;
 
 
 
