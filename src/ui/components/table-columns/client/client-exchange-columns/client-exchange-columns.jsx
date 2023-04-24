@@ -138,8 +138,8 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey['Red flags']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
 
-    width: 120,
-    renderCell: params => <RedFlagsCell flags={params.value} />,
+    width: 180,
+    renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
   },
 
   {
@@ -148,7 +148,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
 
     width: 300,
-    renderCell: params => <TagsCell tags={params.value} />,
+    renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
   },
 
   {

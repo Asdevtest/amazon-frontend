@@ -1863,7 +1863,10 @@ export const styles = theme => ({
   },
 
   redFlags: {
+    padding: '10px 0',
     display: 'flex',
+    flexWrap: 'wrap',
+    height: '100%',
     gap: 15,
 
     p: {
