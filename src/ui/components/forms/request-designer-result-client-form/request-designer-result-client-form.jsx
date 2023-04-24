@@ -53,12 +53,6 @@ export const RequestDesignerResultClientForm = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  // console.log('request', request)
-
-  // console.log('proposal', proposal)
-
-  // console.log('userInfo', userInfo)
-
   const isNotClient =
     userInfo._id !== request.request.createdBy._id && userInfo.masterUser?._id !== request.request.createdBy._id
 
@@ -77,8 +71,6 @@ export const RequestDesignerResultClientForm = ({
   const [comment, setComment] = useState('')
 
   const [imagesForDownload, setImagesForDownload] = useState([])
-
-  // console.log('imagesForDownload', imagesForDownload)
 
   const sourceImagesData = proposal.proposal.media.map(el => ({
     image: el.fileLink,
@@ -285,7 +277,7 @@ export const RequestDesignerResultClientForm = ({
             )}
 
             {item.isEditCommentOpen && !noShowActions && (
-              <ClickAwayListener mouseEvent="onMouseUp" onClickAway={() => onClickCommentBtn(item._id)}>
+              <ClickAwayListener mouseEvent="onMouseDown" onClickAway={() => onClickCommentBtn(item._id)}>
                 <div className={cx(classNames.commentBtnWrapper)}>
                   <div className={cx(classNames.commentHideBtn)} onClick={() => onClickCommentBtn(item._id)}>
                     <Typography>{t(TranslationKey.Comment)}</Typography>
