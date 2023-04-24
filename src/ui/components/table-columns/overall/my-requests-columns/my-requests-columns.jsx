@@ -74,6 +74,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
       <MultilineTextCell leftAlign text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value])} />
     ),
     width: 146,
+    columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE,
   },
 
   {

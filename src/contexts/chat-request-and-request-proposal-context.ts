@@ -1,7 +1,10 @@
 import {createContext} from 'react'
 
 export interface TRequest {
-  request: {createdBy: {_id: string}}
+  request: {
+    createdBy: {_id: string}
+    sub: {_id: string}
+  }
 }
 
 export interface TRequestProposal {
@@ -12,12 +15,16 @@ export interface TRequestProposal {
   proposal: {
     _id: string
     status: string
+    chatId: string
+    createdBy: {_id: string}
+    sub: {_id: string}
   }
 }
 
 interface TChatRequestAndRequestProposalContext {
   request?: TRequest
   requestProposal?: TRequestProposal
+  requestProposals?: TRequestProposal[]
 }
 
 export const ChatRequestAndRequestProposalContext = createContext<TChatRequestAndRequestProposalContext>({})

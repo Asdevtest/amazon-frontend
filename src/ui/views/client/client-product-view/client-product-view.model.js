@@ -4,7 +4,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
 import {poundsWeightCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {patchSuppliers} from '@constants/white-list'
+import {creatSupplier, patchSuppliers} from '@constants/white-list'
 
 import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
@@ -113,6 +113,8 @@ export class ClientProductViewModel {
   curUpdateProductData = {}
   warningModalTitle = ''
 
+  paymentMethods = []
+
   yuanToDollarRate = undefined
   volumeWeightCoefficient = undefined
 
@@ -199,8 +201,10 @@ export class ClientProductViewModel {
       return
     }
 
+    const filteredImages = images.filter(el => !this.imagesForLoad.some(item => item.includes(el)))
+
     runInAction(() => {
-      this.imagesForLoad = [...this.imagesForLoad, ...images.map(el => getAmazonImageUrl(el, true))]
+      this.imagesForLoad = [...this.imagesForLoad, ...filteredImages.map(el => getAmazonImageUrl(el, true))]
     })
   }
 
@@ -518,7 +522,12 @@ export class ClientProductViewModel {
     }
   }
 
+  async getSuppliersPaymentMethods() {
+    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+  }
+
   async onClickSupplierButtons(actionType) {
+    this.getSuppliersPaymentMethods()
     switch (actionType) {
       case 'add':
         runInAction(() => {
@@ -590,7 +599,7 @@ export class ClientProductViewModel {
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
         images: this.readyImages,
@@ -615,7 +624,8 @@ export class ClientProductViewModel {
           updateProductAutoCalculatedFields.call(this)
         }
       } else {
-        const createSupplierResult = await SupplierModel.createSupplier(supplier)
+        const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+        const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
         await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
         runInAction(() => {
           this.product.suppliers.push(createSupplierResult.guid)

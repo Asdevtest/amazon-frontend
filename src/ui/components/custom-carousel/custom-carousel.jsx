@@ -230,6 +230,7 @@ export const PhotoAndFilesCarousel = ({
   imagesForLoad,
   onChangeImagesForLoad,
   isEditable,
+  withoutMakeMainImage,
 }) => {
   const {classes: classNames} = useClassNames()
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
@@ -301,22 +302,24 @@ export const PhotoAndFilesCarousel = ({
         !product.archive &&
         showActionBtns && ( */}
       <>
-        <>
-          {imageIndex === 0 ? (
-            <div className={cx(classNames.imagesModalBtn, classNames.activeMainIcon)}>
-              <StarOutlinedIcon />
-            </div>
-          ) : (
-            <Button
-              disabled={imageIndex === 0}
-              // success={imageIndex === 0}
-              className={cx(classNames.imagesModalBtn)}
-              onClick={() => onClickMakeMainImageObj(imageIndex, image)}
-            >
-              <StarOutlinedIcon />
-            </Button>
-          )}
-        </>
+        {!withoutMakeMainImage && (
+          <>
+            {imageIndex === 0 ? (
+              <div className={cx(classNames.imagesModalBtn, classNames.activeMainIcon)}>
+                <StarOutlinedIcon />
+              </div>
+            ) : (
+              <Button
+                disabled={imageIndex === 0}
+                // success={imageIndex === 0}
+                className={cx(classNames.imagesModalBtn)}
+                onClick={() => onClickMakeMainImageObj(imageIndex, image)}
+              >
+                <StarOutlinedIcon />
+              </Button>
+            )}
+          </>
+        )}
 
         {/* <Button className={cx(classNames.imagesModalBtn)}>
           <ModeOutlinedIcon />
@@ -581,6 +584,7 @@ export const PhotoAndFilesCarouselMini = ({files, width, small = false, directio
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={bigImagesOptions.images}
         imgIndex={bigImagesOptions.imgIndex}
+        setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
       />
     </div>
   ) : (
@@ -644,6 +648,7 @@ export const PhotoCarousel = observer(({files, isAmazonPhoto, view, alignButtons
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={bigImagesOptions.images}
         imgIndex={bigImagesOptions.imgIndex}
+        setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
       />
     </div>
   ) : (

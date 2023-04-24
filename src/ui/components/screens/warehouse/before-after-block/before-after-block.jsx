@@ -192,7 +192,7 @@ const Box = observer(
               ))}
             </div>
             <div className={cx(classNames.boxInfoWrapper)}>
-              <div>
+              <div className={cx(classNames.boxSizeInfoWrapper)}>
                 <Typography className={classNames.categoryTitle}>
                   {taskType === TaskOperationType.RECEIVE
                     ? isCurrentBox
@@ -202,39 +202,6 @@ const Box = observer(
                 </Typography>
 
                 <div className={classNames.sizesSubWrapper}>
-                  {/* {taskType === TaskOperationType.RECEIVE ? null : (
-                    <div className={classNames.toggleSizesWrapper}>
-                      <div className={classNames.toggleItemWrapper}>
-                        {toggleDimensionsValue === dimensionsConfig.PRIMARY ? (
-                          <span className={classNames.indicator}></span>
-                        ) : null}
-
-                        <Typography
-                          className={cx(classNames.sizesLabel, {
-                            [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.PRIMARY,
-                          })}
-                          onClick={() => setToggleDimensionsValue(dimensionsConfig.PRIMARY)}
-                        >
-                          {t(TranslationKey['Primary dimensions'])}
-                        </Typography>
-                      </div>
-                      <div className={classNames.toggleItemWrapper}>
-                        {toggleDimensionsValue === dimensionsConfig.SHIPPING ? (
-                          <span className={classNames.indicator}></span>
-                        ) : null}
-
-                        <Typography
-                          className={cx(classNames.sizesLabel, {
-                            [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.SHIPPING,
-                          })}
-                          onClick={() => setToggleDimensionsValue(dimensionsConfig.SHIPPING)}
-                        >
-                          {t(TranslationKey['Shipping dimensions'])}
-                        </Typography>
-                      </div>
-                    </div>
-                  )} */}
-
                   <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
                     <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
                       {'In'}
@@ -396,107 +363,14 @@ const Box = observer(
                         )}
                       </Typography>
                     </div>
-                    // <div className={classNames.demensionsWrapper}>
-                    //   <Typography className={cx(classNames.standartText,classNames.mobileDemensions)}>
-                    //     {t(TranslationKey.Length) + ': '}
-                    //     {toggleDimensionsValue === dimensionsConfig.PRIMARY
-                    //       ? toFixed(
-                    //           box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
-                    //           2,
-                    //         )
-                    //       : toFixed(box.deliveryLength / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
-                    //   </Typography>
-                    //   <Typography className={cx(classNames.standartText,classNames.mobileDemensions)}>
-                    //     {t(TranslationKey.Width) + ': '}
-                    //     {toggleDimensionsValue === dimensionsConfig.PRIMARY
-                    //       ? toFixed(
-                    //           box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
-                    //           2,
-                    //         )
-                    //       : toFixed(box.deliveryWidth / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
-                    //   </Typography>
-                    //   <Typography className={cx(classNames.standartText,classNames.mobileDemensions)}>
-                    //     {t(TranslationKey.Height) + ': '}
-                    //     {toggleDimensionsValue === dimensionsConfig.PRIMARY
-                    //       ? toFixed(
-                    //           box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
-                    //           2,
-                    //         )
-                    //       : toFixed(box.deliveryHeight / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
-                    //   </Typography>
-
-                    //   <Typography className={cx(classNames.standartText,classNames.mobileDemensions)}>
-                    //     {t(TranslationKey.Weight) + ': '}
-                    //     {toggleDimensionsValue === dimensionsConfig.PRIMARY
-                    //       ? toFixedWithKg(box.weighGrossKgWarehouse, 2)
-                    //       : toFixedWithKg(box.deliveryMass, 2)}
-                    //   </Typography>
-                    //   <Typography className={cx(classNames.standartText,classNames.mobileDemensions)}>
-                    //     {t(TranslationKey['Volume weight']) + ': '}
-                    //     {toggleDimensionsValue === dimensionsConfig.PRIMARY
-                    //       ? toFixedWithKg(
-                    //           ((parseFloat(box.lengthCmWarehouse) || 0) *
-                    //             (parseFloat(box.heightCmWarehouse) || 0) *
-                    //             (parseFloat(box.widthCmWarehouse) || 0)) /
-                    //             volumeWeightCoefficient,
-                    //           2,
-                    //         )
-                    //       : toFixedWithKg(
-                    //           ((parseFloat(box.deliveryLength) || 0) *
-                    //             (parseFloat(box.deliveryHeight) || 0) *
-                    //             (parseFloat(box.deliveryWidth) || 0)) /
-                    //             volumeWeightCoefficient,
-                    //           2,
-                    //         )}
-                    //   </Typography>
-                    //   <Typography className={cx(classNames.standartText,classNames.mobileDemensions)}>
-                    //     {t(TranslationKey['Final weight']) + ': '}
-                    //     {toggleDimensionsValue === dimensionsConfig.PRIMARY
-                    //       ? toFixedWithKg(
-                    //           box.weighGrossKgWarehouse >
-                    //             ((parseFloat(box.lengthCmWarehouse) || 0) *
-                    //               (parseFloat(box.heightCmWarehouse) || 0) *
-                    //               (parseFloat(box.widthCmWarehouse) || 0)) /
-                    //               volumeWeightCoefficient
-                    //             ? box.weighGrossKgWarehouse
-                    //             : ((parseFloat(box.lengthCmWarehouse) || 0) *
-                    //                 (parseFloat(box.heightCmWarehouse) || 0) *
-                    //                 (parseFloat(box.widthCmWarehouse) || 0)) /
-                    //                 volumeWeightCoefficient,
-                    //           2,
-                    //         )
-                    //       : toFixedWithKg(
-                    //           box.deliveryMass >
-                    //             ((parseFloat(box.deliveryLength) || 0) *
-                    //               (parseFloat(box.deliveryHeight) || 0) *
-                    //               (parseFloat(box.deliveryWidth) || 0)) /
-                    //               volumeWeightCoefficient
-                    //             ? box.deliveryMass
-                    //             : ((parseFloat(box.deliveryLength) || 0) *
-                    //                 (parseFloat(box.deliveryHeight) || 0) *
-                    //                 (parseFloat(box.deliveryWidth) || 0)) /
-                    //                 volumeWeightCoefficient,
-                    //           2,
-                    //         )}
-                    //   </Typography>
-                    // </div>
                   )
                 }
-                {/* {!isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
-                  <Field
-                    oneLine
-                    containerClasses={classNames.checkboxSizesContainer}
-                    labelClasses={classNames.label}
-                    label={t(TranslationKey['The primary size suitable for shipment'])}
-                    inputComponent={<Checkbox disabled color="primary" checked={box.fitsInitialDimensions} />}
-                  />
-                ) : null} */}
               </div>
 
               <Divider flexItem className={classNames.divider} orientation="vertical" />
 
               <div className={classNames.imagesWrapper}>
-                {box.images && (
+                {window.innerWidth > 1281 && box.images && (
                   <div className={classNames.photoWrapper}>
                     <Typography className={classNames.photoAndFilesTitle}>{`${t(
                       TranslationKey['Photos and documents of the box'],
@@ -553,7 +427,7 @@ const Box = observer(
                   </div>
                 )}
 
-                {box.items[0].order.images && (
+                {window.innerWidth > 1281 && box.items[0].order.images && (
                   <div className={classNames.photoWrapper}>
                     <Typography className={classNames.photoAndFilesTitle}>{`${t(
                       TranslationKey['Photos and order documents'],
@@ -568,97 +442,393 @@ const Box = observer(
                     </div>
                   </div>
                 )}
+
+                {window.innerWidth < 1282 && (
+                  <div className={classNames.footerSubWrapper}>
+                    <div
+                      className={cx(classNames.chipWrapper, {
+                        [classNames.chipWrapperEditAccent]:
+                          needAccent && box.shippingLabel !== referenceEditingBox.shippingLabel,
+                      })}
+                    >
+                      <Text
+                        tooltipInfoContent={t(TranslationKey['Availability of shipping label'])}
+                        className={classNames.subTitle}
+                      >
+                        {t(TranslationKey['Shipping label']) + ':'}
+                      </Text>
+
+                      {box.shippingLabel ? (
+                        <div className={classNames.barCode}>
+                          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
+                            <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
+                          </Link>
+                          <CopyValue text={box.shippingLabel} />
+                        </div>
+                      ) : (
+                        <Typography className={classNames.link}>{t(TranslationKey['Not available'])}</Typography>
+                      )}
+                    </div>
+                    <div>
+                      <Field
+                        oneLine
+                        containerClasses={classNames.checkboxContainer}
+                        labelClasses={classNames.label}
+                        label={t(TranslationKey['Shipping label was glued to the warehouse'])}
+                        inputComponent={
+                          <Checkbox
+                            color="primary"
+                            disabled={!box.shippingLabel || !isNewBox || readOnly}
+                            checked={box.isShippingLabelAttachedByStorekeeper}
+                            onClick={() =>
+                              onChangeField(
+                                !box.isShippingLabelAttachedByStorekeeper,
+                                'isShippingLabelAttachedByStorekeeper',
+                              )
+                            }
+                          />
+                        }
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {window.innerWidth < 1282 &&
+                  box.items?.map((item, index) => (
+                    <>
+                      <>
+                        {window.innerWidth < 1282 && box.amount > 1 && (
+                          <div className={classNames.countSuperBoxWrapper}>
+                            <Typography className={classNames.subTitle}>
+                              {t(TranslationKey['Boxes in group']) + ':'}
+                            </Typography>
+                            <Typography className={classNames.subTitleOne}>{`x${box.amount}`}</Typography>
+                          </div>
+                        )}
+
+                        {window.innerWidth < 1282 &&
+                        (taskType === TaskOperationType.EDIT_BY_STOREKEEPER ||
+                          (taskType === TaskOperationType.MERGE && index === 0) ||
+                          (taskType === TaskOperationType.SPLIT && index === 0) ||
+                          taskType === TaskOperationType.EDIT ||
+                          (readOnly && taskType === TaskOperationType.RECEIVE) ||
+                          (!isNewBox && taskType !== TaskOperationType.RECEIVE && index === 0)) ? (
+                          // eslint-disable-next-line react/jsx-indent
+                          <div className={classNames.countSubWrapper}>
+                            <Typography className={classNames.subTitle}>{`${t(TranslationKey.Box)} №:`}</Typography>
+                            <Typography className={classNames.subTitleOne}>{box.humanFriendlyId}</Typography>
+                          </div>
+                        ) : (
+                          <div className={classNames.countSubWrapper} />
+                        )}
+                      </>
+
+                      <div
+                        key={index}
+                        className={cx(classNames.barCodeActionsWrapper, {
+                          [classNames.successAccent]:
+                            isNewBox &&
+                            // taskType === TaskOperationType.RECEIVE &&
+                            (item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper),
+                          [classNames.warningAccent]:
+                            isNewBox &&
+                            // taskType === TaskOperationType.RECEIVE &&
+                            !item.isBarCodeAlreadyAttachedByTheSupplier &&
+                            !item.isBarCodeAttachedByTheStorekeeper,
+                        })}
+                      >
+                        {item.isBarCodeAttachedByTheStorekeeper === false && (
+                          <Field
+                            oneLine
+                            containerClasses={classNames.checkboxContainer}
+                            labelClasses={classNames.label}
+                            label={t(TranslationKey['BarCode is glued by supplier'])}
+                            tooltipInfoContent={t(TranslationKey['The supplier has glued the barcode before shipment'])}
+                            inputComponent={
+                              <Checkbox
+                                disabled={!isNewBox || readOnly}
+                                color="primary"
+                                checked={item.isBarCodeAlreadyAttachedByTheSupplier}
+                                onClick={() =>
+                                  onChangeBarCode(
+                                    !item.isBarCodeAlreadyAttachedByTheSupplier,
+                                    'isBarCodeAlreadyAttachedByTheSupplier',
+                                    index,
+                                  )
+                                }
+                              />
+                            }
+                          />
+                        )}
+
+                        {item.isBarCodeAlreadyAttachedByTheSupplier === false && (
+                          <Field
+                            oneLine
+                            containerClasses={classNames.checkboxContainer}
+                            label={t(TranslationKey['BarCode is glued by storekeeper'])}
+                            labelClasses={classNames.label}
+                            tooltipInfoContent={t(
+                              TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
+                            )}
+                            inputComponent={
+                              <Checkbox
+                                disabled={!isNewBox || readOnly}
+                                color="primary"
+                                checked={item.isBarCodeAttachedByTheStorekeeper}
+                                onClick={() =>
+                                  onChangeBarCode(
+                                    !item.isBarCodeAttachedByTheStorekeeper,
+                                    'isBarCodeAttachedByTheStorekeeper',
+                                    index,
+                                  )
+                                }
+                              />
+                            }
+                          />
+                        )}
+
+                        {isNewBox &&
+                          !readOnly &&
+                          boxIndex === 0 &&
+                          index === 0 &&
+                          taskType !== 'merge' &&
+                          taskType !== 'edit' && (
+                            <Field
+                              oneLine
+                              // containerClasses={classNames.checkboxContainer}
+                              labelClasses={classNames.label}
+                              label={t(TranslationKey['Apply to all boxes'])}
+                              tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
+                              inputComponent={
+                                <Button
+                                  className={classNames.applyButton}
+                                  onClick={() =>
+                                    onApplyGluedBarcodeToAllBoxes(
+                                      item.isBarCodeAlreadyAttachedByTheSupplier,
+                                      item.isBarCodeAttachedByTheStorekeeper,
+                                    )
+                                  }
+                                >
+                                  {t(TranslationKey.Apply)}
+                                </Button>
+                              }
+                            />
+                          )}
+                      </div>
+                    </>
+                  ))}
+
+                {window.innerWidth < 1282 && (
+                  <div className={classNames.footerTrackNumberWrapper}>
+                    <Field
+                      // oneLine
+                      // containerClasses={classNames.countSubWrapper}
+                      label={t(TranslationKey['Track number'])}
+                      labelClasses={classNames.label}
+                      inputComponent={
+                        <Tooltip title={box.trackNumberText}>
+                          <Typography className={classNames.trackNum}>
+                            {getShortenStringIfLongerThanCount(box.trackNumberText, 70) ||
+                              t(TranslationKey['Not available'])}
+                          </Typography>
+                        </Tooltip>
+                      }
+                    />
+
+                    <div className={classNames.trackNumberPhotoWrapper}>
+                      {box.trackNumberFile.length ? (
+                        <CustomCarousel>
+                          {box.trackNumberFile.map((el, index) => (
+                            <img
+                              key={index}
+                              className={classNames.trackNumberPhoto}
+                              src={box.trackNumberFile[index]}
+                              onClick={() => {
+                                setShowPhotosModal(!showPhotosModal)
+                                setBigImagesOptions({
+                                  ...bigImagesOptions,
+
+                                  images: box.trackNumberFile,
+                                })
+                              }}
+                            />
+                          ))}
+                        </CustomCarousel>
+                      ) : (
+                        <Typography className={classNames.trackNumberNoPhotoText}>
+                          {'no photo track number...'}
+                        </Typography>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
             <div className={classNames.footerWrapper}>
-              <div className={classNames.footerSubWrapper}>
-                <div
-                  className={cx(classNames.chipWrapper, {
-                    [classNames.chipWrapperEditAccent]:
-                      needAccent && box.shippingLabel !== referenceEditingBox.shippingLabel,
-                  })}
-                >
-                  <Text
-                    tooltipInfoContent={t(TranslationKey['Availability of shipping label'])}
-                    className={classNames.subTitle}
+              {window.innerWidth > 1281 && (
+                <div className={classNames.footerSubWrapper}>
+                  <div
+                    className={cx(classNames.chipWrapper, {
+                      [classNames.chipWrapperEditAccent]:
+                        needAccent && box.shippingLabel !== referenceEditingBox.shippingLabel,
+                    })}
                   >
-                    {t(TranslationKey['Shipping label']) + ':'}
-                  </Text>
+                    <Text
+                      tooltipInfoContent={t(TranslationKey['Availability of shipping label'])}
+                      className={classNames.subTitle}
+                    >
+                      {t(TranslationKey['Shipping label']) + ':'}
+                    </Text>
 
-                  {box.shippingLabel ? (
-                    <div className={classNames.barCode}>
-                      <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
-                        <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
-                      </Link>
-                      <CopyValue text={box.shippingLabel} />
-                    </div>
-                  ) : (
-                    <Typography className={classNames.link}>{t(TranslationKey['Not available'])}</Typography>
-                  )}
+                    {box.shippingLabel ? (
+                      <div className={classNames.barCode}>
+                        <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
+                          <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
+                        </Link>
+                        <CopyValue text={box.shippingLabel} />
+                      </div>
+                    ) : (
+                      <Typography className={classNames.link}>{t(TranslationKey['Not available'])}</Typography>
+                    )}
+                  </div>
+                  <div>
+                    <Field
+                      oneLine
+                      containerClasses={classNames.checkboxContainer}
+                      labelClasses={classNames.label}
+                      label={t(TranslationKey['Shipping label was glued to the warehouse'])}
+                      inputComponent={
+                        <Checkbox
+                          color="primary"
+                          disabled={!box.shippingLabel || !isNewBox || readOnly}
+                          checked={box.isShippingLabelAttachedByStorekeeper}
+                          onClick={() =>
+                            onChangeField(
+                              !box.isShippingLabelAttachedByStorekeeper,
+                              'isShippingLabelAttachedByStorekeeper',
+                            )
+                          }
+                        />
+                      }
+                    />
+                  </div>
                 </div>
-                <div>
+              )}
+
+              {window.innerWidth > 1281 && (
+                <div className={classNames.footerTrackNumberWrapper}>
                   <Field
-                    oneLine
-                    containerClasses={classNames.checkboxContainer}
+                    // oneLine
+                    // containerClasses={classNames.countSubWrapper}
+                    label={t(TranslationKey['Track number'])}
                     labelClasses={classNames.label}
-                    label={t(TranslationKey['Shipping label was glued to the warehouse'])}
                     inputComponent={
-                      <Checkbox
-                        color="primary"
-                        disabled={!box.shippingLabel || !isNewBox || readOnly}
-                        checked={box.isShippingLabelAttachedByStorekeeper}
-                        onClick={() =>
-                          onChangeField(
-                            !box.isShippingLabelAttachedByStorekeeper,
-                            'isShippingLabelAttachedByStorekeeper',
-                          )
-                        }
-                      />
+                      <Tooltip title={box.trackNumberText}>
+                        <Typography className={classNames.trackNum}>
+                          {getShortenStringIfLongerThanCount(box.trackNumberText, 70) ||
+                            t(TranslationKey['Not available'])}
+                        </Typography>
+                      </Tooltip>
                     }
                   />
-                </div>
-              </div>
 
-              <div className={classNames.footerTrackNumberWrapper}>
-                <Field
-                  // oneLine
-                  // containerClasses={classNames.countSubWrapper}
-                  label={t(TranslationKey['Track number'])}
-                  labelClasses={classNames.label}
-                  inputComponent={
-                    <Tooltip title={box.trackNumberText}>
-                      <Typography className={classNames.trackNum}>
-                        {getShortenStringIfLongerThanCount(box.trackNumberText, 70) ||
-                          t(TranslationKey['Not available'])}
+                  <div className={classNames.trackNumberPhotoWrapper}>
+                    {box.trackNumberFile.length ? (
+                      <CustomCarousel>
+                        {box.trackNumberFile.map((el, index) => (
+                          <img
+                            key={index}
+                            className={classNames.trackNumberPhoto}
+                            src={box.trackNumberFile[index]}
+                            onClick={() => {
+                              setShowPhotosModal(!showPhotosModal)
+                              setBigImagesOptions({
+                                ...bigImagesOptions,
+
+                                images: box.trackNumberFile,
+                              })
+                            }}
+                          />
+                        ))}
+                      </CustomCarousel>
+                    ) : (
+                      <Typography className={classNames.trackNumberNoPhotoText}>
+                        {'no photo track number...'}
                       </Typography>
-                    </Tooltip>
-                  }
-                />
-
-                <div className={classNames.trackNumberPhotoWrapper}>
-                  {box.trackNumberFile.length ? (
-                    <CustomCarousel>
-                      {box.trackNumberFile.map((el, index) => (
-                        <img
-                          key={index}
-                          className={classNames.trackNumberPhoto}
-                          src={box.trackNumberFile[index]}
-                          onClick={() => {
-                            setShowPhotosModal(!showPhotosModal)
-                            setBigImagesOptions({
-                              ...bigImagesOptions,
-
-                              images: box.trackNumberFile,
-                            })
-                          }}
-                        />
-                      ))}
-                    </CustomCarousel>
-                  ) : (
-                    <Typography className={classNames.trackNumberNoPhotoText}>{'no photo track number...'}</Typography>
-                  )}
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
+
+              {window.innerWidth < 1282 && box.images && (
+                <div className={classNames.photoWrapper}>
+                  <Typography className={classNames.photoAndFilesTitle}>{`${t(
+                    TranslationKey['Photos and documents of the box'],
+                  )}:`}</Typography>
+                  <div className={classNames.photoSubWrapper}>
+                    <PhotoAndFilesCarousel
+                      small
+                      direction={window.screen.width < 768 ? 'column' : 'row'}
+                      files={box.images}
+                      width={window.screen.width < 768 ? '375px' : '340px'}
+                    />
+                  </div>
+
+                  {isNewBox && box.tmpImages?.length ? (
+                    <div>
+                      <Typography className={classNames.greenText}>{`${t(TranslationKey['New files'])}: (+ ${
+                        box.tmpImages?.length
+                      })`}</Typography>
+                      <CustomCarousel>
+                        {box.tmpImages?.map((image, index) =>
+                          typeof image === 'string' ? (
+                            <div key={index} className={classNames.imageLinkListItem}>
+                              <Tooltip title={renderImageInfo(image, image)} classes={{popper: classNames.imgTooltip}}>
+                                <Avatar className={classNames.image} src={image} alt={image} variant="square" />
+                              </Tooltip>
+
+                              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(image)}>
+                                <Typography className={classNames.linkName}>{image}</Typography>
+                              </Link>
+                            </div>
+                          ) : (
+                            <div key={index} className={classNames.imageListItem}>
+                              <Tooltip
+                                title={renderImageInfo(image.data_url, image.file.name)}
+                                classes={{popper: classNames.imgTooltip}}
+                              >
+                                <img
+                                  className={classNames.image}
+                                  src={image.file.type.includes('image') ? image.data_url : '/assets/icons/file.png'}
+                                  alt={image.file.name}
+                                />
+                              </Tooltip>
+
+                              <Typography className={classNames.fileName}>{image.file.name} </Typography>
+                            </div>
+                          ),
+                        )}
+                      </CustomCarousel>
+                    </div>
+                  ) : null}
+                </div>
+              )}
+
+              {window.innerWidth < 1282 && box.items[0].order.images && (
+                <div className={classNames.photoWrapper}>
+                  <Typography className={classNames.photoAndFilesTitle}>{`${t(
+                    TranslationKey['Photos and order documents'],
+                  )}:`}</Typography>
+                  <div className={classNames.photoSubWrapper}>
+                    <PhotoAndFilesCarousel
+                      small
+                      direction={window.screen.width < 768 ? 'column' : 'row'}
+                      files={box.items[0].order.images}
+                      width={window.screen.width < 768 ? '380px' : '340px'}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </Paper>
         )}
@@ -724,6 +894,7 @@ const Box = observer(
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
+          setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
         />
       </div>
     )

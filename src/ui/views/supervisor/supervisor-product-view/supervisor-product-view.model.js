@@ -12,6 +12,7 @@ import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {SupervisorModel} from '@models/supervisor-model'
 import {SupervisorUpdateProductContract} from '@models/supervisor-model/supervisor-model.contracts'
+import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
@@ -138,6 +139,8 @@ export class SupervisorProductViewModel {
 
   supplierModalReadOnly = false
 
+  paymentMethods = []
+
   weightParserAmazon = 0
   weightParserSELLCENTRAL = 0
 
@@ -200,8 +203,10 @@ export class SupervisorProductViewModel {
       return
     }
 
+    const filteredImages = images.filter(el => !this.imagesForLoad.some(item => item.includes(el)))
+
     runInAction(() => {
-      this.imagesForLoad = [...this.imagesForLoad, ...images.map(el => getAmazonImageUrl(el, true))]
+      this.imagesForLoad = [...this.imagesForLoad, ...filteredImages.map(el => getAmazonImageUrl(el, true))]
     })
   }
 
@@ -469,7 +474,12 @@ export class SupervisorProductViewModel {
     })
   }
 
+  async getSuppliersPaymentMethods() {
+    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+  }
+
   async onClickSupplierButtons(actionType) {
+    this.getSuppliersPaymentMethods()
     switch (actionType) {
       case 'view':
         runInAction(() => {

@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## apiV1GologinProfilePost
 
-> InlineResponse20041 apiV1GologinProfilePost(opts)
+> InlineResponse20042 apiV1GologinProfilePost(opts)
 
 # Создать новый профайл пользователя.
 
@@ -53,7 +53,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20041**](InlineResponse20041.md)
+[**InlineResponse20042**](InlineResponse20042.md)
 
 ### Authorization
 

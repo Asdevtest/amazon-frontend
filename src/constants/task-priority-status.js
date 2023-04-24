@@ -7,12 +7,14 @@ export const TaskPriorityStatus = {
   LONG: 'LONG',
   STANDART: 'STANDART',
   URGENT: 'URGENT',
+  PROBLEMATIC: 'PROBLEMATIC',
 }
 
 export const mapTaskPriorityStatusEnum = {
   10: TaskPriorityStatus.LONG,
   20: TaskPriorityStatus.STANDART,
   30: TaskPriorityStatus.URGENT,
+  40: TaskPriorityStatus.PROBLEMATIC,
 }
 
 export const taskPriorityStatusTranslate = value => {
@@ -23,6 +25,8 @@ export const taskPriorityStatusTranslate = value => {
       return t(TranslationKey.TASK_STANDART_PRIORITY_KEY)
     case TaskPriorityStatus.URGENT:
       return t(TranslationKey.Urgent)
+    case TaskPriorityStatus.PROBLEMATIC:
+      return t(TranslationKey.Problematic)
   }
 }
 
@@ -31,7 +35,7 @@ export const colorByTaskPriorityStatus = status => {
     return '#F3AF00'
   } else if ([TaskPriorityStatus.LONG].includes(status)) {
     return '#00B746'
-  } else if ([TaskPriorityStatus.URGENT].includes(status)) {
+  } else if ([TaskPriorityStatus.URGENT, TaskPriorityStatus.PROBLEMATIC].includes(status)) {
     return '#FF1616'
   } else {
     return '#black'

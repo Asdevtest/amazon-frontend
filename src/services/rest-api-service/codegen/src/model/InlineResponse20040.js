@@ -12,6 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20036Finances from './InlineResponse20036Finances';
+import InlineResponse20040Checking from './InlineResponse20040Checking';
+import InlineResponse20040Products from './InlineResponse20040Products';
 
 /**
  * The InlineResponse20040 model module.
@@ -47,14 +50,14 @@ class InlineResponse20040 {
         if (data) {
             obj = obj || new InlineResponse20040();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20040Products.constructFromObject(data['products']);
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('checking')) {
+                obj['checking'] = InlineResponse20040Checking.constructFromObject(data['checking']);
             }
-            if (data.hasOwnProperty('productCount')) {
-                obj['productCount'] = ApiClient.convertToType(data['productCount'], 'Number');
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20036Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -64,22 +67,19 @@ class InlineResponse20040 {
 }
 
 /**
- * Гуид тега
- * @member {String} _id
+ * @member {module:model/InlineResponse20040Products} products
  */
-InlineResponse20040.prototype['_id'] = undefined;
+InlineResponse20040.prototype['products'] = undefined;
 
 /**
- * Тег
- * @member {String} title
+ * @member {module:model/InlineResponse20040Checking} checking
  */
-InlineResponse20040.prototype['title'] = undefined;
+InlineResponse20040.prototype['checking'] = undefined;
 
 /**
- * Кол-во продуктов, которые используют этот тег
- * @member {Number} productCount
+ * @member {module:model/InlineResponse20036Finances} finances
  */
-InlineResponse20040.prototype['productCount'] = undefined;
+InlineResponse20040.prototype['finances'] = undefined;
 
 
 

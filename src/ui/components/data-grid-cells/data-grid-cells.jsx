@@ -4,7 +4,6 @@ import ClearIcon from '@mui/icons-material/Clear'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DoneIcon from '@mui/icons-material/Done'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined'
 import PrintIcon from '@mui/icons-material/Print'
@@ -59,6 +58,7 @@ import {Input} from '@components/input'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {SearchInput} from '@components/search-input'
 import {WithSearchSelect} from '@components/selects/with-search-select'
+import {RedFlags} from '@components/shared/redFlags/red-flags'
 import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
@@ -92,7 +92,6 @@ import {
   trimBarcode,
 } from '@utils/text'
 import {t} from '@utils/translations'
-import {downloadFileByLink} from '@utils/upload-files'
 
 import {styles} from './data-grid-cells.style'
 
@@ -977,12 +976,6 @@ export const DownloadAndPrintFilesCell = React.memo(
           images={[selectedImage.fileUrl]}
           controls={() => (
             <>
-              <Button
-                onClick={() => downloadFileByLink(getAmazonImageUrl(selectedImage.fileUrl), selectedImage.fileName)}
-              >
-                <FileDownloadOutlinedIcon color="inherit" />
-              </Button>
-
               <Button onClick={() => handlePrint()}>
                 <PrintIcon color="inherit" />
               </Button>
@@ -1105,7 +1098,10 @@ export const TaskPriorityCell =
           select: cx({
             [classNames.colorYellow]: curPriority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.STANDART],
             [classNames.colorGreen]: curPriority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.LONG],
-            [classNames.colorRed]: curPriority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.URGENT],
+            [classNames.colorRed]: [
+              mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.URGENT],
+              mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC],
+            ].includes(curPriority),
           }),
         }}
         onChange={e => onChangePriority(taskId, e.target.value)}
@@ -1144,7 +1140,7 @@ export const WarehouseDestinationAndTariffCell = React.memo(
       onSelectDestination,
       setShowSelectionStorekeeperAndTariffModal,
       onClickSetTariff,
-      isDraft,
+      disabled,
     }) => {
       const tariffName = storekeepers
         .find(el => el._id === boxesMy?.storekeeper?._id)
@@ -1166,7 +1162,7 @@ export const WarehouseDestinationAndTariffCell = React.memo(
         <div className={classNames.destinationAndTariffWrapper}>
           <div className={classNames.destination}>
             <WithSearchSelect
-              disabled={isDraft}
+              disabled={disabled}
               width={160}
               selectedItemName={
                 destinations.find(el => el._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
@@ -1182,7 +1178,7 @@ export const WarehouseDestinationAndTariffCell = React.memo(
           <div className={classNames.tatiff}>
             <Button
               disableElevation
-              disabled={isDraft}
+              disabled={disabled}
               variant={boxesMy?.storekeeper?._id && 'text'}
               className={classNames.storekeeperBtn}
               onClick={e => {
@@ -1714,7 +1710,7 @@ export const TaskDescriptionCell = React.memo(
 
     const renderBox = (box, key, isOneBox) => (
       <div key={key && key} className={classNames.imagesWrapper}>
-        <div className={cx(classNames.standartBoxWrapper, {[classNames.isOneBoxWrapper]: isOneBox})}>
+        <div className={cx(classNames.standartBoxWrapper)}>
           {box.items && box.items.map((product, productIndex) => renderProductImages(product, productIndex, box))}
         </div>
       </div>
@@ -2832,6 +2828,28 @@ export const ShortBoxDimensions = React.memo(
             {t(TranslationKey.Set)}
           </Button>
         ) : null} */}
+      </div>
+    )
+  }, styles),
+)
+
+export const RedFlagsCell = React.memo(
+  withStyles(
+    ({classes: classNames, flags}) => (
+      <div className={classNames.redFlags}>
+        <RedFlags activeFlags={flags} />
+      </div>
+    ),
+    styles,
+  ),
+)
+export const TagsCell = React.memo(
+  withStyles(({classes: classNames, tags}) => {
+    const tagList = tags?.map(el => `#${el.title}`) || []
+
+    return (
+      <div className={classNames.tags}>
+        <MultilineTextHeaderCell text={tagList.join(', ')} />
       </div>
     )
   }, styles),

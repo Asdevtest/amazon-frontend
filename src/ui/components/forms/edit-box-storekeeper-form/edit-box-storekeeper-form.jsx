@@ -8,8 +8,11 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
+import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
+
+import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
 import {ColoredChip} from '@components/colored-chip'
@@ -652,6 +655,8 @@ export const EditBoxStorekeeperForm = observer(
                           variant={boxFields.storekeeperId && 'text'}
                           className={cx(classNames.storekeeperBtnDefault, {
                             [classNames.storekeeperBtn]: !boxFields.storekeeperId,
+                            [classNames.storekeeperBtnColored]:
+                              !boxFields.storekeeperId && SettingsModel.uiTheme === UiTheme.light,
                           })}
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
@@ -952,6 +957,7 @@ export const EditBoxStorekeeperForm = observer(
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
+          setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
         />
 
         <Modal

@@ -22,7 +22,9 @@ import {
   OrderOrItemMenuItem,
   ProductMenuItem,
   IsHaveBarCodeFilterMenuItem,
+  BoxestatusMenuItem,
   MyRequestsStatusMenuItem,
+  FreelanceRequestType,
 } from '../data-grid-menu-items/data-grid-menu-items'
 
 export const DataGridCustomColumnMenuComponent = props => {
@@ -129,6 +131,21 @@ export const DataGridCustomColumnMenuComponent = props => {
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if (currentColumn.columnKey === columnnsKeys.shared.BOXES_STATUS) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <BoxestatusMenuItem
+          data={props[currentColumn.field]}
+          field={currentColumn.field}
+          filterRequestStatus={filterRequestStatus}
           onClose={hideMenu}
           onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
           onClickAccept={onClickAccept}
@@ -245,6 +262,24 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <InStockMenuItem
+          data={props[currentColumn.field]}
+          field={currentColumn.field}
+          filterRequestStatus={filterRequestStatus}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if ([columnnsKeys.client.FREELANCE_REQUEST_TYPE].includes(currentColumn.columnKey)) {
+    // eslint-disable-next-line no-unused-vars
+    const {typeTask, ...rest} = other
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...rest}>
+        <FreelanceRequestType
           data={props[currentColumn.field]}
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}

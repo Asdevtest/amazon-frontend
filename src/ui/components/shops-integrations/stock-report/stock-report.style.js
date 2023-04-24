@@ -42,6 +42,11 @@ export const styles = theme => ({
   btnsWrapper: {
     marginBottom: '10px',
     display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  btnsSubWrapper: {
+    display: 'flex',
   },
 
   selectedShopBtn: {

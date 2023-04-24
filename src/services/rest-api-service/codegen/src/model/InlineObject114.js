@@ -24,11 +24,19 @@ import ApiV1SuppliersPriceVariations from './ApiV1SuppliersPriceVariations';
 class InlineObject114 {
     /**
      * Constructs a new <code>InlineObject114</code>.
+     * Новый поставщик.
      * @alias module:model/InlineObject114
+     * @param name {String} Название поставщика.
+     * @param link {String} Ссылка на поставщика.
+     * @param price {Number} Цена за еденицу, dollar
+     * @param amount {Number} кол-во
+     * @param minlot {Number} Минимальный лот.
+     * @param comment {String} Комментарий
+     * @param batchDeliveryCostInDollar {Number} Доставка партии, dollar
      */
-    constructor() { 
+    constructor(name, link, price, amount, minlot, comment, batchDeliveryCostInDollar) { 
         
-        InlineObject114.initialize(this);
+        InlineObject114.initialize(this, name, link, price, amount, minlot, comment, batchDeliveryCostInDollar);
     }
 
     /**
@@ -36,7 +44,14 @@ class InlineObject114 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name, link, price, amount, minlot, comment, batchDeliveryCostInDollar) { 
+        obj['name'] = name;
+        obj['link'] = link;
+        obj['price'] = price;
+        obj['amount'] = amount;
+        obj['minlot'] = minlot;
+        obj['comment'] = comment;
+        obj['batchDeliveryCostInDollar'] = batchDeliveryCostInDollar;
     }
 
     /**

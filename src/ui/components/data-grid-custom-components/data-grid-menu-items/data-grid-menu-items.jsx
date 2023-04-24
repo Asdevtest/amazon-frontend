@@ -16,6 +16,8 @@ import React, {useEffect, useState} from 'react'
 import {compareDesc, isAfter, parseISO} from 'date-fns'
 import {withStyles} from 'tss-react/mui'
 
+import {BoxStatus, boxStatusTranslateKey} from '@constants/box-status'
+import {freelanceRequestType, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatusTranslate} from '@constants/order-status'
 import {MyRequestStatus, MyRequestStatusTranslate} from '@constants/request-proposal-status'
@@ -322,6 +324,95 @@ export const MyRequestsStatusMenuItem = React.memo(
   }, styles),
 )
 
+export const FreelanceRequestType = React.memo(
+  withStyles(({classes: classNames, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept}) => {
+    const filterData = Object.values(freelanceRequestType)
+
+    const {currentFilterData} = data
+
+    const [choosenItems, setChoosenItems] = useState(currentFilterData)
+
+    const onClickItem = str => {
+      if (choosenItems.some(item => item === str)) {
+        setChoosenItems(choosenItems.slice().filter(item => item !== str))
+      } else {
+        setChoosenItems([...choosenItems, str])
+      }
+    }
+    useEffect(() => {
+      setChoosenItems(currentFilterData)
+    }, [currentFilterData])
+
+    const [itemsForRender, setItemsForRender] = useState(filterData || [])
+    const [nameSearchValue, setNameSearchValue] = useState('')
+
+    useEffect(() => {
+      if (nameSearchValue) {
+        const filter = filterData?.filter(item =>
+          freelanceRequestTypeTranslate(item).toLowerCase().includes(nameSearchValue.toLowerCase()),
+        )
+        setItemsForRender(filter)
+      } else {
+        setItemsForRender(filterData)
+      }
+    }, [nameSearchValue])
+
+    return (
+      <div className={classNames.shopsDataWrapper}>
+        <div className={classNames.searchInputWrapper}>
+          <SearchInput
+            key={'client_warehouse_search_input'}
+            inputClasses={classNames.searchInput}
+            placeholder={t(TranslationKey.Search)}
+            onChange={e => {
+              setNameSearchValue(e.target.value)
+            }}
+          />
+        </div>
+        <div className={classNames.shopsWrapper}>
+          <div className={classNames.shopsBody}>
+            <>
+              {itemsForRender.length ? (
+                itemsForRender.map((el, index) => (
+                  <div key={index} className={classNames.shop}>
+                    <Checkbox
+                      color="primary"
+                      checked={choosenItems.some(item => item === el)}
+                      onClick={() => onClickItem(el)}
+                    />
+                    <div className={classNames.shopName}>
+                      {freelanceRequestTypeTranslate(el) || t(TranslationKey.Empty)}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+              )}
+            </>
+          </div>
+        </div>
+
+        <div className={classNames.buttonsWrapper}>
+          <Button
+            variant="contained"
+            onClick={e => {
+              onClose(e)
+              onChangeFullFieldMenuItem(choosenItems, field)
+
+              onClickAccept()
+            }}
+          >
+            {t(TranslationKey.Accept)}
+          </Button>
+          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </div>
+      </div>
+    )
+  }, styles),
+)
+
 export const ClientOrderAllStatusesMenuItem = React.memo(
   withStyles(({classes: classNames, orderStatusData}) => {
     const {orderStatusDataBase, chosenStatus, onClickOrderStatusData} = orderStatusData
@@ -473,6 +564,71 @@ export const ObJectFieldMenuItem = React.memo(
     },
     styles,
   ),
+)
+
+export const BoxestatusMenuItem = React.memo(
+  withStyles(({classes: classNames, data, onChangeFullFieldMenuItem, onClose, field, onClickAccept}) => {
+    const {/* filterData, */ currentFilterData} = data
+
+    const [choosenItems, setChoosenItems] = useState(currentFilterData)
+
+    const onClickItem = el => {
+      if (el === 'ALL') {
+        if (choosenItems.length === 4) {
+          setChoosenItems([])
+        } else {
+          setChoosenItems([
+            BoxStatus.NEW,
+            BoxStatus.IN_STOCK,
+            BoxStatus.REQUESTED_SEND_TO_BATCH,
+            BoxStatus.ACCEPTED_IN_PROCESSING,
+          ])
+        }
+      } else if (choosenItems.some(item => item === el)) {
+        setChoosenItems(choosenItems.slice().filter(item => item !== el))
+      } else {
+        setChoosenItems([...choosenItems, el])
+      }
+    }
+    useEffect(() => {
+      setChoosenItems(currentFilterData)
+    }, [currentFilterData])
+
+    return (
+      <div className={classNames.shopsDataWrapper}>
+        <div className={classNames.orderStatusDataBody}>
+          <div className={classNames.orderStatus} onClick={() => onClickItem('ALL')}>
+            <Checkbox color="primary" checked={choosenItems.length === 4 || !choosenItems.length} />
+            <div className={classNames.orderStatusName}>{t(TranslationKey.All)}</div>
+          </div>
+          {[BoxStatus.NEW, BoxStatus.IN_STOCK, BoxStatus.REQUESTED_SEND_TO_BATCH, BoxStatus.ACCEPTED_IN_PROCESSING].map(
+            item => (
+              <div key={item} className={classNames.orderStatus} onClick={() => onClickItem(item)}>
+                <Checkbox color="primary" checked={choosenItems?.some(status => status === item)} />
+                <div className={classNames.orderStatusName}>{t(boxStatusTranslateKey(item))}</div>
+              </div>
+            ),
+          )}
+        </div>
+        <div className={classNames.buttonsWrapper}>
+          <Button
+            variant="contained"
+            onClick={e => {
+              onClose(e)
+              onChangeFullFieldMenuItem(choosenItems, field)
+
+              onClickAccept()
+            }}
+          >
+            {t(TranslationKey.Accept)}
+          </Button>
+          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </div>
+      </div>
+    )
+  }, styles),
 )
 
 export const NormalFieldMenuItem = React.memo(

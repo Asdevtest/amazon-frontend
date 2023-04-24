@@ -82,6 +82,7 @@ export class ClientInventoryViewRaw extends Component {
       densityModel,
       columnsModel,
       successModalText,
+      paymentMethods,
 
       confirmModalSettings,
       storekeepers,
@@ -541,6 +542,7 @@ export class ClientInventoryViewRaw extends Component {
         >
           <AddOrEditSupplierModalContent
             outsideProduct
+            paymentMethods={paymentMethods}
             sourceYuanToDollarRate={yuanToDollarRate}
             volumeWeightCoefficient={volumeWeightCoefficient}
             title={t(TranslationKey['Add a new supplier'])}

@@ -99,6 +99,7 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({message}) => {
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={bigImagesOptions.images}
         imgIndex={bigImagesOptions.imgIndex}
+        setImageIndex={(imgIndex: number) => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
       />
     </div>
   )

@@ -137,7 +137,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   commentBtn: {
-    width: '100%',
+    width: 161,
 
     display: 'flex',
     justifyContent: 'center',
@@ -171,7 +171,7 @@ export const useClassNames = makeStyles()(theme => ({
   imageObjWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    width: 161,
+    // width: 161,
     // border: '1px solid red',
     height: 'min-content',
   },
@@ -240,6 +240,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imageObjSubWrapper: {
+    width: 161,
     display: 'flex',
     alignItems: 'center',
     marginBottom: 10,
@@ -266,19 +267,34 @@ export const useClassNames = makeStyles()(theme => ({
     color: '#DF0C0C',
   },
 
+  commentBtnWrapper: {
+    position: 'relative',
+  },
+
   imageObjInput: {
-    width: '100%',
+    // width: '100%',
     // width: 133,
-    height: 95,
+    // height: 95,
+    width: 400,
+    height: 'auto',
+    // height: 150,
+
+    background: theme.palette.background.second,
   },
 
   subImageObjInput: {
     // width: 133,
-    height: '90px !important',
+    // height: '300px !important',
+    // width: 300,
     overflowY: 'auto !important',
+    // position: 'absolute',
+    // top: 50,
+    // left: 0,
+    // zIndex: 99,
   },
 
   commentHideBtn: {
+    width: 161,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: ' center',

@@ -25,6 +25,9 @@ export class MyProposalsViewModel {
 
   currentData = []
 
+  currentProposal = null
+  currentRequest = null
+
   searchMyRequestsIds = []
   requests = []
   requestsBase = []
@@ -37,6 +40,7 @@ export class MyProposalsViewModel {
   userRole = undefined
 
   showConfirmModal = false
+  showRequestDesignerResultClientModal = false
   selectedProposal = undefined
 
   viewMode = tableViewMode.LIST
@@ -46,10 +50,19 @@ export class MyProposalsViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({history, location}) {
     runInAction(() => {
       this.history = history
     })
+
+    if (location.state) {
+      this.onClickOpenBtn(location.state?.request)
+
+      const state = {...history.location.state}
+      delete state.task
+      history.replace({...history.location, state})
+    }
+
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -226,6 +239,28 @@ export class MyProposalsViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  async getProposalById(proposalId) {
+    try {
+      const result = await RequestProposalModel.getRequestProposalsCustom(proposalId)
+
+      runInAction(() => {
+        this.currentProposal = result
+
+        // console.log('this.requests', this.requests)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onClickResultBtn(request, proposalId) {
+    this.currentRequest = request
+
+    this.getProposalById(proposalId)
+
+    this.onTriggerOpenModal('showRequestDesignerResultClientModal')
   }
 
   onChangeNameSearchValue(e) {

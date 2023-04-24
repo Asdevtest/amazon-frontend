@@ -38,6 +38,7 @@ import InlineResponse20030 from '../model/InlineResponse20030';
 import InlineResponse20031 from '../model/InlineResponse20031';
 import InlineResponse20032 from '../model/InlineResponse20032';
 import InlineResponse20033 from '../model/InlineResponse20033';
+import InlineResponse20034 from '../model/InlineResponse20034';
 import InlineResponse2004 from '../model/InlineResponse2004';
 import InlineResponse2015 from '../model/InlineResponse2015';
 import InlineResponse2016 from '../model/InlineResponse2016';
@@ -1015,7 +1016,7 @@ export default class ClientApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject49} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20033} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20034} and HTTP response
      */
     apiV1ClientsProductsGetPriceForClientPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -1034,7 +1035,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20033;
+      let returnType = InlineResponse20034;
       return this.apiClient.callApi(
         '/api/v1/clients/products/get_price_for_client', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1048,7 +1049,7 @@ export default class ClientApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject49} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20033}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20034}
      */
     apiV1ClientsProductsGetPriceForClientPost(opts) {
       return this.apiV1ClientsProductsGetPriceForClientPostWithHttpInfo(opts)
@@ -1232,7 +1233,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20033} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20034} and HTTP response
      */
     apiV1ClientsProductsGuidGetPriceForClientGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -1256,7 +1257,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20033;
+      let returnType = InlineResponse20034;
       return this.apiClient.callApi(
         '/api/v1/clients/products/{guid}/get_price_for_client', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1270,7 +1271,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20033}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20034}
      */
     apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts) {
       return this.apiV1ClientsProductsGuidGetPriceForClientGetWithHttpInfo(guid, opts)
@@ -1660,9 +1661,16 @@ export default class ClientApi {
      * # Показать все задачи с коробками данного юзера
      * ## Показать все задачи с коробками данного юзера.   
      * @param {Object} opts Optional parameters
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.storekeeperId GUID сторкипера
+     * @param {String} opts.operationType Тип операции
+     * @param {String} opts.priority Приоритет задачи
+     * @param {String} opts.status Статус задачи
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20033} and HTTP response
      */
     apiV1ClientsTasksByBoxesGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -1671,7 +1679,14 @@ export default class ClientApi {
       let pathParams = {
       };
       let queryParams = {
-        'storekeeperId': opts['storekeeperId']
+        'limit': opts['limit'],
+        'offset': opts['offset'],
+        'sortField': opts['sortField'],
+        'sortType': opts['sortType'],
+        'storekeeperId': opts['storekeeperId'],
+        'operationType': opts['operationType'],
+        'priority': opts['priority'],
+        'status': opts['status']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -1682,7 +1697,7 @@ export default class ClientApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2004];
+      let returnType = InlineResponse20033;
       return this.apiClient.callApi(
         '/api/v1/clients/tasks/by_boxes', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -1694,9 +1709,16 @@ export default class ClientApi {
      * # Показать все задачи с коробками данного юзера
      * ## Показать все задачи с коробками данного юзера.   
      * @param {Object} opts Optional parameters
+     * @param {Number} opts.limit Лимит записей для пагинации (default to 10.0)
+     * @param {Number} opts.offset Смещение для пагинации (default to 0.0)
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.storekeeperId GUID сторкипера
+     * @param {String} opts.operationType Тип операции
+     * @param {String} opts.priority Приоритет задачи
+     * @param {String} opts.status Статус задачи
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20033}
      */
     apiV1ClientsTasksByBoxesGet(opts) {
       return this.apiV1ClientsTasksByBoxesGetWithHttpInfo(opts)

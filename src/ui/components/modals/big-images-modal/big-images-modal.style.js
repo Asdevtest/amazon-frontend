@@ -53,7 +53,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   previewListWrapper: {
-    height: '90%',
+    height: '92%',
 
     position: 'absolute',
     bottom: 20,

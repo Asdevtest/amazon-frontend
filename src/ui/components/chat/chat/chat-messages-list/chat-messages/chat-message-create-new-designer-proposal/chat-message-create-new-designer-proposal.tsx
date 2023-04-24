@@ -112,6 +112,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
             whithoutFiles={undefined}
             imagesForLoad={undefined}
             isEditable={undefined}
+            withoutMakeMainImage={undefined}
             onChangeImagesForLoad={undefined}
           />
         </div>
@@ -150,6 +151,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
             whithoutFiles={undefined}
             imagesForLoad={undefined}
             isEditable={undefined}
+            withoutMakeMainImage={undefined}
             onChangeImagesForLoad={undefined}
           />
         </div>

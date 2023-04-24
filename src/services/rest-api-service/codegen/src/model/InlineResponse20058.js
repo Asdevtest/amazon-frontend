@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse20058 {
     /**
      * Constructs a new <code>InlineResponse20058</code>.
-     * Успешный ответ.
      * @alias module:model/InlineResponse20058
      */
     constructor() { 
@@ -48,11 +47,29 @@ class InlineResponse20058 {
         if (data) {
             obj = obj || new InlineResponse20058();
 
-            if (data.hasOwnProperty('isExist')) {
-                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            }
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            }
+            if (data.hasOwnProperty('commentByClient')) {
+                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
+            }
+            if (data.hasOwnProperty('commentByPerformer')) {
+                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
+            }
+            if (data.hasOwnProperty('fileLink')) {
+                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -62,16 +79,52 @@ class InlineResponse20058 {
 }
 
 /**
- * Флаг, показывает есть ли такой ASIN в базе или нет
- * @member {Boolean} isExist
+ * GUID в базе данных
+ * @member {String} _id
  */
-InlineResponse20058.prototype['isExist'] = undefined;
+InlineResponse20058.prototype['_id'] = undefined;
 
 /**
- * Причина из таблицы с асинами
- * @member {String} reason
+ * Guid заявки к которой относится данное media.
+ * @member {String} requestId
  */
-InlineResponse20058.prototype['reason'] = undefined;
+InlineResponse20058.prototype['requestId'] = undefined;
+
+/**
+ * Guid предложения к которой относится данное media.
+ * @member {String} proposalId
+ */
+InlineResponse20058.prototype['proposalId'] = undefined;
+
+/**
+ * комментарий клиента
+ * @member {String} commentByClient
+ */
+InlineResponse20058.prototype['commentByClient'] = undefined;
+
+/**
+ * комментарий исполнителя
+ * @member {String} commentByPerformer
+ */
+InlineResponse20058.prototype['commentByPerformer'] = undefined;
+
+/**
+ * Ссылка на файл
+ * @member {String} fileLink
+ */
+InlineResponse20058.prototype['fileLink'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} createdAt
+ */
+InlineResponse20058.prototype['createdAt'] = undefined;
+
+/**
+ * Дата обновления.
+ * @member {Date} updatedAt
+ */
+InlineResponse20058.prototype['updatedAt'] = undefined;
 
 
 

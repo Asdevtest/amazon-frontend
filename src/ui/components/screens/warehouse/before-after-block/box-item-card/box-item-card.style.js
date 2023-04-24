@@ -169,6 +169,14 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     gap: '25px',
     marginBottom: '7px',
+
+    [theme.breakpoints.down(1282)]: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 5,
+      marginTop: 0,
+      marginBottom: 0,
+    },
   },
   superCount: {
     marginLeft: '5px',
@@ -237,7 +245,8 @@ export const useClassNames = makeStyles()(theme => ({
 
     [theme.breakpoints.down(1282)]: {
       width: 150,
-      gap: 0,
+      gap: 5,
+      marginTop: 0,
     },
     [theme.breakpoints.down(768)]: {
       width: '200px',

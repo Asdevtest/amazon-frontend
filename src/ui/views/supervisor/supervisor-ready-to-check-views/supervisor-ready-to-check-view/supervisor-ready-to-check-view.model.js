@@ -95,6 +95,9 @@ export class SupervisorReadyToCheckViewModel {
             .sort(sortObjectsArrayByFiledDateWithParseISOAsc('createdAt')),
         )
       })
+
+      console.log('result', result)
+      console.log('this.productsReadyToCheck', this.productsReadyToCheck)
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)

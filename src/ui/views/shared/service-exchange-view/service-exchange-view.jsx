@@ -63,6 +63,7 @@ class ServiceExchangeViewRaw extends Component {
       onTriggerOpenModal,
       onClickOrderBtn,
       onSearchSubmit,
+      setBigImagesOptions,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -174,6 +175,7 @@ class ServiceExchangeViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showImageModal')}
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
+          setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
         />
       </React.Fragment>
     )

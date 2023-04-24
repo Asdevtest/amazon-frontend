@@ -1,6 +1,11 @@
 import {ideaStatusByCode, ideaStatusTranslate} from '@constants/idea-status'
 import {OrderStatusByCode, OrderStatusTranslate} from '@constants/order-status'
-import {ProductStatusByCode, productStatusTranslateKey} from '@constants/product-status'
+import {
+  ProductStatus,
+  ProductStatusByCode,
+  ProductStatusByKey,
+  productStatusTranslateKey,
+} from '@constants/product-status'
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 import {mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel} from '@constants/task-operation-type'
 import {mapTaskStatusKeyToEnum} from '@constants/task-status'
@@ -34,10 +39,10 @@ export const ideaNoticeDataConverter = data =>
   }))
 
 export const stockReportDataConverter = data =>
-  data.map((item, index) => ({
+  data.map(item => ({
     ...item,
     originalData: item,
-    id: index,
+    id: item._id,
 
     shopName: item.shop.name,
   }))
@@ -88,7 +93,16 @@ export const researcherCustomRequestsDataConverter = data =>
 export const researcherProductsDataConverter = data =>
   data.map(item => ({
     originalData: item,
-    status: t(productStatusTranslateKey(ProductStatusByCode[item.status])),
+    status: [
+      ProductStatusByKey[ProductStatus.NEW_PRODUCT],
+      ProductStatusByKey[ProductStatus.DEFAULT],
+      ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
+      // ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER],
+      ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
+      ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
+    ].includes(item.status)
+      ? t(productStatusTranslateKey(ProductStatusByCode[item.status]))
+      : 'OK',
     strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
     createdAt: item.createdAt,
     amazon: item.amazon,
@@ -318,6 +332,7 @@ export const depersonalizedPickDataConverter = data =>
     number: index + 1,
     checkednotes: item.checkednotes,
     clientComment: item.clientComment,
+    updatedAt: item.updatedAt,
   }))
 
 export const clientOrdersDataConverter = data =>
@@ -366,11 +381,14 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
     logicsTariff: getFullTariffTextForBoxOrOrder(item),
     client: item.client?.name,
 
+    status: item.status,
+
     isDraft: item.isDraft,
     isFormed: item.isFormed,
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
+    deadline: item.deadline,
 
     humanFriendlyId: item.humanFriendlyId,
     deliveryTotalPrice: item.deliveryTotalPrice,

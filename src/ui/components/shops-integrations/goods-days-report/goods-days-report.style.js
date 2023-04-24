@@ -60,4 +60,10 @@ export const styles = theme => ({
   toolbarContainer: {
     height: '52px',
   },
+
+  btnsWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginBottom: 10,
+  },
 })

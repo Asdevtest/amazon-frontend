@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 import {action, makeAutoObservable, reaction, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {patchSuppliers} from '@constants/white-list'
+import {creatSupplier, patchSuppliers} from '@constants/white-list'
 
 import {BuyerModel} from '@models/buyer-model'
 import {ProductModel} from '@models/product-model'
@@ -98,6 +99,8 @@ export class BuyerProductViewModel {
 
   storekeepersData = []
   hsCodeData = {}
+
+  paymentMethods = []
 
   showTab = undefined
 
@@ -224,7 +227,12 @@ export class BuyerProductViewModel {
     this.product = value
   }
 
+  async getSuppliersPaymentMethods() {
+    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+  }
+
   async onClickSupplierButtons(actionType) {
+    this.getSuppliersPaymentMethods()
     switch (actionType) {
       case 'add':
         runInAction(() => {
@@ -457,6 +465,7 @@ export class BuyerProductViewModel {
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
 
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
@@ -476,13 +485,13 @@ export class BuyerProductViewModel {
       if (supplier._id) {
         const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
-
         if (supplier._id === this.product.currentSupplierId) {
           this.product.currentSupplier = supplier
           updateProductAutoCalculatedFields.call(this)
         }
       } else {
-        const createSupplierResult = await SupplierModel.createSupplier(supplier)
+        const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+        const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
         await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
         runInAction(() => {
           this.product.suppliers.push(createSupplierResult.guid)

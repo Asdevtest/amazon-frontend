@@ -63,7 +63,7 @@ class InlineObject14 {
                 obj['actualShippingCost'] = ApiClient.convertToType(data['actualShippingCost'], 'Number');
             }
             if (data.hasOwnProperty('arrivalDate')) {
-                obj['arrivalDate'] = ApiClient.convertToType(data['arrivalDate'], 'Number');
+                obj['arrivalDate'] = ApiClient.convertToType(data['arrivalDate'], 'Date');
             }
         }
         return obj;
@@ -103,8 +103,7 @@ InlineObject14.prototype['trackingNumber'] = undefined;
 InlineObject14.prototype['actualShippingCost'] = undefined;
 
 /**
- * Время epoch
- * @member {Number} arrivalDate
+ * @member {Date} arrivalDate
  */
 InlineObject14.prototype['arrivalDate'] = undefined;
 

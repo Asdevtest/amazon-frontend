@@ -10,7 +10,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   carouselWrapper: {
-    width: 660,
+    width: 720,
   },
 
   imageModalImageWrapper: {
@@ -121,6 +121,7 @@ export const useClassNames = makeStyles()(theme => ({
   imageComment: {
     fontSize: 18,
     color: theme.palette.text.second,
+    wordBreak: 'break-all',
   },
 
   imageLeftSideComment: {

@@ -43,6 +43,8 @@ const allowProductStatuses = [
   `${ProductStatusByKey[ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND]}`,
   `${ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR]}`,
   `${ProductStatusByKey[ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE]}`,
+  `${ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP]}`,
+  `${ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT]}`,
 ]
 
 const attentionStatuses = [

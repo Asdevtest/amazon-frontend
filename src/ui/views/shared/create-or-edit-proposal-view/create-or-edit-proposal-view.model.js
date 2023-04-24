@@ -8,6 +8,7 @@ import {RequestModel} from '@models/request-model'
 import {RequestProposalModel} from '@models/request-proposal'
 import {UserModel} from '@models/user-model'
 
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -133,6 +134,14 @@ export class CreateOrEditProposalViewModel {
 
   onClickBackBtn() {
     this.history.goBack()
+  }
+
+  goToMyRequest() {
+    this.history.push('/freelancer/freelance/my-proposals', {
+      request: getObjectFilteredByKeyArrayWhiteList(this.request.request, ['_id']),
+    })
+
+    this.onTriggerOpenModal('showTwoVerticalChoicesModal')
   }
 
   onTriggerOpenModal(modal) {

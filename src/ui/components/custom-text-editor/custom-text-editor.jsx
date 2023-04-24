@@ -27,7 +27,17 @@ export const CustomTextEditor = observer(props => {
 
   const {classes: classNames} = useClassNames()
 
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState(conditions || '')
+
+  const richTextEditorRef = useRef(null)
+
+  const handleSave = () => {
+    richTextEditorRef.current.save()
+  }
+
+  useEffect(() => {
+    handleSave()
+  }, [])
 
   useEffect(() => {
     isJSON(conditions)
@@ -45,12 +55,6 @@ export const CustomTextEditor = observer(props => {
       const serializedEditorState = JSON.stringify(convertToRaw(editorState.getCurrentContent()))
       setValue(serializedEditorState)
     }
-  }
-
-  const richTextEditorRef = useRef(null)
-
-  const handleSave = () => {
-    richTextEditorRef.current.save()
   }
 
   return (
@@ -133,7 +137,8 @@ export const CustomTextEditor = observer(props => {
           }
         }}
         onSave={text => {
-          changeConditions(text)
+          console.log('SAVE')
+          changeConditions && changeConditions(text)
         }}
       />
     </div>
