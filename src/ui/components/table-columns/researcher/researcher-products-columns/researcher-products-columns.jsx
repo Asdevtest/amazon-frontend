@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {colorByProductStatus, ProductStatusByCode} from '@constants/product-status'
+import {colorByProductStatus, ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -35,7 +35,17 @@ export const researcherProductsViewColumns = () => [
       <MultilineTextCell
         leftAlign
         text={params.value}
-        color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
+        color={
+          [
+            ProductStatusByKey[ProductStatus.NEW_PRODUCT],
+            ProductStatusByKey[ProductStatus.DEFAULT],
+            ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
+            ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
+            ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
+          ].includes(params.row.originalData.status)
+            ? colorByProductStatus(ProductStatusByCode[params.row.originalData.status])
+            : null
+        }
       />
     ),
   },
