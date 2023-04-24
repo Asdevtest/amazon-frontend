@@ -51,15 +51,15 @@ export const TagSelector: FC<TagSelectorProps> = props => {
     if (tag) {
       newValue = [...selectedTags, tag]
       setSelectedTags(newValue)
+      handleSaveTags(newValue)
     } else {
       GeneralModel.createTag(selectValue!.title).then(res => {
         newValue = [...selectedTags, {title: selectValue?.title, _id: res._id} as Tag]
         setSelectedTags(newValue)
+        handleSaveTags(newValue)
         getTags().then(value => setTagList(value))
       })
     }
-
-    handleSaveTags(newValue)
   }
 
   return (
