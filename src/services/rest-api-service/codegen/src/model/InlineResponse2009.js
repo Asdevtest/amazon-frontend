@@ -64,6 +64,12 @@ class InlineResponse2009 {
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
+            if (data.hasOwnProperty('calculatedShippingCost')) {
+                obj['calculatedShippingCost'] = ApiClient.convertToType(data['calculatedShippingCost'], 'Number');
+            }
+            if (data.hasOwnProperty('actualShippingCost')) {
+                obj['actualShippingCost'] = ApiClient.convertToType(data['actualShippingCost'], 'Number');
+            }
             if (data.hasOwnProperty('trackingNumber')) {
                 obj['trackingNumber'] = ApiClient.convertToType(data['trackingNumber'], 'String');
             }
@@ -145,6 +151,18 @@ InlineResponse2009.prototype['shipId'] = undefined;
  * @member {String} title
  */
 InlineResponse2009.prototype['title'] = undefined;
+
+/**
+ * Стоимость доставки при расчете из коробок
+ * @member {Number} calculatedShippingCost
+ */
+InlineResponse2009.prototype['calculatedShippingCost'] = undefined;
+
+/**
+ * Настоящая стоимость доставки
+ * @member {Number} actualShippingCost
+ */
+InlineResponse2009.prototype['actualShippingCost'] = undefined;
 
 /**
  * Трек номер партии

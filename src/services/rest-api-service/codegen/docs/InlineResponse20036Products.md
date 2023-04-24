@@ -5,9 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **all** | **Number** |  | [optional] 
-**completed** | **Number** |  | [optional] 
-**rejected** | **Number** |  | [optional] 
-**inWork** | **Number** |  | [optional] 
-**withoutStatus** | **Number** |  | [optional] 
+**success** | **Number** |  | [optional] 
+**paid** | **Number** |  | [optional] 
+**newSearchFromSupervisor** | **Number** |  | [optional] 
+**newSearchFromClient** | **Number** |  | [optional] 
+**inProcessOfSearching** | **Number** |  | [optional] 
+**canceled** | **Number** |  | [optional] 
 
 

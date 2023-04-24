@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **status** | **String** | Статус партии. | [optional] 
 **shipId** | **String** | id корабля. | [optional] 
 **title** | **String** | Название партии | [optional] 
+**calculatedShippingCost** | **Number** | Стоимость доставки при расчете из коробок | [optional] 
+**actualShippingCost** | **Number** | Настоящая стоимость доставки | [optional] 
 **trackingNumber** | **String** | Трек номер партии | [optional] 
 **attachedDocuments** | **[String]** | Массив ссылок на файлов документации к партии. | [optional] 
 **finalWeightAsOneBox** | **Number** | Финальный вес партии, если считать все коробки как одну большую коробу. | [optional] 

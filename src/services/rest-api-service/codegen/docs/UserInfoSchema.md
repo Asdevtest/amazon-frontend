@@ -34,6 +34,7 @@ Name | Type | Description | Notes
 **tasksAtProcessHigh** | **Number** | Количество заданий в работе у пользователяс высоким приоритетом | [optional] 
 **freeOrders** | **Number** | Количество заказов из /buyers/orders/vac | [optional] 
 **pendingOrders** | **Number** | Количество заказов 2, 3 статусы | [optional] 
+**pendingOrdersByDeadline** | **Number** | Количество заказов 2, 3 статусы у которых до дедлайна меньше суток | [optional] 
 **notPaid** | **Number** | Количество заказов 15, 19 статусы | [optional] 
 **readyForPayment** | **Number** | Количество заказов 16 статусы | [optional] 
 **needTrackNumber** | **Number** | Количество заказов 20 статус | [optional] 

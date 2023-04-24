@@ -381,11 +381,14 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
     logicsTariff: getFullTariffTextForBoxOrOrder(item),
     client: item.client?.name,
 
+    status: item.status,
+
     isDraft: item.isDraft,
     isFormed: item.isFormed,
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
+    deadline: item.deadline,
 
     humanFriendlyId: item.humanFriendlyId,
     deliveryTotalPrice: item.deliveryTotalPrice,

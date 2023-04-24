@@ -247,6 +247,13 @@ const ClientReadyBoxesView = lazy(() =>
     default: module.ClientReadyBoxesView,
   })),
 )
+
+const ClientWarehouseTasksView = lazy(() =>
+  import('@views/client/client-warehouse-views/client-warehouse-tasks-view').then(module => ({
+    default: module.ClientWarehouseTasksView,
+  })),
+)
+
 const ClientSentBatchesView = lazy(() =>
   import('@views/client/client-batches-views/client-sent-batches-view').then(module => ({
     default: module.ClientSentBatchesView,
@@ -1193,6 +1200,16 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_WAREHOUSE_CLIENT,
 
     crumbNameKey: TranslationKey['Boxes ready to send'],
+  },
+
+  {
+    routePath: '/client/warehouse/tasks',
+    component: ClientWarehouseTasksView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.SHOW_WAREHOUSE_CLIENT,
+
+    crumbNameKey: TranslationKey.Tasks,
   },
 
   {

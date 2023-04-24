@@ -22,6 +22,7 @@ import {
   OrderOrItemMenuItem,
   ProductMenuItem,
   IsHaveBarCodeFilterMenuItem,
+  BoxestatusMenuItem,
   MyRequestsStatusMenuItem,
   FreelanceRequestType,
 } from '../data-grid-menu-items/data-grid-menu-items'
@@ -130,6 +131,21 @@ export const DataGridCustomColumnMenuComponent = props => {
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if (currentColumn.columnKey === columnnsKeys.shared.BOXES_STATUS) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <BoxestatusMenuItem
+          data={props[currentColumn.field]}
+          field={currentColumn.field}
+          filterRequestStatus={filterRequestStatus}
           onClose={hideMenu}
           onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
           onClickAccept={onClickAccept}

@@ -65,6 +65,10 @@ export const styles = theme => ({
     },
   },
 
+  tableWrapper: {
+    minWidth: '100%',
+  },
+
   isDraftRow: {
     opacity: '.5',
   },
@@ -72,7 +76,7 @@ export const styles = theme => ({
   tasksWrapper: {
     marginTop: '30px',
 
-    height: '63vh',
+    height: 'calc(100vh - 210px)',
   },
 
   boxesFiltersWrapper: {
@@ -107,12 +111,6 @@ export const styles = theme => ({
 
   virtualScrollerContent: {
     maxHeight: '69vh',
-  },
-
-  searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    width: '400px',
-    height: 36,
   },
 
   searchContainer: {
@@ -193,8 +191,18 @@ export const styles = theme => ({
     padding: '0 1px',
   },
 
-  tableWrapper: {
-    height: 'calc(100vh - 310px)',
+  headerWrapper: {
     width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+
+  searchInput: {
+    border: `1px solid ${theme.palette.primary.main}`,
+    width: 405,
+    height: '40px',
+    fontSize: '16px',
+    paddingLeft: '7px',
   },
 })

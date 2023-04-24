@@ -170,10 +170,16 @@ export const navbarConfig = () => ({
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES,
         },
 
+        // {
+        //   subtitle: t(TranslationKey['Boxes ready to send']),
+        //   subRoute: '/client/warehouse/boxes-ready-to-batch',
+        //   key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH,
+        // },
+
         {
-          subtitle: t(TranslationKey['Boxes ready to send']),
-          subRoute: '/client/warehouse/boxes-ready-to-batch',
-          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH,
+          subtitle: t(TranslationKey.Tasks),
+          subRoute: '/client/warehouse/tasks',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_TASKS,
         },
       ],
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
