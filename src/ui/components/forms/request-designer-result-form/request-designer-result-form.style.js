@@ -334,6 +334,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'absolute',
     right: -18,
     top: -18,
+    zIndex: 99,
 
     cursor: 'pointer',
     transition: '.3s ease',
