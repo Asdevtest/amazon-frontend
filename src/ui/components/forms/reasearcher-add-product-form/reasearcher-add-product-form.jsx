@@ -56,7 +56,10 @@ export const ResearcherAddProductFormRaw = observer(
                 inputProps={{maxLength: 50}}
                 label={`${t(TranslationKey['Product code'])}*`}
                 value={formFields.productCode}
-                onChange={onChangeFormFields('productCode')}
+                onChange={e => {
+                  e.target.value = e.target.value.replace(/ /g, '')
+                  onChangeFormFields('productCode')(e)
+                }}
               />
             </div>
 
