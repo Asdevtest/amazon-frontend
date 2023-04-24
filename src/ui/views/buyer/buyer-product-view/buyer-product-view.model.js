@@ -46,6 +46,7 @@ const fieldsOfProductAllowedToForceUpdate = [
   'buyersComment',
   'additionalProp1',
   'currentSupplierId',
+  'tags',
 ]
 
 const formFieldsDefault = {
