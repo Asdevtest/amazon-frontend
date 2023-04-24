@@ -69,7 +69,6 @@ export const TagSelector: FC<TagSelectorProps> = props => {
           <Autocomplete
             disablePortal
             freeSolo
-            autoSelect
             id="combo-box-demo"
             options={tagList}
             getOptionLabel={el => (typeof el === 'string' ? el : el.title)}
