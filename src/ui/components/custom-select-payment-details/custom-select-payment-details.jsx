@@ -65,7 +65,6 @@ export const CustomSelectPaymentDetails = props => {
       <Field
         label={t(TranslationKey['Payment methods']) + ':'}
         labelClasses={classNames.paymentMethodsLabel}
-        // tooltipInfoContent={t(TranslationKey['Current request type'])}
         containerClasses={classNames.paymentMethodsContainer}
         inputComponent={
           <Select
@@ -81,6 +80,16 @@ export const CustomSelectPaymentDetails = props => {
             renderValue={selected => selectContentToRender(selected, onlyRead)}
             className={cx(classNames.paymentMethodsField, {[classNames.grayBorder]: onlyRead && isEmpty})}
             input={<Input /* startAdornment={<InputAdornment position="start" />} */ />}
+            MenuProps={{
+              anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'left',
+              },
+              transformOrigin: {
+                vertical: 'top',
+                horizontal: 'left',
+              },
+            }}
             onChange={event => {
               if (!onlyRead) {
                 onChangePaymentMethod(event.target.value)

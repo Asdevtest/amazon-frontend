@@ -11,7 +11,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 !important',
   },
   selectIsNotEmpty: {
-    padding: '10px 73px 10px 5px !important',
+    padding: '10px 73px 10px 15px !important',
   },
 
   paymentMethodsLabel: {
@@ -31,6 +31,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   paymentMethodsField: {
+    position: 'relative',
+
     minWidth: 240,
     minHeight: 40,
     borderRadius: 4,
