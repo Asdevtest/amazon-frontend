@@ -134,7 +134,8 @@ export const useClassNames = makeStyles()(theme => ({
   bodySubWrapper: {
     display: 'flex',
     flexWrap: 'wrap',
-    gap: 27,
+    gap: 24,
+    paddingRight: 15,
     // paddingTop: 30,
     // // background: 'grey',
     // overflowY: 'auto',
