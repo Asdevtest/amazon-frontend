@@ -123,6 +123,7 @@ export class ClientExchangeViewRaw extends Component {
                     columsBtnSettings: {columnsModel, changeColumnsModel},
                   },
                 }}
+                getRowHeight={() => 'auto'}
                 onSelectionModelChange={newSelection => {
                   onSelectionModel(newSelection[0])
                 }}

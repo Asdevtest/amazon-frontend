@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import DateFnsUtils from '@date-io/date-fns'
 import TextField from '@mui/material/TextField'
 import {ThemeProvider, createTheme} from '@mui/material/styles'
@@ -231,6 +232,7 @@ export const DatePicker = ({value, onChange}) => {
     </MuiPickersUtilsProvider>
   )
 }
+
 export const DatePickerDate = ({value, onChange}) => {
   const [local, setLocal] = useState(enLocale)
 

@@ -10,6 +10,7 @@ import {
   UserLinkCell,
   WarehouseTariffDatesCell,
   MultilineTextHeaderCell,
+  BatchTrackingCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign} from '@utils/text'
@@ -87,6 +88,24 @@ export const clientBatchesViewColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 110,
+    sortable: false,
+  },
+
+  {
+    field: 'batchTracking',
+    headerName: t(TranslationKey['Batch tracking']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch tracking'])} />,
+    renderCell: params => (
+      <BatchTrackingCell
+        disabled
+        rowHandlers
+        id={params.row?.originalData?._id}
+        arrivalDate={params.row?.originalData?.arrivalDate}
+        trackingNumber={params.row?.originalData?.trackingNumber}
+      />
+    ),
+    width: 198,
+    filterable: false,
     sortable: false,
   },
 
