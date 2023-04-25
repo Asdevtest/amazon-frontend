@@ -103,8 +103,8 @@ export class WarehouseSentBatchesViewRaw extends Component {
                 >
                   {'Сancel sending'}
                 </Button>
-
               </div> */}
+
               <div className={classNames.headerWrapper}>
                 <SearchInput
                   inputClasses={classNames.searchInput}

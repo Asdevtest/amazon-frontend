@@ -8,4 +8,8 @@ export const useClassNames = makeStyles()(theme => ({
     border: 'none !important',
     // outline: 'none',
   },
+
+  datePickerRoot: {
+    border: '1px solid #E0E0E0',
+  },
 }))

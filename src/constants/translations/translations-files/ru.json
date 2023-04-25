@@ -1933,6 +1933,9 @@
   "Row deleted": "Строка удалена",
   "Go to request": "Перейти к заявке",
   "Is accepted for processing": "Принята в обработку",
+  "Batch tracking": "Отслеживание партии",
+  "Enter track number": "Введите трек номер",
+  "Arrival date": "Дата прибытия",
   "Problematic": "Проблемный",
   "Change the priority to": "Сменить приоритет на"
 }

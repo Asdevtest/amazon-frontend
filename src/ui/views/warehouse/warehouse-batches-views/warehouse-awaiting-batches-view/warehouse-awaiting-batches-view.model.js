@@ -65,6 +65,9 @@ export class WarehouseAwaitingBatchesViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
+
+  rowHandlers = {}
+
   columnsModel = batchesViewColumns(this.rowHandlers)
 
   changeColumnsModel(newHideState) {

@@ -54,6 +54,8 @@ import {zipCodeGroups} from '@constants/zip-code-groups'
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {NewDatePicker, NewnewDatePicker} from '@components/date-picker/date-picker'
+import {Field} from '@components/field'
 import {Input} from '@components/input'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {SearchInput} from '@components/search-input'
@@ -669,65 +671,79 @@ export const ChangeInputCell = React.memo(
 )
 
 export const ChangeInputCommentCell = React.memo(
-  withStyles(({classes: classNames, id, onClickSubmit, onChangeText, text, disabled, maxLength, rowsCount}) => {
-    const [value, setValue] = useState(text)
+  withStyles(
+    ({
+      classes: classNames,
+      id,
+      onClickSubmit,
+      onChangeText,
+      text,
+      disabled,
+      maxLength,
+      rowsCount,
+      fieldName,
+      placeholder,
+    }) => {
+      const [value, setValue] = useState(text)
 
-    useEffect(() => {
-      setValue(text)
-    }, [text])
+      useEffect(() => {
+        setValue(text)
+      }, [text])
 
-    const [isShow, setShow] = useState(false)
+      const [isShow, setShow] = useState(false)
 
-    return (
-      <div className={classNames.ChangeInputCommentCellWrapper}>
-        <Input
-          multiline
-          autoFocus={false}
-          minRows={rowsCount ?? 2}
-          maxRows={rowsCount ?? 2}
-          inputProps={{maxLength: maxLength ? maxLength : 256}}
-          placeholder={t(TranslationKey.Comment)}
-          disabled={disabled}
-          className={classNames.changeInputComment}
-          classes={{input: classNames.changeInputComment}}
-          value={value}
-          endAdornment={
-            !!onClickSubmit && (
-              <InputAdornment position="start">
-                {isShow && text !== value ? (
-                  <DoneIcon classes={{root: classNames.doneIcon}} />
-                ) : text !== value ? (
-                  <div className={classNames.iconWrapper}>
-                    <img
-                      src={'/assets/icons/save-discet.svg'}
-                      className={classNames.changeInputIcon}
-                      onClick={() => {
-                        setShow(true)
-                        setTimeout(() => {
-                          setShow(false)
-                        }, 2000)
-                        onClickSubmit(id, value)
-                      }}
-                    />
-                    <ClearIcon classes={{root: classNames.clearIcon}} onClick={() => setValue(text)} />
-                  </div>
-                ) : null}
-              </InputAdornment>
-            )
-          }
-          onChange={e => {
-            setValue(e.target.value)
-            if (onChangeText) {
-              onChangeText('comments')(e.target.value)
+      return (
+        <div className={classNames.ChangeInputCommentCellWrapper}>
+          <Input
+            multiline
+            autoFocus={false}
+            minRows={rowsCount ?? 2}
+            maxRows={rowsCount ?? 2}
+            inputProps={{maxLength: maxLength ? maxLength : 256}}
+            placeholder={placeholder ?? t(TranslationKey.Comment)}
+            disabled={disabled}
+            className={classNames.changeInputComment}
+            classes={{input: classNames.changeInputComment}}
+            value={value}
+            endAdornment={
+              !!onClickSubmit && (
+                <InputAdornment position="start">
+                  {isShow && text !== value ? (
+                    <DoneIcon classes={{root: classNames.doneIcon}} />
+                  ) : text !== value ? (
+                    <div className={classNames.iconWrapper}>
+                      <img
+                        src={'/assets/icons/save-discet.svg'}
+                        className={classNames.changeInputIcon}
+                        onClick={() => {
+                          setShow(true)
+                          setTimeout(() => {
+                            setShow(false)
+                          }, 2000)
+                          onClickSubmit(id, value)
+                        }}
+                      />
+                      <ClearIcon classes={{root: classNames.clearIcon}} onClick={() => setValue(text)} />
+                    </div>
+                  ) : null}
+                </InputAdornment>
+              )
             }
-          }}
-          onKeyDown={event => {
-            event.stopPropagation()
-          }}
-        />
-      </div>
-    )
-  }, styles),
+            onChange={e => {
+              setValue(e.target.value)
+              if (onChangeText) {
+                onChangeText(fieldName || 'comments')(e.target.value)
+              }
+            }}
+            onKeyDown={event => {
+              event.stopPropagation()
+            }}
+          />
+        </div>
+      )
+    },
+    styles,
+  ),
 )
 
 export const ChangeChipCell = React.memo(
@@ -1235,6 +1251,96 @@ export const RenderFieldValueCell = React.memo(
     ),
     styles,
   ),
+)
+
+export const BatchTrackingCell = React.memo(
+  withStyles(
+    ({classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled}) => (
+      <div className={classNames.batchTrackingWrapper}>
+        <Field
+          containerClasses={cx(classNames.batchTrackingContainer)}
+          label={t(TranslationKey['Batch tracking'])}
+          labelClasses={classNames.batchTrackingTitle}
+          inputComponent={
+            <ChangeInputCommentCell
+              disabled={disabled}
+              id={id}
+              rowsCount={1}
+              maxLength={64}
+              placeholder={t(TranslationKey['Enter track number'])}
+              text={trackingNumber}
+              onClickSubmit={rowHandlers?.onClickSaveTrackingNumber}
+            />
+          }
+        />
+
+        <Field
+          containerClasses={cx(classNames.dateAndTimeContainerleft)}
+          label={t(TranslationKey['Arrival date'])}
+          labelClasses={classNames.batchTrackingTitle}
+          inputComponent={
+            <DatePickerCell
+              disabled={disabled}
+              id={id}
+              arrivalDate={arrivalDate}
+              onClickSaveArrivalDate={rowHandlers?.onClickSaveArrivalDate}
+            />
+          }
+        />
+      </div>
+    ),
+    styles,
+  ),
+)
+
+export const DatePickerCell = React.memo(
+  withStyles(({classes: classNames, id, arrivalDate, onClickSaveArrivalDate, disabled}) => {
+    const [value, setValue] = useState(arrivalDate || '')
+
+    useEffect(() => {
+      setValue(arrivalDate)
+    }, [arrivalDate])
+
+    const [isShow, setShow] = useState(false)
+
+    return (
+      <div className={classNames.arrivalDateWrapper}>
+        <NewDatePicker
+          disabled={disabled}
+          className={classNames.dateField}
+          value={value}
+          onChange={e => {
+            setValue(e)
+          }}
+        />
+        {!!onClickSaveArrivalDate && (
+          <div className={classNames.arrivalDateControlWrapper}>
+            {isShow && arrivalDate !== value ? (
+              <DoneIcon classes={{root: cx(classNames.doneIcon, classNames.arrivalDateIcon)}} />
+            ) : arrivalDate !== value ? (
+              <div className={cx(classNames.iconWrapper, classNames.iconWrapperArrivalDate)}>
+                <img
+                  src={'/assets/icons/save-discet.svg'}
+                  className={cx(classNames.changeInputIcon, classNames.arrivalDateIcon)}
+                  onClick={() => {
+                    setShow(true)
+                    setTimeout(() => {
+                      setShow(false)
+                    }, 2000)
+                    onClickSaveArrivalDate(id, value)
+                  }}
+                />
+                <ClearIcon
+                  classes={{root: cx(classNames.clearIcon, classNames.arrivalDateIcon)}}
+                  onClick={() => setValue(arrivalDate)}
+                />
+              </div>
+            ) : null}
+          </div>
+        )}
+      </div>
+    )
+  }, styles),
 )
 
 export const MultilineTextCell = React.memo(
