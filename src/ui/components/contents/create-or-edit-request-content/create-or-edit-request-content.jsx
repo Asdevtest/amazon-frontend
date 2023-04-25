@@ -18,6 +18,7 @@ import {
 
 import React, {useEffect, useRef, useState} from 'react'
 
+import dayjs from 'dayjs'
 import {toJS} from 'mobx'
 
 import {
@@ -315,6 +316,8 @@ export const CreateOrEditRequestContent = ({
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
     platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price
 
+  const minDate = dayjs().add(1, 'day')
+
   return (
     <div ref={componentRef} className={classNames.mainWrapper}>
       <div className={classNames.mainSubWrapper}>
@@ -535,6 +538,7 @@ export const CreateOrEditRequestContent = ({
                         <div>
                           <NewDatePicker
                             disablePast
+                            minDate={minDate}
                             className={classNames.dateField}
                             value={formFields.request.timeoutAt}
                             onChange={e => {
