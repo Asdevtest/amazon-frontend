@@ -7,6 +7,7 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import {Accordion, AccordionDetails, AccordionSummary, IconButton, Link, Typography, Avatar} from '@mui/material'
 
 import React, {useCallback, useEffect, useRef, useState} from 'react'
@@ -32,6 +33,7 @@ import {getShortenStringIfLongerThanCount, minsToTime} from '@utils/text'
 import {t} from '@utils/translations'
 import {downloadFileByLink} from '@utils/upload-files'
 
+import {ImageEditForm} from '../image-edit-form'
 import {useClassNames} from './request-designer-result-form.style'
 
 const reorder = (list, startIndex, endIndex) => {
@@ -200,6 +202,8 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
   const [comment, setComment] = useState(proposal.details.result)
 
+  const [imageEditOpen, setImageEditOpen] = useState(false)
+
   const onClickToShowDetails = () => {
     setShowDetails(!showDetails)
   }
@@ -241,6 +245,14 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
   const onClickRemoveImageObj = () => {
     setImagesData(() => imagesData.filter(el => el._id !== curImageId))
     setCurImageId(() => null)
+  }
+
+  const onClickEditImageSubmit = image => {
+    setImagesData(() => imagesData.map(el => (el._id === curImageId ? {...el, image} : el)))
+  }
+
+  const onClickEditImage = () => {
+    setImageEditOpen(!imageEditOpen)
   }
 
   const onClickRemoveItem = imageId => {
@@ -447,6 +459,14 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         </div>
       </div>
 
+      <Modal openModal={imageEditOpen} setOpenModal={() => setImageEditOpen(!imageEditOpen)}>
+        <ImageEditForm
+          item={imagesData.find(el => el._id === curImageId)?.image || null}
+          setOpenModal={() => setImageEditOpen(!imageEditOpen)}
+          onSave={onClickEditImageSubmit}
+        />
+      </Modal>
+
       <BigObjectImagesModal
         isRedImageComment
         openModal={showImageModal}
@@ -455,6 +475,10 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         curImageId={curImageId}
         renderBtns={() => (
           <>
+            <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickEditImage()}>
+              <ModeOutlinedIcon />
+            </Button>
+
             <Button className={cx(classNames.imagesModalBtn)}>
               <AutorenewIcon />
               <input
