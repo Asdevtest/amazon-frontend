@@ -8,19 +8,20 @@ export const useClassNames = makeStyles()(() => ({
     flexDirection: 'column',
   },
 
-  // imageWrapper: {
-  //   width: '50vw',
-  //   height: '50vh',
-  //   display: 'flex',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  // },
+  imageWrapper: {
+    // width: '50vw',
+    height: '55vh',
+    paddingTop: 130,
+    // display: 'flex',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+  },
 
   image: {
-    width: '35vw',
-    height: '35vh',
+    width: '33vw',
+    height: '33vh',
     objectFit: 'contain',
-    objectPosition: 'center',
+    // objectPosition: 'center',
   },
 
   btnsWrapper: {
