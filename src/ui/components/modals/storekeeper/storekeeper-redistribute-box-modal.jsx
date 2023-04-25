@@ -169,7 +169,7 @@ const Box = ({
                           {[classNames.storekeeperBtn]: !box.logicsTariffId},
                           {
                             [classNames.storekeeperBtnColored]:
-                              !box.storekeeperId && SettingsModel.uiTheme === UiTheme.light,
+                              !box.logicsTariffId && SettingsModel.uiTheme === UiTheme.light,
                           },
                           {[classNames.storekeeperDisableBtn]: !isNewBox},
                         )}
