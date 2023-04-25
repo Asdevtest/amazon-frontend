@@ -5,7 +5,7 @@ import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import InboxIcon from '@mui/icons-material/Inbox'
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
-// import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
+import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
 import {Avatar, Link, Typography} from '@mui/material'
@@ -19,6 +19,8 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
+import {ImageEditForm} from '@components/forms/image-edit-form'
+import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {checkIsImageLink} from '@utils/checks'
@@ -233,6 +235,7 @@ export const PhotoAndFilesCarousel = ({
   withoutMakeMainImage,
 }) => {
   const {classes: classNames} = useClassNames()
+  const [imageEditOpen, setImageEditOpen] = useState(false)
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
@@ -296,6 +299,20 @@ export const PhotoAndFilesCarousel = ({
     }))
   }
 
+  const onClickEditImage = () => {
+    setImageEditOpen(!imageEditOpen)
+  }
+
+  const onClickEditImageSubmit = image => {
+    // bigImagesOptions.images[bigImagesOptions.imgIndex]
+
+    onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image : el)))
+    setBigImagesOptions(() => ({
+      ...bigImagesOptions,
+      images: imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image : el)),
+    }))
+  }
+
   const bigImagesModalControls = (imageIndex, image) => (
     <>
       {/* {(checkIsResearcher(curUserRole) || checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) &&
@@ -321,15 +338,15 @@ export const PhotoAndFilesCarousel = ({
           </>
         )}
 
-        {/* <Button className={cx(classNames.imagesModalBtn)}>
+        <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickEditImage()}>
           <ModeOutlinedIcon />
-          <input
-            type={'file'}
-            className={classNames.pasteInput}
-            defaultValue={''}
-            onChange={onUploadFile(imageIndex)}
-          />
-        </Button> */}
+          {/* <input
+                  type={'file'}
+                  className={classNames.pasteInput}
+                  defaultValue={''}
+                  onChange={onUploadFile(imageIndex)}
+                /> */}
+        </Button>
 
         <Button className={cx(classNames.imagesModalBtn)}>
           <AutorenewIcon />
@@ -454,12 +471,13 @@ export const PhotoAndFilesCarousel = ({
         </>
       )}
 
-      {/* <BigImagesModal
-        openModal={showPhotosModal}
-        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={bigImagesOptions.images}
-        imgIndex={bigImagesOptions.imgIndex}
-      /> */}
+      <Modal openModal={imageEditOpen} setOpenModal={() => setImageEditOpen(!imageEditOpen)}>
+        <ImageEditForm
+          item={bigImagesOptions.images[bigImagesOptions.imgIndex]}
+          setOpenModal={() => setImageEditOpen(!imageEditOpen)}
+          onSave={onClickEditImageSubmit}
+        />
+      </Modal>
 
       <BigImagesModal
         showPreviews
