@@ -239,8 +239,6 @@ export const PhotoAndFilesCarousel = ({
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
-  // console.log('imagesForLoad', imagesForLoad)
-
   const notEmptyFiles = files?.length ? files.filter(el => !checkIsImageLink(el?.file?.name || el)) : []
 
   const filteredImagesTitles = imagesTitles.length
