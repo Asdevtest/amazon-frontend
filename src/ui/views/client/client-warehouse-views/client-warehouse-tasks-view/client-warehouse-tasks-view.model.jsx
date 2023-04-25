@@ -1,20 +1,27 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
+import {GeneralModel} from '@models/general-model'
+import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
+import {clientBoxesViewColumns} from '@components/table-columns/client/client-boxes-columns'
 import {clientTasksViewColumns} from '@components/table-columns/client/client-tasks-columns'
 
 import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {getTableByColumn, objectToUrlQs} from '@utils/text'
 import {t} from '@utils/translations'
+
+const filtersFields = ['operationType', 'status', 'storekeeper', 'priority']
 
 export class ClientWarehouseTasksViewModel {
   history = undefined
@@ -65,18 +72,38 @@ export class ClientWarehouseTasksViewModel {
 
   curPageForTask = 0
   rowsPerPageForTask = 15
+  rowsCount = 0
 
   densityModel = 'compact'
+
+  showEditPriorityData = false
+
+  editPriorityData = {
+    taskId: null,
+    newPriority: null,
+  }
 
   rowTaskHandlers = {
     onClickTaskInfo: item => this.setCurrentOpenedTask(item),
     onClickCancelBtn: (id, taskId, type) => this.onClickCancelBtn(id, taskId, type),
+    onClickFilterBtn: field => this.onClickFilterBtn(field),
+    updateTaskPriority: (taskId, newPriority) => this.startEditTaskPriority(taskId, newPriority),
+    updateTaskComment: (taskId, priority, reason) => this.updateTaskComment(taskId, priority, reason),
   }
 
-  taskColumnsModel = clientTasksViewColumns(this.rowTaskHandlers)
+  columnsModel = clientTasksViewColumns(this.rowTaskHandlers)
 
   get userInfo() {
     return UserModel.userInfo
+  }
+
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = clientTasksViewColumns(this.rowTaskHandlers).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
   }
 
   constructor({history}) {
@@ -93,6 +120,38 @@ export class ClientWarehouseTasksViewModel {
     //   () => SettingsModel.languageTag,
     //   () => this.updateColumnsModel(),
     // )
+  }
+
+  async updateTaskPriority(taskId, priority, reason) {
+    try {
+      await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
+
+      UserModel.getUserInfo()
+      await this.getTasksMy()
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async updateTaskComment(taskId, priority, reason) {
+    try {
+      await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  startEditTaskPriority(taskId, newPriority) {
+    runInAction(() => {
+      this.editPriorityData = {taskId, newPriority}
+      this.showEditPriorityData = true
+    })
   }
 
   // async updateColumnsModel() {
@@ -119,34 +178,24 @@ export class ClientWarehouseTasksViewModel {
   //   SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
   // }
 
-  // getDataGridState() {
-  //   const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_WAREHOUSE]
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_WAREHOUSE]
 
-  //   runInAction(() => {
-  //     if (state) {
-  //       this.sortModel = state.sorting.sortModel
-  //       this.filterModel = state.filter.filterModel.filterModel
-  //       this.rowsPerPage = state.pagination.pageSize
+    runInAction(() => {
+      if (state) {
+        this.sortModel = state.sorting.sortModel
+        this.filterModel = state.filter.filterModel.filterModel
+        this.rowsPerPage = state.pagination.pageSize
 
-  //       this.densityModel = state.density.value
-  //       this.columnsModel = clientBoxesViewColumns(
-  //         this.rowHandlers,
-  //         this.storekeepersData,
-  //         this.destinations,
-  //         SettingsModel.destinationsFavourites,
-  //         this.columnMenuSettings,
-  //         this.onHover,
-  //       ).map(el => ({
-  //         ...el,
-  //         hide: state.columns?.lookup[el?.field]?.hide,
-  //       }))
-  //       this.taskColumnsModel = clientTasksViewColumns(this.rowTaskHandlers).map(el => ({
-  //         ...el,
-  //         hide: state.columns?.lookup[el?.field]?.hide,
-  //       }))
-  //     }
-  //   })
-  // }
+        this.densityModel = state.density.value
+        this.columnsModel = state.columnsModel
+        this.columnsModel = clientTasksViewColumns(this.rowTaskHandlers).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
+      }
+    })
+  }
 
   onChangeRowsPerPage(e) {
     runInAction(() => {
@@ -158,7 +207,10 @@ export class ClientWarehouseTasksViewModel {
   onChangeRowsPerPageForTask(e) {
     runInAction(() => {
       this.rowsPerPageForTask = e
+      this.rowsPerPage = e
       this.curPageForTask = 0
+
+      this.getTasksMy()
     })
   }
 
@@ -177,6 +229,7 @@ export class ClientWarehouseTasksViewModel {
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
+      this.getTasksMy()
     })
   }
 
@@ -236,16 +289,73 @@ export class ClientWarehouseTasksViewModel {
   onChangeCurPageForTask = e => {
     runInAction(() => {
       this.curPageForTask = e
+      this.getTasksMy()
     })
   }
 
+  onLeaveColumnField() {
+    this.onHover = null
+    this.getDataGridState()
+  }
+
+  onChangeFullFieldMenuItem(value, field) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        [field]: {
+          ...this.columnMenuSettings[field],
+          currentFilterData: value,
+        },
+      }
+    })
+  }
+
+  columnMenuSettings = {
+    onClickFilterBtn: field => this.onClickFilterBtn(field),
+    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
+    onClickAccept: () => {
+      this.onLeaveColumnField()
+      this.getFilter()
+      this.getDataGridState()
+    },
+
+    filterRequestStatus: undefined,
+
+    ...filtersFields.reduce(
+      (ac, cur) =>
+        (ac = {
+          ...ac,
+          [cur]: {
+            filterData: [],
+            currentFilterData: [],
+          },
+        }),
+      {},
+    ),
+  }
+
   async getTasksMy() {
+    console.log('======>', this.getFilter())
     try {
-      const result =
-        await ClientModel.getTasks(/* this.currentStorekeeper && {storekeeperId: this.currentStorekeeper._id} */)
+      const result = await ClientModel.getTasks(
+        /* this.currentStorekeeper && {storekeeperId: this.currentStorekeeper._id} */
+        {
+          filters: this.getFilter(),
+
+          // storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
+
+          limit: this.rowsPerPage,
+          offset: this.curPageForTask * this.rowsPerPage,
+
+          sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+          sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        },
+      )
 
       runInAction(() => {
-        this.tasksMy = warehouseTasksDataConverter(result).sort(sortObjectsArrayByFiledDate('updatedAt'))
+        this.rowsCount = result.count
+
+        this.tasksMy = warehouseTasksDataConverter(result.rows).sort(sortObjectsArrayByFiledDate('updatedAt'))
       })
     } catch (error) {
       console.log(error)
@@ -255,6 +365,79 @@ export class ClientWarehouseTasksViewModel {
         this.tasksMy = []
       })
     }
+  }
+
+  async onClickFilterBtn(column) {
+    try {
+      const data = await GeneralModel.getDataForColumn(
+        getTableByColumn(column, 'boxes'),
+        column,
+
+        `client/tasks/by_boxes?filters=${this.getFilter(column)}`,
+      )
+
+      if (this.columnMenuSettings[column]) {
+        this.columnMenuSettings = {
+          ...this.columnMenuSettings,
+          [column]: {...this.columnMenuSettings[column], filterData: data},
+        }
+      }
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  getFilter(exclusion) {
+    // const idFilter = exclusion !== 'id' && this.columnMenuSettings.id.currentFilterData.join(',')
+    const typeFilter =
+      exclusion !== 'operationType' && this.columnMenuSettings.operationType.currentFilterData.join(',')
+    const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
+    const storekeeperFilter =
+      exclusion !== 'storekeeper' && this.columnMenuSettings.storekeeper.currentFilterData.join(',')
+    const priorityFilter = exclusion !== 'priority' && this.columnMenuSettings.priority.currentFilterData.join(',')
+
+    const filter = objectToUrlQs({
+      or: [
+        // {asin: {$contains: this.nameSearchValue}},
+        // {amazonTitle: {$contains: this.nameSearchValue}},
+        // {skusByClient: {$contains: this.nameSearchValue}},
+        // {item: {$eq: this.nameSearchValue}},
+        // {id: {$eq: this.nameSearchValue}},
+        // {humanFriendlyId: {$eq: this.nameSearchValue}},
+        // {prepId: {$contains: this.nameSearchValue}},
+      ].filter(
+        el =>
+          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
+            !el.id &&
+            !el.humanFriendlyId) ||
+          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+      ),
+
+      // ...(idFilter && {
+      //   id: {$eq: idFilter},
+      // }),
+
+      ...(typeFilter && {
+        operationType: {$eq: typeFilter},
+      }),
+
+      ...(statusFilter && {
+        status: {$eq: statusFilter},
+      }),
+
+      ...(storekeeperFilter && {
+        storekeeper: {$eq: storekeeperFilter},
+      }),
+
+      ...(priorityFilter && {
+        priority: {$eq: priorityFilter},
+      }),
+    })
+
+    return filter
   }
 
   onTriggerOpenModal(modalState) {

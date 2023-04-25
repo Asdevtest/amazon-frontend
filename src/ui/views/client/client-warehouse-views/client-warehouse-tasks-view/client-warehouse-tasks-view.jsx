@@ -11,6 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {DataGridCustomColumnMenuComponent} from '@components/data-grid-custom-components/data-grid-custom-column-component'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -21,6 +22,7 @@ import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comm
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
+import {EditTaskPriorityModal} from '@components/screens/warehouse/edit-task-priority-modal'
 import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -43,7 +45,7 @@ export class ClientWarehouseTasksViewRaw extends Component {
     const {
       confirmModalSettings,
       volumeWeightCoefficient,
-      taskColumnsModel,
+      columnsModel,
       getCurrentTaskData,
 
       curOpenedTask,
@@ -56,11 +58,20 @@ export class ClientWarehouseTasksViewRaw extends Component {
       showConfirmWithCommentModal,
       showWarningInfoModal,
       warningInfoModalSettings,
+      rowsCount,
+      showEditPriorityData,
+      columnMenuSettings,
+      editPriorityData,
+      onSelectionModel,
+      changeColumnsModel,
+      onChangeFilterModel,
+      onChangeSortingModel,
       onTriggerDrawer,
       onChangeCurPageForTask,
       onChangeRowsPerPageForTask,
       onTriggerOpenModal,
       onClickCancelAfterConfirm,
+      updateTaskPriority,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -100,14 +111,28 @@ export class ClientWarehouseTasksViewRaw extends Component {
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   page={curPageForTask}
                   pageSize={rowsPerPageForTask}
+                  sortingMode="server"
+                  paginationMode="server"
                   // pageSize={15}
+                  rowCount={rowsCount}
                   rows={getCurrentTaskData()}
                   getRowHeight={() => 'auto'}
+                  componentsProps={{
+                    columnMenu: columnMenuSettings,
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
+                  }}
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
+                    ColumnMenu: DataGridCustomColumnMenuComponent,
                   }}
-                  columns={taskColumnsModel}
+                  columns={columnsModel}
+                  onSelectionModelChange={onSelectionModel}
+                  onSortModelChange={onChangeSortingModel}
+                  onFilterModelChange={onChangeFilterModel}
+                  // onStateChange={setDataGridState}
                   onPageSizeChange={onChangeRowsPerPageForTask}
                   onPageChange={onChangeCurPageForTask}
                 />
@@ -115,6 +140,14 @@ export class ClientWarehouseTasksViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
+
+        <Modal openModal={showEditPriorityData} setOpenModal={() => onTriggerOpenModal('showEditPriorityData')}>
+          <EditTaskPriorityModal
+            data={editPriorityData}
+            handleClose={() => onTriggerOpenModal('showEditPriorityData')}
+            onSubmitHandler={updateTaskPriority}
+          />
+        </Modal>
 
         <Modal openModal={showTaskInfoModal} setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}>
           <EditTaskModal
