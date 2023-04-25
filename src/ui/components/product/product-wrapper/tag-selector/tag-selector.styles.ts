@@ -8,6 +8,9 @@ export const useTagSelectorStyles = makeStyles()(theme => ({
       padding: '0 !important',
       width: '100%',
     },
+    '.MuiOutlinedInput-root': {
+      paddingRight: '60px !important',
+    },
     '.MuiInputLabel-root ': {
       lineHeight: '1 !important',
     },
