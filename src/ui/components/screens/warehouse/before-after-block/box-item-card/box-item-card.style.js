@@ -45,7 +45,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '19px',
     width: '280px',
-    maxHeight: '150px',
+    maxHeight: '152px',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     overflowY: 'auto',
@@ -214,7 +214,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     [theme.breakpoints.down(1282)]: {
-      justifyContent: 'space-between',
+      gap: 20,
     },
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
@@ -289,6 +289,12 @@ export const useClassNames = makeStyles()(theme => ({
       flexDirection: 'column',
       gap: '14px',
     },
+  },
+
+  copyValueMainWrapper: {
+    // width: '59%',
+    display: 'flex',
+    justifyContent: 'start',
   },
 
   copyValueWrapper: {

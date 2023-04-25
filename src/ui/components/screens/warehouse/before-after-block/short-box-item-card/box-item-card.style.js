@@ -40,6 +40,9 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
+    [theme.breakpoints.down(1282)]: {
+      maxWidth: '73%',
+    },
   },
 
   subTitle: {
@@ -71,6 +74,14 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '42px',
+    [theme.breakpoints.down(1282)]: {
+      width: '72%',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+      gap: 25,
+      // flexDirection: 'column',
+      // alignItems: 'start',
+    },
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       alignItems: 'end',
@@ -82,6 +93,9 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '25px',
+    [theme.breakpoints.down(1282)]: {
+      gap: 5,
+    },
   },
   asinWrapper: {
     display: 'flex',
@@ -118,7 +132,12 @@ export const useClassNames = makeStyles()(theme => ({
 
   attributeHeaderWrapper: {
     display: 'flex',
+    width: '100%',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(1282)]: {
+      gap: 5,
+      flexDirection: 'column',
+    },
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       alignItems: 'end',
