@@ -40,8 +40,8 @@ export const ImageEditForm = ({item, onSave, setOpenModal}) => {
         img.src = url
 
         img.onload = () => {
-          canvas.width = img.width
-          canvas.height = img.height
+          canvas.width = Math.max(img.width, img.height)
+          canvas.height = Math.max(img.width, img.height)
 
           const ctx = canvas.getContext('2d')
           ctx.translate(canvas.width / 2, canvas.height / 2)
@@ -50,6 +50,8 @@ export const ImageEditForm = ({item, onSave, setOpenModal}) => {
 
           canvas.toBlob(blob => {
             const url = URL.createObjectURL(blob)
+
+            console.log('blob', blob)
 
             const readyFile = {
               data_url: url,
@@ -67,18 +69,20 @@ export const ImageEditForm = ({item, onSave, setOpenModal}) => {
   }
 
   return (
-    <div>
-      <img
-        className={classNames.image}
-        style={{transform: `rotate(${rotation}deg)`}}
-        src={
-          typeof item === 'string'
-            ? getAmazonImageUrl(item, true)
-            : item?.file.type.includes('image')
-            ? item?.data_url
-            : '/assets/icons/file.png'
-        }
-      />
+    <div className={classNames.root}>
+      <div className={classNames.imageWrapper}>
+        <img
+          style={{transform: `rotate(${rotation}deg)`}}
+          className={classNames.image}
+          src={
+            typeof item === 'string'
+              ? getAmazonImageUrl(item, true)
+              : item?.file.type.includes('image')
+              ? item?.data_url
+              : '/assets/icons/file.png'
+          }
+        />
+      </div>
       <div className={classNames.btnsWrapper}>
         <div className={classNames.btnsSubWrapper}>
           <Button onClick={handleRotateLeft}>

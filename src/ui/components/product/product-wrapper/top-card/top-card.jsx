@@ -174,12 +174,6 @@ export const TopCard = observer(
               </>
               <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickEditImage()}>
                 <ModeOutlinedIcon />
-                {/* <input
-                  type={'file'}
-                  className={classNames.pasteInput}
-                  defaultValue={''}
-                  onChange={onUploadFile(imageIndex)}
-                /> */}
               </Button>
 
               <Button className={cx(classNames.imagesModalBtn)}>

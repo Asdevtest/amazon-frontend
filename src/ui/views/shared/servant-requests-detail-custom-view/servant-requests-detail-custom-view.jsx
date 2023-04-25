@@ -4,7 +4,6 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
