@@ -239,6 +239,16 @@ export class ClientInStockBoxesViewModel {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
+  get isChoosenOnlySendToBatchBoxes() {
+    if (!this.selectedBoxes.length) {
+      return false
+    }
+
+    return this.currentData
+      .filter(el => this.selectedBoxes.includes(el._id))
+      .every(el => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
+  }
+
   constructor({history}) {
     const url = new URL(window.location.href)
 
@@ -505,6 +515,46 @@ export class ClientInStockBoxesViewModel {
     // }
 
     this.onTriggerOpenModal('showSetShippingLabelModal')
+  }
+
+  onClickReturnBoxesToStockBtn() {
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: true,
+        confirmMessage: t(TranslationKey['Are you sure you want to return the boxes to the warehouse?']),
+        onClickConfirm: () => this.returnBoxesToStock(),
+      }
+    })
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async returnBoxesToStock() {
+    try {
+      await ClientModel.returnBoxFromBatch(this.selectedBoxes.map(boxId => ({boxId})))
+      runInAction(() => {
+        this.selectedBoxes = []
+      })
+
+      this.loadData()
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+
+      this.onTriggerOpenModal('showConfirmModal')
+
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: true,
+          title: t(TranslationKey.Error),
+        }
+      })
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+    }
   }
 
   onDoubleClickShippingLabel = item => {

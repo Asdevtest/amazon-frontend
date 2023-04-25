@@ -637,11 +637,13 @@ export class ClientInStockBoxesViewRaw extends Component {
     const {
       selectedBoxes,
       // isMasterBoxSelected,
+      isChoosenOnlySendToBatchBoxes,
       onClickRequestToSendBatch,
       onClickEditBtn,
       onClickMergeBtn,
       onClickSplitBtn,
       onClickGroupingBtn,
+      onClickReturnBoxesToStockBtn,
     } = this.viewModel
     return (
       <React.Fragment>
@@ -678,6 +680,15 @@ export class ClientInStockBoxesViewRaw extends Component {
 
         <Button disabled={!selectedBoxes.length} onClick={onClickGroupingBtn}>
           {t(TranslationKey.Grouping)}
+        </Button>
+
+        <Button
+          disabled={!selectedBoxes.length || !isChoosenOnlySendToBatchBoxes}
+          // className={classNames.returnButton}
+          // variant="contained"
+          onClick={onClickReturnBoxesToStockBtn}
+        >
+          {t(TranslationKey['Return to stock'])}
         </Button>
       </React.Fragment>
     )

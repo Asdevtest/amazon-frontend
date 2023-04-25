@@ -65,7 +65,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
   } = componentModel.current
 
   useEffect(() => {
-    console.log('====>', snackNotifications)
+    // console.log('====>', snackNotifications)
     if (
       snackNotifications[snackNoticeKey.SIMPLE_MESSAGE] &&
       !location.pathname.includes('/messages') &&
