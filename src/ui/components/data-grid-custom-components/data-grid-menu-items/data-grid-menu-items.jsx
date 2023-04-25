@@ -373,18 +373,28 @@ export const FreelanceRequestType = React.memo(
           <div className={classNames.shopsBody}>
             <>
               {itemsForRender.length ? (
-                itemsForRender.map((el, index) => (
-                  <div key={index} className={classNames.shop}>
-                    <Checkbox
-                      color="primary"
-                      checked={choosenItems.some(item => item === el)}
-                      onClick={() => onClickItem(el)}
-                    />
-                    <div className={classNames.shopName}>
-                      {freelanceRequestTypeTranslate(el) || t(TranslationKey.Empty)}
-                    </div>
-                  </div>
-                ))
+                <>
+                  <DataGridSelectAllFilters
+                    choosenItems={choosenItems}
+                    itemsForRender={itemsForRender}
+                    setChoosenItems={setChoosenItems}
+                  />
+                  {itemsForRender.map(
+                    (el, index) =>
+                      freelanceRequestType.DEFAULT !== el && (
+                        <div key={index} className={classNames.shop}>
+                          <Checkbox
+                            color="primary"
+                            checked={choosenItems.some(item => item === el)}
+                            onClick={() => onClickItem(el)}
+                          />
+                          <div className={classNames.shopName}>
+                            {freelanceRequestTypeTranslate(el) || t(TranslationKey.Empty)}
+                          </div>
+                        </div>
+                      ),
+                  )}
+                </>
               ) : (
                 <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
               )}

@@ -134,7 +134,8 @@ export const useClassNames = makeStyles()(theme => ({
   bodySubWrapper: {
     display: 'flex',
     flexWrap: 'wrap',
-    gap: 27,
+    gap: 24,
+    paddingRight: 15,
     // paddingTop: 30,
     // // background: 'grey',
     // overflowY: 'auto',
@@ -299,6 +300,7 @@ export const useClassNames = makeStyles()(theme => ({
     left: 0,
     opacity: 0,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    // zIndex: 1000000,
   },
 
   image: {
