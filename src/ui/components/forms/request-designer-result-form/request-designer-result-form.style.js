@@ -299,6 +299,7 @@ export const useClassNames = makeStyles()(theme => ({
     left: 0,
     opacity: 0,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    // zIndex: 1000000,
   },
 
   image: {

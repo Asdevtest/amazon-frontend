@@ -5,33 +5,26 @@ import {cx} from '@emotion/css'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
-import {Accordion, AccordionDetails, AccordionSummary, IconButton, Link, Typography, Avatar} from '@mui/material'
+import {Accordion, AccordionDetails, AccordionSummary, Typography, Avatar} from '@mui/material'
 
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useState} from 'react'
 
-import {DndProvider, useDrag, useDrop, DndContext} from 'react-dnd'
-import {HTML5Backend} from 'react-dnd-html5-backend'
+import {DndProvider, useDrag, useDrop} from 'react-dnd'
+import {HTML5Backend, NativeTypes} from 'react-dnd-html5-backend'
 
-import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {BigPlus, PhotoCameraWithPlus} from '@constants/svg-icons'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value'
-import {CustomCarousel} from '@components/custom-carousel'
-// import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {BigObjectImagesModal} from '@components/modals/big-object-images-modal'
-import {UploadFilesInput} from '@components/upload-files-input'
 
 import {getShortenStringIfLongerThanCount, minsToTime} from '@utils/text'
 import {t} from '@utils/translations'
-import {downloadFileByLink} from '@utils/upload-files'
 
 import {ImageEditForm} from '../image-edit-form'
 import {useClassNames} from './request-designer-result-form.style'
@@ -68,21 +61,25 @@ const Slot = ({
   })
 
   const [, drop] = useDrop({
-    accept: 'slot',
+    accept: ['slot', NativeTypes.FILE],
     drop: (item, monitor) => {
-      if (!monitor.isOver({shallow: true})) {
-        return
+      if (item.type === 'slot') {
+        if (!monitor.isOver({shallow: true})) {
+          return
+        }
+        if (item.index === index) {
+          return
+        }
+
+        const dropIndex = index
+        slot.index = dropIndex
+
+        const newSlots = reorder(imagesData, item.index, dropIndex)
+
+        setImagesData(() => newSlots)
+      } else {
+        onPasteFiles(slot._id)(item.files)
       }
-      if (item.index === index) {
-        return
-      }
-
-      const dropIndex = index
-      slot.index = dropIndex
-
-      const newSlots = reorder(imagesData, item.index, dropIndex)
-
-      setImagesData(() => newSlots)
     },
   })
 
@@ -92,7 +89,6 @@ const Slot = ({
     <div key={slot._id} ref={drop}>
       <div ref={drag} style={{opacity}} className={classNames.imageObjWrapper}>
         <div
-          key={slot._id + 'comment3'}
           className={cx(
             classNames.imageWrapper,
 
@@ -143,10 +139,14 @@ const Slot = ({
             </div>
           )}
           <input
+            multiple
             type={'file'}
             className={classNames.pasteInput}
             defaultValue={''}
-            onPaste={onPasteFiles(slot._id)}
+            // onPaste={e => {
+            //   console.log('e', e)
+            //   onPasteFiles(slot._id)(e)
+            // }}
             onChange={onUploadFile(slot._id)}
             onClick={e => {
               if (slot.image) {
@@ -236,14 +236,13 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
     [imagesData],
   )
 
-  // console.log('imagesData', imagesData)
-
   const onClickAddImageObj = () => {
     setImagesData(() => [...imagesData, {image: null, comment: '', isMain: false, _id: `${Date.now()}`}])
   }
 
   const onClickRemoveImageObj = () => {
     setImagesData(() => imagesData.filter(el => el._id !== curImageId))
+
     setCurImageId(() => null)
   }
 
@@ -259,15 +258,11 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
     setImagesData(() => imagesData.filter(el => el._id !== imageId))
   }
 
-  const onPasteFiles = imageId => async evt => {
-    if (evt.clipboardData.files.length === 0) {
+  const onPasteFiles = imageId => async files => {
+    if (files.length === 0) {
       return
     } else {
-      const filesArr = Array.from(evt.clipboardData.files)
-
-      evt.preventDefault()
-
-      const readyFilesArr = filesArr.map(el => ({
+      const readyFilesArr = files.map(el => ({
         data_url: URL.createObjectURL(el),
         file: new File([el], el.name?.replace(/ /g, ''), {
           type: el.type,
@@ -275,12 +270,41 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         }),
       }))
 
-      setImagesData(() => imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)))
+      const restNewSlots = readyFilesArr
+        .slice(1)
+        .map((el, i) => ({image: el, comment: '', isMain: false, _id: `${Date.now()} + ${i}`}))
+
+      console.log('restNewSlots', restNewSlots)
+
+      setImagesData([
+        ...imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)),
+        ...restNewSlots,
+      ])
     }
   }
 
+  // const onPasteFiles = imageId => async evt => {
+
+  //   if (evt.clipboardData.files.length === 0) {
+  //     return
+  //   } else {
+  //     const filesArr = Array.from(evt.clipboardData.files)
+
+  //     evt.preventDefault()
+
+  //     const readyFilesArr = filesArr.map(el => ({
+  //       data_url: URL.createObjectURL(el),
+  //       file: new File([el], el.name?.replace(/ /g, ''), {
+  //         type: el.type,
+  //         lastModified: el.lastModified,
+  //       }),
+  //     }))
+
+  //     setImagesData(() => imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)))
+  //   }
+  // }
+
   const onUploadFile = imageId => async evt => {
-    console.log('sss')
     if (evt.target.files.length === 0) {
       return
     } else {
@@ -296,13 +320,22 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         }),
       }))
 
-      setImagesData(() => imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)))
+      // setImagesData(() => imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)))
+
+      const restNewSlots = readyFilesArr
+        .slice(1)
+        .map((el, i) => ({image: el, comment: '', isMain: false, _id: `${Date.now()} + ${i}`}))
+
+      console.log('restNewSlots', restNewSlots)
+
+      setImagesData([
+        ...imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)),
+        ...restNewSlots,
+      ])
     }
   }
 
   const disableSubmit = imagesData.every(el => !el.image)
-
-  // console.log('imagesData', imagesData)
 
   return (
     <div className={classNames.modalMainWrapper}>
@@ -482,6 +515,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
             <Button className={cx(classNames.imagesModalBtn)}>
               <AutorenewIcon />
               <input
+                multiple
                 type={'file'}
                 className={classNames.pasteInput}
                 defaultValue={''}
