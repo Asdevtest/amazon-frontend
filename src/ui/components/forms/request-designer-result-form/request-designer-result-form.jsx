@@ -3,6 +3,7 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
+import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
@@ -101,18 +102,21 @@ const Slot = ({
           )}
         >
           {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
-          {index !== 0 && (
-            <div
-              className={classNames.removeIconWrapper}
-              onClick={e => {
-                e.stopPropagation()
 
-                onClickRemoveItem(slot._id)
-              }}
-            >
+          <div
+            className={classNames.removeIconWrapper}
+            onClick={e => {
+              e.stopPropagation()
+
+              onClickRemoveItem(slot)
+            }}
+          >
+            {slot.image ? (
+              <CheckBoxOutlineBlankOutlinedIcon className={classNames.removeIcon} />
+            ) : (
               <CloseOutlinedIcon className={classNames.removeIcon} />
-            </div>
-          )}
+            )}
+          </div>
           {slot.image ? (
             <div className={classNames.imageListItem}>
               <Avatar
@@ -243,7 +247,10 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
   }
 
   const onClickRemoveImageObj = () => {
-    setImagesData(() => imagesData.filter(el => el._id !== curImageId))
+    // setImagesData(() => imagesData.filter(el => el._id !== curImageId))
+
+    setImagesData(() => imagesData.map(el => (el._id === curImageId ? {...el, image: null} : el)))
+
     setCurImageId(() => null)
   }
 
@@ -255,8 +262,12 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
     setImageEditOpen(!imageEditOpen)
   }
 
-  const onClickRemoveItem = imageId => {
-    setImagesData(() => imagesData.filter(el => el._id !== imageId))
+  const onClickRemoveItem = slot => {
+    if (slot.image) {
+      setImagesData(() => imagesData.map(el => (el._id === slot._id ? {...el, image: null} : el)))
+    } else {
+      setImagesData(() => imagesData.filter(el => el._id !== slot._id))
+    }
   }
 
   const onPasteFiles = imageId => async evt => {
