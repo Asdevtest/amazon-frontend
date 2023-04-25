@@ -529,6 +529,7 @@ export class ClientInStockBoxesViewRaw extends Component {
             onClickSendBoxesToBatch={onClickSendBoxesToBatch}
             onClickRemoveBoxFromBatch={onClickRemoveBoxFromBatch}
             onSubmitChangeBoxFields={onSubmitChangeBoxFields}
+            onClickHsCode={onClickHsCode}
           />
         </Modal>
 

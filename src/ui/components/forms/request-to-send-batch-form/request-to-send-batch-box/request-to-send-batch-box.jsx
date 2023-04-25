@@ -24,6 +24,7 @@ export const RequestToSendBatchBox = ({
   volumeWeightCoefficient,
   userInfo,
   onSubmitChangeBoxFields,
+  onClickHsCode,
 }) => {
   const {classes: classNames} = useClassNames()
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
@@ -343,6 +344,7 @@ export const RequestToSendBatchBox = ({
             onSubmitChangeBoxFields(data, true)
             setShowBoxViewModal(!showBoxViewModal)
           }}
+          onClickHsCode={onClickHsCode}
         />
       </Modal>
     </tr>
