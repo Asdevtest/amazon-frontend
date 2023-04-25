@@ -26,6 +26,7 @@ export const RequestToSendBatchesGroupBoxes = ({
   boxesDeliveryCosts,
   onClickRemoveBoxFromBatch,
   onSubmitChangeBoxFields,
+  onClickHsCode,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -117,6 +118,7 @@ export const RequestToSendBatchesGroupBoxes = ({
                 currentTariff={currentTariff}
                 onClickRemoveBoxFromBatch={() => onClickRemoveBoxFromBatch(boxId._id)}
                 onSubmitChangeBoxFields={onSubmitChangeBoxFields}
+                onClickHsCode={onClickHsCode}
               />
             </tbody>
           )
