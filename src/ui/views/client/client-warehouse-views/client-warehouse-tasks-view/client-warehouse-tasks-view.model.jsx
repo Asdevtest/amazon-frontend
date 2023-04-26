@@ -187,6 +187,13 @@ export class ClientWarehouseTasksViewModel {
     this.getTasksMy()
   }
 
+  onSearchSubmit(searchValue) {
+    runInAction(() => {
+      this.nameSearchValue = searchValue
+    })
+    this.getTasksMy()
+  }
+
   async updateTaskComment(taskId, priority, reason) {
     try {
       await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
@@ -388,20 +395,17 @@ export class ClientWarehouseTasksViewModel {
 
   async getTasksMy() {
     try {
-      const result = await ClientModel.getTasks(
-        /* this.currentStorekeeper && {storekeeperId: this.currentStorekeeper._id} */
-        {
-          filters: this.getFilter(),
-          limit: this.rowsPerPage,
-          offset: this.curPageForTask * this.rowsPerPage,
-          storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
-          sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
-          sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-          priority: this.currentPriority,
-          status: this.selectedStatus,
-          operationType: this.operationType,
-        },
-      )
+      const result = await ClientModel.getTasks({
+        filters: this.getFilter(),
+        limit: this.rowsPerPage,
+        offset: this.curPageForTask * this.rowsPerPage,
+        storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        priority: this.currentPriority,
+        status: this.selectedStatus,
+        operationType: this.operationType,
+      })
 
       runInAction(() => {
         this.rowsCount = result.count
@@ -452,13 +456,14 @@ export class ClientWarehouseTasksViewModel {
 
     const filter = objectToUrlQs({
       or: [
-        // {asin: {$contains: this.nameSearchValue}},
-        // {amazonTitle: {$contains: this.nameSearchValue}},
-        // {skusByClient: {$contains: this.nameSearchValue}},
-        // {item: {$eq: this.nameSearchValue}},
-        // {id: {$eq: this.nameSearchValue}},
-        // {humanFriendlyId: {$eq: this.nameSearchValue}},
-        // {prepId: {$contains: this.nameSearchValue}},
+        {asin: {$contains: this.nameSearchValue}},
+        {amazonTitle: {$contains: this.nameSearchValue}},
+        {skusByClient: {$contains: this.nameSearchValue}},
+        {id: {$eq: this.nameSearchValue}},
+        {item: {$eq: this.nameSearchValue}},
+        {productId: {$eq: this.nameSearchValue}},
+        {humanFriendlyId: {$eq: this.nameSearchValue}},
+        {prepId: {$contains: this.nameSearchValue}},
       ].filter(
         el =>
           ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&

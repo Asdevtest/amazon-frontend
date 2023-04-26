@@ -77,6 +77,8 @@ export class ClientWarehouseTasksViewRaw extends Component {
       currentStorekeeper,
       selectedStatus,
       operationType,
+      nameSearchValue,
+      onSearchSubmit,
       handleOperationType,
       handleSelectedStatus,
       onClickStorekeeperBtn,
@@ -108,11 +110,11 @@ export class ClientWarehouseTasksViewRaw extends Component {
             <MainContent>
               <div className={classNames.headerWrapper}>
                 <SearchInput
-                  disabled
-                  // value={nameSearchValue}
+                  // disabled
+                  value={nameSearchValue}
                   inputClasses={classNames.searchInput}
                   placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
-                  // onSubmit={onSearchSubmit}
+                  onSubmit={onSearchSubmit}
                 />
               </div>
 
