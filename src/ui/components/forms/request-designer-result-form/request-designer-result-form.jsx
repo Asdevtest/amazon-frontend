@@ -24,6 +24,7 @@ import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {BigObjectImagesModal} from '@components/modals/big-object-images-modal'
 
+import {checkIsImageLink} from '@utils/checks'
 import {getShortenStringIfLongerThanCount, minsToTime} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -120,7 +121,9 @@ const Slot = ({
                 classes={{img: classNames.image}}
                 src={
                   typeof slot.image === 'string'
-                    ? slot.image
+                    ? checkIsImageLink(slot.image)
+                      ? slot.image
+                      : '/assets/icons/file.png'
                     : slot.image?.file.type.includes('image')
                     ? slot.image?.data_url
                     : '/assets/icons/file.png'
@@ -128,8 +131,14 @@ const Slot = ({
                 alt={isRework ? '' : slot?.imageitem?.image?.file?.name}
                 variant="square"
                 onClick={() => {
-                  setCurImageId(slot._id)
-                  setShowImageModal(!showImageModal)
+                  if (checkIsImageLink(slot.image?.file?.name || slot.image)) {
+                    console.log('slot', slot)
+
+                    setCurImageId(slot._id)
+                    setShowImageModal(!showImageModal)
+                  } else {
+                    window.open(slot.image?.data_url || slot.image, '__blank')
+                  }
                 }}
               />
             </div>
@@ -156,8 +165,12 @@ const Slot = ({
               if (slot.image) {
                 e.preventDefault()
 
-                setCurImageId(slot._id)
-                setShowImageModal(!showImageModal)
+                if (checkIsImageLink(slot.image?.file?.name || slot.image)) {
+                  setCurImageId(slot._id)
+                  setShowImageModal(!showImageModal)
+                } else {
+                  window.open(slot.image?.data_url || slot.image, '__blank')
+                }
               } else {
                 return e
               }
@@ -222,9 +235,9 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         _id: el._id,
       }))
     : [
-        {image: null, comment: '', isMain: false, _id: `${Date.now()}1`},
-        {image: null, comment: '', isMain: false, _id: `${Date.now()}2`},
-        {image: null, comment: '', isMain: false, _id: `${Date.now()}3`},
+        {image: null, comment: '', commentByClient: '', _id: `${Date.now()}1`},
+        {image: null, comment: '', commentByClient: '', _id: `${Date.now()}2`},
+        {image: null, comment: '', commentByClient: '', _id: `${Date.now()}3`},
       ]
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
@@ -241,7 +254,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
   )
 
   const onClickAddImageObj = () => {
-    setImagesData(() => [...imagesData, {image: null, comment: '', isMain: false, _id: `${Date.now()}`}])
+    setImagesData(() => [...imagesData, {image: null, comment: '', commentByClient: '', _id: `${Date.now()}`}])
   }
 
   const onClickRemoveImageObj = () => {
@@ -282,7 +295,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
       const restNewSlots = readyFilesArr
         .slice(1)
-        .map((el, i) => ({image: el, comment: '', isMain: false, _id: `${Date.now()} + ${i}`}))
+        .map((el, i) => ({image: el, comment: '', commentByClient: '', _id: `${Date.now()} + ${i}`}))
 
       console.log('restNewSlots', restNewSlots)
 
@@ -334,7 +347,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
       const restNewSlots = readyFilesArr
         .slice(1)
-        .map((el, i) => ({image: el, comment: '', isMain: false, _id: `${Date.now()} + ${i}`}))
+        .map((el, i) => ({image: el, comment: '', commentByClient: '', _id: `${Date.now()} + ${i}`}))
 
       console.log('restNewSlots', restNewSlots)
 

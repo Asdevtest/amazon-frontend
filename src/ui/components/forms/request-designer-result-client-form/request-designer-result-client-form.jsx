@@ -37,6 +37,7 @@ import {BigObjectImagesModal} from '@components/modals/big-object-images-modal'
 import {SetDuration} from '@components/set-duration/set-duration'
 import {UploadFilesInput} from '@components/upload-files-input'
 
+import {checkIsImageLink} from '@utils/checks'
 import {getShortenStringIfLongerThanCount, minsToTime} from '@utils/text'
 import {t} from '@utils/translations'
 import {downloadFileByLink} from '@utils/upload-files'
@@ -251,7 +252,9 @@ export const RequestDesignerResultClientForm = ({
                   classes={{img: classNames.image}}
                   src={
                     typeof item.image === 'string'
-                      ? item.image
+                      ? checkIsImageLink(item.image)
+                        ? item.image
+                        : '/assets/icons/file.png'
                       : item.image?.file.type.includes('image')
                       ? item.image?.data_url
                       : '/assets/icons/file.png'
@@ -259,8 +262,12 @@ export const RequestDesignerResultClientForm = ({
                   alt={''}
                   variant="square"
                   onClick={() => {
-                    setCurImageId(item._id)
-                    setShowImageModal(!showImageModal)
+                    if (checkIsImageLink(item.image?.file?.name || item.image)) {
+                      setCurImageId(item._id)
+                      setShowImageModal(!showImageModal)
+                    } else {
+                      window.open(item.image?.data_url || item.image, '__blank')
+                    }
                   }}
                 />
               </div>
@@ -400,7 +407,6 @@ export const RequestDesignerResultClientForm = ({
       </div>
 
       <BigObjectImagesModal
-        // isRedImageComment
         openModal={showImageModal}
         setOpenModal={() => setShowImageModal(!showImageModal)}
         imagesData={imagesData.map(el => ({...el, imageComment: el.commentByClient || ''}))}
