@@ -399,4 +399,9 @@ export const useClassNames = makeStyles()(theme => ({
     width: 40,
     height: 40,
   },
+
+  menu: {
+    width: 300,
+    height: 300,
+  },
 }))
