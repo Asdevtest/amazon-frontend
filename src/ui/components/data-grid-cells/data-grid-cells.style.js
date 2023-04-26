@@ -1927,6 +1927,12 @@ export const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  commentControls: {
+    alignSelf: 'flex-end',
+    paddingBottom: 15,
+  },
+
   arrivalDateIcon: {
     width: 15,
     height: 15,
