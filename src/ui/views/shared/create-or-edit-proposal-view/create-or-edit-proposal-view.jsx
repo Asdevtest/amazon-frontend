@@ -52,8 +52,6 @@ export class CreateOrEditProposalViewRaw extends Component {
 
     const {classes: classNames} = this.props
 
-    console.log('request', request)
-
     return (
       <React.Fragment>
         <Navbar
@@ -109,8 +107,10 @@ export class CreateOrEditProposalViewRaw extends Component {
 
           topBtnText={t(TranslationKey['Go to request'])}
           bottomBtnText={t(TranslationKey['To vacant requests'])}
+          thirdBtnText={t(TranslationKey['To the list of proposals'])}
           onClickTopBtn={() => goToMyRequest()}
           onClickBottomBtn={() => onClickResultModal({goBack: true})}
+          onClickThirdBtn={() => onClickResultModal({goBack: false})}
         />
 
         <WarningInfoModal

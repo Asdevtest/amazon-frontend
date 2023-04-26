@@ -1886,6 +1886,13 @@ export const styles = theme => ({
     },
   },
 
+  tagItem: {
+    maxWidth: 280,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+
   // as: {
   //   border: '1px solid #E0E0E0',
   //   borderRadius: 4,
@@ -1920,6 +1927,12 @@ export const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  commentControls: {
+    alignSelf: 'flex-end',
+    paddingBottom: 15,
+  },
+
   arrivalDateIcon: {
     width: 15,
     height: 15,

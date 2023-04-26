@@ -3,35 +3,30 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
+import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
-import {Accordion, AccordionDetails, AccordionSummary, IconButton, Link, Typography, Avatar} from '@mui/material'
+import {Accordion, AccordionDetails, AccordionSummary, Typography, Avatar} from '@mui/material'
 
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useState} from 'react'
 
-import {DndProvider, useDrag, useDrop, DndContext} from 'react-dnd'
-import {HTML5Backend} from 'react-dnd-html5-backend'
+import {DndProvider, useDrag, useDrop} from 'react-dnd'
+import {HTML5Backend, NativeTypes} from 'react-dnd-html5-backend'
 
-import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {BigPlus, PhotoCameraWithPlus} from '@constants/svg-icons'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value'
-import {CustomCarousel} from '@components/custom-carousel'
-// import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {BigObjectImagesModal} from '@components/modals/big-object-images-modal'
-import {UploadFilesInput} from '@components/upload-files-input'
 
+import {checkIsImageLink} from '@utils/checks'
 import {getShortenStringIfLongerThanCount, minsToTime} from '@utils/text'
 import {t} from '@utils/translations'
-import {downloadFileByLink} from '@utils/upload-files'
 
 import {ImageEditForm} from '../image-edit-form'
 import {useClassNames} from './request-designer-result-form.style'
@@ -68,21 +63,25 @@ const Slot = ({
   })
 
   const [, drop] = useDrop({
-    accept: 'slot',
+    accept: ['slot', NativeTypes.FILE],
     drop: (item, monitor) => {
-      if (!monitor.isOver({shallow: true})) {
-        return
+      if (item.type === 'slot') {
+        if (!monitor.isOver({shallow: true})) {
+          return
+        }
+        if (item.index === index) {
+          return
+        }
+
+        const dropIndex = index
+        slot.index = dropIndex
+
+        const newSlots = reorder(imagesData, item.index, dropIndex)
+
+        setImagesData(() => newSlots)
+      } else {
+        onPasteFiles(slot._id)(item.files)
       }
-      if (item.index === index) {
-        return
-      }
-
-      const dropIndex = index
-      slot.index = dropIndex
-
-      const newSlots = reorder(imagesData, item.index, dropIndex)
-
-      setImagesData(() => newSlots)
     },
   })
 
@@ -92,7 +91,6 @@ const Slot = ({
     <div key={slot._id} ref={drop}>
       <div ref={drag} style={{opacity}} className={classNames.imageObjWrapper}>
         <div
-          key={slot._id + 'comment3'}
           className={cx(
             classNames.imageWrapper,
 
@@ -101,18 +99,21 @@ const Slot = ({
           )}
         >
           {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
-          {index !== 0 && (
-            <div
-              className={classNames.removeIconWrapper}
-              onClick={e => {
-                e.stopPropagation()
 
-                onClickRemoveItem(slot._id)
-              }}
-            >
+          <div
+            className={classNames.removeIconWrapper}
+            onClick={e => {
+              e.stopPropagation()
+
+              onClickRemoveItem(slot)
+            }}
+          >
+            {slot.image ? (
+              <CheckBoxOutlineBlankOutlinedIcon className={classNames.removeIcon} />
+            ) : (
               <CloseOutlinedIcon className={classNames.removeIcon} />
-            </div>
-          )}
+            )}
+          </div>
           {slot.image ? (
             <div className={classNames.imageListItem}>
               <Avatar
@@ -120,7 +121,9 @@ const Slot = ({
                 classes={{img: classNames.image}}
                 src={
                   typeof slot.image === 'string'
-                    ? slot.image
+                    ? checkIsImageLink(slot.image)
+                      ? slot.image
+                      : '/assets/icons/file.png'
                     : slot.image?.file.type.includes('image')
                     ? slot.image?.data_url
                     : '/assets/icons/file.png'
@@ -128,8 +131,14 @@ const Slot = ({
                 alt={isRework ? '' : slot?.imageitem?.image?.file?.name}
                 variant="square"
                 onClick={() => {
-                  setCurImageId(slot._id)
-                  setShowImageModal(!showImageModal)
+                  if (checkIsImageLink(slot.image?.file?.name || slot.image)) {
+                    console.log('slot', slot)
+
+                    setCurImageId(slot._id)
+                    setShowImageModal(!showImageModal)
+                  } else {
+                    window.open(slot.image?.data_url || slot.image, '__blank')
+                  }
                 }}
               />
             </div>
@@ -143,17 +152,25 @@ const Slot = ({
             </div>
           )}
           <input
+            multiple
             type={'file'}
             className={classNames.pasteInput}
             defaultValue={''}
-            onPaste={onPasteFiles(slot._id)}
+            // onPaste={e => {
+            //   console.log('e', e)
+            //   onPasteFiles(slot._id)(e)
+            // }}
             onChange={onUploadFile(slot._id)}
             onClick={e => {
               if (slot.image) {
                 e.preventDefault()
 
-                setCurImageId(slot._id)
-                setShowImageModal(!showImageModal)
+                if (checkIsImageLink(slot.image?.file?.name || slot.image)) {
+                  setCurImageId(slot._id)
+                  setShowImageModal(!showImageModal)
+                } else {
+                  window.open(slot.image?.data_url || slot.image, '__blank')
+                }
               } else {
                 return e
               }
@@ -218,9 +235,9 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         _id: el._id,
       }))
     : [
-        {image: null, comment: '', isMain: false, _id: `${Date.now()}1`},
-        {image: null, comment: '', isMain: false, _id: `${Date.now()}2`},
-        {image: null, comment: '', isMain: false, _id: `${Date.now()}3`},
+        {image: null, comment: '', commentByClient: '', _id: `${Date.now()}1`},
+        {image: null, comment: '', commentByClient: '', _id: `${Date.now()}2`},
+        {image: null, comment: '', commentByClient: '', _id: `${Date.now()}3`},
       ]
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
@@ -236,14 +253,15 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
     [imagesData],
   )
 
-  // console.log('imagesData', imagesData)
-
   const onClickAddImageObj = () => {
-    setImagesData(() => [...imagesData, {image: null, comment: '', isMain: false, _id: `${Date.now()}`}])
+    setImagesData(() => [...imagesData, {image: null, comment: '', commentByClient: '', _id: `${Date.now()}`}])
   }
 
   const onClickRemoveImageObj = () => {
-    setImagesData(() => imagesData.filter(el => el._id !== curImageId))
+    // setImagesData(() => imagesData.filter(el => el._id !== curImageId))
+
+    setImagesData(() => imagesData.map(el => (el._id === curImageId ? {...el, image: null} : el)))
+
     setCurImageId(() => null)
   }
 
@@ -255,19 +273,19 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
     setImageEditOpen(!imageEditOpen)
   }
 
-  const onClickRemoveItem = imageId => {
-    setImagesData(() => imagesData.filter(el => el._id !== imageId))
+  const onClickRemoveItem = slot => {
+    if (slot.image) {
+      setImagesData(() => imagesData.map(el => (el._id === slot._id ? {...el, image: null} : el)))
+    } else {
+      setImagesData(() => imagesData.filter(el => el._id !== slot._id))
+    }
   }
 
-  const onPasteFiles = imageId => async evt => {
-    if (evt.clipboardData.files.length === 0) {
+  const onPasteFiles = imageId => async files => {
+    if (files.length === 0) {
       return
     } else {
-      const filesArr = Array.from(evt.clipboardData.files)
-
-      evt.preventDefault()
-
-      const readyFilesArr = filesArr.map(el => ({
+      const readyFilesArr = files.map(el => ({
         data_url: URL.createObjectURL(el),
         file: new File([el], el.name?.replace(/ /g, ''), {
           type: el.type,
@@ -275,12 +293,41 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         }),
       }))
 
-      setImagesData(() => imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)))
+      const restNewSlots = readyFilesArr
+        .slice(1)
+        .map((el, i) => ({image: el, comment: '', commentByClient: '', _id: `${Date.now()} + ${i}`}))
+
+      console.log('restNewSlots', restNewSlots)
+
+      setImagesData([
+        ...imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)),
+        ...restNewSlots,
+      ])
     }
   }
 
+  // const onPasteFiles = imageId => async evt => {
+
+  //   if (evt.clipboardData.files.length === 0) {
+  //     return
+  //   } else {
+  //     const filesArr = Array.from(evt.clipboardData.files)
+
+  //     evt.preventDefault()
+
+  //     const readyFilesArr = filesArr.map(el => ({
+  //       data_url: URL.createObjectURL(el),
+  //       file: new File([el], el.name?.replace(/ /g, ''), {
+  //         type: el.type,
+  //         lastModified: el.lastModified,
+  //       }),
+  //     }))
+
+  //     setImagesData(() => imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)))
+  //   }
+  // }
+
   const onUploadFile = imageId => async evt => {
-    console.log('sss')
     if (evt.target.files.length === 0) {
       return
     } else {
@@ -296,13 +343,22 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         }),
       }))
 
-      setImagesData(() => imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)))
+      // setImagesData(() => imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)))
+
+      const restNewSlots = readyFilesArr
+        .slice(1)
+        .map((el, i) => ({image: el, comment: '', commentByClient: '', _id: `${Date.now()} + ${i}`}))
+
+      console.log('restNewSlots', restNewSlots)
+
+      setImagesData([
+        ...imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)),
+        ...restNewSlots,
+      ])
     }
   }
 
   const disableSubmit = imagesData.every(el => !el.image)
-
-  // console.log('imagesData', imagesData)
 
   return (
     <div className={classNames.modalMainWrapper}>
@@ -482,6 +538,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
             <Button className={cx(classNames.imagesModalBtn)}>
               <AutorenewIcon />
               <input
+                multiple
                 type={'file'}
                 className={classNames.pasteInput}
                 defaultValue={''}

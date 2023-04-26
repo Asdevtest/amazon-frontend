@@ -507,20 +507,18 @@ const Box = observer(
                         )}
 
                         {window.innerWidth < 1282 &&
-                        (taskType === TaskOperationType.EDIT_BY_STOREKEEPER ||
-                          (taskType === TaskOperationType.MERGE && index === 0) ||
-                          (taskType === TaskOperationType.SPLIT && index === 0) ||
-                          taskType === TaskOperationType.EDIT ||
-                          (readOnly && taskType === TaskOperationType.RECEIVE) ||
-                          (!isNewBox && taskType !== TaskOperationType.RECEIVE && index === 0)) ? (
-                          // eslint-disable-next-line react/jsx-indent
-                          <div className={classNames.countSubWrapper}>
-                            <Typography className={classNames.subTitle}>{`${t(TranslationKey.Box)} №:`}</Typography>
-                            <Typography className={classNames.subTitleOne}>{box.humanFriendlyId}</Typography>
-                          </div>
-                        ) : (
-                          <div className={classNames.countSubWrapper} />
-                        )}
+                          (taskType === TaskOperationType.EDIT_BY_STOREKEEPER ||
+                            (taskType === TaskOperationType.MERGE && index === 0) ||
+                            (taskType === TaskOperationType.SPLIT && index === 0) ||
+                            taskType === TaskOperationType.EDIT ||
+                            (readOnly && taskType === TaskOperationType.RECEIVE) ||
+                            (!isNewBox && taskType !== TaskOperationType.RECEIVE && index === 0)) && (
+                            // eslint-disable-next-line react/jsx-indent
+                            <div className={classNames.countSubWrapper}>
+                              <Typography className={classNames.subTitle}>{`${t(TranslationKey.Box)} №:`}</Typography>
+                              <Typography className={classNames.subTitleOne}>{box.humanFriendlyId}</Typography>
+                            </div>
+                          )}
                       </>
 
                       <div
