@@ -38,7 +38,7 @@ import {SetDuration} from '@components/set-duration/set-duration'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsImageLink} from '@utils/checks'
-import {getShortenStringIfLongerThanCount, minsToTime} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount, minsToTime} from '@utils/text'
 import {t} from '@utils/translations'
 import {downloadFileByLink} from '@utils/upload-files'
 
@@ -170,7 +170,7 @@ export const RequestDesignerResultClientForm = ({
             inputComponent={
               proposal.proposal.sourceFiles?.[0]?.sourceFile ? (
                 <div className={classNames.viewLinkWrapper}>
-                  <Link href={proposal.proposal.sourceFiles?.[0]?.sourceFile} target="_blank">
+                  <Link href={checkAndMakeAbsoluteUrl(proposal.proposal.sourceFiles?.[0]?.sourceFile)} target="_blank">
                     {t(TranslationKey.View)}
                   </Link>
                   <CopyValue text={proposal.proposal.sourceFiles?.[0]?.sourceFile} />
