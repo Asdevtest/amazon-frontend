@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 
 /**
  * The InlineObject56 model module.
@@ -23,10 +22,11 @@ class InlineObject56 {
     /**
      * Constructs a new <code>InlineObject56</code>.
      * @alias module:model/InlineObject56
+     * @param title {String} Тег
      */
-    constructor() { 
+    constructor(title) { 
         
-        InlineObject56.initialize(this);
+        InlineObject56.initialize(this, title);
     }
 
     /**
@@ -34,7 +34,8 @@ class InlineObject56 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, title) { 
+        obj['title'] = title;
     }
 
     /**
@@ -48,14 +49,8 @@ class InlineObject56 {
         if (data) {
             obj = obj || new InlineObject56();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('os')) {
-                obj['os'] = ApiClient.convertToType(data['os'], 'String');
-            }
-            if (data.hasOwnProperty('navigator')) {
-                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -65,22 +60,10 @@ class InlineObject56 {
 }
 
 /**
- * Название профиля
- * @member {String} name
+ * Тег
+ * @member {String} title
  */
-InlineObject56.prototype['name'] = undefined;
-
-/**
- * Название ОС
- * @member {String} os
- * @default 'mac'
- */
-InlineObject56.prototype['os'] = 'mac';
-
-/**
- * @member {module:model/ApiV1GologinProfileNavigator} navigator
- */
-InlineObject56.prototype['navigator'] = undefined;
+InlineObject56.prototype['title'] = undefined;
 
 
 

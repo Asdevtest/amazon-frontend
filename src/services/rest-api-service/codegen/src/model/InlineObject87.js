@@ -22,11 +22,10 @@ class InlineObject87 {
     /**
      * Constructs a new <code>InlineObject87</code>.
      * @alias module:model/InlineObject87
-     * @param action {module:model/InlineObject87.ActionEnum} 
      */
-    constructor(action) { 
+    constructor() { 
         
-        InlineObject87.initialize(this, action);
+        InlineObject87.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject87 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, action) { 
-        obj['action'] = action;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +47,14 @@ class InlineObject87 {
         if (data) {
             obj = obj || new InlineObject87();
 
-            if (data.hasOwnProperty('action')) {
-                obj['action'] = ApiClient.convertToType(data['action'], 'String');
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('review')) {
+                obj['review'] = ApiClient.convertToType(data['review'], 'String');
+            }
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
             }
         }
         return obj;
@@ -63,39 +64,25 @@ class InlineObject87 {
 }
 
 /**
- * @member {module:model/InlineObject87.ActionEnum} action
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject87.prototype['action'] = undefined;
+InlineObject87.prototype['rating'] = undefined;
 
 /**
- * Причина смены статуса.
- * @member {String} reason
+ * Отзыв о работе
+ * @member {String} review
  */
-InlineObject87.prototype['reason'] = undefined;
-
-
-
-
+InlineObject87.prototype['review'] = undefined;
 
 /**
- * Allowed values for the <code>action</code> property.
- * @enum {String}
- * @readonly
+ * Файл для записи в FreelanceSource по этому пропоузалу
+ * @member {String} sourceFile
  */
-InlineObject87['ActionEnum'] = {
+InlineObject87.prototype['sourceFile'] = undefined;
 
-    /**
-     * value: "LINK"
-     * @const
-     */
-    "LINK": "LINK",
 
-    /**
-     * value: "UNLINK"
-     * @const
-     */
-    "UNLINK": "UNLINK"
-};
+
 
 
 

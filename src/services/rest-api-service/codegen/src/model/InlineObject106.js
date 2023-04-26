@@ -22,11 +22,10 @@ class InlineObject106 {
     /**
      * Constructs a new <code>InlineObject106</code>.
      * @alias module:model/InlineObject106
-     * @param storekeeperComment {String} 
      */
-    constructor(storekeeperComment) { 
+    constructor() { 
         
-        InlineObject106.initialize(this, storekeeperComment);
+        InlineObject106.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject106 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, storekeeperComment) { 
-        obj['storekeeperComment'] = storekeeperComment;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,8 @@ class InlineObject106 {
         if (data) {
             obj = obj || new InlineObject106();
 
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
         }
         return obj;
@@ -60,9 +58,10 @@ class InlineObject106 {
 }
 
 /**
- * @member {String} storekeeperComment
+ * Статус
+ * @member {Number} status
  */
-InlineObject106.prototype['storekeeperComment'] = undefined;
+InlineObject106.prototype['status'] = undefined;
 
 
 

@@ -22,7 +22,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './order-product-modal.style'
 
 export const OrderProductModal = ({
-  volumeWeightCoefficient,
+  platformSettings,
   destinations,
   storekeepers,
   onTriggerOpenModal,
@@ -349,7 +349,7 @@ export const OrderProductModal = ({
             {productsForRender.map((product, index) => (
               <OrderModalBodyRow
                 key={index}
-                volumeWeightCoefficient={volumeWeightCoefficient}
+                platformSettings={platformSettings}
                 destinations={destinations}
                 storekeepers={storekeepers}
                 item={product}

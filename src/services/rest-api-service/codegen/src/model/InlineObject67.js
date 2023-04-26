@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IntegrationsCreateAndLinkSkuProductsPayload from './ApiV1IntegrationsCreateAndLinkSkuProductsPayload';
 
 /**
  * The InlineObject67 model module.
@@ -48,8 +47,8 @@ class InlineObject67 {
         if (data) {
             obj = obj || new InlineObject67();
 
-            if (data.hasOwnProperty('payload')) {
-                obj['payload'] = ApiClient.convertToType(data['payload'], [ApiV1IntegrationsCreateAndLinkSkuProductsPayload]);
+            if (data.hasOwnProperty('requestStatus')) {
+                obj['requestStatus'] = ApiClient.convertToType(data['requestStatus'], 'String');
             }
         }
         return obj;
@@ -59,9 +58,10 @@ class InlineObject67 {
 }
 
 /**
- * @member {Array.<module:model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload>} payload
+ * новый статус заявки
+ * @member {String} requestStatus
  */
-InlineObject67.prototype['payload'] = undefined;
+InlineObject67.prototype['requestStatus'] = undefined;
 
 
 

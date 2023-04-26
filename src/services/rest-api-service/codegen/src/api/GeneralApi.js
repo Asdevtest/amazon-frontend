@@ -15,7 +15,7 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject54 from '../model/InlineObject54';
+import InlineObject56 from '../model/InlineObject56';
 import InlineResponse20041 from '../model/InlineResponse20041';
 import InlineResponse2018 from '../model/InlineResponse2018';
 import InternalServerError from '../model/InternalServerError';
@@ -160,7 +160,7 @@ export default class GeneralApi {
      * # Создать тег
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject54} opts.body 
+     * @param {module:model/InlineObject56} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2018} and HTTP response
      */
     apiV1GeneralTagsPostWithHttpInfo(opts) {
@@ -193,7 +193,7 @@ export default class GeneralApi {
      * # Создать тег
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject54} opts.body 
+     * @param {module:model/InlineObject56} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2018}
      */
     apiV1GeneralTagsPost(opts) {

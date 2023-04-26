@@ -15,6 +15,7 @@ import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1AdminsOrdersDestination from './ApiV1AdminsOrdersDestination';
 import ApiV1BuyersOrdersMyOrderSupplier from './ApiV1BuyersOrdersMyOrderSupplier';
+import ApiV1BuyersOrdersMyPayments from './ApiV1BuyersOrdersMyPayments';
 import ApiV1BuyersOrdersMyProduct from './ApiV1BuyersOrdersMyProduct';
 
 /**
@@ -72,6 +73,12 @@ class InlineResponse20024 {
             }
             if (data.hasOwnProperty('item')) {
                 obj['item'] = ApiClient.convertToType(data['item'], 'String');
+            }
+            if (data.hasOwnProperty('priceInYuan')) {
+                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('payments')) {
+                obj['payments'] = ApiClient.convertToType(data['payments'], [ApiV1BuyersOrdersMyPayments]);
             }
             if (data.hasOwnProperty('orderSupplier')) {
                 obj['orderSupplier'] = ApiV1BuyersOrdersMyOrderSupplier.constructFromObject(data['orderSupplier']);
@@ -161,6 +168,17 @@ InlineResponse20024.prototype['destination'] = undefined;
  * @member {String} item
  */
 InlineResponse20024.prototype['item'] = undefined;
+
+/**
+ * Цена в юанях
+ * @member {Number} priceInYuan
+ */
+InlineResponse20024.prototype['priceInYuan'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1BuyersOrdersMyPayments>} payments
+ */
+InlineResponse20024.prototype['payments'] = undefined;
 
 /**
  * @member {module:model/ApiV1BuyersOrdersMyOrderSupplier} orderSupplier

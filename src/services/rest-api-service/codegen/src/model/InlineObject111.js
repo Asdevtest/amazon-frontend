@@ -22,10 +22,11 @@ class InlineObject111 {
     /**
      * Constructs a new <code>InlineObject111</code>.
      * @alias module:model/InlineObject111
+     * @param price {Number} Цена услуги.
      */
-    constructor() { 
+    constructor(price) { 
         
-        InlineObject111.initialize(this);
+        InlineObject111.initialize(this, price);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject111 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, price) { 
+        obj['price'] = price;
     }
 
     /**
@@ -50,23 +52,11 @@ class InlineObject111 {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('zipCode')) {
-                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
-            }
-            if (data.hasOwnProperty('state')) {
-                obj['state'] = ApiClient.convertToType(data['state'], 'String');
-            }
-            if (data.hasOwnProperty('city')) {
-                obj['city'] = ApiClient.convertToType(data['city'], 'String');
-            }
-            if (data.hasOwnProperty('address')) {
-                obj['address'] = ApiClient.convertToType(data['address'], 'String');
-            }
-            if (data.hasOwnProperty('fontColor')) {
-                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
         }
         return obj;
@@ -76,46 +66,22 @@ class InlineObject111 {
 }
 
 /**
- * Название склада.
+ * Название услуги
  * @member {String} name
  */
 InlineObject111.prototype['name'] = undefined;
 
 /**
- * Страна.
- * @member {String} country
+ * Описание услуги
+ * @member {String} description
  */
-InlineObject111.prototype['country'] = undefined;
+InlineObject111.prototype['description'] = undefined;
 
 /**
- * Индекс. 5 цифр.
- * @member {String} zipCode
+ * Цена услуги.
+ * @member {Number} price
  */
-InlineObject111.prototype['zipCode'] = undefined;
-
-/**
- * Штат.
- * @member {String} state
- */
-InlineObject111.prototype['state'] = undefined;
-
-/**
- * Город.
- * @member {String} city
- */
-InlineObject111.prototype['city'] = undefined;
-
-/**
- * Адрес склада.
- * @member {String} address
- */
-InlineObject111.prototype['address'] = undefined;
-
-/**
- * Цвет шрифта
- * @member {String} fontColor
- */
-InlineObject111.prototype['fontColor'] = undefined;
+InlineObject111.prototype['price'] = undefined;
 
 
 

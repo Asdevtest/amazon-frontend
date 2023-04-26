@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guids** | **[String]** | массив GUIDов оплаченных товаров | [optional] 
+**userIds** | **[String]** |  | 
+**title** | **String** | Название группового чата | 
 
 

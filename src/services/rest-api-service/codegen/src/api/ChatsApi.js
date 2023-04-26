@@ -14,7 +14,7 @@
 
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
-import InlineObject40 from '../model/InlineObject40';
+import InlineObject42 from '../model/InlineObject42';
 import InlineResponse20027 from '../model/InlineResponse20027';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -44,7 +44,7 @@ export default class ChatsApi {
      * Метод создает групповой чат не привязаный к другим инстансам   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject40} opts.body 
+     * @param {module:model/InlineObject42} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ChatsGroupPostWithHttpInfo(opts) {
@@ -77,7 +77,7 @@ export default class ChatsApi {
      * Метод создает групповой чат не привязаный к другим инстансам   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject40} opts.body 
+     * @param {module:model/InlineObject42} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ChatsGroupPost(opts) {

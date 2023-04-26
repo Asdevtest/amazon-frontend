@@ -216,6 +216,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersMyGet**](docs/BuyerApi.md#apiV1BuyersOrdersMyGet) | **GET** /api/v1/buyers/orders/my | # Получить список заказов текущего байера.
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersPagMyGet**](docs/BuyerApi.md#apiV1BuyersOrdersPagMyGet) | **GET** /api/v1/buyers/orders/pag/my | # Получить список заказов текущего байера с пагинацией.
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersPaymentAmountGet**](docs/BuyerApi.md#apiV1BuyersOrdersPaymentAmountGet) | **GET** /api/v1/buyers/orders/payment_amount | # Получить общую стоимость заказов по статусам
+*TestSwagger.BuyerApi* | [**apiV1BuyersOrdersPaymentGuidPatch**](docs/BuyerApi.md#apiV1BuyersOrdersPaymentGuidPatch) | **PATCH** /api/v1/buyers/orders/payment/{guid} | # Изменить реквезиты ордера
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersPickupGuidPost**](docs/BuyerApi.md#apiV1BuyersOrdersPickupGuidPost) | **POST** /api/v1/buyers/orders/pickup/{guid} | # Закрепить заказ за байером. Взять его в работу.
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersReadyForPaymentGuidPatch**](docs/BuyerApi.md#apiV1BuyersOrdersReadyForPaymentGuidPatch) | **PATCH** /api/v1/buyers/orders/ready_for_payment/{guid} | # Переместить заказ в статус readyForPayment
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersSetInStockGuidPatch**](docs/BuyerApi.md#apiV1BuyersOrdersSetInStockGuidPatch) | **PATCH** /api/v1/buyers/orders/set_in_stock/{guid} | # Редактировать номер заказа на inStock (30).
@@ -428,6 +429,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsLightGet**](docs/SupervisorApi.md#apiV1SupervisorsProductsLightGet) | **GET** /api/v1/supervisors/products/light | # Получить облегченный список товаров взятых на проверку супервайзером.
 *TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsListingGuidPatch**](docs/SupervisorApi.md#apiV1SupervisorsProductsListingGuidPatch) | **PATCH** /api/v1/supervisors/products/listing/{guid} | # Изменить листинг для продукта.
 *TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsMyGet**](docs/SupervisorApi.md#apiV1SupervisorsProductsMyGet) | **GET** /api/v1/supervisors/products/my | # Получить список товаров взятых на проверку супервайзером.
+*TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsPagMyGet**](docs/SupervisorApi.md#apiV1SupervisorsProductsPagMyGet) | **GET** /api/v1/supervisors/products/pag/my | # Получить список товаров взятых на проверку супервайзером с пагинацией.
 *TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsPickupGuidPost**](docs/SupervisorApi.md#apiV1SupervisorsProductsPickupGuidPost) | **POST** /api/v1/supervisors/products/pickup/{guid} | # Закрепить продукт за супервайзером. Взять его в работу.
 *TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsVacGet**](docs/SupervisorApi.md#apiV1SupervisorsProductsVacGet) | **GET** /api/v1/supervisors/products/vac | # Получить список вакантных товаров.
 *TestSwagger.SupplierApi* | [**apiV1SuppliersGet**](docs/SupplierApi.md#apiV1SuppliersGet) | **GET** /api/v1/suppliers/ | # Получить список поставщиков.
@@ -501,7 +503,10 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1BoxesStorekeepersSentToBatchItems](docs/ApiV1BoxesStorekeepersSentToBatchItems.md)
  - [TestSwagger.ApiV1BoxesStorekeepersSentToBatchOrder](docs/ApiV1BoxesStorekeepersSentToBatchOrder.md)
  - [TestSwagger.ApiV1BuyersOrdersMyOrderSupplier](docs/ApiV1BuyersOrdersMyOrderSupplier.md)
+ - [TestSwagger.ApiV1BuyersOrdersMyPaymentMethod](docs/ApiV1BuyersOrdersMyPaymentMethod.md)
+ - [TestSwagger.ApiV1BuyersOrdersMyPayments](docs/ApiV1BuyersOrdersMyPayments.md)
  - [TestSwagger.ApiV1BuyersOrdersMyProduct](docs/ApiV1BuyersOrdersMyProduct.md)
+ - [TestSwagger.ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments](docs/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments.md)
  - [TestSwagger.ApiV1BuyersProductsGuidTags](docs/ApiV1BuyersProductsGuidTags.md)
  - [TestSwagger.ApiV1ClientsProductsGuidRedFlags](docs/ApiV1ClientsProductsGuidRedFlags.md)
  - [TestSwagger.ApiV1GologinProfileNavigator](docs/ApiV1GologinProfileNavigator.md)
@@ -578,6 +583,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject122](docs/InlineObject122.md)
  - [TestSwagger.InlineObject123](docs/InlineObject123.md)
  - [TestSwagger.InlineObject124](docs/InlineObject124.md)
+ - [TestSwagger.InlineObject125](docs/InlineObject125.md)
+ - [TestSwagger.InlineObject126](docs/InlineObject126.md)
  - [TestSwagger.InlineObject13](docs/InlineObject13.md)
  - [TestSwagger.InlineObject14](docs/InlineObject14.md)
  - [TestSwagger.InlineObject15](docs/InlineObject15.md)
@@ -770,7 +777,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20071](docs/InlineResponse20071.md)
  - [TestSwagger.InlineResponse20072](docs/InlineResponse20072.md)
  - [TestSwagger.InlineResponse20073](docs/InlineResponse20073.md)
- - [TestSwagger.InlineResponse20073Details](docs/InlineResponse20073Details.md)
+ - [TestSwagger.InlineResponse20074](docs/InlineResponse20074.md)
+ - [TestSwagger.InlineResponse20074Details](docs/InlineResponse20074Details.md)
  - [TestSwagger.InlineResponse2008](docs/InlineResponse2008.md)
  - [TestSwagger.InlineResponse2009](docs/InlineResponse2009.md)
  - [TestSwagger.InlineResponse201](docs/InlineResponse201.md)

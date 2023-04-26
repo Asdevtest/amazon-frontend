@@ -42,7 +42,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject77() // InlineObject77 | 
+  'body': new TestSwagger.InlineObject79() // InlineObject79 | 
 };
 apiInstance.apiV1ProductsAddShopsGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -59,7 +59,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject77**](InlineObject77.md)|  | [optional] 
+ **body** | [**InlineObject79**](InlineObject79.md)|  | [optional] 
 
 ### Return type
 
@@ -98,7 +98,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject75() // InlineObject75 | 
+  'body': new TestSwagger.InlineObject77() // InlineObject77 | 
 };
 apiInstance.apiV1ProductsAddSuppliersGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -115,7 +115,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject75**](InlineObject75.md)|  | [optional] 
+ **body** | [**InlineObject77**](InlineObject77.md)|  | [optional] 
 
 ### Return type
 
@@ -584,7 +584,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject78() // InlineObject78 | 
+  'body': new TestSwagger.InlineObject80() // InlineObject80 | 
 };
 apiInstance.apiV1ProductsRemoveShopsGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -601,7 +601,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject78**](InlineObject78.md)|  | [optional] 
+ **body** | [**InlineObject80**](InlineObject80.md)|  | [optional] 
 
 ### Return type
 
@@ -640,7 +640,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject76() // InlineObject76 | 
+  'body': new TestSwagger.InlineObject78() // InlineObject78 | 
 };
 apiInstance.apiV1ProductsRemoveSuppliersGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -657,7 +657,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject76**](InlineObject76.md)|  | [optional] 
+ **body** | [**InlineObject78**](InlineObject78.md)|  | [optional] 
 
 ### Return type
 
