@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {BoxStatus} from '@constants/box-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
@@ -48,6 +49,11 @@ export class ClientWarehouseTasksViewModel {
 
   modalEditSuccessMessage = ''
 
+  operationType = null
+
+  storekeepersData = []
+  currentStorekeeper = undefined
+
   showWarningInfoModal = false
 
   warningInfoModalSettings = {
@@ -75,6 +81,10 @@ export class ClientWarehouseTasksViewModel {
   rowsCount = 0
 
   densityModel = 'compact'
+
+  selectedStatus = null
+
+  currentPriority = null
 
   showEditPriorityData = false
 
@@ -122,6 +132,13 @@ export class ClientWarehouseTasksViewModel {
     // )
   }
 
+  handleActivePriority(newPriority) {
+    runInAction(() => {
+      this.currentPriority = newPriority
+    })
+    this.getTasksMy()
+  }
+
   async updateTaskPriority(taskId, priority, reason) {
     try {
       await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
@@ -134,6 +151,40 @@ export class ClientWarehouseTasksViewModel {
         this.error = error
       })
     }
+  }
+
+  async getStorekeepers() {
+    try {
+      const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK)
+
+      runInAction(() => {
+        this.storekeepersData = result
+      })
+
+      this.getDataGridState()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onClickStorekeeperBtn(storekeeper) {
+    runInAction(() => {
+      this.selectedBoxes = []
+
+      this.currentStorekeeper = storekeeper ? storekeeper : undefined
+    })
+
+    this.getTasksMy()
+  }
+
+  handleSelectedStatus(status) {
+    runInAction(() => (this.selectedStatus = status))
+    this.getTasksMy()
+  }
+
+  handleOperationType(type) {
+    runInAction(() => (this.operationType = type))
+    this.getTasksMy()
   }
 
   async updateTaskComment(taskId, priority, reason) {
@@ -247,7 +298,8 @@ export class ClientWarehouseTasksViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       // this.getDataGridState()
-      this.getTasksMy()
+      await this.getStorekeepers()
+      await this.getTasksMy()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -335,20 +387,19 @@ export class ClientWarehouseTasksViewModel {
   }
 
   async getTasksMy() {
-    console.log('======>', this.getFilter())
     try {
       const result = await ClientModel.getTasks(
         /* this.currentStorekeeper && {storekeeperId: this.currentStorekeeper._id} */
         {
           filters: this.getFilter(),
-
-          // storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
-
           limit: this.rowsPerPage,
           offset: this.curPageForTask * this.rowsPerPage,
-
+          storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
           sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
           sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+          priority: this.currentPriority,
+          status: this.selectedStatus,
+          operationType: this.operationType,
         },
       )
 

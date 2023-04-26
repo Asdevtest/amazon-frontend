@@ -42,8 +42,6 @@ export const clientTasksViewColumns = handlers => [
         onChangePriority={handlers.updateTaskPriority}
       />
     ),
-
-    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -69,7 +67,6 @@ export const clientTasksViewColumns = handlers => [
 
     width: 160,
     renderCell: params => <TaskTypeCell task={params.row.originalData} />,
-    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -92,8 +89,6 @@ export const clientTasksViewColumns = handlers => [
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
     width: 170,
-
-    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -114,7 +109,5 @@ export const clientTasksViewColumns = handlers => [
 
     width: 130,
     renderCell: params => <TaskStatusCell status={params.value} />,
-
-    columnKey: columnnsKeys.shared.STRING,
   },
 ]

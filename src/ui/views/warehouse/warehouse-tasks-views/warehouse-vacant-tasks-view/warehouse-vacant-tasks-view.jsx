@@ -15,11 +15,6 @@ import {
   TaskOperationType,
   taskOperationTypeTranslate,
 } from '@constants/task-operation-type'
-import {
-  mapTaskPriorityStatusEnum,
-  TaskPriorityStatus,
-  taskPriorityStatusTranslate,
-} from '@constants/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -33,6 +28,7 @@ import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
 import {EditTaskPriorityModal} from '@components/screens/warehouse/edit-task-priority-modal'
 import {SearchInput} from '@components/search-input'
+import {TaskPrioritySelector} from '@components/shared/task-priority-selector/task-priority-selector'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -115,36 +111,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
           <Appbar title={t(TranslationKey['New tasks'])} setDrawerOpen={onChangeTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.headerWrapper}>
-                <div className={classNames.boxesFiltersWrapper}>
-                  <Button
-                    disabled={curTaskPriority === null}
-                    className={cx(classNames.button, {[classNames.selectedBoxesBtn]: curTaskPriority === null})}
-                    variant="text"
-                    onClick={() => onClickTaskPriorityBtn(null)}
-                  >
-                    {t(TranslationKey['All priorities'])}
-                  </Button>
-
-                  {Object.keys(mapTaskPriorityStatusEnum)
-                    .reverse()
-                    .map(type => (
-                      <Button
-                        key={type}
-                        disabled={curTaskPriority === type}
-                        className={cx(classNames.button, {
-                          [classNames.selectedBoxesBtn]: curTaskPriority === type,
-                        })}
-                        variant="text"
-                        onClick={() => onClickTaskPriorityBtn(type)}
-                      >
-                        {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[type])}
-
-                        {TaskPriorityStatus.URGENT === mapTaskPriorityStatusEnum[type] && (
-                          <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" alt="Fire" />
-                        )}
-                      </Button>
-                    ))}
-                </div>
+                <TaskPrioritySelector currentPriority={curTaskPriority} handleActivePriority={onClickTaskPriorityBtn} />
 
                 {window.innerWidth < 1282 && (
                   <Button
