@@ -39,10 +39,6 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
         {t(TranslationKey['Change the priority to'])}{' '}
         <span style={{color: colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[data.newPriority])}}>
           {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[data.newPriority])}
-          {Number(data.newPriority) ===
-            mapTaskPriorityStatusEnumToKey[
-              TaskPriorityStatus.PROBLEMATIC as keyof typeof mapTaskPriorityStatusEnumToKey
-            ] && '*'}
         </span>
       </Typography>
 
@@ -52,7 +48,12 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
         inputComponent={
           <Input
             multiline
-            placeholder={t(TranslationKey.Comment)}
+            placeholder={`${t(TranslationKey.Comment)}${
+              Number(data.newPriority) ===
+                mapTaskPriorityStatusEnumToKey[
+                  TaskPriorityStatus.PROBLEMATIC as keyof typeof mapTaskPriorityStatusEnumToKey
+                ] && '*'
+            }`}
             minRows={2}
             maxRows={2}
             className={styles.reasonInput}
