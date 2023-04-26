@@ -97,7 +97,7 @@ export const ImageEditForm = ({item, onSave, setOpenModal}) => {
           <Button disabled={!rotation} onClick={handleSave}>
             {t(TranslationKey.Save)}
           </Button>
-          <Button variant="text" onClick={setOpenModal}>
+          <Button variant="text" className={classNames.cancelBtn} onClick={setOpenModal}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
