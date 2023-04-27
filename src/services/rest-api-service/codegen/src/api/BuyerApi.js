@@ -583,7 +583,7 @@ export default class BuyerApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = Object;
+      let returnType = InlineResponse20025;
       return this.apiClient.callApi(
         '/api/v1/buyers/orders/pag/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
