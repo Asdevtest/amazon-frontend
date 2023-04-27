@@ -569,7 +569,8 @@ export class ClientInventoryViewRaw extends Component {
 
         <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
           <OrderProductModal
-            volumeWeightCoefficient={volumeWeightCoefficient}
+            // volumeWeightCoefficient={volumeWeightCoefficient}
+            platformSettings={{volumeWeightCoefficient}}
             destinations={destinations}
             storekeepers={storekeepers}
             destinationsFavourites={destinationsFavourites}
