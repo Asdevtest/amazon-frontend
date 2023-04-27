@@ -39,9 +39,11 @@ export const OrdersUpdatesNotificationRow: FC<OrdersUpdatesNotificationRowProps>
                 <>{el.id}</>
               )}
             </div>
-            <div>
-              <span>ASIN:</span> {el.product.asin}
-            </div>
+            {el?.product?.asin && (
+              <div>
+                <span>ASIN:</span> {el.product.asin}
+              </div>
+            )}
           </li>
         ))}
       </ul>
