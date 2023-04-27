@@ -43,6 +43,8 @@ export const UploadFilesInput = observer(
     withComment = false,
     maxHeight = undefined,
     oneLineMaxHeight = false,
+    сontainerStyles = '',
+    filesLength = undefined,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -157,6 +159,7 @@ export const UploadFilesInput = observer(
               tooltipInfoContent={t(TranslationKey['Ability to attach photos/documents/links'])}
               label={withoutTitle ? '' : title ? title : t(TranslationKey['Attach file'])}
               error={linkInputError && t(TranslationKey['Invalid link!'])}
+              containerClasses={cx(сontainerStyles)}
               inputComponent={
                 <div className={classNames.amazonLinkWrapper}>
                   <Input
@@ -232,7 +235,11 @@ export const UploadFilesInput = observer(
                       {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
                     </button>
                     <Typography className={classNames.imagesCount}>
-                      {<span className={classNames.imagesCountSpan}>{`${images?.length || 0}/${maxNumber}`}</span>}
+                      {
+                        <span className={classNames.imagesCountSpan}>{`${images?.length || 0}/${
+                          maxNumber - ((filesLength && filesLength) || 0)
+                        }`}</span>
+                      }
                       {` ${t(TranslationKey.files)}`}
                     </Typography>
                     <button

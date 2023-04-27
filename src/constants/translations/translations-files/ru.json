@@ -1937,5 +1937,7 @@
   "Enter track number": "Введите трек номер",
   "Arrival date": "Дата прибытия",
   "Problematic": "Проблемный",
-  "Change the priority to": "Сменить приоритет на"
+  "Change the priority to": "Сменить приоритет на",
+  "Payment details": "Реквизиты для оплаты",
+  "Select payment methods": "Выберите способы оплаты"
 }

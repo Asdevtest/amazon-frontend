@@ -195,8 +195,6 @@ export const CreateOrEditRequestContent = ({
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
 
-  console.log('formFields', formFields)
-
   useEffect(() => {
     if (requestToEdit) {
       setFormFields(() => getSourceFormFields())
@@ -496,19 +494,6 @@ export const CreateOrEditRequestContent = ({
                 </div>
 
                 <div className={classNames.descriptionFieldWrapper}>
-                  {/* <Field
-                    multiline
-                    tooltipInfoContent={t(TranslationKey['Maximize the details of your request'])}
-                    inputProps={{maxLength: 1100}}
-                    className={classNames.descriptionField}
-                    labelClasses={classNames.spanLabelSmall}
-                    minRows={4}
-                    maxRows={4}
-                    label={`${t(TranslationKey['Describe your request'])} *`}
-                    value={formFields.details.conditions}
-                    onChange={onChangeField('details')('conditions')}
-                  /> */}
-
                   <CustomTextEditor
                     verticalResize
                     conditions={formFields.details.conditions}

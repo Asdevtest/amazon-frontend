@@ -30,6 +30,7 @@ import {CustomCarousel} from '@components/custom-carousel'
 import {Field} from '@components/field/field'
 import {CheckQuantityForm} from '@components/forms/check-quantity-form'
 import {CreateBoxForm} from '@components/forms/create-box-form'
+import {PaymentMethodsForm} from '@components/forms/payment-methods-form'
 import {SupplierPaymentForm} from '@components/forms/supplier-payment-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
@@ -126,6 +127,8 @@ export const EditOrderModal = observer(
 
     const [supplierPaymentModal, setSupplierPaymentModal] = useState(false)
 
+    const [paymentMethodsModal, setPaymentMethodsModal] = useState(false)
+
     const [tmpNewOrderFieldsState, setTmpNewOrderFieldsState] = useState({})
 
     const [showWarningInfoModal, setShowWarningInfoModal] = useState(
@@ -211,15 +214,19 @@ export const EditOrderModal = observer(
       tmpRefundToClient: 0,
       priceInYuan: order?.priceInYuan || order.totalPriceChanged * order.yuanToDollarRate,
       paymentDetails: order.paymentDetails || [],
+      payments: order.payments || [],
+      orderSupplier: order?.orderSupplier || {},
     }
 
     const [orderFields, setOrderFields] = useState(initialState)
 
-    console.log('paymentDetails', orderFields.paymentDetails)
+    const validOrderPayments = orderFields?.orderSupplier?.paymentMethods.filter(
+      method => !orderFields?.payments.some(payment => payment.paymentMethod._id === method._id),
+    )
+
+    const [orderPayments, setOrderPayments] = useState([...orderFields.payments, ...validOrderPayments])
 
     const [hsCode, setHsCode] = useState({...hsCodeData})
-
-    // console.log('orderFields', orderFields)
 
     const onClickUpdateButton = () => {
       const newOrderFieldsState = {...orderFields}
@@ -257,6 +264,7 @@ export const EditOrderModal = observer(
       commentToWarehouse,
       paymentDetailsPhotosToLoad,
       editPaymentDetailsPhotos,
+      orderPayments,
     })
 
     const onClickSaveOrder = () => {
@@ -711,6 +719,7 @@ export const EditOrderModal = observer(
 
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
+            orderPayments={orderPayments}
             imagesForLoad={imagesForLoad}
             userInfo={userInfo}
             paymentDetailsPhotosToLoad={paymentDetailsPhotosToLoad}
@@ -732,6 +741,7 @@ export const EditOrderModal = observer(
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}
             setUsePriceInDollars={setUsePriceInDollars}
+            setPaymentMethodsModal={() => setPaymentMethodsModal(!paymentMethodsModal)}
             onChangeImagesForLoad={onChangeImagesForLoad}
             onClickHsCode={onClickHsCode}
             onClickUpdateButton={onClickUpdateButton}
@@ -1077,6 +1087,10 @@ export const EditOrderModal = observer(
           onClickSuccessBtn={() => {
             confirmModalActionByMode(confirmModalMode)
             setShowConfirmModal(!showConfirmModal)
+
+            if (Number(tmpNewOrderFieldsState.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
+              setPaymentMethodsModal(!paymentMethodsModal)
+            }
           }}
           onClickCancelBtn={() => setShowConfirmModal(!showConfirmModal)}
         />
@@ -1145,6 +1159,18 @@ export const EditOrderModal = observer(
             editPaymentDetailsPhotos={editPaymentDetailsPhotos}
             onClickSaveButton={onClickSavePaymentDetails}
             onCloseModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
+          />
+        </Modal>
+
+        <Modal
+          missClickModalOn
+          openModal={paymentMethodsModal}
+          setOpenModal={() => setPaymentMethodsModal(!paymentMethodsModal)}
+        >
+          <PaymentMethodsForm
+            payments={orderPayments}
+            onClickSaveButton={setOrderPayments}
+            onClickCancelButton={() => setPaymentMethodsModal(!paymentMethodsModal)}
           />
         </Modal>
 

@@ -46,7 +46,10 @@ docs/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges.md
 docs/ApiV1BoxesStorekeepersSentToBatchItems.md
 docs/ApiV1BoxesStorekeepersSentToBatchOrder.md
 docs/ApiV1BuyersOrdersMyOrderSupplier.md
+docs/ApiV1BuyersOrdersMyPaymentMethod.md
+docs/ApiV1BuyersOrdersMyPayments.md
 docs/ApiV1BuyersOrdersMyProduct.md
+docs/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments.md
 docs/ApiV1BuyersProductsGuidTags.md
 docs/ApiV1ClientsProductsGuidRedFlags.md
 docs/ApiV1GologinProfileNavigator.md
@@ -132,6 +135,8 @@ docs/InlineObject121.md
 docs/InlineObject122.md
 docs/InlineObject123.md
 docs/InlineObject124.md
+docs/InlineObject125.md
+docs/InlineObject126.md
 docs/InlineObject13.md
 docs/InlineObject14.md
 docs/InlineObject15.md
@@ -324,7 +329,8 @@ docs/InlineResponse20070.md
 docs/InlineResponse20071.md
 docs/InlineResponse20072.md
 docs/InlineResponse20073.md
-docs/InlineResponse20073Details.md
+docs/InlineResponse20074.md
+docs/InlineResponse20074Details.md
 docs/InlineResponse2008.md
 docs/InlineResponse2009.md
 docs/InlineResponse201.md
@@ -466,7 +472,10 @@ src/model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges.js
 src/model/ApiV1BoxesStorekeepersSentToBatchItems.js
 src/model/ApiV1BoxesStorekeepersSentToBatchOrder.js
 src/model/ApiV1BuyersOrdersMyOrderSupplier.js
+src/model/ApiV1BuyersOrdersMyPaymentMethod.js
+src/model/ApiV1BuyersOrdersMyPayments.js
 src/model/ApiV1BuyersOrdersMyProduct.js
+src/model/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments.js
 src/model/ApiV1BuyersProductsGuidTags.js
 src/model/ApiV1ClientsProductsGuidRedFlags.js
 src/model/ApiV1GologinProfileNavigator.js
@@ -543,6 +552,8 @@ src/model/InlineObject121.js
 src/model/InlineObject122.js
 src/model/InlineObject123.js
 src/model/InlineObject124.js
+src/model/InlineObject125.js
+src/model/InlineObject126.js
 src/model/InlineObject13.js
 src/model/InlineObject14.js
 src/model/InlineObject15.js
@@ -735,7 +746,8 @@ src/model/InlineResponse20070.js
 src/model/InlineResponse20071.js
 src/model/InlineResponse20072.js
 src/model/InlineResponse20073.js
-src/model/InlineResponse20073Details.js
+src/model/InlineResponse20074.js
+src/model/InlineResponse20074Details.js
 src/model/InlineResponse2008.js
 src/model/InlineResponse2009.js
 src/model/InlineResponse201.js
@@ -792,17 +804,3 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/InlineResponse20035Batch.spec.js
-test/model/InlineResponse20035Requests.spec.js
-test/model/InlineResponse20035Shops.spec.js
-test/model/InlineResponse20036Finances.spec.js
-test/model/InlineResponse20036Orders.spec.js
-test/model/InlineResponse20036PendingOrders.spec.js
-test/model/InlineResponse20037Batches.spec.js
-test/model/InlineResponse20037Boxes.spec.js
-test/model/InlineResponse20037Tasks.spec.js
-test/model/InlineResponse20040Checking.spec.js
-test/model/InlineResponse20040Products.spec.js
-test/model/InlineResponse20049Failed.spec.js
-test/model/InlineResponse20073.spec.js
-test/model/InlineResponse20073Details.spec.js

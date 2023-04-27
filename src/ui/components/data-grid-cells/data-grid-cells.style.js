@@ -1924,4 +1924,9 @@ export const styles = theme => ({
     width: 15,
     height: 15,
   },
+  bluelinkText: {
+    color: theme.palette.primary.main,
+    fontWeight: 400,
+    cursor: 'pointer',
+  },
 })

@@ -15,6 +15,7 @@ import {CircularProgressWithLabel} from '@components/circular-progress-with-labe
 import {CopyValue} from '@components/copy-value/copy-value'
 import {CustomCarousel} from '@components/custom-carousel'
 import {PhotoAndFilesCarousel, PhotoCarousel} from '@components/custom-carousel/custom-carousel'
+import {CustomSelectPaymentDetails} from '@components/custom-select-payment-details'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
@@ -66,8 +67,16 @@ export const SelectFields = ({
   onClickUpdateButton,
   onClickSupplierPaymentButton,
   onChangeImagesForLoad,
+  setPaymentMethodsModal,
+  orderPayments,
 }) => {
   const {classes: classNames} = useClassNames()
+
+  console.log('orderPayments', orderPayments)
+
+  const ss = orderPayments?.filter(item => item?.paymentMethod)
+
+  console.log('ss', ss)
 
   const onChangeHsField = fieldName => event => {
     const newFormFields = {...hsCode}
@@ -75,8 +84,6 @@ export const SelectFields = ({
 
     setHsCode(newFormFields)
   }
-  console.log('order', order)
-  console.log('imagesForLoad', imagesForLoad)
 
   const [showImageModal, setShowImageModal] = useState(false)
 
@@ -419,6 +426,21 @@ export const SelectFields = ({
               {t(TranslationKey.Update)}
             </Button>
           </div>
+
+          {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]) && (
+            <div className={classNames.paymentsBlock} onClick={setPaymentMethodsModal}>
+              <CustomSelectPaymentDetails
+                column
+                disabled
+                cursorPointer
+                generalText
+                labelClass={classNames.labelClass}
+                currentPaymentMethods={orderPayments
+                  ?.filter(item => item?.paymentMethod)
+                  .map(item => item?.paymentMethod)}
+              />
+            </div>
+          )}
         </div>
       </Grid>
 
