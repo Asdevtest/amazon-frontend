@@ -18,6 +18,7 @@ export interface TRequestProposal {
     chatId: string
     createdBy: {_id: string}
     sub: {_id: string}
+    media: {_id: string; fileLink: string}[]
   }
 }
 
