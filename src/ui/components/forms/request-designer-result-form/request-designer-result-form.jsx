@@ -3,9 +3,9 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
-import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import DisabledByDefaultOutlinedIcon from '@mui/icons-material/DisabledByDefaultOutlined'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import {Accordion, AccordionDetails, AccordionSummary, Typography, Avatar} from '@mui/material'
@@ -15,7 +15,7 @@ import React, {useCallback, useState} from 'react'
 import {DndProvider, useDrag, useDrop} from 'react-dnd'
 import {HTML5Backend, NativeTypes} from 'react-dnd-html5-backend'
 
-import {BigPlus, PhotoCameraWithPlus} from '@constants/svg-icons'
+import {BigPlus, CrossInRectangleIcon, PhotoCameraWithPlus} from '@constants/svg-icons'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -109,7 +109,9 @@ const Slot = ({
             }}
           >
             {slot.image ? (
-              <CheckBoxOutlineBlankOutlinedIcon className={classNames.removeIcon} />
+              // <DisabledByDefaultOutlinedIcon className={classNames.removeIcon} />
+
+              <CrossInRectangleIcon className={classNames.removeIcon} />
             ) : (
               <CloseOutlinedIcon className={classNames.removeIcon} />
             )}
