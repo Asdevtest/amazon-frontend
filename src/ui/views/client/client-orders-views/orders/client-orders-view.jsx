@@ -65,7 +65,7 @@ class ClientOrdersViewRaw extends Component {
       selectedProduct,
       storekeepers,
       destinations,
-      volumeWeightCoefficient,
+      platformSettings,
       requestStatus,
       currentData,
       sortModel,
@@ -218,7 +218,7 @@ class ClientOrdersViewRaw extends Component {
               <OrderProductModal
                 isPendingOrdering={isPendingOrdering}
                 reorderOrdersData={reorderOrdersData}
-                volumeWeightCoefficient={volumeWeightCoefficient}
+                platformSettings={platformSettings}
                 destinations={destinations}
                 storekeepers={storekeepers}
                 destinationsFavourites={destinationsFavourites}

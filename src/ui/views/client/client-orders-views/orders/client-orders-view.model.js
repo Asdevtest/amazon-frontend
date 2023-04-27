@@ -73,7 +73,7 @@ export class ClientOrdersViewModel {
 
   storekeepers = []
   destinations = []
-  volumeWeightCoefficient = undefined
+  platformSettings = undefined
 
   confirmModalSettings = {
     isWarning: false,
@@ -94,6 +94,7 @@ export class ClientOrdersViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
+  amountLimit = 1000
   columnsModel = clientOrdersViewColumns(this.rowHandlers, this.firstRowId)
 
   get destinationsFavourites() {
@@ -473,7 +474,7 @@ export class ClientOrdersViewModel {
 
         this.destinations = destinations
 
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.amountLimit = this.platformSettings = result
       })
 
       this.onTriggerOpenModal('showOrderModal')
@@ -567,7 +568,7 @@ export class ClientOrdersViewModel {
 
         this.destinations = destinations
 
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.platformSettings = result
 
         this.reorderOrdersData = [order]
       })

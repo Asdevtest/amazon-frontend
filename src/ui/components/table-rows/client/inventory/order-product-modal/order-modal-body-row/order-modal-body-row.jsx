@@ -28,7 +28,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './order-modal-body-row.style'
 
 export const OrderModalBodyRow = ({
-  volumeWeightCoefficient,
+  platformSettings,
   destinations,
   storekeepers,
   item,
@@ -73,7 +73,7 @@ export const OrderModalBodyRow = ({
           (((item.currentSupplier.boxProperties?.boxWidthCm || 0) *
             (item.currentSupplier.boxProperties?.boxLengthCm || 0) *
             (item.currentSupplier.boxProperties?.boxHeightCm || 0)) /
-            volumeWeightCoefficient) *
+            platformSettings.volumeWeightCoefficient) *
             100,
         ) / 100 || 0,
         item.currentSupplier.boxProperties?.boxWeighGrossKg,
@@ -181,7 +181,7 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={classNames.cell}>
           {/* <Input
-            
+
             inputProps={{maxLength: 6, min: 0}}
             value={orderState.amount}
             className={classNames.amountCell}
@@ -206,7 +206,12 @@ export const OrderModalBodyRow = ({
             }
             inputProps={{maxLength: 6, min: 0}}
             value={orderState.amount}
-            onChange={e => onChangeInput(e, 'amount')}
+            onChange={e => {
+              if (e.target.value > platformSettings.orderAmountLimit) {
+                e.target.value = platformSettings.orderAmountLimit
+              }
+              onChangeInput(e, 'amount')
+            }}
           />
         </TableCell>
 
@@ -416,7 +421,7 @@ export const OrderModalBodyRow = ({
           setOpenModal={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
         >
           <SupplierApproximateCalculationsForm
-            volumeWeightCoefficient={volumeWeightCoefficient}
+            volumeWeightCoefficient={platformSettings.volumeWeightCoefficient}
             product={item}
             supplier={item.currentSupplier}
             storekeepers={storekeepers}

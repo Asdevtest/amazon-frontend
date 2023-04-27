@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineObject18 from './InlineObject18';
 
 /**
  * The InlineObject103 model module.
@@ -22,11 +23,10 @@ class InlineObject103 {
     /**
      * Constructs a new <code>InlineObject103</code>.
      * @alias module:model/InlineObject103
-     * @param priority {Number} Выставить приоритет задачи
      */
-    constructor(priority) { 
+    constructor() { 
         
-        InlineObject103.initialize(this, priority);
+        InlineObject103.initialize(this);
     }
 
     /**
@@ -34,8 +34,7 @@ class InlineObject103 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, priority) { 
-        obj['priority'] = priority;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +48,8 @@ class InlineObject103 {
         if (data) {
             obj = obj || new InlineObject103();
 
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
-            }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('additionalBoxes')) {
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject18]);
             }
         }
         return obj;
@@ -63,16 +59,10 @@ class InlineObject103 {
 }
 
 /**
- * Выставить приоритет задачи
- * @member {Number} priority
+ * Массив дополнительных коробок которые случились при обработки.
+ * @member {Array.<module:model/InlineObject18>} additionalBoxes
  */
-InlineObject103.prototype['priority'] = undefined;
-
-/**
- * Reason of high priority
- * @member {String} reason
- */
-InlineObject103.prototype['reason'] = undefined;
+InlineObject103.prototype['additionalBoxes'] = undefined;
 
 
 

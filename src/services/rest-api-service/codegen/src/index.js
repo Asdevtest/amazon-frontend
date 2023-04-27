@@ -55,7 +55,10 @@ import ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges from './mode
 import ApiV1BoxesStorekeepersSentToBatchItems from './model/ApiV1BoxesStorekeepersSentToBatchItems';
 import ApiV1BoxesStorekeepersSentToBatchOrder from './model/ApiV1BoxesStorekeepersSentToBatchOrder';
 import ApiV1BuyersOrdersMyOrderSupplier from './model/ApiV1BuyersOrdersMyOrderSupplier';
+import ApiV1BuyersOrdersMyPaymentMethod from './model/ApiV1BuyersOrdersMyPaymentMethod';
+import ApiV1BuyersOrdersMyPayments from './model/ApiV1BuyersOrdersMyPayments';
 import ApiV1BuyersOrdersMyProduct from './model/ApiV1BuyersOrdersMyProduct';
+import ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments from './model/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments';
 import ApiV1BuyersProductsGuidTags from './model/ApiV1BuyersProductsGuidTags';
 import ApiV1ClientsProductsGuidRedFlags from './model/ApiV1ClientsProductsGuidRedFlags';
 import ApiV1GologinProfileNavigator from './model/ApiV1GologinProfileNavigator';
@@ -132,6 +135,8 @@ import InlineObject121 from './model/InlineObject121';
 import InlineObject122 from './model/InlineObject122';
 import InlineObject123 from './model/InlineObject123';
 import InlineObject124 from './model/InlineObject124';
+import InlineObject125 from './model/InlineObject125';
+import InlineObject126 from './model/InlineObject126';
 import InlineObject13 from './model/InlineObject13';
 import InlineObject14 from './model/InlineObject14';
 import InlineObject15 from './model/InlineObject15';
@@ -324,7 +329,8 @@ import InlineResponse20070 from './model/InlineResponse20070';
 import InlineResponse20071 from './model/InlineResponse20071';
 import InlineResponse20072 from './model/InlineResponse20072';
 import InlineResponse20073 from './model/InlineResponse20073';
-import InlineResponse20073Details from './model/InlineResponse20073Details';
+import InlineResponse20074 from './model/InlineResponse20074';
+import InlineResponse20074Details from './model/InlineResponse20074Details';
 import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse201 from './model/InlineResponse201';
@@ -699,10 +705,28 @@ export {
     ApiV1BuyersOrdersMyOrderSupplier,
 
     /**
+     * The ApiV1BuyersOrdersMyPaymentMethod model constructor.
+     * @property {module:model/ApiV1BuyersOrdersMyPaymentMethod}
+     */
+    ApiV1BuyersOrdersMyPaymentMethod,
+
+    /**
+     * The ApiV1BuyersOrdersMyPayments model constructor.
+     * @property {module:model/ApiV1BuyersOrdersMyPayments}
+     */
+    ApiV1BuyersOrdersMyPayments,
+
+    /**
      * The ApiV1BuyersOrdersMyProduct model constructor.
      * @property {module:model/ApiV1BuyersOrdersMyProduct}
      */
     ApiV1BuyersOrdersMyProduct,
+
+    /**
+     * The ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments model constructor.
+     * @property {module:model/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments}
+     */
+    ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments,
 
     /**
      * The ApiV1BuyersProductsGuidTags model constructor.
@@ -1159,6 +1183,18 @@ export {
      * @property {module:model/InlineObject124}
      */
     InlineObject124,
+
+    /**
+     * The InlineObject125 model constructor.
+     * @property {module:model/InlineObject125}
+     */
+    InlineObject125,
+
+    /**
+     * The InlineObject126 model constructor.
+     * @property {module:model/InlineObject126}
+     */
+    InlineObject126,
 
     /**
      * The InlineObject13 model constructor.
@@ -2313,10 +2349,16 @@ export {
     InlineResponse20073,
 
     /**
-     * The InlineResponse20073Details model constructor.
-     * @property {module:model/InlineResponse20073Details}
+     * The InlineResponse20074 model constructor.
+     * @property {module:model/InlineResponse20074}
      */
-    InlineResponse20073Details,
+    InlineResponse20074,
+
+    /**
+     * The InlineResponse20074Details model constructor.
+     * @property {module:model/InlineResponse20074Details}
+     */
+    InlineResponse20074Details,
 
     /**
      * The InlineResponse2008 model constructor.

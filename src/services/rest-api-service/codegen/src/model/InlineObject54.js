@@ -21,12 +21,14 @@ import ApiClient from '../ApiClient';
 class InlineObject54 {
     /**
      * Constructs a new <code>InlineObject54</code>.
+     * Схема подтверждения возрата коробок на склад
      * @alias module:model/InlineObject54
-     * @param title {String} Тег
+     * @param boxId {String} GUID коробки, который планируем изменить
+     * @param logicsTariffId {String} GUID тарифа, на которую планируем изменить
      */
-    constructor(title) { 
+    constructor(boxId, logicsTariffId) { 
         
-        InlineObject54.initialize(this, title);
+        InlineObject54.initialize(this, boxId, logicsTariffId);
     }
 
     /**
@@ -34,8 +36,9 @@ class InlineObject54 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, title) { 
-        obj['title'] = title;
+    static initialize(obj, boxId, logicsTariffId) { 
+        obj['boxId'] = boxId;
+        obj['logicsTariffId'] = logicsTariffId;
     }
 
     /**
@@ -49,8 +52,11 @@ class InlineObject54 {
         if (data) {
             obj = obj || new InlineObject54();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('boxId')) {
+                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
+            }
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
         }
         return obj;
@@ -60,10 +66,16 @@ class InlineObject54 {
 }
 
 /**
- * Тег
- * @member {String} title
+ * GUID коробки, который планируем изменить
+ * @member {String} boxId
  */
-InlineObject54.prototype['title'] = undefined;
+InlineObject54.prototype['boxId'] = undefined;
+
+/**
+ * GUID тарифа, на которую планируем изменить
+ * @member {String} logicsTariffId
+ */
+InlineObject54.prototype['logicsTariffId'] = undefined;
 
 
 

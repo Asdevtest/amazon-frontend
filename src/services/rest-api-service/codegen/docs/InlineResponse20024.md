@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **buyerComment** | **String** | комментарии байера. | [optional] 
 **destination** | [**ApiV1AdminsOrdersDestination**](ApiV1AdminsOrdersDestination.md) |  | [optional] 
 **item** | **String** |  | [optional] 
+**priceInYuan** | **Number** | Цена в юанях | [optional] 
+**payments** | [**[ApiV1BuyersOrdersMyPayments]**](ApiV1BuyersOrdersMyPayments.md) |  | [optional] 
 **orderSupplier** | [**ApiV1BuyersOrdersMyOrderSupplier**](ApiV1BuyersOrdersMyOrderSupplier.md) |  | [optional] 
 **priority** | **String** | Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно | [optional] 
 **expressChinaDelivery** | **Boolean** | Флаг , обозначающий оплату за экспресс доставку по китаю | [optional] 

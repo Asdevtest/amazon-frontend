@@ -22,10 +22,11 @@ class InlineObject75 {
     /**
      * Constructs a new <code>InlineObject75</code>.
      * @alias module:model/InlineObject75
+     * @param text {String} текст отзыва/репорта
      */
-    constructor() { 
+    constructor(text) { 
         
-        InlineObject75.initialize(this);
+        InlineObject75.initialize(this, text);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject75 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, text) { 
+        obj['text'] = text;
     }
 
     /**
@@ -47,8 +49,11 @@ class InlineObject75 {
         if (data) {
             obj = obj || new InlineObject75();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('text')) {
+                obj['text'] = ApiClient.convertToType(data['text'], 'String');
+            }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
             }
         }
         return obj;
@@ -58,10 +63,16 @@ class InlineObject75 {
 }
 
 /**
- * GUIDы поставщиков, которые нужно добавить в БД.
- * @member {Array.<String>} suppliersIds
+ * текст отзыва/репорта
+ * @member {String} text
  */
-InlineObject75.prototype['suppliersIds'] = undefined;
+InlineObject75.prototype['text'] = undefined;
+
+/**
+ * Прикрепленные ссылки на медиа для репорта/отзыва
+ * @member {Array.<String>} media
+ */
+InlineObject75.prototype['media'] = undefined;
 
 
 
