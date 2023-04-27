@@ -54,7 +54,7 @@ import {zipCodeGroups} from '@constants/zip-code-groups'
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {NewDatePicker, NewnewDatePicker} from '@components/date-picker/date-picker'
+import {NewDatePicker} from '@components/date-picker/date-picker'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 import {BigImagesModal} from '@components/modals/big-images-modal'
@@ -689,6 +689,7 @@ export const ChangeInputCommentCell = React.memo(
       placeholder,
     }) => {
       const [value, setValue] = useState(text)
+      const [isEdited, setIsEdited] = useState(false)
 
       useEffect(() => {
         setValue(text)
@@ -711,10 +712,10 @@ export const ChangeInputCommentCell = React.memo(
             value={value}
             endAdornment={
               !!onClickSubmit && (
-                <InputAdornment position="start">
+                <InputAdornment position="start" className={classNames.commentControls}>
                   {isShow && text !== value ? (
                     <DoneIcon classes={{root: classNames.doneIcon}} />
-                  ) : text !== value ? (
+                  ) : isEdited ? (
                     <div className={classNames.iconWrapper}>
                       <img
                         src={'/assets/icons/save-discet.svg'}
@@ -723,11 +724,18 @@ export const ChangeInputCommentCell = React.memo(
                           setShow(true)
                           setTimeout(() => {
                             setShow(false)
+                            setIsEdited(false)
                           }, 2000)
                           onClickSubmit(id, value)
                         }}
                       />
-                      <ClearIcon classes={{root: classNames.clearIcon}} onClick={() => setValue(text)} />
+                      <ClearIcon
+                        classes={{root: classNames.clearIcon}}
+                        onClick={() => {
+                          setIsEdited(false)
+                          setValue(text)
+                        }}
+                      />
                     </div>
                   ) : null}
                 </InputAdornment>
@@ -735,6 +743,7 @@ export const ChangeInputCommentCell = React.memo(
             }
             onChange={e => {
               setValue(e.target.value)
+              setIsEdited(true)
               if (onChangeText) {
                 onChangeText(fieldName || 'comments')(e.target.value)
               }
@@ -2954,15 +2963,25 @@ export const RedFlagsCell = React.memo(
   ),
 )
 export const TagsCell = React.memo(
-  withStyles(({classes: classNames, tags}) => {
-    const tagList = tags?.map(el => `#${el.title}`) || []
-
-    return (
+  withStyles(
+    ({classes: classNames, tags}) => (
       <div className={classNames.tags}>
-        <MultilineTextHeaderCell text={tagList.join(', ')} />
+        <MultilineTextHeaderCell
+          text={
+            <>
+              {tags?.map((el, index) => (
+                <p key={el._id} className={classNames.tagItem}>
+                  #{el.title}
+                  {index !== tags.length - 1 && ', '}
+                </p>
+              ))}
+            </>
+          }
+        />
       </div>
-    )
-  }, styles),
+    ),
+    styles,
+  ),
 )
 
 // export const ShortBoxDimensions = React.memo( withStyles(

@@ -217,19 +217,6 @@ export const EditTaskModal = observer(
 
           <Divider orientation="horizontal" className={classNames.horizontalDivider} />
 
-          {/* {task.operationType === TaskOperationType.RECEIVE && (
-            <Field
-              multiline
-              disabled
-              className={classNames.heightFieldAuto}
-              minRows={4}
-              maxRows={6}
-              label={t(TranslationKey['Buyer comment to order'])}
-              placeholder={t(TranslationKey['Buyer comment to order'])}
-              value={task.boxesBefore[0].items?.[0].order.buyerComment || ''}
-            />
-          )} */}
-
           <BeforeAfterBlock
             readOnly={readOnly}
             volumeWeightCoefficient={volumeWeightCoefficient}

@@ -26,7 +26,7 @@ import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {checkIsImageLink} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {shortenDocumentString} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, shortenDocumentString} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './custom-carousel.style'
@@ -448,7 +448,12 @@ export const PhotoAndFilesCarousel = ({
                           <span className={classNames.documentHover}>{file?.file?.name || file}</span>
                         </div>
                       ) : (
-                        <Link key={index} href={file} className={classNames.documentWrapper} target="__blank">
+                        <Link
+                          key={index}
+                          href={checkAndMakeAbsoluteUrl(file)}
+                          className={classNames.documentWrapper}
+                          target="__blank"
+                        >
                           <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
                           <Typography className={classNames.documentTitle}>
                             {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}

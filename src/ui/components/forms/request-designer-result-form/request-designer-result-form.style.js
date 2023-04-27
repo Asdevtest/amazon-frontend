@@ -134,7 +134,8 @@ export const useClassNames = makeStyles()(theme => ({
   bodySubWrapper: {
     display: 'flex',
     flexWrap: 'wrap',
-    gap: 27,
+    gap: 24,
+    paddingRight: 15,
     // paddingTop: 30,
     // // background: 'grey',
     // overflowY: 'auto',
@@ -214,7 +215,16 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 18,
     // color: theme.palette.text.red,
     color: '#DF0C0C',
-    wordBreak: 'break-all',
+    wordBreak: 'break-word',
+
+    // lineHeight: '45px',
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
   },
 
   imageObjInput: {
@@ -299,6 +309,7 @@ export const useClassNames = makeStyles()(theme => ({
     left: 0,
     opacity: 0,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    // zIndex: 1000000,
   },
 
   image: {

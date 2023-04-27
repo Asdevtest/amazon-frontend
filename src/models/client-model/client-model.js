@@ -113,7 +113,7 @@ class ClientModelStatic {
   }
 
   getTasks = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsTasksGet(data)
+    const response = await restApiService.clientApi.apiV1ClientsTasksByBoxesGet(data)
     return response
   }
 

@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     // width: 500,
     // maxHeight: 510,
@@ -8,19 +8,20 @@ export const useClassNames = makeStyles()(() => ({
     flexDirection: 'column',
   },
 
-  // imageWrapper: {
-  //   width: '50vw',
-  //   height: '50vh',
-  //   display: 'flex',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  // },
+  imageWrapper: {
+    // width: '50vw',
+    height: '55vh',
+    paddingTop: 130,
+    // display: 'flex',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+  },
 
   image: {
-    width: '35vw',
-    height: '35vh',
+    width: '33vw',
+    height: '33vh',
     objectFit: 'contain',
-    objectPosition: 'center',
+    // objectPosition: 'center',
   },
 
   btnsWrapper: {
@@ -32,5 +33,9 @@ export const useClassNames = makeStyles()(() => ({
   btnsSubWrapper: {
     display: 'flex',
     gap: 20,
+  },
+
+  cancelBtn: {
+    color: theme.palette.text.general,
   },
 }))

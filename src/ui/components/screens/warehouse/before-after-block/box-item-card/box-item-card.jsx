@@ -71,16 +71,16 @@ export const BoxItemCard = ({
                 <Typography className={classNames.subTitle}>{`${t(TranslationKey.Box)} №:`}</Typography>
                 <Typography className={classNames.subValue}>{boxId}</Typography>
               </div>
-            ) : (
-              <div className={classNames.countSubWrapper} />
-            )}
+            ) : null}
 
             {window.innerWidth < 1282 && (
-              <div className={classNames.copyValueWrapper}>
-                <div className={classNames.asinWrapper}>
-                  <Typography className={classNames.asin}>{t(TranslationKey.ASIN)}</Typography>
-                  <Typography className={classNames.asinTitle}>{item.product?.asin}</Typography>
-                  {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null}
+              <div className={classNames.copyValueMainWrapper}>
+                <div className={classNames.copyValueWrapper}>
+                  <div className={classNames.asinWrapper}>
+                    <Typography className={classNames.asin}>{t(TranslationKey.ASIN)}</Typography>
+                    <Typography className={classNames.asinTitle}>{item.product?.asin}</Typography>
+                    {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null}
+                  </div>
                 </div>
               </div>
             )}
@@ -240,7 +240,7 @@ export const BoxItemCard = ({
               {taskType === TaskOperationType.RECEIVE ? (
                 <div className={classNames.copyValueWrapper}>
                   <div className={classNames.asinWrapper}>
-                    <Typography className={classNames.asin}>{'PREP ID:'}</Typography>
+                    <Typography className={classNames.asin}>{'PREP ID' + ':'}</Typography>
                     <Typography className={classNames.asinTitle}>{box.prepId || t(TranslationKey.Missing)}</Typography>
                     {box.prepId ? <CopyValue text={box.prepId} /> : null}
                   </div>

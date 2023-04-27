@@ -139,7 +139,8 @@ export class ClientExchangeViewRaw extends Component {
 
         <Modal openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
           <OrderProductModal
-            volumeWeightCoefficient={volumeWeightCoefficient}
+            // volumeWeightCoefficient={volumeWeightCoefficient}
+            platformSettings={{volumeWeightCoefficient}}
             destinations={destinations}
             storekeepers={storekeepers}
             requestStatus={requestStatus}

@@ -130,7 +130,8 @@ class ClientOrderViewRaw extends Component {
             <OrderProductModal
               isPendingOrdering
               reorderOrdersData={[order]}
-              volumeWeightCoefficient={volumeWeightCoefficient}
+              // volumeWeightCoefficient={volumeWeightCoefficient}
+              platformSettings={{volumeWeightCoefficient}}
               destinations={destinations}
               storekeepers={storekeepers}
               destinationsFavourites={destinationsFavourites}

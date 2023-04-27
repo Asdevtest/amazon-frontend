@@ -17,6 +17,7 @@ import {CopyValue} from '@components/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 
+import {checkIsImageLink} from '@utils/checks'
 import {formatDateOnlyTime} from '@utils/date-time'
 import {checkAndMakeAbsoluteUrl, minsToTime} from '@utils/text'
 import {t} from '@utils/translations'
@@ -81,10 +82,7 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({message, han
                       <Avatar
                         className={classNames.image}
                         classes={{img: classNames.image}}
-                        src={
-                          item
-                          // : '/assets/icons/file.png'
-                        }
+                        src={checkIsImageLink(item) ? item : '/assets/icons/file.png'}
                         alt={''}
                         variant="square"
                         // onClick={() => {

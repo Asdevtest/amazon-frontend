@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 
+import {columnnsKeys} from '@constants/data-grid-columns-keys'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -11,6 +12,8 @@ import {
   TaskTypeCell,
   MultilineTextHeaderCell,
   TaskStatusCell,
+  TaskPriorityCell,
+  ChangeInputCommentCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -27,6 +30,37 @@ export const clientTasksViewColumns = handlers => [
   },
 
   {
+    field: 'priority',
+    headerName: t(TranslationKey.Priority),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
+
+    width: window.innerWidth < 1282 ? 140 : 170,
+    renderCell: params => (
+      <TaskPriorityCell
+        curPriority={params.value}
+        taskId={params.row.originalData._id}
+        onChangePriority={handlers.updateTaskPriority}
+      />
+    ),
+  },
+
+  {
+    field: 'reason',
+    headerName: t(TranslationKey.Comment),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+
+    width: 271,
+    renderCell: params => (
+      <ChangeInputCommentCell
+        rowsCount={4}
+        text={params.row.originalData.reason}
+        id={params.row.originalData._id}
+        onClickSubmit={(id, reason) => handlers.updateTaskComment(id, params.row.originalData.priority, reason)}
+      />
+    ),
+  },
+
+  {
     field: 'operationType',
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
@@ -40,7 +74,7 @@ export const clientTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 900,
+    width: 290,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
@@ -55,6 +89,7 @@ export const clientTasksViewColumns = handlers => [
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
     width: 170,
+    sortable: false,
   },
 
   {
@@ -75,7 +110,5 @@ export const clientTasksViewColumns = handlers => [
 
     width: 130,
     renderCell: params => <TaskStatusCell status={params.value} />,
-    filterable: false,
-    sortable: false,
   },
 ]

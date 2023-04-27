@@ -399,4 +399,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: 40,
     height: 40,
   },
+
+  list: {
+    // width: 300,
+    // height: 300,
+    padding: '1px 0',
+  },
 }))

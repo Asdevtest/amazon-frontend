@@ -11,6 +11,7 @@ import {CustomCarousel} from '@components/custom-carousel'
 import {ImageZoomForm} from '@components/forms/image-zoom-form'
 import {Modal} from '@components/modal'
 
+import {checkIsImageLink} from '@utils/checks'
 import {getShortenStringIfLongerThanCount} from '@utils/text'
 import {downloadFileByLink} from '@utils/upload-files'
 
@@ -27,7 +28,7 @@ export const BigObjectImagesModal = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  const filteredImagesData = imagesData.filter(el => !!el.image)
+  const filteredImagesData = imagesData.filter(el => !!el.image && checkIsImageLink(el.image?.file?.name || el.image))
 
   const [zoomOpen, setZoomOpen] = useState(false)
 

@@ -118,6 +118,7 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(1282)]: {
       width: '100%',
       justifyContent: 'space-between',
+      paddingRight: 10,
     },
     [theme.breakpoints.down(768)]: {
       gap: '10px',
@@ -709,6 +710,10 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     gap: 5,
     marginBottom: 5,
+
+    [theme.breakpoints.down(1282)]: {
+      paddingRight: 10,
+    },
   },
 
   countSubWrapper: {
@@ -719,6 +724,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: 5,
     [theme.breakpoints.down(1282)]: {
       gap: 5,
+      paddingRight: 10,
     },
   },
 

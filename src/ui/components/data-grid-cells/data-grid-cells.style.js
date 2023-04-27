@@ -13,7 +13,6 @@ export const styles = theme => ({
     objectFit: 'contain',
     objectPosition: 'center',
   },
-
   orderIdsItemsWrapper: {
     whiteSpace: 'normal',
   },
@@ -48,6 +47,7 @@ export const styles = theme => ({
     flexDirection: 'column',
     gap: '8px',
   },
+
   skuAndAsinWrapper: {
     display: 'flex',
     gap: '10px',
@@ -82,7 +82,6 @@ export const styles = theme => ({
   csCodeTypoWrapper: {
     width: '100%',
   },
-
   csCodeTypo: {
     fontSize: '14px',
     lineHeight: '18px',
@@ -94,12 +93,12 @@ export const styles = theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
+
   typoCell: {
     fontSize: '14px',
     lineHeight: '21px',
     color: 'rgba(189, 194, 209, 1)',
   },
-
   ideaInfo: {
     color: theme.palette.primary.main,
     fontWeight: 600,
@@ -113,26 +112,27 @@ export const styles = theme => ({
     display: 'flex',
     gap: '3px',
   },
+
   typoSpan: {
     marginLeft: 10,
     color: theme.palette.text.second,
   },
-
   misSpan: {
     marginLeft: 10,
     color: theme.palette.text.second,
   },
+
   linkSpan: {
     marginLeft: 10,
     color: theme.palette.primary.main,
   },
-
   cellBtn: {
     color: 'rgba(0, 123, 255, 1)',
     paddingTop: '0px',
     paddingBottom: '0px',
     textTransform: 'none',
   },
+
   priceTableCell: {
     textAlign: 'center',
   },
@@ -147,10 +147,10 @@ export const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   rankTableCell: {
     textAlign: 'center',
   },
+
   ratingTableCell: {
     textAlign: 'right',
   },
@@ -226,7 +226,6 @@ export const styles = theme => ({
   barcodeChipExists: {
     backgroundcolor: theme.palette.text.general,
   },
-
   barcodeChipNoExists: {
     // color: '#F5CF00',
     backgroundColor: '#F5CF00',
@@ -284,6 +283,7 @@ export const styles = theme => ({
     alignItems: 'center',
     padding: '10px 0',
   },
+
   orderImg: {
     height: '64px',
     width: '64px',
@@ -333,10 +333,10 @@ export const styles = theme => ({
   select: {
     backgroundcolor: theme.palette.text.general,
   },
-
   defaultOrderSpan: {
     color: 'rgba(0, 123, 255, 1)',
   },
+
   changeOrderSpan: {
     color: 'rgb(16, 179, 49)',
   },
@@ -347,7 +347,6 @@ export const styles = theme => ({
   centerTextCell: {
     textAlign: 'center',
   },
-
   ordersImg: {
     width: '30px',
     height: '30px',
@@ -366,12 +365,12 @@ export const styles = theme => ({
       height: 39,
     },
   },
+
   descriptionWrapper: {
     display: 'flex',
     gap: '5px',
     alignItems: 'center',
   },
-
   gridEditWrapper: {
     maxWidth: 550,
     // overflow: 'auto',
@@ -416,6 +415,7 @@ export const styles = theme => ({
     padding: '3px',
     marginRight: '5px',
   },
+
   imgNum: {
     fontWeight: 600,
     fontSize: 14,
@@ -425,7 +425,6 @@ export const styles = theme => ({
   taskDescriptionCountWrapper: {
     marginLeft: 5,
   },
-
   taskDescriptionSuperBox: {
     fontWeight: 600,
     fontSize: 18,
@@ -458,6 +457,7 @@ export const styles = theme => ({
 
     gap: '10px',
   },
+
   cancelBtn: {
     marginLeft: '10px',
   },
@@ -467,7 +467,6 @@ export const styles = theme => ({
     justifyContent: 'flex-start',
     // gap: '3px',
   },
-
   receiveOrEditWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
@@ -1121,10 +1120,10 @@ export const styles = theme => ({
     justifyContent: 'center',
     gap: '40px',
   },
+
   addPermissionBtn: {
     padding: '0 15px',
   },
-
   sabUserWrapper: {
     width: '100%',
     display: 'flex',
@@ -1190,11 +1189,11 @@ export const styles = theme => ({
     alignItems: 'center',
     gap: '10px',
   },
+
   avatarWrapper: {
     width: '28px',
     height: '28px',
   },
-
   clientTasksActionBtnsWrapper: {
     width: '100%',
     display: 'flex',
@@ -1246,11 +1245,6 @@ export const styles = theme => ({
     justifyContent: 'center',
   },
 
-  // showButton: {
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  // },
-
   copyImgButton: {
     backgroundColor: 'inherit',
     padding: 0,
@@ -1259,6 +1253,11 @@ export const styles = theme => ({
       backgroundColor: 'inherit',
     },
   },
+
+  // showButton: {
+  //   display: 'flex',
+  //   justifyContent: 'center',
+  // },
 
   inStockWrapper: {
     width: '100%',
@@ -1401,6 +1400,7 @@ export const styles = theme => ({
   userLink: {
     display: 'inline-flex',
   },
+
   normalizeLink: {
     color: theme.palette.primary.main,
     textDecoration: 'none',
@@ -1409,7 +1409,6 @@ export const styles = theme => ({
       opacity: '.7',
     },
   },
-
   linkWrapper: {
     cursor: 'pointer',
   },
@@ -1491,6 +1490,7 @@ export const styles = theme => ({
   selectedLabel: {
     color: theme.palette.primary.main,
   },
+
   selectedIndicator: {
     backgroundColor: '#006CFF',
   },
@@ -1593,12 +1593,12 @@ export const styles = theme => ({
   asd: {
     color: 'red',
   },
-
   searchInputWrapper: {
     width: '100%',
     height: 30,
     marginBottom: 10,
   },
+
   searchInput: {
     border: '1px solid #E0E0E0',
     width: '100%',
@@ -1643,10 +1643,6 @@ export const styles = theme => ({
       maxHeight: 400,
     },
 
-    colorYellow: {
-      color: '#F3AF00 !important',
-    },
-
     colorRed: {
       color: '#FF1616 !important',
     },
@@ -1675,7 +1671,6 @@ export const styles = theme => ({
       },
     },
   },
-
   asinCellMainWrapper: {
     display: 'flex',
     width: 'fit-content',
@@ -1683,6 +1678,7 @@ export const styles = theme => ({
 
     gap: 5,
   },
+
   imgMini: {
     height: 33,
     width: 33,
@@ -1735,7 +1731,6 @@ export const styles = theme => ({
     //   },
     // },
   },
-
   colorRed: {
     color: '#FF1616 !important',
   },
@@ -1743,6 +1738,7 @@ export const styles = theme => ({
   colorGreen: {
     color: '#00B746 !important',
   },
+
   operationTypeText: {
     [theme.breakpoints.down(1282)]: {
       fontWeight: 400,
@@ -1773,7 +1769,6 @@ export const styles = theme => ({
       height: 22,
     },
   },
-
   ChangeInputCommentCellWrapper: {
     display: 'flex',
     width: '100%',
@@ -1808,6 +1803,7 @@ export const styles = theme => ({
       whiteSpace: 'nowrap',
     },
   },
+
   priceCellWrapper: {
     width: '100%',
     height: '100%',
@@ -1835,13 +1831,13 @@ export const styles = theme => ({
   oldPrice: {
     textDecoration: 'line-through',
   },
-
   CopyLinkWrapper: {
     width: '100%',
 
     display: 'flex',
     gap: 5,
   },
+
   linkText: {
     width: 'fit-content',
     maxWidth: 'calc(100% - 25px)',
@@ -1865,7 +1861,6 @@ export const styles = theme => ({
       opacity: '0.8',
     },
   },
-
   redFlags: {
     padding: '10px 0',
     display: 'flex',
@@ -1886,14 +1881,21 @@ export const styles = theme => ({
     },
   },
 
-  // as: {
-  //   border: '1px solid #E0E0E0',
-  //   borderRadius: 4,
-  // },
+  tagItem: {
+    maxWidth: 280,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
 
   trackingNumberWrapper: {
     width: '100%',
   },
+
+  // as: {
+  //   border: '1px solid #E0E0E0',
+  //   borderRadius: 4,
+  // },
 
   batchTrackingWrapper: {
     width: '100%',
@@ -1908,6 +1910,7 @@ export const styles = theme => ({
 
     margin: '0 !important',
   },
+
   batchTrackingContainer: {
     width: '100%',
   },
@@ -1920,6 +1923,11 @@ export const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  commentControls: {
+    alignSelf: 'flex-end',
+    paddingBottom: 15,
+  },
+
   arrivalDateIcon: {
     width: 15,
     height: 15,
@@ -1928,5 +1936,9 @@ export const styles = theme => ({
     color: theme.palette.primary.main,
     fontWeight: 400,
     cursor: 'pointer',
+  },
+
+  colorYellow: {
+    color: '#F3AF00 !important',
   },
 })

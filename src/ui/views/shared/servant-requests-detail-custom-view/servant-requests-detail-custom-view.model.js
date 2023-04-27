@@ -259,6 +259,7 @@ export class RequestDetailCustomViewModel {
           _id: findRequestProposalByChatSelectedId.proposal.media.some(item => item._id === files[i]?._id)
             ? files[i]?._id
             : null,
+          index: i,
         })),
         ...(amazonOrderId && {amazonOrderId}),
         ...(publicationLinks && {publicationLinks}),
