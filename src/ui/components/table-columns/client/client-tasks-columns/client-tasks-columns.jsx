@@ -89,6 +89,7 @@ export const clientTasksViewColumns = handlers => [
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
     width: 170,
+    sortable: false,
   },
 
   {
