@@ -8,7 +8,7 @@ import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -20,10 +20,13 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './custom-request-details.style'
 
-export const CustomSearchRequestDetails = ({request}) => {
+export const CustomSearchRequestDetails = ({request, isOpen}) => {
   const {classes: classNames} = useClassNames()
+  console.log('isOpen', isOpen)
 
-  const [showDetails, setShowDetails] = useState(false)
+  const [showDetails, setShowDetails] = useState(!!isOpen)
+
+  useEffect(() => setShowDetails(isOpen), [isOpen])
 
   const onClickToShowDetails = () => {
     setShowDetails(!showDetails)

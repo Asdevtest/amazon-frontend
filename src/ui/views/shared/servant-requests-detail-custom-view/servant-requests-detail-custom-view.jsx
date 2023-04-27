@@ -121,7 +121,7 @@ export class RequestDetailCustomViewRaw extends Component {
 
               {request ? (
                 <div className={classNames.detailsWrapper}>
-                  <CustomSearchRequestDetails request={request} />
+                  <CustomSearchRequestDetails request={request} isOpen={!chatSelectedId} />
                 </div>
               ) : null}
               {chatIsConnected && chats?.length ? (
