@@ -20,7 +20,7 @@ import {
   Menu,
 } from '@mui/material'
 
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 
 import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
@@ -59,17 +59,9 @@ const Slot = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  // const menuAnchor = useRef()
-
-  const [menuAnchor, setMenuAnchor] = useState(null)
-
-  const handleClick = event => {
-    console.log('event.currentTarget', event.currentTarget)
-    setMenuAnchor(event.currentTarget)
-  }
+  const menuAnchor = useRef()
 
   const handleClose = () => {
-    setMenuAnchor(null)
     onClickCommentBtn(item._id)
   }
 
@@ -125,12 +117,11 @@ const Slot = ({
         </div>
       </div>
 
-      {
-        /* !item.isEditCommentOpen && */ !noShowActions && (
+      <div ref={menuAnchor}>
+        {!item.isEditCommentOpen && !noShowActions && (
           <Button
             className={cx(classNames.commentBtn)}
-            onClick={e => {
-              handleClick(e)
+            onClick={() => {
               onClickCommentBtn(item._id)
             }}
           >
@@ -140,64 +131,43 @@ const Slot = ({
               className={classNames.commentIcon}
             />
           </Button>
-        )
-      }
+        )}
 
-      {item.isEditCommentOpen && !noShowActions && (
-        <ClickAwayListener
-          mouseEvent="onMouseDown"
-          onClickAway={() => {
-            handleClose()
+        {item.isEditCommentOpen && !noShowActions && (
+          <ClickAwayListener
+            mouseEvent="onMouseDown"
+            onClickAway={() => {
+              handleClose()
 
-            onClickCommentBtn(item._id)
-          }}
-        >
-          <div className={cx(classNames.commentBtnWrapper)}>
-            <div
-              /* ref={menuAnchor} */ className={cx(classNames.commentHideBtn)}
-              onClick={() => onClickCommentBtn(item._id)}
-            >
-              <Typography>{t(TranslationKey.Comment)}</Typography>
+              onClickCommentBtn(item._id)
+            }}
+          >
+            <div className={cx(classNames.commentBtnWrapper)}>
+              <div className={cx(classNames.commentHideBtn)} onClick={() => onClickCommentBtn(item._id)}>
+                <Typography>{t(TranslationKey.Comment)}</Typography>
 
-              <ArrowDropUpIcon />
+                <ArrowDropUpIcon />
+              </div>
+
+              <Menu open anchorEl={menuAnchor.current} autoFocus={false} onClose={handleClose}>
+                <Input
+                  autoFocus
+                  multiline
+                  type="text"
+                  inputProps={{maxLength: 500}}
+                  minRows={5}
+                  maxRows={10}
+                  variant="filled"
+                  className={classNames.imageObjInput}
+                  classes={{input: classNames.subImageObjInput}}
+                  value={item.commentByClient}
+                  onChange={onChangeImageFileds('commentByClient', item._id)}
+                />
+              </Menu>
             </div>
-
-            {/* <Input
-            multiline
-            inputProps={{maxLength: 500}}
-            minRows={5}
-            maxRows={10}
-            variant="filled"
-            className={classNames.imageObjInput}
-            classes={{input: classNames.subImageObjInput}}
-            value={item.commentByClient}
-            onChange={onChangeImageFileds('commentByClient', item._id)}
-          /> */}
-
-            <Menu
-              open
-              anchorEl={menuAnchor}
-              // anchorEl={el => (ref?.current = el)}
-              // open={item.isEditCommentOpen /* Boolean(menuAnchor) */}
-              autoFocus={false}
-              // classes={{paper: classNames.menu, list: classNames.list}}
-              onClose={handleClose}
-            >
-              <Input
-                multiline
-                inputProps={{maxLength: 500}}
-                minRows={5}
-                maxRows={10}
-                variant="filled"
-                className={classNames.imageObjInput}
-                classes={{input: classNames.subImageObjInput}}
-                value={item.commentByClient}
-                onChange={onChangeImageFileds('commentByClient', item._id)}
-              />
-            </Menu>
-          </div>
-        </ClickAwayListener>
-      )}
+          </ClickAwayListener>
+        )}
+      </div>
 
       {/* <div className={classNames.imageObjSubWrapper}>
       <Typography className={cx(classNames.clientComment )}>
