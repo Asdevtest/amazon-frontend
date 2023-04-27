@@ -22,7 +22,6 @@ import {useClassNames} from './custom-request-details.style'
 
 export const CustomSearchRequestDetails = ({request, isOpen}) => {
   const {classes: classNames} = useClassNames()
-  console.log('isOpen', isOpen)
 
   const [showDetails, setShowDetails] = useState(!!isOpen)
 
