@@ -804,10 +804,3 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/ApiV1BuyersOrdersMyPaymentMethod.spec.js
-test/model/ApiV1BuyersOrdersMyPayments.spec.js
-test/model/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments.spec.js
-test/model/InlineObject125.spec.js
-test/model/InlineObject126.spec.js
-test/model/InlineResponse20074.spec.js
-test/model/InlineResponse20074Details.spec.js
