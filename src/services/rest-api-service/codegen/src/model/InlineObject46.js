@@ -58,6 +58,9 @@ class InlineObject46 {
             if (data.hasOwnProperty('storekeeperId')) {
                 obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
+            if (data.hasOwnProperty('buyerId')) {
+                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
+            }
             if (data.hasOwnProperty('item')) {
                 obj['item'] = ApiClient.convertToType(data['item'], 'String');
             }
@@ -109,6 +112,12 @@ class InlineObject46 {
  * @member {String} storekeeperId
  */
 InlineObject46.prototype['storekeeperId'] = undefined;
+
+/**
+ * GUID баера
+ * @member {String} buyerId
+ */
+InlineObject46.prototype['buyerId'] = undefined;
 
 /**
  * @member {String} item

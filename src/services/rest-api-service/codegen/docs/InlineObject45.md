@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **storekeeperId** | **String** | GUID storekeeper-a | 
+**buyerId** | **String** | GUID баера | [optional] 
 **item** | **String** |  | [optional] 
 **logicsTariffId** | **String** | GUID тарифа доставки | 
 **priority** | **String** | Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно | [optional] 
