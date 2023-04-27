@@ -242,9 +242,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    height: '100px',
+    height: 'fit-content',
     marginTop: '10px',
-    marginBottom: 25,
     [theme.breakpoints.down(768)]: {
       height: '250px',
     },
