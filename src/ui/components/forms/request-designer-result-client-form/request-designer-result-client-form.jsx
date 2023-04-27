@@ -17,9 +17,10 @@ import {
   Avatar,
   Checkbox,
   ClickAwayListener,
+  Menu,
 } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 
 import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
@@ -43,6 +44,139 @@ import {t} from '@utils/translations'
 import {downloadFileByLink} from '@utils/upload-files'
 
 import {useClassNames} from './request-designer-result-client-form.style'
+
+const Slot = ({
+  item,
+  onChangeImageFileds,
+  onClickCommentBtn,
+  noShowActions,
+  showImageModal,
+  setShowImageModal,
+  index,
+  setCurImageId,
+  imagesForDownload,
+  onClickAddDownload,
+}) => {
+  const {classes: classNames} = useClassNames()
+
+  const menuAnchor = useRef()
+
+  const handleClose = () => {
+    onClickCommentBtn(item._id)
+  }
+
+  return (
+    <div key={item._id} className={classNames.imageObjWrapper}>
+      <div className={classNames.imageObjSubWrapper}>
+        <Checkbox
+          color="primary"
+          checked={imagesForDownload.some(el => el._id === item._id)}
+          onClick={() => onClickAddDownload(item)}
+        />
+
+        <Typography className={cx(classNames.imageObjIndex /* , classNames.textMargin */)}>{index + 1}</Typography>
+
+        <Typography className={cx(classNames.imageObjTitle /* , classNames.textMargin */)}>
+          {getShortenStringIfLongerThanCount(item.comment, 20)}
+        </Typography>
+      </div>
+      <div
+        className={cx(
+          classNames.imageWrapper,
+
+          {[classNames.isHaveImage]: !!item.image},
+          {[classNames.mainImageWrapper]: index === 0},
+        )}
+      >
+        {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
+
+        <div className={classNames.imageListItem}>
+          <Avatar
+            className={classNames.image}
+            classes={{img: classNames.image}}
+            src={
+              typeof item.image === 'string'
+                ? checkIsImageLink(item.image)
+                  ? item.image
+                  : '/assets/icons/file.png'
+                : item.image?.file.type.includes('image')
+                ? item.image?.data_url
+                : '/assets/icons/file.png'
+            }
+            alt={''}
+            variant="square"
+            onClick={() => {
+              if (checkIsImageLink(item.image?.file?.name || item.image)) {
+                setCurImageId(item._id)
+                setShowImageModal(!showImageModal)
+              } else {
+                window.open(item.image?.data_url || item.image, '__blank')
+              }
+            }}
+          />
+        </div>
+      </div>
+
+      <div ref={menuAnchor}>
+        {!item.isEditCommentOpen && !noShowActions && (
+          <Button
+            className={cx(classNames.commentBtn)}
+            onClick={() => {
+              onClickCommentBtn(item._id)
+            }}
+          >
+            {t(TranslationKey.Comment)}
+            <img
+              src={item.commentByClient ? '/assets/icons/white-pencil.svg' : '/assets/icons/white-plus.svg'}
+              className={classNames.commentIcon}
+            />
+          </Button>
+        )}
+
+        {item.isEditCommentOpen && !noShowActions && (
+          <ClickAwayListener
+            mouseEvent="onMouseDown"
+            onClickAway={() => {
+              handleClose()
+
+              onClickCommentBtn(item._id)
+            }}
+          >
+            <div className={cx(classNames.commentBtnWrapper)}>
+              <div className={cx(classNames.commentHideBtn)} onClick={() => onClickCommentBtn(item._id)}>
+                <Typography>{t(TranslationKey.Comment)}</Typography>
+
+                <ArrowDropUpIcon />
+              </div>
+
+              <Menu open anchorEl={menuAnchor.current} autoFocus={false} onClose={handleClose}>
+                <Input
+                  autoFocus
+                  multiline
+                  type="text"
+                  inputProps={{maxLength: 500}}
+                  minRows={5}
+                  maxRows={10}
+                  variant="filled"
+                  className={classNames.imageObjInput}
+                  classes={{input: classNames.subImageObjInput}}
+                  value={item.commentByClient}
+                  onChange={onChangeImageFileds('commentByClient', item._id)}
+                />
+              </Menu>
+            </div>
+          </ClickAwayListener>
+        )}
+      </div>
+
+      {/* <div className={classNames.imageObjSubWrapper}>
+      <Typography className={cx(classNames.clientComment )}>
+        {getShortenStringIfLongerThanCount(item.commentByClient, 30)}
+      </Typography>
+    </div> */}
+    </div>
+  )
+}
 
 export const RequestDesignerResultClientForm = ({
   onClickProposalResultAccept,
@@ -220,99 +354,134 @@ export const RequestDesignerResultClientForm = ({
 
       <div className={classNames.bodyWrapper}>
         {imagesData.map((item, index) => (
-          <div key={item._id} className={classNames.imageObjWrapper}>
-            <div className={classNames.imageObjSubWrapper}>
-              <Checkbox
-                color="primary"
-                checked={imagesForDownload.some(el => el._id === item._id)}
-                onClick={() => onClickAddDownload(item)}
-              />
+          <Slot
+            key={item._id}
+            item={item}
+            noShowActions={noShowActions}
+            showImageModal={showImageModal}
+            setShowImageModal={setShowImageModal}
+            index={index}
+            setCurImageId={setCurImageId}
+            imagesForDownload={imagesForDownload}
+            onClickAddDownload={onClickAddDownload}
+            onChangeImageFileds={onChangeImageFileds}
+            onClickCommentBtn={onClickCommentBtn}
+          />
+          // <div key={item._id} className={classNames.imageObjWrapper}>
+          //   <div className={classNames.imageObjSubWrapper}>
+          //     <Checkbox
+          //       color="primary"
+          //       checked={imagesForDownload.some(el => el._id === item._id)}
+          //       onClick={() => onClickAddDownload(item)}
+          //     />
 
-              <Typography className={cx(classNames.imageObjIndex /* , classNames.textMargin */)}>
-                {index + 1}
-              </Typography>
+          //     <Typography className={cx(classNames.imageObjIndex /* , classNames.textMargin */)}>
+          //       {index + 1}
+          //     </Typography>
 
-              <Typography className={cx(classNames.imageObjTitle /* , classNames.textMargin */)}>
-                {getShortenStringIfLongerThanCount(item.comment, 20)}
-              </Typography>
-            </div>
-            <div
-              className={cx(
-                classNames.imageWrapper,
+          //     <Typography className={cx(classNames.imageObjTitle /* , classNames.textMargin */)}>
+          //       {getShortenStringIfLongerThanCount(item.comment, 20)}
+          //     </Typography>
+          //   </div>
+          //   <div
+          //     className={cx(
+          //       classNames.imageWrapper,
 
-                {[classNames.isHaveImage]: !!item.image},
-                {[classNames.mainImageWrapper]: index === 0},
-              )}
-            >
-              {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
+          //       {[classNames.isHaveImage]: !!item.image},
+          //       {[classNames.mainImageWrapper]: index === 0},
+          //     )}
+          //   >
+          //     {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
 
-              <div className={classNames.imageListItem}>
-                <Avatar
-                  className={classNames.image}
-                  classes={{img: classNames.image}}
-                  src={
-                    typeof item.image === 'string'
-                      ? checkIsImageLink(item.image)
-                        ? item.image
-                        : '/assets/icons/file.png'
-                      : item.image?.file.type.includes('image')
-                      ? item.image?.data_url
-                      : '/assets/icons/file.png'
-                  }
-                  alt={''}
-                  variant="square"
-                  onClick={() => {
-                    if (checkIsImageLink(item.image?.file?.name || item.image)) {
-                      setCurImageId(item._id)
-                      setShowImageModal(!showImageModal)
-                    } else {
-                      window.open(item.image?.data_url || item.image, '__blank')
-                    }
-                  }}
-                />
-              </div>
-            </div>
+          //     <div className={classNames.imageListItem}>
+          //       <Avatar
+          //         className={classNames.image}
+          //         classes={{img: classNames.image}}
+          //         src={
+          //           typeof item.image === 'string'
+          //             ? checkIsImageLink(item.image)
+          //               ? item.image
+          //               : '/assets/icons/file.png'
+          //             : item.image?.file.type.includes('image')
+          //             ? item.image?.data_url
+          //             : '/assets/icons/file.png'
+          //         }
+          //         alt={''}
+          //         variant="square"
+          //         onClick={() => {
+          //           if (checkIsImageLink(item.image?.file?.name || item.image)) {
+          //             setCurImageId(item._id)
+          //             setShowImageModal(!showImageModal)
+          //           } else {
+          //             window.open(item.image?.data_url || item.image, '__blank')
+          //           }
+          //         }}
+          //       />
+          //     </div>
+          //   </div>
 
-            {!item.isEditCommentOpen && !noShowActions && (
-              <Button className={cx(classNames.commentBtn)} onClick={() => onClickCommentBtn(item._id)}>
-                {t(TranslationKey.Comment)}
-                <img
-                  src={item.commentByClient ? '/assets/icons/white-pencil.svg' : '/assets/icons/white-plus.svg'}
-                  className={classNames.commentIcon}
-                />
-              </Button>
-            )}
+          //   {!item.isEditCommentOpen && !noShowActions && (
+          //     <Button className={cx(classNames.commentBtn)} onClick={() => onClickCommentBtn(item._id)}>
+          //       {t(TranslationKey.Comment)}
+          //       <img
+          //         src={item.commentByClient ? '/assets/icons/white-pencil.svg' : '/assets/icons/white-plus.svg'}
+          //         className={classNames.commentIcon}
+          //       />
+          //     </Button>
+          //   )}
 
-            {item.isEditCommentOpen && !noShowActions && (
-              <ClickAwayListener mouseEvent="onMouseDown" onClickAway={() => onClickCommentBtn(item._id)}>
-                <div className={cx(classNames.commentBtnWrapper)}>
-                  <div className={cx(classNames.commentHideBtn)} onClick={() => onClickCommentBtn(item._id)}>
-                    <Typography>{t(TranslationKey.Comment)}</Typography>
+          //   {item.isEditCommentOpen && !noShowActions && (
+          //     <ClickAwayListener mouseEvent="onMouseDown" onClickAway={() => onClickCommentBtn(item._id)}>
+          //       <div className={cx(classNames.commentBtnWrapper)}>
+          //         <div className={cx(classNames.commentHideBtn)} onClick={() => onClickCommentBtn(item._id)}>
+          //           <Typography>{t(TranslationKey.Comment)}</Typography>
 
-                    <ArrowDropUpIcon />
-                  </div>
+          //           <ArrowDropUpIcon />
+          //         </div>
 
-                  <Input
-                    multiline
-                    inputProps={{maxLength: 500}}
-                    minRows={5}
-                    maxRows={10}
-                    variant="filled"
-                    className={classNames.imageObjInput}
-                    classes={{input: classNames.subImageObjInput}}
-                    value={item.commentByClient}
-                    onChange={onChangeImageFileds('commentByClient', item._id)}
-                  />
-                </div>
-              </ClickAwayListener>
-            )}
+          //         {/* <Input
+          //           multiline
+          //           inputProps={{maxLength: 500}}
+          //           minRows={5}
+          //           maxRows={10}
+          //           variant="filled"
+          //           className={classNames.imageObjInput}
+          //           classes={{input: classNames.subImageObjInput}}
+          //           value={item.commentByClient}
+          //           onChange={onChangeImageFileds('commentByClient', item._id)}
+          //         /> */}
 
-            {/* <div className={classNames.imageObjSubWrapper}>
-              <Typography className={cx(classNames.clientComment )}>
-                {getShortenStringIfLongerThanCount(item.commentByClient, 30)}
-              </Typography>
-            </div> */}
-          </div>
+          //         <Menu
+          //           opnen
+          //           keepMounted
+          //           // anchorEl={menuAnchor}
+          //           anchorEl={el => (ref?.current = el)}
+          //           autoFocus={false}
+          //           // classes={{paper: classNames.menu, list: classNames.list}}
+          //           // onClose={handleClose}
+          //         >
+          //           <Input
+          //             multiline
+          //             inputProps={{maxLength: 500}}
+          //             minRows={5}
+          //             maxRows={10}
+          //             variant="filled"
+          //             className={classNames.imageObjInput}
+          //             classes={{input: classNames.subImageObjInput}}
+          //             value={item.commentByClient}
+          //             onChange={onChangeImageFileds('commentByClient', item._id)}
+          //           />
+          //         </Menu>
+          //       </div>
+          //     </ClickAwayListener>
+          //   )}
+
+          //   {/* <div className={classNames.imageObjSubWrapper}>
+          //     <Typography className={cx(classNames.clientComment )}>
+          //       {getShortenStringIfLongerThanCount(item.commentByClient, 30)}
+          //     </Typography>
+          //   </div> */}
+          // </div>
         ))}
       </div>
 
