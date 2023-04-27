@@ -149,7 +149,13 @@ const Slot = ({
                 <ArrowDropUpIcon />
               </div>
 
-              <Menu open anchorEl={menuAnchor.current} autoFocus={false} onClose={handleClose}>
+              <Menu
+                open
+                anchorEl={menuAnchor.current}
+                autoFocus={false}
+                classes={{/* paper: classNames.menu, */ list: classNames.list}}
+                onClose={handleClose}
+              >
                 <Input
                   autoFocus
                   multiline
