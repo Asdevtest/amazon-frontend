@@ -62,6 +62,20 @@ export const styles = theme => ({
     lineHeight: '14px',
   },
 
+  bigBadge: {
+    width: 'fit-content',
+    padding: '1px 6px',
+    background: theme.palette.primary.main,
+    borderRadius: '22px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+    fontSize: '14px',
+    fontWeight: '400',
+    lineHeight: '14px',
+  },
+
   redBadge: {
     background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%) !important',
   },
