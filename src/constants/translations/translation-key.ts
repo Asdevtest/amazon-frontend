@@ -1936,6 +1936,7 @@ export enum TranslationKey {
   'Arrival date' = 'Arrival date',
   'Problematic' = 'Problematic',
   'Change the priority to' = 'Change the priority to',
+  'All statuses' = 'All statuses',
   // '' = '',
   // '' = '',
   // '' = '',
