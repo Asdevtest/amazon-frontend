@@ -17,6 +17,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {DataGridCustomColumnMenuComponent} from '@components/data-grid-custom-components/data-grid-custom-column-component'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import {PaymentMethodsForm} from '@components/forms/payment-methods-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
@@ -28,6 +29,8 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 import {SearchInput} from '@components/search-input'
+import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my-orders-columns'
+import {BuyerReadyForPaymentColumns} from '@components/table-columns/buyer/buyer-ready-for-payment-columns'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {toFixedWithYuanSign} from '@utils/text'
@@ -89,6 +92,7 @@ class BuyerMyOrdersViewRaw extends Component {
       showNoDimensionsErrorModal,
       showWarningNewBoxesModal,
       showOrderPriceMismatchModal,
+      showPaymentMethodsModal,
       showWarningInfoModal,
       showConfirmModal,
       showEditHSCodeModal,
@@ -99,6 +103,11 @@ class BuyerMyOrdersViewRaw extends Component {
       progressValue,
       imagesForLoad,
       paymentMethods,
+      currentOrder,
+      isReadyForPayment,
+
+      firstRowId,
+      rowHandlers,
 
       onClickHsCode,
       onTriggerDrawerOpen,
@@ -116,6 +125,7 @@ class BuyerMyOrdersViewRaw extends Component {
       onChangeFilterModel,
       // onSubmitCancelOrder,
       onSaveOrderItem,
+      saveOrderPayment,
 
       onSearchSubmit,
       onSubmitChangeBoxFields,
@@ -132,6 +142,8 @@ class BuyerMyOrdersViewRaw extends Component {
       attentionStatuses.includes(params.row.originalData.status) &&
       this.props.history.location.pathname === routsPathes.BUYER_MY_ORDERS_ALL_ORDERS &&
       classNames.attentionRow
+
+    console.log('currentOrder', currentOrder)
 
     return (
       <React.Fragment>
@@ -208,7 +220,12 @@ class BuyerMyOrdersViewRaw extends Component {
                   }}
                   columnVisibilityModel={columnVisibilityModel}
                   density={densityModel}
-                  columns={columnsModel}
+                  columns={
+                    isReadyForPayment
+                      ? BuyerReadyForPaymentColumns(firstRowId, rowHandlers)
+                      : buyerMyOrdersViewColumns(firstRowId)
+                    // columnsModel
+                  }
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
@@ -334,6 +351,18 @@ class BuyerMyOrdersViewRaw extends Component {
             hsCodeData={hsCodeData}
             onClickSaveHsCode={onClickSaveHsCode}
             onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
+          />
+        </Modal>
+
+        <Modal
+          missClickModalOn
+          openModal={showPaymentMethodsModal}
+          setOpenModal={() => onTriggerOpenModal('showPaymentMethodsModal')}
+        >
+          <PaymentMethodsForm
+            payments={currentOrder?.payments}
+            onClickSaveButton={state => saveOrderPayment(currentOrder, state)}
+            onClickCancelButton={() => onTriggerOpenModal('showPaymentMethodsModal')}
           />
         </Modal>
       </React.Fragment>

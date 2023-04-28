@@ -20,7 +20,7 @@ import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 
-import {calcProductsPriceWithDelivery} from '@utils/calculation'
+import {calcProductsMaxAmountByPriceLimit, calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {toFixed, trimBarcode} from '@utils/text'
 import {t} from '@utils/translations'
@@ -130,6 +130,8 @@ export const OrderModalBodyRow = ({
 
   const minDate = dayjs().add(2, 'day')
 
+  const maxAmount = calcProductsMaxAmountByPriceLimit(item, platformSettings.orderAmountLimit)
+
   return (
     <React.Fragment>
       <TableRow
@@ -207,8 +209,8 @@ export const OrderModalBodyRow = ({
             inputProps={{maxLength: 6, min: 0}}
             value={orderState.amount}
             onChange={e => {
-              if (e.target.value > platformSettings.orderAmountLimit) {
-                e.target.value = platformSettings.orderAmountLimit
+              if (e.target.value > maxAmount) {
+                e.target.value = maxAmount
               }
               onChangeInput(e, 'amount')
             }}

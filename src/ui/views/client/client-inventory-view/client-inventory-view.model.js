@@ -144,7 +144,7 @@ export class ClientInventoryViewModel {
 
   selectedRowId = undefined
   yuanToDollarRate = undefined
-  volumeWeightCoefficient = undefined
+  platformSettings = undefined
 
   drawerOpen = false
   showOrderModal = false
@@ -643,7 +643,7 @@ export class ClientInventoryViewModel {
     runInAction(() => {
       this.storekeepers = storekeepers
       this.destinations = destinations
-      this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      this.platformSettings = result
     })
 
     this.onTriggerOpenModal('showOrderModal')
@@ -1353,7 +1353,7 @@ export class ClientInventoryViewModel {
 
       runInAction(() => {
         this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.platformSettings = result
       })
 
       this.onTriggerOpenModal('showAddOrEditSupplierModal')

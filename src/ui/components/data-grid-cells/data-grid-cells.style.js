@@ -1770,6 +1770,7 @@ export const styles = theme => ({
     },
   },
   ChangeInputCommentCellWrapper: {
+    padding: '16px 0',
     display: 'flex',
     width: '100%',
   },
@@ -1931,6 +1932,11 @@ export const styles = theme => ({
   arrivalDateIcon: {
     width: 15,
     height: 15,
+  },
+  bluelinkText: {
+    color: theme.palette.primary.main,
+    fontWeight: 400,
+    cursor: 'pointer',
   },
 
   colorYellow: {
