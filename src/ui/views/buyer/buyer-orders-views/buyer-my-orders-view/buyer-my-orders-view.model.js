@@ -752,16 +752,16 @@ export class BuyerMyOrdersViewModel {
 
       this.clearReadyImages()
 
-      if (this.imagesForLoad.length) {
-        await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'readyImages'})
+      // if (this.imagesForLoad.length) {
+      await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'readyImages'})
 
-        this.clearImagesForLoad()
+      this.clearImagesForLoad()
 
-        orderFields = {
-          ...orderFields,
-          images: this.readyImages,
-        }
+      orderFields = {
+        ...orderFields,
+        images: this.readyImages,
       }
+      // }
 
       this.clearReadyImages()
 
@@ -776,14 +776,14 @@ export class BuyerMyOrdersViewModel {
 
       this.clearReadyImages()
 
-      if (editPaymentDetailsPhotos?.length) {
-        await onSubmitPostImages.call(this, {images: editPaymentDetailsPhotos, type: 'readyImages'})
+      // if (editPaymentDetailsPhotos?.length) {
+      await onSubmitPostImages.call(this, {images: editPaymentDetailsPhotos, type: 'readyImages'})
 
-        orderFields = {
-          ...orderFields,
-          paymentDetails: this.readyImages,
-        }
+      orderFields = {
+        ...orderFields,
+        paymentDetails: this.readyImages,
       }
+      // }
 
       this.clearReadyImages()
 
@@ -1185,9 +1185,6 @@ export class BuyerMyOrdersViewModel {
         this.baseNoConvertedOrders = result.rows
 
         this.ordersMy = buyerMyOrdersDataConverter(result.rows)
-
-        console.log('this.ordersMy', this.ordersMy)
-        console.log('result.rows', result.rows)
       })
     } catch (error) {
       runInAction(() => {

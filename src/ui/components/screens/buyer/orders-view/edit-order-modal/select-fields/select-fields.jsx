@@ -72,12 +72,6 @@ export const SelectFields = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('orderPayments', orderPayments)
-
-  const ss = orderPayments?.filter(item => item?.paymentMethod)
-
-  console.log('ss', ss)
-
   const onChangeHsField = fieldName => event => {
     const newFormFields = {...hsCode}
     newFormFields[fieldName] = event.target.value
