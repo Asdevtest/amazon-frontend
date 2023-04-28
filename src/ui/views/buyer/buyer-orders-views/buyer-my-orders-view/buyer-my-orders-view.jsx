@@ -143,8 +143,6 @@ class BuyerMyOrdersViewRaw extends Component {
       this.props.history.location.pathname === routsPathes.BUYER_MY_ORDERS_ALL_ORDERS &&
       classNames.attentionRow
 
-    console.log('currentOrder', currentOrder)
-
     return (
       <React.Fragment>
         <Navbar
