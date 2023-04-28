@@ -1872,7 +1872,7 @@ export const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     height: '100%',
-    gap: 15,
+    gap: 12,
 
     p: {
       padding: 0,
@@ -1888,7 +1888,7 @@ export const styles = theme => ({
   },
 
   tagItem: {
-    maxWidth: 280,
+    maxWidth: 130,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
