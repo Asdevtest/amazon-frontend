@@ -1272,7 +1272,7 @@ export const BatchTrackingCell = React.memo(
       <div className={classNames.batchTrackingWrapper}>
         <Field
           containerClasses={cx(classNames.batchTrackingContainer)}
-          label={t(TranslationKey['Batch tracking'])}
+          label={t(TranslationKey['Track number'])}
           labelClasses={classNames.batchTrackingTitle}
           inputComponent={
             <ChangeInputCommentCell
