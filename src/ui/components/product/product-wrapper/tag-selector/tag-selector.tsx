@@ -31,6 +31,8 @@ export const TagSelector: FC<TagSelectorProps> = props => {
   const [selectedTags, setSelectedTags] = useState<Tag[]>(currentTags)
   const [selectValue, setSelectValue] = useState<Tag | null>()
 
+  const [textValue, setTextValue] = useState<string>('')
+
   useEffect(() => {
     if (isEditMode) {
       getTags().then(value => setTagList(value))
@@ -38,7 +40,9 @@ export const TagSelector: FC<TagSelectorProps> = props => {
   }, [])
 
   const handleRemoveTags = (tag: Tag) => {
-    setSelectedTags(prevState => prevState.filter(el => el._id !== tag._id))
+    const newTags = selectedTags.filter(el => el._id !== tag._id)
+    setSelectedTags(newTags)
+    handleSaveTags(newTags)
   }
 
   const handleAddTags = () => {
@@ -69,6 +73,7 @@ export const TagSelector: FC<TagSelectorProps> = props => {
           <Autocomplete
             disablePortal
             freeSolo
+            autoSelect
             id="combo-box-demo"
             options={tagList}
             getOptionLabel={el => (typeof el === 'string' ? el : el.title)}
@@ -81,18 +86,23 @@ export const TagSelector: FC<TagSelectorProps> = props => {
                 // }}
                 style={{width: '100%'}}
                 label={placeholder}
+                value={textValue}
                 onInput={(event: any) => {
+                  setTextValue(event.target.value)
                   event.target.value = event?.target.value.slice(0, 75) // Ограничиваем длину ввода
                 }}
               />
             )}
             renderOption={(_, option) => <li {..._}>{prefix + option.title}</li>}
             value={selectValue}
-            onChange={(_, value) => setSelectValue(typeof value === 'string' ? ({title: value} as Tag) : value)}
+            onChange={(_, value) => {
+              setTextValue(typeof value === 'string' ? value : value?.title || '')
+              setSelectValue(typeof value === 'string' ? ({title: value} as Tag) : value)
+            }}
           />
           <button
             className={styles.addBtn}
-            disabled={!selectValue?.title.length || selectedTags.some(el => el.title === selectValue?.title)}
+            disabled={!textValue?.length || selectedTags.some(el => el.title === textValue)}
             onClick={handleAddTags}
           >
             <img src="/assets/icons/addTag.svg" alt="+" />
