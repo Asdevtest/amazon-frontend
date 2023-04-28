@@ -1770,6 +1770,7 @@ export const styles = theme => ({
     },
   },
   ChangeInputCommentCellWrapper: {
+    padding: '16px 0',
     display: 'flex',
     width: '100%',
   },
