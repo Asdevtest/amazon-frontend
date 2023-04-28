@@ -72,7 +72,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
-    width: window.innerWidth < 1282 ? 140 : 123,
+    width: window.innerWidth < 1282 ? 140 : 155,
     renderCell: params => <TaskTypeCell task={params.row.originalData} />,
   },
 
