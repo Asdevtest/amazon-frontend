@@ -589,7 +589,6 @@ export class ClientInventoryViewModel {
 
       await this.getProductsMy()
       this.isModalOpen && this.onTriggerOpenModal('showSendOwnProductModal')
-      this.getSuppliersPaymentMethods()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -1350,6 +1349,7 @@ export class ClientInventoryViewModel {
   async onClickAddSupplierButton() {
     try {
       const result = await UserModel.getPlatformSettings()
+      await this.getSuppliersPaymentMethods()
 
       runInAction(() => {
         this.yuanToDollarRate = result.yuanToDollarRate
