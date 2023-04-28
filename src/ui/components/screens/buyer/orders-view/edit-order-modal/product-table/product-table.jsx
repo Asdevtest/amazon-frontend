@@ -50,6 +50,7 @@ export const ProductTable = ({modalHeadCells, order, orderFields, setOrderField,
             <TableCell className={classNames.tableCell}>
               <div className={classNames.fieldWrapper}>
                 <Field
+                  error={!orderFields.amount}
                   disabled={
                     (orderFields.status !== OrderStatusByKey[OrderStatus.AT_PROCESS] &&
                       orderFields.status !== OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]) ||
