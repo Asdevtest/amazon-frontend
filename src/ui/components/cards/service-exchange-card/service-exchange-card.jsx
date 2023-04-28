@@ -13,6 +13,7 @@ import {CustomCarousel} from '@components/custom-carousel'
 import {MultilineRequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 import {UserLink} from '@components/user-link'
 
+import {checkIsImageLink} from '@utils/checks'
 import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
@@ -37,17 +38,22 @@ export const ServiceExchangeCard = ({service, onClickThumbnail, choose, order, h
 
       <div className={classNames.cardCarouselWrapper}>
         <CustomCarousel>
-          {service.linksToMediaFiles.map((imageHash, index) => (
-            <img
-              key={index}
-              alt=""
-              className={classNames.carouselImage}
-              src={getAmazonImageUrl(imageHash, true)}
-              onClick={() => {
-                onClickThumbnail({images: service.linksToMediaFiles, imgIndex: index})
-              }}
-            />
-          ))}
+          {service.linksToMediaFiles
+            .filter(el => checkIsImageLink(el?.file?.name || el))
+            .map((imageHash, index) => (
+              <img
+                key={index}
+                alt=""
+                className={classNames.carouselImage}
+                src={getAmazonImageUrl(imageHash, true)}
+                onClick={() => {
+                  onClickThumbnail({
+                    images: service.linksToMediaFiles.filter(el => checkIsImageLink(el?.file?.name || el)),
+                    imgIndex: index,
+                  })
+                }}
+              />
+            ))}
         </CustomCarousel>
       </div>
 
