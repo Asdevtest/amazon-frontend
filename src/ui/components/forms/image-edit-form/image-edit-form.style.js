@@ -10,16 +10,17 @@ export const useClassNames = makeStyles()(theme => ({
 
   imageWrapper: {
     // width: '50vw',
-    height: '55vh',
-    paddingTop: 130,
-    // display: 'flex',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    // height: '55vh',
+    // width: '55vh',
+    // paddingTop: 130,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   image: {
-    width: '33vw',
-    height: '33vh',
+    width: '45vh',
+    height: '45vh',
     objectFit: 'contain',
     // objectPosition: 'center',
   },
@@ -27,7 +28,7 @@ export const useClassNames = makeStyles()(theme => ({
   btnsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    marginTop: 30,
+    marginTop: 50,
   },
 
   btnsSubWrapper: {

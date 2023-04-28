@@ -471,7 +471,12 @@ export const EditOrderModal = observer(
 
     const [photosToLoad, setPhotosToLoad] = useState([])
     const [paymentDetailsPhotosToLoad, setPaymentDetailsPhotosToLoad] = useState([])
+
+    console.log('paymentDetailsPhotosToLoad', paymentDetailsPhotosToLoad)
+
     const [editPaymentDetailsPhotos, setEditPaymentDetailsPhotos] = useState(orderFields.paymentDetails)
+
+    console.log('editPaymentDetailsPhotos', editPaymentDetailsPhotos)
 
     const onClickSavePaymentDetails = (loadedFiles, editedFiles) => {
       setPaymentDetailsPhotosToLoad(loadedFiles)
