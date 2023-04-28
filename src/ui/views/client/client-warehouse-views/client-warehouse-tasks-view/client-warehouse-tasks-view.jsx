@@ -7,6 +7,7 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
+import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {
   mapTaskOperationTypeEnumToKey,
@@ -78,6 +79,7 @@ export class ClientWarehouseTasksViewRaw extends Component {
       selectedStatus,
       operationType,
       nameSearchValue,
+      requestStatus,
       onSearchSubmit,
       handleOperationType,
       handleSelectedStatus,
@@ -231,6 +233,7 @@ export class ClientWarehouseTasksViewRaw extends Component {
                     ColumnMenuIcon: FilterAltOutlinedIcon,
                     ColumnMenu: DataGridCustomColumnMenuComponent,
                   }}
+                  loading={requestStatus === loadingStatuses.isLoading}
                   columns={columnsModel}
                   onSelectionModelChange={onSelectionModel}
                   onSortModelChange={onChangeSortingModel}

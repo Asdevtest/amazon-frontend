@@ -720,6 +720,11 @@ export const styles = theme => ({
 
   cancelTaskBtn: {
     marginLeft: '20px',
+    height: 30,
+  },
+
+  infoBtn: {
+    height: 30,
   },
 
   superBoxQtyWrapper: {
@@ -1716,7 +1721,7 @@ export const styles = theme => ({
     // width: '210px',
     '& > div': {
       display: 'flex',
-      justifyContent: 'space-between',
+      gap: 8,
       alignItems: 'center',
     },
   },

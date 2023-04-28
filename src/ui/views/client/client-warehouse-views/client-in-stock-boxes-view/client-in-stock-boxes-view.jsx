@@ -8,7 +8,6 @@ import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {BoxStatus} from '@constants/box-status'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -36,7 +35,6 @@ import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
-import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
 import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
 import {SearchInput} from '@components/search-input'
 
@@ -48,6 +46,7 @@ import {styles} from './client-in-stock-boxes-view.style'
 
 const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
 const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES
+
 @observer
 export class ClientInStockBoxesViewRaw extends Component {
   viewModel = new ClientInStockBoxesViewModel({history: this.props.history})
@@ -268,83 +267,85 @@ export class ClientInStockBoxesViewRaw extends Component {
                 </Button>
               </div>
 
-              <MemoDataGrid
-                // disableVirtualization
-                pagination
-                checkboxSelection
-                localeText={getLocalizationByLanguageTag()}
-                isRowSelectable={params => params.row.isDraft === false}
-                classes={{
-                  row: classNames.row,
-                  virtualScrollerContent: classNames.virtualScrollerContent,
-                  root: classNames.root,
-                  footerContainer: classNames.footerContainer,
-                  footerCell: classNames.footerCell,
-                  toolbarContainer: classNames.toolbarContainer,
+              <div className={classNames.tasksWrapper}>
+                <MemoDataGrid
+                  // disableVirtualization
+                  pagination
+                  checkboxSelection
+                  localeText={getLocalizationByLanguageTag()}
+                  isRowSelectable={params => params.row.isDraft === false}
+                  classes={{
+                    row: classNames.row,
+                    virtualScrollerContent: classNames.virtualScrollerContent,
+                    root: classNames.root,
+                    footerContainer: classNames.footerContainer,
+                    footerCell: classNames.footerCell,
+                    toolbarContainer: classNames.toolbarContainer,
 
-                  columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-                  columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-                  columnHeader: classNames.columnHeader,
-                  menuIconButton: classNames.menuIconButton,
-                  iconButtonContainer: classNames.iconButtonContainer,
-                  iconSeparator: classNames.iconSeparator,
-                }}
-                sx={{
-                  '.MuiDataGrid-sortIcon': {
-                    width: 14,
-                    height: 14,
-                    // color: '#fff',
-                    // opacity: 1,
-                    // display: 'none',
-                    '& > active': {
-                      display: 'none',
+                    columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
+                    columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
+                    columnHeader: classNames.columnHeader,
+                    menuIconButton: classNames.menuIconButton,
+                    iconButtonContainer: classNames.iconButtonContainer,
+                    iconSeparator: classNames.iconSeparator,
+                  }}
+                  sx={{
+                    '.MuiDataGrid-sortIcon': {
+                      width: 14,
+                      height: 14,
+                      // color: '#fff',
+                      // opacity: 1,
+                      // display: 'none',
+                      '& > active': {
+                        display: 'none',
+                      },
                     },
-                  },
-                }}
-                headerHeight={65}
-                getRowClassName={getRowClassName}
-                selectionModel={selectedBoxes}
-                sortingMode="server"
-                paginationMode="server"
-                rowCount={rowCount}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={currentData || []}
-                getRowHeight={() => 'auto'}
-                components={{
-                  Toolbar: DataGridCustomToolbar,
-                  ColumnMenu: DataGridCustomColumnMenuComponent,
-                  ColumnMenuIcon: FilterAltOutlinedIcon,
-                }}
-                componentsProps={{
-                  columnMenu: columnMenuSettings,
-                  toolbar: {
-                    resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
-                    columsBtnSettings: {columnsModel, changeColumnsModel},
-                  },
-                }}
-                density={densityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                onColumnHeaderEnter={params => {
-                  onHoverColumnField(params.field)
-                }}
-                onColumnHeaderLeave={onLeaveColumnField}
-                onSelectionModelChange={onSelectionModel}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onFilterModelChange={onChangeFilterModel}
-                onStateChange={setDataGridState}
-                // onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-                // onCellDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-                onCellDoubleClick={params =>
-                  !disableSelectionCells.includes(params.field) && setCurrentOpenedBox(params.row.originalData)
-                }
-              />
+                  }}
+                  headerHeight={65}
+                  getRowClassName={getRowClassName}
+                  selectionModel={selectedBoxes}
+                  sortingMode="server"
+                  paginationMode="server"
+                  rowCount={rowCount}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={currentData || []}
+                  getRowHeight={() => 'auto'}
+                  components={{
+                    Toolbar: DataGridCustomToolbar,
+                    ColumnMenu: DataGridCustomColumnMenuComponent,
+                    ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  componentsProps={{
+                    columnMenu: columnMenuSettings,
+                    toolbar: {
+                      resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onColumnHeaderEnter={params => {
+                    onHoverColumnField(params.field)
+                  }}
+                  onColumnHeaderLeave={onLeaveColumnField}
+                  onSelectionModelChange={onSelectionModel}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onFilterModelChange={onChangeFilterModel}
+                  onStateChange={setDataGridState}
+                  // onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+                  // onCellDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+                  onCellDoubleClick={params =>
+                    !disableSelectionCells.includes(params.field) && setCurrentOpenedBox(params.row.originalData)
+                  }
+                />
+              </div>
 
               {/* <div className={classNames.tasksWrapper}>
                 <MemoDataGrid
