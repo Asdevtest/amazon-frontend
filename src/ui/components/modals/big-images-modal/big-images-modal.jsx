@@ -54,6 +54,8 @@ export const BigImagesModal = props => {
     setZoomOpen(true)
   }
 
+  console.log('images', images)
+
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.body}>
@@ -61,7 +63,14 @@ export const BigImagesModal = props => {
           <div className={classNames.previewListWrapper}>
             <div className={classNames.previewList}>
               {images?.map((el, index) => (
-                <div key={index} className={classNames.previewListItem} onClick={() => handlePreview(index)}>
+                <div
+                  key={index}
+                  className={classNames.previewListItem}
+                  onClick={() => {
+                    console.log('handlePreview(index)', index)
+                    handlePreview(index)
+                  }}
+                >
                   <img
                     className={cx(classNames.previewListImage, {
                       [classNames.activeImage]: index === imgIndex,
@@ -91,7 +100,10 @@ export const BigImagesModal = props => {
             // IndicatorIcon={<div>{`${imgIndex + 1}/ ${images.length}`}</div>}
             indicators={setImageIndex ? false : true}
             index={imgIndex}
-            onChange={now => handlePreview(now)}
+            onChange={now => {
+              console.log('now', now)
+              handlePreview(now)
+            }}
           >
             {images?.map((el, index) => (
               <div key={index} className={classNames.mainWrapper}>

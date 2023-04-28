@@ -301,9 +301,7 @@ export const RequestDesignerResultClientForm = ({
         <div className={classNames.titleWrapper}>
           <Typography className={cx(classNames.headerLabel)}>{`${t(TranslationKey['Request result'])} /`}</Typography>
 
-          <Typography className={cx(classNames.headerLabel, classNames.secondSpanText)}>{`ID`}</Typography>
-
-          <Typography className={cx(classNames.headerLabel)}>{`${request.request.humanFriendlyId}`}</Typography>
+          <Typography className={cx(classNames.headerLabel)}>{`ID ${request.request.humanFriendlyId}`}</Typography>
         </div>
         <div className={classNames.headerRightSubWrapper}>
           <Field
