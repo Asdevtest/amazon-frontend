@@ -332,7 +332,7 @@ export const AsinCopyCell = React.memo(
 )
 
 export const StringListCell = React.memo(
-  withStyles(({classes: classNames, sourceString, withCopy, maxItemsDisplay, maxLettersInItem}) => {
+  withStyles(({classes: classNames, sourceString, withCopy, maxItemsDisplay, maxLettersInItem, onClickCell}) => {
     const [menuAnchor, setMenuAnchor] = useState(null)
     const handleClick = event => {
       setMenuAnchor(event.currentTarget)
@@ -355,7 +355,7 @@ export const StringListCell = React.memo(
     }, [nameSearchValue])
 
     return (
-      <div className={cx(classNames.flexDirectionColumn, classNames.adaptText)}>
+      <div className={cx(classNames.flexDirectionColumn, classNames.adaptText)} onClick={onClickCell}>
         {items
           .slice(0, maxItemsDisplay)
           .filter(el => el)
@@ -363,7 +363,11 @@ export const StringListCell = React.memo(
             <div key={i} className={classNames.multilineTextHeaderWrapper}>
               <Typography className={cx(classNames.typoCell, classNames.adaptText)}>
                 {
-                  <span className={cx(classNames.multilineHeaderText, classNames.adaptText)}>
+                  <span
+                    className={cx(classNames.multilineHeaderText, classNames.adaptText, {
+                      [classNames.bluelinkText]: onClickCell,
+                    })}
+                  >
                     {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
                   </span>
                 }
@@ -1268,7 +1272,7 @@ export const BatchTrackingCell = React.memo(
       <div className={classNames.batchTrackingWrapper}>
         <Field
           containerClasses={cx(classNames.batchTrackingContainer)}
-          label={t(TranslationKey['Batch tracking'])}
+          label={t(TranslationKey['Track number'])}
           labelClasses={classNames.batchTrackingTitle}
           inputComponent={
             <ChangeInputCommentCell

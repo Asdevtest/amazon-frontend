@@ -20,6 +20,7 @@ import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
 import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my-orders-columns'
+import {BuyerReadyForPaymentColumns} from '@components/table-columns/buyer/buyer-ready-for-payment-columns'
 
 // import {calcOrderTotalPrice} from '@utils/calculation'
 import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
@@ -92,6 +93,8 @@ export class BuyerMyOrdersViewModel {
 
   currentData = []
 
+  isReadyForPayment = undefined
+
   curBoxesOfOrder = []
 
   createBoxesResult = []
@@ -115,6 +118,9 @@ export class BuyerMyOrdersViewModel {
   showOrderPriceMismatchModal = false
   showConfirmModal = false
   showWarningInfoModal = false
+  showPaymentMethodsModal = false
+
+  currentOrder = undefined
 
   updateSupplierData = false
 
@@ -147,7 +153,13 @@ export class BuyerMyOrdersViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = buyerMyOrdersViewColumns(this.firstRowId)
+  // columnsModel = buyerMyOrdersViewColumns(this.firstRowId)
+
+  rowHandlers = {
+    onClickPaymentMethodCell: row => this.onClickPaymentMethodCell(row),
+  }
+
+  columnsModel = []
   columnVisibilityModel = undefined
 
   progressValue = 0
@@ -292,8 +304,6 @@ export class BuyerMyOrdersViewModel {
       this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(
         OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT],
       )
-
-      console.log('this.paymentAmount', this.paymentAmount)
     }
   }
 
@@ -551,9 +561,23 @@ export class BuyerMyOrdersViewModel {
     return toJS(this.ordersMy)
   }
 
+  async setColumnsModel() {
+    const currentStatus = await this.setOrderStatus(this.history.location.pathname)
+
+    this.isReadyForPayment = currentStatus.some(status => status === OrderStatus.READY_FOR_PAYMENT)
+  }
+
+  onClickPaymentMethodCell(row) {
+    runInAction(() => {
+      this.currentOrder = row
+      this.onTriggerOpenModal('showPaymentMethodsModal')
+    })
+  }
+
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      await this.setColumnsModel()
       this.getDataGridState()
       await this.getOrdersMy()
       this.getBuyersOrdersPaymentByStatus()
@@ -656,6 +680,52 @@ export class BuyerMyOrdersViewModel {
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
       console.log(error)
+      this.setRequestStatus(loadingStatuses.failed)
+    }
+  }
+
+  async saveOrderPayment(order, orderPayments) {
+    if (Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
+      try {
+        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
+        const validOrderPayments = []
+        for (const payment of orderPayments) {
+          if (payment?.photosForLoad?.length) {
+            this.clearReadyImages()
+            await onSubmitPostImages.call(this, {images: payment.photosForLoad, type: 'readyImages'})
+          }
+
+          const readyPhotosForLoad = await this.readyImages
+
+          this.clearReadyImages()
+
+          const validObj = {
+            paymentMethodId: payment?.paymentMethod._id,
+            paymentDetails: payment?.paymentDetails,
+            paymentImages: readyPhotosForLoad,
+          }
+
+          if (payment?.paymentImages?.length) {
+            this.clearReadyImages()
+            await onSubmitPostImages.call(this, {images: payment.paymentImages, type: 'readyImages'})
+          }
+
+          const readyPaymentImages = await this.readyImages
+
+          this.clearReadyImages()
+
+          validOrderPayments.push({
+            ...validObj,
+            paymentImages: [...validObj.paymentImages, ...readyPaymentImages],
+          })
+        }
+
+        await BuyerModel.PatchBuyersOrdersPaymentByGuid(order._id, {orderPayments: validOrderPayments})
+        this.loadData()
+      } catch (error) {
+        console.log('error', error)
+        this.setRequestStatus(loadingStatuses.failed)
+      }
     }
   }
 
@@ -669,6 +739,7 @@ export class BuyerMyOrdersViewModel {
     commentToWarehouse,
     paymentDetailsPhotosToLoad,
     editPaymentDetailsPhotos,
+    orderPayments,
   }) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -681,16 +752,16 @@ export class BuyerMyOrdersViewModel {
 
       this.clearReadyImages()
 
-      if (this.imagesForLoad.length) {
-        await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'readyImages'})
+      // if (this.imagesForLoad.length) {
+      await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'readyImages'})
 
-        this.clearImagesForLoad()
+      this.clearImagesForLoad()
 
-        orderFields = {
-          ...orderFields,
-          images: this.readyImages,
-        }
+      orderFields = {
+        ...orderFields,
+        images: this.readyImages,
       }
+      // }
 
       this.clearReadyImages()
 
@@ -705,14 +776,14 @@ export class BuyerMyOrdersViewModel {
 
       this.clearReadyImages()
 
-      if (editPaymentDetailsPhotos?.length) {
-        await onSubmitPostImages.call(this, {images: editPaymentDetailsPhotos, type: 'readyImages'})
+      // if (editPaymentDetailsPhotos?.length) {
+      await onSubmitPostImages.call(this, {images: editPaymentDetailsPhotos, type: 'readyImages'})
 
-        orderFields = {
-          ...orderFields,
-          paymentDetails: this.readyImages,
-        }
+      orderFields = {
+        ...orderFields,
+        paymentDetails: this.readyImages,
       }
+      // }
 
       this.clearReadyImages()
 
@@ -725,7 +796,11 @@ export class BuyerMyOrdersViewModel {
         }
       }
 
+      this.clearReadyImages()
+
       await this.onSaveOrder(order, orderFields)
+
+      this.saveOrderPayment(order, orderPayments)
 
       if (
         boxesForCreation.length > 0 &&
@@ -763,7 +838,62 @@ export class BuyerMyOrdersViewModel {
       }
 
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}`) {
-        await BuyerModel.orderReadyForPayment(order._id)
+        // orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
+
+        // orderPayments = await Promise.all(
+        //   orderPayments.map(async payment => {
+        //     if (payment?.photosForLoad?.length) {
+        //       this.clearReadyImages()
+        //       await onSubmitPostImages.call(this, {images: payment.photosForLoad, type: 'readyImages'})
+        //     }
+
+        //     const readyImages = this.readyImages
+
+        //     this.clearReadyImages()
+
+        //     return {
+        //       paymentMethodId: payment.paymentMethod._id,
+        //       paymentDetails: payment.paymentDetails,
+        //       paymentImages: readyImages,
+        //     }
+        //   }),
+        // )
+
+        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
+
+        const validOrderPayments = []
+        for (const payment of orderPayments) {
+          if (payment?.photosForLoad?.length) {
+            this.clearReadyImages()
+            await onSubmitPostImages.call(this, {images: payment.photosForLoad, type: 'readyImages'})
+          }
+
+          const readyPhotosForLoad = await this.readyImages
+
+          this.clearReadyImages()
+
+          const validObj = {
+            paymentMethodId: payment?.paymentMethod._id,
+            paymentDetails: payment?.paymentDetails,
+            paymentImages: readyPhotosForLoad,
+          }
+
+          if (payment?.paymentImages?.length) {
+            this.clearReadyImages()
+            await onSubmitPostImages.call(this, {images: payment.paymentImages, type: 'readyImages'})
+          }
+
+          const readyPaymentImages = await this.readyImages
+
+          this.clearReadyImages()
+
+          validOrderPayments.push({
+            ...validObj,
+            paymentImages: [...validObj.paymentImages, ...readyPaymentImages],
+          })
+        }
+
+        await BuyerModel.orderReadyForPayment(order._id, {orderPayments: validOrderPayments})
       }
 
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {

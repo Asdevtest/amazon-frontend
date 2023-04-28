@@ -316,6 +316,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     height: '100%',
     objectFit: 'contain',
+    background: theme.palette.background.general,
 
     transition: '.3s ease',
     cursor: 'pointer',

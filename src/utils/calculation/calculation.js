@@ -36,6 +36,15 @@ export const calcProductsPriceWithDelivery = (product, order) =>
     ) || 0)) *
   (parseInt(order?.amount) || 0)
 
+export const calcProductsMaxAmountByPriceLimit = (product, maxPrice) =>
+  maxPrice > 0
+    ? maxPrice /
+      ((parseFloat(product.currentSupplier && product.currentSupplier.price) || 0) +
+        (parseFloat(
+          product.currentSupplier && product.currentSupplier.batchDeliveryCostInDollar / product.currentSupplier.amount,
+        ) || 0))
+    : 999999999
+
 export const calcOrderTotalPrice = (supplier, goodsAmount) =>
   ((parseFloat(supplier?.price) || 0) + (parseFloat(supplier?.batchDeliveryCostInDollar / supplier?.amount) || 0)) *
   (parseInt(goodsAmount) || 0)

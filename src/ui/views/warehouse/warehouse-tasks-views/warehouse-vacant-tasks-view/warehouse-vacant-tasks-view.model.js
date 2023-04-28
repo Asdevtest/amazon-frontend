@@ -154,10 +154,15 @@ export class WarehouseVacantViewModel {
   }
 
   onClickReportBtn() {
-    this.selectedTasks.forEach(el => {
+    this.setRequestStatus(loadingStatuses.isLoading)
+    this.selectedTasks.forEach((el, index) => {
       const taskId = el
 
-      OtherModel.getReportTaskByTaskId(taskId)
+      OtherModel.getReportTaskByTaskId(taskId).then(() => {
+        if (index === this.selectedTasks.length - 1) {
+          this.setRequestStatus(loadingStatuses.success)
+        }
+      })
     })
   }
 
