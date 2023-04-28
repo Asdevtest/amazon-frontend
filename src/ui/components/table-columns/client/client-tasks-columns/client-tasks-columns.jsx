@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, {useCallback} from 'react'
 
 import {columnnsKeys} from '@constants/data-grid-columns-keys'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -50,14 +50,21 @@ export const clientTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
     width: 271,
-    renderCell: params => (
-      <ChangeInputCommentCell
-        rowsCount={4}
-        text={params.row.originalData.reason}
-        id={params.row.originalData._id}
-        onClickSubmit={(id, reason) => handlers.updateTaskComment(id, params.row.originalData.priority, reason)}
-      />
-    ),
+
+    renderCell: params => {
+      const onClickSubmit = useCallback((id, reason) => {
+        handlers.updateTaskComment(id, params.row.originalData.priority, reason)
+      }, [])
+
+      return (
+        <ChangeInputCommentCell
+          rowsCount={4}
+          text={params.row.originalData.reason}
+          id={params.row.originalData._id}
+          onClickSubmit={onClickSubmit}
+        />
+      )
+    },
   },
 
   {

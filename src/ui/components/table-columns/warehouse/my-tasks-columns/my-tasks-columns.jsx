@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, {useCallback, useMemo} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -25,13 +25,26 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
 
     width: window.innerWidth < 1282 ? 115 : 190,
 
-    renderCell: params => (
-      <WarehouseMyTasksBtnsCell
-        handlers={handlers}
-        row={params.row.originalData}
-        isFirstRow={firstRowId === params.row.id}
-      />
-    ),
+    // renderCell: params => (
+    //   <WarehouseMyTasksBtnsCell
+    //     handlers={handlers}
+    //     row={params.row.originalData}
+    //     isFirstRow={firstRowId === params.row.id}
+    //   />
+    // ),
+
+    renderCell: params => {
+      const handlersMemo = useMemo(() => handlers, [])
+      const originalDataMemo = useMemo(() => params.row.originalData, [])
+
+      return (
+        <WarehouseMyTasksBtnsCell
+          handlers={handlersMemo}
+          row={originalDataMemo}
+          isFirstRow={firstRowId === params.row.id}
+        />
+      )
+    },
     filterable: false,
     sortable: false,
   },
@@ -42,13 +55,25 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
 
     width: window.innerWidth < 1282 ? 140 : 170,
-    renderCell: params => (
-      <TaskPriorityCell
-        curPriority={params.value}
-        taskId={params.row.originalData._id}
-        onChangePriority={handlers.updateTaskPriority}
-      />
-    ),
+    // renderCell: params => (
+    //   <TaskPriorityCell
+    //     curPriority={params.value}
+    //     taskId={params.row.originalData._id}
+    //     onChangePriority={handlers.updateTaskPriority}
+    //   />
+    // ),
+
+    renderCell: params => {
+      const onChangePriority = useCallback(handlers.updateTaskPriority, [])
+
+      return (
+        <TaskPriorityCell
+          curPriority={params.value}
+          taskId={params.row.originalData._id}
+          onChangePriority={onChangePriority}
+        />
+      )
+    },
   },
 
   {
@@ -57,14 +82,20 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
     width: 271,
-    renderCell: params => (
-      <ChangeInputCommentCell
-        rowsCount={4}
-        text={params.row.originalData.reason}
-        id={params.row.originalData._id}
-        onClickSubmit={(id, reason) => handlers.updateTaskComment(id, params.row.originalData.priority, reason)}
-      />
-    ),
+    renderCell: params => {
+      const onClickSubmit = useCallback((id, reason) => {
+        handlers.updateTaskComment(id, params.row.originalData.priority, reason)
+      }, [])
+
+      return (
+        <ChangeInputCommentCell
+          rowsCount={4}
+          text={params.row.originalData.reason}
+          id={params.row.originalData._id}
+          onClickSubmit={onClickSubmit}
+        />
+      )
+    },
   },
 
   {
@@ -73,7 +104,12 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
     width: window.innerWidth < 1282 ? 140 : 155,
-    renderCell: params => <TaskTypeCell task={params.row.originalData} />,
+    // renderCell: params => <TaskTypeCell task={params.row.originalData} />,
+    renderCell: params => {
+      const originalDataMemo = useMemo(() => params.row.originalData, [])
+
+      return <TaskTypeCell task={originalDataMemo} />
+    },
   },
 
   {
@@ -83,7 +119,13 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
 
     // width: window.innerWidth < 1282 ? 338 : 850,
     width: 290,
-    renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
+    // renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
+
+    renderCell: params => {
+      const originalDataMemo = useMemo(() => params.row.originalData, [])
+
+      return <TaskDescriptionCell task={originalDataMemo} />
+    },
     filterable: false,
     sortable: false,
   },
