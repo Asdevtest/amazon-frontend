@@ -395,6 +395,7 @@ export class ClientWarehouseTasksViewModel {
 
   async getTasksMy() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       const result = await ClientModel.getTasks({
         filters: this.getFilter(),
         limit: this.rowsPerPage,
@@ -412,6 +413,7 @@ export class ClientWarehouseTasksViewModel {
 
         this.tasksMy = warehouseTasksDataConverter(result.rows).sort(sortObjectsArrayByFiledDate('updatedAt'))
       })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       runInAction(() => {
