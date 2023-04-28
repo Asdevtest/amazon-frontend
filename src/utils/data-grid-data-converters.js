@@ -204,6 +204,8 @@ export const buyerMyOrdersDataConverter = data =>
     needsResearch: item.needsResearch,
 
     deadline: item.deadline,
+
+    payments: item?.payments,
   }))
 
 export const buyerVacantOrdersDataConverter = data =>

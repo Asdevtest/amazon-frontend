@@ -107,11 +107,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imagesAndFilesWrapper: {
-    // height: '100%', вернуть если что-то сломается
-    height: 'auto',
+    height: '100%' /* вернуть если что-то сломается */,
+    // height: 'auto',
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'baseline',
+    alignItems: 'center',
     margin: '20px 0 20px 0',
   },
 
@@ -253,22 +253,27 @@ export const useClassNames = makeStyles()(theme => ({
 
   emptyIconWrapper: {
     width: '100%',
-    height: '100px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // marginBottom: '25px',
-    // marginLeft: '20px',
+
+    marginTop: 20,
   },
 
   emptyIcon: {
-    width: '60px',
-    height: '60px',
-    backgroundColor: '#e0e0e0',
-    borderRadius: '50%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  noPhotoIcon: {
+    width: '80px !important',
+    height: '80px !important',
+  },
+
+  noDocumentIcon: {
+    width: '80px !important',
+    height: '80px !important',
+    color: '#E0E0E0',
   },
 
   emptyIconMini: {
@@ -324,8 +329,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   noPhotoText: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+
     textAlign: 'center',
     color: theme.palette.text.second,
+
+    marginTop: 15,
   },
 
   imagesModalBtn: {

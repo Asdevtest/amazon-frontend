@@ -59,7 +59,8 @@ export const checkIsImageLink = link =>
   link?.endsWith('.webp') ||
   link?.endsWith('.avif') ||
   link?.endsWith('.jpeg') ||
-  link?.endsWith('.rotated-image')
+  link?.endsWith('.rotated-image') ||
+  link?.includes('rotated-image')
 //   &&
 // (link?.includes('http:/') || link?.includes('https:/'))
 

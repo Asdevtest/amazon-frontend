@@ -30,10 +30,17 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 30,
   },
 
+  rowPaymentMethodsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
+  },
+
   paymentMethodsField: {
     position: 'relative',
 
     minWidth: 240,
+    width: '100%',
     minHeight: 40,
     borderRadius: 4,
 
@@ -81,6 +88,16 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
 
     color: theme.palette.primary.main,
+  },
+
+  generalText: {
+    '&.Mui-disabled': {
+      '-webkit-text-fill-color': `${theme.palette.primary.main} !important`,
+    },
+  },
+
+  cursorPointer: {
+    cursor: 'pointer !important',
   },
 
   editIcon: {
