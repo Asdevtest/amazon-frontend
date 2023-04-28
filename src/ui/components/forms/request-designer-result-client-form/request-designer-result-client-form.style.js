@@ -24,10 +24,6 @@ export const useClassNames = makeStyles()(theme => ({
     // marginBottom: 20,
   },
 
-  secondSpanText: {
-    color: theme.palette.text.second,
-  },
-
   labelMargin: {
     marginBottom: 10,
   },

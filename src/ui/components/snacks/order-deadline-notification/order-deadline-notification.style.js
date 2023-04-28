@@ -72,7 +72,8 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     overflowY: 'auto',
     overflowX: 'hidden',
-    maxHeight: 600,
+    maxHeight: '25vh',
+    height: '100%',
     p: {
       maxWidth: 'unset',
     },

@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import {useCallback} from 'react'
+
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -83,13 +85,25 @@ export const sourceFilesColumns = (rowHandlers, languageTag, editField) => [
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
     width: 239,
-    renderCell: params => (
-      <ChangeInputCommentCell
-        text={params?.value}
-        disabled={params?.row?.originalData?._id !== editField?._id}
-        onChangeText={rowHandlers.onChangeText}
-      />
-    ),
+    // renderCell: params => (
+    //   <ChangeInputCommentCell
+    //     text={params?.value}
+    //     disabled={params?.row?.originalData?._id !== editField?._id}
+    //     onChangeText={rowHandlers.onChangeText}
+    //   />
+    // ),
+    renderCell: params => {
+      const onClickSubmit = useCallback(rowHandlers.onChangeText, [])
+
+      return (
+        <ChangeInputCommentCell
+          rowsCount={4}
+          text={params.row.originalData.reason}
+          id={params.row.originalData._id}
+          onClickSubmit={onClickSubmit}
+        />
+      )
+    },
   },
 
   {
