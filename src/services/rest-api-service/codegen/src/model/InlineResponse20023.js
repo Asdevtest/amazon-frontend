@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20021 from './InlineResponse20021';
 
 /**
  * The InlineResponse20023 model module.
@@ -21,6 +22,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20023 {
     /**
      * Constructs a new <code>InlineResponse20023</code>.
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20023
      */
     constructor() { 
@@ -47,11 +49,11 @@ class InlineResponse20023 {
         if (data) {
             obj = obj || new InlineResponse20023();
 
-            if (data.hasOwnProperty('totalPriceInYuan')) {
-                obj['totalPriceInYuan'] = ApiClient.convertToType(data['totalPriceInYuan'], 'Number');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('totalPriceInUSD')) {
-                obj['totalPriceInUSD'] = ApiClient.convertToType(data['totalPriceInUSD'], 'Number');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20021]);
             }
         }
         return obj;
@@ -61,16 +63,16 @@ class InlineResponse20023 {
 }
 
 /**
- * total price in yuan for these statuses
- * @member {Number} totalPriceInYuan
+ * Всего кол-во записей в результате запроса
+ * @member {Number} count
  */
-InlineResponse20023.prototype['totalPriceInYuan'] = undefined;
+InlineResponse20023.prototype['count'] = undefined;
 
 /**
- * total price in USD for these statuses
- * @member {Number} totalPriceInUSD
+ * Массив коробок c пагинацией(заданная страничка).
+ * @member {Array.<module:model/InlineResponse20021>} rows
  */
-InlineResponse20023.prototype['totalPriceInUSD'] = undefined;
+InlineResponse20023.prototype['rows'] = undefined;
 
 
 

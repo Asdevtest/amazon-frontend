@@ -31,8 +31,6 @@ export const PaymentMethodCard = props => {
 
   const [paymentsFields, setPaymentsFields] = useState(initialState)
 
-  console.log('paymentsFields', paymentsFields)
-
   const setFielData = filedName => event => {
     const newPaymentsFieldsState = {...paymentsFields}
 
@@ -92,6 +90,7 @@ export const PaymentMethodCard = props => {
             dragAndDropBtnHeight={40}
             maxHeight={90}
             сontainerStyles={classNames.containerClasses}
+            imageListWrapperStyles={classNames.imageListWrapperStyles}
             images={paymentsFields.photosForLoad}
             filesLength={paymentsFields?.paymentImages?.length}
             setImages={setFielData('photosForLoad')}

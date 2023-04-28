@@ -54,8 +54,6 @@ export const BigImagesModal = props => {
     setZoomOpen(true)
   }
 
-  console.log('images', images)
-
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.body}>

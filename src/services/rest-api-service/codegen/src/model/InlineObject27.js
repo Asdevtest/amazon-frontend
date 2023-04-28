@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineObject18 from './InlineObject18';
 
 /**
  * The InlineObject27 model module.
@@ -51,9 +50,6 @@ class InlineObject27 {
             if (data.hasOwnProperty('guid')) {
                 obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
-            if (data.hasOwnProperty('additionalBoxes')) {
-                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject18]);
-            }
         }
         return obj;
     }
@@ -62,16 +58,10 @@ class InlineObject27 {
 }
 
 /**
- * GUID для которой подтверждаем действие.
+ * GUID коробки разделение которой отменяем.
  * @member {String} guid
  */
 InlineObject27.prototype['guid'] = undefined;
-
-/**
- * Массив дополнительных коробок которые случились при обработки.
- * @member {Array.<module:model/InlineObject18>} additionalBoxes
- */
-InlineObject27.prototype['additionalBoxes'] = undefined;
 
 
 

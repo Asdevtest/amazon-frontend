@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** | Общее кол-во записей | [optional] 
-**rows** | [**[InlineResponse2004]**](InlineResponse2004.md) |  | [optional] 
+**_id** | **String** | Гуид магазина | 
+**name** | **String** | Название магазина | 
 
 

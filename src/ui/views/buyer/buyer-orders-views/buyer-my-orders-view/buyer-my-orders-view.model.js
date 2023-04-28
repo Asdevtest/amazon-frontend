@@ -567,7 +567,8 @@ export class BuyerMyOrdersViewModel {
     this.isReadyForPayment = currentStatus.some(status => status === OrderStatus.READY_FOR_PAYMENT)
   }
 
-  onClickPaymentMethodCell(row) {
+  async onClickPaymentMethodCell(row) {
+    await this.getSuppliersPaymentMethods()
     runInAction(() => {
       this.currentOrder = row
       this.onTriggerOpenModal('showPaymentMethodsModal')
@@ -581,7 +582,6 @@ export class BuyerMyOrdersViewModel {
       this.getDataGridState()
       await this.getOrdersMy()
       this.getBuyersOrdersPaymentByStatus()
-      this.getSuppliersPaymentMethods()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -629,6 +629,8 @@ export class BuyerMyOrdersViewModel {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
       const hsCode = await ProductModel.getProductsHsCodeByGuid(orderData.product._id)
+
+      await this.getSuppliersPaymentMethods()
 
       runInAction(() => {
         this.hsCodeData = hsCode

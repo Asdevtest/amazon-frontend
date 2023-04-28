@@ -143,6 +143,17 @@ class BuyerMyOrdersViewRaw extends Component {
       this.props.history.location.pathname === routsPathes.BUYER_MY_ORDERS_ALL_ORDERS &&
       classNames.attentionRow
 
+    const validOrderPayments =
+      currentOrder && currentOrder?.orderSupplier?.paymentMethods?.length
+        ? currentOrder?.orderSupplier?.paymentMethods.filter(
+            method => !currentOrder?.payments.some(payment => payment.paymentMethod._id === method._id),
+          )
+        : paymentMethods.filter(
+            method => !currentOrder?.payments.some(payment => payment.paymentMethod._id === method._id),
+          )
+
+    const payments = currentOrder && [...currentOrder.payments, ...validOrderPayments]
+
     return (
       <React.Fragment>
         <Navbar
@@ -358,7 +369,7 @@ class BuyerMyOrdersViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showPaymentMethodsModal')}
         >
           <PaymentMethodsForm
-            payments={currentOrder?.payments}
+            payments={payments}
             onClickSaveButton={state => saveOrderPayment(currentOrder, state)}
             onClickCancelButton={() => onTriggerOpenModal('showPaymentMethodsModal')}
           />
