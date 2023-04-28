@@ -263,4 +263,21 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: '10px',
   },
+
+  error: {
+    lineHeight: 0,
+    fontSize: 12,
+    color: '#FF1616',
+    marginTop: 12,
+  },
+
+  errorText: {
+    input: {
+      color: '#FF1616',
+    },
+  },
+
+  errorSpace: {
+    marginTop: 12,
+  },
 }))
