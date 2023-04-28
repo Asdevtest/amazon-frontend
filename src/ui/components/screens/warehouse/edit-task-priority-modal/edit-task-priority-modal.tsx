@@ -44,16 +44,16 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
 
       <Field
         labelClasses={styles.reasonLabel}
-        label={t(TranslationKey.Comment)}
+        label={`${t(TranslationKey.Comment)}${
+          Number(data.newPriority) ===
+          mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC as keyof typeof mapTaskPriorityStatusEnumToKey]
+            ? '*'
+            : ''
+        }`}
         inputComponent={
           <Input
             multiline
-            placeholder={`${t(TranslationKey.Comment)}${
-              Number(data.newPriority) ===
-                mapTaskPriorityStatusEnumToKey[
-                  TaskPriorityStatus.PROBLEMATIC as keyof typeof mapTaskPriorityStatusEnumToKey
-                ] && '*'
-            }`}
+            placeholder={t(TranslationKey.Comment)}
             minRows={2}
             maxRows={2}
             className={styles.reasonInput}
