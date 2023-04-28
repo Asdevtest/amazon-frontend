@@ -22,11 +22,10 @@ class InlineObject61 {
     /**
      * Constructs a new <code>InlineObject61</code>.
      * @alias module:model/InlineObject61
-     * @param profileId {String} id профайла
      */
-    constructor(profileId) { 
+    constructor() { 
         
-        InlineObject61.initialize(this, profileId);
+        InlineObject61.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject61 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, profileId) { 
-        obj['profileId'] = profileId;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,8 @@ class InlineObject61 {
         if (data) {
             obj = obj || new InlineObject61();
 
-            if (data.hasOwnProperty('profileId')) {
-                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
+            if (data.hasOwnProperty('suppliersId')) {
+                obj['suppliersId'] = ApiClient.convertToType(data['suppliersId'], 'String');
             }
         }
         return obj;
@@ -60,10 +58,10 @@ class InlineObject61 {
 }
 
 /**
- * id профайла
- * @member {String} profileId
+ * GUID поставщика, который нужно удалить в БД.
+ * @member {String} suppliersId
  */
-InlineObject61.prototype['profileId'] = undefined;
+InlineObject61.prototype['suppliersId'] = undefined;
 
 
 

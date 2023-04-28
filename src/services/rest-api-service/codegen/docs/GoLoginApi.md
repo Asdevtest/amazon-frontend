@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## apiV1GologinProfilePost
 
-> InlineResponse20043 apiV1GologinProfilePost(opts)
+> InlineResponse20045 apiV1GologinProfilePost(opts)
 
 # Создать новый профайл пользователя.
 
@@ -33,7 +33,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.GoLoginApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject58() // InlineObject58 | 
+  'body': new TestSwagger.InlineObject65() // InlineObject65 | 
 };
 apiInstance.apiV1GologinProfilePost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -49,11 +49,11 @@ apiInstance.apiV1GologinProfilePost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject58**](InlineObject58.md)|  | [optional] 
+ **body** | [**InlineObject65**](InlineObject65.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse20043**](InlineResponse20043.md)
+[**InlineResponse20045**](InlineResponse20045.md)
 
 ### Authorization
 
@@ -88,7 +88,7 @@ let apiInstance = new TestSwagger.GoLoginApi();
 let profileId = "profileId_example"; // String | id профайла который нужно изменить.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject59() // InlineObject59 | 
+  'body': new TestSwagger.InlineObject66() // InlineObject66 | 
 };
 apiInstance.apiV1GologinProfileProfileIdPatch(profileId, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **profileId** | **String**| id профайла который нужно изменить. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject59**](InlineObject59.md)|  | [optional] 
+ **body** | [**InlineObject66**](InlineObject66.md)|  | [optional] 
 
 ### Return type
 
@@ -143,7 +143,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.GoLoginApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject60() // InlineObject60 | 
+  'body': new TestSwagger.InlineObject67() // InlineObject67 | 
 };
 apiInstance.apiV1GologinProfileStartPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -159,7 +159,7 @@ apiInstance.apiV1GologinProfileStartPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject60**](InlineObject60.md)|  | [optional] 
+ **body** | [**InlineObject67**](InlineObject67.md)|  | [optional] 
 
 ### Return type
 
@@ -197,7 +197,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.GoLoginApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject61() // InlineObject61 | 
+  'body': new TestSwagger.InlineObject68() // InlineObject68 | 
 };
 apiInstance.apiV1GologinProfileStopPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -213,7 +213,7 @@ apiInstance.apiV1GologinProfileStopPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject61**](InlineObject61.md)|  | [optional] 
+ **body** | [**InlineObject68**](InlineObject68.md)|  | [optional] 
 
 ### Return type
 

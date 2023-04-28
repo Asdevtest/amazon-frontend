@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**profileId** | **String** | id профайла | 
+**suppliersId** | **String** | GUID поставщика, который нужно удалить в БД. | [optional] 
 
 

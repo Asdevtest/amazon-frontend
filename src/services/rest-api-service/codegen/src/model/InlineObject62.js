@@ -47,38 +47,26 @@ class InlineObject62 {
         if (data) {
             obj = obj || new InlineObject62();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
-            }
-            if (data.hasOwnProperty('comments')) {
-                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
-            }
             if (data.hasOwnProperty('productName')) {
                 obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
             }
             if (data.hasOwnProperty('productLinks')) {
                 obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [NULL_SCHEMA_ERR]);
             }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], [NULL_SCHEMA_ERR]);
+            }
             if (data.hasOwnProperty('criteria')) {
                 obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
+            }
+            if (data.hasOwnProperty('dimensions')) {
+                obj['dimensions'] = ApiClient.convertToType(data['dimensions'], 'String');
             }
             if (data.hasOwnProperty('quantity')) {
                 obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
             }
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('width')) {
-                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
-            }
-            if (data.hasOwnProperty('height')) {
-                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
-            }
-            if (data.hasOwnProperty('length')) {
-                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
             }
             if (data.hasOwnProperty('productId')) {
                 obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
@@ -89,24 +77,6 @@ class InlineObject62 {
 
 
 }
-
-/**
- * Название идеи
- * @member {String} title
- */
-InlineObject62.prototype['title'] = undefined;
-
-/**
- * Image URL
- * @member {Array.<String>} media
- */
-InlineObject62.prototype['media'] = undefined;
-
-/**
- * Комментарий к идее
- * @member {String} comments
- */
-InlineObject62.prototype['comments'] = undefined;
 
 /**
  * Назавние продукта
@@ -121,10 +91,22 @@ InlineObject62.prototype['productName'] = undefined;
 InlineObject62.prototype['productLinks'] = undefined;
 
 /**
+ * Image URL
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject62.prototype['linksToMediaFiles'] = undefined;
+
+/**
  * Дополнительные критерии для поиска товара
  * @member {String} criteria
  */
 InlineObject62.prototype['criteria'] = undefined;
+
+/**
+ * Размеры
+ * @member {String} dimensions
+ */
+InlineObject62.prototype['dimensions'] = undefined;
 
 /**
  * Количество товаров
@@ -137,24 +119,6 @@ InlineObject62.prototype['quantity'] = undefined;
  * @member {Number} price
  */
 InlineObject62.prototype['price'] = undefined;
-
-/**
- * Ширина, см
- * @member {Number} width
- */
-InlineObject62.prototype['width'] = undefined;
-
-/**
- * Высота, см
- * @member {Number} height
- */
-InlineObject62.prototype['height'] = undefined;
-
-/**
- * Длина, см
- * @member {Number} length
- */
-InlineObject62.prototype['length'] = undefined;
 
 /**
  * Product ID
