@@ -44,6 +44,8 @@ export const OrderModalBodyRow = ({
   withRemove,
   destinationsFavourites,
   onClickSetDestinationFavourite,
+  isPriseOutOfLimit,
+  setIsPriseOutOfLimit,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -192,7 +194,7 @@ export const OrderModalBodyRow = ({
 
           <Field
             containerClasses={classNames.containerField}
-            inputClasses={classNames.amountCell}
+            inputClasses={cx(classNames.amountCell, {[classNames.errorText]: isPriseOutOfLimit})}
             error={
               item.currentSupplier?.multiplicity &&
               item.currentSupplier?.boxProperties?.amountInBox &&
@@ -210,7 +212,9 @@ export const OrderModalBodyRow = ({
             value={orderState.amount}
             onChange={e => {
               if (e.target.value > maxAmount) {
-                e.target.value = maxAmount
+                setIsPriseOutOfLimit(true)
+              } else {
+                setIsPriseOutOfLimit(false)
               }
               onChangeInput(e, 'amount')
             }}
@@ -218,9 +222,14 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         <TableCell className={classNames.cell}>
-          <Typography className={classNames.standartText}>
+          <Typography className={cx(classNames.standartText, {[classNames.errorSpace]: isPriseOutOfLimit})}>
             {toFixed(calcProductsPriceWithDelivery(item, orderState), 2)}
           </Typography>
+          {isPriseOutOfLimit && (
+            <Typography className={classNames.error}>
+              {t(TranslationKey['At least'])} {platformSettings.orderAmountLimit}$
+            </Typography>
+          )}
         </TableCell>
 
         <TableCell className={classNames.cell}>
