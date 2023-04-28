@@ -316,9 +316,7 @@ export class ResearcherProductViewModel {
 
         runInAction(() => {
           if (['strategyStatus'].includes(fieldName)) {
-            this.product = {...this.product, [fieldName]: e.target.value}
-
-            this.product = {...this.product, status: this.productBase.status}
+            this.product = {...this.product, [fieldName]: e.target.value, status: this.productBase.status}
           }
         })
 

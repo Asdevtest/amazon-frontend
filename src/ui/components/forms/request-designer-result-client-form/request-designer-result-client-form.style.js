@@ -400,8 +400,9 @@ export const useClassNames = makeStyles()(theme => ({
     height: 40,
   },
 
-  menu: {
-    width: 300,
-    height: 300,
+  list: {
+    // width: 300,
+    // height: 300,
+    padding: '1px 0',
   },
 }))

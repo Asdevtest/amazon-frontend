@@ -215,7 +215,16 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 18,
     // color: theme.palette.text.red,
     color: '#DF0C0C',
-    wordBreak: 'break-all',
+    wordBreak: 'break-word',
+
+    // lineHeight: '45px',
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
   },
 
   imageObjInput: {
@@ -307,6 +316,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     height: '100%',
     objectFit: 'contain',
+    background: theme.palette.background.general,
 
     transition: '.3s ease',
     cursor: 'pointer',

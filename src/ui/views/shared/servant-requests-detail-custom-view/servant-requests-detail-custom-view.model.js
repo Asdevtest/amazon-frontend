@@ -21,6 +21,7 @@ export class RequestDetailCustomViewModel {
   requestId = undefined
   request = undefined
   requestProposals = undefined
+  showProgress = false
 
   showWarningModal = false
   showConfirmModal = false
@@ -189,6 +190,9 @@ export class RequestDetailCustomViewModel {
 
   async onClickSendAsResult({message, files, amazonOrderId, publicationLinks, sourceLink}) {
     try {
+      runInAction(() => {
+        this.showProgress = true
+      })
       const findRequestProposalByChatSelectedId = this.requestProposals.find(
         requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
       )
@@ -274,9 +278,16 @@ export class RequestDetailCustomViewModel {
       })
 
       this.getRequestProposals()
+      this.showProgress = false
+
+      runInAction(() => {
+        this.showProgress = false
+      })
     } catch (error) {
       console.log(error)
       runInAction(() => {
+        this.showProgress = false
+
         this.error = error
       })
     }

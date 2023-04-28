@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {Box, FormControlLabel, Grid, Radio, RadioGroup} from '@mui/material'
 
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {ProductStatusByCode} from '@constants/product-status'
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
@@ -13,6 +13,11 @@ import {translateTooltipAttentionMessageByRole, translateTooltipMessageByRole} f
 export const ProductStatusButtons = props => {
   const {buttonsConfig, product, onClickButton, curUserRole} = props
   const [selected, setSelected] = useState(ProductStatusByCode[product.status])
+
+  useEffect(() => {
+    setSelected(ProductStatusByCode[product.status])
+  }, [product])
+
   if (!buttonsConfig) {
     return <div />
   }
@@ -24,6 +29,7 @@ export const ProductStatusButtons = props => {
           name="status"
           sx={{display: 'flex', flexDirection: 'row'}}
           defaultValue={ProductStatusByCode[selected]}
+          value={selected}
           onChange={e => {
             onClickButton(e.target.value)
             setSelected(e.target.value)

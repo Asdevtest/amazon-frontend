@@ -149,7 +149,13 @@ const Slot = ({
                 <ArrowDropUpIcon />
               </div>
 
-              <Menu open anchorEl={menuAnchor.current} autoFocus={false} onClose={handleClose}>
+              <Menu
+                open
+                anchorEl={menuAnchor.current}
+                autoFocus={false}
+                classes={{/* paper: classNames.menu, */ list: classNames.list}}
+                onClose={handleClose}
+              >
                 <Input
                   autoFocus
                   multiline
@@ -187,6 +193,9 @@ export const RequestDesignerResultClientForm = ({
   userInfo,
 }) => {
   const {classes: classNames} = useClassNames()
+
+  console.log('request', request)
+  console.log('proposal', proposal)
 
   const isNotClient =
     userInfo._id !== request.request.createdBy._id && userInfo.masterUser?._id !== request.request.createdBy._id
@@ -343,8 +352,12 @@ export const RequestDesignerResultClientForm = ({
             containerClasses={classNames.containerField}
             inputComponent={
               <Typography className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-                <a target="_blank" rel="noreferrer" href={`https://www.amazon.com/dp/${proposal.request.asin}`}>
-                  <span className={classNames.linkSpan}>{proposal.request.asin}</span>
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href={`https://www.amazon.com/dp/${proposal?.request?.asin || request.request.asin}`}
+                >
+                  <span className={classNames.linkSpan}>{proposal?.request?.asin || request.request.asin}</span>
                 </a>
               </Typography>
             }

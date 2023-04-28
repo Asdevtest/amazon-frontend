@@ -42,9 +42,9 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({message, hand
 
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
-  // console.log('message.data', message.data)
+  console.log('curUserId', curUserId)
 
-  // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
+  console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
 
   return (
     <div className={classNames.root}>
@@ -67,7 +67,8 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({message, hand
                 <PhotoAndFilesCarousel
                   notToShowEmpty
                   small
-                  files={message.data.proposal.details.linksToMediaFiles}
+                  // files={message.data.proposal.details.linksToMediaFiles}
+                  files={chatRequestAndRequestProposal.requestProposal?.proposal?.media.map(el => el.fileLink)}
                   width="340px"
                   withoutPhotos={undefined}
                   whithoutFiles={undefined}
@@ -148,7 +149,8 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({message, hand
         chatRequestAndRequestProposal &&
         (chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
           RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-          chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY) &&
+          chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY ||
+          chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CORRECTED) &&
         curUserId /* &&
         message.data.needApproveBy?.includes(curUserId)  */ ? (
           <div className={classNames.btnsWrapper}>

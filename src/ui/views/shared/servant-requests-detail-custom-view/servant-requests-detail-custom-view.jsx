@@ -11,6 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {MultipleChats} from '@components/chat/multiple-chats'
+import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {RequestDesignerResultClientForm} from '@components/forms/request-designer-result-client-form'
 import {RequestDesignerResultForm} from '@components/forms/request-designer-result-form'
 import {Main} from '@components/main'
@@ -57,6 +58,7 @@ export class RequestDetailCustomViewRaw extends Component {
   render() {
     const {classes: classNames} = this.props
     const {
+      showProgress,
       typingUsers,
       drawerOpen,
       request,
@@ -259,6 +261,8 @@ export class RequestDetailCustomViewRaw extends Component {
           onClickSuccessBtn={onClickCancelRequestProposal}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
+
+        {showProgress && <CircularProgressWithLabel />}
       </React.Fragment>
     )
   }

@@ -436,4 +436,15 @@ export const useClassNames = makeStyles()(theme => ({
     opacity: 0,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
+
+  paymentsBlock: {
+    marginTop: 25,
+  },
+  labelClass: {
+    fontSize: 14,
+    fontWeight: 400,
+    lineHeight: '19px',
+
+    color: theme.palette.text.second,
+  },
 }))

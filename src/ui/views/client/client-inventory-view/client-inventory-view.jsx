@@ -89,7 +89,7 @@ export class ClientInventoryViewRaw extends Component {
       destinations,
       isArchive,
       yuanToDollarRate,
-      volumeWeightCoefficient,
+      platformSettings,
       currentBarcode,
       currentHscode,
       shopsData,
@@ -544,7 +544,7 @@ export class ClientInventoryViewRaw extends Component {
             outsideProduct
             paymentMethods={paymentMethods}
             sourceYuanToDollarRate={yuanToDollarRate}
-            volumeWeightCoefficient={volumeWeightCoefficient}
+            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
             title={t(TranslationKey['Add a new supplier'])}
             showProgress={showProgress}
             progressValue={progressValue}
@@ -570,7 +570,7 @@ export class ClientInventoryViewRaw extends Component {
         <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
           <OrderProductModal
             // volumeWeightCoefficient={volumeWeightCoefficient}
-            platformSettings={{volumeWeightCoefficient}}
+            platformSettings={platformSettings}
             destinations={destinations}
             storekeepers={storekeepers}
             destinationsFavourites={destinationsFavourites}
