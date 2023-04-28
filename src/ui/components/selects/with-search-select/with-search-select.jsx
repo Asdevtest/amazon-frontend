@@ -137,9 +137,9 @@ const WithSearchSelectRaw = observer(
               </Typography>
 
               {open ? (
-                <ArrowDropUpIcon className={(cx(classNames.icon), {[classNames.darkIcon]: darkIcon})} />
+                <ArrowDropUpIcon className={cx(classNames.icon, {[classNames.darkIcon]: darkIcon})} />
               ) : (
-                <ArrowDropDownIcon className={(cx(classNames.icon), {[classNames.darkIcon]: darkIcon})} />
+                <ArrowDropDownIcon className={cx(classNames.icon, {[classNames.darkIcon]: darkIcon})} />
               )}
             </div>
 

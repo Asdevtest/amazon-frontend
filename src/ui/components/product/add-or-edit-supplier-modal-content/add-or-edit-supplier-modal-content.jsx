@@ -175,8 +175,6 @@ export const AddOrEditSupplierModalContent = observer(
     const [photosOfSupplier, setPhotosOfSupplier] = useState([])
     const [editPhotosOfSupplier, setEditPhotosOfSupplier] = useState(supplier?.images || [])
 
-    console.log('editPhotosOfSupplier', editPhotosOfSupplier)
-
     const onChangeDetailsPhotosToLoad = value => {
       setEditPhotosOfSupplier(value)
     }
@@ -302,11 +300,8 @@ export const AddOrEditSupplierModalContent = observer(
       }
     }
 
-    const onChangePaymentMethod = (event, setAll) => {
-      // console.lo
-      const isHaveUndefined = event.some(item => typeof item === 'undefined')
-
-      if (event.length && !isHaveUndefined && setAll) {
+    const onChangePaymentMethod = event => {
+      if (Array.isArray(event)) {
         if (tmpSupplier.paymentMethods.length === paymentMethods.length) {
           setTmpSupplier({
             ...tmpSupplier,
@@ -315,14 +310,21 @@ export const AddOrEditSupplierModalContent = observer(
         } else {
           setTmpSupplier({
             ...tmpSupplier,
-            paymentMethods: event,
+            paymentMethods: [...event],
           })
         }
-      } else if (!isHaveUndefined) {
-        setTmpSupplier({
-          ...tmpSupplier,
-          paymentMethods: event,
-        })
+      } else {
+        if (tmpSupplier?.paymentMethods?.some(item => item?._id === event?._id)) {
+          setTmpSupplier({
+            ...tmpSupplier,
+            paymentMethods: tmpSupplier?.paymentMethods?.filter(item => item?._id !== event?._id),
+          })
+        } else {
+          setTmpSupplier({
+            ...tmpSupplier,
+            paymentMethods: [...tmpSupplier.paymentMethods, event],
+          })
+        }
       }
     }
 
@@ -732,7 +734,7 @@ export const AddOrEditSupplierModalContent = observer(
 
           <div className={classNames.paymentsBlock}>
             <CustomSelectPaymentDetails
-              tmpSupplier={tmpSupplier}
+              currentPaymentMethods={tmpSupplier?.paymentMethods}
               paymentMethods={paymentMethods}
               onlyRead={onlyRead}
               onChangePaymentMethod={onChangePaymentMethod}

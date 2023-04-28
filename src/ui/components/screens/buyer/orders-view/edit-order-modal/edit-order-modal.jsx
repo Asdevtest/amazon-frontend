@@ -30,6 +30,7 @@ import {CustomCarousel} from '@components/custom-carousel'
 import {Field} from '@components/field/field'
 import {CheckQuantityForm} from '@components/forms/check-quantity-form'
 import {CreateBoxForm} from '@components/forms/create-box-form'
+import {PaymentMethodsForm} from '@components/forms/payment-methods-form'
 import {SupplierPaymentForm} from '@components/forms/supplier-payment-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
@@ -126,6 +127,8 @@ export const EditOrderModal = observer(
 
     const [supplierPaymentModal, setSupplierPaymentModal] = useState(false)
 
+    const [paymentMethodsModal, setPaymentMethodsModal] = useState(false)
+
     const [tmpNewOrderFieldsState, setTmpNewOrderFieldsState] = useState({})
 
     const [showWarningInfoModal, setShowWarningInfoModal] = useState(
@@ -196,14 +199,16 @@ export const EditOrderModal = observer(
       buyerComment: order?.buyerComment || '',
       deliveryCostToTheWarehouse:
         order?.deliveryCostToTheWarehouse ||
-        (order.orderSupplier.batchDeliveryCostInDollar / order.orderSupplier.amount) * order.amount,
+        (order.orderSupplier.batchDeliveryCostInDollar / order.orderSupplier.amount) * order.amount ||
+        0,
       priceBatchDeliveryInYuan:
         order?.priceBatchDeliveryInYuan ||
-        (order.orderSupplier.batchDeliveryCostInYuan / order.orderSupplier.amount) * order.amount,
+        (order.orderSupplier.batchDeliveryCostInYuan / order.orderSupplier.amount) * order.amount ||
+        0,
       trackId: '',
       material: order?.product?.material || '',
       amount: order?.amount || 0,
-      trackingNumberChina: order?.trackingNumberChina,
+      trackingNumberChina: order?.trackingNumberChina || '',
       batchPrice: 0,
       totalPriceChanged: order?.totalPriceChanged || order?.totalPrice,
       yuanToDollarRate: order?.yuanToDollarRate || yuanToDollarRate,
@@ -211,15 +216,19 @@ export const EditOrderModal = observer(
       tmpRefundToClient: 0,
       priceInYuan: order?.priceInYuan || order.totalPriceChanged * order.yuanToDollarRate,
       paymentDetails: order.paymentDetails || [],
+      payments: order.payments || [],
+      orderSupplier: order?.orderSupplier || {},
     }
 
     const [orderFields, setOrderFields] = useState(initialState)
 
-    console.log('paymentDetails', orderFields.paymentDetails)
+    const validOrderPayments = orderFields?.orderSupplier?.paymentMethods.filter(
+      method => !orderFields?.payments.some(payment => payment.paymentMethod._id === method._id),
+    )
+
+    const [orderPayments, setOrderPayments] = useState([...orderFields.payments, ...validOrderPayments])
 
     const [hsCode, setHsCode] = useState({...hsCodeData})
-
-    // console.log('orderFields', orderFields)
 
     const onClickUpdateButton = () => {
       const newOrderFieldsState = {...orderFields}
@@ -257,6 +266,7 @@ export const EditOrderModal = observer(
       commentToWarehouse,
       paymentDetailsPhotosToLoad,
       editPaymentDetailsPhotos,
+      orderPayments,
     })
 
     const onClickSaveOrder = () => {
@@ -270,9 +280,9 @@ export const EditOrderModal = observer(
           amount: orderFields.amount,
           price: cost,
           priceInYuan: costInYuan,
-          batchDeliveryCostInYuan: orderFields.priceBatchDeliveryInYuan,
-          batchDeliveryCostInDollar: orderFields.deliveryCostToTheWarehouse,
-          batchTotalCostInDollar: orderFields.totalPriceChanged,
+          batchDeliveryCostInYuan: orderFields.priceBatchDeliveryInYuan || 0,
+          batchDeliveryCostInDollar: orderFields.deliveryCostToTheWarehouse || 0,
+          batchTotalCostInDollar: orderFields.totalPriceChanged || 0,
         },
       }
 
@@ -307,7 +317,6 @@ export const EditOrderModal = observer(
         [
           'totalPriceChanged',
           'deliveryCostToTheWarehouse',
-          'priceBatchDeliveryInYuan',
           'yuanToDollarRate',
           'item',
           'tmpRefundToClient',
@@ -323,17 +332,11 @@ export const EditOrderModal = observer(
           return
         }
 
-        if (filedName === 'priceBatchDeliveryInYuan') {
-          newOrderFieldsState.priceBatchDeliveryInYuan = e.target.value
-
-          newOrderFieldsState.deliveryCostToTheWarehouse = Number(e.target.value) / orderFields.yuanToDollarRate
-        }
-
         if (filedName === 'yuanToDollarRate') {
           if (usePriceInDollars) {
             newOrderFieldsState.priceInYuan = newOrderFieldsState.totalPriceChanged * e.target.value
 
-            newOrderFieldsState.priceBatchDeliveryInYuan = orderFields.deliveryCostToTheWarehouse * e.target.value
+            newOrderFieldsState.priceBatchDeliveryInYuan = orderFields.deliveryCostToTheWarehouse * e.target.value || 0
           } else {
             newOrderFieldsState.yuanToDollarRate = e.target.value
             newOrderFieldsState.totalPriceChanged = orderFields.priceInYuan / (e.target.value || 1)
@@ -344,6 +347,9 @@ export const EditOrderModal = observer(
           newOrderFieldsState.totalPriceChanged = e.target.value / orderFields.yuanToDollarRate
         }
         newOrderFieldsState[filedName] = e.target.value
+      } else if (filedName === 'priceBatchDeliveryInYuan') {
+        newOrderFieldsState.priceBatchDeliveryInYuan = e.target.value || 0
+        newOrderFieldsState.deliveryCostToTheWarehouse = Number(e.target.value) / orderFields.yuanToDollarRate
       } else if (filedName === 'status') {
         newOrderFieldsState[filedName] = e.target.value
         setTmpNewOrderFieldsState(newOrderFieldsState)
@@ -377,13 +383,13 @@ export const EditOrderModal = observer(
 
         newOrderFieldsState.priceBatchDeliveryInYuan =
           (orderFields.orderSupplier.batchDeliveryCostInYuan / orderFields.orderSupplier.amount) *
-            clearEverythingExceptNumbers(e.target.value) || ''
+            clearEverythingExceptNumbers(e.target.value) || 0
 
         newOrderFieldsState.deliveryCostToTheWarehouse =
           (orderFields.orderSupplier.batchDeliveryCostInYuan /
             orderFields.orderSupplier.amount /
             orderFields.yuanToDollarRate) *
-            clearEverythingExceptNumbers(e.target.value) || ''
+            clearEverythingExceptNumbers(e.target.value) || 0
       } else {
         newOrderFieldsState[filedName] = e.target.value
       }
@@ -465,7 +471,12 @@ export const EditOrderModal = observer(
 
     const [photosToLoad, setPhotosToLoad] = useState([])
     const [paymentDetailsPhotosToLoad, setPaymentDetailsPhotosToLoad] = useState([])
+
+    console.log('paymentDetailsPhotosToLoad', paymentDetailsPhotosToLoad)
+
     const [editPaymentDetailsPhotos, setEditPaymentDetailsPhotos] = useState(orderFields.paymentDetails)
+
+    console.log('editPaymentDetailsPhotos', editPaymentDetailsPhotos)
 
     const onClickSavePaymentDetails = (loadedFiles, editedFiles) => {
       setPaymentDetailsPhotosToLoad(loadedFiles)
@@ -477,6 +488,7 @@ export const EditOrderModal = observer(
       submitDisabledOrderStatuses.includes(order.status + '') ||
       !orderFields.orderSupplier ||
       !orderFields.yuanToDollarRate ||
+      !orderFields.amount ||
       (order.status === OrderStatusByKey[OrderStatus.VERIFY_RECEIPT] &&
         orderFields.status === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
         !boxesForCreation.length)
@@ -711,6 +723,7 @@ export const EditOrderModal = observer(
 
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
+            orderPayments={orderPayments}
             imagesForLoad={imagesForLoad}
             userInfo={userInfo}
             paymentDetailsPhotosToLoad={paymentDetailsPhotosToLoad}
@@ -732,6 +745,7 @@ export const EditOrderModal = observer(
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}
             setUsePriceInDollars={setUsePriceInDollars}
+            setPaymentMethodsModal={() => setPaymentMethodsModal(!paymentMethodsModal)}
             onChangeImagesForLoad={onChangeImagesForLoad}
             onClickHsCode={onClickHsCode}
             onClickUpdateButton={onClickUpdateButton}
@@ -1077,6 +1091,10 @@ export const EditOrderModal = observer(
           onClickSuccessBtn={() => {
             confirmModalActionByMode(confirmModalMode)
             setShowConfirmModal(!showConfirmModal)
+
+            if (Number(tmpNewOrderFieldsState.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
+              setPaymentMethodsModal(!paymentMethodsModal)
+            }
           }}
           onClickCancelBtn={() => setShowConfirmModal(!showConfirmModal)}
         />
@@ -1145,6 +1163,18 @@ export const EditOrderModal = observer(
             editPaymentDetailsPhotos={editPaymentDetailsPhotos}
             onClickSaveButton={onClickSavePaymentDetails}
             onCloseModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
+          />
+        </Modal>
+
+        <Modal
+          missClickModalOn
+          openModal={paymentMethodsModal}
+          setOpenModal={() => setPaymentMethodsModal(!paymentMethodsModal)}
+        >
+          <PaymentMethodsForm
+            payments={orderPayments}
+            onClickSaveButton={setOrderPayments}
+            onClickCancelButton={() => setPaymentMethodsModal(!paymentMethodsModal)}
           />
         </Modal>
 

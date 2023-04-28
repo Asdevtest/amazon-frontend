@@ -175,7 +175,7 @@ class ServiceExchangeViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showImageModal')}
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
+          setImageIndex={imgIndex => setBigImagesOptions({...bigImagesOptions, imgIndex})}
         />
       </React.Fragment>
     )

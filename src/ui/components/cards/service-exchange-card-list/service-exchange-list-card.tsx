@@ -16,6 +16,7 @@ import {Button} from '@components/buttons/button'
 import {CustomCarousel} from '@components/custom-carousel'
 import {UserLink} from '@components/user-link'
 
+import {checkIsImageLink} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
@@ -25,6 +26,10 @@ import {useClassNames} from './service-exchange-list-card.style'
 interface CreatedByInterface {
   _id: string
   name: string
+}
+
+interface linksToMediaFilesInterface {
+  file: {name: Array<string>}
 }
 
 interface RequestsInterface {
@@ -42,7 +47,7 @@ interface Service {
   _id: string
   type: number
   requests: Array<RequestsInterface>
-  linksToMediaFiles: Array<string>
+  linksToMediaFiles: Array<string | linksToMediaFilesInterface>
   title: string
   description: string
   createdBy: CreatedByInterface
@@ -55,7 +60,7 @@ interface ServiceExchangeCardListProps {
   choose: boolean
   order: boolean
   pathname: string
-  onClickThumbnail: (data: {images: Array<string>; imgIndex: number}) => void
+  onClickThumbnail: (data: {images: Array<string | linksToMediaFilesInterface>; imgIndex: number}) => void
   onClickButton: (data: Service) => void
 }
 
@@ -68,18 +73,25 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = props =
     <div className={classNames.cardWrapper}>
       <div className={classNames.cardCarouselWrapper}>
         {/*  @ts-ignore */}
-        <CustomCarousel children={undefined} title={undefined} index={undefined} onChangeIndex={undefined}>
-          {service.linksToMediaFiles.map((imageHash, index) => (
-            <img
-              key={index}
-              alt=""
-              className={classNames.carouselImage}
-              src={getAmazonImageUrl(imageHash, true)}
-              onClick={() => {
-                onClickThumbnail({images: service.linksToMediaFiles, imgIndex: index})
-              }}
-            />
-          ))}
+        <CustomCarousel>
+          {service.linksToMediaFiles
+            .filter(el => checkIsImageLink(typeof el === 'string' ? el : el?.file?.name))
+            .map((imageHash, index) => (
+              <img
+                key={index}
+                alt=""
+                className={classNames.carouselImage}
+                src={getAmazonImageUrl(imageHash, true)}
+                onClick={() => {
+                  onClickThumbnail({
+                    images: service.linksToMediaFiles.filter(el =>
+                      checkIsImageLink(typeof el === 'string' ? el : el?.file?.name),
+                    ),
+                    imgIndex: index,
+                  })
+                }}
+              />
+            ))}
         </CustomCarousel>
       </div>
 

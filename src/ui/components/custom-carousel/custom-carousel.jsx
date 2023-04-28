@@ -14,6 +14,7 @@ import {Children, cloneElement, useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 
+import {NoDocumentIcon, NoPhotoIcon} from '@constants/svg-icons'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
@@ -378,7 +379,10 @@ export const PhotoAndFilesCarousel = ({
             <div className={cx(classNames.imagesWrapper, {[classNames.notToShowEmptyWrapper]: notToShowEmpty})}>
               {notEmptyPhotos?.length ? (
                 <CustomCarousel>
-                  {(isEditable ? imagesForLoad : notEmptyPhotos)?.map((photo, index) => (
+                  {(isEditable
+                    ? imagesForLoad.filter(el => checkIsImageLink(el?.file?.name || el))
+                    : notEmptyPhotos
+                  )?.map((photo, index) => (
                     <div key={index} className={classNames.imageSubWrapper}>
                       <>
                         <Avatar
@@ -392,11 +396,9 @@ export const PhotoAndFilesCarousel = ({
                             setShowPhotosModal(!showPhotosModal)
 
                             setBigImagesOptions({
-                              images: isEditable
-                                ? imagesForLoad
-                                : files
-                                    .filter(el => checkIsImageLink(el?.file?.name || el))
-                                    .map(img => img?.data_url || img),
+                              images: (isEditable ? imagesForLoad : files)
+                                .filter(el => checkIsImageLink(el?.file?.name || el))
+                                .map(img => img?.data_url || img),
                               imgIndex: index,
                             })
                           }}
@@ -413,8 +415,9 @@ export const PhotoAndFilesCarousel = ({
                 <div className={classNames.emptyIconWrapper}>
                   <div className={classNames.emptyWrapper}>
                     <div className={classNames.emptyIcon}>
-                      <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
+                      <NoPhotoIcon className={classNames.noPhotoIcon} />
                     </div>
+
                     <Typography className={classNames.noPhotoText}>{t(TranslationKey['No photos'])}</Typography>
                   </div>
                 </div>
@@ -426,51 +429,52 @@ export const PhotoAndFilesCarousel = ({
 
       {!whithoutFiles && (
         <>
-          {(notToShowEmpty && notEmptyFiles?.length) || !notToShowEmpty ? (
-            <div className={cx(classNames.documentsWrapper, {[classNames.notToShowEmptyWrapper]: notToShowEmpty})}>
-              {notEmptyFiles?.length ? (
-                <CustomCarousel>
-                  {notEmptyFiles.map((file, index) =>
-                    file?.data_url ? (
-                      <div
-                        key={index}
-                        className={classNames.documentWrapper}
-                        onClick={() => file.data_url && openPdfFile(file.data_url)}
-                      >
-                        <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
-                        <Typography className={classNames.documentTitle}>
-                          {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
-                        </Typography>
-                        <span className={classNames.documentHover}>{file?.file?.name || file}</span>
+          {(notToShowEmpty && notEmptyFiles?.length) ||
+            (!notToShowEmpty && (
+              <div className={cx(classNames.documentsWrapper, {[classNames.notToShowEmptyWrapper]: notToShowEmpty})}>
+                {notEmptyFiles?.length ? (
+                  <CustomCarousel>
+                    {notEmptyFiles.map((file, index) =>
+                      file?.data_url ? (
+                        <div
+                          key={index}
+                          className={classNames.documentWrapper}
+                          onClick={() => file.data_url && openPdfFile(file.data_url)}
+                        >
+                          <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
+                          <Typography className={classNames.documentTitle}>
+                            {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
+                          </Typography>
+                          <span className={classNames.documentHover}>{file?.file?.name || file}</span>
+                        </div>
+                      ) : (
+                        <Link
+                          key={index}
+                          href={checkAndMakeAbsoluteUrl(file)}
+                          className={classNames.documentWrapper}
+                          target="__blank"
+                        >
+                          <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
+                          <Typography className={classNames.documentTitle}>
+                            {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
+                          </Typography>
+                          <span className={classNames.documentHover}>{file?.file?.name || file}</span>
+                        </Link>
+                      ),
+                    )}
+                  </CustomCarousel>
+                ) : (
+                  <div className={classNames.emptyIconWrapper}>
+                    <div className={classNames.emptyWrapper}>
+                      <div className={classNames.emptyIcon}>
+                        <NoDocumentIcon className={classNames.noDocumentIcon} />
                       </div>
-                    ) : (
-                      <Link
-                        key={index}
-                        href={checkAndMakeAbsoluteUrl(file)}
-                        className={classNames.documentWrapper}
-                        target="__blank"
-                      >
-                        <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
-                        <Typography className={classNames.documentTitle}>
-                          {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
-                        </Typography>
-                        <span className={classNames.documentHover}>{file?.file?.name || file}</span>
-                      </Link>
-                    ),
-                  )}
-                </CustomCarousel>
-              ) : (
-                <div className={classNames.emptyIconWrapper}>
-                  <div className={classNames.emptyWrapper}>
-                    <div className={classNames.emptyIcon}>
-                      <InboxIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
+                      <Typography className={classNames.noDocumentText}>{t(TranslationKey['No files'])}</Typography>
                     </div>
-                    <Typography className={classNames.emptyDocs}>{t(TranslationKey['No documents'])}</Typography>
                   </div>
-                </div>
-              )}
-            </div>
-          ) : null}
+                )}
+              </div>
+            ))}
         </>
       )}
 
@@ -493,12 +497,12 @@ export const PhotoAndFilesCarousel = ({
       />
     </div>
   ) : (
-    <div className={classNames.emptyProposalsIconWrapper}>
-      <div className={classNames.emptyProposalsIcon}>
-        <InboxIcon style={{color: '#C4C4C4', fontSize: '76px', padding: 10}} />
-      </div>
-      <div className={classNames.emptyProposalsDescriptionWrapper}>
-        <Typography className={classNames.emptyProposalsTitle}>{t(TranslationKey['No files added'])}</Typography>
+    <div className={classNames.emptyIconWrapper}>
+      <div className={classNames.emptyWrapper}>
+        <div className={classNames.emptyIcon}>
+          <NoDocumentIcon className={classNames.noDocumentIcon} />
+        </div>
+        <Typography className={classNames.noDocumentText}>{t(TranslationKey['No files'])}</Typography>
       </div>
     </div>
   )

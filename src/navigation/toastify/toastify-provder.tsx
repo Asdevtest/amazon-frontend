@@ -20,7 +20,7 @@ export const ToastifyProvder: FC<ToastiyProvderProps> = props => {
       hideProgressBar
       pauseOnFocusLoss
       draggable
-      limit={5}
+      limit={3}
       theme={theme}
       closeOnClick={false}
       className={classNames.toast}
