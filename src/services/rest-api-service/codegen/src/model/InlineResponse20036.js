@@ -12,10 +12,12 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20036Finances from './InlineResponse20036Finances';
+import InlineResponse20036Batch from './InlineResponse20036Batch';
+import InlineResponse20036Boxes from './InlineResponse20036Boxes';
 import InlineResponse20036Orders from './InlineResponse20036Orders';
-import InlineResponse20036PendingOrders from './InlineResponse20036PendingOrders';
 import InlineResponse20036Products from './InlineResponse20036Products';
+import InlineResponse20036Requests from './InlineResponse20036Requests';
+import InlineResponse20036Shops from './InlineResponse20036Shops';
 
 /**
  * The InlineResponse20036 model module.
@@ -51,17 +53,23 @@ class InlineResponse20036 {
         if (data) {
             obj = obj || new InlineResponse20036();
 
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20036Products.constructFromObject(data['products']);
-            }
             if (data.hasOwnProperty('orders')) {
                 obj['orders'] = InlineResponse20036Orders.constructFromObject(data['orders']);
             }
-            if (data.hasOwnProperty('pendingOrders')) {
-                obj['pendingOrders'] = InlineResponse20036PendingOrders.constructFromObject(data['pendingOrders']);
+            if (data.hasOwnProperty('shops')) {
+                obj['shops'] = InlineResponse20036Shops.constructFromObject(data['shops']);
             }
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20036Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('requests')) {
+                obj['requests'] = InlineResponse20036Requests.constructFromObject(data['requests']);
+            }
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20036Products.constructFromObject(data['products']);
+            }
+            if (data.hasOwnProperty('batch')) {
+                obj['batch'] = InlineResponse20036Batch.constructFromObject(data['batch']);
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = InlineResponse20036Boxes.constructFromObject(data['boxes']);
             }
         }
         return obj;
@@ -71,24 +79,34 @@ class InlineResponse20036 {
 }
 
 /**
- * @member {module:model/InlineResponse20036Products} products
- */
-InlineResponse20036.prototype['products'] = undefined;
-
-/**
  * @member {module:model/InlineResponse20036Orders} orders
  */
 InlineResponse20036.prototype['orders'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20036PendingOrders} pendingOrders
+ * @member {module:model/InlineResponse20036Shops} shops
  */
-InlineResponse20036.prototype['pendingOrders'] = undefined;
+InlineResponse20036.prototype['shops'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20036Finances} finances
+ * @member {module:model/InlineResponse20036Requests} requests
  */
-InlineResponse20036.prototype['finances'] = undefined;
+InlineResponse20036.prototype['requests'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20036Products} products
+ */
+InlineResponse20036.prototype['products'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20036Batch} batch
+ */
+InlineResponse20036.prototype['batch'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20036Boxes} boxes
+ */
+InlineResponse20036.prototype['boxes'] = undefined;
 
 
 

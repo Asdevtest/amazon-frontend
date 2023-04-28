@@ -222,9 +222,15 @@ export const EditOrderModal = observer(
 
     const [orderFields, setOrderFields] = useState(initialState)
 
-    const validOrderPayments = orderFields?.orderSupplier?.paymentMethods.filter(
-      method => !orderFields?.payments.some(payment => payment.paymentMethod._id === method._id),
-    )
+    console.log('orderFields', orderFields)
+
+    const validOrderPayments = orderFields?.orderSupplier?.paymentMethods?.length
+      ? orderFields?.orderSupplier?.paymentMethods.filter(
+          method => !orderFields?.payments.some(payment => payment.paymentMethod._id === method._id),
+        )
+      : paymentMethods.filter(
+          method => !orderFields?.payments.some(payment => payment.paymentMethod._id === method._id),
+        )
 
     const [orderPayments, setOrderPayments] = useState([...orderFields.payments, ...validOrderPayments])
 
@@ -1172,7 +1178,7 @@ export const EditOrderModal = observer(
           setOpenModal={() => setPaymentMethodsModal(!paymentMethodsModal)}
         >
           <PaymentMethodsForm
-            payments={orderPayments}
+            payments={(!!orderPayments.length && orderPayments) || paymentMethods}
             onClickSaveButton={setOrderPayments}
             onClickCancelButton={() => setPaymentMethodsModal(!paymentMethodsModal)}
           />
