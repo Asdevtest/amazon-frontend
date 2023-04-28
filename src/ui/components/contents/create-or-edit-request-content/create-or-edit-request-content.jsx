@@ -163,20 +163,11 @@ export const CreateOrEditRequestContent = ({
       needCheckBySupervisor: requestToEdit?.request.needCheckBySupervisor || false,
       restrictMoreThanOneProposalFromOneAssignee:
         requestToEdit?.request.restrictMoreThanOneProposalFromOneAssignee || false,
-
-      typeTask:
-        /* currentFields?.request?.typeTask ?? */ requestToEdit?.request?.typeTask ??
-        choosenAnnouncements?.type ??
-        null,
+      typeTask: requestToEdit?.request?.typeTask || choosenAnnouncements?.type || null,
       asin: requestToEdit?.request.asin || undefined,
       priceAmazon: requestToEdit?.request.priceAmazon || 0,
       cashBackInPercent: requestToEdit?.request.cashBackInPercent || 0,
-      announcementId:
-        (requestToEdit?.request.announcementId &&
-          announcementsData.find(el => el._id === requestToEdit?.request.announcementId)) ||
-        (choosenAnnouncements.length && choosenAnnouncements) ||
-        '',
-
+      announcementId: choosenAnnouncements || undefined,
       productId: requestToEdit?.request?.productId || null,
       withoutConfirmation: requestToEdit?.request?.withoutConfirmation || false,
 
@@ -196,10 +187,10 @@ export const CreateOrEditRequestContent = ({
   const [formFields, setFormFields] = useState(getSourceFormFields())
 
   useEffect(() => {
-    if (requestToEdit) {
-      setFormFields(() => getSourceFormFields())
-    }
-  }, [choosenAnnouncements, announcementsData])
+    // if (requestToEdit) {
+    setFormFields(() => getSourceFormFields())
+    // }
+  }, [choosenAnnouncements, announcementsData, requestToEdit])
 
   const [deadlineError, setDeadlineError] = useState(false)
 
@@ -707,10 +698,10 @@ export const CreateOrEditRequestContent = ({
                           : t(TranslationKey['Select a Performer'])}
                       </Button>
                     </div>
-                    {formFields.request.announcementId.title && (
+                    {formFields?.request?.announcementId?.title && (
                       <div className={classNames.performerDescriptionWrapper}>
                         <Typography className={classNames.performerDescriptionText}>
-                          {formFields.request.announcementId.title}
+                          {formFields?.request?.announcementId?.title}
                         </Typography>
                       </div>
                     )}
