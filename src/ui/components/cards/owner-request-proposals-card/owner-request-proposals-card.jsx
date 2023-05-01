@@ -101,8 +101,8 @@ export const OwnerRequestProposalsCard = ({
         </div>
 
         <div className={classNames.actionButtonWrapper}>
-          {item.proposal.status === RequestProposalStatus.CREATED ||
-          item.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED ? (
+          {(item.proposal.status === RequestProposalStatus.CREATED ||
+            item.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) && (
             <>
               <Button
                 tooltipInfoContent={t(
@@ -117,7 +117,7 @@ export const OwnerRequestProposalsCard = ({
               >
                 {t(TranslationKey.Reject)}
               </Button>
-              <Button
+              {/* <Button
                 tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
                 variant="contained"
                 color="primary"
@@ -125,9 +125,19 @@ export const OwnerRequestProposalsCard = ({
                 onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}
               >
                 {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price, 2)}`}
-              </Button>
+              </Button> */}
             </>
-          ) : undefined}
+          )}
+
+          <Button
+            tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
+            variant="contained"
+            color="primary"
+            className={cx(classNames.actionButton, classNames.successBtn)}
+            onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}
+          >
+            {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price, 2)}`}
+          </Button>
 
           <Button
             tooltipInfoContent={t(TranslationKey['Open a chat with the performer'])}

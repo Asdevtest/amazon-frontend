@@ -168,7 +168,7 @@ export const CreateOrEditRequestContent = ({
       priceAmazon: requestToEdit?.request.priceAmazon || 0,
       cashBackInPercent: requestToEdit?.request.cashBackInPercent || 0,
       announcementId: choosenAnnouncements || undefined,
-      productId: requestToEdit?.request?.productId || null,
+      productId: requestToEdit?.request?.productId || undefined,
       withoutConfirmation: requestToEdit?.request?.withoutConfirmation || false,
 
       discountedPrice: requestToEdit
@@ -664,7 +664,7 @@ export const CreateOrEditRequestContent = ({
 
                   <div className={classNames.performerAndButtonWrapper}>
                     <div className={classNames.performerAndButtonSubWrapper}>
-                      {formFields.request.announcementId ? (
+                      {formFields?.request?.announcementId._id && (
                         <div className={classNames.performerWrapper}>
                           <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
                           <div className={classNames.userInfo}>
@@ -683,7 +683,7 @@ export const CreateOrEditRequestContent = ({
                             </div>
                           </div>
                         </div>
-                      ) : null}
+                      )}
                       <Button
                         disabled={!formFields?.request?.typeTask}
                         variant={'contained'}
