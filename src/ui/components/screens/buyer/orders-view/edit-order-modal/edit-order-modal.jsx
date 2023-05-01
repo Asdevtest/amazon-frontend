@@ -222,8 +222,6 @@ export const EditOrderModal = observer(
 
     const [orderFields, setOrderFields] = useState(initialState)
 
-    console.log('orderFields', orderFields)
-
     const validOrderPayments = orderFields?.orderSupplier?.paymentMethods?.length
       ? orderFields?.orderSupplier?.paymentMethods.filter(
           method => !orderFields?.payments.some(payment => payment.paymentMethod._id === method._id),
@@ -478,11 +476,7 @@ export const EditOrderModal = observer(
     const [photosToLoad, setPhotosToLoad] = useState([])
     const [paymentDetailsPhotosToLoad, setPaymentDetailsPhotosToLoad] = useState([])
 
-    console.log('paymentDetailsPhotosToLoad', paymentDetailsPhotosToLoad)
-
     const [editPaymentDetailsPhotos, setEditPaymentDetailsPhotos] = useState(orderFields.paymentDetails)
-
-    console.log('editPaymentDetailsPhotos', editPaymentDetailsPhotos)
 
     const onClickSavePaymentDetails = (loadedFiles, editedFiles) => {
       setPaymentDetailsPhotosToLoad(loadedFiles)
@@ -505,6 +499,8 @@ export const EditOrderModal = observer(
       selectedSupplier?.createdBy._id !== userInfo._id &&
       userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id &&
       isNotNull(selectedSupplier)
+
+    const [forceReadOnly, setForceReadOnly] = useState(false)
 
     return (
       <Box className={classNames.modalWrapper}>
@@ -804,47 +800,38 @@ export const EditOrderModal = observer(
                 {selectedSupplier ? (
                   <>
                     <div className={classNames.supplierButtonWrapper}>
-                      {/* <Button
-                        disabled={checkIsPlanningPrice && !isPendingOrder}
-                        className={classNames.iconBtn}
-                        onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
-                      >
-                        {selectedSupplier?.createdBy._id !== userInfo._id &&
-                        userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id ? (
-                          <VisibilityOutlinedIcon />
-                        ) : (
-                          <EditOutlinedIcon />
-                        )}
-                      </Button> */}
-
                       {selectedSupplier?.createdBy._id !== userInfo._id &&
                       userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id ? (
-                        <Button
-                          className={classNames.iconBtn}
-                          onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
-                        >
-                          <VisibilityOutlinedIcon />
-                        </Button>
+                        <></>
                       ) : (
-                        <Button
-                          disabled={checkIsPlanningPrice && !isPendingOrder}
-                          className={classNames.iconBtn}
-                          onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
-                        >
-                          <EditOutlinedIcon />
-                        </Button>
+                        <>
+                          <Button
+                            disabled={checkIsPlanningPrice && !isPendingOrder}
+                            className={classNames.iconBtn}
+                            onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
+                          >
+                            <EditOutlinedIcon />
+                          </Button>
+                          <Typography className={classNames.supplierButtonText}>
+                            {t(TranslationKey['Edit a supplier'])}
+                          </Typography>
+                        </>
                       )}
 
-                      {selectedSupplier?.createdBy._id !== userInfo._id &&
-                      userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id ? (
+                      <div className={classNames.supplierButtonWrapper}>
+                        <Button
+                          className={classNames.iconBtn}
+                          onClick={() => {
+                            setForceReadOnly(true)
+                            setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
+                          }}
+                        >
+                          <VisibilityOutlinedIcon />
+                        </Button>
                         <Typography className={classNames.supplierButtonText}>
                           {t(TranslationKey['Open the parameters supplier'])}
                         </Typography>
-                      ) : (
-                        <Typography className={classNames.supplierButtonText}>
-                          {t(TranslationKey['Edit a supplier'])}
-                        </Typography>
-                      )}
+                      </div>
                     </div>
 
                     <div className={classNames.supplierButtonWrapper}>
@@ -1187,7 +1174,10 @@ export const EditOrderModal = observer(
         <Modal
           missClickModalOn={!isOnlyRead}
           openModal={showAddOrEditSupplierModal}
-          setOpenModal={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
+          setOpenModal={() => {
+            setForceReadOnly(false)
+            setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
+          }}
         >
           <AddOrEditSupplierModalContent
             paymentMethods={paymentMethods}
@@ -1196,11 +1186,12 @@ export const EditOrderModal = observer(
             volumeWeightCoefficient={volumeWeightCoefficient}
             title={t(TranslationKey['Adding and editing a supplier'])}
             supplier={selectedSupplier}
-            onlyRead={isOnlyRead}
-            // showProgress={showProgress}
-            // progressValue={progressValue}
+            onlyRead={isOnlyRead || forceReadOnly}
             onClickSaveBtn={onClickSubmitSaveSupplierBtn}
-            onTriggerShowModal={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
+            onTriggerShowModal={() => {
+              setForceReadOnly(false)
+              setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
+            }}
           />
         </Modal>
       </Box>

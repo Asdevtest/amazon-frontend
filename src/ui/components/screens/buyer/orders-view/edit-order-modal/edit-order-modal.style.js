@@ -346,7 +346,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
   supplierButtonText: {
-    maxWidth: '98px',
+    width: '98px',
     fontSize: '12px',
     lineHeight: '14px',
     fontWeight: '400',
