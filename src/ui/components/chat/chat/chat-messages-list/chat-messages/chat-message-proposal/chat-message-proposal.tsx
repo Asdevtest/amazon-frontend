@@ -26,7 +26,7 @@ import {useClassNames} from './chat-message-proposal.style'
 
 export interface ChatMessageProposalHandlers {
   onClickProposalAccept: (proposalId: string, price: number) => void
-  onClickProposalRegect: (proposalId: string) => void
+  onClickProposalRegect: (proposalId: string | undefined) => void
 }
 
 interface Props {
@@ -101,7 +101,12 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
                     variant="contained"
                     color="primary"
                     className={cx(classNames.actionButton, classNames.cancelBtn)}
-                    onClick={() => handlers.onClickProposalRegect(message.data._id)}
+                    onClick={() =>
+                      handlers.onClickProposalRegect(
+                        chatRequestAndRequestProposal.requestProposal?.proposal
+                          ._id /* handlers.onClickProposalRegect(message.data._id */,
+                      )
+                    }
                   >
                     {t(TranslationKey.Reject)}
                   </Button>
