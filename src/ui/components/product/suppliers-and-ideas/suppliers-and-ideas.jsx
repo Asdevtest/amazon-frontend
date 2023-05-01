@@ -25,10 +25,10 @@ import {AddOrEditSupplierModalContent} from '../add-or-edit-supplier-modal-conte
 import {SuppliersAndIdeasModel} from './suppliers-and-ideas.model'
 import {useClassNames} from './suppliers-and-ideas.style'
 
-export const SuppliersAndIdeas = observer(({productId}) => {
+export const SuppliersAndIdeas = observer(({productId, product}) => {
   const {classes: classNames} = useClassNames()
   const history = useHistory()
-  const model = useRef(new SuppliersAndIdeasModel({history, productId}))
+  const model = useRef(new SuppliersAndIdeasModel({history, productId, product}))
 
   useEffect(() => {
     model.current.loadData()
