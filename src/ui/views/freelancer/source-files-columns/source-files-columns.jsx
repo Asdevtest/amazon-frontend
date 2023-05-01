@@ -97,7 +97,7 @@ export const sourceFilesColumns = (rowHandlers, languageTag, editField) => [
 
       return (
         <ChangeInputCommentCell
-          rowsCount={4}
+          rowsCount={2}
           text={params.row.originalData.reason}
           id={params.row.originalData._id}
           onClickSubmit={onClickSubmit}
