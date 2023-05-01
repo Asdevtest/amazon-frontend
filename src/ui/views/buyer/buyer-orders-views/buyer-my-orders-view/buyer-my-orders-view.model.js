@@ -755,7 +755,7 @@ export class BuyerMyOrdersViewModel {
       this.clearReadyImages()
 
       // if (this.imagesForLoad.length) {
-      await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'readyImages'})
+      await onSubmitPostImages.call(this, {images: this.imagesForLoad || [], type: 'readyImages'})
 
       this.clearImagesForLoad()
 
@@ -767,19 +767,19 @@ export class BuyerMyOrdersViewModel {
 
       this.clearReadyImages()
 
-      if (photosToLoad.length) {
+      if (photosToLoad?.length) {
         await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
 
         orderFields = {
           ...orderFields,
-          images: [...orderFields.images, ...this.readyImages],
+          images: [...(orderFields.images || []), ...this.readyImages],
         }
       }
 
       this.clearReadyImages()
 
       // if (editPaymentDetailsPhotos?.length) {
-      await onSubmitPostImages.call(this, {images: editPaymentDetailsPhotos, type: 'readyImages'})
+      await onSubmitPostImages.call(this, {images: editPaymentDetailsPhotos || [], type: 'readyImages'})
 
       orderFields = {
         ...orderFields,
@@ -840,27 +840,6 @@ export class BuyerMyOrdersViewModel {
       }
 
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}`) {
-        // orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
-
-        // orderPayments = await Promise.all(
-        //   orderPayments.map(async payment => {
-        //     if (payment?.photosForLoad?.length) {
-        //       this.clearReadyImages()
-        //       await onSubmitPostImages.call(this, {images: payment.photosForLoad, type: 'readyImages'})
-        //     }
-
-        //     const readyImages = this.readyImages
-
-        //     this.clearReadyImages()
-
-        //     return {
-        //       paymentMethodId: payment.paymentMethod._id,
-        //       paymentDetails: payment.paymentDetails,
-        //       paymentImages: readyImages,
-        //     }
-        //   }),
-        // )
-
         orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
 
         const validOrderPayments = []
