@@ -1940,6 +1940,7 @@ export enum TranslationKey {
   'Select payment methods' = 'Select payment methods',
   'All statuses' = 'All statuses',
   'At least' = 'At least',
+  'No more than' = 'No more than',
   // '' = '',
   // '' = '',
   // '' = '',

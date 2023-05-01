@@ -40,7 +40,6 @@ export const OrderProductModal = ({
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
   const [tmpOrderIndex, setTmpOrderIndex] = useState(undefined)
-  const [isPriseOutOfLimit, setIsPriseOutOfLimit] = useState(false)
 
   const [isPendingOrder, setIsPendingOrder] = useState(false)
   const [isResearchSupplier, setIsResearchSupplier] = useState(false)
@@ -245,6 +244,8 @@ export const OrderProductModal = ({
   const disabledSubmit =
     orderState.some(
       (order, index) =>
+        toFixed(calcProductsPriceWithDelivery(productsForRender[index], order), 2) >
+          platformSettings.orderAmountLimit ||
         order.storekeeperId === '' ||
         order.logicsTariffId === '' ||
         Number(order.amount) <= 0 ||
@@ -258,8 +259,7 @@ export const OrderProductModal = ({
     storekeeperEqualsDestination ||
     productsForRender.some(item => !item.currentSupplier) ||
     !orderState.length ||
-    submitIsClicked ||
-    isPriseOutOfLimit
+    submitIsClicked
 
   return (
     <div>
@@ -356,8 +356,6 @@ export const OrderProductModal = ({
                 platformSettings={platformSettings}
                 destinations={destinations}
                 storekeepers={storekeepers}
-                isPriseOutOfLimit={isPriseOutOfLimit}
-                setIsPriseOutOfLimit={setIsPriseOutOfLimit}
                 item={product}
                 withRemove={selectedProductsData?.length > 1}
                 orderState={orderState[index]}
