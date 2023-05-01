@@ -49,6 +49,8 @@ export class ClientAwaitingBatchesViewModel {
 
   showWarningInfoModal = false
 
+  languageTag = undefined
+
   warningInfoModalSettings = {
     isWarning: false,
     title: '',
@@ -60,7 +62,7 @@ export class ClientAwaitingBatchesViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = clientBatchesViewColumns(this.rowHandlers)
+  columnsModel = clientBatchesViewColumns(this.rowHandlers, this.languageTag)
 
   get userInfo() {
     return UserModel.userInfo
@@ -74,7 +76,10 @@ export class ClientAwaitingBatchesViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
+      () => {
+        this.languageTag = SettingsModel.languageTag
+        this.updateColumnsModel()
+      },
     )
 
     reaction(
@@ -113,22 +118,41 @@ export class ClientAwaitingBatchesViewModel {
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_AWAITING_BATCHES)
   }
 
+  // getDataGridState() {
+  //   const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_AWAITING_BATCHES]
+
+  //   if (state) {
+  //     runInAction(() => {
+  //       this.sortModel = state.sorting.sortModel
+  //       this.filterModel = state.filter.filterModel
+  //       this.rowsPerPage = state.pagination.pageSize
+
+  //       this.densityModel = state.density.value
+
+  //       this.columnsModel = clientBatchesViewColumns(this.rowHandlers).map(el => ({
+  //         ...el,
+  //         hide: state.columns?.lookup[el?.field]?.hide,
+  //       }))
+  //     })
+  //   }
+  // }
+
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_AWAITING_BATCHES]
 
-    if (state) {
-      runInAction(() => {
+    runInAction(() => {
+      if (state) {
         this.sortModel = state.sorting.sortModel
         this.filterModel = state.filter.filterModel
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = clientBatchesViewColumns(this.rowHandlers).map(el => ({
+        this.columnsModel = clientBatchesViewColumns(this.rowHandlers, this.languageTag).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))
-      })
-    }
+      }
+    })
   }
 
   onChangeFilterModel(model) {
@@ -232,7 +256,6 @@ export class ClientAwaitingBatchesViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getStorekeepers()
-
       this.getDataGridState()
       await this.getBatchesPagMy()
       this.setRequestStatus(loadingStatuses.success)
