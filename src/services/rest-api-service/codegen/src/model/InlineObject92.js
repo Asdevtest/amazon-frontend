@@ -22,11 +22,10 @@ class InlineObject92 {
     /**
      * Constructs a new <code>InlineObject92</code>.
      * @alias module:model/InlineObject92
-     * @param totalCost {Number} Для подтверждения нужно вернуть totalCost из калькулятора.
      */
-    constructor(totalCost) { 
+    constructor() { 
         
-        InlineObject92.initialize(this, totalCost);
+        InlineObject92.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject92 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, totalCost) { 
-        obj['totalCost'] = totalCost;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,11 @@ class InlineObject92 {
         if (data) {
             obj = obj || new InlineObject92();
 
-            if (data.hasOwnProperty('totalCost')) {
-                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            }
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
             }
         }
         return obj;
@@ -60,10 +61,16 @@ class InlineObject92 {
 }
 
 /**
- * Для подтверждения нужно вернуть totalCost из калькулятора.
- * @member {Number} totalCost
+ * Файл для записи в FreelanceSource
+ * @member {String} sourceFile
  */
-InlineObject92.prototype['totalCost'] = undefined;
+InlineObject92.prototype['sourceFile'] = undefined;
+
+/**
+ * Комментарий к файлу
+ * @member {String} comments
+ */
+InlineObject92.prototype['comments'] = undefined;
 
 
 

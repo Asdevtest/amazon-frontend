@@ -3,7 +3,7 @@ import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: 1632,
+    maxWidth: 1682,
     padding: '0 10px',
 
     display: 'flex',
@@ -33,7 +33,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
 
     minHeight: 368,
-    maxHeight: 600,
+    maxHeight: 570,
     overflow: 'auto',
   },
   actionButton: {

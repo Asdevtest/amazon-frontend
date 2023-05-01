@@ -248,6 +248,10 @@ export const PhotoAndFilesCarousel = ({
 
   const notEmptyPhotos = files?.length ? files.filter(el => checkIsImageLink(el?.file?.name || el)) : []
 
+  console.log('files', files)
+  console.log('notEmptyFiles', notEmptyFiles)
+  console.log('notEmptyPhotos', notEmptyPhotos)
+
   const onClickRemoveImageObj = imageIndex => {
     const newArr = imagesForLoad.filter((el, i) => i !== imageIndex)
 
@@ -429,52 +433,51 @@ export const PhotoAndFilesCarousel = ({
 
       {!whithoutFiles && (
         <>
-          {(notToShowEmpty && notEmptyFiles?.length) ||
-            (!notToShowEmpty && (
-              <div className={cx(classNames.documentsWrapper, {[classNames.notToShowEmptyWrapper]: notToShowEmpty})}>
-                {notEmptyFiles?.length ? (
-                  <CustomCarousel>
-                    {notEmptyFiles.map((file, index) =>
-                      file?.data_url ? (
-                        <div
-                          key={index}
-                          className={classNames.documentWrapper}
-                          onClick={() => file.data_url && openPdfFile(file.data_url)}
-                        >
-                          <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
-                          <Typography className={classNames.documentTitle}>
-                            {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
-                          </Typography>
-                          <span className={classNames.documentHover}>{file?.file?.name || file}</span>
-                        </div>
-                      ) : (
-                        <Link
-                          key={index}
-                          href={checkAndMakeAbsoluteUrl(file)}
-                          className={classNames.documentWrapper}
-                          target="__blank"
-                        >
-                          <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
-                          <Typography className={classNames.documentTitle}>
-                            {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
-                          </Typography>
-                          <span className={classNames.documentHover}>{file?.file?.name || file}</span>
-                        </Link>
-                      ),
-                    )}
-                  </CustomCarousel>
-                ) : (
-                  <div className={classNames.emptyIconWrapper}>
-                    <div className={classNames.emptyWrapper}>
-                      <div className={classNames.emptyIcon}>
-                        <NoDocumentIcon className={classNames.noDocumentIcon} />
+          {((notToShowEmpty && notEmptyFiles?.length) || !notToShowEmpty) && (
+            <div className={cx(classNames.documentsWrapper, {[classNames.notToShowEmptyWrapper]: notToShowEmpty})}>
+              {notEmptyFiles?.length ? (
+                <CustomCarousel>
+                  {notEmptyFiles.map((file, index) =>
+                    file?.data_url ? (
+                      <div
+                        key={index}
+                        className={classNames.documentWrapper}
+                        onClick={() => file.data_url && openPdfFile(file.data_url)}
+                      >
+                        <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
+                        <Typography className={classNames.documentTitle}>
+                          {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
+                        </Typography>
+                        <span className={classNames.documentHover}>{file?.file?.name || file}</span>
                       </div>
-                      <Typography className={classNames.noDocumentText}>{t(TranslationKey['No files'])}</Typography>
+                    ) : (
+                      <Link
+                        key={index}
+                        href={checkAndMakeAbsoluteUrl(file)}
+                        className={classNames.documentWrapper}
+                        target="__blank"
+                      >
+                        <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
+                        <Typography className={classNames.documentTitle}>
+                          {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
+                        </Typography>
+                        <span className={classNames.documentHover}>{file?.file?.name || file}</span>
+                      </Link>
+                    ),
+                  )}
+                </CustomCarousel>
+              ) : (
+                <div className={classNames.emptyIconWrapper}>
+                  <div className={classNames.emptyWrapper}>
+                    <div className={classNames.emptyIcon}>
+                      <NoDocumentIcon className={classNames.noDocumentIcon} />
                     </div>
+                    <Typography className={classNames.noDocumentText}>{t(TranslationKey['No files'])}</Typography>
                   </div>
-                )}
-              </div>
-            ))}
+                </div>
+              )}
+            </div>
+          )}
         </>
       )}
 

@@ -23,6 +23,7 @@ import InlineObject4 from '../model/InlineObject4';
 import InlineObject5 from '../model/InlineObject5';
 import InlineObject6 from '../model/InlineObject6';
 import InlineObject7 from '../model/InlineObject7';
+import InlineObject8 from '../model/InlineObject8';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse2002 from '../model/InlineResponse2002';
@@ -31,6 +32,7 @@ import InlineResponse2004 from '../model/InlineResponse2004';
 import InlineResponse2005 from '../model/InlineResponse2005';
 import InlineResponse2006 from '../model/InlineResponse2006';
 import InlineResponse2007 from '../model/InlineResponse2007';
+import InlineResponse2008 from '../model/InlineResponse2008';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 import SuccessResponseBodyWithGuid from '../model/SuccessResponseBodyWithGuid';
@@ -752,6 +754,55 @@ export default class AdministratorApi {
 
 
     /**
+     * #  Привязать/отвязать юзера к товару
+     * ## Привязать/отвязать юзера к товару   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject8} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1AdminsProductLinkOrUnlinkUserRolePatchWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/admins/product/link_or_unlink_user_role', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * #  Привязать/отвязать юзера к товару
+     * ## Привязать/отвязать юзера к товару   
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject8} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1AdminsProductLinkOrUnlinkUserRolePatch(opts) {
+      return this.apiV1AdminsProductLinkOrUnlinkUserRolePatchWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Получить список вакантных товаров.
      * ## Получить список  вакантных товаров. статусы 70 и 110  
      * @param {Object} opts Optional parameters
@@ -1191,6 +1242,60 @@ export default class AdministratorApi {
      */
     apiV1AdminsToggleServerPatch(opts) {
       return this.apiV1AdminsToggleServerPatchWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * #  Получить пользователей по роли
+     * ## Получить пользователей по роли без сабов   
+     * @param {Number} role Роль юзера
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2008>} and HTTP response
+     */
+    apiV1AdminsUsersByRoleGetWithHttpInfo(role, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'role' is set
+      if (role === undefined || role === null) {
+        throw new Error("Missing the required parameter 'role' when calling apiV1AdminsUsersByRoleGet");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'role': role
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [InlineResponse2008];
+      return this.apiClient.callApi(
+        '/api/v1/admins/users_by_role', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * #  Получить пользователей по роли
+     * ## Получить пользователей по роли без сабов   
+     * @param {Number} role Роль юзера
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2008>}
+     */
+    apiV1AdminsUsersByRoleGet(role, opts) {
+      return this.apiV1AdminsUsersByRoleGetWithHttpInfo(role, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

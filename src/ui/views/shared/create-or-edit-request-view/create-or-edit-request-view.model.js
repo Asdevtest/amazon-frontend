@@ -56,7 +56,7 @@ export class CreateOrEditRequestViewModel {
       this.history = history
 
       if (location.state) {
-        this.requestToEdit = location.state.request
+        this.requestId = location.state.requestId
         this.announcementId = location.state.announcementId
       }
     })
@@ -70,6 +70,7 @@ export class CreateOrEditRequestViewModel {
 
   async loadData() {
     try {
+      await this.getCustomRequestCur()
       await this.getAnnouncementData()
       await this.getProductPermissionsData()
       await this.getPlatformSettingsData()
@@ -265,9 +266,27 @@ export class CreateOrEditRequestViewModel {
     })
   }
 
+  async getCustomRequestCur() {
+    if (this.requestId) {
+      try {
+        const result = await RequestModel.getCustomRequestById(this.requestId)
+
+        runInAction(() => {
+          this.requestToEdit = result
+        })
+      } catch (error) {
+        console.log(error)
+        runInAction(() => {
+          this.error = error
+        })
+      }
+    }
+  }
+
   async getAnnouncementData() {
-    if (this.announcementId) {
-      this.choosenAnnouncements = await AnnouncementsModel.getAnnouncementsByGuid(this.announcementId)
+    const id = this.announcementId || this.requestToEdit?.request?.announcementId
+    if (id) {
+      this.choosenAnnouncements = await AnnouncementsModel.getAnnouncementsByGuid(id)
     }
   }
 

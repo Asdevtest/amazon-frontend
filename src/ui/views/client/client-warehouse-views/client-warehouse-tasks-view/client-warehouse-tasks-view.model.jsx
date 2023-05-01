@@ -395,6 +395,7 @@ export class ClientWarehouseTasksViewModel {
 
   async getTasksMy() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       const result = await ClientModel.getTasks({
         filters: this.getFilter(),
         limit: this.rowsPerPage,
@@ -412,6 +413,7 @@ export class ClientWarehouseTasksViewModel {
 
         this.tasksMy = warehouseTasksDataConverter(result.rows).sort(sortObjectsArrayByFiledDate('updatedAt'))
       })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -461,9 +463,7 @@ export class ClientWarehouseTasksViewModel {
         {skusByClient: {$contains: this.nameSearchValue}},
         {id: {$eq: this.nameSearchValue}},
         {item: {$eq: this.nameSearchValue}},
-        {productId: {$eq: this.nameSearchValue}},
         {humanFriendlyId: {$eq: this.nameSearchValue}},
-        {prepId: {$contains: this.nameSearchValue}},
       ].filter(
         el =>
           ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&

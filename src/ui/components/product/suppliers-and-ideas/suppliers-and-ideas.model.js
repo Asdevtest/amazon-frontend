@@ -23,6 +23,7 @@ export class SuppliersAndIdeasModel {
   error = undefined
 
   curIdea = undefined
+  product = undefined
 
   inCreate = false
   inEdit = false
@@ -60,10 +61,13 @@ export class SuppliersAndIdeasModel {
     return UserModel.userInfo
   }
 
-  constructor({history, productId}) {
+  constructor({history, productId, product}) {
     this.history = history
 
     this.productId = productId
+
+    this.product = product
+
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
@@ -229,6 +233,8 @@ export class SuppliersAndIdeasModel {
         lamazon: this.dataToCreateProduct.productLinks[0],
         amazonDetail: this.dataToCreateProduct.criteria,
         clientComment: this.dataToCreateProduct.comments,
+
+        ...(this.product.buyer?._id && {buyerId: this.product.buyer?._id}),
       }
 
       const result = await ClientModel.createProduct(createData)

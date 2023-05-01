@@ -720,6 +720,11 @@ export const styles = theme => ({
 
   cancelTaskBtn: {
     marginLeft: '20px',
+    height: 30,
+  },
+
+  infoBtn: {
+    height: 30,
   },
 
   superBoxQtyWrapper: {
@@ -1716,7 +1721,7 @@ export const styles = theme => ({
     // width: '210px',
     '& > div': {
       display: 'flex',
-      justifyContent: 'space-between',
+      gap: 8,
       alignItems: 'center',
     },
   },
@@ -1867,7 +1872,7 @@ export const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     height: '100%',
-    gap: 15,
+    gap: 12,
 
     p: {
       padding: 0,
@@ -1883,7 +1888,7 @@ export const styles = theme => ({
   },
 
   tagItem: {
-    maxWidth: 280,
+    maxWidth: 130,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',

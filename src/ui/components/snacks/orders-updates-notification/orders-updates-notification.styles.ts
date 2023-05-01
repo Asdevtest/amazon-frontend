@@ -16,6 +16,7 @@ export const useOrdersUpdatesNotificationStyle = makeStyles()(theme => ({
     justifyContent: 'space-between',
     paddingRight: '5px',
     maxHeight: '25vh',
+    height: '100%',
   },
   attentionTitle: {
     color: '#FF1616',

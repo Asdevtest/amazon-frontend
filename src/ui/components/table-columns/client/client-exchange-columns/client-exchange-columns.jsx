@@ -97,7 +97,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.createdBy?._id} />
     ),
-    width: 170,
+    width: 160,
   },
 
   {
@@ -106,7 +106,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
     renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.buyer?._id} />,
-    width: 170,
+    width: 150,
   },
 
   {
@@ -117,7 +117,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.checkedBy?._id} />
     ),
-    width: 170,
+    width: 150,
   },
 
   {
@@ -138,7 +138,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey['Red flags']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
 
-    width: 180,
+    width: 130,
     renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
   },
 
@@ -147,7 +147,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey.Tags),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
 
-    width: 300,
+    width: 160,
     renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
   },
 

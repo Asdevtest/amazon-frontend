@@ -22,12 +22,10 @@ class InlineObject31 {
     /**
      * Constructs a new <code>InlineObject31</code>.
      * @alias module:model/InlineObject31
-     * @param boxIds {Array.<String>} 
-     * @param newAmounts {Array.<Number>} 
      */
-    constructor(boxIds, newAmounts) { 
+    constructor() { 
         
-        InlineObject31.initialize(this, boxIds, newAmounts);
+        InlineObject31.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject31 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxIds, newAmounts) { 
-        obj['boxIds'] = boxIds;
-        obj['newAmounts'] = newAmounts;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,20 @@ class InlineObject31 {
         if (data) {
             obj = obj || new InlineObject31();
 
-            if (data.hasOwnProperty('boxIds')) {
-                obj['boxIds'] = ApiClient.convertToType(data['boxIds'], ['String']);
+            if (data.hasOwnProperty('lengthCmWarehouse')) {
+                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('newAmounts')) {
-                obj['newAmounts'] = ApiClient.convertToType(data['newAmounts'], ['Number']);
+            if (data.hasOwnProperty('widthCmWarehouse')) {
+                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('heightCmWarehouse')) {
+                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
+                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -65,14 +70,30 @@ class InlineObject31 {
 }
 
 /**
- * @member {Array.<String>} boxIds
+ * @member {Number} lengthCmWarehouse
  */
-InlineObject31.prototype['boxIds'] = undefined;
+InlineObject31.prototype['lengthCmWarehouse'] = undefined;
 
 /**
- * @member {Array.<Number>} newAmounts
+ * @member {Number} widthCmWarehouse
  */
-InlineObject31.prototype['newAmounts'] = undefined;
+InlineObject31.prototype['widthCmWarehouse'] = undefined;
+
+/**
+ * @member {Number} heightCmWarehouse
+ */
+InlineObject31.prototype['heightCmWarehouse'] = undefined;
+
+/**
+ * @member {Number} weighGrossKgWarehouse
+ */
+InlineObject31.prototype['weighGrossKgWarehouse'] = undefined;
+
+/**
+ * Массив ссылок на фотографии.
+ * @member {Array.<String>} images
+ */
+InlineObject31.prototype['images'] = undefined;
 
 
 

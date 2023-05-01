@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Number** | Статус | [optional] 
+**priority** | **Number** | Выставить приоритет задачи | 
+**reason** | **String** | Reason of high priority | [optional] 
 
 

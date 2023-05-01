@@ -47,8 +47,8 @@ class InlineObject64 {
         if (data) {
             obj = obj || new InlineObject64();
 
-            if (data.hasOwnProperty('suppliersId')) {
-                obj['suppliersId'] = ApiClient.convertToType(data['suppliersId'], 'String');
+            if (data.hasOwnProperty('requestStatus')) {
+                obj['requestStatus'] = ApiClient.convertToType(data['requestStatus'], 'String');
             }
         }
         return obj;
@@ -58,10 +58,10 @@ class InlineObject64 {
 }
 
 /**
- * GUID поставщика, который нужно удалить в БД.
- * @member {String} suppliersId
+ * новый статус заявки
+ * @member {String} requestStatus
  */
-InlineObject64.prototype['suppliersId'] = undefined;
+InlineObject64.prototype['requestStatus'] = undefined;
 
 
 

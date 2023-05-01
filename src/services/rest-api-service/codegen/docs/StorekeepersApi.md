@@ -60,7 +60,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID тарифа.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject108() // InlineObject108 | 
+  'body': new TestSwagger.InlineObject109() // InlineObject109 | 
 };
 apiInstance.apiV1StorekeepersBoxesCommentGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID тарифа. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject108**](InlineObject108.md)|  | [optional] 
+ **body** | [**InlineObject109**](InlineObject109.md)|  | [optional] 
 
 ### Return type
 
@@ -168,7 +168,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID тарифа.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject107() // InlineObject107 | 
+  'body': new TestSwagger.InlineObject108() // InlineObject108 | 
 };
 apiInstance.apiV1StorekeepersBoxesGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -185,7 +185,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID тарифа. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject107**](InlineObject107.md)|  | [optional] 
+ **body** | [**InlineObject108**](InlineObject108.md)|  | [optional] 
 
 ### Return type
 
@@ -223,7 +223,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.StorekeepersApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject113() // InlineObject113 | 
+  'body': new TestSwagger.InlineObject114() // InlineObject114 | 
 };
 apiInstance.apiV1StorekeepersDestinationPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -239,7 +239,7 @@ apiInstance.apiV1StorekeepersDestinationPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject113**](InlineObject113.md)|  | [optional] 
+ **body** | [**InlineObject114**](InlineObject114.md)|  | [optional] 
 
 ### Return type
 
@@ -311,7 +311,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersGet
 
-> [InlineResponse20066] apiV1StorekeepersGet(opts)
+> [InlineResponse20067] apiV1StorekeepersGet(opts)
 
 # Получить всех сторкиперов(все склады).
 
@@ -351,7 +351,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20066]**](InlineResponse20066.md)
+[**[InlineResponse20067]**](InlineResponse20067.md)
 
 ### Authorization
 
@@ -386,7 +386,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID ордера, который мы хотим изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject106() // InlineObject106 | 
+  'body': new TestSwagger.InlineObject107() // InlineObject107 | 
 };
 apiInstance.apiV1StorekeepersOrdersSetStatusGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -403,7 +403,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID ордера, который мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject106**](InlineObject106.md)|  | [optional] 
+ **body** | [**InlineObject107**](InlineObject107.md)|  | [optional] 
 
 ### Return type
 
@@ -421,7 +421,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersPagBoxesGet
 
-> InlineResponse20065 apiV1StorekeepersPagBoxesGet(opts)
+> InlineResponse20066 apiV1StorekeepersPagBoxesGet(opts)
 
 # Получить коробки и их строки по текущему сторкиперу с пагинацией.
 
@@ -469,7 +469,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20065**](InlineResponse20065.md)
+[**InlineResponse20066**](InlineResponse20066.md)
 
 ### Authorization
 
@@ -558,7 +558,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID тарифа.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject110() // InlineObject110 | 
+  'body': new TestSwagger.InlineObject111() // InlineObject111 | 
 };
 apiInstance.apiV1StorekeepersTariffLogisticsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -575,7 +575,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID тарифа. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject110**](InlineObject110.md)|  | [optional] 
+ **body** | [**InlineObject111**](InlineObject111.md)|  | [optional] 
 
 ### Return type
 
@@ -667,7 +667,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.StorekeepersApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject109() // InlineObject109 | 
+  'body': new TestSwagger.InlineObject110() // InlineObject110 | 
 };
 apiInstance.apiV1StorekeepersTariffLogisticsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -683,7 +683,7 @@ apiInstance.apiV1StorekeepersTariffLogisticsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject109**](InlineObject109.md)|  | [optional] 
+ **body** | [**InlineObject110**](InlineObject110.md)|  | [optional] 
 
 ### Return type
 
@@ -776,7 +776,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID тарифа.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject112() // InlineObject112 | 
+  'body': new TestSwagger.InlineObject113() // InlineObject113 | 
 };
 apiInstance.apiV1StorekeepersTariffWarehouseGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -793,7 +793,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID тарифа. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject112**](InlineObject112.md)|  | [optional] 
+ **body** | [**InlineObject113**](InlineObject113.md)|  | [optional] 
 
 ### Return type
 
@@ -883,7 +883,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.StorekeepersApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject111() // InlineObject111 | 
+  'body': new TestSwagger.InlineObject112() // InlineObject112 | 
 };
 apiInstance.apiV1StorekeepersTariffWarehousesPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -899,7 +899,7 @@ apiInstance.apiV1StorekeepersTariffWarehousesPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject111**](InlineObject111.md)|  | [optional] 
+ **body** | [**InlineObject112**](InlineObject112.md)|  | [optional] 
 
 ### Return type
 
@@ -1046,7 +1046,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID задачи, которую мы хотим изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject103() // InlineObject103 | 
+  'body': new TestSwagger.InlineObject104() // InlineObject104 | 
 };
 apiInstance.apiV1StorekeepersTasksDoneGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1063,7 +1063,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID задачи, которую мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject103**](InlineObject103.md)|  | [optional] 
+ **body** | [**InlineObject104**](InlineObject104.md)|  | [optional] 
 
 ### Return type
 
@@ -1102,7 +1102,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID задачи, которую мы хотим изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject104() // InlineObject104 | 
+  'body': new TestSwagger.InlineObject105() // InlineObject105 | 
 };
 apiInstance.apiV1StorekeepersTasksGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1119,7 +1119,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID задачи, которую мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject104**](InlineObject104.md)|  | [optional] 
+ **body** | [**InlineObject105**](InlineObject105.md)|  | [optional] 
 
 ### Return type
 
@@ -1191,7 +1191,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksLightPagMyGet
 
-> InlineResponse20064 apiV1StorekeepersTasksLightPagMyGet(opts)
+> InlineResponse20065 apiV1StorekeepersTasksLightPagMyGet(opts)
 
 # Получить задачи закрепленные за данным сторкипером с пагинацией
 
@@ -1215,7 +1215,7 @@ let opts = {
   'operationType': "operationType_example", // String | Типы задач разделенные запятой
   'priority': "priority_example", // String | Приоритет задачи
   'limit': 56, // Number | Кол-во получаемых записей
-  'filters': "filters_example", // String |                Возможные поля: asin, amazonTitle, title, humanFriendlyId, id, item, productId               Поиск для полей продукта идет через схему Партия -> Коробка -> Айтем коробки -> Продукт               Под humanFriendlyId имеется ввиду humanFriendlyId партии, не коробки               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+  'filters': "filters_example", // String |                Возможные поля: isBarCodeAttached, asin, amazonTitle, skusByClient, id, item, trackNumberText, humanFriendlyId               Поиск для полей продукта идет через схему Задача -> Коробка -> Айтем коробки -> Продукт               Под humanFriendlyId имеется ввиду humanFriendlyId коробки               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
   'sortField': "sortField_example", // String | Название поля
   'sortType': "sortType_example", // String | Тип сортировки
   'Accept_Encoding': "Accept_Encoding_example" // String | 
@@ -1238,14 +1238,14 @@ Name | Type | Description  | Notes
  **operationType** | **String**| Типы задач разделенные запятой | [optional] 
  **priority** | **String**| Приоритет задачи | [optional] 
  **limit** | **Number**| Кол-во получаемых записей | [optional] 
- **filters** | **String**|                Возможные поля: asin, amazonTitle, title, humanFriendlyId, id, item, productId               Поиск для полей продукта идет через схему Партия -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Под humanFriendlyId имеется ввиду humanFriendlyId партии, не коробки               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк              | [optional] 
+ **filters** | **String**|                Возможные поля: isBarCodeAttached, asin, amazonTitle, skusByClient, id, item, trackNumberText, humanFriendlyId               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Под humanFriendlyId имеется ввиду humanFriendlyId коробки               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк              | [optional] 
  **sortField** | **String**| Название поля | [optional] 
  **sortType** | **String**| Тип сортировки | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
-[**InlineResponse20064**](InlineResponse20064.md)
+[**InlineResponse20065**](InlineResponse20065.md)
 
 ### Authorization
 
@@ -1259,7 +1259,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksLightPagVacGet
 
-> InlineResponse20064 apiV1StorekeepersTasksLightPagVacGet(opts)
+> InlineResponse20065 apiV1StorekeepersTasksLightPagVacGet(opts)
 
 # Получить вакантные задачи закрепленные за данным сторкипером с пагинацией
 
@@ -1313,7 +1313,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20064**](InlineResponse20064.md)
+[**InlineResponse20065**](InlineResponse20065.md)
 
 ### Authorization
 
@@ -1379,7 +1379,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksMyGet
 
-> [InlineResponse20026] apiV1StorekeepersTasksMyGet(opts)
+> [InlineResponse20027] apiV1StorekeepersTasksMyGet(opts)
 
 # Получить задачи закрепленные за данным сборщиком..
 
@@ -1419,7 +1419,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20026]**](InlineResponse20026.md)
+[**[InlineResponse20027]**](InlineResponse20027.md)
 
 ### Authorization
 
@@ -1562,7 +1562,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID задачи, которую мы хотим изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject105() // InlineObject105 | 
+  'body': new TestSwagger.InlineObject106() // InlineObject106 | 
 };
 apiInstance.apiV1StorekeepersTasksPriorityGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1579,7 +1579,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID задачи, которую мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject105**](InlineObject105.md)|  | [optional] 
+ **body** | [**InlineObject106**](InlineObject106.md)|  | [optional] 
 
 ### Return type
 
@@ -1651,7 +1651,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksVacGet
 
-> [InlineResponse20026] apiV1StorekeepersTasksVacGet(opts)
+> [InlineResponse20027] apiV1StorekeepersTasksVacGet(opts)
 
 # Deprecated! Получить задачи не закрепленные за сотрудниками склада.
 
@@ -1689,7 +1689,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20026]**](InlineResponse20026.md)
+[**[InlineResponse20027]**](InlineResponse20027.md)
 
 ### Authorization
 

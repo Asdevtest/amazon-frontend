@@ -40,6 +40,7 @@ export const OrderProductModal = ({
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
   const [tmpOrderIndex, setTmpOrderIndex] = useState(undefined)
+  const [isPriseOutOfLimit, setIsPriseOutOfLimit] = useState(false)
 
   const [isPendingOrder, setIsPendingOrder] = useState(false)
   const [isResearchSupplier, setIsResearchSupplier] = useState(false)
@@ -257,7 +258,8 @@ export const OrderProductModal = ({
     storekeeperEqualsDestination ||
     productsForRender.some(item => !item.currentSupplier) ||
     !orderState.length ||
-    submitIsClicked
+    submitIsClicked ||
+    isPriseOutOfLimit
 
   return (
     <div>
@@ -354,6 +356,8 @@ export const OrderProductModal = ({
                 platformSettings={platformSettings}
                 destinations={destinations}
                 storekeepers={storekeepers}
+                isPriseOutOfLimit={isPriseOutOfLimit}
+                setIsPriseOutOfLimit={setIsPriseOutOfLimit}
                 item={product}
                 withRemove={selectedProductsData?.length > 1}
                 orderState={orderState[index]}

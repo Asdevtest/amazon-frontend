@@ -22,11 +22,10 @@ class InlineObject10 {
     /**
      * Constructs a new <code>InlineObject10</code>.
      * @alias module:model/InlineObject10
-     * @param boxesIds {Array.<String>} 
      */
-    constructor(boxesIds) { 
+    constructor() { 
         
-        InlineObject10.initialize(this, boxesIds);
+        InlineObject10.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject10 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,17 @@ class InlineObject10 {
         if (data) {
             obj = obj || new InlineObject10();
 
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('type')) {
+                obj['type'] = ApiClient.convertToType(data['type'], 'Number');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
         }
         return obj;
@@ -60,9 +67,24 @@ class InlineObject10 {
 }
 
 /**
- * @member {Array.<String>} boxesIds
+ * @member {Number} type
  */
-InlineObject10.prototype['boxesIds'] = undefined;
+InlineObject10.prototype['type'] = undefined;
+
+/**
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject10.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * @member {String} title
+ */
+InlineObject10.prototype['title'] = undefined;
+
+/**
+ * @member {String} description
+ */
+InlineObject10.prototype['description'] = undefined;
 
 
 

@@ -12,12 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20035Batch from './InlineResponse20035Batch';
-import InlineResponse20035Boxes from './InlineResponse20035Boxes';
-import InlineResponse20035Orders from './InlineResponse20035Orders';
-import InlineResponse20035Products from './InlineResponse20035Products';
-import InlineResponse20035Requests from './InlineResponse20035Requests';
-import InlineResponse20035Shops from './InlineResponse20035Shops';
 
 /**
  * The InlineResponse20035 model module.
@@ -27,6 +21,7 @@ import InlineResponse20035Shops from './InlineResponse20035Shops';
 class InlineResponse20035 {
     /**
      * Constructs a new <code>InlineResponse20035</code>.
+     * цену для клиента на поиск поставщика
      * @alias module:model/InlineResponse20035
      */
     constructor() { 
@@ -53,23 +48,8 @@ class InlineResponse20035 {
         if (data) {
             obj = obj || new InlineResponse20035();
 
-            if (data.hasOwnProperty('orders')) {
-                obj['orders'] = InlineResponse20035Orders.constructFromObject(data['orders']);
-            }
-            if (data.hasOwnProperty('shops')) {
-                obj['shops'] = InlineResponse20035Shops.constructFromObject(data['shops']);
-            }
-            if (data.hasOwnProperty('requests')) {
-                obj['requests'] = InlineResponse20035Requests.constructFromObject(data['requests']);
-            }
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20035Products.constructFromObject(data['products']);
-            }
-            if (data.hasOwnProperty('batch')) {
-                obj['batch'] = InlineResponse20035Batch.constructFromObject(data['batch']);
-            }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = InlineResponse20035Boxes.constructFromObject(data['boxes']);
+            if (data.hasOwnProperty('priceForClient')) {
+                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
             }
         }
         return obj;
@@ -79,34 +59,9 @@ class InlineResponse20035 {
 }
 
 /**
- * @member {module:model/InlineResponse20035Orders} orders
+ * @member {Number} priceForClient
  */
-InlineResponse20035.prototype['orders'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20035Shops} shops
- */
-InlineResponse20035.prototype['shops'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20035Requests} requests
- */
-InlineResponse20035.prototype['requests'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20035Products} products
- */
-InlineResponse20035.prototype['products'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20035Batch} batch
- */
-InlineResponse20035.prototype['batch'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20035Boxes} boxes
- */
-InlineResponse20035.prototype['boxes'] = undefined;
+InlineResponse20035.prototype['priceForClient'] = undefined;
 
 
 

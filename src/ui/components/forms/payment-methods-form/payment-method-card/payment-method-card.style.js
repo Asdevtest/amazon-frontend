@@ -5,6 +5,8 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     width: 378,
     minHeight: 368,
+
+    marginRight: 10,
   },
 
   paymentMethodTitleWrapper: {
@@ -30,6 +32,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
   containerClasses: {
     marginBottom: '10px !important',
+  },
+  imageListWrapperStyles: {
+    width: '100%',
   },
 
   cardManageWrapper: {

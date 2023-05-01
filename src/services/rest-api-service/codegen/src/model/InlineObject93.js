@@ -22,10 +22,11 @@ class InlineObject93 {
     /**
      * Constructs a new <code>InlineObject93</code>.
      * @alias module:model/InlineObject93
+     * @param totalCost {Number} Для подтверждения нужно вернуть totalCost из калькулятора.
      */
-    constructor() { 
+    constructor(totalCost) { 
         
-        InlineObject93.initialize(this);
+        InlineObject93.initialize(this, totalCost);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject93 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, totalCost) { 
+        obj['totalCost'] = totalCost;
     }
 
     /**
@@ -47,20 +49,8 @@ class InlineObject93 {
         if (data) {
             obj = obj || new InlineObject93();
 
-            if (data.hasOwnProperty('execution_time')) {
-                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('totalCost')) {
+                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
             }
         }
         return obj;
@@ -70,34 +60,10 @@ class InlineObject93 {
 }
 
 /**
- * Время на выполнение, в минутах.
- * @member {Number} execution_time
+ * Для подтверждения нужно вернуть totalCost из калькулятора.
+ * @member {Number} totalCost
  */
-InlineObject93.prototype['execution_time'] = undefined;
-
-/**
- * Цена предложения.
- * @member {Number} price
- */
-InlineObject93.prototype['price'] = undefined;
-
-/**
- * Комментарий к предложению.
- * @member {String} comment
- */
-InlineObject93.prototype['comment'] = undefined;
-
-/**
- * Ссылки на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject93.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * Название предложения
- * @member {String} title
- */
-InlineObject93.prototype['title'] = undefined;
+InlineObject93.prototype['totalCost'] = undefined;
 
 
 

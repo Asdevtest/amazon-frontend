@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 
 /**
  * The InlineObject66 model module.
@@ -47,29 +48,14 @@ class InlineObject66 {
         if (data) {
             obj = obj || new InlineObject66();
 
-            if (data.hasOwnProperty('productName')) {
-                obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('productLinks')) {
-                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [NULL_SCHEMA_ERR]);
+            if (data.hasOwnProperty('os')) {
+                obj['os'] = ApiClient.convertToType(data['os'], 'String');
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], [NULL_SCHEMA_ERR]);
-            }
-            if (data.hasOwnProperty('criteria')) {
-                obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
-            }
-            if (data.hasOwnProperty('dimensions')) {
-                obj['dimensions'] = ApiClient.convertToType(data['dimensions'], 'String');
-            }
-            if (data.hasOwnProperty('quantity')) {
-                obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('navigator')) {
+                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
             }
         }
         return obj;
@@ -79,52 +65,22 @@ class InlineObject66 {
 }
 
 /**
- * Назавние продукта
- * @member {String} productName
+ * Название профиля
+ * @member {String} name
  */
-InlineObject66.prototype['productName'] = undefined;
+InlineObject66.prototype['name'] = undefined;
 
 /**
- * Ссылки на продукт, если есть
- * @member {Array.<String>} productLinks
+ * Название ОС
+ * @member {String} os
+ * @default 'mac'
  */
-InlineObject66.prototype['productLinks'] = undefined;
+InlineObject66.prototype['os'] = 'mac';
 
 /**
- * Image URL
- * @member {Array.<String>} linksToMediaFiles
+ * @member {module:model/ApiV1GologinProfileNavigator} navigator
  */
-InlineObject66.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * Дополнительные критерии для поиска товара
- * @member {String} criteria
- */
-InlineObject66.prototype['criteria'] = undefined;
-
-/**
- * Размеры
- * @member {String} dimensions
- */
-InlineObject66.prototype['dimensions'] = undefined;
-
-/**
- * Количество товаров
- * @member {Number} quantity
- */
-InlineObject66.prototype['quantity'] = undefined;
-
-/**
- * Желаемая цена
- * @member {Number} price
- */
-InlineObject66.prototype['price'] = undefined;
-
-/**
- * Product ID
- * @member {String} productId
- */
-InlineObject66.prototype['productId'] = undefined;
+InlineObject66.prototype['navigator'] = undefined;
 
 
 

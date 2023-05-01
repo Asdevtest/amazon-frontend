@@ -1,4 +1,4 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction} from 'mobx'
 
 import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -83,7 +83,6 @@ export class OwnerRequestDetailCustomViewModel {
       this.history = history
       this.scrollToChat = scrollToChat
       if (location.state) {
-        console.log('location.state', location.state)
         if (location.state.chatId) {
           this.chatSelectedId = location.state.chatId
           this.showChat = true
@@ -194,8 +193,6 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   async onClickProposalResultAccept(proposalId) {
-    // console.log('proposalId', proposalId)
-
     runInAction(() => {
       this.acceptProposalResultSetting = {
         onSubmit: data => this.onClickProposalResultAcceptForm(proposalId, data),
@@ -367,6 +364,8 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   onClickRejectProposal(proposalId) {
+    console.log('proposalId', proposalId)
+
     runInAction(() => {
       this.curProposalId = proposalId
 
@@ -421,7 +420,7 @@ export class OwnerRequestDetailCustomViewModel {
   onClickEditBtn() {
     this.history.push(
       `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-requests/custom-request/edit-request`,
-      {request: toJS(this.request), requestId: this.requestId},
+      {requestId: this.requestId},
     )
   }
 

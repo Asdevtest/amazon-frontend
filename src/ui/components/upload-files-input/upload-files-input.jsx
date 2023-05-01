@@ -45,6 +45,7 @@ export const UploadFilesInput = observer(
     oneLineMaxHeight = false,
     сontainerStyles = '',
     filesLength = undefined,
+    imageListWrapperStyles = undefined,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -308,7 +309,9 @@ export const UploadFilesInput = observer(
                 {showImages && (
                   <Grid
                     container
-                    className={cx(classNames.imageListWrapper, {[classNames.oneLineMaxHeight]: oneLineMaxHeight})}
+                    className={cx(classNames.imageListWrapper, imageListWrapperStyles, {
+                      [classNames.oneLineMaxHeight]: oneLineMaxHeight,
+                    })}
                     style={maxHeight && {maxHeight}}
                     justifyContent="flex-start"
                     spacing={2}

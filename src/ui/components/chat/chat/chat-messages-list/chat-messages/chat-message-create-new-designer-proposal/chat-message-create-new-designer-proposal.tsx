@@ -27,7 +27,7 @@ import {useClassNames} from './chat-message-create-new-designer-proposal.style'
 
 export interface ChatMessageProposalHandlers {
   onClickProposalAccept: (proposalId: string, price: number) => void
-  onClickProposalRegect: (proposalId: string) => void
+  onClickProposalRegect: (proposalId: string | undefined) => void
 }
 
 interface Props {
@@ -44,7 +44,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
 
   // console.log('message', message)
 
-  // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
+  console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
 
   return (
     <div className={classNames.root}>
@@ -170,7 +170,9 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
                 danger
                 // btnWrapperStyle={classNames.actionBtnWrapperStyle}
                 className={cx(classNames.actionButton /* , classNames.editButton */)}
-                onClick={() => handlers.onClickProposalRegect(message.data.request._id)}
+                onClick={() =>
+                  handlers.onClickProposalRegect(chatRequestAndRequestProposal.requestProposal?.proposal._id)
+                }
               >
                 {t(TranslationKey.Reject)}
               </Button>

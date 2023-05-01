@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **String** | Тег | 
+**shippingLabel** | **String** | shippingLabel | 
 
 
