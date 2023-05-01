@@ -20,6 +20,7 @@ import {BatchesModel} from '@models/batches-model'
 import {OtherModel} from '@models/other-model'
 
 import {Button} from '@components/buttons/button'
+import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel, PhotoAndFilesCarouselMini} from '@components/custom-carousel/custom-carousel'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar'
@@ -50,6 +51,7 @@ export const BatchInfoModal = observer(
     const {classes: classNames} = useClassNames()
 
     const [showBoxViewModal, setShowBoxViewModal] = useState(false)
+    const [isFileDownloading, setIsFileDownloading] = useState(false)
 
     const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -101,7 +103,9 @@ export const BatchInfoModal = observer(
     }
 
     const uploadTemplateFile = async () => {
+      setIsFileDownloading(true)
       await OtherModel.getReportBatchByHumanFriendlyId(batch.humanFriendlyId)
+      setIsFileDownloading(false)
     }
 
     return (
@@ -394,6 +398,7 @@ export const BatchInfoModal = observer(
             images={batch.attachedDocuments?.filter(el => checkIsImageLink(el)) || []}
           />
         </div>
+        {isFileDownloading && <CircularProgressWithLabel />}
       </Modal>
     )
   },
