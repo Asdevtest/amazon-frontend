@@ -8,7 +8,7 @@ import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
 import {InputAdornment, Typography, ClickAwayListener, Avatar} from '@mui/material'
 import TextField from '@mui/material/TextField'
 
-import React, {FC, ReactElement, useEffect, useState, KeyboardEvent} from 'react'
+import React, {FC, ReactElement, useEffect, useState, KeyboardEvent, useContext} from 'react'
 
 import {observer} from 'mobx-react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
@@ -26,6 +26,8 @@ import {Button} from '@components/buttons/button'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
+
+import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
 
 import {CurrentOpponent, IFile} from '../multiple-chats'
 import {ChatFilesInput} from './chat-files-input'
@@ -95,6 +97,8 @@ export const Chat: FC<Props> = observer(
     const [showEmojis, setShowEmojis] = useState(false)
 
     const [showGroupSettings, setShowGroupSettings] = useState(false)
+
+    const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
     const isGroupChat = chat.type === chatsType.GROUP
 
@@ -219,7 +223,7 @@ export const Chat: FC<Props> = observer(
             searchPhrase={searchPhrase}
           />
 
-          {isGroupChat ? (
+          {isGroupChat && !chatRequestAndRequestProposal ? (
             <div
               className={cx(classNames.hideAndShowIconWrapper, {[classNames.hideAndShowIcon]: showGroupSettings})}
               onClick={() => setShowGroupSettings(!showGroupSettings)}
