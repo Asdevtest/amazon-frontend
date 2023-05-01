@@ -27,7 +27,7 @@ import {useClassNames} from './chat-message-create-new-blogger-proposal.style'
 
 export interface ChatMessageProposalHandlers {
   onClickProposalAccept: (proposalId: string, price: number) => void
-  onClickProposalRegect: (proposalId: string) => void
+  onClickProposalRegect: (proposalId: string | undefined) => void
 }
 
 interface Props {
@@ -222,7 +222,12 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
                 danger
                 // btnWrapperStyle={classNames.actionBtnWrapperStyle}
                 className={cx(classNames.actionButton /* , classNames.editButton */)}
-                onClick={() => handlers.onClickProposalRegect(message.data.proposal._id)}
+                onClick={() =>
+                  handlers.onClickProposalRegect(
+                    chatRequestAndRequestProposal.requestProposal?.proposal
+                      ._id /* handlers.onClickProposalRegect(message.data.proposal._id */,
+                  )
+                }
               >
                 {t(TranslationKey.Reject)}
               </Button>

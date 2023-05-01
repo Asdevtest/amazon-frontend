@@ -1909,6 +1909,8 @@ export class ClientInStockBoxesViewModel {
 
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+
+        hasBatch: false,
       })
 
       const res = await UserModel.getPlatformSettings()

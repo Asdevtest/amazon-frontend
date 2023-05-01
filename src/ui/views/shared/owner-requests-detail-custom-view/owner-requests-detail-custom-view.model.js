@@ -364,6 +364,8 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   onClickRejectProposal(proposalId) {
+    console.log('proposalId', proposalId)
+
     runInAction(() => {
       this.curProposalId = proposalId
 
