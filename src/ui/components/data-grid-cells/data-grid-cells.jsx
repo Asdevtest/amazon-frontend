@@ -51,6 +51,8 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRolePrettyMap} from '@constants/user-roles'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
+import {SettingsModel} from '@models/settings-model'
+
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
@@ -1268,7 +1270,7 @@ export const RenderFieldValueCell = React.memo(
 
 export const BatchTrackingCell = React.memo(
   withStyles(
-    ({classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled}) => (
+    ({classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled, languageTag}) => (
       <div className={classNames.batchTrackingWrapper}>
         <Field
           containerClasses={cx(classNames.batchTrackingContainer)}

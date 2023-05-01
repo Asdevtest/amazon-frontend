@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -16,7 +17,7 @@ import {
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const clientBatchesViewColumns = () => [
+export const clientBatchesViewColumns = (rowHandlers, languageTag) => [
   {
     field: 'orders',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
@@ -99,6 +100,7 @@ export const clientBatchesViewColumns = () => [
       <BatchTrackingCell
         disabled
         rowHandlers
+        languageTag={languageTag}
         id={params.row?.originalData?._id}
         arrivalDate={params.row?.originalData?.arrivalDate}
         trackingNumber={params.row?.originalData?.trackingNumber}
