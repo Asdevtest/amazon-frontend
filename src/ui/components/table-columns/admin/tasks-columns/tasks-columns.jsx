@@ -30,7 +30,7 @@ export const adminTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
-    width: 155,
+    width: 180,
     renderCell: params => <TaskTypeCell task={params.row.originalData} />,
   },
 
