@@ -44,6 +44,7 @@ export const EditTaskModal = observer(
     const {classes: classNames} = useClassNames()
 
     const [receiveBoxModal, setReceiveBoxModal] = useState(false)
+    const [isFileDownloading, setIsFileDownloading] = useState(false)
 
     const [storekeeperComment, setStorekeeperComment] = useState(task.storekeeperComment)
     const [currentScreenWidth, setCurrentScreenWidth] = useState(window.innerWidth)
@@ -127,7 +128,9 @@ export const EditTaskModal = observer(
     const [photosOfTask, setPhotosOfTask] = useState([])
 
     const uploadTemplateFile = async () => {
+      setIsFileDownloading(true)
       await OtherModel.getReportTaskByTaskId(task._id)
+      setIsFileDownloading(false)
     }
 
     return (
@@ -310,6 +313,7 @@ export const EditTaskModal = observer(
           />
         </Modal>
         {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
+        {isFileDownloading && <CircularProgressWithLabel />}
       </div>
     )
   },
