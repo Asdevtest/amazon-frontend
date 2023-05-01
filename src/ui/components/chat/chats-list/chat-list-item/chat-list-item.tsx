@@ -97,13 +97,15 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
     <div className={cx(classNames.root, {[classNames.rootIsSelected]: isSelected})} onClick={onClick}>
       <div className={classNames.leftSide}>
         <Avatar
-          src={isGroupChat ? chat.info?.image : getUserAvatarSrc(oponentUser?._id)}
+          src={isGroupChat && !chatRequestAndRequestProposal ? chat.info?.image : getUserAvatarSrc(oponentUser?._id)}
           className={classNames.avatarWrapper}
         />
       </div>
       <div className={classNames.rightSide}>
         <div className={classNames.titleWrapper}>
-          <p className={classNames.titleText}>{isGroupChat ? chat.info?.title : title}</p>
+          <p className={classNames.titleText}>
+            {isGroupChat && !chatRequestAndRequestProposal ? chat.info?.title : title}
+          </p>
 
           {lastMessage?.updatedAt ? (
             <p className={classNames.messageDate}>{formatDateWithoutTime(lastMessage.updatedAt)}</p>
