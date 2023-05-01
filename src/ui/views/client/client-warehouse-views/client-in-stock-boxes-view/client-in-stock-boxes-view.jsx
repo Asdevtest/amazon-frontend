@@ -8,6 +8,7 @@ import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
+import {BoxStatus} from '@constants/box-status'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -162,8 +163,6 @@ export class ClientInStockBoxesViewRaw extends Component {
     const getRowClassName = params => params.row.isDraft === true && classNames.isDraftRow
 
     const disableSelectionCells = ['prepId']
-
-    // console.log('columnMenuSettings', columnMenuSettings)
 
     return (
       <React.Fragment>
@@ -640,6 +639,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       selectedBoxes,
       // isMasterBoxSelected,
       isChoosenOnlySendToBatchBoxes,
+      selectedRows,
       onClickRequestToSendBatch,
       onClickEditBtn,
       onClickMergeBtn,
@@ -647,11 +647,14 @@ export class ClientInStockBoxesViewRaw extends Component {
       onClickGroupingBtn,
       onClickReturnBoxesToStockBtn,
     } = this.viewModel
+
+    const disable = selectedRows.some(row => row.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
+
     return (
       <React.Fragment>
         <Button
           tooltipInfoContent={t(TranslationKey['Form for requesting the shipment of boxes in a batch'])}
-          disabled={!selectedBoxes.length}
+          disabled={!selectedBoxes.length || disable}
           onClick={onClickRequestToSendBatch}
         >
           {t(TranslationKey['Send batch'])}
