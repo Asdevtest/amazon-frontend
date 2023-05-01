@@ -92,6 +92,7 @@ export class ClientInStockBoxesViewModel {
 
   drawerOpen = false
   selectedBoxes = []
+  selectedRows = []
   curOpenedTask = {}
   toCancelData = {}
   currentStorekeeper = undefined
@@ -411,6 +412,10 @@ export class ClientInStockBoxesViewModel {
     runInAction(() => {
       this.selectedBoxes = model
     })
+
+    const selectedRows = model.map(id => this.boxesMy.find(row => row.id === id))
+
+    this.selectedRows = selectedRows
   }
 
   getCurrentData() {
