@@ -55,7 +55,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 30,
+    padding: '30px 0 40px',
   },
 
   trackNumberPhoto: {
