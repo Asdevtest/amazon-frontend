@@ -1894,7 +1894,7 @@ export const privateRoutesConfigs = [
     component: FreelancerDashboardView,
     exact: false,
     permission: [UserRole.FREELANCER],
-
+    permissionKey: permissionsKeys.freelancer.SHOW_DASHBOARD_FREELANCER,
     crumbNameKey: TranslationKey.Dashboard,
   },
 
