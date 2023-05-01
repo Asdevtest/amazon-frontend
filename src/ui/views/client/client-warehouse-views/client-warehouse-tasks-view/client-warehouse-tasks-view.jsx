@@ -115,7 +115,7 @@ export class ClientWarehouseTasksViewRaw extends Component {
                   // disabled
                   value={nameSearchValue}
                   inputClasses={classNames.searchInput}
-                  placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
+                  placeholder={t(TranslationKey['Search by ASIN, Order ID, Item'])}
                   onSubmit={onSearchSubmit}
                 />
               </div>
