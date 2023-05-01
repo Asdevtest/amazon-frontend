@@ -429,8 +429,8 @@ export const styles = theme => ({
     fontWeight: 600,
     fontSize: 18,
     color: theme.palette.primary.main,
-
-    marginBottom: 10,
+    wordWrap: 'no-wrap',
+    minWidth: 'max-content',
   },
 
   imgWrapper: {
