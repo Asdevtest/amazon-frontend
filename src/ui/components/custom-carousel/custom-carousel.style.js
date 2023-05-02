@@ -257,7 +257,8 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
 
-    marginTop: 20,
+    // marginTop: 20,
+    height: 140.99,
   },
 
   emptyIcon: {
