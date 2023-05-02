@@ -23,7 +23,7 @@ import {
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {convertDaysToSeconds, formatDate, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
-import {timeToDeadlineInHoursAndMins, toFixedWithDollarSign} from '@utils/text'
+import {timeToDeadlineInHoursAndMins, toFixed, toFixedWithDollarSign, toFixedWithYuanSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers) => [
@@ -116,6 +116,16 @@ export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers) => [
     width: 178,
     align: 'center',
     sortable: false,
+  },
+
+  {
+    field: 'toPay',
+    headerName: t(TranslationKey['To pay']) + ', Ұ',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['To pay']) + ', Ұ'} />,
+
+    renderCell: params => <MultilineTextCell text={toFixed(params.row.originalData.priceInYuan, 2)} />,
+    type: 'number',
+    width: 90,
   },
 
   {

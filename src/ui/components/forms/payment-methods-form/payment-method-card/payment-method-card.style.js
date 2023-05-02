@@ -37,6 +37,13 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
   },
 
+  imageFileInputWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
+
   cardManageWrapper: {
     display: 'flex',
     flexDirection: 'column',

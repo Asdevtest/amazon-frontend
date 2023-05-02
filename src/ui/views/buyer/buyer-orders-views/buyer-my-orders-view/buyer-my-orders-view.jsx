@@ -29,7 +29,6 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 import {SearchInput} from '@components/search-input'
-import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my-orders-columns'
 import {BuyerReadyForPaymentColumns} from '@components/table-columns/buyer/buyer-ready-for-payment-columns'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -104,7 +103,7 @@ class BuyerMyOrdersViewRaw extends Component {
       imagesForLoad,
       paymentMethods,
       currentOrder,
-      isReadyForPayment,
+      // isReadyForPayment,
 
       firstRowId,
       rowHandlers,
@@ -230,9 +229,10 @@ class BuyerMyOrdersViewRaw extends Component {
                   columnVisibilityModel={columnVisibilityModel}
                   density={densityModel}
                   columns={
-                    isReadyForPayment
-                      ? BuyerReadyForPaymentColumns(firstRowId, rowHandlers)
-                      : buyerMyOrdersViewColumns(firstRowId)
+                    // isReadyForPayment
+                    //   ?
+                    BuyerReadyForPaymentColumns(firstRowId, rowHandlers)
+                    // : buyerMyOrdersViewColumns(firstRowId)
                     // columnsModel
                   }
                   loading={requestStatus === loadingStatuses.isLoading}
