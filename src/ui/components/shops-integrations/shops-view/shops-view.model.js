@@ -29,6 +29,8 @@ export class ShopsViewModel {
   drawerOpen = false
   selectedShop = undefined
 
+  selectedShopFilters = []
+
   showAddOrEditShopModal = false
   showWarningModal = false
   showConfirmModal = false
@@ -132,7 +134,7 @@ export class ShopsViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.shopsData)
+    return toJS(this.selectedShopFilters)
   }
 
   onSelectionModel(model) {
@@ -166,12 +168,29 @@ export class ShopsViewModel {
     this.onChangeCurShop(shop)
   }
 
+  onSelectShopFilter(shop) {
+    if (this.selectedShopFilters.some(el => el._id === shop._id)) {
+      this.selectedShopFilters = this.selectedShopFilters.filter(el => el._id !== shop._id)
+    } else {
+      this.selectedShopFilters.push(shop)
+    }
+  }
+
+  handleSelectAllShops() {
+    if (this.selectedShopFilters.length === this.shopsData.length) {
+      this.selectedShopFilters = []
+    } else {
+      this.selectedShopFilters = this.shopsData
+    }
+  }
+
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getShops()
 
       this.getDataGridState()
+      this.selectedShopFilters = this.shopsData
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
