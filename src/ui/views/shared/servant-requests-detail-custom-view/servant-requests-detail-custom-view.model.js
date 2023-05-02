@@ -52,14 +52,20 @@ export class RequestDetailCustomViewModel {
   }
 
   constructor({history, location}) {
+    const url = new URL(window.location.href)
+
+    runInAction(() => {
+      this.requestId = url.searchParams.get('request-id')
+    })
+
     runInAction(() => {
       this.history = history
 
-      if (location.state) {
-        this.requestId = location.state.requestId
-      }
+      // if (location.state) {
+      //   this.requestId = location.state.requestId
+      // }
 
-      if (location.state.chatId) {
+      if (location?.state?.chatId) {
         this.chatSelectedId = location.state.chatId
       }
     })

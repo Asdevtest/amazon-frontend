@@ -59,6 +59,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
   const {
     role,
     snackNotifications,
+    simpleMessageCrmItemId,
     clearSnackNoticeByKey: markNotificationAsReaded,
     onClickMessage,
     checkMessageIsRead,
@@ -69,7 +70,8 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
     if (
       snackNotifications[snackNoticeKey.SIMPLE_MESSAGE] &&
       !location.pathname.includes('/messages') &&
-      !checkMessageIsRead(snackNotifications[snackNoticeKey.SIMPLE_MESSAGE])
+      !checkMessageIsRead(snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]) &&
+      !location.search.includes(simpleMessageCrmItemId)
     ) {
       toast(
         <SimpleMessagesNotification

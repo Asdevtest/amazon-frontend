@@ -177,9 +177,15 @@ export class MyProposalsViewModel {
   }
 
   onClickOpenBtn(request) {
-    this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-proposals/custom-search-request`, {
-      requestId: request._id,
-    })
+    // this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-proposals/custom-search-request`, {
+    //   requestId: request._id,
+    // })
+
+    this.history.push(
+      `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-proposals/custom-search-request?request-id=${
+        request._id
+      }`,
+    )
   }
 
   async onSubmitDeleteProposal() {
