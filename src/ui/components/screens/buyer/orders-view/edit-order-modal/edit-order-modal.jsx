@@ -202,7 +202,11 @@ export const EditOrderModal = observer(
         (order.orderSupplier.batchDeliveryCostInDollar / order.orderSupplier.amount) * order.amount ||
         0,
       priceBatchDeliveryInYuan:
+        // order?.priceBatchDeliveryInYuan ||
+        // (order.orderSupplier.batchDeliveryCostInYuan / order.orderSupplier.amount) * order.amount ||
+        // 0,
         order?.priceBatchDeliveryInYuan ||
+        (Number(order?.priceBatchDeliveryInYuan) === 0 && '0') ||
         (order.orderSupplier.batchDeliveryCostInYuan / order.orderSupplier.amount) * order.amount ||
         0,
       trackId: '',
