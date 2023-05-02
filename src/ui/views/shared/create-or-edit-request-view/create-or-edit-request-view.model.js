@@ -118,7 +118,7 @@ export class CreateOrEditRequestViewModel {
     })
   }
 
-  async onSubmitCreateRequest(data, files, withPublish) {
+  async onSubmitCreateRequest(data, files, withPublish, announcement) {
     try {
       runInAction(() => {
         this.uploadedFiles = []
@@ -133,7 +133,7 @@ export class CreateOrEditRequestViewModel {
         request: getObjectFilteredByKeyArrayBlackList(
           {
             ...data.request,
-            announcementId: data.request.announcementId._id,
+            announcementId: announcement?._id || '',
             linksToMediaFiles: this.uploadedFiles.map((el, i) => ({fileLink: el, commentByClient: files[i].comment})),
           },
           ['discountedPrice'],
@@ -190,7 +190,7 @@ export class CreateOrEditRequestViewModel {
     }
   }
 
-  async onSubmitEditRequest(data, files) {
+  async onSubmitEditRequest(data, files, announcement) {
     try {
       if (files.length) {
         await onSubmitPostImages.call(this, {images: files.map(el => el.file), type: 'uploadedFiles'})
@@ -201,7 +201,7 @@ export class CreateOrEditRequestViewModel {
         request: getObjectFilteredByKeyArrayBlackList(
           {
             ...data.request,
-            announcementId: data.request.announcementId._id,
+            announcementId: announcement?._id || '',
             linksToMediaFiles: [
               // ...data.details.linksToMediaFiles,
               ...this.uploadedFiles.map((el, i) => ({fileLink: el, commentByClient: files[i].comment})),
@@ -217,6 +217,8 @@ export class CreateOrEditRequestViewModel {
           // ],
         },
       }
+
+      console.log('dataWithFiles', dataWithFiles)
 
       await RequestModel.editRequest(this.requestToEdit.request._id, dataWithFiles)
 
