@@ -13,7 +13,6 @@ import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.con
 
 import {Button} from '@components/buttons/button'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {CustomTextEditor} from '@components/custom-text-editor'
 
 import {formatDateTimeHourAndMinutes} from '@utils/date-time'
 import {minsToTime, toFixedWithDollarSign} from '@utils/text'
