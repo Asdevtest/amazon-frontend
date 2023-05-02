@@ -46,6 +46,16 @@ const attentionStatuses = [
   OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
 ]
 
+const categoryNameByUrl = {
+  '/buyer/ready-for-payment-orders': 'Ready for payment',
+  '/buyer/not-paid-orders': 'Not paid',
+  '/buyer/need-track-number-orders': 'Need track number',
+  '/buyer/inbound-orders': 'Inbound',
+  '/buyer/confirmation-required-orders': 'Confirmation required',
+  '/buyer/closed-and-canceled-orders': 'Closed and canceled',
+  '/buyer/all-orders': 'All orders',
+}
+
 @observer
 class BuyerMyOrdersViewRaw extends Component {
   viewModel = new BuyerMyOrdersViewModel({history: this.props.history, location: this.props.location})
@@ -163,7 +173,12 @@ class BuyerMyOrdersViewRaw extends Component {
         />
 
         <Main>
-          <Appbar title={t(TranslationKey['My orders'])} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar
+            title={`${t(TranslationKey['My orders'])} - ${t(
+              TranslationKey[categoryNameByUrl[this.props.location.pathname]],
+            )}`}
+            setDrawerOpen={onTriggerDrawerOpen}
+          >
             <MainContent>
               <div
                 className={cx(classNames.headerWrapper, {
