@@ -18,6 +18,7 @@ export const ChoiceOfPerformerModal = ({
   onClickThumbnail,
   onClickChooseBtn,
   onClickResetPerformerBtn,
+  onClickCloseBtn,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -25,6 +26,10 @@ export const ChoiceOfPerformerModal = ({
 
   const [nameSearchValue, setNameSearchValue] = useState('')
 
+  const chooseAndClose = announcement => {
+    onClickChooseBtn(announcement)
+    onClickCloseBtn()
+  }
   useEffect(() => {
     setDataToRender(announcements)
   }, [announcements])
@@ -59,7 +64,14 @@ export const ChoiceOfPerformerModal = ({
           />
         </div>
 
-        <Button danger className={classNames.backBtn} onClick={() => onClickResetPerformerBtn('')}>
+        <Button
+          danger
+          className={classNames.backBtn}
+          onClick={() => {
+            onClickResetPerformerBtn('')
+            onClickCloseBtn()
+          }}
+        >
           {t(TranslationKey['Reset performer'])}
         </Button>
       </div>
@@ -77,7 +89,7 @@ export const ChoiceOfPerformerModal = ({
               choose
               service={service}
               onClickThumbnail={onClickThumbnail}
-              onClickButton={onClickChooseBtn}
+              onClickButton={chooseAndClose}
             />
           ))}
         </Box>

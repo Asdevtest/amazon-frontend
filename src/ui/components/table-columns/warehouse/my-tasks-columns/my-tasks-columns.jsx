@@ -103,7 +103,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
-    width: window.innerWidth < 1282 ? 140 : 155,
+    width: window.innerWidth < 1282 ? 140 : 180,
     // renderCell: params => <TaskTypeCell task={params.row.originalData} />,
     renderCell: params => {
       const originalDataMemo = useMemo(() => params.row.originalData, [])

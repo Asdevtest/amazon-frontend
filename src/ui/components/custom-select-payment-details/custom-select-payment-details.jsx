@@ -50,7 +50,6 @@ export const CustomSelectPaymentDetails = props => {
   const EditIconToRender = () => <EditIcon className={classNames.editIcon} />
 
   const selectContentToRender = (valuesToRender, onlyRead) => {
-    console.log('valuesToRender', valuesToRender)
     if (valuesToRender && valuesToRender.length) {
       setIsEmpty(false)
 

@@ -72,7 +72,7 @@ export const clientTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
-    width: 160,
+    width: 180,
     renderCell: params => <TaskTypeCell task={params.row.originalData} />,
   },
 

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Chip, Typography, TableCell, TableRow, IconButton, Checkbox} from '@mui/material'
+import {Checkbox, Chip, IconButton, TableCell, TableRow, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -44,10 +44,9 @@ export const OrderModalBodyRow = ({
   withRemove,
   destinationsFavourites,
   onClickSetDestinationFavourite,
-  isPriseOutOfLimit,
-  setIsPriseOutOfLimit,
 }) => {
   const {classes: classNames} = useClassNames()
+  const [isLocalPriseOutOfLimit, setIsLocalPriseOutOfLimit] = useState(false)
 
   const onChangeInput = (event, nameInput) => {
     if (nameInput === 'deadline') {
@@ -194,7 +193,7 @@ export const OrderModalBodyRow = ({
 
           <Field
             containerClasses={classNames.containerField}
-            inputClasses={cx(classNames.amountCell, {[classNames.errorText]: isPriseOutOfLimit})}
+            inputClasses={cx(classNames.amountCell, {[classNames.errorText]: isLocalPriseOutOfLimit})}
             error={
               item.currentSupplier?.multiplicity &&
               item.currentSupplier?.boxProperties?.amountInBox &&
@@ -212,9 +211,9 @@ export const OrderModalBodyRow = ({
             value={orderState.amount}
             onChange={e => {
               if (e.target.value > maxAmount) {
-                setIsPriseOutOfLimit(true)
+                setIsLocalPriseOutOfLimit(true)
               } else {
-                setIsPriseOutOfLimit(false)
+                setIsLocalPriseOutOfLimit(false)
               }
               onChangeInput(e, 'amount')
             }}
@@ -222,12 +221,12 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         <TableCell className={classNames.cell}>
-          <Typography className={cx(classNames.standartText, {[classNames.errorSpace]: isPriseOutOfLimit})}>
+          <Typography className={cx(classNames.standartText, {[classNames.errorSpace]: isLocalPriseOutOfLimit})}>
             {toFixed(calcProductsPriceWithDelivery(item, orderState), 2)}
           </Typography>
-          {isPriseOutOfLimit && (
+          {isLocalPriseOutOfLimit && (
             <Typography className={classNames.error}>
-              {t(TranslationKey['At least'])} {platformSettings.orderAmountLimit}$
+              {t(TranslationKey['No more than'])} {platformSettings.orderAmountLimit}$
             </Typography>
           )}
         </TableCell>

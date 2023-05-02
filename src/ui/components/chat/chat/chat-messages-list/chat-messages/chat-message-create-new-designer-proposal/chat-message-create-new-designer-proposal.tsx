@@ -17,7 +17,7 @@ import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel
 import {CustomTextEditor} from '@components/custom-text-editor'
 
 import {formatDateOnlyTime, formatNormDateTime} from '@utils/date-time'
-import {minsToTime, toFixed, toFixedWithDollarSign} from '@utils/text'
+import {minsToTime, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'

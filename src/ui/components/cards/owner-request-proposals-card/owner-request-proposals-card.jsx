@@ -9,6 +9,7 @@ import {
   RequestProposalStatusColor,
   RequestProposalStatusTranslate,
 } from '@constants/request-proposal-status'
+import {RequestStatus} from '@constants/request-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -23,6 +24,7 @@ import {useClassNames} from './owner-request-proposals-card.style'
 
 export const OwnerRequestProposalsCard = ({
   item,
+  request,
   onClickContactWithExecutor,
   onClickReview,
   onClickOrderProposal,
@@ -101,8 +103,8 @@ export const OwnerRequestProposalsCard = ({
         </div>
 
         <div className={classNames.actionButtonWrapper}>
-          {item.proposal.status === RequestProposalStatus.CREATED ||
-          item.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED ? (
+          {(item.proposal.status === RequestProposalStatus.CREATED ||
+            item.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) && (
             <>
               <Button
                 tooltipInfoContent={t(
@@ -117,6 +119,38 @@ export const OwnerRequestProposalsCard = ({
               >
                 {t(TranslationKey.Reject)}
               </Button>
+              {/* <Button
+                tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
+                variant="contained"
+                color="primary"
+                className={cx(classNames.actionButton, classNames.successBtn)}
+                onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}
+              >
+                {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price, 2)}`}
+              </Button> */}
+            </>
+          )}
+
+          {[
+            RequestProposalStatus.CREATED,
+            RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
+            RequestProposalStatus.OFFER_CONDITIONS_REJECTED,
+            RequestProposalStatus.READY_TO_VERIFY,
+            RequestProposalStatus.VERIFYING_BY_SUPERVISOR,
+            RequestProposalStatus.TO_CORRECT,
+            RequestProposalStatus.CORRECTED,
+
+            RequestProposalStatus.CANCELED_BY_CREATOR_OF_REQUEST,
+            RequestProposalStatus.CANCELED_BY_SUPERVISOR,
+            RequestProposalStatus.CANCELED_BY_SUPERVISOR,
+            RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
+          ].includes(item.proposal.status) &&
+            ![
+              RequestStatus.EXPIRED,
+              RequestStatus.CANCELED_BY_ADMIN,
+              RequestStatus.CANCELED_BY_SUPERVISOR,
+              RequestStatus.CANCELED_BY_EXECUTOR,
+            ].includes(request.request.status) && (
               <Button
                 tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
                 variant="contained"
@@ -126,9 +160,7 @@ export const OwnerRequestProposalsCard = ({
               >
                 {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price, 2)}`}
               </Button>
-            </>
-          ) : undefined}
-
+            )}
           <Button
             tooltipInfoContent={t(TranslationKey['Open a chat with the performer'])}
             variant="contained"

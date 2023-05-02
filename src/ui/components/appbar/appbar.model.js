@@ -1,5 +1,6 @@
 import {makeAutoObservable} from 'mobx'
 
+import {snackNoticeKey} from '@constants/snack-notifications'
 import {UserRoleCodeMapForRoutes, UserRole, mapUserRoleEnumToKey} from '@constants/user-roles'
 
 import {ChatModel} from '@models/chat-model'
@@ -45,6 +46,10 @@ export class AppbarModel {
 
   get simpleChats() {
     return ChatModel.simpleChats
+  }
+
+  get simpleMessageCrmItemId() {
+    return SettingsModel.snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]?.crmItemId || null
   }
 
   constructor({history}) {
@@ -100,24 +105,17 @@ export class AppbarModel {
           })
 
         case mapUserRoleEnumToKey[UserRole.FREELANCER]:
-          return this.history.push(`/freelancer/freelance/my-proposals/custom-search-request`, {
-            chatId: noticeItem.chatId,
-            requestId: noticeItem.crmItemId,
-          })
+          return this.history.push(
+            `/freelancer/freelance/my-proposals/custom-search-request?request-id=${noticeItem.crmItemId}`,
+            {
+              chatId: noticeItem.chatId,
+            },
+          )
 
         default:
           return
       }
     }
-
-    // this.history.push(`/client/freelance/my-requests/custom-request?request-id=${noticeItem.crmItemId}`, {
-    //   chatId: noticeItem.chatId,
-    // })
-
-    // this.history.push(`/freelancer/freelance/my-proposals/custom-search-request`, {
-    //   chatId: noticeItem.chatId,
-    //   requestId: noticeItem.crmItemId,
-    // })
   }
 
   clearSnackNoticeByKey(key) {

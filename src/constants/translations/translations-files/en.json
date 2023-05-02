@@ -426,7 +426,7 @@
   "Allow multiple performances by the same performer": "Allow multiple performances by the same performer",
   "Step": "Step",
   "Back to editing": "Back to editing",
-  "Request title": "Request title*",
+  "Request title": "Request title",
   "Your request": "Your request",
   "Price and time": "Price and time",
   "Number of proposals": "Number of proposals",
@@ -1937,5 +1937,6 @@
   "Payment details": "Payment details",
   "Select payment methods": "Select payment methods",
   "All statuses": "All statuses",
-  "At least": "At least"
+  "At least": "At least",
+  "No more than": "No more than"
 }

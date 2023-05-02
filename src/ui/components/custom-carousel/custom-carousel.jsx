@@ -248,9 +248,9 @@ export const PhotoAndFilesCarousel = ({
 
   const notEmptyPhotos = files?.length ? files.filter(el => checkIsImageLink(el?.file?.name || el)) : []
 
-  console.log('files', files)
-  console.log('notEmptyFiles', notEmptyFiles)
-  console.log('notEmptyPhotos', notEmptyPhotos)
+  // console.log('files', files)
+  // console.log('notEmptyFiles', notEmptyFiles)
+  // console.log('notEmptyPhotos', notEmptyPhotos)
 
   const onClickRemoveImageObj = imageIndex => {
     const newArr = imagesForLoad.filter((el, i) => i !== imageIndex)
