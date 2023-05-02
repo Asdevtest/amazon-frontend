@@ -51,6 +51,7 @@ export class WarehouseSentBatchesViewModel {
   uploadedFiles = []
 
   status = BatchStatus.HAS_DISPATCHED
+  languageTag = undefined
 
   sortModel = []
   filterModel = {items: []}
@@ -63,11 +64,11 @@ export class WarehouseSentBatchesViewModel {
     onClickSaveArrivalDate: (id, date) => this.onClickSaveArrivalDate(id, date),
   }
 
-  columnsModel = batchesViewColumns(this.rowHandlers, this.status)
+  columnsModel = batchesViewColumns(this.rowHandlers, this.status, this.languageTag)
 
   changeColumnsModel(newHideState) {
     runInAction(() => {
-      this.columnsModel = batchesViewColumns(this.rowHandlers, this.status).map(el => ({
+      this.columnsModel = batchesViewColumns(this.rowHandlers, this.status, this.languageTag).map(el => ({
         ...el,
         hide: !!newHideState[el?.field],
       }))
@@ -86,7 +87,10 @@ export class WarehouseSentBatchesViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
+      () => {
+        this.languageTag = SettingsModel.languageTag
+        this.updateColumnsModel()
+      },
     )
 
     reaction(
@@ -127,7 +131,7 @@ export class WarehouseSentBatchesViewModel {
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = batchesViewColumns(this.rowHandlers, this.status).map(el => ({
+        this.columnsModel = batchesViewColumns(this.rowHandlers, this.status, this.languageTag).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))
