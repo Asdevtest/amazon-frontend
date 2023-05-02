@@ -50,6 +50,8 @@ export class ClientSentBatchesViewModel {
 
   showConfirmModal = false
 
+  languageTag = undefined
+
   confirmModalSettings = {
     isWarning: false,
     confirmTitle: '',
@@ -70,7 +72,7 @@ export class ClientSentBatchesViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = clientBatchesViewColumns(this.rowHandlers)
+  columnsModel = clientBatchesViewColumns(this.rowHandlers, this.languageTag)
 
   get userInfo() {
     return UserModel.userInfo
@@ -93,7 +95,10 @@ export class ClientSentBatchesViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
+      () => {
+        this.languageTag = SettingsModel.languageTag
+        this.updateColumnsModel()
+      },
     )
 
     reaction(
@@ -183,7 +188,7 @@ export class ClientSentBatchesViewModel {
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = clientBatchesViewColumns(this.rowHandlers).map(el => ({
+        this.columnsModel = clientBatchesViewColumns(this.rowHandlers, this.languageTag).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))
