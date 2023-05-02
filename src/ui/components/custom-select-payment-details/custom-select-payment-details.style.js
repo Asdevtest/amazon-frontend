@@ -63,6 +63,7 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'pre-wrap',
 
     gap: 30,
+    height: 40,
   },
 
   placeholderText: {
