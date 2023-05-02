@@ -38,8 +38,8 @@ export const useClassNames = makeStyles()(theme => ({
   editorContainer: {
     padding: '10px 16px !important',
     margin: '0px !important',
-    height: 'auto !important',
-    // height: '100% !important',
+    // height: 'auto !important',
+    height: 'calc(100% - 45px) !important',
     width: '100% !important',
   },
   container: {
