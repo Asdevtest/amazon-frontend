@@ -108,7 +108,7 @@ export class ClientWarehouseTasksViewRaw extends Component {
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Boxes in stock'])}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Tasks)}>
             <MainContent>
               <div className={classNames.headerWrapper}>
                 <SearchInput
