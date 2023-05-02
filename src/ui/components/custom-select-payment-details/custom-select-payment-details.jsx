@@ -41,10 +41,15 @@ export const CustomSelectPaymentDetails = props => {
 
   const [isEmpty, setIsEmpty] = useState(true)
 
-  const [value, setValue] = useState(currentPaymentMethods || [])
+  const initValue = currentPaymentMethods.map(item => ({
+    title: item?.title,
+    _id: item?._id,
+  }))
+
+  const [value, setValue] = useState(initValue || [])
 
   useEffect(() => {
-    setValue(currentPaymentMethods)
+    setValue(initValue)
   }, [currentPaymentMethods])
 
   const EditIconToRender = () => <EditIcon className={classNames.editIcon} />
@@ -89,8 +94,9 @@ export const CustomSelectPaymentDetails = props => {
         inputComponent={
           <div className={cx(selectWrapper)} onClick={onClickButton}>
             <Select
+              multiple
               displayEmpty
-              disabled={(onlyRead && isEmpty) || disabled}
+              disabled={(onlyRead && isEmpty) || disabled || onlyRead}
               value={value}
               IconComponent={!isEmpty ? EditIconToRender : ''}
               classes={{
@@ -103,7 +109,7 @@ export const CustomSelectPaymentDetails = props => {
               }}
               renderValue={selected => selectContentToRender(selected, onlyRead)}
               className={cx(classNames.paymentMethodsField, {
-                [classNames.grayBorder]: onlyRead && isEmpty,
+                [classNames.grayBorder]: (onlyRead && isEmpty) || onlyRead,
                 [classNames.cursorPointer]: cursorPointer,
               })}
               input={<Input /* startAdornment={<InputAdornment position="start" />} */ />}
@@ -118,11 +124,13 @@ export const CustomSelectPaymentDetails = props => {
                 },
               }}
               onChange={event => {
-                onChangePaymentMethod(event.target.value)
+                if (!onlyRead && !disabled) {
+                  onChangePaymentMethod(event.target.value)
+                }
               }}
             >
               {!onlyRead && (
-                <MenuItem value={paymentMethods}>
+                <MenuItem value={{_id: 'SELECT_ALL'}}>
                   <Checkbox color="primary" checked={value?.length === paymentMethods?.length} />
                   <Typography className={classNames.standartText}>{t(TranslationKey.All)}</Typography>
                 </MenuItem>
