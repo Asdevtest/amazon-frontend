@@ -369,6 +369,7 @@ class BuyerMyOrdersViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showPaymentMethodsModal')}
         >
           <PaymentMethodsForm
+            readOnly={Number(currentOrder?.status) !== Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])}
             payments={payments}
             onClickSaveButton={state => saveOrderPayment(currentOrder, state)}
             onClickCancelButton={() => onTriggerOpenModal('showPaymentMethodsModal')}
