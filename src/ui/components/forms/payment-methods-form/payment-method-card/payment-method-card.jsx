@@ -76,7 +76,7 @@ export const PaymentMethodCard = props => {
           multiline
           minRows={2}
           maxRows={2}
-          inputProps={{maxLength: 500}}
+          inputProps={{maxLength: 250}}
           inputClasses={classNames.commentInput}
           value={paymentsFields.paymentDetails}
           labelClasses={cx(classNames.paymentMethodTitle, classNames.label)}

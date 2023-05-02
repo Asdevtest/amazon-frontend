@@ -65,13 +65,13 @@ export const CreateOrEditRequestContent = ({
   requestToEdit,
   history,
   platformSettingsData,
-  onCreateSubmit,
-  onEditSubmit,
   showProgress,
   progressValue,
+  mainContentRef,
   onClickChoosePerformer,
   onClickThumbnail,
-  mainContentRef,
+  onCreateSubmit,
+  onEditSubmit,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -167,7 +167,7 @@ export const CreateOrEditRequestContent = ({
       asin: requestToEdit?.request.asin || undefined,
       priceAmazon: requestToEdit?.request.priceAmazon || 0,
       cashBackInPercent: requestToEdit?.request.cashBackInPercent || 0,
-      announcementId: choosenAnnouncements || undefined,
+      announcementId: requestToEdit?.request?.announcementId || undefined,
       productId: requestToEdit?.request?.productId || undefined,
       withoutConfirmation: requestToEdit?.request?.withoutConfirmation || false,
 
@@ -185,6 +185,24 @@ export const CreateOrEditRequestContent = ({
   })
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
+
+  console.log('formFields', formFields)
+
+  const [announcement, setAnnouncement] = useState(choosenAnnouncements || undefined)
+
+  console.log('announcement', announcement)
+
+  useEffect(() => {
+    setFormFields(getSourceFormFields())
+  }, [])
+
+  useEffect(() => {
+    setAnnouncement(choosenAnnouncements)
+
+    const newFormFields = {...formFields}
+    newFormFields.request.typeTask = choosenAnnouncements?.type || null
+    setFormFields(newFormFields)
+  }, [choosenAnnouncements])
 
   useEffect(() => {
     if (!requestToEdit) {
@@ -244,6 +262,7 @@ export const CreateOrEditRequestContent = ({
         newFormFields.request.needCheckBySupervisor = false
         newFormFields.request.restrictMoreThanOneProposalFromOneAssignee = false
         newFormFields.request.announcementId = ''
+        setAnnouncement('')
         newFormFields[section][fieldName] = event.target.value
 
         if (`${event.target.value}` !== `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`) {
@@ -274,7 +293,7 @@ export const CreateOrEditRequestContent = ({
       if (curStep === stepVariant.STEP_ONE) {
         setCurStep(stepVariant.STEP_TWO)
       } else {
-        onCreateSubmit(formFields, images, withPublish)
+        onCreateSubmit(formFields, images, withPublish, announcement)
       }
     }
   }
@@ -665,20 +684,20 @@ export const CreateOrEditRequestContent = ({
 
                   <div className={classNames.performerAndButtonWrapper}>
                     <div className={classNames.performerAndButtonSubWrapper}>
-                      {formFields?.request?.announcementId._id && (
+                      {announcement?._id && (
                         <div className={classNames.performerWrapper}>
                           <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
                           <div className={classNames.userInfo}>
                             <Avatar
-                              src={getUserAvatarSrc(formFields?.request?.announcementId?.createdBy?._id)}
+                              src={getUserAvatarSrc(announcement?.createdBy?._id)}
                               className={classNames.cardImg}
                             />
 
                             <div className={classNames.nameWrapper}>
                               <UserLink
                                 blackText
-                                name={formFields?.request?.announcementId?.createdBy?.name}
-                                userId={formFields?.request?.announcementId?.createdBy?._id}
+                                name={announcement?.createdBy?.name}
+                                userId={announcement?.createdBy?._id}
                               />
                               <Rating disabled value={5} size="small" classes={classNames.rating} />
                             </div>
@@ -694,16 +713,12 @@ export const CreateOrEditRequestContent = ({
                           setOpenModal(true)
                         }}
                       >
-                        {formFields.request.announcementId
-                          ? t(TranslationKey['Change performer'])
-                          : t(TranslationKey['Select a Performer'])}
+                        {announcement ? t(TranslationKey['Change performer']) : t(TranslationKey['Select a Performer'])}
                       </Button>
                     </div>
-                    {formFields?.request?.announcementId?.title && (
+                    {announcement?.title && (
                       <div className={classNames.performerDescriptionWrapper}>
-                        <Typography className={classNames.performerDescriptionText}>
-                          {formFields?.request?.announcementId?.title}
-                        </Typography>
+                        <Typography className={classNames.performerDescriptionText}>{announcement?.title}</Typography>
                       </div>
                     )}
                   </div>
@@ -988,27 +1003,27 @@ export const CreateOrEditRequestContent = ({
                         </div>
                       </div>
                       <div className={classNames.infoTextWrapper}>
-                        {formFields.request.announcementId && (
+                        {announcement?._id && (
                           <div className={classNames.performerWrapperStepTwo}>
                             <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
                             <div className={classNames.userInfo}>
                               <Avatar
-                                src={getUserAvatarSrc(formFields.request.announcementId.createdBy._id)}
+                                src={getUserAvatarSrc(announcement?.createdBy?._id)}
                                 className={classNames.cardImg}
                               />
 
                               <div className={classNames.nameWrapperStepTwo}>
                                 <UserLink
                                   blackText
-                                  name={formFields.request.announcementId.createdBy.name}
-                                  userId={formFields.request.announcementId.createdBy._id}
+                                  name={announcement?.createdBy?.name}
+                                  userId={announcement?.createdBy?._id}
                                   customStyles={{maxWidth: 300}}
                                 />
                                 <Rating disabled value={5} size="small" classes={classNames.rating} />
                               </div>
                             </div>
                             <Typography className={classNames.performerDescriptionText}>
-                              {formFields.request.announcementId.description}
+                              {announcement?.description}
                             </Typography>
                           </div>
                         )}
@@ -1118,7 +1133,7 @@ export const CreateOrEditRequestContent = ({
                     success
                     disabled={disableSubmit}
                     className={classNames.successBtn}
-                    onClick={() => onEditSubmit(formFields, images)}
+                    onClick={() => onEditSubmit(formFields, images, announcement)}
                   >
                     {t(TranslationKey.Edit)}
                   </Button>
@@ -1251,8 +1266,9 @@ export const CreateOrEditRequestContent = ({
         <ChoiceOfPerformerModal
           announcements={announcementsData}
           onClickThumbnail={onClickThumbnail}
-          onClickChooseBtn={onChangeField('request')('announcementId')}
-          onClickResetPerformerBtn={onChangeField('request')('announcementId')}
+          onClickChooseBtn={setAnnouncement}
+          onClickResetPerformerBtn={setAnnouncement}
+          onClickCloseBtn={() => setOpenModal(!openModal)}
         />
       </Modal>
     </div>

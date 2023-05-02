@@ -49,11 +49,18 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
 
   const oponentUser = users.filter(
     (user: ChatUserContract) =>
+      // user._id !== userId &&
+      // ((user._id !== chatRequestAndRequestProposal.request?.request?.sub?._id &&
+      //   userId !== currentProposal?.proposal?.createdBy?._id) ||
+      //   (user._id !== currentProposal?.proposal?.sub?._id &&
+      //     userId !== chatRequestAndRequestProposal.request?.request?.createdBy?._id)),
+
       user._id !== userId &&
-      ((user._id !== chatRequestAndRequestProposal.request?.request?.sub?._id &&
-        userId !== currentProposal?.proposal?.createdBy?._id) ||
-        (user._id !== currentProposal?.proposal?.sub?._id &&
-          userId !== chatRequestAndRequestProposal.request?.request?.createdBy?._id)),
+      user._id !== chatRequestAndRequestProposal.request?.request?.sub?._id &&
+      user._id !== currentProposal?.proposal?.sub?._id &&
+      (userId === chatRequestAndRequestProposal.request?.request?.sub?._id
+        ? user._id !== chatRequestAndRequestProposal.request?.request?.createdBy?._id
+        : user._id !== currentProposal?.proposal?.createdBy?._id),
   )?.[0]
 
   const title = typeof oponentUser?.name === 'string' ? oponentUser.name : t(TranslationKey['System message'])
