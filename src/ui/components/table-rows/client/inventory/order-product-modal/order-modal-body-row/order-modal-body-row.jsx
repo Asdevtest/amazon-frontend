@@ -133,6 +133,14 @@ export const OrderModalBodyRow = ({
 
   const maxAmount = calcProductsMaxAmountByPriceLimit(item, platformSettings.orderAmountLimit)
 
+  React.useEffect(() => {
+    if (toFixed(calcProductsPriceWithDelivery(item, orderState), 2) > platformSettings.orderAmountLimit) {
+      setIsLocalPriseOutOfLimit(true)
+    } else {
+      setIsLocalPriseOutOfLimit(false)
+    }
+  }, [orderState.amount])
+
   return (
     <React.Fragment>
       <TableRow
@@ -193,7 +201,7 @@ export const OrderModalBodyRow = ({
 
           <Field
             containerClasses={classNames.containerField}
-            inputClasses={cx(classNames.amountCell, {[classNames.errorText]: isLocalPriseOutOfLimit})}
+            inputClasses={cx(classNames.amountCell)}
             error={
               item.currentSupplier?.multiplicity &&
               item.currentSupplier?.boxProperties?.amountInBox &&
@@ -210,11 +218,6 @@ export const OrderModalBodyRow = ({
             inputProps={{maxLength: 6, min: 0}}
             value={orderState.amount}
             onChange={e => {
-              if (e.target.value > maxAmount) {
-                setIsLocalPriseOutOfLimit(true)
-              } else {
-                setIsLocalPriseOutOfLimit(false)
-              }
               onChangeInput(e, 'amount')
             }}
           />
