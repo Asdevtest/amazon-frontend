@@ -16,6 +16,7 @@ export const useOrdersUpdatesNotificationStyle = makeStyles()(theme => ({
     justifyContent: 'space-between',
     paddingRight: '5px',
     maxHeight: '25vh',
+    gap: 15,
   },
   attentionTitle: {
     color: '#FF1616',
@@ -24,8 +25,8 @@ export const useOrdersUpdatesNotificationStyle = makeStyles()(theme => ({
     marginRight: 5,
   },
   list: {
-    height: '100%',
     overflow: 'auto',
+    flex: 1,
   },
   listWrapper: {
     listStyle: 'none',
@@ -40,7 +41,6 @@ export const useOrdersUpdatesNotificationStyle = makeStyles()(theme => ({
     color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: '400',
-    paddingTop: '10px',
     paddingBottom: '10px',
     position: 'sticky',
     top: 0,
