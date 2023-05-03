@@ -4,12 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Название склада. | 
-**country** | **String** | Страна. | [optional] 
-**zipCode** | **String** | Индекс. 5 цифр. | [optional] 
-**state** | **String** | Штат. | [optional] 
-**city** | **String** | Город. | [optional] 
-**address** | **String** | Адрес склада. | [optional] 
-**fontColor** | **String** | Цвет шрифта | [optional] 
+**_id** | **String** | Гуид медиа | [optional] 
+**commentByClient** | **String** | комментарий клиента | [optional] 
+**commentByPerformer** | **String** | комментарий исполнителя | [optional] 
+**fileLink** | **String** | Ссылка на файл | [optional] 
+**proposalId** | **String** | Файл для записи в FreelanceSource | [optional] 
+**requestId** | **String** | Комментарий к файлу | [optional] 
 
 
