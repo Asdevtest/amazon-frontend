@@ -37,4 +37,10 @@ export class ClientFreelanceViewModel {
       pathname: '/client/freelance/my-proposals',
     })
   }
+
+  onClickServiceExchange() {
+    this.history.push({
+      pathname: '/client/freelance/service-exchange',
+    })
+  }
 }
