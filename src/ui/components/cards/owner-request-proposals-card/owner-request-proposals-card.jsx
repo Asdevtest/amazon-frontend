@@ -135,10 +135,6 @@ export const OwnerRequestProposalsCard = ({
             RequestProposalStatus.CREATED,
             RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
             RequestProposalStatus.OFFER_CONDITIONS_REJECTED,
-            RequestProposalStatus.READY_TO_VERIFY,
-            RequestProposalStatus.VERIFYING_BY_SUPERVISOR,
-            RequestProposalStatus.TO_CORRECT,
-            RequestProposalStatus.CORRECTED,
 
             RequestProposalStatus.CANCELED_BY_CREATOR_OF_REQUEST,
             RequestProposalStatus.CANCELED_BY_SUPERVISOR,

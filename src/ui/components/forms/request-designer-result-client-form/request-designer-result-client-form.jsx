@@ -191,11 +191,12 @@ export const RequestDesignerResultClientForm = ({
   setOpenModal,
   proposal,
   userInfo,
+  curResultMedia,
 }) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('request', request)
-  console.log('proposal', proposal)
+  // console.log('request', request)
+  // console.log('proposal', proposal)
 
   const isNotClient =
     userInfo._id !== request.request.createdBy._id && userInfo.masterUser?._id !== request.request.createdBy._id
@@ -216,12 +217,12 @@ export const RequestDesignerResultClientForm = ({
 
   const [imagesForDownload, setImagesForDownload] = useState([])
 
-  const sourceImagesData = proposal.proposal.media.map(el => ({
+  const sourceImagesData = (curResultMedia ?? proposal.proposal.media).map(el => ({
     image: el.fileLink,
     comment: el.commentByPerformer,
     commentByClient: el.commentByClient,
     isEditCommentOpen: false,
-    _id: el._id,
+    _id: el._id ?? window.crypto.randomUUID(),
   }))
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
@@ -340,7 +341,7 @@ export const RequestDesignerResultClientForm = ({
             containerClasses={classNames.containerField}
             inputComponent={
               <Typography className={cx(classNames.simpleSpan /* , classNames.textMargin */)}>
-                {proposal.proposal.media.length}
+                {(curResultMedia ?? proposal.proposal.media).length}
               </Typography>
             }
           />

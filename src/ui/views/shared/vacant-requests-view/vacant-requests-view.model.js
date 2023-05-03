@@ -188,8 +188,7 @@ export class VacantRequestsViewModel {
   async onClickViewMore(id) {
     try {
       this.history.push(
-        `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests/custom-search-request`,
-        {requestId: id},
+        `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests/custom-search-request?request-id=${id}`,
       )
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
