@@ -1098,6 +1098,7 @@ export const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
+    flexGrow: 1,
   },
 
   changeChipCellLabel: {
