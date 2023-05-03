@@ -744,8 +744,6 @@ export class BuyerMyOrdersViewModel {
     orderPayments,
   }) {
     try {
-      console.log('orderFields', orderFields)
-
       this.setRequestStatus(loadingStatuses.isLoading)
 
       const isMismatchOrderPrice = parseFloat(orderFields.totalPriceChanged) - parseFloat(orderFields.totalPrice) > 0

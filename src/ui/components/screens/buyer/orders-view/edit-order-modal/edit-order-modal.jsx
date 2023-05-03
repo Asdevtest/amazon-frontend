@@ -96,8 +96,6 @@ export const EditOrderModal = observer(
   }) => {
     const {classes: classNames} = useClassNames()
 
-    console.log('order', order)
-
     const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(true)
 
     const deliveredGoodsCount =
