@@ -29,6 +29,8 @@ export class RequestDetailCustomViewModel {
   showRequestDesignerResultModal = false
   showRequestDesignerResultClientModal = false
 
+  curResultMedia = []
+
   loadedFiles = []
 
   warningInfoModalSettings = {
@@ -134,7 +136,11 @@ export class RequestDetailCustomViewModel {
     })
   }
 
-  onClickOpenRequest() {
+  onClickOpenRequest(media) {
+    runInAction(() => {
+      this.curResultMedia = media
+    })
+
     this.onTriggerOpenModal('showRequestDesignerResultClientModal')
   }
 

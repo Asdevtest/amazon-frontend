@@ -58,6 +58,7 @@ export class RequestDetailCustomViewRaw extends Component {
   render() {
     const {classes: classNames} = this.props
     const {
+      curResultMedia,
       showProgress,
       typingUsers,
       drawerOpen,
@@ -225,6 +226,7 @@ export class RequestDetailCustomViewRaw extends Component {
             userInfo={userInfo}
             request={request}
             proposal={findRequestProposalForCurChat}
+            curResultMedia={curResultMedia}
             setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
             // onClickSendAsResult={onClickSendAsResult}
           />
