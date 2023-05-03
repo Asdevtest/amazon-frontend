@@ -30,7 +30,7 @@ export class ClientExchangeViewModel {
   storekeepers = []
   shopsData = []
 
-  volumeWeightCoefficient = undefined
+  platformSettings = undefined
 
   destinations = []
 
@@ -368,7 +368,7 @@ export class ClientExchangeViewModel {
 
         this.destinations = destinations
 
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.platformSettings = result
       })
 
       this.onTriggerOpenModal('showOrderModal')
