@@ -29,7 +29,6 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 import {SearchInput} from '@components/search-input'
-import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my-orders-columns'
 import {BuyerReadyForPaymentColumns} from '@components/table-columns/buyer/buyer-ready-for-payment-columns'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -46,6 +45,16 @@ const attentionStatuses = [
   OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
   OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
 ]
+
+const categoryNameByUrl = {
+  '/buyer/ready-for-payment-orders': 'Ready for payment',
+  '/buyer/not-paid-orders': 'Not paid',
+  '/buyer/need-track-number-orders': 'Need track number',
+  '/buyer/inbound-orders': 'Inbound',
+  '/buyer/confirmation-required-orders': 'Confirmation required',
+  '/buyer/closed-and-canceled-orders': 'Closed and canceled',
+  '/buyer/all-orders': 'All orders',
+}
 
 @observer
 class BuyerMyOrdersViewRaw extends Component {
@@ -104,7 +113,7 @@ class BuyerMyOrdersViewRaw extends Component {
       imagesForLoad,
       paymentMethods,
       currentOrder,
-      isReadyForPayment,
+      // isReadyForPayment,
 
       firstRowId,
       rowHandlers,
@@ -164,7 +173,12 @@ class BuyerMyOrdersViewRaw extends Component {
         />
 
         <Main>
-          <Appbar title={t(TranslationKey['My orders'])} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar
+            title={`${t(TranslationKey['My orders'])} - ${t(
+              TranslationKey[categoryNameByUrl[this.props.location.pathname]],
+            )}`}
+            setDrawerOpen={onTriggerDrawerOpen}
+          >
             <MainContent>
               <div
                 className={cx(classNames.headerWrapper, {
@@ -230,9 +244,10 @@ class BuyerMyOrdersViewRaw extends Component {
                   columnVisibilityModel={columnVisibilityModel}
                   density={densityModel}
                   columns={
-                    isReadyForPayment
-                      ? BuyerReadyForPaymentColumns(firstRowId, rowHandlers)
-                      : buyerMyOrdersViewColumns(firstRowId)
+                    // isReadyForPayment
+                    //   ?
+                    BuyerReadyForPaymentColumns(firstRowId, rowHandlers)
+                    // : buyerMyOrdersViewColumns(firstRowId)
                     // columnsModel
                   }
                   loading={requestStatus === loadingStatuses.isLoading}
@@ -369,6 +384,7 @@ class BuyerMyOrdersViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showPaymentMethodsModal')}
         >
           <PaymentMethodsForm
+            readOnly={Number(currentOrder?.status) !== Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])}
             payments={payments}
             onClickSaveButton={state => saveOrderPayment(currentOrder, state)}
             onClickCancelButton={() => onTriggerOpenModal('showPaymentMethodsModal')}

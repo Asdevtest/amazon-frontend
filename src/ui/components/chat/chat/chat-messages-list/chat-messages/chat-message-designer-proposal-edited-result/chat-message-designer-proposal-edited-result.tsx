@@ -27,7 +27,14 @@ import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-r
 import {useClassNames} from './chat-message-designer-proposal-edited-result.style'
 
 export interface ChatMessageRequestProposalDesignerResultEditedHandlers {
-  onClickOpenRequest: () => void
+  onClickOpenRequest: (
+    media: {
+      commentByClient: string | null
+      commentByPerformer: string | null
+      fileLink: string
+      _id: string
+    }[],
+  ) => void
 }
 
 interface Props {
@@ -136,7 +143,7 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({message, han
         <Button
           btnWrapperStyle={classNames.actionBtnWrapperStyle}
           className={cx(classNames.actionButton, classNames.editButton)}
-          onClick={() => handlers.onClickOpenRequest()}
+          onClick={() => handlers.onClickOpenRequest(message.data.proposal.media)}
         >
           {t(TranslationKey['Open result'])}
         </Button>

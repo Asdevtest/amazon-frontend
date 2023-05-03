@@ -1941,7 +1941,7 @@ export enum TranslationKey {
   'All statuses' = 'All statuses',
   'At least' = 'At least',
   'No more than' = 'No more than',
-  // '' = '',
+  'To pay' = 'To pay',
   // '' = '',
   // '' = '',
   // '' = '',

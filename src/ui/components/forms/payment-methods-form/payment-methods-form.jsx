@@ -16,7 +16,7 @@ import {useClassNames} from './payment-methods-form.style'
 export const PaymentMethodsForm = props => {
   const {classes: classNames} = useClassNames()
 
-  const {payments, onClickSaveButton, onClickCancelButton} = props
+  const {payments, readOnly, onClickSaveButton, onClickCancelButton} = props
 
   const [childStates, setChildStates] = useState(
     payments?.sort((a, b) => {
@@ -41,6 +41,7 @@ export const PaymentMethodsForm = props => {
           payments.map((payment, paymentMethodIndex) => (
             <PaymentMethodCard
               key={paymentMethodIndex}
+              readOnly={readOnly}
               payment={payment}
               onStateChange={newState => handleChildStateChange(paymentMethodIndex, newState)}
             />
@@ -50,18 +51,20 @@ export const PaymentMethodsForm = props => {
         )}
       </div>
       <div className={classNames.buttonsWrapper}>
-        <Button
-          success
-          className={classNames.actionButton}
-          onClick={() => {
-            onClickCancelButton()
-            onClickSaveButton(childStates)
-          }}
-        >
-          {t(TranslationKey.Save)}
-        </Button>
+        {!readOnly && (
+          <Button
+            success
+            className={classNames.actionButton}
+            onClick={() => {
+              onClickCancelButton()
+              onClickSaveButton(childStates)
+            }}
+          >
+            {t(TranslationKey.Save)}
+          </Button>
+        )}
         <Button className={classNames.actionButton} onClick={onClickCancelButton}>
-          {t(TranslationKey.Cancel)}
+          {readOnly ? t(TranslationKey.Close) : t(TranslationKey.Cancel)}
         </Button>
       </div>
     </div>

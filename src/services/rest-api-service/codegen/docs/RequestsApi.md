@@ -18,6 +18,7 @@ Method | HTTP request | Description
 [**apiV1RequestsMediaGuidDelete**](RequestsApi.md#apiV1RequestsMediaGuidDelete) | **DELETE** /api/v1/requests/media/{guid} | #  Удалить исходник.
 [**apiV1RequestsMediaGuidGet**](RequestsApi.md#apiV1RequestsMediaGuidGet) | **GET** /api/v1/requests/media/{guid} | #  Получить медиа.
 [**apiV1RequestsMediaGuidPatch**](RequestsApi.md#apiV1RequestsMediaGuidPatch) | **PATCH** /api/v1/requests/media/{guid} | #  Изменить медиа.
+[**apiV1RequestsMediaManyPatch**](RequestsApi.md#apiV1RequestsMediaManyPatch) | **PATCH** /api/v1/requests/media/many | #  Изменить медиа.
 [**apiV1RequestsMediaPost**](RequestsApi.md#apiV1RequestsMediaPost) | **POST** /api/v1/requests/media | #  Создать медиа.
 
 
@@ -779,6 +780,60 @@ Name | Type | Description  | Notes
  **guid** | [**String**](.md)| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
  **body** | [**InlineObject96**](InlineObject96.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1RequestsMediaManyPatch
+
+> String apiV1RequestsMediaManyPatch(opts)
+
+#  Изменить медиа.
+
+## Изменить медиа
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.RequestsApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': [new TestSwagger.InlineObject5()] // [InlineObject5] | 
+};
+apiInstance.apiV1RequestsMediaManyPatch(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**[InlineObject5]**](InlineObject5.md)|  | [optional] 
 
 ### Return type
 

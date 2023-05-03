@@ -124,6 +124,8 @@ export const AddOrEditSupplierModalContent = observer(
       },
     })
 
+    console.log('tmpSupplier', tmpSupplier)
+
     const calculateFieldsToSubmit = () => {
       let res = {
         ...tmpSupplier,
@@ -300,9 +302,39 @@ export const AddOrEditSupplierModalContent = observer(
       }
     }
 
+    // const onChangePaymentMethod = event => {
+    //   if (Array.isArray(event)) {
+    //     if (tmpSupplier.paymentMethods.length === paymentMethods.length) {
+    //       setTmpSupplier({
+    //         ...tmpSupplier,
+    //         paymentMethods: [],
+    //       })
+    //     } else {
+    //       setTmpSupplier({
+    //         ...tmpSupplier,
+    //         paymentMethods: [...event],
+    //       })
+    //     }
+    //   } else {
+    //     if (tmpSupplier?.paymentMethods?.some(item => item?._id === event?._id)) {
+    //       setTmpSupplier({
+    //         ...tmpSupplier,
+    //         paymentMethods: tmpSupplier?.paymentMethods?.filter(item => item?._id !== event?._id),
+    //       })
+    //     } else {
+    //       setTmpSupplier({
+    //         ...tmpSupplier,
+    //         paymentMethods: [...tmpSupplier.paymentMethods, event],
+    //       })
+    //     }
+    //   }
+    // }
+
     const onChangePaymentMethod = event => {
-      if (Array.isArray(event)) {
-        if (tmpSupplier.paymentMethods.length === paymentMethods.length) {
+      const selectedValues = event
+      const valueToAddOrRemove = selectedValues[selectedValues?.length - 1]
+      if (valueToAddOrRemove?._id === 'SELECT_ALL') {
+        if (tmpSupplier?.paymentMethods?.length === paymentMethods?.length) {
           setTmpSupplier({
             ...tmpSupplier,
             paymentMethods: [],
@@ -310,19 +342,19 @@ export const AddOrEditSupplierModalContent = observer(
         } else {
           setTmpSupplier({
             ...tmpSupplier,
-            paymentMethods: [...event],
+            paymentMethods: [...paymentMethods],
           })
         }
       } else {
-        if (tmpSupplier?.paymentMethods?.some(item => item?._id === event?._id)) {
+        if (tmpSupplier?.paymentMethods?.some(value => value._id === valueToAddOrRemove._id)) {
           setTmpSupplier({
             ...tmpSupplier,
-            paymentMethods: tmpSupplier?.paymentMethods?.filter(item => item?._id !== event?._id),
+            paymentMethods: tmpSupplier?.paymentMethods?.filter(value => value?._id !== valueToAddOrRemove?._id),
           })
         } else {
           setTmpSupplier({
             ...tmpSupplier,
-            paymentMethods: [...tmpSupplier.paymentMethods, event],
+            paymentMethods: [...tmpSupplier.paymentMethods, valueToAddOrRemove],
           })
         }
       }

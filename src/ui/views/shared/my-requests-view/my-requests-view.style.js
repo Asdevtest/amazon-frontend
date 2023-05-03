@@ -148,4 +148,18 @@ export const styles = theme => ({
       background: theme.palette.primary.main,
     },
   },
+  menuIconButton: {
+    zIndex: 1000,
+    position: 'absolute !important',
+    right: -7,
+    top: 13,
+    visibility: 'visible !important',
+
+    width: '18px !important',
+    height: '18px !important',
+
+    '.MuiSvgIcon-root': {
+      display: 'none',
+    },
+  },
 })

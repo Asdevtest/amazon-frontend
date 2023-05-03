@@ -133,7 +133,7 @@ export class CreateOrEditRequestViewModel {
         request: getObjectFilteredByKeyArrayBlackList(
           {
             ...data.request,
-            announcementId: announcement?._id || '',
+            announcementId: announcement?._id || null,
             linksToMediaFiles: this.uploadedFiles.map((el, i) => ({fileLink: el, commentByClient: files[i].comment})),
           },
           ['discountedPrice'],
@@ -201,24 +201,20 @@ export class CreateOrEditRequestViewModel {
         request: getObjectFilteredByKeyArrayBlackList(
           {
             ...data.request,
-            announcementId: announcement?._id || '',
+            announcementId: announcement?._id ? announcement?._id : null,
             linksToMediaFiles: [
-              // ...data.details.linksToMediaFiles,
               ...this.uploadedFiles.map((el, i) => ({fileLink: el, commentByClient: files[i].comment})),
             ],
           },
           ['discountedPrice'],
+          undefined,
+          undefined,
+          true,
         ),
         details: {
           ...data.details,
-          // linksToMediaFiles: [
-          //   ...data.details.linksToMediaFiles,
-          //   ...this.uploadedFiles.map((el, i) => ({fileLink: el, commentByClient: files[i].comment})),
-          // ],
         },
       }
-
-      console.log('dataWithFiles', dataWithFiles)
 
       await RequestModel.editRequest(this.requestToEdit.request._id, dataWithFiles)
 

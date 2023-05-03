@@ -17,7 +17,7 @@ import {useClassNames} from './payment-method-card.style'
 export const PaymentMethodCard = props => {
   const {classes: classNames} = useClassNames()
 
-  const {payment, onStateChange} = props
+  const {payment, readOnly, onStateChange} = props
 
   const initialState = {
     paymentDetails: payment?.paymentDetails || '',
@@ -60,6 +60,7 @@ export const PaymentMethodCard = props => {
     <div className={classNames.root}>
       <div className={classNames.paymentMethodTitleWrapper}>
         <Checkbox
+          disabled={readOnly}
           color="primary"
           checked={!!paymentsFields?.paymentMethod?._id}
           onClick={setFielData('isCheckedPayment')}
@@ -74,6 +75,7 @@ export const PaymentMethodCard = props => {
       >
         <Field
           multiline
+          disabled={readOnly}
           minRows={2}
           maxRows={2}
           inputProps={{maxLength: 250}}
@@ -87,6 +89,7 @@ export const PaymentMethodCard = props => {
         <div className={classNames.imageFileInputWrapper}>
           <UploadFilesInput
             withoutTitle
+            disabled={readOnly}
             dragAndDropBtnHeight={40}
             maxHeight={90}
             сontainerStyles={classNames.containerClasses}
@@ -99,8 +102,8 @@ export const PaymentMethodCard = props => {
           {!!paymentsFields?.paymentImages?.length && (
             <PhotoAndFilesCarousel
               small
-              isEditable
               withoutMakeMainImage
+              isEditable={!readOnly}
               width="100%"
               files={paymentsFields?.paymentImages}
               imagesForLoad={paymentsFields?.paymentImages}
