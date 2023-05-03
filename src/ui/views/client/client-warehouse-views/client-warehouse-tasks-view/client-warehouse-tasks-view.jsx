@@ -17,6 +17,8 @@ import {
 import {mapTaskStatusKeyToEnum, TaskStatusTranslate} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {SettingsModel} from '@models/settings-model'
+
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
@@ -205,6 +207,7 @@ export class ClientWarehouseTasksViewRaw extends Component {
               <div className={classNames.tasksWrapper}>
                 <MemoDataGrid
                   // disableVirtualization
+                  key={SettingsModel.languageTag}
                   pagination
                   classes={{
                     root: classNames.root,
@@ -217,9 +220,6 @@ export class ClientWarehouseTasksViewRaw extends Component {
                   page={curPageForTask}
                   pageSize={rowsPerPageForTask}
                   sortingMode="server"
-                  paginationMode="server"
-                  // pageSize={15}
-                  rowCount={rowsCount}
                   rows={getCurrentTaskData()}
                   getRowHeight={() => 'auto'}
                   componentsProps={{
@@ -235,12 +235,15 @@ export class ClientWarehouseTasksViewRaw extends Component {
                   }}
                   loading={requestStatus === loadingStatuses.isLoading}
                   columns={columnsModel}
+                  paginationMode="server"
+                  // pageSize={15}
+                  rowCount={rowsCount}
                   onSelectionModelChange={onSelectionModel}
                   onSortModelChange={onChangeSortingModel}
+                  onPageChange={onChangeCurPageForTask}
                   onFilterModelChange={onChangeFilterModel}
                   // onStateChange={setDataGridState}
                   onPageSizeChange={onChangeRowsPerPageForTask}
-                  onPageChange={onChangeCurPageForTask}
                 />
               </div>
             </MainContent>
