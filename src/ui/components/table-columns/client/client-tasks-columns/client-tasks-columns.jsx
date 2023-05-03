@@ -14,19 +14,23 @@ import {
   TaskStatusCell,
   TaskPriorityCell,
   ChangeInputCommentCell,
+  StringListCell,
+  CheckboxCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
 
 export const clientTasksViewColumns = handlers => [
   {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+    field: 'action',
+    headerName: t(TranslationKey.Action),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 130,
-    renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    type: 'date',
+    width: 250,
+
+    renderCell: params => <ClientTasksActionBtnsCell handlers={handlers} row={params.row.originalData} />,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -88,6 +92,20 @@ export const clientTasksViewColumns = handlers => [
   },
 
   {
+    field: 'asin',
+    headerName: 'ASIN',
+    renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
+
+    // renderCell: params => <AsinCopyCell asinData={params.value} />,
+    renderCell: params => (
+      <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
+    ),
+
+    sortable: false,
+    width: window.innerWidth < 1282 ? 100 : 160,
+  },
+
+  {
     field: 'storekeeper',
     headerName: t(TranslationKey['Int warehouse']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
@@ -100,16 +118,38 @@ export const clientTasksViewColumns = handlers => [
   },
 
   {
-    field: 'action',
-    headerName: t(TranslationKey.Action),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
+    field: 'orderId',
+    headerName: t(TranslationKey['Order number']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
 
-    width: 250,
-
-    renderCell: params => <ClientTasksActionBtnsCell handlers={handlers} row={params.row.originalData} />,
-    filterable: false,
+    // renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
+    type: 'number',
     sortable: false,
+    width: window.innerWidth < 1282 ? 73 : 160,
   },
+
+  {
+    field: 'isBarCodeAttached',
+    headerName: 'barcode',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
+
+    renderCell: params => <CheckboxCell checked={params.value} />,
+    width: window.innerWidth < 1282 ? 65 : 160,
+    type: 'boolean',
+  },
+
+  {
+    field: 'item',
+    headerName: 'item',
+    renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
+
+    // renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
+    sortable: false,
+    width: window.innerWidth < 1282 ? 54 : 160,
+  },
+
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
@@ -117,5 +157,15 @@ export const clientTasksViewColumns = handlers => [
 
     width: 130,
     renderCell: params => <TaskStatusCell status={params.value} />,
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
+    width: 130,
+    renderCell: params => <NormDateFromUnixCell value={params.value} />,
+    type: 'date',
   },
 ]
