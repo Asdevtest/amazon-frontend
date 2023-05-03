@@ -22,11 +22,10 @@ class InlineObject5 {
     /**
      * Constructs a new <code>InlineObject5</code>.
      * @alias module:model/InlineObject5
-     * @param name {String} Название склада.
      */
-    constructor(name) { 
+    constructor() { 
         
-        InlineObject5.initialize(this, name);
+        InlineObject5.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject5 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name) { 
-        obj['name'] = name;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,26 +47,23 @@ class InlineObject5 {
         if (data) {
             obj = obj || new InlineObject5();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            if (data.hasOwnProperty('commentByClient')) {
+                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
             }
-            if (data.hasOwnProperty('zipCode')) {
-                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
+            if (data.hasOwnProperty('commentByPerformer')) {
+                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
             }
-            if (data.hasOwnProperty('state')) {
-                obj['state'] = ApiClient.convertToType(data['state'], 'String');
+            if (data.hasOwnProperty('fileLink')) {
+                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
             }
-            if (data.hasOwnProperty('city')) {
-                obj['city'] = ApiClient.convertToType(data['city'], 'String');
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
             }
-            if (data.hasOwnProperty('address')) {
-                obj['address'] = ApiClient.convertToType(data['address'], 'String');
-            }
-            if (data.hasOwnProperty('fontColor')) {
-                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
         }
         return obj;
@@ -78,46 +73,40 @@ class InlineObject5 {
 }
 
 /**
- * Название склада.
- * @member {String} name
+ * Гуид медиа
+ * @member {String} _id
  */
-InlineObject5.prototype['name'] = undefined;
+InlineObject5.prototype['_id'] = undefined;
 
 /**
- * Страна.
- * @member {String} country
+ * комментарий клиента
+ * @member {String} commentByClient
  */
-InlineObject5.prototype['country'] = undefined;
+InlineObject5.prototype['commentByClient'] = undefined;
 
 /**
- * Индекс. 5 цифр.
- * @member {String} zipCode
+ * комментарий исполнителя
+ * @member {String} commentByPerformer
  */
-InlineObject5.prototype['zipCode'] = undefined;
+InlineObject5.prototype['commentByPerformer'] = undefined;
 
 /**
- * Штат.
- * @member {String} state
+ * Ссылка на файл
+ * @member {String} fileLink
  */
-InlineObject5.prototype['state'] = undefined;
+InlineObject5.prototype['fileLink'] = undefined;
 
 /**
- * Город.
- * @member {String} city
+ * Файл для записи в FreelanceSource
+ * @member {String} proposalId
  */
-InlineObject5.prototype['city'] = undefined;
+InlineObject5.prototype['proposalId'] = undefined;
 
 /**
- * Адрес склада.
- * @member {String} address
+ * Комментарий к файлу
+ * @member {String} requestId
  */
-InlineObject5.prototype['address'] = undefined;
-
-/**
- * Цвет шрифта
- * @member {String} fontColor
- */
-InlineObject5.prototype['fontColor'] = undefined;
+InlineObject5.prototype['requestId'] = undefined;
 
 
 
