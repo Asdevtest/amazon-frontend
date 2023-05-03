@@ -78,6 +78,8 @@ class MyRequestsViewRaw extends Component {
       onClickTableRow,
       removeCustomSearchRequest,
       onClickChangeCatigory,
+      onHoverColumnField,
+      onLeaveColumnField,
 
       setDataGridState,
       onChangeSortingModel,
@@ -172,6 +174,7 @@ class MyRequestsViewRaw extends Component {
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
 
+                    menuIconButton: classNames.menuIconButton,
                     columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
                     columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
                   }}
@@ -197,6 +200,10 @@ class MyRequestsViewRaw extends Component {
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
+                  onColumnHeaderEnter={params => {
+                    onHoverColumnField(params.field)
+                  }}
+                  onColumnHeaderLeave={onLeaveColumnField}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}

@@ -19,7 +19,13 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Updated)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        // isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
 
     renderCell: params => <ShortDateCell params={params} />,
     width: 117,
@@ -29,7 +35,12 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.ID)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+      />
+    ),
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
@@ -57,7 +68,12 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
   {
     field: 'title',
     headerName: t(TranslationKey.Title),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Title)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+      />
+    ),
 
     renderCell: params => (
       <MultilineTextCell withTooltip leftAlign threeLines={params.value.length > 50} text={params.value} />
@@ -68,7 +84,13 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
   {
     field: 'typeTask',
     headerName: t(TranslationKey['Request type']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Request type'])}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
 
     renderCell: params => (
       <MultilineTextCell leftAlign text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value])} />
@@ -80,7 +102,12 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
   {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.ASIN)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+      />
+    ),
 
     renderCell: params => <AsinCell text={params.value} product={params.row.originalData} />,
     width: 123,
@@ -89,7 +116,12 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
   {
     field: 'price',
     headerName: t(TranslationKey.Cost),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Cost)} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Cost)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+      />
+    ),
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
@@ -99,7 +131,12 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
   {
     field: 'timeoutAt',
     headerName: t(TranslationKey.Deadline),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Deadline)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+      />
+    ),
 
     renderCell: params => <ShortDateCell params={params} />,
     width: 115,
@@ -109,7 +146,12 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
   {
     field: 'allProposals',
     headerName: t(TranslationKey['Total proposals']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total proposals'])} />, // ПРИМЕР МНОГОСТРОЧНОГО ХЕДЕРА
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Total proposals'])}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+      />
+    ), // ПРИМЕР МНОГОСТРОЧНОГО ХЕДЕРА
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 115,
   },
@@ -117,7 +159,12 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
   {
     field: 'verifyingProposals',
     headerName: t(TranslationKey['Waiting selection']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Waiting selection'])} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Waiting selection'])}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+      />
+    ),
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 85,
@@ -126,7 +173,12 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
   {
     field: 'atWorkProposals',
     headerName: t(TranslationKey['In the work']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['In the work'])} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['In the work'])}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+      />
+    ),
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 80,
@@ -135,7 +187,12 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
   {
     field: 'waitedProposals',
     headerName: t(TranslationKey['Waiting check']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Waiting check'])} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Waiting check'])}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+      />
+    ),
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 85,
@@ -144,7 +201,12 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
   {
     field: 'acceptedProposals',
     headerName: t(TranslationKey.Accepted),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Accepted)} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Accepted)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+      />
+    ),
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 85,

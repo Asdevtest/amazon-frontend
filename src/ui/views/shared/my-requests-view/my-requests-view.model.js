@@ -69,6 +69,7 @@ export class MyRequestsViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
+
   columnsModel = myRequestsViewColumns(this.languageTag, this.columnMenuSettings, this.onHover)
 
   columnMenuSettings = {
@@ -197,7 +198,7 @@ export class MyRequestsViewModel {
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = myRequestsViewColumns(this.languageTag).map(el => ({
+        this.columnsModel = myRequestsViewColumns(this.languageTag, this.columnMenuSettings, this.onHover).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))
