@@ -49,7 +49,7 @@ class ClientOrderViewRaw extends Component {
       storekeepers,
       navbarActiveSubCategory,
       userInfo,
-      volumeWeightCoefficient,
+      platformSettings,
       warningInfoModalSettings,
       orderBoxes,
       drawerOpen,
@@ -108,7 +108,7 @@ class ClientOrderViewRaw extends Component {
                   storekeepers={storekeepers}
                   destinations={destinations}
                   userInfo={userInfo}
-                  volumeWeightCoefficient={volumeWeightCoefficient}
+                  volumeWeightCoefficient={platformSettings.volumeWeightCoefficient}
                   order={order}
                   boxes={orderBoxes}
                   selectedSupplier={selectedSupplier}
@@ -131,7 +131,7 @@ class ClientOrderViewRaw extends Component {
               isPendingOrdering
               reorderOrdersData={[order]}
               // volumeWeightCoefficient={volumeWeightCoefficient}
-              platformSettings={{volumeWeightCoefficient}}
+              platformSettings={platformSettings}
               destinations={destinations}
               storekeepers={storekeepers}
               destinationsFavourites={destinationsFavourites}
@@ -187,7 +187,7 @@ class ClientOrderViewRaw extends Component {
               product={order?.product}
               storekeepersData={storekeepers}
               sourceYuanToDollarRate={yuanToDollarRate}
-              volumeWeightCoefficient={volumeWeightCoefficient}
+              volumeWeightCoefficient={platformSettings.volumeWeightCoefficient}
               title={t(TranslationKey['Adding and editing a supplier'])}
               supplier={selectedSupplier}
               onTriggerShowModal={onTriggerAddOrEditSupplierModal}

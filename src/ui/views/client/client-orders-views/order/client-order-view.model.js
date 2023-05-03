@@ -44,7 +44,7 @@ export class ClientOrderViewModel {
   orderId = undefined
   orderBoxes = []
 
-  volumeWeightCoefficient = undefined
+  platformSettings = undefined
   storekeepers = []
   destinations = []
   selectedProduct = undefined
@@ -143,7 +143,7 @@ export class ClientOrderViewModel {
         await this.getStorekeepers()
         runInAction(() => {
           this.yuanToDollarRate = result.yuanToDollarRate
-          this.volumeWeightCoefficient = result.volumeWeightCoefficient
+          this.platformSettings = result
         })
       }
       runInAction(() => {
@@ -181,7 +181,7 @@ export class ClientOrderViewModel {
 
         this.destinations = destinations
 
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.platformSettings = result
       })
 
       this.onTriggerOpenModal('showOrderModal')
@@ -478,7 +478,7 @@ export class ClientOrderViewModel {
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.platformSettings = result
       })
     } catch (error) {
       console.log(error)
