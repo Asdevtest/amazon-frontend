@@ -267,9 +267,6 @@ export class MyRequestsViewModel {
   onHoverColumnField(field) {
     this.onHover = field
     this.getDataGridState()
-
-    console.log('this.onHover', this.onHover)
-    console.log('this.columnMenuSettings', this.columnMenuSettings)
   }
 
   onLeaveColumnField() {
