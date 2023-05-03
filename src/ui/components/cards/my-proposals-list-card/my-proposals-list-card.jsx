@@ -5,8 +5,11 @@ import Rating from '@mui/material/Rating'
 
 import React from 'react'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
-import {freelanceRequestType} from '@constants/freelance-request-type'
+import {
+  freelanceRequestTypeByCode,
+  freelanceRequestTypeTranslate,
+  freelanceRequestType,
+} from '@constants/freelance-request-type'
 import {
   RequestProposalStatus,
   RequestProposalStatusColor,
@@ -17,7 +20,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {AsinLink} from '@components/asin-link'
 import {Button} from '@components/buttons/button'
 import {CustomCarousel} from '@components/custom-carousel'
-import {Field} from '@components/field/field'
 import {UserLink} from '@components/user-link'
 
 import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
@@ -146,16 +148,14 @@ export const MyProposalsListCard = ({
                 </div>
 
                 <div className={classNames.rightBlockSubWrapper}>
-                  <div className={classNames.rightSubWrapper}>
-                    <div className={classNames.statusField}>
-                      <span
-                        className={classNames.circleIndicator}
-                        style={{backgroundColor: RequestProposalStatusColor(proposal.status)}}
-                      />
-                      <Typography className={classNames.standartText}>
-                        {RequestProposalStatusTranslate(proposal.status)}
-                      </Typography>
-                    </div>
+                  <div className={classNames.statusField}>
+                    <span
+                      className={classNames.circleIndicator}
+                      style={{backgroundColor: RequestProposalStatusColor(proposal.status)}}
+                    />
+                    <Typography className={classNames.standartText}>
+                      {RequestProposalStatusTranslate(proposal.status)}
+                    </Typography>
                   </div>
 
                   <div className={classNames.proposalFooter}>
