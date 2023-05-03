@@ -69,7 +69,7 @@ export const styles = theme => ({
     },
 
     border: 0,
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    // boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     backgroundColor: theme.palette.background.general,
 
     posotion: 'relative',
