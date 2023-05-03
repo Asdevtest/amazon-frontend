@@ -244,7 +244,7 @@ export const OrderProductModal = ({
   const disabledSubmit =
     orderState.some(
       (order, index) =>
-        toFixed(calcProductsPriceWithDelivery(productsForRender[index], order), 2) >
+        toFixed(calcProductsPriceWithDelivery(productsForRender[index], order), 2) <
           platformSettings.orderAmountLimit ||
         order.storekeeperId === '' ||
         order.logicsTariffId === '' ||
