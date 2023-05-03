@@ -134,7 +134,7 @@ export const OrderModalBodyRow = ({
   const maxAmount = calcProductsMaxAmountByPriceLimit(item, platformSettings.orderAmountLimit)
 
   React.useEffect(() => {
-    if (toFixed(calcProductsPriceWithDelivery(item, orderState), 2) > platformSettings.orderAmountLimit) {
+    if (toFixed(calcProductsPriceWithDelivery(item, orderState), 2) < platformSettings.orderAmountLimit) {
       setIsLocalPriseOutOfLimit(true)
     } else {
       setIsLocalPriseOutOfLimit(false)
@@ -229,7 +229,7 @@ export const OrderModalBodyRow = ({
           </Typography>
           {isLocalPriseOutOfLimit && (
             <Typography className={classNames.error}>
-              {t(TranslationKey['No more than'])} {platformSettings.orderAmountLimit}$
+              {t(TranslationKey['At least'])} {platformSettings.orderAmountLimit}$
             </Typography>
           )}
         </TableCell>

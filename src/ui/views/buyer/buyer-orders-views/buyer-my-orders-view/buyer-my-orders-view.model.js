@@ -783,7 +783,7 @@ export class BuyerMyOrdersViewModel {
 
       orderFields = {
         ...orderFields,
-        paymentDetails: this.readyImages,
+        paymentDetails: [...orderFields.paymentDetails, ...this.readyImages],
       }
       // }
 

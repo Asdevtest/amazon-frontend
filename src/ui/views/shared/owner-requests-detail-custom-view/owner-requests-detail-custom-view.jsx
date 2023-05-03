@@ -59,6 +59,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
 
   render() {
     const {
+      curResultMedia,
       findRequestProposalForCurChat,
       acceptMessage,
       showAcceptMessage,
@@ -246,6 +247,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
               userInfo={userInfo}
               request={request}
               proposal={findRequestProposalForCurChat}
+              curResultMedia={curResultMedia}
               setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
               onClickProposalResultAccept={onClickProposalResultAccept}
               onPressSubmitDesignerResultToCorrect={onPressSubmitDesignerResultToCorrect}

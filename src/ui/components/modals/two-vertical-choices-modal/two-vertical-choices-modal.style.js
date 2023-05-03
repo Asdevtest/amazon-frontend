@@ -9,6 +9,8 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
+
+    gap: 10,
   },
 
   modalMessageWrapper: {

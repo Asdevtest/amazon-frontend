@@ -381,6 +381,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.RequestsApi* | [**apiV1RequestsMediaGuidDelete**](docs/RequestsApi.md#apiV1RequestsMediaGuidDelete) | **DELETE** /api/v1/requests/media/{guid} | #  Удалить исходник.
 *TestSwagger.RequestsApi* | [**apiV1RequestsMediaGuidGet**](docs/RequestsApi.md#apiV1RequestsMediaGuidGet) | **GET** /api/v1/requests/media/{guid} | #  Получить медиа.
 *TestSwagger.RequestsApi* | [**apiV1RequestsMediaGuidPatch**](docs/RequestsApi.md#apiV1RequestsMediaGuidPatch) | **PATCH** /api/v1/requests/media/{guid} | #  Изменить медиа.
+*TestSwagger.RequestsApi* | [**apiV1RequestsMediaManyPatch**](docs/RequestsApi.md#apiV1RequestsMediaManyPatch) | **PATCH** /api/v1/requests/media/many | #  Изменить медиа.
 *TestSwagger.RequestsApi* | [**apiV1RequestsMediaPost**](docs/RequestsApi.md#apiV1RequestsMediaPost) | **POST** /api/v1/requests/media | #  Создать медиа.
 *TestSwagger.ResearcherApi* | [**apiV1ResearchersCheckProductsAsinStrategyGet**](docs/ResearcherApi.md#apiV1ResearchersCheckProductsAsinStrategyGet) | **GET** /api/v1/researchers/check_products/{asin}/{strategy} | Проверить продукт по ID существует ли он в базе.
 *TestSwagger.ResearcherApi* | [**apiV1ResearchersProductsGet**](docs/ResearcherApi.md#apiV1ResearchersProductsGet) | **GET** /api/v1/researchers/products | Получить список товаров созданных данным пользователем.

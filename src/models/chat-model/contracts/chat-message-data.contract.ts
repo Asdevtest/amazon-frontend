@@ -305,7 +305,12 @@ export class ChatMessageDataProposalDesignerProposalResultEdited
   public details!: {result: string}
 
   @IsNotEmpty()
-  public media!: {fileLink: string}[]
+  public media!: {
+    commentByClient: string | null
+    commentByPerformer: string | null
+    fileLink: string
+    _id: string
+  }[]
 }
 
 export class ChatMessageDataProposalResultEditedEdited

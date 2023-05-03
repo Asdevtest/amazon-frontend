@@ -23,6 +23,7 @@ export class OwnerRequestDetailCustomViewModel {
   requestId = undefined
   request = undefined
   requestProposals = []
+  curResultMedia = []
 
   showAcceptMessage = undefined
   acceptMessage = undefined
@@ -340,7 +341,11 @@ export class OwnerRequestDetailCustomViewModel {
     this.onTriggerOpenModal('showReviewModal')
   }
 
-  onClickOpenRequest() {
+  onClickOpenRequest(media) {
+    runInAction(() => {
+      this.curResultMedia = media
+    })
+
     this.onTriggerOpenModal('showRequestDesignerResultClientModal')
     this.getCustomProposalsForRequestCur()
   }
