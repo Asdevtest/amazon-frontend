@@ -87,6 +87,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   standartText: {
     color: theme.palette.text.general,
+    width: '90%',
   },
 
   cancelBtn: {
@@ -145,13 +146,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: '#00B746',
   },
 
-  rightSubWrapper: {
-    width: 'fit-content',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-
   rightBlockSubWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -208,7 +202,7 @@ export const useClassNames = makeStyles()(theme => ({
   proposalFooter: {
     display: 'flex',
     width: 'fit-content',
-    gap: 25,
+    gap: 15,
 
     justifyContent: 'flex-end',
   },
@@ -254,12 +248,13 @@ export const useClassNames = makeStyles()(theme => ({
     width: '12px',
     height: '12px',
     borderRadius: '50%',
-    marginRight: '10px',
   },
 
   statusField: {
     display: 'flex',
     alignItems: 'center',
+
+    gap: 10,
   },
 
   timeAndPriceWrapper: {
@@ -270,7 +265,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   editAndOpenButtonWrapper: {
     display: 'flex',
-    gap: 20,
+    gap: 15,
 
     marginRight: 10,
   },
@@ -284,6 +279,8 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 4,
 
     padding: '0 25px',
+
+    whiteSpace: 'nowrap',
   },
 
   ratingWrapper: {

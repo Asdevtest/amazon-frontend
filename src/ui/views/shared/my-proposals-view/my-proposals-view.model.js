@@ -2,7 +2,7 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
-import {RequestProposalStatus} from '@constants/request-proposal-status'
+import {RequestProposalStatus, RequestProposalStatusTranslate} from '@constants/request-proposal-status'
 import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
 import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/user-roles'
 import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
@@ -31,6 +31,10 @@ export class MyProposalsViewModel {
   searchMyRequestsIds = []
   requests = []
   requestsBase = []
+  selectedProposalFilters = Object.keys(RequestProposalStatus).map(el => ({
+    name: RequestProposalStatusTranslate(el),
+    _id: el,
+  }))
 
   selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
 
@@ -88,6 +92,29 @@ export class MyProposalsViewModel {
     })
   }
 
+  onSelectProposalFilter(item) {
+    if (this.selectedProposalFilters.some(el => el._id === item._id)) {
+      this.selectedProposalFilters = this.selectedProposalFilters.filter(el => el._id !== item._id)
+    } else {
+      this.selectedProposalFilters.push(item)
+    }
+
+    this.requests = this.getFilteredRequests()
+  }
+
+  handleSelectAllProposalStatuses() {
+    if (this.selectedProposalFilters.length === Object.keys(RequestProposalStatus).length) {
+      this.selectedProposalFilters = []
+    } else {
+      this.selectedProposalFilters = Object.keys(RequestProposalStatus).map(el => ({
+        name: RequestProposalStatusTranslate(el),
+        _id: el,
+      }))
+    }
+
+    this.requests = this.getFilteredRequests()
+  }
+
   getCurrentData() {
     if (this.nameSearchValue) {
       return toJS(this.requests).filter(
@@ -142,17 +169,29 @@ export class MyProposalsViewModel {
     this.setTableModeState()
   }
 
+  getFilteredRequests() {
+    let res
+
+    if (Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])) {
+      res = this.requestsBase
+    } else {
+      res = this.requestsBase.filter(el => Number(el.typeTask) === Number(this.selectedTaskType))
+    }
+
+    const selectedStatuses = this.selectedProposalFilters.map(el => el._id)
+
+    res = res.filter(el => el.proposals.some(e => selectedStatuses.includes(e.status)))
+
+    return res
+  }
+
   onClickTaskType(taskType) {
     runInAction(() => {
       this.selectedTaskType = taskType
     })
     // this.getRequestsCustom()
 
-    if (Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])) {
-      this.requests = this.requestsBase
-    } else {
-      this.requests = this.requestsBase.filter(el => Number(el.typeTask) === Number(this.selectedTaskType))
-    }
+    this.requests = this.getFilteredRequests()
   }
 
   onClickEditBtn(request, proposal) {

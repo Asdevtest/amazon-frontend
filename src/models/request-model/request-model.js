@@ -146,6 +146,11 @@ class RequestModelStatic {
     return response
   }
 
+  editRequestsMediaMany = async data => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsMediaManyPatch({body: data})
+    return response
+  }
+
   updateDeadline = async (id, timeoutAt, maxAmountOfProposals) => {
     const response = await restApiService.SearchRequestApi.apiV1RequestsGuidUpdateDeadlinePatch(id, {
       body: {

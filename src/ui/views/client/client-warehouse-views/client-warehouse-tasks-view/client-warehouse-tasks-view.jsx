@@ -17,6 +17,8 @@ import {
 import {mapTaskStatusKeyToEnum, TaskStatusTranslate} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {SettingsModel} from '@models/settings-model'
+
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
@@ -120,91 +122,95 @@ export class ClientWarehouseTasksViewRaw extends Component {
                 />
               </div>
 
-              <TaskPrioritySelector currentPriority={currentPriority} handleActivePriority={handleActivePriority} />
-              <div className={classNames.boxesFiltersWrapper}>
-                <Button
-                  disabled={!currentStorekeeper?._id}
-                  tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-                  className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
-                  variant="text"
-                  onClick={onClickStorekeeperBtn}
-                >
-                  {t(TranslationKey['All warehouses'])}
-                </Button>
+              <div>
+                <div className={classNames.filterHeader}>
+                  <TaskPrioritySelector currentPriority={currentPriority} handleActivePriority={handleActivePriority} />
+                  <div className={classNames.boxesFiltersWrapper}>
+                    <Button
+                      disabled={!selectedStatus}
+                      className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !selectedStatus})}
+                      variant="text"
+                      onClick={() => handleSelectedStatus(null)}
+                    >
+                      {t(TranslationKey['All statuses'])}
+                    </Button>
 
-                {storekeepersData
-                  .slice()
-                  .sort((a, b) => a.name?.localeCompare(b.name))
-                  .map(storekeeper =>
-                    storekeeper.boxesCount !== 0 ? (
+                    {Object.keys(mapTaskStatusKeyToEnum).map(el => (
                       <Button
-                        key={storekeeper._id}
-                        disabled={currentStorekeeper?._id === storekeeper._id}
+                        key={el}
+                        disabled={currentStorekeeper?._id === el}
                         className={cx(classNames.button, {
-                          [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
+                          [classNames.selectedBoxesBtn]: selectedStatus === el,
                         })}
                         variant="text"
-                        onClick={() => onClickStorekeeperBtn(storekeeper)}
+                        onClick={() => handleSelectedStatus(el)}
                       >
-                        {storekeeper.name}
+                        {TaskStatusTranslate(mapTaskStatusKeyToEnum[el])}
                       </Button>
-                    ) : null,
-                  )}
-              </div>
-
-              <div className={classNames.boxesFiltersWrapper}>
-                <Button
-                  disabled={!selectedStatus}
-                  className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !selectedStatus})}
-                  variant="text"
-                  onClick={() => handleSelectedStatus(null)}
-                >
-                  {t(TranslationKey['All statuses'])}
-                </Button>
-
-                {Object.keys(mapTaskStatusKeyToEnum).map(el => (
+                    ))}
+                  </div>
+                </div>
+                <div className={classNames.boxesFiltersWrapper}>
                   <Button
-                    key={el}
-                    disabled={currentStorekeeper?._id === el}
-                    className={cx(classNames.button, {
-                      [classNames.selectedBoxesBtn]: selectedStatus === el,
-                    })}
+                    disabled={!currentStorekeeper?._id}
+                    tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
+                    className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
                     variant="text"
-                    onClick={() => handleSelectedStatus(el)}
+                    onClick={onClickStorekeeperBtn}
                   >
-                    {TaskStatusTranslate(mapTaskStatusKeyToEnum[el])}
+                    {t(TranslationKey['All warehouses'])}
                   </Button>
-                ))}
-              </div>
 
-              <div className={classNames.boxesFiltersWrapper}>
-                <Button
-                  disabled={!operationType}
-                  className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !operationType})}
-                  variant="text"
-                  onClick={() => handleOperationType(null)}
-                >
-                  {t(TranslationKey['All tasks'])}
-                </Button>
+                  {storekeepersData
+                    .slice()
+                    .sort((a, b) => a.name?.localeCompare(b.name))
+                    .map(storekeeper =>
+                      storekeeper.boxesCount !== 0 ? (
+                        <Button
+                          key={storekeeper._id}
+                          disabled={currentStorekeeper?._id === storekeeper._id}
+                          className={cx(classNames.button, {
+                            [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
+                          })}
+                          variant="text"
+                          onClick={() => onClickStorekeeperBtn(storekeeper)}
+                        >
+                          {storekeeper.name}
+                        </Button>
+                      ) : null,
+                    )}
+                </div>
 
-                {Object.keys(mapTaskOperationTypeKeyToEnum).map(el => (
+                <div className={classNames.boxesFiltersWrapper}>
                   <Button
-                    key={el}
-                    disabled={operationType === el}
-                    className={cx(classNames.button, {
-                      [classNames.selectedBoxesBtn]: operationType === el,
-                    })}
+                    disabled={!operationType}
+                    className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !operationType})}
                     variant="text"
-                    onClick={() => handleOperationType(el)}
+                    onClick={() => handleOperationType(null)}
                   >
-                    {taskOperationTypeTranslate(mapTaskOperationTypeEnumToKey[el])}
+                    {t(TranslationKey['All tasks'])}
                   </Button>
-                ))}
+
+                  {Object.keys(mapTaskOperationTypeKeyToEnum).map(el => (
+                    <Button
+                      key={el}
+                      disabled={operationType === el}
+                      className={cx(classNames.button, {
+                        [classNames.selectedBoxesBtn]: operationType === el,
+                      })}
+                      variant="text"
+                      onClick={() => handleOperationType(el)}
+                    >
+                      {taskOperationTypeTranslate(mapTaskOperationTypeEnumToKey[el])}
+                    </Button>
+                  ))}
+                </div>
               </div>
 
               <div className={classNames.tasksWrapper}>
                 <MemoDataGrid
                   // disableVirtualization
+                  key={SettingsModel.languageTag}
                   pagination
                   classes={{
                     root: classNames.root,
@@ -217,9 +223,6 @@ export class ClientWarehouseTasksViewRaw extends Component {
                   page={curPageForTask}
                   pageSize={rowsPerPageForTask}
                   sortingMode="server"
-                  paginationMode="server"
-                  // pageSize={15}
-                  rowCount={rowsCount}
                   rows={getCurrentTaskData()}
                   getRowHeight={() => 'auto'}
                   componentsProps={{
@@ -235,12 +238,15 @@ export class ClientWarehouseTasksViewRaw extends Component {
                   }}
                   loading={requestStatus === loadingStatuses.isLoading}
                   columns={columnsModel}
+                  paginationMode="server"
+                  // pageSize={15}
+                  rowCount={rowsCount}
                   onSelectionModelChange={onSelectionModel}
                   onSortModelChange={onChangeSortingModel}
+                  onPageChange={onChangeCurPageForTask}
                   onFilterModelChange={onChangeFilterModel}
                   // onStateChange={setDataGridState}
                   onPageSizeChange={onChangeRowsPerPageForTask}
-                  onPageChange={onChangeCurPageForTask}
                 />
               </div>
             </MainContent>

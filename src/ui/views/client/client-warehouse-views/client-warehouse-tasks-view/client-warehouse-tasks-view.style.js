@@ -205,4 +205,10 @@ export const styles = theme => ({
     fontSize: '16px',
     paddingLeft: '7px',
   },
+
+  filterHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+  },
 })

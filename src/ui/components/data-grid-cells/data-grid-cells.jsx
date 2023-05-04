@@ -51,8 +51,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRolePrettyMap} from '@constants/user-roles'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
-import {SettingsModel} from '@models/settings-model'
-
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
@@ -512,7 +510,13 @@ export const UserLinkCell = React.memo(
   withStyles(
     ({classes: classNames, name, userId, blackText, customStyles}) => (
       <div className={classNames.userLinkWrapper}>
-        <UserLink withAvatar name={name} userId={userId} blackText={blackText} customStyles={customStyles} />
+        <UserLink
+          withAvatar
+          name={name}
+          userId={userId}
+          blackText={blackText}
+          customStyles={{fontWeight: 400, fontSize: 14, ...customStyles}}
+        />
       </div>
     ),
     styles,
