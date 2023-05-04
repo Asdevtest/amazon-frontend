@@ -107,4 +107,54 @@ export const styles = theme => ({
   searchInput: {
     width: 320,
   },
+
+  tablePanelSubWrapper: {
+    display: 'flex',
+    // alignItems: 'center',
+  },
+
+  proposalSelect: {
+    marginLeft: 30,
+  },
+
+  filterBtn: {
+    marginBottom: 5,
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-start',
+
+    // textOverflow: 'ellipsis',
+    // minHeight: '20px',
+
+    height: 'auto !important',
+    // overflow: 'hidden',
+    // whiteSpace: 'nowrap',
+
+    '&:hover': {
+      backgroundColor: 'rgba(0, 0, 0, .2)',
+    },
+  },
+
+  fieldNamesWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 'max-content',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+
+  fieldNamesWrapperWithCheckbox: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+
+  fieldName: {
+    height: 20,
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    color: theme.palette.primary.main,
+  },
 })
