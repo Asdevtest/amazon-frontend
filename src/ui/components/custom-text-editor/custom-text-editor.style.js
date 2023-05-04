@@ -7,6 +7,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     height: '100%',
   },
+  richTextEditorSubWrapper: {
+    width: '100%',
+    height: '100%',
+  },
   richTextEditorTitle: {
     position: 'absolute',
     top: 10,
@@ -39,7 +43,9 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '10px 16px !important',
     margin: '0px !important',
     // height: 'auto !important',
-    height: 'calc(100% - 45px) !important',
+    // minHeight: 174,
+    // maxHeight: 1550,
+    // height: 'calc(100% - 50px)',
     width: '100% !important',
   },
   container: {
