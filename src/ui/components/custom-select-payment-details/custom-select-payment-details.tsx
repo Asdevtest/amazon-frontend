@@ -1,42 +1,61 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
+/* eslint-disable @typescript-eslint/prefer-optional-chain */
 import {cx} from '@emotion/css'
+import {ClassNamesArg} from '@emotion/react'
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
-import {Avatar, Checkbox, Input, InputAdornment, MenuItem, Select, Tooltip, Typography} from '@mui/material'
+import {Checkbox, Input, MenuItem, Select, Typography} from '@mui/material'
 
 import {FC, useEffect, useState} from 'react'
 
-import {observer} from 'mobx-react'
-
-import {NoPhotoIcon} from '@constants/svg-icons'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
-
 import {Field} from '@components/field'
-import {BigImagesModal} from '@components/modals/big-images-modal'
-import {BigObjectImagesModal} from '@components/modals/big-object-images-modal'
 
-import {checkIsImageLink} from '@utils/checks'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './custom-select-payment-details.style'
 
-export const CustomSelectPaymentDetails = props => {
+interface PaymentMethodsObject {
+  title: string
+  _id: string
+}
+
+interface CurrentPaymentMethodsObject {
+  title: string
+  _id: string
+  updatedAt: string
+}
+
+interface CustomSelectPaymentDetailsProps {
+  currentPaymentMethods: Array<CurrentPaymentMethodsObject>
+  paymentMethods: Array<PaymentMethodsObject>
+  onlyRead?: boolean
+  column?: boolean
+  disabled?: boolean
+  generalText?: boolean
+  cursorPointer?: boolean
+  labelClass?: ClassNamesArg
+  selectWrapper?: ClassNamesArg
+  onChangePaymentMethod?: (paymentMethod: PaymentMethodsObject) => void
+  onClickButton?: () => void
+}
+
+export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = props => {
   const {classes: classNames} = useClassNames()
   const {
     currentPaymentMethods,
     paymentMethods,
     onlyRead,
-    onChangePaymentMethod,
     column,
     labelClass,
     disabled,
     generalText,
     cursorPointer,
-    onClickButton,
     selectWrapper,
+    onChangePaymentMethod,
+    onClickButton,
   } = props
 
   const [isEmpty, setIsEmpty] = useState(true)
@@ -54,14 +73,14 @@ export const CustomSelectPaymentDetails = props => {
 
   const EditIconToRender = () => <EditIcon className={classNames.editIcon} />
 
-  const selectContentToRender = (valuesToRender, onlyRead) => {
+  const selectContentToRender = (valuesToRender: Array<PaymentMethodsObject>, isReadOnly: boolean): JSX.Element => {
     if (valuesToRender && valuesToRender.length) {
       setIsEmpty(false)
 
       return (
         <div className={cx(classNames.paymentMethodsPlaccholder, {[classNames.generalText]: generalText})}>
           <Typography className={classNames.selectedItemText}>
-            {valuesToRender?.map(value => value?.title).join(' / ')}
+            {valuesToRender?.map(valueToRender => valueToRender?.title).join(' / ')}
           </Typography>
         </div>
       )
@@ -70,7 +89,7 @@ export const CustomSelectPaymentDetails = props => {
 
       return (
         <div className={classNames.paymentMethodsPlaccholder}>
-          {!onlyRead ? (
+          {!isReadOnly ? (
             <>
               <Typography className={classNames.placeholderText}>{t(TranslationKey.Add)}</Typography>
               <AddIcon className={classNames.addIcon} />
@@ -97,17 +116,16 @@ export const CustomSelectPaymentDetails = props => {
               multiple
               displayEmpty
               disabled={(onlyRead && isEmpty) || disabled || onlyRead}
-              value={value}
+              value={value} // @ts-ignore
               IconComponent={!isEmpty ? EditIconToRender : ''}
               classes={{
-                root: classNames.selectRoot,
                 select: cx(classNames.select, {
                   [classNames.selectIsNotEmpty]: !isEmpty,
                   [classNames.generalText]: generalText,
                   [classNames.cursorPointer]: cursorPointer,
                 }),
               }}
-              renderValue={selected => selectContentToRender(selected, onlyRead)}
+              renderValue={selected => selectContentToRender(selected, !!onlyRead && onlyRead)}
               className={cx(classNames.paymentMethodsField, {
                 [classNames.grayBorder]: (onlyRead && isEmpty) || onlyRead,
                 [classNames.cursorPointer]: cursorPointer,
@@ -125,11 +143,12 @@ export const CustomSelectPaymentDetails = props => {
               }}
               onChange={event => {
                 if (!onlyRead && !disabled) {
-                  onChangePaymentMethod(event.target.value)
+                  // @ts-ignore
+                  !!onChangePaymentMethod && onChangePaymentMethod(event.target.value)
                 }
               }}
             >
-              {!onlyRead && (
+              {!onlyRead && ( // @ts-ignore
                 <MenuItem value={{_id: 'SELECT_ALL'}}>
                   <Checkbox color="primary" checked={value?.length === paymentMethods?.length} />
                   <Typography className={classNames.standartText}>{t(TranslationKey.All)}</Typography>
@@ -138,6 +157,7 @@ export const CustomSelectPaymentDetails = props => {
 
               {!onlyRead &&
                 paymentMethods?.map((paymentMethod, paymentMethodIndex) => (
+                  // @ts-ignore
                   <MenuItem key={paymentMethodIndex} value={paymentMethod}>
                     <Checkbox color="primary" checked={value?.some(item => item?._id === paymentMethod?._id)} />
                     <Typography className={classNames.standartText}>{paymentMethod?.title}</Typography>
@@ -146,6 +166,7 @@ export const CustomSelectPaymentDetails = props => {
 
               {onlyRead &&
                 value?.map((paymentMethod, paymentMethodIndex) => (
+                  // @ts-ignore
                   <MenuItem key={paymentMethodIndex} value={paymentMethod}>
                     <Checkbox
                       disabled
