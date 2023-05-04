@@ -378,6 +378,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidDelete**](docs/RequestsApi.md#apiV1RequestsGuidDelete) | **DELETE** /api/v1/requests/{guid} | # (возможно данные метод не нужен) Удалить заявку по его GUID.
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidPickupPost**](docs/RequestsApi.md#apiV1RequestsGuidPickupPost) | **POST** /api/v1/requests/{guid}/pickup | # Этот метод вызывает тот кто бронирует место в заявке.
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidToPublishPatch**](docs/RequestsApi.md#apiV1RequestsGuidToPublishPatch) | **PATCH** /api/v1/requests/{guid}/to_publish | #  Опубликовать заявку.
+*TestSwagger.RequestsApi* | [**apiV1RequestsGuidUpdateDeadlinePatch**](docs/RequestsApi.md#apiV1RequestsGuidUpdateDeadlinePatch) | **PATCH** /api/v1/requests/{guid}/update_deadline | # Обновить дедлайн, вернуть из статуса EXPIRED
 *TestSwagger.RequestsApi* | [**apiV1RequestsMediaGuidDelete**](docs/RequestsApi.md#apiV1RequestsMediaGuidDelete) | **DELETE** /api/v1/requests/media/{guid} | #  Удалить исходник.
 *TestSwagger.RequestsApi* | [**apiV1RequestsMediaGuidGet**](docs/RequestsApi.md#apiV1RequestsMediaGuidGet) | **GET** /api/v1/requests/media/{guid} | #  Получить медиа.
 *TestSwagger.RequestsApi* | [**apiV1RequestsMediaGuidPatch**](docs/RequestsApi.md#apiV1RequestsMediaGuidPatch) | **PATCH** /api/v1/requests/media/{guid} | #  Изменить медиа.
@@ -589,6 +590,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject125](docs/InlineObject125.md)
  - [TestSwagger.InlineObject126](docs/InlineObject126.md)
  - [TestSwagger.InlineObject127](docs/InlineObject127.md)
+ - [TestSwagger.InlineObject128](docs/InlineObject128.md)
  - [TestSwagger.InlineObject13](docs/InlineObject13.md)
  - [TestSwagger.InlineObject14](docs/InlineObject14.md)
  - [TestSwagger.InlineObject15](docs/InlineObject15.md)
