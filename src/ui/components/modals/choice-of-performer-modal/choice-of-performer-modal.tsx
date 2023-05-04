@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 /* eslint-disable no-unused-vars */
 import {Typography, Box} from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, {FC, useEffect, useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -13,20 +15,50 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './choice-of-performer-modal.style'
 
-export const ChoiceOfPerformerModal = ({
-  announcements,
-  onClickThumbnail,
-  onClickChooseBtn,
-  onClickResetPerformerBtn,
-  onClickCloseBtn,
-}) => {
+interface AnnouncementsProps {
+  createdAt: string
+  createdBy: {
+    name: string
+    _id: string
+  }
+  description: string
+  linksToMediaFiles: Array<string>
+  requests: {
+    createdBy: {
+      name: string
+      _id: string
+    }
+    humanFriendlyId: number
+    price: number
+    status: string
+    timeoutAt: string
+    title: string
+    updatedAt: string
+    _id: string
+  }
+  title: string
+  type: string
+  updatedAt: string
+  _id: string
+}
+
+export interface ChoiceOfPerformerModalProps {
+  announcements: Array<AnnouncementsProps>
+  onClickThumbnail: () => void
+  onClickChooseBtn: (announcement: AnnouncementsProps) => void
+  onClickResetPerformerBtn: () => void
+  onClickCloseBtn: () => void
+}
+
+export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => {
+  const {announcements, onClickThumbnail, onClickChooseBtn, onClickResetPerformerBtn, onClickCloseBtn} = props
   const {classes: classNames} = useClassNames()
 
   const [dataToRender, setDataToRender] = useState(announcements)
 
   const [nameSearchValue, setNameSearchValue] = useState('')
 
-  const chooseAndClose = announcement => {
+  const chooseAndClose = (announcement: AnnouncementsProps) => {
     onClickChooseBtn(announcement)
     onClickCloseBtn()
   }
@@ -56,19 +88,17 @@ export const ChoiceOfPerformerModal = ({
           {t(TranslationKey['Choice of Performer'])}
         </Typography>
 
-        <div className={classNames.searchInputWrapper}>
-          <SearchInput
-            inputClasses={classNames.searchInput}
-            placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
-            onChange={e => setNameSearchValue(e.target.value)}
-          />
-        </div>
+        {/* @ts-ignore */}
+        <SearchInput
+          inputClasses={classNames.searchInput}
+          placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNameSearchValue(e.target.value)}
+        />
 
         <Button
           danger
-          className={classNames.backBtn}
           onClick={() => {
-            onClickResetPerformerBtn('')
+            onClickResetPerformerBtn()
             onClickCloseBtn()
           }}
         >
@@ -77,13 +107,13 @@ export const ChoiceOfPerformerModal = ({
       </div>
       <div className={classNames.cardsWrapper}>
         <Box
-          container
-          classes={{root: classNames.dashboardCardWrapper}}
+          component="div"
+          className={classNames.dashboardCardWrapper}
           display="grid"
           gridTemplateColumns={'repeat(auto-fill, minmax(calc(100% / 4), 1fr))'}
-          gridGap="10px"
         >
           {dataToRender.map((service, serviceKey) => (
+            // @ts-ignore
             <ServiceExchangeCard
               key={serviceKey}
               choose
