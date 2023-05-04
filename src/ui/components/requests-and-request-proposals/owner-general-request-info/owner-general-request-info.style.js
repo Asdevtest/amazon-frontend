@@ -101,6 +101,9 @@ export const useClassNames = makeStyles()(theme => ({
 
     gap: 20,
   },
+  recoverBtn: {
+    marginLeft: 'auto',
+  },
   stopBtn: {
     width: '100%',
     background: '#F3AF00',
