@@ -443,7 +443,7 @@ export class ClientAwaitingBatchesViewModel {
         this.showCircularProgress = true
       })
 
-      const boxes = await BoxesModel.getBoxesReadyToBatchStorekeeper()
+      const boxes = await BoxesModel.getBoxesReadyToBatchClient()
 
       const result = await UserModel.getPlatformSettings()
 

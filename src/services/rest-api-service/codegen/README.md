@@ -190,7 +190,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.BoxesApi* | [**apiV1BoxesClientsGuidPatch**](docs/BoxesApi.md#apiV1BoxesClientsGuidPatch) | **PATCH** /api/v1/boxes/clients/{guid} | # Отредактировать коробку клиентом
 *TestSwagger.BoxesApi* | [**apiV1BoxesClientsInTransferGuidGet**](docs/BoxesApi.md#apiV1BoxesClientsInTransferGuidGet) | **GET** /api/v1/boxes/clients/in_transfer/{guid} | # Получить коробки  в статусах “REQUESTED_SEND_TO_BATCH“, “In Batch“, “In Batch on the way”, \&quot;NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE\&quot;, “NEED_TO_UPDATE_THE_TARIFF“, с фильтрацией по продукту
 *TestSwagger.BoxesApi* | [**apiV1BoxesClientsLightGet**](docs/BoxesApi.md#apiV1BoxesClientsLightGet) | **GET** /api/v1/boxes/clients_light | # Получить коробки и их строки по текущему клиенту.
-*TestSwagger.BoxesApi* | [**apiV1BoxesClientsSentToBatchGet**](docs/BoxesApi.md#apiV1BoxesClientsSentToBatchGet) | **GET** /api/v1/boxes/clients/sent_to_batch | # DEPRECATED Получить коробки по текущему клиенту отправленные в партию.
+*TestSwagger.BoxesApi* | [**apiV1BoxesClientsSentToBatchGet**](docs/BoxesApi.md#apiV1BoxesClientsSentToBatchGet) | **GET** /api/v1/boxes/clients/sent_to_batch | # Получить коробки по текущему клиенту отправленные в партию.
 *TestSwagger.BoxesApi* | [**apiV1BoxesEditGuidPost**](docs/BoxesApi.md#apiV1BoxesEditGuidPost) | **POST** /api/v1/boxes/edit/{guid} | # Отредактировать коробку. Сликом гибкий метод
 *TestSwagger.BoxesApi* | [**apiV1BoxesGet**](docs/BoxesApi.md#apiV1BoxesGet) | **GET** /api/v1/boxes/ | # Получить коробки и их строки.
 *TestSwagger.BoxesApi* | [**apiV1BoxesGroupedGet**](docs/BoxesApi.md#apiV1BoxesGroupedGet) | **GET** /api/v1/boxes/grouped | # Получить сгруппированные коробки

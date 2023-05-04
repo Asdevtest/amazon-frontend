@@ -181,7 +181,6 @@ class ClientAwaitingBatchesViewRaw extends Component {
                       {t(TranslationKey['Edit batch'])}
                     </Button>
                     <Button
-                      disabled
                       className={className.rightSideButton}
                       variant="contained"
                       onClick={() => onClickAddOrEditBatch({isAdding: true})}
