@@ -1,8 +1,9 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {freelanceRequestTypeByCode} from '@constants/freelance-request-type'
+import {freelanceRequestType, freelanceRequestTypeByCode} from '@constants/freelance-request-type'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {MyRequestStatus} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
 import {RequestSubType, RequestType} from '@constants/request-type'
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
@@ -314,6 +315,8 @@ export class MyRequestsViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       await this.getCustomRequests()
+      this.onChangeFullFieldMenuItem(Object.keys(MyRequestStatus), 'status')
+      this.onChangeFullFieldMenuItem(Object.values(freelanceRequestType), 'typeTask')
       this.getDataGridState()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
