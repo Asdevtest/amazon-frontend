@@ -1894,7 +1894,7 @@ export class ClientInStockBoxesViewModel {
 
       const curStatus = this.columnMenuSettings.status.currentFilterData.length
         ? this.columnMenuSettings.status.currentFilterData.join(',')
-        : `${BoxStatus.NEW},${BoxStatus.IN_STOCK},${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.ACCEPTED_IN_PROCESSING}`
+        : `${BoxStatus.NEW},${BoxStatus.IN_STOCK},${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.ACCEPTED_IN_PROCESSING},${BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE},${BoxStatus.NEED_TO_UPDATE_THE_TARIFF}`
 
       const result = await BoxesModel.getBoxesForCurClientLightPag(curStatus, {
         filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
