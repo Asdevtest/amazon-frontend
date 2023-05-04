@@ -130,13 +130,13 @@ class ServiceExchangeViewRaw extends Component {
               <Box
                 container
                 classes={{root: classNames.dashboardCardWrapper}}
-                display="grid"
-                gridTemplateColumns={
-                  viewMode === tableViewMode.LIST
-                    ? 'repeat(auto-fill, minmax(calc(100% / 2), 1fr))'
-                    : 'repeat(auto-fill, minmax(calc(100% / 4), 1fr))'
-                }
-                gridGap="20px"
+                className={classNames.dashboardCardWrapper}
+                sx={{
+                  gridTemplateColumns:
+                    viewMode === tableViewMode.LIST
+                      ? 'repeat(auto-fill, minmax(calc((100% - 20px) / 2), 1fr))'
+                      : 'repeat(auto-fill, minmax(calc((100% - 80px) / 4), 1fr))',
+                }}
               >
                 {currentData.map((service, serviceKey) =>
                   viewMode === tableViewMode.LIST ? (
