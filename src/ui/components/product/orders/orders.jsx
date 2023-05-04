@@ -33,7 +33,7 @@ export const Orders = observer(({productId, showAtProcessOrders}) => {
   const {
     orderStatusData,
 
-    volumeWeightCoefficient,
+    platformSettings,
     storekeepers,
     destinations,
     reorderOrder,
@@ -107,7 +107,7 @@ export const Orders = observer(({productId, showAtProcessOrders}) => {
         <OrderProductModal
           reorderOrdersData={[reorderOrder]}
           // volumeWeightCoefficient={volumeWeightCoefficient}
-          platformSettings={{volumeWeightCoefficient}}
+          platformSettings={platformSettings}
           destinations={destinations}
           storekeepers={storekeepers}
           onTriggerOpenModal={onTriggerOpenModal}

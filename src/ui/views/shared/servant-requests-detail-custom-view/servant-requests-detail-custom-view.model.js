@@ -267,6 +267,16 @@ export class RequestDetailCustomViewModel {
         }
       }
 
+      const filesIds = files.map(el => el._id)
+
+      const curentMediaIds = findRequestProposalByChatSelectedId.proposal.media.map(el => el._id)
+
+      const mediaToRemoveIds = curentMediaIds.filter(el => !filesIds.includes(el))
+
+      if (mediaToRemoveIds.length) {
+        await RequestModel.editRequestsMediaMany(mediaToRemoveIds.map(el => ({_id: el, proposalId: null})))
+      }
+
       await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
         result: message,
         media: this.loadedFiles.map((el, i) => ({

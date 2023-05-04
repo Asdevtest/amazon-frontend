@@ -145,6 +145,11 @@ class RequestModelStatic {
     const response = await restApiService.SearchRequestApi.apiV1ChatsGuidPost(id)
     return response
   }
+
+  editRequestsMediaMany = async data => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsMediaManyPatch({body: data})
+    return response
+  }
 }
 
 export const RequestModel = new RequestModelStatic()

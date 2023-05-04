@@ -2,7 +2,7 @@
 import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import {Grid, Typography} from '@mui/material'
+import {Checkbox, Grid, Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
@@ -16,6 +16,8 @@ import {
   freelanceRequestTypeTranslate,
 } from '@constants/freelance-request-type'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
+import {RequestProposalStatus, RequestProposalStatusColor} from '@constants/request-proposal-status'
+import {RequestProposalStatusTranslate} from '@constants/request-proposal-status'
 import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -29,6 +31,7 @@ import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {checkIsFreelancer} from '@utils/checks'
 import {
@@ -56,6 +59,7 @@ class MyProposalsViewRaw extends Component {
 
   render() {
     const {
+      selectedProposalFilters,
       currentRequest,
       currentProposal,
       selectedTaskType,
@@ -80,6 +84,8 @@ class MyProposalsViewRaw extends Component {
       onTriggerSortMode,
       onClickTaskType,
       onClickResultBtn,
+      onSelectProposalFilter,
+      handleSelectAllProposalStatuses,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -148,14 +154,53 @@ class MyProposalsViewRaw extends Component {
                   />
                 </div>
 
-                <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
-                  <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
+                <div className={classNames.tablePanelSubWrapper}>
+                  <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
+                    <Typography className={classNames.tablePanelViewText}>
+                      {t(TranslationKey['Sort by date'])}
+                    </Typography>
 
-                  {sortMode === tableSortMode.DESK ? (
-                    <ArrowDropDownIcon color="primary" />
-                  ) : (
-                    <ArrowDropUpIcon color="primary" />
-                  )}
+                    {sortMode === tableSortMode.DESK ? (
+                      <ArrowDropDownIcon color="primary" />
+                    ) : (
+                      <ArrowDropUpIcon color="primary" />
+                    )}
+                  </div>
+
+                  <div className={classNames.proposalSelect}>
+                    <WithSearchSelect
+                      checkbox
+                      notCloseOneClick
+                      firstItems={
+                        <Button
+                          className={classNames.filterBtn}
+                          variant="text"
+                          onClick={handleSelectAllProposalStatuses}
+                        >
+                          <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
+                            <>
+                              <Checkbox
+                                checked={selectedProposalFilters.length === Object.keys(RequestProposalStatus).length}
+                                color="primary"
+                              />
+                              <Typography className={classNames.fieldName}>
+                                {t(TranslationKey['All proposal statuses'])}
+                              </Typography>
+                            </>
+                          </div>
+                        </Button>
+                      }
+                      currentShops={selectedProposalFilters}
+                      data={Object.keys(RequestProposalStatus).map(el => ({
+                        name: RequestProposalStatusTranslate(el),
+                        _id: el,
+                      }))}
+                      searchFields={['name']}
+                      selectedItemName={t(TranslationKey['All proposal statuses'])}
+                      colorById={RequestProposalStatusColor}
+                      onClickSelect={onSelectProposalFilter}
+                    />
+                  </div>
                 </div>
               </div>
 

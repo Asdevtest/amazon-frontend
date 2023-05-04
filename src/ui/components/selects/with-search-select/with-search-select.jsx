@@ -48,6 +48,7 @@ const WithSearchSelectRaw = observer(
     darkIcon,
     notCloseOneClick,
     chosenItemNoHover,
+    colorById,
   }) => {
     const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -200,6 +201,7 @@ const WithSearchSelectRaw = observer(
                       <Button
                         key={index}
                         className={classNames.button}
+                        style={colorById && {color: colorById(el._id)}}
                         variant="text"
                         onClick={e => {
                           e.stopPropagation()

@@ -44,7 +44,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
 
   // console.log('message', message)
 
-  console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
+  // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
 
   return (
     <div className={classNames.root}>

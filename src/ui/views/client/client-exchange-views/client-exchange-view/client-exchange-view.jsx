@@ -44,7 +44,7 @@ export class ClientExchangeViewRaw extends Component {
     const {
       destinationsFavourites,
       confirmModalSettings,
-      volumeWeightCoefficient,
+      platformSettings,
       showOrderModal,
       onDoubleClickBarcode,
 
@@ -140,7 +140,7 @@ export class ClientExchangeViewRaw extends Component {
         <Modal openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
           <OrderProductModal
             // volumeWeightCoefficient={volumeWeightCoefficient}
-            platformSettings={{volumeWeightCoefficient}}
+            platformSettings={platformSettings}
             destinations={destinations}
             storekeepers={storekeepers}
             requestStatus={requestStatus}

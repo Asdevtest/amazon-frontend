@@ -292,7 +292,8 @@ export const styles = theme => ({
     objectPosition: 'center',
   },
   orderTitle: {
-    fontWeight: 500,
+    fontSize: '14px',
+    fontWeight: 400,
     whiteSpace: 'nowrap',
     maxWidth: 190,
     overflow: 'hidden',
@@ -580,8 +581,8 @@ export const styles = theme => ({
   },
 
   normDateCellTypo: {
-    fontSize: '10px',
-    fontWeight: '600',
+    fontSize: '14px',
+    fontWeight: '400',
     textAlign: 'center',
 
     whiteSpace: 'pre-wrap',
@@ -854,7 +855,7 @@ export const styles = theme => ({
     // overflow: 'hidden',
 
     fontWeight: '400',
-    fontSize: '10px',
+    fontSize: '14px',
     lineHeight: '16px',
   },
 
@@ -1059,6 +1060,7 @@ export const styles = theme => ({
   },
 
   downloadLink: {
+    fontSize: 14,
     color: theme.palette.primary.main,
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
@@ -1889,6 +1891,8 @@ export const styles = theme => ({
   },
 
   tagItem: {
+    fontSize: 14,
+    fontWeight: 400,
     maxWidth: 130,
     overflow: 'hidden',
     textOverflow: 'ellipsis',

@@ -53,7 +53,7 @@ export class OrdersModel {
 
   storekeepers = []
   destinations = []
-  volumeWeightCoefficient = undefined
+  platformSettings = undefined
 
   confirmModalSettings = {
     isWarning: false,
@@ -211,7 +211,7 @@ export class OrdersModel {
 
         this.destinations = destinations
 
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.platformSettings = result
 
         this.reorderOrder = order
 
