@@ -13,6 +13,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
@@ -55,7 +56,12 @@ class ClientAwaitingBatchesViewRaw extends Component {
       curBatch,
       showBatchInfoModal,
       showConfirmModal,
+      showAddOrEditBatchModal,
       onTriggerOpenModal,
+
+      progressValue,
+      showProgress,
+      boxesData,
 
       rowCount,
       currentData,
@@ -88,6 +94,8 @@ class ClientAwaitingBatchesViewRaw extends Component {
       onSubmitChangeBoxFields,
 
       onClickStorekeeperBtn,
+      onClickAddOrEditBatch,
+      onSubmitAddOrEditBatch,
 
       changeColumnsModel,
     } = this.viewModel
@@ -153,13 +161,35 @@ class ClientAwaitingBatchesViewRaw extends Component {
                   </div>
                 </div>
 
-                <SearchInput
-                  key={'client_batches_awaiting-batch_search_input'}
-                  inputClasses={className.searchInput}
-                  value={nameSearchValue}
-                  placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
-                  onSubmit={onSearchSubmit}
-                />
+                <div className={className.rightSideWrapper}>
+                  <SearchInput
+                    key={'client_batches_awaiting-batch_search_input'}
+                    inputClasses={className.searchInput}
+                    value={nameSearchValue}
+                    placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
+                    onSubmit={onSearchSubmit}
+                  />
+
+                  <div className={className.rightSideButtonsWrapper}>
+                    <Button
+                      success
+                      disabled={selectedBatches.length !== 1}
+                      variant="contained"
+                      className={className.rightSideButton}
+                      onClick={() => onClickAddOrEditBatch({isAdding: false})}
+                    >
+                      {t(TranslationKey['Edit batch'])}
+                    </Button>
+                    <Button
+                      disabled
+                      className={className.rightSideButton}
+                      variant="contained"
+                      onClick={() => onClickAddOrEditBatch({isAdding: true})}
+                    >
+                      {t(TranslationKey['Create a batch'])}
+                    </Button>
+                  </div>
+                </div>
               </div>
               <div className={className.datagridWrapper}>
                 <MemoDataGrid
@@ -178,6 +208,7 @@ class ClientAwaitingBatchesViewRaw extends Component {
                   paginationMode="server"
                   rowCount={rowCount}
                   sortModel={sortModel}
+                  selectionModel={selectedBatches}
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
@@ -210,6 +241,18 @@ class ClientAwaitingBatchesViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
+
+        <Modal openModal={showAddOrEditBatchModal} setOpenModal={() => onTriggerOpenModal('showAddOrEditBatchModal')}>
+          <AddOrEditBatchForm
+            progressValue={progressValue}
+            showProgress={showProgress}
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            batchToEdit={currentData.find(batch => batch.id === selectedBatches.slice()[0])}
+            boxesData={boxesData}
+            onClose={() => onTriggerOpenModal('showAddOrEditBatchModal')}
+            onSubmit={onSubmitAddOrEditBatch}
+          />
+        </Modal>
 
         <BatchInfoModal
           volumeWeightCoefficient={volumeWeightCoefficient}

@@ -46,10 +46,17 @@ export class ClientAwaitingBatchesViewModel {
 
   showBatchInfoModal = false
   showConfirmModal = false
+  showAddOrEditBatchModal = false
 
   showWarningInfoModal = false
 
   languageTag = undefined
+
+  boxesData = []
+  volumeWeightCoefficient = undefined
+
+  progressValue = 0
+  showProgress = false
 
   warningInfoModalSettings = {
     isWarning: false,
@@ -418,6 +425,96 @@ export class ClientAwaitingBatchesViewModel {
 
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async onClickAddOrEditBatch(setting) {
+    try {
+      runInAction(() => {
+        if (setting.isAdding) {
+          this.selectedBatches = []
+        }
+
+        this.showCircularProgress = true
+      })
+
+      const boxes = await BoxesModel.getBoxesReadyToBatchStorekeeper()
+
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+        this.boxesData = boxes
+
+        this.showCircularProgress = false
+      })
+
+      this.onTriggerOpenModal('showAddOrEditBatchModal')
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+        this.showCircularProgress = false
+      })
+    }
+  }
+
+  async onSubmitAddOrEditBatch({boxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields}) {
+    try {
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
+
+      if (filesToAdd.length) {
+        await onSubmitPostImages.call(this, {images: filesToAdd, type: 'uploadedFiles'})
+      }
+
+      if (!batchToEdit) {
+        const batchId = await BatchesModel.createBatch({
+          title: batchFields.title,
+          boxesIds,
+          calculationMethod: batchFields.calculationMethod,
+          volumeWeightDivide: batchFields.volumeWeightDivide,
+        })
+
+        if (filesToAdd.length) {
+          await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
+        }
+      } else {
+        const newBoxesIds = boxesIds.filter(boxId => !sourceBoxesIds.includes(boxId))
+        const boxesToRemoveIds = sourceBoxesIds.filter(boxId => !boxesIds.includes(boxId))
+
+        await BatchesModel.changeBatch(batchToEdit.id, {
+          title: batchFields.title,
+          calculationMethod: batchFields.calculationMethod,
+          volumeWeightDivide: batchFields.volumeWeightDivide,
+        })
+
+        if (newBoxesIds.length) {
+          await BatchesModel.addBoxToBatch(batchToEdit.id, newBoxesIds)
+        }
+        if (boxesToRemoveIds.length) {
+          await BatchesModel.removeBoxFromBatch(batchToEdit.id, boxesToRemoveIds)
+        }
+
+        if (filesToAdd.length) {
+          await BatchesModel.editAttachedDocuments(
+            batchToEdit.id,
+            batchToEdit.originalData.attachedDocuments
+              ? [...batchToEdit.originalData.attachedDocuments, ...this.uploadedFiles]
+              : [...this.uploadedFiles],
+          )
+        }
+      }
+
+      this.loadData()
+      this.onTriggerOpenModal('showAddOrEditBatchModal')
     } catch (error) {
       console.log(error)
       runInAction(() => {
