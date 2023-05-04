@@ -1942,6 +1942,7 @@ export enum TranslationKey {
   'At least' = 'At least',
   'No more than' = 'No more than',
   'To pay' = 'To pay',
+  'Need to update the tariff' = 'Need to update the tariff',
   'All proposal statuses' = 'All proposal statuses',
   'Proposal edited' = 'Proposal edited',
   // '' = '',

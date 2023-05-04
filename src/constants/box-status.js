@@ -28,6 +28,8 @@ export const boxStatusTranslateKey = status => {
       return TranslationKey['Awaiting shipment in batches']
     case BoxStatus.ACCEPTED_IN_PROCESSING:
       return TranslationKey['Accepted in processing']
+    case BoxStatus.NEED_TO_UPDATE_THE_TARIFF:
+      return TranslationKey['Need to update the tariff']
   }
 }
 

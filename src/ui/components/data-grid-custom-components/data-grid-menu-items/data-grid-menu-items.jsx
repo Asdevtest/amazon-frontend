@@ -592,6 +592,8 @@ export const BoxestatusMenuItem = React.memo(
             BoxStatus.IN_STOCK,
             BoxStatus.REQUESTED_SEND_TO_BATCH,
             BoxStatus.ACCEPTED_IN_PROCESSING,
+            BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE,
+            BoxStatus.NEED_TO_UPDATE_THE_TARIFF,
           ])
         }
       } else if (choosenItems.some(item => item === el)) {
@@ -611,14 +613,19 @@ export const BoxestatusMenuItem = React.memo(
             <Checkbox color="primary" checked={choosenItems.length === 4 || !choosenItems.length} />
             <div className={classNames.orderStatusName}>{t(TranslationKey.All)}</div>
           </div>
-          {[BoxStatus.NEW, BoxStatus.IN_STOCK, BoxStatus.REQUESTED_SEND_TO_BATCH, BoxStatus.ACCEPTED_IN_PROCESSING].map(
-            item => (
-              <div key={item} className={classNames.orderStatus} onClick={() => onClickItem(item)}>
-                <Checkbox color="primary" checked={choosenItems?.some(status => status === item)} />
-                <div className={classNames.orderStatusName}>{t(boxStatusTranslateKey(item))}</div>
-              </div>
-            ),
-          )}
+          {[
+            BoxStatus.NEW,
+            BoxStatus.IN_STOCK,
+            BoxStatus.REQUESTED_SEND_TO_BATCH,
+            BoxStatus.ACCEPTED_IN_PROCESSING,
+            BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE,
+            BoxStatus.NEED_TO_UPDATE_THE_TARIFF,
+          ].map(item => (
+            <div key={item} className={classNames.orderStatus} onClick={() => onClickItem(item)}>
+              <Checkbox color="primary" checked={choosenItems?.some(status => status === item)} />
+              <div className={classNames.orderStatusName}>{t(boxStatusTranslateKey(item))}</div>
+            </div>
+          ))}
         </div>
         <div className={classNames.buttonsWrapper}>
           <Button
