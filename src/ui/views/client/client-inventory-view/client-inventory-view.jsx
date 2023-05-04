@@ -281,7 +281,7 @@ export class ClientInventoryViewRaw extends Component {
                         TranslationKey['Bind the selected product from the inventory to an item from the store'],
                       )}
                       disabled={selectedRowIds.length !== 1}
-                      className={classNames.buttonOffset}
+                      className={cx(classNames.buttonOffset, classNames.blueButton)}
                       onClick={onClickBindInventoryGoodsToStockBtn}
                     >
                       {t(TranslationKey['Bind an product from Amazon'])}
@@ -290,16 +290,21 @@ export class ClientInventoryViewRaw extends Component {
                     <Button
                       tooltipInfoContent={t(TranslationKey['Supplier Addition Services'])}
                       disabled={!selectedRowIds.length}
-                      className={classNames.buttonOffset}
+                      className={cx(classNames.buttonOffset, classNames.blueButton)}
                       onClick={onClickAddSupplierBtn}
                     >
                       {t(TranslationKey['Supplier search'])}
                     </Button>
 
-                    <Button disabled={!selectedRowIds.length} onClick={onClickParseProductsBtn}>
+                    <Button
+                      className={classNames.blueButton}
+                      disabled={!selectedRowIds.length}
+                      onClick={onClickParseProductsBtn}
+                    >
                       {'Parse all'}
                     </Button>
                     <Button
+                      className={classNames.blueButton}
                       tooltipInfoContent={t(TranslationKey['Product batches data'])}
                       disabled={selectedRowIds.length !== 1}
                       onClick={onClickProductLotDataBtn}
