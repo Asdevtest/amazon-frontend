@@ -3,22 +3,24 @@ import {t} from '@utils/translations'
 import {TranslationKey} from './translations/translation-key'
 
 export const RequestProposalStatus = {
-  CREATED: 'CREATED',
-  OFFER_CONDITIONS_ACCEPTED: 'OFFER_CONDITIONS_ACCEPTED',
   READY_TO_VERIFY: 'READY_TO_VERIFY',
-  OFFER_CONDITIONS_REJECTED: 'OFFER_CONDITIONS_REJECTED',
+  PROPOSAL_EDITED: 'PROPOSAL_EDITED',
   VERIFYING_BY_SUPERVISOR: 'VERIFYING_BY_SUPERVISOR',
   TO_CORRECT: 'TO_CORRECT',
+
+  CREATED: 'CREATED',
+  OFFER_CONDITIONS_ACCEPTED: 'OFFER_CONDITIONS_ACCEPTED',
   CORRECTED: 'CORRECTED',
   ACCEPTED_BY_CLIENT: 'ACCEPTED_BY_CLIENT',
   ACCEPTED_BY_CREATOR_OF_REQUEST: 'ACCEPTED_BY_CREATOR_OF_REQUEST',
   ACCEPTED_BY_SUPERVISOR: 'ACCEPTED_BY_SUPERVISOR',
+  EXPIRED: 'EXPIRED',
+  OFFER_CONDITIONS_CORRECTED: 'OFFER_CONDITIONS_CORRECTED',
+
+  OFFER_CONDITIONS_REJECTED: 'OFFER_CONDITIONS_REJECTED',
   CANCELED_BY_CREATOR_OF_REQUEST: 'CANCELED_BY_CREATOR_OF_REQUEST',
   CANCELED_BY_SUPERVISOR: 'CANCELED_BY_SUPERVISOR',
   CANCELED_BY_EXECUTOR: 'CANCELED_BY_EXECUTOR',
-  EXPIRED: 'EXPIRED',
-  OFFER_CONDITIONS_CORRECTED: 'OFFER_CONDITIONS_CORRECTED',
-  PROPOSAL_EDITED: 'PROPOSAL_EDITED',
 }
 
 export const RequestProposalStatusTranslate = s => {
@@ -53,6 +55,8 @@ export const RequestProposalStatusTranslate = s => {
       return t(TranslationKey['To correct'])
     case RequestProposalStatus.VERIFYING_BY_SUPERVISOR:
       return t(TranslationKey['Verifying by Supervisor'])
+    case RequestProposalStatus.PROPOSAL_EDITED:
+      return t(TranslationKey['Proposal edited'])
   }
 }
 
@@ -87,6 +91,8 @@ export const RequestProposalStatusColor = s => {
     case RequestProposalStatus.TO_CORRECT:
       return 'orange'
     case RequestProposalStatus.VERIFYING_BY_SUPERVISOR:
+      return 'orange'
+    case RequestProposalStatus.PROPOSAL_EDITED:
       return 'orange'
   }
 }
