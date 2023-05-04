@@ -2,7 +2,7 @@
 import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import {Divider, Typography, Paper, Checkbox, Link, Tooltip, Avatar} from '@mui/material'
+import {Avatar, Checkbox, Divider, Link, Paper, Tooltip, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
 
@@ -10,7 +10,10 @@ import {observer} from 'mobx-react'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TaskOperationType} from '@constants/task-operation-type'
+import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
+
+import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
@@ -152,7 +155,11 @@ const Box = observer(
         </div>
 
         {(!showFullCard && isEdit) || (!showFullCard && taskType === TaskOperationType.MERGE) ? (
-          <Paper className={classNames.boxWrapper}>
+          <Paper
+            className={cx(classNames.boxWrapper, {
+              [classNames.boxWrapperWithShadow]: SettingsModel.uiTheme === UiTheme.light,
+            })}
+          >
             <div className={classNames.itemsWrapper}>
               {box.items?.map((item, index) => (
                 <div key={`boxItem_${box.items?.[0].product?._id}_${index}`}>
@@ -169,7 +176,11 @@ const Box = observer(
             </div>
           </Paper>
         ) : (
-          <Paper className={classNames.boxWrapper}>
+          <Paper
+            className={cx(classNames.boxWrapper, {
+              [classNames.boxWrapperWithShadow]: SettingsModel.uiTheme === UiTheme.light,
+            })}
+          >
             <div className={classNames.itemsWrapper}>
               {box.items?.map((item, index) => (
                 <div key={`boxItem_${box.items?.[0].product?._id}_${index}`}>
