@@ -16,8 +16,9 @@ export const styles = theme => ({
   },
 
   searchInput: {
-    width: '100%',
+    width: 'calc(100% - 34px)',
     marginBottom: 20,
+    marginLeft: 17,
   },
 
   icon: {
@@ -99,14 +100,14 @@ export const styles = theme => ({
   },
 
   subMainWrapper: {
-    padding: '10px 17px',
+    padding: '10px 0',
     width: 280,
   },
 
   itemsWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    maxHeight: 300,
+    maxHeight: 650,
     overflow: 'auto',
     width: '100%',
     gap: 5,
@@ -128,6 +129,8 @@ export const styles = theme => ({
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },
+
+    // color: 'red',
   },
 
   fieldNamesWrapper: {
@@ -161,10 +164,20 @@ export const styles = theme => ({
   },
 
   fieldName: {
-    height: 20,
+    // height: 20,
     textOverflow: 'ellipsis',
+    // overflow: 'hidden',
+    // whiteSpace: 'nowrap',
+
+    wordBreak: 'break-all',
+    textAlign: 'left',
+
+    whiteSpace: 'pre-wrap',
     overflow: 'hidden',
-    whiteSpace: 'nowrap',
+
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
   },
 
   selectedItemName: {
