@@ -67,81 +67,83 @@ export const CustomTextEditor = observer(props => {
         </Typography>
       )}
 
-      <MUIRichTextEditor
-        ref={richTextEditorRef}
-        maxLength={6000}
-        readOnly={readOnly}
-        defaultValue={value}
-        label={!readOnly && t(TranslationKey['Task description'])}
-        controls={
-          readOnly
-            ? []
-            : [
-                'bold',
-                'italic',
-                'underline',
-                'strikethrough',
-                'numberList',
-                'bulletList',
-                'justifyLeft',
-                'justifyCenter',
-                'justifyRight',
-                'justifyFull',
-              ]
-        }
-        customControls={[
-          {
-            name: 'justifyLeft',
-            icon: <FormatAlignLeftIcon />,
-            type: 'block',
-            blockWrapper: <TextAlign textAlign={'left'} />,
-          },
-          {
-            name: 'justifyCenter',
-            icon: <FormatAlignCenterIcon />,
-            type: 'block',
-            blockWrapper: <TextAlign textAlign={'center'} />,
-          },
-
-          {
-            name: 'justifyRight',
-            icon: <FormatAlignRightIcon />,
-            type: 'block',
-            blockWrapper: <TextAlign textAlign={'right'} />,
-          },
-
-          {
-            name: 'justifyFull',
-            icon: <FormatAlignJustifyIcon />,
-            type: 'block',
-            blockWrapper: <TextAlign textAlign={'justify'} />,
-          },
-        ]}
-        classes={{
-          root: classNames.root,
-          container: classNames.container,
-          editor: cx(classNames.editor, editorMaxHeight, {
-            [classNames.verticalResize]: verticalResize,
-            [classNames.editorBorder]: !readOnly,
-          }),
-          editorContainer: classNames.editorContainer,
-          placeHolder: classNames.placeHolder,
-          toolbar: classNames.toolbar,
-        }}
-        onBlur={() => {
-          if (changeConditions) {
-            handleSave()
+      <div className={classNames.richTextEditorSubWrapper} onClick={() => richTextEditorRef.current.focus()}>
+        <MUIRichTextEditor
+          ref={richTextEditorRef}
+          maxLength={6000}
+          readOnly={readOnly}
+          defaultValue={value}
+          label={!readOnly && t(TranslationKey['Task description'])}
+          controls={
+            readOnly
+              ? []
+              : [
+                  'bold',
+                  'italic',
+                  'underline',
+                  'strikethrough',
+                  'numberList',
+                  'bulletList',
+                  'justifyLeft',
+                  'justifyCenter',
+                  'justifyRight',
+                  'justifyFull',
+                ]
           }
-        }}
-        onChange={EditorState => {
-          if (changeConditions) {
-            textToCheck(EditorState.getCurrentContent().getPlainText())
-          }
-        }}
-        onSave={text => {
-          changeConditions && changeConditions(text)
-        }}
-      />
+          customControls={[
+            {
+              name: 'justifyLeft',
+              icon: <FormatAlignLeftIcon />,
+              type: 'block',
+              blockWrapper: <TextAlign textAlign={'left'} />,
+            },
+            {
+              name: 'justifyCenter',
+              icon: <FormatAlignCenterIcon />,
+              type: 'block',
+              blockWrapper: <TextAlign textAlign={'center'} />,
+            },
+
+            {
+              name: 'justifyRight',
+              icon: <FormatAlignRightIcon />,
+              type: 'block',
+              blockWrapper: <TextAlign textAlign={'right'} />,
+            },
+
+            {
+              name: 'justifyFull',
+              icon: <FormatAlignJustifyIcon />,
+              type: 'block',
+              blockWrapper: <TextAlign textAlign={'justify'} />,
+            },
+          ]}
+          classes={{
+            root: classNames.root,
+            container: classNames.container,
+            editor: cx(classNames.editor, editorMaxHeight, {
+              [classNames.verticalResize]: verticalResize,
+              [classNames.editorBorder]: !readOnly,
+            }),
+            editorContainer: classNames.editorContainer,
+            placeHolder: classNames.placeHolder,
+            toolbar: classNames.toolbar,
+          }}
+          onBlur={() => {
+            if (changeConditions) {
+              handleSave()
+            }
+          }}
+          onChange={EditorState => {
+            if (changeConditions) {
+              textToCheck(EditorState.getCurrentContent().getPlainText())
+            }
+          }}
+          onSave={text => {
+            changeConditions && changeConditions(text)
+          }}
+        />
+      </div>
     </div>
   )
 })
