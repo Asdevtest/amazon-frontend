@@ -515,4 +515,12 @@ export class OwnerRequestDetailCustomViewModel {
   resetChats() {
     ChatModel.resetChats()
   }
+
+  async onRecoverRequest(timeoutAt, maxAmountOfProposals) {
+    this.setRequestStatus(loadingStatuses.isLoading)
+    await RequestModel.updateDeadline(this.requestId, timeoutAt, maxAmountOfProposals)
+    await this.getCustomRequestCur()
+    await this.getCustomProposalsForRequestCur()
+    this.setRequestStatus(loadingStatuses.success)
+  }
 }

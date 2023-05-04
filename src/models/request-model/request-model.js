@@ -145,6 +145,16 @@ class RequestModelStatic {
     const response = await restApiService.SearchRequestApi.apiV1ChatsGuidPost(id)
     return response
   }
+
+  updateDeadline = async (id, timeoutAt, maxAmountOfProposals) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidUpdateDeadlinePatch(id, {
+      body: {
+        timeoutAt,
+        maxAmountOfProposals,
+      },
+    })
+    return response
+  }
 }
 
 export const RequestModel = new RequestModelStatic()

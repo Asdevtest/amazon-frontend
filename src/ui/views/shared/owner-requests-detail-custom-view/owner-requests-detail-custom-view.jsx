@@ -80,6 +80,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       showResultToCorrectFormModal,
       showConfirmWorkResultFormModal,
       showRequestDesignerResultClientModal,
+      onRecoverRequest,
       onSubmitMessage,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
@@ -126,6 +127,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                   onClickEditBtn={onClickEditBtn}
                   onClickCancelBtn={onClickCancelBtn}
                   onClickAbortBtn={onClickAbortBtn}
+                  onRecoverRequest={onRecoverRequest}
                 />
               ) : null}
 
