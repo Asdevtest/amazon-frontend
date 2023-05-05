@@ -28,7 +28,7 @@ export const useClassNames = makeStyles()(theme => ({
   modalCardsWrapper: {
     display: 'flex',
     flexWrap: 'wrap',
-    gap: 30,
+    gap: 25,
 
     width: '100%',
 

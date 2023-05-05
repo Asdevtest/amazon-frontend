@@ -117,8 +117,10 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
             <ServiceExchangeCard
               key={serviceKey}
               choose
+              /* @ts-ignore */
               service={service}
               onClickThumbnail={onClickThumbnail}
+              /* @ts-ignore */
               onClickButton={chooseAndClose}
             />
           ))}

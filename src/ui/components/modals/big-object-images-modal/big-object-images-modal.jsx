@@ -13,7 +13,7 @@ import {Modal} from '@components/modal'
 
 import {checkIsImageLink} from '@utils/checks'
 import {getShortenStringIfLongerThanCount} from '@utils/text'
-import {downloadFileByLink} from '@utils/upload-files'
+import {downloadFile, downloadFileByLink} from '@utils/upload-files'
 
 import {useClassNames} from './big-object-images-modal.style'
 
@@ -60,7 +60,7 @@ export const BigObjectImagesModal = ({
   const onClickDownloadBtn = () => {
     const imageObj = {...imagesData.find(el => el._id === curImageId)}
 
-    downloadFileByLink(typeof imageObj.image === 'string' ? imageObj.image : imageObj.image.data_url, imageObj.comment)
+    typeof imageObj.image === 'string' ? downloadFileByLink(imageObj.image) : downloadFile(imageObj.image.file)
   }
 
   const onClickZoomBtn = () => {
