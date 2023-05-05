@@ -169,7 +169,7 @@ export const styles = theme => ({
     // overflow: 'hidden',
     // whiteSpace: 'nowrap',
 
-    wordBreak: 'break-all',
+    wordBreak: 'break-word',
     textAlign: 'left',
 
     whiteSpace: 'pre-wrap',
