@@ -8,7 +8,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import DisabledByDefaultOutlinedIcon from '@mui/icons-material/DisabledByDefaultOutlined'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
-import {Accordion, AccordionDetails, AccordionSummary, Typography, Avatar} from '@mui/material'
+import {Accordion, AccordionDetails, AccordionSummary, Typography, Avatar, Tooltip, Zoom} from '@mui/material'
 
 import React, {useCallback, useState} from 'react'
 
@@ -25,6 +25,7 @@ import {Modal} from '@components/modal'
 import {BigObjectImagesModal} from '@components/modals/big-object-images-modal'
 
 import {checkIsImageLink} from '@utils/checks'
+import {getFileNameFromUrl} from '@utils/get-file-name-from-url'
 import {getShortenStringIfLongerThanCount, minsToTime} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -90,95 +91,111 @@ const Slot = ({
   return (
     <div key={slot._id} ref={drop}>
       <div ref={drag} style={{opacity}} className={classNames.imageObjWrapper}>
-        <div
-          className={cx(
-            classNames.imageWrapper,
-
-            {[classNames.isHaveImage]: !!slot?.image},
-            {[classNames.mainImageWrapper]: index === 0},
-          )}
+        <Tooltip
+          arrow
+          title={getFileNameFromUrl(typeof slot.image === 'string' ? slot.image : slot.image?.file.name)?.name}
+          placement="right-end"
+          TransitionComponent={Zoom}
+          TransitionProps={{timeout: 300}}
         >
-          {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
-
           <div
-            className={classNames.removeIconWrapper}
-            onClick={e => {
-              e.stopPropagation()
+            className={cx(
+              classNames.imageWrapper,
 
-              onClickRemoveItem(slot)
-            }}
-          >
-            {slot.image ? (
-              // <DisabledByDefaultOutlinedIcon className={classNames.removeIcon} />
-
-              <CrossInRectangleIcon className={classNames.removeIcon} />
-            ) : (
-              <CloseOutlinedIcon className={classNames.removeIcon} />
+              {[classNames.isHaveImage]: !!slot?.image},
+              {[classNames.mainImageWrapper]: index === 0},
             )}
-          </div>
-          {slot.image ? (
-            <div className={classNames.imageListItem}>
-              <Avatar
-                className={classNames.image}
-                classes={{img: classNames.image}}
-                src={
-                  typeof slot.image === 'string'
-                    ? checkIsImageLink(slot.image)
-                      ? slot.image
-                      : '/assets/icons/file.png'
-                    : slot.image?.file.type.includes('image')
-                    ? slot.image?.data_url
-                    : '/assets/icons/file.png'
-                }
-                alt={isRework ? '' : slot?.imageitem?.image?.file?.name}
-                variant="square"
-                onClick={() => {
-                  if (checkIsImageLink(slot.image?.file?.name || slot.image)) {
-                    console.log('slot', slot)
+          >
+            {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
 
+            <div
+              className={classNames.removeIconWrapper}
+              onClick={e => {
+                e.stopPropagation()
+
+                onClickRemoveItem(slot)
+              }}
+            >
+              {slot.image ? (
+                // <DisabledByDefaultOutlinedIcon className={classNames.removeIcon} />
+
+                <CrossInRectangleIcon className={classNames.removeIcon} />
+              ) : (
+                <CloseOutlinedIcon className={classNames.removeIcon} />
+              )}
+            </div>
+            {slot.image ? (
+              <div className={classNames.imageListItem}>
+                {/* <Tooltip
+                  arrow
+                  title={getFileNameFromUrl(typeof slot.image === 'string' ? slot.image : slot.image?.file.name)?.name}
+                  placement="right-end"
+                  TransitionComponent={Zoom}
+                  TransitionProps={{timeout: 300}}
+                > */}
+                <Avatar
+                  className={classNames.image}
+                  classes={{img: classNames.image}}
+                  src={
+                    typeof slot.image === 'string'
+                      ? checkIsImageLink(slot.image)
+                        ? slot.image
+                        : '/assets/icons/file.png'
+                      : slot.image?.file.type.includes('image')
+                      ? slot.image?.data_url
+                      : '/assets/icons/file.png'
+                  }
+                  alt={isRework ? '' : slot?.imageitem?.image?.file?.name}
+                  variant="square"
+                  onClick={() => {
+                    if (checkIsImageLink(slot.image?.file?.name || slot.image)) {
+                      console.log('slot', slot)
+
+                      setCurImageId(slot._id)
+                      setShowImageModal(!showImageModal)
+                    } else {
+                      window.open(slot.image?.data_url || slot.image, '__blank')
+                    }
+                  }}
+                />
+                {/* </Tooltip> */}
+              </div>
+            ) : (
+              <div className={classNames.imageSubWrapper}>
+                <div className={classNames.cameraIconWrapper}>
+                  <PhotoCameraWithPlus className={classNames.cameraIcon} />
+                </div>
+
+                <Typography className={cx(classNames.imageUploadText)}>{'Upload'}</Typography>
+              </div>
+            )}
+            <input
+              multiple
+              type={'file'}
+              className={classNames.pasteInput}
+              defaultValue={''}
+              // onPaste={e => {
+              //   console.log('e', e)
+              //   onPasteFiles(slot._id)(e)
+              // }}
+              onChange={onUploadFile(slot._id)}
+              onClick={e => {
+                if (slot.image) {
+                  e.preventDefault()
+
+                  if (checkIsImageLink(slot.image?.file?.name || slot.image)) {
                     setCurImageId(slot._id)
                     setShowImageModal(!showImageModal)
                   } else {
                     window.open(slot.image?.data_url || slot.image, '__blank')
                   }
-                }}
-              />
-            </div>
-          ) : (
-            <div className={classNames.imageSubWrapper}>
-              <div className={classNames.cameraIconWrapper}>
-                <PhotoCameraWithPlus className={classNames.cameraIcon} />
-              </div>
-
-              <Typography className={cx(classNames.imageUploadText)}>{'Upload'}</Typography>
-            </div>
-          )}
-          <input
-            multiple
-            type={'file'}
-            className={classNames.pasteInput}
-            defaultValue={''}
-            // onPaste={e => {
-            //   console.log('e', e)
-            //   onPasteFiles(slot._id)(e)
-            // }}
-            onChange={onUploadFile(slot._id)}
-            onClick={e => {
-              if (slot.image) {
-                e.preventDefault()
-
-                if (checkIsImageLink(slot.image?.file?.name || slot.image)) {
-                  setCurImageId(slot._id)
-                  setShowImageModal(!showImageModal)
                 } else {
-                  window.open(slot.image?.data_url || slot.image, '__blank')
+                  return e
                 }
-              } else {
-                return e
-              }
-            }}
-          />
-        </div>
+              }}
+            />
+          </div>
+        </Tooltip>
 
         <div className={classNames.imageObjSubWrapper}>
           <Typography className={cx(classNames.imageObjIndex)}>{index + 1}</Typography>
@@ -283,48 +300,27 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
   const onPasteFiles = imageId => async files => {
     if (files.length === 0) {
       return
-    } else {
-      const readyFilesArr = files.map(el => ({
-        data_url: URL.createObjectURL(el),
-        file: new File([el], el.name?.replace(/ /g, ''), {
-          type: el.type,
-          lastModified: el.lastModified,
-        }),
-      }))
-
-      const restNewSlots = readyFilesArr
-        .slice(1)
-        .map((el, i) => ({image: el, comment: '', commentByClient: '', _id: window.crypto.randomUUID()}))
-
-      console.log('restNewSlots', restNewSlots)
-
-      setImagesData([
-        ...imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)),
-        ...restNewSlots,
-      ])
     }
+
+    const readyFilesArr = files.map(el => ({
+      data_url: URL.createObjectURL(el),
+      file: new File([el], el.name?.replace(/ /g, ''), {
+        type: el.type,
+        lastModified: el.lastModified,
+      }),
+    }))
+
+    const restNewSlots = readyFilesArr
+      .slice(1)
+      .map((el, i) => ({image: el, comment: el.file.name, commentByClient: '', _id: window.crypto.randomUUID()}))
+
+    setImagesData([
+      ...imagesData.map(el =>
+        el._id === imageId ? {...el, image: readyFilesArr[0], comment: readyFilesArr[0]?.file.name} : el,
+      ),
+      ...restNewSlots,
+    ])
   }
-
-  // const onPasteFiles = imageId => async evt => {
-
-  //   if (evt.clipboardData.files.length === 0) {
-  //     return
-  //   } else {
-  //     const filesArr = Array.from(evt.clipboardData.files)
-
-  //     evt.preventDefault()
-
-  //     const readyFilesArr = filesArr.map(el => ({
-  //       data_url: URL.createObjectURL(el),
-  //       file: new File([el], el.name?.replace(/ /g, ''), {
-  //         type: el.type,
-  //         lastModified: el.lastModified,
-  //       }),
-  //     }))
-
-  //     setImagesData(() => imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)))
-  //   }
-  // }
 
   const onUploadFile = imageId => async evt => {
     if (evt.target.files.length === 0) {
@@ -346,12 +342,12 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
       const restNewSlots = readyFilesArr
         .slice(1)
-        .map((el, i) => ({image: el, comment: '', commentByClient: '', _id: window.crypto.randomUUID()}))
-
-      console.log('restNewSlots', restNewSlots)
+        .map((el, i) => ({image: el, comment: el.file.name, commentByClient: '', _id: window.crypto.randomUUID()}))
 
       setImagesData([
-        ...imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)),
+        ...imagesData.map(el =>
+          el._id === imageId ? {...el, image: readyFilesArr[0], comment: readyFilesArr[0]?.file.name} : el,
+        ),
         ...restNewSlots,
       ])
     }

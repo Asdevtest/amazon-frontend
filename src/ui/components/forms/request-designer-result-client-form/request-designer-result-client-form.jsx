@@ -18,7 +18,9 @@ import {
   Checkbox,
   ClickAwayListener,
   Menu,
+  Tooltip,
 } from '@mui/material'
+import Zoom from '@mui/material/Zoom'
 
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 
@@ -39,9 +41,10 @@ import {SetDuration} from '@components/set-duration/set-duration'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsImageLink} from '@utils/checks'
+import {getFileNameFromUrl} from '@utils/get-file-name-from-url'
 import {checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount, minsToTime} from '@utils/text'
 import {t} from '@utils/translations'
-import {downloadFileByLink} from '@utils/upload-files'
+import {downloadFile, downloadFileByLink} from '@utils/upload-files'
 
 import {useClassNames} from './request-designer-result-client-form.style'
 
@@ -91,29 +94,37 @@ const Slot = ({
         {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
 
         <div className={classNames.imageListItem}>
-          <Avatar
-            className={classNames.image}
-            classes={{img: classNames.image}}
-            src={
-              typeof item.image === 'string'
-                ? checkIsImageLink(item.image)
-                  ? item.image
+          <Tooltip
+            arrow
+            title={getFileNameFromUrl(typeof item.image === 'string' ? item.image : item.image?.file.name)?.name}
+            placement="right-end"
+            TransitionComponent={Zoom}
+            TransitionProps={{timeout: 300}}
+          >
+            <Avatar
+              className={classNames.image}
+              classes={{img: classNames.image}}
+              src={
+                typeof item.image === 'string'
+                  ? checkIsImageLink(item.image)
+                    ? item.image
+                    : '/assets/icons/file.png'
+                  : item.image?.file.type.includes('image')
+                  ? item.image?.data_url
                   : '/assets/icons/file.png'
-                : item.image?.file.type.includes('image')
-                ? item.image?.data_url
-                : '/assets/icons/file.png'
-            }
-            alt={''}
-            variant="square"
-            onClick={() => {
-              if (checkIsImageLink(item.image?.file?.name || item.image)) {
-                setCurImageId(item._id)
-                setShowImageModal(!showImageModal)
-              } else {
-                window.open(item.image?.data_url || item.image, '__blank')
               }
-            }}
-          />
+              alt={''}
+              variant="square"
+              onClick={() => {
+                if (checkIsImageLink(item.image?.file?.name || item.image)) {
+                  setCurImageId(item._id)
+                  setShowImageModal(!showImageModal)
+                } else {
+                  window.open(item.image?.data_url || item.image, '__blank')
+                }
+              }}
+            />
+          </Tooltip>
         </div>
       </div>
 
@@ -261,7 +272,9 @@ export const RequestDesignerResultClientForm = ({
 
   const onClickAllDownload = () => {
     imagesForDownload.forEach(el =>
-      downloadFileByLink(typeof el.image === 'string' ? el.image : el.image.data_url, el.comment),
+      // downloadFileByLink(typeof el.image === 'string' ? el.image : el.image.data_url, el.comment),
+
+      typeof el.image === 'string' ? downloadFileByLink(el.image) : downloadFile(el.image.file),
     )
   }
 
