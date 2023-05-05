@@ -93,7 +93,7 @@ const Slot = ({
       <div ref={drag} style={{opacity}} className={classNames.imageObjWrapper}>
         <Tooltip
           arrow
-          title={getFileNameFromUrl(typeof slot.image === 'string' ? slot.image : slot.image?.file.name)?.name}
+          title={getFileNameFromUrl(typeof slot.image === 'string' ? slot.image : slot.image?.file.name)?.fullName}
           placement="right-end"
           TransitionComponent={Zoom}
           TransitionProps={{timeout: 300}}
