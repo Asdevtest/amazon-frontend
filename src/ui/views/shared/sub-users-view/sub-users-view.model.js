@@ -129,11 +129,13 @@ export class SubUsersViewModel {
 
   async onClickSaveComment(id, comment) {
     try {
-      // console.log(id, comment)
+      this.setRequestStatus(loadingStatuses.isLoading)
       await UserModel.patchSubNote(id, comment)
 
       this.loadData()
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -302,6 +304,7 @@ export class SubUsersViewModel {
 
   async onClickEditBtn(row) {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       runInAction(() => {
         this.selectedSubUser = row
       })
@@ -340,11 +343,13 @@ export class SubUsersViewModel {
       })
 
       this.onTriggerOpenModal('showPermissionModal')
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       runInAction(() => {
         this.error = error
       })
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
