@@ -171,6 +171,8 @@ class MyProposalsViewRaw extends Component {
                     <WithSearchSelect
                       checkbox
                       notCloseOneClick
+                      width={350}
+                      widthPopover={350}
                       firstItems={
                         <Button
                           className={classNames.filterBtn}
@@ -197,7 +199,7 @@ class MyProposalsViewRaw extends Component {
                       }))}
                       searchFields={['name']}
                       selectedItemName={t(TranslationKey['All proposal statuses'])}
-                      colorById={RequestProposalStatusColor}
+                      changeColorById={RequestProposalStatusColor}
                       onClickSelect={onSelectProposalFilter}
                     />
                   </div>
