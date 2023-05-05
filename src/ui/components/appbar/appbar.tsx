@@ -346,7 +346,9 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
               </MenuItem>
 
               <MenuItem className={classNames.menuWrapper} onClick={onClickExit}>
-                <img src="/assets/icons/ion_log-out.svg" className={classNames.icon} />
+                <svg className={classNames.icon}>
+                  <use href="/assets/icons/ion_log-out.svg#svg" />
+                </svg>
 
                 {t(TranslationKey.Exit)}
               </MenuItem>
