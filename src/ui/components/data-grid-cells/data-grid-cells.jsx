@@ -2224,6 +2224,7 @@ export const ClientTasksActionBtnsCell = React.memo(
           )
         case TaskOperationType.RECEIVE:
           return <React.Fragment>{renderTaskInfoBtn()}</React.Fragment>
+        case TaskOperationType.EDIT_BY_STOREKEEPER:
         case TaskOperationType.EDIT:
           return (
             <React.Fragment>

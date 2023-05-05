@@ -57,8 +57,10 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
                 step: 1,
               },
             }}
+            inputProps={{maxLength: 7}}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 0) && setRequestCount(e.target.value)
+              checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 0) &&
+              setRequestCount(e.target.value.replace('.', ''))
             }
           />
         }

@@ -96,7 +96,7 @@ const Slot = ({
         <div className={classNames.imageListItem}>
           <Tooltip
             arrow
-            title={getFileNameFromUrl(typeof item.image === 'string' ? item.image : item.image?.file.name)?.name}
+            title={getFileNameFromUrl(typeof item.image === 'string' ? item.image : item.image?.file.name)?.fullName}
             placement="right-end"
             TransitionComponent={Zoom}
             TransitionProps={{timeout: 300}}
