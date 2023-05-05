@@ -15,37 +15,40 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './choice-of-performer-modal.style'
 
-interface AnnouncementsProps {
-  createdAt: string
-  createdBy: {
-    name: string
-    _id: string
-  }
-  description: string
-  linksToMediaFiles: Array<string>
-  requests: {
-    createdBy: {
-      name: string
-      _id: string
-    }
-    humanFriendlyId: number
-    price: number
-    status: string
-    timeoutAt: string
-    title: string
-    updatedAt: string
-    _id: string
-  }
+interface Requests {
+  createdBy: CreatedBy
+  humanFriendlyId: number
+  price: number
+  status: string
+  timeoutAt: string
   title: string
-  type: string
+  updatedAt: string
+  _id: string
+}
+
+interface CreatedBy {
+  name: string
+  _id: string
+}
+
+interface linksToMediaFilesInterface {
+  file: {name: Array<string>}
+}
+interface Service {
+  createdBy: CreatedBy
+  linksToMediaFiles: Array<string | linksToMediaFilesInterface>
+  requests: Array<Requests>
+  type: number
+  description: string
+  title: string
   updatedAt: string
   _id: string
 }
 
 export interface ChoiceOfPerformerModalProps {
-  announcements: Array<AnnouncementsProps>
+  announcements: Array<Service>
   onClickThumbnail: () => void
-  onClickChooseBtn: (announcement: AnnouncementsProps) => void
+  onClickChooseBtn: (announcement: Service) => void
   onClickResetPerformerBtn: () => void
   onClickCloseBtn: () => void
 }
@@ -58,7 +61,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
 
   const [nameSearchValue, setNameSearchValue] = useState('')
 
-  const chooseAndClose = (announcement: AnnouncementsProps) => {
+  const chooseAndClose = (announcement: Service) => {
     onClickChooseBtn(announcement)
     onClickCloseBtn()
   }
@@ -88,7 +91,6 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
           {t(TranslationKey['Choice of Performer'])}
         </Typography>
 
-        {/* @ts-ignore */}
         <SearchInput
           inputClasses={classNames.searchInput}
           placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
@@ -117,10 +119,8 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
             <ServiceExchangeCard
               key={serviceKey}
               choose
-              /* @ts-ignore */
               service={service}
               onClickThumbnail={onClickThumbnail}
-              /* @ts-ignore */
               onClickButton={chooseAndClose}
             />
           ))}

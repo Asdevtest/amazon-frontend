@@ -12,7 +12,7 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 20,
 
     width: 1700,
-    height: 800,
+    height: 770,
   },
   cardsWrapper: {
     padding: '10px 0',
