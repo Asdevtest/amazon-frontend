@@ -272,7 +272,11 @@ export class ClientInStockBoxesViewRaw extends Component {
                   pagination
                   checkboxSelection
                   localeText={getLocalizationByLanguageTag()}
-                  isRowSelectable={params => params.row.isDraft === false}
+                  isRowSelectable={params =>
+                    params.row.isDraft === false &&
+                    params.row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&
+                    params.row.status !== BoxStatus.NEED_TO_UPDATE_THE_TARIFF
+                  }
                   classes={{
                     row: classNames.row,
                     virtualScrollerContent: classNames.virtualScrollerContent,
