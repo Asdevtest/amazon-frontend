@@ -1,9 +1,10 @@
 import {cx} from '@emotion/css'
+import {ClassNamesArg} from '@emotion/react'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import SearchIcon from '@mui/icons-material/Search'
 import {InputAdornment} from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, {ChangeEvent, FC, useEffect, useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -14,8 +15,20 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './search-input.style'
 
-export const SearchInput = ({disabled, value, onChange, placeholder, inputClasses, onSubmit, startText}) => {
+interface SearchInputProps {
+  disabled?: boolean
+  value?: string
+  placeholder?: string
+  startText?: string
+  inputClasses?: ClassNamesArg
+  onChange?: (value: ChangeEvent<HTMLInputElement>) => void
+  onSubmit?: (value: string) => void
+}
+
+export const SearchInput: FC<SearchInputProps> = props => {
   const {classes: classNames} = useClassNames()
+
+  const {disabled, value, onChange, placeholder, inputClasses, onSubmit, startText} = props
 
   const [isMyInputFocused, setIsMyInputFocused] = useState(false)
 
@@ -23,11 +36,11 @@ export const SearchInput = ({disabled, value, onChange, placeholder, inputClasse
 
   const onClickCloseIcon = () => {
     setInternalValue('')
-    onSubmit('')
+    !!onSubmit && onSubmit('')
   }
 
   useEffect(() => {
-    const listener = event => {
+    const listener = (event: KeyboardEvent) => {
       if (isMyInputFocused && onSubmit && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
         event.preventDefault()
         onSubmit(internalValue)
@@ -42,24 +55,23 @@ export const SearchInput = ({disabled, value, onChange, placeholder, inputClasse
   const searchAndClearSpaces = () => {
     const valueWitchoutSpaces = internalValue.trim()
 
-    onSubmit ? onSubmit(valueWitchoutSpaces) : onSubmit()
-
-    setInternalValue(valueWitchoutSpaces)
+    if (onSubmit) {
+      onSubmit(valueWitchoutSpaces)
+      setInternalValue(valueWitchoutSpaces)
+    }
   }
 
   return (
     <Input
       disabled={disabled}
-      className={cx(classNames.input, inputClasses)}
+      className={cx(classNames.input, !!inputClasses && inputClasses)}
       value={onSubmit ? internalValue : value}
       placeholder={placeholder}
       endAdornment={
         <InputAdornment position={onSubmit ? 'end' : 'start'}>
           {onSubmit ? (
             <div className={classNames.searchWrapper}>
-              {(onSubmit ? internalValue : value) ? (
-                <CloseRoundedIcon className={classNames.closeIcon} onClick={onClickCloseIcon} />
-              ) : null}
+              {internalValue ? <CloseRoundedIcon className={classNames.closeIcon} onClick={onClickCloseIcon} /> : null}
               <Button className={classNames.submit} onClick={searchAndClearSpaces}>
                 {t(TranslationKey.search)}
               </Button>
@@ -71,7 +83,9 @@ export const SearchInput = ({disabled, value, onChange, placeholder, inputClasse
       }
       onBlur={() => setIsMyInputFocused(false)}
       onFocus={() => setIsMyInputFocused(true)}
-      onChange={e => (onSubmit ? setInternalValue(e.target.value) : onChange(e))}
+      onChange={(e: ChangeEvent<HTMLInputElement>) =>
+        onSubmit ? setInternalValue(e.target.value) : !!onChange && onChange(e)
+      }
     />
   )
 }
