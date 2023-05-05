@@ -10,6 +10,7 @@ import {Field} from '@components/field'
 import {Input} from '@components/input'
 import {useRestoreRequestModalStyles} from '@components/requests-and-request-proposals/restore-request-modal/restore-request-modal.styles'
 
+import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {t} from '@utils/translations'
 
 interface RestoreRequestModalProps {
@@ -48,7 +49,7 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
         label={t(TranslationKey['Enter the number of proposals'])}
         inputComponent={
           <Input
-            type="number"
+            // type="number"
             value={requestCount}
             slotProps={{
               input: {
@@ -56,7 +57,9 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
                 step: 1,
               },
             }}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRequestCount(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 0) && setRequestCount(e.target.value)
+            }
           />
         }
       />
