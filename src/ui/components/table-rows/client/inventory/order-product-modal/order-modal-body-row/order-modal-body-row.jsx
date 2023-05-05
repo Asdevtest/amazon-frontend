@@ -74,7 +74,7 @@ export const OrderModalBodyRow = ({
           (((item.currentSupplier.boxProperties?.boxWidthCm || 0) *
             (item.currentSupplier.boxProperties?.boxLengthCm || 0) *
             (item.currentSupplier.boxProperties?.boxHeightCm || 0)) /
-            platformSettings.volumeWeightCoefficient) *
+            platformSettings?.volumeWeightCoefficient) *
             100,
         ) / 100 || 0,
         item.currentSupplier.boxProperties?.boxWeighGrossKg,
@@ -443,7 +443,7 @@ export const OrderModalBodyRow = ({
           setOpenModal={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
         >
           <SupplierApproximateCalculationsForm
-            volumeWeightCoefficient={platformSettings.volumeWeightCoefficient}
+            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
             product={item}
             supplier={item.currentSupplier}
             storekeepers={storekeepers}
