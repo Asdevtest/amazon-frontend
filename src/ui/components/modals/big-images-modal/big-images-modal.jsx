@@ -12,7 +12,7 @@ import {ImageZoomForm} from '@components/forms/image-zoom-form'
 import {Modal} from '@components/modal'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {downloadFileByLink} from '@utils/upload-files'
+import {downloadFile, downloadFileByLink} from '@utils/upload-files'
 
 import {useClassNames} from './big-images-modal.style'
 
@@ -38,10 +38,12 @@ export const BigImagesModal = props => {
   }
 
   const onClickDownloadBtn = image => {
-    downloadFileByLink(
-      typeof image === 'string' ? getAmazonImageUrl(image, true) : image.data_url,
-      // imageObj.comment,
-    )
+    // downloadFileByLink(
+    //   typeof image === 'string' ? getAmazonImageUrl(image, true) : image.data_url,
+    //   // imageObj.comment,
+    // )
+
+    typeof image === 'string' ? downloadFileByLink(image) : downloadFile(image.file)
   }
 
   const onClickZoomBtn = image => {
