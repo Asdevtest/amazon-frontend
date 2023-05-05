@@ -280,4 +280,8 @@ export const useClassNames = makeStyles()(theme => ({
   errorSpace: {
     marginTop: 12,
   },
+
+  errorSpaceInputCell: {
+    marginTop: 18,
+  },
 }))
