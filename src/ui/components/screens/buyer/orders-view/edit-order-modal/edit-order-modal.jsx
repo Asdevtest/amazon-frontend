@@ -426,15 +426,19 @@ export const EditOrderModal = observer(
           return setOrderFields(tmpNewOrderFieldsState)
 
         case 'SUBMIT':
-          return onSubmitSaveOrder({
-            order,
-            orderFields,
-            boxesForCreation,
-            photosToLoad,
-            // hsCode,
-            trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
-            commentToWarehouse,
-          })
+          return onSubmitSaveOrder(
+            //   {
+            //   order,
+            //   orderFields,
+            //   boxesForCreation,
+            //   photosToLoad,
+            //   // hsCode,
+            //   trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
+            //   commentToWarehouse,
+            //   editPaymentDetailsPhotos,
+            // }
+            getDataForSaveOrder(),
+          )
       }
     }
 
