@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Divider, Grid, Typography, Avatar} from '@mui/material'
+import {Typography, Avatar} from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import React from 'react'
@@ -10,16 +10,12 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CustomCarousel} from '@components/custom-carousel'
-import {MultilineRequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 import {UserLink} from '@components/user-link'
 
 import {checkIsImageLink} from '@utils/checks'
-import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
-import {translateProposalsLeftMessage} from '@utils/validation'
 
 import {useClassNames} from './service-exchange-card.style'
 

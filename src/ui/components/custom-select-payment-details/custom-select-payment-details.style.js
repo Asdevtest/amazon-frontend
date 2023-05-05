@@ -5,8 +5,7 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '100%',
   },
-
-  selectRoot: {},
+  standartText: {},
   select: {
     padding: '0 !important',
   },

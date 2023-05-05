@@ -1,7 +1,7 @@
 import {keyframes} from '@emotion/react'
 
 const ani = keyframes`
-0% {
+  0% {
     transform: translateY(-150%);
     opacity: 0;
   }
@@ -48,6 +48,11 @@ export const styles = theme => ({
       border: '1px solid #FF1616',
       opacity: 0.6,
     },
+
+    '&:disabled': {
+      borderColor: '#FEB9B9',
+      color: '#FEB9B9',
+    },
   },
 
   archiveRecoverBtn: {
@@ -87,7 +92,7 @@ export const styles = theme => ({
     width: 230,
     padding: '0 30px 0 30px',
 
-    color: theme.palette.text.general,
+    color: theme.palette.primary.main,
   },
 
   button: {
@@ -292,6 +297,13 @@ export const styles = theme => ({
       top: 0,
       left: 0,
       marginRight: '-48px',
+    },
+  },
+
+  blueButton: {
+    '&:disabled': {
+      background: '#B3D1FB',
+      color: '#F9FCFF',
     },
   },
 
