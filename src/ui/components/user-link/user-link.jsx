@@ -39,8 +39,6 @@ export const UserLink = observer(
               />
             ) : null}
 
-            {/* <Typography className={blackText ? classNames.blackLinkText : classNames.linkText}>{name}</Typography> */}
-
             <Typography
               className={cx(classNames.linkText, customClassNames, {
                 [classNames.blackLinkText]: blackText,
