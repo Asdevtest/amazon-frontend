@@ -227,8 +227,6 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
     setShowDetails(!showDetails)
   }
 
-  // console.log('request', request)
-
   const sourceImagesData = isRework
     ? proposal.proposal.media.map(el => ({
         image: el.fileLink,
@@ -236,11 +234,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         commentByClient: el.commentByClient,
         _id: el._id,
       }))
-    : [
-        {image: null, comment: '', commentByClient: '', _id: `${Date.now()}1`},
-        {image: null, comment: '', commentByClient: '', _id: `${Date.now()}2`},
-        {image: null, comment: '', commentByClient: '', _id: `${Date.now()}3`},
-      ]
+    : [{image: null, comment: '', commentByClient: '', _id: window.crypto.randomUUID()}]
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
 
@@ -256,7 +250,10 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
   )
 
   const onClickAddImageObj = () => {
-    setImagesData(() => [...imagesData, {image: null, comment: '', commentByClient: '', _id: `${Date.now()}`}])
+    setImagesData(() => [
+      ...imagesData,
+      {image: null, comment: '', commentByClient: '', _id: window.crypto.randomUUID()},
+    ])
   }
 
   const onClickRemoveImageObj = () => {
@@ -297,7 +294,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
       const restNewSlots = readyFilesArr
         .slice(1)
-        .map((el, i) => ({image: el, comment: '', commentByClient: '', _id: `${Date.now()} + ${i}`}))
+        .map((el, i) => ({image: el, comment: '', commentByClient: '', _id: window.crypto.randomUUID()}))
 
       console.log('restNewSlots', restNewSlots)
 
@@ -349,7 +346,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
       const restNewSlots = readyFilesArr
         .slice(1)
-        .map((el, i) => ({image: el, comment: '', commentByClient: '', _id: `${Date.now()} + ${i}`}))
+        .map((el, i) => ({image: el, comment: '', commentByClient: '', _id: window.crypto.randomUUID()}))
 
       console.log('restNewSlots', restNewSlots)
 
