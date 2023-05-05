@@ -357,7 +357,7 @@ export const OwnerGeneralRequestInfo = ({
             request?.request.status === RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED) && (
             <>
               <Button className={classNames.recoverBtn} onClick={() => setIsRestoreModalOpen(true)}>
-                {t(TranslationKey.Recover)}
+                {t(TranslationKey['Change request terms'])}
               </Button>
 
               <Modal openModal={isRestoreModalOpen} setOpenModal={() => setIsRestoreModalOpen(false)}>

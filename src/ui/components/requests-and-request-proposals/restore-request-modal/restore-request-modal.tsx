@@ -28,7 +28,7 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
 
   return (
     <div className={styles.body}>
-      <Typography className={styles.title}>{t(TranslationKey['Restoring an application'])}</Typography>
+      <Typography className={styles.title}>{t(TranslationKey['Change request terms'])}</Typography>
       <Field
         labelClasses={styles.label}
         label={t(TranslationKey['When do you want results?'])}
@@ -70,7 +70,7 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
             handleSubmit(date, requestCount).then(() => handleCloseModal())
           }}
         >
-          {t(TranslationKey.Recover)}
+          {t(TranslationKey.Save)}
         </Button>
         <Button variant="text" className={styles.controlButton} onClick={handleCloseModal}>
           {t(TranslationKey.Cancel)}
