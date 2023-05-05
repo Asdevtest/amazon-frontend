@@ -160,7 +160,11 @@ export class ClientInStockBoxesViewRaw extends Component {
 
     const {classes: classNames} = this.props
 
-    const getRowClassName = params => params.row.isDraft === true && classNames.isDraftRow
+    const getRowClassName = params =>
+      (params.row.isDraft === true ||
+        params.row.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE ||
+        params.row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF) &&
+      classNames.isDraftRow
 
     const disableSelectionCells = ['prepId']
 
