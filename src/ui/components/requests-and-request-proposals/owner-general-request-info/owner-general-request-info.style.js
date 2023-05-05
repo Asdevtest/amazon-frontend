@@ -178,6 +178,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   standartText: {
+    fontSize: 14,
     color: theme.palette.text.general,
   },
   standartTextGrey: {
@@ -210,7 +211,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   blockInfoCellTitle: {
     fontWeight: 400,
-    fontSize: 12,
+    fontSize: 14,
     lineHeight: '16px',
 
     color: theme.palette.text.second,
