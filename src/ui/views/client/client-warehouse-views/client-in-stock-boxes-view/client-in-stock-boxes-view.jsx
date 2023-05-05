@@ -51,9 +51,32 @@ const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES
 @observer
 export class ClientInStockBoxesViewRaw extends Component {
   viewModel = new ClientInStockBoxesViewModel({history: this.props.history})
+  topHeaderBtnsWrapperRef = React.createRef()
+  boxesFiltersWrapperRef = React.createRef()
+  btnsWrapperRef = React.createRef()
+
+  topHeaderBtnsWrapperHeight = undefined
+  boxesFiltersWrapperHeight = undefined
+  btnsWrapperHeight = undefined
+
+  heightSum = undefined
 
   componentDidMount() {
     this.viewModel.loadData()
+
+    this.topHeaderBtnsWrapperHeight = this.topHeaderBtnsWrapperRef?.current?.offsetHeight
+    this.boxesFiltersWrapperHeight = this.boxesFiltersWrapperRef?.current?.offsetHeight
+    this.btnsWrapperHeight = this.btnsWrapperRef?.current?.offsetHeight
+
+    this.heightSum = this.topHeaderBtnsWrapperHeight + this.boxesFiltersWrapperHeight + this.btnsWrapperHeight
+  }
+
+  componentDidUpdate() {
+    this.topHeaderBtnsWrapperHeight = this.topHeaderBtnsWrapperRef?.current?.offsetHeight
+    this.boxesFiltersWrapperHeight = this.boxesFiltersWrapperRef?.current?.offsetHeight
+    this.btnsWrapperHeight = this.btnsWrapperRef?.current?.offsetHeight
+
+    this.heightSum = this.topHeaderBtnsWrapperHeight + this.boxesFiltersWrapperHeight + this.btnsWrapperHeight
   }
 
   render() {
@@ -80,7 +103,6 @@ export class ClientInStockBoxesViewRaw extends Component {
 
       requestStatus,
       currentData,
-      getCurrentTaskData,
       sortModel,
       filterModel,
       densityModel,
@@ -137,9 +159,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       setCurrentOpenedBox,
       onClickSaveFbaShipment,
       onClickSaveShippingLabel,
-      onClickCancelAfterConfirm,
       onClickSubmitEditMultipleBoxes,
-      onClickFilterBtn,
 
       onClickRemoveBoxFromBatch,
       onSearchSubmit,
@@ -147,11 +167,8 @@ export class ClientInStockBoxesViewRaw extends Component {
 
       onSubmitChangeBoxFields,
       onClickDestinationBtn,
-      onChangeIsFormed,
       editTariff,
-      onClickShopBtn,
       onCloseShippingLabelModal,
-      getBoxesMy,
       onLeaveColumnField,
       onHoverColumnField,
       onClickResetFilters,
@@ -175,7 +192,7 @@ export class ClientInStockBoxesViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Boxes in stock'])}>
             <MainContent>
-              <div className={classNames.topHeaderBtnsWrapper}>
+              <div ref={this.topHeaderBtnsWrapperRef} className={classNames.topHeaderBtnsWrapper}>
                 <div className={classNames.boxesFiltersWrapper}>
                   {storekeepersData
                     .slice()
@@ -216,7 +233,7 @@ export class ClientInStockBoxesViewRaw extends Component {
                 />
               </div>
 
-              <div className={classNames.boxesFiltersWrapper}>
+              <div ref={this.boxesFiltersWrapperRef} className={classNames.boxesFiltersWrapper}>
                 {clientDestinations
                   .slice()
                   .sort((a, b) => a.name?.localeCompare(b.name))
@@ -256,7 +273,7 @@ export class ClientInStockBoxesViewRaw extends Component {
                 </Button>
               </div>
 
-              <div className={classNames.btnsWrapper}>
+              <div ref={this.btnsWrapperRef} className={classNames.btnsWrapper}>
                 <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>
                 <Button
                   disabled={!storekeepersData}
@@ -266,7 +283,7 @@ export class ClientInStockBoxesViewRaw extends Component {
                 </Button>
               </div>
 
-              <div className={classNames.tasksWrapper}>
+              <div className={classNames.tasksWrapper} style={{height: `calc(100vh - ${this.heightSum + 170}px)`}}>
                 <MemoDataGrid
                   // disableVirtualization
                   pagination
@@ -292,9 +309,6 @@ export class ClientInStockBoxesViewRaw extends Component {
                     '.MuiDataGrid-sortIcon': {
                       width: 14,
                       height: 14,
-                      // color: '#fff',
-                      // opacity: 1,
-                      // display: 'none',
                       '& > active': {
                         display: 'none',
                       },
@@ -345,82 +359,6 @@ export class ClientInStockBoxesViewRaw extends Component {
                   }
                 />
               </div>
-
-              {/* <div className={classNames.tasksWrapper}>
-                <MemoDataGrid
-                  // disableVirtualization
-                  pagination
-                  checkboxSelection
-                  localeText={getLocalizationByLanguageTag()}
-                  isRowSelectable={params => params.row.isDraft === false && params.row.status === BoxStatus.IN_STOCK}
-                  classes={{
-                    row: classNames.row,
-                    virtualScrollerContent: classNames.virtualScrollerContent,
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
-
-                    columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-                    columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-                    columnHeader: classNames.columnHeader,
-                    menuIconButton: classNames.menuIconButton,
-                    iconButtonContainer: classNames.iconButtonContainer,
-                    iconSeparator: classNames.iconSeparator,
-                  }}
-                  sx={{
-                    '.MuiDataGrid-sortIcon': {
-                      width: 14,
-                      height: 14,
-                      // color: '#fff',
-                      // opacity: 1,
-                      // display: 'none',
-                      '& > active': {
-                        display: 'none',
-                      },
-                    },
-                  }}
-                  headerHeight={65}
-                  getRowClassName={getRowClassName}
-                  selectionModel={selectedBoxes}
-                  sortingMode="server"
-                  paginationMode="server"
-                  rowCount={rowCount}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={currentData || []}
-                  getRowHeight={() => 'auto'}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenu: DataGridCustomColumnMenuComponent,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                  }}
-                  componentsProps={{
-                    columnMenu: columnMenuSettings,
-                    toolbar: {
-                      resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
-                      columsBtnSettings: {columnsModel, changeColumnsModel},
-                    },
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onColumnHeaderEnter={params => {
-                    onHoverColumnField(params.field)
-                  }}
-                  onColumnHeaderLeave={onLeaveColumnField}
-                  onSelectionModelChange={onSelectionModel}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onFilterModelChange={onChangeFilterModel}
-                  onStateChange={setDataGridState}
-                  onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-                />
-              </div> */}
             </MainContent>
           </Appbar>
         </Main>
