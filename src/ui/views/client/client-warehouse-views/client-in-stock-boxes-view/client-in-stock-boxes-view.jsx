@@ -177,7 +177,11 @@ export class ClientInStockBoxesViewRaw extends Component {
 
     const {classes: classNames} = this.props
 
-    const getRowClassName = params => params.row.isDraft === true && classNames.isDraftRow
+    const getRowClassName = params =>
+      (params.row.isDraft === true ||
+        params.row.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE ||
+        params.row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF) &&
+      classNames.isDraftRow
 
     const disableSelectionCells = ['prepId']
 
@@ -289,7 +293,11 @@ export class ClientInStockBoxesViewRaw extends Component {
                   pagination
                   checkboxSelection
                   localeText={getLocalizationByLanguageTag()}
-                  isRowSelectable={params => params.row.isDraft === false}
+                  isRowSelectable={params =>
+                    params.row.isDraft === false &&
+                    params.row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&
+                    params.row.status !== BoxStatus.NEED_TO_UPDATE_THE_TARIFF
+                  }
                   classes={{
                     row: classNames.row,
                     virtualScrollerContent: classNames.virtualScrollerContent,
@@ -577,6 +585,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       selectedBoxes,
       // isMasterBoxSelected,
       isChoosenOnlySendToBatchBoxes,
+      isHaveRequestSendToBatch,
       selectedRows,
       onClickRequestToSendBatch,
       onClickEditBtn,
@@ -600,14 +609,14 @@ export class ClientInStockBoxesViewRaw extends Component {
 
         <Button
           tooltipInfoContent={t(TranslationKey['Form for merging several boxes'])}
-          disabled={selectedBoxes.length <= 1 /* || isMasterBoxSelected*/}
+          disabled={selectedBoxes.length <= 1 /* || isMasterBoxSelected*/ || isHaveRequestSendToBatch}
           onClick={onClickMergeBtn}
         >
           {t(TranslationKey.Merge)}
         </Button>
 
         <Button
-          disabled={selectedBoxes.length !== 1}
+          disabled={selectedBoxes.length !== 1 || isHaveRequestSendToBatch}
           tooltipInfoContent={t(TranslationKey['Form for distributing to multiple boxes'])}
           onClick={onClickSplitBtn}
         >
@@ -615,13 +624,13 @@ export class ClientInStockBoxesViewRaw extends Component {
         </Button>
         <Button
           tooltipInfoContent={t(TranslationKey['Form for changing the box data'])}
-          disabled={!selectedBoxes.length}
+          disabled={!selectedBoxes.length || isHaveRequestSendToBatch}
           onClick={onClickEditBtn}
         >
           {t(TranslationKey.Edit)}
         </Button>
 
-        <Button disabled={!selectedBoxes.length} onClick={onClickGroupingBtn}>
+        <Button disabled={!selectedBoxes.length || isHaveRequestSendToBatch} onClick={onClickGroupingBtn}>
           {t(TranslationKey.Grouping)}
         </Button>
 

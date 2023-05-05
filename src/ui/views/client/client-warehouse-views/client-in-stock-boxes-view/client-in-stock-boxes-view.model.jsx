@@ -250,6 +250,16 @@ export class ClientInStockBoxesViewModel {
       .every(el => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
   }
 
+  get isHaveRequestSendToBatch() {
+    if (!this.selectedBoxes.length) {
+      return false
+    }
+
+    return this.currentData
+      .filter(el => this.selectedBoxes.includes(el._id))
+      .some(el => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
+  }
+
   constructor({history}) {
     const url = new URL(window.location.href)
 
