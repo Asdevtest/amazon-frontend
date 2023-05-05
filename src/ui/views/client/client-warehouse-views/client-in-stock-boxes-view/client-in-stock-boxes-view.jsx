@@ -639,6 +639,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       selectedBoxes,
       // isMasterBoxSelected,
       isChoosenOnlySendToBatchBoxes,
+      isHaveRequestSendToBatch,
       selectedRows,
       onClickRequestToSendBatch,
       onClickEditBtn,
@@ -662,14 +663,14 @@ export class ClientInStockBoxesViewRaw extends Component {
 
         <Button
           tooltipInfoContent={t(TranslationKey['Form for merging several boxes'])}
-          disabled={selectedBoxes.length <= 1 /* || isMasterBoxSelected*/}
+          disabled={selectedBoxes.length <= 1 /* || isMasterBoxSelected*/ || isHaveRequestSendToBatch}
           onClick={onClickMergeBtn}
         >
           {t(TranslationKey.Merge)}
         </Button>
 
         <Button
-          disabled={selectedBoxes.length !== 1}
+          disabled={selectedBoxes.length !== 1 || isHaveRequestSendToBatch}
           tooltipInfoContent={t(TranslationKey['Form for distributing to multiple boxes'])}
           onClick={onClickSplitBtn}
         >
@@ -677,13 +678,13 @@ export class ClientInStockBoxesViewRaw extends Component {
         </Button>
         <Button
           tooltipInfoContent={t(TranslationKey['Form for changing the box data'])}
-          disabled={!selectedBoxes.length}
+          disabled={!selectedBoxes.length || isHaveRequestSendToBatch}
           onClick={onClickEditBtn}
         >
           {t(TranslationKey.Edit)}
         </Button>
 
-        <Button disabled={!selectedBoxes.length} onClick={onClickGroupingBtn}>
+        <Button disabled={!selectedBoxes.length || isHaveRequestSendToBatch} onClick={onClickGroupingBtn}>
           {t(TranslationKey.Grouping)}
         </Button>
 
