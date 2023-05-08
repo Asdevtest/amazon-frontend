@@ -24,6 +24,7 @@ import {Modal} from '@components/modal'
 import {UserLink} from '@components/user-link'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail} from '@utils/checks'
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {t} from '@utils/translations'
 import {validationMessagesArray} from '@utils/validation'
 
@@ -605,12 +606,14 @@ export const AdminUserEditContent = observer(
                     renderValue={selected => selected.map(el => freelanceRequestTypeByCode[el]).join(', ')}
                     onChange={onChangeFormField('allowedSpec')}
                   >
-                    {Object.keys(freelanceRequestTypeByCode).map((type, index) => (
-                      <MenuItem key={index} className={classNames.standartText} value={Number(type)}>
-                        <Checkbox color="primary" checked={formFields?.allowedSpec?.includes(Number(type))} />
-                        <ListItemText primary={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[type])} />
-                      </MenuItem>
-                    ))}
+                    {Object.keys(getObjectFilteredByKeyArrayBlackList(freelanceRequestTypeByCode, ['0'])).map(
+                      (type, index) => (
+                        <MenuItem key={index} className={classNames.standartText} value={Number(type)}>
+                          <Checkbox color="primary" checked={formFields?.allowedSpec?.includes(Number(type))} />
+                          <ListItemText primary={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[type])} />
+                        </MenuItem>
+                      ),
+                    )}
                   </Select>
                 }
               />
