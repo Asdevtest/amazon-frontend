@@ -160,23 +160,25 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handle
       <div className={classNames.footerWrapper}>
         {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
         (chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ||
-          /*  chatRequestAndRequestProposal.requestProposal?.proposal?.status !==
-            RequestProposalStatus.OFFER_CONDITIONS_REJECTED || */
+          chatRequestAndRequestProposal.requestProposal?.proposal?.status === // этого условия не было
+            RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
           chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
             RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) ? (
           <div className={classNames.btnsWrapper}>
-            {chatRequestAndRequestProposal.requestProposal?.proposal?.status !== RequestProposalStatus.TO_CORRECT && (
-              <Button
-                danger
-                // btnWrapperStyle={classNames.actionBtnWrapperStyle}
-                className={cx(classNames.actionButton /* , classNames.editButton */)}
-                onClick={() =>
-                  handlers.onClickProposalRegect(chatRequestAndRequestProposal.requestProposal?.proposal._id)
-                }
-              >
-                {t(TranslationKey.Reject)}
-              </Button>
-            )}
+            {chatRequestAndRequestProposal.requestProposal?.proposal?.status !== RequestProposalStatus.TO_CORRECT &&
+              chatRequestAndRequestProposal.requestProposal?.proposal?.status !== // этого условия не было
+                RequestProposalStatus.OFFER_CONDITIONS_REJECTED && (
+                <Button
+                  danger
+                  // btnWrapperStyle={classNames.actionBtnWrapperStyle}
+                  className={cx(classNames.actionButton /* , classNames.editButton */)}
+                  onClick={() =>
+                    handlers.onClickProposalRegect(chatRequestAndRequestProposal.requestProposal?.proposal._id)
+                  }
+                >
+                  {t(TranslationKey.Reject)}
+                </Button>
+              )}
             <Button
               success
               // btnWrapperStyle={cx(classNames.actionBtnWrapperStyle, classNames.actionBtnWrapperStyleNotFirst)}

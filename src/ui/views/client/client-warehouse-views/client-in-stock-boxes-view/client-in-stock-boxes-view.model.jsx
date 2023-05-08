@@ -175,11 +175,18 @@ export class ClientInStockBoxesViewModel {
 
   showSelectionStorekeeperAndTariffModal = false
 
+  showEditPriorityData = false
+
   changeItem = null
 
   warningInfoModalSettings = {
     isWarning: false,
     title: '',
+  }
+
+  editPriorityData = {
+    taskId: null,
+    newPriority: null,
   }
 
   onHover = null
@@ -1625,13 +1632,22 @@ export class ClientInStockBoxesViewModel {
 
   async postTask({idsData, idsBeforeData, type, clientComment}) {
     try {
-      await ClientModel.createTask({
+      const res = await ClientModel.createTask({
         taskId: 0,
         boxes: [...idsData],
         boxesBefore: [...idsBeforeData],
         operationType: type,
         clientComment: clientComment || '',
       })
+
+      runInAction(() => {
+        this.editPriorityData = {
+          taskId: res.guid,
+          newPriority: null,
+        }
+      })
+
+      this.onTriggerOpenModal('showEditPriorityData')
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -1957,6 +1973,17 @@ export class ClientInStockBoxesViewModel {
     runInAction(() => {
       this.showRequestToSendBatchModal = !this.showRequestToSendBatchModal
     })
+  }
+
+  async updateTaskPriority(taskId, priority, reason) {
+    try {
+      await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
   }
 
   async onClickRequestToSendBatch() {

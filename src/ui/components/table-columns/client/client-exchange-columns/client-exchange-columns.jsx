@@ -127,7 +127,12 @@ export const clientExchangeViewColumns = rowHandlers => [
 
     width: 190,
     renderCell: params => (
-      <Button success width="100%" onClick={() => rowHandlers.onClickLaunchPrivateLabelBtn(params.row.originalData)}>
+      <Button
+        success
+        width="100%"
+        sx={{height: '30px !important'}}
+        onClick={() => rowHandlers.onClickLaunchPrivateLabelBtn(params.row.originalData)}
+      >
         {t(TranslationKey['Buy for'])} {toFixedWithDollarSign(params.row.originalData.priceForClient, 2)}
       </Button>
     ),
