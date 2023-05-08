@@ -76,7 +76,7 @@ export const styles = theme => ({
   tasksWrapper: {
     marginTop: '30px',
 
-    height: 'calc(100vh - 330px)',
+    height: 'calc(100vh - 250px)',
   },
 
   boxesFiltersWrapper: {
@@ -251,5 +251,11 @@ export const styles = theme => ({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     color: theme.palette.primary.main,
+  },
+
+  filters: {
+    display: 'flex',
+    gap: 50,
+    flexWrap: 'wrap',
   },
 })

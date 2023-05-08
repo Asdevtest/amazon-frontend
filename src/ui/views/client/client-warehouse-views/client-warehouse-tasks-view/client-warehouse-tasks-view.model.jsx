@@ -49,11 +49,7 @@ export class ClientWarehouseTasksViewModel {
 
   modalEditSuccessMessage = ''
 
-  operationType = null
-
   storekeepersData = []
-  currentStorekeeper = undefined
-  selectedStorekeeperFilters = []
 
   showWarningInfoModal = false
 
@@ -83,7 +79,12 @@ export class ClientWarehouseTasksViewModel {
 
   densityModel = 'compact'
 
-  selectedStatus = null
+  activeFilters = {
+    priority: [],
+    status: [],
+    storekeeper: [],
+    type: [],
+  }
 
   currentPriority = null
 
@@ -166,32 +167,6 @@ export class ClientWarehouseTasksViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onClickStorekeeperBtn(storekeeper) {
-    // runInAction(() => {
-    //   this.selectedBoxes = []
-
-    //   this.currentStorekeeper = storekeeper ? storekeeper : undefined
-    // })
-
-    if (this.selectedStorekeeperFilters.some(el => el._id === storekeeper._id)) {
-      this.selectedStorekeeperFilters = this.selectedStorekeeperFilters.filter(el => el._id !== storekeeper._id)
-    } else {
-      this.selectedStorekeeperFilters.push(storekeeper)
-    }
-
-    // this.getTasksMy()
-  }
-
-  handleSelectedStatus(status) {
-    runInAction(() => (this.selectedStatus = status))
-    this.getTasksMy()
-  }
-
-  handleOperationType(type) {
-    runInAction(() => (this.operationType = type))
-    this.getTasksMy()
   }
 
   onSearchSubmit(searchValue) {
@@ -364,6 +339,20 @@ export class ClientWarehouseTasksViewModel {
     this.getDataGridState()
   }
 
+  selectFilterForField(field, filter, fieldKey) {
+    if (Array.isArray(filter)) {
+      return (this.activeFilters[field] = filter)
+    }
+
+    if (fieldKey && this.activeFilters[field].some(el => filter[fieldKey] === el[fieldKey])) {
+      this.activeFilters[field] = this.activeFilters[field].filter(el => filter[fieldKey] !== el[fieldKey])
+    } else if (!fieldKey && this.activeFilters[field].includes(filter)) {
+      this.activeFilters[field] = this.activeFilters[field].filter(el => filter !== el)
+    } else {
+      this.activeFilters[field].push(filter)
+    }
+  }
+
   onChangeFullFieldMenuItem(value, field) {
     runInAction(() => {
       this.columnMenuSettings = {
@@ -407,14 +396,14 @@ export class ClientWarehouseTasksViewModel {
         filters: this.getFilter(),
         limit: this.rowsPerPage,
         offset: this.curPageForTask * this.rowsPerPage,
-        // storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
-        storekeeperId: this.selectedStorekeeperFilters.map(el => el._id).join(','),
 
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-        priority: this.currentPriority,
-        status: this.selectedStatus,
-        operationType: this.operationType,
+
+        storekeeperId: this.activeFilters.storekeeper.map(el => el._id).join(',') || undefined,
+        priority: this.activeFilters.priority.join(','),
+        status: this.activeFilters.status.join(','),
+        operationType: this.activeFilters.type.join(','),
       })
 
       runInAction(() => {
