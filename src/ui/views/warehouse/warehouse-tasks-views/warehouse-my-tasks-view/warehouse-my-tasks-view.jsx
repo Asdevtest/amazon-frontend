@@ -261,7 +261,12 @@ export class WarehouseMyTasksViewRaw extends Component {
           />
         </Modal>
 
-        <Modal missClickModalOn openModal={showEditTaskModal} setOpenModal={onTriggerEditTaskModal}>
+        <Modal
+          missClickModalOn
+          dialogContextClassName={classNames.resolveTaskModalContent}
+          openModal={showEditTaskModal}
+          setOpenModal={onTriggerEditTaskModal}
+        >
           <EditTaskModal
             requestStatus={requestStatus}
             volumeWeightCoefficient={volumeWeightCoefficient}

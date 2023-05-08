@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Typography, Paper, Avatar, Rating} from '@mui/material'
+import {Avatar, Paper, Rating, Typography} from '@mui/material'
 
-import React from 'react'
+import React, {useState} from 'react'
 
 import {
   freelanceRequestType,
@@ -17,9 +17,11 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {AsinLink} from '@components/asin-link'
 import {Button} from '@components/buttons/button'
 import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
+import {Modal} from '@components/modal'
+import {RestoreRequestModal} from '@components/requests-and-request-proposals/restore-request-modal/restore-request-modal'
 import {UserLink} from '@components/user-link'
 
-import {calcNumberMinusPercent, calcPercentAfterMinusNumbers} from '@utils/calculation'
+import {calcNumberMinusPercent} from '@utils/calculation'
 import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixed} from '@utils/text'
@@ -35,8 +37,12 @@ export const OwnerGeneralRequestInfo = ({
   onClickEditBtn,
   onClickCancelBtn,
   onClickAbortBtn,
+  onRecoverRequest,
 }) => {
   const {classes: classNames} = useClassNames()
+
+  const [isRestoreModalOpen, setIsRestoreModalOpen] = useState(false)
+
   const now = new Date()
 
   const isDraft = request?.request?.status === RequestStatus.DRAFT
@@ -345,6 +351,25 @@ export const OwnerGeneralRequestInfo = ({
               )}
             </div>
           </div>
+
+          {(request?.request.status === RequestStatus.IN_PROCESS ||
+            request?.request.status === RequestStatus.EXPIRED ||
+            request?.request.status === RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED) && (
+            <>
+              <Button className={classNames.recoverBtn} onClick={() => setIsRestoreModalOpen(true)}>
+                {t(TranslationKey['Change request terms'])}
+              </Button>
+
+              <Modal openModal={isRestoreModalOpen} setOpenModal={() => setIsRestoreModalOpen(false)}>
+                <RestoreRequestModal
+                  currentDate={request?.request?.timeoutAt}
+                  currentRequestsCount={request.request.maxAmountOfProposals}
+                  handleCloseModal={() => setIsRestoreModalOpen(false)}
+                  handleSubmit={onRecoverRequest}
+                />
+              </Modal>
+            </>
+          )}
 
           {request?.request.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED &&
             request?.request.status !== RequestStatus.EXPIRED && (

@@ -6,7 +6,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: 378,
     minHeight: 368,
 
-    marginRight: 10,
+    margin: '0 10px 0 5px',
   },
 
   paymentMethodTitleWrapper: {

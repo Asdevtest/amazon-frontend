@@ -186,11 +186,7 @@ export const CreateOrEditRequestContent = ({
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
 
-  console.log('formFields', formFields)
-
   const [announcement, setAnnouncement] = useState(choosenAnnouncements || undefined)
-
-  console.log('announcement', announcement)
 
   useEffect(() => {
     setFormFields(getSourceFormFields())
@@ -1267,7 +1263,7 @@ export const CreateOrEditRequestContent = ({
           announcements={announcementsData}
           onClickThumbnail={onClickThumbnail}
           onClickChooseBtn={setAnnouncement}
-          onClickResetPerformerBtn={setAnnouncement}
+          onClickResetPerformerBtn={() => setAnnouncement('')}
           onClickCloseBtn={() => setOpenModal(!openModal)}
         />
       </Modal>

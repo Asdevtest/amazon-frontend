@@ -76,7 +76,7 @@ export const styles = theme => ({
   tasksWrapper: {
     marginTop: '30px',
 
-    height: 'calc(100vh - 360px)',
+    height: 'calc(100vh - 330px)',
   },
 
   boxesFiltersWrapper: {

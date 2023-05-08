@@ -173,7 +173,7 @@ class MyServicesViewRaw extends Component {
                     <ServiceExchangeCard
                       key={serviceKey}
                       service={service}
-                      history={history}
+                      pathname={history?.location?.pathname}
                       onClickThumbnail={onClickThumbnail}
                       onClickButton={onClickOpenButton}
                     />

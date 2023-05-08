@@ -32,7 +32,7 @@ export const useTagSelectorStyles = makeStyles()(theme => ({
     height: '18px',
     fontSize: '14px',
     color: '#FFF',
-    backgroundColor: '#0164F4',
+    backgroundColor: theme.palette.primary.main,
     borderRadius: '4px',
     display: 'flex',
     justifyContent: 'center',

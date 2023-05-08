@@ -25,14 +25,23 @@ export const useClassNames = makeStyles()(theme => ({
     // right: 0,
 
     position: 'sticky',
-    bottom: -15,
-    right: '0',
+    zIndex: 100,
+    bottom: 0,
+    background: theme.palette.background.general,
+    paddingBottom: 40,
+    paddingTop: 20,
   },
 
   modalHeader: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    position: 'sticky',
+    top: 0,
+    zIndex: 100,
+    background: theme.palette.background.general,
+    paddingTop: 40,
+    paddingBottom: 20,
   },
   modalTitle: {
     fontSize: '30px',
@@ -85,6 +94,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     gap: '20px',
+
     [theme.breakpoints.down(768)]: {
       position: 'sticky',
       bottom: 0,
@@ -331,7 +341,7 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       display: 'flex',
       justifyContent: 'center',
-      marginBottom: '20px',
+      // marginBottom: '20px',
     },
   },
   hideBlock: {

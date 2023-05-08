@@ -2,6 +2,8 @@ import {BACKEND_API_URL} from '@constants/env'
 
 import {OtherModel} from '@models/other-model'
 
+import {getFileNameFromUrl} from './get-file-name-from-url'
+
 export const dataURLtoFile = (dataurl, filename) => {
   const arr = dataurl.split(',')
   const mime = arr[0].match(/:(.*?);/)[1]
@@ -99,15 +101,32 @@ export async function onSubmitPostImages({images, type, withoutShowProgress}) {
   this.progressValue = 0
 }
 
+export const downloadFile = async (file, fileName) => {
+  const url = window.URL.createObjectURL(file)
+
+  const a = document.createElement('a')
+
+  a.setAttribute('download', fileName ?? file.name ?? 'no-name')
+  a.style.display = 'none'
+  a.href = url
+
+  document.body.appendChild(a)
+  a.click()
+  window.URL.revokeObjectURL(url)
+  a.remove()
+}
+
 export const downloadFileByLink = async (str, fileName) => {
   fetch(str)
     .then(resp => resp.blob())
     .then(blob => {
       const url = window.URL.createObjectURL(blob)
 
+      const name = getFileNameFromUrl(str)?.name
+
       const a = document.createElement('a')
 
-      a.setAttribute('download', fileName ?? 'no-name')
+      a.setAttribute('download', fileName ?? name ?? 'no-name')
       a.style.display = 'none'
       a.href = url
 

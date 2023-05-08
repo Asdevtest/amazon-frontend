@@ -977,6 +977,7 @@ export const styles = theme => ({
   },
 
   adaptText: {
+    fontSize: 14,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',

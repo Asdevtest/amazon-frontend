@@ -108,7 +108,7 @@ class ClientOrderViewRaw extends Component {
                   storekeepers={storekeepers}
                   destinations={destinations}
                   userInfo={userInfo}
-                  volumeWeightCoefficient={platformSettings.volumeWeightCoefficient}
+                  volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
                   order={order}
                   boxes={orderBoxes}
                   selectedSupplier={selectedSupplier}
@@ -187,7 +187,7 @@ class ClientOrderViewRaw extends Component {
               product={order?.product}
               storekeepersData={storekeepers}
               sourceYuanToDollarRate={yuanToDollarRate}
-              volumeWeightCoefficient={platformSettings.volumeWeightCoefficient}
+              volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
               title={t(TranslationKey['Adding and editing a supplier'])}
               supplier={selectedSupplier}
               onTriggerShowModal={onTriggerAddOrEditSupplierModal}

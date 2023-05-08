@@ -73,4 +73,14 @@ export const styles = theme => ({
     margin: 0,
     padding: 0,
   },
+
+  dashboardCardWrapper: {
+    display: 'grid',
+    gap: '20px',
+
+    '& > div': {
+      margin: '0 auto',
+      width: '100%',
+    },
+  },
 })
