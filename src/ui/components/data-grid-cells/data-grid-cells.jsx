@@ -887,6 +887,7 @@ export const OrderCell = React.memo(
                   rel="noreferrer"
                   href={`https://www.amazon.com/dp/${product.asin}`}
                   className={classNames.normalizeLink}
+                  onClick={e => e.stopPropagation()}
                 >
                   <span className={classNames.linkSpan}>{shortAsin(product.asin)}</span>
                 </a>
@@ -983,11 +984,23 @@ export const DownloadAndPrintFilesCell = React.memo(
               <Typography className={styles.dapTitle}>{el.title}</Typography>
               {el.fileUrl && (
                 <Box display="flex" gap="8px" alignItems="center">
-                  <Button className={styles.dapBtn} onClick={() => handleImagePreview(el)}>
+                  <Button
+                    className={styles.dapBtn}
+                    onClick={e => {
+                      e.stopPropagation()
+                      handleImagePreview(el)
+                    }}
+                  >
                     <span>{el.fileName}</span>.{el.fileType}
                   </Button>
 
-                  <IconButton sx={{color: '#0164F4'}} onClick={() => printFile(el)}>
+                  <IconButton
+                    sx={{color: '#0164F4'}}
+                    onClick={e => {
+                      e.stopPropagation()
+                      printFile(el)
+                    }}
+                  >
                     <PrintIcon color="inherit" />
                   </IconButton>
                 </Box>
@@ -2211,6 +2224,7 @@ export const ClientTasksActionBtnsCell = React.memo(
           )
         case TaskOperationType.RECEIVE:
           return <React.Fragment>{renderTaskInfoBtn()}</React.Fragment>
+        case TaskOperationType.EDIT_BY_STOREKEEPER:
         case TaskOperationType.EDIT:
           return (
             <React.Fragment>
