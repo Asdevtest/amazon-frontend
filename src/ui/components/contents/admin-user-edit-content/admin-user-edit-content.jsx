@@ -9,7 +9,7 @@ import React, {useEffect, useState} from 'react'
 import {observer} from 'mobx-react'
 
 import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
+import {humanFriendlyStategyStatus, mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
@@ -584,7 +584,7 @@ export const AdminUserEditContent = observer(
                   {Object.keys(mapProductStrategyStatusEnum).map((strategy, index) => (
                     <MenuItem key={index} className={classNames.standartText} value={Number(strategy)}>
                       <Checkbox color="primary" checked={formFields.allowedStrategies.includes(Number(strategy))} />
-                      <ListItemText primary={mapProductStrategyStatusEnum[strategy]} />
+                      <ListItemText primary={humanFriendlyStategyStatus(mapProductStrategyStatusEnum[strategy])} />
                     </MenuItem>
                   ))}
                 </Select>
