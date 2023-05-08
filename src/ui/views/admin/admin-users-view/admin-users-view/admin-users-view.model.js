@@ -241,7 +241,11 @@ export class AdminUsersViewModel {
 
   getCurrentData() {
     if (this.nameSearchValue) {
-      return toJS(this.users).filter(user => user.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
+      return toJS(this.users).filter(
+        user =>
+          user.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          user.email.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
     } else {
       return toJS(this.users)
     }
