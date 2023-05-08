@@ -139,7 +139,7 @@ export class RequestDetailCustomViewRaw extends Component {
                     <MultipleChats
                       chats={chats}
                       typingUsers={typingUsers}
-                      userId={userInfo._id}
+                      userId={userInfo?._id}
                       chatSelectedId={chatSelectedId}
                       chatMessageHandlers={{
                         onClickReworkProposal,
@@ -159,9 +159,9 @@ export class RequestDetailCustomViewRaw extends Component {
                           )}
 
                           {((findRequestProposalForCurChat.proposal.sub &&
-                            findRequestProposalForCurChat.proposal.sub._id === userInfo._id) ||
+                            findRequestProposalForCurChat.proposal.sub?._id === userInfo?._id) ||
                             (!findRequestProposalForCurChat.proposal.sub &&
-                              findRequestProposalForCurChat.proposal.createdBy._id === userInfo._id)) &&
+                              findRequestProposalForCurChat.proposal.createdBy?._id === userInfo?._id)) &&
                           (findRequestProposalForCurChat?.proposal?.status ===
                             RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
                             findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.TO_CORRECT ||
