@@ -209,6 +209,8 @@ export const useClassNames = makeStyles()(theme => ({
   icon: {
     marginRight: '13px',
     color: theme.palette.primary.main,
+    height: 25,
+    width: 25,
   },
   menuTitle: {
     height: '30px',

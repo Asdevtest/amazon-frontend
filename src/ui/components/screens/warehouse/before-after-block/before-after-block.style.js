@@ -8,12 +8,15 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '0 2px',
 
     background: theme.palette.background.second,
-    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+
     borderRadius: 4,
 
     [theme.breakpoints.down(768)]: {
       padding: '20px 20px',
     },
+  },
+  boxWrapperWithShadow: {
+    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
   },
   boxesWrapper: {
     // padding: '20px 30px',

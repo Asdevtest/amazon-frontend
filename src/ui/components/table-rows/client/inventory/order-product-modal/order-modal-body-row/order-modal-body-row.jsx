@@ -74,7 +74,7 @@ export const OrderModalBodyRow = ({
           (((item.currentSupplier.boxProperties?.boxWidthCm || 0) *
             (item.currentSupplier.boxProperties?.boxLengthCm || 0) *
             (item.currentSupplier.boxProperties?.boxHeightCm || 0)) /
-            platformSettings.volumeWeightCoefficient) *
+            platformSettings?.volumeWeightCoefficient) *
             100,
         ) / 100 || 0,
         item.currentSupplier.boxProperties?.boxWeighGrossKg,
@@ -201,7 +201,16 @@ export const OrderModalBodyRow = ({
 
           <Field
             containerClasses={classNames.containerField}
-            inputClasses={cx(classNames.amountCell)}
+            inputClasses={cx(classNames.amountCell, {
+              [classNames.errorSpaceInputCell]:
+                (item.currentSupplier?.multiplicity &&
+                  item.currentSupplier?.boxProperties?.amountInBox &&
+                  (orderState.amount % item.currentSupplier?.boxProperties?.amountInBox !== 0 || !orderState.amount)) ||
+                (item.currentSupplier?.multiplicity &&
+                  item.currentSupplier?.boxProperties?.amountInBox &&
+                  orderState.amount % item.currentSupplier?.boxProperties?.amountInBox === 0 &&
+                  !!orderState.amount),
+            })}
             error={
               item.currentSupplier?.multiplicity &&
               item.currentSupplier?.boxProperties?.amountInBox &&
@@ -434,7 +443,7 @@ export const OrderModalBodyRow = ({
           setOpenModal={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
         >
           <SupplierApproximateCalculationsForm
-            volumeWeightCoefficient={platformSettings.volumeWeightCoefficient}
+            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
             product={item}
             supplier={item.currentSupplier}
             storekeepers={storekeepers}

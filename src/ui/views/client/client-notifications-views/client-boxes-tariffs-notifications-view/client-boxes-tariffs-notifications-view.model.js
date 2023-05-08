@@ -247,7 +247,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
       const platformSettings = await UserModel.getPlatformSettings()
 
-      const curBoxFinalWeight = calcFinalWeightForBox(this.curBox, platformSettings.volumeWeightCoefficient)
+      const curBoxFinalWeight = calcFinalWeightForBox(this.curBox, platformSettings?.volumeWeightCoefficient)
 
       const curStorekeeper = this.storekeepersData.find(el => el._id === this.curBox?.storekeeper._id)
 
@@ -345,7 +345,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
       const platformSettings = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.boxes = clientWarehouseDataConverter(result, platformSettings.volumeWeightCoefficient).sort(
+        this.boxes = clientWarehouseDataConverter(result, platformSettings?.volumeWeightCoefficient).sort(
           sortObjectsArrayByFiledDateWithParseISO('createdAt'),
         )
       })

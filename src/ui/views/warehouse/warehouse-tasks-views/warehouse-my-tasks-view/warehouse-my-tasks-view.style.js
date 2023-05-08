@@ -174,6 +174,11 @@ export const styles = theme => ({
     padding: '0 1px',
   },
 
+  resolveTaskModalContent: {
+    paddingTop: 0,
+    paddingBottom: 0,
+  },
+
   memoDataGridWrapper: {
     height: '81vh',
 
