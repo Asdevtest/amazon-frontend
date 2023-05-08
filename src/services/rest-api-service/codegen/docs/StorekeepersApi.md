@@ -311,7 +311,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersGet
 
-> [InlineResponse20067] apiV1StorekeepersGet(opts)
+> [InlineResponse20068] apiV1StorekeepersGet(opts)
 
 # Получить всех сторкиперов(все склады).
 
@@ -351,7 +351,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20067]**](InlineResponse20067.md)
+[**[InlineResponse20068]**](InlineResponse20068.md)
 
 ### Authorization
 
@@ -421,7 +421,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersPagBoxesGet
 
-> InlineResponse20066 apiV1StorekeepersPagBoxesGet(opts)
+> InlineResponse20067 apiV1StorekeepersPagBoxesGet(opts)
 
 # Получить коробки и их строки по текущему сторкиперу с пагинацией.
 
@@ -469,7 +469,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20066**](InlineResponse20066.md)
+[**InlineResponse20067**](InlineResponse20067.md)
 
 ### Authorization
 
@@ -1191,7 +1191,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksLightPagMyGet
 
-> InlineResponse20065 apiV1StorekeepersTasksLightPagMyGet(opts)
+> InlineResponse20066 apiV1StorekeepersTasksLightPagMyGet(opts)
 
 # Получить задачи закрепленные за данным сторкипером с пагинацией
 
@@ -1245,7 +1245,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20065**](InlineResponse20065.md)
+[**InlineResponse20066**](InlineResponse20066.md)
 
 ### Authorization
 
@@ -1259,7 +1259,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksLightPagVacGet
 
-> InlineResponse20065 apiV1StorekeepersTasksLightPagVacGet(opts)
+> InlineResponse20066 apiV1StorekeepersTasksLightPagVacGet(opts)
 
 # Получить вакантные задачи закрепленные за данным сторкипером с пагинацией
 
@@ -1313,7 +1313,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20065**](InlineResponse20065.md)
+[**InlineResponse20066**](InlineResponse20066.md)
 
 ### Authorization
 

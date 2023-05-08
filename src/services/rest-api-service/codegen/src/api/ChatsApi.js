@@ -16,6 +16,7 @@ import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import InlineObject43 from '../model/InlineObject43';
 import InlineResponse20028 from '../model/InlineResponse20028';
+import InlineResponse20029 from '../model/InlineResponse20029';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -136,6 +137,60 @@ export default class ChatsApi {
      */
     apiV1ChatsGuidPost(guid, opts) {
       return this.apiV1ChatsGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Получить все файлы и имеджы с чата по гуиду
+     * Получить все файлы и имеджы с чата по гуиду   
+     * @param {String} guid GUID юзера в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20029} and HTTP response
+     */
+    apiV1ChatsMediaGuidGetWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1ChatsMediaGuidGet");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse20029;
+      return this.apiClient.callApi(
+        '/api/v1/chats/media/{guid}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Получить все файлы и имеджы с чата по гуиду
+     * Получить все файлы и имеджы с чата по гуиду   
+     * @param {String} guid GUID юзера в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20029}
+     */
+    apiV1ChatsMediaGuidGet(guid, opts) {
+      return this.apiV1ChatsMediaGuidGetWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

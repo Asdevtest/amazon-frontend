@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import {cx} from '@emotion/css'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Typography} from '@mui/material'
@@ -7,7 +8,6 @@ import React, {useState, useEffect} from 'react'
 
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
-import {Link} from 'react-router-dom'
 
 import {
   BatchWeightCalculationMethodTranslateKey,
@@ -16,12 +16,11 @@ import {
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
-import {BatchesModel} from '@models/batches-model'
 import {OtherModel} from '@models/other-model'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {PhotoAndFilesCarousel, PhotoAndFilesCarouselMini} from '@components/custom-carousel/custom-carousel'
+import {PhotoAndFilesCarouselMini} from '@components/custom-carousel/custom-carousel'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar'
 import {Field} from '@components/field/field'
@@ -142,7 +141,7 @@ export const BatchInfoModal = observer(
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Batch title'])}
               value={batch?.title}
-              placeholder={t(TranslationKey['Not available'])}
+              placeholder={t(TranslationKey.Missing)}
             />
 
             <Field
@@ -153,7 +152,7 @@ export const BatchInfoModal = observer(
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Batch number'])}
               value={batch?.humanFriendlyId}
-              placeholder={t(TranslationKey['Not available'])}
+              placeholder={t(TranslationKey.Missing)}
             />
 
             <Field
@@ -164,7 +163,7 @@ export const BatchInfoModal = observer(
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey.Tariff)}
               value={(batch.boxes && getFullTariffTextForBoxOrOrder(batch.boxes?.[0])) || ''}
-              placeholder={t(TranslationKey['Not available'])}
+              placeholder={t(TranslationKey.Missing)}
             />
 
             <Field
@@ -175,7 +174,7 @@ export const BatchInfoModal = observer(
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey.Destination)}
               value={batch.boxes?.[0].destination?.name}
-              placeholder={t(TranslationKey['Not available'])}
+              placeholder={t(TranslationKey.Missing)}
             />
 
             <Field
@@ -266,8 +265,8 @@ export const BatchInfoModal = observer(
               <Field
                 disabled
                 classes={{disabled: classNames.disabled}}
-                containerClasses={classNames.sumField}
-                inputClasses={[classNames.infoField, classNames.batchNumberField]}
+                containerClasses={cx(classNames.sumField, classNames.dividerField)}
+                inputClasses={[classNames.infoField, classNames.dividerField]}
                 labelClasses={classNames.subFieldLabel}
                 label={t(TranslationKey['Total price'])}
                 value={toFixed(
@@ -280,11 +279,31 @@ export const BatchInfoModal = observer(
               <Field
                 disabled
                 classes={{disabled: classNames.disabled}}
-                containerClasses={classNames.sumField}
-                inputClasses={[classNames.infoField, classNames.batchNumberField]}
-                labelClasses={classNames.subFieldLabel}
+                containerClasses={cx(classNames.sumField, classNames.dividerField)}
+                inputClasses={cx(classNames.infoField, classNames.dividerField)}
                 label={t(TranslationKey.Divider)}
+                labelClasses={classNames.subFieldLabel}
                 value={batch.volumeWeightDivide}
+              />
+
+              <Field
+                disabled
+                label={t(TranslationKey['Calculated shipping cost'])}
+                classes={{disabled: classNames.disabled}}
+                containerClasses={cx(classNames.sumField, classNames.shippinCostContainer)}
+                inputClasses={cx(classNames.infoField, classNames.shippinCostContainer)}
+                labelClasses={cx(classNames.subFieldLabel, classNames.subFieldLabelWrap)}
+                value={batch.calculatedShippingCost}
+              />
+
+              <Field
+                disabled
+                label={t(TranslationKey['Actual shipping cost'])}
+                classes={{disabled: classNames.disabled}}
+                containerClasses={cx(classNames.sumField, classNames.shippinCostContainer)}
+                inputClasses={cx(classNames.infoField, classNames.shippinCostContainer)}
+                labelClasses={cx(classNames.subFieldLabel, classNames.subFieldLabelWrap)}
+                value={batch.actualShippingCost}
               />
             </div>
 

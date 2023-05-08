@@ -282,9 +282,14 @@ export const useClassNames = makeStyles()(theme => ({
 
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
-    width: '380px',
+    width: 266,
     height: 40,
     marginBottom: 10,
+
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+
     [theme.breakpoints.down(768)]: {
       width: '280px',
       height: 36,
@@ -316,10 +321,12 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
 
     fontWeight: 400,
-    fontSize: 14,
-    lineHeight: '19px',
+    fontSize: 12,
+    lineHeight: '16px',
 
     whiteSpace: 'nowrap',
+
+    marginBottom: '5px !important',
 
     [theme.breakpoints.down(768)]: {
       fontSize: '14px',
@@ -389,5 +396,16 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
 
     marginTop: 20,
+  },
+
+  subFieldLabelWrap: {
+    whiteSpace: 'pre-wrap',
+  },
+  shippinCostContainer: {
+    width: '116px !important',
+  },
+
+  dividerField: {
+    width: 100,
   },
 }))
