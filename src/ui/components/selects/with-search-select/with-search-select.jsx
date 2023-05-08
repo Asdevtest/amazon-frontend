@@ -49,6 +49,7 @@ const WithSearchSelectRaw = observer(
     notCloseOneClick,
     chosenItemNoHover,
     changeColorById,
+    onClickSubmitBtn,
   }) => {
     const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -251,6 +252,18 @@ const WithSearchSelectRaw = observer(
                     ),
                   )}
                 </div>
+
+                {onClickSubmitBtn && (
+                  <div className={classNames.submitWrapper}>
+                    <Button
+                      // className={classNames.button}
+                      variant="contained"
+                      onClick={onClickSubmitBtn}
+                    >
+                      {t(TranslationKey.Apply)}
+                    </Button>
+                  </div>
+                )}
               </div>
             </Popover>
           </div>

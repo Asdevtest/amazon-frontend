@@ -190,4 +190,9 @@ export const styles = theme => ({
   blackSelectedItem: {
     color: theme.palette.text.general,
   },
+
+  submitWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
 })

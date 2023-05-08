@@ -53,6 +53,7 @@ export class ClientWarehouseTasksViewModel {
 
   storekeepersData = []
   currentStorekeeper = undefined
+  selectedStorekeeperFilters = []
 
   showWarningInfoModal = false
 
@@ -168,13 +169,19 @@ export class ClientWarehouseTasksViewModel {
   }
 
   onClickStorekeeperBtn(storekeeper) {
-    runInAction(() => {
-      this.selectedBoxes = []
+    // runInAction(() => {
+    //   this.selectedBoxes = []
 
-      this.currentStorekeeper = storekeeper ? storekeeper : undefined
-    })
+    //   this.currentStorekeeper = storekeeper ? storekeeper : undefined
+    // })
 
-    this.getTasksMy()
+    if (this.selectedStorekeeperFilters.some(el => el._id === storekeeper._id)) {
+      this.selectedStorekeeperFilters = this.selectedStorekeeperFilters.filter(el => el._id !== storekeeper._id)
+    } else {
+      this.selectedStorekeeperFilters.push(storekeeper)
+    }
+
+    // this.getTasksMy()
   }
 
   handleSelectedStatus(status) {
@@ -400,7 +407,9 @@ export class ClientWarehouseTasksViewModel {
         filters: this.getFilter(),
         limit: this.rowsPerPage,
         offset: this.curPageForTask * this.rowsPerPage,
-        storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
+        // storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
+        storekeeperId: this.selectedStorekeeperFilters.map(el => el._id).join(','),
+
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
         priority: this.currentPriority,

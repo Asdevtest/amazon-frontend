@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import {Checkbox, Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
@@ -35,6 +36,7 @@ import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
 import {EditTaskPriorityModal} from '@components/screens/warehouse/edit-task-priority-modal'
 import {SearchInput} from '@components/search-input'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 import {TaskPrioritySelector} from '@components/shared/task-priority-selector/task-priority-selector'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -56,6 +58,7 @@ export class ClientWarehouseTasksViewRaw extends Component {
 
   render() {
     const {
+      selectedStorekeeperFilters,
       confirmModalSettings,
       volumeWeightCoefficient,
       columnsModel,
@@ -97,6 +100,7 @@ export class ClientWarehouseTasksViewRaw extends Component {
       onClickCancelAfterConfirm,
       handleActivePriority,
       updateTaskPriority,
+      getTasksMy,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -138,7 +142,6 @@ export class ClientWarehouseTasksViewRaw extends Component {
                     {Object.keys(mapTaskStatusKeyToEnum).map(el => (
                       <Button
                         key={el}
-                        disabled={currentStorekeeper?._id === el}
                         className={cx(classNames.button, {
                           [classNames.selectedBoxesBtn]: selectedStatus === el,
                         })}
@@ -150,7 +153,7 @@ export class ClientWarehouseTasksViewRaw extends Component {
                     ))}
                   </div>
                 </div>
-                <div className={classNames.boxesFiltersWrapper}>
+                {/* <div className={classNames.boxesFiltersWrapper}>
                   <Button
                     disabled={!currentStorekeeper?._id}
                     tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
@@ -179,7 +182,64 @@ export class ClientWarehouseTasksViewRaw extends Component {
                         </Button>
                       ) : null,
                     )}
-                </div>
+                </div> */}
+
+                <WithSearchSelect
+                  checkbox
+                  notCloseOneClick
+                  // selectedItemName={
+                  //   (!currentStorekeeper?._id && t(TranslationKey['All warehouses'])) ||
+                  //   (currentStorekeeper && currentStorekeeper.name)
+                  // }
+                  selectedItemName={t(TranslationKey['All warehouses'])}
+                  // data={storekeepersData.filter(storekeeper => currentStorekeeper?.id !== storekeeper._id)}
+                  data={storekeepersData}
+                  searchFields={['name']}
+                  // firstItems={
+                  //   <>
+                  //     {!!currentStorekeeper?._id && (
+                  //       <Button
+                  //         // disabled={!currentData}
+                  //         className={classNames.button}
+                  //         variant="text"
+                  //         onClick={onClickStorekeeperBtn}
+                  //       >
+                  //         {t(TranslationKey['All warehouses'])}
+                  //       </Button>
+                  //     )}
+                  //   </>
+                  // }
+
+                  currentShops={selectedStorekeeperFilters}
+                  firstItems={
+                    // <Button
+                    //   // disabled={!currentData}
+                    //   className={classNames.button}
+                    //   variant="text"
+                    //   onClick={onClickStorekeeperBtn}
+                    // >
+                    //   {t(TranslationKey['All warehouses'])}
+                    // </Button>
+                    <Button
+                      className={classNames.filterBtn}
+                      variant="text" /* onClick={handleSelectAllProposalStatuses} */
+                    >
+                      <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
+                        <>
+                          <Checkbox
+                            checked={storekeepersData.length === selectedStorekeeperFilters.length}
+                            color="primary"
+                          />
+                          <Typography className={classNames.fieldName}>
+                            {t(TranslationKey['All warehouses'])}
+                          </Typography>
+                        </>
+                      </div>
+                    </Button>
+                  }
+                  onClickSelect={onClickStorekeeperBtn}
+                  onClickSubmitBtn={getTasksMy}
+                />
 
                 <div className={classNames.boxesFiltersWrapper}>
                   <Button
