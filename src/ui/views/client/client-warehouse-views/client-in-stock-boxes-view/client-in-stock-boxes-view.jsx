@@ -36,6 +36,7 @@ import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
+import {EditTaskPriorityModal} from '@components/screens/warehouse/edit-task-priority-modal'
 import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
 import {SearchInput} from '@components/search-input'
 
@@ -81,6 +82,7 @@ export class ClientInStockBoxesViewRaw extends Component {
 
   render() {
     const {
+      editPriorityData,
       isSomeFilterOn,
       columnMenuSettings,
       nameSearchValue,
@@ -113,6 +115,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       rowsPerPage,
       boxesMy,
       selectedBoxes,
+      showEditPriorityData,
       showMergeBoxModal,
       showConfirmModal,
       showEditBoxModal,
@@ -173,6 +176,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       onHoverColumnField,
       onClickResetFilters,
       changeColumnsModel,
+      updateTaskPriority,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -574,6 +578,15 @@ export class ClientInStockBoxesViewRaw extends Component {
             onTriggerOpenModal('showWarningInfoModal')
           }}
         />
+
+        <Modal openModal={showEditPriorityData} setOpenModal={() => onTriggerOpenModal('showEditPriorityData')}>
+          <EditTaskPriorityModal
+            withSelect
+            data={editPriorityData}
+            handleClose={() => onTriggerOpenModal('showEditPriorityData')}
+            onSubmitHandler={updateTaskPriority}
+          />
+        </Modal>
 
         {showProgress && <CircularProgressWithLabel />}
       </React.Fragment>

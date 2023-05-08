@@ -27,6 +27,7 @@ export const styles = theme => ({
     margin: '10px 0 15px',
     display: 'flex',
 
+    alignItems: 'end',
     justifyContent: 'space-between',
   },
 
@@ -57,7 +58,7 @@ export const styles = theme => ({
   },
   datagridWrapper: {
     marginTop: '10px',
-    height: '80vh',
+    height: 'calc(100vh - 230px)',
   },
 
   searchContainer: {
@@ -106,5 +107,23 @@ export const styles = theme => ({
     '&>disabled': {
       backgroundColor: 'inherit',
     },
+  },
+
+  rightSideWrapper: {
+    display: 'flex',
+    alignItems: 'end',
+
+    gap: 30,
+  },
+
+  rightSideButtonsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    gap: 10,
+  },
+
+  rightSideButton: {
+    width: 209,
   },
 })

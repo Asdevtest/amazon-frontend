@@ -18,7 +18,7 @@ Method | HTTP request | Description
 [**apiV1BoxesClientsGuidPatch**](BoxesApi.md#apiV1BoxesClientsGuidPatch) | **PATCH** /api/v1/boxes/clients/{guid} | # Отредактировать коробку клиентом
 [**apiV1BoxesClientsInTransferGuidGet**](BoxesApi.md#apiV1BoxesClientsInTransferGuidGet) | **GET** /api/v1/boxes/clients/in_transfer/{guid} | # Получить коробки  в статусах “REQUESTED_SEND_TO_BATCH“, “In Batch“, “In Batch on the way”, \&quot;NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE\&quot;, “NEED_TO_UPDATE_THE_TARIFF“, с фильтрацией по продукту
 [**apiV1BoxesClientsLightGet**](BoxesApi.md#apiV1BoxesClientsLightGet) | **GET** /api/v1/boxes/clients_light | # Получить коробки и их строки по текущему клиенту.
-[**apiV1BoxesClientsSentToBatchGet**](BoxesApi.md#apiV1BoxesClientsSentToBatchGet) | **GET** /api/v1/boxes/clients/sent_to_batch | # DEPRECATED Получить коробки по текущему клиенту отправленные в партию.
+[**apiV1BoxesClientsSentToBatchGet**](BoxesApi.md#apiV1BoxesClientsSentToBatchGet) | **GET** /api/v1/boxes/clients/sent_to_batch | # Получить коробки по текущему клиенту отправленные в партию.
 [**apiV1BoxesEditGuidPost**](BoxesApi.md#apiV1BoxesEditGuidPost) | **POST** /api/v1/boxes/edit/{guid} | # Отредактировать коробку. Сликом гибкий метод
 [**apiV1BoxesGet**](BoxesApi.md#apiV1BoxesGet) | **GET** /api/v1/boxes/ | # Получить коробки и их строки.
 [**apiV1BoxesGroupedGet**](BoxesApi.md#apiV1BoxesGroupedGet) | **GET** /api/v1/boxes/grouped | # Получить сгруппированные коробки
@@ -812,11 +812,11 @@ Name | Type | Description  | Notes
 
 ## apiV1BoxesClientsSentToBatchGet
 
-> [ApiV1BatchesBoxes] apiV1BoxesClientsSentToBatchGet(opts)
+> [InlineResponse20018] apiV1BoxesClientsSentToBatchGet(opts)
 
-# DEPRECATED Получить коробки по текущему клиенту отправленные в партию.
+# Получить коробки по текущему клиенту отправленные в партию.
 
-## DEPRECATED Получить коробки по текущему клиенту отправленные в партию. статусы REQUESTED_SEND_TO_BATCH  ## GUID клиента получаем из токена.   
+## Получить коробки по текущему клиенту отправленные в партию. REQUESTED_SEND_TO_BATCH  ## GUID клиента получаем из токена.   
 
 ### Example
 
@@ -831,7 +831,6 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.BoxesApi();
 let opts = {
-  'storekeeperId': null, // String | GUID склада который нужно получить.
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1BoxesClientsSentToBatchGet(opts).then((data) => {
@@ -847,12 +846,11 @@ apiInstance.apiV1BoxesClientsSentToBatchGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **storekeeperId** | [**String**](.md)| GUID склада который нужно получить. | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
-[**[ApiV1BatchesBoxes]**](ApiV1BatchesBoxes.md)
+[**[InlineResponse20018]**](InlineResponse20018.md)
 
 ### Authorization
 
