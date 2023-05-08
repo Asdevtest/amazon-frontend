@@ -174,8 +174,8 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
 
               <Accordion expanded={showChat}>
                 <AccordionSummary style={{display: 'none'}} />
-                <AccordionDetails style={{padding: '0'}}>
-                  {chatIsConnected && (
+                {chatIsConnected && (
+                  <AccordionDetails style={{padding: '0'}}>
                     <div className={classNames.chatWrapper}>
                       <ChatRequestAndRequestProposalContext.Provider
                         value={{
@@ -210,8 +210,8 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                         />
                       </ChatRequestAndRequestProposalContext.Provider>
                     </div>
-                  )}
-                </AccordionDetails>
+                  </AccordionDetails>
+                )}
               </Accordion>
               {showChat && (
                 <div className={classNames.hideChatButtonWrapper}>
