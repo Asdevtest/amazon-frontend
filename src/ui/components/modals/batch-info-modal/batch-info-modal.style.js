@@ -192,6 +192,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   infoWrapper: {
     display: 'flex',
+    justifyContent: 'space-between',
     alignItems: 'flex-end',
     gap: '10px',
     [theme.breakpoints.down(768)]: {
@@ -324,7 +325,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 12,
     lineHeight: '16px',
 
-    whiteSpace: 'nowrap',
+    whiteSpace: 'pre-wrap',
 
     marginBottom: '5px !important',
 
@@ -376,20 +377,16 @@ export const useClassNames = makeStyles()(theme => ({
     '-webkit-text-fill-color': `${theme.palette.text.second} !important`,
   },
   batchTitleField: {
-    width: 186,
+    width: 130,
   },
-  batchNumberField: {
-    width: 100,
+  destinationField: {
+    width: 215,
   },
-  tariffField: {
-    width: 230,
+  volumeWeightField: {
+    width: 116,
   },
-  dstinationField: {
-    width: 190,
-  },
-
   methodField: {
-    width: 270,
+    width: 266,
   },
   filesAndButtonWrapper: {
     display: 'flex',
@@ -397,15 +394,16 @@ export const useClassNames = makeStyles()(theme => ({
 
     marginTop: 20,
   },
-
-  subFieldLabelWrap: {
-    whiteSpace: 'pre-wrap',
-  },
   shippinCostContainer: {
     width: '116px !important',
   },
 
   dividerField: {
-    width: 100,
+    width: '100px !important',
+  },
+
+  closeFieldsWrapper: {
+    display: 'flex',
+    gap: 15,
   },
 }))
