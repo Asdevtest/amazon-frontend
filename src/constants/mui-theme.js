@@ -267,6 +267,7 @@ export const lightTheme = createTheme({
       tableCurRow: '#baffba',
       red: '#FFC7C7',
       green: '#D9FAE5',
+      darkBlue: '#006CFF',
       greenGradient: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
       yellow: '#F5CF00',
       entryLeftPanel: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
@@ -710,6 +711,7 @@ export const darkTheme = createTheme({
 
         chatIncomeMessage: '#36363F',
         chatMyMessage: '#384C68',
+        darkBlue: '#4CA1DE',
 
         tableCurRow: '#001A15', // '#388E3C',
         red: '#2E0505',
