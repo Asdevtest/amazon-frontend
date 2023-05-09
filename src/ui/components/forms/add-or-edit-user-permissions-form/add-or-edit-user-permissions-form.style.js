@@ -242,7 +242,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   indicator: {
-    backgroundColor: '#006CFF',
+    backgroundColor: theme.palette.background.darkBlue,
     height: '6px',
     [theme.breakpoints.down(768)]: {
       height: '0',
