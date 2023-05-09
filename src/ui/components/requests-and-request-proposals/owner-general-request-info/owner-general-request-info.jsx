@@ -118,98 +118,108 @@ export const OwnerGeneralRequestInfo = ({
           </div>
         </div>
 
-        <div className={classNames.requestInfoWrapper}>
-          <div className={classNames.blockInfoWrapper}>
-            <div className={classNames.blockInfoCell}>
-              <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Request price'])}</Typography>
-              <Typography className={cx(classNames.price, classNames.blockInfoCellText)}>
-                {toFixed(request?.request.price, 2) + '$'}
-              </Typography>
-            </div>
-
-            <div className={classNames.blockInfoCell}>
-              <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Status)}</Typography>
-              <div className={classNames.blockInfoCellText}>
-                {
-                  <RequestStatusCell
-                    status={request?.request.status}
-                    styles={{
-                      fontWeight: 600,
-                      fontSize: 14,
-                      lineHeight: '19px',
-                      textAlign: 'left',
-                      // width: `200px`,
-                      // whiteSpace: 'pre',
-                      // wordBreak: 'break-word',
-                    }}
-                  />
-                }
-              </div>
-            </div>
-          </div>
-
-          {`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` ? (
+        {request?.request && (
+          <div className={classNames.requestInfoWrapper}>
             <div className={classNames.blockInfoWrapper}>
               <div className={classNames.blockInfoCell}>
-                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Product price'])}</Typography>
-                <div className={classNames.pricesWrapper}>
-                  {newProductPrice && (
-                    <Typography className={cx(classNames.blockInfoCellText, {[classNames.newPrice]: newProductPrice})}>
-                      {'$ ' + toFixed(newProductPrice, 2)}
-                    </Typography>
-                  )}
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Request price'])}</Typography>
+                {request?.request.price && (
+                  <Typography className={cx(classNames.price, classNames.blockInfoCellText)}>
+                    {toFixed(request?.request.price, 2) + '$'}
+                  </Typography>
+                )}
+              </div>
 
-                  <Typography
-                    className={cx(classNames.blockInfoCellText, {
-                      [classNames.oldPrice]: newProductPrice,
-                    })}
-                  >
-                    {'$ ' + toFixed(request.request.priceAmazon, 2)}
+              <div className={classNames.blockInfoCell}>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Status)}</Typography>
+                <div className={classNames.blockInfoCellText}>
+                  {
+                    <RequestStatusCell
+                      status={request?.request.status}
+                      styles={{
+                        fontWeight: 600,
+                        fontSize: 14,
+                        lineHeight: '19px',
+                        textAlign: 'left',
+                        // width: `200px`,
+                        // whiteSpace: 'pre',
+                        // wordBreak: 'break-word',
+                      }}
+                    />
+                  }
+                </div>
+              </div>
+            </div>
+
+            {`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` ? (
+              <div className={classNames.blockInfoWrapper}>
+                <div className={classNames.blockInfoCell}>
+                  <Typography className={classNames.blockInfoCellTitle}>
+                    {t(TranslationKey['Product price'])}
+                  </Typography>
+                  <div className={classNames.pricesWrapper}>
+                    {newProductPrice && (
+                      <Typography
+                        className={cx(classNames.blockInfoCellText, {[classNames.newPrice]: newProductPrice})}
+                      >
+                        {'$ ' + toFixed(newProductPrice, 2)}
+                      </Typography>
+                    )}
+
+                    <Typography
+                      className={cx(classNames.blockInfoCellText, {
+                        [classNames.oldPrice]: newProductPrice,
+                      })}
+                    >
+                      {'$ ' + toFixed(request.request.priceAmazon, 2)}
+                    </Typography>
+                  </div>
+                </div>
+
+                <div className={classNames.blockInfoCell}>
+                  <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.CashBack)}</Typography>
+                  <Typography className={cx(classNames.blockInfoCellText)}>
+                    {toFixed(request?.request?.cashBackInPercent, 2) + ' %'}
                   </Typography>
                 </div>
               </div>
+            ) : null}
+
+            <div className={cx(classNames.blockInfoWrapper)}>
+              <div className={classNames.blockInfoCell}>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Time)}</Typography>
+                <Typography className={classNames.blockInfoCellText}>
+                  {request?.request.timeoutAt && formatDateDistanceFromNowStrict(request.request.timeoutAt, now)}
+                </Typography>
+              </div>
 
               <div className={classNames.blockInfoCell}>
-                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.CashBack)}</Typography>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</Typography>
                 <Typography className={cx(classNames.blockInfoCellText)}>
-                  {toFixed(request?.request?.cashBackInPercent, 2) + ' %'}
+                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request?.typeTask])}
                 </Typography>
               </div>
             </div>
-          ) : null}
 
-          <div className={cx(classNames.blockInfoWrapper)}>
-            <div className={classNames.blockInfoCell}>
-              <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Time)}</Typography>
-              <Typography className={classNames.blockInfoCellText}>
-                {request && formatDateDistanceFromNowStrict(request?.request.timeoutAt, now)}
-              </Typography>
-            </div>
+            <div className={cx(classNames.blockInfoWrapper, classNames.blockInfoWrapperLast)}>
+              <div className={classNames.blockInfoCell}>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Updated)}</Typography>
+                <Typography className={classNames.blockInfoCellText}>
+                  {formatNormDateTime(request?.request.updatedAt)}
+                </Typography>
+              </div>
 
-            <div className={classNames.blockInfoCell}>
-              <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</Typography>
-              <Typography className={cx(classNames.blockInfoCellText)}>
-                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request?.typeTask])}
-              </Typography>
-            </div>
-          </div>
-
-          <div className={cx(classNames.blockInfoWrapper, classNames.blockInfoWrapperLast)}>
-            <div className={classNames.blockInfoCell}>
-              <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Updated)}</Typography>
-              <Typography className={classNames.blockInfoCellText}>
-                {formatNormDateTime(request?.request.updatedAt)}
-              </Typography>
-            </div>
-
-            <div className={classNames.blockInfoCell}>
-              <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Performance time'])}</Typography>
-              <Typography className={cx(classNames.blockInfoCellText)}>
-                {formatNormDateTime(request?.request.timeoutAt)}
-              </Typography>
+              <div className={classNames.blockInfoCell}>
+                <Typography className={classNames.blockInfoCellTitle}>
+                  {t(TranslationKey['Performance time'])}
+                </Typography>
+                <Typography className={cx(classNames.blockInfoCellText)}>
+                  {formatNormDateTime(request?.request.timeoutAt)}
+                </Typography>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
 
       <div className={classNames.middleBlockWrapper}>
