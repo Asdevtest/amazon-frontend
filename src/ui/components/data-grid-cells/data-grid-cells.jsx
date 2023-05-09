@@ -355,26 +355,28 @@ export const StringListCell = React.memo(
     }, [nameSearchValue])
 
     return (
-      <div className={cx(classNames.flexDirectionColumn, classNames.adaptText)} onClick={onClickCell}>
-        {items
-          .slice(0, maxItemsDisplay)
-          .filter(el => el)
-          .map((item, i) => (
-            <div key={i} className={classNames.multilineTextHeaderWrapper}>
-              <Typography className={cx(classNames.typoCell, classNames.adaptText)}>
-                {
-                  <span
-                    className={cx(classNames.multilineHeaderText, classNames.adaptText, {
-                      [classNames.bluelinkText]: onClickCell,
-                    })}
-                  >
-                    {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
-                  </span>
-                }
-              </Typography>
-              {withCopy && <CopyValue text={item} />}
-            </div>
-          ))}
+      <div className={cx(classNames.flexDirectionColumn, classNames.adaptText)} /* onClick={onClickCell} */>
+        <div onClick={onClickCell && onClickCell}>
+          {items
+            .slice(0, maxItemsDisplay)
+            .filter(el => el)
+            .map((item, i) => (
+              <div key={i} className={classNames.multilineTextHeaderWrapper}>
+                <Typography className={cx(classNames.typoCell, classNames.adaptText)}>
+                  {
+                    <span
+                      className={cx(classNames.multilineHeaderText, classNames.adaptText, {
+                        [classNames.bluelinkText]: onClickCell,
+                      })}
+                    >
+                      {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
+                    </span>
+                  }
+                </Typography>
+                {withCopy && <CopyValue text={item} />}
+              </div>
+            ))}
+        </div>
 
         {items.length > maxItemsDisplay ? (
           <Button variant="text" className={cx(classNames.mainFilterBtn)} onClick={handleClick}>
