@@ -5,7 +5,7 @@ export const styles = theme => ({
   buttonBox: {
     textAlign: 'left',
     marginRight: '0',
-    padding: '16px',
+    padding: '16px 0',
     display: 'flex',
     gap: 30,
   },
