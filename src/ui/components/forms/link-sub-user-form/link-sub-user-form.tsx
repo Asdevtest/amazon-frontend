@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import {cx} from '@emotion/css'
 import {Typography} from '@mui/material'
 
-import React, {useState} from 'react'
+import React, {ChangeEvent, FC, useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -11,8 +13,15 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './link-sub-user-form.style'
 
-export const LinkSubUserForm = ({closeModal, onSubmit}) => {
+interface LinkSubUserFormProps {
+  closeModal?: () => void
+  onSubmit?: (email: {email: string}) => void
+}
+
+export const LinkSubUserForm: FC<LinkSubUserFormProps> = props => {
   const {classes: classNames} = useClassNames()
+
+  const {closeModal, onSubmit} = props
 
   const [email, setEmail] = useState('')
 
@@ -23,12 +32,13 @@ export const LinkSubUserForm = ({closeModal, onSubmit}) => {
       </Typography>
 
       <Field
+        // @ts-ignore
+        type="email"
         label={t(TranslationKey['Enter the email of the user you want to add'])}
         labelClasses={classNames.labelField}
-        type="email"
         value={email}
         inputProps={{'data-testid': 'input'}}
-        onChange={e => setEmail(e.target.value)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
       />
 
       <div className={classNames.buttonWrapper}>
@@ -38,7 +48,7 @@ export const LinkSubUserForm = ({closeModal, onSubmit}) => {
           disabled={email === ''}
           variant="contained"
           className={classNames.button}
-          onClick={() => onSubmit({email: email.toLowerCase()})}
+          onClick={() => !!onSubmit && onSubmit({email: email.toLowerCase()})}
         >
           {t(TranslationKey.Add)}
         </Button>
@@ -46,8 +56,8 @@ export const LinkSubUserForm = ({closeModal, onSubmit}) => {
         <Button
           data-testid={'cancel'}
           variant="text"
-          className={[classNames.button, classNames.cancelButton]}
-          onClick={() => closeModal()}
+          className={cx(classNames.button, classNames.cancelButton)}
+          onClick={() => !!closeModal && closeModal()}
         >
           {t(TranslationKey.Cancel)}
         </Button>
