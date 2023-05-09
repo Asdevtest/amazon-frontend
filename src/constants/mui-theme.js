@@ -192,9 +192,8 @@ export const lightTheme = createTheme({
       defaultProps: {
         sx: {
           '&.Mui-disabled': {
-            // backgroundColor: 'rgba(0, 0, 0, 0.12)',
-            // color: '#001029',
-            backgroundColor: '#C4C4C4',
+            backgroundColor: '#B3D1FB',
+            color: '#F9FCFF',
           },
         },
       },
@@ -576,8 +575,8 @@ export const darkTheme = createTheme({
       defaultProps: {
         sx: {
           '&.Mui-disabled': {
-            backgroundColor: '#a0a0a4',
-            color: '#fff',
+            backgroundColor: '#2E4760',
+            color: '#8291A0',
           },
         },
       },
