@@ -26,7 +26,7 @@ import {convertDaysToSeconds, formatDate, getDistanceBetweenDatesInSeconds} from
 import {timeToDeadlineInHoursAndMins, toFixed, toFixedWithDollarSign, toFixedWithYuanSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers) => [
+export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers, columnMenuSettings) => [
   {
     field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
@@ -102,7 +102,12 @@ export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers) => [
   {
     field: 'payments',
     headerName: t(TranslationKey['Payment methods']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment methods'])} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Payment methods'])}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
 
     renderCell: params => (
       <StringListCell
@@ -116,6 +121,8 @@ export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers) => [
     width: 178,
     align: 'center',
     sortable: false,
+
+    columnKey: columnnsKeys.shared.PAYMENTS,
   },
 
   {

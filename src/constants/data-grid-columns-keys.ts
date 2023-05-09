@@ -33,5 +33,6 @@ export const columnnsKeys = {
     BOXES_STATUS: 'BOXES_STATUS',
     OBJECT: 'OBJECT',
     MY_REQUESTS_ORDERS_STATUS: 'MY_REQUESTS_ORDERS_STATUS',
+    PAYMENTS: 'PAYMENTS',
   },
 }

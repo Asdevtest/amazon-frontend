@@ -67,6 +67,8 @@ class BuyerMyOrdersViewRaw extends Component {
 
   render() {
     const {
+      isSomeFilterOn,
+      columnMenuSettings,
       pathnameNotPaid,
       yuanToDollarRate,
       orderStatusData,
@@ -142,7 +144,7 @@ class BuyerMyOrdersViewRaw extends Component {
 
       changeColumnsModel,
       onChangeImagesForLoad,
-
+      onClickResetFilters,
       setPhotosToLoad,
     } = this.viewModel
     const {classes: classNames} = this.props
@@ -236,8 +238,9 @@ class BuyerMyOrdersViewRaw extends Component {
                     ColumnMenu: DataGridCustomColumnMenuComponent,
                   }}
                   componentsProps={{
-                    columnMenu: {orderStatusData},
+                    columnMenu: {...columnMenuSettings, orderStatusData},
                     toolbar: {
+                      resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
                       columsBtnSettings: {columnsModel, changeColumnsModel},
                     },
                   }}
@@ -246,7 +249,7 @@ class BuyerMyOrdersViewRaw extends Component {
                   columns={
                     // isReadyForPayment
                     //   ?
-                    BuyerReadyForPaymentColumns(firstRowId, rowHandlers)
+                    BuyerReadyForPaymentColumns(firstRowId, rowHandlers, columnMenuSettings)
                     // : buyerMyOrdersViewColumns(firstRowId)
                     // columnsModel
                   }
