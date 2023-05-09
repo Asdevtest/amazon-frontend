@@ -16,6 +16,10 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'relative',
   },
 
+  inputClass: {
+    paddingLeft: '15px !important',
+  },
+
   searchContainer: {
     width: 'auto',
     // justifySelf: 'flex-start',

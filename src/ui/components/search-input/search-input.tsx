@@ -67,6 +67,7 @@ export const SearchInput: FC<SearchInputProps> = props => {
       className={cx(classNames.input, !!inputClasses && inputClasses)}
       value={onSubmit ? internalValue : value}
       placeholder={placeholder}
+      classes={{input: classNames.inputClass}}
       endAdornment={
         <InputAdornment position={onSubmit ? 'end' : 'start'}>
           {onSubmit ? (
