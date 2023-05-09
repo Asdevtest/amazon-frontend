@@ -1949,5 +1949,7 @@
   "Proposal edited": "Предложение изменено",
   "Restoring an application": "Восстановление заявки",
   "Change request terms": "Изменить условия заявки",
-  "Or": "Или"
+  "Or": "Или",
+  "Calculated shipping cost": "Расчетная стоимость доставки",
+  "Actual shipping cost": "Фактическая стоимость доставки"
 }

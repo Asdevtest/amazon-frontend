@@ -44,8 +44,6 @@ export const CreateOrEditProposalContent = ({
   const newProductPrice =
     calcNumberMinusPercent(request?.request?.priceAmazon, request?.request?.cashBackInPercent) || null
 
-  console.log('proposalToEdit', proposalToEdit)
-
   const sourceFormFields = {
     price: proposalToEdit?.price || request?.request.price,
     execution_time: proposalToEdit?.execution_time || '',

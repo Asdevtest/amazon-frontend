@@ -75,8 +75,6 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = props => {
     checkIsImageLink(typeof el !== 'string' ? el?.file?.name : el),
   )
 
-  console.log('service', service)
-
   return (
     <div className={classNames.cardWrapper}>
       <div className={classNames.titleWrapper}>
