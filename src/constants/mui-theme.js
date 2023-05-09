@@ -192,9 +192,8 @@ export const lightTheme = createTheme({
       defaultProps: {
         sx: {
           '&.Mui-disabled': {
-            // backgroundColor: 'rgba(0, 0, 0, 0.12)',
-            // color: '#001029',
-            backgroundColor: '#C4C4C4',
+            backgroundColor: '#B3D1FB',
+            color: '#F9FCFF',
           },
         },
       },
@@ -267,6 +266,7 @@ export const lightTheme = createTheme({
       tableCurRow: '#baffba',
       red: '#FFC7C7',
       green: '#D9FAE5',
+      darkBlue: '#006CFF',
       greenGradient: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
       yellow: '#F5CF00',
       entryLeftPanel: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
@@ -576,8 +576,8 @@ export const darkTheme = createTheme({
       defaultProps: {
         sx: {
           '&.Mui-disabled': {
-            backgroundColor: '#a0a0a4',
-            color: '#fff',
+            backgroundColor: '#2E4760',
+            color: '#8291A0',
           },
         },
       },
@@ -710,6 +710,7 @@ export const darkTheme = createTheme({
 
         chatIncomeMessage: '#36363F',
         chatMyMessage: '#384C68',
+        darkBlue: '#4CA1DE',
 
         tableCurRow: '#001A15', // '#388E3C',
         red: '#2E0505',

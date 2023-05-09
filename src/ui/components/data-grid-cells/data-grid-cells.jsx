@@ -1191,8 +1191,8 @@ export const WarehouseDestinationAndTariffCell = React.memo(
       disabled,
     }) => {
       const tariffName = storekeepers
-        .find(el => el._id === boxesMy?.storekeeper?._id)
-        ?.tariffLogistics.find(el => el._id === boxesMy?.logicsTariff?._id)?.name
+        ?.find(el => el._id === boxesMy?.storekeeper?._id)
+        ?.tariffLogistics?.find(el => el?._id === boxesMy?.logicsTariff?._id)?.name
 
       const curDestination = destinations.find(el => el._id === boxesMy?.destination?._id)
 
@@ -1201,8 +1201,8 @@ export const WarehouseDestinationAndTariffCell = React.memo(
       const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
       const tariffRate = storekeepers
-        .find(el => el._id === boxesMy?.storekeeper?._id)
-        ?.tariffLogistics.find(el => el._id === boxesMy?.logicsTariff?._id)?.conditionsByRegion[
+        ?.find(el => el?._id === boxesMy?.storekeeper?._id)
+        ?.tariffLogistics?.find(el => el?._id === boxesMy?.logicsTariff?._id)?.conditionsByRegion[
         regionOfDeliveryName
       ]?.rate
 
