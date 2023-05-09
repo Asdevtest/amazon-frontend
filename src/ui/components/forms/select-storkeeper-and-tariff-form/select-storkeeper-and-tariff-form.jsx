@@ -154,7 +154,7 @@ export const SelectStorekeeperAndTariffForm = observer(
               //   backgroundColor: theme.palette.background.general,
               // }}
               rows={
-                curStorekeeper.tariffWarehouses?.length
+                curStorekeeper?.tariffWarehouses?.length
                   ? filterByNameSearch(addIdDataConverter(curStorekeeper.tariffWarehouses))
                   : []
               }
