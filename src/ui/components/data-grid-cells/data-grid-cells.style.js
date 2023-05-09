@@ -1055,8 +1055,9 @@ export const styles = theme => ({
 
   shopsReportBtnsWrapper: {
     display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    gap: 15,
     width: '100%',
   },
 
@@ -1255,6 +1256,7 @@ export const styles = theme => ({
   },
 
   copyImgButton: {
+    minWidth: 'unset !important',
     backgroundColor: 'inherit',
     padding: 0,
     margin: 0,
@@ -1352,7 +1354,7 @@ export const styles = theme => ({
   },
 
   viewBtn: {
-    height: '40px',
+    height: 30,
   },
 
   notificationBtnsWrapper: {
@@ -1952,5 +1954,10 @@ export const styles = theme => ({
 
   colorYellow: {
     color: '#F3AF00 !important',
+  },
+
+  shopsReportBtnsSubWrapper: {
+    display: 'flex',
+    gap: 15,
   },
 })
