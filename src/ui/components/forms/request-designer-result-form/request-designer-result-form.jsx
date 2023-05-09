@@ -12,6 +12,7 @@ import {Accordion, AccordionDetails, AccordionSummary, Typography, Avatar, Toolt
 
 import React, {useCallback, useState} from 'react'
 
+import {nanoid} from 'nanoid'
 import {DndProvider, useDrag, useDrop} from 'react-dnd'
 import {HTML5Backend, NativeTypes} from 'react-dnd-html5-backend'
 
@@ -251,7 +252,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         commentByClient: el.commentByClient,
         _id: el._id,
       }))
-    : [{image: null, comment: '', commentByClient: '', _id: window.crypto.randomUUID()}]
+    : [{image: null, comment: '', commentByClient: '', _id: nanoid()}]
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
 
@@ -267,10 +268,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
   )
 
   const onClickAddImageObj = () => {
-    setImagesData(() => [
-      ...imagesData,
-      {image: null, comment: '', commentByClient: '', _id: window.crypto.randomUUID()},
-    ])
+    setImagesData(() => [...imagesData, {image: null, comment: '', commentByClient: '', _id: nanoid()}])
   }
 
   const onClickRemoveImageObj = () => {
@@ -312,7 +310,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
     const restNewSlots = readyFilesArr
       .slice(1)
-      .map((el, i) => ({image: el, comment: el.file.name, commentByClient: '', _id: window.crypto.randomUUID()}))
+      .map((el, i) => ({image: el, comment: el.file.name, commentByClient: '', _id: nanoid()}))
 
     setImagesData([
       ...imagesData.map(el =>
@@ -342,7 +340,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
       const restNewSlots = readyFilesArr
         .slice(1)
-        .map((el, i) => ({image: el, comment: el.file.name, commentByClient: '', _id: window.crypto.randomUUID()}))
+        .map((el, i) => ({image: el, comment: el.file.name, commentByClient: '', _id: nanoid()}))
 
       setImagesData([
         ...imagesData.map(el =>
