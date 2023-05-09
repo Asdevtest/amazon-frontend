@@ -26,9 +26,8 @@ export const styles = theme => ({
   },
 
   redRow: {
-    color: 'red',
+    color: theme.palette.text.red,
   },
-
   greenRow: {
     color: theme.palette.text.green,
   },
