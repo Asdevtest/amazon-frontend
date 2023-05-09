@@ -4,7 +4,7 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '1480px',
     display: 'flex',
-    maxHeight: '85vh',
+    height: '84vh',
     // backgroundColor: theme.palette.background.second,
 
     flexDirection: 'column',
@@ -24,11 +24,14 @@ export const useClassNames = makeStyles()(theme => ({
     // top: 0,
     // right: 0,
 
-    position: 'sticky',
-    zIndex: 100,
-    bottom: 0,
-    background: theme.palette.background.general,
-    paddingBottom: 40,
+    display: 'flex',
+    justifyContent: 'end',
+
+    // position: 'sticky',
+    // zIndex: 100,
+    // bottom: 0,
+    // background: theme.palette.background.general,
+    // paddingBottom: 40,
     paddingTop: 20,
   },
 
@@ -36,11 +39,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
-    background: theme.palette.background.general,
-    paddingTop: 40,
+    // position: 'sticky',
+    // top: 0,
+    // zIndex: 100,
+    // background: theme.palette.background.general,
+    paddingTop: 20,
     paddingBottom: 20,
   },
   modalTitle: {
@@ -78,6 +81,11 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   form: {
+    height: 606,
+    overflow: 'auto',
+
+    paddingRight: 10,
+
     [theme.breakpoints.down(1282)]: {
       height: 550,
       width: 'auto',

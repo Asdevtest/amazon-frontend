@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import {Checkbox, Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
@@ -14,6 +15,7 @@ import {
   mapTaskOperationTypeKeyToEnum,
   taskOperationTypeTranslate,
 } from '@constants/task-operation-type'
+import {mapTaskPriorityStatusEnum, taskPriorityStatusTranslate} from '@constants/task-priority-status'
 import {mapTaskStatusKeyToEnum, TaskStatusTranslate} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -35,7 +37,7 @@ import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
 import {EditTaskPriorityModal} from '@components/screens/warehouse/edit-task-priority-modal'
 import {SearchInput} from '@components/search-input'
-import {TaskPrioritySelector} from '@components/shared/task-priority-selector/task-priority-selector'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -56,6 +58,7 @@ export class ClientWarehouseTasksViewRaw extends Component {
 
   render() {
     const {
+      selectedStorekeeperFilters,
       confirmModalSettings,
       volumeWeightCoefficient,
       columnsModel,
@@ -77,15 +80,11 @@ export class ClientWarehouseTasksViewRaw extends Component {
       editPriorityData,
       currentPriority,
       storekeepersData,
-      currentStorekeeper,
-      selectedStatus,
-      operationType,
+      selectFilterForField,
+      activeFilters,
       nameSearchValue,
       requestStatus,
       onSearchSubmit,
-      handleOperationType,
-      handleSelectedStatus,
-      onClickStorekeeperBtn,
       onSelectionModel,
       changeColumnsModel,
       onChangeFilterModel,
@@ -97,6 +96,7 @@ export class ClientWarehouseTasksViewRaw extends Component {
       onClickCancelAfterConfirm,
       handleActivePriority,
       updateTaskPriority,
+      getTasksMy,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -122,89 +122,151 @@ export class ClientWarehouseTasksViewRaw extends Component {
                 />
               </div>
 
-              <div>
-                <div className={classNames.filterHeader}>
-                  <TaskPrioritySelector currentPriority={currentPriority} handleActivePriority={handleActivePriority} />
-                  <div className={classNames.boxesFiltersWrapper}>
+              <div className={classNames.filters}>
+                <WithSearchSelect
+                  notCloseOneClick
+                  isFlat
+                  checkbox
+                  getRowValue={el => taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[Number(el)])}
+                  selectedItemName={t(TranslationKey['All priorities'])}
+                  data={Object.keys(mapTaskPriorityStatusEnum).reverse()}
+                  currentShops={activeFilters.priority}
+                  firstItems={
                     <Button
-                      disabled={!selectedStatus}
-                      className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !selectedStatus})}
+                      className={classNames.filterBtn}
                       variant="text"
-                      onClick={() => handleSelectedStatus(null)}
+                      onClick={() => {
+                        selectFilterForField(
+                          'priority',
+                          Object.keys(mapTaskPriorityStatusEnum).length === activeFilters.priority.length
+                            ? []
+                            : Object.keys(mapTaskPriorityStatusEnum),
+                        )
+                      }}
                     >
-                      {t(TranslationKey['All statuses'])}
+                      <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
+                        <>
+                          <Checkbox
+                            checked={Object.keys(mapTaskPriorityStatusEnum).length === activeFilters.priority.length}
+                            color="primary"
+                          />
+                          <Typography className={classNames.fieldName}>
+                            {t(TranslationKey['All priorities'])}
+                          </Typography>
+                        </>
+                      </div>
                     </Button>
+                  }
+                  onClickSelect={el => selectFilterForField('priority', el)}
+                  onClickSubmitBtn={getTasksMy}
+                />
 
-                    {Object.keys(mapTaskStatusKeyToEnum).map(el => (
-                      <Button
-                        key={el}
-                        disabled={currentStorekeeper?._id === el}
-                        className={cx(classNames.button, {
-                          [classNames.selectedBoxesBtn]: selectedStatus === el,
-                        })}
-                        variant="text"
-                        onClick={() => handleSelectedStatus(el)}
-                      >
-                        {TaskStatusTranslate(mapTaskStatusKeyToEnum[el])}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-                <div className={classNames.boxesFiltersWrapper}>
-                  <Button
-                    disabled={!currentStorekeeper?._id}
-                    tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-                    className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
-                    variant="text"
-                    onClick={onClickStorekeeperBtn}
-                  >
-                    {t(TranslationKey['All warehouses'])}
-                  </Button>
-
-                  {storekeepersData
-                    .slice()
-                    .sort((a, b) => a.name?.localeCompare(b.name))
-                    .map(storekeeper =>
-                      storekeeper.boxesCount !== 0 ? (
-                        <Button
-                          key={storekeeper._id}
-                          disabled={currentStorekeeper?._id === storekeeper._id}
-                          className={cx(classNames.button, {
-                            [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
-                          })}
-                          variant="text"
-                          onClick={() => onClickStorekeeperBtn(storekeeper)}
-                        >
-                          {storekeeper.name}
-                        </Button>
-                      ) : null,
-                    )}
-                </div>
-
-                <div className={classNames.boxesFiltersWrapper}>
-                  <Button
-                    disabled={!operationType}
-                    className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !operationType})}
-                    variant="text"
-                    onClick={() => handleOperationType(null)}
-                  >
-                    {t(TranslationKey['All tasks'])}
-                  </Button>
-
-                  {Object.keys(mapTaskOperationTypeKeyToEnum).map(el => (
+                <WithSearchSelect
+                  notCloseOneClick
+                  isFlat
+                  checkbox
+                  getRowValue={el => TaskStatusTranslate(mapTaskStatusKeyToEnum[el])}
+                  selectedItemName={t(TranslationKey['All statuses'])}
+                  data={Object.keys(mapTaskStatusKeyToEnum)}
+                  currentShops={activeFilters.status}
+                  firstItems={
                     <Button
-                      key={el}
-                      disabled={operationType === el}
-                      className={cx(classNames.button, {
-                        [classNames.selectedBoxesBtn]: operationType === el,
-                      })}
+                      className={classNames.filterBtn}
                       variant="text"
-                      onClick={() => handleOperationType(el)}
+                      onClick={() => {
+                        selectFilterForField(
+                          'status',
+                          Object.keys(mapTaskStatusKeyToEnum).length === activeFilters.status.length
+                            ? []
+                            : Object.keys(mapTaskStatusKeyToEnum),
+                        )
+                      }}
                     >
-                      {taskOperationTypeTranslate(mapTaskOperationTypeEnumToKey[el])}
+                      <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
+                        <>
+                          <Checkbox
+                            checked={Object.keys(mapTaskStatusKeyToEnum).length === activeFilters.status.length}
+                            color="primary"
+                          />
+                          <Typography className={classNames.fieldName}>{t(TranslationKey['All statuses'])}</Typography>
+                        </>
+                      </div>
                     </Button>
-                  ))}
-                </div>
+                  }
+                  onClickSelect={el => selectFilterForField('status', el)}
+                  onClickSubmitBtn={getTasksMy}
+                />
+
+                <WithSearchSelect
+                  checkbox
+                  notCloseOneClick
+                  selectedItemName={t(TranslationKey['All warehouses'])}
+                  data={storekeepersData}
+                  searchFields={['name']}
+                  currentShops={activeFilters.storekeeper}
+                  firstItems={
+                    <Button
+                      className={classNames.filterBtn}
+                      variant="text"
+                      onClick={() => {
+                        selectFilterForField(
+                          'storekeeper',
+                          storekeepersData.length === activeFilters.storekeeper.length ? [] : storekeepersData,
+                        )
+                      }}
+                    >
+                      <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
+                        <>
+                          <Checkbox
+                            checked={storekeepersData.length === activeFilters.storekeeper.length}
+                            color="primary"
+                          />
+                          <Typography className={classNames.fieldName}>
+                            {t(TranslationKey['All warehouses'])}
+                          </Typography>
+                        </>
+                      </div>
+                    </Button>
+                  }
+                  onClickSelect={el => selectFilterForField('storekeeper', el, '_id')}
+                  onClickSubmitBtn={getTasksMy}
+                />
+
+                <WithSearchSelect
+                  notCloseOneClick
+                  isFlat
+                  checkbox
+                  getRowValue={el => taskOperationTypeTranslate(mapTaskOperationTypeEnumToKey[el])}
+                  selectedItemName={t(TranslationKey['All tasks'])}
+                  data={Object.keys(mapTaskOperationTypeKeyToEnum)}
+                  currentShops={activeFilters.type}
+                  firstItems={
+                    <Button
+                      className={classNames.filterBtn}
+                      variant="text"
+                      onClick={() => {
+                        selectFilterForField(
+                          'type',
+                          Object.keys(mapTaskOperationTypeKeyToEnum).length === activeFilters.type.length
+                            ? []
+                            : Object.keys(mapTaskOperationTypeKeyToEnum),
+                        )
+                      }}
+                    >
+                      <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
+                        <>
+                          <Checkbox
+                            checked={Object.keys(mapTaskOperationTypeKeyToEnum).length === activeFilters.type.length}
+                            color="primary"
+                          />
+                          <Typography className={classNames.fieldName}>{t(TranslationKey['All tasks'])}</Typography>
+                        </>
+                      </div>
+                    </Button>
+                  }
+                  onClickSelect={el => selectFilterForField('type', el)}
+                  onClickSubmitBtn={getTasksMy}
+                />
               </div>
 
               <div className={classNames.tasksWrapper}>

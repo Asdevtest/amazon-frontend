@@ -172,7 +172,6 @@ class ClientAwaitingBatchesViewRaw extends Component {
 
                   <div className={className.rightSideButtonsWrapper}>
                     <Button
-                      success
                       disabled={selectedBatches.length !== 1}
                       variant="contained"
                       className={className.rightSideButton}
@@ -181,6 +180,7 @@ class ClientAwaitingBatchesViewRaw extends Component {
                       {t(TranslationKey['Edit batch'])}
                     </Button>
                     <Button
+                      success
                       className={className.rightSideButton}
                       variant="contained"
                       onClick={() => onClickAddOrEditBatch({isAdding: true})}
