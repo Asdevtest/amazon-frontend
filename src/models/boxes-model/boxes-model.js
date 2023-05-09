@@ -109,13 +109,18 @@ class BoxesModelStatic {
     return response
   }
 
-  getBoxesReadyToBatchClient = async storekeeperId => {
-    const response = await restApiService.boxesApi.apiV1BoxesClientsSentToBatchGet({storekeeperId})
-    return response
-  }
+  // getBoxesReadyToBatchClient = async storekeeperId => {
+  //   const response = await restApiService.boxesApi.apiV1BoxesClientsSentToBatchGet({storekeeperId})
+  //   return response
+  // }
 
   getBoxesReadyToBatchStorekeeper = async () => {
     const response = await restApiService.boxesApi.apiV1BoxesStorekeepersSentToBatchGet()
+    return response
+  }
+
+  getBoxesReadyToBatchClient = async () => {
+    const response = await restApiService.boxesApi.apiV1BoxesClientsSentToBatchGet()
     return response
   }
 

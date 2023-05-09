@@ -194,7 +194,7 @@ export const UploadFilesInput = observer(
           <ImageUploading
             multiple
             acceptType={acceptType}
-            value={withComment ? images.map(el => el.file) : images}
+            value={withComment ? images?.map(el => el?.file) : images}
             maxNumber={maxNumber}
             dataURLKey="data_url"
             maxFileSize={maxSizeInBytes}

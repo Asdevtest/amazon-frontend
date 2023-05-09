@@ -128,16 +128,24 @@ export const CreateOrEditRequestContent = ({
     }
   }, [])
 
-  const [images, setImages] = useState(
-    requestToEdit
-      ? requestToEdit.request.media.map(el => ({
-          file: el.fileLink,
-          comment: el.commentByClient,
-          commentByPerformer: el.commentByPerformer,
-          _id: el._id,
-        }))
-      : [],
-  )
+  const createImagesArray = () => {
+    if (requestToEdit?.request?.media?.length) {
+      return requestToEdit?.request?.media?.map(el => ({
+        file: el?.fileLink,
+        comment: el?.commentByClient,
+        commentByPerformer: el?.commentByPerformer,
+        _id: el?._id,
+      }))
+    } else {
+      return []
+    }
+  }
+
+  const [images, setImages] = useState(createImagesArray())
+
+  useEffect(() => {
+    setImages(createImagesArray())
+  }, [requestToEdit])
 
   const showScrollArrows = curStep === stepVariant.STEP_ONE && (showScrollUp || showScrollDown)
 
