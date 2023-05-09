@@ -1056,8 +1056,13 @@ export const styles = theme => ({
   shopsReportBtnsWrapper: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
+    gap: 15,
     width: '100%',
+  },
+
+  tooltipWrapperMargin: {
+    marginRight: '-15px',
   },
 
   downloadLink: {

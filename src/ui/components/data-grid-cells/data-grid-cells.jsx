@@ -2892,18 +2892,21 @@ export const DownloadAndCopyBtnsCell = React.memo(
       <>
         {value ? (
           <div className={classNames.shopsReportBtnsWrapper}>
-            <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
-              <a
-                download
-                target="_blank"
-                rel="noreferrer"
-                href={value}
-                className={classNames.downloadLink}
-                onClick={e => e.stopPropagation()}
-              >
-                {t(TranslationKey.View)}
-              </a>
-            </Text>
+            <div className={cx({[classNames.tooltipWrapperMargin]: isFirstRow})}>
+              <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
+                <a
+                  download
+                  target="_blank"
+                  rel="noreferrer"
+                  href={value}
+                  className={classNames.downloadLink}
+                  onClick={e => e.stopPropagation()}
+                >
+                  {t(TranslationKey.View)}
+                </a>
+              </Text>
+            </div>
+
             <Button
               tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link'])}
               className={classNames.copyImgButton}
