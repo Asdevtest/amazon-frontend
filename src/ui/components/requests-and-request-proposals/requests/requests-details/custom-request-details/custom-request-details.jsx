@@ -57,7 +57,7 @@ export const CustomSearchRequestDetails = ({request, isOpen}) => {
                 <Typography className={cx(classNames.conditionsSubLabel, classNames.filesLabel)}>
                   {t(TranslationKey.Files)}
                 </Typography>
-                <FilesCarousel files={request?.request?.media.map(el => el.fileLink)} />
+                <FilesCarousel files={request?.request?.media?.map(el => el.fileLink)} />
               </div>
             </div>
 
