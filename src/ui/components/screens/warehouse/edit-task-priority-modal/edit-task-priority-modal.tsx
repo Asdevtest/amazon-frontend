@@ -37,7 +37,6 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
     data.newPriority || (mapTaskPriorityStatusEnumToKey as {[key: string]: number})[TaskPriorityStatus.STANDART],
   )
 
-  console.log('curPriority', curPriority)
   const [reason, setReason] = useState<string>('')
 
   return (
