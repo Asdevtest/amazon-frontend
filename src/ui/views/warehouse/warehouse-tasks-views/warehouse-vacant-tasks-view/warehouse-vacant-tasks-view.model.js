@@ -141,9 +141,6 @@ export class WarehouseVacantViewModel {
               : state.columns?.lookup[el?.field]?.hide,
         }))
       }
-
-      console.log('state', state)
-      console.log('this.columnsModel', this.columnsModel)
     })
   }
 
