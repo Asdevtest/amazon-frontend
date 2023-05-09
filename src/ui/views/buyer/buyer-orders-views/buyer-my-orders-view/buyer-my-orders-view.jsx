@@ -32,7 +32,7 @@ import {SearchInput} from '@components/search-input'
 import {BuyerReadyForPaymentColumns} from '@components/table-columns/buyer/buyer-ready-for-payment-columns'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {toFixed} from '@utils/text'
+import {toFixedWithDollarSign, toFixedWithYuanSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {BuyerMyOrdersViewModel} from './buyer-my-orders-view.model'
@@ -210,9 +210,9 @@ class BuyerMyOrdersViewRaw extends Component {
                     </Typography>
                     <div className={classNames.totalPriceTextWrapper}>
                       <Typography className={cx(classNames.totalPriceText, classNames.totalPrice)}>
-                        {`Ұ ${toFixed(paymentAmount?.totalPriceInYuan, 2)} ${t(
+                        {`${toFixedWithYuanSign(paymentAmount?.totalPriceInYuan, 2)} ${t(
                           TranslationKey.Or,
-                        ).toLocaleLowerCase()} $ ${toFixed(paymentAmount?.totalPriceInUSD, 2)}`}
+                        ).toLocaleLowerCase()} ${toFixedWithDollarSign(paymentAmount?.totalPriceInUSD, 2)}`}
                       </Typography>
                     </div>
                   </div>
