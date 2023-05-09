@@ -24,6 +24,8 @@ import Zoom from '@mui/material/Zoom'
 
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 
+import {nanoid} from 'nanoid'
+
 import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {BigPlus, PhotoCameraWithPlus} from '@constants/svg-icons'
@@ -233,7 +235,7 @@ export const RequestDesignerResultClientForm = ({
     comment: el.commentByPerformer,
     commentByClient: el.commentByClient,
     isEditCommentOpen: false,
-    _id: el._id ?? window.crypto.randomUUID(),
+    _id: el._id ?? nanoid(),
   }))
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
