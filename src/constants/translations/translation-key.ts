@@ -1947,7 +1947,7 @@ export enum TranslationKey {
   'Proposal edited' = 'Proposal edited',
   'Restoring an application' = 'Restoring an application',
   'Change request terms' = 'Change request terms',
-  // '' = '',
+  'Or' = 'Or',
   // '' = '',
   // '' = '',
   // '' = '',
