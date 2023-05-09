@@ -74,6 +74,8 @@ const setNavbarActiveSubCategory = pathname => {
   }
 }
 
+const filtersFields = ['payments']
+
 export class BuyerMyOrdersViewModel {
   history = undefined
   requestStatus = undefined
@@ -166,6 +168,28 @@ export class BuyerMyOrdersViewModel {
   showProgress = false
   readyImages = []
 
+  columnMenuSettings = {
+    onClickFilterBtn: field => this.onClickFilterBtn(field),
+    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
+    onClickAccept: () => {
+      // this.onLeaveColumnField()
+      // this.getBoxesMy()
+      // this.getDataGridState()
+    },
+
+    ...filtersFields.reduce(
+      (ac, cur) =>
+        (ac = {
+          ...ac,
+          [cur]: {
+            filterData: [],
+            currentFilterData: [],
+          },
+        }),
+      {},
+    ),
+  }
+
   get userInfo() {
     return UserModel.userInfo
   }
@@ -181,6 +205,10 @@ export class BuyerMyOrdersViewModel {
       chosenStatus: this.chosenStatus,
       onClickOrderStatusData: this.onClickOrderStatusData,
     }
+  }
+
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
   constructor({history, location}) {
@@ -221,6 +249,14 @@ export class BuyerMyOrdersViewModel {
           this.currentData = this.getCurrentData()
         }),
     )
+
+    reaction(
+      () => this.columnMenuSettings.payments.currentFilterData,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
+    )
   }
 
   changeColumnsModel(newHideState) {
@@ -230,6 +266,97 @@ export class BuyerMyOrdersViewModel {
         hide: !!newHideState[el?.field],
       }))
     })
+  }
+
+  async onClickFilterBtn(column) {
+    try {
+      this.setFilterRequestStatus(loadingStatuses.isLoading)
+
+      if (column === 'payments') {
+        const data = await SupplierModel.getSuppliersPaymentMethods()
+
+        if (this.columnMenuSettings[column]) {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: {...this.columnMenuSettings[column], filterData: data.map(el => ({...el, name: el.title}))},
+          }
+        }
+      }
+
+      // const data = await GeneralModel.getDataForColumn(
+      //   getTableByColumn(column, 'boxes'),
+      //   column,
+
+      //   `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter(column)}${
+      //     shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
+      //   }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
+      // )
+
+      // if (this.columnMenuSettings[column]) {
+      //   this.columnMenuSettings = {
+      //     ...this.columnMenuSettings,
+      //     [column]: {...this.columnMenuSettings[column], filterData: data},
+      //   }
+      // }
+
+      this.setFilterRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setFilterRequestStatus(loadingStatuses.failed)
+
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  setFilterRequestStatus(requestStatus) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        filterRequestStatus: requestStatus,
+      }
+    })
+  }
+
+  onChangeFullFieldMenuItem(value, field) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        [field]: {
+          ...this.columnMenuSettings[field],
+          currentFilterData: value,
+        },
+      }
+    })
+  }
+
+  // onLeaveColumnField() {
+  //   this.onHover = null
+  //   this.getDataGridState()
+  // }
+
+  onClickResetFilters() {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+
+        ...filtersFields.reduce(
+          (ac, cur) =>
+            (ac = {
+              ...ac,
+              [cur]: {
+                filterData: [],
+                currentFilterData: [],
+              },
+            }),
+          {},
+        ),
+      }
+    })
+
+    // this.getBoxesMy()
+    // this.getDataGridState()
   }
 
   async updateColumnsModel() {
@@ -558,7 +685,13 @@ export class BuyerMyOrdersViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.ordersMy)
+    if (this.columnMenuSettings.payments.currentFilterData.length) {
+      const curPaymentsIds = this.columnMenuSettings.payments.currentFilterData.map(el => el._id)
+
+      return toJS(this.ordersMy).filter(el => el.payments.some(item => curPaymentsIds.includes(item.paymentMethod._id)))
+    } else {
+      return toJS(this.ordersMy)
+    }
   }
 
   async setColumnsModel() {
