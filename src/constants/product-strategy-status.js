@@ -22,13 +22,13 @@ export const mapProductStrategyStatusEnum = {
 export const humanFriendlyStategyStatus = value => {
   switch (value) {
     case ProductStrategyStatus.DROPSHIPPING:
-      return 'Dropshipping'
+      return 'DROPSHIPPING'
     case ProductStrategyStatus.ONLINE_ARBITRAGE_CHINA:
-      return 'Online arbitrage China'
+      return 'ONLINE ARBITRAGE CHINA'
     case ProductStrategyStatus.PRIVATE_LABEL:
-      return 'Private Label'
+      return 'PRIVATE LABEL'
     case ProductStrategyStatus.WHOLE_SALE_USA:
-      return 'Whole sale USA'
+      return 'WHOLE SALE USA'
     case ProductStrategyStatus.NONE:
       return t(TranslationKey['Without strategy'])
   }
