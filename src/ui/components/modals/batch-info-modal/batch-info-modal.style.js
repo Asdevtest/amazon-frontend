@@ -377,16 +377,19 @@ export const useClassNames = makeStyles()(theme => ({
     '-webkit-text-fill-color': `${theme.palette.text.second} !important`,
   },
   batchTitleField: {
-    width: 130,
+    width: '130px !important',
   },
   destinationField: {
-    width: 215,
+    width: '215px !important',
   },
   volumeWeightField: {
-    width: 116,
+    width: '116px !important',
   },
   methodField: {
-    width: 266,
+    width: '266px !important',
+  },
+  dividerField: {
+    width: '100px !important',
   },
   filesAndButtonWrapper: {
     display: 'flex',
@@ -396,10 +399,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   shippinCostContainer: {
     width: '116px !important',
-  },
-
-  dividerField: {
-    width: '100px !important',
   },
 
   closeFieldsWrapper: {
