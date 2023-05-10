@@ -195,4 +195,8 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
   },
+
+  apply: {
+    color: '#fff !important',
+  },
 })
