@@ -48,7 +48,7 @@ export const styles = theme => ({
     fontWeight: 'bold',
     marginBottom: '0',
 
-    borderBottom: '5px solid #0460DE',
+    borderBottom: theme.palette.other.tableActiveFilterBtn,
   },
   root: {
     border: '0 !important',

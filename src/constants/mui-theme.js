@@ -254,6 +254,7 @@ export const lightTheme = createTheme({
       negativeMain: '#fff',
       gray: '#C4C4C4',
       green: 'green',
+      red: '#DD2121',
     },
 
     background: {
@@ -304,6 +305,7 @@ export const lightTheme = createTheme({
     },
 
     other: {
+      tableActiveFilterBtn: '5px solid #0460DE',
       ideaProductSheld: 'url(/assets/icons/idea-trgl.svg)',
     },
   },
@@ -690,6 +692,7 @@ export const darkTheme = createTheme({
         second: '#E1E1E1',
 
         gray: 'gray',
+        red: '#DD2121',
 
         negativeMain: '#001029',
         green: '#2FE341',
@@ -758,6 +761,7 @@ export const darkTheme = createTheme({
       },
 
       other: {
+        tableActiveFilterBtn: '5px solid #4CA1DE',
         ideaProductSheld: 'url(/assets/icons/idea-trgl-dark-theme.svg)',
       },
     },

@@ -32,7 +32,7 @@ import {SearchInput} from '@components/search-input'
 import {BuyerReadyForPaymentColumns} from '@components/table-columns/buyer/buyer-ready-for-payment-columns'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {toFixedWithYuanSign} from '@utils/text'
+import {toFixedWithDollarSign, toFixedWithYuanSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {BuyerMyOrdersViewModel} from './buyer-my-orders-view.model'
@@ -119,6 +119,7 @@ class BuyerMyOrdersViewRaw extends Component {
 
       firstRowId,
       rowHandlers,
+      orderStatusDataBase,
 
       onClickHsCode,
       onTriggerDrawerOpen,
@@ -198,11 +199,22 @@ class BuyerMyOrdersViewRaw extends Component {
                 {paymentAmount?.totalPriceInYuan && (
                   <div className={classNames.totalPriceWrapper}>
                     <Typography className={classNames.totalPriceText}>
-                      {t(TranslationKey['Payment to all suppliers']) + ':'}
+                      {orderStatusDataBase.some(
+                        status =>
+                          Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
+                          Number(OrderStatusByKey[status]) ===
+                            Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
+                      )
+                        ? t(TranslationKey.Sum) + ':'
+                        : t(TranslationKey['Payment to all suppliers']) + ':'}
                     </Typography>
-                    <Typography className={cx(classNames.totalPriceText, classNames.totalPrice)}>
-                      {toFixedWithYuanSign(paymentAmount?.totalPriceInYuan, 2)}
-                    </Typography>
+                    <div className={classNames.totalPriceTextWrapper}>
+                      <Typography className={cx(classNames.totalPriceText, classNames.totalPrice)}>
+                        {`${toFixedWithYuanSign(paymentAmount?.totalPriceInYuan, 2)} ${t(
+                          TranslationKey.Or,
+                        ).toLocaleLowerCase()} ${toFixedWithDollarSign(paymentAmount?.totalPriceInUSD, 2)}`}
+                      </Typography>
+                    </div>
                   </div>
                 )}
               </div>

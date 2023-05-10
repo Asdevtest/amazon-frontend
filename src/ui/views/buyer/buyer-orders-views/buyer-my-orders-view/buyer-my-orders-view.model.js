@@ -431,6 +431,17 @@ export class BuyerMyOrdersViewModel {
       this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(
         OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT],
       )
+    } else if (
+      this.orderStatusDataBase.some(
+        status =>
+          Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
+          Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
+      )
+    ) {
+      this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(
+        Number(OrderStatusByKey[OrderStatus.AT_PROCESS]),
+        Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
+      )
     }
   }
 

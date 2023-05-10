@@ -2859,20 +2859,22 @@ export const ShopsReportBtnsCell = React.memo(
   withStyles(
     ({classes: classNames, value, onClickSeeMore, isFirstRow}) => (
       <div className={classNames.shopsReportBtnsWrapper}>
-        <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
+        {/* <div className={classNames.shopsReportBtnsSubWrapper}> */}
+        <Text /* tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])} */>
           <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
             {t(TranslationKey.download)}
           </a>
         </Text>
         <Button
-          tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link to the report'])}
+          /* tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link to the report'])} */
           className={classNames.copyImgButton}
         >
           <CopyValue text={value} />
         </Button>
+        {/* </div> */}
 
         <Button
-          tooltipInfoContent={isFirstRow && t(TranslationKey['Opens the table of a particular store'])}
+          /* tooltipInfoContent={isFirstRow && t(TranslationKey['Opens the table of a particular store'])} */
           variant="contained"
           color="primary"
           className={classNames.viewBtn}
