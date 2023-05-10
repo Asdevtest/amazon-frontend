@@ -579,7 +579,9 @@ export const AdminUserEditContent = observer(
                   multiple
                   className={classNames.standartText}
                   value={formFields.allowedStrategies}
-                  renderValue={selected => selected.map(el => mapProductStrategyStatusEnum[el]).join(', ')}
+                  renderValue={selected =>
+                    selected.map(el => humanFriendlyStategyStatus(mapProductStrategyStatusEnum[el])).join(', ')
+                  }
                   onChange={onChangeFormField('allowedStrategies')}
                 >
                   {Object.keys(mapProductStrategyStatusEnum).map((strategy, index) => (
