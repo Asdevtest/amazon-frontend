@@ -1193,8 +1193,8 @@ export const WarehouseDestinationAndTariffCell = React.memo(
       disabled,
     }) => {
       const tariffName = storekeepers
-        .find(el => el._id === boxesMy?.storekeeper?._id)
-        ?.tariffLogistics.find(el => el._id === boxesMy?.logicsTariff?._id)?.name
+        ?.find(el => el._id === boxesMy?.storekeeper?._id)
+        ?.tariffLogistics?.find(el => el?._id === boxesMy?.logicsTariff?._id)?.name
 
       const curDestination = destinations.find(el => el._id === boxesMy?.destination?._id)
 
@@ -1203,8 +1203,8 @@ export const WarehouseDestinationAndTariffCell = React.memo(
       const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
       const tariffRate = storekeepers
-        .find(el => el._id === boxesMy?.storekeeper?._id)
-        ?.tariffLogistics.find(el => el._id === boxesMy?.logicsTariff?._id)?.conditionsByRegion[
+        ?.find(el => el?._id === boxesMy?.storekeeper?._id)
+        ?.tariffLogistics?.find(el => el?._id === boxesMy?.logicsTariff?._id)?.conditionsByRegion[
         regionOfDeliveryName
       ]?.rate
 
@@ -2861,20 +2861,22 @@ export const ShopsReportBtnsCell = React.memo(
   withStyles(
     ({classes: classNames, value, onClickSeeMore, isFirstRow}) => (
       <div className={classNames.shopsReportBtnsWrapper}>
-        <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
+        {/* <div className={classNames.shopsReportBtnsSubWrapper}> */}
+        <Text /* tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])} */>
           <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
             {t(TranslationKey.download)}
           </a>
         </Text>
         <Button
-          tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link to the report'])}
+          /* tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link to the report'])} */
           className={classNames.copyImgButton}
         >
           <CopyValue text={value} />
         </Button>
+        {/* </div> */}
 
         <Button
-          tooltipInfoContent={isFirstRow && t(TranslationKey['Opens the table of a particular store'])}
+          /* tooltipInfoContent={isFirstRow && t(TranslationKey['Opens the table of a particular store'])} */
           variant="contained"
           color="primary"
           className={classNames.viewBtn}
@@ -2894,18 +2896,21 @@ export const DownloadAndCopyBtnsCell = React.memo(
       <>
         {value ? (
           <div className={classNames.shopsReportBtnsWrapper}>
-            <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
-              <a
-                download
-                target="_blank"
-                rel="noreferrer"
-                href={value}
-                className={classNames.downloadLink}
-                onClick={e => e.stopPropagation()}
-              >
-                {t(TranslationKey.View)}
-              </a>
-            </Text>
+            <div className={cx({[classNames.tooltipWrapperMargin]: isFirstRow})}>
+              <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
+                <a
+                  download
+                  target="_blank"
+                  rel="noreferrer"
+                  href={value}
+                  className={classNames.downloadLink}
+                  onClick={e => e.stopPropagation()}
+                >
+                  {t(TranslationKey.View)}
+                </a>
+              </Text>
+            </div>
+
             <Button
               tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link'])}
               className={classNames.copyImgButton}

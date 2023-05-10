@@ -65,23 +65,31 @@ export const styles = theme => ({
     },
   },
 
+  // row: {
+
+  //   cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
+  //   transition: '0.3s ease',
+  //   '&:hover': {
+  //     transform: 'scale(1.01)',
+  //     // posotion: 'relative',
+  //   },
+
+  //   border: 0,
+  //   // boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+  //   backgroundColor: theme.palette.background.general,
+
+  //   posotion: 'relative',
+
+  //   // '&::after': {
+  //   //   content: '""',
+  //   // },
+  // },
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(1.01)',
-      // posotion: 'relative',
     },
-
-    border: 0,
-    // boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: theme.palette.background.general,
-
-    posotion: 'relative',
-
-    // '&::after': {
-    //   content: '""',
-    // },
   },
 
   archiveIcon: {
@@ -112,7 +120,7 @@ export const styles = theme => ({
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
 
-    borderBottom: '5px solid #0460DE',
+    borderBottom: theme.palette.other.tableActiveFilterBtn,
   },
 
   shopsFiltersWrapper: {

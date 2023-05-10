@@ -48,7 +48,7 @@ export const isHaveMasterUser = user => !!user.masterUser
 // export const noPermissionsUser = user => !user.permissions // Не используется
 
 export const findTariffInStorekeepersData = (storekeepers, storekeeperId, logicsTariffId) =>
-  storekeepers.find(el => el._id === storekeeperId)?.tariffLogistics.find(el => el._id === logicsTariffId)
+  storekeepers?.find(el => el?._id === storekeeperId)?.tariffLogistics?.find(el => el?._id === logicsTariffId)
 
 export const checkIsImageLink = link =>
   link?.endsWith('.png') ||

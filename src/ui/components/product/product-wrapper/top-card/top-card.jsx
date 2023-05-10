@@ -217,8 +217,6 @@ export const TopCard = observer(
         productBase.status > ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT] &&
         productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS])
 
-    // console.log('product', product)
-
     return (
       <React.Fragment>
         <Paper className={classNames.mainCardWrapper}>

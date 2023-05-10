@@ -315,8 +315,6 @@ export const AddOrEditBatchForm = observer(
 
       const newRowIds = boxesToAddIds.filter(el => !curChosenGoodsIds.includes(el))
 
-      console.log('boxesData', boxesData)
-
       const newSelectedItems = [
         ...addOrEditBatchDataConverter(
           boxesData,
