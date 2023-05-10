@@ -436,7 +436,8 @@ export class BuyerMyOrdersViewModel {
         status =>
           Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
           Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
-      )
+      ) &&
+      this.orderStatusDataBase.length === 2
     ) {
       this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(
         [

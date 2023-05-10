@@ -188,7 +188,7 @@ class BuyerMyOrdersViewRaw extends Component {
                   [classNames.headerWrapperCenter]: !paymentAmount?.totalPriceInYuan,
                 })}
               >
-                {paymentAmount?.totalPriceInYuan && <div className={classNames.totalPriceWrapper} />}
+                {paymentAmount?.totalPriceInYuan > 0 && <div className={classNames.totalPriceWrapper} />}
 
                 <SearchInput
                   inputClasses={classNames.searchInput}
@@ -196,7 +196,7 @@ class BuyerMyOrdersViewRaw extends Component {
                   onSubmit={onSearchSubmit}
                 />
 
-                {paymentAmount?.totalPriceInYuan && (
+                {paymentAmount?.totalPriceInYuan > 0 && (
                   <div className={classNames.totalPriceWrapper}>
                     <Typography className={classNames.totalPriceText}>
                       {orderStatusDataBase.some(
