@@ -439,8 +439,10 @@ export class BuyerMyOrdersViewModel {
       )
     ) {
       this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(
-        Number(OrderStatusByKey[OrderStatus.AT_PROCESS]),
-        Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
+        [
+          Number(OrderStatusByKey[OrderStatus.AT_PROCESS]),
+          Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
+        ].join(','),
       )
     }
   }
