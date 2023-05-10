@@ -26,7 +26,7 @@ import {t} from '@utils/translations'
 
 export const buyerMyOrdersViewColumns = firstRowId => [
   {
-    field: 'id',
+    field: 'idAndItem',
     headerName: t(TranslationKey.ID) + ' / item',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
 

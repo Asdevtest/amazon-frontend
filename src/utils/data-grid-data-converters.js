@@ -185,6 +185,7 @@ export const buyerProductsDataConverter = data =>
 
 export const buyerMyOrdersDataConverter = data =>
   data.map(item => ({
+    id: item._id,
     originalData: item,
 
     barCode: item.product.barCode,
@@ -196,7 +197,7 @@ export const buyerMyOrdersDataConverter = data =>
     amount: item.amount,
     clientComment: item.clientComment,
     buyerComment: item.buyerComment,
-    id: `${item.id} / ${item.item ? item.item : '-'}`,
+    idAndItem: `${item.id} / ${item.item ? item.item : '-'}`,
     asin: item.product.asin,
     storekeeper: item.storekeeper?.name,
     warehouses: item.destination?.name,

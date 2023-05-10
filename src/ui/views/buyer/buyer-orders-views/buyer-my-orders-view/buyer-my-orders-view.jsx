@@ -29,7 +29,6 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 import {SearchInput} from '@components/search-input'
-import {BuyerReadyForPaymentColumns} from '@components/table-columns/buyer/buyer-ready-for-payment-columns'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {toFixedWithDollarSign, toFixedWithYuanSign} from '@utils/text'
@@ -115,10 +114,6 @@ class BuyerMyOrdersViewRaw extends Component {
       imagesForLoad,
       paymentMethods,
       currentOrder,
-      // isReadyForPayment,
-
-      firstRowId,
-      rowHandlers,
       orderStatusDataBase,
 
       onClickHsCode,
@@ -130,9 +125,8 @@ class BuyerMyOrdersViewRaw extends Component {
       onTriggerOpenModal,
       onClickSaveSupplierBtn,
 
-      // setDataGridState,
+      setDataGridState,
       onColumnVisibilityModelChange,
-      setFirstRowId,
       onChangeSortingModel,
       onChangeFilterModel,
       // onSubmitCancelOrder,
@@ -258,20 +252,14 @@ class BuyerMyOrdersViewRaw extends Component {
                   }}
                   columnVisibilityModel={columnVisibilityModel}
                   density={densityModel}
-                  columns={
-                    // isReadyForPayment
-                    //   ?
-                    BuyerReadyForPaymentColumns(firstRowId, rowHandlers, columnMenuSettings)
-                    // : buyerMyOrdersViewColumns(firstRowId)
-                    // columnsModel
-                  }
+                  columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
                   onFilterModelChange={onChangeFilterModel}
                   onColumnVisibilityModelChange={onColumnVisibilityModelChange}
-                  onStateChange={setFirstRowId}
+                  onStateChange={setDataGridState}
                   onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
                 />
               </div>
