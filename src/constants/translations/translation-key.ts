@@ -1950,7 +1950,7 @@ export enum TranslationKey {
   'Or' = 'Or',
   'Calculated shipping cost' = 'Calculated shipping cost',
   'Actual shipping cost' = 'Actual shipping cost',
-  // '' = '',
+  'See comments' = 'See comments',
   // '' = '',
   // '' = '',
   // '' = '',

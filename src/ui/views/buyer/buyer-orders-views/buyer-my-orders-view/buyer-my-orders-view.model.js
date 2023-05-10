@@ -613,8 +613,6 @@ export class BuyerMyOrdersViewModel {
     //   columnVisibilityModel: this.columnVisibilityModel,
     // }
 
-    console.log('state', state)
-
     if (!state) {
       return
     }

@@ -160,6 +160,12 @@ class BuyerMyOrdersViewRaw extends Component {
 
     const payments = currentOrder && [...currentOrder.payments, ...validOrderPayments]
 
+    const isNoPaidedOrders = orderStatusDataBase.some(
+      status =>
+        Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
+        Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
+    )
+
     return (
       <React.Fragment>
         <Navbar
@@ -193,20 +199,21 @@ class BuyerMyOrdersViewRaw extends Component {
                 {paymentAmount?.totalPriceInYuan > 0 && (
                   <div className={classNames.totalPriceWrapper}>
                     <Typography className={classNames.totalPriceText}>
-                      {orderStatusDataBase.some(
-                        status =>
-                          Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
-                          Number(OrderStatusByKey[status]) ===
-                            Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
-                      )
+                      {isNoPaidedOrders
                         ? t(TranslationKey.Sum) + ':'
                         : t(TranslationKey['Payment to all suppliers']) + ':'}
                     </Typography>
                     <div className={classNames.totalPriceTextWrapper}>
                       <Typography className={cx(classNames.totalPriceText, classNames.totalPrice)}>
-                        {`${toFixedWithYuanSign(paymentAmount?.totalPriceInUSD * yuanToDollarRate, 2)} ${t(
-                          TranslationKey.Or,
-                        ).toLocaleLowerCase()} ${toFixedWithDollarSign(paymentAmount?.totalPriceInUSD, 2)}`}
+                        {`${toFixedWithYuanSign(
+                          isNoPaidedOrders
+                            ? paymentAmount?.totalPriceInUSD * yuanToDollarRate
+                            : paymentAmount?.totalPriceInYuan,
+                          2,
+                        )} ${t(TranslationKey.Or).toLocaleLowerCase()} ${toFixedWithDollarSign(
+                          paymentAmount?.totalPriceInUSD,
+                          2,
+                        )}`}
                       </Typography>
                     </div>
                   </div>
