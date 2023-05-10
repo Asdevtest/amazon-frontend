@@ -182,7 +182,7 @@ export const useClassNames = makeStyles()(theme => ({
   addBtn: {},
 
   addBoxTitle: {
-    marginBottom: '43px',
+    marginBottom: '10px',
     marginTop: '40px',
     color: theme.palette.text.general,
     fontSize: '18px',
@@ -190,8 +190,10 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
   },
   addBoxButtonWrapper: {
-    width: '229px',
     display: 'flex',
+
+    justifyContent: 'space-between',
+    alignItems: 'end',
   },
 
   addBoxButton: {
@@ -368,5 +370,18 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
 
     color: theme.palette.text.second,
+  },
+  seeCommentsButton: {
+    display: 'flex',
+    padding: '0 38px',
+
+    gap: 20,
+  },
+  seeCommentsText: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    // whiteSpace: 'nowrap',
   },
 }))
