@@ -210,7 +210,7 @@ class BuyerMyOrdersViewRaw extends Component {
                     </Typography>
                     <div className={classNames.totalPriceTextWrapper}>
                       <Typography className={cx(classNames.totalPriceText, classNames.totalPrice)}>
-                        {`${toFixedWithYuanSign(paymentAmount?.totalPriceInYuan, 2)} ${t(
+                        {`${toFixedWithYuanSign(paymentAmount?.totalPriceInUSD * yuanToDollarRate, 2)} ${t(
                           TranslationKey.Or,
                         ).toLocaleLowerCase()} ${toFixedWithDollarSign(paymentAmount?.totalPriceInUSD, 2)}`}
                       </Typography>

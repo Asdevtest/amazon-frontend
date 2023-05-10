@@ -19,9 +19,6 @@ import {SettingsModel} from '@models/settings-model'
 import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
-import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my-orders-columns'
-import {BuyerReadyForPaymentColumns} from '@components/table-columns/buyer/buyer-ready-for-payment-columns'
-
 // import {calcOrderTotalPrice} from '@utils/calculation'
 import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
@@ -548,11 +545,7 @@ export class BuyerMyOrdersViewModel {
   async onClickUpdataSupplierData({supplier, productId, orderFields}) {
     this.updateSupplierData = false
 
-    const result = await UserModel.getPlatformSettings()
-
-    runInAction(() => {
-      this.yuanToDollarRate = result.yuanToDollarRate
-    })
+    this.getPlatformSettings()
 
     try {
       supplier = {
@@ -725,6 +718,7 @@ export class BuyerMyOrdersViewModel {
       await this.setColumnsModel()
       this.getDataGridState()
       await this.getOrdersMy()
+      this.getPlatformSettings()
       this.getBuyersOrdersPaymentByStatus()
 
       this.setRequestStatus(loadingStatuses.success)
@@ -769,6 +763,19 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
+  async getPlatformSettings() {
+    try {
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.yuanToDollarRate = result.yuanToDollarRate
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async onClickOrder(orderId) {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
@@ -786,12 +793,7 @@ export class BuyerMyOrdersViewModel {
       })
       this.getBoxesOfOrder(orderId)
 
-      const result = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-      })
+      this.getPlatformSettings()
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
