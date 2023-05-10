@@ -303,13 +303,12 @@ export const BatchInfoModal = observer(
             />
 
             <Field
-              disabled
               label={t(TranslationKey['Actual shipping cost'])}
               classes={{disabled: classNames.disabled}}
               containerClasses={cx(classNames.sumField, classNames.shippinCostContainer)}
               inputClasses={cx(classNames.infoField, classNames.shippinCostContainer)}
               labelClasses={cx(classNames.subFieldLabel)}
-              value={batch.actualShippingCost}
+              defaultValue={batch.actualShippingCost}
             />
             {/* </div> */}
 
