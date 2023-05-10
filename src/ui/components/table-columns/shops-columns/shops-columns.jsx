@@ -35,7 +35,7 @@ export const shopsColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey['Warehouse report']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Warehouse report'])} />,
 
-    width: 350,
+    width: 249,
     renderCell: params => (
       <ShopsReportBtnsCell
         value={params.value}
@@ -50,7 +50,7 @@ export const shopsColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey['Dashboard by goods/days']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Dashboard by goods/days'])} />,
 
-    width: 350,
+    width: 247,
     renderCell: params => (
       <ShopsReportBtnsCell
         value={params.value}

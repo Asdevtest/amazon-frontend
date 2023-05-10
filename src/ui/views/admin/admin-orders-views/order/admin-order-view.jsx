@@ -53,8 +53,6 @@ export class AdminOrderViewRaw extends Component {
       history.goBack()
     }
 
-    console.log('order', order)
-
     return (
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />

@@ -114,6 +114,10 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.StorekeepersApi();
 let opts = {
+  'offset': 56, // Number | Отступ от первой записи получаемой в запросе
+  'limit': 56, // Number | Кол-во получаемых записей
+  'sortField': "sortField_example", // String | Название поля
+  'sortType': "sortType_example", // String | Тип сортировки
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1StorekeepersBoxesGet(opts).then((data) => {
@@ -129,6 +133,10 @@ apiInstance.apiV1StorekeepersBoxesGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **offset** | **Number**| Отступ от первой записи получаемой в запросе | [optional] 
+ **limit** | **Number**| Кол-во получаемых записей | [optional] 
+ **sortField** | **String**| Название поля | [optional] 
+ **sortType** | **String**| Тип сортировки | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

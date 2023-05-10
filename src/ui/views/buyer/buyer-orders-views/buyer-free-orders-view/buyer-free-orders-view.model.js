@@ -194,6 +194,8 @@ export class BuyerFreeOrdersViewModel {
         this.onTriggerOpenModal('showTwoVerticalChoicesModal')
       }
 
+      this.loadData()
+
       UserModel.getUserInfo()
     } catch (error) {
       this.warningTitle = t(TranslationKey['Not found'])

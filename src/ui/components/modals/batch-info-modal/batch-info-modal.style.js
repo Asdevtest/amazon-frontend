@@ -192,6 +192,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   infoWrapper: {
     display: 'flex',
+    justifyContent: 'space-between',
     alignItems: 'flex-end',
     gap: '10px',
     [theme.breakpoints.down(768)]: {
@@ -282,9 +283,14 @@ export const useClassNames = makeStyles()(theme => ({
 
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
-    width: '380px',
+    width: 266,
     height: 40,
     marginBottom: 10,
+
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+
     [theme.breakpoints.down(768)]: {
       width: '280px',
       height: 36,
@@ -316,10 +322,12 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
 
     fontWeight: 400,
-    fontSize: 14,
-    lineHeight: '19px',
+    fontSize: 12,
+    lineHeight: '16px',
 
-    whiteSpace: 'nowrap',
+    whiteSpace: 'pre-wrap',
+
+    marginBottom: '5px !important',
 
     [theme.breakpoints.down(768)]: {
       fontSize: '14px',
@@ -369,25 +377,32 @@ export const useClassNames = makeStyles()(theme => ({
     '-webkit-text-fill-color': `${theme.palette.text.second} !important`,
   },
   batchTitleField: {
-    width: 186,
+    width: '130px !important',
   },
-  batchNumberField: {
-    width: 100,
+  destinationField: {
+    width: '215px !important',
   },
-  tariffField: {
-    width: 230,
+  volumeWeightField: {
+    width: '116px !important',
   },
-  dstinationField: {
-    width: 190,
-  },
-
   methodField: {
-    width: 270,
+    width: '266px !important',
+  },
+  dividerField: {
+    width: '100px !important',
   },
   filesAndButtonWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
 
     marginTop: 20,
+  },
+  shippinCostContainer: {
+    width: '116px !important',
+  },
+
+  closeFieldsWrapper: {
+    display: 'flex',
+    gap: 15,
   },
 }))

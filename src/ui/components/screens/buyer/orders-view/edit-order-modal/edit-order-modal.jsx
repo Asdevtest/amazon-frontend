@@ -2,6 +2,7 @@
 import {cx} from '@emotion/css'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
+import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import {Box, Checkbox, InputAdornment, MenuItem, Paper, Select, TableCell, TableRow, Typography} from '@mui/material'
 
@@ -32,6 +33,7 @@ import {CheckQuantityForm} from '@components/forms/check-quantity-form'
 import {CreateBoxForm} from '@components/forms/create-box-form'
 import {PaymentMethodsForm} from '@components/forms/payment-methods-form'
 import {SupplierPaymentForm} from '@components/forms/supplier-payment-form'
+import {CommentsForm} from '@components/forms/сomments-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
@@ -128,6 +130,8 @@ export const EditOrderModal = observer(
     const [supplierPaymentModal, setSupplierPaymentModal] = useState(false)
 
     const [paymentMethodsModal, setPaymentMethodsModal] = useState(false)
+
+    const [commentModal, setCommentModalModal] = useState(false)
 
     const [tmpNewOrderFieldsState, setTmpNewOrderFieldsState] = useState({})
 
@@ -946,6 +950,11 @@ export const EditOrderModal = observer(
               >
                 {t(TranslationKey['Add a box'])}
               </Button>
+
+              <Button className={classNames.seeCommentsButton} onClick={() => setCommentModalModal(!commentModal)}>
+                <Typography className={classNames.seeCommentsText}>{t(TranslationKey['See comments'])}</Typography>
+                <VisibilityIcon className={classNames.seeCommentsIcon} />
+              </Button>
             </div>
           </div>
         )}
@@ -1177,6 +1186,10 @@ export const EditOrderModal = observer(
             onClickSaveButton={setOrderPayments}
             onClickCancelButton={() => setPaymentMethodsModal(!paymentMethodsModal)}
           />
+        </Modal>
+
+        <Modal missClickModalOn openModal={commentModal} setOpenModal={() => setCommentModalModal(!commentModal)}>
+          <CommentsForm /* comment={'Ayaya'} */ onCloseModal={() => setCommentModalModal(!commentModal)} />
         </Modal>
 
         <Modal

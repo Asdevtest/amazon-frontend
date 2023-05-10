@@ -61,7 +61,7 @@ export const styles = theme => ({
     margin: '10px 0 15px',
     display: 'flex',
 
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   },
   openArchiveBtn: {
     minWidth: 230,
@@ -77,6 +77,11 @@ export const styles = theme => ({
     '&:hover': {
       border: '1px solid #FF1616',
       opacity: 0.6,
+    },
+
+    '&:disabled': {
+      color: '#FEB9B9',
+      borderColor: '#FEB9B9',
     },
   },
   simpleBtnsWrapper: {
@@ -97,7 +102,7 @@ export const styles = theme => ({
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
 
-    borderBottom: '5px solid #0460DE',
+    borderBottom: theme.palette.other.tableActiveFilterBtn,
 
     color: `${theme.palette.primary.main} !important`,
   },
