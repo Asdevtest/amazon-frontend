@@ -1061,6 +1061,10 @@ export const styles = theme => ({
     width: '100%',
   },
 
+  tooltipWrapperMargin: {
+    marginRight: '-15px',
+  },
+
   downloadLink: {
     fontSize: 14,
     color: theme.palette.primary.main,
