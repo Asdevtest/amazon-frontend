@@ -21,6 +21,7 @@ import {
   getBatchWeightCalculationMethodsData,
 } from '@constants/batch-weight-calculations-method'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
@@ -37,6 +38,7 @@ import {
   calcVolumeWeightForBox,
   checkActualBatchWeightGreaterVolumeBatchWeight,
 } from '@utils/calculation'
+import {checkIsClient} from '@utils/checks'
 import {addOrEditBatchDataConverter} from '@utils/data-grid-data-converters'
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {formatDateWithoutTime} from '@utils/date-time'
@@ -48,6 +50,7 @@ import {useClassNames} from './add-or-edit-batch-form.style'
 
 export const AddOrEditBatchForm = observer(
   ({
+    userRole,
     boxesData,
     onClose,
     /* volumeWeightCoefficient,*/ onSubmit,
@@ -57,6 +60,8 @@ export const AddOrEditBatchForm = observer(
     progressValue,
   }) => {
     const {classes: classNames} = useClassNames()
+
+    const isClient = checkIsClient(UserRoleCodeMap[userRole])
 
     const [nameSearchValueBoxesToAddData, setNameSearchValueBoxesToAddData] = useState('')
 
@@ -98,7 +103,7 @@ export const AddOrEditBatchForm = observer(
 
     const sourceChosenBoxesBase = batchToEdit
       ? addOrEditBatchDataConverter(
-          batchToEdit.originalData?.boxes,
+          batchToEdit.originalData?.boxes.map(box => ({...box, storekeeper: batchToEdit.originalData?.storekeeper})),
           batchFields.volumeWeightDivide,
           getBatchWeightCalculationMethodForBox(
             batchFields.calculationMethod,
@@ -111,7 +116,7 @@ export const AddOrEditBatchForm = observer(
       : sourceBox
       ? [
           ...addOrEditBatchDataConverter(
-            [sourceBox],
+            [sourceBox].map(box => ({...box, storekeeper: sourceBox?.storekeeper})),
             batchFields.volumeWeightDivide,
             getBatchWeightCalculationMethodForBox(
               batchFields.calculationMethod,
@@ -351,8 +356,6 @@ export const AddOrEditBatchForm = observer(
       setSubmitIsClicked(true)
     }
 
-    // console.log('boxesToAddIds', boxesToAddIds)
-
     return (
       <div className={classNames.root}>
         <Typography className={classNames.modalTitle}>
@@ -502,7 +505,7 @@ export const AddOrEditBatchForm = observer(
                 boxShadow: '0px 2px 10px 2px #EBEBEB !important',
               }}
               rows={toJS(boxesToAddData)}
-              columns={addOrEditBatchFormColumns()}
+              columns={addOrEditBatchFormColumns(isClient)}
               rowHeight={100}
               selectionModel={boxesToAddIds}
               onSelectionModelChange={onSelectionAwaitingBoxes}
@@ -593,7 +596,7 @@ export const AddOrEditBatchForm = observer(
                 root: classNames.rootDataGrid,
               }}
               rows={chosenBoxes || []}
-              columns={addOrEditBatchFormColumns()}
+              columns={addOrEditBatchFormColumns(isClient)}
               rowHeight={100}
               onSelectionModelChange={onSelectionChoosenBoxes}
             />
