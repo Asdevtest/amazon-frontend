@@ -304,6 +304,7 @@ export const lightTheme = createTheme({
     },
 
     other: {
+      tableActiveFilterBtn: '5px solid #0460DE',
       ideaProductSheld: 'url(/assets/icons/idea-trgl.svg)',
     },
   },
@@ -758,6 +759,7 @@ export const darkTheme = createTheme({
       },
 
       other: {
+        tableActiveFilterBtn: '5px solid #4CA1DE',
         ideaProductSheld: 'url(/assets/icons/idea-trgl-dark-theme.svg)',
       },
     },
