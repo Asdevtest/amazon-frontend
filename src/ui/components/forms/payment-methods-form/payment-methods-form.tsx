@@ -37,11 +37,31 @@ export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = props => {
   const {payments, readOnly, onClickSaveButton, onClickCancelButton} = props
 
   const [childStates, setChildStates] = useState(
-    payments?.sort((a, b) => {
-      const titleA = typeof a !== 'undefined' && 'paymentMethod' in a ? a.paymentMethod?.title : a?.title
-      const titleB = typeof b !== 'undefined' && 'paymentMethod' in b ? b.paymentMethod?.title : b?.title
-      return titleA?.localeCompare(titleB)
-    }) || [],
+    payments
+      ?.sort((a, b) => {
+        const titleA = typeof a !== 'undefined' && 'paymentMethod' in a ? a.paymentMethod?.title : a?.title
+        const titleB = typeof b !== 'undefined' && 'paymentMethod' in b ? b.paymentMethod?.title : b?.title
+        return titleA?.localeCompare(titleB)
+      })
+      .sort((a, b) => {
+        if (
+          typeof a !== 'undefined' &&
+          'paymentMethod' in a &&
+          typeof b !== 'undefined' &&
+          'paymentMethod' in b &&
+          a.paymentMethod?._id &&
+          b.paymentMethod?._id
+        ) {
+          return 0
+        }
+        if (typeof a !== 'undefined' && 'paymentMethod' in a && a.paymentMethod?._id) {
+          return -1
+        }
+        if (typeof b !== 'undefined' && 'paymentMethod' in b && b.paymentMethod?._id) {
+          return 1
+        }
+        return 0
+      }) || [],
   )
 
   const handleChildStateChange = (index: number, newState: Payments) => {
