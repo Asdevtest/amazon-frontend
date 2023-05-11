@@ -28,7 +28,7 @@ export const styles = theme => ({
   },
   shortNavbarRoot: {
     paddingRight: 0,
-    width: 'unset',
+    width: '100%',
   },
 
   selectedIcon: {
