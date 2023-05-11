@@ -100,6 +100,8 @@ export const Chat: FC<Props> = observer(
 
     const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
+    console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
+
     const isGroupChat = chat.type === chatsType.GROUP
 
     const [focused, setFocused] = useState(false)
@@ -223,7 +225,7 @@ export const Chat: FC<Props> = observer(
             searchPhrase={searchPhrase}
           />
 
-          {isGroupChat && !chatRequestAndRequestProposal ? (
+          {isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0 ? (
             <div
               className={cx(classNames.hideAndShowIconWrapper, {[classNames.hideAndShowIcon]: showGroupSettings})}
               onClick={() => setShowGroupSettings(!showGroupSettings)}
