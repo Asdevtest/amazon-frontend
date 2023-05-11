@@ -14,7 +14,7 @@ import {
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const addOrEditBatchFormColumns = () => [
+export const addOrEditBatchFormColumns = isClient => [
   // {
   //   field: 'humanFriendlyId',
   //   headerName: t(TranslationKey.ID),
@@ -102,8 +102,19 @@ export const addOrEditBatchFormColumns = () => [
   {
     field: 'client',
     headerName: t(TranslationKey.Client),
-    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.client._id} />,
+    renderHeader: () => (
+      <MultilineTextHeaderCell text={isClient ? t(TranslationKey.Storekeeper) : t(TranslationKey.Client)} />
+    ),
+    renderCell: params => (
+      <UserLinkCell
+        blackText
+        name={isClient ? params.row.originalData?.storekeeper?.name : params.value}
+        userId={isClient ? params.row.originalData?.storekeeper?._id : params.row.originalData?.client?._id}
+      />
+    ),
     width: 160,
+    filterable: false,
+    sortable: false,
   },
 
   {
