@@ -1,8 +1,8 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {BoxStatus} from '@constants/box-status'
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {BoxStatus} from '@constants/statuses/box-status'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BoxesModel} from '@models/boxes-model'
@@ -11,7 +11,7 @@ import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
-import {clientBoxesNotificationsViewColumns} from '@components/table-columns/client/client-boxes-notifications-columns'
+import {clientBoxesNotificationsViewColumns} from '@components/table/table-columns/client/client-boxes-notifications-columns'
 
 import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'

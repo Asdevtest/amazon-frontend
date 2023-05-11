@@ -5,18 +5,18 @@ import React, {useEffect, useRef, useState} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {loadingStatuses} from '@constants/loading-statuses'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
-import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOrEditDestinationForm} from '@components/forms/add-or-edit-destination-form'
 import {AsinProxyCheckerForm} from '@components/forms/asin-proxy-checker-form'
-import {MemoDataGrid} from '@components/memo-data-grid'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
+import {Button} from '@components/shared/buttons/button'
+import {MemoDataGrid} from '@components/shared/memo-data-grid'
 import {Modal} from '@components/shared/modal'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'

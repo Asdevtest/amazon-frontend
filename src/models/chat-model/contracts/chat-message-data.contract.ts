@@ -1,8 +1,8 @@
 import {Type} from 'class-transformer'
 import {IsArray, IsNotEmpty, IsNumber, IsOptional, IsString} from 'class-validator'
 
-import {RequestProposalStatus} from '@constants/request-proposal-status'
-import {RequestStatus} from '@constants/request-status'
+import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
+import {RequestStatus} from '@constants/requests/request-status'
 
 import {TWebsocketChatService} from '@services/websocket-chat-service'
 

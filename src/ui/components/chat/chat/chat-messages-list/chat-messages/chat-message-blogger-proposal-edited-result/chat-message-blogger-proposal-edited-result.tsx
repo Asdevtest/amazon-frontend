@@ -5,17 +5,17 @@ import React, {FC, useContext} from 'react'
 
 import Linkify from 'react-linkify-always-blank'
 
-import {RequestProposalStatus} from '@constants/request-proposal-status'
+import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatMessageDataBloggerProposalResultEditedContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 import {UserModel} from '@models/user-model'
 
-import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value'
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {Field} from '@components/field'
+import {Button} from '@components/shared/buttons/button'
+import {CopyValue} from '@components/shared/copy-value'
+import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
+import {Field} from '@components/shared/field'
 
 import {formatDateOnlyTime} from '@utils/date-time'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'

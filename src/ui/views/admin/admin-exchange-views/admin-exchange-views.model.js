@@ -1,14 +1,14 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {ActiveSubCategoryTablesKeys} from '@constants/active-sub-category-tables-keys'
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {ProductStatus, ProductStatusByKey} from '@constants/product/product-status'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import {ActiveSubCategoryTablesKeys} from '@constants/table/active-sub-category-tables-keys'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {SettingsModel} from '@models/settings-model'
 
-import {exchangeProductsColumns} from '@components/table-columns/admin/exchange-columns'
+import {exchangeProductsColumns} from '@components/table/table-columns/admin/exchange-columns'
 
 import {adminProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'

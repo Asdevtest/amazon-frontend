@@ -7,28 +7,28 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
-} from '@constants/freelance-request-type'
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {ViewCartsBlock, ViewCartsLine} from '@constants/svg-icons'
-import {tableViewMode} from '@constants/table-view-modes'
+} from '@constants/statuses/freelance-request-type'
+import {tableViewMode} from '@constants/table/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {ServiceExchangeCard} from '@components/cards/service-exchange-card'
 import {ServiceExchangeCardList} from '@components/cards/service-exchange-card-list'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
+import {Appbar} from '@components/layout/appbar'
+import {Main} from '@components/layout/main'
+import {MainContent} from '@components/layout/main-content'
+import {Navbar} from '@components/layout/navbar'
 import {BigImagesModal} from '@components/modals/big-images-modal'
-import {Navbar} from '@components/navbar'
-import {SearchInput} from '@components/search-input'
-import {ToggleBtnGroupFreelance} from '@components/toggle-btn-group/toggle-btn-group'
-import {ToggleBtnFreelancer} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
+import {Button} from '@components/shared/buttons/button'
+import {ToggleBtnGroupFreelance} from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
+import {ToggleBtnFreelancer} from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import {SearchInput} from '@components/shared/search-input'
+import {ViewCartsBlock, ViewCartsLine} from '@components/shared/svg-icons'
 
 import {checkIsFreelancer} from '@utils/checks'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'

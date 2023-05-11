@@ -4,7 +4,7 @@ import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
+import {Button} from '@components/shared/buttons/button'
 import {Modal} from '@components/shared/modal'
 
 import {checkAndMakeAbsoluteUrl} from '@utils/text'

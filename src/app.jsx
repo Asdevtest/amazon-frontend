@@ -5,11 +5,10 @@ import {useEffect} from 'react'
 
 import {useFaviconNotification} from 'react-favicon-notification'
 
-import {MainNav} from '@navigation/main-nav'
-
 import '@styles/global.css'
 
-import {FallBack} from '@components/fall-back'
+import {FallBack} from '@components/layout/fall-back'
+import {MainNav} from '@components/layout/navigation/main-nav'
 
 const myFallback = <FallBack />
 

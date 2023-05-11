@@ -9,29 +9,32 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
+import {
+  RequestProposalStatus,
+  RequestProposalStatusColor,
+  RequestProposalStatusTranslate,
+} from '@constants/requests/request-proposal-status'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
-} from '@constants/freelance-request-type'
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {RequestProposalStatus, RequestProposalStatusColor} from '@constants/request-proposal-status'
-import {RequestProposalStatusTranslate} from '@constants/request-proposal-status'
-import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
+} from '@constants/statuses/freelance-request-type'
+import {tableSortMode, tableViewMode} from '@constants/table/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {MyProposalsListCard} from '@components/cards/my-proposals-list-card'
 import {RequestDesignerResultClientForm} from '@components/forms/request-designer-result-client-form'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
+import {Appbar} from '@components/layout/appbar'
+import {Main} from '@components/layout/main'
+import {MainContent} from '@components/layout/main-content'
+import {Navbar} from '@components/layout/navbar'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {Navbar} from '@components/navbar'
-import {SearchInput} from '@components/search-input'
-import {WithSearchSelect} from '@components/selects/with-search-select'
+import {Button} from '@components/shared/buttons/button'
 import {Modal} from '@components/shared/modal'
+import {SearchInput} from '@components/shared/search-input'
+import {WithSearchSelect} from '@components/shared/selects/with-search-select'
 
 import {checkIsFreelancer} from '@utils/checks'
 import {

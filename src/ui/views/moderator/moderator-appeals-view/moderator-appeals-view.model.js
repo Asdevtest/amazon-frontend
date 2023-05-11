@@ -1,6 +1,6 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import {UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
 
 import {UserModel} from '@models/user-model'
 

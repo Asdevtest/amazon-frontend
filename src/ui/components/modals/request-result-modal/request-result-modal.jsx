@@ -7,16 +7,16 @@ import {IconButton, Input, Link, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
-import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
+import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/statuses/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value'
-import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
-import {Field} from '@components/field'
+import {Button} from '@components/shared/buttons/button'
+import {CopyValue} from '@components/shared/copy-value'
+import {PhotoCarousel} from '@components/shared/custom-carousel/custom-carousel'
+import {Field} from '@components/shared/field'
 import {Modal} from '@components/shared/modal'
-import {UploadFilesInput} from '@components/upload-files-input'
-import {UploadFilesInputMini} from '@components/upload-files-input-mini'
+import {UploadFilesInput} from '@components/shared/upload-files-input'
+import {UploadFilesInputMini} from '@components/shared/upload-files-input-mini'
 
 import {t} from '@utils/translations'
 

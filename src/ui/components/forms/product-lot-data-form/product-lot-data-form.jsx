@@ -10,11 +10,11 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
 
-import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value'
-import {MemoDataGrid} from '@components/memo-data-grid'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
-import {SearchInput} from '@components/search-input'
+import {Button} from '@components/shared/buttons/button'
+import {CopyValue} from '@components/shared/copy-value'
+import {MemoDataGrid} from '@components/shared/memo-data-grid'
+import {SearchInput} from '@components/shared/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'

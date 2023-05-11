@@ -6,10 +6,10 @@ import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Input} from '@components/input'
-import {Table} from '@components/table'
-import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
+import {Button} from '@components/shared/buttons/button'
+import {Input} from '@components/shared/input'
+import {Table} from '@components/shared/table'
+import {TableHeadRow} from '@components/table/table-rows/batches-view/table-head-row'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {t} from '@utils/translations'

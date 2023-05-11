@@ -13,16 +13,16 @@ import React, {FC, ReactElement, useEffect, useState, KeyboardEvent, useContext}
 import {observer} from 'mobx-react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
-import {chatsType} from '@constants/chats'
-import {MemberPlus, Pencil} from '@constants/svg-icons'
-import {UiTheme} from '@constants/themes'
+import {chatsType} from '@constants/keys/chats'
+import {UiTheme} from '@constants/theme/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatContract} from '@models/chat-model/contracts'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 import {SettingsModel} from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
+import {Button} from '@components/shared/buttons/button'
+import {MemberPlus, Pencil} from '@components/shared/svg-icons'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'

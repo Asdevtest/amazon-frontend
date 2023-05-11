@@ -1,7 +1,7 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {FreelancerDashboardCardDataKey} from '@constants/dashboard-configs'
-import {loadingStatuses} from '@constants/loading-statuses'
+import {FreelancerDashboardCardDataKey} from '@constants/navigation/dashboard-configs'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 
 import {DashboardModel} from '@models/dashboard-model'
 import {ResearcherModel} from '@models/researcher-model'

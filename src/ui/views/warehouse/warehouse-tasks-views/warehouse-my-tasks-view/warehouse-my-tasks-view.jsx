@@ -7,34 +7,34 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {
   mapTaskOperationTypeKeyToEnum,
   TaskOperationType,
   taskOperationTypeTranslate,
-} from '@constants/task-operation-type'
+} from '@constants/task/task-operation-type'
 import {
   mapTaskPriorityStatusEnum,
   TaskPriorityStatus,
   taskPriorityStatusTranslate,
-} from '@constants/task-priority-status'
+} from '@constants/task/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
-import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {MemoDataGrid} from '@components/memo-data-grid'
+import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import {Appbar} from '@components/layout/appbar'
+import {Main} from '@components/layout/main'
+import {MainContent} from '@components/layout/main-content'
+import {Navbar} from '@components/layout/navbar'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comment-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Navbar} from '@components/navbar'
-import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
-import {EditTaskPriorityModal} from '@components/screens/warehouse/edit-task-priority-modal'
-import {SearchInput} from '@components/search-input'
+import {Button} from '@components/shared/buttons/button'
+import {MemoDataGrid} from '@components/shared/memo-data-grid'
 import {Modal} from '@components/shared/modal'
+import {SearchInput} from '@components/shared/search-input'
+import {EditTaskModal} from '@components/warehouse/edit-task-modal'
+import {EditTaskPriorityModal} from '@components/warehouse/edit-task-priority-modal'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'

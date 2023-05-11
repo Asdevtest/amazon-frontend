@@ -7,12 +7,12 @@ import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 
+import {UserRoleCodeMap} from '@constants/keys/user-roles'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
 
 // import {SettingsModel} from '@models/settings-model'
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
+import {Button} from '@components/shared/buttons/button'
+import {Field} from '@components/shared/field/field'
 
 import {checkIsResearcher} from '@utils/checks'
 import {t} from '@utils/translations'

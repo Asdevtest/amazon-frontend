@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
+import {UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
 import {AnnouncementsModel} from '@models/announcements-model'
 import {ChatModel} from '@models/chat-model'
@@ -12,7 +12,7 @@ import {RequestProposalModel} from '@models/request-proposal'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
-import {FreelancerFreelanceColumns} from '@views/freelancer/freelancer-freelance-columns'
+import {FreelancerFreelanceColumns} from '@components/table/table-columns/freelancer/freelancer-freelance-columns'
 
 import {freelancerServiceDetaildsDataConverter} from '@utils/data-grid-data-converters'
 import {toFixed} from '@utils/text'

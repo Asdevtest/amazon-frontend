@@ -9,8 +9,8 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
-import {EntryLeftPanel} from '@components/entry-left-panel'
-import {EntryRightPanel} from '@components/entry-right-panel'
+import {EntryLeftPanel} from '@components/auth/entry-left-panel'
+import {EntryRightPanel} from '@components/auth/entry-right-panel'
 import {AuthForm} from '@components/forms/auth-form'
 
 import {t} from '@utils/translations'

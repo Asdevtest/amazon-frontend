@@ -9,9 +9,9 @@ import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
-import {MemoDataGrid} from '@components/memo-data-grid'
+import {Button} from '@components/shared/buttons/button'
+import {Field} from '@components/shared/field/field'
+import {MemoDataGrid} from '@components/shared/memo-data-grid'
 
 import {calcTotalFbaForProduct, roundSafely} from '@utils/calculation'
 import {addIdDataConverter} from '@utils/data-grid-data-converters'

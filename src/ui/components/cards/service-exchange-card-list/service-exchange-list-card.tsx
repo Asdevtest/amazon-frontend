@@ -9,12 +9,12 @@ import Rating from '@mui/material/Rating'
 
 import React, {FC} from 'react'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
+import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CustomCarousel} from '@components/custom-carousel'
-import {UserLink} from '@components/user-link'
+import {Button} from '@components/shared/buttons/button'
+import {CustomCarousel} from '@components/shared/custom-carousel/custom-carousel'
+import {UserLink} from '@components/user/user-link'
 
 import {checkIsImageLink} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'

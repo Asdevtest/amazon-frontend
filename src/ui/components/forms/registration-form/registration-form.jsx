@@ -15,8 +15,8 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
+import {Button} from '@components/shared/buttons/button'
+import {Field} from '@components/shared/field'
 
 import {t} from '@utils/translations'
 import {validationMessagesArray} from '@utils/validation'

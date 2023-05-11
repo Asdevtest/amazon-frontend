@@ -1,7 +1,7 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {SupervisorDashboardCardDataKey} from '@constants/dashboard-configs'
-import {loadingStatuses} from '@constants/loading-statuses'
+import {SupervisorDashboardCardDataKey} from '@constants/navigation/dashboard-configs'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 
 import {DashboardModel} from '@models/dashboard-model'
 import {SupervisorModel} from '@models/supervisor-model'

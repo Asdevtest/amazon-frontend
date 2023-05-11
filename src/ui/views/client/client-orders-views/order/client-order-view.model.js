@@ -1,8 +1,8 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {routsPathes} from '@constants/routs-pathes'
+import {navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
+import {routsPathes} from '@constants/navigation/routs-pathes'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BoxesModel} from '@models/boxes-model'

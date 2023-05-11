@@ -5,9 +5,9 @@ import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
-import {UserLink} from '@components/user-link'
+import {RequestStatusCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
+import {Button} from '@components/shared/buttons/button'
+import {UserLink} from '@components/user/user-link'
 
 import {formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'

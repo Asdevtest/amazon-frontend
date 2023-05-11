@@ -3,7 +3,7 @@ import {Typography, Paper} from '@mui/material'
 
 import React from 'react'
 
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
+import {mapProductStrategyStatusEnum} from '@constants/product/product-strategy-status'
 
 import {toFixedWithDollarSign} from '@utils/text'
 

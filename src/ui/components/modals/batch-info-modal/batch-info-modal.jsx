@@ -9,25 +9,25 @@ import React, {useState, useEffect} from 'react'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
+import {UserRoleCodeMap} from '@constants/keys/user-roles'
 import {
   BatchWeightCalculationMethodTranslateKey,
   getBatchWeightCalculationMethodForBox,
-} from '@constants/batch-weight-calculations-method'
+} from '@constants/statuses/batch-weight-calculations-method'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {OtherModel} from '@models/other-model'
 
-import {Button} from '@components/buttons/button'
-import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {PhotoAndFilesCarouselMini} from '@components/custom-carousel/custom-carousel'
-import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
-import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar'
-import {Field} from '@components/field/field'
+import {UserLinkCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
+import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import {BoxViewForm} from '@components/forms/box-view-form'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {SearchInput} from '@components/search-input'
+import {Button} from '@components/shared/buttons/button'
+import {CircularProgressWithLabel} from '@components/shared/circular-progress-with-label'
+import {PhotoAndFilesCarouselMini} from '@components/shared/custom-carousel/custom-carousel'
+import {Field} from '@components/shared/field/field'
+import {MemoDataGrid} from '@components/shared/memo-data-grid'
 import {Modal} from '@components/shared/modal'
+import {SearchInput} from '@components/shared/search-input'
 
 import {
   calcActualBatchWeight,

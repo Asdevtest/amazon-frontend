@@ -1,9 +1,9 @@
 import {action, makeAutoObservable, reaction, runInAction} from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {privateRoutesConfigs} from '@constants/routes'
+import {UserRoleCodeMap} from '@constants/keys/user-roles'
+import {privateRoutesConfigs} from '@constants/navigation/routes'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'

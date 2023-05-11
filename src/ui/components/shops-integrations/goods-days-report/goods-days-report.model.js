@@ -1,14 +1,14 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SellerBoardModel} from '@models/seller-board-model'
 import {SettingsModel} from '@models/settings-model'
 import {ShopModel} from '@models/shop-model'
 
-import {clientLast30DaySellerBoardColumns} from '@components/table-columns/client/client-last-30-day-seller-board-columns copy'
+import {clientLast30DaySellerBoardColumns} from '@components/table/table-columns/client/client-last-30-day-seller-board-columns copy'
 
 import {addIdDataConverter, stockReportDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'

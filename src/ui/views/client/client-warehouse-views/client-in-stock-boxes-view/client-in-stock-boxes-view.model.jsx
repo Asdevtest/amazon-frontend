@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {BoxStatus} from '@constants/box-status'
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {operationTypes} from '@constants/operation-types'
-import {TaskOperationType} from '@constants/task-operation-type'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {operationTypes} from '@constants/keys/operation-types'
+import {BoxStatus} from '@constants/statuses/box-status'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import {TaskOperationType} from '@constants/task/task-operation-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
@@ -18,7 +18,7 @@ import {ShopModel} from '@models/shop-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
-import {clientBoxesViewColumns} from '@components/table-columns/client/client-boxes-columns'
+import {clientBoxesViewColumns} from '@components/table/table-columns/client/client-boxes-columns'
 
 import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'

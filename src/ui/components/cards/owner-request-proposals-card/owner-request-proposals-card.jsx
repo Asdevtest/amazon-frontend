@@ -8,13 +8,13 @@ import {
   RequestProposalStatus,
   RequestProposalStatusColor,
   RequestProposalStatusTranslate,
-} from '@constants/request-proposal-status'
-import {RequestStatus} from '@constants/request-status'
+} from '@constants/requests/request-proposal-status'
+import {RequestStatus} from '@constants/requests/request-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
-import {UserLink} from '@components/user-link'
+import {Button} from '@components/shared/buttons/button'
+import {PhotoCarousel} from '@components/shared/custom-carousel/custom-carousel'
+import {UserLink} from '@components/user/user-link'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {minsToTime, toFixedWithDollarSign} from '@utils/text'

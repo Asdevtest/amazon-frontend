@@ -2,8 +2,8 @@ import {plainToInstance} from 'class-transformer'
 import {transformAndValidate} from 'class-transformer-validator'
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {BACKEND_API_URL} from '@constants/env'
-import {snackNoticeKey} from '@constants/snack-notifications'
+import {BACKEND_API_URL} from '@constants/keys/env'
+import {snackNoticeKey} from '@constants/keys/snack-notifications'
 import {noticeSound} from '@constants/sounds.js'
 
 import {OtherModel} from '@models/other-model'

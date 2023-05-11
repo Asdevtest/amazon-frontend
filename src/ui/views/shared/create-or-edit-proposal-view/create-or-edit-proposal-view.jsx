@@ -4,17 +4,17 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {CreateOrEditProposalContent} from '@components/contents/create-or-edit-proposal-content'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
+import {Appbar} from '@components/layout/appbar'
+import {Main} from '@components/layout/main'
+import {MainContent} from '@components/layout/main-content'
+import {Navbar} from '@components/layout/navbar'
 import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Navbar} from '@components/navbar'
+import {Button} from '@components/shared/buttons/button'
 
 import {t} from '@utils/translations'
 

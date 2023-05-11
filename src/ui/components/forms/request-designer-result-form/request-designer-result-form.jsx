@@ -16,14 +16,14 @@ import {nanoid} from 'nanoid'
 import {DndProvider, useDrag, useDrop} from 'react-dnd'
 import {HTML5Backend, NativeTypes} from 'react-dnd-html5-backend'
 
-import {BigPlus, CrossInRectangleIcon, PhotoCameraWithPlus} from '@constants/svg-icons'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
-import {Input} from '@components/input'
 import {BigObjectImagesModal} from '@components/modals/big-object-images-modal'
+import {Button} from '@components/shared/buttons/button'
+import {Field} from '@components/shared/field'
+import {Input} from '@components/shared/input'
 import {Modal} from '@components/shared/modal'
+import {BigPlus, CrossInRectangleIcon, PhotoCameraWithPlus} from '@components/shared/svg-icons'
 
 import {checkIsImageLink} from '@utils/checks'
 import {getFileNameFromUrl} from '@utils/get-file-name-from-url'

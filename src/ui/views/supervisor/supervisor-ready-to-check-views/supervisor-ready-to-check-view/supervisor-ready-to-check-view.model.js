@@ -1,11 +1,11 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
+import {ProductStatus, ProductStatusByKey} from '@constants/product/product-status'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 
 import {SupervisorModel} from '@models/supervisor-model'
 
-import {depersonalizedPickColumns} from '@components/table-columns/depersonalized-pick-columns'
+import {depersonalizedPickColumns} from '@components/table/table-columns/depersonalized-pick-columns'
 
 import {depersonalizedPickDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'

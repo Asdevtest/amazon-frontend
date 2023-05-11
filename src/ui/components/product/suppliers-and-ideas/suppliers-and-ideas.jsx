@@ -6,16 +6,16 @@ import React, {useEffect, useRef, useState} from 'react'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
+import {UserRoleCodeMap} from '@constants/keys/user-roles'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {SettingsModel} from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
 import {IdeaViewAndEditCard} from '@components/cards/idea-view-and-edit-card'
-import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
+import {Button} from '@components/shared/buttons/button'
+import {CircularProgressWithLabel} from '@components/shared/circular-progress-with-label'
 import {Modal} from '@components/shared/modal'
 
 import {checkIsBuyer, checkIsClient} from '@utils/checks'

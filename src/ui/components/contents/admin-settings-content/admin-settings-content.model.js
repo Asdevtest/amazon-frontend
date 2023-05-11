@@ -1,7 +1,7 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {AdministratorModel} from '@models/administrator-model'
@@ -9,7 +9,7 @@ import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
-import {destinationsColumns} from '@components/table-columns/admin/destinations-columns'
+import {destinationsColumns} from '@components/table/table-columns/admin/destinations-columns'
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'

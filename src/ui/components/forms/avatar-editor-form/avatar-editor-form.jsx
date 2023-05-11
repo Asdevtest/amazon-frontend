@@ -5,13 +5,13 @@ import React, {useState} from 'react'
 
 import Avatar from 'react-avatar-edit'
 
-import {UiTheme} from '@constants/themes'
+import {UiTheme} from '@constants/theme/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
+import {Button} from '@components/shared/buttons/button'
 
 import {t} from '@utils/translations'
 

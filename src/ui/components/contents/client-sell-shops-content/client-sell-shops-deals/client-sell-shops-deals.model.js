@@ -1,8 +1,8 @@
 import {makeAutoObservable, toJS} from 'mobx'
 
-import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
-import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
+import {UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
+import {tableViewMode, tableSortMode} from '@constants/table/table-view-modes'
+import {ViewTableModeStateKeys} from '@constants/table/view-table-mode-state-keys'
 
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'

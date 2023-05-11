@@ -6,14 +6,19 @@ import {useState} from 'react'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
-import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByKey, OrderStatusTranslate} from '@constants/order-status'
-import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
+import {inchesCoefficient, sizesType} from '@constants/configs/sizes-settings'
+import {
+  getOrderStatusOptionByCode,
+  OrderStatus,
+  OrderStatusByKey,
+  OrderStatusTranslate,
+} from '@constants/statuses/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
-import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
-import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
+import {Button} from '@components/shared/buttons/button'
+import {ToggleBtnGroup} from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
+import {ToggleBtn} from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import {Field} from '@components/shared/field'
 
 import {roundSafely} from '@utils/calculation'
 import {checkIsPositiveNum} from '@utils/checks'

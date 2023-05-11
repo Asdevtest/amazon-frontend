@@ -6,12 +6,12 @@ import React from 'react'
 
 import {observer} from 'mobx-react'
 
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
-import {productStatusButtonsConfigs} from '@constants/product-status-buttons-configs'
+import {ProductStatus, ProductStatusByKey} from '@constants/product/product-status'
+import {productStatusButtonsConfigs} from '@constants/product/product-status-buttons-configs'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
+import {Button} from '@components/shared/buttons/button'
+import {Field} from '@components/shared/field'
 
 import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {

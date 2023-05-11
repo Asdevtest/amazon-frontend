@@ -1,7 +1,7 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {RequestSubType, RequestType} from '@constants/request-type'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import {UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
+import {RequestSubType, RequestType} from '@constants/requests/request-type'
 
 import {RequestProposalModel} from '@models/request-proposal'
 import {UserModel} from '@models/user-model'

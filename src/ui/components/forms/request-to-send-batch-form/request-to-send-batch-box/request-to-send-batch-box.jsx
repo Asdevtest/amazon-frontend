@@ -5,9 +5,9 @@ import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value/copy-value'
 import {BoxViewForm} from '@components/forms/box-view-form'
+import {Button} from '@components/shared/buttons/button'
+import {CopyValue} from '@components/shared/copy-value/copy-value'
 import {Modal} from '@components/shared/modal'
 
 import {calcVolumeWeightForBox, calcFinalWeightForBox, calculateDeliveryCostPerPcs} from '@utils/calculation'

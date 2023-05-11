@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {OtherModel} from '@models/other-model'
@@ -11,7 +11,7 @@ import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
-import {warehouseVacantTasksViewColumns} from '@components/table-columns/warehouse/vacant-tasks-columns'
+import {warehouseVacantTasksViewColumns} from '@components/table/table-columns/warehouse/vacant-tasks-columns'
 
 import {isStringInArray} from '@utils/checks'
 import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'

@@ -1,9 +1,9 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {BatchStatus} from '@constants/batch-status'
-import {BoxStatus} from '@constants/box-status'
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {BatchStatus} from '@constants/statuses/batch-status'
+import {BoxStatus} from '@constants/statuses/box-status'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
@@ -13,7 +13,7 @@ import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
-import {clientBatchesViewColumns} from '@components/table-columns/client/client-batches-columns'
+import {clientBatchesViewColumns} from '@components/table/table-columns/client/client-batches-columns'
 
 import {warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'

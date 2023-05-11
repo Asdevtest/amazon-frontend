@@ -3,7 +3,7 @@ import {Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
-import {Button} from '@components/buttons/button'
+import {Button} from '@components/shared/buttons/button'
 import {Modal} from '@components/shared/modal'
 
 import {useClassNames} from './confirmation-modal.style'

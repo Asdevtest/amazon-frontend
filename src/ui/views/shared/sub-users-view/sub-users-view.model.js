@@ -1,9 +1,9 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {UserRole, UserRoleCodeMap} from '@constants/keys/user-roles'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 import {BuyerModel} from '@models/buyer-model'
 import {ClientModel} from '@models/client-model'
@@ -14,7 +14,7 @@ import {ShopModel} from '@models/shop-model'
 import {SupervisorModel} from '@models/supervisor-model'
 import {UserModel} from '@models/user-model'
 
-import {subUsersColumns} from '@components/table-columns/sub-users-columns/sub-users-columns'
+import {subUsersColumns} from '@components/table/table-columns/sub-users-columns/sub-users-columns'
 
 import {addIdDataConverter, clientInventoryDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'

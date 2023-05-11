@@ -5,15 +5,15 @@ import {Typography, Select, Input, InputAdornment, MenuItem} from '@mui/material
 
 import React, {useEffect, useState} from 'react'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
+import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {NewDatePicker, DatePickerTime} from '@components/date-picker/date-picker'
-import {Field} from '@components/field'
-import {UploadFilesInputMini} from '@components/upload-files-input-mini'
+import {Button} from '@components/shared/buttons/button'
+import {CircularProgressWithLabel} from '@components/shared/circular-progress-with-label'
+import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
+import {NewDatePicker, DatePickerTime} from '@components/shared/date-picker/date-picker'
+import {Field} from '@components/shared/field'
+import {UploadFilesInputMini} from '@components/shared/upload-files-input-mini'
 
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'

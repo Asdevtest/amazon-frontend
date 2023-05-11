@@ -1,11 +1,11 @@
 import {transformAndValidate} from 'class-transformer-validator'
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
-import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
-import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import {OrderStatus, OrderStatusByKey} from '@constants/statuses/order-status'
+import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task/task-operation-type'
+import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task/task-status'
 
 import {BoxesModel} from '@models/boxes-model'
 import {BoxesWarehouseUpdateBoxInTaskContract} from '@models/boxes-model/boxes-model.contracts'
@@ -14,7 +14,7 @@ import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
-import {warehouseMyTasksViewColumns} from '@components/table-columns/warehouse/my-tasks-columns'
+import {warehouseMyTasksViewColumns} from '@components/table/table-columns/warehouse/my-tasks-columns'
 
 import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'

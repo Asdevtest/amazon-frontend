@@ -5,8 +5,8 @@ import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
+import {Button} from '@components/shared/buttons/button'
+import {Field} from '@components/shared/field'
 
 import {checkIsPositiveNum} from '@utils/checks'
 import {t} from '@utils/translations'

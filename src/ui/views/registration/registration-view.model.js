@@ -1,7 +1,7 @@
 import {transformAndValidate} from 'class-transformer-validator'
 import {action, makeAutoObservable, reaction, runInAction} from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
