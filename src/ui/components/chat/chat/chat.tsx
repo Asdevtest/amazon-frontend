@@ -223,7 +223,7 @@ export const Chat: FC<Props> = observer(
             searchPhrase={searchPhrase}
           />
 
-          {isGroupChat && !chatRequestAndRequestProposal ? (
+          {isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0 ? (
             <div
               className={cx(classNames.hideAndShowIconWrapper, {[classNames.hideAndShowIcon]: showGroupSettings})}
               onClick={() => setShowGroupSettings(!showGroupSettings)}
