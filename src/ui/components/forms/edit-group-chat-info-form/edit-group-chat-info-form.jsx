@@ -85,6 +85,7 @@ export const EditGroupChatInfoForm = ({onSubmit, onCloseModal, chat}) => {
           <div className={classNames.mainWrapper}>
             <div className={classNames.avatarWrapper}>
               <Avatar
+                exportAsSquare
                 width={320}
                 height={210}
                 imageWidth={320}
