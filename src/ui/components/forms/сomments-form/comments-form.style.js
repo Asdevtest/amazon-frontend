@@ -17,10 +17,15 @@ export const useClassNames = makeStyles()(theme => ({
 
   сommentsTextWrapper: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'start',
+    gap: 15,
 
     maxHeight: 150,
     overflowY: 'auto',
+
+    whiteSpace: 'pre-line',
+    wordBreak: 'break-word',
   },
 
   сommentsTitle: {
