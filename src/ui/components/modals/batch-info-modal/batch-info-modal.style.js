@@ -81,7 +81,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   sumField: {
-    width: 'min-content',
+    width: 'min-content !important',
     marginBottom: '10px !important',
   },
 
