@@ -91,7 +91,7 @@ const Slot = ({
 
   return (
     <div key={slot._id} ref={drop}>
-      <div ref={drag} style={{opacity}} className={classNames.imageObjWrapper}>
+      <div style={{opacity}} className={classNames.imageObjWrapper}>
         <Tooltip
           arrow
           title={getFileNameFromUrl(typeof slot.image === 'string' ? slot.image : slot.image?.file.name)?.fullName}
@@ -100,6 +100,7 @@ const Slot = ({
           TransitionProps={{timeout: 300}}
         >
           <div
+            ref={drag}
             className={cx(
               classNames.imageWrapper,
 
