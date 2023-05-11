@@ -34,7 +34,7 @@ import {useClassNames} from './custom-carousel.style'
 export const RIGHT_BLOCK_WIDTH = 100
 
 export const CustomCarousel = observer(
-  ({children, title, view = 'simple', alignButtons = 'center', index, onChangeIndex}) => {
+  ({children, title, view = 'simple', alignButtons = 'center', index, onChangeIndex, arrowSize}) => {
     const {classes: classNames} = useClassNames()
     const [clides, setClides] = useState([])
     const [offset, setOffset] = useState(index ? -RIGHT_BLOCK_WIDTH * index : 0)
@@ -121,7 +121,11 @@ export const CustomCarousel = observer(
             <div className={classNames.buttonDocumentsWrapper}>
               {alignButtons === 'center' ? (
                 <ArrowLeftIcon
-                  style={{cursor: offset === 0 ? 'initial' : 'pointer', width: '40px', height: '40px'}}
+                  style={{
+                    cursor: offset === 0 ? 'initial' : 'pointer',
+                    width: arrowSize ?? '40px',
+                    height: arrowSize ?? '40px',
+                  }}
                   // color={offset === 0 ? 'disabled' : 'primary'}
                   className={cx(classNames.arrowIcon, {[classNames.arrowDisabledIcon]: offset === 0})}
                   onClick={handleLeftArrowClick}
@@ -137,8 +141,8 @@ export const CustomCarousel = observer(
                 <ArrowRightIcon
                   style={{
                     cursor: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100 ? 'initial' : 'pointer',
-                    width: '40px',
-                    height: '40px',
+                    width: arrowSize ?? '40px',
+                    height: arrowSize ?? '40px',
                   }}
                   // color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
                   className={cx(classNames.arrowIcon, {

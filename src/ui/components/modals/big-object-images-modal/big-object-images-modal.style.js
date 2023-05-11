@@ -6,11 +6,14 @@ export const useClassNames = makeStyles()(theme => ({
     // height: '80vh',
     display: 'flex',
     justifyContent: 'space-between',
-    // alignItems: 'flex-end',
+    gap: '30px',
+    alignItems: 'flex-start',
   },
 
   carouselWrapper: {
     width: 720,
+    height: 'fit-content',
+    marginTop: 'auto',
   },
 
   imageModalImageWrapper: {
@@ -19,23 +22,28 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    height: 'auto',
+    height: 'fit-content !important',
+    marginBottom: '20px',
     gap: 10,
   },
 
   leftImagesWrapper: {
-    height: 630,
+    height: 565,
     overflowY: 'auto',
     minWidth: 220,
     display: 'flex',
     flexDirection: 'column',
-    alignSelf: 'flex-end',
+    // alignSelf: "flex-end",
+    // marginBottom: "78px"
+    marginTop: '58px',
   },
 
   leftImagesSubWrapper: {
     marginTop: 'auto',
+    marginBottom: 'auto',
     display: 'flex',
     flexDirection: 'column',
+    gap: 10,
   },
 
   imageModalSubWrapper: {
@@ -52,16 +60,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imageModalSubWrapperRightSide: {
-    // alignItems: 'flex-end',
+    // alignItems: "flex-end",
     display: 'flex',
+    marginTop: '580px',
     // flexDirection: 'column',
     // justifyContent: 'flex-end',
-
+    marginLeft: 20,
     gap: 20,
-
-    position: 'absolute',
-    bottom: 30,
-    right: 30,
   },
 
   imageModalImageWrapperLeftSide: {
@@ -72,7 +77,6 @@ export const useClassNames = makeStyles()(theme => ({
     height: 'auto',
     gap: 10,
 
-    marginBottom: 10,
     cursor: 'pointer',
     transition: '.3s ease',
 
@@ -88,7 +92,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   imageModalImage: {
     width: 560,
-    height: 560,
+    height: 565,
     objectFit: 'contain',
     objectPosition: 'center',
   },
@@ -114,7 +118,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   titleName: {
-    marginBottom: 35,
+    marginBottom: 25,
     minHeight: 20,
   },
 
