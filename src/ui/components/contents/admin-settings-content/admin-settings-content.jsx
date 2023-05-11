@@ -15,9 +15,9 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {AddOrEditDestinationForm} from '@components/forms/add-or-edit-destination-form'
 import {AsinProxyCheckerForm} from '@components/forms/asin-proxy-checker-form'
 import {MemoDataGrid} from '@components/memo-data-grid'
-import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
+import {Modal} from '@components/shared/modal'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'

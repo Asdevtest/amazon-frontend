@@ -12,7 +12,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {DateMonthYearPicker} from '@components/date-picker/date-picker'
 import {Field} from '@components/field/field'
 import {Input} from '@components/input'
-import {Modal} from '@components/modal'
+import {Modal} from '@components/shared/modal'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatDateMonthYear, sortObjectsArrayByFiledDate} from '@utils/date-time'

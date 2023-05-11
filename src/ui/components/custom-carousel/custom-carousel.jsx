@@ -21,8 +21,8 @@ import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
 import {ImageEditForm} from '@components/forms/image-edit-form'
-import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
+import {Modal} from '@components/shared/modal'
 
 import {checkIsImageLink} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'

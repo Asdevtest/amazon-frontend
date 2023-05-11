@@ -27,11 +27,11 @@ import {MyProposalsListCard} from '@components/cards/my-proposals-list-card'
 import {RequestDesignerResultClientForm} from '@components/forms/request-designer-result-client-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
 import {WithSearchSelect} from '@components/selects/with-search-select'
+import {Modal} from '@components/shared/modal'
 
 import {checkIsFreelancer} from '@utils/checks'
 import {

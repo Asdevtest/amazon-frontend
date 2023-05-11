@@ -9,7 +9,7 @@ import {Button} from '@components/buttons/button'
 // import React, {useEffect, useState} from 'react'
 import {CustomCarousel} from '@components/custom-carousel'
 import {ImageZoomForm} from '@components/forms/image-zoom-form'
-import {Modal} from '@components/modal'
+import {Modal} from '@components/shared/modal'
 
 import {checkIsImageLink} from '@utils/checks'
 import {getShortenStringIfLongerThanCount} from '@utils/text'

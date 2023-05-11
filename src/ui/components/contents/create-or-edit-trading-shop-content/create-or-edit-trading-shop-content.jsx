@@ -9,7 +9,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {EstimateCreateTradingShopForm} from '@components/forms/estimate-create-trading-shop-form'
-import {Modal} from '@components/modal'
+import {Modal} from '@components/shared/modal'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'

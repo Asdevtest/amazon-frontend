@@ -4,7 +4,7 @@ import React, {useState, useEffect} from 'react'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
-import {Modal} from '@components/modal'
+import {Modal} from '@components/shared/modal'
 
 import {useClassNames} from './confirmation-with-comment-modal.style'
 

@@ -15,9 +15,9 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
-import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
+import {Modal} from '@components/shared/modal'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'

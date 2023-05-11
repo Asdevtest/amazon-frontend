@@ -17,8 +17,8 @@ import {DashboardOneLineCardsList} from '@components/dashboards/dashboard-one-li
 import {AddOrEditDestinationForm} from '@components/forms/add-or-edit-destination-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
+import {Modal} from '@components/shared/modal'
 import {UserLink} from '@components/user-link'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'

@@ -26,8 +26,8 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {Field} from '@components/field/field'
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {MemoDataGrid} from '@components/memo-data-grid'
-import {Modal} from '@components/modal'
 import {SearchInput} from '@components/search-input'
+import {Modal} from '@components/shared/modal'
 
 import {
   calcActualBatchWeight,

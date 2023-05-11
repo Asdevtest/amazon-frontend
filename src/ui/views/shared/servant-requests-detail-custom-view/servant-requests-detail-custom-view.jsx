@@ -16,13 +16,13 @@ import {RequestDesignerResultClientForm} from '@components/forms/request-designe
 import {RequestDesignerResultForm} from '@components/forms/request-designer-result-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {RequestResultModal} from '@components/modals/request-result-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {CustomSearchRequestDetails} from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 import {ServantGeneralRequestInfo} from '@components/requests-and-request-proposals/servant-general-request-info'
+import {Modal} from '@components/shared/modal'
 
 import {t} from '@utils/translations'
 

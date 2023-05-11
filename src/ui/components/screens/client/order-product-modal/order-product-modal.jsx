@@ -9,8 +9,8 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CommentOfSbCell} from '@components/data-grid-cells/data-grid-cells'
-import {Modal} from '@components/modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
+import {Modal} from '@components/shared/modal'
 import {OrderModalBodyRow} from '@components/table-rows/client/inventory/order-product-modal/order-modal-body-row'
 
 import {calcProductsPriceWithDelivery} from '@utils/calculation'

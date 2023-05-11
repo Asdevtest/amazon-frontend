@@ -3,7 +3,7 @@ import {Typography} from '@mui/material'
 import React, {useEffect} from 'react'
 
 import {Button} from '@components/buttons/button'
-import {Modal} from '@components/modal'
+import {Modal} from '@components/shared/modal'
 
 import {useClassNames} from './success-info-modal.style'
 

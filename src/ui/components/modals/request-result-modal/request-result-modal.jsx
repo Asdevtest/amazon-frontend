@@ -14,7 +14,7 @@ import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
-import {Modal} from '@components/modal'
+import {Modal} from '@components/shared/modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 import {UploadFilesInputMini} from '@components/upload-files-input-mini'
 

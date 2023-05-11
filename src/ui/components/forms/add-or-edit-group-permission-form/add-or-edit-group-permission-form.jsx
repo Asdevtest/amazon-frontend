@@ -13,7 +13,7 @@ import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-r
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
-import {Modal} from '@components/modal'
+import {Modal} from '@components/shared/modal'
 
 import {checkIsPositiveNum} from '@utils/checks'
 import {t} from '@utils/translations'

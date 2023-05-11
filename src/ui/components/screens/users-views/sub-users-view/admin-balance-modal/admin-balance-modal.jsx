@@ -7,7 +7,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
-import {Modal} from '@components/modal'
+import {Modal} from '@components/shared/modal'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {t} from '@utils/translations'

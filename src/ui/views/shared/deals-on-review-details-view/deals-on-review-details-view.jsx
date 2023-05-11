@@ -11,8 +11,8 @@ import {RequestProposalAcceptOrRejectResultForm} from '@components/forms/request
 import {RequestProposalResultToCorrectForm} from '@components/forms/request-proposal-result-to-correct-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
+import {Modal} from '@components/shared/modal'
 
 import {t} from '@utils/translations'
 

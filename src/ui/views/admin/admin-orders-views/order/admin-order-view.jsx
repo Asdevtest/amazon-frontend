@@ -10,10 +10,10 @@ import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content'
 import {OrderContent} from '@components/screens/orders-view/order-content'
+import {Modal} from '@components/shared/modal'
 
 import {t} from '@utils/translations'
 

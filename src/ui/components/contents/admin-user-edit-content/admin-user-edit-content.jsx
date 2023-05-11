@@ -20,7 +20,7 @@ import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {AddOrEditUserPermissionsForm} from '@components/forms/add-or-edit-user-permissions-form'
 import {Input} from '@components/input'
-import {Modal} from '@components/modal'
+import {Modal} from '@components/shared/modal'
 import {UserLink} from '@components/user-link'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail} from '@utils/checks'

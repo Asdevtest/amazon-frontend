@@ -28,7 +28,6 @@ import {ProductLotDataForm} from '@components/forms/product-lot-data-form/produc
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
-import {Modal} from '@components/modal'
 import {AddSuppliersModal} from '@components/modals/add-suppliers-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
@@ -44,6 +43,7 @@ import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-sup
 import {OrderProductModal} from '@components/screens/client/order-product-modal'
 import {SearchInput} from '@components/search-input'
 import {WithSearchSelect} from '@components/selects/with-search-select'
+import {Modal} from '@components/shared/modal'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'

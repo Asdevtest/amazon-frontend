@@ -12,8 +12,8 @@ import {Button} from '@components/buttons/button'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {MemoDataGrid} from '@components/memo-data-grid'
-import {Modal} from '@components/modal'
 import {AdminBalanceModal} from '@components/screens/users-views/sub-users-view/admin-balance-modal'
+import {Modal} from '@components/shared/modal'
 
 import {t} from '@utils/translations'
 

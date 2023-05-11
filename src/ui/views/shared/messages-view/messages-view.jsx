@@ -21,11 +21,11 @@ import {AddUsersToGroupChatForm} from '@components/forms/add-users-to-group-chat
 import {EditGroupChatInfoForm} from '@components/forms/edit-group-chat-info-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {SearchInput} from '@components/search-input'
 import {SearchResult} from '@components/search-result'
+import {Modal} from '@components/shared/modal'
 
 import {checkIsResearcher} from '@utils/checks'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'

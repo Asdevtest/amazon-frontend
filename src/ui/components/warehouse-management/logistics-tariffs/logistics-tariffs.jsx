@@ -14,8 +14,8 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {AddOrEditDestinationForm} from '@components/forms/add-or-edit-destination-form'
 import {AddOrEditLogisticTariffForm} from '@components/forms/add-or-edit-logistic-tariff-form'
 import {MemoDataGrid} from '@components/memo-data-grid'
-import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {Modal} from '@components/shared/modal'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'

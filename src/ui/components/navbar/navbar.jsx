@@ -19,9 +19,9 @@ import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {SettingsModel} from '@models/settings-model'
 
-import {Modal} from '@components/modal'
 import {FeedBackModal} from '@components/modals/feedback-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
+import {Modal} from '@components/shared/modal'
 
 import {checkIsAdmin} from '@utils/checks'
 import {t} from '@utils/translations'

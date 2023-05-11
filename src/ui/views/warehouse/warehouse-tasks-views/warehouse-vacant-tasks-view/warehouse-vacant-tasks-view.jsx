@@ -22,12 +22,12 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
-import {Modal} from '@components/modal'
 import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
 import {EditTaskPriorityModal} from '@components/screens/warehouse/edit-task-priority-modal'
 import {SearchInput} from '@components/search-input'
+import {Modal} from '@components/shared/modal'
 import {TaskPrioritySelector} from '@components/shared/task-priority-selector/task-priority-selector'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'

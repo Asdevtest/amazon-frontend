@@ -19,11 +19,11 @@ import {DataGridCustomToolbar} from '@components/data-grid-custom-components/dat
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
-import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 import {CustomSearchRequestForm} from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import {SearchInput} from '@components/search-input'
+import {Modal} from '@components/shared/modal'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {getDistanceBetweenDatesInSeconds} from '@utils/date-time'

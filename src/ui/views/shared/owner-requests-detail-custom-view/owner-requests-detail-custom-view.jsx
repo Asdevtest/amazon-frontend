@@ -19,7 +19,6 @@ import {RequestProposalResultToCorrectForm} from '@components/forms/request-prop
 import {ReviewsForm} from '@components/forms/reviews-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comment-modal'
 import {Navbar} from '@components/navbar'
@@ -27,6 +26,7 @@ import {OwnerGeneralRequestInfo} from '@components/requests-and-request-proposal
 import {DealsOfRequest} from '@components/requests-and-request-proposals/request-proposals/deals-of-request'
 import {CustomSearchRequestForm} from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import {CustomSearchRequestDetails} from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
+import {Modal} from '@components/shared/modal'
 
 import {t} from '@utils/translations'
 

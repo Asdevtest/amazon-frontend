@@ -25,8 +25,8 @@ import {CircularProgressWithLabel} from '@components/circular-progress-with-labe
 import {CustomCarousel} from '@components/custom-carousel'
 import {CustomImageGallery} from '@components/custom-image-gallery'
 import {ImageEditForm} from '@components/forms/image-edit-form'
-import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
+import {Modal} from '@components/shared/modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
