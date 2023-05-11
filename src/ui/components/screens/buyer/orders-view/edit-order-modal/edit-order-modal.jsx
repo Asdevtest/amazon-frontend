@@ -1189,7 +1189,10 @@ export const EditOrderModal = observer(
         </Modal>
 
         <Modal missClickModalOn openModal={commentModal} setOpenModal={() => setCommentModalModal(!commentModal)}>
-          <CommentsForm /* comment={'Ayaya'} */ onCloseModal={() => setCommentModalModal(!commentModal)} />
+          <CommentsForm
+            comments={orderFields.commentsFromTask}
+            onCloseModal={() => setCommentModalModal(!commentModal)}
+          />
         </Modal>
 
         <Modal
