@@ -98,7 +98,7 @@ export const styles = theme => ({
 
   openArchiveBtn: {
     width: 230,
-    padding: '0 30px 0 30px',
+    height: 40,
 
     color: theme.palette.primary.main,
   },
@@ -143,6 +143,10 @@ export const styles = theme => ({
     display: 'flex',
     gap: '30px',
     paddingRight: '5px',
+  },
+
+  btnWrapperStyle: {
+    height: 40,
   },
 
   topHeaderBtnsWrapper: {
