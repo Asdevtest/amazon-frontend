@@ -5,6 +5,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '1480px',
     display: 'flex',
     height: '84vh',
+    padding: '50px 20px',
     // backgroundColor: theme.palette.background.second,
 
     flexDirection: 'column',
@@ -43,7 +44,7 @@ export const useClassNames = makeStyles()(theme => ({
     // top: 0,
     // zIndex: 100,
     // background: theme.palette.background.general,
-    paddingTop: 20,
+    // paddingTop: 20,
     paddingBottom: 20,
   },
   modalTitle: {
