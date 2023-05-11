@@ -10,10 +10,10 @@ import {
   ProductStatusByCode,
   ProductStatusByKey,
   productStatusTranslateKey,
-} from '@constants/product-status'
+} from '@constants/product/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Field} from '@components/field'
+import {Field} from '@components/shared/field'
 
 import {checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {toFixed} from '@utils/text'

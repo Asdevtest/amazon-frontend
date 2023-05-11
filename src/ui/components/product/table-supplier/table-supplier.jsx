@@ -6,14 +6,14 @@ import React from 'react'
 
 import {observer} from 'mobx-react'
 
-import {NewSupplier} from '@constants/svg-icons'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
-import {CopyValue} from '@components/copy-value/copy-value'
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
+import {UserLinkCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
+import {CopyValue} from '@components/shared/copy-value/copy-value'
+import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
+import {NewSupplier} from '@components/shared/svg-icons'
 
 import {formatNormDateTime} from '@utils/date-time'
 import {checkAndMakeAbsoluteUrl, toFixedWithDollarSign} from '@utils/text'

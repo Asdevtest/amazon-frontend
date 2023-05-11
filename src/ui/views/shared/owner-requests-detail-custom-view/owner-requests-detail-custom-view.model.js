@@ -1,9 +1,9 @@
 import {makeAutoObservable, reaction, runInAction} from 'mobx'
 
-import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
-import {loadingStatuses} from '@constants/loading-statuses'
+import {UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
+import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/statuses/freelance-request-type'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
 import {ChatModel} from '@models/chat-model'
 import {RequestModel} from '@models/request-model'

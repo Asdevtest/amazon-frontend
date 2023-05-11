@@ -7,11 +7,11 @@ import React, {useEffect, useState} from 'react'
 import {Navigation} from 'swiper'
 import {Swiper, SwiperSlide} from 'swiper/react'
 
-import {InventoryIcon} from '@constants/svg-icons'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
 import {useClassNames} from '@components/dashboards/dashboard-one-line-cards-list/dashboard-one-line-cards-list.style'
+import {Button} from '@components/shared/buttons/button'
+import {InventoryIcon} from '@components/shared/svg-icons'
 
 import {t} from '@utils/translations'
 

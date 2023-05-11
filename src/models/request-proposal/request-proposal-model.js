@@ -1,4 +1,4 @@
-import {BACKEND_API_URL} from '@constants/env'
+import {BACKEND_API_URL} from '@constants/keys/env'
 
 import {OtherModel} from '@models/other-model'
 

@@ -4,9 +4,9 @@ import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
-import {Input} from '@components/input'
+import {Button} from '@components/shared/buttons/button'
+import {Field} from '@components/shared/field'
+import {Input} from '@components/shared/input'
 
 import {calcMaxDeliveryForProduct, calcTotalFbaForProduct} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'

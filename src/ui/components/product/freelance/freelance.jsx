@@ -7,18 +7,18 @@ import React, {useEffect, useRef} from 'react'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
-import {loadingStatuses} from '@constants/loading-statuses'
+import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {SearchInput} from '@components/search-input'
+import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
+import {Button} from '@components/shared/buttons/button'
+import {MemoDataGrid} from '@components/shared/memo-data-grid'
+import {SearchInput} from '@components/shared/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
-import {Button} from '../../buttons/button'
 import {FreelanceModel} from './freelance.model'
 import {useClassNames} from './freelance.style'
 

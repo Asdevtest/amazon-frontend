@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {boxStatusTranslateKey, colorByBoxStatus} from '@constants/box-status'
+import {boxStatusTranslateKey, colorByBoxStatus} from '@constants/statuses/box-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -9,7 +9,7 @@ import {
   NormalActionBtnCell,
   BoxesAndQuantity,
   StringListCell,
-} from '@components/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import {formatDate} from '@utils/date-time'
 import {getFullTariffTextForBoxOrOrder} from '@utils/text'

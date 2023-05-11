@@ -5,7 +5,7 @@ import React, {FC, ReactElement, useEffect, useMemo} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {RequestProposalStatus} from '@constants/request-proposal-status'
+import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatContract} from '@models/chat-model/contracts'
@@ -13,7 +13,7 @@ import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.con
 
 import {OnTypingMessageResponse} from '@services/websocket-chat-service/interfaces'
 
-import {ITab} from '@components/i-tab/i-tab'
+import {ITab} from '@components/shared/i-tab/i-tab'
 
 import {t} from '@utils/translations'
 

@@ -1,4 +1,4 @@
-import {zipCodeGroups} from '@constants/zip-code-groups'
+import {zipCodeGroups} from '@constants/configs/zip-code-groups'
 
 import {toFixed} from '@utils/text'
 

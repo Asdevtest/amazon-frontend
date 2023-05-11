@@ -2,12 +2,12 @@
 import {transformAndValidate} from 'class-transformer-validator'
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
-import {routsPathes} from '@constants/routs-pathes'
-import {mapTaskPriorityStatusEnumToKey, TaskPriorityStatus} from '@constants/task-priority-status'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
+import {routsPathes} from '@constants/navigation/routs-pathes'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import {OrderStatus, OrderStatusByKey} from '@constants/statuses/order-status'
+import {mapTaskPriorityStatusEnumToKey, TaskPriorityStatus} from '@constants/task/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {creatSupplier, patchSuppliers} from '@constants/white-list'
 
@@ -19,7 +19,7 @@ import {SettingsModel} from '@models/settings-model'
 import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
-import {BuyerReadyForPaymentColumns} from '@components/table-columns/buyer/buyer-ready-for-payment-columns'
+import {BuyerReadyForPaymentColumns} from '@components/table/table-columns/buyer/buyer-ready-for-payment-columns'
 
 // import {calcOrderTotalPrice} from '@utils/calculation'
 import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'

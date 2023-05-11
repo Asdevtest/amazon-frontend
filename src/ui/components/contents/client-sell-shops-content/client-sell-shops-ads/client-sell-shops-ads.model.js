@@ -1,7 +1,7 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
-import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
-import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
+import {tableViewMode, tableSortMode} from '@constants/table/table-view-modes'
+import {ViewTableModeStateKeys} from '@constants/table/view-table-mode-state-keys'
 
 import {SettingsModel} from '@models/settings-model'
 import {ShopSellModel} from '@models/shop-sell-model'
@@ -98,11 +98,11 @@ export class ClientSellShopsAdsModel {
   }
 
   onClickAddBtn() {
-    this.history.push('/client/trading-shops/sell-shops/create-trading-shop')
+    this.history.push('/client/trading-shops/sell-shops/create-trading-traiding-shop')
   }
 
   onClickViewMore(id) {
-    this.history.push('/client/trading-shops/sell-shops/shop', {shopSellId: id})
+    this.history.push('/client/trading-shops/sell-shops/traiding-shop', {shopSellId: id})
   }
 
   onTriggerDrawerOpen() {

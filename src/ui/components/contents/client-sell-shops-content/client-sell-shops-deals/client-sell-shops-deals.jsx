@@ -10,13 +10,13 @@ import {useHistory} from 'react-router-dom'
 import {
   /* tableViewMode,*/
   tableSortMode,
-} from '@constants/table-view-modes'
+} from '@constants/table/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
 import {TradingShopCard} from '@components/cards/trading-shop-card'
-import {SearchInput} from '@components/search-input'
+import {SearchInput} from '@components/shared/search-input'
 
 import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {t} from '@utils/translations'

@@ -1,11 +1,11 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 
 import {BuyerModel} from '@models/buyer-model'
 import {IdeaModel} from '@models/ideas-model'
 
-import {buyerSearchSuppliersViewColumns} from '@components/table-columns/buyer/buyer-seach-suppliers-columns'
+import {buyerSearchSuppliersViewColumns} from '@components/table/table-columns/buyer/buyer-seach-suppliers-columns'
 
 import {depersonalizedPickDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'

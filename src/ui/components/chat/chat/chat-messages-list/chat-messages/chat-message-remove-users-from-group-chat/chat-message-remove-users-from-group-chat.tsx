@@ -7,7 +7,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {ChatMessageRemoveUsersFromGroupChatContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
-import {UserLink} from '@components/user-link'
+import {UserLink} from '@components/user/user-link'
 
 import {t} from '@utils/translations'
 

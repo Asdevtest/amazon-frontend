@@ -13,7 +13,7 @@ import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.con
 // import {Button} from '@components/buttons/button'
 import {ChatMessageFiles} from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files'
 import {ImagesTile} from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile'
-import {UserLink} from '@components/user-link'
+import {UserLink} from '@components/user/user-link'
 
 import {formatDateTimeHourAndMinutes} from '@utils/date-time'
 

@@ -1,8 +1,8 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {RequestProposalStatus} from '@constants/request-proposal-status'
+import {UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
+import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
 import {RequestModel} from '@models/request-model'
 import {RequestProposalModel} from '@models/request-proposal'

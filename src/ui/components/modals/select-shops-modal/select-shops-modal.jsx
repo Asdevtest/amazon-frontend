@@ -6,9 +6,9 @@ import React, {useEffect, useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
-import {Input} from '@components/input'
+import {Button} from '@components/shared/buttons/button'
+import {Field} from '@components/shared/field'
+import {Input} from '@components/shared/input'
 
 import {t} from '@utils/translations'
 
@@ -78,7 +78,7 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
                       value={shop}
                       className={classNames.selectMenu}
                     >
-                      {/* <Checkbox color="primary" checked={currentShops.includes(shop._id)} /> */}
+                      {/* <Checkbox color="primary" checked={currentShops.includes(traiding-shop._id)} /> */}
 
                       <ListItemText primary={shop.name} />
                     </MenuItem>

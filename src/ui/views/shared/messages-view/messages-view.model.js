@@ -1,6 +1,6 @@
 import {makeAutoObservable, runInAction, reaction} from 'mobx'
 
-import {chatsType} from '@constants/chats'
+import {chatsType} from '@constants/keys/chats'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatModel} from '@models/chat-model'

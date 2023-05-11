@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {Typography} from '@mui/material'
 
-import {getBatchWeightCalculationMethodForBox} from '@constants/batch-weight-calculations-method'
+import {getBatchWeightCalculationMethodForBox} from '@constants/statuses/batch-weight-calculations-method'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -13,7 +13,7 @@ import {
   ManyItemsPriceCell,
   FinalPricePerUnitCell,
   OrdersIdsItemsCell,
-} from '@components/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import {calcFinalWeightForBox} from '@utils/calculation'
 import {toFixedWithKg, getFullTariffTextForBoxOrOrder} from '@utils/text'

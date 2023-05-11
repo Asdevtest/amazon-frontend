@@ -13,8 +13,8 @@ import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {ITab} from '@components/i-tab/i-tab'
+import {Button} from '@components/shared/buttons/button'
+import {ITab} from '@components/shared/i-tab/i-tab'
 
 import {t} from '@utils/translations'
 

@@ -3,7 +3,7 @@ import React, {FC} from 'react'
 import {ImageType} from 'react-images-uploading-alex76457-version'
 
 import {IFile} from '@components/chat/multiple-chats'
-import {UploadFilesInput} from '@components/upload-files-input'
+import {UploadFilesInput} from '@components/shared/upload-files-input'
 
 import {useClassNames} from './chat-files-input.style'
 

@@ -5,15 +5,15 @@ import React, {useEffect, useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value/copy-value'
+import {Button} from '@components/shared/buttons/button'
+import {CopyValue} from '@components/shared/copy-value/copy-value'
 import {
   PhotoCarousel,
   PhotoAndFilesCarousel,
   PhotoAndFilesCarouselMini,
-} from '@components/custom-carousel/custom-carousel'
-import {Field} from '@components/field/field'
-import {UploadFilesInput} from '@components/upload-files-input'
+} from '@components/shared/custom-carousel/custom-carousel'
+import {Field} from '@components/shared/field/field'
+import {UploadFilesInput} from '@components/shared/upload-files-input'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount} from '@utils/text'

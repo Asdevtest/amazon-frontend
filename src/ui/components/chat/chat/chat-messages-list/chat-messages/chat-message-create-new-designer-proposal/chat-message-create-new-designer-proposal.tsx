@@ -5,16 +5,16 @@ import React, {FC, useContext} from 'react'
 
 import Linkify from 'react-linkify-always-blank'
 
-import {RequestProposalStatus} from '@constants/request-proposal-status'
+import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatMessageDataCreateNewDesignerProposalContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 import {UserModel} from '@models/user-model'
 
-import {Button} from '@components/buttons/button'
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {CustomTextEditor} from '@components/custom-text-editor'
+import {Button} from '@components/shared/buttons/button'
+import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
+import {CustomTextEditor} from '@components/shared/custom-text-editor'
 
 import {formatDateOnlyTime, formatNormDateTime} from '@utils/date-time'
 import {minsToTime, toFixedWithDollarSign} from '@utils/text'

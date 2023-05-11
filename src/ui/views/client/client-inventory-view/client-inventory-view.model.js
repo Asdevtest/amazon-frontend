@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductDataParser} from '@constants/product-data-parser'
-import {ProductStatus, ProductStatusByCode} from '@constants/product-status'
-import {RequestStatus} from '@constants/request-status'
-import {poundsWeightCoefficient} from '@constants/sizes-settings'
+import {poundsWeightCoefficient} from '@constants/configs/sizes-settings'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {ProductDataParser} from '@constants/product/product-data-parser'
+import {ProductStatus, ProductStatusByCode} from '@constants/product/product-status'
+import {RequestStatus} from '@constants/requests/request-status'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {creatSupplier} from '@constants/white-list'
 
@@ -25,7 +25,7 @@ import {StorekeeperModel} from '@models/storekeeper-model'
 import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
-import {clientInventoryColumns} from '@components/table-columns/client/client-inventory-columns'
+import {clientInventoryColumns} from '@components/table/table-columns/client/client-inventory-columns'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
 import {addIdDataConverter, clientInventoryDataConverter} from '@utils/data-grid-data-converters'

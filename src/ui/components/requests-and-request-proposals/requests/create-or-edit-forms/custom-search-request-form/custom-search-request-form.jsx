@@ -5,11 +5,11 @@ import {useState} from 'react'
 
 import {parseISO} from 'date-fns/esm'
 
-import {RequestStatus} from '@constants/request-status'
-import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
+import {UserRole, UserRoleCodeMap} from '@constants/keys/user-roles'
+import {RequestStatus} from '@constants/requests/request-status'
 
-import {NewDatePicker} from '@components/date-picker/date-picker'
-import {Field} from '@components/field'
+import {NewDatePicker} from '@components/shared/date-picker/date-picker'
+import {Field} from '@components/shared/field'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 

@@ -1,16 +1,16 @@
-import {ideaStatusByCode, ideaStatusTranslate} from '@constants/idea-status'
-import {OrderStatusByCode, OrderStatusTranslate} from '@constants/order-status'
+import {UserRoleCodeMap} from '@constants/keys/user-roles'
 import {
   ProductStatus,
   ProductStatusByCode,
   ProductStatusByKey,
   productStatusTranslateKey,
-} from '@constants/product-status'
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
-import {mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel} from '@constants/task-operation-type'
-import {mapTaskStatusKeyToEnum} from '@constants/task-status'
+} from '@constants/product/product-status'
+import {mapProductStrategyStatusEnum} from '@constants/product/product-strategy-status'
+import {ideaStatusByCode, ideaStatusTranslate} from '@constants/statuses/idea-status'
+import {OrderStatusByCode, OrderStatusTranslate} from '@constants/statuses/order-status'
+import {mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel} from '@constants/task/task-operation-type'
+import {mapTaskStatusKeyToEnum} from '@constants/task/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {
   calcFinalWeightForBox,

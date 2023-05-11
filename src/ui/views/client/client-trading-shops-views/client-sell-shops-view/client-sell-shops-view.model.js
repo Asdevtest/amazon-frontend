@@ -17,7 +17,7 @@ export class ClientSellShopsViewModel {
 
   // async onClickViewMore() {
   //   try {
-  //     this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/trading-shops/sell-shops/shop`)
+  //     this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/trading-shops/sell-shops/traiding-shop`)
   //   } catch (error) {
   //     this.onTriggerOpenModal('showWarningModal')
   //     console.log(error)

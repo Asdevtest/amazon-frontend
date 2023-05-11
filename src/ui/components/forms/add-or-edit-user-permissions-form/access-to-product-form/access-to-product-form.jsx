@@ -20,8 +20,8 @@ import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {SearchInput} from '@components/search-input'
+import {MemoDataGrid} from '@components/shared/memo-data-grid'
+import {SearchInput} from '@components/shared/search-input'
 
 import {t} from '@utils/translations'
 
@@ -82,10 +82,10 @@ export const AccessToProductForm = React.memo(
         setChooseAllCheck(true)
       } else {
         setChosenGoods(shop?.tmpProductsIds || [])
-        // setShopDataToRender(shops.map(item => (item._id === shop._id ? {...item, tmpProductsIds: []} : item)))
+        // setShopDataToRender(shops.map(item => (item._id === traiding-shop._id ? {...item, tmpProductsIds: []} : item)))
         setChooseAllCheck(false)
       }
-      // setChosenGoods(shop?.tmpProductsIds || [])
+      // setChosenGoods(traiding-shop?.tmpProductsIds || [])
     }, [selectedAccess])
 
     useEffect(() => {
@@ -136,7 +136,7 @@ export const AccessToProductForm = React.memo(
               <Typography className={classNames.title}>{shop?.name}</Typography>
 
               {/* <Typography className={classNames.selectedValue}>{`(${
-                shop.tmpProductsIds.length === sourceData.length
+                traiding-shop.tmpProductsIds.length === sourceData.length
                   ? t(TranslationKey['Access to all products'])
                   : t(TranslationKey['Access to selected products only'])
               })`}</Typography> */}

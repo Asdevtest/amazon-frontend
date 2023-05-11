@@ -1,5 +1,5 @@
+import {UserRoleCodeMap} from '@constants/keys/user-roles'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsStorekeeper, checkIsSupervisor} from '../checks'
 import {t} from '../translations'

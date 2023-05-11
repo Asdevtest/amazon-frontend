@@ -5,13 +5,13 @@ import React from 'react'
 
 import {useHistory} from 'react-router-dom'
 
-import {Message, MyNotificationsIcon, SettingsIcon} from '@constants/svg-icons'
+import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
 import {ChatModel} from '@models/chat-model'
 
 import {useClassNames} from '@components/dashboards/dashboard-buttons/dashboard-buttons.style'
+import {Message, MyNotificationsIcon, SettingsIcon} from '@components/shared/svg-icons'
 
 import {checkIsAdmin, checkIsResearcher, checkIsStorekeeper, checkIsSupervisor} from '@utils/checks'
 import {t} from '@utils/translations'

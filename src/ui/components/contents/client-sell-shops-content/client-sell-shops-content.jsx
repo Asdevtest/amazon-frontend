@@ -8,7 +8,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
-import {ITab} from '@components/i-tab/i-tab'
+import {ITab} from '@components/shared/i-tab/i-tab'
 
 import {t} from '@utils/translations'
 

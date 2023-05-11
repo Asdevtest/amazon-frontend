@@ -6,20 +6,20 @@ import React, {useEffect, useRef} from 'react'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
+import {UserRoleCodeMap} from '@constants/keys/user-roles'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
 
-import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
-import {Field} from '@components/field'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
-import {UserBalanceHistory} from '@components/screens/user-balance-history'
-import {UploadFilesInput} from '@components/upload-files-input'
+import {Button} from '@components/shared/buttons/button'
+import {CircularProgressWithLabel} from '@components/shared/circular-progress-with-label'
+import {PhotoCarousel} from '@components/shared/custom-carousel/custom-carousel'
+import {Field} from '@components/shared/field'
+import {UploadFilesInput} from '@components/shared/upload-files-input'
+import {UserBalanceHistory} from '@components/user/user-balance-history'
 
 import {checkIsClient, checkIsSupervisor} from '@utils/checks'
 import {t} from '@utils/translations'
 
-import {Button} from '../../buttons/button'
 import {ListingModel} from './listing.model'
 import {useClassNames} from './listing.style'
 

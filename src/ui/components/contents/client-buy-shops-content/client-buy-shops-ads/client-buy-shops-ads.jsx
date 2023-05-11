@@ -8,14 +8,14 @@ import React, {useEffect, useRef} from 'react'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
-import {tableSortMode} from '@constants/table-view-modes'
+import {tableSortMode} from '@constants/table/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
 import {TradingShopCard} from '@components/cards/trading-shop-card'
-import {SearchInput} from '@components/search-input'
+import {Button} from '@components/shared/buttons/button'
+import {SearchInput} from '@components/shared/search-input'
 
 import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {t} from '@utils/translations'

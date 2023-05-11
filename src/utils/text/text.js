@@ -2,11 +2,11 @@
 import {hoursToSeconds, minutesToHours, secondsToHours, secondsToMinutes} from 'date-fns'
 import QueryString from 'qs'
 
-import {columnnsKeys} from '@constants/data-grid-columns-keys'
-import {ProductStatusByCode, productStatusTranslateKey} from '@constants/product-status'
-import {humanFriendlyStategyStatus, mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
+import {zipCodeGroups} from '@constants/configs/zip-code-groups'
+import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
+import {ProductStatusByCode, productStatusTranslateKey} from '@constants/product/product-status'
+import {humanFriendlyStategyStatus, mapProductStrategyStatusEnum} from '@constants/product/product-strategy-status'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {checkIsAbsoluteUrl} from '@utils/checks'
 

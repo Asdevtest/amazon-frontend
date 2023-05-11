@@ -9,7 +9,7 @@ import {ChatMessageRemovePatchInfoGroupChatContract} from '@models/chat-model/co
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
 import {BigImagesModal} from '@components/modals/big-images-modal'
-import {UserLink} from '@components/user-link'
+import {UserLink} from '@components/user/user-link'
 
 import {t} from '@utils/translations'
 

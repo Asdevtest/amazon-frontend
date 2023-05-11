@@ -8,20 +8,20 @@ import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
-import {humanFriendlyStategyStatus, mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
+import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/keys/user-roles'
+import {humanFriendlyStategyStatus, mapProductStrategyStatusEnum} from '@constants/product/product-strategy-status'
+import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 // import {RegistrationForm} from '@components/forms/registration-form'
 import {SettingsModel} from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
 import {AddOrEditUserPermissionsForm} from '@components/forms/add-or-edit-user-permissions-form'
-import {Input} from '@components/input'
-import {Modal} from '@components/modal'
-import {UserLink} from '@components/user-link'
+import {Button} from '@components/shared/buttons/button'
+import {Field} from '@components/shared/field'
+import {Input} from '@components/shared/input'
+import {Modal} from '@components/shared/modal'
+import {UserLink} from '@components/user/user-link'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail} from '@utils/checks'
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'

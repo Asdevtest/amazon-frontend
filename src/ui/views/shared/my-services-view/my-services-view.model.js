@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
+import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
 import {
   freelanceRequestTypeByCode,
   freelanceRequestType,
   freelanceRequestTypeByKey,
-} from '@constants/freelance-request-type'
-import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
-import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/user-roles'
-import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
+} from '@constants/statuses/freelance-request-type'
+import {tableSortMode, tableViewMode} from '@constants/table/table-view-modes'
+import {ViewTableModeStateKeys} from '@constants/table/view-table-mode-state-keys'
 
 import {AnnouncementsModel} from '@models/announcements-model'
 import {SettingsModel} from '@models/settings-model'

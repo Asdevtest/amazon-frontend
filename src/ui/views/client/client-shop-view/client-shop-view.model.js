@@ -46,7 +46,7 @@ export class ClientShopViewModel {
   }
 
   onClickEditBtn() {
-    this.history.push('/client/trading-shops/sell-shops/edit-trading-shop', {request: this.shopInfo})
+    this.history.push('/client/trading-shops/sell-shops/edit-trading-traiding-shop', {request: this.shopInfo})
   }
 
   onTriggerDrawerOpen() {

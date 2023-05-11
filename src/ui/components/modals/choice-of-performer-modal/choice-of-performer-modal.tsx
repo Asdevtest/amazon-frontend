@@ -7,9 +7,9 @@ import React, {FC, useEffect, useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
 import {ServiceExchangeCard} from '@components/cards/service-exchange-card'
-import {SearchInput} from '@components/search-input'
+import {Button} from '@components/shared/buttons/button'
+import {SearchInput} from '@components/shared/search-input'
 
 import {t} from '@utils/translations'
 

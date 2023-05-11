@@ -1,6 +1,6 @@
 import {Manager, Socket} from 'socket.io-client'
 
-import {BACKEND_WEBSOCKET_CHAT_URL} from '@constants/env'
+import {BACKEND_WEBSOCKET_CHAT_URL} from '@constants/keys/env'
 
 import {ChatHandlerName, handlerToEventMapping} from './event-handler-mappings'
 import {EentToEmit} from './event-to-emit'

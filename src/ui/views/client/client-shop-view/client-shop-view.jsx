@@ -2,14 +2,14 @@ import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {Navbar} from '@components/navbar'
-import {ShopWrapper} from '@components/shop/shop-wrapper/shop-wrapper'
+import {Appbar} from '@components/layout/appbar'
+import {Main} from '@components/layout/main'
+import {MainContent} from '@components/layout/main-content'
+import {Navbar} from '@components/layout/navbar'
+import {ShopWrapper} from '@components/traiding-shop/shop-wrapper/shop-wrapper'
 
 import {t} from '@utils/translations'
 

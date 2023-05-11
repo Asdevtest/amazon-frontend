@@ -1,10 +1,10 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {BoxStatus} from '@constants/box-status'
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
+import {zipCodeGroups} from '@constants/configs/zip-code-groups'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {BoxStatus} from '@constants/statuses/box-status'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
@@ -13,7 +13,7 @@ import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
-import {clientBoxesTariffsNotificationsViewColumns} from '@components/table-columns/client/client-boxes-tariffs-notifications-columns'
+import {clientBoxesTariffsNotificationsViewColumns} from '@components/table/table-columns/client/client-boxes-tariffs-notifications-columns'
 
 import {calcFinalWeightForBox} from '@utils/calculation'
 import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
