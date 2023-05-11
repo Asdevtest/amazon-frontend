@@ -19,7 +19,6 @@ import {SettingsModel} from '@models/settings-model'
 import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
-import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my-orders-columns'
 import {BuyerReadyForPaymentColumns} from '@components/table-columns/buyer/buyer-ready-for-payment-columns'
 
 // import {calcOrderTotalPrice} from '@utils/calculation'
@@ -155,13 +154,13 @@ export class BuyerMyOrdersViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  // columnsModel = buyerMyOrdersViewColumns(this.firstRowId)
+  columnsModel = BuyerReadyForPaymentColumns(this.firstRowId, this.rowHandlers, this.columnMenuSettings)
 
   rowHandlers = {
     onClickPaymentMethodCell: row => this.onClickPaymentMethodCell(row),
   }
 
-  columnsModel = []
+  // columnsModel = []
   columnVisibilityModel = undefined
 
   progressValue = 0
@@ -431,6 +430,20 @@ export class BuyerMyOrdersViewModel {
       this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(
         OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT],
       )
+    } else if (
+      this.orderStatusDataBase.some(
+        status =>
+          Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
+          Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
+      ) &&
+      this.orderStatusDataBase.length === 2
+    ) {
+      this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(
+        [
+          Number(OrderStatusByKey[OrderStatus.AT_PROCESS]),
+          Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
+        ].join(','),
+      )
     }
   }
 
@@ -537,11 +550,7 @@ export class BuyerMyOrdersViewModel {
   async onClickUpdataSupplierData({supplier, productId, orderFields}) {
     this.updateSupplierData = false
 
-    const result = await UserModel.getPlatformSettings()
-
-    runInAction(() => {
-      this.yuanToDollarRate = result.yuanToDollarRate
-    })
+    this.getPlatformSettings()
 
     try {
       supplier = {
@@ -595,14 +604,27 @@ export class BuyerMyOrdersViewModel {
     })
   }
 
-  setDataGridState() {
-    const requestState = {
-      sorting: {sortModel: this.sortModel},
-      filter: {filterModel: this.filterModel},
-      pagination: {pageSize: this.rowsPerPage},
-      density: {value: this.densityModel},
-      columnVisibilityModel: this.columnVisibilityModel,
+  setDataGridState(state) {
+    // const requestState = {
+    //   sorting: {sortModel: this.sortModel},
+    //   filter: {filterModel: this.filterModel},
+    //   pagination: {pageSize: this.rowsPerPage},
+    //   density: {value: this.densityModel},
+    //   columnVisibilityModel: this.columnVisibilityModel,
+    // }
+
+    if (!state) {
+      return
     }
+
+    this.firstRowId = state?.sorting?.sortedRows[0]
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
 
     SettingsModel.setDataGridState(requestState, this.setDataGridTablesKeys(this.history.location.pathname))
   }
@@ -626,6 +648,13 @@ export class BuyerMyOrdersViewModel {
         this.densityModel = state.density.value
 
         this.columnVisibilityModel = state.columnVisibilityModel
+
+        this.columnsModel = BuyerReadyForPaymentColumns(this.firstRowId, this.rowHandlers, this.columnMenuSettings).map(
+          el => ({
+            ...el,
+            hide: state.columns?.lookup[el?.field]?.hide,
+          }),
+        )
       }
     })
   }
@@ -714,6 +743,7 @@ export class BuyerMyOrdersViewModel {
       await this.setColumnsModel()
       this.getDataGridState()
       await this.getOrdersMy()
+      this.getPlatformSettings()
       this.getBuyersOrdersPaymentByStatus()
 
       this.setRequestStatus(loadingStatuses.success)
@@ -758,6 +788,19 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
+  async getPlatformSettings() {
+    try {
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.yuanToDollarRate = result.yuanToDollarRate
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async onClickOrder(orderId) {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
@@ -775,12 +818,7 @@ export class BuyerMyOrdersViewModel {
       })
       this.getBoxesOfOrder(orderId)
 
-      const result = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-      })
+      this.getPlatformSettings()
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {

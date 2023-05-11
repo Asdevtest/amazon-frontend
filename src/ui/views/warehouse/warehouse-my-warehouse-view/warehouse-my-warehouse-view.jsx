@@ -136,6 +136,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
     const disableSelectionCells = ['prepId']
 
+    console.log('sourceBoxForBatch', sourceBoxForBatch)
+
     return (
       <React.Fragment>
         <Navbar activeCategory={activeCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />

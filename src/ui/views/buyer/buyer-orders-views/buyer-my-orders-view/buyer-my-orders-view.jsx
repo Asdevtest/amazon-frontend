@@ -29,10 +29,9 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 import {SearchInput} from '@components/search-input'
-import {BuyerReadyForPaymentColumns} from '@components/table-columns/buyer/buyer-ready-for-payment-columns'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {toFixedWithYuanSign} from '@utils/text'
+import {toFixedWithDollarSign, toFixedWithYuanSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {BuyerMyOrdersViewModel} from './buyer-my-orders-view.model'
@@ -115,10 +114,7 @@ class BuyerMyOrdersViewRaw extends Component {
       imagesForLoad,
       paymentMethods,
       currentOrder,
-      // isReadyForPayment,
-
-      firstRowId,
-      rowHandlers,
+      orderStatusDataBase,
 
       onClickHsCode,
       onTriggerDrawerOpen,
@@ -129,9 +125,8 @@ class BuyerMyOrdersViewRaw extends Component {
       onTriggerOpenModal,
       onClickSaveSupplierBtn,
 
-      // setDataGridState,
+      setDataGridState,
       onColumnVisibilityModelChange,
-      setFirstRowId,
       onChangeSortingModel,
       onChangeFilterModel,
       // onSubmitCancelOrder,
@@ -165,6 +160,12 @@ class BuyerMyOrdersViewRaw extends Component {
 
     const payments = currentOrder && [...currentOrder.payments, ...validOrderPayments]
 
+    const isNoPaidedOrders = orderStatusDataBase.some(
+      status =>
+        Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
+        Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
+    )
+
     return (
       <React.Fragment>
         <Navbar
@@ -187,7 +188,7 @@ class BuyerMyOrdersViewRaw extends Component {
                   [classNames.headerWrapperCenter]: !paymentAmount?.totalPriceInYuan,
                 })}
               >
-                {paymentAmount?.totalPriceInYuan && <div className={classNames.totalPriceWrapper} />}
+                {paymentAmount?.totalPriceInYuan > 0 && <div className={classNames.totalPriceWrapper} />}
 
                 <SearchInput
                   inputClasses={classNames.searchInput}
@@ -195,14 +196,26 @@ class BuyerMyOrdersViewRaw extends Component {
                   onSubmit={onSearchSubmit}
                 />
 
-                {paymentAmount?.totalPriceInYuan && (
+                {paymentAmount?.totalPriceInYuan > 0 && (
                   <div className={classNames.totalPriceWrapper}>
                     <Typography className={classNames.totalPriceText}>
-                      {t(TranslationKey['Payment to all suppliers']) + ':'}
+                      {isNoPaidedOrders
+                        ? t(TranslationKey.Sum) + ':'
+                        : t(TranslationKey['Payment to all suppliers']) + ':'}
                     </Typography>
-                    <Typography className={cx(classNames.totalPriceText, classNames.totalPrice)}>
-                      {toFixedWithYuanSign(paymentAmount?.totalPriceInYuan, 2)}
-                    </Typography>
+                    <div className={classNames.totalPriceTextWrapper}>
+                      <Typography className={cx(classNames.totalPriceText, classNames.totalPrice)}>
+                        {`${toFixedWithYuanSign(
+                          isNoPaidedOrders
+                            ? paymentAmount?.totalPriceInUSD * yuanToDollarRate
+                            : paymentAmount?.totalPriceInYuan,
+                          2,
+                        )} ${t(TranslationKey.Or).toLocaleLowerCase()} ${toFixedWithDollarSign(
+                          paymentAmount?.totalPriceInUSD,
+                          2,
+                        )}`}
+                      </Typography>
+                    </div>
                   </div>
                 )}
               </div>
@@ -246,20 +259,14 @@ class BuyerMyOrdersViewRaw extends Component {
                   }}
                   columnVisibilityModel={columnVisibilityModel}
                   density={densityModel}
-                  columns={
-                    // isReadyForPayment
-                    //   ?
-                    BuyerReadyForPaymentColumns(firstRowId, rowHandlers, columnMenuSettings)
-                    // : buyerMyOrdersViewColumns(firstRowId)
-                    // columnsModel
-                  }
+                  columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
                   onFilterModelChange={onChangeFilterModel}
                   onColumnVisibilityModelChange={onColumnVisibilityModelChange}
-                  onStateChange={setFirstRowId}
+                  onStateChange={setDataGridState}
                   onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
                 />
               </div>

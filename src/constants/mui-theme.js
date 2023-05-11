@@ -254,6 +254,16 @@ export const lightTheme = createTheme({
       negativeMain: '#fff',
       gray: '#C4C4C4',
       green: 'green',
+      red: '#DD2121',
+    },
+
+    button: {
+      disabledText: '#F9FCFF',
+      disabledBackground: '#B3D1FB',
+      disabledSuccessText: '#E5FFEF',
+      disabledSuccessBackground: '#B3E7C7',
+      disabledDangerText: '#E5FFEF',
+      disabledDangerBackground: '#FEB9B9',
     },
 
     background: {
@@ -304,6 +314,7 @@ export const lightTheme = createTheme({
     },
 
     other: {
+      tableActiveFilterBtn: '5px solid #0460DE',
       ideaProductSheld: 'url(/assets/icons/idea-trgl.svg)',
     },
   },
@@ -690,6 +701,7 @@ export const darkTheme = createTheme({
         second: '#E1E1E1',
 
         gray: 'gray',
+        red: '#DD2121',
 
         negativeMain: '#001029',
         green: '#2FE341',
@@ -697,6 +709,15 @@ export const darkTheme = createTheme({
 
         primary: '#fff',
         secondary: 'rgba(255, 255, 255, 0.7)',
+      },
+
+      button: {
+        disabledText: '#2E4760',
+        disabledBackground: '#8291A0',
+        disabledSuccessText: '#41715A',
+        disabledSuccessBackground: '#184831',
+        disabledDangerText: '#E5FFEF',
+        disabledDangerBackground: '#451F27',
       },
 
       action: {
@@ -758,6 +779,7 @@ export const darkTheme = createTheme({
       },
 
       other: {
+        tableActiveFilterBtn: '5px solid #4CA1DE',
         ideaProductSheld: 'url(/assets/icons/idea-trgl-dark-theme.svg)',
       },
     },

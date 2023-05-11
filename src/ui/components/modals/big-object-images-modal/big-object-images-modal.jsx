@@ -113,10 +113,11 @@ export const BigObjectImagesModal = ({
         </div>
 
         <div className={classNames.carouselWrapper}>
-          <CustomCarousel index={curImageIndex} onChangeIndex={onChangeCurImageIndex}>
+          <CustomCarousel index={curImageIndex} arrowSize="60px" onChangeIndex={onChangeCurImageIndex}>
             {filteredImagesData.map(item => (
               <div key={item._id} className={classNames.imageModalImageWrapper}>
-                <Typography className={cx(classNames.imageName, classNames.titleName)}>{item.comment}</Typography>
+                {/* {item.comment && <Typography className={cx(classNames.imageName, classNames.titleName)}>{item.comment}</Typography>} */}
+                <Typography className={cx(classNames.imageName, classNames.titleName)}>Titlr</Typography>
 
                 <Avatar
                   className={classNames.imageModalImage}

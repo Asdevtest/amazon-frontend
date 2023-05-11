@@ -285,11 +285,7 @@ const WithSearchSelectRaw = observer(
 
                 {onClickSubmitBtn && (
                   <div className={classNames.submitWrapper}>
-                    <Button
-                      // className={classNames.button}
-                      variant="contained"
-                      onClick={onClickSubmitBtn}
-                    >
+                    <Button className={classNames.apply} variant="contained" onClick={onClickSubmitBtn}>
                       {t(TranslationKey.Apply)}
                     </Button>
                   </div>

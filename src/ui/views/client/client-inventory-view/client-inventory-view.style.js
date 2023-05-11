@@ -98,7 +98,7 @@ export const styles = theme => ({
 
   openArchiveBtn: {
     width: 230,
-    padding: '0 30px 0 30px',
+    height: 40,
 
     color: theme.palette.primary.main,
   },
@@ -120,7 +120,7 @@ export const styles = theme => ({
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
 
-    borderBottom: '5px solid #0460DE',
+    borderBottom: theme.palette.other.tableActiveFilterBtn,
   },
 
   shopsFiltersWrapper: {
@@ -143,6 +143,10 @@ export const styles = theme => ({
     display: 'flex',
     gap: '30px',
     paddingRight: '5px',
+  },
+
+  btnWrapperStyle: {
+    height: 40,
   },
 
   topHeaderBtnsWrapper: {

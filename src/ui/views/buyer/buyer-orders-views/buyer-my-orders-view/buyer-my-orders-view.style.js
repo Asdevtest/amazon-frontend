@@ -77,6 +77,7 @@ export const styles = theme => ({
 
   totalPriceWrapper: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'flex-end',
 
     width: 320,
@@ -96,5 +97,9 @@ export const styles = theme => ({
 
   totalPrice: {
     color: theme.palette.primary.main,
+  },
+
+  totalPriceTextWrapper: {
+    display: 'flex',
   },
 })
