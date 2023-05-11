@@ -15,6 +15,13 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
   },
 
+  defaultButton: {
+    '&:disabled': {
+      background: theme.palette.button.disabledBackground,
+      color: theme.palette.button.disabledText,
+    },
+  },
+
   success: {
     // color: `${theme.palette.text.negativeMain} !important`,
     // color: '#fff',
@@ -29,6 +36,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
     '&: disabled': {
       backgroundColor: 'rgba(15, 169, 20, 0.5) !important',
+      '&:disabled': {
+        background: `${theme.palette.button.disabledSuccessBackground} !important`,
+        color: `${theme.palette.button.disabledSuccessText} !important`,
+      },
     },
   },
   danger: {
@@ -49,7 +60,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
     '&:disabled': {
       // background: '#4F2026',
-      background: theme.palette.background.disabledDangerBtn,
+      background: theme.palette.button.disabledDangerBackground,
       // background: 'linear-gradient(180deg, #FF1616 100%, #DF0C0C 100%)',
     },
   },

@@ -257,6 +257,15 @@ export const lightTheme = createTheme({
       red: '#DD2121',
     },
 
+    button: {
+      disabledText: '#F9FCFF',
+      disabledBackground: '#B3D1FB',
+      disabledSuccessText: '#E5FFEF',
+      disabledSuccessBackground: '#B3E7C7',
+      disabledDangerText: '#E5FFEF',
+      disabledDangerBackground: '#FEB9B9',
+    },
+
     background: {
       general: '#fff',
       second: '#F8F8F8',
@@ -700,6 +709,15 @@ export const darkTheme = createTheme({
 
         primary: '#fff',
         secondary: 'rgba(255, 255, 255, 0.7)',
+      },
+
+      button: {
+        disabledText: '#2E4760',
+        disabledBackground: '#8291A0',
+        disabledSuccessText: '#41715A',
+        disabledSuccessBackground: '#184831',
+        disabledDangerText: '#E5FFEF',
+        disabledDangerBackground: '#451F27',
       },
 
       action: {
