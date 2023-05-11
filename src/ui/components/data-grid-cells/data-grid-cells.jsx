@@ -2419,9 +2419,11 @@ export const OrderManyItemsCell = React.memo(
 
 export const ScrollingCell = React.memo(
   withStyles(
-    ({classes: classNames, value}) => (
+    ({classes: classNames, value, fontSize}) => (
       <React.Fragment>
-        <Typography className={classNames.scrollingValue}>{value || '-'}</Typography>
+        <Typography style={{fontSize}} className={classNames.scrollingValue}>
+          {value || '-'}
+        </Typography>
       </React.Fragment>
     ),
     styles,

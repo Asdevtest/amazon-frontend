@@ -80,6 +80,7 @@ export const financesViewColumns = () => [
     width: 800,
     renderCell: params => (
       <ScrollingCell
+        fontSize={'14px'}
         value={`${params.value} ${params.row?.originalData?.product ? params.row.originalData.product?.id : ''}`}
       />
     ),
