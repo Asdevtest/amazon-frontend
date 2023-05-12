@@ -96,6 +96,7 @@ const filtersFields = [
   'sentToFbaSum',
   'fbaFbmStockSum',
   'ideaCount',
+  'stockCost',
 ]
 
 const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
@@ -913,6 +914,8 @@ export class ClientInventoryViewModel {
     const sentToFbaSumFilter =
       exclusion !== 'sentToFbaSum' && this.columnMenuSettings.sentToFbaSum.currentFilterData.join(',')
 
+    const stockCostFilter = exclusion !== 'stockCost' && this.columnMenuSettings.stockCost.currentFilterData.join(',')
+
     const filter = objectToUrlQs({
       archive: {$eq: this.isArchive},
       or: [
@@ -996,6 +999,10 @@ export class ClientInventoryViewModel {
 
       ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
         barCode: {[this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true},
+      }),
+
+      ...(stockCostFilter && {
+        stockCost: {$eq: stockCostFilter},
       }),
     })
 

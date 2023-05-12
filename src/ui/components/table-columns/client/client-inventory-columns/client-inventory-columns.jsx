@@ -25,6 +25,7 @@ import {
   ProductAsinCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
+import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const clientInventoryColumns = (
@@ -258,6 +259,23 @@ export const clientInventoryColumns = (
     ),
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 75,
+    type: 'number',
+
+    columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
+  {
+    field: 'stockCost',
+    headerName: t(TranslationKey['Stock cost']),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Stock cost'])}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+    renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
+    width: 120,
     type: 'number',
 
     columnKey: columnnsKeys.shared.QUANTITY,
