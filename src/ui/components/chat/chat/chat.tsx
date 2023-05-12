@@ -100,6 +100,8 @@ export const Chat: FC<Props> = observer(
 
     const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
+    console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
+
     const isGroupChat = chat.type === chatsType.GROUP
 
     const [focused, setFocused] = useState(false)

@@ -67,7 +67,6 @@ export const BigImagesModal = props => {
                   key={index}
                   className={classNames.previewListItem}
                   onClick={() => {
-                    console.log('handlePreview(index)', index)
                     handlePreview(index)
                   }}
                 >
@@ -101,7 +100,6 @@ export const BigImagesModal = props => {
             indicators={setImageIndex ? false : true}
             index={imgIndex}
             onChange={now => {
-              console.log('now', now)
               handlePreview(now)
             }}
           >

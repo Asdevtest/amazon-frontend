@@ -71,8 +71,6 @@ export const SuppliersAndIdeas = observer(({productId, product}) => {
 
   const [updatedIdea, setUpdatedIdea] = useState(curIdea)
 
-  console.log('selectedSupplier', selectedSupplier)
-
   useEffect(() => {
     setUpdatedIdea(() => ({...curIdea}))
   }, [SettingsModel.languageTag, curIdea])

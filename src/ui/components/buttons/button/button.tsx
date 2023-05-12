@@ -74,6 +74,7 @@ export const Button: FC<Props> = observer(
                 [classNames.success]: success,
                 [classNames.danger]: danger,
                 // [classNames.disabled]: disabled,
+                [classNames.defaultButton]: !success && !danger && !variant,
               },
               className,
             ),

@@ -239,7 +239,6 @@ export class ClientOrdersViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-      console.log('requestStatus', requestStatus)
     })
   }
 

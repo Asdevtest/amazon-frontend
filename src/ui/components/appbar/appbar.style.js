@@ -20,7 +20,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     paddingLeft: 30,
-    paddingRight: theme.spacing(5),
+    paddingRight: 25,
     height: '100%',
     [theme.breakpoints.down('sm')]: {
       paddingLeft: theme.spacing(0),

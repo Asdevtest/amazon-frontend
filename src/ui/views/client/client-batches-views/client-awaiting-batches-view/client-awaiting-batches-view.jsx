@@ -101,6 +101,8 @@ class ClientAwaitingBatchesViewRaw extends Component {
     } = this.viewModel
     const {classes: className} = this.props
 
+    console.log('userInfo', userInfo)
+
     return (
       <React.Fragment>
         <Navbar
@@ -243,6 +245,7 @@ class ClientAwaitingBatchesViewRaw extends Component {
 
         <Modal openModal={showAddOrEditBatchModal} setOpenModal={() => onTriggerOpenModal('showAddOrEditBatchModal')}>
           <AddOrEditBatchForm
+            userRole={userInfo.role}
             progressValue={progressValue}
             showProgress={showProgress}
             volumeWeightCoefficient={volumeWeightCoefficient}

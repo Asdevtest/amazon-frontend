@@ -242,6 +242,7 @@ export class ClientInventoryViewRaw extends Component {
                     <Button
                       tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
                       variant="outlined"
+                      btnWrapperStyle={classNames.btnWrapperStyle}
                       className={classNames.openArchiveBtn}
                       onClick={onTriggerArchive}
                     >
@@ -251,6 +252,7 @@ export class ClientInventoryViewRaw extends Component {
                     <Button
                       success
                       tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
+                      btnWrapperStyle={classNames.btnWrapperStyle}
                       className={cx(classNames.rightAddingBtn, classNames.flexCenterBtn)}
                       onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
                     >
