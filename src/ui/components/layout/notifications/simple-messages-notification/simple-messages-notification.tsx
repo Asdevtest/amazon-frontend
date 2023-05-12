@@ -1,7 +1,6 @@
-import CloseIcon from '@mui/icons-material/Close'
 import {Avatar, Typography} from '@mui/material'
 
-import {FC, forwardRef, useEffect} from 'react'
+import {FC} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 

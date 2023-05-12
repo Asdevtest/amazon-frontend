@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {Box} from '@mui/material'
 
 import React, {FC, useEffect, useState} from 'react'

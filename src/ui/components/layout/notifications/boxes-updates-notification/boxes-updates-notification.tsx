@@ -68,7 +68,7 @@ export const BoxesUpdatesNotification: FC<BoxesUpdatesNotificationProps> = props
           <Typography className={styles.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</Typography>
 
           <ul className={styles.listWrapper}>
-            {noticeItem?.map((el, index) => (
+            {noticeItem?.map(el => (
               <li key={el._id}>
                 <div className={styles.listItem}>
                   <p>

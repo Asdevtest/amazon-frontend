@@ -1,5 +1,5 @@
 import {cx} from '@emotion/css'
-import {TextareaAutosize, Typography} from '@mui/material'
+import {Typography} from '@mui/material'
 
 import React, {FC} from 'react'
 
