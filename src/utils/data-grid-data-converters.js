@@ -290,6 +290,7 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     sentToFbaSum: item.sentToFbaSum,
 
     sumStock: item.sumStock,
+    stockCost: item.stockCost,
     purchaseQuantity: item.purchaseQuantity,
 
     hsCode: item.hsCode,

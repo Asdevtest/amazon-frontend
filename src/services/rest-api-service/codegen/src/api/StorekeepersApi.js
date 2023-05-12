@@ -118,6 +118,10 @@ export default class StorekeepersApi {
      * # Получить коробки и их строки по текущему сторкиперу.
      * ## Получить коробки и их строки по текущему сторкиперу.   Отдет все коробки кроме тех которые были в отбывших партии, со статусом: HAS_DISPATCHED  GUID сторкипера получаем из токена.   
      * @param {Object} opts Optional parameters
+     * @param {Number} opts.offset Отступ от первой записи получаемой в запросе
+     * @param {Number} opts.limit Кол-во получаемых записей
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesBoxes>} and HTTP response
      */
@@ -128,6 +132,10 @@ export default class StorekeepersApi {
       let pathParams = {
       };
       let queryParams = {
+        'offset': opts['offset'],
+        'limit': opts['limit'],
+        'sortField': opts['sortField'],
+        'sortType': opts['sortType']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -150,6 +158,10 @@ export default class StorekeepersApi {
      * # Получить коробки и их строки по текущему сторкиперу.
      * ## Получить коробки и их строки по текущему сторкиперу.   Отдет все коробки кроме тех которые были в отбывших партии, со статусом: HAS_DISPATCHED  GUID сторкипера получаем из токена.   
      * @param {Object} opts Optional parameters
+     * @param {Number} opts.offset Отступ от первой записи получаемой в запросе
+     * @param {Number} opts.limit Кол-во получаемых записей
+     * @param {String} opts.sortField Название поля
+     * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesBoxes>}
      */

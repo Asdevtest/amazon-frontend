@@ -1424,7 +1424,7 @@ export default class BoxesApi {
 
     /**
      * # Изменить поле prepId
-     * # Изменить поле isFormed
+     * # Изменить поле prepId
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {Array.<module:model/InlineObject>} opts.body 
@@ -1457,7 +1457,7 @@ export default class BoxesApi {
 
     /**
      * # Изменить поле prepId
-     * # Изменить поле isFormed
+     * # Изменить поле prepId
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {Array.<module:model/InlineObject>} opts.body 
