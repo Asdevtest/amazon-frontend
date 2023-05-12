@@ -1,7 +1,7 @@
 import {cx} from '@emotion/css'
-import {Avatar, Link, Typography} from '@mui/material'
+import {Avatar, Typography} from '@mui/material'
 
-import React, {FC, useContext} from 'react'
+import React, {FC /* , useContext */} from 'react'
 
 import Linkify from 'react-linkify-always-blank'
 
@@ -9,18 +9,17 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatMessageDataDesignerProposalResultEditedContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
-import {UserModel} from '@models/user-model'
+// import {UserModel} from '@models/user-model'
 
 import {Button} from '@components/shared/buttons/button'
-import {CopyValue} from '@components/shared/copy-value'
 import {Field} from '@components/shared/field'
 
 import {checkIsImageLink} from '@utils/checks'
 import {formatDateOnlyTime} from '@utils/date-time'
-import {checkAndMakeAbsoluteUrl, minsToTime} from '@utils/text'
+import {minsToTime} from '@utils/text'
 import {t} from '@utils/translations'
 
-import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
+// import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
 
 import {useClassNames} from './chat-message-designer-proposal-edited-result.style'
 
@@ -43,9 +42,9 @@ interface Props {
 export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({message, handlers}) => {
   const {classes: classNames} = useClassNames()
 
-  const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
+  // const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
-  const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
+  // const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
   // console.log('message.data', message.data)
 

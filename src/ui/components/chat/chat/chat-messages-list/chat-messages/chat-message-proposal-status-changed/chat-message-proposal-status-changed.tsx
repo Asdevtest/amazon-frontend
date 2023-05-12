@@ -3,8 +3,6 @@ import {Typography} from '@mui/material'
 
 import React, {FC, useContext} from 'react'
 
-import Linkify from 'react-linkify-always-blank'
-
 import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
