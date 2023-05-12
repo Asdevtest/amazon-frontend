@@ -128,7 +128,7 @@ export const buyerProductsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     minWidth: 120,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     type: 'date',
   },
 
@@ -139,7 +139,7 @@ export const buyerProductsViewColumns = handlers => [
 
     minWidth: 150,
     flex: 1,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     type: 'date',
   },
 ]

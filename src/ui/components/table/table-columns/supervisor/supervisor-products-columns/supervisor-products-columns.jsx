@@ -131,7 +131,7 @@ export const supervisorProductsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     width: 120,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     type: 'date',
   },
 
@@ -142,7 +142,7 @@ export const supervisorProductsViewColumns = () => [
 
     minWidth: 150,
     flex: 1,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     type: 'date',
   },
 ]

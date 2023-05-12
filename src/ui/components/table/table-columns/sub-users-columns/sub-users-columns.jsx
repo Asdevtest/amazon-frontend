@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import {useCallback, useMemo} from 'react'
+
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -18,7 +20,11 @@ export const subUsersColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
 
     width: 346,
-    renderCell: params => <UserCell user={params.row} />,
+    renderCell: params => {
+      const user = params.row
+
+      return <UserCell userId={user?._id} name={user?.name} email={user?.email} rating={user?.rating} />
+    },
   },
 
   {
@@ -27,7 +33,11 @@ export const subUsersColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Roles)} />,
 
     width: 213,
-    renderCell: params => <UserRolesCell user={params.row} />,
+    renderCell: params => {
+      const user = useMemo(() => params.row, [])
+
+      return <UserRolesCell user={user} />
+    },
   },
 
   {
@@ -36,18 +46,22 @@ export const subUsersColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 381,
-    renderCell: params => (
-      <EditOrRemoveBtnsCell
-        isSubUsersTable
-        tooltipFirstButton={t(TranslationKey["Editing an employee's permission list"])}
-        tooltipSecondButton={t(
-          TranslationKey['Removing an employee from the list, banning and disabling access to the platform'],
-        )}
-        handlers={handlers}
-        row={params.row}
-        isFirstRow={firstRowId === params.row.id}
-      />
-    ),
+    renderCell: params => {
+      const handlersMemo = useMemo(() => handlers, [])
+
+      return (
+        <EditOrRemoveBtnsCell
+          isSubUsersTable
+          tooltipFirstButton={t(TranslationKey["Editing an employee's permission list"])}
+          tooltipSecondButton={t(
+            TranslationKey['Removing an employee from the list, banning and disabling access to the platform'],
+          )}
+          handlers={handlersMemo}
+          row={params.row}
+          isFirstRow={firstRowId === params.row.id}
+        />
+      )
+    },
     filterable: false,
     sortable: false,
   },
@@ -58,7 +72,11 @@ export const subUsersColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
     width: 381,
-    renderCell: params => <CommentUsersCell params={params} handler={handlers.onClickSaveComment} />,
+    renderCell: params => {
+      const onClickSaveComment = useCallback(handlers.onClickSaveComment, [])
+
+      return <CommentUsersCell id={params.row._id} comment={params?.row?.note?.comment} handler={onClickSaveComment} />
+    },
     filterable: false,
     sortable: false,
   },

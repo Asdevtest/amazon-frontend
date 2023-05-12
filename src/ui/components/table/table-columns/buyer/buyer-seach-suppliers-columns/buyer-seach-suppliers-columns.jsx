@@ -57,7 +57,7 @@ export const buyerSearchSuppliersViewColumns = (handlers, firstRowId) => [
 
     minWidth: 150,
     flex: 1,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     type: 'date',
   },
 ]

@@ -228,7 +228,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
     type: 'date',
   },
@@ -238,7 +238,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 130,
     type: 'date',
   },

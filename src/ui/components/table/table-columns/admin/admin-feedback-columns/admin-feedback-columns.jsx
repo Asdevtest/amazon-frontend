@@ -18,7 +18,11 @@ export const adminFeedbackViewColumns = handlers => [
     field: 'userName',
     headerName: t(TranslationKey.User),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
-    renderCell: params => <UserCell user={params.row.originalData.user} />,
+    renderCell: params => {
+      const user = params.row.originalData.user
+
+      return <UserCell userId={user?._id} name={user?.name} email={user?.email} rating={user?.rating} />
+    },
     width: 450,
   },
 
@@ -26,7 +30,7 @@ export const adminFeedbackViewColumns = handlers => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 90,
     type: 'date',
   },

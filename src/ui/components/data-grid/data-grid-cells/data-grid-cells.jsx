@@ -99,27 +99,27 @@ import {styles} from './data-grid-cells.style'
 
 export const UserCell = React.memo(
   withStyles(
-    ({classes: classNames, user}) => (
+    ({classes: classNames, userId, name, email, rating}) => (
       <div className={classNames.sabUserWrapper}>
         <div className={classNames.userAvatarWrapper}>
-          <Avatar src={getUserAvatarSrc(user?._id)} className={classNames.userAvatar} />
+          <Avatar src={getUserAvatarSrc(userId)} className={classNames.userAvatar} />
         </div>
 
         <div className={classNames.sabUserInfoWrapper}>
           <div className={classNames.userLink}>
             <UserLink
               customStyles={{fontWeight: 600, fontSize: '14px', lineHeight: '19px'}}
-              name={user?.name}
-              userId={user?._id}
+              name={name}
+              userId={userId}
             />
           </div>
 
-          <Typography className={classNames.userEmail}>{user?.email}</Typography>
+          <Typography className={classNames.userEmail}>{email}</Typography>
 
           <div className={classNames.sabUserRatingWrapper}>
-            <Typography className={classNames.ratingScore}>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>
+            <Typography className={classNames.ratingScore}>{`Rating ${toFixed(rating, 1)}`}</Typography>
 
-            <Rating disabled className={classNames.sabUserRating} value={user?.rating} />
+            <Rating disabled className={classNames.sabUserRating} value={rating} />
           </div>
         </div>
       </div>
@@ -824,10 +824,8 @@ export const DateCell = React.memo(
 
 export const NormDateCell = React.memo(
   withStyles(
-    ({classes: classNames, params}) => (
-      <Typography className={classNames.normDateCellTypo}>
-        {!(params && params.value) ? '-' : formatNormDateTime(params.value)}
-      </Typography>
+    ({classes: classNames, value}) => (
+      <Typography className={classNames.normDateCellTypo}>{value ? formatNormDateTime(value) : '-'}</Typography>
     ),
     styles,
   ),
@@ -2017,9 +2015,9 @@ export const FourMonthesStockCell = React.memo(
 
 export const CommentUsersCell = React.memo(
   withStyles(
-    ({classes: classNames, handler, params}) => (
+    ({classes: classNames, handler, id, comment}) => (
       <div className={classNames.CommentUsersCellWrapper}>
-        <ChangeInputCommentCell id={params.row._id} text={params?.row?.note?.comment} onClickSubmit={handler} />
+        <ChangeInputCommentCell id={id} text={comment} onClickSubmit={handler} />
       </div>
     ),
     styles,

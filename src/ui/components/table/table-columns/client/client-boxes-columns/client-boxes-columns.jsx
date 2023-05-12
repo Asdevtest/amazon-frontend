@@ -394,7 +394,7 @@ export const clientBoxesViewColumns = (
       />
     ),
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
     type: 'date',
     columnKey: columnnsKeys.shared.DATE,
@@ -411,7 +411,7 @@ export const clientBoxesViewColumns = (
       />
     ),
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
     type: 'date',
     columnKey: columnnsKeys.shared.DATE,
