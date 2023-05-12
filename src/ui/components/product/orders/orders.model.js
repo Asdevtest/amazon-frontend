@@ -1,7 +1,7 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import {OrderStatus, OrderStatusByKey} from '@constants/statuses/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
@@ -10,7 +10,7 @@ import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
-import {clientProductOrdersViewColumns} from '@components/table-columns/client/client-product-orders-columns'
+import {clientProductOrdersViewColumns} from '@components/table/table-columns/client/client-product-orders-columns'
 
 import {clientOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'

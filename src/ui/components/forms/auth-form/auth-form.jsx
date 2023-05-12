@@ -11,7 +11,7 @@ import {withStyles} from 'tss-react/mui'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Field} from '@components/field'
+import {Field} from '@components/shared/field'
 
 import {t} from '@utils/translations'
 

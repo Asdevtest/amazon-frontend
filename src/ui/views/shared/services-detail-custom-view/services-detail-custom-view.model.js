@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import {UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 
 import {AnnouncementsModel} from '@models/announcements-model'
 import {ChatModel} from '@models/chat-model'

@@ -1,9 +1,9 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
 import {ChatModel} from '@models/chat-model'
 import {ChatsModel} from '@models/chats-model'
@@ -14,9 +14,9 @@ import {ShopModel} from '@models/shop-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
-import {clientExchangeViewColumns} from '@components/table-columns/client/client-exchange-columns'
+import {clientExchangeViewColumns} from '@components/table/table-columns/client/client-exchange-columns'
 // import {UserModel} from '@models/user-model'
-import {vacByUserIdExchangeColumns} from '@components/table-columns/product/vac-by-user-id-exchange-columns'
+import {vacByUserIdExchangeColumns} from '@components/table/table-columns/product/vac-by-user-id-exchange-columns'
 
 import {addIdDataConverter, clientProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'

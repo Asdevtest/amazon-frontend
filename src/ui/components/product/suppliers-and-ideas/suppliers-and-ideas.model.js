@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {creatSupplier} from '@constants/white-list'
 import {patchSuppliers} from '@constants/white-list'

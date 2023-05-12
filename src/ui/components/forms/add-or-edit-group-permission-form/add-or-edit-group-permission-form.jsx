@@ -8,12 +8,12 @@ import React, {useState} from 'react'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
+import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/keys/user-roles'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
-import {Modal} from '@components/modal'
+import {Button} from '@components/shared/buttons/button'
+import {Field} from '@components/shared/field/field'
+import {Modal} from '@components/shared/modal'
 
 import {checkIsPositiveNum} from '@utils/checks'
 import {t} from '@utils/translations'

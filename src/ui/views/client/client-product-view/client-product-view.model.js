@@ -1,8 +1,8 @@
 import {action, makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductDataParser} from '@constants/product-data-parser'
-import {poundsWeightCoefficient} from '@constants/sizes-settings'
+import {poundsWeightCoefficient} from '@constants/configs/sizes-settings'
+import {ProductDataParser} from '@constants/product/product-data-parser'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {creatSupplier, patchSuppliers} from '@constants/white-list'
 

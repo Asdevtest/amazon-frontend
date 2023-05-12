@@ -8,7 +8,7 @@ import {
   NormalActionBtnCell,
   BoxesAndQuantity,
   StringListCell,
-} from '@components/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import {formatDate} from '@utils/date-time'
 import {t} from '@utils/translations'

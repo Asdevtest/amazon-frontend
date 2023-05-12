@@ -2,14 +2,14 @@ import {Component} from 'react'
 
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
 import {SupervisorSettingsContent} from '@components/contents/supervisor-settings-content'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {Navbar} from '@components/navbar'
+import {Appbar} from '@components/layout/appbar'
+import {Main} from '@components/layout/main'
+import {MainContent} from '@components/layout/main-content'
+import {Navbar} from '@components/layout/navbar'
 
 import {t} from '@utils/translations'
 

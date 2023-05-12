@@ -1,13 +1,13 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 
 import {BuyerModel} from '@models/buyer-model'
 import {ResearcherModel} from '@models/researcher-model'
 import {SettingsModel} from '@models/settings-model'
 
-import {buyerProductsViewColumns} from '@components/table-columns/buyer/buyer-products-columns'
+import {buyerProductsViewColumns} from '@components/table/table-columns/buyer/buyer-products-columns'
 
 import {buyerProductsDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'

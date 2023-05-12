@@ -9,11 +9,11 @@ import {
   freelanceRequestTypeByCode,
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
-} from '@constants/freelance-request-type'
+} from '@constants/statuses/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
+import {RequestStatusCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
+import {Button} from '@components/shared/buttons/button'
 
 import {calcNumberMinusPercent, calcPercentAfterMinusNumbers} from '@utils/calculation'
 import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-time'

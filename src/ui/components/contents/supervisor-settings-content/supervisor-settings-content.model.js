@@ -1,15 +1,15 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {mapProductStrategyStatusEnumToKey} from '@constants/product-strategy-status'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {mapProductStrategyStatusEnumToKey} from '@constants/product/product-strategy-status'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
-import {supervisorSettingsViewColumns} from '@components/table-columns/supervisor/supervisor-settings-columns/supervisor-settings-columns'
+import {supervisorSettingsViewColumns} from '@components/table/table-columns/supervisor/supervisor-settings-columns/supervisor-settings-columns'
 
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'

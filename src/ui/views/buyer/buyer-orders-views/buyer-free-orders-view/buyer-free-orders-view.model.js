@@ -1,16 +1,16 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import {OrderStatus, OrderStatusByKey} from '@constants/statuses/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BuyerModel} from '@models/buyer-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
-import {buyerFreeOrdersViewColumns} from '@components/table-columns/buyer/buyer-fre-orders-columns'
+import {buyerFreeOrdersViewColumns} from '@components/table/table-columns/buyer/buyer-fre-orders-columns'
 
 import {buyerVacantOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'

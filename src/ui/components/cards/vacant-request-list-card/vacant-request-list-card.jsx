@@ -5,21 +5,21 @@ import Rating from '@mui/material/Rating'
 
 import React from 'react'
 
+import {MyRequestStatusTranslate} from '@constants/requests/request-proposal-status'
+import {colorByRequestStatus} from '@constants/requests/request-status'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
-} from '@constants/freelance-request-type'
-import {MyRequestStatusTranslate} from '@constants/request-proposal-status'
-import {colorByRequestStatus} from '@constants/request-status'
+} from '@constants/statuses/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {VacantRequestPriceCell} from '@components/data-grid-cells/data-grid-cells'
+import {VacantRequestPriceCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
+import {Button} from '@components/shared/buttons/button'
 // import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
-import {Field} from '@components/field'
-import {UserLink} from '@components/user-link'
+import {Field} from '@components/shared/field'
+import {UserLink} from '@components/user/user-link'
 
 import {calcNumberMinusPercent} from '@utils/calculation'
 import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'

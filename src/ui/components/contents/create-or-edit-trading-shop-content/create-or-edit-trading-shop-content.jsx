@@ -6,10 +6,10 @@ import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {EstimateCreateTradingShopForm} from '@components/forms/estimate-create-trading-shop-form'
-import {Modal} from '@components/modal'
+import {Button} from '@components/shared/buttons/button'
+import {CircularProgressWithLabel} from '@components/shared/circular-progress-with-label'
+import {Modal} from '@components/shared/modal'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'

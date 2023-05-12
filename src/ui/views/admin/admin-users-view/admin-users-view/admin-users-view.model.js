@@ -1,14 +1,14 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {PermissionsModel} from '@models/permissions-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
-import {adminUsersViewColumns} from '@components/table-columns/admin/users-columns'
+import {adminUsersViewColumns} from '@components/table/table-columns/admin/users-columns'
 
 import {adminUsersDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'

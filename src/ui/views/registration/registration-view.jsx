@@ -5,8 +5,8 @@ import {withStyles} from 'tss-react/mui'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {EntryLeftPanel} from '@components/entry-left-panel'
-import {EntryRightPanel} from '@components/entry-right-panel'
+import {EntryLeftPanel} from '@components/auth/entry-left-panel'
+import {EntryRightPanel} from '@components/auth/entry-right-panel'
 import {RegistrationForm} from '@components/forms/registration-form'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'

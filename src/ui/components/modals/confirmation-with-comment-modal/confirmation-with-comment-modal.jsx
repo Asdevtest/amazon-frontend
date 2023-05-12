@@ -2,9 +2,9 @@ import {Typography} from '@mui/material'
 
 import React, {useState, useEffect} from 'react'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
-import {Modal} from '@components/modal'
+import {Button} from '@components/shared/buttons/button'
+import {Field} from '@components/shared/field/field'
+import {Modal} from '@components/shared/modal'
 
 import {useClassNames} from './confirmation-with-comment-modal.style'
 

@@ -7,16 +7,15 @@ import React from 'react'
 
 import Carousel from 'react-material-ui-carousel'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
-import {RequestProposalStatus} from '@constants/request-proposal-status'
-import {RequestStatus} from '@constants/request-status'
+import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
+import {RequestStatus} from '@constants/requests/request-status'
+import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CustomCarousel} from '@components/custom-carousel'
-import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
-import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
-import {UserLink} from '@components/user-link'
+import {RequestStatusCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
+import {Button} from '@components/shared/buttons/button'
+import {CustomCarousel, PhotoCarousel} from '@components/shared/custom-carousel/custom-carousel'
+import {UserLink} from '@components/user/user-link'
 
 import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'

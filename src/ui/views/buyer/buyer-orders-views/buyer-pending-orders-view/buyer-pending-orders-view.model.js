@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
-import {routsPathes} from '@constants/routs-pathes'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {routsPathes} from '@constants/navigation/routs-pathes'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import {OrderStatus, OrderStatusByKey} from '@constants/statuses/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {creatSupplier, patchSuppliers} from '@constants/white-list'
 
@@ -16,7 +16,7 @@ import {SettingsModel} from '@models/settings-model'
 import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
-import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my-orders-columns'
+import {buyerMyOrdersViewColumns} from '@components/table/table-columns/buyer/buyer-my-orders-columns'
 
 import {calcOrderTotalPrice, calcOrderTotalPriceInYuann} from '@utils/calculation'
 import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'

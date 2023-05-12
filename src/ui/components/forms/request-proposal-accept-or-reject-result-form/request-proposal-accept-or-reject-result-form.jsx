@@ -6,8 +6,8 @@ import React, {useState} from 'react'
 import {Rating} from '@material-ui/lab'
 import {observer} from 'mobx-react'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
+import {Button} from '@components/shared/buttons/button'
+import {Field} from '@components/shared/field/field'
 
 import {useClassNames} from './request-proposal-accept-or-reject-result-form.style'
 

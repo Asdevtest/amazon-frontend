@@ -3,11 +3,11 @@ import {Typography} from '@mui/material'
 
 import React from 'react'
 
+import {zipCodeGroups} from '@constants/configs/zip-code-groups'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {zipCodeGroups} from '@constants/zip-code-groups'
 
-import {Text} from '@components/text'
-import {UserLink} from '@components/user-link'
+import {Text} from '@components/shared/text'
+import {UserLink} from '@components/user/user-link'
 
 import {calcFinalWeightForBox} from '@utils/calculation'
 import {findTariffInStorekeepersData} from '@utils/checks'

@@ -1,7 +1,7 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {mapProductStrategyStatusEnumToKey, ProductStrategyStatus} from '@constants/product-strategy-status'
+import {mapProductStrategyStatusEnumToKey, ProductStrategyStatus} from '@constants/product/product-strategy-status'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 
 import {ClientModel} from '@models/client-model'
 import {ShopModel} from '@models/shop-model'

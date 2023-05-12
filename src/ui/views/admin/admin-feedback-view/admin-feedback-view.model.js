@@ -1,8 +1,8 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {ChatModel} from '@models/chat-model'
@@ -10,7 +10,7 @@ import {ChatsModel} from '@models/chats-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
-import {adminFeedbackViewColumns} from '@components/table-columns/admin/admin-feedback-columns/admin-feedback-columns'
+import {adminFeedbackViewColumns} from '@components/table/table-columns/admin/admin-feedback-columns/admin-feedback-columns'
 
 import {feedBackDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'

@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // import * as fs from 'fs'
 // import fs from 'fs'
-import {BACKEND_API_URL} from '@constants/env'
+import {BACKEND_API_URL} from '@constants/keys/env'
 
 import {restApiService} from '@services/rest-api-service/rest-api-service'
 

@@ -5,11 +5,11 @@ import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {NewDatePicker} from '@components/date-picker/date-picker'
-import {Field} from '@components/field/field'
-import {Input} from '@components/input'
-import {UploadFilesInput} from '@components/upload-files-input'
+import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
+import {NewDatePicker} from '@components/shared/date-picker/date-picker'
+import {Field} from '@components/shared/field/field'
+import {Input} from '@components/shared/input'
+import {UploadFilesInput} from '@components/shared/upload-files-input'
 
 import {t} from '@utils/translations'
 

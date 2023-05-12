@@ -5,12 +5,12 @@ import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 
+import {UserRoleCodeMap} from '@constants/keys/user-roles'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {SettingsModel} from '@models/settings-model'
 
-import {ITab} from '@components/i-tab/i-tab'
+import {ITab} from '@components/shared/i-tab/i-tab'
 
 import {checkIsBuyer, checkIsClient, checkIsResearcher} from '@utils/checks'
 import {t} from '@utils/translations'

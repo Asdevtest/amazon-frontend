@@ -1,10 +1,10 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
-import {routsPathes} from '@constants/routs-pathes'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
+import {routsPathes} from '@constants/navigation/routs-pathes'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import {OrderStatus, OrderStatusByKey} from '@constants/statuses/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
@@ -13,7 +13,7 @@ import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
-import {clientOrdersViewColumns} from '@components/table-columns/client/client-orders-columns'
+import {clientOrdersViewColumns} from '@components/table/table-columns/client/client-orders-columns'
 
 import {clientOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'

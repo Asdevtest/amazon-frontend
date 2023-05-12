@@ -7,22 +7,22 @@ import React, {useState} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
+import {ProductStatus, ProductStatusByKey} from '@constants/product/product-status'
 import {
   mapProductStrategyStatusEnum,
   mapProductStrategyStatusEnumToKey,
   ProductStrategyStatus,
-} from '@constants/product-strategy-status'
+} from '@constants/product/product-strategy-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {GeneralModel} from '@models/general-model'
 
-import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value/copy-value'
-import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
-import {Field} from '@components/field'
-import {Input} from '@components/input'
+import {UserLinkCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
 import {TagSelector} from '@components/product/product-wrapper/tag-selector/tag-selector'
+import {Button} from '@components/shared/buttons/button'
+import {CopyValue} from '@components/shared/copy-value/copy-value'
+import {Field} from '@components/shared/field'
+import {Input} from '@components/shared/input'
 import {RedFlags} from '@components/shared/redFlags/red-flags'
 
 import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'

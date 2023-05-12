@@ -1,6 +1,6 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 
 import {AdministratorModel} from '@models/administrator-model'
 

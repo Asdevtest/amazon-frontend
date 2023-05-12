@@ -1,6 +1,6 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 
 import {BoxesModel} from '@models/boxes-model'
 import {OtherModel} from '@models/other-model'

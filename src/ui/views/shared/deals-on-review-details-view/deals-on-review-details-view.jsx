@@ -2,17 +2,17 @@ import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
 import {DealDetailsCard} from '@components/cards/deal-details-card'
 import {RequestProposalAcceptOrRejectResultForm} from '@components/forms/request-proposal-accept-or-reject-result-form'
 import {RequestProposalResultToCorrectForm} from '@components/forms/request-proposal-result-to-correct-form'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
-import {Navbar} from '@components/navbar'
+import {Appbar} from '@components/layout/appbar'
+import {Main} from '@components/layout/main'
+import {MainContent} from '@components/layout/main-content'
+import {Navbar} from '@components/layout/navbar'
+import {Modal} from '@components/shared/modal'
 
 import {t} from '@utils/translations'
 

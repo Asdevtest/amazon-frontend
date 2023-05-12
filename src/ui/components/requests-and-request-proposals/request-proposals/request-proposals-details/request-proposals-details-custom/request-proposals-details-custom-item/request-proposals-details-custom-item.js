@@ -2,7 +2,7 @@ import {Typography} from '@mui/material'
 
 import {observer} from 'mobx-react'
 
-import {Button} from '@components/buttons/button'
+import {Button} from '@components/shared/buttons/button'
 
 import {formatDateTime} from '@utils/date-time'
 

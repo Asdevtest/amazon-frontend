@@ -1,5 +1,5 @@
-import {RequestProposalStatus} from '@constants/request-proposal-status'
-import {RequestStatus} from '@constants/request-status'
+import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
+import {RequestStatus} from '@constants/requests/request-status'
 
 import {
   ChatMessageDataBloggerProposalResultEditedContract,

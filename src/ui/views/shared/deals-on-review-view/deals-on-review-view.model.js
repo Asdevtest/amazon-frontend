@@ -1,9 +1,9 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
-import {RequestSubType, RequestType} from '@constants/request-type'
-import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
-import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
+import {UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
+import {RequestSubType, RequestType} from '@constants/requests/request-type'
+import {tableSortMode, tableViewMode} from '@constants/table/table-view-modes'
+import {ViewTableModeStateKeys} from '@constants/table/view-table-mode-state-keys'
 
 import {RequestProposalModel} from '@models/request-proposal'
 import {SettingsModel} from '@models/settings-model'

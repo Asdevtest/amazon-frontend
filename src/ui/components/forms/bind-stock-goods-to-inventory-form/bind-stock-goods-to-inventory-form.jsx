@@ -9,9 +9,9 @@ import qs from 'qs'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {SearchInput} from '@components/search-input'
+import {Button} from '@components/shared/buttons/button'
+import {MemoDataGrid} from '@components/shared/memo-data-grid'
+import {SearchInput} from '@components/shared/search-input'
 
 import {t} from '@utils/translations'
 

@@ -3,7 +3,7 @@ import Rating from '@mui/material/Rating'
 
 import React from 'react'
 
-import {UserLink} from '@components/user-link'
+import {UserLink} from '@components/user/user-link'
 
 // import {TranslationKey} from '@constants/translations/translation-key'
 // import {Field} from '@components/field/field'

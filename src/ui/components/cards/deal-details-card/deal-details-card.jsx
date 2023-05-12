@@ -7,13 +7,13 @@ import React from 'react'
 
 import Linkify from 'react-linkify-always-blank'
 
-import {RequestStatus} from '@constants/request-status'
+import {RequestStatus} from '@constants/requests/request-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
-import {UserLink} from '@components/user-link'
+import {RequestStatusCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
+import {Button} from '@components/shared/buttons/button'
+import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
+import {UserLink} from '@components/user/user-link'
 
 import {formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'

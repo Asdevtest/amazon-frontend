@@ -3,10 +3,10 @@ import {Box, FormControlLabel, Grid, Radio, RadioGroup} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
-import {ProductStatusByCode} from '@constants/product-status'
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
+import {ProductStatusByCode} from '@constants/product/product-status'
+import {mapProductStrategyStatusEnum} from '@constants/product/product-strategy-status'
 
-import {Text} from '@components/text'
+import {Text} from '@components/shared/text'
 
 import {translateTooltipAttentionMessageByRole, translateTooltipMessageByRole} from '@utils/translate-tooltip-message'
 

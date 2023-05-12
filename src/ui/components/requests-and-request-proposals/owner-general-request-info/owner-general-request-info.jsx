@@ -4,22 +4,22 @@ import {Avatar, Paper, Rating, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
 
+import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
+import {RequestStatus} from '@constants/requests/request-status'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
-} from '@constants/freelance-request-type'
-import {RequestProposalStatus} from '@constants/request-proposal-status'
-import {RequestStatus} from '@constants/request-status'
+} from '@constants/statuses/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {AsinLink} from '@components/asin-link'
-import {Button} from '@components/buttons/button'
-import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
-import {Modal} from '@components/modal'
+import {RequestStatusCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
 import {RestoreRequestModal} from '@components/requests-and-request-proposals/restore-request-modal/restore-request-modal'
-import {UserLink} from '@components/user-link'
+import {AsinLink} from '@components/shared/asin-link'
+import {Button} from '@components/shared/buttons/button'
+import {Modal} from '@components/shared/modal'
+import {UserLink} from '@components/user/user-link'
 
 import {calcNumberMinusPercent} from '@utils/calculation'
 import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-time'

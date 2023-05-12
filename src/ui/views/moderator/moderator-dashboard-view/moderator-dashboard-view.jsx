@@ -6,16 +6,16 @@ import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
 // import {getFreelancerDashboardCardConfig} from '@constants/dashboard-configs'
-import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
+import {Appbar} from '@components/layout/appbar'
 // import {DashboardBalance} from '@components/dashboards/dashboard-balance'
 // import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {Navbar} from '@components/navbar'
-import {UserLink} from '@components/user-link'
+import {Main} from '@components/layout/main'
+import {MainContent} from '@components/layout/main-content'
+import {Navbar} from '@components/layout/navbar'
+import {UserLink} from '@components/user/user-link'
 
 import {t} from '@utils/translations'
 

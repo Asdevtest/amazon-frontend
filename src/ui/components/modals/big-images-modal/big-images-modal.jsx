@@ -7,9 +7,9 @@ import React, {useEffect, useState} from 'react'
 
 import Carousel from 'react-material-ui-carousel'
 
-import {Button} from '@components/buttons/button'
 import {ImageZoomForm} from '@components/forms/image-zoom-form'
-import {Modal} from '@components/modal'
+import {Button} from '@components/shared/buttons/button'
+import {Modal} from '@components/shared/modal'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {downloadFile, downloadFileByLink} from '@utils/upload-files'

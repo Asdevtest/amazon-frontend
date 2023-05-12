@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
-import {BoxStatus} from '@constants/box-status'
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {BoxStatus} from '@constants/statuses/box-status'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BoxesModel} from '@models/boxes-model'
@@ -14,8 +14,8 @@ import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
-import {clientBoxesViewColumns} from '@components/table-columns/client/client-boxes-columns'
-import {clientTasksViewColumns} from '@components/table-columns/client/client-tasks-columns'
+import {clientBoxesViewColumns} from '@components/table/table-columns/client/client-boxes-columns'
+import {clientTasksViewColumns} from '@components/table/table-columns/client/client-tasks-columns'
 
 import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'

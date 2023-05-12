@@ -5,8 +5,8 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {makePersistable} from 'mobx-persist-store'
 
 import {appVersion} from '@constants/app-version'
-import {snackNoticeKey} from '@constants/snack-notifications'
-import {UiTheme} from '@constants/themes'
+import {snackNoticeKey} from '@constants/keys/snack-notifications'
+import {UiTheme} from '@constants/theme/themes'
 import {LanguageKey} from '@constants/translations/language-key'
 
 import {setI18nConfig} from '@utils/translations'

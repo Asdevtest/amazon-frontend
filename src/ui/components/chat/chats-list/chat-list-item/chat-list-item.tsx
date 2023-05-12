@@ -6,7 +6,7 @@ import React, {FC, useContext} from 'react'
 import he from 'he'
 import {observer} from 'mobx-react'
 
-import {chatsType} from '@constants/chats'
+import {chatsType} from '@constants/keys/chats'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatContract, ChatUserContract} from '@models/chat-model/contracts'

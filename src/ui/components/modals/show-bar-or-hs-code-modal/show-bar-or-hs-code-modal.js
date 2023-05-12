@@ -4,8 +4,8 @@ import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value/copy-value'
+import {Button} from '@components/shared/buttons/button'
+import {CopyValue} from '@components/shared/copy-value/copy-value'
 
 import {t} from '@utils/translations'
 

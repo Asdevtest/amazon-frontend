@@ -1,17 +1,17 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
-import {RequestSubType, RequestType} from '@constants/request-type'
-import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
-import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/user-roles'
-import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
+import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
+import {RequestSubType, RequestType} from '@constants/requests/request-type'
+import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/statuses/freelance-request-type'
+import {tableViewMode, tableSortMode} from '@constants/table/table-view-modes'
+import {ViewTableModeStateKeys} from '@constants/table/view-table-mode-state-keys'
 
 import {RequestModel} from '@models/request-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
-import {FreelancerVacantRequestColumns} from '@views/freelancer/freelancer-vacant-request-columns/freelancer-vacant-request-columns'
+import {FreelancerVacantRequestColumns} from '@components/table/table-columns/freelancer/freelancer-vacant-request-columns/freelancer-vacant-request-columns'
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
 

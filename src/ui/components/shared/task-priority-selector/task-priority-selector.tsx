@@ -7,7 +7,7 @@ import {
   mapTaskPriorityStatusEnum,
   TaskPriorityStatus,
   taskPriorityStatusTranslate,
-} from '@constants/task-priority-status'
+} from '@constants/task/task-priority-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {useTaskPrioritySelectorStyles} from '@components/shared/task-priority-selector/task-priority-selector.styles'

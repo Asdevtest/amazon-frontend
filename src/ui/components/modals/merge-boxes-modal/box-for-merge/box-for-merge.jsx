@@ -6,9 +6,9 @@ import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {CopyValue} from '@components/copy-value/copy-value'
-import {Field} from '@components/field/field'
-import {WithSearchSelect} from '@components/selects/with-search-select'
+import {CopyValue} from '@components/shared/copy-value/copy-value'
+import {Field} from '@components/shared/field/field'
+import {WithSearchSelect} from '@components/shared/selects/with-search-select'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getFullTariffTextForBoxOrOrder} from '@utils/text'

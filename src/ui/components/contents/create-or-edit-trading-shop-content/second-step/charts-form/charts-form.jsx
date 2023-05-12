@@ -8,8 +8,8 @@ import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {TwoBarsChart} from '@components/charts/two-bars-chart/two-bars-chart'
+import {Button} from '@components/shared/buttons/button'
+import {TwoBarsChart} from '@components/shared/charts/two-bars-chart/two-bars-chart'
 
 import {t} from '@utils/translations'
 

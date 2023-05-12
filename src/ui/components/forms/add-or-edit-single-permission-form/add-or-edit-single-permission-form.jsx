@@ -5,13 +5,13 @@ import React, {useState} from 'react'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
-import {HttpMethod} from '@constants/http-method'
+import {HttpMethod} from '@constants/keys/http-method'
+import {UserRoleCodeMap} from '@constants/keys/user-roles'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
-import {Input} from '@components/input'
+import {Button} from '@components/shared/buttons/button'
+import {Field} from '@components/shared/field/field'
+import {Input} from '@components/shared/input'
 
 import {checkIsPositiveNum} from '@utils/checks'
 import {clearSpecialCharacters} from '@utils/text'

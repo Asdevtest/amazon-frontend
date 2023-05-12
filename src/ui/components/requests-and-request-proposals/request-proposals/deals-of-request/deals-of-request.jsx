@@ -6,10 +6,10 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 
 import React, {useState} from 'react'
 
-import {RequestProposalStatusColor, RequestProposalStatusTranslate} from '@constants/request-proposal-status'
+import {RequestProposalStatusColor, RequestProposalStatusTranslate} from '@constants/requests/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {UserLink} from '@components/user-link'
+import {UserLink} from '@components/user/user-link'
 
 import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'

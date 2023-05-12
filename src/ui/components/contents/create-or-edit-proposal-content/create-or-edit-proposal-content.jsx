@@ -5,17 +5,17 @@ import {Avatar, Checkbox, Link, List, ListItem, ListItemText, Typography, Rating
 
 import React, {useState} from 'react'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
+import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {CustomTextEditor} from '@components/custom-text-editor'
-import {Field} from '@components/field'
-import {SetDuration} from '@components/set-duration/set-duration'
-import {UploadFilesInputMini} from '@components/upload-files-input-mini'
-import {UserLink} from '@components/user-link'
+import {Button} from '@components/shared/buttons/button'
+import {CircularProgressWithLabel} from '@components/shared/circular-progress-with-label'
+import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
+import {CustomTextEditor} from '@components/shared/custom-text-editor'
+import {Field} from '@components/shared/field'
+import {SetDuration} from '@components/shared/set-duration/set-duration'
+import {UploadFilesInputMini} from '@components/shared/upload-files-input-mini'
+import {UserLink} from '@components/user/user-link'
 
 import {calcNumberMinusPercent} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'

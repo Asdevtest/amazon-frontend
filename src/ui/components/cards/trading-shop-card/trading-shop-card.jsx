@@ -9,9 +9,9 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
-import {Field} from '@components/field'
+import {Button} from '@components/shared/buttons/button'
+import {PhotoCarousel} from '@components/shared/custom-carousel/custom-carousel'
+import {Field} from '@components/shared/field'
 
 import {getYearDate} from '@utils/date-time'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'

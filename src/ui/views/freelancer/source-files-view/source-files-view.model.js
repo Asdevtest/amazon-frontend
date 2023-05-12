@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {tableSortMode} from '@constants/table-view-modes'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import {tableSortMode} from '@constants/table/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {RequestProposalModel} from '@models/request-proposal'
 import {SettingsModel} from '@models/settings-model'
 
-import {sourceFilesColumns} from '@views/freelancer/source-files-columns/source-files-columns'
+import {sourceFilesColumns} from '@components/table/table-columns/freelancer/source-files-columns/source-files-columns'
 
 import {SourceFilesDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'

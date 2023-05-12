@@ -1,7 +1,7 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {creatSupplier} from '@constants/white-list'
 
@@ -13,7 +13,7 @@ import {ShopModel} from '@models/shop-model'
 import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
-import {clientDailySellerBoardColumns} from '@components/table-columns/client/client-daily-seller-board-columns'
+import {clientDailySellerBoardColumns} from '@components/table/table-columns/client/client-daily-seller-board-columns'
 
 import {addIdDataConverter, stockReportDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'

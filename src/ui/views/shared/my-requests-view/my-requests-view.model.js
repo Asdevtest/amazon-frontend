@@ -1,18 +1,18 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {freelanceRequestType, freelanceRequestTypeByCode} from '@constants/freelance-request-type'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {MyRequestStatus} from '@constants/request-proposal-status'
-import {RequestStatus} from '@constants/request-status'
-import {RequestSubType, RequestType} from '@constants/request-type'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
+import {UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
+import {MyRequestStatus} from '@constants/requests/request-proposal-status'
+import {RequestStatus} from '@constants/requests/request-status'
+import {RequestSubType, RequestType} from '@constants/requests/request-type'
+import {freelanceRequestType, freelanceRequestTypeByCode} from '@constants/statuses/freelance-request-type'
+import {loadingStatuses} from '@constants/statuses/loading-statuses'
 
 import {RequestModel} from '@models/request-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
-import {myRequestsViewColumns} from '@components/table-columns/overall/my-requests-columns'
+import {myRequestsViewColumns} from '@components/table/table-columns/overall/my-requests-columns'
 
 import {myRequestsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'

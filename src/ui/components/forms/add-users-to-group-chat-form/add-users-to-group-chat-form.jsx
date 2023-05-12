@@ -8,9 +8,9 @@ import {components} from 'react-select'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
-import {CustomReactSelect} from '@components/selects/custom-react-select'
+import {Button} from '@components/shared/buttons/button'
+import {Field} from '@components/shared/field'
+import {CustomReactSelect} from '@components/shared/selects/custom-react-select'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
