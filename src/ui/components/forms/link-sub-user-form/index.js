@@ -1,1 +1,1 @@
-export {LinkSubUserForm} from './link-sub-user-form.tsx'
+export {LinkSubUserForm} from './link-sub-user-form'
