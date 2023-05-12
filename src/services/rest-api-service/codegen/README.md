@@ -340,6 +340,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.ProductApi* | [**apiV1ProductsAddShopsGuidPost**](docs/ProductApi.md#apiV1ProductsAddShopsGuidPost) | **POST** /api/v1/products/add_shops/{guid} | Добавить магазины к продукту.
 *TestSwagger.ProductApi* | [**apiV1ProductsAddSuppliersGuidPost**](docs/ProductApi.md#apiV1ProductsAddSuppliersGuidPost) | **POST** /api/v1/products/add_suppliers/{guid} | Добавить поставщиков к продукту.
 *TestSwagger.ProductApi* | [**apiV1ProductsByCreatorGuidGet**](docs/ProductApi.md#apiV1ProductsByCreatorGuidGet) | **GET** /api/v1/products/by_creator/{guid} | Получение продуктов по ID создателя
+*TestSwagger.ProductApi* | [**apiV1ProductsCalculateStockCostPatch**](docs/ProductApi.md#apiV1ProductsCalculateStockCostPatch) | **PATCH** /api/v1/products/calculate_stock_cost | # Пересчитать поле stockCost в продукте
 *TestSwagger.ProductApi* | [**apiV1ProductsEditHsCodePatch**](docs/ProductApi.md#apiV1ProductsEditHsCodePatch) | **PATCH** /api/v1/products/edit_hsCode | # Редактирование поля hsCode в продукте.
 *TestSwagger.ProductApi* | [**apiV1ProductsGuidGet**](docs/ProductApi.md#apiV1ProductsGuidGet) | **GET** /api/v1/products/{guid} | # Получить товар оп id.
 *TestSwagger.ProductApi* | [**apiV1ProductsHsCodeGuidGet**](docs/ProductApi.md#apiV1ProductsHsCodeGuidGet) | **GET** /api/v1/products/hs_code/{guid} | # Получить  “chinaTitle“, “material“ , “productUsage“, “hsCode“ по id.

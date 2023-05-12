@@ -1438,7 +1438,7 @@ Name | Type | Description  | Notes
 
 # Изменить поле prepId
 
-# Изменить поле isFormed
+# Изменить поле prepId
 
 ### Example
 
