@@ -26,7 +26,6 @@ export class MyRequestsViewModel {
   requestStatus = undefined
   error = undefined
 
-  drawerOpen = false
   showRequestForm = false
   showConfirmModal = false
 
@@ -216,12 +215,6 @@ export class MyRequestsViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -470,18 +463,6 @@ export class MyRequestsViewModel {
     )
 
     win.focus()
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

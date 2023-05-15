@@ -19,8 +19,6 @@ export class SupervisorProductsViewModel {
   requestStatus = undefined
   error = undefined
 
-  drawerOpen = false
-
   nameSearchValue = ''
 
   currentFilterStatus = ProductStatusByKey[ProductStatus.DEFAULT]
@@ -245,12 +243,6 @@ export class SupervisorProductsViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -318,12 +310,6 @@ export class SupervisorProductsViewModel {
     )
 
     win.focus()
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

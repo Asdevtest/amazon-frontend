@@ -31,7 +31,6 @@ export class AdminSentBatchesViewModel {
 
   curBatch = {}
   showConfirmModal = false
-  drawerOpen = false
   isWarning = false
   showBatchInfoModal = false
 
@@ -147,12 +146,6 @@ export class AdminSentBatchesViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -175,12 +168,6 @@ export class AdminSentBatchesViewModel {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
     }
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

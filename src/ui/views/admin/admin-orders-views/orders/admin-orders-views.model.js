@@ -43,7 +43,6 @@ export class AdminOrdersAllViewModel {
   selectionModel = undefined
 
   activeSubCategory = SettingsModel.activeSubCategoryState[ActiveSubCategoryTablesKeys.ADMIN_ORDERS] || 0
-  drawerOpen = false
 
   sortModel = []
   filterModel = {items: []}
@@ -204,12 +203,6 @@ export class AdminOrdersAllViewModel {
   onSelectionModel(model) {
     runInAction(() => {
       this.selectionModel = model
-    })
-  }
-
-  onChangeDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

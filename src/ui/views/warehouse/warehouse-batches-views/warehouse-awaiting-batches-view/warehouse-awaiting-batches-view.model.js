@@ -34,7 +34,6 @@ export class WarehouseAwaitingBatchesViewModel {
   selectedBatches = []
   curBatch = {}
   showConfirmModal = false
-  drawerOpen = false
   isWarning = false
   showBatchInfoModal = false
 
@@ -184,12 +183,6 @@ export class WarehouseAwaitingBatchesViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -253,12 +246,6 @@ export class WarehouseAwaitingBatchesViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

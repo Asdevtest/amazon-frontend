@@ -52,27 +52,6 @@ const updateOrderKeys = [
   'priceBatchDeliveryInYuan',
 ]
 
-const setNavbarActiveSubCategory = pathname => {
-  if (pathname) {
-    switch (pathname) {
-      case routsPathes.BUYER_MY_ORDERS_NEED_TRACK_NUMBER:
-        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NEED_TRACK_NUMBER
-      case routsPathes.BUYER_MY_ORDERS_INBOUND:
-        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_INBOUND
-      case routsPathes.BUYER_MY_ORDERS_CONFIRMATION_REQUIRED:
-        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CONFIRMATION_REQUIRED
-      case routsPathes.BUYER_MY_ORDERS_CLOSED_AND_CANCELED:
-        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CLOSED_AND_CANCELED
-      case routsPathes.BUYER_MY_ORDERS_ALL_ORDERS:
-        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_ALL_ORDERS
-      case routsPathes.BUYER_MY_ORDERS_READY_FOR_PAYMENT:
-        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_READY_FOR_PAYMENT
-      default:
-        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NOT_PAID
-    }
-  }
-}
-
 const filtersFields = ['payments']
 
 export class BuyerMyOrdersViewModel {
@@ -108,7 +87,6 @@ export class BuyerMyOrdersViewModel {
 
   nameSearchValue = ''
 
-  drawerOpen = false
   showBarcodeModal = false
   showOrderModal = false
   selectedOrder = undefined
@@ -191,10 +169,6 @@ export class BuyerMyOrdersViewModel {
 
   get userInfo() {
     return UserModel.userInfo
-  }
-
-  get navbarActiveSubCategory() {
-    return setNavbarActiveSubCategory(this.history.location.pathname)
   }
 
   // НЕ было до создания фильтрации по статусам
@@ -671,12 +645,6 @@ export class BuyerMyOrdersViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -1356,12 +1324,6 @@ export class BuyerMyOrdersViewModel {
   onTriggerShowBarcodeModal() {
     runInAction(() => {
       this.showBarcodeModal = !this.showBarcodeModal
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

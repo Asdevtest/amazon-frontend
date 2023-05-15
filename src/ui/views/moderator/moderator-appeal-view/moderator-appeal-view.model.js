@@ -12,7 +12,6 @@ export class ModeratorAppealsViewModel {
   error = undefined
   actionStatus = undefined
 
-  drawerOpen = false
   showConfirmModal = false
   requestId = undefined
   proposalId = undefined
@@ -86,12 +85,6 @@ export class ModeratorAppealsViewModel {
     })
 
     this.onTriggerOpenModal('showConfirmModal')
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setActionStatus(actionStatus) {

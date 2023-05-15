@@ -16,8 +16,6 @@ export class BuyerSearchSupplierByClientModel {
 
   productsVacant = []
 
-  drawerOpen = false
-
   showInfoModal = false
 
   selectedRowIds = []
@@ -151,12 +149,6 @@ export class BuyerSearchSupplierByClientModel {
         })
       }
     }
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setRequestStatus(requestStatus) {

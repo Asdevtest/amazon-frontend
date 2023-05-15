@@ -5,15 +5,11 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
@@ -28,8 +24,6 @@ import {t} from '@utils/translations'
 import {WarehouseSentBatchesViewModel} from './warehouse-sent-batches-view.model'
 import {styles} from './warehouse-sent-batches-view.style'
 
-const activeCategory = navBarActiveCategory.NAVBAR_BATCHES
-const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BATCHES
 @observer
 export class WarehouseSentBatchesViewRaw extends Component {
   viewModel = new WarehouseSentBatchesViewModel({history: this.props.history})
@@ -56,14 +50,12 @@ export class WarehouseSentBatchesViewRaw extends Component {
       densityModel,
       columnsModel,
       isWarning,
-      drawerOpen,
       curPage,
       rowsPerPage,
       showEditHSCodeModal,
       hsCodeData,
       onClickSaveHsCode,
       onClickHsCode,
-      onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
       showWarningInfoModal,
@@ -84,16 +76,8 @@ export class WarehouseSentBatchesViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={activeCategory}
-          activeSubCategory={activeSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawer}
-        />
-        <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Sent)}>
-            <MainContent>
-              {/* <div className={classNames.btnsWrapper}>
+        <MainContent>
+          {/* <div className={classNames.btnsWrapper}>
                 <Button
                   disableElevation
                   disabled
@@ -105,65 +89,63 @@ export class WarehouseSentBatchesViewRaw extends Component {
                 </Button>
               </div> */}
 
-              <div className={classNames.headerWrapper}>
-                <SearchInput
-                  inputClasses={classNames.searchInput}
-                  value={nameSearchValue}
-                  placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
-                  onSubmit={onSearchSubmit}
-                />
-              </div>
+          <div className={classNames.headerWrapper}>
+            <SearchInput
+              inputClasses={classNames.searchInput}
+              value={nameSearchValue}
+              placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
+              onSubmit={onSearchSubmit}
+            />
+          </div>
 
-              <div className={classNames.datagridWrapper}>
-                <MemoDataGrid
-                  checkboxSelection
-                  pagination
-                  useResizeContainer
-                  localeText={getLocalizationByLanguageTag()}
-                  classes={{
-                    row: classNames.row,
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
-                    filterForm: classNames.filterForm,
-                  }}
-                  sortingMode="server"
-                  paginationMode="server"
-                  rowCount={rowCount}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={currentData}
-                  getRowHeight={() => 'auto'}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  componentsProps={{
-                    toolbar: {
-                      columsBtnSettings: {columnsModel, changeColumnsModel},
-                    },
-                  }}
-                  onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection)
-                  }}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
-                  onRowDoubleClick={e => setCurrentOpenedBatch(e.row.originalData)}
-                />
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
+          <div className={classNames.datagridWrapper}>
+            <MemoDataGrid
+              checkboxSelection
+              pagination
+              useResizeContainer
+              localeText={getLocalizationByLanguageTag()}
+              classes={{
+                row: classNames.row,
+                root: classNames.root,
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
+                filterForm: classNames.filterForm,
+              }}
+              sortingMode="server"
+              paginationMode="server"
+              rowCount={rowCount}
+              sortModel={sortModel}
+              filterModel={filterModel}
+              page={curPage}
+              pageSize={rowsPerPage}
+              rowsPerPageOptions={[15, 25, 50, 100]}
+              rows={currentData}
+              getRowHeight={() => 'auto'}
+              components={{
+                Toolbar: DataGridCustomToolbar,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
+              }}
+              density={densityModel}
+              columns={columnsModel}
+              loading={requestStatus === loadingStatuses.isLoading}
+              componentsProps={{
+                toolbar: {
+                  columsBtnSettings: {columnsModel, changeColumnsModel},
+                },
+              }}
+              onSelectionModelChange={newSelection => {
+                onSelectionModel(newSelection)
+              }}
+              onSortModelChange={onChangeSortingModel}
+              onPageSizeChange={onChangeRowsPerPage}
+              onPageChange={onChangeCurPage}
+              onStateChange={setDataGridState}
+              onFilterModelChange={model => onChangeFilterModel(model)}
+              onRowDoubleClick={e => setCurrentOpenedBatch(e.row.originalData)}
+            />
+          </div>
+        </MainContent>
 
         <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
           <EditHSCodeModal

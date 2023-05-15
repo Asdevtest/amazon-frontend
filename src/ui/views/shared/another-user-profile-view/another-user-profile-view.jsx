@@ -11,10 +11,7 @@ import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {OrderProductModal} from '@components/modals/order-product-modal'
 import {SelectShopsModal} from '@components/modals/select-shops-modal'
@@ -58,14 +55,12 @@ class AnotherUserProfileViewRaw extends Component {
       densityModel,
       columnsModel,
       requestStatus,
-      drawerOpen,
       tabHistory,
       tabReview,
       user,
       curUser,
       headerInfoData,
       shopsData,
-      onTriggerDrawerOpen,
 
       getCurrentData,
       setDataGridState,
@@ -84,131 +79,126 @@ class AnotherUserProfileViewRaw extends Component {
     const {classes: classNames} = this.props
     return (
       <>
-        <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
-        <Main>
-          <Appbar title={t(TranslationKey.User)} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              {!user && (requestStatus === loadingStatuses.success || requestStatus === loadingStatuses.failed) && (
-                <Typography variant="h4" className={classNames.noDataText}>
-                  {t(TranslationKey['No data']) + '...'}
-                </Typography>
-              )}
+        <MainContent>
+          {!user && (requestStatus === loadingStatuses.success || requestStatus === loadingStatuses.failed) && (
+            <Typography variant="h4" className={classNames.noDataText}>
+              {t(TranslationKey['No data']) + '...'}
+            </Typography>
+          )}
 
-              {user && (
-                <UserProfile
-                  isAnotherUser
-                  user={user}
-                  curUser={curUser}
-                  headerInfoData={headerInfoData}
-                  tabReview={tabReview}
-                  tabHistory={tabHistory}
-                  onClickWriteBtn={onClickWriteBtn}
-                />
-              )}
-
-              {user &&
-              [
-                mapUserRoleEnumToKey[UserRole.RESEARCHER],
-                mapUserRoleEnumToKey[UserRole.SUPERVISOR],
-                mapUserRoleEnumToKey[UserRole.BUYER],
-              ].includes(user.role) ? (
-                <>
-                  <Typography variant="h6" className={classNames.title}>
-                    {t(TranslationKey['Active offers on the commodity exchange'])}
-                  </Typography>
-
-                  <MemoDataGrid
-                    pagination
-                    useResizeContainer
-                    classes={{
-                      root: classNames.root,
-                      footerContainer: classNames.footerContainer,
-                      footerCell: classNames.footerCell,
-                      toolbarContainer: classNames.toolbarContainer,
-                    }}
-                    localeText={getLocalizationByLanguageTag()}
-                    sortModel={sortModel}
-                    filterModel={filterModel}
-                    page={curPage}
-                    pageSize={rowsPerPage}
-                    rowsPerPageOptions={[15, 25, 50, 100]}
-                    rows={getCurrentData()}
-                    rowHeight={100}
-                    components={{
-                      Toolbar: DataGridCustomToolbar,
-                      ColumnMenuIcon: FilterAltOutlinedIcon,
-                    }}
-                    density={densityModel}
-                    columns={columnsModel}
-                    loading={requestStatus === loadingStatuses.isLoading}
-                    onSortModelChange={onChangeSortingModel}
-                    onPageSizeChange={onChangeRowsPerPage}
-                    onPageChange={onChangeCurPage}
-                    onStateChange={setDataGridState}
-                    onFilterModelChange={model => onChangeFilterModel(model)}
-                  />
-                </>
-              ) : null}
-            </MainContent>
-          </Appbar>
-
-          <Modal openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
-            <OrderProductModal
-              // volumeWeightCoefficient={volumeWeightCoefficient}
-              platformSettings={platformSettings}
-              destinations={destinations}
-              storekeepers={storekeepers}
-              requestStatus={requestStatus}
-              selectedProductsData={[selectedProduct]}
-              onTriggerOpenModal={onTriggerOpenModal}
-              onDoubleClickBarcode={onDoubleClickBarcode}
-              onSubmit={onClickOrderNowBtn}
-              onClickCancel={onClickCancelBtn}
+          {user && (
+            <UserProfile
+              isAnotherUser
+              user={user}
+              curUser={curUser}
+              headerInfoData={headerInfoData}
+              tabReview={tabReview}
+              tabHistory={tabHistory}
+              onClickWriteBtn={onClickWriteBtn}
             />
-          </Modal>
+          )}
 
-          <Modal openModal={showSelectShopsModal} setOpenModal={() => onTriggerOpenModal('showSelectShopsModal')}>
-            <SelectShopsModal
-              title={confirmModalSettings.confirmTitle}
-              message={confirmModalSettings.confirmMessage}
-              shops={shopsData}
-              onClickSuccessBtn={onClickBuyProductBtn}
-              onClickCancelBtn={() => onTriggerOpenModal('showSelectShopsModal')}
-            />
-          </Modal>
+          {user &&
+          [
+            mapUserRoleEnumToKey[UserRole.RESEARCHER],
+            mapUserRoleEnumToKey[UserRole.SUPERVISOR],
+            mapUserRoleEnumToKey[UserRole.BUYER],
+          ].includes(user.role) ? (
+            <>
+              <Typography variant="h6" className={classNames.title}>
+                {t(TranslationKey['Active offers on the commodity exchange'])}
+              </Typography>
 
-          <ConfirmationModal
-            openModal={showConfirmModal}
-            setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-            isWarning={confirmModalSettings.isWarning}
+              <MemoDataGrid
+                pagination
+                useResizeContainer
+                classes={{
+                  root: classNames.root,
+                  footerContainer: classNames.footerContainer,
+                  footerCell: classNames.footerCell,
+                  toolbarContainer: classNames.toolbarContainer,
+                }}
+                localeText={getLocalizationByLanguageTag()}
+                sortModel={sortModel}
+                filterModel={filterModel}
+                page={curPage}
+                pageSize={rowsPerPage}
+                rowsPerPageOptions={[15, 25, 50, 100]}
+                rows={getCurrentData()}
+                rowHeight={100}
+                components={{
+                  Toolbar: DataGridCustomToolbar,
+                  ColumnMenuIcon: FilterAltOutlinedIcon,
+                }}
+                density={densityModel}
+                columns={columnsModel}
+                loading={requestStatus === loadingStatuses.isLoading}
+                onSortModelChange={onChangeSortingModel}
+                onPageSizeChange={onChangeRowsPerPage}
+                onPageChange={onChangeCurPage}
+                onStateChange={setDataGridState}
+                onFilterModelChange={model => onChangeFilterModel(model)}
+              />
+            </>
+          ) : null}
+        </MainContent>
+
+        <Modal openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
+          <OrderProductModal
+            // volumeWeightCoefficient={volumeWeightCoefficient}
+            platformSettings={platformSettings}
+            destinations={destinations}
+            storekeepers={storekeepers}
+            requestStatus={requestStatus}
+            selectedProductsData={[selectedProduct]}
+            onTriggerOpenModal={onTriggerOpenModal}
+            onDoubleClickBarcode={onDoubleClickBarcode}
+            onSubmit={onClickOrderNowBtn}
+            onClickCancel={onClickCancelBtn}
+          />
+        </Modal>
+
+        <Modal openModal={showSelectShopsModal} setOpenModal={() => onTriggerOpenModal('showSelectShopsModal')}>
+          <SelectShopsModal
             title={confirmModalSettings.confirmTitle}
             message={confirmModalSettings.confirmMessage}
-            successBtnText={t(TranslationKey.Yes)}
-            cancelBtnText={t(TranslationKey.Cancel)}
-            onClickSuccessBtn={confirmModalSettings.onClickConfirm}
-            onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+            shops={shopsData}
+            onClickSuccessBtn={onClickBuyProductBtn}
+            onClickCancelBtn={() => onTriggerOpenModal('showSelectShopsModal')}
           />
+        </Modal>
 
-          <WarningInfoModal
-            openModal={showWarningModal}
-            setOpenModal={() => onTriggerOpenModal('showWarningModal')}
-            title={showWarningModalText}
-            btnText={t(TranslationKey.Ok)}
-            onClickBtn={() => {
-              onTriggerOpenModal('showWarningModal')
-            }}
-          />
+        <ConfirmationModal
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          isWarning={confirmModalSettings.isWarning}
+          title={confirmModalSettings.confirmTitle}
+          message={confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
 
-          <SuccessInfoModal
-            openModal={showSuccessModal}
-            setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-            title={t(TranslationKey['Order successfully created!'])}
-            successBtnText={t(TranslationKey.Ok)}
-            onClickSuccessBtn={() => {
-              onTriggerOpenModal('showSuccessModal')
-            }}
-          />
-        </Main>
+        <WarningInfoModal
+          openModal={showWarningModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningModal')}
+          title={showWarningModalText}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningModal')
+          }}
+        />
+
+        <SuccessInfoModal
+          openModal={showSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+          title={t(TranslationKey['Order successfully created!'])}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => {
+            onTriggerOpenModal('showSuccessModal')
+          }}
+        />
       </>
     )
   }

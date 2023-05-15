@@ -7,8 +7,6 @@ export class AdminTechnicalViewModel {
   requestStatus = undefined
   actionStatus = undefined
 
-  drawerOpen = false
-
   serverWorkOn = false
 
   constructor({history}) {
@@ -45,11 +43,5 @@ export class AdminTechnicalViewModel {
     } catch (err) {
       console.log(err)
     }
-  }
-
-  onTriggerDrawer = () => {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 }

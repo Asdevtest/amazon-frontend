@@ -5,15 +5,11 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Button} from '@components/shared/buttons/button'
@@ -24,8 +20,6 @@ import {t} from '@utils/translations'
 
 import {BuyerFreeOrdersViewModel} from './buyer-free-orders-view.model'
 import {styles} from './buyer-free-orders-view.style'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_FREE_ORDERS
 
 @observer
 class BuyerFreeOrdersViewRaw extends Component {
@@ -45,14 +39,12 @@ class BuyerFreeOrdersViewRaw extends Component {
       filterModel,
       densityModel,
       columnsModel,
-      drawerOpen,
       curPage,
       rowsPerPage,
       warningTitle,
       showWarningModal,
       showTwoVerticalChoicesModal,
       goToMyOrders,
-      onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
       onTriggerOpenModal,
@@ -66,65 +58,59 @@ class BuyerFreeOrdersViewRaw extends Component {
     const {classes: classNames} = this.props
     return (
       <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
-
-        <Main>
-          <Appbar title={t(TranslationKey['Free Orders'])} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <div className={classNames.btnsWrapper}>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  disabled={selectedRowIds.length === 0}
-                  onClick={onPickupSomeItems}
-                >
-                  {t(TranslationKey['Take on the work of the selected'])}
-                </Button>
-              </div>
-              <div className={classNames.dataGridWrapper}>
-                <MemoDataGrid
-                  disableVirtualization
-                  checkboxSelection
-                  pagination
-                  useResizeContainer
-                  classes={{
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
-                  }}
-                  localeText={getLocalizationByLanguageTag()}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
-                  // rowHeight={100}
-                  getRowHeight={() => 'auto'}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                  }}
-                  componentsProps={{
-                    toolbar: {
-                      columsBtnSettings: {columnsModel, changeColumnsModel},
-                    },
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
-                  onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
-                />
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
+        <MainContent>
+          <div className={classNames.btnsWrapper}>
+            <Button
+              color="primary"
+              variant="contained"
+              disabled={selectedRowIds.length === 0}
+              onClick={onPickupSomeItems}
+            >
+              {t(TranslationKey['Take on the work of the selected'])}
+            </Button>
+          </div>
+          <div className={classNames.dataGridWrapper}>
+            <MemoDataGrid
+              disableVirtualization
+              checkboxSelection
+              pagination
+              useResizeContainer
+              classes={{
+                root: classNames.root,
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
+              }}
+              localeText={getLocalizationByLanguageTag()}
+              sortModel={sortModel}
+              filterModel={filterModel}
+              page={curPage}
+              pageSize={rowsPerPage}
+              rowsPerPageOptions={[15, 25, 50, 100]}
+              rows={getCurrentData()}
+              // rowHeight={100}
+              getRowHeight={() => 'auto'}
+              components={{
+                Toolbar: DataGridCustomToolbar,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
+              }}
+              componentsProps={{
+                toolbar: {
+                  columsBtnSettings: {columnsModel, changeColumnsModel},
+                },
+              }}
+              density={densityModel}
+              columns={columnsModel}
+              loading={requestStatus === loadingStatuses.isLoading}
+              onSortModelChange={onChangeSortingModel}
+              onPageSizeChange={onChangeRowsPerPage}
+              onPageChange={onChangeCurPage}
+              onStateChange={setDataGridState}
+              onFilterModelChange={model => onChangeFilterModel(model)}
+              onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+            />
+          </div>
+        </MainContent>
 
         <TwoVerticalChoicesModal
           tooltipFirstButton={t(TranslationKey['Go to the order and open the "Edit order" window'])}

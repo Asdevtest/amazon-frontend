@@ -28,7 +28,6 @@ export class WarehouseVacantViewModel {
 
   tasksVacant = []
 
-  drawerOpen = false
   selectedTask = undefined
   curOpenedTask = {}
 
@@ -185,12 +184,6 @@ export class WarehouseVacantViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -298,12 +291,6 @@ export class WarehouseVacantViewModel {
   goToMyTasks() {
     this.history.push('/warehouse/tasks/my-tasks', {task: toJS(this.curTask)})
     this.onTriggerOpenModal('showTwoVerticalChoicesModal')
-  }
-
-  onChangeTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

@@ -165,7 +165,6 @@ export class ResearcherProductViewModel {
 
   startParse = false
 
-  drawerOpen = false
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
   showConfirmModal = false
@@ -337,12 +336,6 @@ export class ResearcherProductViewModel {
   onChangeActiveChip(e, value) {
     runInAction(() => {
       this.activeChip = value
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

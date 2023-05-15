@@ -19,7 +19,6 @@ export class OwnerRequestDetailCustomViewModel {
   requestStatus = undefined
   error = undefined
   uploadedFiles = []
-  drawerOpen = false
   requestId = undefined
   request = undefined
   requestProposals = []
@@ -497,12 +496,6 @@ export class OwnerRequestDetailCustomViewModel {
   onTriggerOpenModal(modal) {
     runInAction(() => {
       this[modal] = !this[modal]
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

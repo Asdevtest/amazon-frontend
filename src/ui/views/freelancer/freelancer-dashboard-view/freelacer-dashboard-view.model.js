@@ -13,7 +13,6 @@ export class FreelancerDashboardViewModel {
   error = undefined
 
   balance = UserModel.userInfo?.balance
-  drawerOpen = false
   productsVacant = []
   paymentsMy = []
 
@@ -75,12 +74,6 @@ export class FreelancerDashboardViewModel {
     const result = await ResearcherModel.getProductsVacant()
     runInAction(() => {
       this.productsVacant = result
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

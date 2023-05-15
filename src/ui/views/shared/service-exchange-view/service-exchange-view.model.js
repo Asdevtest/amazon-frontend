@@ -15,8 +15,6 @@ export class ServiceExchangeViewModel {
   error = undefined
   actionStatus = undefined
 
-  drawerOpen = false
-
   announcements = []
   currentData = []
 

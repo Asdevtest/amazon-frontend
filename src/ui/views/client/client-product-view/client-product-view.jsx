@@ -2,13 +2,9 @@ import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
@@ -19,7 +15,6 @@ import {t} from '@utils/translations'
 
 import {ClientProductViewModel} from './client-product-view.model'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_INVENTORY
 @observer
 export class ClientProductView extends Component {
   viewModel = new ClientProductViewModel({
@@ -47,7 +42,6 @@ export class ClientProductView extends Component {
       progressValue,
       product,
       productBase,
-      drawerOpen,
       formFieldsValidationErrors,
       showWarningModal,
       warningModalTitle,
@@ -56,7 +50,6 @@ export class ClientProductView extends Component {
       showAddOrEditSupplierModal,
       confirmModalSettings,
       paymentMethods,
-      onTriggerDrawerOpen,
       onChangeProductFields,
       handleProductActionButtons,
       onTriggerOpenModal,
@@ -71,36 +64,31 @@ export class ClientProductView extends Component {
 
     return (
       <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
-        <Main>
-          <Appbar title={t(TranslationKey.Product)} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              {product ? (
-                <ProductWrapper
-                  showTab={showTab}
-                  user={userInfo}
-                  userRole={userInfo.role}
-                  imagesForLoad={imagesForLoad}
-                  showProgress={showProgress}
-                  progressValue={progressValue}
-                  product={getCurrentData()}
-                  shops={shopsData}
-                  acceptMessage={acceptMessage}
-                  actionStatus={actionStatus}
-                  productBase={productBase}
-                  selectedSupplier={selectedSupplier}
-                  handleSupplierButtons={onClickSupplierButtons}
-                  handleProductActionButtons={handleProductActionButtons}
-                  formFieldsValidationErrors={formFieldsValidationErrors}
-                  onClickSupplier={onChangeSelectedSupplier}
-                  onChangeField={onChangeProductFields}
-                  onChangeImagesForLoad={onChangeImagesForLoad}
-                  onClickParseProductData={onClickParseProductData}
-                />
-              ) : undefined}
-            </MainContent>
-          </Appbar>
-        </Main>
+        <MainContent>
+          {product ? (
+            <ProductWrapper
+              showTab={showTab}
+              user={userInfo}
+              userRole={userInfo.role}
+              imagesForLoad={imagesForLoad}
+              showProgress={showProgress}
+              progressValue={progressValue}
+              product={getCurrentData()}
+              shops={shopsData}
+              acceptMessage={acceptMessage}
+              actionStatus={actionStatus}
+              productBase={productBase}
+              selectedSupplier={selectedSupplier}
+              handleSupplierButtons={onClickSupplierButtons}
+              handleProductActionButtons={handleProductActionButtons}
+              formFieldsValidationErrors={formFieldsValidationErrors}
+              onClickSupplier={onChangeSelectedSupplier}
+              onChangeField={onChangeProductFields}
+              onChangeImagesForLoad={onChangeImagesForLoad}
+              onClickParseProductData={onClickParseProductData}
+            />
+          ) : undefined}
+        </MainContent>
 
         <Modal
           missClickModalOn={!supplierModalReadOnly}

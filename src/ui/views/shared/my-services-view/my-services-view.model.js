@@ -22,8 +22,6 @@ export class MyServicesViewModel {
   error = undefined
   actionStatus = undefined
 
-  drawerOpen = false
-
   showAcceptMessage = null
   acceptMessage = null
 

@@ -5,13 +5,9 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {SelectShopsModal} from '@components/modals/select-shops-modal'
 // import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
@@ -24,9 +20,6 @@ import {t} from '@utils/translations'
 import {ClientExchangePrivateLabelViewModel} from './client-exchange-private-label-view.model'
 import {styles} from './client-exchange-private-label-view.style'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_EXCHANGE
-const navbarActiveSubCategory = 1
-
 @observer
 export class ClientExchangePrivateLabelViewRaw extends Component {
   viewModel = new ClientExchangePrivateLabelViewModel({history: this.props.history})
@@ -38,12 +31,10 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
   render() {
     const {
       productsVacant,
-      drawerOpen,
       productToPay,
       shopsData,
       showConfirmPayModal,
       showSuccessModal,
-      onTriggerDrawer,
       onTriggerOpenModal,
       onClickBuyProductBtn,
     } = this.viewModel
@@ -51,27 +42,17 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawer}
-        />
-        <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={'Private Label'}>
-            <MainContent>
-              <div className={classNames.mb5}>
-                <div className={classNames.cardsWrapper}>
-                  {productsVacant.length > 0 ? (
-                    this.renderProductsVacant()
-                  ) : (
-                    <Typography className={classNames.noRows}>{t(TranslationKey['No suggestions'])}</Typography>
-                  )}
-                </div>
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
+        <MainContent>
+          <div className={classNames.mb5}>
+            <div className={classNames.cardsWrapper}>
+              {productsVacant.length > 0 ? (
+                this.renderProductsVacant()
+              ) : (
+                <Typography className={classNames.noRows}>{t(TranslationKey['No suggestions'])}</Typography>
+              )}
+            </div>
+          </div>
+        </MainContent>
 
         <Modal openModal={showConfirmPayModal} setOpenModal={() => onTriggerOpenModal('showConfirmPayModal')}>
           <SelectShopsModal

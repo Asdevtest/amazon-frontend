@@ -11,7 +11,6 @@ export class SupervisorDashboardViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
-  drawerOpen = false
 
   productsVacant = []
   producatsMy = []
@@ -114,11 +113,5 @@ export class SupervisorDashboardViewModel {
         this.error = error
       })
     }
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 }

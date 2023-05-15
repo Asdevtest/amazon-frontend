@@ -57,7 +57,6 @@ export class BuyerMyOrdersViewModel {
 
   showEditHSCodeModal = false
 
-  drawerOpen = false
   showBarcodeModal = false
   showOrderModal = false
   selectedOrder = undefined
@@ -230,10 +229,6 @@ export class BuyerMyOrdersViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
-  }
-
-  onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
   }
 
   onChangeSortingModel(sortModel) {
@@ -650,10 +645,6 @@ export class BuyerMyOrdersViewModel {
 
   onTriggerShowBarcodeModal() {
     this.showBarcodeModal = !this.showBarcodeModal
-  }
-
-  onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
   }
 
   onChangeCurPage(e) {

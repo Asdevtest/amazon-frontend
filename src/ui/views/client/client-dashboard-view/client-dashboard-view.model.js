@@ -11,8 +11,6 @@ export class ClientDashboardViewModel {
   requestStatus = undefined
   error = undefined
 
-  drawerOpen = false
-
   dashboardData = {
     [ClientDashboardCardDataKey.IN_INVENTORY]: '',
     [ClientDashboardCardDataKey.REPURCHASE_ITEMS]: '',
@@ -75,12 +73,6 @@ export class ClientDashboardViewModel {
   onChangeSubCategory(index) {
     runInAction(() => {
       this.activeSubCategory = index
-    })
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

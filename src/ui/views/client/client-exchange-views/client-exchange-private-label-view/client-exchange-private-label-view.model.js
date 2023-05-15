@@ -18,7 +18,6 @@ export class ClientExchangePrivateLabelViewModel {
 
   productsVacant = []
   selectedProduct = {}
-  drawerOpen = false
   shopsData = []
 
   productToPay = {}
@@ -30,12 +29,6 @@ export class ClientExchangePrivateLabelViewModel {
       this.history = history
     })
     makeAutoObservable(this, undefined, {autoBind: true})
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   async loadData() {

@@ -8,7 +8,6 @@ import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
 import {BoxStatus} from '@constants/statuses/box-status'
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -21,10 +20,7 @@ import {EditMultipleBoxesForm} from '@components/forms/edit-multiple-boxes-form'
 import {GroupingBoxesForm} from '@components/forms/grouping-boxes-form'
 import {RequestToSendBatchForm} from '@components/forms/request-to-send-batch-form'
 import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
 import {MergeBoxesModal} from '@components/modals/merge-boxes-modal'
@@ -45,9 +41,6 @@ import {t} from '@utils/translations'
 
 import {ClientInStockBoxesViewModel} from './client-in-stock-boxes-view.model'
 import {styles} from './client-in-stock-boxes-view.style'
-
-const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
-const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES
 
 @observer
 export class ClientInStockBoxesViewRaw extends Component {
@@ -110,7 +103,6 @@ export class ClientInStockBoxesViewRaw extends Component {
       densityModel,
       columnsModel,
 
-      drawerOpen,
       curPage,
       rowsPerPage,
       boxesMy,
@@ -138,7 +130,6 @@ export class ClientInStockBoxesViewRaw extends Component {
       onClickHsCode,
       onClickSaveHsCode,
       setDestinationsFavouritesItem,
-      onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
       onClickConfirmCreateSplitTasks,
@@ -191,189 +182,179 @@ export class ClientInStockBoxesViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={activeCategory}
-          activeSubCategory={activeSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawer}
-        />
-        <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Boxes in stock'])}>
-            <MainContent>
-              <div ref={this.topHeaderBtnsWrapperRef} className={classNames.topHeaderBtnsWrapper}>
-                <div className={classNames.boxesFiltersWrapper}>
-                  {storekeepersData
-                    .slice()
-                    .sort((a, b) => a.name?.localeCompare(b.name))
-                    .map(storekeeper =>
-                      storekeeper.boxesCount !== 0 ? (
-                        <Button
-                          key={storekeeper._id}
-                          disabled={currentStorekeeper?._id === storekeeper._id}
-                          className={cx(classNames.button, {
-                            [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
-                          })}
-                          variant="text"
-                          onClick={() => onClickStorekeeperBtn(storekeeper)}
-                        >
-                          {storekeeper.name}
-                        </Button>
-                      ) : null,
-                    )}
+        <MainContent>
+          <div ref={this.topHeaderBtnsWrapperRef} className={classNames.topHeaderBtnsWrapper}>
+            <div className={classNames.boxesFiltersWrapper}>
+              {storekeepersData
+                .slice()
+                .sort((a, b) => a.name?.localeCompare(b.name))
+                .map(storekeeper =>
+                  storekeeper.boxesCount !== 0 ? (
+                    <Button
+                      key={storekeeper._id}
+                      disabled={currentStorekeeper?._id === storekeeper._id}
+                      className={cx(classNames.button, {
+                        [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
+                      })}
+                      variant="text"
+                      onClick={() => onClickStorekeeperBtn(storekeeper)}
+                    >
+                      {storekeeper.name}
+                    </Button>
+                  ) : null,
+                )}
 
+              <Button
+                disabled={!currentStorekeeper?._id}
+                tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
+                className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
+                variant="text"
+                onClick={onClickStorekeeperBtn}
+              >
+                {t(TranslationKey['All warehouses'])}
+              </Button>
+            </div>
+
+            <SearchInput
+              key={'client_warehouse_search_input'}
+              inputClasses={classNames.searchInput}
+              placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box'])}
+              startText={nameSearchValue}
+              onSubmit={onSearchSubmit}
+            />
+          </div>
+
+          <div ref={this.boxesFiltersWrapperRef} className={classNames.boxesFiltersWrapper}>
+            {clientDestinations
+              .slice()
+              .sort((a, b) => a.name?.localeCompare(b.name))
+              .map(destination =>
+                destination.boxesCount !== 0 ? (
                   <Button
-                    disabled={!currentStorekeeper?._id}
-                    tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-                    className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
+                    key={destination._id}
+                    disabled={curDestination?._id === destination._id}
+                    className={cx(classNames.button, {
+                      [classNames.selectedBoxesBtn]: curDestination?._id === destination._id,
+                    })}
                     variant="text"
-                    onClick={onClickStorekeeperBtn}
+                    onClick={() => onClickDestinationBtn(destination)}
                   >
-                    {t(TranslationKey['All warehouses'])}
+                    {destination.name}
                   </Button>
-                </div>
+                ) : null,
+              )}
 
-                <SearchInput
-                  key={'client_warehouse_search_input'}
-                  inputClasses={classNames.searchInput}
-                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box'])}
-                  startText={nameSearchValue}
-                  onSubmit={onSearchSubmit}
-                />
-              </div>
+            <Button
+              disabled={curDestination?._id === 'null'}
+              className={cx(classNames.button, {[classNames.selectedBoxesBtn]: curDestination?._id === 'null'})}
+              variant="text"
+              onClick={() => onClickDestinationBtn({_id: 'null'})}
+            >
+              {t(TranslationKey.Undistributed)}
+            </Button>
 
-              <div ref={this.boxesFiltersWrapperRef} className={classNames.boxesFiltersWrapper}>
-                {clientDestinations
-                  .slice()
-                  .sort((a, b) => a.name?.localeCompare(b.name))
-                  .map(destination =>
-                    destination.boxesCount !== 0 ? (
-                      <Button
-                        key={destination._id}
-                        disabled={curDestination?._id === destination._id}
-                        className={cx(classNames.button, {
-                          [classNames.selectedBoxesBtn]: curDestination?._id === destination._id,
-                        })}
-                        variant="text"
-                        onClick={() => onClickDestinationBtn(destination)}
-                      >
-                        {destination.name}
-                      </Button>
-                    ) : null,
-                  )}
+            <Button
+              disabled={!curDestination?._id}
+              tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
+              className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !curDestination?._id})}
+              variant="text"
+              onClick={onClickDestinationBtn}
+            >
+              {t(TranslationKey.All)}
+            </Button>
+          </div>
 
-                <Button
-                  disabled={curDestination?._id === 'null'}
-                  className={cx(classNames.button, {[classNames.selectedBoxesBtn]: curDestination?._id === 'null'})}
-                  variant="text"
-                  onClick={() => onClickDestinationBtn({_id: 'null'})}
-                >
-                  {t(TranslationKey.Undistributed)}
-                </Button>
+          <div ref={this.btnsWrapperRef} className={classNames.btnsWrapper}>
+            <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>
+            <Button
+              disabled={!storekeepersData}
+              onClick={() => onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
+            >
+              {t(TranslationKey['Current tariffs'])}
+            </Button>
+          </div>
 
-                <Button
-                  disabled={!curDestination?._id}
-                  tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-                  className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !curDestination?._id})}
-                  variant="text"
-                  onClick={onClickDestinationBtn}
-                >
-                  {t(TranslationKey.All)}
-                </Button>
-              </div>
+          <div className={classNames.tasksWrapper} style={{height: `calc(100vh - ${this.heightSum + 170}px)`}}>
+            <MemoDataGrid
+              // disableVirtualization
+              pagination
+              checkboxSelection
+              localeText={getLocalizationByLanguageTag()}
+              isRowSelectable={params =>
+                params.row.isDraft === false &&
+                params.row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&
+                params.row.status !== BoxStatus.NEED_TO_UPDATE_THE_TARIFF
+              }
+              classes={{
+                row: classNames.row,
+                virtualScrollerContent: classNames.virtualScrollerContent,
+                root: classNames.root,
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
 
-              <div ref={this.btnsWrapperRef} className={classNames.btnsWrapper}>
-                <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>
-                <Button
-                  disabled={!storekeepersData}
-                  onClick={() => onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
-                >
-                  {t(TranslationKey['Current tariffs'])}
-                </Button>
-              </div>
-
-              <div className={classNames.tasksWrapper} style={{height: `calc(100vh - ${this.heightSum + 170}px)`}}>
-                <MemoDataGrid
-                  // disableVirtualization
-                  pagination
-                  checkboxSelection
-                  localeText={getLocalizationByLanguageTag()}
-                  isRowSelectable={params =>
-                    params.row.isDraft === false &&
-                    params.row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&
-                    params.row.status !== BoxStatus.NEED_TO_UPDATE_THE_TARIFF
-                  }
-                  classes={{
-                    row: classNames.row,
-                    virtualScrollerContent: classNames.virtualScrollerContent,
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
-
-                    columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-                    columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-                    columnHeader: classNames.columnHeader,
-                    menuIconButton: classNames.menuIconButton,
-                    iconButtonContainer: classNames.iconButtonContainer,
-                    iconSeparator: classNames.iconSeparator,
-                  }}
-                  sx={{
-                    '.MuiDataGrid-sortIcon': {
-                      width: 14,
-                      height: 14,
-                      '& > active': {
-                        display: 'none',
-                      },
-                    },
-                  }}
-                  headerHeight={65}
-                  getRowClassName={getRowClassName}
-                  selectionModel={selectedBoxes}
-                  sortingMode="server"
-                  paginationMode="server"
-                  rowCount={rowCount}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={currentData || []}
-                  getRowHeight={() => 'auto'}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenu: DataGridCustomColumnMenuComponent,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                  }}
-                  componentsProps={{
-                    columnMenu: columnMenuSettings,
-                    toolbar: {
-                      resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
-                      columsBtnSettings: {columnsModel, changeColumnsModel},
-                    },
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onColumnHeaderEnter={params => {
-                    onHoverColumnField(params.field)
-                  }}
-                  onColumnHeaderLeave={onLeaveColumnField}
-                  onSelectionModelChange={onSelectionModel}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onFilterModelChange={onChangeFilterModel}
-                  onStateChange={setDataGridState}
-                  // onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-                  // onCellDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-                  onCellDoubleClick={params =>
-                    !disableSelectionCells.includes(params.field) && setCurrentOpenedBox(params.row.originalData)
-                  }
-                />
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
+                columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
+                columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
+                columnHeader: classNames.columnHeader,
+                menuIconButton: classNames.menuIconButton,
+                iconButtonContainer: classNames.iconButtonContainer,
+                iconSeparator: classNames.iconSeparator,
+              }}
+              sx={{
+                '.MuiDataGrid-sortIcon': {
+                  width: 14,
+                  height: 14,
+                  '& > active': {
+                    display: 'none',
+                  },
+                },
+              }}
+              headerHeight={65}
+              getRowClassName={getRowClassName}
+              selectionModel={selectedBoxes}
+              sortingMode="server"
+              paginationMode="server"
+              rowCount={rowCount}
+              sortModel={sortModel}
+              filterModel={filterModel}
+              page={curPage}
+              pageSize={rowsPerPage}
+              rowsPerPageOptions={[15, 25, 50, 100]}
+              rows={currentData || []}
+              getRowHeight={() => 'auto'}
+              components={{
+                Toolbar: DataGridCustomToolbar,
+                ColumnMenu: DataGridCustomColumnMenuComponent,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
+              }}
+              componentsProps={{
+                columnMenu: columnMenuSettings,
+                toolbar: {
+                  resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
+                  columsBtnSettings: {columnsModel, changeColumnsModel},
+                },
+              }}
+              density={densityModel}
+              columns={columnsModel}
+              loading={requestStatus === loadingStatuses.isLoading}
+              onColumnHeaderEnter={params => {
+                onHoverColumnField(params.field)
+              }}
+              onColumnHeaderLeave={onLeaveColumnField}
+              onSelectionModelChange={onSelectionModel}
+              onSortModelChange={onChangeSortingModel}
+              onPageSizeChange={onChangeRowsPerPage}
+              onPageChange={onChangeCurPage}
+              onFilterModelChange={onChangeFilterModel}
+              onStateChange={setDataGridState}
+              // onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+              // onCellDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+              onCellDoubleClick={params =>
+                !disableSelectionCells.includes(params.field) && setCurrentOpenedBox(params.row.originalData)
+              }
+            />
+          </div>
+        </MainContent>
 
         <Modal
           missClickModalOn

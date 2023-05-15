@@ -18,8 +18,6 @@ export class BuyerSearchSupplierForIdeaModel {
   productsVacant = []
   supplierSearchRequestsVacant = []
 
-  drawerOpen = false
-
   showInfoModal = false
 
   selectedRowIds = []
@@ -142,12 +140,6 @@ export class BuyerSearchSupplierForIdeaModel {
         })
       }
     }
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setRequestStatus(requestStatus) {

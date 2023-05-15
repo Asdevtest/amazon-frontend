@@ -5,7 +5,6 @@ export class ClientShopsViewModel {
   requestStatus = undefined
   error = undefined
 
-  drawerOpen = false
   openModal = null
 
   constructor({history, location}) {
@@ -16,11 +15,5 @@ export class ClientShopsViewModel {
       }
     })
     makeAutoObservable(this, undefined, {autoBind: true})
-  }
-
-  onChangeDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 }

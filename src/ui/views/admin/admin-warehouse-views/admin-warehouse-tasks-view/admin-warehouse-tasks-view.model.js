@@ -23,8 +23,6 @@ export class AdminWarehouseTasksViewModel {
   tasksData = []
   curOpenedTask = {}
 
-  drawerOpen = false
-
   rowHandlers = {
     setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
   }
@@ -116,12 +114,6 @@ export class AdminWarehouseTasksViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

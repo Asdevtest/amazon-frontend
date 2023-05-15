@@ -12,8 +12,6 @@ export class CreateOrEditTradingShopViewModel {
   requestStatus = undefined
   actionStatus = undefined
 
-  drawerOpen = false
-
   showInfoModal = false
 
   requestToEdit = undefined
@@ -106,12 +104,6 @@ export class CreateOrEditTradingShopViewModel {
   onTriggerOpenModal(modal) {
     runInAction(() => {
       this[modal] = !this[modal]
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 }

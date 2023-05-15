@@ -147,7 +147,6 @@ export class ClientInventoryViewModel {
   yuanToDollarRate = undefined
   platformSettings = undefined
 
-  drawerOpen = false
   showOrderModal = false
   showSuccessModal = false
 
@@ -452,12 +451,6 @@ export class ClientInventoryViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -1789,12 +1782,6 @@ export class ClientInventoryViewModel {
       this.curPage = e
     })
     this.getProductsMy()
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onTriggerOpenModal(modalState) {

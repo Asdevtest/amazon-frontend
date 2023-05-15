@@ -12,7 +12,6 @@ export class AdminUserViewModel {
   userId = undefined
   user = undefined
 
-  drawerOpen = false
   order = undefined
 
   constructor({history, location}) {
@@ -52,11 +51,6 @@ export class AdminUserViewModel {
     }
   }
 
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus

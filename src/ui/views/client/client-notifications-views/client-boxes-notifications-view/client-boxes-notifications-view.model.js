@@ -34,7 +34,6 @@ export class ClientBoxesNotificationsViewModel {
   showEditHSCodeModal = false
 
   boxes = []
-  drawerOpen = false
   showConfirmModal = false
   confirmModalSettings = {
     isWarning: false,
@@ -196,12 +195,6 @@ export class ClientBoxesNotificationsViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -312,12 +305,6 @@ export class ClientBoxesNotificationsViewModel {
         this.error = error
       })
     }
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

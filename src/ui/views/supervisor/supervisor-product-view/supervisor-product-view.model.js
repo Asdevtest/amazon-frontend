@@ -149,7 +149,6 @@ export class SupervisorProductViewModel {
   confirmMessage = ''
   warningModalTitle = ''
 
-  drawerOpen = false
   selectedSupplier = undefined
   showWarningModal = false
   showConfirmModal = false
@@ -521,12 +520,6 @@ export class SupervisorProductViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setRequestStatus(requestStatus) {

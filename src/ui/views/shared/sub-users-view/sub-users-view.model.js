@@ -38,8 +38,6 @@ export class SubUsersViewModel {
   curUserProductPermissions = []
   productPermissionsData = []
 
-  drawerOpen = false
-
   modalPermission = false
   showAddSubUserModal = false
   showWarningModal = false
@@ -47,8 +45,6 @@ export class SubUsersViewModel {
   showConfirmModal = false
 
   selectionModel = undefined
-
-  activeSubCategory = 0
 
   rowHandlers = {
     onClickRemoveBtn: row => this.onClickRemoveBtn(row),
@@ -201,12 +197,6 @@ export class SubUsersViewModel {
   onSelectionModel(model) {
     runInAction(() => {
       this.selectionModel = model
-    })
-  }
-
-  onChangeDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

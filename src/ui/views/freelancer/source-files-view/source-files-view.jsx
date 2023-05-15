@@ -1,27 +1,21 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Box, Typography} from '@mui/material'
+import {Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {tableViewMode, tableSortMode} from '@constants/table/table-view-modes'
+import {tableSortMode} from '@constants/table/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DataGridCustomColumnMenuComponent} from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {MemoDataGrid} from '@components/shared/memo-data-grid'
 import {SearchInput} from '@components/shared/search-input'
@@ -32,9 +26,6 @@ import {t} from '@utils/translations'
 
 import {SourceFilesViewModel} from './source-files-view.model'
 import {styles} from './source-files-view.style.js'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
-const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_SOURCE_FILES
 
 @observer
 class SourceFilesViewRaw extends Component {
@@ -48,8 +39,6 @@ class SourceFilesViewRaw extends Component {
     const {
       nameSearchValue,
       sortMode,
-      drawerOpen,
-
       rowCount,
       curPage,
       sortModel,
@@ -63,7 +52,6 @@ class SourceFilesViewRaw extends Component {
       confirmModalSettings,
 
       onTriggerSortMode,
-      onTriggerDrawerOpen,
       onChangeNameSearchValue,
       onSelectionModel,
       onChangeCurPage,
@@ -86,83 +74,69 @@ class SourceFilesViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-        />
-        <Main>
-          <Appbar title={t(TranslationKey['Vacant requests'])} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <div className={classNames.tablePanelWrapper}>
-                <div className={classNames.tablePanelSubWrapper} />
+        <MainContent>
+          <div className={classNames.tablePanelWrapper}>
+            <div className={classNames.tablePanelSubWrapper} />
 
-                <SearchInput
-                  placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.Title)}, ${t(
-                    TranslationKey.ASIN,
-                  )}`}
-                  inputClasses={classNames.searchInput}
-                  value={nameSearchValue}
-                  onChange={onChangeNameSearchValue}
-                />
+            <SearchInput
+              placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.Title)}, ${t(TranslationKey.ASIN)}`}
+              inputClasses={classNames.searchInput}
+              value={nameSearchValue}
+              onChange={onChangeNameSearchValue}
+            />
 
-                <div className={classNames.tablePanelSubWrapper}>
-                  <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
-                    <Typography className={classNames.tablePanelViewText}>
-                      {t(TranslationKey['Sort by date'])}
-                    </Typography>
+            <div className={classNames.tablePanelSubWrapper}>
+              <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
+                <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
 
-                    {sortMode === tableSortMode.DESK ? (
-                      <ArrowDropDownIcon color="primary" />
-                    ) : (
-                      <ArrowDropUpIcon color="primary" />
-                    )}
-                  </div>
-                </div>
+                {sortMode === tableSortMode.DESK ? (
+                  <ArrowDropDownIcon color="primary" />
+                ) : (
+                  <ArrowDropUpIcon color="primary" />
+                )}
               </div>
+            </div>
+          </div>
 
-              <div className={classNames.dataGridWrapper}>
-                <MemoDataGrid
-                  disableVirtualization
-                  pagination
-                  useResizeContainer
-                  localeText={getLocalizationByLanguageTag()}
-                  classes={{
-                    row: classNames.row,
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
-                  }}
-                  rowCount={rowCount}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getSortedData(sortMode)}
-                  rowHeight={75}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                    ColumnMenu: DataGridCustomColumnMenuComponent,
-                  }}
-                  columnVisibilityModel={columnVisibilityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onPageChange={onChangeCurPage}
-                  onSelectionModelChange={onSelectionModel}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onFilterModelChange={onChangeFilterModel}
-                  // onStateChange={setFirstRowId}
-                  // onRowDoubleClick={e => onClickViewMore(e.row._id)}
-                />
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
+          <div className={classNames.dataGridWrapper}>
+            <MemoDataGrid
+              disableVirtualization
+              pagination
+              useResizeContainer
+              localeText={getLocalizationByLanguageTag()}
+              classes={{
+                row: classNames.row,
+                root: classNames.root,
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
+              }}
+              rowCount={rowCount}
+              sortModel={sortModel}
+              filterModel={filterModel}
+              page={curPage}
+              pageSize={rowsPerPage}
+              rowsPerPageOptions={[15, 25, 50, 100]}
+              rows={getSortedData(sortMode)}
+              rowHeight={75}
+              components={{
+                Toolbar: DataGridCustomToolbar,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
+                ColumnMenu: DataGridCustomColumnMenuComponent,
+              }}
+              columnVisibilityModel={columnVisibilityModel}
+              columns={columnsModel}
+              loading={requestStatus === loadingStatuses.isLoading}
+              onPageChange={onChangeCurPage}
+              onSelectionModelChange={onSelectionModel}
+              onSortModelChange={onChangeSortingModel}
+              onPageSizeChange={onChangeRowsPerPage}
+              onFilterModelChange={onChangeFilterModel}
+              // onStateChange={setFirstRowId}
+              // onRowDoubleClick={e => onClickViewMore(e.row._id)}
+            />
+          </div>
+        </MainContent>
         <ConfirmationModal
           isWarning={confirmModalSettings.isWarning}
           openModal={showConfirmModal}

@@ -118,8 +118,6 @@ export class ClientProductViewModel {
   yuanToDollarRate = undefined
   volumeWeightCoefficient = undefined
 
-  drawerOpen = false
-
   selectedSupplier = undefined
 
   showWarningModal = false
@@ -681,12 +679,6 @@ export class ClientProductViewModel {
     } catch (error) {
       console.log('error', error)
     }
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setRequestStatus(requestStatus) {

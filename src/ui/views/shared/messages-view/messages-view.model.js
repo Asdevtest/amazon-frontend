@@ -17,7 +17,6 @@ export class MessagesViewModel {
   error = undefined
   actionStatus = undefined
 
-  drawerOpen = false
   showConfirmModal = false
   showAddNewChatByEmailModal = false
   showAddUsersToGroupChatModal = false
@@ -326,12 +325,6 @@ export class MessagesViewModel {
       // this.chatSelectedId = undefined
 
       ChatModel.onChangeChatSelectedId(undefined)
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

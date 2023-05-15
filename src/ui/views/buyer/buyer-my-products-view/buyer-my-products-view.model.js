@@ -20,7 +20,6 @@ export class BuyerMyProductsViewModel {
 
   baseNoConvertedProducts = []
   productsMy = []
-  drawerOpen = false
 
   currentData = []
 
@@ -153,12 +152,6 @@ export class BuyerMyProductsViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -262,12 +255,6 @@ export class BuyerMyProductsViewModel {
     )
 
     win.focus()
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

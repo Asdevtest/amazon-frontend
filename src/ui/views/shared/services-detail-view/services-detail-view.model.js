@@ -23,7 +23,6 @@ export class ServiceDetailsViewModel {
   history = undefined
   error = undefined
   uploadedFiles = []
-  drawerOpen = false
 
   requestStatus = undefined
 
@@ -205,12 +204,6 @@ export class ServiceDetailsViewModel {
     })
 
     this.getAnnouncementsDataByGuid()
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setRequestStatus(requestStatus) {

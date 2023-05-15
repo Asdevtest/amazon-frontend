@@ -29,7 +29,6 @@ export class ClientReadyBoxesViewModel {
   boxesMy = []
   curBox = undefined
 
-  drawerOpen = false
   selectedBoxes = []
   currentStorekeeper = undefined
   storekeepersData = []
@@ -180,12 +179,6 @@ export class ClientReadyBoxesViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -343,12 +336,6 @@ export class ClientReadyBoxesViewModel {
     this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
 
     this.onTriggerOpenModal('showEditHSCodeModal')
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage = e => {
