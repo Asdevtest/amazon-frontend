@@ -48,6 +48,7 @@ export const subUsersColumns = (handlers, firstRowId) => [
     width: 381,
     renderCell: params => {
       const handlersMemo = useMemo(() => handlers, [])
+      const rowMemo = useMemo(() => params.row, [])
 
       return (
         <EditOrRemoveBtnsCell
@@ -57,7 +58,7 @@ export const subUsersColumns = (handlers, firstRowId) => [
             TranslationKey['Removing an employee from the list, banning and disabling access to the platform'],
           )}
           handlers={handlersMemo}
-          row={params.row}
+          row={rowMemo}
           isFirstRow={firstRowId === params.row.id}
         />
       )

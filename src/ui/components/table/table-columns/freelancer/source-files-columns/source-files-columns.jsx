@@ -37,7 +37,7 @@ export const sourceFilesColumns = (rowHandlers, languageTag, editField) => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 97,
     type: 'date',
   },

@@ -2,7 +2,7 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {fontWeight} from '@mui/system'
 
-import React from 'react'
+import React, {useCallback, useMemo} from 'react'
 
 import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
 import {orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey} from '@constants/statuses/order-status'
@@ -58,7 +58,11 @@ export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers, columnMenuS
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
     width: 400,
-    renderCell: params => <OrderCell product={params.row.originalData.product} />,
+    renderCell: params => {
+      const productMemo = useMemo(() => params.row.originalData.product, [])
+
+      return <OrderCell product={productMemo} />
+    },
     sortable: false,
   },
   {
@@ -109,14 +113,21 @@ export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers, columnMenuS
       />
     ),
 
-    renderCell: params => (
-      <StringListCell
-        sourceString={params?.value?.map(method => method?.paymentMethod?.title)}
-        maxItemsDisplay={3}
-        maxLettersInItem={15}
-        onClickCell={() => rowHandlers.onClickPaymentMethodCell(params?.row?.originalData)}
-      />
-    ),
+    renderCell: params => {
+      const onClickPaymentMethodCell = useCallback(
+        () => rowHandlers.onClickPaymentMethodCell(params?.row?.originalData),
+        [],
+      )
+
+      return (
+        <StringListCell
+          sourceString={params?.value?.map(method => method?.paymentMethod?.title)}
+          maxItemsDisplay={3}
+          maxLettersInItem={15}
+          onClickCell={onClickPaymentMethodCell}
+        />
+      )
+    },
     type: 'number',
     width: 178,
     align: 'center',

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React from 'react'
+import React, {useMemo} from 'react'
 
 import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
 import {orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey} from '@constants/statuses/order-status'
@@ -56,7 +56,11 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
     width: 400,
-    renderCell: params => <OrderCell product={params.row.originalData.product} />,
+    renderCell: params => {
+      const productMemo = useMemo(() => params.row.originalData.product, [])
+
+      return <OrderCell product={productMemo} />
+    },
     sortable: false,
   },
   {

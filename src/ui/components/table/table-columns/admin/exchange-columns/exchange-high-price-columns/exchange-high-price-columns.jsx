@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -40,7 +40,11 @@ export const exchangeHighPriceColumns = () => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    renderCell: params => <ProductAsinCell product={params.row.originalData} />,
+    renderCell: params => {
+      const originalDataMemo = useMemo(() => params.row.originalData, [])
+
+      return <ProductAsinCell product={originalDataMemo} />
+    },
     width: 300,
   },
 

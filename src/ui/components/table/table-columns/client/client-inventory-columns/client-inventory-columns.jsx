@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React from 'react'
+import React, {useCallback, useMemo} from 'react'
 
 import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
 import {colorByProductStatus, ProductStatusByCode} from '@constants/product/product-status'
@@ -52,7 +52,11 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <ProductAsinCell product={params.row.originalData} />,
+    renderCell: params => {
+      const originalDataMemo = useMemo(() => params.row.originalData, [])
+
+      return <ProductAsinCell product={originalDataMemo} />
+    },
     width: 300,
 
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
@@ -157,16 +161,15 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => (
-      <MultilineTextCell
-        text={params.value}
-        onClickText={e => {
-          e.stopPropagation()
+    renderCell: params => {
+      const onClickTextMemo = useCallback(e => {
+        e.stopPropagation()
 
-          otherHandlers.onClickOrderCell(params.row.originalData._id)
-        }}
-      />
-    ),
+        otherHandlers.onClickOrderCell(params.row.originalData._id)
+      }, [])
+
+      return <MultilineTextCell text={params.value} onClickText={onClickTextMemo} />
+    },
     type: 'number',
     width: 90,
 
@@ -184,14 +187,12 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => (
-      <ChangeInputCell
-        isInts
-        row={params.row.originalData}
-        text={params.value}
-        onClickSubmit={stockUsHandlers.onClickSaveStockUs}
-      />
-    ),
+    renderCell: params => {
+      const onClickSaveStockUsMemo = useCallback(stockUsHandlers.onClickSaveStockUs, [])
+      const rowMemo = useMemo(() => params.row.originalData, [])
+
+      return <ChangeInputCell isInts row={rowMemo} text={params.value} onClickSubmit={onClickSaveStockUsMemo} />
+    },
     width: 150,
 
     columnKey: columnnsKeys.shared.QUANTITY,
@@ -208,16 +209,15 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => (
-      <MultilineTextCell
-        text={params.value}
-        onClickText={e => {
-          e.stopPropagation()
+    renderCell: params => {
+      const onClickInTransferMemo = useCallback(e => {
+        e.stopPropagation()
 
-          otherHandlers.onClickInTransfer(params.row.originalData._id)
-        }}
-      />
-    ),
+        otherHandlers.onClickInTransfer(params.row.originalData._id)
+      }, [])
+
+      return <MultilineTextCell text={params.value} onClickText={onClickInTransferMemo} />
+    },
     type: 'number',
     width: 90,
 
@@ -235,13 +235,17 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => (
-      <InStockCell
-        boxAmounts={params.row.originalData.boxAmounts}
-        box={params.row.originalData}
-        onClickInStock={otherHandlers.onClickInStock}
-      />
-    ),
+    renderCell: params => {
+      const onClickInStockMemo = useCallback(otherHandlers.onClickInStock, [])
+
+      return (
+        <InStockCell
+          boxAmounts={params.row.originalData.boxAmounts}
+          box={params.row.originalData}
+          onClickInStock={onClickInStockMemo}
+        />
+      )
+    },
     width: 160,
     sortable: false,
     columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
@@ -291,9 +295,18 @@ export const clientInventoryColumns = (
         text={t(TranslationKey['Recommendation for additional purchases'])}
       />
     ),
-    renderCell: params => (
-      <FourMonthesStockCell handlers={fourMonthesStockHandlers} params={params} value={params.value} />
-    ),
+    renderCell: params => {
+      const onClickSaveFourMonthsStock = useCallback(fourMonthesStockHandlers.onClickSaveFourMonthsStock, [])
+      const paramsMemo = useMemo(() => params, [])
+
+      return (
+        <FourMonthesStockCell
+          params={paramsMemo}
+          value={params.value}
+          onClickSaveFourMonthsStock={onClickSaveFourMonthsStock}
+        />
+      )
+    },
 
     width: 150,
     type: 'number',
@@ -418,7 +431,7 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     minWidth: 90,
     type: 'date',
 
@@ -436,7 +449,7 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     minWidth: 90,
     type: 'date',
 

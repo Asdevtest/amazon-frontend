@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 
 import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
 import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
@@ -27,7 +27,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
       />
     ),
 
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 117,
     type: 'date',
   },
@@ -109,7 +109,11 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
       />
     ),
 
-    renderCell: params => <AsinCell text={params.value} product={params.row.originalData} />,
+    renderCell: params => {
+      const originalDataMemo = useMemo(() => params.row.originalData, [])
+
+      return <AsinCell text={params.value} product={originalDataMemo} />
+    },
     width: 123,
   },
 
@@ -138,7 +142,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
       />
     ),
 
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 115,
     type: 'date',
   },

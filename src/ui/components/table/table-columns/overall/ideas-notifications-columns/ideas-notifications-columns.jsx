@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, {useCallback, useMemo} from 'react'
 
 import {colorByIdeaStatus, ideaStatusByCode} from '@constants/statuses/idea-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -21,7 +21,7 @@ export const ideasNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 85,
     type: 'date',
   },
@@ -32,12 +32,11 @@ export const ideasNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 200,
-    renderCell: params => (
-      <NormalActionBtnCell
-        bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.onClickViewBtn(params?.row?.product?._id)}
-      />
-    ),
+    renderCell: params => {
+      const onClickViewBtn = useCallback(() => handlers.onClickViewBtn(params?.row?.product?._id), [])
+
+      return <NormalActionBtnCell bTnText={t(TranslationKey.View)} onClickOkBtn={onClickViewBtn} />
+    },
     filterable: false,
     sortable: false,
   },
@@ -47,7 +46,11 @@ export const ideasNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    renderCell: params => <ProductAsinCell product={params?.row?.originalData?.product} />,
+    renderCell: params => {
+      const originalDataMemo = useMemo(() => params?.row?.originalData?.product, [])
+
+      return <ProductAsinCell product={originalDataMemo} />
+    },
     width: 300,
     // columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },

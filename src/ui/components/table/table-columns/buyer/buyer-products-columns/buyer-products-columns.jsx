@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useCallback, useMemo} from 'react'
 
 import {colorByProductStatus, ProductStatusByCode} from '@constants/product/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -21,7 +21,11 @@ export const buyerProductsViewColumns = handlers => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    renderCell: params => <ProductAsinCell product={params.row.originalData} />,
+    renderCell: params => {
+      const originalDataMemo = useMemo(() => params.row.originalData, [])
+
+      return <ProductAsinCell product={originalDataMemo} />
+    },
     width: 350,
   },
 
@@ -53,13 +57,18 @@ export const buyerProductsViewColumns = handlers => [
     headerName: t(TranslationKey['Fees & Net']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Fees & Net'])} />,
 
-    renderCell: params => (
-      <FeesValuesWithCalculateBtnCell
-        noCalculate={!['30', '40', '50', '60'].includes(params.row.status)}
-        product={params.row.originalData}
-        onClickCalculate={handlers.onClickFeesCalculate}
-      />
-    ),
+    renderCell: params => {
+      const onClickFeesCalculateMemo = useCallback(handlers.onClickFeesCalculate, [])
+      const rowMemo = useMemo(() => params.row.originalData, [])
+
+      return (
+        <FeesValuesWithCalculateBtnCell
+          noCalculate={!['30', '40', '50', '60'].includes(params.row.status)}
+          product={rowMemo}
+          onClickCalculate={onClickFeesCalculateMemo}
+        />
+      )
+    },
     minWidth: 110,
 
     filterable: false,

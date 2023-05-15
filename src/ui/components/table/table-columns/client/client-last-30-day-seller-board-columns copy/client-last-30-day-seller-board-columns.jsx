@@ -62,7 +62,7 @@ export const clientLast30DaySellerBoardColumns = () => [
     headerName: t(TranslationKey.Date),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Date)} />,
 
-    renderCell: params => <NormDateWithoutTimeCell params={params} />,
+    renderCell: params => <NormDateWithoutTimeCell value={params.value} />,
     minWidth: 80,
     type: 'date',
   },

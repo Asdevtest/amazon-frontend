@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 
 import {colorByProductStatus, ProductStatusByCode, productStatusTranslateKey} from '@constants/product/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -21,7 +21,11 @@ export const supervisorProductsViewColumns = () => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    renderCell: params => <ProductAsinCell product={params.row.originalData} />,
+    renderCell: params => {
+      const originalDataMemo = useMemo(() => params.row.originalData, [])
+
+      return <ProductAsinCell product={originalDataMemo} />
+    },
     width: 350,
   },
 

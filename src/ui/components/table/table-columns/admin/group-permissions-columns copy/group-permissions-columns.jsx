@@ -72,7 +72,7 @@ export const adminGroupPermissionsColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 110,
     type: 'date',
   },

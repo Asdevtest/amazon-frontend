@@ -819,7 +819,7 @@ export const PhotoAndFilesCell = React.memo(
 )
 
 export const DateCell = React.memo(
-  withStyles(({params}) => <Typography>{!params.value ? '-' : formatDateTime(params.value)}</Typography>, styles),
+  withStyles(({value}) => <Typography>{!value ? '-' : formatDateTime(value)}</Typography>, styles),
 )
 
 export const NormDateCell = React.memo(
@@ -833,10 +833,8 @@ export const NormDateCell = React.memo(
 
 export const NormDateWithoutTimeCell = React.memo(
   withStyles(
-    ({classes: classNames, params}) => (
-      <Typography className={classNames.normDateCellTypo}>
-        {!(params && params.value) ? '-' : formatDateWithoutTime(params.value)}
-      </Typography>
+    ({classes: classNames, value}) => (
+      <Typography className={classNames.normDateCellTypo}>{!value ? '-' : formatDateWithoutTime(value)}</Typography>
     ),
     styles,
   ),
@@ -844,10 +842,8 @@ export const NormDateWithoutTimeCell = React.memo(
 
 export const ShortDateCell = React.memo(
   withStyles(
-    ({classes: classNames, params}) => (
-      <Typography className={classNames.shortDateCellTypo}>
-        {!(params && params.value) ? '-' : formatShortDateTime(params.value)}
-      </Typography>
+    ({classes: classNames, value}) => (
+      <Typography className={classNames.shortDateCellTypo}>{!value ? '-' : formatShortDateTime(value)}</Typography>
     ),
     styles,
   ),
@@ -865,10 +861,7 @@ export const NormDateFromUnixCell = React.memo(
 )
 
 export const NormDateWithParseISOCell = React.memo(
-  withStyles(
-    ({params}) => <Typography>{!params.value ? '-' : formatNormDateTimeWithParseISO(params.value)}</Typography>,
-    styles,
-  ),
+  withStyles(({value}) => <Typography>{!value ? '-' : formatNormDateTimeWithParseISO(value)}</Typography>, styles),
 )
 
 export const OrderCell = React.memo(
@@ -1995,7 +1988,7 @@ export const ShowBarcodeOrHscodeCell = React.memo(
 
 export const FourMonthesStockCell = React.memo(
   withStyles(
-    ({classes: classNames, handlers, params, value}) => (
+    ({classes: classNames, onClickSaveFourMonthsStock, params, value}) => (
       <div className={classNames.fourMonthesStockWrapper}>
         <Typography className={classNames.fourMonthesStockLabel}>{`${t(
           TranslationKey.Repurchase,
@@ -2005,7 +1998,7 @@ export const FourMonthesStockCell = React.memo(
           isInts
           row={params.row.originalData}
           text={params.row.fourMonthesStock}
-          onClickSubmit={handlers.onClickSaveFourMonthsStock}
+          onClickSubmit={onClickSaveFourMonthsStock}
         />
       </div>
     ),
