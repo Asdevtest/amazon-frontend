@@ -41,8 +41,6 @@ export class ResearcherProductsViewModel {
   reasonError = undefined
   actionStatus = undefined
 
-  drawerOpen = false
-
   formFields = {...formFieldsDefault}
   newProductId = undefined
 
@@ -162,12 +160,6 @@ export class ResearcherProductsViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -481,12 +473,6 @@ export class ResearcherProductsViewModel {
   onChangeCurPage(e) {
     runInAction(() => {
       this.curPage = e
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

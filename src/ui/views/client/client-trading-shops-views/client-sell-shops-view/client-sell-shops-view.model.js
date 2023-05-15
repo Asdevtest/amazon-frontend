@@ -6,8 +6,6 @@ export class ClientSellShopsViewModel {
   error = undefined
   actionStatus = undefined
 
-  drawerOpen = false
-
   constructor({history}) {
     runInAction(() => {
       this.history = history
@@ -23,12 +21,6 @@ export class ClientSellShopsViewModel {
   //     console.log(error)
   //   }
   // }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
 
   onTriggerOpenModal(modal) {
     runInAction(() => {

@@ -11,7 +11,6 @@ export class ResearcherDashboardViewModel {
   requestStatus = undefined
   error = undefined
 
-  drawerOpen = false
   productsVacant = []
   paymentsMy = []
 
@@ -86,12 +85,6 @@ export class ResearcherDashboardViewModel {
     } else {
       this.history.push(route)
     }
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setRequestStatus(requestStatus) {

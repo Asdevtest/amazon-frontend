@@ -21,8 +21,6 @@ export class MyProposalsViewModel {
   error = undefined
   actionStatus = undefined
 
-  drawerOpen = false
-
   currentData = []
 
   currentProposal = null
@@ -322,12 +320,6 @@ export class MyProposalsViewModel {
   //     console.log(error)
   //   }
   // }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
 
   setActionStatus(actionStatus) {
     runInAction(() => {

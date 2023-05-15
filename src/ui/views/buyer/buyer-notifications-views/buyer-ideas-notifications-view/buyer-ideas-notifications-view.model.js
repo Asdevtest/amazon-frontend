@@ -1,5 +1,3 @@
-import {fabClasses} from '@mui/material'
-
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
@@ -23,8 +21,6 @@ export class BuyerIdeasNotificationsViewModel {
   actionStatus = undefined
   error = undefined
   loadingStatus = undefined
-
-  drawerOpen = fabClasses
 
   ideas = []
 
@@ -124,12 +120,6 @@ export class BuyerIdeasNotificationsViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -192,12 +182,6 @@ export class BuyerIdeasNotificationsViewModel {
     )
 
     win?.focus()
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

@@ -7,17 +7,13 @@ import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
 import {getClientDashboardCardConfig} from '@constants/navigation/dashboard-configs'
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
 import {DashboardButtons} from '@components/dashboards/dashboard-buttons'
 import {DashboardWidgetsCard} from '@components/dashboards/dashboard-widgets-card'
-import {Appbar} from '@components/layout/appbar'
 // import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {UserMoneyTransferModal} from '@components/modals/user-money-transfer-modal'
 import {Button} from '@components/shared/buttons/button'
 import {UserLink} from '@components/user/user-link'
@@ -27,8 +23,6 @@ import {t} from '@utils/translations'
 
 import {ClientDashboardViewModel} from './client-dashboard-view.model'
 import {styles} from './client-dashboard-view.style'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_DASHBOARD
 
 @observer
 export class ClientDashboardViewRaw extends Component {
@@ -42,10 +36,9 @@ export class ClientDashboardViewRaw extends Component {
     const {
       userInfo,
       dashboardData,
-      drawerOpen,
       showTransferModal,
       transferModalSettings,
-      onTriggerDrawer,
+
       onTriggerOpenModal,
       onClickAddMoney,
       onClickWithdrawMoney,
@@ -59,56 +52,51 @@ export class ClientDashboardViewRaw extends Component {
     }
     return (
       <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
-        <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Dashboard)} balance={userInfo.balance}>
-            <MainContent>
-              <Paper className={classes.userInfoWrapper}>
-                <div className={classes.userInfoLeftWrapper}>
-                  <Avatar src={getUserAvatarSrc(userInfo._id)} className={classes.cardImg} />
-                  <div className={classes.balanceWrapper}>
-                    <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+        <MainContent>
+          <Paper className={classes.userInfoWrapper}>
+            <div className={classes.userInfoLeftWrapper}>
+              <Avatar src={getUserAvatarSrc(userInfo._id)} className={classes.cardImg} />
+              <div className={classes.balanceWrapper}>
+                <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
 
-                    <div className={classes.buttonWrapper}>
-                      <Button
-                        tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
-                        className={classes.button}
-                        onClick={onClickWithdrawMoney}
-                      >
-                        {t(TranslationKey.Deposit)}
-                        <img src="/assets/icons/white-plus.svg" className={classes.icon} />
-                      </Button>
-                      <Button
-                        tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
-                        className={cx(classes.button, classes.withdrawBtn)}
-                        variant="text"
-                        onClick={onClickAddMoney}
-                      >
-                        {t(TranslationKey.Withdraw)}
-                      </Button>
-                    </div>
-                  </div>
+                <div className={classes.buttonWrapper}>
+                  <Button
+                    tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
+                    className={classes.button}
+                    onClick={onClickWithdrawMoney}
+                  >
+                    {t(TranslationKey.Deposit)}
+                    <img src="/assets/icons/white-plus.svg" className={classes.icon} />
+                  </Button>
+                  <Button
+                    tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
+                    className={cx(classes.button, classes.withdrawBtn)}
+                    variant="text"
+                    onClick={onClickAddMoney}
+                  >
+                    {t(TranslationKey.Withdraw)}
+                  </Button>
                 </div>
+              </div>
+            </div>
 
-                <DashboardButtons user={userInfo} routes={clientButtonsRoutes} />
+            <DashboardButtons user={userInfo} routes={clientButtonsRoutes} />
 
-                {userInfo.masterUser && (
-                  <div className={classes.masterUserWrapper}>
-                    <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
+            {userInfo.masterUser && (
+              <div className={classes.masterUserWrapper}>
+                <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
 
-                    <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
-                  </div>
-                )}
-              </Paper>
-              <DashboardWidgetsCard
-                config={getClientDashboardCardConfig()}
-                valuesData={dashboardData}
-                onClickViewMore={onClickInfoCardViewMode}
-                onClickAddProduct={onClickAddProduct}
-              />
-            </MainContent>
-          </Appbar>
-        </Main>
+                <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
+              </div>
+            )}
+          </Paper>
+          <DashboardWidgetsCard
+            config={getClientDashboardCardConfig()}
+            valuesData={dashboardData}
+            onClickViewMore={onClickInfoCardViewMode}
+            onClickAddProduct={onClickAddProduct}
+          />
+        </MainContent>
         <UserMoneyTransferModal
           openModal={showTransferModal}
           setOpenModal={() => onTriggerOpenModal('showTransferModal')}

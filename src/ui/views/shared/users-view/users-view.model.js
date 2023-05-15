@@ -9,8 +9,6 @@ export class UsersViewModel {
   requestStatus = undefined
   error = undefined
 
-  drawerOpen = false
-
   get userInfo() {
     return UserModel.userInfo
   }
@@ -20,12 +18,6 @@ export class UsersViewModel {
       this.history = history
     })
     makeAutoObservable(this, undefined, {autoBind: true})
-  }
-
-  onChangeDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onClickSubUsers() {

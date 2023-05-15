@@ -16,8 +16,6 @@ export class BuyerSearchSupplierBySupervisorModel {
 
   productsVacant = []
 
-  drawerOpen = false
-
   showInfoModal = false
 
   selectedRowIds = []
@@ -147,13 +145,6 @@ export class BuyerSearchSupplierBySupervisorModel {
       }
     }
   }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus

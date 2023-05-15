@@ -84,7 +84,6 @@ export class WarehouseMyWarehouseViewModel {
   curBoxToMove = undefined
   sourceBoxForBatch = undefined
 
-  drawerOpen = false
   selectedBoxes = []
 
   curOpenedTask = {}
@@ -261,12 +260,6 @@ export class WarehouseMyWarehouseViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -1223,12 +1216,6 @@ export class WarehouseMyWarehouseViewModel {
   onTriggerShowEditBoxModal() {
     runInAction(() => {
       this.showEditBoxModal = !this.showEditBoxModal
-    })
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

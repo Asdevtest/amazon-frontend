@@ -2,20 +2,10 @@ import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
-
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {UserInfoAndEdit} from '@components/user/user-info-and-edit'
 
-import {t} from '@utils/translations'
-
 import {AdminUserViewModel} from './admin-user-view.model'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_USERS
 
 @observer
 export class AdminUserView extends Component {
@@ -29,23 +19,13 @@ export class AdminUserView extends Component {
   }
 
   render() {
-    const {drawerOpen, onTriggerDrawerOpen, history, user} = this.viewModel
+    const {user} = this.viewModel
 
     return (
       <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
-        <Main>
-          <Appbar
-            lastCrumbAdditionalText={user && `: ${user.email}`}
-            title={t(TranslationKey.User)}
-            history={history}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
-            <MainContent>
-              <UserInfoAndEdit user={user} />
-            </MainContent>
-          </Appbar>
-        </Main>
+        <MainContent>
+          <UserInfoAndEdit user={user} />
+        </MainContent>
       </React.Fragment>
     )
   }

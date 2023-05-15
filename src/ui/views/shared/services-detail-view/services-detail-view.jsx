@@ -1,26 +1,19 @@
 /* eslint-disable no-unused-vars */
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import InboxIcon from '@mui/icons-material/Inbox'
-import {Typography, Paper, Alert} from '@mui/material'
 
 import React, {Component, createRef} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DataGridCustomColumnMenuComponent} from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {MyServicesInfo} from '@components/my-services/my-services-info'
-import {Button} from '@components/shared/buttons/button'
 import {MemoDataGrid} from '@components/shared/memo-data-grid'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -29,8 +22,6 @@ import {t} from '@utils/translations'
 import {ServiceDetailsViewModel} from './services-detail-view.model'
 import {styles} from './services-detail-view.style'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
-const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES
 @observer
 export class ServiceDetailsViewRaw extends Component {
   chatRef = createRef()
@@ -48,7 +39,6 @@ export class ServiceDetailsViewRaw extends Component {
       curPage,
       rowCount,
       rowsPerPage,
-      drawerOpen,
       announcementData,
       currentData,
       filterModel,
@@ -64,7 +54,6 @@ export class ServiceDetailsViewRaw extends Component {
       onChangeCurPage,
       onChangeRowsPerPage,
       onChangeSortingModel,
-      onTriggerDrawerOpen,
       onClickBackBtn,
       onClickEditBtn,
       onTriggerOpenModal,
@@ -78,67 +67,58 @@ export class ServiceDetailsViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          drawerOpen={drawerOpen}
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
-          setDrawerOpen={onTriggerDrawerOpen}
-        />
-        <Main>
-          <Appbar title={t(TranslationKey['My services'])} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <MyServicesInfo
-                announcementData={announcementData}
-                onClickEditBtn={onClickEditBtn}
-                onClickBackBtn={onClickBackBtn}
-                onClickCloseAnnouncementBtn={onClickCloseAnnouncementBtn}
-              />
+        <MainContent>
+          <MyServicesInfo
+            announcementData={announcementData}
+            onClickEditBtn={onClickEditBtn}
+            onClickBackBtn={onClickBackBtn}
+            onClickCloseAnnouncementBtn={onClickCloseAnnouncementBtn}
+          />
 
-              <div className={classNames.dataGridWrapper}>
-                <MemoDataGrid
-                  disableVirtualization
-                  pagination
-                  useResizeContainer
-                  localeText={getLocalizationByLanguageTag()}
-                  classes={{
-                    row: classNames.row,
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
+          <div className={classNames.dataGridWrapper}>
+            <MemoDataGrid
+              disableVirtualization
+              pagination
+              useResizeContainer
+              localeText={getLocalizationByLanguageTag()}
+              classes={{
+                row: classNames.row,
+                root: classNames.root,
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
 
-                    iconSeparator: classNames.iconSeparator,
-                    columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-                    columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-                  }}
-                  rowCount={rowCount}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={currentData}
-                  rowHeight={143}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                    ColumnMenu: DataGridCustomColumnMenuComponent,
-                  }}
-                  columnVisibilityModel={columnVisibilityModel}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onPageChange={onChangeCurPage}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onFilterModelChange={onChangeFilterModel}
-                  // onStateChange={setFirstRowId}
-                  // onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
-                />
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
+                iconSeparator: classNames.iconSeparator,
+                columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
+                columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
+              }}
+              rowCount={rowCount}
+              page={curPage}
+              pageSize={rowsPerPage}
+              sortModel={sortModel}
+              filterModel={filterModel}
+              rowsPerPageOptions={[15, 25, 50, 100]}
+              rows={currentData}
+              rowHeight={143}
+              components={{
+                Toolbar: DataGridCustomToolbar,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
+                ColumnMenu: DataGridCustomColumnMenuComponent,
+              }}
+              columnVisibilityModel={columnVisibilityModel}
+              density={densityModel}
+              columns={columnsModel}
+              loading={requestStatus === loadingStatuses.isLoading}
+              onPageChange={onChangeCurPage}
+              onSortModelChange={onChangeSortingModel}
+              onPageSizeChange={onChangeRowsPerPage}
+              onFilterModelChange={onChangeFilterModel}
+              // onStateChange={setFirstRowId}
+              // onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
+            />
+          </div>
+        </MainContent>
+
         <ConfirmationModal
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}

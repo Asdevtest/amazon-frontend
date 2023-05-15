@@ -6,16 +6,12 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {ResearcherAddProductForm} from '@components/forms/reasearcher-add-product-form'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {MemoDataGrid} from '@components/shared/memo-data-grid'
 
@@ -24,8 +20,6 @@ import {t} from '@utils/translations'
 
 import {ResearcherProductsViewModel} from './researcher-products-view.model'
 import {styles} from './researcher-products-view.style'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
 
 @observer
 class ResearcherProductsViewRaw extends Component {
@@ -46,8 +40,6 @@ class ResearcherProductsViewRaw extends Component {
       filterModel,
       densityModel,
       columnsModel,
-
-      drawerOpen,
       rowsPerPage,
       curPage,
       formFields,
@@ -59,7 +51,6 @@ class ResearcherProductsViewRaw extends Component {
       // onClickAddBtn,
       changeColumnsModel,
       onClickCheckAndAddProductBtn,
-      onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
       onChangeFormFields,
@@ -75,69 +66,64 @@ class ResearcherProductsViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
-        <Main>
-          <Appbar title={t(TranslationKey['My products'])} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <Paper className={classNames.card}>
-                <div className={classNames.formWrapper}>
-                  <ResearcherAddProductForm
-                    user={user}
-                    formFields={formFields}
-                    errorMsg={error}
-                    reasonErrorMsg={reasonError}
-                    chekedCode={chekedCode}
-                    actionStatus={actionStatus}
-                    onChangeFormFields={onChangeFormFields}
-                    onClickCheckAndAddProductBtn={onClickCheckAndAddProductBtn}
-                  />
-                </div>
-              </Paper>
-              <div className={classNames.tableWrapper}>
-                <MemoDataGrid
-                  pagination
-                  useResizeContainer
-                  localeText={getLocalizationByLanguageTag()}
-                  classes={{
-                    row: classNames.row,
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
-                  }}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
-                  rowHeight={60}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  componentsProps={{
-                    toolbar: {
-                      columsBtnSettings: {columnsModel, changeColumnsModel},
-                    },
-                  }}
-                  onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection[0])
-                  }}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onRowDoubleClick={e => onClickTableRow(e.row)}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
-                />
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
+        <MainContent>
+          <Paper className={classNames.card}>
+            <div className={classNames.formWrapper}>
+              <ResearcherAddProductForm
+                user={user}
+                formFields={formFields}
+                errorMsg={error}
+                reasonErrorMsg={reasonError}
+                chekedCode={chekedCode}
+                actionStatus={actionStatus}
+                onChangeFormFields={onChangeFormFields}
+                onClickCheckAndAddProductBtn={onClickCheckAndAddProductBtn}
+              />
+            </div>
+          </Paper>
+          <div className={classNames.tableWrapper}>
+            <MemoDataGrid
+              pagination
+              useResizeContainer
+              localeText={getLocalizationByLanguageTag()}
+              classes={{
+                row: classNames.row,
+                root: classNames.root,
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
+              }}
+              sortModel={sortModel}
+              filterModel={filterModel}
+              page={curPage}
+              pageSize={rowsPerPage}
+              rowsPerPageOptions={[15, 25, 50, 100]}
+              rows={getCurrentData()}
+              rowHeight={60}
+              components={{
+                Toolbar: DataGridCustomToolbar,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
+              }}
+              density={densityModel}
+              columns={columnsModel}
+              loading={requestStatus === loadingStatuses.isLoading}
+              componentsProps={{
+                toolbar: {
+                  columsBtnSettings: {columnsModel, changeColumnsModel},
+                },
+              }}
+              onSelectionModelChange={newSelection => {
+                onSelectionModel(newSelection[0])
+              }}
+              onSortModelChange={onChangeSortingModel}
+              onPageSizeChange={onChangeRowsPerPage}
+              onPageChange={onChangeCurPage}
+              onStateChange={setDataGridState}
+              onRowDoubleClick={e => onClickTableRow(e.row)}
+              onFilterModelChange={model => onChangeFilterModel(model)}
+            />
+          </div>
+        </MainContent>
 
         <WarningInfoModal
           isWarning={warningInfoModalSettings.isWarning}

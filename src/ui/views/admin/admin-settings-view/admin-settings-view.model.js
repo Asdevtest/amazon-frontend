@@ -5,7 +5,6 @@ export class AdminSettingsViewModel {
   requestStatus = undefined
   actionStatus = undefined
 
-  drawerOpen = false
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
   showNoSuplierErrorModal = false

@@ -37,7 +37,6 @@ export class WarehouseSentBatchesViewModel {
 
   curBatch = {}
   showConfirmModal = false
-  drawerOpen = false
   isWarning = false
   showBatchInfoModal = false
 
@@ -161,12 +160,6 @@ export class WarehouseSentBatchesViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -258,12 +251,6 @@ export class WarehouseSentBatchesViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

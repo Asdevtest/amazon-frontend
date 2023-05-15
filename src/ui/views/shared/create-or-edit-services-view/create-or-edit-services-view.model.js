@@ -15,8 +15,6 @@ export class CreateOrEditServicesViewModel {
   requestStatus = undefined
   actionStatus = undefined
 
-  drawerOpen = false
-
   requestToEdit = {}
 
   pathname = null
@@ -137,11 +135,5 @@ export class CreateOrEditServicesViewModel {
 
   onClickBackBtn() {
     this.history.goBack()
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 }

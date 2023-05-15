@@ -22,8 +22,6 @@ export class CreateOrEditRequestViewModel {
 
   platformSettingsData = null
 
-  drawerOpen = false
-
   requestToEdit = undefined
 
   uploadedFiles = []
@@ -291,12 +289,6 @@ export class CreateOrEditRequestViewModel {
   onTriggerOpenModal(modalState) {
     runInAction(() => {
       this[modalState] = !this[modalState]
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

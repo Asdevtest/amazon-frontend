@@ -10,7 +10,6 @@ export class ModeratorAppealsViewModel {
   error = undefined
   actionStatus = undefined
 
-  drawerOpen = false
   showConfirmModal = false
 
   get user() {
@@ -26,12 +25,6 @@ export class ModeratorAppealsViewModel {
 
   onClickViewMore() {
     this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/appeals/appeal`)
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   // setActionStatus(actionStatus) {

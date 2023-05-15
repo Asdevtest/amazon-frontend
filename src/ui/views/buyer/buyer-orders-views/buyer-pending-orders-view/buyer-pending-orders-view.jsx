@@ -5,17 +5,13 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {BUYER_MY_ORDERS_MODAL_HEAD_CELLS} from '@constants/table/table-head-cells'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DataGridCustomColumnMenuComponent} from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
 import {EditOrderModal} from '@components/modals/edit-order-modal'
@@ -30,8 +26,6 @@ import {t} from '@utils/translations'
 
 import {BuyerMyOrdersViewModel} from './buyer-pending-orders-view.model'
 import {styles} from './buyer-pending-orders-view.style'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_PENDING_ORDERS
 
 @observer
 class BuyerPendingOrdersViewRaw extends Component {
@@ -60,7 +54,6 @@ class BuyerPendingOrdersViewRaw extends Component {
       columnsModel,
 
       curBoxesOfOrder,
-      drawerOpen,
       curPage,
       rowsPerPage,
       selectedOrder,
@@ -80,7 +73,6 @@ class BuyerPendingOrdersViewRaw extends Component {
       paymentMethods,
 
       onClickHsCode,
-      onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
       onClickOrder,
@@ -106,71 +98,65 @@ class BuyerPendingOrdersViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
+        <MainContent>
+          <div className={classNames.headerWrapper}>
+            <SearchInput
+              inputClasses={classNames.searchInput}
+              placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
+              onSubmit={onSearchSubmit}
+            />
+          </div>
 
-        <Main>
-          <Appbar title={t(TranslationKey['Pending orders'])} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <div className={classNames.headerWrapper}>
-                <SearchInput
-                  inputClasses={classNames.searchInput}
-                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
-                  onSubmit={onSearchSubmit}
-                />
-              </div>
-
-              <div className={classNames.dataGridWrapper}>
-                <MemoDataGrid
-                  disableVirtualization
-                  pagination
-                  useResizeContainer
-                  localeText={getLocalizationByLanguageTag()}
-                  classes={{
-                    row: classNames.row,
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
-                  }}
-                  sortingMode="server"
-                  paginationMode="server"
-                  rowCount={rowCount}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={currentData}
-                  // rowHeight={100}
-                  getRowHeight={() => 'auto'}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                    ColumnMenu: DataGridCustomColumnMenuComponent,
-                  }}
-                  componentsProps={{
-                    columnMenu: {orderStatusData},
-                    toolbar: {
-                      columsBtnSettings: {columnsModel, changeColumnsModel},
-                    },
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection[0])
-                  }}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
-                />
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
+          <div className={classNames.dataGridWrapper}>
+            <MemoDataGrid
+              disableVirtualization
+              pagination
+              useResizeContainer
+              localeText={getLocalizationByLanguageTag()}
+              classes={{
+                row: classNames.row,
+                root: classNames.root,
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
+              }}
+              sortingMode="server"
+              paginationMode="server"
+              rowCount={rowCount}
+              sortModel={sortModel}
+              filterModel={filterModel}
+              page={curPage}
+              pageSize={rowsPerPage}
+              rowsPerPageOptions={[15, 25, 50, 100]}
+              rows={currentData}
+              // rowHeight={100}
+              getRowHeight={() => 'auto'}
+              components={{
+                Toolbar: DataGridCustomToolbar,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
+                ColumnMenu: DataGridCustomColumnMenuComponent,
+              }}
+              componentsProps={{
+                columnMenu: {orderStatusData},
+                toolbar: {
+                  columsBtnSettings: {columnsModel, changeColumnsModel},
+                },
+              }}
+              density={densityModel}
+              columns={columnsModel}
+              loading={requestStatus === loadingStatuses.isLoading}
+              onSelectionModelChange={newSelection => {
+                onSelectionModel(newSelection[0])
+              }}
+              onSortModelChange={onChangeSortingModel}
+              onPageSizeChange={onChangeRowsPerPage}
+              onPageChange={onChangeCurPage}
+              onStateChange={setDataGridState}
+              onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
+              onFilterModelChange={model => onChangeFilterModel(model)}
+            />
+          </div>
+        </MainContent>
 
         <Modal
           missClickModalOn

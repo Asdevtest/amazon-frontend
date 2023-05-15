@@ -18,7 +18,6 @@ export class ModeratorMyProductsViewModel {
   requestStatus = undefined
 
   productsMy = []
-  drawerOpen = false
 
   // sortModel = []
   // filterModel = {items: []}
@@ -102,12 +101,6 @@ export class ModeratorMyProductsViewModel {
   //   this.requestStatus = requestStatus
   // }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   // onChangeSortingModel(e) {
   //   this.sortModel = e.sortModel
   // }
@@ -157,12 +150,6 @@ export class ModeratorMyProductsViewModel {
   //     search: item.originalData._id,
   //   })
   // }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
 
   // onChangeCurPage(e) {
   //   this.curPage = e

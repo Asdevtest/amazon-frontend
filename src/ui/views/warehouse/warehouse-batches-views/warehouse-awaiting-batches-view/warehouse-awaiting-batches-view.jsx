@@ -5,16 +5,12 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
@@ -30,9 +26,6 @@ import {t} from '@utils/translations'
 
 import {WarehouseAwaitingBatchesViewModel} from './warehouse-awaiting-batches-view.model'
 import {styles} from './warehouse-awaiting-batches-view.style'
-
-const activeCategory = navBarActiveCategory.NAVBAR_BATCHES
-const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_AWAITING_BATCHES
 
 @observer
 export class WarehouseAwaitingBatchesViewRaw extends Component {
@@ -72,12 +65,10 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
       densityModel,
       columnsModel,
       isWarning,
-      drawerOpen,
       curPage,
       rowsPerPage,
       onClickHsCode,
       onClickSaveHsCode,
-      onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
 
@@ -100,114 +91,103 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={activeCategory}
-          activeSubCategory={activeSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawer}
-        />
-        <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Awaiting send'])}>
-            <MainContent>
-              <div className={classNames.btnsWrapper}>
-                <div className={classNames.leftBtnsWrapper}>
-                  <Button
-                    disabled={!selectedBatches.length || isInvalidTariffBoxSelected || isNeedConfirmPriceBoxSelected}
-                    tooltipAttentionContent={
-                      (isInvalidTariffBoxSelected &&
-                        t(TranslationKey['Selected a batch contains a box with an invalid tariff'])) ||
-                      (isNeedConfirmPriceBoxSelected &&
-                        t(TranslationKey['Selected lot contains a box for which you need to confirm the price change']))
-                    }
-                    tooltipInfoContent={t(
-                      TranslationKey['After confirmation it will be impossible to return the batch'],
-                    )}
-                    color="primary"
-                    variant="contained"
-                    className={classNames.batchBtn}
-                    onClick={() => onTriggerOpenModal('showConfirmModal')}
-                  >
-                    {t(TranslationKey['Confirm send to batch'])}
-                  </Button>
+        <MainContent>
+          <div className={classNames.btnsWrapper}>
+            <div className={classNames.leftBtnsWrapper}>
+              <Button
+                disabled={!selectedBatches.length || isInvalidTariffBoxSelected || isNeedConfirmPriceBoxSelected}
+                tooltipAttentionContent={
+                  (isInvalidTariffBoxSelected &&
+                    t(TranslationKey['Selected a batch contains a box with an invalid tariff'])) ||
+                  (isNeedConfirmPriceBoxSelected &&
+                    t(TranslationKey['Selected lot contains a box for which you need to confirm the price change']))
+                }
+                tooltipInfoContent={t(TranslationKey['After confirmation it will be impossible to return the batch'])}
+                color="primary"
+                variant="contained"
+                className={classNames.batchBtn}
+                onClick={() => onTriggerOpenModal('showConfirmModal')}
+              >
+                {t(TranslationKey['Confirm send to batch'])}
+              </Button>
 
-                  <Button
-                    disabled={selectedBatches.length !== 1}
-                    className={classNames.editBtn}
-                    tooltipInfoContent={t(TranslationKey['Add/remove a box or files to a batch'])}
-                    color="primary"
-                    variant="contained"
-                    onClick={() => onClickAddOrEditBatch({isAdding: false})}
-                  >
-                    {t(TranslationKey['Edit batch'])}
-                  </Button>
-                </div>
-                <SearchInput
-                  inputClasses={classNames.searchInput}
-                  value={nameSearchValue}
-                  placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])} // В ОТРАВЛ
-                  onSubmit={onSearchSubmit}
-                />
+              <Button
+                disabled={selectedBatches.length !== 1}
+                className={classNames.editBtn}
+                tooltipInfoContent={t(TranslationKey['Add/remove a box or files to a batch'])}
+                color="primary"
+                variant="contained"
+                onClick={() => onClickAddOrEditBatch({isAdding: false})}
+              >
+                {t(TranslationKey['Edit batch'])}
+              </Button>
+            </div>
+            <SearchInput
+              inputClasses={classNames.searchInput}
+              value={nameSearchValue}
+              placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])} // В ОТРАВЛ
+              onSubmit={onSearchSubmit}
+            />
 
-                <Button
-                  success
-                  tooltipInfoContent={t(TranslationKey['Open a form to create a new batch'])}
-                  className={classNames.createBtn}
-                  onClick={() => onClickAddOrEditBatch({isAdding: true})}
-                >
-                  {t(TranslationKey['Create a batch'])}
-                </Button>
-              </div>
-              <div className={classNames.datagridWrapper}>
-                <MemoDataGrid
-                  checkboxSelection
-                  pagination
-                  useResizeContainer
-                  localeText={getLocalizationByLanguageTag()}
-                  classes={{
-                    row: classNames.row,
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
-                    filterForm: classNames.filterForm,
-                  }}
-                  selectionModel={selectedBatches}
-                  sortingMode="server"
-                  paginationMode="server"
-                  rowCount={rowCount}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={currentData}
-                  getRowHeight={() => 'auto'}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  componentsProps={{
-                    toolbar: {
-                      columsBtnSettings: {columnsModel, changeColumnsModel},
-                    },
-                  }}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
-                  onRowDoubleClick={e => setCurrentOpenedBatch(e.row.originalData)}
-                  onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection)
-                  }}
-                />
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
+            <Button
+              success
+              tooltipInfoContent={t(TranslationKey['Open a form to create a new batch'])}
+              className={classNames.createBtn}
+              onClick={() => onClickAddOrEditBatch({isAdding: true})}
+            >
+              {t(TranslationKey['Create a batch'])}
+            </Button>
+          </div>
+          <div className={classNames.datagridWrapper}>
+            <MemoDataGrid
+              checkboxSelection
+              pagination
+              useResizeContainer
+              localeText={getLocalizationByLanguageTag()}
+              classes={{
+                row: classNames.row,
+                root: classNames.root,
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
+                filterForm: classNames.filterForm,
+              }}
+              selectionModel={selectedBatches}
+              sortingMode="server"
+              paginationMode="server"
+              rowCount={rowCount}
+              sortModel={sortModel}
+              filterModel={filterModel}
+              page={curPage}
+              pageSize={rowsPerPage}
+              rowsPerPageOptions={[15, 25, 50, 100]}
+              rows={currentData}
+              getRowHeight={() => 'auto'}
+              components={{
+                Toolbar: DataGridCustomToolbar,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
+              }}
+              density={densityModel}
+              columns={columnsModel}
+              loading={requestStatus === loadingStatuses.isLoading}
+              componentsProps={{
+                toolbar: {
+                  columsBtnSettings: {columnsModel, changeColumnsModel},
+                },
+              }}
+              onSortModelChange={onChangeSortingModel}
+              onPageSizeChange={onChangeRowsPerPage}
+              onPageChange={onChangeCurPage}
+              onStateChange={setDataGridState}
+              onFilterModelChange={model => onChangeFilterModel(model)}
+              onRowDoubleClick={e => setCurrentOpenedBatch(e.row.originalData)}
+              onSelectionModelChange={newSelection => {
+                onSelectionModel(newSelection)
+              }}
+            />
+          </div>
+        </MainContent>
+
         <Modal openModal={showAddOrEditBatchModal} setOpenModal={() => onTriggerOpenModal('showAddOrEditBatchModal')}>
           <AddOrEditBatchForm
             progressValue={progressValue}

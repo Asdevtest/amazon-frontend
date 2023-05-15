@@ -15,7 +15,6 @@ export class VacantDealsDetailsViewModel {
   requester = undefined
   proposalId = undefined
   curProposalId = undefined
-  drawerOpen = false
   showConfirmModal = false
   showDetails = true
 
@@ -76,12 +75,6 @@ export class VacantDealsDetailsViewModel {
 
   onClickGetToWorkModal() {
     this.onTriggerOpenModal('showConfirmModal')
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setActionStatus(actionStatus) {

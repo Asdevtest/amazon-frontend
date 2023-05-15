@@ -6,16 +6,12 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
@@ -30,9 +26,6 @@ import {t} from '@utils/translations'
 
 import {ClientAwaitingBatchesViewModel} from './client-awaiting-batches-view.model'
 import {styles} from './client-awaiting-batches-view.style'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_BATCHES
-const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_AWAITING_BATCH
 
 @observer
 class ClientAwaitingBatchesViewRaw extends Component {
@@ -71,7 +64,6 @@ class ClientAwaitingBatchesViewRaw extends Component {
       densityModel,
       columnsModel,
 
-      drawerOpen,
       curPage,
       rowsPerPage,
       showEditHSCodeModal,
@@ -79,7 +71,6 @@ class ClientAwaitingBatchesViewRaw extends Component {
       onClickSaveHsCode,
       onClickHsCode,
       onSearchSubmit,
-      onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
 
@@ -105,143 +96,132 @@ class ClientAwaitingBatchesViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawer}
-        />
+        <MainContent>
+          <div className={className.btnsWrapper}>
+            <div className={className.btnsSubWrapper}>
+              <Button
+                disabled={!selectedBatches.length}
+                tooltipInfoContent={t(
+                  TranslationKey['Returns all boxes from the selected batch to the "Boxes ready to send" section'],
+                )}
+                className={className.cancelBtn}
+                color="primary"
+                variant="contained"
+                onClick={() => onTriggerOpenModal('showConfirmModal')}
+              >
+                {t(TranslationKey['Cancel Send'])}
+              </Button>
 
-        <Main>
-          <Appbar title={t(TranslationKey['Awaiting send'])} setDrawerOpen={onTriggerDrawer}>
-            <MainContent>
-              <div className={className.btnsWrapper}>
-                <div className={className.btnsSubWrapper}>
-                  <Button
-                    disabled={!selectedBatches.length}
-                    tooltipInfoContent={t(
-                      TranslationKey['Returns all boxes from the selected batch to the "Boxes ready to send" section'],
-                    )}
-                    className={className.cancelBtn}
-                    color="primary"
-                    variant="contained"
-                    onClick={() => onTriggerOpenModal('showConfirmModal')}
-                  >
-                    {t(TranslationKey['Cancel Send'])}
-                  </Button>
+              <div className={className.boxesFiltersWrapper}>
+                {storekeepersData
+                  .slice()
+                  .sort((a, b) => a.name?.localeCompare(b.name))
+                  .map(storekeeper =>
+                    storekeeper.boxesCount !== 0 ? (
+                      <Button
+                        key={storekeeper._id}
+                        disabled={currentStorekeeper?._id === storekeeper._id}
+                        className={cx(className.storekeeperButton, {
+                          [className.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
+                        })}
+                        variant="text"
+                        onClick={() => onClickStorekeeperBtn(storekeeper)}
+                      >
+                        {storekeeper.name}
+                      </Button>
+                    ) : null,
+                  )}
 
-                  <div className={className.boxesFiltersWrapper}>
-                    {storekeepersData
-                      .slice()
-                      .sort((a, b) => a.name?.localeCompare(b.name))
-                      .map(storekeeper =>
-                        storekeeper.boxesCount !== 0 ? (
-                          <Button
-                            key={storekeeper._id}
-                            disabled={currentStorekeeper?._id === storekeeper._id}
-                            className={cx(className.storekeeperButton, {
-                              [className.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
-                            })}
-                            variant="text"
-                            onClick={() => onClickStorekeeperBtn(storekeeper)}
-                          >
-                            {storekeeper.name}
-                          </Button>
-                        ) : null,
-                      )}
-
-                    <Button
-                      disabled={!currentStorekeeper?._id}
-                      className={cx(className.storekeeperButton, {
-                        [className.selectedBoxesBtn]: !currentStorekeeper?._id,
-                      })}
-                      variant="text"
-                      onClick={onClickStorekeeperBtn}
-                    >
-                      {t(TranslationKey['All warehouses'])}
-                    </Button>
-                  </div>
-                </div>
-
-                <div className={className.rightSideWrapper}>
-                  <SearchInput
-                    key={'client_batches_awaiting-batch_search_input'}
-                    inputClasses={className.searchInput}
-                    value={nameSearchValue}
-                    placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
-                    onSubmit={onSearchSubmit}
-                  />
-
-                  <div className={className.rightSideButtonsWrapper}>
-                    <Button
-                      disabled={selectedBatches.length !== 1}
-                      variant="contained"
-                      className={className.rightSideButton}
-                      onClick={() => onClickAddOrEditBatch({isAdding: false})}
-                    >
-                      {t(TranslationKey['Edit batch'])}
-                    </Button>
-                    <Button
-                      success
-                      className={className.rightSideButton}
-                      variant="contained"
-                      onClick={() => onClickAddOrEditBatch({isAdding: true})}
-                    >
-                      {t(TranslationKey['Create a batch'])}
-                    </Button>
-                  </div>
-                </div>
+                <Button
+                  disabled={!currentStorekeeper?._id}
+                  className={cx(className.storekeeperButton, {
+                    [className.selectedBoxesBtn]: !currentStorekeeper?._id,
+                  })}
+                  variant="text"
+                  onClick={onClickStorekeeperBtn}
+                >
+                  {t(TranslationKey['All warehouses'])}
+                </Button>
               </div>
-              <div className={className.datagridWrapper}>
-                <MemoDataGrid
-                  pagination
-                  useResizeContainer
-                  checkboxSelection
-                  localeText={getLocalizationByLanguageTag()}
-                  classes={{
-                    row: className.row,
-                    root: className.root,
-                    footerContainer: className.footerContainer,
-                    footerCell: className.footerCell,
-                    toolbarContainer: className.toolbarContainer,
-                  }}
-                  sortingMode="server"
-                  paginationMode="server"
-                  rowCount={rowCount}
-                  sortModel={sortModel}
-                  selectionModel={selectedBatches}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={currentData}
-                  getRowHeight={() => 'auto'}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  componentsProps={{
-                    toolbar: {
-                      columsBtnSettings: {columnsModel, changeColumnsModel},
-                    },
-                  }}
-                  onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection)
-                  }}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
-                  onRowDoubleClick={e => setCurrentOpenedBatch(e.row.originalData)}
-                />
+            </div>
+
+            <div className={className.rightSideWrapper}>
+              <SearchInput
+                key={'client_batches_awaiting-batch_search_input'}
+                inputClasses={className.searchInput}
+                value={nameSearchValue}
+                placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
+                onSubmit={onSearchSubmit}
+              />
+
+              <div className={className.rightSideButtonsWrapper}>
+                <Button
+                  disabled={selectedBatches.length !== 1}
+                  variant="contained"
+                  className={className.rightSideButton}
+                  onClick={() => onClickAddOrEditBatch({isAdding: false})}
+                >
+                  {t(TranslationKey['Edit batch'])}
+                </Button>
+                <Button
+                  success
+                  className={className.rightSideButton}
+                  variant="contained"
+                  onClick={() => onClickAddOrEditBatch({isAdding: true})}
+                >
+                  {t(TranslationKey['Create a batch'])}
+                </Button>
               </div>
-            </MainContent>
-          </Appbar>
-        </Main>
+            </div>
+          </div>
+          <div className={className.datagridWrapper}>
+            <MemoDataGrid
+              pagination
+              useResizeContainer
+              checkboxSelection
+              localeText={getLocalizationByLanguageTag()}
+              classes={{
+                row: className.row,
+                root: className.root,
+                footerContainer: className.footerContainer,
+                footerCell: className.footerCell,
+                toolbarContainer: className.toolbarContainer,
+              }}
+              sortingMode="server"
+              paginationMode="server"
+              rowCount={rowCount}
+              sortModel={sortModel}
+              selectionModel={selectedBatches}
+              filterModel={filterModel}
+              page={curPage}
+              pageSize={rowsPerPage}
+              rowsPerPageOptions={[15, 25, 50, 100]}
+              rows={currentData}
+              getRowHeight={() => 'auto'}
+              components={{
+                Toolbar: DataGridCustomToolbar,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
+              }}
+              density={densityModel}
+              columns={columnsModel}
+              loading={requestStatus === loadingStatuses.isLoading}
+              componentsProps={{
+                toolbar: {
+                  columsBtnSettings: {columnsModel, changeColumnsModel},
+                },
+              }}
+              onSelectionModelChange={newSelection => {
+                onSelectionModel(newSelection)
+              }}
+              onSortModelChange={onChangeSortingModel}
+              onPageSizeChange={onChangeRowsPerPage}
+              onPageChange={onChangeCurPage}
+              onStateChange={setDataGridState}
+              onFilterModelChange={model => onChangeFilterModel(model)}
+              onRowDoubleClick={e => setCurrentOpenedBatch(e.row.originalData)}
+            />
+          </div>
+        </MainContent>
 
         <Modal openModal={showAddOrEditBatchModal} setOpenModal={() => onTriggerOpenModal('showAddOrEditBatchModal')}>
           <AddOrEditBatchForm

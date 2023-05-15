@@ -2,20 +2,10 @@ import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
-
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {WarehouseManagement} from '@components/warehouse/warehouse-management'
 
-import {t} from '@utils/translations'
-
 import {WarehouseManagementViewModel} from './warehouse-management-view.model'
-
-const activeCategory = navBarActiveCategory.NAVBAR_MANAGEMENT
 
 @observer
 export class WarehouseManagementView extends Component {
@@ -29,22 +19,11 @@ export class WarehouseManagementView extends Component {
   }
 
   render() {
-    const {drawerOpen, onTriggerDrawerOpen, history} = this.viewModel
-
     return (
       <React.Fragment>
-        <Navbar activeCategory={activeCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
-        <Main>
-          <Appbar
-            title={t(TranslationKey['Warehouse management'])}
-            history={history}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
-            <MainContent>
-              <WarehouseManagement />
-            </MainContent>
-          </Appbar>
-        </Main>
+        <MainContent>
+          <WarehouseManagement />
+        </MainContent>
       </React.Fragment>
     )
   }

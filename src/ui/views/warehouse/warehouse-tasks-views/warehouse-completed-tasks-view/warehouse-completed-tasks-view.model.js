@@ -37,8 +37,6 @@ export class WarehouseCompletedViewModel {
 
   nameSearchValue = ''
 
-  drawerOpen = false
-
   rowHandlers = {
     setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
   }
@@ -165,12 +163,6 @@ export class WarehouseCompletedViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -293,12 +285,6 @@ export class WarehouseCompletedViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onChangeTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

@@ -6,18 +6,14 @@ import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
 import {UserRoleCodeMap} from '@constants/keys/user-roles'
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AddOrEditUserPermissionsForm} from '@components/forms/add-or-edit-user-permissions-form'
 import {LinkSubUserForm} from '@components/forms/link-sub-user-form'
-import {Appbar} from '@components/layout/appbar'
 // import {LinkSubUserForm} from '@components/forms/link-sub-user-form'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Button} from '@components/shared/buttons/button'
@@ -31,8 +27,6 @@ import {t} from '@utils/translations'
 
 import {SubUsersViewModel} from './sub-users-view.model'
 import {styles} from './sub-users-view.style'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_USERS
 
 @observer
 class SubUsersViewRaw extends Component {
@@ -66,15 +60,11 @@ class SubUsersViewRaw extends Component {
       filterModel,
       densityModel,
       columnsModel,
-
-      drawerOpen,
       rowsPerPage,
       curPage,
-      activeSubCategory,
-      onChangeDrawerOpen,
+
       onChangeCurPage,
       onChangeRowsPerPage,
-      onChangeSubCategory,
 
       setDataGridState,
       onChangeSortingModel,
@@ -93,79 +83,68 @@ class SubUsersViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={activeSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onChangeDrawerOpen}
-          onChangeSubCategory={onChangeSubCategory}
-        />
-        <Main>
-          <Appbar title={t(TranslationKey['My users'])} setDrawerOpen={onChangeDrawerOpen}>
-            <MainContent>
-              <div className={classNames.subUserHeader}>
-                <div />
+        <MainContent>
+          <div className={classNames.subUserHeader}>
+            <div />
 
-                <SearchInput
-                  inputClasses={classNames.searchInput}
-                  placeholder={t(TranslationKey['Search by name, email'])}
-                  value={nameSearchValue}
-                  onChange={onChangeNameSearchValue}
-                />
-                <div className={classNames.buttonWrapper}>
-                  <Button
-                    success
-                    tooltipInfoContent={t(TranslationKey['Add your own sub-user'])}
-                    className={classNames.addUserButton}
-                    onClick={() => onTriggerOpenModal('showAddSubUserModal')}
-                  >
-                    {t(TranslationKey['Add a user'])}
-                  </Button>
-                </div>
-              </div>
-              <div className={classNames.datagridWrapper}>
-                <MemoDataGrid
-                  pagination
-                  disableEnforceFocus
-                  useResizeContainer
-                  disableSelectionOnClick
-                  classes={{
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
-                    filterForm: classNames.filterForm,
-                  }}
-                  localeText={getLocalizationByLanguageTag()}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={currentData}
-                  rowHeight={145}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                  }}
-                  componentsProps={{
-                    toolbar: {
-                      columsBtnSettings: {columnsModel, changeColumnsModel},
-                    },
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
-                />
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
+            <SearchInput
+              inputClasses={classNames.searchInput}
+              placeholder={t(TranslationKey['Search by name, email'])}
+              value={nameSearchValue}
+              onChange={onChangeNameSearchValue}
+            />
+            <div className={classNames.buttonWrapper}>
+              <Button
+                success
+                tooltipInfoContent={t(TranslationKey['Add your own sub-user'])}
+                className={classNames.addUserButton}
+                onClick={() => onTriggerOpenModal('showAddSubUserModal')}
+              >
+                {t(TranslationKey['Add a user'])}
+              </Button>
+            </div>
+          </div>
+          <div className={classNames.datagridWrapper}>
+            <MemoDataGrid
+              pagination
+              disableEnforceFocus
+              useResizeContainer
+              disableSelectionOnClick
+              classes={{
+                root: classNames.root,
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
+                filterForm: classNames.filterForm,
+              }}
+              localeText={getLocalizationByLanguageTag()}
+              sortModel={sortModel}
+              filterModel={filterModel}
+              page={curPage}
+              pageSize={rowsPerPage}
+              rowsPerPageOptions={[15, 25, 50, 100]}
+              rows={currentData}
+              rowHeight={145}
+              components={{
+                Toolbar: DataGridCustomToolbar,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
+              }}
+              componentsProps={{
+                toolbar: {
+                  columsBtnSettings: {columnsModel, changeColumnsModel},
+                },
+              }}
+              density={densityModel}
+              columns={columnsModel}
+              loading={requestStatus === loadingStatuses.isLoading}
+              onSortModelChange={onChangeSortingModel}
+              onPageSizeChange={onChangeRowsPerPage}
+              onPageChange={onChangeCurPage}
+              onStateChange={setDataGridState}
+              onFilterModelChange={model => onChangeFilterModel(model)}
+            />
+          </div>
+        </MainContent>
         <Modal openModal={showAddSubUserModal} setOpenModal={() => onTriggerOpenModal('showAddSubUserModal')}>
           <LinkSubUserForm
             closeModal={() => onTriggerOpenModal('showAddSubUserModal')}

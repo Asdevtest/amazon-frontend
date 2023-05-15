@@ -2,20 +2,10 @@ import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
-
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {ShopWrapper} from '@components/traiding-shop/shop-wrapper/shop-wrapper'
 
-import {t} from '@utils/translations'
-
 import {ClientShopViewModel} from './client-shop-view.model'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_TRADING_SHOPS
 
 @observer
 export class ClientShopView extends Component {
@@ -29,29 +19,13 @@ export class ClientShopView extends Component {
   }
 
   render() {
-    const {drawerOpen, userInfo, shopInfo, onTriggerDrawerOpen, history, onClickEditBtn} = this.viewModel
+    const {userInfo, shopInfo, onClickEditBtn} = this.viewModel
 
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={
-            history.location.pathname.includes('sell')
-              ? navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS
-              : navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BUY_SHOPS
-          }
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-        />
-        <Main>
-          <Appbar title={t(TranslationKey.Shop)} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              {shopInfo ? (
-                <ShopWrapper userInfo={userInfo} shopInfo={shopInfo} onClickEditBtn={onClickEditBtn} />
-              ) : null}
-            </MainContent>
-          </Appbar>
-        </Main>
+        <MainContent>
+          {shopInfo ? <ShopWrapper userInfo={userInfo} shopInfo={shopInfo} onClickEditBtn={onClickEditBtn} /> : null}
+        </MainContent>
       </React.Fragment>
     )
   }

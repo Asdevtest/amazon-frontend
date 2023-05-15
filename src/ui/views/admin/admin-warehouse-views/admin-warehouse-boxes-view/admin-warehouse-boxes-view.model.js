@@ -31,7 +31,6 @@ export class AdminWarehouseBoxesViewModel {
 
   showBoxViewModal = false
 
-  drawerOpen = false
   selectedBoxes = []
 
   sortModel = []
@@ -209,12 +208,6 @@ export class AdminWarehouseBoxesViewModel {
         this.error = error
       })
     }
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

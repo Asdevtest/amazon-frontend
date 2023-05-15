@@ -2,24 +2,17 @@ import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DealDetailsCard} from '@components/cards/deal-details-card'
 import {RequestProposalAcceptOrRejectResultForm} from '@components/forms/request-proposal-accept-or-reject-result-form'
 import {RequestProposalResultToCorrectForm} from '@components/forms/request-proposal-result-to-correct-form'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {Modal} from '@components/shared/modal'
 
 import {t} from '@utils/translations'
 
 import {VacantDealsDetailsViewModel} from './deals-on-review-details-view.model'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_DEALS
-const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_DEALS_ON_REVIEW
 
 @observer
 export class DealsOnReviewDetailsView extends Component {
@@ -31,8 +24,6 @@ export class DealsOnReviewDetailsView extends Component {
 
   render() {
     const {
-      drawerOpen,
-
       showConfirmModal,
       showRejectModal,
       showReworkModal,
@@ -40,7 +31,6 @@ export class DealsOnReviewDetailsView extends Component {
       requestProposals,
       curProposalId,
       // requestId,
-      onTriggerDrawerOpen,
       onTriggerOpenModal,
       onClickConfirmDealModal,
       onClickRejectDealModal,
@@ -53,57 +43,47 @@ export class DealsOnReviewDetailsView extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-        />
-        <Main>
-          <Appbar title={t(TranslationKey['Vacant deals'])} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <DealDetailsCard
-                request={request}
-                requestProposals={requestProposals}
-                proposalId={curProposalId}
-                onClickConfirmDealModal={onClickConfirmDealModal}
-                onClickRejectDealModal={onClickRejectDealModal}
-                onClickReworkDealModal={onClickReworkDealModal}
-              />
-            </MainContent>
-          </Appbar>
+        <MainContent>
+          <DealDetailsCard
+            request={request}
+            requestProposals={requestProposals}
+            proposalId={curProposalId}
+            onClickConfirmDealModal={onClickConfirmDealModal}
+            onClickRejectDealModal={onClickRejectDealModal}
+            onClickReworkDealModal={onClickReworkDealModal}
+          />
+        </MainContent>
 
-          <Modal openModal={showConfirmModal} setOpenModal={() => onTriggerOpenModal('showConfirmModal')}>
-            <RequestProposalAcceptOrRejectResultForm
-              isSupervisor
-              title={t(TranslationKey['Confirm acceptance of the work result'])}
-              rateLabel={t(TranslationKey['Rate the performer'])}
-              reviewLabel={t(TranslationKey["Review of the performer's work"])}
-              confirmButtonText={t(TranslationKey['Accept the deal'])}
-              cancelBtnText={t(TranslationKey.Cancel)}
-              onSubmit={onClickConfirmDeal}
-              onClose={() => onTriggerOpenModal('showConfirmModal')}
-            />
-          </Modal>
+        <Modal openModal={showConfirmModal} setOpenModal={() => onTriggerOpenModal('showConfirmModal')}>
+          <RequestProposalAcceptOrRejectResultForm
+            isSupervisor
+            title={t(TranslationKey['Confirm acceptance of the work result'])}
+            rateLabel={t(TranslationKey['Rate the performer'])}
+            reviewLabel={t(TranslationKey["Review of the performer's work"])}
+            confirmButtonText={t(TranslationKey['Accept the deal'])}
+            cancelBtnText={t(TranslationKey.Cancel)}
+            onSubmit={onClickConfirmDeal}
+            onClose={() => onTriggerOpenModal('showConfirmModal')}
+          />
+        </Modal>
 
-          <Modal openModal={showRejectModal} setOpenModal={() => onTriggerOpenModal('showRejectModal')}>
-            <RequestProposalAcceptOrRejectResultForm
-              isReject
-              isSupervisor
-              title={t(TranslationKey['Reject the deal'])}
-              rateLabel={t(TranslationKey['Rate the performer'])}
-              reviewLabel={t(TranslationKey['Reason for cancelling the deal'])}
-              rejectButtonText={t(TranslationKey['Reject the deal'])}
-              cancelBtnText={t(TranslationKey.Cancel)}
-              onSubmit={onClickRejectDeal}
-              onClose={() => onTriggerOpenModal('showRejectModal')}
-            />
-          </Modal>
+        <Modal openModal={showRejectModal} setOpenModal={() => onTriggerOpenModal('showRejectModal')}>
+          <RequestProposalAcceptOrRejectResultForm
+            isReject
+            isSupervisor
+            title={t(TranslationKey['Reject the deal'])}
+            rateLabel={t(TranslationKey['Rate the performer'])}
+            reviewLabel={t(TranslationKey['Reason for cancelling the deal'])}
+            rejectButtonText={t(TranslationKey['Reject the deal'])}
+            cancelBtnText={t(TranslationKey.Cancel)}
+            onSubmit={onClickRejectDeal}
+            onClose={() => onTriggerOpenModal('showRejectModal')}
+          />
+        </Modal>
 
-          <Modal openModal={showReworkModal} setOpenModal={() => onTriggerOpenModal('showReworkModal')}>
-            <RequestProposalResultToCorrectForm onPressSubmitForm={onClickReworkDeal} />
-          </Modal>
-        </Main>
+        <Modal openModal={showReworkModal} setOpenModal={() => onTriggerOpenModal('showReworkModal')}>
+          <RequestProposalResultToCorrectForm onPressSubmitForm={onClickReworkDeal} />
+        </Modal>
       </React.Fragment>
     )
   }

@@ -17,8 +17,6 @@ export class CreateOrEditProposalViewModel {
   requestStatus = undefined
   actionStatus = undefined
 
-  drawerOpen = false
-
   request = undefined
   proposalToEdit = undefined
 
@@ -147,12 +145,6 @@ export class CreateOrEditProposalViewModel {
   onTriggerOpenModal(modal) {
     runInAction(() => {
       this[modal] = !this[modal]
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 }

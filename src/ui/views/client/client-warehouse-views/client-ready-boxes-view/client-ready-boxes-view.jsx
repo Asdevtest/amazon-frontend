@@ -6,16 +6,12 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {BoxViewForm} from '@components/forms/box-view-form'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
@@ -30,8 +26,6 @@ import {t} from '@utils/translations'
 import {ClientReadyBoxesViewModel} from './client-ready-boxes-view.model'
 import {styles} from './client-ready-boxes-view.style'
 
-const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
-const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH
 @observer
 export class ClientReadyBoxesViewRaw extends Component {
   viewModel = new ClientReadyBoxesViewModel({history: this.props.history})
@@ -65,12 +59,10 @@ export class ClientReadyBoxesViewRaw extends Component {
 
       hsCodeData,
 
-      drawerOpen,
       curPage,
       rowsPerPage,
       selectedBoxes,
       onClickHsCode,
-      onTriggerDrawer,
       onClickSaveHsCode,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -97,74 +89,66 @@ export class ClientReadyBoxesViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={activeCategory}
-          activeSubCategory={activeSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawer}
-        />
-        <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Boxes ready to send'])}>
-            <MainContent>
-              <div className={classNames.boxesFiltersWrapper}>
-                {storekeepersData.slice().map(storekeeper => (
+        <MainContent>
+          <div className={classNames.boxesFiltersWrapper}>
+            {storekeepersData.slice().map(storekeeper => (
+              <Button
+                key={storekeeper._id}
+                disabled={currentStorekeeper?._id === storekeeper._id}
+                className={cx(classNames.button, {
+                  [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
+                })}
+                variant="text"
+                color="primary"
+                onClick={() => onClickStorekeeperBtn(storekeeper)}
+              >
+                {storekeeper.name}
+              </Button>
+            ))}
+
+            <Button
+              disabled={!currentStorekeeper?._id}
+              className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
+              variant="text"
+              color="primary"
+              onClick={onClickStorekeeperBtn}
+            >
+              {t(TranslationKey.All)}
+            </Button>
+          </div>
+
+          <div className={classNames.boxesFiltersWrapper}>
+            {clientDestinations
+              .slice()
+              .sort((a, b) => a.name?.localeCompare(b.name))
+              .map(destination =>
+                destination.boxesCount !== 0 ? (
                   <Button
-                    key={storekeeper._id}
-                    disabled={currentStorekeeper?._id === storekeeper._id}
+                    key={destination._id}
+                    disabled={curDestination?._id === destination._id}
                     className={cx(classNames.button, {
-                      [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
+                      [classNames.selectedBoxesBtn]: curDestination?._id === destination._id,
                     })}
                     variant="text"
-                    color="primary"
-                    onClick={() => onClickStorekeeperBtn(storekeeper)}
+                    onClick={() => onClickDestinationBtn(destination)}
                   >
-                    {storekeeper.name}
+                    {destination.name}
                   </Button>
-                ))}
+                ) : null,
+              )}
 
-                <Button
-                  disabled={!currentStorekeeper?._id}
-                  className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
-                  variant="text"
-                  color="primary"
-                  onClick={onClickStorekeeperBtn}
-                >
-                  {t(TranslationKey.All)}
-                </Button>
-              </div>
+            <Button
+              disabled={!curDestination?._id}
+              tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
+              className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !curDestination?._id})}
+              variant="text"
+              onClick={onClickDestinationBtn}
+            >
+              {t(TranslationKey.All)}
+            </Button>
+          </div>
 
-              <div className={classNames.boxesFiltersWrapper}>
-                {clientDestinations
-                  .slice()
-                  .sort((a, b) => a.name?.localeCompare(b.name))
-                  .map(destination =>
-                    destination.boxesCount !== 0 ? (
-                      <Button
-                        key={destination._id}
-                        disabled={curDestination?._id === destination._id}
-                        className={cx(classNames.button, {
-                          [classNames.selectedBoxesBtn]: curDestination?._id === destination._id,
-                        })}
-                        variant="text"
-                        onClick={() => onClickDestinationBtn(destination)}
-                      >
-                        {destination.name}
-                      </Button>
-                    ) : null,
-                  )}
-
-                <Button
-                  disabled={!curDestination?._id}
-                  tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-                  className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !curDestination?._id})}
-                  variant="text"
-                  onClick={onClickDestinationBtn}
-                >
-                  {t(TranslationKey.All)}
-                </Button>
-              </div>
-
-              {/* <WithSearchSelect
+          {/* <WithSearchSelect
                 selectedItemName={
                   (!curDestination?._id && t(TranslationKey['All destinations'])) ||
                   (curDestination && curDestination.name)
@@ -185,78 +169,76 @@ export class ClientReadyBoxesViewRaw extends Component {
                 onClickSetDestinationFavourite={setDestinationsFavouritesItem}
               /> */}
 
-              <div className={classNames.btnsWrapper}>
-                <Button
-                  disabled={!selectedBoxes.length}
-                  tooltipInfoContent={t(
-                    TranslationKey['Removes the box for further addition to the batch, returns to My Warehouse'],
-                  )}
-                  color="primary"
-                  className={classNames.returnButton}
-                  variant="contained"
-                  onClick={() => onTriggerOpenModal('showConfirmModal')}
-                >
-                  {t(TranslationKey['Return to stock'])}
-                </Button>
+          <div className={classNames.btnsWrapper}>
+            <Button
+              disabled={!selectedBoxes.length}
+              tooltipInfoContent={t(
+                TranslationKey['Removes the box for further addition to the batch, returns to My Warehouse'],
+              )}
+              color="primary"
+              className={classNames.returnButton}
+              variant="contained"
+              onClick={() => onTriggerOpenModal('showConfirmModal')}
+            >
+              {t(TranslationKey['Return to stock'])}
+            </Button>
 
-                <SearchInput
-                  inputClasses={classNames.searchInput}
-                  value={nameSearchValue}
-                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-                  onChange={onChangeNameSearchValue}
-                />
+            <SearchInput
+              inputClasses={classNames.searchInput}
+              value={nameSearchValue}
+              placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+              onChange={onChangeNameSearchValue}
+            />
 
-                <div />
-              </div>
-              <div className={classNames.datagridWrapper}>
-                <MemoDataGrid
-                  disableVirtualization
-                  pagination
-                  // useResizeContainer
-                  checkboxSelection
-                  localeText={getLocalizationByLanguageTag()}
-                  classes={{
-                    row: classNames.row,
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
-                  }}
-                  // isRowSelectable={params => params.row.isDraft === false}
-                  getRowClassName={getRowClassName}
-                  selectionModel={selectedBoxes}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={currentData || []}
-                  // rowHeight={150}
-                  getRowHeight={() => 'auto'}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                  }}
-                  componentsProps={{
-                    toolbar: {
-                      columsBtnSettings: {columnsModel, changeColumnsModel},
-                    },
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={onSelectionModel}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onFilterModelChange={onChangeFilterModel}
-                  onStateChange={setDataGridState}
-                  onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-                />
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
+            <div />
+          </div>
+          <div className={classNames.datagridWrapper}>
+            <MemoDataGrid
+              disableVirtualization
+              pagination
+              // useResizeContainer
+              checkboxSelection
+              localeText={getLocalizationByLanguageTag()}
+              classes={{
+                row: classNames.row,
+                root: classNames.root,
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
+              }}
+              // isRowSelectable={params => params.row.isDraft === false}
+              getRowClassName={getRowClassName}
+              selectionModel={selectedBoxes}
+              sortModel={sortModel}
+              filterModel={filterModel}
+              page={curPage}
+              pageSize={rowsPerPage}
+              rowsPerPageOptions={[15, 25, 50, 100]}
+              rows={currentData || []}
+              // rowHeight={150}
+              getRowHeight={() => 'auto'}
+              components={{
+                Toolbar: DataGridCustomToolbar,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
+              }}
+              componentsProps={{
+                toolbar: {
+                  columsBtnSettings: {columnsModel, changeColumnsModel},
+                },
+              }}
+              density={densityModel}
+              columns={columnsModel}
+              loading={requestStatus === loadingStatuses.isLoading}
+              onSelectionModelChange={onSelectionModel}
+              onSortModelChange={onChangeSortingModel}
+              onPageSizeChange={onChangeRowsPerPage}
+              onPageChange={onChangeCurPage}
+              onFilterModelChange={onChangeFilterModel}
+              onStateChange={setDataGridState}
+              onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+            />
+          </div>
+        </MainContent>
 
         <Modal openModal={showBoxViewModal} setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}>
           <BoxViewForm

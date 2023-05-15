@@ -6,7 +6,6 @@ import {UserModel} from '@models/user-model'
 export class ClientShopViewModel {
   history = undefined
   shopInfo = undefined
-  drawerOpen = false
 
   shopSellId = undefined
 
@@ -47,11 +46,5 @@ export class ClientShopViewModel {
 
   onClickEditBtn() {
     this.history.push('/client/trading-shops/sell-shops/edit-trading-traiding-shop', {request: this.shopInfo})
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 }

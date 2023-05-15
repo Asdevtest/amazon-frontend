@@ -26,7 +26,6 @@ export class ClientOrdersNotificationsViewModel {
   orders = []
   baseNoConvertedOrders = []
 
-  drawerOpen = false
   showConfirmModal = false
   confirmModalSettings = {
     isWarning: false,
@@ -156,12 +155,6 @@ export class ClientOrdersNotificationsViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -223,12 +216,6 @@ export class ClientOrdersNotificationsViewModel {
     this.history.push({
       pathname: '/client/my-orders/orders/order',
       search: order.originalData._id,
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

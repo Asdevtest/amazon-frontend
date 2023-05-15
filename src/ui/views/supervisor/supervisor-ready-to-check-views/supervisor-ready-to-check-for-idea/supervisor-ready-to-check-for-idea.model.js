@@ -14,7 +14,6 @@ export class SupervisorReadyToCheckForIdeaViewModel {
   requestStatus = undefined
   actionStatus = undefined
 
-  drawerOpen = false
   showInfoModal = false
 
   selectedRowIds = []
@@ -93,12 +92,6 @@ export class SupervisorReadyToCheckForIdeaViewModel {
         })
       }
     }
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   async onPickupSomeItems() {

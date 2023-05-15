@@ -5,15 +5,11 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {Button} from '@components/shared/buttons/button'
 import {MemoDataGrid} from '@components/shared/memo-data-grid'
 
@@ -22,9 +18,6 @@ import {t} from '@utils/translations'
 
 import {BuyerIdeasNotificationsViewModel} from './buyer-ideas-notifications-view.model'
 import {styles} from './buyer-ideas-notifications-view.style'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS
-const navbarActiveSubCategory = 0
 
 @observer
 class BuyerIdeasNotificationsViewRaw extends Component {
@@ -43,10 +36,8 @@ class BuyerIdeasNotificationsViewRaw extends Component {
       filterModel,
       densityModel,
       columnsModel,
-      drawerOpen,
       rowsPerPage,
       curPage,
-      onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
       setCurrentOpenedBox,
@@ -61,64 +52,54 @@ class BuyerIdeasNotificationsViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-        />
-        <Main>
-          <Appbar title={t(TranslationKey['Notifications on ideas'])} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <Button variant="outlined" className={classNames.archiveHandler} onClick={handleArchive}>
-                {isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
-              </Button>
+        <MainContent>
+          <Button variant="outlined" className={classNames.archiveHandler} onClick={handleArchive}>
+            {isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
+          </Button>
 
-              <div className={classNames.tableWrapper}>
-                <MemoDataGrid
-                  pagination
-                  useResizeContainer
-                  disableVirtualization
-                  localeText={getLocalizationByLanguageTag()}
-                  classes={{
-                    row: classNames.row,
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
-                  }}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
-                  // getRowHeight={() => 'auto'}
-                  rowHeight={120}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                  }}
-                  componentsProps={{
-                    toolbar: {
-                      columsBtnSettings: {columnsModel, changeColumnsModel},
-                    },
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={onSelectionModel}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
-                />
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
+          <div className={classNames.tableWrapper}>
+            <MemoDataGrid
+              pagination
+              useResizeContainer
+              disableVirtualization
+              localeText={getLocalizationByLanguageTag()}
+              classes={{
+                row: classNames.row,
+                root: classNames.root,
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
+              }}
+              sortModel={sortModel}
+              filterModel={filterModel}
+              page={curPage}
+              pageSize={rowsPerPage}
+              rowsPerPageOptions={[15, 25, 50, 100]}
+              rows={getCurrentData()}
+              // getRowHeight={() => 'auto'}
+              rowHeight={120}
+              components={{
+                Toolbar: DataGridCustomToolbar,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
+              }}
+              componentsProps={{
+                toolbar: {
+                  columsBtnSettings: {columnsModel, changeColumnsModel},
+                },
+              }}
+              density={densityModel}
+              columns={columnsModel}
+              loading={requestStatus === loadingStatuses.isLoading}
+              onSelectionModelChange={onSelectionModel}
+              onSortModelChange={onChangeSortingModel}
+              onPageSizeChange={onChangeRowsPerPage}
+              onPageChange={onChangeCurPage}
+              onStateChange={setDataGridState}
+              onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+              onFilterModelChange={model => onChangeFilterModel(model)}
+            />
+          </div>
+        </MainContent>
       </React.Fragment>
     )
   }

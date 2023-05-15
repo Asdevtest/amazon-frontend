@@ -10,7 +10,6 @@ export class BuyerDashboardViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
-  drawerOpen = false
   balance = UserModel.userInfo?.balance
 
   dashboardData = {
@@ -113,11 +112,5 @@ export class BuyerDashboardViewModel {
         this.error = error
       })
     }
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 }

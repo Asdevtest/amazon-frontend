@@ -26,7 +26,6 @@ export class AdminFeedbackViewModel {
   showReplyFeedbackModal = false
 
   nameSearchValue = ''
-  drawerOpen = false
   isWarning = false
   feedbackList = []
   sortModel = []
@@ -126,12 +125,6 @@ export class AdminFeedbackViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -166,12 +159,6 @@ export class AdminFeedbackViewModel {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
     }
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

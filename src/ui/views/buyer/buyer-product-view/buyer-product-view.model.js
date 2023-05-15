@@ -107,7 +107,6 @@ export class BuyerProductViewModel {
 
   supplierModalReadOnly = false
 
-  drawerOpen = false
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
   showEditHSCodeModal = false
@@ -535,10 +534,6 @@ export class BuyerProductViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
   }
 
   setRequestStatus(requestStatus) {

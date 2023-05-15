@@ -39,8 +39,6 @@ export class ClientSentBatchesViewModel {
 
   isArchive = false
 
-  drawerOpen = false
-
   hsCodeData = {}
   showEditHSCodeModal = false
 
@@ -218,12 +216,6 @@ export class ClientSentBatchesViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -348,12 +340,6 @@ export class ClientSentBatchesViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

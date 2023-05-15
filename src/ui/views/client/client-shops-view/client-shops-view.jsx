@@ -3,39 +3,21 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
-
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
-import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {ShopsIntegrations} from '@components/shops-integrations'
-
-import {t} from '@utils/translations'
 
 import {ClientShopsViewModel} from './client-shops-view.model'
 import {styles} from './client-shops-view.style'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_SHOPS
 
 @observer
 class ClientShopsViewRaw extends Component {
   viewModel = new ClientShopsViewModel({history: this.props.history, location: this.props.location})
 
   render() {
-    const {drawerOpen, onChangeDrawerOpen, openModal} = this.viewModel
+    const {openModal} = this.viewModel
 
     return (
       <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onChangeDrawerOpen} />
-        <Main>
-          <Appbar title={t(TranslationKey.Shops)} setDrawerOpen={onChangeDrawerOpen}>
-            <MainContent>
-              <ShopsIntegrations openModal={openModal} />
-            </MainContent>
-          </Appbar>
-        </Main>
+        <ShopsIntegrations openModal={openModal} />
       </React.Fragment>
     )
   }

@@ -42,8 +42,6 @@ export class ClientAwaitingBatchesViewModel {
 
   uploadedFiles = []
 
-  drawerOpen = false
-
   showBatchInfoModal = false
   showConfirmModal = false
   showAddOrEditBatchModal = false
@@ -209,12 +207,6 @@ export class ClientAwaitingBatchesViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -304,12 +296,6 @@ export class ClientAwaitingBatchesViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

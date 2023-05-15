@@ -11,8 +11,6 @@ export class AdminDashboardViewModel {
   requestStatus = undefined
   error = undefined
 
-  drawerOpen = false
-
   dashboardData = {
     [AdminDashboardCardDataKey.EXCHANGE_WAITING_TO_CHECK]: '',
     [AdminDashboardCardDataKey.EXCHANGE_BEING_CHECKED]: '',
@@ -33,12 +31,6 @@ export class AdminDashboardViewModel {
       this.history = history
     })
     makeAutoObservable(this, undefined, {autoBind: true})
-  }
-
-  onChangeTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   async loadData() {

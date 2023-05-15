@@ -2,14 +2,9 @@ import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {UserRole} from '@constants/keys/user-roles'
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
@@ -19,10 +14,6 @@ import {Modal} from '@components/shared/modal'
 import {t} from '@utils/translations'
 
 import {SupervisorProductViewModel} from './supervisor-product-view.model'
-
-const curUserRole = UserRole.SUPERVISOR
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
 
 @observer
 export class SupervisorProductView extends Component {
@@ -43,7 +34,6 @@ export class SupervisorProductView extends Component {
       showAddOrEditSupplierModal,
       imagesForLoad,
       userInfo,
-      drawerOpen,
       product,
       productBase,
       actionStatus,
@@ -57,7 +47,6 @@ export class SupervisorProductView extends Component {
       onChangeProductFields,
       onClickSupplierButtons,
       onChangeSelectedSupplier,
-      onTriggerDrawerOpen,
       onClickSetProductStatusBtn,
       handleProductActionButtons,
       onTriggerOpenModal,
@@ -70,36 +59,26 @@ export class SupervisorProductView extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          curUserRole={curUserRole}
-          activeCategory={navbarActiveCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-        />
-        <Main>
-          <Appbar title={t(TranslationKey.Product)} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              {product ? (
-                <ProductWrapper
-                  imagesForLoad={imagesForLoad}
-                  userRole={userInfo.role}
-                  product={getCurrentData()}
-                  productBase={productBase}
-                  selectedSupplier={selectedSupplier}
-                  formFieldsValidationErrors={formFieldsValidationErrors}
-                  handleSupplierButtons={onClickSupplierButtons}
-                  actionStatus={actionStatus}
-                  handleProductActionButtons={handleProductActionButtons}
-                  onClickSetProductStatusBtn={onClickSetProductStatusBtn}
-                  onClickSupplier={onChangeSelectedSupplier}
-                  onChangeField={onChangeProductFields}
-                  onClickParseProductData={onClickParseProductData}
-                  onChangeImagesForLoad={onChangeImagesForLoad}
-                />
-              ) : undefined}
-            </MainContent>
-          </Appbar>
-        </Main>
+        <MainContent>
+          {product ? (
+            <ProductWrapper
+              imagesForLoad={imagesForLoad}
+              userRole={userInfo.role}
+              product={getCurrentData()}
+              productBase={productBase}
+              selectedSupplier={selectedSupplier}
+              formFieldsValidationErrors={formFieldsValidationErrors}
+              handleSupplierButtons={onClickSupplierButtons}
+              actionStatus={actionStatus}
+              handleProductActionButtons={handleProductActionButtons}
+              onClickSetProductStatusBtn={onClickSetProductStatusBtn}
+              onClickSupplier={onChangeSelectedSupplier}
+              onChangeField={onChangeProductFields}
+              onClickParseProductData={onClickParseProductData}
+              onChangeImagesForLoad={onChangeImagesForLoad}
+            />
+          ) : undefined}
+        </MainContent>
 
         <Modal
           missClickModalOn={!supplierModalReadOnly}

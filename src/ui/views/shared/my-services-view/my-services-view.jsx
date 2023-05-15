@@ -1,13 +1,12 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Typography, Box, Alert} from '@mui/material'
+import {Alert, Box, Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
@@ -19,10 +18,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ServiceExchangeCard} from '@components/cards/service-exchange-card'
 import {ServiceExchangeCardList} from '@components/cards/service-exchange-card-list'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {Button} from '@components/shared/buttons/button'
 import {ToggleBtnGroupFreelance} from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
@@ -37,9 +33,6 @@ import {t} from '@utils/translations'
 import {MyServicesViewModel} from './my-services-view.model'
 import {styles} from './my-services-view.style'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
-const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES
-
 @observer
 class MyServicesViewRaw extends Component {
   viewModel = new MyServicesViewModel({history: this.props.history, location: this.props.location})
@@ -52,8 +45,6 @@ class MyServicesViewRaw extends Component {
     const {
       history,
       viewMode,
-      drawerOpen,
-      onTriggerDrawerOpen,
       selectedTaskType,
       currentData,
       bigImagesOptions,
@@ -84,113 +75,103 @@ class MyServicesViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-        />
-        <Main>
-          <Appbar title={t(TranslationKey['My services'])} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <div className={classNames.tablePanelWrapper}>
-                <div className={classNames.toggleBtnAndtaskTypeWrapper}>
-                  <div className={classNames.tablePanelViewWrapper}>
-                    <ToggleBtnGroupFreelance exclusive value={viewMode} onChange={onChangeViewMode}>
-                      <ToggleBtnFreelancer value={tableViewMode.BLOCKS} disabled={viewMode === tableViewMode.BLOCKS}>
-                        <ViewCartsBlock
-                          className={cx(classNames.viewCart, {
-                            [classNames.viewCartSelected]: viewMode === tableViewMode.BLOCKS,
-                          })}
-                        />
-                      </ToggleBtnFreelancer>
-                      <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewMode === tableViewMode.LIST}>
-                        <ViewCartsLine
-                          className={cx(classNames.viewCart, {
-                            [classNames.viewCartSelected]: viewMode === tableViewMode.LIST,
-                          })}
-                        />
-                      </ToggleBtnFreelancer>
-                    </ToggleBtnGroupFreelance>
-                  </div>
-
-                  <div className={classNames.taskTypeWrapper}>
-                    {Object.keys({
-                      ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
-                      // freelanceRequestTypeByCode
-                    }).map((taskType, taskIndex) => (
-                      <Button
-                        key={taskIndex}
-                        variant="text"
-                        disabled={Number(taskType) === Number(selectedTaskType)}
-                        className={cx(classNames.button, {
-                          [classNames.selectedBoxesBtn]: Number(taskType) === Number(selectedTaskType),
-                        })}
-                        onClick={() => onClickTaskType(taskType)}
-                      >
-                        {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className={classNames.searchInputWrapper}>
-                  <SearchInput
-                    inputClasses={classNames.searchInput}
-                    placeholder={t(TranslationKey['Search by Title, Description'])}
-                    value={nameSearchValue}
-                    onChange={onSearchSubmit}
-                  />
-                </div>
-
-                <div className={classNames.createServiceBtnWrapper}>
-                  <Button success className={cx(classNames.rightAddingBtn)} onClick={onClickCreateServiceBtn}>
-                    {t(TranslationKey['Create a service'])}
-                  </Button>
-                </div>
+        <MainContent>
+          <div className={classNames.tablePanelWrapper}>
+            <div className={classNames.toggleBtnAndtaskTypeWrapper}>
+              <div className={classNames.tablePanelViewWrapper}>
+                <ToggleBtnGroupFreelance exclusive value={viewMode} onChange={onChangeViewMode}>
+                  <ToggleBtnFreelancer value={tableViewMode.BLOCKS} disabled={viewMode === tableViewMode.BLOCKS}>
+                    <ViewCartsBlock
+                      className={cx(classNames.viewCart, {
+                        [classNames.viewCartSelected]: viewMode === tableViewMode.BLOCKS,
+                      })}
+                    />
+                  </ToggleBtnFreelancer>
+                  <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewMode === tableViewMode.LIST}>
+                    <ViewCartsLine
+                      className={cx(classNames.viewCart, {
+                        [classNames.viewCartSelected]: viewMode === tableViewMode.LIST,
+                      })}
+                    />
+                  </ToggleBtnFreelancer>
+                </ToggleBtnGroupFreelance>
               </div>
-              <Box
-                container
-                classes={{root: classNames.dashboardCardWrapper}}
-                display="grid"
-                gridTemplateColumns={
-                  viewMode === tableViewMode.LIST
-                    ? 'repeat(auto-fill, minmax(calc(100% / 2), 1fr))'
-                    : 'repeat(auto-fill, minmax(calc(100% / 4), 1fr))'
-                }
-                gridGap="20px"
-              >
-                {currentData.map((service, serviceKey) =>
-                  viewMode === tableViewMode.LIST ? (
-                    <ServiceExchangeCardList
-                      key={serviceKey}
-                      service={service}
-                      pathname={history?.location?.pathname}
-                      onClickThumbnail={onClickThumbnail}
-                      onClickButton={onClickOpenButton}
-                    />
-                  ) : (
-                    <ServiceExchangeCard
-                      key={serviceKey}
-                      service={service}
-                      pathname={history?.location?.pathname}
-                      onClickThumbnail={onClickThumbnail}
-                      onClickButton={onClickOpenButton}
-                    />
-                  ),
-                )}
-              </Box>
-              {!currentData.length && (
-                <div className={classNames.emptyTableWrapper}>
-                  <img src="/assets/icons/empty-table.svg" />
-                  <Typography variant="h5" className={classNames.emptyTableText}>
-                    {t(TranslationKey.Missing)}
-                  </Typography>
-                </div>
-              )}
-            </MainContent>
-          </Appbar>
-        </Main>
+
+              <div className={classNames.taskTypeWrapper}>
+                {Object.keys({
+                  ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
+                  // freelanceRequestTypeByCode
+                }).map((taskType, taskIndex) => (
+                  <Button
+                    key={taskIndex}
+                    variant="text"
+                    disabled={Number(taskType) === Number(selectedTaskType)}
+                    className={cx(classNames.button, {
+                      [classNames.selectedBoxesBtn]: Number(taskType) === Number(selectedTaskType),
+                    })}
+                    onClick={() => onClickTaskType(taskType)}
+                  >
+                    {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            <div className={classNames.searchInputWrapper}>
+              <SearchInput
+                inputClasses={classNames.searchInput}
+                placeholder={t(TranslationKey['Search by Title, Description'])}
+                value={nameSearchValue}
+                onChange={onSearchSubmit}
+              />
+            </div>
+
+            <div className={classNames.createServiceBtnWrapper}>
+              <Button success className={cx(classNames.rightAddingBtn)} onClick={onClickCreateServiceBtn}>
+                {t(TranslationKey['Create a service'])}
+              </Button>
+            </div>
+          </div>
+          <Box
+            container
+            classes={{root: classNames.dashboardCardWrapper}}
+            display="grid"
+            gridTemplateColumns={
+              viewMode === tableViewMode.LIST
+                ? 'repeat(auto-fill, minmax(calc(100% / 2), 1fr))'
+                : 'repeat(auto-fill, minmax(calc(100% / 4), 1fr))'
+            }
+            gridGap="20px"
+          >
+            {currentData.map((service, serviceKey) =>
+              viewMode === tableViewMode.LIST ? (
+                <ServiceExchangeCardList
+                  key={serviceKey}
+                  service={service}
+                  pathname={history?.location?.pathname}
+                  onClickThumbnail={onClickThumbnail}
+                  onClickButton={onClickOpenButton}
+                />
+              ) : (
+                <ServiceExchangeCard
+                  key={serviceKey}
+                  service={service}
+                  pathname={history?.location?.pathname}
+                  onClickThumbnail={onClickThumbnail}
+                  onClickButton={onClickOpenButton}
+                />
+              ),
+            )}
+          </Box>
+          {!currentData.length && (
+            <div className={classNames.emptyTableWrapper}>
+              <img src="/assets/icons/empty-table.svg" />
+              <Typography variant="h5" className={classNames.emptyTableText}>
+                {t(TranslationKey.Missing)}
+              </Typography>
+            </div>
+          )}
+        </MainContent>
 
         <BigImagesModal
           openModal={showImageModal}

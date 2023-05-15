@@ -13,8 +13,6 @@ export class WarehouseDashboardViewModel {
   requestStatus = undefined
   error = undefined
 
-  drawerOpen = false
-
   showAddOrEditDestinationModal = false
 
   dashboardData = {
@@ -37,12 +35,6 @@ export class WarehouseDashboardViewModel {
       this.history = history
     })
     makeAutoObservable(this, undefined, {autoBind: true})
-  }
-
-  onChangeTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   async loadData() {

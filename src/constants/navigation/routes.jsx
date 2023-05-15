@@ -1,6 +1,9 @@
 import {lazy} from 'react'
 
 import {UserRole} from '@constants/keys/user-roles'
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
+
+import {t} from '@utils/translations'
 
 import {permissionsKeys} from '../keys/permissions'
 // import {AdminAwaitingBatchesView} from '@views/admin/admin-batches-views/admin-awaiting-batches-view'
@@ -599,6 +602,12 @@ export const overallRoutesConfigs = [
     component: UserProfileView,
     exact: false,
     crumbNameKey: TranslationKey.Profile,
+
+    navigationInfo: {
+      activeCategory: '',
+      activeSubCategory: '',
+      title: t(TranslationKey.Profile),
+    },
   },
 
   {
@@ -606,6 +615,12 @@ export const overallRoutesConfigs = [
     component: AnotherUserProfileView,
     exact: false,
     crumbNameKey: TranslationKey.User,
+
+    navigationInfo: {
+      activeCategory: '',
+      activeSubCategory: '',
+      title: t(TranslationKey.User),
+    },
   },
 ]
 
@@ -617,6 +632,11 @@ export const privateRoutesConfigs = [
     permission: [UserRole.BUYER],
     permissionKey: permissionsKeys.buyer.SHOW_DASHBOARD_BUYER,
     crumbNameKey: TranslationKey.Dashboard,
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_DASHBOARD,
+      activeSubCategory: '',
+      title: t(TranslationKey.Dashboard),
+    },
   },
 
   {
@@ -627,6 +647,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.buyer.SHOW_VAC_ORDERS_BUYER,
 
     crumbNameKey: TranslationKey['Supplier search'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_NEW_PRODUCTS,
+      activeSubCategory: 0,
+      title: `${t(TranslationKey['Supplier search'])} - ${t(TranslationKey['From the Supervisor'])}`,
+    },
   },
 
   {
@@ -636,6 +662,12 @@ export const privateRoutesConfigs = [
     permission: [UserRole.BUYER],
     permissionKey: permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER,
     crumbNameKey: TranslationKey['Supplier search'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_NEW_PRODUCTS,
+      activeSubCategory: 1,
+      title: `${t(TranslationKey['Supplier search'])} - ${t(TranslationKey['From the Client'])}`,
+    },
   },
 
   {
@@ -645,6 +677,12 @@ export const privateRoutesConfigs = [
     permission: [UserRole.BUYER],
 
     crumbNameKey: TranslationKey['Supplier search'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_NEW_PRODUCTS,
+      activeSubCategory: 2,
+      title: `${t(TranslationKey['Supplier search'])} - ${t(TranslationKey['for the idea'])}`,
+    },
   },
 
   {
@@ -655,6 +693,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.buyer.SHOW_USERS_BUYER,
 
     crumbNameKey: TranslationKey.Users,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_USERS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Users),
+    },
   },
 
   {
@@ -663,6 +707,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.BUYER],
     crumbNameKey: TranslationKey['My users'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_USERS,
+      activeSubCategory: 0,
+      title: t(TranslationKey['My users']),
+    },
   },
   {
     routePath: '/buyer/search-supplier-by-supervisor/product',
@@ -670,6 +720,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.BUYER],
     crumbNameKey: TranslationKey.Product,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Product),
+    },
   },
 
   {
@@ -678,6 +734,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.BUYER],
     crumbNameKey: TranslationKey.Product,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Product),
+    },
   },
 
   {
@@ -686,6 +748,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.BUYER],
     crumbNameKey: TranslationKey.Product,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Product),
+    },
   },
 
   {
@@ -696,6 +764,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.buyer.SHOW_PRODUCTS_BUYER,
 
     crumbNameKey: TranslationKey['My products'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
+      activeSubCategory: '',
+      title: t(TranslationKey['My products']),
+    },
   },
 
   {
@@ -706,6 +780,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.buyer.SHOW_PENDING_ORDERS_BUYER,
 
     crumbNameKey: TranslationKey['Pending orders'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_PENDING_ORDERS,
+      activeSubCategory: '',
+      title: t(TranslationKey['Pending orders']),
+    },
   },
 
   {
@@ -716,6 +796,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.buyer.SHOW_ORDERS_BUYER,
 
     crumbNameKey: TranslationKey['All orders'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_ALL_ORDERS,
+      title: `${t(TranslationKey['My orders'])} - ${t(TranslationKey['All orders'])}`,
+    },
   },
   {
     routePath: '/buyer/not-paid-orders',
@@ -725,6 +811,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.buyer.SHOW_ORDERS_NOT_PAID_BUYER,
 
     crumbNameKey: TranslationKey['Not paid'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NOT_PAID,
+      title: `${t(TranslationKey['My orders'])} - ${t(TranslationKey['Not paid'])}`,
+    },
   },
   {
     routePath: '/buyer/ready-for-payment-orders',
@@ -734,6 +826,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.buyer.SHOW_ORDERS_READY_FOR_PAYMENT_BUYER,
 
     crumbNameKey: TranslationKey['Ready for payment'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_READY_FOR_PAYMENT,
+      title: `${t(TranslationKey['My orders'])} - ${t(TranslationKey['Ready for payment'])}`,
+    },
   },
   {
     routePath: '/buyer/need-track-number-orders',
@@ -743,6 +841,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.buyer.SHOW_ORDERS_NEED_TRACK_NUMBER_BUYER,
 
     crumbNameKey: TranslationKey['Need track number'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NEED_TRACK_NUMBER,
+      title: `${t(TranslationKey['My orders'])} - ${t(TranslationKey['Need track number'])}`,
+    },
   },
   {
     routePath: '/buyer/inbound-orders',
@@ -752,6 +856,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.buyer.SHOW_ORDERS_INBOUND_BUYER,
 
     crumbNameKey: TranslationKey.Inbound,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_INBOUND,
+      title: `${t(TranslationKey['My orders'])} - ${t(TranslationKey.Inbound)}`,
+    },
   },
   {
     routePath: '/buyer/confirmation-required-orders',
@@ -761,6 +871,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.buyer.SHOW_ORDERS_CONFIRMATION_REQUIRED_BUYER,
 
     crumbNameKey: TranslationKey['Confirmation required'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CONFIRMATION_REQUIRED,
+      title: `${t(TranslationKey['My orders'])} - ${t(TranslationKey['Confirmation required'])}`,
+    },
   },
   {
     routePath: '/buyer/closed-and-canceled-orders',
@@ -770,6 +886,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.buyer.SHOW_ORDERS_CLOSED_AND_CANCELED_BUYER,
 
     crumbNameKey: TranslationKey['Closed and canceled'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CLOSED_AND_CANCELED,
+      title: `${t(TranslationKey['My orders'])} - ${t(TranslationKey['Closed and canceled'])}`,
+    },
   },
 
   {
@@ -779,6 +901,12 @@ export const privateRoutesConfigs = [
     permission: [UserRole.BUYER],
 
     crumbNameKey: TranslationKey['Free Orders'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FREE_ORDERS,
+      activeSubCategory: '',
+      title: t(TranslationKey['Free Orders']),
+    },
   },
 
   {
@@ -789,6 +917,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.buyer.SHOW_PAYMENTS_BUYER,
 
     crumbNameKey: TranslationKey.Finances,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FINANCES,
+      activeSubCategory: '',
+      title: t(TranslationKey.Finances),
+    },
   },
 
   {
@@ -800,6 +934,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.buyer.SHOW_CHAT_BUYER,
 
     crumbNameKey: TranslationKey.Messages,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
+      activeSubCategory: '',
+      title: t(TranslationKey.Messages),
+    },
   },
 
   {
@@ -810,6 +950,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER,
 
     crumbNameKey: TranslationKey.Notifications,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Notifications),
+    },
   },
 
   {
@@ -821,6 +967,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER,
 
     crumbNameKey: TranslationKey['On ideas'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      activeSubCategory: 0,
+      title: t(TranslationKey['Notifications on ideas']),
+    },
   },
 
   {
@@ -831,6 +983,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.researcher.SHOW_DASHBOARD_RESEARCHER,
 
     crumbNameKey: TranslationKey.Dashboard,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_DASHBOARD,
+      activeSubCategory: '',
+      title: t(TranslationKey.Dashboard),
+    },
   },
   {
     routePath: '/researcher/products',
@@ -840,6 +998,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.researcher.SHOW_PRODUCTS_RESEARCHER,
 
     crumbNameKey: TranslationKey['My products'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
+      activeSubCategory: '',
+      title: t(TranslationKey['My products']),
+    },
   },
 
   {
@@ -849,6 +1013,12 @@ export const privateRoutesConfigs = [
     permission: [UserRole.RESEARCHER],
 
     crumbNameKey: TranslationKey.Product,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Product),
+    },
   },
 
   {
@@ -859,6 +1029,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.researcher.SHOW_USERS_RESEARCHER,
 
     crumbNameKey: TranslationKey.Users,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_USERS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Users),
+    },
   },
 
   {
@@ -867,6 +1043,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.RESEARCHER],
     crumbNameKey: TranslationKey['My users'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_USERS,
+      activeSubCategory: 0,
+      title: t(TranslationKey.Users),
+    },
   },
 
   {
@@ -877,6 +1059,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.researcher.SHOW_PAYMENTS_RESEARCHER,
 
     crumbNameKey: TranslationKey.Finances,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FINANCES,
+      activeSubCategory: '',
+      title: t(TranslationKey.Finances),
+    },
   },
 
   {
@@ -887,6 +1075,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.researcher.SHOW_CHAT_RESEARCHER,
 
     crumbNameKey: TranslationKey.Messages,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
+      activeSubCategory: '',
+      title: t(TranslationKey.Messages),
+    },
   },
 
   {
@@ -897,6 +1091,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_DASHBOARD_CLIENT,
 
     crumbNameKey: TranslationKey.Dashboard,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_DASHBOARD,
+      activeSubCategory: '',
+      title: t(TranslationKey.Dashboard),
+    },
   },
 
   // ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -909,6 +1109,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
     crumbNameKey: TranslationKey.Freelance,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Freelance),
+    },
   },
 
   {
@@ -919,17 +1125,13 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
     crumbNameKey: TranslationKey['My requests'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
+      title: t(TranslationKey['My requests']),
+    },
   },
-
-  // {
-  //   routePath: '/client/freelance/my-requests',
-  //   component: FreelancerMyRequestsView,
-  //   exact: true,
-  //   permission: [UserRole.CLIENT],
-  //   permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
-
-  //   crumbNameKey: TranslationKey['My requests'],
-  // },
 
   {
     routePath: '/client/freelance/my-proposals',
@@ -940,6 +1142,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
     crumbNameKey: TranslationKey['My proposals'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
+      title: t(TranslationKey['My proposals']),
+    },
   },
 
   {
@@ -951,6 +1159,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
     crumbNameKey: TranslationKey['Service exchange'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_SERVICE_EXCHANGE,
+      title: t(TranslationKey['My proposals']),
+    },
   },
 
   {
@@ -961,6 +1175,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT,
 
     crumbNameKey: TranslationKey['Trading stores'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
+      activeSubCategory: '',
+      title: t(TranslationKey['Trading stores']),
+    },
   },
 
   {
@@ -972,6 +1192,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT,
 
     crumbNameKey: TranslationKey['Buy store'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BUY_SHOPS,
+      title: t(TranslationKey['Buy store']),
+    },
   },
 
   {
@@ -983,6 +1209,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT,
 
     crumbNameKey: TranslationKey['Sell the store'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS,
+      title: t(TranslationKey['Sell the store']),
+    },
   },
 
   {
@@ -994,6 +1226,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT,
 
     crumbNameKey: TranslationKey['Create an ad to sell your store'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS,
+      title: t(TranslationKey['Sell the store']),
+    },
   },
 
   {
@@ -1005,6 +1243,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT,
 
     crumbNameKey: TranslationKey['Edit ad for store sale'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS,
+      title: t(TranslationKey['Sell the store']),
+    },
   },
 
   {
@@ -1016,6 +1260,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT,
 
     crumbNameKey: TranslationKey.Shop,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS,
+      title: t(TranslationKey.Shop),
+    },
   },
 
   {
@@ -1027,6 +1277,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT,
 
     crumbNameKey: TranslationKey.Shop,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BUY_SHOPS,
+      title: t(TranslationKey.Shop),
+    },
   },
 
   {
@@ -1038,6 +1294,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
     crumbNameKey: TranslationKey['My request'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
+      title: t(TranslationKey['My request']),
+    },
   },
 
   {
@@ -1049,6 +1311,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
     crumbNameKey: TranslationKey['Create a request'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
+      title: t(TranslationKey['Create a request']),
+    },
   },
 
   {
@@ -1060,6 +1328,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
     crumbNameKey: TranslationKey['Edit a request'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
+      title: t(TranslationKey['Create a request']),
+    },
   },
 
   {
@@ -1071,6 +1345,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
     crumbNameKey: TranslationKey['Vacant requests'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
+      title: t(TranslationKey['Vacant requests']),
+    },
   },
 
   {
@@ -1082,6 +1362,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
     crumbNameKey: TranslationKey.Request,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
+      title: t(TranslationKey.Request),
+    },
   },
 
   {
@@ -1093,6 +1379,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
     crumbNameKey: TranslationKey.Request,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
+      title: t(TranslationKey.Request),
+    },
   },
 
   {
@@ -1104,6 +1396,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
     crumbNameKey: TranslationKey['Proposal Edition'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
+      title: t(TranslationKey['Proposal Edition']),
+    },
   },
 
   {
@@ -1115,6 +1413,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
     crumbNameKey: TranslationKey['Proposal Creation'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
+      title: t(TranslationKey['Proposal Creation']),
+    },
   },
 
   // ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1127,6 +1431,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_INVENTORY_CLIENT,
 
     crumbNameKey: TranslationKey.Archive,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
+      activeSubCategory: '',
+      title: t(TranslationKey.Inventory),
+    },
   },
 
   {
@@ -1137,6 +1447,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_INVENTORY_CLIENT,
 
     crumbNameKey: TranslationKey.Inventory,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
+      activeSubCategory: '',
+      title: t(TranslationKey.Inventory),
+    },
   },
 
   {
@@ -1148,6 +1464,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_INVENTORY_CLIENT,
 
     crumbNameKey: TranslationKey.Product,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
+      activeSubCategory: '',
+      title: t(TranslationKey.Product),
+    },
   },
 
   {
@@ -1159,6 +1481,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_VACANT_CLIENT,
 
     crumbNameKey: TranslationKey['Commodity exchange'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
+      activeSubCategory: '',
+      title: t(TranslationKey.Freelance),
+    },
   },
 
   {
@@ -1170,6 +1498,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_VACANT_CLIENT,
 
     crumbNameKey: TranslationKey['Deal exchange'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
+      activeSubCategory: 0,
+      title: t(TranslationKey['Deal exchange']),
+    },
   },
   {
     routePath: '/client/product-exchange/private-label',
@@ -1180,6 +1514,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_VACANT_CLIENT,
 
     crumbNameKey: TranslationKey['Private Label'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
+      activeSubCategory: 1,
+      title: t(TranslationKey['Private Label']),
+    },
   },
 
   {
@@ -1190,6 +1530,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_BATCHES_CLIENT,
 
     crumbNameKey: TranslationKey.Batches,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
+      activeSubCategory: '',
+      title: t(TranslationKey.Batches),
+    },
   },
 
   {
@@ -1200,6 +1546,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_WAREHOUSE_CLIENT,
 
     crumbNameKey: TranslationKey['Boxes ready to send'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH,
+      title: t(TranslationKey['Boxes ready to send']),
+    },
   },
 
   {
@@ -1210,6 +1562,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_WAREHOUSE_CLIENT,
 
     crumbNameKey: TranslationKey.Tasks,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_TASKS,
+      title: t(TranslationKey.Tasks),
+    },
   },
 
   {
@@ -1220,6 +1578,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_BATCHES_CLIENT,
 
     crumbNameKey: TranslationKey['Awaiting send'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_AWAITING_BATCH,
+      title: t(TranslationKey['Awaiting send']),
+    },
   },
 
   {
@@ -1230,6 +1594,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_BATCHES_CLIENT,
 
     crumbNameKey: TranslationKey['Sent boxes'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BATCHES,
+      title: t(TranslationKey['Sent boxes']),
+    },
   },
 
   {
@@ -1240,6 +1610,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_BATCHES_CLIENT,
 
     crumbNameKey: TranslationKey.Archive,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BATCHES,
+      title: t(TranslationKey['Sent boxes']),
+    },
   },
 
   {
@@ -1250,6 +1626,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_SHOPS_CLIENT,
 
     crumbNameKey: TranslationKey.Shops,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_SHOPS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Shops),
+    },
   },
 
   {
@@ -1260,6 +1642,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_WAREHOUSE_CLIENT,
 
     crumbNameKey: TranslationKey['My warehouse'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
+      activeSubCategory: '',
+      title: t(TranslationKey.Warehouse),
+    },
   },
 
   {
@@ -1271,6 +1659,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_WAREHOUSE_CLIENT,
 
     crumbNameKey: TranslationKey['Boxes in stock'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES,
+      title: t(TranslationKey['Boxes in stock']),
+    },
   },
 
   {
@@ -1281,6 +1675,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_ORDERS_CLIENT,
 
     crumbNameKey: TranslationKey['My orders'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MY_ORDERS,
+      activeSubCategory: '',
+      title: t(TranslationKey['My orders']),
+    },
   },
 
   {
@@ -1291,6 +1691,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_ORDERS_CLIENT,
 
     crumbNameKey: TranslationKey.Orders,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MY_ORDERS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS,
+      title: t(TranslationKey.Orders),
+    },
   },
 
   {
@@ -1301,6 +1707,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_PENDING_ORDERS_CLIENT,
 
     crumbNameKey: TranslationKey['Pending orders'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MY_ORDERS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_PENDING_ORDERS,
+      title: t(TranslationKey['Pending orders']),
+    },
   },
 
   // {
@@ -1320,6 +1732,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_ORDERS_CLIENT,
 
     crumbNameKey: TranslationKey.Order,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MY_ORDERS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS,
+      title: t(TranslationKey.Order),
+    },
   },
 
   {
@@ -1330,6 +1748,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_PENDING_ORDERS_CLIENT,
 
     crumbNameKey: TranslationKey.Order,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MY_ORDERS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_PENDING_ORDERS,
+      title: t(TranslationKey.Order),
+    },
   },
 
   {
@@ -1340,6 +1764,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_USERS_CLIENT,
 
     crumbNameKey: TranslationKey.Users,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_USERS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Users),
+    },
   },
 
   {
@@ -1351,6 +1781,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_USERS_CLIENT,
 
     crumbNameKey: TranslationKey['My users'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_USERS,
+      activeSubCategory: 0,
+      title: t(TranslationKey.Users),
+    },
   },
 
   {
@@ -1361,6 +1797,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
 
     crumbNameKey: TranslationKey.Notifications,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Notifications),
+    },
   },
   {
     routePath: '/client/notifications/orders-notifications',
@@ -1371,6 +1813,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
 
     crumbNameKey: TranslationKey['On orders'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      activeSubCategory: 0,
+      title: t(TranslationKey['Order notifications']),
+    },
   },
 
   {
@@ -1382,6 +1830,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
 
     crumbNameKey: TranslationKey['On boxes'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      activeSubCategory: 1,
+      title: t(TranslationKey['Box notifications']),
+    },
   },
 
   {
@@ -1393,6 +1847,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
 
     crumbNameKey: TranslationKey['On ideas'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      activeSubCategory: 3,
+      title: t(TranslationKey['Notifications on ideas']),
+    },
   },
 
   {
@@ -1404,6 +1864,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
 
     crumbNameKey: TranslationKey['On boxes tariffs'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      activeSubCategory: 2,
+      title: t(TranslationKey['Notifications on box rates']),
+    },
   },
 
   {
@@ -1414,6 +1880,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_PAYMENTS_CLIENT,
 
     crumbNameKey: TranslationKey.Finances,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FINANCES,
+      activeSubCategory: '',
+      title: t(TranslationKey.Finances),
+    },
   },
 
   {
@@ -1424,6 +1896,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_CHAT_CLIENT,
 
     crumbNameKey: TranslationKey.Messages,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
+      activeSubCategory: '',
+      title: t(TranslationKey.Messages),
+    },
   },
 
   {
@@ -1434,6 +1912,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.supervisor.SHOW_DASHOBARD_SUPERVISOR,
 
     crumbNameKey: TranslationKey.Dashboard,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_DASHBOARD,
+      activeSubCategory: '',
+      title: t(TranslationKey.Dashboard),
+    },
   },
 
   {
@@ -1443,6 +1927,12 @@ export const privateRoutesConfigs = [
     permission: [UserRole.SUPERVISOR],
 
     crumbNameKey: TranslationKey.Freelance,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_DEALS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Freelance),
+    },
   },
 
   {
@@ -1451,6 +1941,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.SUPERVISOR],
     crumbNameKey: TranslationKey['Vacant deals'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_DEALS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS,
+      title: t(TranslationKey['Vacant deals']),
+    },
   },
 
   {
@@ -1459,6 +1955,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.SUPERVISOR],
     crumbNameKey: TranslationKey['Deals on review'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_DEALS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_DEALS_ON_REVIEW,
+      title: t(TranslationKey['Deals on review']),
+    },
   },
 
   {
@@ -1467,6 +1969,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.SUPERVISOR],
     crumbNameKey: TranslationKey.Deal,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_DEALS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS,
+      title: t(TranslationKey['Vacant deals']),
+    },
   },
 
   {
@@ -1475,6 +1983,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.SUPERVISOR],
     crumbNameKey: TranslationKey.Deal,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_DEALS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_DEALS_ON_REVIEW,
+      title: t(TranslationKey['Vacant deals']),
+    },
   },
 
   {
@@ -1485,6 +1999,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.supervisor.SHOW_PRODUCTS_SUPERVISOR,
 
     crumbNameKey: TranslationKey['My products'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
+      activeSubCategory: '',
+      title: t(TranslationKey['My products']),
+    },
   },
 
   {
@@ -1493,6 +2013,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.SUPERVISOR],
     crumbNameKey: TranslationKey.Product,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Product),
+    },
   },
 
   {
@@ -1502,6 +2028,12 @@ export const privateRoutesConfigs = [
     permission: [UserRole.SUPERVISOR],
 
     crumbNameKey: TranslationKey.Product,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
+      activeSubCategory: 0,
+      title: t(TranslationKey.Product),
+    },
   },
 
   {
@@ -1511,6 +2043,12 @@ export const privateRoutesConfigs = [
     permission: [UserRole.SUPERVISOR],
 
     crumbNameKey: TranslationKey.Product,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
+      activeSubCategory: 1,
+      title: t(TranslationKey.Product),
+    },
   },
   {
     routePath: '/supervisor/ready-to-check',
@@ -1520,6 +2058,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.supervisor.SHOW_VAC_BY_RES_SUPERVISOR,
 
     crumbNameKey: TranslationKey['Supplier search'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
+      activeSubCategory: 0,
+      title: `${t(TranslationKey['Ready to check'])} - ${t(TranslationKey['From the Researcher'])}`,
+    },
   },
 
   {
@@ -1531,6 +2075,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.supervisor.SHOW_VAC_BY_CLIENT_SUPERVISOR,
 
     crumbNameKey: TranslationKey['Supplier search'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
+      activeSubCategory: 1,
+      title: `${t(TranslationKey['Ready to check'])} - ${t(TranslationKey['From the Client'])}`,
+    },
   },
 
   {
@@ -1539,6 +2089,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.SUPERVISOR],
     crumbNameKey: TranslationKey['Supplier search'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
+      activeSubCategory: 2,
+      title: `${t(TranslationKey['Ready to check'])} - ${t(TranslationKey['From the Client'])}`,
+    },
   },
 
   {
@@ -1549,6 +2105,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.supervisor.SHOW_USERS_SUPERVISOR,
 
     crumbNameKey: TranslationKey.Users,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_USERS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Users),
+    },
   },
 
   {
@@ -1557,6 +2119,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.SUPERVISOR],
     crumbNameKey: TranslationKey['My users'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_USERS,
+      activeSubCategory: 0,
+      title: t(TranslationKey.Users),
+    },
   },
   {
     routePath: '/supervisor/finances',
@@ -1566,6 +2134,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.supervisor.SHOW_PAYMENTS_SUPERVISOR,
 
     crumbNameKey: TranslationKey.Finances,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FINANCES,
+      activeSubCategory: '',
+      title: t(TranslationKey.Finances),
+    },
   },
 
   {
@@ -1576,6 +2150,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.supervisor.SHOW_CHAT_SUPERVISOR,
 
     crumbNameKey: TranslationKey.Messages,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
+      activeSubCategory: '',
+      title: t(TranslationKey.Messages),
+    },
   },
 
   {
@@ -1586,6 +2166,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.supervisor.SHOW_SETTINGS_SUPERVISOR,
 
     crumbNameKey: TranslationKey.Settings,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Settings),
+    },
   },
 
   {
@@ -1596,6 +2182,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.storekeeper.SHOW_DASHBOARD_STOREKEEPER,
 
     crumbNameKey: TranslationKey.Dashboard,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_DASHBOARD,
+      activeSubCategory: '',
+      title: t(TranslationKey.Dashboard),
+    },
   },
 
   {
@@ -1606,6 +2198,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.storekeeper.SHOW_MY_TASKS_STOREKEEPER,
 
     crumbNameKey: TranslationKey.Tasks,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_TASKS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Tasks),
+    },
   },
 
   {
@@ -1614,6 +2212,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey['New tasks'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_TASKS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_VAC_TASKS,
+      title: t(TranslationKey['New tasks']),
+    },
   },
   {
     routePath: '/warehouse/tasks/my-tasks',
@@ -1621,6 +2225,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey['My tasks'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_TASKS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MY_TASKS,
+      title: t(TranslationKey['My tasks']),
+    },
   },
 
   {
@@ -1629,6 +2239,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey['Completed tasks'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_TASKS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_COMPLETED_TASKS,
+      title: t(TranslationKey['Completed tasks']),
+    },
   },
 
   {
@@ -1637,6 +2253,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey['Canceled tasks'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_TASKS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_CANCELED_TASKS,
+      title: t(TranslationKey['Canceled tasks']),
+    },
   },
 
   {
@@ -1647,6 +2269,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.storekeeper.SHOW_BATCHES_STOREKEEPER,
 
     crumbNameKey: TranslationKey.Batches,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
+      activeSubCategory: '',
+      title: t(TranslationKey.Batches),
+    },
   },
 
   {
@@ -1655,6 +2283,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey['Awaiting send'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_AWAITING_BATCHES,
+      title: t(TranslationKey['Awaiting send']),
+    },
   },
 
   {
@@ -1663,6 +2297,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey.Sent,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BATCHES,
+      title: t(TranslationKey.Sent),
+    },
   },
   {
     routePath: '/warehouse/my-warehouse',
@@ -1672,6 +2312,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.storekeeper.SHOW_WAREHOUSE_STOREKEEPER,
 
     crumbNameKey: TranslationKey['My warehouse'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
+      activeSubCategory: '',
+      title: t(TranslationKey['My warehouse']),
+    },
   },
 
   {
@@ -1682,6 +2328,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.storekeeper.SHOW_MANAGEMENT_STOREKEEPER,
 
     crumbNameKey: TranslationKey['Warehouse management'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MANAGEMENT,
+      activeSubCategory: '',
+      title: t(TranslationKey['Warehouse management']),
+    },
   },
 
   {
@@ -1692,6 +2344,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.storekeeper.SHOW_USERS_STOREKEEPER,
 
     crumbNameKey: TranslationKey.Users,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_USERS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Users),
+    },
   },
 
   {
@@ -1700,6 +2358,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey['My users'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_USERS,
+      activeSubCategory: 0,
+      title: t(TranslationKey['My users']),
+    },
   },
 
   {
@@ -1710,6 +2374,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.storekeeper.SHOW_PAYMENTS_STOREKEEPER,
 
     crumbNameKey: TranslationKey.Finances,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FINANCES,
+      activeSubCategory: '',
+      title: t(TranslationKey.Finances),
+    },
   },
 
   {
@@ -1720,6 +2390,12 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.storekeeper.SHOW_CHAT_STOREKEEPER,
 
     crumbNameKey: TranslationKey.Messages,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
+      activeSubCategory: '',
+      title: t(TranslationKey.Messages),
+    },
   },
 
   {
@@ -1728,6 +2404,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Dashboard,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_DASHBOARD,
+      activeSubCategory: '',
+      title: t(TranslationKey.Dashboard),
+    },
   },
   {
     routePath: '/admin/exchange',
@@ -1735,6 +2417,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey['Commodity exchange'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
+      activeSubCategory: '',
+      title: t(TranslationKey['Commodity exchange']),
+    },
   },
   {
     routePath: '/admin/inventory',
@@ -1742,6 +2430,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Inventory,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
+      activeSubCategory: '',
+      title: t(TranslationKey.Inventory),
+    },
   },
   {
     routePath: '/admin/orders/order',
@@ -1749,6 +2443,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Order,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Order),
+    },
   },
   {
     routePath: '/admin/permissions',
@@ -1756,6 +2456,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey['User permissions'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_PERMISSIONS,
+      activeSubCategory: '',
+      title: t(TranslationKey['User permissions']),
+    },
   },
   {
     routePath: '/admin/orders',
@@ -1763,6 +2469,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Orders,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Orders),
+    },
   },
   {
     routePath: '/admin/exchange/product',
@@ -1770,6 +2482,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Product,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
+      activeSubCategory: '',
+      title: t(TranslationKey.Product),
+    },
   },
 
   {
@@ -1778,6 +2496,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Product,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
+      activeSubCategory: '',
+      title: t(TranslationKey.Product),
+    },
   },
 
   {
@@ -1786,6 +2510,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Warehouse,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
+      activeSubCategory: '',
+      title: t(TranslationKey.Warehouse),
+    },
   },
   {
     routePath: '/admin/warehouse/tasks',
@@ -1793,6 +2523,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Tasks,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
+      activeSubCategory: 0,
+      title: t(TranslationKey.Tasks),
+    },
   },
   {
     routePath: '/admin/warehouse/boxes',
@@ -1800,6 +2536,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Boxes,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
+      activeSubCategory: 1,
+      title: t(TranslationKey.Boxes),
+    },
   },
 
   {
@@ -1808,6 +2550,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Destinations,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
+      activeSubCategory: 2,
+      title: t(TranslationKey.Destinations),
+    },
   },
 
   {
@@ -1816,6 +2564,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Batches,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
+      activeSubCategory: '',
+      title: t(TranslationKey.Batches),
+    },
   },
 
   {
@@ -1824,6 +2578,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey['Awaiting send'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
+      activeSubCategory: 0,
+      title: t(TranslationKey['Awaiting send']),
+    },
   },
 
   {
@@ -1832,6 +2592,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Sent,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
+      activeSubCategory: 1,
+      title: t(TranslationKey.Sent),
+    },
   },
 
   {
@@ -1840,6 +2606,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Finances,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FINANCES,
+      activeSubCategory: '',
+      title: t(TranslationKey.Finances),
+    },
   },
   {
     routePath: '/admin/users',
@@ -1847,6 +2619,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Users,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_USERS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Users),
+    },
   },
 
   {
@@ -1855,6 +2633,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.User,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_USERS,
+      activeSubCategory: '',
+      title: t(TranslationKey.User),
+    },
   },
 
   {
@@ -1863,6 +2647,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Settings,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Settings),
+    },
   },
 
   {
@@ -1871,6 +2661,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey['Technical work and notices'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Settings),
+    },
   },
 
   {
@@ -1879,6 +2675,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Feedback,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
+      activeSubCategory: '',
+      title: t(TranslationKey.Feedback),
+    },
   },
 
   {
@@ -1887,6 +2689,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Messages,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
+      activeSubCategory: '',
+      title: t(TranslationKey.Messages),
+    },
   },
 
   {
@@ -1896,6 +2704,12 @@ export const privateRoutesConfigs = [
     permission: [UserRole.FREELANCER],
     permissionKey: permissionsKeys.freelancer.SHOW_DASHBOARD_FREELANCER,
     crumbNameKey: TranslationKey.Dashboard,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_DASHBOARD,
+      activeSubCategory: '',
+      title: t(TranslationKey.Dashboard),
+    },
   },
 
   {
@@ -1904,6 +2718,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey.Users,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_USERS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Users),
+    },
   },
 
   {
@@ -1912,6 +2732,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey['My users'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_USERS,
+      activeSubCategory: 0,
+      title: t(TranslationKey['My users']),
+    },
   },
 
   {
@@ -1920,6 +2746,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey.Finances,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FINANCES,
+      activeSubCategory: '',
+      title: t(TranslationKey.Finances),
+    },
   },
 
   // ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1930,6 +2762,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey.Freelance,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Freelance),
+    },
   },
 
   {
@@ -1938,6 +2776,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey['My proposals'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
+      title: t(TranslationKey['My proposals']),
+    },
   },
 
   {
@@ -1946,6 +2790,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey['Vacant requests'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
+      title: t(TranslationKey['Vacant requests']),
+    },
   },
 
   {
@@ -1954,6 +2804,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey.Request,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
+      title: t(TranslationKey.Request),
+    },
   },
 
   {
@@ -1962,6 +2818,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey['Source Files'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_SOURCE_FILES,
+      title: t(TranslationKey['Vacant requests']),
+    },
   },
 
   {
@@ -1970,6 +2832,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey.Request,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
+      title: t(TranslationKey.Request),
+    },
   },
 
   {
@@ -1978,6 +2846,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey['Proposal Edition'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
+      title: t(TranslationKey['Proposal Edition']),
+    },
   },
 
   {
@@ -1986,6 +2860,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey['Proposal Creation'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
+      title: t(TranslationKey['Proposal Creation']),
+    },
   },
 
   {
@@ -1994,6 +2874,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey.Messages,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
+      activeSubCategory: '',
+      title: t(TranslationKey.Messages),
+    },
   },
 
   {
@@ -2002,6 +2888,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey['My services'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES,
+      title: t(TranslationKey['My services']),
+    },
   },
 
   {
@@ -2010,6 +2902,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey['Create service'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES,
+      title: t(TranslationKey['Create service']),
+    },
   },
 
   {
@@ -2018,6 +2916,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey['Service details'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES,
+      title: t(TranslationKey['Service details']),
+    },
   },
 
   {
@@ -2026,6 +2930,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey['Edit service'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES,
+      title: t(TranslationKey['Edit service']),
+    },
   },
 
   {
@@ -2034,6 +2944,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey.Request,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES,
+      title: t(TranslationKey.Request),
+    },
   },
 
   {
@@ -2042,6 +2958,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey['Proposal Creation'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
+      title: t(TranslationKey['Proposal Creation']),
+    },
   },
 
   {
@@ -2050,6 +2972,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.MODERATOR],
     crumbNameKey: TranslationKey.Dashboard,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_DASHBOARD,
+      activeSubCategory: '',
+      title: t(TranslationKey.Dashboard),
+    },
   },
 
   {
@@ -2058,6 +2986,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.MODERATOR],
     crumbNameKey: TranslationKey.Appeals,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_APPEALS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Appeals),
+    },
   },
 
   {
@@ -2066,6 +3000,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.MODERATOR],
     crumbNameKey: TranslationKey.Appeal,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_APPEALS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Appeals),
+    },
   },
 
   {
@@ -2074,6 +3014,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.MODERATOR],
     crumbNameKey: TranslationKey['My products'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
+      activeSubCategory: '',
+      title: t(TranslationKey['My products']),
+    },
   },
 
   {
@@ -2082,6 +3028,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.MODERATOR],
     crumbNameKey: TranslationKey.Users,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_USERS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Users),
+    },
   },
 
   {
@@ -2090,6 +3042,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.MODERATOR],
     crumbNameKey: TranslationKey['My users'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_USERS,
+      activeSubCategory: 0,
+      title: t(TranslationKey['My users']),
+    },
   },
 
   {
@@ -2098,6 +3056,12 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.MODERATOR],
     crumbNameKey: TranslationKey.Settings,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
+      activeSubCategory: '',
+      title: t(TranslationKey.Settings),
+    },
   },
 
   {
@@ -2106,6 +3070,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.MODERATOR],
     crumbNameKey: TranslationKey.Messages,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
+      activeSubCategory: '',
+      title: t(TranslationKey.Messages),
+    },
   },
 
   // ////////////////////////////////////////////////////////////////////////////////////////////////

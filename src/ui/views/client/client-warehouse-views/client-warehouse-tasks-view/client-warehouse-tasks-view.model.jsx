@@ -33,8 +33,6 @@ export class ClientWarehouseTasksViewModel {
 
   nameSearchValue = ''
 
-  drawerOpen = false
-
   currentData = []
 
   showConfirmModal = false
@@ -260,12 +258,6 @@ export class ClientWarehouseTasksViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -313,12 +305,6 @@ export class ClientWarehouseTasksViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage = e => {

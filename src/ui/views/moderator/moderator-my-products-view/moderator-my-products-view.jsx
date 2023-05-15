@@ -8,22 +8,12 @@ import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
 // import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
 // import {ProductStatus} from '@constants/product-status'
-import {TranslationKey} from '@constants/translations/translation-key'
-
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 
 // import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
-
 import {ModeratorMyProductsViewModel} from './moderator-my-products-view.model'
 import {styles} from './moderator-my-products-view.style'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
 
 // const attentionStatuses = [ProductStatus.BUYER_PICKED_PRODUCT, ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT]
 @observer
@@ -35,27 +25,6 @@ export class ModeratorMyProductsViewRaw extends Component {
   // }
 
   render() {
-    const {
-      // requestStatus,
-      // getCurrentData,
-      // sortModel,
-      // filterModel,
-      // densityModel,
-      // columnsModel,
-
-      drawerOpen,
-      // curPage,
-      // rowsPerPage,
-      // onChangeCurPage,
-      // onChangeRowsPerPage,
-      onTriggerDrawerOpen,
-      // onClickTableRow,
-
-      // onSelectionModel,
-      // setDataGridState,
-      // onChangeSortingModel,
-      // onChangeFilterModel,
-    } = this.viewModel
     const {classes: classNames} = this.props
 
     // const getRowClassName = params =>
@@ -63,12 +32,9 @@ export class ModeratorMyProductsViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
-        <Main>
-          <Appbar title={t(TranslationKey['My products'])} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <Typography className={classNames.inProcess}>{'В разработке...'}</Typography>
-              {/* <MemoDataGrid
+        <MainContent>
+          <Typography className={classNames.inProcess}>{'В разработке...'}</Typography>
+          {/* <MemoDataGrid
                 pagination
                 useResizeContainer
                 sx={{
@@ -104,9 +70,7 @@ export class ModeratorMyProductsViewRaw extends Component {
                 onRowDoubleClick={e => onClickTableRow(e.row)}
                 onFilterModelChange={model => onChangeFilterModel(model)}
               /> */}
-            </MainContent>
-          </Appbar>
-        </Main>
+        </MainContent>
       </React.Fragment>
     )
   }
