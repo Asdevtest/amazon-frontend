@@ -214,6 +214,60 @@ export default class ProductApi {
 
 
     /**
+     * # Пересчитать поле stockCost в продукте
+     * ## Пересчитать поле stockCost в продукте
+     * @param {String} guid id товара.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1ProductsCalculateStockCostPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1ProductsCalculateStockCostPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/products/calculate_stock_cost', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Пересчитать поле stockCost в продукте
+     * ## Пересчитать поле stockCost в продукте
+     * @param {String} guid id товара.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1ProductsCalculateStockCostPatch(guid, opts) {
+      return this.apiV1ProductsCalculateStockCostPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Редактирование поля hsCode в продукте.
      * ## Редактирование поля hsCode в продукте.   Доступно только для Байера, Клиента, Сторкипера
      * @param {Object} opts Optional parameters

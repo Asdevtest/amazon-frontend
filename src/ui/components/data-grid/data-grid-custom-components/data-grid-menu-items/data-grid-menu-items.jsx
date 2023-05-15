@@ -31,7 +31,7 @@ import {SearchInput} from '@components/shared/search-input'
 
 import {checkIsPositiveNum} from '@utils/checks'
 import {formatNormDateTime} from '@utils/date-time'
-import {getStatusByColumnKeyAndStatusKey} from '@utils/text'
+import {getStatusByColumnKeyAndStatusKey, toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {styles} from './data-grid-menu-items.style'
@@ -1492,7 +1492,7 @@ export const NumberFieldMenuItem = React.memo(
                               checked={choosenItems?.some(item => item === el)}
                               onClick={() => onClickItem(el)}
                             />
-                            <div className={classNames.shopName}>{el || 0}</div>
+                            <div className={classNames.shopName}>{toFixed(el, 0) || 0}</div>
                           </div>
                         ))}
                     </>

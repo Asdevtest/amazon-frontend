@@ -10,7 +10,6 @@ import {chatsType} from '@constants/keys/chats'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatContract, ChatUserContract} from '@models/chat-model/contracts'
-import {UserModel} from '@models/user-model'
 
 import {ChatMessageType} from '@services/websocket-chat-service'
 import {ChatMessageTextType, OnTypingMessageResponse} from '@services/websocket-chat-service/interfaces'

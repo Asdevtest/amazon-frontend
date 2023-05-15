@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import CloseIcon from '@mui/icons-material/Close'
 import {Autocomplete} from '@mui/material'
 import TextField from '@mui/material/TextField'
