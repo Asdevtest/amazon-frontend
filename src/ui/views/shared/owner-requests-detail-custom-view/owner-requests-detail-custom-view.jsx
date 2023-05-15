@@ -13,6 +13,7 @@ import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {OwnerRequestProposalsCard} from '@components/cards/owner-request-proposals-card'
 import {MultipleChats} from '@components/chat/multiple-chats'
+import {RequestDesignerResultClientForm} from '@components/forms/request-designer-result-client-form'
 import {RequestProposalAcceptOrRejectResultForm} from '@components/forms/request-proposal-accept-or-reject-result-form/request-proposal-accept-or-reject-result-form'
 import {RequestProposalResultToCorrectForm} from '@components/forms/request-proposal-result-to-correct-form'
 import {ReviewsForm} from '@components/forms/reviews-form'
@@ -58,6 +59,8 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
 
   render() {
     const {
+      curResultMedia,
+      findRequestProposalForCurChat,
       acceptMessage,
       showAcceptMessage,
       typingUsers,
@@ -76,6 +79,8 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       chatIsConnected,
       showResultToCorrectFormModal,
       showConfirmWorkResultFormModal,
+      showRequestDesignerResultClientModal,
+      onRecoverRequest,
       onSubmitMessage,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
@@ -97,12 +102,11 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       onClickHideChat,
       onClickOrderProposal,
       onTypingMessage,
+      onClickOpenRequest,
+      onPressSubmitDesignerResultToCorrect,
     } = this.viewModel
 
     const {classes: classNames} = this.props
-
-    const findRequestProposalForCurChat =
-      chatSelectedId && requestProposals.find(requestProposal => requestProposal.proposal.chatId === chatSelectedId)
 
     return (
       <React.Fragment>
@@ -123,6 +127,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                   onClickEditBtn={onClickEditBtn}
                   onClickCancelBtn={onClickCancelBtn}
                   onClickAbortBtn={onClickAbortBtn}
+                  onRecoverRequest={onRecoverRequest}
                 />
               ) : null}
 
@@ -142,10 +147,11 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                     {t(TranslationKey['Proposals for the request'])}
                   </Typography>
                   {requestProposals.map(item => (
-                    <div key={item.proposal._id} className={classNames.proposalAndChatWrapper}>
+                    <div key={item?.proposal?._id} className={classNames.proposalAndChatWrapper}>
                       <Paper>
                         <OwnerRequestProposalsCard
                           item={item}
+                          request={request}
                           onClickContactWithExecutor={onClickContactWithExecutor}
                           onClickOrderProposal={onClickOrderProposal}
                           onClickRejectProposal={onClickRejectProposal}
@@ -168,8 +174,8 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
 
               <Accordion expanded={showChat}>
                 <AccordionSummary style={{display: 'none'}} />
-                <AccordionDetails style={{padding: '0'}}>
-                  {chatIsConnected && (
+                {chatIsConnected && (
+                  <AccordionDetails style={{padding: '0'}}>
                     <div className={classNames.chatWrapper}>
                       <ChatRequestAndRequestProposalContext.Provider
                         value={{
@@ -179,6 +185,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                       >
                         <MultipleChats
                           ref={this.chatRef}
+                          isFreelanceOwner
                           typingUsers={typingUsers}
                           chats={chats}
                           userId={userInfo._id}
@@ -189,7 +196,13 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                             onClickProposalResultToCorrect,
                             onClickProposalResultAccept,
                             onClickOrderProposal,
+                            onClickOpenRequest,
                           }}
+                          // renderAdditionalButtons={() => (
+                          //   <Button onClick={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}>
+                          //     ПОКАЗАТЬ РЕЗУЛЬТАТ (тест дизайнера)
+                          //   </Button>
+                          // )}
                           updateData={this.viewModel.loadData}
                           onSubmitMessage={onSubmitMessage}
                           onClickChat={onClickChat}
@@ -197,8 +210,8 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                         />
                       </ChatRequestAndRequestProposalContext.Provider>
                     </div>
-                  )}
-                </AccordionDetails>
+                  </AccordionDetails>
+                )}
               </Accordion>
               {showChat && (
                 <div className={classNames.hideChatButtonWrapper}>
@@ -225,6 +238,22 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
 
           <Modal openModal={showReviewModal} setOpenModal={() => onTriggerOpenModal('showReviewModal')}>
             <ReviewsForm onClickCloseButton={() => onTriggerOpenModal('showReviewModal')} />
+          </Modal>
+
+          <Modal
+            missClickModalOn
+            openModal={showRequestDesignerResultClientModal}
+            setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
+          >
+            <RequestDesignerResultClientForm
+              userInfo={userInfo}
+              request={request}
+              proposal={findRequestProposalForCurChat}
+              curResultMedia={curResultMedia}
+              setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
+              onClickProposalResultAccept={onClickProposalResultAccept}
+              onPressSubmitDesignerResultToCorrect={onPressSubmitDesignerResultToCorrect}
+            />
           </Modal>
 
           <Modal

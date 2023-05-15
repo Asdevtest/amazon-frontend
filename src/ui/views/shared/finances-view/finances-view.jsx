@@ -53,6 +53,7 @@ class FinancesViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      changeColumnsModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -91,6 +92,11 @@ class FinancesViewRaw extends Component {
                 density={densityModel}
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
+                componentsProps={{
+                  toolbar: {
+                    columsBtnSettings: {columnsModel, changeColumnsModel},
+                  },
+                }}
                 onSelectionModelChange={newSelection => {
                   onSelectionModel(newSelection[0])
                 }}

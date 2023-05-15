@@ -12,7 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20046Failed from './InlineResponse20046Failed';
+import ApiV1IdeasNotificationsCreatedBy from './ApiV1IdeasNotificationsCreatedBy';
+import ApiV1IdeasNotificationsIdea from './ApiV1IdeasNotificationsIdea';
+import ApiV1IdeasNotificationsProduct from './ApiV1IdeasNotificationsProduct';
 
 /**
  * The InlineResponse20046 model module.
@@ -48,8 +50,17 @@ class InlineResponse20046 {
         if (data) {
             obj = obj || new InlineResponse20046();
 
-            if (data.hasOwnProperty('failed')) {
-                obj['failed'] = ApiClient.convertToType(data['failed'], [InlineResponse20046Failed]);
+            if (data.hasOwnProperty('product')) {
+                obj['product'] = ApiV1IdeasNotificationsProduct.constructFromObject(data['product']);
+            }
+            if (data.hasOwnProperty('idea')) {
+                obj['idea'] = ApiV1IdeasNotificationsIdea.constructFromObject(data['idea']);
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1IdeasNotificationsCreatedBy.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
             }
         }
         return obj;
@@ -59,9 +70,24 @@ class InlineResponse20046 {
 }
 
 /**
- * @member {Array.<module:model/InlineResponse20046Failed>} failed
+ * @member {module:model/ApiV1IdeasNotificationsProduct} product
  */
-InlineResponse20046.prototype['failed'] = undefined;
+InlineResponse20046.prototype['product'] = undefined;
+
+/**
+ * @member {module:model/ApiV1IdeasNotificationsIdea} idea
+ */
+InlineResponse20046.prototype['idea'] = undefined;
+
+/**
+ * @member {module:model/ApiV1IdeasNotificationsCreatedBy} createdBy
+ */
+InlineResponse20046.prototype['createdBy'] = undefined;
+
+/**
+ * @member {String} createdAt
+ */
+InlineResponse20046.prototype['createdAt'] = undefined;
 
 
 

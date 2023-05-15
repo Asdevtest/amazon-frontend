@@ -25,12 +25,14 @@ export const DealsOfRequest = ({requestProposals, onClickReview}) => {
 
   const now = new Date()
 
+  console.log('requestProposals', requestProposals)
+
   return (
     <div className={classNames.root}>
       <Accordion
         classes={{root: classNames.accordion}}
         expanded={showDetails}
-        style={{borderRadius: '4px', boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)'}}
+        // style={{borderRadius: '4px', boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)'}}
         disabled={!requestProposals.length}
         onChange={() => setShowDetails(!showDetails)}
       >
@@ -45,9 +47,9 @@ export const DealsOfRequest = ({requestProposals, onClickReview}) => {
             {requestProposals.map(deal => (
               <div key={deal.proposal._id} className={classNames.dealWrapper}>
                 <div className={classNames.userInfoWrapper}>
-                  <Avatar src={getUserAvatarSrc(deal.proposal.createdBy._id)} className={classNames.cardImg} />
+                  <Avatar src={getUserAvatarSrc(deal.proposal.createdBy?._id)} className={classNames.cardImg} />
                   <div className={classNames.userNameWrapper}>
-                    <UserLink blackText name={deal.proposal.createdBy.name} userId={deal.proposal.createdBy._id} />
+                    <UserLink blackText name={deal.proposal.createdBy?.name} userId={deal.proposal.createdBy?._id} />
 
                     {/* <Typography>{t(TranslationKey.Reviews)}</Typography> */}
                     <Typography className={classNames.reviews} onClick={() => onClickReview()}>
@@ -56,7 +58,7 @@ export const DealsOfRequest = ({requestProposals, onClickReview}) => {
                   </div>
 
                   <div className={classNames.userRatingWrapper}>
-                    <Rating disabled className={classNames.userRating} value={deal.proposal.createdBy.rating} />
+                    <Rating disabled className={classNames.userRating} value={deal.proposal.createdBy?.rating} />
                   </div>
                 </div>
 

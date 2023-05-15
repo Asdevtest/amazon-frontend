@@ -22,12 +22,10 @@ class InlineObject50 {
     /**
      * Constructs a new <code>InlineObject50</code>.
      * @alias module:model/InlineObject50
-     * @param clientComment {String} 
-     * @param priceForClient {Number} Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
      */
-    constructor(clientComment, priceForClient) { 
+    constructor() { 
         
-        InlineObject50.initialize(this, clientComment, priceForClient);
+        InlineObject50.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject50 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, clientComment, priceForClient) { 
-        obj['clientComment'] = clientComment;
-        obj['priceForClient'] = priceForClient;
+    static initialize(obj) { 
     }
 
     /**
@@ -54,9 +50,6 @@ class InlineObject50 {
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
-            }
         }
         return obj;
     }
@@ -68,12 +61,6 @@ class InlineObject50 {
  * @member {String} clientComment
  */
 InlineObject50.prototype['clientComment'] = undefined;
-
-/**
- * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
- * @member {Number} priceForClient
- */
-InlineObject50.prototype['priceForClient'] = undefined;
 
 
 

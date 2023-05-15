@@ -11,33 +11,35 @@ export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
 
-    padding: '0 40px 40px 40px',
+    padding: '0 110px 66px 30px',
     width: '100%',
+
+    gap: 60,
   },
 
   conditionsFieldWrapper: {
     width: '100%',
-    margin: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
   },
 
   conditionsField: {
     width: '100%',
     minHeight: '20vh',
-    fontFamily: 'inherit',
-    padding: '8px',
     fontSize: '16px',
-    outline: 'none',
-    backgroundColor: 'inherit',
-    border: 'none',
     fontWeight: '400',
     lineHeight: '1.5',
-    resize: 'none',
+
+    whiteSpace: 'pre-wrap',
 
     color: theme.palette.text.general,
   },
 
   accordion: {
     width: '100%',
+    borderRadius: '4px',
+    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
     // backgroundColor: 'red',
   },
 
@@ -45,7 +47,9 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '21px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.general,
+
+    paddingLeft: 14,
   },
 
   imgBox: {
@@ -65,7 +69,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   filesWrapper: {
-    height: 'min-content',
+    display: 'flex',
+    height: '100%',
+    minWidth: 358,
+    flexDirection: 'column',
   },
 
   filesContainer: {
@@ -100,6 +107,21 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
+
     color: theme.palette.text.general,
+  },
+  conditionsSubLabel: {
+    fontWeight: 400,
+    fontSize: 16,
+    lineHeight: '22px',
+
+    color: theme.palette.text.general,
+  },
+  filesLabel: {
+    marginBottom: 10,
+  },
+  conditionsPhotosWraper: {
+    marginTop: 15,
+    marginBottom: 30,
   },
 }))

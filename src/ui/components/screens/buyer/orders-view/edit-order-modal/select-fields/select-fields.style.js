@@ -197,15 +197,23 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   normalPaymentText: {
-    color: theme.palette.text.general,
+    width: 'fit-content',
+    color: theme.palette.primary.main,
     // color: 'green',
+
+    fontWeight: 600,
     fontSize: 14,
+    lineHeight: '19px',
+
+    whiteSpace: 'nowrap',
   },
 
-  greenPaymentText: {
-    color: theme.palette.text.green,
-    // color: 'green',
+  whiteNormalPaymentText: {
+    color: '#fff',
+
     fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
   },
 
   input: {
@@ -356,6 +364,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   supplierPaymentButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     // height: 32,
     width: 230,
 
@@ -366,7 +377,10 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '20px',
     color: '#fff',
 
-    display: 'flex',
+    gap: 5,
+  },
+
+  noPaymentButton: {
     gap: 5,
   },
 
@@ -376,5 +390,61 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     margin: 0,
     gap: 30,
+  },
+
+  addIcon: {
+    width: '13px !important',
+    height: '13px !important',
+    color: theme.palette.primary.main,
+  },
+
+  imagesModalBtnsWrapper: {
+    display: 'flex',
+    // flexDirection: 'column',
+    gap: 20,
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
+    marginRight: 20,
+  },
+
+  imagesModalBtn: {
+    width: 40,
+    height: 40,
+  },
+
+  carouselImage: {
+    // height: '100%',
+    height: '100% !important',
+    maxHeight: '254px !important',
+    objectFit: 'contain',
+
+    transition: '.2s ease',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    '&:hover': {
+      transform: 'scale(1.02)',
+    },
+  },
+
+  pasteInput: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    borderRadius: '10px',
+    top: 0,
+    left: 0,
+    opacity: 0,
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+  },
+
+  paymentsBlock: {
+    marginTop: 25,
+  },
+  labelClass: {
+    fontSize: 14,
+    fontWeight: 400,
+    lineHeight: '19px',
+
+    color: theme.palette.text.second,
   },
 }))

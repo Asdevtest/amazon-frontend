@@ -47,32 +47,11 @@ class InlineResponse20052 {
         if (data) {
             obj = obj || new InlineResponse20052();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
-            }
-            if (data.hasOwnProperty('sourceFile')) {
-                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('typeTask')) {
-                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
+            if (data.hasOwnProperty('userId')) {
+                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
             }
             if (data.hasOwnProperty('productId')) {
                 obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
-            }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -82,58 +61,14 @@ class InlineResponse20052 {
 }
 
 /**
- * Гуид медиа
- * @member {String} _id
+ * @member {String} userId
  */
-InlineResponse20052.prototype['_id'] = undefined;
+InlineResponse20052.prototype['userId'] = undefined;
 
 /**
- * Файл для записи в FreelanceSource
- * @member {String} sourceFile
- */
-InlineResponse20052.prototype['sourceFile'] = undefined;
-
-/**
- * Комментарий к файлу
- * @member {String} comment
- */
-InlineResponse20052.prototype['comment'] = undefined;
-
-/**
- * Код специализации фрилансера
- * @member {Number} typeTask
- */
-InlineResponse20052.prototype['typeTask'] = undefined;
-
-/**
- * гуид продукта
  * @member {String} productId
  */
 InlineResponse20052.prototype['productId'] = undefined;
-
-/**
- * Гуид пропоузала
- * @member {String} proposalId
- */
-InlineResponse20052.prototype['proposalId'] = undefined;
-
-/**
- * Клиент создавший заказ и коробку.
- * @member {String} createdById
- */
-InlineResponse20052.prototype['createdById'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} createdAt
- */
-InlineResponse20052.prototype['createdAt'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} updatedAt
- */
-InlineResponse20052.prototype['updatedAt'] = undefined;
 
 
 

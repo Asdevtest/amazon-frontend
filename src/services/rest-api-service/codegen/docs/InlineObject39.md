@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**userIds** | **[String]** |  | 
-**title** | **String** | Название группового чата | 
+**totalPriceChanged** | **Number** | новое значение изменения итоговой цены. | 
 
 

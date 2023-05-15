@@ -50,12 +50,30 @@ export class WarehouseSentBatchesViewModel {
 
   uploadedFiles = []
 
+  status = BatchStatus.HAS_DISPATCHED
+  languageTag = undefined
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = batchesViewColumns(this.rowHandlers)
+
+  rowHandlers = {
+    onClickSaveTrackingNumber: (id, trackingNumber) => this.onClickSaveTrackingNumber(id, trackingNumber),
+    onClickSaveArrivalDate: (id, date) => this.onClickSaveArrivalDate(id, date),
+  }
+
+  columnsModel = batchesViewColumns(this.rowHandlers, this.status, this.languageTag)
+
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = batchesViewColumns(this.rowHandlers, this.status, this.languageTag).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
 
   get userInfo() {
     return UserModel.userInfo
@@ -69,7 +87,10 @@ export class WarehouseSentBatchesViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
+      () => {
+        this.languageTag = SettingsModel.languageTag
+        this.updateColumnsModel()
+      },
     )
 
     reaction(
@@ -110,7 +131,7 @@ export class WarehouseSentBatchesViewModel {
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = batchesViewColumns(this.rowHandlers).map(el => ({
+        this.columnsModel = batchesViewColumns(this.rowHandlers, this.status, this.languageTag).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))
@@ -316,6 +337,16 @@ export class WarehouseSentBatchesViewModel {
       })
       this.setRequestStatus(loadingStatuses.failed)
     }
+  }
+
+  async onClickSaveTrackingNumber(id, trackingNumber) {
+    await BatchesModel.changeBatch(id, {trackingNumber})
+    this.loadData()
+  }
+
+  async onClickSaveArrivalDate(id, date) {
+    await BatchesModel.changeBatch(id, {arrivalDate: date})
+    this.loadData()
   }
 
   async setCurrentOpenedBatch(row) {

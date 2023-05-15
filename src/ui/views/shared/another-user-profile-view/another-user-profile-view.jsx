@@ -40,7 +40,7 @@ class AnotherUserProfileViewRaw extends Component {
 
   render() {
     const {
-      volumeWeightCoefficient,
+      platformSettings,
       destinations,
       storekeepers,
       selectedProduct,
@@ -154,7 +154,8 @@ class AnotherUserProfileViewRaw extends Component {
 
           <Modal openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
             <OrderProductModal
-              volumeWeightCoefficient={volumeWeightCoefficient}
+              // volumeWeightCoefficient={volumeWeightCoefficient}
+              platformSettings={platformSettings}
               destinations={destinations}
               storekeepers={storekeepers}
               requestStatus={requestStatus}

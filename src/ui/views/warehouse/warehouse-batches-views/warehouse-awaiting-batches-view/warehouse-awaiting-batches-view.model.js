@@ -56,6 +56,8 @@ export class WarehouseAwaitingBatchesViewModel {
   progressValue = 0
   showProgress = false
 
+  languageTag = undefined
+
   hsCodeData = {}
 
   showEditHSCodeModal = false
@@ -65,7 +67,22 @@ export class WarehouseAwaitingBatchesViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = batchesViewColumns(this.rowHandlers)
+
+  rowHandlers = {}
+
+  status = undefined
+
+  columnsModel = batchesViewColumns(this.rowHandlers, this.status, this.languageTag)
+
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = batchesViewColumns(this.rowHandlers, this.status, this.languageTag).map(el => ({
+        ...el,
+
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
 
   get isInvalidTariffBoxSelected() {
     return this.selectedBatches.some(batchId => {
@@ -95,7 +112,10 @@ export class WarehouseAwaitingBatchesViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
+      () => {
+        this.languageTag = SettingsModel.languageTag
+        this.updateColumnsModel()
+      },
     )
 
     reaction(
@@ -136,7 +156,7 @@ export class WarehouseAwaitingBatchesViewModel {
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = batchesViewColumns(this.rowHandlers).map(el => ({
+        this.columnsModel = batchesViewColumns(this.rowHandlers, this.status, this.languageTag).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))

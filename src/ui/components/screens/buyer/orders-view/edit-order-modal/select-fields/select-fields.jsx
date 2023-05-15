@@ -1,5 +1,8 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
+import AddIcon from '@mui/icons-material/Add'
+import AutorenewIcon from '@mui/icons-material/Autorenew'
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import {Box, Checkbox, Grid, Link, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
@@ -10,7 +13,9 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {CopyValue} from '@components/copy-value/copy-value'
+import {CustomCarousel} from '@components/custom-carousel'
 import {PhotoAndFilesCarousel, PhotoCarousel} from '@components/custom-carousel/custom-carousel'
+import {CustomSelectPaymentDetails} from '@components/custom-select-payment-details'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
@@ -24,6 +29,7 @@ import {
 } from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {convertDaysToSeconds, formatDateWithoutTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {
   checkAndMakeAbsoluteUrl,
   getFullTariffTextForBoxOrOrder,
@@ -32,10 +38,13 @@ import {
   toFixedWithYuanSign,
 } from '@utils/text'
 import {t} from '@utils/translations'
+import {downloadFileByLink} from '@utils/upload-files'
 
 import {useClassNames} from './select-fields.style'
 
 export const SelectFields = ({
+  userInfo,
+  imagesForLoad,
   paymentDetailsPhotosToLoad,
   yuanToDollarRate,
   usePriceInDollars,
@@ -57,10 +66,11 @@ export const SelectFields = ({
   setCheckIsPlanningPrice,
   onClickUpdateButton,
   onClickSupplierPaymentButton,
+  onChangeImagesForLoad,
+  setPaymentMethodsModal,
+  orderPayments,
 }) => {
   const {classes: classNames} = useClassNames()
-
-  const [showPhotosModal, setShowPhotosModal] = useState(false)
 
   const onChangeHsField = fieldName => event => {
     const newFormFields = {...hsCode}
@@ -69,14 +79,46 @@ export const SelectFields = ({
     setHsCode(newFormFields)
   }
 
-  console.log('@', orderFields.orderSupplier.productionTerm)
+  const [showImageModal, setShowImageModal] = useState(false)
+
+  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   return (
     <Grid container justifyContent="space-between" className={classNames.container}>
       <Grid item>
         <div className={classNames.photoAndFieldsWrapper}>
           <div className={classNames.photoWrapper}>
-            <PhotoCarousel isAmazonPhoto files={order.product.images} />
+            {/* <PhotoCarousel isAmazonPhoto files={order.product.images} /> */}
+
+            {!!order.product.images.length && (
+              <div className={classNames.carouselWrapper}>
+                <CustomCarousel>
+                  {order.product.images.map((imageHash, index) => (
+                    <img
+                      key={index}
+                      alt=""
+                      className={classNames.carouselImage}
+                      // src={getAmazonImageUrl(imageHash, true)}
+
+                      src={
+                        typeof imageHash === 'string'
+                          ? getAmazonImageUrl(imageHash, true)
+                          : imageHash?.file.type.includes('image')
+                          ? imageHash?.data_url
+                          : '/assets/icons/file.png'
+                      }
+                      onClick={() => {
+                        setShowImageModal(!showImageModal)
+                        setBigImagesOptions({
+                          images: order?.product?.images,
+                          imgIndex: index,
+                        })
+                      }}
+                    />
+                  ))}
+                </CustomCarousel>
+              </div>
+            )}
           </div>
 
           <div>
@@ -378,6 +420,21 @@ export const SelectFields = ({
               {t(TranslationKey.Update)}
             </Button>
           </div>
+
+          {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]) && (
+            <div className={classNames.paymentsBlock} onClick={setPaymentMethodsModal}>
+              <CustomSelectPaymentDetails
+                column
+                disabled
+                cursorPointer
+                generalText
+                labelClass={classNames.labelClass}
+                currentPaymentMethods={orderPayments
+                  ?.filter(item => item?.paymentMethod)
+                  .map(item => item?.paymentMethod)}
+              />
+            </div>
+          )}
         </div>
       </Grid>
 
@@ -528,21 +585,49 @@ export const SelectFields = ({
           {!isPendingOrder && (
             <div className={classNames.supplierPaymentButtonWrapper}>
               <Button
-                className={classNames.supplierPaymentButton}
-                variant="outlined"
+                className={cx(classNames.supplierPaymentButton, {
+                  [classNames.noPaymentButton]: orderFields?.paymentDetails.length,
+                })}
+                variant={
+                  !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length ? 'outlined' : 'contained'
+                }
                 onClick={onClickSupplierPaymentButton}
               >
-                <Typography className={classNames.normalPaymentText}>
-                  {t(TranslationKey['Payment documents'])}
+                <Typography
+                  className={cx(classNames.normalPaymentText, {
+                    [classNames.whiteNormalPaymentText]:
+                      orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
+                  })}
+                >
+                  {t(
+                    TranslationKey[
+                      `${
+                        !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length
+                          ? 'Add payment document'
+                          : 'Document added'
+                      }`
+                    ],
+                  )}
                 </Typography>
+
+                {!orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length && (
+                  <AddIcon className={classNames.addIcon} />
+                )}
+
                 {!!orderFields?.paymentDetails.length && (
                   <Typography
-                    className={classNames.normalPaymentText}
+                    className={cx(classNames.normalPaymentText, {
+                      [classNames.whiteNormalPaymentText]:
+                        orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
+                    })}
                   >{`(${orderFields?.paymentDetails.length})`}</Typography>
                 )}
                 {!!paymentDetailsPhotosToLoad.length && (
                   <Typography
-                    className={classNames.greenPaymentText}
+                    className={cx(classNames.normalPaymentText, {
+                      [classNames.whiteNormalPaymentText]:
+                        orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
+                    })}
                   >{`+ ${paymentDetailsPhotosToLoad.length}`}</Typography>
                 )}
               </Button>
@@ -620,7 +705,15 @@ export const SelectFields = ({
               </div>
             )
           }
-          <PhotoAndFilesCarousel small files={order.images} width="400px" />
+          <PhotoAndFilesCarousel
+            withoutMakeMainImage
+            isEditable
+            small
+            files={order.images}
+            width="400px"
+            imagesForLoad={imagesForLoad}
+            onChangeImagesForLoad={onChangeImagesForLoad}
+          />
         </div>
 
         {order.product.subUsers?.length ? (
@@ -651,10 +744,20 @@ export const SelectFields = ({
         <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
       )}
 
-      <BigImagesModal
+      {/* <BigImagesModal
         openModal={showPhotosModal}
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={order.images || []}
+      /> */}
+
+      <BigImagesModal
+        showPreviews
+        openModal={showImageModal}
+        setOpenModal={() => setShowImageModal(!showImageModal)}
+        images={bigImagesOptions.images}
+        imgIndex={bigImagesOptions.imgIndex}
+        setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
+        // controls={bigImagesModalControls}
       />
     </Grid>
   )

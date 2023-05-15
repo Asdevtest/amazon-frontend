@@ -76,6 +76,8 @@ class BuyerPendingOrdersViewRaw extends Component {
 
       showProgress,
       progressValue,
+      imagesForLoad,
+      paymentMethods,
 
       onClickHsCode,
       onTriggerDrawerOpen,
@@ -84,6 +86,7 @@ class BuyerPendingOrdersViewRaw extends Component {
       onClickOrder,
       onSubmitSaveOrder,
       onTriggerOpenModal,
+      onChangeImagesForLoad,
 
       onSelectionModel,
       setDataGridState,
@@ -97,6 +100,7 @@ class BuyerPendingOrdersViewRaw extends Component {
       setPhotosToLoad,
       onClickSaveSupplierBtn,
       onClickSaveHsCode,
+      changeColumnsModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -146,6 +150,9 @@ class BuyerPendingOrdersViewRaw extends Component {
                   }}
                   componentsProps={{
                     columnMenu: {orderStatusData},
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   density={densityModel}
                   columns={columnsModel}
@@ -173,6 +180,8 @@ class BuyerPendingOrdersViewRaw extends Component {
         >
           <EditOrderModal
             isPendingOrder
+            paymentMethods={paymentMethods}
+            imagesForLoad={imagesForLoad}
             hsCodeData={hsCodeData}
             yuanToDollarRate={yuanToDollarRate}
             userInfo={userInfo}
@@ -191,6 +200,7 @@ class BuyerPendingOrdersViewRaw extends Component {
             onSubmitChangeBoxFields={onSubmitChangeBoxFields}
             onClickSaveSupplierBtn={onClickSaveSupplierBtn}
             onClickHsCode={onClickHsCode}
+            onChangeImagesForLoad={onChangeImagesForLoad}
           />
         </Modal>
 

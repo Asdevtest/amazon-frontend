@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**isFormed** | **Boolean** | Сформирована ли коробка | 
+**boxIds** | **[String]** |  | 
+**newAmounts** | **[Number]** |  | 
 
 

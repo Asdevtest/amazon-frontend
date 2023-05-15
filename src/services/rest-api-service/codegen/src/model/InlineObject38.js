@@ -21,11 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject38 {
     /**
      * Constructs a new <code>InlineObject38</code>.
+     * Схема комментарии байера.
      * @alias module:model/InlineObject38
+     * @param buyerComment {String} Комментарии байера.
      */
-    constructor() { 
+    constructor(buyerComment) { 
         
-        InlineObject38.initialize(this);
+        InlineObject38.initialize(this, buyerComment);
     }
 
     /**
@@ -33,7 +35,8 @@ class InlineObject38 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, buyerComment) { 
+        obj['buyerComment'] = buyerComment;
     }
 
     /**
@@ -47,8 +50,8 @@ class InlineObject38 {
         if (data) {
             obj = obj || new InlineObject38();
 
-            if (data.hasOwnProperty('refundPrice')) {
-                obj['refundPrice'] = ApiClient.convertToType(data['refundPrice'], 'Number');
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
             }
         }
         return obj;
@@ -58,10 +61,10 @@ class InlineObject38 {
 }
 
 /**
- * Сумма воврата
- * @member {Number} refundPrice
+ * Комментарии байера.
+ * @member {String} buyerComment
  */
-InlineObject38.prototype['refundPrice'] = undefined;
+InlineObject38.prototype['buyerComment'] = undefined;
 
 
 

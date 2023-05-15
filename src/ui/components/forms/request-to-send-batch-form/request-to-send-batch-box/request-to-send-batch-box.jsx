@@ -24,6 +24,7 @@ export const RequestToSendBatchBox = ({
   volumeWeightCoefficient,
   userInfo,
   onSubmitChangeBoxFields,
+  onClickHsCode,
 }) => {
   const {classes: classNames} = useClassNames()
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
@@ -48,11 +49,11 @@ export const RequestToSendBatchBox = ({
       className={cx(classNames.box, classNames.row, {[classNames.badBox]: isBadBox})}
       onDoubleClick={() => setShowBoxViewModal(!showBoxViewModal)}
     >
-      <td className={cx(tableCellClsx, classNames.indexCell)}>
+      <div className={cx(tableCellClsx, classNames.indexCell)}>
         <Typography variant="subtitle2">{`№ ${box.humanFriendlyId}`}</Typography>
-      </td>
+      </div>
 
-      <td className={cx(tableCellClsx, classNames.productCell)}>
+      <div className={cx(tableCellClsx, classNames.productCell)}>
         <div className={classNames.boxWrapper}>
           {box.amount > 1 ? (
             <div className={classNames.boxItemWrapper}>
@@ -178,9 +179,9 @@ export const RequestToSendBatchBox = ({
             ))
           )}
         </div>
-      </td>
+      </div>
 
-      <td className={cx(tableCellClsx, classNames.dementionsCell)}>
+      <div className={cx(tableCellClsx, classNames.dementionsCell)}>
         <div className={classNames.dementionsSubWrapper}>
           <Typography className={classNames.dementionsTitle}>{t(TranslationKey['Actual weight'])}</Typography>
 
@@ -216,7 +217,9 @@ export const RequestToSendBatchBox = ({
         </div>
 
         {calcFinalWeightForBox(box, volumeWeightCoefficient) < 12 ? (
-          <span className={classNames.alertText}>{`(${t(TranslationKey['Weight less than 12 kg!'])})`}</span>
+          <Typography className={classNames.alertText}>{`(${t(
+            TranslationKey['Weight less than 12 kg!'],
+          )})`}</Typography>
         ) : null}
 
         {box.amount > 1 ? (
@@ -228,7 +231,7 @@ export const RequestToSendBatchBox = ({
             </Typography>
           </div>
         ) : null}
-      </td>
+      </div>
 
       <td className={cx(tableCellClsx, classNames.shippingLabelCell)}>
         <div className={classNames.shippingLabelWrapper}>
@@ -341,6 +344,7 @@ export const RequestToSendBatchBox = ({
             onSubmitChangeBoxFields(data, true)
             setShowBoxViewModal(!showBoxViewModal)
           }}
+          onClickHsCode={onClickHsCode}
         />
       </Modal>
     </tr>

@@ -44,7 +44,7 @@ export class ClientExchangeViewRaw extends Component {
     const {
       destinationsFavourites,
       confirmModalSettings,
-      volumeWeightCoefficient,
+      platformSettings,
       showOrderModal,
       onDoubleClickBarcode,
 
@@ -80,6 +80,7 @@ export class ClientExchangeViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      changeColumnsModel,
     } = this.viewModel
     const {classes: classNames} = this.props
     return (
@@ -117,6 +118,12 @@ export class ClientExchangeViewRaw extends Component {
                 density={densityModel}
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
+                componentsProps={{
+                  toolbar: {
+                    columsBtnSettings: {columnsModel, changeColumnsModel},
+                  },
+                }}
+                getRowHeight={() => 'auto'}
                 onSelectionModelChange={newSelection => {
                   onSelectionModel(newSelection[0])
                 }}
@@ -132,7 +139,8 @@ export class ClientExchangeViewRaw extends Component {
 
         <Modal openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
           <OrderProductModal
-            volumeWeightCoefficient={volumeWeightCoefficient}
+            // volumeWeightCoefficient={volumeWeightCoefficient}
+            platformSettings={platformSettings}
             destinations={destinations}
             storekeepers={storekeepers}
             requestStatus={requestStatus}

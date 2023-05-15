@@ -248,6 +248,10 @@
     ],
     "linkComponents": ["Hyperlink", {"name": "Link", "linkAttribute": "to"}],
     "import/resolver": {
+      "node": {
+        "paths": ["src", "node_modules"],
+        "extensions": [".ts", ".js", ".jsx", ".json", ".tsx", ".d.ts"]
+      },
       "alias": {
         "map": [
           ["@constants", "./src/constants/"],

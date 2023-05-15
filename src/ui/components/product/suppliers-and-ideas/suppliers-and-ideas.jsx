@@ -25,10 +25,10 @@ import {AddOrEditSupplierModalContent} from '../add-or-edit-supplier-modal-conte
 import {SuppliersAndIdeasModel} from './suppliers-and-ideas.model'
 import {useClassNames} from './suppliers-and-ideas.style'
 
-export const SuppliersAndIdeas = observer(({productId}) => {
+export const SuppliersAndIdeas = observer(({productId, product}) => {
   const {classes: classNames} = useClassNames()
   const history = useHistory()
-  const model = useRef(new SuppliersAndIdeasModel({history, productId}))
+  const model = useRef(new SuppliersAndIdeasModel({history, productId, product}))
 
   useEffect(() => {
     model.current.loadData()
@@ -52,6 +52,7 @@ export const SuppliersAndIdeas = observer(({productId}) => {
     showAddOrEditSupplierModal,
     confirmModalSettings,
     successModalTitle,
+    paymentMethods,
     onTriggerOpenModal,
     onClickRemoveIdea,
     onCreateIdea,
@@ -69,6 +70,8 @@ export const SuppliersAndIdeas = observer(({productId}) => {
   } = model.current
 
   const [updatedIdea, setUpdatedIdea] = useState(curIdea)
+
+  console.log('selectedSupplier', selectedSupplier)
 
   useEffect(() => {
     setUpdatedIdea(() => ({...curIdea}))
@@ -135,6 +138,7 @@ export const SuppliersAndIdeas = observer(({productId}) => {
         setOpenModal={onTriggerAddOrEditSupplierModal}
       >
         <AddOrEditSupplierModalContent
+          paymentMethods={paymentMethods}
           onlyRead={supplierModalReadOnly}
           requestStatus={requestStatus}
           sourceYuanToDollarRate={yuanToDollarRate}

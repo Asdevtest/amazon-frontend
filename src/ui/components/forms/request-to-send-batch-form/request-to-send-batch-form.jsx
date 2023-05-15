@@ -27,6 +27,7 @@ export const RequestToSendBatchForm = observer(
     onClickRemoveBoxFromBatch,
     closeModal,
     onSubmitChangeBoxFields,
+    onClickHsCode,
   }) => {
     const {classes: classNames} = useClassNames()
     useEffect(() => {
@@ -118,6 +119,7 @@ export const RequestToSendBatchForm = observer(
                 boxesDeliveryCosts={boxesDeliveryCosts}
                 onClickRemoveBoxFromBatch={onClickRemoveBtn}
                 onSubmitChangeBoxFields={onSubmitChangeBoxFields}
+                onClickHsCode={onClickHsCode}
               />
             </div>
           ))}

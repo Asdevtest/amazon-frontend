@@ -104,8 +104,8 @@ class RequestModelStatic {
     return response
   }
 
-  getRequests = async (type, subType) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsGet(type, subType)
+  getRequests = async (type, subType, opts) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGet(type, subType, opts)
     return response
   }
 
@@ -143,6 +143,21 @@ class RequestModelStatic {
 
   createSimpleChatByUserId = async id => {
     const response = await restApiService.SearchRequestApi.apiV1ChatsGuidPost(id)
+    return response
+  }
+
+  editRequestsMediaMany = async data => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsMediaManyPatch({body: data})
+    return response
+  }
+
+  updateDeadline = async (id, timeoutAt, maxAmountOfProposals) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidUpdateDeadlinePatch(id, {
+      body: {
+        timeoutAt,
+        maxAmountOfProposals,
+      },
+    })
     return response
   }
 }

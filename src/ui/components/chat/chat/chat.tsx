@@ -8,7 +8,7 @@ import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
 import {InputAdornment, Typography, ClickAwayListener, Avatar} from '@mui/material'
 import TextField from '@mui/material/TextField'
 
-import React, {FC, ReactElement, useEffect, useState, KeyboardEvent} from 'react'
+import React, {FC, ReactElement, useEffect, useState, KeyboardEvent, useContext} from 'react'
 
 import {observer} from 'mobx-react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
@@ -26,6 +26,8 @@ import {Button} from '@components/buttons/button'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
+
+import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
 
 import {CurrentOpponent, IFile} from '../multiple-chats'
 import {ChatFilesInput} from './chat-files-input'
@@ -95,6 +97,8 @@ export const Chat: FC<Props> = observer(
     const [showEmojis, setShowEmojis] = useState(false)
 
     const [showGroupSettings, setShowGroupSettings] = useState(false)
+
+    const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
     const isGroupChat = chat.type === chatsType.GROUP
 
@@ -197,6 +201,8 @@ export const Chat: FC<Props> = observer(
 
     const disabledSubmit = !message.replace(/\n/g, '') && !files.length
 
+    const userContainedInChat = chat.users.some(el => el._id === userId)
+
     return (
       <div className={classNames.root}>
         <div className={classNames.opponentWrapper}>
@@ -217,7 +223,7 @@ export const Chat: FC<Props> = observer(
             searchPhrase={searchPhrase}
           />
 
-          {isGroupChat ? (
+          {isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0 ? (
             <div
               className={cx(classNames.hideAndShowIconWrapper, {[classNames.hideAndShowIcon]: showGroupSettings})}
               onClick={() => setShowGroupSettings(!showGroupSettings)}
@@ -255,13 +261,11 @@ export const Chat: FC<Props> = observer(
 
               {userId === chat.info?.createdBy ? (
                 <Button onClick={onClickAddUsersToGroupChat}>
-                  {
-                    <div className={classNames.addMemberBtnWrapper}>
-                      <Typography className={classNames.addMemberBtnText}>{t(TranslationKey['Add member'])}</Typography>
+                  <div className={classNames.addMemberBtnWrapper}>
+                    <Typography className={classNames.addMemberBtnText}>{t(TranslationKey['Add member'])}</Typography>
 
-                      <MemberPlus className={classNames.arrowIcon} />
-                    </div>
-                  }
+                    <MemberPlus className={classNames.arrowIcon} />
+                  </div>
                 </Button>
               ) : null}
 
@@ -319,6 +323,7 @@ export const Chat: FC<Props> = observer(
             <TextField
               multiline
               autoFocus
+              disabled={!userContainedInChat}
               type="text"
               id="outlined-multiline-flexible"
               size="small"
@@ -327,29 +332,35 @@ export const Chat: FC<Props> = observer(
               maxRows={6}
               placeholder={t(TranslationKey['Write a message'])}
               inputProps={{maxLength: 1000}}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end" classes={{root: classNames.endAdornment}}>
-                    <div className={classNames.filesIconWrapper}>
-                      <img
-                        id="emoji-icon"
-                        src={showEmojis ? '/assets/icons/emoji-active.svg' : '/assets/icons/emoji.svg'}
-                        className={cx(classNames.inputIcon, classNames.emojiIconPos)}
-                        onClick={() => setShowEmojis(!showEmojis)}
-                      />
-                    </div>
+              InputProps={
+                userContainedInChat ? (
+                  {
+                    endAdornment: (
+                      <InputAdornment position="end" classes={{root: classNames.endAdornment}}>
+                        <div className={classNames.filesIconWrapper}>
+                          <img
+                            id="emoji-icon"
+                            src={showEmojis ? '/assets/icons/emoji-active.svg' : '/assets/icons/emoji.svg'}
+                            className={cx(classNames.inputIcon, classNames.emojiIconPos)}
+                            onClick={() => setShowEmojis(!showEmojis)}
+                          />
+                        </div>
 
-                    <div className={classNames.filesIconWrapper}>
-                      <img
-                        src={showFiles ? '/assets/icons/files-active.svg' : '/assets/icons/files.svg'}
-                        className={cx(classNames.inputIcon, classNames.fileIconPos)}
-                        onClick={() => setShowFiles(!showFiles)}
-                      />
-                      {files.length ? <div className={classNames.badge}>{files.length}</div> : undefined}
-                    </div>
-                  </InputAdornment>
-                ),
-              }}
+                        <div className={classNames.filesIconWrapper}>
+                          <img
+                            src={showFiles ? '/assets/icons/files-active.svg' : '/assets/icons/files.svg'}
+                            className={cx(classNames.inputIcon, classNames.fileIconPos)}
+                            onClick={() => setShowFiles(!showFiles)}
+                          />
+                          {files.length ? <div className={classNames.badge}>{files.length}</div> : undefined}
+                        </div>
+                      </InputAdornment>
+                    ),
+                  }
+                ) : (
+                  <div />
+                )
+              }
               value={message}
               onFocus={onFocus}
               onBlur={onBlur}
@@ -359,12 +370,10 @@ export const Chat: FC<Props> = observer(
             />
 
             <Button disabled={disabledSubmit} className={classNames.sendBtn} onClick={() => onSubmitMessageInternal()}>
-              {
-                <div className={classNames.sendBtnTextWrapper}>
-                  <Typography className={classNames.sendBtnText}>{t(TranslationKey.Send)}</Typography>
-                  <img src="/assets/icons/send.svg" className={classNames.sendBtnIcon} />
-                </div>
-              }
+              <div className={classNames.sendBtnTextWrapper}>
+                <Typography className={classNames.sendBtnText}>{t(TranslationKey.Send)}</Typography>
+                <img src="/assets/icons/send.svg" className={classNames.sendBtnIcon} />
+              </div>
             </Button>
           </div>
 

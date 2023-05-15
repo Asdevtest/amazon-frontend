@@ -77,6 +77,7 @@ export class WarehouseSentBatchesViewRaw extends Component {
       setCurrentOpenedBatch,
       onSearchSubmit,
       onSubmitChangeBoxFields,
+      changeColumnsModel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -102,8 +103,8 @@ export class WarehouseSentBatchesViewRaw extends Component {
                 >
                   {'Сancel sending'}
                 </Button>
-
               </div> */}
+
               <div className={classNames.headerWrapper}>
                 <SearchInput
                   inputClasses={classNames.searchInput}
@@ -144,6 +145,11 @@ export class WarehouseSentBatchesViewRaw extends Component {
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
+                  }}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection)
                   }}

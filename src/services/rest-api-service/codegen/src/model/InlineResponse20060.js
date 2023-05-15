@@ -22,12 +22,10 @@ class InlineResponse20060 {
     /**
      * Constructs a new <code>InlineResponse20060</code>.
      * @alias module:model/InlineResponse20060
-     * @param _id {String} Гуид магазина
-     * @param name {String} Название магазина
      */
-    constructor(_id, name) { 
+    constructor() { 
         
-        InlineResponse20060.initialize(this, _id, name);
+        InlineResponse20060.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineResponse20060 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, _id, name) { 
-        obj['_id'] = _id;
-        obj['name'] = name;
+    static initialize(obj) { 
     }
 
     /**
@@ -54,8 +50,26 @@ class InlineResponse20060 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            }
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            }
+            if (data.hasOwnProperty('commentByClient')) {
+                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
+            }
+            if (data.hasOwnProperty('commentByPerformer')) {
+                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
+            }
+            if (data.hasOwnProperty('fileLink')) {
+                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -65,16 +79,52 @@ class InlineResponse20060 {
 }
 
 /**
- * Гуид магазина
+ * GUID в базе данных
  * @member {String} _id
  */
 InlineResponse20060.prototype['_id'] = undefined;
 
 /**
- * Название магазина
- * @member {String} name
+ * Guid заявки к которой относится данное media.
+ * @member {String} requestId
  */
-InlineResponse20060.prototype['name'] = undefined;
+InlineResponse20060.prototype['requestId'] = undefined;
+
+/**
+ * Guid предложения к которой относится данное media.
+ * @member {String} proposalId
+ */
+InlineResponse20060.prototype['proposalId'] = undefined;
+
+/**
+ * комментарий клиента
+ * @member {String} commentByClient
+ */
+InlineResponse20060.prototype['commentByClient'] = undefined;
+
+/**
+ * комментарий исполнителя
+ * @member {String} commentByPerformer
+ */
+InlineResponse20060.prototype['commentByPerformer'] = undefined;
+
+/**
+ * Ссылка на файл
+ * @member {String} fileLink
+ */
+InlineResponse20060.prototype['fileLink'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} createdAt
+ */
+InlineResponse20060.prototype['createdAt'] = undefined;
+
+/**
+ * Дата обновления.
+ * @member {Date} updatedAt
+ */
+InlineResponse20060.prototype['updatedAt'] = undefined;
 
 
 

@@ -9,6 +9,10 @@ export const useClassNames = makeStyles()(theme => ({
 
     flexDirection: 'column',
     position: 'relative',
+    [theme.breakpoints.down(1282)]: {
+      width: 1150,
+      maxHeight: 'calc(100vh - 145px)',
+    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
       maxWidth: '520px',
@@ -21,14 +25,23 @@ export const useClassNames = makeStyles()(theme => ({
     // right: 0,
 
     position: 'sticky',
-    bottom: -15,
-    right: '0',
+    zIndex: 100,
+    bottom: 0,
+    background: theme.palette.background.general,
+    paddingBottom: 40,
+    paddingTop: 20,
   },
 
   modalHeader: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    position: 'sticky',
+    top: 0,
+    zIndex: 100,
+    background: theme.palette.background.general,
+    paddingTop: 40,
+    paddingBottom: 20,
   },
   modalTitle: {
     fontSize: '30px',
@@ -65,6 +78,11 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   form: {
+    [theme.breakpoints.down(1282)]: {
+      height: 550,
+      width: 'auto',
+      overflowY: 'auto',
+    },
     marginTop: theme.spacing(2.5),
     marginBottom: theme.spacing(2.5),
   },
@@ -76,6 +94,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     gap: '20px',
+
     [theme.breakpoints.down(768)]: {
       position: 'sticky',
       bottom: 0,
@@ -188,6 +207,9 @@ export const useClassNames = makeStyles()(theme => ({
 
     padding: 0,
     border: `1px solid ${theme.palette.input.customBorder}`,
+    [theme.breakpoints.down(1282)]: {
+      width: 260,
+    },
     [theme.breakpoints.down(768)]: {
       height: 'auto',
       width: '100%',
@@ -195,8 +217,17 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  storekeeperCommentField: {
+    [theme.breakpoints.down(1282)]: {
+      height: 182,
+    },
+  },
+
   clientAndBuyerComment: {
     height: '100px',
+    [theme.breakpoints.down(1282)]: {
+      height: 62,
+    },
   },
 
   inputField: {
@@ -207,6 +238,9 @@ export const useClassNames = makeStyles()(theme => ({
     width: '400px',
     display: 'flex',
     gap: '30px',
+    [theme.breakpoints.down(1282)]: {
+      width: 'fit-content',
+    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
       flexDirection: 'column',
@@ -221,6 +255,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   imageFileInputWrapper: {
     width: '690px',
+
+    [theme.breakpoints.down(1282)]: {
+      width: 550,
+    },
     [theme.breakpoints.down(768)]: {
       width: '100%',
       padding: '0 10px',
@@ -250,6 +288,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'start',
+    padding: '0 15px 0 0',
     [theme.breakpoints.down(768)]: {
       width: '100%',
       flexDirection: 'column',
@@ -302,7 +341,7 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       display: 'flex',
       justifyContent: 'center',
-      marginBottom: '20px',
+      // marginBottom: '20px',
     },
   },
   hideBlock: {

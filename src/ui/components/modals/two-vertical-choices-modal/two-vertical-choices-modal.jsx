@@ -17,6 +17,9 @@ export const TwoVerticalChoicesModal = ({
   onClickBottomBtn,
   tooltipFirstButton,
   tooltipSecondButton,
+  tooltipThirdButton,
+  thirdBtnText,
+  onClickThirdBtn,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -46,6 +49,17 @@ export const TwoVerticalChoicesModal = ({
           >
             {bottomBtnText}
           </Button>
+          {onClickThirdBtn && thirdBtnText && (
+            <Button
+              tooltipInfoContent={tooltipThirdButton}
+              color="primary"
+              variant="text"
+              className={classNames.bottomBtnText}
+              onClick={onClickThirdBtn}
+            >
+              {thirdBtnText}
+            </Button>
+          )}
         </div>
       </div>
     </Modal>

@@ -27,7 +27,7 @@ class ClientFreelanceViewRaw extends Component {
   viewModel = new ClientFreelanceViewModel({history: this.props.history})
 
   render() {
-    const {drawerOpen, onChangeDrawerOpen, onClickMyRequests, onClickVacRequests, onClickMyProposals} = this.viewModel
+    const {drawerOpen, onChangeDrawerOpen, onClickMyRequests, onClickServiceExchange} = this.viewModel
 
     const {classes: classNames} = this.props
 
@@ -50,15 +50,27 @@ class ClientFreelanceViewRaw extends Component {
                     </div>
                   </Button>
 
-                  <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickVacRequests}>
+                  {/* <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickVacRequests}>
                     <div className={classNames.btnTextWrapper}>
                       <Typography className={classNames.btnText}>{t(TranslationKey['Vacant requests'])}</Typography>
                       <ArrowRightAltIcon color="primary" />
                     </div>
-                  </Button>
-                  <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickMyProposals}>
+                  </Button> */}
+                  {/* <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickMyProposals}>
                     <div className={classNames.btnTextWrapper}>
                       <Typography className={classNames.btnText}>{t(TranslationKey['My proposals'])}</Typography>
+                      <ArrowRightAltIcon color="primary" />
+                    </div>
+                  </Button> */}
+
+                  <Button
+                    className={classNames.button}
+                    color="primary"
+                    variant="outlined"
+                    onClick={onClickServiceExchange}
+                  >
+                    <div className={classNames.btnTextWrapper}>
+                      <Typography className={classNames.btnText}>{t(TranslationKey['Service exchange'])}</Typography>
                       <ArrowRightAltIcon color="primary" />
                     </div>
                   </Button>

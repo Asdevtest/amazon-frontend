@@ -22,10 +22,11 @@ class InlineObject90 {
     /**
      * Constructs a new <code>InlineObject90</code>.
      * @alias module:model/InlineObject90
+     * @param action {module:model/InlineObject90.ActionEnum} 
      */
-    constructor() { 
+    constructor(action) { 
         
-        InlineObject90.initialize(this);
+        InlineObject90.initialize(this, action);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject90 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, action) { 
+        obj['action'] = action;
     }
 
     /**
@@ -47,6 +49,9 @@ class InlineObject90 {
         if (data) {
             obj = obj || new InlineObject90();
 
+            if (data.hasOwnProperty('action')) {
+                obj['action'] = ApiClient.convertToType(data['action'], 'String');
+            }
             if (data.hasOwnProperty('reason')) {
                 obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
@@ -58,13 +63,39 @@ class InlineObject90 {
 }
 
 /**
- * Причины закрытия приема предложений.
+ * @member {module:model/InlineObject90.ActionEnum} action
+ */
+InlineObject90.prototype['action'] = undefined;
+
+/**
+ * Причина смены статуса.
  * @member {String} reason
  */
 InlineObject90.prototype['reason'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>action</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject90['ActionEnum'] = {
+
+    /**
+     * value: "LINK"
+     * @const
+     */
+    "LINK": "LINK",
+
+    /**
+     * value: "UNLINK"
+     * @const
+     */
+    "UNLINK": "UNLINK"
+};
 
 
 

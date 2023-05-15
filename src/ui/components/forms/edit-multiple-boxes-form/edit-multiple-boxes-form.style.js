@@ -238,6 +238,10 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
   },
 
+  storekeeperTrafficBtn: {
+    color: theme.palette.text.general,
+  },
+
   storekeeperDisableBtn: {
     backgroundColor: '#e4e7ea',
     borderRadius: '4px',
@@ -252,7 +256,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   superBox: {
-    color: theme.palette.primary.main,
+    color: theme.palette.primary.negativeMain,
     fontSize: 20,
   },
 

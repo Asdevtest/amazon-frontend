@@ -4,13 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**clientComment** | **String** |  | [optional] 
-**storekeeperComment** | **String** |  | [optional] 
-**referenceId** | **String** | Дополнительное поле shippingLabel для доставки грузовиками | [optional] 
-**fbaNumber** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
-**upsTrackNumber** | **String** | Идентификатор UPS | [optional] 
-**trackNumberText** | **String** | Текст трек номера | [optional] 
-**trackNumberFile** | **[String]** |  | [optional] 
-**prepId** | **String** | Значение информационного ключа | [optional] 
+**lengthCmWarehouse** | **Number** |  | [optional] 
+**widthCmWarehouse** | **Number** |  | [optional] 
+**heightCmWarehouse** | **Number** |  | [optional] 
+**weighGrossKgWarehouse** | **Number** |  | [optional] 
+**images** | **[String]** | Массив ссылок на фотографии. | [optional] 
 
 

@@ -38,7 +38,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
-  const curUserId: string | undefined = UserModel.userId
+  const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
   return (
     <div className={classNames.root}>
@@ -66,7 +66,18 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
         </Linkify>
       </div>
       <div className={classNames.resultWrapper}>
-        <PhotoAndFilesCarousel notToShowEmpty small files={message.data.edited.linksToMediaFiles} width="340px" />
+        <PhotoAndFilesCarousel
+          notToShowEmpty
+          small
+          files={message.data.edited.linksToMediaFiles?.map(el => (typeof el === 'object' ? el.fileLink : el))}
+          width="340px"
+          withoutPhotos={undefined}
+          whithoutFiles={undefined}
+          imagesForLoad={undefined}
+          isEditable={undefined}
+          withoutMakeMainImage={undefined}
+          onChangeImagesForLoad={undefined}
+        />
 
         <div className={classNames.resultRightSide}>
           <div className={classNames.timeToCheckBlockWrapper}>

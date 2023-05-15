@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import {action, makeAutoObservable, reaction, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {creatSupplier, patchSuppliers} from '@constants/white-list'
 
 import {BuyerModel} from '@models/buyer-model'
 import {ProductModel} from '@models/product-model'
@@ -13,11 +15,7 @@ import {UserModel} from '@models/user-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
 import {isUndefined} from '@utils/checks'
-import {
-  getNewObjectWithDefaultValue,
-  getObjectFilteredByKeyArrayBlackList,
-  getObjectFilteredByKeyArrayWhiteList,
-} from '@utils/object'
+import {getNewObjectWithDefaultValue, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
@@ -34,6 +32,7 @@ const fieldsOfProductAllowedToUpdate = [
   'buyersComment',
   'additionalProp1',
   'currentSupplierId',
+  'tags',
 ]
 
 const fieldsOfProductAllowedToForceUpdate = [
@@ -47,6 +46,7 @@ const fieldsOfProductAllowedToForceUpdate = [
   'buyersComment',
   'additionalProp1',
   'currentSupplierId',
+  'tags',
 ]
 
 const formFieldsDefault = {
@@ -100,6 +100,8 @@ export class BuyerProductViewModel {
 
   storekeepersData = []
   hsCodeData = {}
+
+  paymentMethods = []
 
   showTab = undefined
 
@@ -226,7 +228,12 @@ export class BuyerProductViewModel {
     this.product = value
   }
 
+  async getSuppliersPaymentMethods() {
+    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+  }
+
   async onClickSupplierButtons(actionType) {
+    this.getSuppliersPaymentMethods()
     switch (actionType) {
       case 'add':
         runInAction(() => {
@@ -446,35 +453,46 @@ export class BuyerProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({supplier, photosOfSupplier}) {
+  async onClickSaveSupplierBtn({supplier, photosOfSupplier, editPhotosOfSupplier}) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      this.readyImages = []
+      this.clearReadyImages()
 
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+      if (editPhotosOfSupplier.length) {
+        await onSubmitPostImages.call(this, {images: editPhotosOfSupplier, type: 'readyImages'})
       }
 
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
 
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
-        images: supplier.images.concat(this.readyImages),
+        images: this.readyImages,
+      }
+
+      this.clearReadyImages()
+
+      if (photosOfSupplier.length) {
+        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+        supplier = {
+          ...supplier,
+          images: [...supplier.images, ...this.readyImages],
+        }
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
-
         if (supplier._id === this.product.currentSupplierId) {
           this.product.currentSupplier = supplier
           updateProductAutoCalculatedFields.call(this)
         }
       } else {
-        const createSupplierResult = await SupplierModel.createSupplier(supplier)
+        const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+        const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
         await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
         runInAction(() => {
           this.product.suppliers.push(createSupplierResult.guid)
@@ -529,5 +547,11 @@ export class BuyerProductViewModel {
 
   setActionStatus(actionStatus) {
     this.actionStatus = actionStatus
+  }
+
+  clearReadyImages() {
+    runInAction(() => {
+      this.readyImages = []
+    })
   }
 }

@@ -1,13 +1,19 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+/* eslint-disable no-unused-vars */
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
+import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {RequestSubType, RequestType} from '@constants/request-type'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/user-roles'
 import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
 
 import {RequestModel} from '@models/request-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
+
+import {FreelancerVacantRequestColumns} from '@views/freelancer/freelancer-vacant-request-columns/freelancer-vacant-request-columns'
+
+import {addIdDataConverter} from '@utils/data-grid-data-converters'
 
 export class VacantRequestsViewModel {
   history = undefined
@@ -17,17 +23,39 @@ export class VacantRequestsViewModel {
 
   nameSearchValue = ''
 
+  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+
   drawerOpen = false
+
+  currentData = []
+
+  userInfo = []
+  userRole = undefined
+
+  rowCount = 0
+  curPage = 0
+  sortModel = []
+  filterModel = {items: []}
+  rowsPerPage = 15
+  columnVisibilityModel = undefined
 
   searchMyRequestsIds = []
   requests = []
   openModal = null
-  viewMode = tableViewMode.BLOCKS
+  viewMode = tableViewMode.TABLE
   sortMode = tableSortMode.DESK
 
   get user() {
     return UserModel.userInfo
   }
+
+  get languageTag() {
+    return SettingsModel.languageTag || {}
+  }
+
+  handlers = {onClickViewMore: id => this.onClickViewMore(id)}
+
+  columnsModel = FreelancerVacantRequestColumns(this.handlers, this.languageTag)
 
   constructor({history}) {
     runInAction(() => {
@@ -35,6 +63,38 @@ export class VacantRequestsViewModel {
     })
 
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => this.requests,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
+    )
+
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.nameSearchValue,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
+    )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.getDataGridState()
+    }
+  }
+
+  getDataGridState() {
+    runInAction(() => {
+      this.columnsModel = FreelancerVacantRequestColumns(this.handlers, this.languageTag)
+    })
   }
 
   setTableModeState() {
@@ -63,10 +123,22 @@ export class VacantRequestsViewModel {
 
   getCurrentData() {
     if (this.nameSearchValue) {
-      return toJS(this.requests).filter(el => el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
+      return toJS(this.requests).filter(
+        el =>
+          el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          String(el?.humanFriendlyId)?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
     } else {
       return toJS(this.requests)
     }
+  }
+
+  onClickTaskType(taskType) {
+    runInAction(() => {
+      this.selectedTaskType = taskType
+    })
+    this.getRequestsVacant()
   }
 
   onChangeNameSearchValue(e) {
@@ -75,9 +147,16 @@ export class VacantRequestsViewModel {
     })
   }
 
+  async getUserInfo() {
+    const result = await UserModel.userInfo
+    this.userInfo = result
+    this.userRole = UserRoleCodeMap[result.role]
+  }
+
   async loadData() {
     try {
-      await this.getRequestsVacant()
+      await this.getUserInfo()
+      this.getRequestsVacant()
       this.getTableModeState()
     } catch (error) {
       console.log(error)
@@ -86,21 +165,30 @@ export class VacantRequestsViewModel {
 
   async getRequestsVacant() {
     try {
-      const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.VACANT)
+      const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.VACANT, {
+        typeTask:
+          Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
+            ? this.userInfo?.allowedSpec?.map(spec => Number(spec)).join(', ')
+            : this.selectedTaskType,
+      })
 
       runInAction(() => {
-        this.requests = result
+        this.requests = addIdDataConverter(result)
+        this.rowCount = result.length
       })
     } catch (error) {
       console.log(error)
+
+      runInAction(() => {
+        this.requests = []
+      })
     }
   }
 
   async onClickViewMore(id) {
     try {
       this.history.push(
-        `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests/custom-search-request`,
-        {requestId: id},
+        `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests/custom-search-request?request-id=${id}`,
       )
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
@@ -136,5 +224,35 @@ export class VacantRequestsViewModel {
     })
 
     this.setTableModeState()
+  }
+
+  onChangeCurPage(e) {
+    runInAction(() => {
+      this.curPage = e
+    })
+    this.getRequestsVacant()
+  }
+
+  onChangeSortingModel(sortModel) {
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
+
+    this.getRequestsVacant()
+  }
+
+  onChangeRowsPerPage(e) {
+    runInAction(() => {
+      this.rowsPerPage = e
+      this.curPage = 0
+    })
+
+    this.getRequestsVacant()
+  }
+
+  onChangeFilterModel(model) {
+    runInAction(() => {
+      this.filterModel = model
+    })
   }
 }

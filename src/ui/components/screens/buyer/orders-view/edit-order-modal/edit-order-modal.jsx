@@ -30,6 +30,7 @@ import {CustomCarousel} from '@components/custom-carousel'
 import {Field} from '@components/field/field'
 import {CheckQuantityForm} from '@components/forms/check-quantity-form'
 import {CreateBoxForm} from '@components/forms/create-box-form'
+import {PaymentMethodsForm} from '@components/forms/payment-methods-form'
 import {SupplierPaymentForm} from '@components/forms/supplier-payment-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
@@ -44,6 +45,7 @@ import {Text} from '@components/text'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull} from '@utils/checks'
 import {formatDateWithoutTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {
   clearEverythingExceptNumbers,
@@ -67,6 +69,8 @@ const confirmModalModes = {
 
 export const EditOrderModal = observer(
   ({
+    paymentMethods,
+    imagesForLoad,
     yuanToDollarRate,
     isPendingOrder,
     userInfo,
@@ -88,6 +92,7 @@ export const EditOrderModal = observer(
     setUpdateSupplierData,
     onClickSaveWithoutUpdateSupData,
     onClickUpdataSupplierData,
+    onChangeImagesForLoad,
   }) => {
     const {classes: classNames} = useClassNames()
 
@@ -121,6 +126,8 @@ export const EditOrderModal = observer(
     const [showAddOrEditSupplierModal, setShowAddOrEditSupplierModal] = useState(false)
 
     const [supplierPaymentModal, setSupplierPaymentModal] = useState(false)
+
+    const [paymentMethodsModal, setPaymentMethodsModal] = useState(false)
 
     const [tmpNewOrderFieldsState, setTmpNewOrderFieldsState] = useState({})
 
@@ -192,14 +199,20 @@ export const EditOrderModal = observer(
       buyerComment: order?.buyerComment || '',
       deliveryCostToTheWarehouse:
         order?.deliveryCostToTheWarehouse ||
-        (order.orderSupplier.batchDeliveryCostInDollar / order.orderSupplier.amount) * order.amount,
+        (order.orderSupplier.batchDeliveryCostInDollar / order.orderSupplier.amount) * order.amount ||
+        0,
       priceBatchDeliveryInYuan:
+        // order?.priceBatchDeliveryInYuan ||
+        // (order.orderSupplier.batchDeliveryCostInYuan / order.orderSupplier.amount) * order.amount ||
+        // 0,
         order?.priceBatchDeliveryInYuan ||
-        (order.orderSupplier.batchDeliveryCostInYuan / order.orderSupplier.amount) * order.amount,
+        (Number(order?.priceBatchDeliveryInYuan) === 0 && '0') ||
+        (order.orderSupplier.batchDeliveryCostInYuan / order.orderSupplier.amount) * order.amount ||
+        0,
       trackId: '',
       material: order?.product?.material || '',
       amount: order?.amount || 0,
-      trackingNumberChina: order?.trackingNumberChina,
+      trackingNumberChina: order?.trackingNumberChina || '',
       batchPrice: 0,
       totalPriceChanged: order?.totalPriceChanged || order?.totalPrice,
       yuanToDollarRate: order?.yuanToDollarRate || yuanToDollarRate,
@@ -207,13 +220,23 @@ export const EditOrderModal = observer(
       tmpRefundToClient: 0,
       priceInYuan: order?.priceInYuan || order.totalPriceChanged * order.yuanToDollarRate,
       paymentDetails: order.paymentDetails || [],
+      payments: order.payments || [],
+      orderSupplier: order?.orderSupplier || {},
     }
 
     const [orderFields, setOrderFields] = useState(initialState)
 
-    const [hsCode, setHsCode] = useState({...hsCodeData})
+    const validOrderPayments = orderFields?.orderSupplier?.paymentMethods?.length
+      ? orderFields?.orderSupplier?.paymentMethods.filter(
+          method => !orderFields?.payments.some(payment => payment.paymentMethod._id === method._id),
+        )
+      : paymentMethods.filter(
+          method => !orderFields?.payments.some(payment => payment.paymentMethod._id === method._id),
+        )
 
-    // console.log('orderFields', orderFields)
+    const [orderPayments, setOrderPayments] = useState([...orderFields.payments, ...validOrderPayments])
+
+    const [hsCode, setHsCode] = useState({...hsCodeData})
 
     const onClickUpdateButton = () => {
       const newOrderFieldsState = {...orderFields}
@@ -250,6 +273,8 @@ export const EditOrderModal = observer(
       trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
       commentToWarehouse,
       paymentDetailsPhotosToLoad,
+      editPaymentDetailsPhotos,
+      orderPayments,
     })
 
     const onClickSaveOrder = () => {
@@ -263,9 +288,9 @@ export const EditOrderModal = observer(
           amount: orderFields.amount,
           price: cost,
           priceInYuan: costInYuan,
-          batchDeliveryCostInYuan: orderFields.priceBatchDeliveryInYuan,
-          batchDeliveryCostInDollar: orderFields.deliveryCostToTheWarehouse,
-          batchTotalCostInDollar: orderFields.totalPriceChanged,
+          batchDeliveryCostInYuan: orderFields.priceBatchDeliveryInYuan || 0,
+          batchDeliveryCostInDollar: orderFields.deliveryCostToTheWarehouse || 0,
+          batchTotalCostInDollar: orderFields.totalPriceChanged || 0,
         },
       }
 
@@ -300,7 +325,6 @@ export const EditOrderModal = observer(
         [
           'totalPriceChanged',
           'deliveryCostToTheWarehouse',
-          'priceBatchDeliveryInYuan',
           'yuanToDollarRate',
           'item',
           'tmpRefundToClient',
@@ -316,17 +340,11 @@ export const EditOrderModal = observer(
           return
         }
 
-        if (filedName === 'priceBatchDeliveryInYuan') {
-          newOrderFieldsState.priceBatchDeliveryInYuan = e.target.value
-
-          newOrderFieldsState.deliveryCostToTheWarehouse = Number(e.target.value) / orderFields.yuanToDollarRate
-        }
-
         if (filedName === 'yuanToDollarRate') {
           if (usePriceInDollars) {
             newOrderFieldsState.priceInYuan = newOrderFieldsState.totalPriceChanged * e.target.value
 
-            newOrderFieldsState.priceBatchDeliveryInYuan = orderFields.deliveryCostToTheWarehouse * e.target.value
+            newOrderFieldsState.priceBatchDeliveryInYuan = orderFields.deliveryCostToTheWarehouse * e.target.value || 0
           } else {
             newOrderFieldsState.yuanToDollarRate = e.target.value
             newOrderFieldsState.totalPriceChanged = orderFields.priceInYuan / (e.target.value || 1)
@@ -337,6 +355,9 @@ export const EditOrderModal = observer(
           newOrderFieldsState.totalPriceChanged = e.target.value / orderFields.yuanToDollarRate
         }
         newOrderFieldsState[filedName] = e.target.value
+      } else if (filedName === 'priceBatchDeliveryInYuan') {
+        newOrderFieldsState.priceBatchDeliveryInYuan = e.target.value || 0
+        newOrderFieldsState.deliveryCostToTheWarehouse = Number(e.target.value) / orderFields.yuanToDollarRate
       } else if (filedName === 'status') {
         newOrderFieldsState[filedName] = e.target.value
         setTmpNewOrderFieldsState(newOrderFieldsState)
@@ -370,13 +391,13 @@ export const EditOrderModal = observer(
 
         newOrderFieldsState.priceBatchDeliveryInYuan =
           (orderFields.orderSupplier.batchDeliveryCostInYuan / orderFields.orderSupplier.amount) *
-            clearEverythingExceptNumbers(e.target.value) || ''
+            clearEverythingExceptNumbers(e.target.value) || 0
 
         newOrderFieldsState.deliveryCostToTheWarehouse =
           (orderFields.orderSupplier.batchDeliveryCostInYuan /
             orderFields.orderSupplier.amount /
             orderFields.yuanToDollarRate) *
-            clearEverythingExceptNumbers(e.target.value) || ''
+            clearEverythingExceptNumbers(e.target.value) || 0
       } else {
         newOrderFieldsState[filedName] = e.target.value
       }
@@ -405,15 +426,19 @@ export const EditOrderModal = observer(
           return setOrderFields(tmpNewOrderFieldsState)
 
         case 'SUBMIT':
-          return onSubmitSaveOrder({
-            order,
-            orderFields,
-            boxesForCreation,
-            photosToLoad,
-            // hsCode,
-            trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
-            commentToWarehouse,
-          })
+          return onSubmitSaveOrder(
+            //   {
+            //   order,
+            //   orderFields,
+            //   boxesForCreation,
+            //   photosToLoad,
+            //   // hsCode,
+            //   trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
+            //   commentToWarehouse,
+            //   editPaymentDetailsPhotos,
+            // }
+            getDataForSaveOrder(),
+          )
       }
     }
 
@@ -459,11 +484,19 @@ export const EditOrderModal = observer(
     const [photosToLoad, setPhotosToLoad] = useState([])
     const [paymentDetailsPhotosToLoad, setPaymentDetailsPhotosToLoad] = useState([])
 
+    const [editPaymentDetailsPhotos, setEditPaymentDetailsPhotos] = useState(orderFields.paymentDetails)
+
+    const onClickSavePaymentDetails = (loadedFiles, editedFiles) => {
+      setPaymentDetailsPhotosToLoad(loadedFiles)
+      setEditPaymentDetailsPhotos(editedFiles)
+    }
+
     const disableSubmit =
       requestStatus === loadingStatuses.isLoading ||
       submitDisabledOrderStatuses.includes(order.status + '') ||
       !orderFields.orderSupplier ||
       !orderFields.yuanToDollarRate ||
+      !orderFields.amount ||
       (order.status === OrderStatusByKey[OrderStatus.VERIFY_RECEIPT] &&
         orderFields.status === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
         !boxesForCreation.length)
@@ -474,6 +507,8 @@ export const EditOrderModal = observer(
       selectedSupplier?.createdBy._id !== userInfo._id &&
       userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id &&
       isNotNull(selectedSupplier)
+
+    const [forceReadOnly, setForceReadOnly] = useState(false)
 
     return (
       <Box className={classNames.modalWrapper}>
@@ -675,6 +710,14 @@ export const EditOrderModal = observer(
                           order.status === OrderStatusByKey[OrderStatus.IN_STOCK]) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}` &&
                           order.status !== OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
+                        (statusCode === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
+                          order.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) ||
+                        (statusCode === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` &&
+                          order.status === OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
+                        (statusCode === `${OrderStatusByKey[OrderStatus.PENDING]}` &&
+                          order.status === OrderStatusByKey[OrderStatus.PENDING]) ||
+                        (statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` &&
+                          order.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
                           order.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED])
                       }
@@ -690,6 +733,9 @@ export const EditOrderModal = observer(
 
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
+            orderPayments={orderPayments}
+            imagesForLoad={imagesForLoad}
+            userInfo={userInfo}
             paymentDetailsPhotosToLoad={paymentDetailsPhotosToLoad}
             hsCode={hsCode}
             setHsCode={setHsCode}
@@ -709,6 +755,8 @@ export const EditOrderModal = observer(
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}
             setUsePriceInDollars={setUsePriceInDollars}
+            setPaymentMethodsModal={() => setPaymentMethodsModal(!paymentMethodsModal)}
+            onChangeImagesForLoad={onChangeImagesForLoad}
             onClickHsCode={onClickHsCode}
             onClickUpdateButton={onClickUpdateButton}
             onClickSupplierPaymentButton={() => setSupplierPaymentModal(!supplierPaymentModal)}
@@ -760,47 +808,38 @@ export const EditOrderModal = observer(
                 {selectedSupplier ? (
                   <>
                     <div className={classNames.supplierButtonWrapper}>
-                      {/* <Button
-                        disabled={checkIsPlanningPrice && !isPendingOrder}
-                        className={classNames.iconBtn}
-                        onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
-                      >
-                        {selectedSupplier?.createdBy._id !== userInfo._id &&
-                        userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id ? (
-                          <VisibilityOutlinedIcon />
-                        ) : (
-                          <EditOutlinedIcon />
-                        )}
-                      </Button> */}
-
                       {selectedSupplier?.createdBy._id !== userInfo._id &&
                       userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id ? (
-                        <Button
-                          className={classNames.iconBtn}
-                          onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
-                        >
-                          <VisibilityOutlinedIcon />
-                        </Button>
+                        <></>
                       ) : (
-                        <Button
-                          disabled={checkIsPlanningPrice && !isPendingOrder}
-                          className={classNames.iconBtn}
-                          onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
-                        >
-                          <EditOutlinedIcon />
-                        </Button>
+                        <>
+                          <Button
+                            disabled={checkIsPlanningPrice && !isPendingOrder}
+                            className={classNames.iconBtn}
+                            onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
+                          >
+                            <EditOutlinedIcon />
+                          </Button>
+                          <Typography className={classNames.supplierButtonText}>
+                            {t(TranslationKey['Edit a supplier'])}
+                          </Typography>
+                        </>
                       )}
 
-                      {selectedSupplier?.createdBy._id !== userInfo._id &&
-                      userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id ? (
+                      <div className={classNames.supplierButtonWrapper}>
+                        <Button
+                          className={classNames.iconBtn}
+                          onClick={() => {
+                            setForceReadOnly(true)
+                            setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
+                          }}
+                        >
+                          <VisibilityOutlinedIcon />
+                        </Button>
                         <Typography className={classNames.supplierButtonText}>
                           {t(TranslationKey['Open the parameters supplier'])}
                         </Typography>
-                      ) : (
-                        <Typography className={classNames.supplierButtonText}>
-                          {t(TranslationKey['Edit a supplier'])}
-                        </Typography>
-                      )}
+                      </div>
                     </div>
 
                     <div className={classNames.supplierButtonWrapper}>
@@ -1053,6 +1092,10 @@ export const EditOrderModal = observer(
           onClickSuccessBtn={() => {
             confirmModalActionByMode(confirmModalMode)
             setShowConfirmModal(!showConfirmModal)
+
+            if (Number(tmpNewOrderFieldsState.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
+              setPaymentMethodsModal(!paymentMethodsModal)
+            }
           }}
           onClickCancelBtn={() => setShowConfirmModal(!showConfirmModal)}
         />
@@ -1085,6 +1128,7 @@ export const EditOrderModal = observer(
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
+          setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
         />
 
         <Modal
@@ -1117,27 +1161,45 @@ export const EditOrderModal = observer(
           <SupplierPaymentForm
             item={orderFields}
             uploadedFiles={paymentDetailsPhotosToLoad}
-            onClickSaveButton={setPaymentDetailsPhotosToLoad}
+            editPaymentDetailsPhotos={editPaymentDetailsPhotos}
+            onClickSaveButton={onClickSavePaymentDetails}
             onCloseModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
+          />
+        </Modal>
+
+        <Modal
+          missClickModalOn
+          openModal={paymentMethodsModal}
+          setOpenModal={() => setPaymentMethodsModal(!paymentMethodsModal)}
+        >
+          <PaymentMethodsForm
+            payments={(!!orderPayments.length && orderPayments) || paymentMethods}
+            onClickSaveButton={setOrderPayments}
+            onClickCancelButton={() => setPaymentMethodsModal(!paymentMethodsModal)}
           />
         </Modal>
 
         <Modal
           missClickModalOn={!isOnlyRead}
           openModal={showAddOrEditSupplierModal}
-          setOpenModal={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
+          setOpenModal={() => {
+            setForceReadOnly(false)
+            setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
+          }}
         >
           <AddOrEditSupplierModalContent
+            paymentMethods={paymentMethods}
             requestStatus={requestStatus}
             sourceYuanToDollarRate={yuanToDollarRate}
             volumeWeightCoefficient={volumeWeightCoefficient}
             title={t(TranslationKey['Adding and editing a supplier'])}
             supplier={selectedSupplier}
-            onlyRead={isOnlyRead}
-            // showProgress={showProgress}
-            // progressValue={progressValue}
+            onlyRead={isOnlyRead || forceReadOnly}
             onClickSaveBtn={onClickSubmitSaveSupplierBtn}
-            onTriggerShowModal={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
+            onTriggerShowModal={() => {
+              setForceReadOnly(false)
+              setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
+            }}
           />
         </Modal>
       </Box>

@@ -57,6 +57,7 @@ class AdminExchangeViewsRaw extends Component {
       onChangeSortingModel,
       onClickTableRow,
       onChangeFilterModel,
+      changeColumnsModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -108,6 +109,11 @@ class AdminExchangeViewsRaw extends Component {
                   components={{
                     Toolbar: DataGridCustomToolbar,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   density={densityModel}
                   columns={columnsModel}

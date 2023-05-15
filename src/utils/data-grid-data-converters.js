@@ -1,6 +1,11 @@
 import {ideaStatusByCode, ideaStatusTranslate} from '@constants/idea-status'
 import {OrderStatusByCode, OrderStatusTranslate} from '@constants/order-status'
-import {ProductStatusByCode, productStatusTranslateKey} from '@constants/product-status'
+import {
+  ProductStatus,
+  ProductStatusByCode,
+  ProductStatusByKey,
+  productStatusTranslateKey,
+} from '@constants/product-status'
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 import {mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel} from '@constants/task-operation-type'
 import {mapTaskStatusKeyToEnum} from '@constants/task-status'
@@ -34,10 +39,10 @@ export const ideaNoticeDataConverter = data =>
   }))
 
 export const stockReportDataConverter = data =>
-  data.map((item, index) => ({
+  data.map(item => ({
     ...item,
     originalData: item,
-    id: index,
+    id: item._id,
 
     shopName: item.shop.name,
   }))
@@ -62,13 +67,16 @@ export const myRequestsDataConverter = data =>
     status: item.status,
     title: item.title,
     price: item.price,
+    asin: item.asin,
+    humanFriendlyId: item.humanFriendlyId,
     updatedAt: item.updatedAt,
     timeoutAt: item.timeoutAt,
-    acceptedProposals: item.countProposalsByStatuses.acceptedProposals,
-    allProposals: item.countProposalsByStatuses.allProposals,
-    atWorkProposals: item.countProposalsByStatuses.atWorkProposals,
-    verifyingProposals: item.countProposalsByStatuses.verifyingProposals,
-    waitedProposals: item.countProposalsByStatuses.waitedProposals,
+    acceptedProposals: item?.countProposalsByStatuses?.acceptedProposals,
+    allProposals: item?.countProposalsByStatuses?.allProposals,
+    atWorkProposals: item?.countProposalsByStatuses?.atWorkProposals,
+    verifyingProposals: item?.countProposalsByStatuses?.verifyingProposals,
+    waitedProposals: item?.countProposalsByStatuses?.waitedProposals,
+    typeTask: item?.typeTask,
   }))
 
 export const researcherCustomRequestsDataConverter = data =>
@@ -85,7 +93,16 @@ export const researcherCustomRequestsDataConverter = data =>
 export const researcherProductsDataConverter = data =>
   data.map(item => ({
     originalData: item,
-    status: t(productStatusTranslateKey(ProductStatusByCode[item.status])),
+    status: [
+      ProductStatusByKey[ProductStatus.NEW_PRODUCT],
+      ProductStatusByKey[ProductStatus.DEFAULT],
+      ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
+      // ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER],
+      ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
+      ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
+    ].includes(item.status)
+      ? t(productStatusTranslateKey(ProductStatusByCode[item.status]))
+      : 'OK',
     strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
     createdAt: item.createdAt,
     amazon: item.amazon,
@@ -118,7 +135,7 @@ export const supervisorFinancesDataConverter = data =>
   }))
 
 export const supervisorProductsDataConverter = data =>
-  data.map(item => ({
+  data?.map(item => ({
     originalData: item,
 
     status: item.status,
@@ -168,6 +185,7 @@ export const buyerProductsDataConverter = data =>
 
 export const buyerMyOrdersDataConverter = data =>
   data.map(item => ({
+    id: item._id,
     originalData: item,
 
     barCode: item.product.barCode,
@@ -179,7 +197,7 @@ export const buyerMyOrdersDataConverter = data =>
     amount: item.amount,
     clientComment: item.clientComment,
     buyerComment: item.buyerComment,
-    id: `${item.id} / ${item.item ? item.item : '-'}`,
+    idAndItem: `${item.id} / ${item.item ? item.item : '-'}`,
     asin: item.product.asin,
     storekeeper: item.storekeeper?.name,
     warehouses: item.destination?.name,
@@ -187,6 +205,8 @@ export const buyerMyOrdersDataConverter = data =>
     needsResearch: item.needsResearch,
 
     deadline: item.deadline,
+
+    payments: item?.payments,
   }))
 
 export const buyerVacantOrdersDataConverter = data =>
@@ -270,6 +290,7 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     sentToFbaSum: item.sentToFbaSum,
 
     sumStock: item.sumStock,
+    stockCost: item.stockCost,
     purchaseQuantity: item.purchaseQuantity,
 
     hsCode: item.hsCode,
@@ -315,6 +336,7 @@ export const depersonalizedPickDataConverter = data =>
     number: index + 1,
     checkednotes: item.checkednotes,
     clientComment: item.clientComment,
+    updatedAt: item.updatedAt,
   }))
 
 export const clientOrdersDataConverter = data =>
@@ -363,11 +385,14 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
     logicsTariff: getFullTariffTextForBoxOrOrder(item),
     client: item.client?.name,
 
+    status: item.status,
+
     isDraft: item.isDraft,
     isFormed: item.isFormed,
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
+    deadline: item.deadline,
 
     humanFriendlyId: item.humanFriendlyId,
     deliveryTotalPrice: item.deliveryTotalPrice,
@@ -567,6 +592,8 @@ export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
     // deliveryTotalPrice: item.boxes.reduce((prev, box) => (prev = prev + box.deliveryTotalPrice), 0),
 
     deliveryTotalPrice: getTariffRateForBoxOrOrder(item.boxes[0]) * item.finalWeight,
+    arrivalDate: item?.arrivalDate,
+    trackingNumber: item?.trackingNumber,
   }))
 
 export const warehouseTasksDataConverter = data =>
@@ -755,7 +782,7 @@ export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
     client: item?.client?.name,
 
     humanFriendlyId: item?.humanFriendlyId,
-    qty: item?.items?.reduce((acc, cur) => (acc += cur?.amount), 0),
+    amount: item?.items?.reduce((acc, cur) => (acc += cur?.amount), 0),
 
     isDraft: item?.isDraft,
     createdAt: item?.createdAt,
@@ -841,4 +868,41 @@ export const adminGroupPermissionsDataConverter = data =>
     key: item.key,
     title: item.title,
     description: item.description,
+  }))
+
+export const freelancerServiceDetaildsDataConverter = data =>
+  data.requests.map(item => ({
+    id: item?._id,
+    originalData: item,
+    createdBy: item.createdBy,
+    price: item?.price,
+    status: item?.status,
+    timeoutAt: item?.timeoutAt,
+    updatedAt: item?.updatedAt,
+    title: item?.title,
+    humanFriendlyId: item?.humanFriendlyId,
+  }))
+
+export const SourceFilesDataConverter = data =>
+  data.map(item => ({
+    originalData: item,
+    id: item?._id,
+
+    _id: item?._id,
+    sourceFile: item?.sourceFile,
+    comments: item?.comments,
+    proposal: item?.proposal,
+    typeTask: item?.typeTask,
+    productId: item?.productId,
+
+    performer: item?.createdBy,
+    sub: item?.proposal?.sub,
+
+    createdAt: item?.createdAt,
+    updatedAt: item?.updatedAt,
+
+    humanFriendlyId: item?.proposal?.request?.humanFriendlyId,
+    title: item?.proposal?.request?.title,
+    asin: item?.proposal?.request?.asin,
+    client: item?.proposal?.client,
   }))

@@ -2,6 +2,8 @@ import {BACKEND_API_URL} from '@constants/env'
 
 import {OtherModel} from '@models/other-model'
 
+import {getFileNameFromUrl} from './get-file-name-from-url'
+
 export const dataURLtoFile = (dataurl, filename) => {
   const arr = dataurl.split(',')
   const mime = arr[0].match(/:(.*?);/)[1]
@@ -78,7 +80,9 @@ export async function onSubmitPostImages({images, type, withoutShowProgress}) {
   for (let i = 0; i < images.length; i++) {
     const image = images[i]
 
-    if (typeof image === 'string') {
+    if (typeof image === 'string' && image.includes(BACKEND_API_URL + '/uploads/')) {
+      this[type].push(image)
+    } else if (typeof image === 'string') {
       const res = await uploadFileByUrl(image)
 
       this[type].push(res)
@@ -96,3 +100,68 @@ export async function onSubmitPostImages({images, type, withoutShowProgress}) {
   }
   this.progressValue = 0
 }
+
+export const downloadFile = async (file, fileName) => {
+  const url = window.URL.createObjectURL(file)
+
+  const a = document.createElement('a')
+
+  a.setAttribute('download', fileName ?? file.name ?? 'no-name')
+  a.style.display = 'none'
+  a.href = url
+
+  document.body.appendChild(a)
+  a.click()
+  window.URL.revokeObjectURL(url)
+  a.remove()
+}
+
+export const downloadFileByLink = async (str, fileName) => {
+  fetch(str)
+    .then(resp => resp.blob())
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob)
+
+      const name = getFileNameFromUrl(str)?.name
+
+      const a = document.createElement('a')
+
+      a.setAttribute('download', fileName ?? name ?? 'no-name')
+      a.style.display = 'none'
+      a.href = url
+
+      document.body.appendChild(a)
+      a.click()
+      window.URL.revokeObjectURL(url)
+      a.remove()
+      // alert('your file has downloaded!') // or you know, something with better UX...
+    })
+  // .catch(() => alert('oh no!'))
+}
+
+export const getFileWeight = async url =>
+  fetch(url)
+    .then(res => res.blob())
+    .then(res => {
+      const fileSizeInKB = res.size / 1024
+      const fileSizeInMB = fileSizeInKB / 1024
+      const fileSizeInGB = fileSizeInMB / 1024
+
+      let formattedSize
+
+      switch (true) {
+        case fileSizeInGB > 1:
+          formattedSize = `${fileSizeInGB.toFixed(2)} GB`
+          break
+        case fileSizeInMB > 1:
+          formattedSize = `${fileSizeInMB.toFixed(2)} MB`
+          break
+        case fileSizeInKB > 1:
+          formattedSize = `${fileSizeInKB.toFixed(2)} KB`
+          break
+        default:
+          formattedSize = `${res.size.toFixed(2)} bytes`
+      }
+
+      return formattedSize
+    })

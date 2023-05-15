@@ -22,6 +22,9 @@ import {
   OrderOrItemMenuItem,
   ProductMenuItem,
   IsHaveBarCodeFilterMenuItem,
+  BoxestatusMenuItem,
+  MyRequestsStatusMenuItem,
+  FreelanceRequestType,
 } from '../data-grid-menu-items/data-grid-menu-items'
 
 export const DataGridCustomColumnMenuComponent = props => {
@@ -86,6 +89,23 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
+  if (currentColumn.columnKey === columnnsKeys.shared.MY_REQUESTS_ORDERS_STATUS) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <MyRequestsStatusMenuItem
+          data={props[currentColumn.field]}
+          field={currentColumn.field}
+          filterRequestStatus={filterRequestStatus}
+          columnKey={currentColumn.columnKey}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
   if ([columnnsKeys.buyer.MY_ORDERS_STATUS, columnnsKeys.client.ORDERS_STATUS].includes(currentColumn.columnKey)) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
@@ -99,6 +119,7 @@ export const DataGridCustomColumnMenuComponent = props => {
       columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,
       columnnsKeys.client.INVENTORY_SHOPS,
       columnnsKeys.shared.OBJECT,
+      columnnsKeys.shared.PAYMENTS,
     ].includes(currentColumn.columnKey)
   ) {
     return (
@@ -111,6 +132,21 @@ export const DataGridCustomColumnMenuComponent = props => {
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if (currentColumn.columnKey === columnnsKeys.shared.BOXES_STATUS) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <BoxestatusMenuItem
+          data={props[currentColumn.field]}
+          field={currentColumn.field}
+          filterRequestStatus={filterRequestStatus}
           onClose={hideMenu}
           onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
           onClickAccept={onClickAccept}
@@ -227,6 +263,24 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <InStockMenuItem
+          data={props[currentColumn.field]}
+          field={currentColumn.field}
+          filterRequestStatus={filterRequestStatus}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if ([columnnsKeys.client.FREELANCE_REQUEST_TYPE].includes(currentColumn.columnKey)) {
+    // eslint-disable-next-line no-unused-vars
+    const {typeTask, ...rest} = other
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...rest}>
+        <FreelanceRequestType
           data={props[currentColumn.field]}
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}

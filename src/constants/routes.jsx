@@ -247,6 +247,13 @@ const ClientReadyBoxesView = lazy(() =>
     default: module.ClientReadyBoxesView,
   })),
 )
+
+const ClientWarehouseTasksView = lazy(() =>
+  import('@views/client/client-warehouse-views/client-warehouse-tasks-view').then(module => ({
+    default: module.ClientWarehouseTasksView,
+  })),
+)
+
 const ClientSentBatchesView = lazy(() =>
   import('@views/client/client-batches-views/client-sent-batches-view').then(module => ({
     default: module.ClientSentBatchesView,
@@ -401,6 +408,18 @@ const AnotherUserProfileView = lazy(() =>
 const CreateOrEditProposalView = lazy(() =>
   import('@views/shared/create-or-edit-proposal-view').then(module => ({default: module.CreateOrEditProposalView})),
 )
+const MyServicesView = lazy(() =>
+  import('@views/shared/my-services-view').then(module => ({default: module.MyServicesView})),
+)
+
+const CreateOrEditServicesView = lazy(() =>
+  import('@views/shared/create-or-edit-services-view').then(module => ({default: module.CreateOrEditServicesView})),
+)
+
+const ServicesDetailCustomView = lazy(() =>
+  import('@views/shared/services-detail-custom-view').then(module => ({default: module.ServicesDetailCustomView})),
+)
+
 const CreateOrEditRequestView = lazy(() =>
   import('@views/shared/create-or-edit-request-view').then(module => ({default: module.CreateOrEditRequestView})),
 )
@@ -414,12 +433,23 @@ const DealsOnReviewView = lazy(() =>
 )
 const FinancesView = lazy(() => import('@views/shared/finances-view').then(module => ({default: module.FinancesView})))
 const MessagesView = lazy(() => import('@views/shared/messages-view').then(module => ({default: module.MessagesView})))
+
 const MyProposalsView = lazy(() =>
   import('@views/shared/my-proposals-view').then(module => ({default: module.MyProposalsView})),
 )
+
+const ServiceExchangeView = lazy(() =>
+  import('@views/shared/service-exchange-view').then(module => ({default: module.ServiceExchangeView})),
+)
+
 const MyRequestsView = lazy(() =>
   import('@views/shared/my-requests-view').then(module => ({default: module.MyRequestsView})),
 )
+
+// const FreelancerMyRequestsView = lazy(() =>
+//   import('@views/freelancer/freelancer-my-requests-view').then(module => ({default: module.FreelancerMyRequestsView})),
+// )
+
 const OwnerRequestDetailCustomView = lazy(() =>
   import('@views/shared/owner-requests-detail-custom-view').then(module => ({
     default: module.OwnerRequestDetailCustomView,
@@ -430,6 +460,19 @@ const RequestDetailCustomView = lazy(() =>
     default: module.RequestDetailCustomView,
   })),
 )
+
+const SourceFilesView = lazy(() =>
+  import('@views/freelancer/source-files-view').then(module => ({
+    default: module.SourceFilesView,
+  })),
+)
+
+const ServiceDetailsView = lazy(() =>
+  import('@views/shared/services-detail-view').then(module => ({
+    default: module.ServiceDetailsView,
+  })),
+)
+
 const SubUsersView = lazy(() =>
   import('@views/shared/sub-users-view/sub-users-view').then(module => ({default: module.SubUsersView})),
 )
@@ -878,6 +921,16 @@ export const privateRoutesConfigs = [
     crumbNameKey: TranslationKey['My requests'],
   },
 
+  // {
+  //   routePath: '/client/freelance/my-requests',
+  //   component: FreelancerMyRequestsView,
+  //   exact: true,
+  //   permission: [UserRole.CLIENT],
+  //   permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
+
+  //   crumbNameKey: TranslationKey['My requests'],
+  // },
+
   {
     routePath: '/client/freelance/my-proposals',
     component: MyProposalsView,
@@ -887,6 +940,17 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
     crumbNameKey: TranslationKey['My proposals'],
+  },
+
+  {
+    routePath: '/client/freelance/service-exchange',
+    component: ServiceExchangeView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+
+    permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
+
+    crumbNameKey: TranslationKey['Service exchange'],
   },
 
   {
@@ -1136,6 +1200,16 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.SHOW_WAREHOUSE_CLIENT,
 
     crumbNameKey: TranslationKey['Boxes ready to send'],
+  },
+
+  {
+    routePath: '/client/warehouse/tasks',
+    component: ClientWarehouseTasksView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.SHOW_WAREHOUSE_CLIENT,
+
+    crumbNameKey: TranslationKey.Tasks,
   },
 
   {
@@ -1820,7 +1894,7 @@ export const privateRoutesConfigs = [
     component: FreelancerDashboardView,
     exact: false,
     permission: [UserRole.FREELANCER],
-
+    permissionKey: permissionsKeys.freelancer.SHOW_DASHBOARD_FREELANCER,
     crumbNameKey: TranslationKey.Dashboard,
   },
 
@@ -1883,6 +1957,14 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/freelancer/freelance/source-files',
+    component: SourceFilesView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey['Source Files'],
+  },
+
+  {
     routePath: '/freelancer/freelance/my-proposals/custom-search-request',
     component: RequestDetailCustomView,
     exact: true,
@@ -1912,6 +1994,54 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey.Messages,
+  },
+
+  {
+    routePath: '/freelancer/freelance/my-services',
+    component: MyServicesView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey['My services'],
+  },
+
+  {
+    routePath: '/freelancer/freelance/my-services/create-service',
+    component: CreateOrEditServicesView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey['Create service'],
+  },
+
+  {
+    routePath: '/freelancer/freelance/my-services/service-detailds',
+    component: ServiceDetailsView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey['Service details'],
+  },
+
+  {
+    routePath: '/freelancer/freelance/my-services/service-detailds/edit-service',
+    component: CreateOrEditServicesView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey['Edit service'],
+  },
+
+  {
+    routePath: '/freelancer/freelance/my-services/service-detailds/custom-service-type',
+    component: ServicesDetailCustomView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey.Request,
+  },
+
+  {
+    routePath: '/freelancer/freelance/my-services/service-detailds/custom-service-type/create-proposal',
+    component: CreateOrEditProposalView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey['Proposal Creation'],
   },
 
   {

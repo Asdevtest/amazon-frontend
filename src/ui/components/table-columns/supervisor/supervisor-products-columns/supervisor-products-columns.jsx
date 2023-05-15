@@ -4,13 +4,13 @@ import {colorByProductStatus, ProductStatusByCode, productStatusTranslateKey} fr
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  ProductAsinCell,
+  MultilineStatusCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  MultilineTextCell,
-  UserLinkCell,
+  ProductAsinCell,
   ToFixedWithDollarSignCell,
-  MultilineStatusCell,
+  UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -117,10 +117,12 @@ export const supervisorProductsViewColumns = () => [
                 '-webkit-text-fill-color': 'transparent',
               }
         }
+        color={params.value ? '#00b746' : 'red'}
         text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)}
       />
     ),
     minWidth: 50,
+    type: 'boolean',
   },
 
   {

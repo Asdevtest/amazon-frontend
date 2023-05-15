@@ -13,6 +13,7 @@ export const checkIsBuyer = userRole => userRole === UserRole.BUYER
 export const checkIsClient = userRole => userRole === UserRole.CLIENT
 export const checkIsAdmin = userRole => userRole === UserRole.ADMIN
 export const checkIsStorekeeper = userRole => userRole === UserRole.STOREKEEPER
+export const checkIsFreelancer = userRole => userRole === UserRole.FREELANCER
 
 export const checkIsAbsoluteUrl = url => new RegExp('^(?:[a-z]+:)?//', 'i').test(url)
 
@@ -50,14 +51,20 @@ export const findTariffInStorekeepersData = (storekeepers, storekeeperId, logics
   storekeepers.find(el => el._id === storekeeperId)?.tariffLogistics.find(el => el._id === logicsTariffId)
 
 export const checkIsImageLink = link =>
-  link.endsWith('.png') ||
-  link.endsWith('.jpg') ||
-  link.endsWith('.ico') ||
-  link.endsWith('.gif') ||
-  link.endsWith('.svg') ||
-  link.endsWith('.webp') ||
-  link.endsWith('.avif') ||
-  link.endsWith('.jpeg')
+  link?.endsWith('.png') ||
+  link?.endsWith('.jpg') ||
+  link?.endsWith('.ico') ||
+  link?.endsWith('.gif') ||
+  link?.endsWith('.svg') ||
+  link?.endsWith('.webp') ||
+  link?.endsWith('.avif') ||
+  link?.endsWith('.jpeg') ||
+  link?.endsWith('.rotated-image') ||
+  link?.includes('rotated-image') ||
+  link?.includes('placeimg.com')
+
+//   &&
+// (link?.includes('http:/') || link?.includes('https:/'))
 
 export const validateEmail = email =>
   String(email)
@@ -83,3 +90,5 @@ export const checkIsStringFilesSame = (str1, str2) => {
     return str1 === str2
   }
 }
+
+export const isStringInArray = (str, arr) => arr.includes(str)

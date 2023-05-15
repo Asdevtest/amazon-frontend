@@ -144,7 +144,7 @@ let apiInstance = new TestSwagger.AnnouncementsApi();
 let guid = null; // String | Гуид анонса
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject8() // InlineObject8 | 
+  'body': new TestSwagger.InlineObject10() // InlineObject10 | 
 };
 apiInstance.apiV1AnnouncementsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -161,7 +161,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| Гуид анонса | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject8**](InlineObject8.md)|  | [optional] 
+ **body** | [**InlineObject10**](InlineObject10.md)|  | [optional] 
 
 ### Return type
 
@@ -179,7 +179,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AnnouncementsMyGet
 
-> [InlineResponse2008] apiV1AnnouncementsMyGet(opts)
+> [InlineResponse2009] apiV1AnnouncementsMyGet(opts)
 
 # Получить свои анонсы
 
@@ -219,7 +219,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2008]**](InlineResponse2008.md)
+[**[InlineResponse2009]**](InlineResponse2009.md)
 
 ### Authorization
 
@@ -253,7 +253,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.AnnouncementsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject7() // InlineObject7 | 
+  'body': new TestSwagger.InlineObject9() // InlineObject9 | 
 };
 apiInstance.apiV1AnnouncementsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -269,7 +269,7 @@ apiInstance.apiV1AnnouncementsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject7**](InlineObject7.md)|  | [optional] 
+ **body** | [**InlineObject9**](InlineObject9.md)|  | [optional] 
 
 ### Return type
 
@@ -287,7 +287,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AnnouncementsVacGet
 
-> [InlineResponse2008] apiV1AnnouncementsVacGet(opts)
+> [InlineResponse2009] apiV1AnnouncementsVacGet(opts)
 
 # Получить не свои анонсы
 
@@ -327,7 +327,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2008]**](InlineResponse2008.md)
+[**[InlineResponse2009]**](InlineResponse2009.md)
 
 ### Authorization
 

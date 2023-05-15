@@ -65,7 +65,7 @@ class ClientOrdersViewRaw extends Component {
       selectedProduct,
       storekeepers,
       destinations,
-      volumeWeightCoefficient,
+      platformSettings,
       requestStatus,
       currentData,
       sortModel,
@@ -100,6 +100,7 @@ class ClientOrdersViewRaw extends Component {
       setDestinationsFavouritesItem,
       onConfirmCancelManyReorder,
       onClickManyReorder,
+      changeColumnsModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -182,6 +183,9 @@ class ClientOrdersViewRaw extends Component {
                   }}
                   componentsProps={{
                     columnMenu: {orderStatusData},
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   selectionModel={selectedRowIds}
                   density={densityModel}
@@ -214,7 +218,7 @@ class ClientOrdersViewRaw extends Component {
               <OrderProductModal
                 isPendingOrdering={isPendingOrdering}
                 reorderOrdersData={reorderOrdersData}
-                volumeWeightCoefficient={volumeWeightCoefficient}
+                platformSettings={platformSettings}
                 destinations={destinations}
                 storekeepers={storekeepers}
                 destinationsFavourites={destinationsFavourites}

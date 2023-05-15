@@ -58,7 +58,7 @@ class InlineObject25 {
 }
 
 /**
- * GUID коробки разделение которой отменяем.
+ * GUID коробки, объединение которой нужно отменить
  * @member {String} guid
  */
 InlineObject25.prototype['guid'] = undefined;

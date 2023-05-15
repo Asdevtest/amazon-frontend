@@ -56,6 +56,8 @@ export class BuyerProductView extends Component {
       showWarningModal,
       showConfirmModal,
       confirmModalSettings,
+      paymentMethods,
+
       onTriggerDrawerOpen,
       onClickSupplierButtons,
       onChangeSelectedSupplier,
@@ -101,6 +103,7 @@ export class BuyerProductView extends Component {
           setOpenModal={onTriggerAddOrEditSupplierModal}
         >
           <AddOrEditSupplierModalContent
+            paymentMethods={paymentMethods}
             product={product}
             storekeepersData={storekeepersData}
             onlyRead={supplierModalReadOnly}

@@ -4,7 +4,7 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     display: 'flex',
     borderRadius: '4px',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
     padding: '40px',
     justifyContent: 'space-between',
     marginBottom: '30px',
@@ -13,13 +13,18 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: '45%',
   },
   middleBlockWrapper: {
-    width: '26.3%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+
+    width: '13%',
     borderRadius: '4px',
     border: '1px solid rgba(0,0,0, .1)',
     padding: '10px',
   },
   middleBlockItemInfoWrapper: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
   titleBlockWrapper: {
@@ -27,17 +32,30 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '20px',
   },
   titleWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+
     marginLeft: '35px',
   },
   userPhoto: {
-    width: '70px',
-    height: '70px',
+    width: 57,
+    height: 57,
     objectFit: 'contain',
     objectPosition: 'center',
   },
   requestInfoWrapper: {
     display: 'flex',
+
     justifyContent: 'space-between',
+
+    width: 950,
+    height: 140,
+
+    padding: 20,
+
+    border: `1px solid rgba(0,0,0, .1)`,
+    borderRadius: 4,
   },
   requestItemInfoWrapper: {
     display: 'flex',
@@ -46,23 +64,33 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '15px',
   },
   blockInfoWrapper: {
-    width: '47%',
-    height: '120px',
-    border: '1px solid rgba(0,0,0, .1)',
-    borderRadius: '4px',
+    display: 'flex',
+    width: 121,
+    flexDirection: 'column',
+
+    justifyContent: 'space-between',
+  },
+  blockInfoWrapperLast: {
+    width: 'fit-content',
   },
   title: {
-    width: '539px',
+    maxWidth: 300,
+
     fontWeight: '600',
     fontSize: '18px',
-    lineHeight: '21px',
-    color: theme.palette.text.second,
+    lineHeight: '140%',
+
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-    height: '60px',
+    whiteSpace: 'nowrap',
+
+    // height: '60px',
   },
   subTitle: {
-    marginTop: '10px',
+    fontWeight: 400,
+    fontSize: 16,
+    lineHeight: '22px',
+
     color: theme.palette.text.second,
   },
   btnsBlockWrapper: {
@@ -70,6 +98,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
+
+    gap: 20,
+  },
+  recoverBtn: {
+    marginLeft: 'auto',
   },
   stopBtn: {
     width: '100%',
@@ -80,17 +113,18 @@ export const useClassNames = makeStyles()(theme => ({
       background: '#F3AF00',
     },
   },
-  btnsWrapper: {},
+  btnsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+  },
   btnsRow: {
     display: 'flex',
-    flexDirection: 'row',
-    gap: '10px',
-    alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 10,
   },
   btnsRowIsLast: {
     marginBottom: 0,
+    height: 40,
   },
   buttonWrapperFullWidth: {
     flex: 1,
@@ -98,13 +132,12 @@ export const useClassNames = makeStyles()(theme => ({
   },
   button: {
     display: 'flex',
-    flex: 1,
+    // flex: 1,
   },
   buttonEditRemoveBtnIsShown: {
     marginLeft: '10px',
   },
   requestStatus: {
-    marginLeft: '15px',
     fontSize: '18px',
     lineHeight: '140%',
     color: '#00B746',
@@ -125,11 +158,108 @@ export const useClassNames = makeStyles()(theme => ({
       backgroundColor: '#F44336',
     },
   },
+  deleteBtn: {
+    color: '#fff',
+    width: 140,
+    height: 40,
+  },
+  editBtn: {
+    color: '#fff',
+    width: 190,
+    height: 40,
+  },
+  publishBtn: {
+    width: '100%',
+    height: 40,
+  },
   price: {
-    color: theme.palette.primary.main,
+    color: theme.palette.text.general,
+
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
   },
 
   standartText: {
+    fontSize: 14,
     color: theme.palette.text.general,
+  },
+  standartTextGrey: {
+    color: '#C4C4C4',
+  },
+
+  titleAndAsinWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+
+    gap: 35,
+  },
+
+  asinTitleWrapper: {
+    display: 'flex',
+
+    gap: 5,
+  },
+  asinText: {
+    fontWeight: 400,
+    fontSize: 18,
+    lineHeight: '140%',
+
+    color: theme.palette.text.second,
+  },
+  asinTextDark: {
+    color: theme.palette.text.general,
+    fontWeight: 600,
+  },
+
+  blockInfoCellTitle: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '16px',
+
+    color: theme.palette.text.second,
+  },
+  blockInfoCellText: {
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    whiteSpace: 'nowrap',
+
+    color: theme.palette.text.main,
+  },
+  blockInfoCell: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    gap: 5,
+  },
+  pricesWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
+  twoStepFieldResult: {
+    fontWeight: 600,
+
+    color: theme.palette.text.main,
+  },
+  oldPrice: {
+    textDecoration: 'line-through',
+  },
+  newPrice: {
+    color: '#FB1D5B',
+  },
+
+  linkSpan: {
+    fontWeight: 600,
+    fontSize: 18,
+    lineHeight: '140%',
+  },
+
+  userInfo: {
+    display: 'flex',
+    // alignItems: 'center',
+
+    gap: 15,
   },
 }))

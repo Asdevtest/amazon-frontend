@@ -12,10 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20034Finances from './InlineResponse20034Finances';
-import InlineResponse20034Orders from './InlineResponse20034Orders';
-import InlineResponse20034PendingOrders from './InlineResponse20034PendingOrders';
-import InlineResponse20034Products from './InlineResponse20034Products';
+import InlineResponse2001 from './InlineResponse2001';
 
 /**
  * The InlineResponse20034 model module.
@@ -25,6 +22,7 @@ import InlineResponse20034Products from './InlineResponse20034Products';
 class InlineResponse20034 {
     /**
      * Constructs a new <code>InlineResponse20034</code>.
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20034
      */
     constructor() { 
@@ -51,17 +49,11 @@ class InlineResponse20034 {
         if (data) {
             obj = obj || new InlineResponse20034();
 
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20034Products.constructFromObject(data['products']);
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('orders')) {
-                obj['orders'] = InlineResponse20034Orders.constructFromObject(data['orders']);
-            }
-            if (data.hasOwnProperty('pendingOrders')) {
-                obj['pendingOrders'] = InlineResponse20034PendingOrders.constructFromObject(data['pendingOrders']);
-            }
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20034Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse2001]);
             }
         }
         return obj;
@@ -71,24 +63,16 @@ class InlineResponse20034 {
 }
 
 /**
- * @member {module:model/InlineResponse20034Products} products
+ * Всего кол-во записей в результате запроса
+ * @member {Number} count
  */
-InlineResponse20034.prototype['products'] = undefined;
+InlineResponse20034.prototype['count'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20034Orders} orders
+ * Массив заказов c пагинацией(заданная страничка).
+ * @member {Array.<module:model/InlineResponse2001>} rows
  */
-InlineResponse20034.prototype['orders'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20034PendingOrders} pendingOrders
- */
-InlineResponse20034.prototype['pendingOrders'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20034Finances} finances
- */
-InlineResponse20034.prototype['finances'] = undefined;
+InlineResponse20034.prototype['rows'] = undefined;
 
 
 

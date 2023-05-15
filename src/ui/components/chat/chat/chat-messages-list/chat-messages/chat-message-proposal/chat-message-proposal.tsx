@@ -25,7 +25,7 @@ import {useClassNames} from './chat-message-proposal.style'
 
 export interface ChatMessageProposalHandlers {
   onClickProposalAccept: (proposalId: string, price: number) => void
-  onClickProposalRegect: (proposalId: string) => void
+  onClickProposalRegect: (proposalId: string | undefined) => void
 }
 
 interface Props {
@@ -73,7 +73,18 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
         </div>
         <div className={classNames.rightSideWrapper}>
           <div>
-            <PhotoAndFilesCarousel notToShowEmpty small files={message.images} width="352px" />
+            <PhotoAndFilesCarousel
+              notToShowEmpty
+              small
+              files={message.images}
+              width="352px"
+              withoutPhotos={undefined}
+              whithoutFiles={undefined}
+              imagesForLoad={undefined}
+              isEditable={undefined}
+              withoutMakeMainImage={undefined}
+              onChangeImagesForLoad={undefined}
+            />
           </div>
 
           <div className={classNames.footerWrapper}>
@@ -89,7 +100,12 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
                     variant="contained"
                     color="primary"
                     className={cx(classNames.actionButton, classNames.cancelBtn)}
-                    onClick={() => handlers.onClickProposalRegect(message.data._id)}
+                    onClick={() =>
+                      handlers.onClickProposalRegect(
+                        chatRequestAndRequestProposal.requestProposal?.proposal
+                          ._id /* handlers.onClickProposalRegect(message.data._id */,
+                      )
+                    }
                   >
                     {t(TranslationKey.Reject)}
                   </Button>

@@ -10,8 +10,11 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
+import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
+
+import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
@@ -161,6 +164,10 @@ const Box = ({
                         className={cx(
                           classNames.storekeeperBtnDefault,
                           {[classNames.storekeeperBtn]: !box.logicsTariffId},
+                          {
+                            [classNames.storekeeperBtnColored]:
+                              !box.logicsTariffId && SettingsModel.uiTheme === UiTheme.light,
+                          },
                           {[classNames.storekeeperDisableBtn]: !isNewBox},
                         )}
                         onClick={() =>

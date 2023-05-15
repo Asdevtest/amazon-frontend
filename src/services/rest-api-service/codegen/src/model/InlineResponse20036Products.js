@@ -50,17 +50,8 @@ class InlineResponse20036Products {
             if (data.hasOwnProperty('all')) {
                 obj['all'] = ApiClient.convertToType(data['all'], 'Number');
             }
-            if (data.hasOwnProperty('completed')) {
-                obj['completed'] = ApiClient.convertToType(data['completed'], 'Number');
-            }
-            if (data.hasOwnProperty('rejected')) {
-                obj['rejected'] = ApiClient.convertToType(data['rejected'], 'Number');
-            }
-            if (data.hasOwnProperty('inWork')) {
-                obj['inWork'] = ApiClient.convertToType(data['inWork'], 'Number');
-            }
-            if (data.hasOwnProperty('withoutStatus')) {
-                obj['withoutStatus'] = ApiClient.convertToType(data['withoutStatus'], 'Number');
+            if (data.hasOwnProperty('paid')) {
+                obj['paid'] = ApiClient.convertToType(data['paid'], 'Number');
             }
         }
         return obj;
@@ -75,24 +66,9 @@ class InlineResponse20036Products {
 InlineResponse20036Products.prototype['all'] = undefined;
 
 /**
- * @member {Number} completed
+ * @member {Number} paid
  */
-InlineResponse20036Products.prototype['completed'] = undefined;
-
-/**
- * @member {Number} rejected
- */
-InlineResponse20036Products.prototype['rejected'] = undefined;
-
-/**
- * @member {Number} inWork
- */
-InlineResponse20036Products.prototype['inWork'] = undefined;
-
-/**
- * @member {Number} withoutStatus
- */
-InlineResponse20036Products.prototype['withoutStatus'] = undefined;
+InlineResponse20036Products.prototype['paid'] = undefined;
 
 
 

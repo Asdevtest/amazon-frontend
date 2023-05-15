@@ -164,6 +164,16 @@ class StorekeeperModelStatic {
     const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksReportGuidGet(id)
     return response
   }
+
+  updateTaskPriority = async (taskId, priority, reason) => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksPriorityGuidPatchWithHttpInfo(taskId, {
+      body: {
+        priority,
+        reason,
+      },
+    })
+    return response
+  }
 }
 
 export const StorekeeperModel = new StorekeeperModelStatic()

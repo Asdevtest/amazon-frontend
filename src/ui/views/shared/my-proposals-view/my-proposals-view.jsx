@@ -1,24 +1,46 @@
+/* eslint-disable no-unused-vars */
+import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import {Grid, Typography} from '@mui/material'
+import {Checkbox, Grid, Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
+import {
+  freelanceRequestType,
+  freelanceRequestTypeByCode,
+  freelanceRequestTypeByKey,
+  freelanceRequestTypeTranslate,
+} from '@constants/freelance-request-type'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
+import {RequestProposalStatus, RequestProposalStatusColor} from '@constants/request-proposal-status'
+import {RequestProposalStatusTranslate} from '@constants/request-proposal-status'
 import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {MyProposalsListCard} from '@components/cards/my-proposals-list-card'
+import {RequestDesignerResultClientForm} from '@components/forms/request-designer-result-client-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
+import {SearchInput} from '@components/search-input'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 
-import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
+import {checkIsFreelancer} from '@utils/checks'
+import {
+  sortObjectsArrayByArrayObjectFiledDateWithParseISO,
+  sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc,
+  sortObjectsArrayByFiledDateWithParseISO,
+  sortObjectsArrayByFiledDateWithParseISOAsc,
+} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 
 import {MyProposalsViewModel} from './my-proposals-view.model'
@@ -29,7 +51,7 @@ const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS
 
 @observer
 class MyProposalsViewRaw extends Component {
-  viewModel = new MyProposalsViewModel({history: this.props.history})
+  viewModel = new MyProposalsViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -37,11 +59,22 @@ class MyProposalsViewRaw extends Component {
 
   render() {
     const {
+      selectedProposalFilters,
+      currentRequest,
+      currentProposal,
+      selectedTaskType,
       sortMode,
       viewMode,
-      getCurrentData,
+      currentData,
       drawerOpen,
       showConfirmModal,
+      showRequestDesignerResultClientModal,
+      nameSearchValue,
+      userInfo,
+      userRole,
+      requestsBase,
+
+      onChangeNameSearchValue,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
       onSubmitDeleteProposal,
@@ -49,16 +82,32 @@ class MyProposalsViewRaw extends Component {
       onClickEditBtn,
       onClickOpenBtn,
       onTriggerSortMode,
+      onClickTaskType,
+      onClickResultBtn,
+      onSelectProposalFilter,
+      handleSelectAllProposalStatuses,
     } = this.viewModel
     const {classes: classNames} = this.props
+
+    const whiteList =
+      !!userInfo && checkIsFreelancer(userRole)
+        ? [
+            String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
+            ...(Object.keys(freelanceRequestTypeByCode)
+              ?.filter(spec => requestsBase.some(item => Number(item?.typeTask) === Number(spec)))
+              ?.map(item => String(item)) || []),
+          ]
+        : Object.keys(freelanceRequestTypeByCode)
 
     const getSortedData = mode => {
       switch (mode) {
         case tableSortMode.DESK:
-          return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+          // return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+          return sortObjectsArrayByArrayObjectFiledDateWithParseISO(currentData, 'updatedAt', 'proposals')
 
         case tableSortMode.ASC:
-          return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+          // return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+          return sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc(currentData, 'updatedAt', 'proposals')
       }
     }
 
@@ -74,36 +123,86 @@ class MyProposalsViewRaw extends Component {
           <Appbar title={t(TranslationKey['My proposals'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.tablePanelWrapper}>
-                {/* <div className={classNames.tablePanelViewWrapper}>
-                  <Typography className={classNames.tablePanelViewText}>{t(TranslationKey.Location)}</Typography>
+                <div className={classNames.taskTypeWrapper}>
+                  {Object.keys({
+                    ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
+                    // freelanceRequestTypeByCode
+                  }).map((taskType, taskIndex) => (
+                    <Button
+                      key={taskIndex}
+                      variant="text"
+                      disabled={taskType === selectedTaskType}
+                      btnWrapperStyle={classNames.btnWrapperStyle}
+                      className={cx(classNames.button, {
+                        [classNames.selectedBoxesBtn]: Number(taskType) === Number(selectedTaskType),
+                      })}
+                      onClick={() => onClickTaskType(taskType)}
+                    >
+                      {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
+                    </Button>
+                  ))}
+                </div>
 
-                  <ToggleButtonGroup exclusive value={viewMode} onChange={onChangeViewMode}>
-                    <ToggleButton value={tableViewMode.LIST}>
-                      <TableRowsIcon color="primary" />
-                    </ToggleButton>
-                    <ToggleButton value={tableViewMode.BLOCKS}>
-                      <ViewModuleIcon color="primary" />
-                    </ToggleButton>
-                  </ToggleButtonGroup>
-                </div> */}
-
-                {/* <div>
+                <div>
                   <SearchInput
                     inputClasses={classNames.searchInput}
+                    placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.ASIN)}, ${t(
+                      TranslationKey.Title,
+                    )}, User, ${t(TranslationKey.ID)}`}
                     value={nameSearchValue}
-                
                     onChange={onChangeNameSearchValue}
                   />
-                </div> */}
+                </div>
 
-                <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
-                  <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
+                <div className={classNames.tablePanelSubWrapper}>
+                  <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
+                    <Typography className={classNames.tablePanelViewText}>
+                      {t(TranslationKey['Sort by date'])}
+                    </Typography>
 
-                  {sortMode === tableSortMode.DESK ? (
-                    <ArrowDropDownIcon color="primary" />
-                  ) : (
-                    <ArrowDropUpIcon color="primary" />
-                  )}
+                    {sortMode === tableSortMode.DESK ? (
+                      <ArrowDropDownIcon color="primary" />
+                    ) : (
+                      <ArrowDropUpIcon color="primary" />
+                    )}
+                  </div>
+
+                  <div className={classNames.proposalSelect}>
+                    <WithSearchSelect
+                      checkbox
+                      notCloseOneClick
+                      width={350}
+                      widthPopover={350}
+                      firstItems={
+                        <Button
+                          className={classNames.filterBtn}
+                          variant="text"
+                          onClick={handleSelectAllProposalStatuses}
+                        >
+                          <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
+                            <>
+                              <Checkbox
+                                checked={selectedProposalFilters.length === Object.keys(RequestProposalStatus).length}
+                                color="primary"
+                              />
+                              <Typography className={classNames.fieldName}>
+                                {t(TranslationKey['All proposal statuses'])}
+                              </Typography>
+                            </>
+                          </div>
+                        </Button>
+                      }
+                      currentShops={selectedProposalFilters}
+                      data={Object.keys(RequestProposalStatus).map(el => ({
+                        name: RequestProposalStatusTranslate(el),
+                        _id: el,
+                      }))}
+                      searchFields={['name']}
+                      selectedItemName={t(TranslationKey['All proposal statuses'])}
+                      changeColorById={RequestProposalStatusColor}
+                      onClickSelect={onSelectProposalFilter}
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -111,7 +210,7 @@ class MyProposalsViewRaw extends Component {
                 <Grid
                   container
                   classes={{root: classNames.dashboardCardWrapper}}
-                  // spacing={3}
+                  // spacing={4}
                   direction="row"
                   justifyContent="flex-start"
                   alignItems="flex-start"
@@ -125,6 +224,7 @@ class MyProposalsViewRaw extends Component {
                         onClickEditBtn={onClickEditBtn}
                         onClickDeleteBtn={onClickDeleteBtn}
                         onClickOpenBtn={onClickOpenBtn}
+                        onClickResultBtn={onClickResultBtn}
                       />
                     ) : null,
                   )}
@@ -151,6 +251,21 @@ class MyProposalsViewRaw extends Component {
             onClickSuccessBtn={onSubmitDeleteProposal}
             onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
           />
+
+          {currentRequest && currentProposal && (
+            <Modal
+              openModal={showRequestDesignerResultClientModal}
+              setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
+            >
+              <RequestDesignerResultClientForm
+                userInfo={userInfo}
+                request={{request: currentRequest}}
+                proposal={currentProposal}
+                setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
+                // onClickSendAsResult={onClickSendAsResult}
+              />
+            </Modal>
+          )}
         </Main>
       </React.Fragment>
     )

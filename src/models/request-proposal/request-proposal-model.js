@@ -50,8 +50,8 @@ class RequestProposalModelStatic {
     return response
   }
 
-  getRequestProposalsCustom = async requestId => {
-    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsCustomGuidGet(requestId)
+  getRequestProposalsCustom = async proposalId => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsCustomGuidGet(proposalId)
     return response
   }
 
@@ -142,6 +142,23 @@ class RequestProposalModelStatic {
 
   getRequestProposalsForSupervisor = async (type, requestsType) => {
     const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGet(type, requestsType)
+    return response
+  }
+
+  getFreelanceSourceFiles = async () => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsFreelanceSourcesGet()
+    return response
+  }
+
+  patchFreelanceSourceFilesByGuid = async (id, data) => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsFreelanceSourcesGuidPatch(id, {
+      body: data,
+    })
+    return response
+  }
+
+  deleteFreelanceSourceFilesByGuid = async id => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsFreelanceSourcesGuidDelete(id)
     return response
   }
 }

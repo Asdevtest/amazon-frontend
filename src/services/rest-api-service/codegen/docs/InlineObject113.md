@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**userId** | **String** | Гуид саба | 
-**comment** | **String** | Заметка о сабе написаная мастером | 
+**name** | **String** | Название услуги | [optional] 
+**description** | **String** | Описание услуги | [optional] 
+**price** | **Number** | Цена услуги. | 
 
 

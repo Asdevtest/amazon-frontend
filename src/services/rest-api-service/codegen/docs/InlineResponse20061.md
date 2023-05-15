@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** | Общее кол-во записей | [optional] 
-**rows** | [**[InlineResponse2004]**](InlineResponse2004.md) |  | [optional] 
+**isExist** | **Boolean** | Флаг, показывает есть ли такой ASIN в базе или нет | [optional] 
+**reason** | **String** | Причина из таблицы с асинами | [optional] 
 
 

@@ -16,8 +16,11 @@ import React, {useEffect, useState} from 'react'
 import {compareDesc, isAfter, parseISO} from 'date-fns'
 import {withStyles} from 'tss-react/mui'
 
+import {BoxStatus, boxStatusTranslateKey} from '@constants/box-status'
+import {freelanceRequestType, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatusTranslate} from '@constants/order-status'
+import {MyRequestStatus, MyRequestStatusTranslate} from '@constants/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -28,7 +31,7 @@ import {SearchInput} from '@components/search-input'
 
 import {checkIsPositiveNum} from '@utils/checks'
 import {formatNormDateTime} from '@utils/date-time'
-import {getStatusByColumnKeyAndStatusKey} from '@utils/text'
+import {getStatusByColumnKeyAndStatusKey, toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {styles} from './data-grid-menu-items.style'
@@ -225,6 +228,201 @@ export const OrderStatusMenuItem = React.memo(
   ),
 )
 
+export const MyRequestsStatusMenuItem = React.memo(
+  withStyles(({classes: classNames, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept}) => {
+    const filterData = Object.keys(MyRequestStatus)
+
+    const {currentFilterData} = data
+
+    const [choosenItems, setChoosenItems] = useState(currentFilterData)
+
+    const onClickItem = str => {
+      if (choosenItems.some(item => item === str)) {
+        setChoosenItems(choosenItems.slice().filter(item => item !== str))
+      } else {
+        setChoosenItems([...choosenItems, str])
+      }
+    }
+    useEffect(() => {
+      setChoosenItems(currentFilterData)
+    }, [currentFilterData])
+
+    const [itemsForRender, setItemsForRender] = useState(filterData || [])
+    const [nameSearchValue, setNameSearchValue] = useState('')
+
+    useEffect(() => {
+      if (nameSearchValue) {
+        const filter = filterData?.filter(item =>
+          MyRequestStatusTranslate(item).toLowerCase().includes(nameSearchValue.toLowerCase()),
+        )
+        setItemsForRender(filter)
+      } else {
+        setItemsForRender(filterData)
+      }
+    }, [nameSearchValue])
+
+    return (
+      <div className={classNames.shopsDataWrapper}>
+        <div className={classNames.searchInputWrapper}>
+          <SearchInput
+            key={'client_warehouse_search_input'}
+            inputClasses={classNames.searchInput}
+            placeholder={t(TranslationKey.Search)}
+            onChange={e => {
+              setNameSearchValue(e.target.value)
+            }}
+          />
+        </div>
+        <div className={classNames.shopsWrapper}>
+          <div className={classNames.shopsBody}>
+            <>
+              {itemsForRender.length ? (
+                <>
+                  <DataGridSelectAllFilters
+                    choosenItems={choosenItems}
+                    itemsForRender={itemsForRender}
+                    setChoosenItems={setChoosenItems}
+                  />
+                  {itemsForRender.map((el, index) => (
+                    <div key={index} className={classNames.shop}>
+                      <Checkbox
+                        color="primary"
+                        checked={choosenItems.some(item => item === el)}
+                        onClick={() => onClickItem(el)}
+                      />
+                      <div className={classNames.shopName}>
+                        {MyRequestStatusTranslate(el) || t(TranslationKey.Empty)}
+                      </div>
+                    </div>
+                  ))}
+                </>
+              ) : (
+                <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+              )}
+            </>
+          </div>
+        </div>
+
+        <div className={classNames.buttonsWrapper}>
+          <Button
+            variant="contained"
+            onClick={e => {
+              onClose(e)
+              onChangeFullFieldMenuItem(choosenItems, field)
+
+              onClickAccept()
+            }}
+          >
+            {t(TranslationKey.Accept)}
+          </Button>
+          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </div>
+      </div>
+    )
+  }, styles),
+)
+
+export const FreelanceRequestType = React.memo(
+  withStyles(({classes: classNames, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept}) => {
+    const filterData = Object.values(freelanceRequestType)
+
+    const {currentFilterData} = data
+
+    const [choosenItems, setChoosenItems] = useState(currentFilterData)
+
+    const onClickItem = str => {
+      if (choosenItems.some(item => item === str)) {
+        setChoosenItems(choosenItems.slice().filter(item => item !== str))
+      } else {
+        setChoosenItems([...choosenItems, str])
+      }
+    }
+    useEffect(() => {
+      setChoosenItems(currentFilterData)
+    }, [currentFilterData])
+
+    const [itemsForRender, setItemsForRender] = useState(filterData || [])
+    const [nameSearchValue, setNameSearchValue] = useState('')
+
+    useEffect(() => {
+      if (nameSearchValue) {
+        const filter = filterData?.filter(item =>
+          freelanceRequestTypeTranslate(item).toLowerCase().includes(nameSearchValue.toLowerCase()),
+        )
+        setItemsForRender(filter)
+      } else {
+        setItemsForRender(filterData)
+      }
+    }, [nameSearchValue])
+
+    return (
+      <div className={classNames.shopsDataWrapper}>
+        <div className={classNames.searchInputWrapper}>
+          <SearchInput
+            key={'client_warehouse_search_input'}
+            inputClasses={classNames.searchInput}
+            placeholder={t(TranslationKey.Search)}
+            onChange={e => {
+              setNameSearchValue(e.target.value)
+            }}
+          />
+        </div>
+        <div className={classNames.shopsWrapper}>
+          <div className={classNames.shopsBody}>
+            <>
+              {itemsForRender.length ? (
+                <>
+                  <DataGridSelectAllFilters
+                    choosenItems={choosenItems}
+                    itemsForRender={itemsForRender}
+                    setChoosenItems={setChoosenItems}
+                  />
+                  {itemsForRender.map(
+                    (el, index) =>
+                      freelanceRequestType.DEFAULT !== el && (
+                        <div key={index} className={classNames.shop}>
+                          <Checkbox
+                            color="primary"
+                            checked={choosenItems.some(item => item === el)}
+                            onClick={() => onClickItem(el)}
+                          />
+                          <div className={classNames.shopName}>
+                            {freelanceRequestTypeTranslate(el) || t(TranslationKey.Empty)}
+                          </div>
+                        </div>
+                      ),
+                  )}
+                </>
+              ) : (
+                <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+              )}
+            </>
+          </div>
+        </div>
+
+        <div className={classNames.buttonsWrapper}>
+          <Button
+            variant="contained"
+            onClick={e => {
+              onClose(e)
+              onChangeFullFieldMenuItem(choosenItems, field)
+
+              onClickAccept()
+            }}
+          >
+            {t(TranslationKey.Accept)}
+          </Button>
+          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </div>
+      </div>
+    )
+  }, styles),
+)
+
 export const ClientOrderAllStatusesMenuItem = React.memo(
   withStyles(({classes: classNames, orderStatusData}) => {
     const {orderStatusDataBase, chosenStatus, onClickOrderStatusData} = orderStatusData
@@ -378,6 +576,78 @@ export const ObJectFieldMenuItem = React.memo(
   ),
 )
 
+export const BoxestatusMenuItem = React.memo(
+  withStyles(({classes: classNames, data, onChangeFullFieldMenuItem, onClose, field, onClickAccept}) => {
+    const {/* filterData, */ currentFilterData} = data
+
+    const [choosenItems, setChoosenItems] = useState(currentFilterData)
+
+    const onClickItem = el => {
+      if (el === 'ALL') {
+        if (choosenItems.length === 4) {
+          setChoosenItems([])
+        } else {
+          setChoosenItems([
+            BoxStatus.NEW,
+            BoxStatus.IN_STOCK,
+            BoxStatus.REQUESTED_SEND_TO_BATCH,
+            BoxStatus.ACCEPTED_IN_PROCESSING,
+            BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE,
+            BoxStatus.NEED_TO_UPDATE_THE_TARIFF,
+          ])
+        }
+      } else if (choosenItems.some(item => item === el)) {
+        setChoosenItems(choosenItems.slice().filter(item => item !== el))
+      } else {
+        setChoosenItems([...choosenItems, el])
+      }
+    }
+    useEffect(() => {
+      setChoosenItems(currentFilterData)
+    }, [currentFilterData])
+
+    return (
+      <div className={classNames.shopsDataWrapper}>
+        <div className={classNames.orderStatusDataBody}>
+          <div className={classNames.orderStatus} onClick={() => onClickItem('ALL')}>
+            <Checkbox color="primary" checked={choosenItems.length === 4 || !choosenItems.length} />
+            <div className={classNames.orderStatusName}>{t(TranslationKey.All)}</div>
+          </div>
+          {[
+            BoxStatus.NEW,
+            BoxStatus.IN_STOCK,
+            BoxStatus.REQUESTED_SEND_TO_BATCH,
+            BoxStatus.ACCEPTED_IN_PROCESSING,
+            BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE,
+            BoxStatus.NEED_TO_UPDATE_THE_TARIFF,
+          ].map(item => (
+            <div key={item} className={classNames.orderStatus} onClick={() => onClickItem(item)}>
+              <Checkbox color="primary" checked={choosenItems?.some(status => status === item)} />
+              <div className={classNames.orderStatusName}>{t(boxStatusTranslateKey(item))}</div>
+            </div>
+          ))}
+        </div>
+        <div className={classNames.buttonsWrapper}>
+          <Button
+            variant="contained"
+            onClick={e => {
+              onClose(e)
+              onChangeFullFieldMenuItem(choosenItems, field)
+
+              onClickAccept()
+            }}
+          >
+            {t(TranslationKey.Accept)}
+          </Button>
+          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </div>
+      </div>
+    )
+  }, styles),
+)
+
 export const NormalFieldMenuItem = React.memo(
   withStyles(
     ({
@@ -504,180 +774,154 @@ export const NormalFieldMenuItem = React.memo(
 )
 
 export const ProductMenuItem = React.memo(
-  withStyles(
-    ({
+  withStyles(props => {
+    const {
       classes: classNames,
       onClose,
       data,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
-
       onClickAccept,
-    }) => {
-      const [currentOption, setCurrentOption] = useState(
-        data.amazonTitle.currentFilterData.length
-          ? 'amazonTitle'
-          : data.skusByClient.currentFilterData.length
-          ? 'skusByClient'
-          : 'asin',
+    } = props
+
+    const [currentOption, setCurrentOption] = useState(
+      data.amazonTitle.currentFilterData.length
+        ? 'amazonTitle'
+        : data.skusByClient.currentFilterData.length
+        ? 'skusByClient'
+        : 'asin',
+    )
+    const {filterData, currentFilterData} = data[currentOption]
+    const [choosenItems, setChoosenItems] = useState(currentFilterData)
+    const [itemsForRender, setItemsForRender] = useState(filterData || [])
+    const [nameSearchValue, setNameSearchValue] = useState('')
+
+    useEffect(() => {
+      onClickFilterBtn(currentOption)
+    }, [currentOption])
+
+    useEffect(() => {
+      setChoosenItems(currentFilterData)
+    }, [currentFilterData])
+    useEffect(() => {
+      setItemsForRender(
+        filterData
+          .filter(el => el)
+          .sort(
+            (a, b) => Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
+          ),
       )
+    }, [filterData])
 
-      useEffect(() => {
-        onClickFilterBtn(currentOption)
-
-        if (currentOption === 'amazonTitle') {
-          onChangeFullFieldMenuItem([], 'skusByClient')
-          onChangeFullFieldMenuItem([], 'asin')
-        } else if (currentOption === 'skusByClient') {
-          onChangeFullFieldMenuItem([], 'asin')
-          onChangeFullFieldMenuItem([], 'amazonTitle')
-        } else {
-          onChangeFullFieldMenuItem([], 'skusByClient')
-          onChangeFullFieldMenuItem([], 'amazonTitle')
-        }
-      }, [currentOption])
-
-      const {filterData, currentFilterData} = data[currentOption]
-
-      const [choosenItems, setChoosenItems] = useState(currentFilterData)
-
-      const onClickItem = str => {
-        if (choosenItems.some(item => item === str)) {
-          setChoosenItems(choosenItems.slice().filter(item => item !== str))
-        } else {
-          setChoosenItems([...choosenItems, str])
-        }
+    useEffect(() => {
+      if (nameSearchValue) {
+        const filter = filterData?.filter(item => String(item).toLowerCase().includes(nameSearchValue?.toLowerCase()))
+        setItemsForRender(filter)
+      } else {
+        setItemsForRender(filterData)
       }
-      useEffect(() => {
-        setChoosenItems(currentFilterData)
-      }, [currentFilterData])
+    }, [nameSearchValue])
 
-      const [itemsForRender, setItemsForRender] = useState(filterData || [])
-      const [nameSearchValue, setNameSearchValue] = useState('')
+    const onClickItem = str => {
+      if (choosenItems.some(item => item === str)) {
+        setChoosenItems(choosenItems.slice().filter(item => item !== str))
+      } else {
+        setChoosenItems([...choosenItems, str])
+      }
+    }
 
-      useEffect(() => {
-        setItemsForRender(
-          filterData
-            .filter(el => el)
-            .sort(
-              (a, b) => Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
-            ),
-        )
-      }, [filterData])
+    const handleCategory = e => {
+      onChangeFullFieldMenuItem(choosenItems, currentOption)
+      setCurrentOption(e.target.value)
+    }
 
-      useEffect(() => {
-        if (nameSearchValue) {
-          const filter = filterData?.filter(item => String(item).toLowerCase().includes(nameSearchValue?.toLowerCase()))
-          setItemsForRender(filter)
-        } else {
-          setItemsForRender(filterData)
-        }
-      }, [nameSearchValue])
+    const applyFilters = e => {
+      onClose(e)
+      onChangeFullFieldMenuItem(choosenItems, currentOption)
+      onClickAccept()
+    }
 
-      return (
-        <div className={classNames.shopsDataWrapper}>
-          <div>
-            <FormControl className={classNames.formControl}>
-              <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
-              <RadioGroup
-                row
-                className={classNames.radioGroup}
-                value={currentOption}
-                onChange={e => setCurrentOption(e.target.value)}
-              >
-                <FormControlLabel
-                  className={classNames.radioOption}
-                  value="asin"
-                  control={<Radio className={classNames.radioControl} />}
-                  label={t(TranslationKey.ASIN)}
-                />
-                <FormControlLabel
-                  className={classNames.radioOption}
-                  value="skusByClient"
-                  control={<Radio className={classNames.radioControl} />}
-                  label={t(TranslationKey.SKU)}
-                />
-                <FormControlLabel
-                  className={classNames.radioOption}
-                  value="amazonTitle"
-                  control={<Radio className={classNames.radioControl} />}
-                  label={t(TranslationKey.Title)}
-                />
-              </RadioGroup>
-            </FormControl>
-          </div>
+    return (
+      <div className={classNames.shopsDataWrapper}>
+        <div>
+          <FormControl className={classNames.formControl}>
+            <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
+            <RadioGroup row className={classNames.radioGroup} value={currentOption} onChange={handleCategory}>
+              <FormControlLabel
+                className={classNames.radioOption}
+                value="asin"
+                control={<Radio className={classNames.radioControl} />}
+                label={t(TranslationKey.ASIN)}
+              />
+              <FormControlLabel
+                className={classNames.radioOption}
+                value="skusByClient"
+                control={<Radio className={classNames.radioControl} />}
+                label={t(TranslationKey.SKU)}
+              />
+              <FormControlLabel
+                className={classNames.radioOption}
+                value="amazonTitle"
+                control={<Radio className={classNames.radioControl} />}
+                label={t(TranslationKey.Title)}
+              />
+            </RadioGroup>
+          </FormControl>
+        </div>
 
-          <div className={classNames.searchInputWrapper}>
-            <SearchInput
-              key={'client_warehouse_search_input'}
-              inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey.Search)}
-              onChange={e => {
-                setNameSearchValue(e.target.value)
-              }}
-            />
-          </div>
-          <div className={classNames.shopsWrapper}>
-            <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
-                <CircularProgress />
-              ) : (
-                <>
-                  {itemsForRender.length ? (
-                    <>
-                      <DataGridSelectAllFilters
-                        choosenItems={choosenItems}
-                        itemsForRender={itemsForRender}
-                        setChoosenItems={setChoosenItems}
-                      />
-                      {itemsForRender
-                        // .filter(el => el)
-
-                        // .sort(
-                        //   (a, b) =>
-                        //     Number(choosenItems?.some(item => item === b)) -
-                        //     Number(choosenItems?.some(item => item === a)),
-                        // )
-                        ?.map((el, index) => (
-                          <div key={index} className={classNames.shop}>
-                            <Checkbox
-                              color="primary"
-                              checked={choosenItems?.some(item => item === el)}
-                              onClick={() => onClickItem(el)}
-                            />
-                            <div className={classNames.shopName}>{el || t(TranslationKey.Empty)}</div>
-                          </div>
-                        ))}
-                    </>
-                  ) : (
-                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
-                  )}
-                </>
-              )}
-            </div>
-          </div>
-          <div className={classNames.buttonsWrapper}>
-            <Button
-              variant="contained"
-              onClick={e => {
-                onClose(e)
-                onChangeFullFieldMenuItem(choosenItems, currentOption)
-
-                onClickAccept()
-              }}
-            >
-              {t(TranslationKey.Accept)}
-            </Button>
-            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
-            </Button>
+        <div className={classNames.searchInputWrapper}>
+          <SearchInput
+            key={'client_warehouse_search_input'}
+            inputClasses={classNames.searchInput}
+            placeholder={t(TranslationKey.Search)}
+            onChange={e => {
+              setNameSearchValue(e.target.value)
+            }}
+          />
+        </div>
+        <div className={classNames.shopsWrapper}>
+          <div className={classNames.shopsBody}>
+            {filterRequestStatus === loadingStatuses.isLoading ? (
+              <CircularProgress />
+            ) : (
+              <>
+                {itemsForRender.length ? (
+                  <>
+                    <DataGridSelectAllFilters
+                      choosenItems={choosenItems}
+                      itemsForRender={itemsForRender}
+                      setChoosenItems={setChoosenItems}
+                    />
+                    {itemsForRender?.map((el, index) => (
+                      <div key={index} className={classNames.shop}>
+                        <Checkbox
+                          color="primary"
+                          checked={choosenItems?.some(item => item === el)}
+                          onClick={() => onClickItem(el)}
+                        />
+                        <div className={classNames.shopName}>{el || t(TranslationKey.Empty)}</div>
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                )}
+              </>
+            )}
           </div>
         </div>
-      )
-    },
-    styles,
-  ),
+        <div className={classNames.buttonsWrapper}>
+          <Button variant="contained" onClick={applyFilters}>
+            {t(TranslationKey.Accept)}
+          </Button>
+          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </div>
+      </div>
+    )
+  }, styles),
 )
 
 export const OrderOrItemMenuItem = React.memo(
@@ -840,8 +1084,8 @@ export const OrderOrItemMenuItem = React.memo(
 )
 
 export const DestinationMenuItem = React.memo(
-  withStyles(
-    ({
+  withStyles(props => {
+    const {
       classes: classNames,
       onClose,
       data,
@@ -849,157 +1093,138 @@ export const DestinationMenuItem = React.memo(
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
       onClickAccept,
-    }) => {
-      const [currentOption, setCurrentOption] = useState(
-        data.logicsTariff.currentFilterData.length ? 'logicsTariff' : 'destination',
+    } = props
+
+    const [currentOption, setCurrentOption] = useState(
+      data.logicsTariff.currentFilterData.length ? 'logicsTariff' : 'destination',
+    )
+    const {filterData, currentFilterData} = data[currentOption]
+    const [choosenItems, setChoosenItems] = useState(currentFilterData)
+    const [itemsForRender, setItemsForRender] = useState(filterData || [])
+    const [nameSearchValue, setNameSearchValue] = useState('')
+
+    useEffect(() => {
+      onClickFilterBtn(currentOption)
+    }, [currentOption])
+
+    useEffect(() => {
+      setChoosenItems(currentFilterData)
+    }, [currentFilterData])
+
+    useEffect(() => {
+      setItemsForRender(
+        filterData
+          .filter(el => el)
+          .sort(
+            (a, b) =>
+              Number(choosenItems?.some(item => item?._id === b?._id)) -
+              Number(choosenItems?.some(item => item?._id === a?._id)),
+          ),
       )
+    }, [filterData])
 
-      useEffect(() => {
-        onClickFilterBtn(currentOption)
-
-        if (currentOption === 'logicsTariff') {
-          onChangeFullFieldMenuItem([], 'destination')
-        } else {
-          onChangeFullFieldMenuItem([], 'logicsTariff')
-        }
-      }, [currentOption])
-
-      const {filterData, currentFilterData} = data[currentOption]
-
-      const [choosenItems, setChoosenItems] = useState(currentFilterData)
-
-      const onClickItem = obj => {
-        if (choosenItems.some(item => item._id === obj._id)) {
-          setChoosenItems(choosenItems.slice().filter(item => item._id !== obj._id))
-        } else {
-          setChoosenItems([...choosenItems, obj])
-        }
+    useEffect(() => {
+      if (nameSearchValue) {
+        const filter = filterData?.filter(obj => obj.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
+        setItemsForRender(filter)
+      } else {
+        setItemsForRender(filterData)
       }
-      useEffect(() => {
-        setChoosenItems(currentFilterData)
-      }, [currentFilterData])
+    }, [nameSearchValue])
 
-      const [itemsForRender, setItemsForRender] = useState(filterData || [])
-      const [nameSearchValue, setNameSearchValue] = useState('')
+    const onClickItem = obj => {
+      if (choosenItems.some(item => item._id === obj._id)) {
+        setChoosenItems(choosenItems.slice().filter(item => item._id !== obj._id))
+      } else {
+        setChoosenItems([...choosenItems, obj])
+      }
+    }
 
-      useEffect(() => {
-        setItemsForRender(
-          filterData
-            .filter(el => el)
+    const handleCategory = e => {
+      onChangeFullFieldMenuItem(choosenItems, currentOption)
+      setCurrentOption(e.target.value)
+    }
 
-            .sort(
-              (a, b) =>
-                Number(choosenItems?.some(item => item?._id === b?._id)) -
-                Number(choosenItems?.some(item => item?._id === a?._id)),
-            ),
-        )
-      }, [filterData])
+    const applyFilters = e => {
+      onClose(e)
+      onChangeFullFieldMenuItem(choosenItems, currentOption)
+      onClickAccept()
+    }
 
-      useEffect(() => {
-        if (nameSearchValue) {
-          const filter = filterData?.filter(obj => obj.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
-          setItemsForRender(filter)
-        } else {
-          setItemsForRender(filterData)
-        }
-      }, [nameSearchValue])
+    return (
+      <div className={classNames.shopsDataWrapper}>
+        <div>
+          <FormControl className={classNames.formControl}>
+            <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
+            <RadioGroup row className={classNames.radioGroupTwoItems} value={currentOption} onChange={handleCategory}>
+              <FormControlLabel
+                className={classNames.radioOption}
+                value="destination"
+                control={<Radio className={classNames.radioControl} />}
+                label={t(TranslationKey.Destination)}
+              />
+              <FormControlLabel
+                className={classNames.radioOption}
+                value="logicsTariff"
+                control={<Radio className={classNames.radioControl} />}
+                label={t(TranslationKey.Tariff)}
+              />
+            </RadioGroup>
+          </FormControl>
+        </div>
 
-      return (
-        <div className={classNames.shopsDataWrapper}>
-          <div>
-            <FormControl className={classNames.formControl}>
-              <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
-              <RadioGroup
-                row
-                className={classNames.radioGroupTwoItems}
-                value={currentOption}
-                onChange={e => setCurrentOption(e.target.value)}
-              >
-                <FormControlLabel
-                  className={classNames.radioOption}
-                  value="destination"
-                  control={<Radio className={classNames.radioControl} />}
-                  label={t(TranslationKey.Destination)}
-                />
-                <FormControlLabel
-                  className={classNames.radioOption}
-                  value="logicsTariff"
-                  control={<Radio className={classNames.radioControl} />}
-                  label={t(TranslationKey.Tariff)}
-                />
-              </RadioGroup>
-            </FormControl>
-          </div>
-
-          <div className={classNames.searchInputWrapper}>
-            <SearchInput
-              key={'client_warehouse_search_input'}
-              inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey.Search)}
-              onChange={e => {
-                setNameSearchValue(e.target.value)
-              }}
-            />
-          </div>
-          <div className={classNames.shopsWrapper}>
-            <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
-                <CircularProgress />
-              ) : (
-                <>
-                  {itemsForRender.length ? (
-                    <>
-                      <DataGridSelectAllFilters
-                        choosenItems={choosenItems}
-                        itemsForRender={itemsForRender}
-                        setChoosenItems={setChoosenItems}
-                      />
-                      {itemsForRender
-                        // .filter(el => el)
-
-                        // .sort(
-                        //   (a, b) =>
-                        //     Number(choosenItems?.some(item => item?._id === b?._id)) -
-                        //     Number(choosenItems?.some(item => item?._id === a?._id)),
-                        // )
-                        .map(obj => (
-                          <div key={obj?._id} className={classNames.shop}>
-                            <Checkbox
-                              color="primary"
-                              checked={choosenItems.some(item => item?._id === obj?._id)}
-                              onClick={() => onClickItem(obj)}
-                            />
-                            <div className={classNames.shopName}>{obj?.name || t(TranslationKey.Empty)}</div>
-                          </div>
-                        ))}
-                    </>
-                  ) : (
-                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
-                  )}
-                </>
-              )}
-            </div>
-          </div>
-          <div className={classNames.buttonsWrapper}>
-            <Button
-              variant="contained"
-              onClick={e => {
-                onClose(e)
-                onChangeFullFieldMenuItem(choosenItems, currentOption)
-                onClickAccept()
-              }}
-            >
-              {t(TranslationKey.Accept)}
-            </Button>
-            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
-            </Button>
+        <div className={classNames.searchInputWrapper}>
+          <SearchInput
+            key={'client_warehouse_search_input'}
+            inputClasses={classNames.searchInput}
+            placeholder={t(TranslationKey.Search)}
+            onChange={e => {
+              setNameSearchValue(e.target.value)
+            }}
+          />
+        </div>
+        <div className={classNames.shopsWrapper}>
+          <div className={classNames.shopsBody}>
+            {filterRequestStatus === loadingStatuses.isLoading ? (
+              <CircularProgress />
+            ) : (
+              <>
+                {itemsForRender.length ? (
+                  <>
+                    <DataGridSelectAllFilters
+                      choosenItems={choosenItems}
+                      itemsForRender={itemsForRender}
+                      setChoosenItems={setChoosenItems}
+                    />
+                    {itemsForRender.map(obj => (
+                      <div key={obj?._id} className={classNames.shop}>
+                        <Checkbox
+                          color="primary"
+                          checked={choosenItems.some(item => item?._id === obj?._id)}
+                          onClick={() => onClickItem(obj)}
+                        />
+                        <div className={classNames.shopName}>{obj?.name || t(TranslationKey.Empty)}</div>
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                )}
+              </>
+            )}
           </div>
         </div>
-      )
-    },
-    styles,
-  ),
+        <div className={classNames.buttonsWrapper}>
+          <Button variant="contained" onClick={applyFilters}>
+            {t(TranslationKey.Accept)}
+          </Button>
+          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </div>
+      </div>
+    )
+  }, styles),
 )
 
 export const FromToDateMenuItem = React.memo(
@@ -1267,7 +1492,7 @@ export const NumberFieldMenuItem = React.memo(
                               checked={choosenItems?.some(item => item === el)}
                               onClick={() => onClickItem(el)}
                             />
-                            <div className={classNames.shopName}>{el || 0}</div>
+                            <div className={classNames.shopName}>{toFixed(el, 0) || 0}</div>
                           </div>
                         ))}
                     </>

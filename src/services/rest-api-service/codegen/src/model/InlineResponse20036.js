@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20036Products from './InlineResponse20036Products';
 
 /**
  * The InlineResponse20036 model module.
@@ -22,6 +21,7 @@ import InlineResponse20036Products from './InlineResponse20036Products';
 class InlineResponse20036 {
     /**
      * Constructs a new <code>InlineResponse20036</code>.
+     * цену для клиента на поиск поставщика
      * @alias module:model/InlineResponse20036
      */
     constructor() { 
@@ -48,8 +48,8 @@ class InlineResponse20036 {
         if (data) {
             obj = obj || new InlineResponse20036();
 
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20036Products.constructFromObject(data['products']);
+            if (data.hasOwnProperty('priceForClient')) {
+                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
             }
         }
         return obj;
@@ -59,9 +59,9 @@ class InlineResponse20036 {
 }
 
 /**
- * @member {module:model/InlineResponse20036Products} products
+ * @member {Number} priceForClient
  */
-InlineResponse20036.prototype['products'] = undefined;
+InlineResponse20036.prototype['priceForClient'] = undefined;
 
 
 

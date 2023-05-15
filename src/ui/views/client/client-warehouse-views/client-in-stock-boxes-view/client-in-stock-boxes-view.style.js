@@ -65,10 +65,6 @@ export const styles = theme => ({
     },
   },
 
-  tableWrapper: {
-    minWidth: '100%',
-  },
-
   isDraftRow: {
     opacity: '.5',
   },
@@ -76,7 +72,7 @@ export const styles = theme => ({
   tasksWrapper: {
     marginTop: '30px',
 
-    height: '63vh',
+    // height: 'calc(100vh - 380px)',
   },
 
   boxesFiltersWrapper: {
@@ -195,5 +191,10 @@ export const styles = theme => ({
   },
   iconSeparator: {
     padding: '0 1px',
+  },
+
+  tableWrapper: {
+    height: 'calc(100vh - 310px)',
+    width: '100%',
   },
 })

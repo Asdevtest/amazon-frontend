@@ -22,11 +22,12 @@ class InlineObject71 {
     /**
      * Constructs a new <code>InlineObject71</code>.
      * @alias module:model/InlineObject71
-     * @param text {String} текст отзыва/репорта
+     * @param productId {String} 
+     * @param skus {Array.<String>} 
      */
-    constructor(text) { 
+    constructor(productId, skus) { 
         
-        InlineObject71.initialize(this, text);
+        InlineObject71.initialize(this, productId, skus);
     }
 
     /**
@@ -34,8 +35,9 @@ class InlineObject71 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, text) { 
-        obj['text'] = text;
+    static initialize(obj, productId, skus) { 
+        obj['productId'] = productId;
+        obj['skus'] = skus;
     }
 
     /**
@@ -49,11 +51,11 @@ class InlineObject71 {
         if (data) {
             obj = obj || new InlineObject71();
 
-            if (data.hasOwnProperty('text')) {
-                obj['text'] = ApiClient.convertToType(data['text'], 'String');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
+            if (data.hasOwnProperty('skus')) {
+                obj['skus'] = ApiClient.convertToType(data['skus'], ['String']);
             }
         }
         return obj;
@@ -63,16 +65,14 @@ class InlineObject71 {
 }
 
 /**
- * текст отзыва/репорта
- * @member {String} text
+ * @member {String} productId
  */
-InlineObject71.prototype['text'] = undefined;
+InlineObject71.prototype['productId'] = undefined;
 
 /**
- * Прикрепленные ссылки на медиа для репорта/отзыва
- * @member {Array.<String>} media
+ * @member {Array.<String>} skus
  */
-InlineObject71.prototype['media'] = undefined;
+InlineObject71.prototype['skus'] = undefined;
 
 
 

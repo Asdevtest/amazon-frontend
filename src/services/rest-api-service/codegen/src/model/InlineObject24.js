@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesSplitNewBoxesParams from './ApiV1BoxesSplitNewBoxesParams';
+import ApiV1BoxesMergeBoxBody from './ApiV1BoxesMergeBoxBody';
 
 /**
  * The InlineObject24 model module.
@@ -23,10 +23,12 @@ class InlineObject24 {
     /**
      * Constructs a new <code>InlineObject24</code>.
      * @alias module:model/InlineObject24
+     * @param guids {Array.<String>} Массив коробок.
+     * @param boxBody {module:model/ApiV1BoxesMergeBoxBody} 
      */
-    constructor() { 
+    constructor(guids, boxBody) { 
         
-        InlineObject24.initialize(this);
+        InlineObject24.initialize(this, guids, boxBody);
     }
 
     /**
@@ -34,7 +36,9 @@ class InlineObject24 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, guids, boxBody) { 
+        obj['guids'] = guids;
+        obj['boxBody'] = boxBody;
     }
 
     /**
@@ -48,11 +52,11 @@ class InlineObject24 {
         if (data) {
             obj = obj || new InlineObject24();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('guids')) {
+                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
             }
-            if (data.hasOwnProperty('newBoxesParams')) {
-                obj['newBoxesParams'] = ApiClient.convertToType(data['newBoxesParams'], [ApiV1BoxesSplitNewBoxesParams]);
+            if (data.hasOwnProperty('boxBody')) {
+                obj['boxBody'] = ApiV1BoxesMergeBoxBody.constructFromObject(data['boxBody']);
             }
         }
         return obj;
@@ -62,15 +66,15 @@ class InlineObject24 {
 }
 
 /**
- * GUID коробки, которую делим
- * @member {String} guid
+ * Массив коробок.
+ * @member {Array.<String>} guids
  */
-InlineObject24.prototype['guid'] = undefined;
+InlineObject24.prototype['guids'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1BoxesSplitNewBoxesParams>} newBoxesParams
+ * @member {module:model/ApiV1BoxesMergeBoxBody} boxBody
  */
-InlineObject24.prototype['newBoxesParams'] = undefined;
+InlineObject24.prototype['boxBody'] = undefined;
 
 
 

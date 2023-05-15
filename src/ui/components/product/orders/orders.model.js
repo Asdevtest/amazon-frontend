@@ -53,7 +53,7 @@ export class OrdersModel {
 
   storekeepers = []
   destinations = []
-  volumeWeightCoefficient = undefined
+  platformSettings = undefined
 
   confirmModalSettings = {
     isWarning: false,
@@ -100,6 +100,15 @@ export class OrdersModel {
     )
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = this.columnsModel.map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.columnsModel = clientProductOrdersViewColumns(this.rowHandlers, this.firstRowId)
@@ -126,6 +135,7 @@ export class OrdersModel {
               el.originalData.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] ||
               el.originalData.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ||
               el.originalData.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED] ||
+              el.originalData.status === OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT] ||
               el.originalData.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
           ),
         )
@@ -201,7 +211,7 @@ export class OrdersModel {
 
         this.destinations = destinations
 
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.platformSettings = result
 
         this.reorderOrder = order
 
@@ -283,8 +293,6 @@ export class OrdersModel {
         } else if (!product.barCode) {
           await ClientModel.updateProductBarCode(product.productId, {barCode: null})
         }
-
-        console.log('product', product)
 
         if (this.isPendingOrdering) {
           const dataToRequest = getObjectFilteredByKeyArrayWhiteList(product, [

@@ -3,6 +3,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React from 'react'
 
+import {BoxStatus, boxStatusTranslateKey, colorByBoxStatus} from '@constants/box-status'
 import {columnnsKeys} from '@constants/data-grid-columns-keys'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -22,7 +23,8 @@ import {
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {findTariffInStorekeepersData} from '@utils/checks'
-import {toFixedWithDollarSign} from '@utils/text'
+import {formatDate, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
+import {timeToDeadlineInHoursAndMins, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const clientBoxesViewColumns = (
@@ -65,6 +67,29 @@ export const clientBoxesViewColumns = (
     width: 100,
     sortable: false,
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,
+  },
+
+  {
+    field: 'status',
+    headerName: t(TranslationKey.Status),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Status)}
+        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+
+    width: 160,
+    renderCell: params => (
+      <MultilineTextCell
+        leftAlign
+        text={t(boxStatusTranslateKey(params.value))}
+        otherStyles={colorByBoxStatus(params.value)}
+      />
+    ),
+
+    columnKey: columnnsKeys.shared.BOXES_STATUS,
   },
 
   {
@@ -163,7 +188,7 @@ export const clientBoxesViewColumns = (
     renderCell: params =>
       params.row.originalData ? (
         <CheckboxCell
-          disabled={params.row.originalData.isDraft}
+          disabled={params.row.originalData.isDraft || params.row.status !== BoxStatus.IN_STOCK}
           checked={params.value}
           onClick={() => handlers.onChangeIsFormedInBox(params.row.originalData)}
         />
@@ -220,7 +245,7 @@ export const clientBoxesViewColumns = (
           setDestinationsFavouritesItem={handlers.onClickSetDestinationFavourite}
           storekeepers={storekeepersData}
           setShowSelectionStorekeeperAndTariffModal={handlers.setShowSelectionStorekeeperAndTariffModal}
-          isDraft={params.row.isDraft}
+          disabled={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
           onSelectDestination={handlers.onSelectDestination}
           onClickSetTariff={handlers.onClickSetTariff}
         />
@@ -251,6 +276,22 @@ export const clientBoxesViewColumns = (
   },
 
   {
+    field: 'deadline',
+    headerName: 'Deadline',
+    renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
+
+    renderCell: params => (
+      <MultilineTextCell
+        withLineBreaks
+        tooltipText={params.value ? timeToDeadlineInHoursAndMins({date: params.value}) : ''}
+        color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
+        text={params.value ? formatDate(params.value) : ''}
+      />
+    ),
+    width: 120,
+  },
+
+  {
     field: 'fbaShipment',
     headerName: 'FBA Shipment / Shipping Label',
     renderHeader: params => (
@@ -266,7 +307,7 @@ export const clientBoxesViewColumns = (
         <div style={{display: 'flex', flexDirection: 'column', gap: '7px', padding: '10px 0'}}>
           <ChangeChipCell
             label={t(TranslationKey['Shipping label']) + ':'}
-            disabled={params.row.originalData?.isDraft}
+            disabled={params.row.originalData?.isDraft || params.row.status !== BoxStatus.IN_STOCK}
             row={params.row.originalData}
             value={params.row.shippingLabel}
             text={'Set Shipping Label'}
@@ -277,7 +318,7 @@ export const clientBoxesViewColumns = (
 
           <ChangeChipCell
             label={t(TranslationKey['FBA Shipment']) + ':'}
-            disabled={params.row.originalData?.isDraft}
+            disabled={params.row.originalData?.isDraft || params.row.status !== BoxStatus.IN_STOCK}
             row={params.row.originalData}
             value={params.row.fbaShipment}
             text={t(TranslationKey['FBA Shipment'])}

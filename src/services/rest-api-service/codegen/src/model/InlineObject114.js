@@ -22,12 +22,10 @@ class InlineObject114 {
     /**
      * Constructs a new <code>InlineObject114</code>.
      * @alias module:model/InlineObject114
-     * @param oldPassword {String} Старый ароль
-     * @param newPassword {String} Новый пароль
      */
-    constructor(oldPassword, newPassword) { 
+    constructor() { 
         
-        InlineObject114.initialize(this, oldPassword, newPassword);
+        InlineObject114.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject114 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, oldPassword, newPassword) { 
-        obj['oldPassword'] = oldPassword;
-        obj['newPassword'] = newPassword;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,14 @@ class InlineObject114 {
         if (data) {
             obj = obj || new InlineObject114();
 
-            if (data.hasOwnProperty('oldPassword')) {
-                obj['oldPassword'] = ApiClient.convertToType(data['oldPassword'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('newPassword')) {
-                obj['newPassword'] = ApiClient.convertToType(data['newPassword'], 'String');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
         }
         return obj;
@@ -65,16 +64,22 @@ class InlineObject114 {
 }
 
 /**
- * Старый ароль
- * @member {String} oldPassword
+ * Название услуги
+ * @member {String} name
  */
-InlineObject114.prototype['oldPassword'] = undefined;
+InlineObject114.prototype['name'] = undefined;
 
 /**
- * Новый пароль
- * @member {String} newPassword
+ * Описание услуги
+ * @member {String} description
  */
-InlineObject114.prototype['newPassword'] = undefined;
+InlineObject114.prototype['description'] = undefined;
+
+/**
+ * Цена услуги.
+ * @member {Number} price
+ */
+InlineObject114.prototype['price'] = undefined;
 
 
 

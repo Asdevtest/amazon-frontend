@@ -1,4 +1,6 @@
+import {cx} from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import {Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
@@ -15,6 +17,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {DataGridCustomColumnMenuComponent} from '@components/data-grid-custom-components/data-grid-custom-column-component'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import {PaymentMethodsForm} from '@components/forms/payment-methods-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
@@ -28,6 +31,7 @@ import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-m
 import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
+import {toFixedWithDollarSign, toFixedWithYuanSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {BuyerMyOrdersViewModel} from './buyer-my-orders-view.model'
@@ -41,6 +45,16 @@ const attentionStatuses = [
   OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
 ]
 
+const categoryNameByUrl = {
+  '/buyer/ready-for-payment-orders': 'Ready for payment',
+  '/buyer/not-paid-orders': 'Not paid',
+  '/buyer/need-track-number-orders': 'Need track number',
+  '/buyer/inbound-orders': 'Inbound',
+  '/buyer/confirmation-required-orders': 'Confirmation required',
+  '/buyer/closed-and-canceled-orders': 'Closed and canceled',
+  '/buyer/all-orders': 'All orders',
+}
+
 @observer
 class BuyerMyOrdersViewRaw extends Component {
   viewModel = new BuyerMyOrdersViewModel({history: this.props.history, location: this.props.location})
@@ -52,6 +66,8 @@ class BuyerMyOrdersViewRaw extends Component {
 
   render() {
     const {
+      isSomeFilterOn,
+      columnMenuSettings,
       pathnameNotPaid,
       yuanToDollarRate,
       orderStatusData,
@@ -74,6 +90,8 @@ class BuyerMyOrdersViewRaw extends Component {
       columnsModel,
       columnVisibilityModel,
 
+      paymentAmount,
+
       curBoxesOfOrder,
       drawerOpen,
       curPage,
@@ -84,6 +102,7 @@ class BuyerMyOrdersViewRaw extends Component {
       showNoDimensionsErrorModal,
       showWarningNewBoxesModal,
       showOrderPriceMismatchModal,
+      showPaymentMethodsModal,
       showWarningInfoModal,
       showConfirmModal,
       showEditHSCodeModal,
@@ -92,6 +111,10 @@ class BuyerMyOrdersViewRaw extends Component {
 
       showProgress,
       progressValue,
+      imagesForLoad,
+      paymentMethods,
+      currentOrder,
+      orderStatusDataBase,
 
       onClickHsCode,
       onTriggerDrawerOpen,
@@ -102,18 +125,21 @@ class BuyerMyOrdersViewRaw extends Component {
       onTriggerOpenModal,
       onClickSaveSupplierBtn,
 
-      // setDataGridState,
+      setDataGridState,
       onColumnVisibilityModelChange,
-      setFirstRowId,
       onChangeSortingModel,
       onChangeFilterModel,
       // onSubmitCancelOrder,
       onSaveOrderItem,
+      saveOrderPayment,
 
       onSearchSubmit,
       onSubmitChangeBoxFields,
       onClickSaveHsCode,
 
+      changeColumnsModel,
+      onChangeImagesForLoad,
+      onClickResetFilters,
       setPhotosToLoad,
     } = this.viewModel
     const {classes: classNames} = this.props
@@ -122,6 +148,23 @@ class BuyerMyOrdersViewRaw extends Component {
       attentionStatuses.includes(params.row.originalData.status) &&
       this.props.history.location.pathname === routsPathes.BUYER_MY_ORDERS_ALL_ORDERS &&
       classNames.attentionRow
+
+    const validOrderPayments =
+      currentOrder && currentOrder?.orderSupplier?.paymentMethods?.length
+        ? currentOrder?.orderSupplier?.paymentMethods.filter(
+            method => !currentOrder?.payments.some(payment => payment.paymentMethod._id === method._id),
+          )
+        : paymentMethods.filter(
+            method => !currentOrder?.payments.some(payment => payment.paymentMethod._id === method._id),
+          )
+
+    const payments = currentOrder && [...currentOrder.payments, ...validOrderPayments]
+
+    const isNoPaidedOrders = orderStatusDataBase.some(
+      status =>
+        Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
+        Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
+    )
 
     return (
       <React.Fragment>
@@ -133,14 +176,48 @@ class BuyerMyOrdersViewRaw extends Component {
         />
 
         <Main>
-          <Appbar title={t(TranslationKey['My orders'])} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar
+            title={`${t(TranslationKey['My orders'])} - ${t(
+              TranslationKey[categoryNameByUrl[this.props.location.pathname]],
+            )}`}
+            setDrawerOpen={onTriggerDrawerOpen}
+          >
             <MainContent>
-              <div className={classNames.headerWrapper}>
+              <div
+                className={cx(classNames.headerWrapper, {
+                  [classNames.headerWrapperCenter]: !paymentAmount?.totalPriceInYuan,
+                })}
+              >
+                {paymentAmount?.totalPriceInYuan > 0 && <div className={classNames.totalPriceWrapper} />}
+
                 <SearchInput
                   inputClasses={classNames.searchInput}
                   placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
                   onSubmit={onSearchSubmit}
                 />
+
+                {paymentAmount?.totalPriceInYuan > 0 && (
+                  <div className={classNames.totalPriceWrapper}>
+                    <Typography className={classNames.totalPriceText}>
+                      {isNoPaidedOrders
+                        ? t(TranslationKey.Sum) + ':'
+                        : t(TranslationKey['Payment to all suppliers']) + ':'}
+                    </Typography>
+                    <div className={classNames.totalPriceTextWrapper}>
+                      <Typography className={cx(classNames.totalPriceText, classNames.totalPrice)}>
+                        {`${toFixedWithYuanSign(
+                          isNoPaidedOrders
+                            ? paymentAmount?.totalPriceInUSD * yuanToDollarRate
+                            : paymentAmount?.totalPriceInYuan,
+                          2,
+                        )} ${t(TranslationKey.Or).toLocaleLowerCase()} ${toFixedWithDollarSign(
+                          paymentAmount?.totalPriceInUSD,
+                          2,
+                        )}`}
+                      </Typography>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className={classNames.dataGridWrapper}>
@@ -174,7 +251,11 @@ class BuyerMyOrdersViewRaw extends Component {
                     ColumnMenu: DataGridCustomColumnMenuComponent,
                   }}
                   componentsProps={{
-                    columnMenu: {orderStatusData},
+                    columnMenu: {...columnMenuSettings, orderStatusData},
+                    toolbar: {
+                      resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   columnVisibilityModel={columnVisibilityModel}
                   density={densityModel}
@@ -185,7 +266,7 @@ class BuyerMyOrdersViewRaw extends Component {
                   onPageChange={onChangeCurPage}
                   onFilterModelChange={onChangeFilterModel}
                   onColumnVisibilityModelChange={onColumnVisibilityModelChange}
-                  onStateChange={setFirstRowId}
+                  onStateChange={setDataGridState}
                   onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
                 />
               </div>
@@ -203,6 +284,8 @@ class BuyerMyOrdersViewRaw extends Component {
           dialogContextClassName={classNames.dialogContextClassName}
         >
           <EditOrderModal
+            paymentMethods={paymentMethods}
+            imagesForLoad={imagesForLoad}
             hsCodeData={hsCodeData}
             userInfo={userInfo}
             updateSupplierData={updateSupplierData}
@@ -218,6 +301,7 @@ class BuyerMyOrdersViewRaw extends Component {
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}
             setUpdateSupplierData={setUpdateSupplierData}
+            onChangeImagesForLoad={onChangeImagesForLoad}
             onClickUpdataSupplierData={onClickUpdataSupplierData}
             onClickSaveWithoutUpdateSupData={onClickSaveWithoutUpdateSupData}
             onTriggerOpenModal={onTriggerOpenModal}
@@ -301,6 +385,19 @@ class BuyerMyOrdersViewRaw extends Component {
             hsCodeData={hsCodeData}
             onClickSaveHsCode={onClickSaveHsCode}
             onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
+          />
+        </Modal>
+
+        <Modal
+          missClickModalOn
+          openModal={showPaymentMethodsModal}
+          setOpenModal={() => onTriggerOpenModal('showPaymentMethodsModal')}
+        >
+          <PaymentMethodsForm
+            readOnly={Number(currentOrder?.status) !== Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])}
+            payments={payments}
+            onClickSaveButton={state => saveOrderPayment(currentOrder, state)}
+            onClickCancelButton={() => onTriggerOpenModal('showPaymentMethodsModal')}
           />
         </Modal>
       </React.Fragment>

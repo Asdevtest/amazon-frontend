@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**suppliersIds** | **[String]** | GUIDы поставщиков, которые нужно добавить в БД. | [optional] 
+**clientComment** | **String** | Комментарий клиента | [optional] 
+**buyerComment** | **String** | Комментарий баера | [optional] 
 
 

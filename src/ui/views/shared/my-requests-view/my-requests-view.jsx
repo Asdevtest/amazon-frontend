@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+import {cx} from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Alert, Typography} from '@mui/material'
 
@@ -12,6 +14,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {DataGridCustomColumnMenuComponent} from '@components/data-grid-custom-components/data-grid-custom-column-component'
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -20,8 +23,10 @@ import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 import {CustomSearchRequestForm} from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
+import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
+import {getDistanceBetweenDatesInSeconds} from '@utils/date-time'
 import {t} from '@utils/translations'
 
 import {MyRequestsViewModel} from './my-requests-view.model'
@@ -32,7 +37,10 @@ const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS
 
 @observer
 class MyRequestsViewRaw extends Component {
-  viewModel = new MyRequestsViewModel({history: this.props.history, location: this.props.location})
+  viewModel = new MyRequestsViewModel({
+    history: this.props.history,
+    location: this.props.location,
+  })
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -40,8 +48,10 @@ class MyRequestsViewRaw extends Component {
 
   render() {
     const {
+      isSomeFilterOn,
+      columnMenuSettings,
       requestStatus,
-      getCurrentData,
+      currentData,
       sortModel,
       filterModel,
       densityModel,
@@ -50,26 +60,48 @@ class MyRequestsViewRaw extends Component {
       showConfirmModal,
       showRequestForm,
       requestFormSettings,
-      onTriggerDrawer,
-      onClickAddBtn,
 
       acceptMessage,
       showAcceptMessage,
-      drawerOpen,
       curPage,
       rowsPerPage,
+      nameSearchValue,
+      isRequestsAtWork,
+      drawerOpen,
+
+      onClickAddBtn,
+      onTriggerDrawerOpen,
+      onChangeNameSearchValue,
       onChangeCurPage,
       onChangeRowsPerPage,
       onTriggerOpenModal,
       onClickTableRow,
       removeCustomSearchRequest,
+      onClickChangeCatigory,
+      onHoverColumnField,
+      onLeaveColumnField,
 
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      changeColumnsModel,
+      onClickResetFilters,
     } = this.viewModel
 
     const {classes: classNames} = this.props
+
+    const getCellClassName = params =>
+      params.row.originalData.countProposalsByStatuses.waitedProposals &&
+      params.field === 'waitedProposals' &&
+      classNames.waitingCheckedBacklighting
+
+    const getRowClassName = params => {
+      if (getDistanceBetweenDatesInSeconds(params.row.originalData.timeoutAt) <= 86400 && isRequestsAtWork) {
+        return classNames.redBorder
+      } else if (getDistanceBetweenDatesInSeconds(params.row.originalData.timeoutAt) <= 172800 && isRequestsAtWork) {
+        return classNames.yellowBorder
+      }
+    }
 
     return (
       <React.Fragment>
@@ -77,12 +109,23 @@ class MyRequestsViewRaw extends Component {
           activeCategory={navbarActiveCategory}
           activeSubCategory={navbarActiveSubCategory}
           drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawer}
+          setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['My requests'])}>
+          <Appbar title={t(TranslationKey['My requests'])} history={history} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.placeRequestBtnWrapper}>
+                <div />
+
+                <SearchInput
+                  inputClasses={classNames.searchInput}
+                  placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.Title)}, ${t(
+                    TranslationKey.ASIN,
+                  )}, ${t(TranslationKey.ID)}`}
+                  value={nameSearchValue}
+                  onChange={onChangeNameSearchValue}
+                />
+
                 <Button
                   success
                   tooltipInfoContent={t(TranslationKey['Opens the form to create a request'])}
@@ -91,11 +134,39 @@ class MyRequestsViewRaw extends Component {
                   {t(TranslationKey['Create a request'])}
                 </Button>
               </div>
+
+              <div className={classNames.switchButtonWrapper}>
+                <Button
+                  variant={'text'}
+                  btnWrapperStyle={classNames.btnWrapperStyle}
+                  className={cx(classNames.switchButton, {
+                    [classNames.switchButtonBorder]: isRequestsAtWork,
+                    [classNames.selectedSwitchButton]: isRequestsAtWork,
+                  })}
+                  onClick={() => onClickChangeCatigory(true)}
+                >
+                  {t(TranslationKey['Requests in progress'])}
+                </Button>
+                <Button
+                  variant={'text'}
+                  btnWrapperStyle={classNames.btnWrapperStyle}
+                  className={cx(classNames.switchButton, {
+                    [classNames.switchButtonBorder]: !isRequestsAtWork,
+                    [classNames.selectedSwitchButton]: !isRequestsAtWork,
+                  })}
+                  onClick={() => onClickChangeCatigory(false)}
+                >
+                  {t(TranslationKey['Completed requests'])}
+                </Button>
+              </div>
+
               <div className={classNames.datagridWrapper}>
                 <MemoDataGrid
                   disableVirtualization
                   pagination
                   localeText={getLocalizationByLanguageTag()}
+                  getCellClassName={getCellClassName}
+                  getRowClassName={getRowClassName}
                   classes={{
                     row: classNames.row,
                     root: classNames.root,
@@ -103,6 +174,7 @@ class MyRequestsViewRaw extends Component {
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
 
+                    menuIconButton: classNames.menuIconButton,
                     columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
                     columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
                   }}
@@ -111,15 +183,27 @@ class MyRequestsViewRaw extends Component {
                   page={curPage}
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
+                  rows={currentData}
                   rowHeight={100}
                   components={{
                     Toolbar: DataGridCustomToolbar,
+                    ColumnMenu: DataGridCustomColumnMenuComponent,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
+                  }}
+                  componentsProps={{
+                    columnMenu: columnMenuSettings,
+                    toolbar: {
+                      resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
                   }}
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
+                  onColumnHeaderEnter={params => {
+                    onHoverColumnField(params.field)
+                  }}
+                  onColumnHeaderLeave={onLeaveColumnField}
                   onSortModelChange={onChangeSortingModel}
                   onPageSizeChange={onChangeRowsPerPage}
                   onPageChange={onChangeCurPage}
@@ -131,6 +215,7 @@ class MyRequestsViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
+
         <Modal openModal={showRequestForm} setOpenModal={() => onTriggerOpenModal('showRequestForm')}>
           <Typography variant="h5">{t(TranslationKey['New request'])}</Typography>
           <CustomSearchRequestForm

@@ -3,22 +3,24 @@ import {t} from '@utils/translations'
 import {TranslationKey} from './translations/translation-key'
 
 export const RequestProposalStatus = {
-  CREATED: 'CREATED',
-  OFFER_CONDITIONS_ACCEPTED: 'OFFER_CONDITIONS_ACCEPTED',
   READY_TO_VERIFY: 'READY_TO_VERIFY',
-  OFFER_CONDITIONS_REJECTED: 'OFFER_CONDITIONS_REJECTED',
+  PROPOSAL_EDITED: 'PROPOSAL_EDITED',
   VERIFYING_BY_SUPERVISOR: 'VERIFYING_BY_SUPERVISOR',
   TO_CORRECT: 'TO_CORRECT',
+
+  CREATED: 'CREATED',
+  OFFER_CONDITIONS_ACCEPTED: 'OFFER_CONDITIONS_ACCEPTED',
   CORRECTED: 'CORRECTED',
   ACCEPTED_BY_CLIENT: 'ACCEPTED_BY_CLIENT',
   ACCEPTED_BY_CREATOR_OF_REQUEST: 'ACCEPTED_BY_CREATOR_OF_REQUEST',
   ACCEPTED_BY_SUPERVISOR: 'ACCEPTED_BY_SUPERVISOR',
+  EXPIRED: 'EXPIRED',
+  OFFER_CONDITIONS_CORRECTED: 'OFFER_CONDITIONS_CORRECTED',
+
+  OFFER_CONDITIONS_REJECTED: 'OFFER_CONDITIONS_REJECTED',
   CANCELED_BY_CREATOR_OF_REQUEST: 'CANCELED_BY_CREATOR_OF_REQUEST',
   CANCELED_BY_SUPERVISOR: 'CANCELED_BY_SUPERVISOR',
   CANCELED_BY_EXECUTOR: 'CANCELED_BY_EXECUTOR',
-  EXPIRED: 'EXPIRED',
-  OFFER_CONDITIONS_CORRECTED: 'OFFER_CONDITIONS_CORRECTED',
-  PROPOSAL_EDITED: 'PROPOSAL_EDITED',
 }
 
 export const RequestProposalStatusTranslate = s => {
@@ -53,41 +55,46 @@ export const RequestProposalStatusTranslate = s => {
       return t(TranslationKey['To correct'])
     case RequestProposalStatus.VERIFYING_BY_SUPERVISOR:
       return t(TranslationKey['Verifying by Supervisor'])
+    case RequestProposalStatus.PROPOSAL_EDITED:
+      return t(TranslationKey['Proposal edited'])
   }
 }
 
-export const RequestProposalStatusColor = s => {
-  switch (s) {
-    case RequestProposalStatus.ACCEPTED_BY_CLIENT:
-      return 'green'
-    case RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST:
-      return 'green'
-    case RequestProposalStatus.ACCEPTED_BY_SUPERVISOR:
-      return 'green'
-    case RequestProposalStatus.CANCELED_BY_CREATOR_OF_REQUEST:
-      return 'red'
-    case RequestProposalStatus.CANCELED_BY_EXECUTOR:
-      return 'red'
-    case RequestProposalStatus.CANCELED_BY_SUPERVISOR:
-      return 'red'
-    case RequestProposalStatus.CORRECTED:
-      return 'green'
-    case RequestProposalStatus.CREATED:
-      return 'green'
-    case RequestProposalStatus.EXPIRED:
-      return 'green'
-    case RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED:
-      return 'green'
-    case RequestProposalStatus.OFFER_CONDITIONS_CORRECTED:
-      return 'green'
-    case RequestProposalStatus.OFFER_CONDITIONS_REJECTED:
-      return 'red'
-    case RequestProposalStatus.READY_TO_VERIFY:
-      return 'orange'
-    case RequestProposalStatus.TO_CORRECT:
-      return 'orange'
-    case RequestProposalStatus.VERIFYING_BY_SUPERVISOR:
-      return 'orange'
+export const RequestProposalStatusColor = status => {
+  if (
+    [
+      RequestProposalStatus.READY_TO_VERIFY,
+      RequestProposalStatus.TO_CORRECT,
+      RequestProposalStatus.VERIFYING_BY_SUPERVISOR,
+      RequestProposalStatus.PROPOSAL_EDITED,
+    ].includes(status)
+  ) {
+    return '#F3AF00'
+  } else if (
+    [
+      RequestProposalStatus.ACCEPTED_BY_CLIENT,
+      RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST,
+      RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+      RequestProposalStatus.CORRECTED,
+
+      RequestProposalStatus.CREATED,
+      RequestProposalStatus.EXPIRED,
+      RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED,
+      RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
+    ].includes(status)
+  ) {
+    return '#00B746'
+  } else if (
+    [
+      RequestProposalStatus.CANCELED_BY_CREATOR_OF_REQUEST,
+      RequestProposalStatus.CANCELED_BY_EXECUTOR,
+      RequestProposalStatus.CANCELED_BY_SUPERVISOR,
+      RequestProposalStatus.OFFER_CONDITIONS_REJECTED,
+    ].includes(status)
+  ) {
+    return '#FF1616'
+  } else {
+    return '#black'
   }
 }
 

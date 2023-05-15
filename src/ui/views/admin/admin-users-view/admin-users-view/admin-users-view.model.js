@@ -60,6 +60,15 @@ export class AdminUsersViewModel {
     )
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = this.columnsModel.map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
@@ -232,7 +241,11 @@ export class AdminUsersViewModel {
 
   getCurrentData() {
     if (this.nameSearchValue) {
-      return toJS(this.users).filter(user => user.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
+      return toJS(this.users).filter(
+        user =>
+          user.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          user.email.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
     } else {
       return toJS(this.users)
     }

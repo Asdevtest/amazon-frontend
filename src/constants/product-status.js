@@ -34,6 +34,8 @@ export const ProductStatus = {
   FROM_CLIENT_PAID_BY_CLIENT: 'FROM_CLIENT_PAID_BY_CLIENT',
   FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND: 'FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND',
   FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE: 'FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE',
+
+  SUPPLIER_FOUND: 'SUPPLIER_FOUND',
 }
 
 export const ProductStatusByCode = {
@@ -71,6 +73,8 @@ export const ProductStatusByCode = {
   275: ProductStatus.FROM_CLIENT_PAID_BY_CLIENT,
   280: ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND,
   290: ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
+
+  300: ProductStatus.SUPPLIER_FOUND,
 }
 
 export const colorByProductStatus = status => {
@@ -202,6 +206,9 @@ export const productStatusTranslateKey = status => {
 
     case ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE:
       return TranslationKey['Supplier price does not fit (сhecked)']
+
+    case ProductStatus.SUPPLIER_FOUND:
+      return TranslationKey['Supplier found']
   }
 }
 

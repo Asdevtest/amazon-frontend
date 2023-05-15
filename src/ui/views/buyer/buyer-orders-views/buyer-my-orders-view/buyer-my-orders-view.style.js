@@ -32,8 +32,14 @@ export const styles = theme => ({
 
   headerWrapper: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 20,
+  },
+
+  headerWrapperCenter: {
+    display: 'flex',
+    justifyContent: 'center',
   },
 
   attentionRow: {
@@ -67,5 +73,33 @@ export const styles = theme => ({
 
   dataGridWrapper: {
     height: '84vh',
+  },
+
+  totalPriceWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+
+    width: 320,
+
+    gap: 5,
+  },
+
+  totalPriceText: {
+    fontWeight: 600,
+    fontSize: 18,
+    lineHeight: '140%',
+
+    whiteSpace: 'nowrap',
+
+    color: theme.palette.text.second,
+  },
+
+  totalPrice: {
+    color: theme.palette.primary.main,
+  },
+
+  totalPriceTextWrapper: {
+    display: 'flex',
   },
 })

@@ -73,6 +73,15 @@ export class SubUsersViewModel {
     return UserModel.userInfo
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = subUsersColumns(this.rowHandlers, this.firstRowId).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   constructor({history}) {
     runInAction(() => {
       this.history = history
@@ -96,6 +105,14 @@ export class SubUsersViewModel {
           this.currentData = this.getCurrentData()
         }),
     )
+
+    reaction(
+      () => this.nameSearchValue,
+      () =>
+        runInAction(() => {
+          this.currentData = this.getCurrentData()
+        }),
+    )
   }
 
   async updateColumnsModel() {
@@ -112,11 +129,13 @@ export class SubUsersViewModel {
 
   async onClickSaveComment(id, comment) {
     try {
-      // console.log(id, comment)
+      this.setRequestStatus(loadingStatuses.isLoading)
       await UserModel.patchSubNote(id, comment)
 
       this.loadData()
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -285,6 +304,7 @@ export class SubUsersViewModel {
 
   async onClickEditBtn(row) {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       runInAction(() => {
         this.selectedSubUser = row
       })
@@ -323,11 +343,13 @@ export class SubUsersViewModel {
       })
 
       this.onTriggerOpenModal('showPermissionModal')
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       runInAction(() => {
         this.error = error
       })
+      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 

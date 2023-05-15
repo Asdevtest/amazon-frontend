@@ -40,6 +40,7 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({message}) => {
           withAvatar={undefined}
           maxNameWidth={undefined}
           customStyles={undefined}
+          customClassNames={undefined}
         />
 
         <Typography className={classNames.groupText}>{t(TranslationKey['changed the chat info']) + ':'}</Typography>
@@ -64,7 +65,7 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({message}) => {
 
             <img
               className={classNames.groupImage}
-              src={message.data.prevData?.image}
+              src={message.data.prevData?.image || '/assets/img/no-photo.jpg'}
               onClick={() => {
                 setShowPhotosModal(!showPhotosModal)
 
@@ -98,6 +99,7 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({message}) => {
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={bigImagesOptions.images}
         imgIndex={bigImagesOptions.imgIndex}
+        setImageIndex={(imgIndex: number) => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
       />
     </div>
   )

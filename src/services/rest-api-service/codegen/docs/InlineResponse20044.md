@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**failed** | **[String]** |  | [optional] 
+**profileId** | **String** | id созданного профайла | [optional] 
 
 

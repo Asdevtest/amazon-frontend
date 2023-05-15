@@ -243,6 +243,7 @@ export const OrderContent = ({
                 </div>
               </div>
             </div>
+
             <TableSupplier
               isClient
               product={updatedOrder.product}

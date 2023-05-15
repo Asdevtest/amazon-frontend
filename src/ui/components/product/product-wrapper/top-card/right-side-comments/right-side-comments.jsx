@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Box, Grid, Typography, Alert} from '@mui/material'
+import {Alert, Box, Grid, Typography} from '@mui/material'
 
 import React from 'react'
 
@@ -17,6 +17,7 @@ import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from 
 import {
   translateTooltipCloseBtnMessage,
   translateTooltipDeleteBtnMessage,
+  translateTooltipMessageByRole,
   translateTooltipSaveBtnMessage,
 } from '@utils/translate-tooltip-message'
 import {t} from '@utils/translations'
@@ -69,20 +70,7 @@ export const RightSideComments = observer(
             value={product.icomment}
             onChange={onChangeField('icomment')}
           />
-          {showActionBtns && (
-            <ProductStatusButtons
-              product={product}
-              curUserRole={curUserRole}
-              productStatus={product?.status}
-              buttonsConfig={productStatusButtonsConfig}
-              onClickButton={onClickSetProductStatusBtn}
-              onClickSaveWithoutStatusChange={
-                checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole)
-                  ? () => handleProductActionButtons('accept', withoutStatus)
-                  : undefined
-              }
-            />
-          )}
+
           <Field
             multiline
             disabled={!checkIsSupervisor(curUserRole) || !showActionBtns}
@@ -131,17 +119,49 @@ export const RightSideComments = observer(
             </>
           )}
 
+          {showActionBtns && (
+            <ProductStatusButtons
+              product={product}
+              curUserRole={curUserRole}
+              buttonsConfig={productStatusButtonsConfig}
+              onClickButton={onClickSetProductStatusBtn}
+            />
+          )}
+
           {showActionBtns ? (
             <div className={classNames.buttonsWrapper}>
-              <Button
-                tooltipInfoContent={translateTooltipSaveBtnMessage(curUserRole)}
-                className={classNames.buttonNormal}
-                color="primary"
-                variant="contained"
-                onClick={() => handleProductActionButtons('accept', false)}
-              >
-                {checkIsClient(curUserRole) ? t(TranslationKey.Save) : t(TranslationKey.Receive)}
-              </Button>
+              {product?.status === ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
+              checkIsBuyer(curUserRole) ? null : (
+                <Button
+                  tooltipInfoContent={translateTooltipSaveBtnMessage(curUserRole)}
+                  className={cx(classNames.buttonNormal, classNames.buttonAccept)}
+                  color="primary"
+                  variant="contained"
+                  onClick={() => handleProductActionButtons('accept', false)}
+                >
+                  {checkIsClient(curUserRole) ? t(TranslationKey.Save) : t(TranslationKey.Receive)}
+                </Button>
+              )}
+
+              {checkIsResearcher(curUserRole) && (
+                <Button
+                  tooltipInfoContent={translateTooltipMessageByRole(
+                    t(TranslationKey['Save without status']),
+                    curUserRole,
+                  )}
+                  disabled={product?.status === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]}
+                  className={classNames.buttonNormal}
+                  variant="contained"
+                  onClick={
+                    checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole)
+                      ? () => handleProductActionButtons('accept', withoutStatus)
+                      : undefined
+                  }
+                >
+                  {t(TranslationKey['Save without status'])}
+                </Button>
+              )}
+
               <Button
                 tooltipInfoContent={translateTooltipCloseBtnMessage(curUserRole)}
                 className={cx(classNames.buttonClose, {
@@ -189,6 +209,7 @@ export const RightSideComments = observer(
               </Button>
             </div>
           )}
+
           {acceptMessage ? (
             <div className={classNames.acceptMessageWrapper}>
               <Alert elevation={5} severity="success">

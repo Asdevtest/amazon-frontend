@@ -86,7 +86,7 @@ export class AnotherProfileViewModel {
 
   destinations = []
 
-  volumeWeightCoefficient = undefined
+  platformSettings = undefined
 
   confirmModalSettings = {
     isWarning: false,
@@ -289,7 +289,7 @@ export class AnotherProfileViewModel {
 
         this.destinations = destinations
 
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.platformSettings = result
       })
 
       this.onTriggerOpenModal('showOrderModal')

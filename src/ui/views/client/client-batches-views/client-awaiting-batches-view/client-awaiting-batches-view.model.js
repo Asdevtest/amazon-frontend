@@ -46,8 +46,17 @@ export class ClientAwaitingBatchesViewModel {
 
   showBatchInfoModal = false
   showConfirmModal = false
+  showAddOrEditBatchModal = false
 
   showWarningInfoModal = false
+
+  languageTag = undefined
+
+  boxesData = []
+  volumeWeightCoefficient = undefined
+
+  progressValue = 0
+  showProgress = false
 
   warningInfoModalSettings = {
     isWarning: false,
@@ -60,7 +69,7 @@ export class ClientAwaitingBatchesViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = clientBatchesViewColumns(this.rowHandlers)
+  columnsModel = clientBatchesViewColumns(this.rowHandlers, this.languageTag)
 
   get userInfo() {
     return UserModel.userInfo
@@ -74,7 +83,10 @@ export class ClientAwaitingBatchesViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
+      () => {
+        this.languageTag = SettingsModel.languageTag
+        this.updateColumnsModel()
+      },
     )
 
     reaction(
@@ -84,6 +96,15 @@ export class ClientAwaitingBatchesViewModel {
           this.currentData = this.getCurrentData()
         }),
     )
+  }
+
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = this.columnsModel.map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
   }
 
   async updateColumnsModel() {
@@ -104,22 +125,41 @@ export class ClientAwaitingBatchesViewModel {
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_AWAITING_BATCHES)
   }
 
+  // getDataGridState() {
+  //   const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_AWAITING_BATCHES]
+
+  //   if (state) {
+  //     runInAction(() => {
+  //       this.sortModel = state.sorting.sortModel
+  //       this.filterModel = state.filter.filterModel
+  //       this.rowsPerPage = state.pagination.pageSize
+
+  //       this.densityModel = state.density.value
+
+  //       this.columnsModel = clientBatchesViewColumns(this.rowHandlers).map(el => ({
+  //         ...el,
+  //         hide: state.columns?.lookup[el?.field]?.hide,
+  //       }))
+  //     })
+  //   }
+  // }
+
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_AWAITING_BATCHES]
 
-    if (state) {
-      runInAction(() => {
+    runInAction(() => {
+      if (state) {
         this.sortModel = state.sorting.sortModel
         this.filterModel = state.filter.filterModel
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = clientBatchesViewColumns(this.rowHandlers).map(el => ({
+        this.columnsModel = clientBatchesViewColumns(this.rowHandlers, this.languageTag).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))
-      })
-    }
+      }
+    })
   }
 
   onChangeFilterModel(model) {
@@ -223,7 +263,6 @@ export class ClientAwaitingBatchesViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getStorekeepers()
-
       this.getDataGridState()
       await this.getBatchesPagMy()
       this.setRequestStatus(loadingStatuses.success)
@@ -386,6 +425,96 @@ export class ClientAwaitingBatchesViewModel {
 
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async onClickAddOrEditBatch(setting) {
+    try {
+      runInAction(() => {
+        if (setting.isAdding) {
+          this.selectedBatches = []
+        }
+
+        this.showCircularProgress = true
+      })
+
+      const boxes = await BoxesModel.getBoxesReadyToBatchClient()
+
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+        this.boxesData = boxes
+
+        this.showCircularProgress = false
+      })
+
+      this.onTriggerOpenModal('showAddOrEditBatchModal')
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+        this.showCircularProgress = false
+      })
+    }
+  }
+
+  async onSubmitAddOrEditBatch({boxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields}) {
+    try {
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
+
+      if (filesToAdd.length) {
+        await onSubmitPostImages.call(this, {images: filesToAdd, type: 'uploadedFiles'})
+      }
+
+      if (!batchToEdit) {
+        const batchId = await BatchesModel.createBatch({
+          title: batchFields.title,
+          boxesIds,
+          calculationMethod: batchFields.calculationMethod,
+          volumeWeightDivide: batchFields.volumeWeightDivide,
+        })
+
+        if (filesToAdd.length) {
+          await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
+        }
+      } else {
+        const newBoxesIds = boxesIds.filter(boxId => !sourceBoxesIds.includes(boxId))
+        const boxesToRemoveIds = sourceBoxesIds.filter(boxId => !boxesIds.includes(boxId))
+
+        await BatchesModel.changeBatch(batchToEdit.id, {
+          title: batchFields.title,
+          calculationMethod: batchFields.calculationMethod,
+          volumeWeightDivide: batchFields.volumeWeightDivide,
+        })
+
+        if (newBoxesIds.length) {
+          await BatchesModel.addBoxToBatch(batchToEdit.id, newBoxesIds)
+        }
+        if (boxesToRemoveIds.length) {
+          await BatchesModel.removeBoxFromBatch(batchToEdit.id, boxesToRemoveIds)
+        }
+
+        if (filesToAdd.length) {
+          await BatchesModel.editAttachedDocuments(
+            batchToEdit.id,
+            batchToEdit.originalData.attachedDocuments
+              ? [...batchToEdit.originalData.attachedDocuments, ...this.uploadedFiles]
+              : [...this.uploadedFiles],
+          )
+        }
+      }
+
+      this.loadData()
+      this.onTriggerOpenModal('showAddOrEditBatchModal')
     } catch (error) {
       console.log(error)
       runInAction(() => {

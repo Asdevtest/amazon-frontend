@@ -1,4 +1,5 @@
-import {hoursToSeconds, secondsToHours, secondsToMinutes} from 'date-fns'
+/* eslint-disable no-unused-vars */
+import {hoursToSeconds, minutesToHours, secondsToHours, secondsToMinutes} from 'date-fns'
 import QueryString from 'qs'
 
 import {columnnsKeys} from '@constants/data-grid-columns-keys'
@@ -20,16 +21,9 @@ export const getModelNameWithotPostfix = modelName =>
 
 export const trimBarcode = value => (value && value.length >= 8 ? String(value.substr(-8)) : value)
 
-// export const replaceDollarSign = str => (str ? str.replace('$', '') : str) // Не используется
-
 export const toFixed = (int, x) => (int && typeof int === 'number' ? int.toFixed(x) : int)
 
-// export const getFloat = str => (str ? parseFloat(str) || 0 : str) // Не используется
 export const getFloatOrZero = str => (str ? parseFloat(str) || 0 : 0)
-// export const getInt = str => (str ? parseFloat(str) || 0 : str) // Не используется
-// export const getIntOrZero = str => (str ? parseInt(str) || 0 : 0) // Не используется
-
-// export const getFloatWithoutDollarSign = str => (str ? getFloat(replaceDollarSign(str)) : str) // Не используется
 
 export const toFixedWithDollarSign = (int, x) => withDollarSign(toFixed(int, x))
 export const toFixedWithYuanSign = (int, x) => withYuanSign(toFixed(int, x))
@@ -52,9 +46,6 @@ export const clearSpecialCharacters = value =>
 
 export const clearEverythingExceptNumbers = value => (typeof value === 'string' ? value.replace(/\D/gi, '') : value)
 
-// export const shortenLongString = (value, lengthBreakpoint) => // Не используется
-//   value.length > lengthBreakpoint ? `${value.slice(0, lengthBreakpoint)}...` : value
-
 export const shortenDocumentString = value => {
   if (typeof value === 'string') {
     const strAfterPdf = value.slice(0, 4)
@@ -67,9 +58,19 @@ export const shortenDocumentString = value => {
 
 export const minsToTime = mins => {
   if (typeof mins === 'number') {
-    return `${mins / 60 >= 1 ? Math.floor(mins / 60) + ' ' + t(TranslationKey.hour) : ''} ${
-      mins % 60 === 0 ? '' : (mins % 60) + ' ' + t(TranslationKey.minute) + '.'
-    }`
+    const days = mins / 1440
+
+    const hours = minutesToHours(mins)
+
+    const lastMins = mins % 60
+
+    return `${days >= 1 ? Math.floor(days) + ' ' + t(TranslationKey.days) : ''} ${
+      hours >= 1
+        ? hours <= 23
+          ? hours + ' ' + t(TranslationKey.hour)
+          : (hours % 24) + ' ' + t(TranslationKey.hour)
+        : ''
+    } ${lastMins === 0 ? '' : lastMins + ' ' + t(TranslationKey.minute) + '.'}`
   } else {
     return null
   }
@@ -113,10 +114,26 @@ export const timeToDeadlineInHoursAndMins = ({date, withSeconds, now}) => {
   }${withSeconds ? seconds + t(TranslationKey['s.']) : ''}`
 }
 
+export const timeToDeadlineInDaysAndHours = ({date, now}) => {
+  const secondsToDeadline = getDistanceBetweenDatesInSeconds(date, now)
+
+  const isExpired = secondsToDeadline < 0
+
+  const absSecondsToDeadline = Math.abs(secondsToDeadline)
+
+  const days = Math.floor(absSecondsToDeadline / (3600 * 24))
+
+  const hours = Math.floor((absSecondsToDeadline % (3600 * 24)) / 3600)
+
+  return !isExpired ? `${days} ${t(TranslationKey.days)} ${hours} ${t(TranslationKey.hour)}` : ''
+}
+
 export const objectToUrlQs = obj => decodeURI(QueryString.stringify(obj).replaceAll('&', ';')).replaceAll('%24', '$')
 
 export const getTableByColumn = (column, hint) => {
-  if (['humanFriendlyId', 'amount', 'destination', 'logicsTariff', 'prepId', 'storekeeper'].includes(column)) {
+  if (
+    ['humanFriendlyId', 'amount', 'destination', 'logicsTariff', 'prepId', 'storekeeper', 'batchId'].includes(column)
+  ) {
     return 'boxes'
   } else if (['id', 'item'].includes(column)) {
     return 'orders'
@@ -140,6 +157,7 @@ export const getTableByColumn = (column, hint) => {
       'sentToFbaSum',
       'fbaFbmStockSum',
       'ideaCount',
+      'stockCost',
     ].includes(column)
   ) {
     return 'products'
@@ -163,3 +181,5 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
       return status
   }
 }
+
+export const replaceCommaByDot = str => str.replaceAll(',', '.')

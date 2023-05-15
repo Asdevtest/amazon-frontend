@@ -19,11 +19,11 @@ export const getObjectFilteredByKeyArrayWhiteList = (obj, keyArr, skipUndefined,
       }
     }, {})
 
-export const getObjectFilteredByKeyArrayBlackList = (obj, keyArr, skipUndefined, valueModifier) =>
+export const getObjectFilteredByKeyArrayBlackList = (obj, keyArr, skipUndefined, valueModifier, keepNull) =>
   Object.keys(obj)
     .filter(key => !keyArr.includes(key))
     .reduce((acc, key) => {
-      if ((skipUndefined && isUndefined(obj[key])) || isNull(obj[key])) {
+      if ((skipUndefined && isUndefined(obj[key])) || (!keepNull && isNull(obj[key]))) {
         return acc
       } else {
         acc[key] = valueModifier ? valueModifier(key, obj[key]) : obj[key]

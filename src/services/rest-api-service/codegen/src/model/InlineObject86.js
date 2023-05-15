@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestProposalsGuidResultToCorrectMedia from './ApiV1RequestProposalsGuidResultToCorrectMedia';
 
 /**
  * The InlineObject86 model module.
@@ -22,13 +23,10 @@ class InlineObject86 {
     /**
      * Constructs a new <code>InlineObject86</code>.
      * @alias module:model/InlineObject86
-     * @param sourceFile {String} Файл для записи в FreelanceSource
-     * @param typeTask {Number} Код специализации фрилансера
-     * @param productId {String} гуид продукта
      */
-    constructor(sourceFile, typeTask, productId) { 
+    constructor() { 
         
-        InlineObject86.initialize(this, sourceFile, typeTask, productId);
+        InlineObject86.initialize(this);
     }
 
     /**
@@ -36,10 +34,7 @@ class InlineObject86 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, sourceFile, typeTask, productId) { 
-        obj['sourceFile'] = sourceFile;
-        obj['typeTask'] = typeTask;
-        obj['productId'] = productId;
+    static initialize(obj) { 
     }
 
     /**
@@ -53,20 +48,20 @@ class InlineObject86 {
         if (data) {
             obj = obj || new InlineObject86();
 
-            if (data.hasOwnProperty('sourceFile')) {
-                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
-            if (data.hasOwnProperty('typeTask')) {
-                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('timeLimitInMinutes')) {
+                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
             }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [ApiV1RequestProposalsGuidResultToCorrectMedia]);
             }
         }
         return obj;
@@ -76,34 +71,32 @@ class InlineObject86 {
 }
 
 /**
- * Файл для записи в FreelanceSource
- * @member {String} sourceFile
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject86.prototype['sourceFile'] = undefined;
+InlineObject86.prototype['rating'] = undefined;
 
 /**
- * Комментарий к файлу
- * @member {String} comment
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
  */
-InlineObject86.prototype['comment'] = undefined;
+InlineObject86.prototype['reason'] = undefined;
 
 /**
- * Код специализации фрилансера
- * @member {Number} typeTask
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineObject86.prototype['typeTask'] = undefined;
+InlineObject86.prototype['linksToMediaFiles'] = undefined;
 
 /**
- * гуид продукта
- * @member {String} productId
+ * @member {Number} timeLimitInMinutes
  */
-InlineObject86.prototype['productId'] = undefined;
+InlineObject86.prototype['timeLimitInMinutes'] = undefined;
 
 /**
- * Гуид пропоузала
- * @member {String} proposalId
+ * @member {Array.<module:model/ApiV1RequestProposalsGuidResultToCorrectMedia>} media
  */
-InlineObject86.prototype['proposalId'] = undefined;
+InlineObject86.prototype['media'] = undefined;
 
 
 

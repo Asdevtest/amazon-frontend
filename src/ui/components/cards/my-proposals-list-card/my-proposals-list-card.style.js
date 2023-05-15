@@ -7,39 +7,54 @@ export const useClassNames = makeStyles()(theme => ({
 
   cardWrapper: {
     width: '100%',
-    height: '320px',
-    borderRadius: '4px',
+    height: 147,
+    borderRadius: 8,
 
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    background: theme.palette.background.general,
+
+    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
     display: 'flex',
 
-    padding: '0 37px 0 20px',
+    padding: '20px 30px',
+  },
+
+  cardSubTitleWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: 48,
+
+    gap: 10,
   },
 
   nameWrapper: {
     display: 'flex',
-    flexDirection: 'column',
   },
 
   cardTitleBlockWrapper: {
     display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    width: '40%',
+    // justifyContent: 'space-between',
+    width: '50%',
     height: '100%',
-    padding: '20px  25px 0 0',
+
+    paddingRight: 30,
   },
 
   cardTitle: {
-    fontWeight: '600',
-    fontSize: '18px',
+    fontWeight: 600,
+    fontSize: 14,
     lineHeight: '140%',
     color: theme.palette.text.general,
-    maxWidth: '420px',
-    height: 50,
-    marginBottom: '10px',
+    maxWidth: 452,
+    maxHeight: 38,
+    // marginBottom: '10px',
+
+    whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
-    overflow: 'auto',
+    overflow: 'hidden',
+
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
   },
 
   cardDescription: {
@@ -54,47 +69,52 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   cardSubTitle: {
-    color: theme.palette.text.general,
-    fontSize: '16px',
+    color: theme.palette.text.second,
+    fontWeight: 400,
+    fontSize: 14,
     lineHeight: '19px',
-    fontWeight: '400',
   },
 
-  proposalComment: {
-    marginTop: '30px',
-    marginBottom: '39px',
-    overflow: 'auto',
-    maxHeight: '90px',
+  withoutСonfirmation: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
 
-    color: theme.palette.text.second,
+    background: theme.palette.background.greenGradient,
+    '-webkit-background-clip': 'text',
+    '-webkit-text-fill-color': 'transparent',
   },
 
   standartText: {
     color: theme.palette.text.general,
+    width: '90%',
   },
 
   cancelBtn: {
-    color: theme.palette.text.general,
+    padding: '0 17px',
   },
 
   rightBlockWrapper: {
-    padding: '30px 0 30px 20px',
+    paddingLeft: 30,
     display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-    overflow: 'hidden',
+    width: '50%',
   },
 
   proposalWrapper: {
     width: '100%',
-    minHeight: '250px',
+    height: '85px !important',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
   },
 
   userInfoWrapper: {
     display: 'flex',
-    alignItems: 'center',
+    flexDirection: 'column',
+
+    justifyContent: 'space-between',
+
+    width: '40%',
   },
 
   userRating: {
@@ -102,11 +122,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   cardImg: {
-    width: '60px',
-    height: '60px',
+    width: 38,
+    height: 38,
     objectFit: 'contain',
     objectPosition: 'center',
-    marginRight: '30px',
+    marginRight: 10,
   },
 
   actionButton: {
@@ -126,11 +146,10 @@ export const useClassNames = makeStyles()(theme => ({
     color: '#00B746',
   },
 
-  rightSubWrapper: {
-    width: '100%',
+  rightBlockSubWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    width: '100%',
   },
 
   rightItemSubWrapper: {
@@ -154,7 +173,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%',
-    marginTop: 'auto',
   },
 
   price: {
@@ -183,10 +201,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   proposalFooter: {
     display: 'flex',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignSelf: 'flex-end',
-    marginTop: 'auto',
+    width: 'fit-content',
+    gap: 15,
+
+    justifyContent: 'flex-end',
   },
 
   mainContainer: {
@@ -230,12 +248,13 @@ export const useClassNames = makeStyles()(theme => ({
     width: '12px',
     height: '12px',
     borderRadius: '50%',
-    marginRight: '10px',
   },
 
   statusField: {
     display: 'flex',
     alignItems: 'center',
+
+    gap: 10,
   },
 
   timeAndPriceWrapper: {
@@ -246,22 +265,28 @@ export const useClassNames = makeStyles()(theme => ({
 
   editAndOpenButtonWrapper: {
     display: 'flex',
-    width: '530px',
-    justifyContent: 'space-between',
-    marginRight: '10px',
+    gap: 15,
+
+    marginRight: 10,
   },
 
   button: {
-    padding: '10px 50px',
-    fontSize: '16px',
-    lineHeight: '140%',
-    fontWeight: '400',
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    height: 30,
+    borderRadius: 4,
+
+    padding: '0 25px',
+
+    whiteSpace: 'nowrap',
   },
 
   ratingWrapper: {
     display: 'flex',
-    alignItems: 'center',
-    marginTop: '16px',
+    flexDirection: 'column',
+    gap: 5,
   },
 
   rating: {
@@ -285,8 +310,101 @@ export const useClassNames = makeStyles()(theme => ({
     overflow: 'auto',
   },
   divider: {
-    minHeight: '293px',
-    marginTop: '20px',
-    marginBottom: '20px',
+    height: 107,
+  },
+
+  cardTitleBlockSubWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  accentText: {
+    fontSize: 14,
+    fontWeight: 600,
+    color: theme.palette.text.general,
+    whiteSpace: 'nowrap',
+  },
+
+  fieldLabel: {
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    color: theme.palette.text.second,
+    whiteSpace: 'nowrap',
+  },
+
+  rightLieldLabel: {
+    textAlign: 'right',
+    justifySelf: 'end',
+    margin: '0 0 12px auto !important',
+  },
+
+  fieldContainer: {
+    minHeight: 55,
+    marginBottom: '25px !important',
+
+    width: 'min-content',
+
+    '&:last-child': {
+      marginBottom: '0px !important',
+    },
+  },
+
+  customUserLink: {
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    color: `${theme.palette.primary.main} !important`,
+  },
+  moreInfoBlockWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    justifyContent: 'space-between',
+
+    width: '60%',
+  },
+
+  blockInfoCell: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
+  },
+  blockInfoCellTitle: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    color: theme.palette.text.second,
+  },
+  darkBlue: {
+    color: theme.palette.primary.main,
+  },
+  blockInfoCellText: {
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    color: theme.palette.text.main,
+  },
+  moreInfoWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+
+    width: '100%',
+  },
+  performerInfoCell: {
+    marginTop: 20,
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+  customPerformerLink: {
+    fontWeight: 600,
+    fontSize: 16,
+    lineHeight: '22px',
+
+    color: theme.palette.primary.main,
   },
 }))

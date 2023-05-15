@@ -75,6 +75,7 @@ class ClientBoxesTariffsNotificationsViewRaw extends Component {
       onChangeFilterModel,
       onClickConfirmTarrifChangeBtn,
       onSubmitChangeBoxFields,
+      changeColumnsModel,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -116,6 +117,11 @@ class ClientBoxesTariffsNotificationsViewRaw extends Component {
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
+                  componentsProps={{
+                    toolbar: {
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
+                  }}
                   onSelectionModelChange={newSelection => {
                     onSelectionModel(newSelection[0])
                   }}

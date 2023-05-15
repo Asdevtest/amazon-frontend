@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
-import QueryString from 'qs'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -9,6 +8,7 @@ import {ProductStatus, ProductStatusByCode} from '@constants/product-status'
 import {RequestStatus} from '@constants/request-status'
 import {poundsWeightCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {creatSupplier} from '@constants/white-list'
 
 import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
@@ -96,6 +96,7 @@ const filtersFields = [
   'sentToFbaSum',
   'fbaFbmStockSum',
   'ideaCount',
+  'stockCost',
 ]
 
 const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
@@ -129,6 +130,8 @@ export class ClientInventoryViewModel {
 
   receivedFiles = undefined
 
+  paymentMethods = []
+
   hsCodeData = {}
 
   existingOrders = []
@@ -142,7 +145,7 @@ export class ClientInventoryViewModel {
 
   selectedRowId = undefined
   yuanToDollarRate = undefined
-  volumeWeightCoefficient = undefined
+  platformSettings = undefined
 
   drawerOpen = false
   showOrderModal = false
@@ -574,6 +577,10 @@ export class ClientInventoryViewModel {
       : this.history.push('/client/inventory/archive', {isArchive: !this.isArchive})
   }
 
+  async getSuppliersPaymentMethods() {
+    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+  }
+
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -593,6 +600,10 @@ export class ClientInventoryViewModel {
 
   async onClickOrderBtn() {
     try {
+      runInAction(() => {
+        this.showCircularProgressModal = true
+      })
+
       const pendingOrders = []
       const correctIds = []
 
@@ -614,10 +625,14 @@ export class ClientInventoryViewModel {
 
         this.onTriggerOpenModal('showCheckPendingOrderFormModal')
       } else {
-        this.onClickContinueBtn()
+        await this.onClickContinueBtn()
       }
     } catch (error) {
       console.log(error)
+    } finally {
+      runInAction(() => {
+        this.showCircularProgressModal = false
+      })
     }
   }
 
@@ -628,7 +643,7 @@ export class ClientInventoryViewModel {
     runInAction(() => {
       this.storekeepers = storekeepers
       this.destinations = destinations
-      this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      this.platformSettings = result
     })
 
     this.onTriggerOpenModal('showOrderModal')
@@ -899,6 +914,8 @@ export class ClientInventoryViewModel {
     const sentToFbaSumFilter =
       exclusion !== 'sentToFbaSum' && this.columnMenuSettings.sentToFbaSum.currentFilterData.join(',')
 
+    const stockCostFilter = exclusion !== 'stockCost' && this.columnMenuSettings.stockCost.currentFilterData.join(',')
+
     const filter = objectToUrlQs({
       archive: {$eq: this.isArchive},
       or: [
@@ -982,6 +999,10 @@ export class ClientInventoryViewModel {
 
       ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
         barCode: {[this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true},
+      }),
+
+      ...(stockCostFilter && {
+        stockCost: {$eq: stockCostFilter},
       }),
     })
 
@@ -1295,13 +1316,14 @@ export class ClientInventoryViewModel {
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
         images: supplier.images.concat(this.readyImages),
       }
 
-      const createSupplierResult = await SupplierModel.createSupplier(supplier)
+      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+      const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
       await ProductModel.addSuppliersToProduct(this.selectedRowId, [createSupplierResult.guid])
 
       if (makeMainSupplier) {
@@ -1334,10 +1356,11 @@ export class ClientInventoryViewModel {
   async onClickAddSupplierButton() {
     try {
       const result = await UserModel.getPlatformSettings()
+      await this.getSuppliersPaymentMethods()
 
       runInAction(() => {
         this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.platformSettings = result
       })
 
       this.onTriggerOpenModal('showAddOrEditSupplierModal')

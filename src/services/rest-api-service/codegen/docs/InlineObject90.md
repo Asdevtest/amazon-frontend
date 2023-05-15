@@ -4,6 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**reason** | **String** | Причины закрытия приема предложений. | [optional] 
+**action** | **String** |  | 
+**reason** | **String** | Причина смены статуса. | [optional] 
+
+
+
+## Enum: ActionEnum
+
+
+* `LINK` (value: `"LINK"`)
+
+* `UNLINK` (value: `"UNLINK"`)
+
+
 
 

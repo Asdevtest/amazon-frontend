@@ -14,7 +14,9 @@
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusBoxAmounts from './ApiV1AdminsGetProductsByStatusBoxAmounts';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AdminsGetProductsByStatusRedFlags from './ApiV1AdminsGetProductsByStatusRedFlags';
 import ApiV1AdminsGetProductsByStatusSuppliers from './ApiV1AdminsGetProductsByStatusSuppliers';
+import ApiV1AdminsGetProductsByStatusTags from './ApiV1AdminsGetProductsByStatusTags';
 import ApiV1AdminsProductsVacCheckedby from './ApiV1AdminsProductsVacCheckedby';
 
 /**
@@ -138,6 +140,15 @@ class InlineResponse20030Rows {
             if (data.hasOwnProperty('amazonTitle')) {
                 obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
             }
+            if (data.hasOwnProperty('material')) {
+                obj['material'] = ApiClient.convertToType(data['material'], 'String');
+            }
+            if (data.hasOwnProperty('productUsage')) {
+                obj['productUsage'] = ApiClient.convertToType(data['productUsage'], 'String');
+            }
+            if (data.hasOwnProperty('chinaTitle')) {
+                obj['chinaTitle'] = ApiClient.convertToType(data['chinaTitle'], 'String');
+            }
             if (data.hasOwnProperty('barCode')) {
                 obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
             }
@@ -258,11 +269,41 @@ class InlineResponse20030Rows {
             if (data.hasOwnProperty('stockUSA')) {
                 obj['stockUSA'] = ApiClient.convertToType(data['stockUSA'], 'Number');
             }
+            if (data.hasOwnProperty('reservedSum')) {
+                obj['reservedSum'] = ApiClient.convertToType(data['reservedSum'], 'Number');
+            }
+            if (data.hasOwnProperty('sentToFbaSum')) {
+                obj['sentToFbaSum'] = ApiClient.convertToType(data['sentToFbaSum'], 'Number');
+            }
+            if (data.hasOwnProperty('fbaFbmStockSum')) {
+                obj['fbaFbmStockSum'] = ApiClient.convertToType(data['fbaFbmStockSum'], 'Number');
+            }
+            if (data.hasOwnProperty('ideaCount')) {
+                obj['ideaCount'] = ApiClient.convertToType(data['ideaCount'], 'Number');
+            }
+            if (data.hasOwnProperty('subUsers')) {
+                obj['subUsers'] = ApiClient.convertToType(data['subUsers'], [ApiV1AdminsGetProductsByStatusCreatedBy]);
+            }
+            if (data.hasOwnProperty('redFlags')) {
+                obj['redFlags'] = ApiClient.convertToType(data['redFlags'], [ApiV1AdminsGetProductsByStatusRedFlags]);
+            }
+            if (data.hasOwnProperty('tags')) {
+                obj['tags'] = ApiClient.convertToType(data['tags'], [ApiV1AdminsGetProductsByStatusTags]);
+            }
             if (data.hasOwnProperty('checkedby')) {
                 obj['checkedby'] = ApiV1AdminsProductsVacCheckedby.constructFromObject(data['checkedby']);
             }
             if (data.hasOwnProperty('productsInWarehouse')) {
                 obj['productsInWarehouse'] = ApiClient.convertToType(data['productsInWarehouse'], [Object]);
+            }
+            if (data.hasOwnProperty('ideasCounter')) {
+                obj['ideasCounter'] = ApiClient.convertToType(data['ideasCounter'], 'Number');
+            }
+            if (data.hasOwnProperty('sumStock')) {
+                obj['sumStock'] = ApiClient.convertToType(data['sumStock'], 'Number');
+            }
+            if (data.hasOwnProperty('purchaseQuantity')) {
+                obj['purchaseQuantity'] = ApiClient.convertToType(data['purchaseQuantity'], 'Number');
             }
         }
         return obj;
@@ -439,6 +480,24 @@ InlineResponse20030Rows.prototype['amazonDetail'] = undefined;
  * @member {String} amazonTitle
  */
 InlineResponse20030Rows.prototype['amazonTitle'] = undefined;
+
+/**
+ * Материл продукта
+ * @member {String} material
+ */
+InlineResponse20030Rows.prototype['material'] = undefined;
+
+/**
+ * Применение продукта
+ * @member {String} productUsage
+ */
+InlineResponse20030Rows.prototype['productUsage'] = undefined;
+
+/**
+ * chinese title?
+ * @member {String} chinaTitle
+ */
+InlineResponse20030Rows.prototype['chinaTitle'] = undefined;
 
 /**
  * Баркод
@@ -676,6 +735,41 @@ InlineResponse20030Rows.prototype['fourMonthesStock'] = undefined;
 InlineResponse20030Rows.prototype['stockUSA'] = undefined;
 
 /**
+ * @member {Number} reservedSum
+ */
+InlineResponse20030Rows.prototype['reservedSum'] = undefined;
+
+/**
+ * @member {Number} sentToFbaSum
+ */
+InlineResponse20030Rows.prototype['sentToFbaSum'] = undefined;
+
+/**
+ * @member {Number} fbaFbmStockSum
+ */
+InlineResponse20030Rows.prototype['fbaFbmStockSum'] = undefined;
+
+/**
+ * @member {Number} ideaCount
+ */
+InlineResponse20030Rows.prototype['ideaCount'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>} subUsers
+ */
+InlineResponse20030Rows.prototype['subUsers'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusRedFlags>} redFlags
+ */
+InlineResponse20030Rows.prototype['redFlags'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusTags>} tags
+ */
+InlineResponse20030Rows.prototype['tags'] = undefined;
+
+/**
  * @member {module:model/ApiV1AdminsProductsVacCheckedby} checkedby
  */
 InlineResponse20030Rows.prototype['checkedby'] = undefined;
@@ -684,6 +778,24 @@ InlineResponse20030Rows.prototype['checkedby'] = undefined;
  * @member {Array.<Object>} productsInWarehouse
  */
 InlineResponse20030Rows.prototype['productsInWarehouse'] = undefined;
+
+/**
+ * Кол-во идей продукта в статусе 10
+ * @member {Number} ideasCounter
+ */
+InlineResponse20030Rows.prototype['ideasCounter'] = undefined;
+
+/**
+ * “sumStock”=“boxAmounts” + ”inTransfer” + ”productsInWarehouse”(“reserved” + ”fbaFbmStock” + ”sentToFba”) + “amountInOrders“ + “stockUSA“
+ * @member {Number} sumStock
+ */
+InlineResponse20030Rows.prototype['sumStock'] = undefined;
+
+/**
+ * “purchaseQuantity”=”fourMonthesStock” - “sumStock” - меньше нуля быть не может, если отрицательное значение выставляем 0
+ * @member {Number} purchaseQuantity
+ */
+InlineResponse20030Rows.prototype['purchaseQuantity'] = undefined;
 
 
 

@@ -21,13 +21,12 @@ import ApiClient from '../ApiClient';
 class InlineObject34 {
     /**
      * Constructs a new <code>InlineObject34</code>.
-     * Схема комментарии байера.
      * @alias module:model/InlineObject34
-     * @param buyerComment {String} Комментарии байера.
+     * @param isFormed {Boolean} Сформирована ли коробка
      */
-    constructor(buyerComment) { 
+    constructor(isFormed) { 
         
-        InlineObject34.initialize(this, buyerComment);
+        InlineObject34.initialize(this, isFormed);
     }
 
     /**
@@ -35,8 +34,8 @@ class InlineObject34 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, buyerComment) { 
-        obj['buyerComment'] = buyerComment;
+    static initialize(obj, isFormed) { 
+        obj['isFormed'] = isFormed;
     }
 
     /**
@@ -50,8 +49,8 @@ class InlineObject34 {
         if (data) {
             obj = obj || new InlineObject34();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('isFormed')) {
+                obj['isFormed'] = ApiClient.convertToType(data['isFormed'], 'Boolean');
             }
         }
         return obj;
@@ -61,10 +60,10 @@ class InlineObject34 {
 }
 
 /**
- * Комментарии байера.
- * @member {String} buyerComment
+ * Сформирована ли коробка
+ * @member {Boolean} isFormed
  */
-InlineObject34.prototype['buyerComment'] = undefined;
+InlineObject34.prototype['isFormed'] = undefined;
 
 
 

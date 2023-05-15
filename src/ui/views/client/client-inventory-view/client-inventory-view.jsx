@@ -82,13 +82,14 @@ export class ClientInventoryViewRaw extends Component {
       densityModel,
       columnsModel,
       successModalText,
+      paymentMethods,
 
       confirmModalSettings,
       storekeepers,
       destinations,
       isArchive,
       yuanToDollarRate,
-      volumeWeightCoefficient,
+      platformSettings,
       currentBarcode,
       currentHscode,
       shopsData,
@@ -280,7 +281,7 @@ export class ClientInventoryViewRaw extends Component {
                         TranslationKey['Bind the selected product from the inventory to an item from the store'],
                       )}
                       disabled={selectedRowIds.length !== 1}
-                      className={classNames.buttonOffset}
+                      className={cx(classNames.buttonOffset, classNames.blueButton)}
                       onClick={onClickBindInventoryGoodsToStockBtn}
                     >
                       {t(TranslationKey['Bind an product from Amazon'])}
@@ -289,16 +290,21 @@ export class ClientInventoryViewRaw extends Component {
                     <Button
                       tooltipInfoContent={t(TranslationKey['Supplier Addition Services'])}
                       disabled={!selectedRowIds.length}
-                      className={classNames.buttonOffset}
+                      className={cx(classNames.buttonOffset, classNames.blueButton)}
                       onClick={onClickAddSupplierBtn}
                     >
                       {t(TranslationKey['Supplier search'])}
                     </Button>
 
-                    <Button disabled={!selectedRowIds.length} onClick={onClickParseProductsBtn}>
+                    <Button
+                      className={classNames.blueButton}
+                      disabled={!selectedRowIds.length}
+                      onClick={onClickParseProductsBtn}
+                    >
                       {'Parse all'}
                     </Button>
                     <Button
+                      className={classNames.blueButton}
                       tooltipInfoContent={t(TranslationKey['Product batches data'])}
                       disabled={selectedRowIds.length !== 1}
                       onClick={onClickProductLotDataBtn}
@@ -378,10 +384,9 @@ export class ClientInventoryViewRaw extends Component {
 
                     columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
                     columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-                    columnHeader: classNames.columnHeader,
+                    iconSeparator: classNames.iconSeparator,
                     menuIconButton: classNames.menuIconButton,
                     iconButtonContainer: classNames.iconButtonContainer,
-                    iconSeparator: classNames.iconSeparator,
                   }}
                   sx={{
                     '.MuiDataGrid-sortIcon': {
@@ -542,8 +547,9 @@ export class ClientInventoryViewRaw extends Component {
         >
           <AddOrEditSupplierModalContent
             outsideProduct
+            paymentMethods={paymentMethods}
             sourceYuanToDollarRate={yuanToDollarRate}
-            volumeWeightCoefficient={volumeWeightCoefficient}
+            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
             title={t(TranslationKey['Add a new supplier'])}
             showProgress={showProgress}
             progressValue={progressValue}
@@ -568,7 +574,8 @@ export class ClientInventoryViewRaw extends Component {
 
         <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
           <OrderProductModal
-            volumeWeightCoefficient={volumeWeightCoefficient}
+            // volumeWeightCoefficient={volumeWeightCoefficient}
+            platformSettings={platformSettings}
             destinations={destinations}
             storekeepers={storekeepers}
             destinationsFavourites={destinationsFavourites}

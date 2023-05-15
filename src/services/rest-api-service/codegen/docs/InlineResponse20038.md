@@ -5,7 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **products** | [**InlineResponse20038Products**](InlineResponse20038Products.md) |  | [optional] 
-**checking** | [**InlineResponse20038Checking**](InlineResponse20038Checking.md) |  | [optional] 
-**finances** | [**InlineResponse20034Finances**](InlineResponse20034Finances.md) |  | [optional] 
+**orders** | [**InlineResponse20038Orders**](InlineResponse20038Orders.md) |  | [optional] 
+**pendingOrders** | [**InlineResponse20038PendingOrders**](InlineResponse20038PendingOrders.md) |  | [optional] 
+**finances** | [**InlineResponse20038Finances**](InlineResponse20038Finances.md) |  | [optional] 
 
 

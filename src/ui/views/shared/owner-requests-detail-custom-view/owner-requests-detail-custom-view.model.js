@@ -1,5 +1,6 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction} from 'mobx'
 
+import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
@@ -22,6 +23,7 @@ export class OwnerRequestDetailCustomViewModel {
   requestId = undefined
   request = undefined
   requestProposals = []
+  curResultMedia = []
 
   showAcceptMessage = undefined
   acceptMessage = undefined
@@ -33,6 +35,7 @@ export class OwnerRequestDetailCustomViewModel {
   showConfirmWithCommentModal = false
   showChat = false
   showConfirmWorkResultFormModal = false
+  showRequestDesignerResultClientModal = false
   showReviewModal = false
 
   confirmModalSettings = {
@@ -63,16 +66,35 @@ export class OwnerRequestDetailCustomViewModel {
     return ChatModel.chats || []
   }
 
+  get findRequestProposalForCurChat() {
+    return (
+      this.chatSelectedId &&
+      this.requestProposals.find(requestProposal => requestProposal.proposal.chatId === this.chatSelectedId)
+    )
+  }
+
   constructor({history, location, scrollToChat}) {
+    const url = new URL(window.location.href)
+
+    runInAction(() => {
+      this.requestId = url.searchParams.get('request-id')
+    })
+
     runInAction(() => {
       this.history = history
       this.scrollToChat = scrollToChat
       if (location.state) {
-        this.requestId = location.state.request._id
+        if (location.state.chatId) {
+          this.chatSelectedId = location.state.chatId
+          this.showChat = true
+        }
+
+        // this.requestId = location.state.request._id
         this.acceptMessage = location.state.acceptMessage
         this.showAcceptMessage = location.state.showAcceptMessage
 
         const state = {...history.location.state}
+        delete state.chatId
         delete state.acceptMessage
         delete state.showAcceptMessage
         history.replace({...history.location, state})
@@ -191,7 +213,11 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   async onClickProposalResultToCorrect() {
-    this.triggerShowResultToCorrectFormModal()
+    if (this.request.request.typeTask === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
+      this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+    } else {
+      this.triggerShowResultToCorrectFormModal()
+    }
   }
 
   async onPressSubmitRequestProposalResultToCorrectForm(formFields, files) {
@@ -213,6 +239,32 @@ export class OwnerRequestDetailCustomViewModel {
         ...formFields,
         timeLimitInMinutes: parseInt(formFields.timeLimitInMinutes),
         linksToMediaFiles: this.uploadedFiles,
+      })
+      this.loadData()
+    } catch (error) {
+      console.warn('onClickProposalResultToCorrect error ', error)
+    }
+  }
+
+  async onPressSubmitDesignerResultToCorrect({reason, timeLimitInMinutes, imagesData /* .filter(el => el.image) */}) {
+    try {
+      // runInAction(() => {
+      //   this.uploadedFiles = []
+      // })
+      // if (files.length) {
+      //   await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+      // }
+      const findProposalByChatId = this.requestProposals.find(
+        requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
+      )
+      if (!findProposalByChatId) {
+        return
+      }
+      await RequestProposalModel.requestProposalResultToCorrect(findProposalByChatId.proposal._id, {
+        reason,
+        timeLimitInMinutes: parseInt(timeLimitInMinutes),
+        // linksToMediaFiles: this.uploadedFiles,
+        media: imagesData.map(el => ({_id: el._id, commentByClient: el.commentByClient})),
       })
       this.loadData()
     } catch (error) {
@@ -289,6 +341,15 @@ export class OwnerRequestDetailCustomViewModel {
     this.onTriggerOpenModal('showReviewModal')
   }
 
+  onClickOpenRequest(media) {
+    runInAction(() => {
+      this.curResultMedia = media
+    })
+
+    this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+    this.getCustomProposalsForRequestCur()
+  }
+
   onClickOrderProposal(proposalId, price) {
     runInAction(() => {
       this.confirmModalSettings = {
@@ -308,6 +369,8 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   onClickRejectProposal(proposalId) {
+    console.log('proposalId', proposalId)
+
     runInAction(() => {
       this.curProposalId = proposalId
 
@@ -362,7 +425,7 @@ export class OwnerRequestDetailCustomViewModel {
   onClickEditBtn() {
     this.history.push(
       `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-requests/custom-request/edit-request`,
-      {request: toJS(this.request), requestId: this.requestId},
+      {requestId: this.requestId},
     )
   }
 
@@ -451,5 +514,13 @@ export class OwnerRequestDetailCustomViewModel {
 
   resetChats() {
     ChatModel.resetChats()
+  }
+
+  async onRecoverRequest(timeoutAt, maxAmountOfProposals) {
+    this.setRequestStatus(loadingStatuses.isLoading)
+    await RequestModel.updateDeadline(this.requestId, timeoutAt, maxAmountOfProposals)
+    await this.getCustomRequestCur()
+    await this.getCustomProposalsForRequestCur()
+    this.setRequestStatus(loadingStatuses.success)
   }
 }

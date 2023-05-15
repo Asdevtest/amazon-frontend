@@ -21,13 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject39 {
     /**
      * Constructs a new <code>InlineObject39</code>.
+     * Схема изменения итоговой цены, totalPriceChanged
      * @alias module:model/InlineObject39
-     * @param userIds {Array.<String>} 
-     * @param title {String} Название группового чата
+     * @param totalPriceChanged {Number} новое значение изменения итоговой цены.
      */
-    constructor(userIds, title) { 
+    constructor(totalPriceChanged) { 
         
-        InlineObject39.initialize(this, userIds, title);
+        InlineObject39.initialize(this, totalPriceChanged);
     }
 
     /**
@@ -35,9 +35,8 @@ class InlineObject39 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, userIds, title) { 
-        obj['userIds'] = userIds;
-        obj['title'] = title;
+    static initialize(obj, totalPriceChanged) { 
+        obj['totalPriceChanged'] = totalPriceChanged;
     }
 
     /**
@@ -51,11 +50,8 @@ class InlineObject39 {
         if (data) {
             obj = obj || new InlineObject39();
 
-            if (data.hasOwnProperty('userIds')) {
-                obj['userIds'] = ApiClient.convertToType(data['userIds'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('totalPriceChanged')) {
+                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
             }
         }
         return obj;
@@ -65,15 +61,10 @@ class InlineObject39 {
 }
 
 /**
- * @member {Array.<String>} userIds
+ * новое значение изменения итоговой цены.
+ * @member {Number} totalPriceChanged
  */
-InlineObject39.prototype['userIds'] = undefined;
-
-/**
- * Название группового чата
- * @member {String} title
- */
-InlineObject39.prototype['title'] = undefined;
+InlineObject39.prototype['totalPriceChanged'] = undefined;
 
 
 

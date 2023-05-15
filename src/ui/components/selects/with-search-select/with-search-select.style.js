@@ -7,17 +7,25 @@ export const styles = theme => ({
     display: 'visible !important',
   },
 
+  selectHeight: {
+    height: 40,
+  },
+
   disableRoot: {
     opacity: '.8',
   },
 
   searchInput: {
-    width: '100%',
+    width: 'calc(100% - 34px)',
     marginBottom: 20,
+    marginLeft: 17,
   },
 
   icon: {
     color: theme.palette.primary.main,
+  },
+  darkIcon: {
+    color: theme.palette.text.second,
   },
 
   disabledSelectedItemName: {
@@ -34,6 +42,12 @@ export const styles = theme => ({
     maxHeight: 36,
     overflow: 'hidden',
     position: 'absolute',
+  },
+
+  grayBorder: {
+    height: 40,
+    maxHeight: 40,
+    border: `1px solid ${theme.palette.input.customBorder}`,
   },
 
   selectorIsOpen: {
@@ -66,6 +80,14 @@ export const styles = theme => ({
     },
   },
 
+  chosenItemNoHover: {
+    height: 40,
+    '&:hover': {
+      transform: 'unset',
+      backgroundColor: 'unset',
+    },
+  },
+
   disabledChosenItem: {
     cursor: 'auto',
     backgroundColor: theme.palette.input.customDisabled,
@@ -78,14 +100,14 @@ export const styles = theme => ({
   },
 
   subMainWrapper: {
-    padding: '10px 17px',
+    padding: '10px 0',
     width: 280,
   },
 
   itemsWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    maxHeight: 300,
+    maxHeight: 650,
     overflow: 'auto',
     width: '100%',
     gap: 5,
@@ -107,6 +129,8 @@ export const styles = theme => ({
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },
+
+    // color: 'red',
   },
 
   fieldNamesWrapper: {
@@ -140,10 +164,20 @@ export const styles = theme => ({
   },
 
   fieldName: {
-    height: 20,
+    // height: 20,
     textOverflow: 'ellipsis',
+    // overflow: 'hidden',
+    // whiteSpace: 'nowrap',
+
+    wordBreak: 'break-word',
+    textAlign: 'left',
+
+    whiteSpace: 'pre-wrap',
     overflow: 'hidden',
-    whiteSpace: 'nowrap',
+
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
   },
 
   selectedItemName: {
@@ -152,5 +186,13 @@ export const styles = theme => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
+  },
+  blackSelectedItem: {
+    color: theme.palette.text.general,
+  },
+
+  submitWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
   },
 })

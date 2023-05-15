@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**sourceFile** | **String** | Файл для записи в FreelanceSource | 
-**comment** | **String** | Комментарий к файлу | [optional] 
-**typeTask** | **Number** | Код специализации фрилансера | 
-**productId** | **String** | гуид продукта | 
-**proposalId** | **String** | Гуид пропоузала | [optional] 
+**rating** | **Number** | Поставить оценку юзеру | [optional] 
+**reason** | **String** | Комментарий причин изменения статуса. | [optional] 
+**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
+**timeLimitInMinutes** | **Number** |  | [optional] 
+**media** | [**[ApiV1RequestProposalsGuidResultToCorrectMedia]**](ApiV1RequestProposalsGuidResultToCorrectMedia.md) |  | [optional] 
 
 

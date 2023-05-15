@@ -4,15 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID магазина на продажу. | [optional] 
-**owner** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
-**title** | **String** | Имя магазина для продажи | [optional] 
-**status** | **String** | Статус магазина для продажи | [optional] 
-**files** | **[String]** | Файлы, которые привязаны к магазину | [optional] 
-**price** | **Number** | Стоимость магазина | [optional] 
-**monthlyMultiplier** | **Number** | Ежемесячный множитель | [optional] 
-**statistics** | [**ApiV1ShopSellStatistics**](ApiV1ShopSellStatistics.md) |  | [optional] 
-**businessStartDate** | **Date** | Дата создания бизнеса | [optional] 
-**shopDetails** | **String** | Детали магазина | [optional] 
+**_id** | **String** | Гуид медиа | [optional] 
+**sourceFile** | **String** | Файл для записи в FreelanceSource | [optional] 
+**comments** | **String** | Комментарий к файлу | [optional] 
+**proposal** | [**ApiV1RequestProposalsFreelanceSourcesProposal**](ApiV1RequestProposalsFreelanceSourcesProposal.md) |  | [optional] 
+**typeTask** | **Number** | Код специализации фрилансера | [optional] 
+**productId** | **String** | гуид продукта | [optional] 
+**createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
+**createdAt** | **Date** | Дата создания. | [optional] 
+**updatedAt** | **Date** | Дата создания. | [optional] 
 
 

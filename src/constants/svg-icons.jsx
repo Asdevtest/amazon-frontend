@@ -340,9 +340,9 @@ export const ViewCartsBlock = props => (
     />
     <defs>
       <linearGradient id="ViewCartsGradient" x1="0" y1="100%" x2="0" y2="0">
-        <stop offset="0%" stop-color="#5BA0FE" />
-        <stop offset="0.01" stop-color="#0164F4" />
-        <stop offset="100%" stop-color="#0164F4" />
+        <stop offset="0%" stopColor="#5BA0FE" />
+        <stop offset="0.01" stopColor="#0164F4" />
+        <stop offset="100%" stopColor="#0164F4" />
       </linearGradient>
     </defs>
   </SvgIcon>
@@ -371,14 +371,66 @@ export const ViewCartsLine = props => (
     <path
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M18.0977 3.59854V6.29854C18.0977 7.78984 17.089 8.99854 15.5977 8.99854C14.1064 8.99854 2.79766 8.99854 2.79766 8.99854C1.30636 8.99854 0.0976562 7.78984 0.0976562 6.29854V3.59854C0.0976562 2.10724 1.30636 0.898537 2.79766 0.898537H15.5977C17.089 0.898537 18.0977 2.10724 18.0977 3.59854Z"
       fill="current"
+      d="M18.0977 3.59854V6.29854C18.0977 7.78984 17.089 8.99854 15.5977 8.99854C14.1064 8.99854 2.79766 8.99854 2.79766 8.99854C1.30636 8.99854 0.0976562 7.78984 0.0976562 6.29854V3.59854C0.0976562 2.10724 1.30636 0.898537 2.79766 0.898537H15.5977C17.089 0.898537 18.0977 2.10724 18.0977 3.59854Z"
     />
     <defs>
       <linearGradient id="ViewCartsLineGradient" x1="0" y1="0" x2="0" y2="0">
-        <stop offset="0%" stop-color="#5BA0FE" />
-        <stop offset="0.01" stop-color="#0164F4" />
-        <stop offset="100%" stop-color="#0164F4" />
+        <stop offset="0%" stopColor="#5BA0FE" />
+        <stop offset="0.01" stopColor="#0164F4" />
+        <stop offset="100%" stopColor="#0164F4" />
+      </linearGradient>
+    </defs>
+  </SvgIcon>
+)
+
+export const ViewCartsTable = props => (
+  <SvgIcon {...props} width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg"> */}
+    <rect width="18" height="2" rx="1" fillRule="evenodd" clipRule="evenodd" fill="current" />
+    <rect y="3" width="18" height="2" rx="1" fillRule="evenodd" clipRule="evenodd" fill="current" />
+    <rect y="6" width="18" height="2" rx="1" fillRule="evenodd" clipRule="evenodd" fill="current" />
+    <rect y="9" width="18" height="2" rx="1" fillRule="evenodd" clipRule="evenodd" fill="current" />
+    <rect y="12" width="18" height="2" rx="1" fillRule="evenodd" clipRule="evenodd" fill="current" />
+    <rect y="15" width="18" height="2" rx="1" fillRule="evenodd" clipRule="evenodd" fill="current" />
+    <defs>
+      <linearGradient id="paint0_linear_19869_110270" x1="9" y1="0" x2="9" y2="2" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
+      </linearGradient>
+      <linearGradient id="paint1_linear_19869_110270" x1="9" y1="3" x2="9" y2="5" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
+      </linearGradient>
+      <linearGradient id="paint2_linear_19869_110270" x1="9" y1="6" x2="9" y2="8" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
+      </linearGradient>
+      <linearGradient id="paint3_linear_19869_110270" x1="9" y1="9" x2="9" y2="11" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
+      </linearGradient>
+      <linearGradient id="paint4_linear_19869_110270" x1="9" y1="12" x2="9" y2="14" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
+      </linearGradient>
+      <linearGradient id="paint5_linear_19869_110270" x1="9" y1="15" x2="9" y2="17" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
+      </linearGradient>
+    </defs>
+    {/* </svg> */}
+    <defs>
+      <linearGradient id="ViewCartsLineGradient" x1="0" y1="0" x2="0" y2="0">
+        <stop offset="0%" stopColor="#5BA0FE" />
+        <stop offset="0.01" stopColor="#0164F4" />
+        <stop offset="100%" stopColor="#0164F4" />
       </linearGradient>
     </defs>
   </SvgIcon>
@@ -402,9 +454,9 @@ export const NewTasksIcon = props => (
         y2="11.1205"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient
         id="paint1_linear_643_454"
@@ -414,9 +466,9 @@ export const NewTasksIcon = props => (
         y2="15.6254"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient
         id="paint2_linear_643_454"
@@ -426,9 +478,9 @@ export const NewTasksIcon = props => (
         y2="16.087"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient
         id="paint3_linear_643_454"
@@ -438,9 +490,9 @@ export const NewTasksIcon = props => (
         y2="13.6085"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient
         id="paint4_linear_643_454"
@@ -450,9 +502,9 @@ export const NewTasksIcon = props => (
         y2="10.659"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient
         id="paint5_linear_643_454"
@@ -462,15 +514,115 @@ export const NewTasksIcon = props => (
         y2="13.1468"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
       <linearGradient id="paint6_linear_643_454" x1="12" y1="1" x2="12" y2="21" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
       </linearGradient>
     </defs>
+  </SvgIcon>
+)
+
+export const PhotoCameraWithPlus = props => (
+  <SvgIcon {...props} width="85" height="85" viewBox="0 0 85 85" /* fill="none" */ xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M61.7128 30.5714H56.7843L55.1414 27.2857C54.1737 25.3734 53.6711 24 51.8558 24H32.1414C30.3261 24 29.7264 25.5673 28.8556 27.2857L27.2128 30.5714H22.2843C18.6552 30.5714 15.7129 33.5138 15.7129 37.1429V63.4286C15.7129 67.0576 18.6552 70 22.2843 70H61.7129C65.3419 70 68.2843 67.0577 68.2843 63.4286V37.1429C68.2841 33.5138 65.3418 30.5714 61.7128 30.5714ZM41.9986 63.4286C34.7405 63.4286 28.8557 57.5439 28.8557 50.2858C28.8557 43.0277 34.7405 37.1429 41.9986 37.1429C49.2567 37.1429 55.1414 43.0277 55.1414 50.2858C55.1414 57.5439 49.2568 63.4286 41.9986 63.4286Z"
+      // fill="red"
+    />
+    <path
+      d="M41.9978 40.4297C36.5534 40.4297 32.1406 44.8424 32.1406 50.2868C32.1406 55.7313 36.5534 60.144 41.9978 60.144C47.4422 60.144 51.8549 55.7313 51.8549 50.2868C51.8549 44.8423 47.4422 40.4297 41.9978 40.4297Z"
+      // fill="red"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M13.6893 7H9.30469V14.3154L2 14.3154V18.7H9.30469V26H13.6893V18.7H21V14.3154L13.6893 14.3154V7Z"
+      // fill="red"
+    />
+    <defs>
+      <linearGradient
+        id="paint0_linear_20489_19264"
+        x1="41.9986"
+        y1="24"
+        x2="41.9986"
+        y2="70"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
+      </linearGradient>
+      <linearGradient
+        id="paint1_linear_20489_19264"
+        x1="41.9978"
+        y1="40.4297"
+        x2="41.9978"
+        y2="60.144"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
+      </linearGradient>
+      <linearGradient id="paint2_linear_20489_19264" x1="11.5" y1="7" x2="11.5" y2="26" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
+      </linearGradient>
+    </defs>
+  </SvgIcon>
+)
+
+export const BigPlus = props => (
+  <SvgIcon {...props} width="67" height="67" viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M41.2194 0H25.7578V25.7969L0 25.7969V41.2584H25.7578V67H41.2194V41.2584H67V25.7969L41.2194 25.7969V0Z"
+    />
+    <defs>
+      <linearGradient id="paint0_linear_12007_299529" x1="33.5" y1="0" x2="33.5" y2="67" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#5BA0FE" />
+        <stop offset="0.0001" stopColor="#0164F4" />
+        <stop offset="1" stopColor="#0164F4" />
+      </linearGradient>
+    </defs>
+  </SvgIcon>
+)
+
+export const NoPhotoIcon = props => (
+  <SvgIcon {...props} width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="40" cy="40" r="40" fill="#E0E0E0" />
+    <path
+      d="M51.668 30.836H49.5347L49.0014 29.1693C48.6556 28.1914 48.0143 27.3451 47.1662 26.7479C46.3181 26.1507 45.3053 25.832 44.2681 25.836H35.7347C34.6873 25.8379 33.6669 26.1688 32.8177 26.7818C31.9684 27.3949 31.3331 28.2591 31.0014 29.2526L30.4681 30.9193H28.3347C27.0086 30.9193 25.7369 31.4461 24.7992 32.3838C23.8615 33.3215 23.3347 34.5932 23.3347 35.9193V49.2526C23.3347 50.5787 23.8615 51.8505 24.7992 52.7882C25.7369 53.7259 27.0086 54.2526 28.3347 54.2526H51.668C52.9941 54.2526 54.2659 53.7259 55.2036 52.7882C56.1413 51.8505 56.668 50.5787 56.668 49.2526V35.9193C56.6791 35.2557 56.558 34.5966 56.3116 33.9803C56.0653 33.364 55.6988 32.8029 55.2334 32.3298C54.768 31.8566 54.213 31.4809 53.6009 31.2244C52.9888 30.9679 52.3317 30.8359 51.668 30.836ZM53.3347 49.1693C53.3347 49.6113 53.1591 50.0353 52.8466 50.3478C52.534 50.6604 52.1101 50.836 51.668 50.836H28.3347C27.8927 50.836 27.4688 50.6604 27.1562 50.3478C26.8436 50.0353 26.6681 49.6113 26.6681 49.1693V35.836C26.6681 35.3939 26.8436 34.97 27.1562 34.6575C27.4688 34.3449 27.8927 34.1693 28.3347 34.1693H31.668C32.0315 34.1883 32.3912 34.0878 32.6921 33.8831C32.9931 33.6785 33.2188 33.3809 33.3347 33.036L34.2347 30.3026C34.3465 29.9716 34.5595 29.6841 34.8437 29.4807C35.1278 29.2773 35.4686 29.1684 35.818 29.1693H44.3514C44.7008 29.1684 45.0416 29.2773 45.3258 29.4807C45.6099 29.6841 45.8229 29.9716 45.9347 30.3026L46.8347 33.036C46.9417 33.3539 47.142 33.6321 47.4097 33.8343C47.6773 34.0365 47.9997 34.1533 48.3347 34.1693H51.668C52.1101 34.1693 52.534 34.3449 52.8466 34.6575C53.1591 34.97 53.3347 35.3939 53.3347 35.836V49.1693ZM40.0014 34.1693C38.6828 34.1693 37.3939 34.5603 36.2976 35.2928C35.2013 36.0254 34.3468 37.0666 33.8422 38.2848C33.3376 39.5029 33.2056 40.8434 33.4628 42.1366C33.72 43.4298 34.355 44.6177 35.2873 45.55C36.2197 46.4824 37.4076 47.1173 38.7008 47.3745C39.994 47.6318 41.3344 47.4998 42.5526 46.9952C43.7708 46.4906 44.812 45.6361 45.5445 44.5398C46.2771 43.4434 46.668 42.1545 46.668 40.836C46.668 39.0679 45.9657 37.3722 44.7154 36.1219C43.4652 34.8717 41.7695 34.1693 40.0014 34.1693ZM40.0014 44.1693C39.3421 44.1693 38.6976 43.9738 38.1495 43.6075C37.6013 43.2413 37.1741 42.7207 36.9218 42.1116C36.6695 41.5025 36.6035 40.8323 36.7321 40.1857C36.8607 39.5391 37.1782 38.9451 37.6444 38.479C38.1105 38.0128 38.7045 37.6953 39.3511 37.5667C39.9977 37.4381 40.6679 37.5041 41.277 37.7564C41.8861 38.0087 42.4067 38.4359 42.7729 38.9841C43.1392 39.5322 43.3347 40.1767 43.3347 40.836C43.3347 41.72 42.9835 42.5679 42.3584 43.193C41.7333 43.8181 40.8854 44.1693 40.0014 44.1693Z"
+      fill="#656565"
+    />
+  </SvgIcon>
+)
+
+export const NoDocumentIcon = props => (
+  <SvgIcon {...props} width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="40" cy="40" r="40" fill="#E0E0E0" />
+    <path
+      d="M52.0184 32.3003C52.3253 32.5779 52.5894 32.8936 52.806 33.2369L48.5095 29.328C48.5094 29.328 48.5094 29.328 48.5094 29.328C47.1512 28.0922 45.8709 26.9645 44.8999 26.1416C44.4164 25.7318 43.9984 25.388 43.6812 25.1419C43.5254 25.0211 43.3745 24.9086 43.2431 24.8204C43.2101 24.7983 43.1709 24.7727 43.1275 24.7461C43.6961 24.9423 44.2244 25.2521 44.678 25.6623L48.479 29.0995L48.4791 29.0995L52.0184 32.3003ZM41.6598 24.5C41.7457 24.5 41.8315 24.5025 41.9169 24.5073C41.4174 24.6117 41.1224 24.94 41.0199 25.0701C40.8757 25.2532 40.8001 25.4321 40.7659 25.5194C40.6913 25.71 40.6484 25.9064 40.6216 26.0473C40.5637 26.3526 40.5198 26.7427 40.4857 27.1652C40.4163 28.0252 40.375 29.1829 40.375 30.4375C40.375 33.7305 43.0445 36.4 46.3375 36.4H47.14H52.405H53.5V43.944V53.3606C53.5 53.9262 53.261 54.4654 52.8419 54.8452L53.8492 55.9566L52.8415 54.8456C52.3772 55.2667 51.7727 55.5 51.1459 55.5H40H28.8541C28.2273 55.5 27.6228 55.2667 27.1585 54.8456L26.1508 55.9566L27.1581 54.8452C26.739 54.4654 26.5 53.9262 26.5 53.3606V40V26.6394C26.5 26.0738 26.739 25.5346 27.1581 25.1548L27.1583 25.1546C27.4508 24.8894 27.5281 24.8355 27.612 24.7947C27.6928 24.7554 27.88 24.6838 28.3991 24.6267C29.4953 24.5061 31.4689 24.5 35.6359 24.5H41.6598Z"
+      stroke="#656565"
+      strokeWidth="3"
+    />
+  </SvgIcon>
+)
+
+export const CrossInRectangleIcon = props => (
+  <SvgIcon {...props} width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M11.4728 10.5001L15.7984 6.17432C16.0672 5.90579 16.0672 5.4701 15.7984 5.20157C15.5297 4.93281 15.0945 4.93281 14.8257 5.20157L10.5001 9.52736L6.17427 5.20157C5.90553 4.93281 5.47031 4.93281 5.20156 5.20157C4.93281 5.4701 4.93281 5.90579 5.20156 6.17432L9.5274 10.5001L5.20156 14.8259C4.93281 15.0944 4.93281 15.5301 5.20156 15.7987C5.33593 15.9328 5.51204 16 5.68792 16C5.86379 16 6.0399 15.9328 6.17427 15.7984L10.5001 11.4726L14.8257 15.7984C14.9601 15.9328 15.1362 16 15.3121 16C15.488 16 15.6641 15.9328 15.7984 15.7984C16.0672 15.5299 16.0672 15.0942 15.7984 14.8257L11.4728 10.5001Z"
+      // fill="white"
+    />
+    <rect x="0.5" y="0.5" width="20" height="20" rx="3.5" stroke="white" fill="none" />
   </SvgIcon>
 )

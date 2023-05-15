@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import {Chip, Typography, TableCell, TableRow, IconButton, Checkbox} from '@mui/material'
+import {Checkbox, Chip, IconButton, TableCell, TableRow, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -20,7 +20,7 @@ import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {WithSearchSelect} from '@components/selects/with-search-select'
 
-import {calcProductsPriceWithDelivery} from '@utils/calculation'
+import {calcProductsMaxAmountByPriceLimit, calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {toFixed, trimBarcode} from '@utils/text'
 import {t} from '@utils/translations'
@@ -28,7 +28,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './order-modal-body-row.style'
 
 export const OrderModalBodyRow = ({
-  volumeWeightCoefficient,
+  platformSettings,
   destinations,
   storekeepers,
   item,
@@ -46,6 +46,7 @@ export const OrderModalBodyRow = ({
   onClickSetDestinationFavourite,
 }) => {
   const {classes: classNames} = useClassNames()
+  const [isLocalPriseOutOfLimit, setIsLocalPriseOutOfLimit] = useState(false)
 
   const onChangeInput = (event, nameInput) => {
     if (nameInput === 'deadline') {
@@ -73,7 +74,7 @@ export const OrderModalBodyRow = ({
           (((item.currentSupplier.boxProperties?.boxWidthCm || 0) *
             (item.currentSupplier.boxProperties?.boxLengthCm || 0) *
             (item.currentSupplier.boxProperties?.boxHeightCm || 0)) /
-            volumeWeightCoefficient) *
+            platformSettings?.volumeWeightCoefficient) *
             100,
         ) / 100 || 0,
         item.currentSupplier.boxProperties?.boxWeighGrossKg,
@@ -130,6 +131,16 @@ export const OrderModalBodyRow = ({
 
   const minDate = dayjs().add(2, 'day')
 
+  const maxAmount = calcProductsMaxAmountByPriceLimit(item, platformSettings.orderAmountLimit)
+
+  React.useEffect(() => {
+    if (toFixed(calcProductsPriceWithDelivery(item, orderState), 2) < platformSettings.orderAmountLimit) {
+      setIsLocalPriseOutOfLimit(true)
+    } else {
+      setIsLocalPriseOutOfLimit(false)
+    }
+  }, [orderState.amount])
+
   return (
     <React.Fragment>
       <TableRow
@@ -181,7 +192,7 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={classNames.cell}>
           {/* <Input
-            
+
             inputProps={{maxLength: 6, min: 0}}
             value={orderState.amount}
             className={classNames.amountCell}
@@ -190,7 +201,16 @@ export const OrderModalBodyRow = ({
 
           <Field
             containerClasses={classNames.containerField}
-            inputClasses={classNames.amountCell}
+            inputClasses={cx(classNames.amountCell, {
+              [classNames.errorSpaceInputCell]:
+                (item.currentSupplier?.multiplicity &&
+                  item.currentSupplier?.boxProperties?.amountInBox &&
+                  (orderState.amount % item.currentSupplier?.boxProperties?.amountInBox !== 0 || !orderState.amount)) ||
+                (item.currentSupplier?.multiplicity &&
+                  item.currentSupplier?.boxProperties?.amountInBox &&
+                  orderState.amount % item.currentSupplier?.boxProperties?.amountInBox === 0 &&
+                  !!orderState.amount),
+            })}
             error={
               item.currentSupplier?.multiplicity &&
               item.currentSupplier?.boxProperties?.amountInBox &&
@@ -206,14 +226,21 @@ export const OrderModalBodyRow = ({
             }
             inputProps={{maxLength: 6, min: 0}}
             value={orderState.amount}
-            onChange={e => onChangeInput(e, 'amount')}
+            onChange={e => {
+              onChangeInput(e, 'amount')
+            }}
           />
         </TableCell>
 
         <TableCell className={classNames.cell}>
-          <Typography className={classNames.standartText}>
+          <Typography className={cx(classNames.standartText, {[classNames.errorSpace]: isLocalPriseOutOfLimit})}>
             {toFixed(calcProductsPriceWithDelivery(item, orderState), 2)}
           </Typography>
+          {isLocalPriseOutOfLimit && (
+            <Typography className={classNames.error}>
+              {t(TranslationKey['At least'])} {platformSettings.orderAmountLimit}$
+            </Typography>
+          )}
         </TableCell>
 
         <TableCell className={classNames.cell}>
@@ -416,7 +443,7 @@ export const OrderModalBodyRow = ({
           setOpenModal={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
         >
           <SupplierApproximateCalculationsForm
-            volumeWeightCoefficient={volumeWeightCoefficient}
+            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
             product={item}
             supplier={item.currentSupplier}
             storekeepers={storekeepers}

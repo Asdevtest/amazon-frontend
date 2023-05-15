@@ -6,7 +6,6 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
 import {TaskOperationType} from '@constants/task-operation-type'
-import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
@@ -20,12 +19,10 @@ import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 import {clientBoxesViewColumns} from '@components/table-columns/client/client-boxes-columns'
-import {clientTasksViewColumns} from '@components/table-columns/client/client-tasks-columns'
 
-import {clientWarehouseDataConverter, warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {getTableByColumn, objectToUrlQs, translateLableToSome} from '@utils/text'
+import {getTableByColumn, objectToUrlQs} from '@utils/text'
 import {t} from '@utils/translations'
 import {onSubmitPostFilesInData, onSubmitPostImages} from '@utils/upload-files'
 
@@ -74,6 +71,7 @@ const filtersFields = [
   'updatedAt',
   'amount',
   'prepId',
+  'status',
   'storekeeper',
 ]
 
@@ -85,7 +83,6 @@ export class ClientInStockBoxesViewModel {
   selectedBox = undefined
 
   boxesMy = []
-  tasksMy = []
   baseBoxesMy = []
 
   nameSearchValue = ''
@@ -95,6 +92,7 @@ export class ClientInStockBoxesViewModel {
 
   drawerOpen = false
   selectedBoxes = []
+  selectedRows = []
   curOpenedTask = {}
   toCancelData = {}
   currentStorekeeper = undefined
@@ -150,7 +148,6 @@ export class ClientInStockBoxesViewModel {
 
   showEditHSCodeModal = false
   showMergeBoxModal = false
-  showTaskInfoModal = false
   showSendOwnProductModal = false
   showEditBoxModal = false
   showConfirmModal = false
@@ -159,8 +156,6 @@ export class ClientInStockBoxesViewModel {
   showRequestToSendBatchModal = false
 
   showEditMultipleBoxesModal = false
-
-  showConfirmWithCommentModal = false
 
   showGroupingBoxesModal = false
 
@@ -180,11 +175,18 @@ export class ClientInStockBoxesViewModel {
 
   showSelectionStorekeeperAndTariffModal = false
 
+  showEditPriorityData = false
+
   changeItem = null
 
   warningInfoModalSettings = {
     isWarning: false,
     title: '',
+  }
+
+  editPriorityData = {
+    taskId: null,
+    newPriority: null,
   }
 
   onHover = null
@@ -237,32 +239,32 @@ export class ClientInStockBoxesViewModel {
     this.onHover,
   )
 
-  rowTaskHandlers = {
-    onClickTaskInfo: item => this.setCurrentOpenedTask(item),
-    onClickCancelBtn: (id, taskId, type) => this.onClickCancelBtn(id, taskId, type),
-  }
-
-  taskColumnsModel = clientTasksViewColumns(this.rowTaskHandlers)
-
-  // get isNoDeliverySizes() {
-  //   return this.selectedBoxes.some(boxId => {
-  //     const findBox = this.boxesMy.find(box => box._id === boxId)
-  //     return (
-  //       (!findBox?.originalData?.deliveryHeight ||
-  //         !findBox?.originalData?.deliveryLength ||
-  //         !findBox?.originalData?.deliveryWidth ||
-  //         !findBox?.originalData?.deliveryMass) &&
-  //       !findBox?.originalData.fitsInitialDimensions
-  //     )
-  //   })
-  // }
-
   get userInfo() {
     return UserModel.userInfo
   }
 
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
+  get isChoosenOnlySendToBatchBoxes() {
+    if (!this.selectedBoxes.length) {
+      return false
+    }
+
+    return this.currentData
+      .filter(el => this.selectedBoxes.includes(el._id))
+      .every(el => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
+  }
+
+  get isHaveRequestSendToBatch() {
+    if (!this.selectedBoxes.length) {
+      return false
+    }
+
+    return this.currentData
+      .filter(el => this.selectedBoxes.includes(el._id))
+      .some(el => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
   }
 
   constructor({history}) {
@@ -357,10 +359,6 @@ export class ClientInStockBoxesViewModel {
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))
-        this.taskColumnsModel = clientTasksViewColumns(this.rowTaskHandlers).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
       }
     })
   }
@@ -431,6 +429,10 @@ export class ClientInStockBoxesViewModel {
     runInAction(() => {
       this.selectedBoxes = model
     })
+
+    const selectedRows = model.map(id => this.boxesMy.find(row => row.id === id))
+
+    this.selectedRows = selectedRows
   }
 
   getCurrentData() {
@@ -449,8 +451,6 @@ export class ClientInStockBoxesViewModel {
     })
 
     this.getBoxesMy()
-
-    this.getTasksMy()
   }
 
   async getStorekeepers() {
@@ -537,6 +537,46 @@ export class ClientInStockBoxesViewModel {
     // }
 
     this.onTriggerOpenModal('showSetShippingLabelModal')
+  }
+
+  onClickReturnBoxesToStockBtn() {
+    runInAction(() => {
+      this.confirmModalSettings = {
+        isWarning: true,
+        confirmMessage: t(TranslationKey['Are you sure you want to return the boxes to the warehouse?']),
+        onClickConfirm: () => this.returnBoxesToStock(),
+      }
+    })
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async returnBoxesToStock() {
+    try {
+      await ClientModel.returnBoxFromBatch(this.selectedBoxes.map(boxId => ({boxId})))
+      runInAction(() => {
+        this.selectedBoxes = []
+      })
+
+      this.loadData()
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+
+      this.onTriggerOpenModal('showConfirmModal')
+
+      runInAction(() => {
+        this.warningInfoModalSettings = {
+          isWarning: true,
+          title: t(TranslationKey.Error),
+        }
+      })
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+    }
   }
 
   onDoubleClickShippingLabel = item => {
@@ -870,31 +910,11 @@ export class ClientInStockBoxesViewModel {
       await this.getShops()
 
       await this.getBoxesMy()
-      this.getTasksMy()
-      // this.getDataGridState()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
-    }
-  }
-
-  async setCurrentOpenedTask(item) {
-    try {
-      const task = await StorekeeperModel.getTaskById(item._id)
-
-      const result = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
-        this.curOpenedTask = task
-      })
-
-      this.onTriggerOpenModal('showTaskInfoModal')
-    } catch (error) {
-      console.log(error)
     }
   }
 
@@ -1010,8 +1030,6 @@ export class ClientInStockBoxesViewModel {
         const splitBoxesResult = await this.splitBoxes(id, resBoxes)
 
         await this.postTask({idsData: splitBoxesResult, idsBeforeData: [id], type, clientComment: comment})
-        await this.getTasksMy()
-
         this.setRequestStatus(loadingStatuses.success)
 
         if (splitBoxesResult) {
@@ -1544,7 +1562,6 @@ export class ClientInStockBoxesViewModel {
 
         this.tmpClientComment = ''
       })
-      await this.getTasksMy()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
@@ -1615,34 +1632,26 @@ export class ClientInStockBoxesViewModel {
 
   async postTask({idsData, idsBeforeData, type, clientComment}) {
     try {
-      await ClientModel.createTask({
+      const res = await ClientModel.createTask({
         taskId: 0,
         boxes: [...idsData],
         boxesBefore: [...idsBeforeData],
         operationType: type,
         clientComment: clientComment || '',
       })
+
+      runInAction(() => {
+        this.editPriorityData = {
+          taskId: res.guid,
+          newPriority: null,
+        }
+      })
+
+      this.onTriggerOpenModal('showEditPriorityData')
     } catch (error) {
       console.log(error)
       runInAction(() => {
         this.error = error
-      })
-    }
-  }
-
-  async getTasksMy() {
-    try {
-      const result = await ClientModel.getTasks(this.currentStorekeeper && {storekeeperId: this.currentStorekeeper._id})
-
-      runInAction(() => {
-        this.tasksMy = warehouseTasksDataConverter(result).sort(sortObjectsArrayByFiledDate('updatedAt'))
-      })
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-
-        this.tasksMy = []
       })
     }
   }
@@ -1897,7 +1906,10 @@ export class ClientInStockBoxesViewModel {
       }),
     })
 
-    // console.log('filter', filter)
+    // ...(statusFilter && {
+    //   status: {$eq: statusFilter},
+    // }),
+    // })
 
     return filter
   }
@@ -1906,7 +1918,11 @@ export class ClientInStockBoxesViewModel {
     try {
       const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
 
-      const result = await BoxesModel.getBoxesForCurClientLightPag(BoxStatus.IN_STOCK, {
+      const curStatus = this.columnMenuSettings.status.currentFilterData.length
+        ? this.columnMenuSettings.status.currentFilterData.join(',')
+        : `${BoxStatus.NEW},${BoxStatus.IN_STOCK},${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.ACCEPTED_IN_PROCESSING},${BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE},${BoxStatus.NEED_TO_UPDATE_THE_TARIFF}`
+
+      const result = await BoxesModel.getBoxesForCurClientLightPag(curStatus, {
         filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
 
         storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
@@ -1924,6 +1940,8 @@ export class ClientInStockBoxesViewModel {
 
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+
+        hasBatch: false,
       })
 
       const res = await UserModel.getPlatformSettings()
@@ -1951,119 +1969,21 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
-  async cancelTask(taskId, comment) {
-    try {
-      await ClientModel.cancelTask(taskId, comment)
-
-      await this.getTasksMy()
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-    }
-  }
-
-  onClickCancelBtnByAction(actionType, id) {
-    switch (actionType) {
-      case 'merge':
-        return this.cancelMergeBoxes(id)
-
-      case 'split':
-        return this.cancelSplitBoxes(id)
-
-      case 'edit':
-        return this.cancelEditBoxes(id)
-    }
-  }
-
-  async onClickCancelBtn(id, taskId, type) {
-    try {
-      const task = await StorekeeperModel.getTaskById(taskId)
-
-      if (task.status !== mapTaskStatusEmumToKey[TaskStatus.NEW]) {
-        this.getTasksMy()
-
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: true,
-            title: t(TranslationKey['The warehouse has already taken the task to work']),
-          }
-        })
-
-        this.onTriggerOpenModal('showWarningInfoModal')
-      } else {
-        runInAction(() => {
-          this.toCancelData = {id, taskId, type}
-        })
-
-        this.onTriggerOpenModal('showConfirmWithCommentModal')
-      }
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
-  async onClickCancelAfterConfirm(comment) {
-    try {
-      await this.onClickCancelBtnByAction(this.toCancelData.type, this.toCancelData.id)
-
-      this.onTriggerOpenModal('showConfirmWithCommentModal')
-
-      await this.cancelTask(this.toCancelData.taskId, {clientComment: comment})
-
-      await this.getBoxesMy()
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-    }
-  }
-
-  async cancelEditBoxes(id) {
-    try {
-      await BoxesModel.cancelEditBoxes(id)
-
-      await this.getBoxesMy()
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-    }
-  }
-
-  async cancelMergeBoxes(id) {
-    try {
-      await BoxesModel.cancelMergeBoxes(id)
-
-      await this.getBoxesMy()
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-    }
-  }
-
-  async cancelSplitBoxes(id) {
-    try {
-      await BoxesModel.cancelSplitBoxes(id)
-
-      await this.getBoxesMy()
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-    }
-  }
-
   triggerRequestToSendBatchModal() {
     runInAction(() => {
       this.showRequestToSendBatchModal = !this.showRequestToSendBatchModal
     })
+  }
+
+  async updateTaskPriority(taskId, priority, reason) {
+    try {
+      await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
   }
 
   async onClickRequestToSendBatch() {

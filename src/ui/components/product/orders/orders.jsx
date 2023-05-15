@@ -33,7 +33,7 @@ export const Orders = observer(({productId, showAtProcessOrders}) => {
   const {
     orderStatusData,
 
-    volumeWeightCoefficient,
+    platformSettings,
     storekeepers,
     destinations,
     reorderOrder,
@@ -54,6 +54,7 @@ export const Orders = observer(({productId, showAtProcessOrders}) => {
     onClickSaveBarcode,
     onDoubleClickBarcode,
     setDataGridState,
+    changeColumnsModel,
   } = model.current
 
   useEffect(() => {
@@ -84,6 +85,9 @@ export const Orders = observer(({productId, showAtProcessOrders}) => {
         }}
         componentsProps={{
           columnMenu: {orderStatusData},
+          toolbar: {
+            columsBtnSettings: {columnsModel, changeColumnsModel},
+          },
         }}
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.isLoading}
@@ -102,7 +106,8 @@ export const Orders = observer(({productId, showAtProcessOrders}) => {
       <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
           reorderOrdersData={[reorderOrder]}
-          volumeWeightCoefficient={volumeWeightCoefficient}
+          // volumeWeightCoefficient={volumeWeightCoefficient}
+          platformSettings={platformSettings}
           destinations={destinations}
           storekeepers={storekeepers}
           onTriggerOpenModal={onTriggerOpenModal}

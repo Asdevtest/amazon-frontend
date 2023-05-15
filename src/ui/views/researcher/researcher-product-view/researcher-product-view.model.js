@@ -5,6 +5,7 @@ import {ProductDataParser} from '@constants/product-data-parser'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {poundsWeightCoefficient} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {creatSupplier, patchSuppliers} from '@constants/white-list'
 
 import {ProductModel} from '@models/product-model'
 import {ResearcherModel} from '@models/researcher-model'
@@ -17,10 +18,11 @@ import {
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
 } from '@utils/checks'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {
-  getObjectFilteredByKeyArrayWhiteList,
-  getObjectFilteredByKeyArrayBlackList,
   getNewObjectWithDefaultValue,
+  getObjectFilteredByKeyArrayBlackList,
+  getObjectFilteredByKeyArrayWhiteList,
 } from '@utils/object'
 import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
 import {t} from '@utils/translations'
@@ -100,6 +102,8 @@ const fieldsOfProductAllowedToUpdate = [
   'coefficient',
   'avgPrice',
   'avgReviews',
+  'redFlags',
+  'tags',
   // 'totalFba'
 ]
 
@@ -231,6 +235,18 @@ export class ResearcherProductViewModel {
     }
   }
 
+  updateImagesForLoad(images) {
+    if (!Array.isArray(images)) {
+      return
+    }
+
+    const filteredImages = images.filter(el => !this.imagesForLoad.some(item => item.includes(el)))
+
+    runInAction(() => {
+      this.imagesForLoad = [...this.imagesForLoad, ...filteredImages.map(el => getAmazonImageUrl(el, true))]
+    })
+  }
+
   async getProductById() {
     try {
       const result = await ProductModel.getProductById(this.productId)
@@ -239,6 +255,10 @@ export class ResearcherProductViewModel {
         this.product = result
 
         this.productBase = result
+
+        // this.imagesForLoad = result.images.map(el => getAmazonImageUrl(el, true))
+
+        this.updateImagesForLoad(result.images)
 
         updateProductAutoCalculatedFields.call(this)
       })
@@ -263,9 +283,17 @@ export class ResearcherProductViewModel {
         this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
       })
       if (
-        ['icomment', 'niche', 'asins', 'amazonTitle', 'amazonDescription', 'amazonDetail', 'category'].includes(
-          fieldName,
-        )
+        [
+          'icomment',
+          'niche',
+          'asins',
+          'amazonTitle',
+          'amazonDescription',
+          'amazonDetail',
+          'category',
+          'redFlags',
+          'tags',
+        ].includes(fieldName)
       ) {
         runInAction(() => {
           this.product = {...this.product, [fieldName]: e.target.value}
@@ -288,9 +316,7 @@ export class ResearcherProductViewModel {
 
         runInAction(() => {
           if (['strategyStatus'].includes(fieldName)) {
-            this.product = {...this.product, [fieldName]: e.target.value}
-
-            this.product = {...this.product, status: this.productBase.status}
+            this.product = {...this.product, [fieldName]: e.target.value, status: this.productBase.status}
           }
         })
 
@@ -535,29 +561,37 @@ export class ResearcherProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({supplier, photosOfSupplier}) {
+  async onClickSaveSupplierBtn({supplier, photosOfSupplier, editPhotosOfSupplier}) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
 
-      runInAction(() => {
-        this.readyImages = []
-      })
+      this.clearReadyImages()
 
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+      if (editPhotosOfSupplier.length) {
+        await onSubmitPostImages.call(this, {images: editPhotosOfSupplier, type: 'readyImages'})
       }
 
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
-        images: supplier.images.concat(this.readyImages),
+        images: this.readyImages,
+      }
+
+      this.clearReadyImages()
+
+      if (photosOfSupplier.length) {
+        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+        supplier = {
+          ...supplier,
+          images: [...supplier.images, ...this.readyImages],
+        }
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
 
         if (supplier._id === this.product.currentSupplierId) {
@@ -565,7 +599,8 @@ export class ResearcherProductViewModel {
           updateProductAutoCalculatedFields.call(this)
         }
       } else {
-        const createSupplierResult = await SupplierModel.createSupplier(supplier)
+        const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+        const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
         await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
         runInAction(() => {
           this.product.suppliers.push(createSupplierResult.guid)
@@ -618,6 +653,8 @@ export class ResearcherProductViewModel {
                 // fbafee: this.product.fbafee,
               }
             })
+
+            this.updateImagesForLoad(amazonResult.images)
           }
           updateProductAutoCalculatedFields.call(this)
         })
@@ -756,7 +793,7 @@ export class ResearcherProductViewModel {
           {
             ...this.curUpdateProductData,
             images: this.uploadedImages.length
-              ? [...this.curUpdateProductData.images, ...this.uploadedImages]
+              ? [/* ...this.curUpdateProductData.images, */ ...this.uploadedImages]
               : this.curUpdateProductData.images,
           },
           ['suppliers'],
@@ -866,6 +903,12 @@ export class ResearcherProductViewModel {
   onTriggerOpenModal(modal) {
     runInAction(() => {
       this[modal] = !this[modal]
+    })
+  }
+
+  clearReadyImages() {
+    runInAction(() => {
+      this.readyImages = []
     })
   }
 }

@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineObject17 from './InlineObject17';
+import ApiV1BoxesSplitNewBoxesParams from './ApiV1BoxesSplitNewBoxesParams';
 
 /**
  * The InlineObject26 model module.
@@ -51,8 +51,8 @@ class InlineObject26 {
             if (data.hasOwnProperty('guid')) {
                 obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
-            if (data.hasOwnProperty('additionalBoxes')) {
-                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject17]);
+            if (data.hasOwnProperty('newBoxesParams')) {
+                obj['newBoxesParams'] = ApiClient.convertToType(data['newBoxesParams'], [ApiV1BoxesSplitNewBoxesParams]);
             }
         }
         return obj;
@@ -62,16 +62,15 @@ class InlineObject26 {
 }
 
 /**
- * GUID для которой подтверждаем действие.
+ * GUID коробки, которую делим
  * @member {String} guid
  */
 InlineObject26.prototype['guid'] = undefined;
 
 /**
- * Массив дополнительных коробок которые случились при обработки.
- * @member {Array.<module:model/InlineObject17>} additionalBoxes
+ * @member {Array.<module:model/ApiV1BoxesSplitNewBoxesParams>} newBoxesParams
  */
-InlineObject26.prototype['additionalBoxes'] = undefined;
+InlineObject26.prototype['newBoxesParams'] = undefined;
 
 
 

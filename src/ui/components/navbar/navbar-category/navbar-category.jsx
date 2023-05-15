@@ -25,9 +25,7 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
     .filter(el => el !== null)
 
   const isRedBadge =
-    category.route?.includes('/client/my-orders/orders') ||
-    category.route?.includes('/buyer/pending-orders') ||
-    category.route?.includes('/buyer/free-orders')
+    category.route?.includes('/client/my-orders/orders') || category.route?.includes('/buyer/free-orders')
 
   const getHighPriorityValue = route => {
     switch (route) {
@@ -35,6 +33,13 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
         return userInfo.tasksNewHigh + userInfo.tasksAtProcessHigh
       default:
         return null
+    }
+  }
+
+  const getBigBadge = route => {
+    switch (route) {
+      case '/buyer/pending-orders':
+        return <div className={cx(classNames.bigBadge, classNames.redBadge)}>{userInfo.pendingOrdersByDeadline}</div>
     }
   }
 
@@ -78,11 +83,14 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
             primary={category.title}
           />
         )}
-        {highPriorityValue && (
+
+        {highPriorityValue >= 1 && !shortNavbar && (
           <Box pr="30px">
             <HighPriorityValue value={highPriorityValue} />
           </Box>
         )}
+        {/* {subRoutes?.[0] || category.route} */}
+        {!shortNavbar && getBigBadge(subRoutes?.[0] || category.route)}
       </MuiListItem>
     </Button>
   )

@@ -3,12 +3,14 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   resultButtonsWrapper: {
     margin: '20px 0',
-    height: '90px',
+    minHeight: '90px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
+
+    gap: 10,
   },
 
   modalMessageWrapper: {

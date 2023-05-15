@@ -126,6 +126,15 @@ export class WarehouseCompletedViewModel {
     })
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   onChangeRowsPerPage(e) {
     runInAction(() => {
       this.rowsPerPage = e
@@ -187,10 +196,15 @@ export class WarehouseCompletedViewModel {
   }
 
   onClickReportBtn() {
-    this.selectedTasks.forEach(el => {
+    this.setRequestStatus(loadingStatuses.isLoading)
+    this.selectedTasks.forEach((el, index) => {
       const taskId = el
 
-      OtherModel.getReportTaskByTaskId(taskId)
+      OtherModel.getReportTaskByTaskId(taskId).then(() => {
+        if (index === this.selectedTasks.length - 1) {
+          this.setRequestStatus(loadingStatuses.success)
+        }
+      })
     })
   }
 

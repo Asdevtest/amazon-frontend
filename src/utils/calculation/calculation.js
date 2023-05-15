@@ -36,6 +36,15 @@ export const calcProductsPriceWithDelivery = (product, order) =>
     ) || 0)) *
   (parseInt(order?.amount) || 0)
 
+export const calcProductsMaxAmountByPriceLimit = (product, maxPrice) =>
+  maxPrice > 0
+    ? maxPrice /
+      ((parseFloat(product.currentSupplier && product.currentSupplier.price) || 0) +
+        (parseFloat(
+          product.currentSupplier && product.currentSupplier.batchDeliveryCostInDollar / product.currentSupplier.amount,
+        ) || 0))
+    : 999999999
+
 export const calcOrderTotalPrice = (supplier, goodsAmount) =>
   ((parseFloat(supplier?.price) || 0) + (parseFloat(supplier?.batchDeliveryCostInDollar / supplier?.amount) || 0)) *
   (parseInt(goodsAmount) || 0)
@@ -338,3 +347,14 @@ export const calculateDeliveryCostPerPcs = ({
 
 export const priceCalculation = (price, deliveryPrice, qty) =>
   toFixed(((parseFloat(price) || 0) + (parseFloat(deliveryPrice) || 0)) * (parseInt(qty) || 0), 2)
+
+export const calcNumberMinusPercent = (number, percent) => {
+  if (+percent === 100) {
+    return '0'
+  } else {
+    return parseFloat(number) - parseFloat(number) * (parseFloat(percent) / 100)
+  }
+}
+
+export const calcPercentAfterMinusNumbers = (firstNumber, secondNumber) =>
+  ((parseFloat(firstNumber) - parseFloat(secondNumber)) * 100) / parseFloat(firstNumber)

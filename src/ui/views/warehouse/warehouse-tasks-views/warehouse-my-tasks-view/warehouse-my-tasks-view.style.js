@@ -1,7 +1,13 @@
 export const styles = theme => ({
   tableWrapper: {
+    // height: 'calc(100vh - 180px)',
     height: 'calc(100vh - 250px)',
+
+    [theme.breakpoints.down(1282)]: {
+      height: 'calc(100vh - 250px)',
+    },
   },
+
   modalMessageWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -155,5 +161,29 @@ export const styles = theme => ({
     borderBottom: '5px solid #0460DE',
 
     color: `${theme.palette.primary.main} !important`,
+  },
+  columnHeaderDraggableContainer: {
+    flexDirection: 'row !important',
+  },
+  columnHeaderTitleContainer: {
+    flexDirection: 'row !important',
+    display: 'flex !important',
+    alignItems: 'center !important',
+  },
+  iconSeparator: {
+    padding: '0 1px',
+  },
+
+  resolveTaskModalContent: {
+    paddingTop: 0,
+    paddingBottom: 0,
+  },
+
+  memoDataGridWrapper: {
+    height: '81vh',
+
+    [theme.breakpoints.down(1282)]: {
+      height: '76vh',
+    },
   },
 })

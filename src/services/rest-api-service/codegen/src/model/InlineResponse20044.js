@@ -47,8 +47,8 @@ class InlineResponse20044 {
         if (data) {
             obj = obj || new InlineResponse20044();
 
-            if (data.hasOwnProperty('failed')) {
-                obj['failed'] = ApiClient.convertToType(data['failed'], ['String']);
+            if (data.hasOwnProperty('profileId')) {
+                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
             }
         }
         return obj;
@@ -58,9 +58,10 @@ class InlineResponse20044 {
 }
 
 /**
- * @member {Array.<String>} failed
+ * id созданного профайла
+ * @member {String} profileId
  */
-InlineResponse20044.prototype['failed'] = undefined;
+InlineResponse20044.prototype['profileId'] = undefined;
 
 
 

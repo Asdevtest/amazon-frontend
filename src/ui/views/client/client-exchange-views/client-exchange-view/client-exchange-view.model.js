@@ -30,7 +30,7 @@ export class ClientExchangeViewModel {
   storekeepers = []
   shopsData = []
 
-  volumeWeightCoefficient = undefined
+  platformSettings = undefined
 
   destinations = []
 
@@ -90,6 +90,15 @@ export class ClientExchangeViewModel {
       () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
+  }
+
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = this.columnsModel.map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
   }
 
   async updateColumnsModel() {
@@ -359,7 +368,7 @@ export class ClientExchangeViewModel {
 
         this.destinations = destinations
 
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.platformSettings = result
       })
 
       this.onTriggerOpenModal('showOrderModal')

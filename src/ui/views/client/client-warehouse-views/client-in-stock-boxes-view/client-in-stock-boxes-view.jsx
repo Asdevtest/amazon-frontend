@@ -8,6 +8,7 @@ import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
+import {BoxStatus} from '@constants/box-status'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -28,7 +29,6 @@ import {MainContent} from '@components/main-content'
 import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comment-modal'
 import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
 import {MergeBoxesModal} from '@components/modals/merge-boxes-modal'
 import {SetChipValueModal} from '@components/modals/set-chip-value-modal'
@@ -36,10 +36,9 @@ import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
-import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
+import {EditTaskPriorityModal} from '@components/screens/warehouse/edit-task-priority-modal'
 import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
 import {SearchInput} from '@components/search-input'
-import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -49,23 +48,45 @@ import {styles} from './client-in-stock-boxes-view.style'
 
 const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
 const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES
+
 @observer
 export class ClientInStockBoxesViewRaw extends Component {
   viewModel = new ClientInStockBoxesViewModel({history: this.props.history})
+  topHeaderBtnsWrapperRef = React.createRef()
+  boxesFiltersWrapperRef = React.createRef()
+  btnsWrapperRef = React.createRef()
+
+  topHeaderBtnsWrapperHeight = undefined
+  boxesFiltersWrapperHeight = undefined
+  btnsWrapperHeight = undefined
+
+  heightSum = undefined
 
   componentDidMount() {
     this.viewModel.loadData()
+
+    this.topHeaderBtnsWrapperHeight = this.topHeaderBtnsWrapperRef?.current?.offsetHeight
+    this.boxesFiltersWrapperHeight = this.boxesFiltersWrapperRef?.current?.offsetHeight
+    this.btnsWrapperHeight = this.btnsWrapperRef?.current?.offsetHeight
+
+    this.heightSum = this.topHeaderBtnsWrapperHeight + this.boxesFiltersWrapperHeight + this.btnsWrapperHeight
+  }
+
+  componentDidUpdate() {
+    this.topHeaderBtnsWrapperHeight = this.topHeaderBtnsWrapperRef?.current?.offsetHeight
+    this.boxesFiltersWrapperHeight = this.boxesFiltersWrapperRef?.current?.offsetHeight
+    this.btnsWrapperHeight = this.btnsWrapperRef?.current?.offsetHeight
+
+    this.heightSum = this.topHeaderBtnsWrapperHeight + this.boxesFiltersWrapperHeight + this.btnsWrapperHeight
   }
 
   render() {
     const {
+      editPriorityData,
       isSomeFilterOn,
       columnMenuSettings,
-      shopsFilterData,
-      shopsCurrentFilterData,
       nameSearchValue,
       changeItem,
-      isFormed,
       clientDestinations,
       curDestination,
       rowCount,
@@ -78,38 +99,31 @@ export class ClientInStockBoxesViewRaw extends Component {
       showEditHSCodeModal,
       showBoxViewModal,
       volumeWeightCoefficient,
-      taskColumnsModel,
       currentStorekeeper,
       storekeepersData,
       destinations,
 
       requestStatus,
       currentData,
-      getCurrentTaskData,
       sortModel,
       filterModel,
       densityModel,
       columnsModel,
 
-      curOpenedTask,
-      read,
       drawerOpen,
       curPage,
       rowsPerPage,
-      curPageForTask,
-      rowsPerPageForTask,
       boxesMy,
       selectedBoxes,
+      showEditPriorityData,
       showMergeBoxModal,
       showConfirmModal,
-      showTaskInfoModal,
       showEditBoxModal,
       showRedistributeBoxModal,
       showRedistributeBoxAddNewBoxModal,
       showGroupingBoxesModal,
       showProgress,
       showEditMultipleBoxesModal,
-      showConfirmWithCommentModal,
       showSetShippingLabelModal,
       showSetChipValueModal,
       showWarningInfoModal,
@@ -127,8 +141,6 @@ export class ClientInStockBoxesViewRaw extends Component {
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
-      onChangeCurPageForTask,
-      onChangeRowsPerPageForTask,
       onClickConfirmCreateSplitTasks,
 
       onClickConfirmCreateChangeTasks,
@@ -150,9 +162,7 @@ export class ClientInStockBoxesViewRaw extends Component {
       setCurrentOpenedBox,
       onClickSaveFbaShipment,
       onClickSaveShippingLabel,
-      onClickCancelAfterConfirm,
       onClickSubmitEditMultipleBoxes,
-      onClickFilterBtn,
 
       onClickRemoveBoxFromBatch,
       onSearchSubmit,
@@ -160,24 +170,24 @@ export class ClientInStockBoxesViewRaw extends Component {
 
       onSubmitChangeBoxFields,
       onClickDestinationBtn,
-      onChangeIsFormed,
       editTariff,
-      onClickShopBtn,
       onCloseShippingLabelModal,
-      getBoxesMy,
       onLeaveColumnField,
       onHoverColumnField,
       onClickResetFilters,
       changeColumnsModel,
+      updateTaskPriority,
     } = this.viewModel
 
     const {classes: classNames} = this.props
 
-    const getRowClassName = params => params.row.isDraft === true && classNames.isDraftRow
+    const getRowClassName = params =>
+      (params.row.isDraft === true ||
+        params.row.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE ||
+        params.row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF) &&
+      classNames.isDraftRow
 
     const disableSelectionCells = ['prepId']
-
-    // console.log('columnMenuSettings', columnMenuSettings)
 
     return (
       <React.Fragment>
@@ -190,7 +200,7 @@ export class ClientInStockBoxesViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Boxes in stock'])}>
             <MainContent>
-              <div className={classNames.topHeaderBtnsWrapper}>
+              <div ref={this.topHeaderBtnsWrapperRef} className={classNames.topHeaderBtnsWrapper}>
                 <div className={classNames.boxesFiltersWrapper}>
                   {storekeepersData
                     .slice()
@@ -231,7 +241,7 @@ export class ClientInStockBoxesViewRaw extends Component {
                 />
               </div>
 
-              <div className={classNames.boxesFiltersWrapper}>
+              <div ref={this.boxesFiltersWrapperRef} className={classNames.boxesFiltersWrapper}>
                 {clientDestinations
                   .slice()
                   .sort((a, b) => a.name?.localeCompare(b.name))
@@ -271,54 +281,8 @@ export class ClientInStockBoxesViewRaw extends Component {
                 </Button>
               </div>
 
-              {/* <WithSearchSelect
-                selectedItemName={
-                  (!curDestination?._id && t(TranslationKey['All destinations'])) ||
-                  (curDestination && curDestination.name)
-                }
-                data={clientDestinations.filter(shop => curDestination?.id !== shop._id)}
-                searchFields={['name']}
-                favourites={destinationsFavourites}
-                firstItems={
-                  <>
-                    {!!curDestination?._id && (
-                      <Button
-                        disabled={!currentData}
-                        className={classNames.button}
-                        variant="text"
-                        onClick={onClickDestinationBtn}
-                      >
-                        {t(TranslationKey['All destinations'])}
-                      </Button>
-                    )}
-                  </>
-                }
-                onClickSelect={destination => onClickDestinationBtn(destination)}
-                onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-              /> */}
-
-              <div className={classNames.btnsWrapper}>
+              <div ref={this.btnsWrapperRef} className={classNames.btnsWrapper}>
                 <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>
-                {/* <WithSearchSelect
-                  selectedItemName={(!curShops?._id && t(TranslationKey['All shops'])) || (curShops && curShops.name)}
-                  data={shopsData.filter(shop => curShops?.id !== shop._id)}
-                  searchFields={['name']}
-                  firstItems={
-                    <>
-                      {!!curShops?._id && (
-                        <Button
-                          disabled={!currentData}
-                          className={classNames.button}
-                          variant="text"
-                          onClick={onClickShopBtn}
-                        >
-                          {t(TranslationKey['All shops'])}
-                        </Button>
-                      )}
-                    </>
-                  }
-                  onClickSelect={shop => onClickShopBtn(shop)}
-                /> */}
                 <Button
                   disabled={!storekeepersData}
                   onClick={() => onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
@@ -327,108 +291,84 @@ export class ClientInStockBoxesViewRaw extends Component {
                 </Button>
               </div>
 
-              <MemoDataGrid
-                // disableVirtualization
-                pagination
-                checkboxSelection
-                localeText={getLocalizationByLanguageTag()}
-                isRowSelectable={params => params.row.isDraft === false}
-                classes={{
-                  row: classNames.row,
-                  virtualScrollerContent: classNames.virtualScrollerContent,
-                  root: classNames.root,
-                  footerContainer: classNames.footerContainer,
-                  footerCell: classNames.footerCell,
-                  toolbarContainer: classNames.toolbarContainer,
-
-                  columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-                  columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-                  columnHeader: classNames.columnHeader,
-                  menuIconButton: classNames.menuIconButton,
-                  iconButtonContainer: classNames.iconButtonContainer,
-                  iconSeparator: classNames.iconSeparator,
-                }}
-                sx={{
-                  '.MuiDataGrid-sortIcon': {
-                    width: 14,
-                    height: 14,
-                    // color: '#fff',
-                    // opacity: 1,
-                    // display: 'none',
-                    '& > active': {
-                      display: 'none',
-                    },
-                  },
-                }}
-                headerHeight={65}
-                getRowClassName={getRowClassName}
-                selectionModel={selectedBoxes}
-                sortingMode="server"
-                paginationMode="server"
-                rowCount={rowCount}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={currentData || []}
-                getRowHeight={() => 'auto'}
-                components={{
-                  Toolbar: DataGridCustomToolbar,
-                  ColumnMenu: DataGridCustomColumnMenuComponent,
-                  ColumnMenuIcon: FilterAltOutlinedIcon,
-                }}
-                componentsProps={{
-                  columnMenu: columnMenuSettings,
-                  toolbar: {
-                    resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
-                    columsBtnSettings: {columnsModel, changeColumnsModel},
-                  },
-                }}
-                density={densityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                onColumnHeaderEnter={params => {
-                  onHoverColumnField(params.field)
-                }}
-                onColumnHeaderLeave={onLeaveColumnField}
-                onSelectionModelChange={onSelectionModel}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onFilterModelChange={onChangeFilterModel}
-                onStateChange={setDataGridState}
-                // onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-                // onCellDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-                onCellDoubleClick={params =>
-                  !disableSelectionCells.includes(params.field) && setCurrentOpenedBox(params.row.originalData)
-                }
-              />
-
-              <div className={classNames.tasksWrapper}>
+              <div className={classNames.tasksWrapper} style={{height: `calc(100vh - ${this.heightSum + 170}px)`}}>
                 <MemoDataGrid
                   // disableVirtualization
                   pagination
+                  checkboxSelection
+                  localeText={getLocalizationByLanguageTag()}
+                  isRowSelectable={params =>
+                    params.row.isDraft === false &&
+                    params.row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&
+                    params.row.status !== BoxStatus.NEED_TO_UPDATE_THE_TARIFF
+                  }
                   classes={{
+                    row: classNames.row,
+                    virtualScrollerContent: classNames.virtualScrollerContent,
                     root: classNames.root,
                     footerContainer: classNames.footerContainer,
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
+
+                    columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
+                    columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
+                    columnHeader: classNames.columnHeader,
+                    menuIconButton: classNames.menuIconButton,
+                    iconButtonContainer: classNames.iconButtonContainer,
+                    iconSeparator: classNames.iconSeparator,
                   }}
-                  localeText={getLocalizationByLanguageTag()}
+                  sx={{
+                    '.MuiDataGrid-sortIcon': {
+                      width: 14,
+                      height: 14,
+                      '& > active': {
+                        display: 'none',
+                      },
+                    },
+                  }}
+                  headerHeight={65}
+                  getRowClassName={getRowClassName}
+                  selectionModel={selectedBoxes}
+                  sortingMode="server"
+                  paginationMode="server"
+                  rowCount={rowCount}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
-                  page={curPageForTask}
-                  pageSize={rowsPerPageForTask}
-                  // pageSize={15}
-                  rows={getCurrentTaskData()}
+                  rows={currentData || []}
                   getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: DataGridCustomToolbar,
+                    ColumnMenu: DataGridCustomColumnMenuComponent,
                     ColumnMenuIcon: FilterAltOutlinedIcon,
                   }}
-                  columns={taskColumnsModel}
-                  onPageSizeChange={onChangeRowsPerPageForTask}
-                  onPageChange={onChangeCurPageForTask}
+                  componentsProps={{
+                    columnMenu: columnMenuSettings,
+                    toolbar: {
+                      resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
+                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                    },
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onColumnHeaderEnter={params => {
+                    onHoverColumnField(params.field)
+                  }}
+                  onColumnHeaderLeave={onLeaveColumnField}
+                  onSelectionModelChange={onSelectionModel}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onFilterModelChange={onChangeFilterModel}
+                  onStateChange={setDataGridState}
+                  // onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+                  // onCellDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+                  onCellDoubleClick={params =>
+                    !disableSelectionCells.includes(params.field) && setCurrentOpenedBox(params.row.originalData)
+                  }
                 />
               </div>
             </MainContent>
@@ -527,15 +467,6 @@ export class ClientInStockBoxesViewRaw extends Component {
           />
         </Modal>
 
-        <Modal openModal={showTaskInfoModal} setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}>
-          <EditTaskModal
-            readOnly
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            task={curOpenedTask}
-            onClickOpenCloseModal={() => onTriggerOpenModal('showTaskInfoModal')}
-          />
-        </Modal>
-
         <Modal missClickModalOn openModal={showRequestToSendBatchModal} setOpenModal={triggerRequestToSendBatchModal}>
           <RequestToSendBatchForm
             userInfo={userInfo}
@@ -548,19 +479,9 @@ export class ClientInStockBoxesViewRaw extends Component {
             onClickSendBoxesToBatch={onClickSendBoxesToBatch}
             onClickRemoveBoxFromBatch={onClickRemoveBoxFromBatch}
             onSubmitChangeBoxFields={onSubmitChangeBoxFields}
+            onClickHsCode={onClickHsCode}
           />
         </Modal>
-
-        <ConfirmWithCommentModal
-          isWarning
-          openModal={showConfirmWithCommentModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmWithCommentModal')}
-          titleText={t(TranslationKey.Attention)}
-          commentLabelText={t(TranslationKey['Are you sure you want to cancel the task?'])}
-          okBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onSubmit={onClickCancelAfterConfirm}
-        />
 
         <ConfirmationModal
           isWarning={confirmModalSettings.isWarning}
@@ -658,6 +579,15 @@ export class ClientInStockBoxesViewRaw extends Component {
           }}
         />
 
+        <Modal openModal={showEditPriorityData} setOpenModal={() => onTriggerOpenModal('showEditPriorityData')}>
+          <EditTaskPriorityModal
+            withSelect
+            data={editPriorityData}
+            handleClose={() => onTriggerOpenModal('showEditPriorityData')}
+            onSubmitHandler={updateTaskPriority}
+          />
+        </Modal>
+
         {showProgress && <CircularProgressWithLabel />}
       </React.Fragment>
     )
@@ -667,17 +597,24 @@ export class ClientInStockBoxesViewRaw extends Component {
     const {
       selectedBoxes,
       // isMasterBoxSelected,
+      isChoosenOnlySendToBatchBoxes,
+      isHaveRequestSendToBatch,
+      selectedRows,
       onClickRequestToSendBatch,
       onClickEditBtn,
       onClickMergeBtn,
       onClickSplitBtn,
       onClickGroupingBtn,
+      onClickReturnBoxesToStockBtn,
     } = this.viewModel
+
+    const disable = selectedRows.some(row => row.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
+
     return (
       <React.Fragment>
         <Button
           tooltipInfoContent={t(TranslationKey['Form for requesting the shipment of boxes in a batch'])}
-          disabled={!selectedBoxes.length}
+          disabled={!selectedBoxes.length || disable}
           onClick={onClickRequestToSendBatch}
         >
           {t(TranslationKey['Send batch'])}
@@ -685,14 +622,14 @@ export class ClientInStockBoxesViewRaw extends Component {
 
         <Button
           tooltipInfoContent={t(TranslationKey['Form for merging several boxes'])}
-          disabled={selectedBoxes.length <= 1 /* || isMasterBoxSelected*/}
+          disabled={selectedBoxes.length <= 1 /* || isMasterBoxSelected*/ || isHaveRequestSendToBatch}
           onClick={onClickMergeBtn}
         >
           {t(TranslationKey.Merge)}
         </Button>
 
         <Button
-          disabled={selectedBoxes.length !== 1}
+          disabled={selectedBoxes.length !== 1 || isHaveRequestSendToBatch}
           tooltipInfoContent={t(TranslationKey['Form for distributing to multiple boxes'])}
           onClick={onClickSplitBtn}
         >
@@ -700,14 +637,23 @@ export class ClientInStockBoxesViewRaw extends Component {
         </Button>
         <Button
           tooltipInfoContent={t(TranslationKey['Form for changing the box data'])}
-          disabled={!selectedBoxes.length}
+          disabled={!selectedBoxes.length || isHaveRequestSendToBatch}
           onClick={onClickEditBtn}
         >
           {t(TranslationKey.Edit)}
         </Button>
 
-        <Button disabled={!selectedBoxes.length} onClick={onClickGroupingBtn}>
+        <Button disabled={!selectedBoxes.length || isHaveRequestSendToBatch} onClick={onClickGroupingBtn}>
           {t(TranslationKey.Grouping)}
+        </Button>
+
+        <Button
+          disabled={!selectedBoxes.length || !isChoosenOnlySendToBatchBoxes}
+          // className={classNames.returnButton}
+          // variant="contained"
+          onClick={onClickReturnBoxesToStockBtn}
+        >
+          {t(TranslationKey['Return to stock'])}
         </Button>
       </React.Fragment>
     )

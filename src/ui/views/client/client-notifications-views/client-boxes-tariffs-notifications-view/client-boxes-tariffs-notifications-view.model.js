@@ -83,6 +83,15 @@ export class ClientBoxesTariffsNotificationsViewModel {
     )
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = this.columnsModel.map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
@@ -238,7 +247,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
       const platformSettings = await UserModel.getPlatformSettings()
 
-      const curBoxFinalWeight = calcFinalWeightForBox(this.curBox, platformSettings.volumeWeightCoefficient)
+      const curBoxFinalWeight = calcFinalWeightForBox(this.curBox, platformSettings?.volumeWeightCoefficient)
 
       const curStorekeeper = this.storekeepersData.find(el => el._id === this.curBox?.storekeeper._id)
 
@@ -336,7 +345,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
       const platformSettings = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.boxes = clientWarehouseDataConverter(result, platformSettings.volumeWeightCoefficient).sort(
+        this.boxes = clientWarehouseDataConverter(result, platformSettings?.volumeWeightCoefficient).sort(
           sortObjectsArrayByFiledDateWithParseISO('createdAt'),
         )
       })

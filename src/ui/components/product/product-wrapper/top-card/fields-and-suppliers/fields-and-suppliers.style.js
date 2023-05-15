@@ -108,6 +108,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   productFieldBox: {
     display: 'flex',
+    flexWrap: 'wrap',
     // flexDirection: 'column',
     // height: '100%',
     // justifyContent: 'space-between',
@@ -342,9 +343,12 @@ export const useClassNames = makeStyles()(theme => ({
     // alignSelf: 'flex-end'
   },
 
-  editButton: {
+  editButtonWrapper: {
+    width: 'fit-content',
     marginTop: '15px',
   },
+
+  editButton: {},
 
   linkDecoration: {
     color: 'red !important',
@@ -523,5 +527,19 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: '16px',
     lineHeight: '22px',
+  },
+
+  redFlags: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: 'max-content',
+  },
+
+  redFlagsView: {
+    display: 'flex',
+    flexDirection: 'unset',
+    width: '100%',
+    maxWidth: '226px',
+    flexWrap: 'wrap',
   },
 }))

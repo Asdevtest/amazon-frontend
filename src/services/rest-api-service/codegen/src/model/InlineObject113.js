@@ -22,12 +22,11 @@ class InlineObject113 {
     /**
      * Constructs a new <code>InlineObject113</code>.
      * @alias module:model/InlineObject113
-     * @param userId {String} Гуид саба
-     * @param comment {String} Заметка о сабе написаная мастером
+     * @param price {Number} Цена услуги.
      */
-    constructor(userId, comment) { 
+    constructor(price) { 
         
-        InlineObject113.initialize(this, userId, comment);
+        InlineObject113.initialize(this, price);
     }
 
     /**
@@ -35,9 +34,8 @@ class InlineObject113 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, userId, comment) { 
-        obj['userId'] = userId;
-        obj['comment'] = comment;
+    static initialize(obj, price) { 
+        obj['price'] = price;
     }
 
     /**
@@ -51,11 +49,14 @@ class InlineObject113 {
         if (data) {
             obj = obj || new InlineObject113();
 
-            if (data.hasOwnProperty('userId')) {
-                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
         }
         return obj;
@@ -65,16 +66,22 @@ class InlineObject113 {
 }
 
 /**
- * Гуид саба
- * @member {String} userId
+ * Название услуги
+ * @member {String} name
  */
-InlineObject113.prototype['userId'] = undefined;
+InlineObject113.prototype['name'] = undefined;
 
 /**
- * Заметка о сабе написаная мастером
- * @member {String} comment
+ * Описание услуги
+ * @member {String} description
  */
-InlineObject113.prototype['comment'] = undefined;
+InlineObject113.prototype['description'] = undefined;
+
+/**
+ * Цена услуги.
+ * @member {Number} price
+ */
+InlineObject113.prototype['price'] = undefined;
 
 
 

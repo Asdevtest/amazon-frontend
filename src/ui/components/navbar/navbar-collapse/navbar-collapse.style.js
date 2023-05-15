@@ -19,8 +19,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   badgeContainer: {
     display: 'flex',
-    width: '100%',
-    maxWidth: '56px',
+    width: '56px',
     paddingLeft: '5px',
     justifyContent: 'center',
     alignItems: 'center',

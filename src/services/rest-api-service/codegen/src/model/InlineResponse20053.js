@@ -47,29 +47,11 @@ class InlineResponse20053 {
         if (data) {
             obj = obj || new InlineResponse20053();
 
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
-                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
-            }
-            if (data.hasOwnProperty('platformMargin')) {
-                obj['platformMargin'] = ApiClient.convertToType(data['platformMargin'], 'Number');
-            }
-            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
-                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
-            }
-            if (data.hasOwnProperty('supervisorFee')) {
-                obj['supervisorFee'] = ApiClient.convertToType(data['supervisorFee'], 'Number');
-            }
-            if (data.hasOwnProperty('unitCost')) {
-                obj['unitCost'] = ApiClient.convertToType(data['unitCost'], 'Number');
-            }
-            if (data.hasOwnProperty('maxAmountOfProposals')) {
-                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
-            }
-            if (data.hasOwnProperty('totalCost')) {
-                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
         }
         return obj;
@@ -79,52 +61,15 @@ class InlineResponse20053 {
 }
 
 /**
- * Цена за каждое предложение.
- * @member {Number} price
+ * @member {String} productId
  */
-InlineResponse20053.prototype['price'] = undefined;
+InlineResponse20053.prototype['productId'] = undefined;
 
 /**
- * Процент с каждого предложения, маржа платформы, в процентах.
- * @member {Number} requestPlatformMarginInPercent
+ * Массив магазинов
+ * @member {Array.<String>} shopIds
  */
-InlineResponse20053.prototype['requestPlatformMarginInPercent'] = undefined;
-
-/**
- * Услуги платформы.
- * @member {Number} platformMargin
- */
-InlineResponse20053.prototype['platformMargin'] = undefined;
-
-/**
- * Процент с каждого предложения для супервайзера, в процентах.
- * @member {Number} requestSupervisorFeeInPercent
- */
-InlineResponse20053.prototype['requestSupervisorFeeInPercent'] = undefined;
-
-/**
- * Услуги супервайзера.
- * @member {Number} supervisorFee
- */
-InlineResponse20053.prototype['supervisorFee'] = undefined;
-
-/**
- * Сумма.
- * @member {Number} unitCost
- */
-InlineResponse20053.prototype['unitCost'] = undefined;
-
-/**
- * Количество предложений, не менее.
- * @member {Number} maxAmountOfProposals
- */
-InlineResponse20053.prototype['maxAmountOfProposals'] = undefined;
-
-/**
- * Итого.
- * @member {Number} totalCost
- */
-InlineResponse20053.prototype['totalCost'] = undefined;
+InlineResponse20053.prototype['shopIds'] = undefined;
 
 
 

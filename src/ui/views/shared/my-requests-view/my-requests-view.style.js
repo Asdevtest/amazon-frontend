@@ -26,8 +26,8 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginBottom: '10px',
+    justifyContent: 'space-between',
+    marginBottom: '20px',
     paddingRight: '5px',
   },
   tableWrapper: {
@@ -53,7 +53,7 @@ export const styles = theme => ({
   },
 
   datagridWrapper: {
-    height: '82vh',
+    height: 'calc(100vh - 240px)',
   },
   footerContainer: {
     position: 'absolute',
@@ -83,6 +83,12 @@ export const styles = theme => ({
     animation: `${ani} 1s forwards`,
   },
 
+  searchInput: {
+    border: `1px solid ${theme.palette.primary.main}`,
+    height: 40,
+    width: '400px',
+  },
+
   acceptMessage: {
     color: '#00B746',
   },
@@ -93,5 +99,67 @@ export const styles = theme => ({
   },
   columnHeaderDraggableContainer: {
     flexDirection: 'row !important',
+  },
+
+  waitingCheckedBacklighting: {
+    background: theme.palette.background.green,
+  },
+  yellowBorder: {
+    background: theme.palette.boxShadow.yellow,
+  },
+  redBorder: {
+    background: theme.palette.boxShadow.red,
+  },
+
+  switchButtonWrapper: {
+    display: 'flex',
+
+    marginBottom: 20,
+  },
+
+  btnWrapperStyle: {
+    width: 'calc(100% / 2)',
+  },
+
+  switchButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    color: theme.palette.text.second,
+
+    width: '100%',
+
+    fontWeight: 600,
+    fontSize: 18,
+    lineHeight: '140%',
+  },
+
+  selectedSwitchButton: {
+    color: theme.palette.primary.main,
+  },
+
+  switchButtonBorder: {
+    '&:after': {
+      position: 'absolute',
+      bottom: 0,
+      content: '" "',
+      display: 'block',
+      height: 1,
+      width: '100%',
+      background: theme.palette.primary.main,
+    },
+  },
+  menuIconButton: {
+    zIndex: 1000,
+    position: 'absolute !important',
+    right: -7,
+    top: 13,
+    visibility: 'visible !important',
+
+    width: '18px !important',
+    height: '18px !important',
+
+    '.MuiSvgIcon-root': {
+      display: 'none',
+    },
   },
 })

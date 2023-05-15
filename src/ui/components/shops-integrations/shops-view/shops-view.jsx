@@ -1,5 +1,6 @@
+import {cx} from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Box} from '@mui/material'
+import {Box, Checkbox, Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
@@ -16,6 +17,7 @@ import {MemoDataGrid} from '@components/memo-data-grid'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -56,6 +58,8 @@ class ShopsViewRaw extends Component {
 
       rowsPerPage,
       curPage,
+      shopsData,
+      selectedShopFilters,
       onChangeCurPage,
       onChangeRowsPerPage,
 
@@ -69,6 +73,9 @@ class ShopsViewRaw extends Component {
       onSubmitRemoveShop,
       onSelectionModel,
       updateShops,
+      changeColumnsModel,
+      onSelectShopFilter,
+      handleSelectAllShops,
     } = this.viewModel
 
     const {classes: className} = this.props
@@ -87,6 +94,28 @@ class ShopsViewRaw extends Component {
             >
               {t(TranslationKey.Update)}
             </Button>
+
+            <div className={className.shopsSelect}>
+              <WithSearchSelect
+                checkbox
+                notCloseOneClick
+                firstItems={
+                  <Button className={className.filterBtn} variant="text" onClick={handleSelectAllShops}>
+                    <div className={cx(className.fieldNamesWrapper, className.fieldNamesWrapperWithCheckbox)}>
+                      <>
+                        <Checkbox checked={selectedShopFilters.length === shopsData.length} color="primary" />
+                        <Typography className={className.fieldName}>{t(TranslationKey['All shops'])}</Typography>
+                      </>
+                    </div>
+                  </Button>
+                }
+                currentShops={selectedShopFilters}
+                data={shopsData}
+                searchFields={['name']}
+                selectedItemName={t(TranslationKey['All shops'])}
+                onClickSelect={onSelectShopFilter}
+              />
+            </div>
           </Box>
 
           <div className={className.datagridWrapper}>
@@ -112,6 +141,11 @@ class ShopsViewRaw extends Component {
               components={{
                 Toolbar: DataGridCustomToolbar,
                 ColumnMenuIcon: FilterAltOutlinedIcon,
+              }}
+              componentsProps={{
+                toolbar: {
+                  columsBtnSettings: {columnsModel, changeColumnsModel},
+                },
               }}
               density={densityModel}
               columns={columnsModel}

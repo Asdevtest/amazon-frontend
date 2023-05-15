@@ -22,10 +22,11 @@ class InlineObject107 {
     /**
      * Constructs a new <code>InlineObject107</code>.
      * @alias module:model/InlineObject107
+     * @param priority {Number} Выставить приоритет задачи
      */
-    constructor() { 
+    constructor(priority) { 
         
-        InlineObject107.initialize(this);
+        InlineObject107.initialize(this, priority);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject107 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, priority) { 
+        obj['priority'] = priority;
     }
 
     /**
@@ -47,14 +49,11 @@ class InlineObject107 {
         if (data) {
             obj = obj || new InlineObject107();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
             }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -64,22 +63,16 @@ class InlineObject107 {
 }
 
 /**
- * Название услуги
- * @member {String} name
+ * Выставить приоритет задачи
+ * @member {Number} priority
  */
-InlineObject107.prototype['name'] = undefined;
+InlineObject107.prototype['priority'] = undefined;
 
 /**
- * Описание услуги
- * @member {String} description
+ * Reason of high priority
+ * @member {String} reason
  */
-InlineObject107.prototype['description'] = undefined;
-
-/**
- * Цена услуги.
- * @member {Number} price
- */
-InlineObject107.prototype['price'] = undefined;
+InlineObject107.prototype['reason'] = undefined;
 
 
 

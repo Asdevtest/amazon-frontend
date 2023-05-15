@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**suppliersIds** | **[String]** | GUIDы поставщиков, которые нужно добавить в БД. | [optional] 
+**name** | **String** | Название профиля | [optional] 
+**os** | **String** | Название ОС | [optional] [default to &#39;mac&#39;]
+**navigator** | [**ApiV1GologinProfileNavigator**](ApiV1GologinProfileNavigator.md) |  | [optional] 
 
 

@@ -47,11 +47,8 @@ class InlineObject68 {
         if (data) {
             obj = obj || new InlineObject68();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('requestStatus')) {
+                obj['requestStatus'] = ApiClient.convertToType(data['requestStatus'], 'String');
             }
         }
         return obj;
@@ -61,16 +58,10 @@ class InlineObject68 {
 }
 
 /**
- * Комментарий клиента
- * @member {String} clientComment
+ * новый статус заявки
+ * @member {String} requestStatus
  */
-InlineObject68.prototype['clientComment'] = undefined;
-
-/**
- * Комментарий баера
- * @member {String} buyerComment
- */
-InlineObject68.prototype['buyerComment'] = undefined;
+InlineObject68.prototype['requestStatus'] = undefined;
 
 
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -10,12 +11,13 @@ import {
   UserLinkCell,
   WarehouseTariffDatesCell,
   MultilineTextHeaderCell,
+  BatchTrackingCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const clientBatchesViewColumns = () => [
+export const clientBatchesViewColumns = (rowHandlers, languageTag) => [
   {
     field: 'orders',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
@@ -87,6 +89,25 @@ export const clientBatchesViewColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 110,
+    sortable: false,
+  },
+
+  {
+    field: 'batchTracking',
+    headerName: t(TranslationKey['Batch tracking']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch tracking'])} />,
+    renderCell: params => (
+      <BatchTrackingCell
+        disabled
+        rowHandlers
+        languageTag={languageTag}
+        id={params.row?.originalData?._id}
+        arrivalDate={params.row?.originalData?.arrivalDate}
+        trackingNumber={params.row?.originalData?.trackingNumber}
+      />
+    ),
+    width: 198,
+    filterable: false,
     sortable: false,
   },
 

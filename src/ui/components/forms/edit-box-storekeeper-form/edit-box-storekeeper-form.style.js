@@ -81,10 +81,6 @@ export const useClassNames = makeStyles()(theme => ({
     padding: 0,
   },
 
-  shippingField: {
-    width: '230px !important',
-  },
-
   hsCodeBtn: {
     height: 30,
     width: 230,
@@ -234,6 +230,9 @@ export const useClassNames = makeStyles()(theme => ({
   storekeeperBtn: {
     height: '32px',
     width: '230px',
+  },
+
+  storekeeperBtnColored: {
     color: theme.palette.text.negativeMain,
   },
 

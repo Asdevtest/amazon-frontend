@@ -55,16 +55,22 @@ export const navbarConfig = () => ({
           subRoute: '/client/freelance/my-requests',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
         },
+        // {
+        //   subtitle: t(TranslationKey['Vacant requests']),
+        //   subRoute: '/client/freelance/vacant-requests',
+        //   key: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
+        // },
+        //
+        // {
+        //   subtitle: t(TranslationKey['My proposals']),
+        //   subRoute: '/client/freelance/my-proposals',
+        //   key: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
+        // },
+        //
         {
-          subtitle: t(TranslationKey['Vacant requests']),
-          subRoute: '/client/freelance/vacant-requests',
-          key: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
-        },
-
-        {
-          subtitle: t(TranslationKey['My proposals']),
-          subRoute: '/client/freelance/my-proposals',
-          key: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
+          subtitle: t(TranslationKey['Service exchange']),
+          subRoute: '/client/freelance/service-exchange',
+          key: navBarActiveSubCategory.SUB_NAVBAR_SERVICE_EXCHANGE,
         },
       ],
       key: navBarActiveCategory.NAVBAR_REQUESTS,
@@ -98,27 +104,27 @@ export const navbarConfig = () => ({
         user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_VACANT_CLIENT),
     },
 
-    {
-      icon: TradingShops,
-      title: t(TranslationKey['Trading stores']),
-      route: '/client/trading-shops/sell-shops',
-      subtitles: [
-        {
-          subtitle: t(TranslationKey['Buy store']),
-          subRoute: '/client/trading-shops/buy-shops',
-          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BUY_SHOPS,
-        },
-        {
-          subtitle: t(TranslationKey['Sell the store']),
-          subRoute: '/client/trading-shops/sell-shops',
-          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS,
-        },
-      ],
-      key: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
-      checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT),
-    },
+    // {
+    //   icon: TradingShops,
+    //   title: t(TranslationKey['Trading stores']),
+    //   route: '/client/trading-shops/sell-shops',
+    //   subtitles: [
+    //     {
+    //       subtitle: t(TranslationKey['Buy store']),
+    //       subRoute: '/client/trading-shops/buy-shops',
+    //       key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BUY_SHOPS,
+    //     },
+    //     {
+    //       subtitle: t(TranslationKey['Sell the store']),
+    //       subRoute: '/client/trading-shops/sell-shops',
+    //       key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS,
+    //     },
+    //   ],
+    //   key: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
+    //   checkHideBlock: user =>
+    //     !isHaveMasterUser(user) ||
+    //     user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT),
+    // },
 
     {
       icon: MyOrdersIcon,
@@ -164,10 +170,16 @@ export const navbarConfig = () => ({
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES,
         },
 
+        // {
+        //   subtitle: t(TranslationKey['Boxes ready to send']),
+        //   subRoute: '/client/warehouse/boxes-ready-to-batch',
+        //   key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH,
+        // },
+
         {
-          subtitle: t(TranslationKey['Boxes ready to send']),
-          subRoute: '/client/warehouse/boxes-ready-to-batch',
-          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH,
+          subtitle: t(TranslationKey.Tasks),
+          subRoute: '/client/warehouse/tasks',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_TASKS,
         },
       ],
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
@@ -317,7 +329,9 @@ export const navbarConfig = () => ({
       subtitles: null,
       route: '/freelancer/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_DASHBOARD_FREELANCER),
     },
 
     {
@@ -329,18 +343,54 @@ export const navbarConfig = () => ({
           subtitle: t(TranslationKey['Vacant requests']),
           subRoute: '/freelancer/freelance/vacant-requests',
           key: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_VAC_REQUESTS_FREELANCER),
         },
 
         {
           subtitle: t(TranslationKey['My proposals']),
           subRoute: '/freelancer/freelance/my-proposals',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_PROPOSALS_FREELANCER),
+        },
+
+        {
+          subtitle: t(TranslationKey['My services']),
+          subRoute: '/freelancer/freelance/my-services',
+          key: navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES,
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_ANNOUNCEMENTS_FREELANCER),
+        },
+
+        {
+          subtitle: t(TranslationKey['Source Files']),
+          subRoute: '/freelancer/freelance/source-files',
+          key: navBarActiveSubCategory.SUB_NAVBAR_SOURCE_FILES,
+
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_SOURCES_FREELANCER),
         },
 
         // {subtitle: 'Заявки в работе', subRoute: '/freelancer/requests-in-work'},
       ],
       key: navBarActiveCategory.NAVBAR_REQUESTS,
-      checkHideBlock: user => !isHaveMasterUser(user),
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        user?.permissions.some(
+          item =>
+            item.key === permissionsKeys.freelancer.SHOW_SOURCES_FREELANCER ||
+            item.key === permissionsKeys.freelancer.SHOW_ANNOUNCEMENTS_FREELANCER ||
+            item.key === permissionsKeys.freelancer.SHOW_PROPOSALS_FREELANCER ||
+            item.key === permissionsKeys.freelancer.SHOW_VAC_REQUESTS_FREELANCER,
+        ),
     },
 
     {
@@ -349,7 +399,9 @@ export const navbarConfig = () => ({
       route: '/freelancer/users/sub-users',
       subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/freelancer/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_USERS_FREELANCER),
     },
 
     {
@@ -357,7 +409,9 @@ export const navbarConfig = () => ({
       title: t(TranslationKey.Finances),
       route: '/freelancer/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_PAYMENTS_FREELANCER),
     },
     {
       icon: Message,
@@ -365,7 +419,9 @@ export const navbarConfig = () => ({
       route: '/freelancer/messages',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MESSAGES,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_CHAT_FREELANCER),
     },
   ],
   [UserRole.SUPERVISOR]: [
@@ -592,6 +648,7 @@ export const navbarConfig = () => ({
             item.key === permissionsKeys.buyer.SHOW_ORDERS_NEED_TRACK_NUMBER_BUYER ||
             item.key === permissionsKeys.buyer.SHOW_ORDERS_INBOUND_BUYER ||
             item.key === permissionsKeys.buyer.SHOW_ORDERS_CONFIRMATION_REQUIRED_BUYER ||
+            item.key === permissionsKeys.buyer.SHOW_ORDERS_READY_FOR_PAYMENT_BUYER ||
             item.key === permissionsKeys.buyer.SHOW_ORDERS_CLOSED_AND_CANCELED_BUYER,
         ),
     },

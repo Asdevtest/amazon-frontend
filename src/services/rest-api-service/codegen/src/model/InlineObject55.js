@@ -21,12 +21,14 @@ import ApiClient from '../ApiClient';
 class InlineObject55 {
     /**
      * Constructs a new <code>InlineObject55</code>.
+     * Схема подтверждения возрата коробок на склад
      * @alias module:model/InlineObject55
-     * @param profileId {String} id профайла
+     * @param boxId {String} GUID коробки, который планируем изменить
+     * @param logicsTariffId {String} GUID тарифа, на которую планируем изменить
      */
-    constructor(profileId) { 
+    constructor(boxId, logicsTariffId) { 
         
-        InlineObject55.initialize(this, profileId);
+        InlineObject55.initialize(this, boxId, logicsTariffId);
     }
 
     /**
@@ -34,8 +36,9 @@ class InlineObject55 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, profileId) { 
-        obj['profileId'] = profileId;
+    static initialize(obj, boxId, logicsTariffId) { 
+        obj['boxId'] = boxId;
+        obj['logicsTariffId'] = logicsTariffId;
     }
 
     /**
@@ -49,8 +52,11 @@ class InlineObject55 {
         if (data) {
             obj = obj || new InlineObject55();
 
-            if (data.hasOwnProperty('profileId')) {
-                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
+            if (data.hasOwnProperty('boxId')) {
+                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
+            }
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
         }
         return obj;
@@ -60,10 +66,16 @@ class InlineObject55 {
 }
 
 /**
- * id профайла
- * @member {String} profileId
+ * GUID коробки, который планируем изменить
+ * @member {String} boxId
  */
-InlineObject55.prototype['profileId'] = undefined;
+InlineObject55.prototype['boxId'] = undefined;
+
+/**
+ * GUID тарифа, на которую планируем изменить
+ * @member {String} logicsTariffId
+ */
+InlineObject55.prototype['logicsTariffId'] = undefined;
 
 
 

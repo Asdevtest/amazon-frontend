@@ -49,6 +49,15 @@ export class WarehouseCanceledTasksViewModel {
 
   showTaskInfoModal = false
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = warehouseCanceledTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   constructor({history}) {
     runInAction(() => {
       this.history = history
@@ -172,10 +181,15 @@ export class WarehouseCanceledTasksViewModel {
   }
 
   onClickReportBtn() {
-    this.selectedTasks.forEach(el => {
+    this.setRequestStatus(loadingStatuses.isLoading)
+    this.selectedTasks.forEach((el, index) => {
       const taskId = el
 
-      OtherModel.getReportTaskByTaskId(taskId)
+      OtherModel.getReportTaskByTaskId(taskId).then(() => {
+        if (index === this.selectedTasks.length - 1) {
+          this.setRequestStatus(loadingStatuses.success)
+        }
+      })
     })
   }
 

@@ -8,6 +8,7 @@ import {
   MultilineTextCell,
   NormalActionBtnCell,
   MultilineTextAlignLeftCell,
+  NormDateCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -47,5 +48,16 @@ export const buyerSearchSuppliersViewColumns = (handlers, firstRowId) => [
 
     renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
     width: 400,
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
+    minWidth: 150,
+    flex: 1,
+    renderCell: params => <NormDateCell params={params} />,
+    type: 'date',
   },
 ]

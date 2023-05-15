@@ -101,28 +101,28 @@ export const NavbarCollapse = ({
         )
 
       case '/buyer/not-paid-orders':
-        return <ListItemIcon>{<div className={classNames.redBadge}>{userInfo.notPaid}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.notPaid}</div>}</ListItemIcon>
 
       case '/buyer/need-track-number-orders':
-        return <ListItemIcon>{<div className={classNames.redBadge}>{userInfo.needTrackNumber}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.needTrackNumber}</div>}</ListItemIcon>
 
       case '/buyer/inbound-orders':
-        return <ListItemIcon>{<div className={classNames.redBadge}>{userInfo.inbound}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.inbound}</div>}</ListItemIcon>
 
       case '/buyer/confirmation-required-orders':
-        return <ListItemIcon>{<div className={classNames.redBadge}>{userInfo.confirmationRequired}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.confirmationRequired}</div>}</ListItemIcon>
 
       case '/buyer/closed-and-canceled-orders':
-        return <ListItemIcon>{<div className={classNames.redBadge}>{userInfo.closedAndCanceled}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.closedAndCanceled}</div>}</ListItemIcon>
 
       case '/buyer/ready-for-payment-orders':
-        return <ListItemIcon>{<div className={classNames.redBadge}>{userInfo.readyForPayment}</div>}</ListItemIcon>
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.readyForPayment}</div>}</ListItemIcon>
 
       case '/buyer/all-orders':
         return (
           <ListItemIcon>
             {
-              <div className={classNames.redBadge}>
+              <div className={classNames.badge}>
                 {userInfo.confirmationRequired +
                   userInfo.inbound +
                   userInfo.needTrackNumber +

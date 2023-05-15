@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20032Rows from './InlineResponse20032Rows';
 
 /**
  * The InlineResponse20032 model module.
@@ -21,7 +22,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20032 {
     /**
      * Constructs a new <code>InlineResponse20032</code>.
-     * цену для клиента на поиск поставщика
+     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20032
      */
     constructor() { 
@@ -48,8 +49,11 @@ class InlineResponse20032 {
         if (data) {
             obj = obj || new InlineResponse20032();
 
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            }
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20032Rows]);
             }
         }
         return obj;
@@ -59,9 +63,16 @@ class InlineResponse20032 {
 }
 
 /**
- * @member {Number} priceForClient
+ * Всего кол-во записей в результате запроса
+ * @member {Number} count
  */
-InlineResponse20032.prototype['priceForClient'] = undefined;
+InlineResponse20032.prototype['count'] = undefined;
+
+/**
+ * Массив коробок c пагинацией(заданная страничка).
+ * @member {Array.<module:model/InlineResponse20032Rows>} rows
+ */
+InlineResponse20032.prototype['rows'] = undefined;
 
 
 

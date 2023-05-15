@@ -3,15 +3,12 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {OrderStatusByKey, OrderStatus} from '@constants/order-status'
+import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
 import {BoxesModel} from '@models/boxes-model'
-import {
-  BoxesWarehouseUpdateBoxInTaskContract, // BoxesWarehouseUpdateBoxInReceiveTaskContract,
-  // BoxesWarehouseUpdateBoxInTaskSplitMergeEditContract,
-} from '@models/boxes-model/boxes-model.contracts'
+import {BoxesWarehouseUpdateBoxInTaskContract} from '@models/boxes-model/boxes-model.contracts'
 import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
@@ -57,11 +54,18 @@ export class WarehouseMyTasksViewModel {
   showEditBoxModal = false
   showCancelTaskModal = false
   showConfirmModal = false
+  showEditPriorityData = false
+
+  editPriorityData = {
+    taskId: null,
+    newPriority: null,
+  }
 
   rowHandlers = {
     onClickResolveBtn: item => this.onClickResolveBtn(item),
     onClickCancelTask: (boxid, id, operationType) => this.onClickCancelTask(boxid, id, operationType),
-    updateTaskPriority: (taskId, newPriority) => this.updateTaskPriority(taskId, newPriority),
+    updateTaskPriority: (taskId, newPriority) => this.startEditTaskPriority(taskId, newPriority),
+    updateTaskComment: (taskId, priority, reason) => this.updateTaskComment(taskId, priority, reason),
   }
 
   firstRowId = undefined
@@ -174,6 +178,15 @@ export class WarehouseMyTasksViewModel {
     this.getTasksMy()
   }
 
+  changeColumnsModel(newHideState) {
+    runInAction(() => {
+      this.columnsModel = warehouseMyTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+        ...el,
+        hide: !!newHideState[el?.field],
+      }))
+    })
+  }
+
   onSelectionModel(model) {
     runInAction(() => {
       this.selectedTasks = model
@@ -181,10 +194,15 @@ export class WarehouseMyTasksViewModel {
   }
 
   onClickReportBtn() {
-    this.selectedTasks.forEach(el => {
+    this.setRequestStatus(loadingStatuses.isLoading)
+    this.selectedTasks.forEach((el, index) => {
       const taskId = el
 
-      OtherModel.getReportTaskByTaskId(taskId)
+      OtherModel.getReportTaskByTaskId(taskId).then(() => {
+        if (index === this.selectedTasks.length - 1) {
+          this.setRequestStatus(loadingStatuses.success)
+        }
+      })
     })
   }
 
@@ -300,7 +318,10 @@ export class WarehouseMyTasksViewModel {
         // this.tasksMyBase = result.rows
 
         this.tasksMy = warehouseTasksDataConverter(
-          result.rows.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({...el, beforeBoxes: el.boxesBefore})),
+          result.rows.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({
+            ...el,
+            beforeBoxes: el.boxesBefore,
+          })),
         )
       })
 
@@ -558,14 +579,30 @@ export class WarehouseMyTasksViewModel {
     }
   }
 
-  async updateTaskPriority(taskId, priority) {
+  startEditTaskPriority(taskId, newPriority) {
+    runInAction(() => {
+      this.editPriorityData = {taskId, newPriority}
+      this.showEditPriorityData = true
+    })
+  }
+
+  async updateTaskPriority(taskId, priority, reason) {
     try {
-      await StorekeeperModel.updateTask(taskId, {
-        priority,
-      })
+      await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
 
       UserModel.getUserInfo()
-      this.getTasksMy()
+      await this.getTasksMy()
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async updateTaskComment(taskId, priority, reason) {
+    try {
+      await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
     } catch (error) {
       console.log(error)
       runInAction(() => {
