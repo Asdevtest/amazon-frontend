@@ -205,6 +205,7 @@ export const RequestDesignerResultClientForm = ({
   proposal,
   userInfo,
   curResultMedia,
+  onlyRead,
 }) => {
   const {classes: classNames} = useClassNames()
 
@@ -220,7 +221,7 @@ export const RequestDesignerResultClientForm = ({
     RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
   ].includes(proposal.proposal.status)
 
-  const noShowActions = isNotClient || proposalIsAccepted
+  const noShowActions = isNotClient || proposalIsAccepted || onlyRead
 
   const [showImageModal, setShowImageModal] = useState(false)
 
