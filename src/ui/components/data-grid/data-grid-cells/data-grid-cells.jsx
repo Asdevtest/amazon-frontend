@@ -1800,7 +1800,7 @@ export const MultilineRequestStatusCell = React.memo(
 )
 
 export const TaskTypeCell = React.memo(
-  withStyles(({classes: classNames, task}) => {
+  withStyles(({classes: classNames, operationType}) => {
     const renderTaskDescription = type => {
       switch (type) {
         case TaskOperationType.MERGE:
@@ -1818,7 +1818,7 @@ export const TaskTypeCell = React.memo(
 
     return (
       <div className={classNames.taskDescriptionScrollWrapper}>
-        <Typography className={classNames.operationTypeText}>{renderTaskDescription(task.operationType)}</Typography>
+        <Typography className={classNames.operationTypeText}>{renderTaskDescription(operationType)}</Typography>
       </div>
     )
   }, styles),

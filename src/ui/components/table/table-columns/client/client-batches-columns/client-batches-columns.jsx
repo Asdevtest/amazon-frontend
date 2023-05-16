@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, {useMemo} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -23,7 +23,11 @@ export const clientBatchesViewColumns = (rowHandlers, languageTag) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     headerName: t(TranslationKey.Product),
     width: 540,
-    renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
+    renderCell: params => {
+      const boxesMemo = useMemo(() => params.row.originalData.boxes, [])
+
+      return <BatchBoxesCell boxes={boxesMemo} />
+    },
     filterable: false,
     sortable: false,
   },
@@ -149,7 +153,11 @@ export const clientBatchesViewColumns = (rowHandlers, languageTag) => [
     headerName: t(TranslationKey['Shipping dates']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Shipping dates'])} />,
 
-    renderCell: params => <WarehouseTariffDatesCell row={params.row.originalData.boxes[0].logicsTariff} />,
+    renderCell: params => {
+      const logicsTariffMemo = useMemo(() => params.row.originalData.boxes[0].logicsTariff, [])
+
+      return <WarehouseTariffDatesCell row={logicsTariffMemo} />
+    },
     width: 350,
     filterable: false,
     sortable: false,

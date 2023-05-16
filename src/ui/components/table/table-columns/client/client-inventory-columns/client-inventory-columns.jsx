@@ -377,7 +377,12 @@ export const clientInventoryColumns = (
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell withIcon isFilterActive text={t(TranslationKey.BarCode)} />,
 
-    renderCell: params => <BarcodeCell product={params.row.originalData} handlers={barCodeHandlers} />,
+    renderCell: params => {
+      const barCodeHandlersMemo = useMemo(() => barCodeHandlers, [])
+      const productMemo = useMemo(() => params.row.originalData, [])
+
+      return <BarcodeCell product={productMemo} handlers={barCodeHandlersMemo} />
+    },
     minWidth: 100,
     headerAlign: 'center',
     filterable: false,
@@ -391,7 +396,12 @@ export const clientInventoryColumns = (
     headerName: 'HS code',
     renderHeader: () => <MultilineTextHeaderCell text={'HS code'} />,
 
-    renderCell: params => <HsCodeCell product={params.row.originalData} handlers={hsCodeHandlers} />,
+    renderCell: params => {
+      const hsCodeHandlersMemo = useMemo(() => hsCodeHandlers, [])
+      const productMemo = useMemo(() => params.row.originalData, [])
+
+      return <HsCodeCell product={productMemo} handlers={hsCodeHandlersMemo} />
+    },
     minWidth: 100,
     headerAlign: 'center',
     type: 'actions',
@@ -484,7 +494,11 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <CommentOfSbCell productsInWarehouse={params.row.originalData.productsInWarehouse} />,
+    renderCell: params => {
+      const productsInWarehouseMemo = useMemo(() => params.row.originalData.productsInWarehouse, [])
+
+      return <CommentOfSbCell productsInWarehouse={productsInWarehouseMemo} />
+    },
     width: 400,
     filterable: false,
     sortable: false,

@@ -1,6 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React from 'react'
+import React, {useCallback, useMemo} from 'react'
 
 import {t} from 'i18n-js'
 
@@ -63,7 +63,11 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
     width: 400,
-    renderCell: params => <OrderCell product={params.row.originalData.product} />,
+    renderCell: params => {
+      const productMemo = useMemo(() => params.row.originalData.product, [])
+
+      return <OrderCell product={productMemo} />
+    },
     sortable: false,
   },
 
@@ -90,29 +94,30 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     width: 200,
-    renderCell: params => (
-      <>
-        {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
-          <NormalActionBtnCell
-            smallActionBtn
-            bTnText={t(TranslationKey['Repeat order'])}
-            onClickOkBtn={e => {
-              e.stopPropagation()
-              handlers.onClickReorder(params.row.originalData)
-            }}
-          />
-        ) : (
-          <SuccessActionBtnCell
-            smallActionBtn
-            bTnText={t(TranslationKey['To order'])}
-            onClickOkBtn={e => {
-              e.stopPropagation()
-              handlers.onClickReorder(params.row.originalData)
-            }}
-          />
-        )}
-      </>
-    ),
+    renderCell: params => {
+      const onClickReorder = useCallback(e => {
+        e.stopPropagation()
+        handlers.onClickReorder(params.row.originalData)
+      }, [])
+
+      return (
+        <>
+          {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
+            <NormalActionBtnCell
+              smallActionBtn
+              bTnText={t(TranslationKey['Repeat order'])}
+              onClickOkBtn={onClickReorder}
+            />
+          ) : (
+            <SuccessActionBtnCell
+              smallActionBtn
+              bTnText={t(TranslationKey['To order'])}
+              onClickOkBtn={onClickReorder}
+            />
+          )}
+        </>
+      )
+    },
     filterable: false,
     sortable: false,
   },
