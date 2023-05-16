@@ -33,7 +33,7 @@ export const AppealsListCard = ({onClickViewMore}) => {
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
         <div className={classNames.leftBlockWrapper}>
-          <div className={classNames.cardTitleBlockWrapper}>
+          <div>
             <div className={classNames.cardTitleBlockHeaderWrapper}>
               <Typography className={classNames.cardTitle}>{'Причина обращения'}</Typography>
               <Typography className={classNames.cardDescription}>{'Текст обращения'}</Typography>

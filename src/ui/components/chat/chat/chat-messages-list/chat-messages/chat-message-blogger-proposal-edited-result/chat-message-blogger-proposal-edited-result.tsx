@@ -156,7 +156,6 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({message, hand
           <div className={classNames.btnsWrapper}>
             {chatRequestAndRequestProposal.requestProposal?.proposal?.status !== RequestProposalStatus.TO_CORRECT && (
               <Button
-                btnWrapperStyle={classNames.actionBtnWrapperStyle}
                 className={cx(classNames.actionButton, classNames.editButton)}
                 onClick={() => handlers.onClickProposalResultToCorrect(message.data.proposal._id)}
               >
@@ -165,7 +164,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({message, hand
             )}
             <Button
               success
-              btnWrapperStyle={cx(classNames.actionBtnWrapperStyle, classNames.actionBtnWrapperStyleNotFirst)}
+              btnWrapperStyle={cx(classNames.actionBtnWrapperStyleNotFirst)}
               className={cx(classNames.actionButton, classNames.successBtn)}
               onClick={() => handlers.onClickProposalResultAccept(message.data.proposal._id)}
             >

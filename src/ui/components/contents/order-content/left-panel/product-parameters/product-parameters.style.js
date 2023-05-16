@@ -1,11 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  parameterTableCell: {
-    borderBottom: 'none',
-    padding: '12px 16px',
-  },
-
   parameterTableCellWrapper: {
     display: 'flex',
     width: '436px',
@@ -38,13 +33,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   barcodeChipExists: {
     backgroundcolor: theme.palette.text.general,
-  },
-
-  containerTitle: {
-    fontSize: '14px',
-    fontWeight: 500,
-    color: theme.palette.text.general,
-    lineHeight: '21px',
   },
 
   text: {

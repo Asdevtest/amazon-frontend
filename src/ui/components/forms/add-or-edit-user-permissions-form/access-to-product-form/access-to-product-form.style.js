@@ -38,10 +38,6 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '20px 0',
   },
 
-  searchContainer: {
-    margin: 0,
-  },
-
   searchInput: {
     width: '290px',
     height: '40px',

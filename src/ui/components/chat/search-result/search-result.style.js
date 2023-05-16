@@ -8,11 +8,6 @@ export const useClassNames = makeStyles()(theme => ({
     flexWrap: 'wrap',
   },
 
-  searchContainer: {
-    width: 'auto',
-    margin: 0,
-  },
-
   searchResult: {
     color: theme.palette.text.second,
   },

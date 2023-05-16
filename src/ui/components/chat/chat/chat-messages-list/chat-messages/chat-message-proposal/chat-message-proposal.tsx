@@ -39,7 +39,7 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
-        <div className={classNames.headerWrapper}>
+        <div>
           <Typography className={classNames.headerText}>{message.data.title}</Typography>
         </div>
         <div className={classNames.timeWrapper}>
@@ -62,7 +62,7 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
                 bgColor="green"
               />
             </div>
-            <div className={cx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>
+            <div className={classNames.labelValueBlockWrapper}>
               <LabelValuePairBlock
                 label={t(TranslationKey['Total price'])}
                 value={toFixedWithDollarSign(message.data.price, 2)}

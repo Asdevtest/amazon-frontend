@@ -248,7 +248,6 @@ export const ChatMessagesList: FC<Props> = observer(
                     <div
                       className={cx(classNames.messageWrapper, {
                         [classNames.messageWrapperIsIncomming]: isIncomming,
-                        [classNames.messageWrapperIsNextMessageSameAuthor]: isNextMessageSameAuthor,
                         [classNames.messageWrapperIsLastMessage]: isLastMessage,
                         [classNames.messageWrapperisNotPersonal]: isNotPersonal,
                       })}

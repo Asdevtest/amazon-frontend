@@ -20,20 +20,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  link: {
-    width: '500px',
-    overflowX: 'auto',
-    whiteSpace: 'nowrap',
-  },
-
-  noSettingsWarning: {
-    color: 'red',
-  },
-
-  cancelButton: {
-    marginLeft: '10px',
-  },
-
   btnsWrapper: {
     display: 'flex',
     marginTop: '40px',

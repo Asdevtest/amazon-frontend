@@ -233,7 +233,7 @@ export const RequestToSendBatchBox = ({
         ) : null}
       </div>
 
-      <td className={cx(tableCellClsx, classNames.shippingLabelCell)}>
+      <td>
         <div className={classNames.shippingLabelWrapper}>
           <Typography className={cx(classNames.spanText, {[classNames.alertSpan]: !box.shippingLabel})}>
             {t(TranslationKey['Shipping label'])}

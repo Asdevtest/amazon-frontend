@@ -222,7 +222,6 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
                 RequestProposalStatus.OFFER_CONDITIONS_REJECTED && (
                 <Button
                   danger
-                  // btnWrapperStyle={classNames.actionBtnWrapperStyle}
                   className={cx(classNames.actionButton /* , classNames.editButton */)}
                   onClick={() =>
                     handlers.onClickProposalRegect(
@@ -236,7 +235,6 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({message, handler
               )}
             <Button
               success
-              // btnWrapperStyle={cx(classNames.actionBtnWrapperStyle, classNames.actionBtnWrapperStyleNotFirst)}
               className={cx(classNames.actionButton /* , classNames.successBtn */)}
               onClick={() => handlers.onClickProposalAccept(message.data.proposal._id, message.data.proposal.price)}
             >

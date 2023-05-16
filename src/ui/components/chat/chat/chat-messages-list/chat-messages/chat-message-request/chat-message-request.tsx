@@ -1,4 +1,3 @@
-import {cx} from '@emotion/css'
 import {Typography} from '@mui/material'
 
 import React, {FC} from 'react'
@@ -31,7 +30,7 @@ export const ChatMessageRequest: FC<Props> = ({message}) => {
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
-        <div className={classNames.headerWrapper}>
+        <div>
           <Typography className={classNames.headerText}>{message.data?.title}</Typography>
         </div>
         <div className={classNames.timeWrapper}>
@@ -79,7 +78,7 @@ export const ChatMessageRequest: FC<Props> = ({message}) => {
               bgColor="green"
             />
           </div>
-          <div className={cx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>
+          <div className={classNames.labelValueBlockWrapper}>
             <LabelValuePairBlock
               label={t(TranslationKey.Status)}
               value={<RequestStatusCell status={message.data?.status} />}
@@ -87,7 +86,7 @@ export const ChatMessageRequest: FC<Props> = ({message}) => {
             />
           </div>
 
-          <div className={cx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>
+          <div className={classNames.labelValueBlockWrapper}>
             <LabelValuePairBlock
               label={t(TranslationKey['Total price'])}
               value={toFixedWithDollarSign(message.data?.price, 2)}

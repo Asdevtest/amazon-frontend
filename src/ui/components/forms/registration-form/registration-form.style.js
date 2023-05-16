@@ -54,11 +54,6 @@ export const styles = theme => ({
     },
   },
 
-  validationTitle: {
-    fontSize: '14px',
-    color: theme.palette.text.second,
-  },
-
   validationText: {
     fontSize: '12px',
     lineHeight: '16px',
