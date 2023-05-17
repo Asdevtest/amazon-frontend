@@ -59,12 +59,13 @@ export const buyerProductsViewColumns = handlers => [
 
     renderCell: params => {
       const onClickFeesCalculateMemo = useCallback(handlers.onClickFeesCalculate, [])
-      const rowMemo = useMemo(() => params.row.originalData, [])
 
       return (
         <FeesValuesWithCalculateBtnCell
           noCalculate={!['30', '40', '50', '60'].includes(params.row.status)}
-          product={rowMemo}
+          fbafee={params.row.originalData.fbafee}
+          reffee={params.row.originalData.reffee}
+          productId={params.row.originalData._id}
           onClickCalculate={onClickFeesCalculateMemo}
         />
       )

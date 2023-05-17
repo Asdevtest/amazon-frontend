@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo, useCallback} from 'react'
 
 import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -48,17 +48,20 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
     width: 380,
-    renderCell: params =>
-      params.row.originalData.items.length > 1 ? (
-        <OrderManyItemsCell box={params.row.originalData} />
+    renderCell: params => {
+      const productMemo = useMemo(() => params.row.originalData.items[0]?.product, [])
+      const rowMemo = useMemo(() => params.row.originalData, [])
+
+      return params.row.originalData.items.length > 1 ? (
+        <OrderManyItemsCell box={rowMemo} />
       ) : (
         <OrderCell
-          box={params.row.originalData}
-          product={params.row.originalData.items[0]?.product}
+          box={rowMemo}
+          product={productMemo}
           superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
-          superboxProductAmount={params.row.originalData}
         />
-      ),
+      )
+    },
     filterable: false,
     sortable: false,
 
@@ -162,15 +165,19 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     headerName: t(TranslationKey.Dimensions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dimensions)} />,
 
-    renderCell: params => (
-      <ShortBoxDimensions
-        isShipping
-        box={params.row.originalData}
-        volumeWeightCoefficient={params.row.volumeWeightCoefficient}
-        curUser={user.role}
-        handlers={handlers}
-      />
-    ),
+    renderCell: params => {
+      const rowMemo = useMemo(() => params.row.originalData, [])
+
+      return (
+        <ShortBoxDimensions
+          isShipping
+          box={rowMemo}
+          volumeWeightCoefficient={params.row.volumeWeightCoefficient}
+          curUser={user.role}
+          handlers={handlers}
+        />
+      )
+    },
     width: 230,
     filterable: false,
     sortable: false,
@@ -183,13 +190,12 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
 
     width: 230,
 
-    renderCell: params => (
-      <WarehouseBoxesBtnsCell
-        row={params.row.originalData}
-        handlers={handlers}
-        isFirstRow={firstRowId === params.row.id}
-      />
-    ),
+    renderCell: params => {
+      const handlersMemo = useMemo(() => handlers, [])
+      const rowMemo = useMemo(() => params.row.originalData, [])
+
+      return <WarehouseBoxesBtnsCell row={rowMemo} handlers={handlersMemo} isFirstRow={firstRowId === params.row.id} />
+    },
     filterable: false,
     sortable: false,
   },
@@ -205,14 +211,13 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
       />
     ),
 
-    renderCell: params => (
-      <ChangeInputCell
-        maxLength={25}
-        row={params.row.originalData}
-        text={params.value}
-        onClickSubmit={handlers.onClickSavePrepId}
-      />
-    ),
+    renderCell: params => {
+      const rowMemo = useMemo(() => params.row.originalData, [])
+
+      const onClickSavePrepId = useCallback(handlers.onClickSavePrepId, [])
+
+      return <ChangeInputCell maxLength={25} row={rowMemo} text={params.value} onClickSubmit={onClickSavePrepId} />
+    },
     width: 240,
 
     columnKey: columnnsKeys.shared.STRING,

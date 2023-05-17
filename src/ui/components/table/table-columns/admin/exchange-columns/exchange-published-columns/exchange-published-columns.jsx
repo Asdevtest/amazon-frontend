@@ -100,7 +100,12 @@ export const exchangePublishedColumns = () => [
     headerName: t(TranslationKey.Supplier),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
 
-    renderCell: params => <SupplierCell product={params.row.originalData} />,
+    renderCell: params => (
+      <SupplierCell
+        supplierName={params.row.originalData.currentSupplier?.name}
+        supplierLink={params.row.originalData.currentSupplier?.link}
+      />
+    ),
     width: 150,
   },
 

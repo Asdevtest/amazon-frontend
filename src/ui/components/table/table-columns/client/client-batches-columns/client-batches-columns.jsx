@@ -153,11 +153,14 @@ export const clientBatchesViewColumns = (rowHandlers, languageTag) => [
     headerName: t(TranslationKey['Shipping dates']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Shipping dates'])} />,
 
-    renderCell: params => {
-      const logicsTariffMemo = useMemo(() => params.row.originalData.boxes[0].logicsTariff, [])
+    renderCell: params => (
+      <WarehouseTariffDatesCell
+        cls={params.row.originalData.boxes[0].logicsTariff?.cls}
+        etd={params.row.originalData.boxes[0].logicsTariff?.etd}
+        eta={params.row.originalData.boxes[0].logicsTariff?.eta}
+      />
+    ),
 
-      return <WarehouseTariffDatesCell row={logicsTariffMemo} />
-    },
     width: 350,
     filterable: false,
     sortable: false,

@@ -65,7 +65,14 @@ export const exchangeInventoryColumns = () => [
     headerName: t(TranslationKey['Fees & Net']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Fees & Net'])} />,
 
-    renderCell: params => <FeesValuesWithCalculateBtnCell noCalculate product={params.row.originalData} />,
+    renderCell: params => (
+      <FeesValuesWithCalculateBtnCell
+        noCalculate
+        fbafee={params.row.originalData.fbafee}
+        reffee={params.row.originalData.reffee}
+        productId={params.row.originalData._id}
+      />
+    ),
     width: 200,
     filterable: false,
     sortable: false,
@@ -132,7 +139,12 @@ export const exchangeInventoryColumns = () => [
     headerName: t(TranslationKey.Supplier),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
 
-    renderCell: params => <SupplierCell product={params.row.originalData} />,
+    renderCell: params => (
+      <SupplierCell
+        supplierName={params.row.originalData.currentSupplier?.name}
+        supplierLink={params.row.originalData.currentSupplier?.link}
+      />
+    ),
     width: 170,
     filterable: false,
   },

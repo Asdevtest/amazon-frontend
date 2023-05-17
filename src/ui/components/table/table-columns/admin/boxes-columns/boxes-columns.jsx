@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -81,16 +81,20 @@ export const adminBoxesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
     width: 350,
-    renderCell: params =>
-      params.row.originalData.items.length > 1 ? (
-        <OrderManyItemsCell box={params.row.originalData} />
+    renderCell: params => {
+      const productMemo = useMemo(() => params.row.originalData.items[0].product, [])
+      const rowMemo = useMemo(() => params.row.originalData, [])
+
+      return params.row.originalData.items.length > 1 ? (
+        <OrderManyItemsCell box={rowMemo} />
       ) : (
         <OrderCell
-          box={params.row.originalData}
-          product={params.row.originalData.items[0].product}
+          box={rowMemo}
+          product={productMemo}
           superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
         />
-      ),
+      )
+    },
     filterable: false,
     sortable: false,
   },

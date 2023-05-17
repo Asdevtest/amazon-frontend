@@ -463,22 +463,22 @@ export const ProductCell = React.memo(
 
 export const FeesValuesWithCalculateBtnCell = React.memo(
   withStyles(
-    ({classes: classNames, product, noCalculate, onClickCalculate}) => (
+    ({classes: classNames, noCalculate, onClickCalculate, productId, fbafee, reffee}) => (
       <div className={classNames.feesTableWrapper}>
         <Typography className={classNames.typoCell}>
           {t(TranslationKey.Fees) + ': '}
-          <span className={classNames.typoSpan}>{toFixedWithDollarSign(product.fbafee, 2)}</span>
+          <span className={classNames.typoSpan}>{toFixedWithDollarSign(fbafee, 2)}</span>
         </Typography>
         <Typography className={classNames.typoCell}>
           {t(TranslationKey.Net) + ': '}
-          <span className={classNames.typoSpan}>{toFixedWithDollarSign(product.reffee, 2)}</span>
+          <span className={classNames.typoSpan}>{toFixedWithDollarSign(reffee, 2)}</span>
         </Typography>
         {!noCalculate && (
           <Button
             disableElevation
             className={classNames.cellBtn}
             startIcon={<img alt="calculate icon" src="/assets/icons/calculate.svg" />}
-            onClick={() => onClickCalculate(product)}
+            onClick={() => onClickCalculate(productId)}
           >
             {'Calculate fees'}
           </Button>
@@ -491,15 +491,13 @@ export const FeesValuesWithCalculateBtnCell = React.memo(
 
 export const SupplierCell = React.memo(
   withStyles(
-    ({classes: classNames, product}) => (
+    ({classes: classNames, supplierName, supplierLink}) => (
       <>
-        <Typography className={classNames.researcherCell}>
-          {!product.currentSupplier ? '-' : product.currentSupplier.name}
-        </Typography>
+        <Typography className={classNames.researcherCell}>{supplierName || '-'}</Typography>
 
-        {product.currentSupplier && (
-          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(product.currentSupplier?.link)}>
-            <Typography className={classNames.noActiveLink}>{product.currentSupplier?.link}</Typography>
+        {supplierLink && (
+          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(supplierLink)}>
+            <Typography className={classNames.noActiveLink}>{supplierLink}</Typography>
           </Link>
         )}
       </>
@@ -1105,21 +1103,21 @@ export const WarehouseTariffRatesCell = React.memo(
 
 export const WarehouseTariffDatesCell = React.memo(
   withStyles(
-    ({classes: classNames, row}) => (
+    ({classes: classNames, cls, etd, eta}) => (
       <div>
         <div className={classNames.warehouseTariffDatesItem}>
           <Typography>{t(TranslationKey['CLS (batch closing date)'])}</Typography>
-          <Typography>{!row.cls ? '-' : formatDateWithoutTime(row.cls)}</Typography>
+          <Typography>{!cls ? '-' : formatDateWithoutTime(cls)}</Typography>
         </div>
 
         <div className={classNames.warehouseTariffDatesItem}>
           <Typography>{t(TranslationKey['ETD (date of shipment)'])}</Typography>
-          <Typography>{!row.etd ? '-' : formatDateWithoutTime(row.etd)}</Typography>
+          <Typography>{!etd ? '-' : formatDateWithoutTime(etd)}</Typography>
         </div>
 
         <div className={classNames.warehouseTariffDatesItem}>
           <Typography>{t(TranslationKey['ETA (arrival date)'])}</Typography>
-          <Typography>{!row.eta ? '-' : formatDateWithoutTime(row.eta)}</Typography>
+          <Typography>{!eta ? '-' : formatDateWithoutTime(eta)}</Typography>
         </div>
       </div>
     ),
