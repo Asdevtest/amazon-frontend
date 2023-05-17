@@ -1,29 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
 export const useOrdersUpdatesNotificationStyle = makeStyles()(theme => ({
-  body: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  avatarWrapper: {
-    width: 53,
-    height: 53,
-    marginRight: 20,
-  },
-  centerWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    paddingRight: '5px',
-    maxHeight: '25vh',
-    gap: 15,
-  },
-  attentionTitle: {
-    color: '#FF1616',
-    fontSize: 14,
-    fontWeight: 600,
-    marginRight: 5,
-  },
   list: {
     overflow: 'auto',
     flex: 1,
@@ -59,18 +36,5 @@ export const useOrdersUpdatesNotificationStyle = makeStyles()(theme => ({
         color: theme.palette.text.second,
       },
     },
-  },
-
-  footer: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    width: '100%',
-  },
-
-  messageDate: {
-    fontSize: 12,
-    marginRight: '-20px',
-    marginTop: '-18px',
-    color: theme.palette.text.second,
   },
 }))

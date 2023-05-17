@@ -12,12 +12,6 @@ const ani = keyframes`
 `
 
 export const styles = theme => ({
-  cardWidthTest: {
-    width: '200px',
-  },
-  mainTitle: {
-    marginTop: '24px',
-  },
   addProductBtnsWrapper: {
     width: '100%',
     display: 'flex',
@@ -31,12 +25,6 @@ export const styles = theme => ({
     '& > :not(:first-of-type)': {
       marginLeft: '30px',
     },
-  },
-
-  archiveBtnsWrapper: {
-    display: 'flex',
-
-    gap: '30px',
   },
 
   archiveAddBtn: {
@@ -55,35 +43,6 @@ export const styles = theme => ({
     },
   },
 
-  archiveRecoverBtn: {
-    border: '1px solid #009a07',
-    color: '#009a07',
-
-    '&:hover': {
-      border: '1px solid #009a07',
-      opacity: 0.6,
-    },
-  },
-
-  // row: {
-
-  //   cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
-  //   transition: '0.3s ease',
-  //   '&:hover': {
-  //     transform: 'scale(1.01)',
-  //     // posotion: 'relative',
-  //   },
-
-  //   border: 0,
-  //   // boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-  //   backgroundColor: theme.palette.background.general,
-
-  //   posotion: 'relative',
-
-  //   // '&::after': {
-  //   //   content: '""',
-  //   // },
-  // },
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
@@ -116,13 +75,6 @@ export const styles = theme => ({
     },
   },
 
-  selectedShopsBtn: {
-    marginBottom: 0,
-    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
-
-    borderBottom: theme.palette.other.tableActiveFilterBtn,
-  },
-
   shopsFiltersWrapper: {
     display: 'flex',
     gap: 30,
@@ -130,11 +82,9 @@ export const styles = theme => ({
   },
 
   icon: {
-    // marginLeft: '15px',
     position: 'absolute',
     top: '11px',
     right: '25px',
-
     width: 15,
     height: 15,
   },
@@ -150,7 +100,6 @@ export const styles = theme => ({
   },
 
   topHeaderBtnsWrapper: {
-    // paddingTop: 5,
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',
@@ -158,15 +107,10 @@ export const styles = theme => ({
 
   rightAddingBtn: {
     width: 282,
-    // width: 300,
-
     display: 'flex',
     justifyContent: 'center',
     position: 'relative',
     paddingRight: '40px',
-    // justifyContent: 'flex-start',
-
-    // textAlign: 'left',
   },
 
   flexCenterBtn: {
@@ -179,10 +123,6 @@ export const styles = theme => ({
     height: 36,
   },
 
-  searchContainer: {
-    width: 'auto',
-    justifySelf: 'flex-start',
-  },
   datagridWrapper: {
     marginTop: '10px',
     height: '79vh',
@@ -190,8 +130,6 @@ export const styles = theme => ({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
   },
 
@@ -221,9 +159,7 @@ export const styles = theme => ({
   acceptMessageWrapper: {
     position: 'absolute',
     top: 0,
-    // top: '50%',
     left: '50%',
-
     padding: '10px',
     marginTop: '63px',
     zIndex: 999,
@@ -266,37 +202,6 @@ export const styles = theme => ({
     padding: '0 1px',
   },
 
-  // ideaRow: {
-  //   '&:before': {
-  //     content: '"idea"',
-  //     // display: 'flex',
-  //     display: 'inline-block',
-  //     // verticalAlign: 'middle',
-  //     // marginleft: 100,
-  //     // alignItems: 'flex-end',
-  //     // gap: 10,
-  //     // // padding: 2,
-  //     color: theme.palette.primary.main,
-  //     fontSize: 18,
-  //     fontWeight: 600,
-  //     // width: 80,
-  //     // height: 0,
-  //     // textAlign: 'right',
-  //     // whiteSpace: 'nowrap',
-  //     // writingMode: 'horizontal-tb',
-  //     // // height: 20,
-  //     // position: 'absolute',
-  //     // top: 0,
-  //     // left: 0,
-
-  //     width: 80,
-  //     height: 0,
-  //     borderTop: `20px solid ${theme.palette.primary.main}`,
-  //     borderRight: '20px solid transparent',
-  //     posotion: 'relative',
-  //   },
-  // },
-
   ideaRow: {
     '&:before': {
       content: '""',
@@ -318,22 +223,4 @@ export const styles = theme => ({
       color: '#F9FCFF',
     },
   },
-
-  // ideaRow: {
-  //   '&:before': {
-  //     content: '"idea"',
-  //     display: 'flex',
-
-  //     alignItems: 'flex-end',
-  //     color: theme.palette.primary.main,
-  //     fontSize: 18,
-  //     fontWeight: 600,
-
-  //     width: 0,
-  //     height: 80,
-  //     borderTop: `20px solid ${theme.palette.primary.main}`,
-  //     borderRight: '20px solid transparent',
-  //     posotion: 'relative',
-  //   },
-  // },
 })

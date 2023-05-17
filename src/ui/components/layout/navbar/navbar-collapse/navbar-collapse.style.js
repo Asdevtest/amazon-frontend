@@ -1,9 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  root: {
-    zIndex: 1200,
-  },
   listItemText: {
     marginRight: '12px',
     fontSize: 13,
@@ -91,15 +88,6 @@ export const useClassNames = makeStyles()(theme => ({
     '&:hover': {
       // backgroundColor: '#CCE2FF',
       backgroundColor: theme.palette.background.second,
-    },
-  },
-
-  hideOnModile: {
-    display: 'block',
-    color: theme.palette.primary.main,
-
-    [theme.breakpoints.down(768)]: {
-      display: 'none',
     },
   },
 }))

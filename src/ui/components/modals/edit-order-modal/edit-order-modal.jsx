@@ -940,7 +940,7 @@ export const EditOrderModal = observer(
         </Box>
 
         {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) && (
-          <div className={classNames.addBtn}>
+          <div>
             <Typography className={classNames.addBoxTitle}>{t(TranslationKey['Add boxes for this order'])}</Typography>
             <div className={classNames.addBoxButtonWrapper}>
               <Button

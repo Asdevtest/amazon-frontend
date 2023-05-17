@@ -1,18 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {cx} from '@emotion/css'
-import AddIcon from '@mui/icons-material/Add'
-import {
-  Checkbox,
-  Container,
-  Divider,
-  Grid,
-  Input,
-  InputAdornment,
-  Link,
-  MenuItem,
-  Select,
-  Typography,
-} from '@mui/material'
+import {Checkbox, Container, Divider, Grid, Link, Typography} from '@mui/material'
 
 import {React, useState} from 'react'
 
@@ -590,17 +578,10 @@ export const AddOrEditSupplierModalContent = observer(
           </div>
 
           <div className={classNames.calculationMainWrapper}>
-            <div className={classNames.calculationWrapper}>
+            <div>
               <Typography className={classNames.modalTitle}>{'¥'}</Typography>
 
-              <Grid
-                container
-                classes={{root: classNames.calculationSubWrapper}}
-                spacing={1}
-                direction="row"
-                justifyContent="flex-end"
-                alignItems="flex-start"
-              >
+              <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-start">
                 <Grid item>
                   <Field
                     error={tmpSupplier.priceInYuan >= 1000000 && '> 1000000 !'}
@@ -678,17 +659,10 @@ export const AddOrEditSupplierModalContent = observer(
 
             <Divider flexItem orientation="vertical" className={classNames.divider} />
 
-            <div className={classNames.calculationWrapper}>
+            <div>
               <Typography className={classNames.modalTitle}>{'$'}</Typography>
 
-              <Grid
-                container
-                classes={{root: classNames.calculationSubWrapper}}
-                spacing={1}
-                direction="row"
-                justifyContent="flex-end"
-                alignItems="flex-start"
-              >
+              <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-start">
                 <Grid item>
                   <Field
                     disabled={onlyRead}

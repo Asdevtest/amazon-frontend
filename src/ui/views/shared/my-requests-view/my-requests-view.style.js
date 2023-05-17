@@ -12,16 +12,10 @@ const ani = keyframes`
 `
 
 export const styles = theme => ({
-  multiline: {
-    height: 'auto',
-    width: '100%',
-  },
   field: {
     marginTop: theme.spacing(2.5),
   },
-  titleWrapper: {
-    marginBottom: theme.spacing(5),
-  },
+
   placeRequestBtnWrapper: {
     width: '100%',
     display: 'flex',
@@ -29,9 +23,6 @@ export const styles = theme => ({
     justifyContent: 'space-between',
     marginBottom: '20px',
     paddingRight: '5px',
-  },
-  tableWrapper: {
-    marginTop: '15px',
   },
 
   row: {
@@ -47,8 +38,6 @@ export const styles = theme => ({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
   },
 
@@ -72,9 +61,7 @@ export const styles = theme => ({
   acceptMessageWrapper: {
     position: 'absolute',
     top: 0,
-    // top: '50%',
     left: '50%',
-
     padding: '10px',
     marginTop: '63px',
     zIndex: 999,
@@ -125,9 +112,7 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     color: theme.palette.text.second,
-
     width: '100%',
-
     fontWeight: 600,
     fontSize: 18,
     lineHeight: '140%',
@@ -154,10 +139,8 @@ export const styles = theme => ({
     right: -7,
     top: 13,
     visibility: 'visible !important',
-
     width: '18px !important',
     height: '18px !important',
-
     '.MuiSvgIcon-root': {
       display: 'none',
     },

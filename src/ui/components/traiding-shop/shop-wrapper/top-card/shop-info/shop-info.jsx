@@ -98,7 +98,7 @@ export const ShopInfo = observer(({userInfo, data, onClickEditBtn}) => {
       </div>
       <div className={classNames.shopInfoBottomWrapper}>
         <div className={classNames.chartsWrapper}>
-          <div className={classNames.chartWrapper}>
+          <div>
             <Field
               label={t(TranslationKey['Average. Monthly net profit'])}
               labelClasses={classNames.chartLabel}
@@ -110,7 +110,7 @@ export const ShopInfo = observer(({userInfo, data, onClickEditBtn}) => {
               }
             />
           </div>
-          <div className={classNames.chartWrapper}>
+          <div>
             <Field
               label={t(TranslationKey['Average. Monthly income'])}
               labelClasses={classNames.chartLabel}
@@ -122,7 +122,7 @@ export const ShopInfo = observer(({userInfo, data, onClickEditBtn}) => {
               }
             />
           </div>
-          <div className={classNames.chartWrapper}>
+          <div>
             <Field
               label={t(TranslationKey.Profitability)}
               labelClasses={classNames.chartLabel}

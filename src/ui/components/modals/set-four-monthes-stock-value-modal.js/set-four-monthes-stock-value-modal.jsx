@@ -17,22 +17,6 @@ export const SetFourMonthesStockModal = ({title, onSubmit, onCloseModal, selecte
   const {classes: classNames} = useClassNames()
 
   const [newValue, setNewValue] = useState(selectedProduct?.fourMonthesStock || 0)
-  // const [error, setError] = useState(false)
-
-  // const stockSum =
-  //   selectedProduct?.amountInOrders +
-  //   selectedProduct?.amountInBoxes +
-  //   selectedProduct?.productsInWarehouse?.reduce((ac, cur) => (ac += cur.stockValue), 0) +
-  //   selectedProduct?.productsInWarehouse?.reduce((ac, cur) => (ac += cur.reserved), 0) +
-  //   selectedProduct?.productsInWarehouse?.reduce((ac, cur) => (ac += cur.sentToFba), 0)
-
-  // useEffect(() => {
-  //   if (newValue > stockSum) {
-  //     setError(true)
-  //   } else {
-  //     setError(false)
-  //   }
-  // }, [newValue])
 
   return (
     <Container disableGutters className={classNames.root}>

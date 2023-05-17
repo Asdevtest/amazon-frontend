@@ -293,7 +293,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
               </MenuItem>
               <MenuItem className={classNames.mobileAllowedRolesWrapper}>
                 <Typography className={classNames.mobileUserroleTitle}>{t(TranslationKey['your role:'])}</Typography>
-                <div className={classNames.mobileAllowedRolesMainWrapper}>
+                <div>
                   {/* {!componentModel.current.masterUser ? ( */}
                   {/* <div className={classNames.allowedRolesWrapper}>
                 {allowedRolesWithoutCandidate?.map((roleCode: number) => (

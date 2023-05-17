@@ -55,17 +55,12 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   showImagesBtn: {
-    // maxHeight: '32px',
-    // width: '110px',
-
     padding: '11px 14px 10px',
     transition: '0.3s ease',
     border: ' 1px solid rgba(0,123, 255, .7)',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     borderRadius: '4px',
-
     color: '#001029',
-
     '&:hover': {
       opacity: '0.7',
     },
@@ -85,15 +80,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   removeAllBtn: {
-    // maxHeight: '32px',
-    // width: '90px',
     padding: '11px 14px 10px',
-
     transition: '0.3s ease',
     border: ' 1px solid rgba(0,123, 255, .7)',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     borderRadius: '4px',
-
     color: '#001029',
     '&:hover': {
       opacity: '0.7',
@@ -105,28 +96,11 @@ export const useClassNames = makeStyles()(theme => ({
     background: 'rgba(0,255, 0, .3)',
   },
 
-  // imageListWrapper: {
-  //   width: '95%',
-  //   margin: '0 auto',
-  //   // maxHeight: 250,
-  //   maxHeight: 150,
-  //   overflowY: 'auto',
-  //   paddingBottom: 3, // пробуеум фиксить поломку верстки при решении таски на прием
-  // },
   imageListWrapper: {
-    // width: '95%',
     margin: '0 auto',
-    // maxHeight: 250,
     maxHeight: 300,
     overflowY: 'auto',
   },
-
-  // image: {
-  //   width: '80px',
-  //   height: '70px',
-  //   objectFit: 'contain',
-  //   objectPosition: 'center',
-  // },
 
   image: {
     width: 55,
@@ -183,54 +157,23 @@ export const useClassNames = makeStyles()(theme => ({
     overflow: 'hidden',
     border: ' 1px solid rgba(0,123, 255, .7)',
     borderRadius: '10px',
-    // background: '#EFEFEF',
-
     background: theme.palette.background.second,
-
     display: 'flex',
     flexDirection: 'column',
     gap: '3px',
     marginBottom: 10,
   },
 
-  // imageLinkListItem: {
-  //   overflow: 'hidden',
-  //   border: ' 1px solid rgba(0,123, 255, .7)',
-  //   borderRadius: '10px',
-  //   // background: '#EFEFEF',
-
-  //   background: theme.palette.background.second,
-  //   padding: '5px',
-
-  //   display: 'flex',
-  //   alignItems: 'center',
-  //   gap: '3px',
-  //   width: '280px',
-  //   justifyContent: 'space-between',
-  //   margin: '0',
-  // },
-
   imageLinkListItem: {
     overflow: 'hidden',
-    // border: ' 1px solid rgba(0,123, 255, .7)',
     borderRadius: '10px',
-    // background: '#EFEFEF',
-
-    // background: theme.palette.background.second,
     padding: '3px',
-
     display: 'flex',
     alignItems: 'center',
     gap: 5,
-    // width: '280px',
     justifyContent: 'space-between',
     margin: '0',
   },
-
-  // actionIconsWrapper: {
-  //   display: 'flex',
-  //   justifyContent: 'space-evenly',
-  // },
 
   actionIconsWrapper: {
     display: 'flex',
@@ -302,11 +245,9 @@ export const useClassNames = makeStyles()(theme => ({
   imageObjInput: {
     width: 133,
     height: 55,
-    // overflow: 'auto',
   },
 
   subImageObjInput: {
-    // width: 133,
     height: '55px !important',
     overflowY: 'auto !important',
   },

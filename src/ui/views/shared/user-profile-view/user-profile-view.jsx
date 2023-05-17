@@ -124,7 +124,6 @@ class UserProfileViewRaw extends Component {
                     useResizeContainer
                     classes={{
                       row: classNames.row,
-                      root: classNames.root,
                       footerContainer: classNames.footerContainer,
                       footerCell: classNames.footerCell,
                       toolbarContainer: classNames.toolbarContainer,

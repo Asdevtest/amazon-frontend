@@ -1,17 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  avatar: {
-    height: '140px',
-    width: '140px',
-    borderRadius: '50%',
-    objectFit: 'cover',
-  },
-  username: {
-    color: theme.palette.text.general,
-    fontSize: '32px',
-    fontWeight: 500,
-  },
   text: {
     color: theme.palette.text.second,
     fontSize: '14px',
@@ -24,11 +13,7 @@ export const useClassNames = makeStyles()(theme => ({
       padding: 0,
     },
   },
-  title: {
-    fontSize: '20px',
-    fontWeight: 500,
-    color: theme.palette.text.general,
-  },
+
   tabContent: {
     minHeight: '120px',
   },
@@ -38,10 +23,7 @@ export const useClassNames = makeStyles()(theme => ({
   tabsIndicator: {
     backgroundColor: theme.palette.primary.main,
   },
-  tableHeadTypography: {
-    color: theme.palette.text.general,
-    fontWeight: 500,
-  },
+
   mainTitle: {
     marginTop: '48px',
     color: theme.palette.text.general,
@@ -62,14 +44,5 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainWrapper: {
     width: '100%',
-  },
-
-  normalBox: {
-    display: 'flex',
-    margin: '12px 0',
-  },
-
-  boxFeedbackCard: {
-    marginRight: '16px',
   },
 }))

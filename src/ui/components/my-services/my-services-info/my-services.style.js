@@ -94,9 +94,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   carouselImage: {
     height: '150px !important',
-    // width: '391px !important',
     objectFit: 'contain',
-
     transition: '.2s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {

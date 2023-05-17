@@ -24,13 +24,8 @@ const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_S
 class ClientSellShopsViewRaw extends Component {
   viewModel = new ClientSellShopsViewModel({history: this.props.history})
 
-  // componentDidMount() {
-  //   this.viewModel.loadData()
-  // }
-
   render() {
     const {drawerOpen, onTriggerDrawerOpen} = this.viewModel
-    // const {classes: classNames} = this.props
 
     return (
       <React.Fragment>
