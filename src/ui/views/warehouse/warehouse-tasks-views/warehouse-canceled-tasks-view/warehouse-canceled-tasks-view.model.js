@@ -34,8 +34,6 @@ export class WarehouseCanceledTasksViewModel {
 
   rowCount = 0
 
-  drawerOpen = false
-
   rowHandlers = {
     setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
   }
@@ -136,12 +134,6 @@ export class WarehouseCanceledTasksViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -223,12 +215,6 @@ export class WarehouseCanceledTasksViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onChangeTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

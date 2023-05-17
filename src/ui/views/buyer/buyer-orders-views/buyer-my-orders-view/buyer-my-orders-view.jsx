@@ -7,7 +7,6 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
 import {routsPathes} from '@constants/navigation/routs-pathes'
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {OrderStatus, OrderStatusByKey} from '@constants/statuses/order-status'
@@ -17,10 +16,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {DataGridCustomColumnMenuComponent} from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {PaymentMethodsForm} from '@components/forms/payment-methods-form'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
 import {EditOrderModal} from '@components/modals/edit-order-modal'
@@ -37,23 +33,11 @@ import {t} from '@utils/translations'
 import {BuyerMyOrdersViewModel} from './buyer-my-orders-view.model'
 import {styles} from './buyer-my-orders-view.style'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS
-
 const attentionStatuses = [
   OrderStatusByKey[OrderStatus.AT_PROCESS],
   OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
   OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
 ]
-
-const categoryNameByUrl = {
-  '/buyer/ready-for-payment-orders': 'Ready for payment',
-  '/buyer/not-paid-orders': 'Not paid',
-  '/buyer/need-track-number-orders': 'Need track number',
-  '/buyer/inbound-orders': 'Inbound',
-  '/buyer/confirmation-required-orders': 'Confirmation required',
-  '/buyer/closed-and-canceled-orders': 'Closed and canceled',
-  '/buyer/all-orders': 'All orders',
-}
 
 @observer
 class BuyerMyOrdersViewRaw extends Component {
@@ -93,7 +77,6 @@ class BuyerMyOrdersViewRaw extends Component {
       paymentAmount,
 
       curBoxesOfOrder,
-      drawerOpen,
       curPage,
       rowsPerPage,
       selectedOrder,
@@ -106,7 +89,6 @@ class BuyerMyOrdersViewRaw extends Component {
       showWarningInfoModal,
       showConfirmModal,
       showEditHSCodeModal,
-      navbarActiveSubCategory,
       hsCodeData,
 
       showProgress,
@@ -117,7 +99,6 @@ class BuyerMyOrdersViewRaw extends Component {
       orderStatusDataBase,
 
       onClickHsCode,
-      onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
       onClickOrder,
@@ -168,111 +149,93 @@ class BuyerMyOrdersViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-        />
-
-        <Main>
-          <Appbar
-            title={`${t(TranslationKey['My orders'])} - ${t(
-              TranslationKey[categoryNameByUrl[this.props.location.pathname]],
-            )}`}
-            setDrawerOpen={onTriggerDrawerOpen}
+        <MainContent>
+          <div
+            className={cx(classNames.headerWrapper, {
+              [classNames.headerWrapperCenter]: !paymentAmount?.totalPriceInYuan,
+            })}
           >
-            <MainContent>
-              <div
-                className={cx(classNames.headerWrapper, {
-                  [classNames.headerWrapperCenter]: !paymentAmount?.totalPriceInYuan,
-                })}
-              >
-                {paymentAmount?.totalPriceInYuan > 0 && <div className={classNames.totalPriceWrapper} />}
+            {paymentAmount?.totalPriceInYuan > 0 && <div className={classNames.totalPriceWrapper} />}
 
-                <SearchInput
-                  inputClasses={classNames.searchInput}
-                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
-                  onSubmit={onSearchSubmit}
-                />
+            <SearchInput
+              inputClasses={classNames.searchInput}
+              placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
+              onSubmit={onSearchSubmit}
+            />
 
-                {paymentAmount?.totalPriceInYuan > 0 && (
-                  <div className={classNames.totalPriceWrapper}>
-                    <Typography className={classNames.totalPriceText}>
-                      {isNoPaidedOrders
-                        ? t(TranslationKey.Sum) + ':'
-                        : t(TranslationKey['Payment to all suppliers']) + ':'}
-                    </Typography>
-                    <div className={classNames.totalPriceTextWrapper}>
-                      <Typography className={cx(classNames.totalPriceText, classNames.totalPrice)}>
-                        {`${toFixedWithYuanSign(
-                          isNoPaidedOrders
-                            ? paymentAmount?.totalPriceInUSD * yuanToDollarRate
-                            : paymentAmount?.totalPriceInYuan,
-                          2,
-                        )} ${t(TranslationKey.Or).toLocaleLowerCase()} ${toFixedWithDollarSign(
-                          paymentAmount?.totalPriceInUSD,
-                          2,
-                        )}`}
-                      </Typography>
-                    </div>
-                  </div>
-                )}
+            {paymentAmount?.totalPriceInYuan > 0 && (
+              <div className={classNames.totalPriceWrapper}>
+                <Typography className={classNames.totalPriceText}>
+                  {isNoPaidedOrders ? t(TranslationKey.Sum) + ':' : t(TranslationKey['Payment to all suppliers']) + ':'}
+                </Typography>
+                <div className={classNames.totalPriceTextWrapper}>
+                  <Typography className={cx(classNames.totalPriceText, classNames.totalPrice)}>
+                    {`${toFixedWithYuanSign(
+                      isNoPaidedOrders
+                        ? paymentAmount?.totalPriceInUSD * yuanToDollarRate
+                        : paymentAmount?.totalPriceInYuan,
+                      2,
+                    )} ${t(TranslationKey.Or).toLocaleLowerCase()} ${toFixedWithDollarSign(
+                      paymentAmount?.totalPriceInUSD,
+                      2,
+                    )}`}
+                  </Typography>
+                </div>
               </div>
+            )}
+          </div>
 
-              <div className={classNames.dataGridWrapper}>
-                <MemoDataGrid
-                  disableVirtualization
-                  pagination
-                  useResizeContainer
-                  localeText={getLocalizationByLanguageTag()}
-                  classes={{
-                    row: classNames.row,
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
-                  }}
-                  getRowClassName={getRowClassName}
-                  sortingMode="server"
-                  paginationMode="server"
-                  rowCount={rowCount}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={currentData}
-                  // rowHeight={100}
-                  getRowHeight={() => 'auto'}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                    ColumnMenu: DataGridCustomColumnMenuComponent,
-                  }}
-                  componentsProps={{
-                    columnMenu: {...columnMenuSettings, orderStatusData},
-                    toolbar: {
-                      resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
-                      columsBtnSettings: {columnsModel, changeColumnsModel},
-                    },
-                  }}
-                  columnVisibilityModel={columnVisibilityModel}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onFilterModelChange={onChangeFilterModel}
-                  onColumnVisibilityModelChange={onColumnVisibilityModelChange}
-                  onStateChange={setDataGridState}
-                  onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
-                />
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
+          <div className={classNames.dataGridWrapper}>
+            <MemoDataGrid
+              disableVirtualization
+              pagination
+              useResizeContainer
+              localeText={getLocalizationByLanguageTag()}
+              classes={{
+                row: classNames.row,
+                root: classNames.root,
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
+              }}
+              getRowClassName={getRowClassName}
+              sortingMode="server"
+              paginationMode="server"
+              rowCount={rowCount}
+              sortModel={sortModel}
+              filterModel={filterModel}
+              page={curPage}
+              pageSize={rowsPerPage}
+              rowsPerPageOptions={[15, 25, 50, 100]}
+              rows={currentData}
+              // rowHeight={100}
+              getRowHeight={() => 'auto'}
+              components={{
+                Toolbar: DataGridCustomToolbar,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
+                ColumnMenu: DataGridCustomColumnMenuComponent,
+              }}
+              componentsProps={{
+                columnMenu: {...columnMenuSettings, orderStatusData},
+                toolbar: {
+                  resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
+                  columsBtnSettings: {columnsModel, changeColumnsModel},
+                },
+              }}
+              columnVisibilityModel={columnVisibilityModel}
+              density={densityModel}
+              columns={columnsModel}
+              loading={requestStatus === loadingStatuses.isLoading}
+              onSortModelChange={onChangeSortingModel}
+              onPageSizeChange={onChangeRowsPerPage}
+              onPageChange={onChangeCurPage}
+              onFilterModelChange={onChangeFilterModel}
+              onColumnVisibilityModelChange={onColumnVisibilityModelChange}
+              onStateChange={setDataGridState}
+              onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
+            />
+          </div>
+        </MainContent>
 
         <Modal
           missClickModalOn

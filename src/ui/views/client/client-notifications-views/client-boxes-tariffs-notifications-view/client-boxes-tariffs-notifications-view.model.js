@@ -40,7 +40,6 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
   storekeepersData = []
   boxes = []
-  drawerOpen = false
   showConfirmModal = false
   confirmModalSettings = {
     isWarning: false,
@@ -298,12 +297,6 @@ export class ClientBoxesTariffsNotificationsViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -376,12 +369,6 @@ export class ClientBoxesTariffsNotificationsViewModel {
         this.error = error
       })
     }
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

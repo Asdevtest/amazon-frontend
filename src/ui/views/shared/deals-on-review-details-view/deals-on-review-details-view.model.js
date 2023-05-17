@@ -18,7 +18,6 @@ export class VacantDealsDetailsViewModel {
   proposalId = undefined
   curProposalId = undefined
 
-  drawerOpen = false
   showConfirmModal = false
   showRejectModal = false
   showReworkModal = false
@@ -152,12 +151,6 @@ export class VacantDealsDetailsViewModel {
       this.proposalId = id
     })
     this.onTriggerOpenModal('showRejectModal')
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setActionStatus(actionStatus) {

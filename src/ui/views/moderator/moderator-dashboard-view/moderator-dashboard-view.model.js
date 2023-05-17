@@ -14,7 +14,6 @@ export class ModeratorDashboardViewModel {
   error = undefined
 
   // balance = UserModel.userInfo?.balance
-  drawerOpen = false
   // productsVacant = []
   // paymentsMy = []
 
@@ -78,12 +77,6 @@ export class ModeratorDashboardViewModel {
   //     this.productsVacant = result
   //   })
   // }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
 
   // setRequestStatus(requestStatus) {
   //   this.requestStatus = requestStatus

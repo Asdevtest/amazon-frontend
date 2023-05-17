@@ -44,8 +44,6 @@ export class AdminExchangeViewModel {
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = exchangeProductsColumns({activeSubCategory: this.activeSubCategory})
-
-  drawerOpen = false
   showSetBarcodeModal = false
   selectedProduct = undefined
 
@@ -209,12 +207,6 @@ export class AdminExchangeViewModel {
         this.currentProductsData = []
       })
     }
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setSelectedProduct(item) {

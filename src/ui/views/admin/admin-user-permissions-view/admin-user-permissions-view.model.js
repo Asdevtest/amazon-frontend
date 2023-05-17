@@ -7,7 +7,6 @@ export class AdminUserPermissionsViewModel {
   requestStatus = undefined
   error = undefined
 
-  drawerOpen = false
   order = undefined
 
   constructor({history, location}) {
@@ -32,11 +31,6 @@ export class AdminUserPermissionsViewModel {
     }
   }
 
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus

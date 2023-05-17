@@ -18,8 +18,6 @@ export class SourceFilesViewModel {
   history = undefined
   error = undefined
 
-  drawerOpen = false
-
   nameSearchValue = ''
 
   sortMode = tableSortMode.DESK
@@ -134,10 +132,6 @@ export class SourceFilesViewModel {
     runInAction(() => {
       this.selectionModel = model
     })
-  }
-
-  onChangeDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
   }
 
   onChangeCurPage = e => {

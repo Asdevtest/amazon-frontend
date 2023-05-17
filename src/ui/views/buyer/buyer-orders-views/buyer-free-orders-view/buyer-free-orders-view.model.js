@@ -26,7 +26,6 @@ export class BuyerFreeOrdersViewModel {
   curOrder = undefined
 
   ordersVacant = []
-  drawerOpen = false
   showBarcodeModal = false
   showOrderModal = false
   showTwoVerticalChoicesModal = false
@@ -119,10 +118,6 @@ export class BuyerFreeOrdersViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
-  }
-
-  onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
   }
 
   onChangeSortingModel(sortModel) {
@@ -238,10 +233,6 @@ export class BuyerFreeOrdersViewModel {
 
   onTriggerShowOrderModal() {
     this.showOrderModal = !this.showOrderModal
-  }
-
-  onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
   }
 
   onChangeCurPage(e) {

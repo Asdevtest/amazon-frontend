@@ -25,8 +25,6 @@ export class VacantRequestsViewModel {
 
   selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
 
-  drawerOpen = false
-
   currentData = []
 
   userInfo = []
@@ -194,12 +192,6 @@ export class VacantRequestsViewModel {
       this.onTriggerOpenModal('showWarningModal')
       console.log(error)
     }
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setActionStatus(actionStatus) {

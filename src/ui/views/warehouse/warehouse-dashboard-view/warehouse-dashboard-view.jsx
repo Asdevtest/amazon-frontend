@@ -6,17 +6,13 @@ import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
 import {getWarehouseDashboardCardConfig} from '@constants/navigation/dashboard-configs'
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
 import {DashboardButtons} from '@components/dashboards/dashboard-buttons'
 import {DashboardOneLineCardsList} from '@components/dashboards/dashboard-one-line-cards-list'
 import {AddOrEditDestinationForm} from '@components/forms/add-or-edit-destination-form'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {Button} from '@components/shared/buttons/button'
 import {Modal} from '@components/shared/modal'
 import {UserLink} from '@components/user/user-link'
@@ -26,8 +22,6 @@ import {t} from '@utils/translations'
 
 import {WarehouseDashboardViewModel} from './warehouse-dashboard-view.model'
 import {styles} from './warehouse-dashboard-view.style'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_DASHBOARD
 
 @observer
 export class WarehouseDashboardViewRaw extends Component {
@@ -43,8 +37,6 @@ export class WarehouseDashboardViewRaw extends Component {
       storekeeperDestination,
       dashboardData,
       userInfo,
-      drawerOpen,
-      onChangeTriggerDrawerOpen,
       onClickInfoCardViewMode,
       onClickAddressBtn,
       onTriggerOpenModal,
@@ -58,44 +50,15 @@ export class WarehouseDashboardViewRaw extends Component {
     }
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onChangeTriggerDrawerOpen}
-        />
-        <Main>
-          <Appbar title={t(TranslationKey.Dashboard)} setDrawerOpen={onChangeTriggerDrawerOpen}>
-            <MainContent>
-              <Paper className={classNames.userInfoWrapper}>
-                <div className={classNames.userInfoLeftWrapper}>
-                  <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
+        <MainContent>
+          <Paper className={classNames.userInfoWrapper}>
+            <div className={classNames.userInfoLeftWrapper}>
+              <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
 
-                  <div>
-                    <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+              <div>
+                <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
 
-                    {window.innerWidth >= 768 ? (
-                      <div className={classNames.addressMainWrapper}>
-                        {storekeeperDestination ? (
-                          <div className={classNames.addressSubWrapper}>
-                            <Typography className={classNames.address}>
-                              {t(TranslationKey['Warehouse address']) + ':'}
-                            </Typography>
-
-                            <Typography
-                              className={classNames.addressMain}
-                            >{`${storekeeperDestination.name} : ${storekeeperDestination.zipCode}, ${storekeeperDestination.country}, ${storekeeperDestination.state}, ${storekeeperDestination.city}, ${storekeeperDestination.address}`}</Typography>
-                          </div>
-                        ) : null}
-
-                        <Button className={classNames.editBtn} onClick={onClickAddressBtn}>
-                          {storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add Address'])}
-                        </Button>
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
-
-                {window.innerWidth < 768 ? (
+                {window.innerWidth >= 768 ? (
                   <div className={classNames.addressMainWrapper}>
                     {storekeeperDestination ? (
                       <div className={classNames.addressSubWrapper}>
@@ -114,40 +77,60 @@ export class WarehouseDashboardViewRaw extends Component {
                     </Button>
                   </div>
                 ) : null}
+              </div>
+            </div>
 
-                <DashboardButtons user={userInfo} routes={warhouseButtonsRoutes} />
+            {window.innerWidth < 768 ? (
+              <div className={classNames.addressMainWrapper}>
+                {storekeeperDestination ? (
+                  <div className={classNames.addressSubWrapper}>
+                    <Typography className={classNames.address}>
+                      {t(TranslationKey['Warehouse address']) + ':'}
+                    </Typography>
 
-                {userInfo.masterUser && (
-                  <div className={classNames.masterUserWrapper}>
-                    <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
-
-                    <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
+                    <Typography
+                      className={classNames.addressMain}
+                    >{`${storekeeperDestination.name} : ${storekeeperDestination.zipCode}, ${storekeeperDestination.country}, ${storekeeperDestination.state}, ${storekeeperDestination.city}, ${storekeeperDestination.address}`}</Typography>
                   </div>
-                )}
-              </Paper>
-              {getWarehouseDashboardCardConfig().map(item => (
-                <DashboardOneLineCardsList
-                  key={item.key}
-                  config={item}
-                  valuesData={dashboardData}
-                  onClickViewMore={onClickInfoCardViewMode}
-                />
-              ))}
+                ) : null}
 
-              <Modal
-                openModal={showAddOrEditDestinationModal}
-                setOpenModal={() => onTriggerOpenModal('showAddOrEditDestinationModal')}
-              >
-                <AddOrEditDestinationForm
-                  destinationToEdit={storekeeperDestination}
-                  onCloseModal={() => onTriggerOpenModal('showAddOrEditDestinationModal')}
-                  onCreateSubmit={onSubmitChangeDestination}
-                  onEditSubmit={onSubmitChangeDestination}
-                />
-              </Modal>
-            </MainContent>
-          </Appbar>
-        </Main>
+                <Button className={classNames.editBtn} onClick={onClickAddressBtn}>
+                  {storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add Address'])}
+                </Button>
+              </div>
+            ) : null}
+
+            <DashboardButtons user={userInfo} routes={warhouseButtonsRoutes} />
+
+            {userInfo.masterUser && (
+              <div className={classNames.masterUserWrapper}>
+                <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
+
+                <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
+              </div>
+            )}
+          </Paper>
+          {getWarehouseDashboardCardConfig().map(item => (
+            <DashboardOneLineCardsList
+              key={item.key}
+              config={item}
+              valuesData={dashboardData}
+              onClickViewMore={onClickInfoCardViewMode}
+            />
+          ))}
+
+          <Modal
+            openModal={showAddOrEditDestinationModal}
+            setOpenModal={() => onTriggerOpenModal('showAddOrEditDestinationModal')}
+          >
+            <AddOrEditDestinationForm
+              destinationToEdit={storekeeperDestination}
+              onCloseModal={() => onTriggerOpenModal('showAddOrEditDestinationModal')}
+              onCreateSubmit={onSubmitChangeDestination}
+              onEditSubmit={onSubmitChangeDestination}
+            />
+          </Modal>
+        </MainContent>
       </React.Fragment>
     )
   }

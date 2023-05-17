@@ -1,7 +1,6 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
-import {navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
 import {routsPathes} from '@constants/navigation/routs-pathes'
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {OrderStatus, OrderStatusByKey} from '@constants/statuses/order-status'
@@ -21,19 +20,6 @@ import {objectToUrlQs} from '@utils/text'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
-const setNavbarActiveSubCategory = pathname => {
-  if (pathname) {
-    switch (pathname) {
-      case routsPathes.CLIENT_ORDERS:
-        return navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS
-      case routsPathes.CLIENT_PENDING_ORDERS:
-        return navBarActiveSubCategory.SUB_NAVBAR_CLIENT_PENDING_ORDERS
-
-      default:
-        return navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS
-    }
-  }
-}
 export class ClientOrdersViewModel {
   history = undefined
   requestStatus = undefined
@@ -43,8 +29,6 @@ export class ClientOrdersViewModel {
   nameSearchValue = ''
   orders = []
   baseNoConvertedOrders = []
-
-  drawerOpen = false
 
   // НЕ было до создания фильтрации по статусам (3 строки)
   orderStatusDataBase = []
@@ -99,10 +83,6 @@ export class ClientOrdersViewModel {
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
-  }
-
-  get navbarActiveSubCategory() {
-    return setNavbarActiveSubCategory(this.history.location.pathname)
   }
 
   get isPendingOrdering() {
@@ -239,12 +219,6 @@ export class ClientOrdersViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -740,12 +714,6 @@ export class ClientOrdersViewModel {
       pathname: `${this.history.location.pathname}/order`,
 
       search: order.originalData._id,
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

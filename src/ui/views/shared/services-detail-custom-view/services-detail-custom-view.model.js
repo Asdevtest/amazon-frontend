@@ -14,8 +14,6 @@ export class ServicesDetailCustomViewModel {
   requestStatus = undefined
   error = undefined
 
-  drawerOpen = false
-
   requestId = undefined
   announcementId = undefined
 
@@ -85,11 +83,6 @@ export class ServicesDetailCustomViewModel {
     }
   }
 
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus

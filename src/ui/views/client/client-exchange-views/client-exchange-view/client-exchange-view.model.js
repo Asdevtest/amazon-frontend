@@ -36,7 +36,6 @@ export class ClientExchangeViewModel {
 
   ordersDataStateToSubmit = undefined
 
-  drawerOpen = false
   showPrivateLabelModal = false
   showConfirmModal = false
   showSuccessModal = false
@@ -161,12 +160,6 @@ export class ClientExchangeViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -491,12 +484,6 @@ export class ClientExchangeViewModel {
   onChangeCurPage(e) {
     runInAction(() => {
       this.curPage = e
-    })
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 }

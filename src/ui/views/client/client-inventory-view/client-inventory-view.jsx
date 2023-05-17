@@ -2,15 +2,13 @@
 import {cx} from '@emotion/css'
 import DeleteIcon from '@mui/icons-material/Delete'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Alert, Tooltip, Typography} from '@mui/material'
-import {DataGrid} from '@mui/x-data-grid'
+import {Alert} from '@mui/material'
 
 import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -22,10 +20,7 @@ import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-go
 import {CheckPendingOrderForm} from '@components/forms/check-pending-order-form'
 import {GetFilesForm} from '@components/forms/get-files-form'
 import {ProductLotDataForm} from '@components/forms/product-lot-data-form/product-lot-data-form'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {AddSuppliersModal} from '@components/modals/add-suppliers-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
@@ -43,15 +38,12 @@ import {CircularProgressWithLabel} from '@components/shared/circular-progress-wi
 import {MemoDataGrid} from '@components/shared/memo-data-grid'
 import {Modal} from '@components/shared/modal'
 import {SearchInput} from '@components/shared/search-input'
-import {WithSearchSelect} from '@components/shared/selects/with-search-select'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {ClientInventoryViewModel} from './client-inventory-view.model'
 import {styles} from './client-inventory-view.style'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_INVENTORY
 
 @observer
 export class ClientInventoryViewRaw extends Component {
@@ -101,7 +93,6 @@ export class ClientInventoryViewRaw extends Component {
 
       sellerBoardDailyData,
       selectedRowIds,
-      drawerOpen,
       selectedProduct,
       showSetBarcodeModal,
       showSelectionSupplierModal,
@@ -141,7 +132,6 @@ export class ClientInventoryViewRaw extends Component {
       getStockGoodsByFilters,
       onClickShowProduct,
       onDoubleClickBarcode,
-      onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
       onClickSaveBarcode,
@@ -194,13 +184,10 @@ export class ClientInventoryViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
-        <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Inventory)}>
-            <MainContent>
-              <div className={classNames.topHeaderBtnsWrapper}>
-                <div className={classNames.shopsFiltersWrapper}>
-                  {/* <WithSearchSelect
+        <MainContent>
+          <div className={classNames.topHeaderBtnsWrapper}>
+            <div className={classNames.shopsFiltersWrapper}>
+              {/* <WithSearchSelect
                     checkbox
                     notCloseOneClick
                     currentShops={currentShops}
@@ -229,226 +216,224 @@ export class ClientInventoryViewRaw extends Component {
                     onClickSelect={traiding-shop => onClickShopBtn(traiding-shop)}
                   /> */}
 
-                  <SearchInput
-                    key={'client_inventory_search_input'}
-                    inputClasses={classNames.searchInput}
-                    placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-                    onSubmit={onSearchSubmit}
-                  />
-                </div>
+              <SearchInput
+                key={'client_inventory_search_input'}
+                inputClasses={classNames.searchInput}
+                placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                onSubmit={onSearchSubmit}
+              />
+            </div>
 
-                {!isArchive ? (
-                  <div className={classNames.simpleBtnsWrapper}>
-                    <Button
-                      tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
-                      variant="outlined"
-                      btnWrapperStyle={classNames.btnWrapperStyle}
-                      className={classNames.openArchiveBtn}
-                      onClick={onTriggerArchive}
-                    >
-                      {t(TranslationKey['Open archive'])}
-                    </Button>
+            {!isArchive ? (
+              <div className={classNames.simpleBtnsWrapper}>
+                <Button
+                  tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
+                  variant="outlined"
+                  btnWrapperStyle={classNames.btnWrapperStyle}
+                  className={classNames.openArchiveBtn}
+                  onClick={onTriggerArchive}
+                >
+                  {t(TranslationKey['Open archive'])}
+                </Button>
 
-                    <Button
-                      success
-                      tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
-                      btnWrapperStyle={classNames.btnWrapperStyle}
-                      className={cx(classNames.rightAddingBtn, classNames.flexCenterBtn)}
-                      onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
-                    >
-                      {t(TranslationKey['Add product'])}
-                      <img src="/assets/icons/white-plus.svg" className={classNames.icon} />
-                    </Button>
-                  </div>
-                ) : (
-                  <div />
-                )}
+                <Button
+                  success
+                  tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
+                  btnWrapperStyle={classNames.btnWrapperStyle}
+                  className={cx(classNames.rightAddingBtn, classNames.flexCenterBtn)}
+                  onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
+                >
+                  {t(TranslationKey['Add product'])}
+                  <img src="/assets/icons/white-plus.svg" className={classNames.icon} />
+                </Button>
               </div>
+            ) : (
+              <div />
+            )}
+          </div>
 
-              <div className={classNames.addProductBtnsWrapper}>
-                {!isArchive && (
-                  <div className={classNames.btnsWrapper}>
-                    <Button
-                      success
-                      tooltipInfoContent={t(TranslationKey['To order selected products'])}
-                      variant="contained"
-                      disabled={selectedRowIds.length === 0}
-                      onClick={onClickOrderBtn}
-                    >
-                      {t(TranslationKey['To order'])}
-                    </Button>
+          <div className={classNames.addProductBtnsWrapper}>
+            {!isArchive && (
+              <div className={classNames.btnsWrapper}>
+                <Button
+                  success
+                  tooltipInfoContent={t(TranslationKey['To order selected products'])}
+                  variant="contained"
+                  disabled={selectedRowIds.length === 0}
+                  onClick={onClickOrderBtn}
+                >
+                  {t(TranslationKey['To order'])}
+                </Button>
 
-                    <Button
-                      tooltipInfoContent={t(
-                        TranslationKey['Bind the selected product from the inventory to an item from the store'],
-                      )}
-                      disabled={selectedRowIds.length !== 1}
-                      className={cx(classNames.buttonOffset, classNames.blueButton)}
-                      onClick={onClickBindInventoryGoodsToStockBtn}
-                    >
-                      {t(TranslationKey['Bind an product from Amazon'])}
-                    </Button>
-
-                    <Button
-                      tooltipInfoContent={t(TranslationKey['Supplier Addition Services'])}
-                      disabled={!selectedRowIds.length}
-                      className={cx(classNames.buttonOffset, classNames.blueButton)}
-                      onClick={onClickAddSupplierBtn}
-                    >
-                      {t(TranslationKey['Supplier search'])}
-                    </Button>
-
-                    <Button
-                      className={classNames.blueButton}
-                      disabled={!selectedRowIds.length}
-                      onClick={onClickParseProductsBtn}
-                    >
-                      {'Parse all'}
-                    </Button>
-                    <Button
-                      className={classNames.blueButton}
-                      tooltipInfoContent={t(TranslationKey['Product batches data'])}
-                      disabled={selectedRowIds.length !== 1}
-                      onClick={onClickProductLotDataBtn}
-                    >
-                      {t(TranslationKey['Product batches data'])}
-                    </Button>
-                  </div>
-                )}
-
-                <div className={classNames.simpleBtnsWrapper}>
-                  {!isArchive && (
-                    <>
-                      <Button
-                        tooltipInfoContent={t(
-                          TranslationKey['Delete the selected product (the product is moved to the archive)'],
-                        )}
-                        disabled={!selectedRowIds.length}
-                        variant="outlined"
-                        className={classNames.archiveAddBtn}
-                        sx={{
-                          '&.Mui-disabled': {
-                            background: 'none',
-                          },
-                        }}
-                        onClick={onClickTriggerArchOrResetProducts}
-                      >
-                        {t(TranslationKey['Move to archive'])}
-                        {<DeleteIcon className={classNames.archiveIcon} />}
-                      </Button>
-
-                      <Button
-                        success
-                        className={classNames.rightAddingBtn}
-                        onClick={() => onTriggerOpenModal('showAddSuppliersModal')}
-                      >
-                        {t(TranslationKey['Add a supplier list'])}
-                        <img src="/assets/icons/white-plus.svg" className={classNames.icon} />
-                      </Button>
-                    </>
+                <Button
+                  tooltipInfoContent={t(
+                    TranslationKey['Bind the selected product from the inventory to an item from the store'],
                   )}
+                  disabled={selectedRowIds.length !== 1}
+                  className={cx(classNames.buttonOffset, classNames.blueButton)}
+                  onClick={onClickBindInventoryGoodsToStockBtn}
+                >
+                  {t(TranslationKey['Bind an product from Amazon'])}
+                </Button>
 
-                  {isArchive ? (
-                    <>
-                      <Button
-                        tooltipInfoContent={t(TranslationKey['Return the selected product to the inventory list'])}
-                        disabled={!selectedRowIds.length}
-                        variant="contained"
-                        onClick={onClickTriggerArchOrResetProducts}
-                      >
-                        {t(TranslationKey['Return to inventory'])}
-                      </Button>
+                <Button
+                  tooltipInfoContent={t(TranslationKey['Supplier Addition Services'])}
+                  disabled={!selectedRowIds.length}
+                  className={cx(classNames.buttonOffset, classNames.blueButton)}
+                  onClick={onClickAddSupplierBtn}
+                >
+                  {t(TranslationKey['Supplier search'])}
+                </Button>
 
-                      <Button
-                        tooltipInfoContent={t(TranslationKey['Return to inventory with a list of items'])}
-                        variant="outlined"
-                        className={classNames.openArchiveBtn}
-                        onClick={onTriggerArchive}
-                      >
-                        {t(TranslationKey['Open inventory'])}
-                      </Button>
-                    </>
-                  ) : null}
-                </div>
+                <Button
+                  className={classNames.blueButton}
+                  disabled={!selectedRowIds.length}
+                  onClick={onClickParseProductsBtn}
+                >
+                  {'Parse all'}
+                </Button>
+                <Button
+                  className={classNames.blueButton}
+                  tooltipInfoContent={t(TranslationKey['Product batches data'])}
+                  disabled={selectedRowIds.length !== 1}
+                  onClick={onClickProductLotDataBtn}
+                >
+                  {t(TranslationKey['Product batches data'])}
+                </Button>
               </div>
-              <div className={classNames.datagridWrapper}>
-                <MemoDataGrid
-                  disableVirtualization
-                  pagination
-                  checkboxSelection
-                  localeText={getLocalizationByLanguageTag()}
-                  classes={{
-                    row: classNames.row,
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
+            )}
 
-                    columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-                    columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-                    iconSeparator: classNames.iconSeparator,
-                    menuIconButton: classNames.menuIconButton,
-                    iconButtonContainer: classNames.iconButtonContainer,
-                  }}
-                  sx={{
-                    '.MuiDataGrid-sortIcon': {
-                      width: 14,
-                      height: 14,
-                    },
-                  }}
-                  getCellClassName={getCellClassName}
-                  getRowClassName={getRowClassName}
-                  sortingMode="server"
-                  paginationMode="server"
-                  rowCount={rowCount}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={currentData}
-                  headerHeight={65}
-                  rowHeight={160}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenu: DataGridCustomColumnMenuComponent,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                  }}
-                  componentsProps={{
-                    columnMenu: columnMenuSettings,
-                    toolbar: {
-                      resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
-                      columsBtnSettings: {columnsModel, changeColumnsModel},
-                    },
-                  }}
-                  selectionModel={selectedRowIds}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onColumnHeaderEnter={params => {
-                    onHoverColumnField(params.field)
-                  }}
-                  onColumnHeaderLeave={onLeaveColumnField}
-                  onSelectionModelChange={onSelectionModel}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onFilterModelChange={onChangeFilterModel}
-                  onCellClick={(params, event) => {
-                    if (disableSelectionCells.includes(params.field)) {
-                      event.stopPropagation()
-                    }
-                    event.defaultMuiPrevented = disableSelectionCells.includes(params.field)
-                  }}
-                  onCellDoubleClick={params =>
-                    !disableSelectionCells.includes(params.field) && onClickShowProduct(params.row)
-                  }
-                />
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
+            <div className={classNames.simpleBtnsWrapper}>
+              {!isArchive && (
+                <>
+                  <Button
+                    tooltipInfoContent={t(
+                      TranslationKey['Delete the selected product (the product is moved to the archive)'],
+                    )}
+                    disabled={!selectedRowIds.length}
+                    variant="outlined"
+                    className={classNames.archiveAddBtn}
+                    sx={{
+                      '&.Mui-disabled': {
+                        background: 'none',
+                      },
+                    }}
+                    onClick={onClickTriggerArchOrResetProducts}
+                  >
+                    {t(TranslationKey['Move to archive'])}
+                    {<DeleteIcon className={classNames.archiveIcon} />}
+                  </Button>
+
+                  <Button
+                    success
+                    className={classNames.rightAddingBtn}
+                    onClick={() => onTriggerOpenModal('showAddSuppliersModal')}
+                  >
+                    {t(TranslationKey['Add a supplier list'])}
+                    <img src="/assets/icons/white-plus.svg" className={classNames.icon} />
+                  </Button>
+                </>
+              )}
+
+              {isArchive ? (
+                <>
+                  <Button
+                    tooltipInfoContent={t(TranslationKey['Return the selected product to the inventory list'])}
+                    disabled={!selectedRowIds.length}
+                    variant="contained"
+                    onClick={onClickTriggerArchOrResetProducts}
+                  >
+                    {t(TranslationKey['Return to inventory'])}
+                  </Button>
+
+                  <Button
+                    tooltipInfoContent={t(TranslationKey['Return to inventory with a list of items'])}
+                    variant="outlined"
+                    className={classNames.openArchiveBtn}
+                    onClick={onTriggerArchive}
+                  >
+                    {t(TranslationKey['Open inventory'])}
+                  </Button>
+                </>
+              ) : null}
+            </div>
+          </div>
+          <div className={classNames.datagridWrapper}>
+            <MemoDataGrid
+              disableVirtualization
+              pagination
+              checkboxSelection
+              localeText={getLocalizationByLanguageTag()}
+              classes={{
+                row: classNames.row,
+                root: classNames.root,
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
+
+                columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
+                columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
+                iconSeparator: classNames.iconSeparator,
+                menuIconButton: classNames.menuIconButton,
+                iconButtonContainer: classNames.iconButtonContainer,
+              }}
+              sx={{
+                '.MuiDataGrid-sortIcon': {
+                  width: 14,
+                  height: 14,
+                },
+              }}
+              getCellClassName={getCellClassName}
+              getRowClassName={getRowClassName}
+              sortingMode="server"
+              paginationMode="server"
+              rowCount={rowCount}
+              sortModel={sortModel}
+              filterModel={filterModel}
+              page={curPage}
+              pageSize={rowsPerPage}
+              rowsPerPageOptions={[15, 25, 50, 100]}
+              rows={currentData}
+              headerHeight={65}
+              rowHeight={160}
+              components={{
+                Toolbar: DataGridCustomToolbar,
+                ColumnMenu: DataGridCustomColumnMenuComponent,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
+              }}
+              componentsProps={{
+                columnMenu: columnMenuSettings,
+                toolbar: {
+                  resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
+                  columsBtnSettings: {columnsModel, changeColumnsModel},
+                },
+              }}
+              selectionModel={selectedRowIds}
+              density={densityModel}
+              columns={columnsModel}
+              loading={requestStatus === loadingStatuses.isLoading}
+              onColumnHeaderEnter={params => {
+                onHoverColumnField(params.field)
+              }}
+              onColumnHeaderLeave={onLeaveColumnField}
+              onSelectionModelChange={onSelectionModel}
+              onSortModelChange={onChangeSortingModel}
+              onPageSizeChange={onChangeRowsPerPage}
+              onPageChange={onChangeCurPage}
+              onStateChange={setDataGridState}
+              onFilterModelChange={onChangeFilterModel}
+              onCellClick={(params, event) => {
+                if (disableSelectionCells.includes(params.field)) {
+                  event.stopPropagation()
+                }
+                event.defaultMuiPrevented = disableSelectionCells.includes(params.field)
+              }}
+              onCellDoubleClick={params =>
+                !disableSelectionCells.includes(params.field) && onClickShowProduct(params.row)
+              }
+            />
+          </div>
+        </MainContent>
 
         {showCircularProgressModal ? <CircularProgressWithLabel /> : null}
 

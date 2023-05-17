@@ -7,20 +7,14 @@ import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
 import {mapUserRoleEnumToKey, UserRole} from '@constants/keys/user-roles'
-import {
-  CLIENT_USER_MANAGERS_LIST,
-  /* CLIENT_USER_INITIAL_LIST*/
-} from '@constants/mocks'
+import {CLIENT_USER_MANAGERS_LIST} from '@constants/mocks'
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {AvatarEditorForm} from '@components/forms/avatar-editor-form'
 import {UserInfoEditForm} from '@components/forms/user-info-edit-form'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {MemoDataGrid} from '@components/shared/memo-data-grid'
 import {Modal} from '@components/shared/modal'
@@ -51,7 +45,6 @@ class UserProfileViewRaw extends Component {
       densityModel,
       columnsModel,
       requestStatus,
-      drawerOpen,
       tabHistory,
       tabReview,
       showTabModal,
@@ -65,7 +58,6 @@ class UserProfileViewRaw extends Component {
       showUserInfoModal,
       warningInfoModalTitle,
       clearError,
-      onTriggerDrawerOpen,
       onChangeTabHistory,
       onChangeTabReview,
       onTriggerShowTabModal,
@@ -86,74 +78,70 @@ class UserProfileViewRaw extends Component {
     const {classes: classNames} = this.props
     return (
       <>
-        <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
-        <Main>
-          <Appbar title={t(TranslationKey.Profile)} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <UserProfile
-                user={user}
-                timer={'14 минут'}
-                headerInfoData={headerInfoData}
-                tabReview={tabReview}
-                tabHistory={tabHistory}
-                setTabHistory={onChangeTabHistory}
-                setTabReview={onChangeTabReview}
-                onClickChangeAvatar={onClickChangeAvatar}
-                onClickChangeUserInfo={onClickChangeUserInfo}
-              />
+        <MainContent>
+          <UserProfile
+            user={user}
+            timer={'14 минут'}
+            headerInfoData={headerInfoData}
+            tabReview={tabReview}
+            tabHistory={tabHistory}
+            setTabHistory={onChangeTabHistory}
+            setTabReview={onChangeTabReview}
+            onClickChangeAvatar={onClickChangeAvatar}
+            onClickChangeUserInfo={onClickChangeUserInfo}
+          />
 
-              {/* <ActiveOrders
+          {/* <ActiveOrders
                 tabExchange={tabExchange}
                 setTabExchange={onChangeTabExchange}
                 productList={CLIENT_USER_INITIAL_LIST}
                 handlerClickButtonPrivateLabel={onClickButtonPrivateLabel}
               /> */}
 
-              {[
-                // mapUserRoleEnumToKey[UserRole.RESEARCHER],
-                mapUserRoleEnumToKey[UserRole.SUPERVISOR],
-                mapUserRoleEnumToKey[UserRole.BUYER],
-              ].includes(user.role) ? (
-                <>
-                  <Typography variant="h6" className={classNames.title}>
-                    {t(TranslationKey['Active offers on the commodity exchange'])}
-                  </Typography>
+          {[
+            // mapUserRoleEnumToKey[UserRole.RESEARCHER],
+            mapUserRoleEnumToKey[UserRole.SUPERVISOR],
+            mapUserRoleEnumToKey[UserRole.BUYER],
+          ].includes(user.role) ? (
+            <>
+              <Typography variant="h6" className={classNames.title}>
+                {t(TranslationKey['Active offers on the commodity exchange'])}
+              </Typography>
 
-                  <MemoDataGrid
-                    pagination
-                    useResizeContainer
-                    classes={{
-                      row: classNames.row,
-                      footerContainer: classNames.footerContainer,
-                      footerCell: classNames.footerCell,
-                      toolbarContainer: classNames.toolbarContainer,
-                    }}
-                    localeText={getLocalizationByLanguageTag()}
-                    sortModel={sortModel}
-                    filterModel={filterModel}
-                    page={curPage}
-                    pageSize={rowsPerPage}
-                    rowsPerPageOptions={[15, 25, 50, 100]}
-                    rows={getCurrentData()}
-                    rowHeight={100}
-                    components={{
-                      Toolbar: DataGridCustomToolbar,
-                      ColumnMenuIcon: FilterAltOutlinedIcon,
-                    }}
-                    density={densityModel}
-                    columns={columnsModel}
-                    loading={requestStatus === loadingStatuses.isLoading}
-                    onSortModelChange={onChangeSortingModel}
-                    onPageSizeChange={onChangeRowsPerPage}
-                    onPageChange={onChangeCurPage}
-                    onStateChange={setDataGridState}
-                    onFilterModelChange={model => onChangeFilterModel(model)}
-                  />
-                </>
-              ) : null}
-            </MainContent>
-          </Appbar>
-        </Main>
+              <MemoDataGrid
+                pagination
+                useResizeContainer
+                classes={{
+                  row: classNames.row,
+                  root: classNames.root,
+                  footerContainer: classNames.footerContainer,
+                  footerCell: classNames.footerCell,
+                  toolbarContainer: classNames.toolbarContainer,
+                }}
+                localeText={getLocalizationByLanguageTag()}
+                sortModel={sortModel}
+                filterModel={filterModel}
+                page={curPage}
+                pageSize={rowsPerPage}
+                rowsPerPageOptions={[15, 25, 50, 100]}
+                rows={getCurrentData()}
+                rowHeight={100}
+                components={{
+                  Toolbar: DataGridCustomToolbar,
+                  ColumnMenuIcon: FilterAltOutlinedIcon,
+                }}
+                density={densityModel}
+                columns={columnsModel}
+                loading={requestStatus === loadingStatuses.isLoading}
+                onSortModelChange={onChangeSortingModel}
+                onPageSizeChange={onChangeRowsPerPage}
+                onPageChange={onChangeCurPage}
+                onStateChange={setDataGridState}
+                onFilterModelChange={model => onChangeFilterModel(model)}
+              />
+            </>
+          ) : null}
+        </MainContent>
         <Modal openModal={showTabModal} setOpenModal={onTriggerShowTabModal}>
           <ContentModal
             setOpenModal={onTriggerShowTabModal}

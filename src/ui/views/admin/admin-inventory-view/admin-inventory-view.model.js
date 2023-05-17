@@ -26,7 +26,6 @@ export class AdminInventoryViewModel {
 
   selectionModel = undefined
 
-  drawerOpen = false
   selectedProduct = undefined
 
   sortModel = []
@@ -184,12 +183,6 @@ export class AdminInventoryViewModel {
   onSelectionModel(model) {
     runInAction(() => {
       this.selectionModel = model
-    })
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

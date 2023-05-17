@@ -3,22 +3,12 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
-
 import {AppealsListCard} from '@components/cards/appeals-list-card/appeals-list-card'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
 import {MainContent} from '@components/layout/main-content'
+
 // import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {Navbar} from '@components/layout/navbar'
-
-import {t} from '@utils/translations'
-
 import {ModeratorAppealsViewModel} from './moderator-appeals-view.model'
 import {styles} from './moderator-appeals-view.style'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_APPEALS
 
 @observer
 class ModeratorAppealsViewRaw extends Component {
@@ -30,10 +20,8 @@ class ModeratorAppealsViewRaw extends Component {
 
   render() {
     const {
-      drawerOpen,
       // showConfirmModal,
       // deals,
-      onTriggerDrawerOpen,
       onClickViewMore,
       // onTriggerOpenModal,
       // onClickGetToWorkModal,
@@ -45,14 +33,9 @@ class ModeratorAppealsViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
-        <Main>
-          <Appbar title={t(TranslationKey.Appeals)} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <AppealsListCard onClickViewMore={onClickViewMore} />
-            </MainContent>
-          </Appbar>
-        </Main>
+        <MainContent>
+          <AppealsListCard onClickViewMore={onClickViewMore} />
+        </MainContent>
 
         {/* <ConfirmationModal
           openModal={showConfirmModal}

@@ -35,6 +35,8 @@ class SettingsModelStatic {
   showHints = true
   noticeOfSimpleChats = true
 
+  lastCrumbAdditionalText = ''
+
   destinationsFavourites = []
 
   snackBarMessageLast = null
@@ -118,6 +120,10 @@ class SettingsModelStatic {
       //   window.location.href = "https://www.w3docs.com/";
       // }
     }
+  }
+
+  changeLastCrumbAdditionalText(text) {
+    this.lastCrumbAdditionalText = text
   }
 
   setDestinationsFavouritesItem(item) {

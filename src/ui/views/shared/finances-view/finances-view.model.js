@@ -21,8 +21,6 @@ export class FinancesViewModel {
 
   selectionModel = undefined
 
-  drawerOpen = false
-
   sortModel = []
   startFilterModel = undefined
   filterModel = {items: []}
@@ -139,12 +137,6 @@ export class FinancesViewModel {
   onSelectionModel(model) {
     runInAction(() => {
       this.selectionModel = model
-    })
-  }
-
-  onChangeDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

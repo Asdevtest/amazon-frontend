@@ -1,7 +1,5 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
-import {routsPathes} from '@constants/navigation/routs-pathes'
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -17,20 +15,6 @@ import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
-
-const setNavbarActiveSubCategory = pathname => {
-  if (pathname) {
-    switch (pathname) {
-      case routsPathes.CLIENT_ORDERS + '/order':
-        return navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS
-      case routsPathes.CLIENT_PENDING_ORDERS + '/order':
-        return navBarActiveSubCategory.SUB_NAVBAR_CLIENT_PENDING_ORDERS
-
-      default:
-        return navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS
-    }
-  }
-}
 
 export class ClientOrderViewModel {
   history = undefined
@@ -52,7 +36,6 @@ export class ClientOrderViewModel {
   hsCodeData = {}
   showEditHSCodeModal = false
 
-  drawerOpen = false
   order = undefined
 
   showConfirmModal = false
@@ -82,10 +65,6 @@ export class ClientOrderViewModel {
     return UserModel.userInfo
   }
 
-  get navbarActiveSubCategory() {
-    return setNavbarActiveSubCategory(this.history.location.pathname)
-  }
-
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
   }
@@ -95,6 +74,7 @@ export class ClientOrderViewModel {
       this.history = history
 
       this.orderId = history.location.search.slice(1)
+      SettingsModel.changeLastCrumbAdditionalText(` № ${history.location.search.slice(1)}`)
     })
 
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -521,11 +501,6 @@ export class ClientOrderViewModel {
     }
   }
 
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus

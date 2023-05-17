@@ -46,7 +46,6 @@ export class WarehouseMyTasksViewModel {
   showProgress = false
   progressValue = 0
 
-  drawerOpen = false
   showEditTaskModal = false
   showNoDimensionsErrorModal = false
   selectedTask = undefined
@@ -157,12 +156,6 @@ export class WarehouseMyTasksViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -237,12 +230,6 @@ export class WarehouseMyTasksViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onChangeTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

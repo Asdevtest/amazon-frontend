@@ -45,7 +45,6 @@ export class AdminProductViewModel {
   confirmMessage = ''
   storekeepersData = []
 
-  drawerOpen = false
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
   showNoSuplierErrorModal = false
@@ -166,12 +165,6 @@ export class AdminProductViewModel {
   onChangeProduct(e, value) {
     runInAction(() => {
       this.product = value
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

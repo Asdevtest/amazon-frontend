@@ -16,8 +16,6 @@ export class DealsOnReviewModel {
   actionStatus = undefined
   dealsOnReview = true
 
-  drawerOpen = false
-
   deals = []
   viewMode = tableViewMode.LIST
   sortMode = tableSortMode.DESK
@@ -105,12 +103,6 @@ export class DealsOnReviewModel {
       this.onTriggerOpenModal('showWarningModal')
       console.log(error)
     }
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setActionStatus(actionStatus) {

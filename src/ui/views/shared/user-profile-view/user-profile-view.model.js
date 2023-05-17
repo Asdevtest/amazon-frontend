@@ -37,7 +37,6 @@ export class ProfileViewModel {
 
   warningInfoModalTitle = ''
 
-  drawerOpen = false
   productList = []
   tabExchange = 0
   tabHistory = 0
@@ -126,12 +125,6 @@ export class ProfileViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -330,12 +323,6 @@ export class ProfileViewModel {
       this.selectedUser = item
     })
     this.onTriggerShowTabModal()
-  }
-
-  onTriggerDrawerOpen = () => {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

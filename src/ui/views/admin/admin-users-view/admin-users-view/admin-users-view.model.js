@@ -45,7 +45,6 @@ export class AdminUsersViewModel {
   densityModel = 'compact'
   columnsModel = adminUsersViewColumns(this.rowHandlers)
 
-  drawerOpen = false
   showConfirmModal = false
   showEditUserModal = false
 
@@ -284,12 +283,6 @@ export class AdminUsersViewModel {
 
   onClickBalance(userData) {
     this.history.push('/admin/users/balance', {user: userData})
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

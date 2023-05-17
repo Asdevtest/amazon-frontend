@@ -34,8 +34,6 @@ export class AnotherProfileViewModel {
 
   user = undefined
 
-  drawerOpen = false
-
   productList = []
 
   productsVacant = []
@@ -411,12 +409,6 @@ export class AnotherProfileViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -505,12 +497,6 @@ export class AnotherProfileViewModel {
   onChangeTabExchange(e, value) {
     runInAction(() => {
       this.tabExchange = value
-    })
-  }
-
-  onTriggerDrawerOpen = () => {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

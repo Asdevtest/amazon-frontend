@@ -90,7 +90,6 @@ export class ClientInStockBoxesViewModel {
   curBox = undefined
   showBoxViewModal = false
 
-  drawerOpen = false
   selectedBoxes = []
   selectedRows = []
   curOpenedTask = {}
@@ -408,12 +407,6 @@ export class ClientInStockBoxesViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -946,12 +939,6 @@ export class ClientInStockBoxesViewModel {
   onModalRedistributeBoxAddNewBox(value) {
     runInAction(() => {
       this.modalRedistributeBoxAddNewBox = value
-    })
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

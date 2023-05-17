@@ -17,7 +17,6 @@ export class RequestDetailCustomViewModel {
   requestStatus = undefined
   error = undefined
 
-  drawerOpen = false
   requestId = undefined
   request = undefined
   requestProposals = undefined
@@ -353,11 +352,6 @@ export class RequestDetailCustomViewModel {
     }
   }
 
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
