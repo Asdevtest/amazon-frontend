@@ -2,7 +2,7 @@
 import {cx} from '@emotion/css'
 import {Avatar, Typography, Link} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {Component, useEffect, useRef, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -34,219 +34,185 @@ import {t} from '@utils/translations'
 import {MessagesViewModel} from './messages-view.model'
 import {styles} from './messages-view.style'
 
-@observer
-class MessagesViewRaw extends Component {
-  viewModel = new MessagesViewModel({history: this.props.history, location: this.props.location})
+export const MessagesViewRaw = props => {
+  const [viewModel] = useState(() => new MessagesViewModel({history: props.history, location: props.location}))
+  const chatRef = useRef()
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      warningInfoModalSettings,
-      curFoundedMessage,
-      messagesFound,
-      mesSearchValue,
-      usersData,
-      showAddNewChatByEmailModal,
-      showAddUsersToGroupChatModal,
-      showEditGroupChatInfoModal,
-      showWarningInfoModal,
-      showProgress,
-      typingUsers,
-      noticeOfSimpleChats,
-      nameSearchValue,
-      user,
-      chatSelectedId,
-      simpleChats,
+  const currentOpponent = viewModel.simpleChats
+    .find(el => el._id === viewModel.chatSelectedId)
+    ?.users.find(el => el._id !== viewModel.user._id)
 
-      onTypingMessage,
-      onClickChat,
-      onSubmitMessage,
-      onClickBackButton,
-      onChangeNameSearchValue,
-      onChangeMesSearchValue,
-      onTriggerNoticeOfSimpleChats,
-      onTriggerOpenModal,
-      onClickAddNewChatByEmail,
-      onSubmitAddNewChat,
-      onChangeCurFoundedMessage,
-      onClickAddUsersToGroupChat,
-      onSubmitAddUsersToGroupChat,
-      onRemoveUsersFromGroupChat,
-      onClickEditGroupChatInfo,
-      onSubmitPatchInfoGroupChat,
-    } = this.viewModel
-    const {classes: classNames} = this.props
+  const currentChat = viewModel.simpleChats.find(el => el._id === viewModel.chatSelectedId)
 
-    const currentOpponent = simpleChats.find(el => el._id === chatSelectedId)?.users.find(el => el._id !== user._id)
+  const curFoundedMessageIndex = viewModel.messagesFound?.findIndex(el => viewModel.curFoundedMessage?._id === el._id)
 
-    const currentChat = simpleChats.find(el => el._id === chatSelectedId)
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div
+          className={cx(classNames.chatHeaderWrapper, {[classNames.hideChatHeaderWrapper]: viewModel.chatSelectedId})}
+        >
+          <div className={classNames.leftSide}>
+            <SearchInput
+              inputClasses={classNames.searchInput}
+              value={viewModel.nameSearchValue}
+              onChange={viewModel.onChangeNameSearchValue}
+            />
 
-    // console.log('chatSelectedId', chatSelectedId)
-
-    const curFoundedMessageIndex = messagesFound?.findIndex(el => curFoundedMessage?._id === el._id)
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div className={cx(classNames.chatHeaderWrapper, {[classNames.hideChatHeaderWrapper]: chatSelectedId})}>
-            <div className={classNames.leftSide}>
-              <SearchInput
-                inputClasses={classNames.searchInput}
-                value={nameSearchValue}
-                onChange={onChangeNameSearchValue}
-              />
-
-              {chatSelectedId && simpleChats.length ? (
-                <div className={classNames.chatSelectedWrapper}>
-                  {currentChat?.type === chatsType.DEFAULT ? (
-                    <Link
-                      target="_blank"
-                      href={`${window.location.origin}/another-user?${currentOpponent?._id}`}
-                      underline="none"
-                    >
-                      <div className={classNames.opponentWrapper}>
-                        <Avatar src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatarWrapper} />
-                        <Typography className={classNames.opponentName}>{currentOpponent?.name}</Typography>
-                      </div>
-                    </Link>
-                  ) : (
+            {viewModel.chatSelectedId && viewModel.simpleChats.length ? (
+              <div className={classNames.chatSelectedWrapper}>
+                {currentChat?.type === chatsType.DEFAULT ? (
+                  <Link
+                    target="_blank"
+                    href={`${window.location.origin}/another-user?${currentOpponent?._id}`}
+                    underline="none"
+                  >
                     <div className={classNames.opponentWrapper}>
-                      <Avatar src={currentChat?.info.image} className={classNames.avatarWrapper} />
-                      <div>
-                        <Typography className={classNames.opponentName}>{currentChat?.info.title}</Typography>
-                        <Typography className={classNames.usersCount}>{`${currentChat?.users.length} ${t(
-                          TranslationKey.Members,
-                        ).toLocaleLowerCase()}`}</Typography>
-                      </div>
+                      <Avatar src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatarWrapper} />
+                      <Typography className={classNames.opponentName}>{currentOpponent?.name}</Typography>
                     </div>
-                  )}
-
-                  <SearchInput
-                    inputClasses={classNames.searchInput}
-                    placeholder={t(TranslationKey['Message Search'])}
-                    value={mesSearchValue}
-                    onChange={onChangeMesSearchValue}
-                    onKeyPress={e => console.log('e', e)}
-                  />
-
-                  {messagesFound.length ? (
-                    <SearchResult
-                      curFoundedMessageIndex={curFoundedMessageIndex}
-                      messagesFound={messagesFound}
-                      onClose={() => onChangeMesSearchValue({target: {value: ''}})}
-                      onChangeCurFoundedMessage={onChangeCurFoundedMessage}
-                    />
-                  ) : (
-                    <>
-                      {mesSearchValue && (
-                        <div className={classNames.searchResultWrapper}>
-                          <Typography className={classNames.searchResult}>{t(TranslationKey['Not found'])}</Typography>
-                        </div>
-                      )}
-                    </>
-                  )}
-                </div>
-              ) : null}
-            </div>
-
-            <div className={classNames.rightSide}>
-              <div className={classNames.tooltipWrapper} onClick={onTriggerNoticeOfSimpleChats}>
-                {noticeOfSimpleChats ? (
-                  <Typography className={classNames.noticesTextActive}>
-                    {t(TranslationKey['Notices included'])}
-                  </Typography>
+                  </Link>
                 ) : (
-                  <Typography className={classNames.noticesTextNoActive}>
-                    {t(TranslationKey['Notices are off'])}
-                  </Typography>
+                  <div className={classNames.opponentWrapper}>
+                    <Avatar src={currentChat?.info.image} className={classNames.avatarWrapper} />
+                    <div>
+                      <Typography className={classNames.opponentName}>{currentChat?.info.title}</Typography>
+                      <Typography className={classNames.usersCount}>{`${currentChat?.users.length} ${t(
+                        TranslationKey.Members,
+                      ).toLocaleLowerCase()}`}</Typography>
+                    </div>
+                  </div>
                 )}
 
-                <img src={noticeOfSimpleChats ? '/assets/icons/sound-on.svg' : '/assets/icons/sound-off.svg'} />
+                <SearchInput
+                  inputClasses={classNames.searchInput}
+                  placeholder={t(TranslationKey['Message Search'])}
+                  value={viewModel.mesSearchValue}
+                  onChange={viewModel.onChangeMesSearchValue}
+                  onKeyPress={e => console.log('e', e)}
+                />
+
+                {viewModel.messagesFound.length ? (
+                  <SearchResult
+                    curFoundedMessageIndex={curFoundedMessageIndex}
+                    messagesFound={viewModel.messagesFound}
+                    onClose={() => viewModel.onChangeMesSearchValue({target: {value: ''}})}
+                    onChangeCurFoundedMessage={viewModel.onChangeCurFoundedMessage}
+                  />
+                ) : (
+                  <>
+                    {viewModel.mesSearchValue && (
+                      <div className={classNames.searchResultWrapper}>
+                        <Typography className={classNames.searchResult}>{t(TranslationKey['Not found'])}</Typography>
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
+            ) : null}
+          </div>
 
-              <Button
-                disabled={checkIsResearcher(UserRoleCodeMap[user.role])}
-                className={classNames.newDialogBtn}
-                onClick={onClickAddNewChatByEmail}
-              >
-                {t(TranslationKey['New Dialogue'])}
-              </Button>
+          <div className={classNames.rightSide}>
+            <div className={classNames.tooltipWrapper} onClick={viewModel.onTriggerNoticeOfSimpleChats}>
+              {viewModel.noticeOfSimpleChats ? (
+                <Typography className={classNames.noticesTextActive}>
+                  {t(TranslationKey['Notices included'])}
+                </Typography>
+              ) : (
+                <Typography className={classNames.noticesTextNoActive}>
+                  {t(TranslationKey['Notices are off'])}
+                </Typography>
+              )}
+
+              <img src={viewModel.noticeOfSimpleChats ? '/assets/icons/sound-on.svg' : '/assets/icons/sound-off.svg'} />
             </div>
+
+            <Button
+              disabled={checkIsResearcher(UserRoleCodeMap[viewModel.user.role])}
+              className={classNames.newDialogBtn}
+              onClick={viewModel.onClickAddNewChatByEmail}
+            >
+              {t(TranslationKey['New Dialogue'])}
+            </Button>
           </div>
-          <div className={classNames.chatWrapper}>
-            <MultipleChats
-              ref={this.chatRef}
-              toScrollMesId={curFoundedMessage?._id}
-              searchPhrase={mesSearchValue}
-              messagesFound={messagesFound}
-              typingUsers={typingUsers}
-              searchFilter={nameSearchValue}
-              currentOpponent={currentOpponent}
-              chats={simpleChats}
-              userId={user._id}
-              chatSelectedId={chatSelectedId}
-              updateData={this.viewModel.loadData}
-              onTypingMessage={onTypingMessage}
-              onSubmitMessage={onSubmitMessage}
-              onClickChat={onClickChat}
-              onClickBackButton={onClickBackButton}
-              onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}
-              onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
-              onClickEditGroupChatInfo={onClickEditGroupChatInfo}
-            />
-          </div>
-          {showProgress && <CircularProgressWithLabel title={/* t(TranslationKey['Creating a Chat']) +*/ '...'} />}
-
-          <Modal
-            openModal={showAddNewChatByEmailModal}
-            setOpenModal={() => onTriggerOpenModal('showAddNewChatByEmailModal')}
-          >
-            <AddNewChatByEmailForm
-              closeModal={() => onTriggerOpenModal('showAddNewChatByEmailModal')}
-              usersData={usersData}
-              onSubmit={onSubmitAddNewChat}
-            />
-          </Modal>
-
-          <Modal
-            openModal={showAddUsersToGroupChatModal}
-            setOpenModal={() => onTriggerOpenModal('showAddUsersToGroupChatModal')}
-          >
-            <AddUsersToGroupChatForm
-              closeModal={() => onTriggerOpenModal('showAddUsersToGroupChatModal')}
-              usersData={usersData}
-              onSubmit={onSubmitAddUsersToGroupChat}
-            />
-          </Modal>
-
-          <Modal
-            openModal={showEditGroupChatInfoModal}
-            setOpenModal={() => onTriggerOpenModal('showEditGroupChatInfoModal')}
-          >
-            <EditGroupChatInfoForm
-              chat={simpleChats.find(el => el._id === chatSelectedId)}
-              onSubmit={onSubmitPatchInfoGroupChat}
-              onCloseModal={() => onTriggerOpenModal('showEditGroupChatInfoModal')}
-            />
-          </Modal>
-
-          <WarningInfoModal
-            isWarning={warningInfoModalSettings.isWarning}
-            openModal={showWarningInfoModal}
-            setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
-            title={warningInfoModalSettings.title}
-            btnText={t(TranslationKey.Ok)}
-            onClickBtn={() => {
-              onTriggerOpenModal('showWarningInfoModal')
-            }}
+        </div>
+        <div className={classNames.chatWrapper}>
+          <MultipleChats
+            ref={chatRef}
+            toScrollMesId={viewModel.curFoundedMessage?._id}
+            searchPhrase={viewModel.mesSearchValue}
+            messagesFound={viewModel.messagesFound}
+            typingUsers={viewModel.typingUsers}
+            searchFilter={viewModel.nameSearchValue}
+            currentOpponent={currentOpponent}
+            chats={viewModel.simpleChats}
+            userId={viewModel.user._id}
+            chatSelectedId={viewModel.chatSelectedId}
+            updateData={viewModel.loadData}
+            onTypingMessage={viewModel.onTypingMessage}
+            onSubmitMessage={viewModel.onSubmitMessage}
+            onClickChat={viewModel.onClickChat}
+            onClickBackButton={viewModel.onClickBackButton}
+            onClickAddUsersToGroupChat={viewModel.onClickAddUsersToGroupChat}
+            onRemoveUsersFromGroupChat={viewModel.onRemoveUsersFromGroupChat}
+            onClickEditGroupChatInfo={viewModel.onClickEditGroupChatInfo}
           />
-        </MainContent>
-      </React.Fragment>
-    )
-  }
+        </div>
+        {viewModel.showProgress && (
+          <CircularProgressWithLabel title={/* t(TranslationKey['Creating a Chat']) +*/ '...'} />
+        )}
+
+        <Modal
+          openModal={viewModel.showAddNewChatByEmailModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showAddNewChatByEmailModal')}
+        >
+          <AddNewChatByEmailForm
+            closeModal={() => viewModel.onTriggerOpenModal('showAddNewChatByEmailModal')}
+            usersData={viewModel.usersData}
+            onSubmit={viewModel.onSubmitAddNewChat}
+          />
+        </Modal>
+
+        <Modal
+          openModal={viewModel.showAddUsersToGroupChatModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showAddUsersToGroupChatModal')}
+        >
+          <AddUsersToGroupChatForm
+            closeModal={() => viewModel.onTriggerOpenModal('showAddUsersToGroupChatModal')}
+            usersData={viewModel.usersData}
+            onSubmit={viewModel.onSubmitAddUsersToGroupChat}
+          />
+        </Modal>
+
+        <Modal
+          openModal={viewModel.showEditGroupChatInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showEditGroupChatInfoModal')}
+        >
+          <EditGroupChatInfoForm
+            chat={viewModel.simpleChats.find(el => el._id === viewModel.chatSelectedId)}
+            onSubmit={viewModel.onSubmitPatchInfoGroupChat}
+            onCloseModal={() => viewModel.onTriggerOpenModal('showEditGroupChatInfoModal')}
+          />
+        </Modal>
+
+        <WarningInfoModal
+          isWarning={viewModel.warningInfoModalSettings.isWarning}
+          openModal={viewModel.showWarningInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+          title={viewModel.warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => {
+            viewModel.onTriggerOpenModal('showWarningInfoModal')
+          }}
+        />
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const MessagesView = withStyles(MessagesViewRaw, styles)
+export const MessagesView = withStyles(observer(MessagesViewRaw), styles)

@@ -1,7 +1,7 @@
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import {Typography} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -16,34 +16,33 @@ import {t} from '@utils/translations'
 import {UsersViewModel} from './users-view.model'
 import {styles} from './users-view.style'
 
-@observer
-class UsersViewRaw extends Component {
-  viewModel = new UsersViewModel({history: this.props.history})
+export const UsersViewRaw = props => {
+  const [viewModel] = useState(() => new UsersViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  render() {
-    const {onClickSubUsers} = this.viewModel
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div>
+          <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Users'])}</Typography>
 
-    const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div>
-            <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Users'])}</Typography>
-
-            <div className={classNames.btnsWrapper}>
-              <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickSubUsers}>
-                <div className={classNames.btnTextWrapper}>
-                  <Typography className={classNames.btnText}>{t(TranslationKey['My users'])}</Typography>
-                  <ArrowRightAltIcon color="primary" />
-                </div>
-              </Button>
-            </div>
+          <div className={classNames.btnsWrapper}>
+            <Button
+              className={classNames.button}
+              color="primary"
+              variant="outlined"
+              onClick={viewModel.onClickSubUsers}
+            >
+              <div className={classNames.btnTextWrapper}>
+                <Typography className={classNames.btnText}>{t(TranslationKey['My users'])}</Typography>
+                <ArrowRightAltIcon color="primary" />
+              </div>
+            </Button>
           </div>
-        </MainContent>
-      </React.Fragment>
-    )
-  }
+        </div>
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const UsersView = withStyles(UsersViewRaw, styles)
+export const UsersView = withStyles(observer(UsersViewRaw), styles)

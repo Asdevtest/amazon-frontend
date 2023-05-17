@@ -1,6 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -21,155 +21,126 @@ import {t} from '@utils/translations'
 import {GoodsDaysReportModel} from './goods-days-report.model'
 import {styles} from './goods-days-report.style'
 
-@observer
-class GoodsDaysReportRaw extends Component {
-  viewModel = new GoodsDaysReportModel({history: this.props.history, curShop: this.props.curShop})
+export const GoodsDaysReportRaw = props => {
+  const [viewModel] = useState(() => new GoodsDaysReportModel({history: props.history, curShop: props.curShop}))
+  const {classes: className} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      successModalText,
-      selectedRows,
-      confirmModalSettings,
-      currentShop,
-      shopsData,
-      getCurrentData,
-      sortModel,
-      filterModel,
-      requestStatus,
-      densityModel,
-      columnsModel,
-      showConfirmModal,
-      showSuccessModal,
-
-      curPage,
-      rowsPerPage,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-
-      setDataGridState,
-      onChangeSortingModel,
-      onChangeFilterModel,
-      onClickShopBtn,
-      changeColumnsModel,
-      onTriggerOpenModal,
-      onSelectionModel,
-      onClickDeleteBtn,
-    } = this.viewModel
-    const {classes: className} = this.props
-
-    return (
-      <React.Fragment>
-        <div>
-          <div className={className.shopsFiltersWrapper}>
-            <WithSearchSelect
-              selectedItemName={
-                (!currentShop?._id && t(TranslationKey['All shops'])) || (currentShop && currentShop.name)
-              }
-              data={shopsData.filter(shop => currentShop?.id !== shop._id)}
-              searchFields={['name']}
-              firstItems={
-                <>
-                  {currentShop?._id && (
-                    <Button
-                      disabled={!currentShop?._id}
-                      // tooltipInfoContent={t(TranslationKey['Filter for sorting by store'])}
-                      className={className.button}
-                      variant="text"
-                      color="primary"
-                      onClick={onClickShopBtn}
-                    >
-                      {t(TranslationKey['All shops'])}
-                    </Button>
-                  )}
-                </>
-              }
-              onClickSelect={shop => onClickShopBtn(shop)}
-            />
-          </div>
-
-          <div className={className.btnsWrapper}>
-            <Button
-              danger
-              disabled={!selectedRows.length || selectedRows.length > 1}
-              variant="contained"
-              onClick={onClickDeleteBtn}
-            >
-              {t(TranslationKey.Remove)}
-            </Button>
-          </div>
-
-          <div className={className.dataGridWrapper}>
-            <MemoDataGrid
-              pagination
-              useResizeContainer
-              checkboxSelection
-              localeText={getLocalizationByLanguageTag()}
-              classes={{
-                row: className.row,
-                root: className.root,
-                footerContainer: className.footerContainer,
-                footerCell: className.footerCell,
-                toolbarContainer: className.toolbarContainer,
-              }}
-              selectionModel={selectedRows}
-              sortModel={sortModel}
-              filterModel={filterModel}
-              page={curPage}
-              pageSize={rowsPerPage}
-              rowsPerPageOptions={[15, 25, 50, 100]}
-              rows={getCurrentData()}
-              // rowHeight={100}
-              getRowHeight={() => 'auto'}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
-              }}
-              componentsProps={{
-                toolbar: {
-                  columsBtnSettings: {columnsModel, changeColumnsModel},
-                },
-              }}
-              density={densityModel}
-              columns={columnsModel}
-              loading={requestStatus === loadingStatuses.isLoading}
-              onSelectionModelChange={onSelectionModel}
-              onSortModelChange={onChangeSortingModel}
-              onPageSizeChange={onChangeRowsPerPage}
-              onPageChange={onChangeCurPage}
-              onStateChange={setDataGridState}
-              onFilterModelChange={model => onChangeFilterModel(model)}
-            />
-          </div>
-
-          <SuccessInfoModal
-            openModal={showSuccessModal}
-            setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-            title={successModalText}
-            successBtnText={t(TranslationKey.Ok)}
-            onClickSuccessBtn={() => {
-              onTriggerOpenModal('showSuccessModal')
-            }}
-          />
-
-          <ConfirmationModal
-            isWarning={confirmModalSettings.isWarning}
-            openModal={showConfirmModal}
-            setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-            title={confirmModalSettings.title}
-            message={confirmModalSettings.message}
-            successBtnText={t(TranslationKey.Yes)}
-            cancelBtnText={t(TranslationKey.No)}
-            onClickSuccessBtn={confirmModalSettings.onSubmit}
-            onClickCancelBtn={confirmModalSettings.onCancel}
+  return (
+    <React.Fragment>
+      <div>
+        <div className={className.shopsFiltersWrapper}>
+          <WithSearchSelect
+            selectedItemName={
+              (!viewModel.currentShop?._id && t(TranslationKey['All shops'])) ||
+              (viewModel.currentShop && viewModel.currentShop.name)
+            }
+            data={viewModel.shopsData.filter(shop => viewModel.currentShop?.id !== shop._id)}
+            searchFields={['name']}
+            firstItems={
+              <>
+                {viewModel.currentShop?._id && (
+                  <Button
+                    disabled={!viewModel.currentShop?._id}
+                    // tooltipInfoContent={t(TranslationKey['Filter for sorting by store'])}
+                    className={className.button}
+                    variant="text"
+                    color="primary"
+                    onClick={viewModel.onClickShopBtn}
+                  >
+                    {t(TranslationKey['All shops'])}
+                  </Button>
+                )}
+              </>
+            }
+            onClickSelect={shop => viewModel.onClickShopBtn(shop)}
           />
         </div>
-      </React.Fragment>
-    )
-  }
+
+        <div className={className.btnsWrapper}>
+          <Button
+            danger
+            disabled={!viewModel.selectedRows.length || viewModel.selectedRows.length > 1}
+            variant="contained"
+            onClick={viewModel.onClickDeleteBtn}
+          >
+            {t(TranslationKey.Remove)}
+          </Button>
+        </div>
+
+        <div className={className.dataGridWrapper}>
+          <MemoDataGrid
+            pagination
+            useResizeContainer
+            checkboxSelection
+            localeText={getLocalizationByLanguageTag()}
+            classes={{
+              row: className.row,
+              root: className.root,
+              footerContainer: className.footerContainer,
+              footerCell: className.footerCell,
+              toolbarContainer: className.toolbarContainer,
+            }}
+            selectionModel={viewModel.selectedRows}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            page={viewModel.curPage}
+            pageSize={viewModel.rowsPerPage}
+            rowsPerPageOptions={[15, 25, 50, 100]}
+            rows={viewModel.getCurrentData()}
+            // rowHeight={100}
+            getRowHeight={() => 'auto'}
+            components={{
+              Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  changeColumnsModel: viewModel.changeColumnsModel,
+                },
+              },
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onSelectionModelChange={viewModel.onSelectionModel}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onPageSizeChange={viewModel.onChangeRowsPerPage}
+            onPageChange={viewModel.onChangeCurPage}
+            onStateChange={viewModel.setDataGridState}
+            onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
+          />
+        </div>
+
+        <SuccessInfoModal
+          openModal={viewModel.showSuccessModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+          title={viewModel.successModalText}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => {
+            viewModel.onTriggerOpenModal('showSuccessModal')
+          }}
+        />
+
+        <ConfirmationModal
+          isWarning={viewModel.confirmModalSettings.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={viewModel.confirmModalSettings.title}
+          message={viewModel.confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+          onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
+        />
+      </div>
+    </React.Fragment>
+  )
 }
 
-export const GoodsDaysReport = withStyles(GoodsDaysReportRaw, styles)
+export const GoodsDaysReport = withStyles(observer(GoodsDaysReportRaw), styles)

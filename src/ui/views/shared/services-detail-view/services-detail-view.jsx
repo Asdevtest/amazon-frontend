@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component, createRef} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -22,117 +22,87 @@ import {t} from '@utils/translations'
 import {ServiceDetailsViewModel} from './services-detail-view.model'
 import {styles} from './services-detail-view.style'
 
-@observer
-export class ServiceDetailsViewRaw extends Component {
-  chatRef = createRef()
-  viewModel = new ServiceDetailsViewModel({
-    history: this.props.history,
-    location: this.props.location,
-  })
+export const ServiceDetailsViewRaw = props => {
+  const [viewModel] = useState(
+    () =>
+      new ServiceDetailsViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      curPage,
-      rowCount,
-      rowsPerPage,
-      announcementData,
-      currentData,
-      filterModel,
-      sortModel,
-      columnVisibilityModel,
-      densityModel,
-      columnsModel,
-      requestStatus,
-      showConfirmModal,
-      confirmModalSettings,
-
-      onChangeFilterModel,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      onChangeSortingModel,
-      onClickBackBtn,
-      onClickEditBtn,
-      onTriggerOpenModal,
-      onClickCloseAnnouncementBtn,
-      // onClickNeedCont,
-    } = this.viewModel
-
-    const {classes: classNames} = this.props
-
-    // console.log('currentData', currentData)
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <MyServicesInfo
-            announcementData={announcementData}
-            onClickEditBtn={onClickEditBtn}
-            onClickBackBtn={onClickBackBtn}
-            onClickCloseAnnouncementBtn={onClickCloseAnnouncementBtn}
-          />
-
-          <div className={classNames.dataGridWrapper}>
-            <MemoDataGrid
-              disableVirtualization
-              pagination
-              useResizeContainer
-              localeText={getLocalizationByLanguageTag()}
-              classes={{
-                row: classNames.row,
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-
-                iconSeparator: classNames.iconSeparator,
-                columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-                columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-              }}
-              rowCount={rowCount}
-              page={curPage}
-              pageSize={rowsPerPage}
-              sortModel={sortModel}
-              filterModel={filterModel}
-              rowsPerPageOptions={[15, 25, 50, 100]}
-              rows={currentData}
-              rowHeight={143}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
-                ColumnMenu: DataGridCustomColumnMenuComponent,
-              }}
-              columnVisibilityModel={columnVisibilityModel}
-              density={densityModel}
-              columns={columnsModel}
-              loading={requestStatus === loadingStatuses.isLoading}
-              onPageChange={onChangeCurPage}
-              onSortModelChange={onChangeSortingModel}
-              onPageSizeChange={onChangeRowsPerPage}
-              onFilterModelChange={onChangeFilterModel}
-              // onStateChange={setFirstRowId}
-              // onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
-            />
-          </div>
-        </MainContent>
-
-        <ConfirmationModal
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          isWarning={confirmModalSettings.isWarning}
-          title={confirmModalSettings.confirmTitle}
-          message={confirmModalSettings.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+  return (
+    <React.Fragment>
+      <MainContent>
+        <MyServicesInfo
+          announcementData={viewModel.announcementData}
+          onClickEditBtn={viewModel.onClickEditBtn}
+          onClickBackBtn={viewModel.onClickBackBtn}
+          onClickCloseAnnouncementBtn={viewModel.onClickCloseAnnouncementBtn}
         />
-      </React.Fragment>
-    )
-  }
+
+        <div className={classNames.dataGridWrapper}>
+          <MemoDataGrid
+            disableVirtualization
+            pagination
+            useResizeContainer
+            localeText={getLocalizationByLanguageTag()}
+            classes={{
+              row: classNames.row,
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+
+              iconSeparator: classNames.iconSeparator,
+              columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
+              columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
+            }}
+            rowCount={viewModel.rowCount}
+            page={viewModel.curPage}
+            pageSize={viewModel.rowsPerPage}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            rowsPerPageOptions={[15, 25, 50, 100]}
+            rows={viewModel.currentData}
+            rowHeight={143}
+            components={{
+              Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
+              ColumnMenu: DataGridCustomColumnMenuComponent,
+            }}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onPageChange={viewModel.onChangeCurPage}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onPageSizeChange={viewModel.onChangeRowsPerPage}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+            // onStateChange={viewModel.setFirstRowId}
+            // onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
+          />
+        </div>
+      </MainContent>
+
+      <ConfirmationModal
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        isWarning={viewModel.confirmModalSettings.isWarning}
+        title={viewModel.confirmModalSettings.confirmTitle}
+        message={viewModel.confirmModalSettings.confirmMessage}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+    </React.Fragment>
+  )
 }
 
-export const ServiceDetailsView = withStyles(ServiceDetailsViewRaw, styles)
+export const ServiceDetailsView = withStyles(observer(ServiceDetailsViewRaw), styles)

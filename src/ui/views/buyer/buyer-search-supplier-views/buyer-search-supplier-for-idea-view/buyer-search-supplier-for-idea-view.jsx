@@ -1,8 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
-
-import {observer} from 'mobx-react'
+import React, {useEffect, useState} from 'react'
 import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
@@ -19,81 +17,67 @@ import {t} from '@utils/translations'
 
 import {BuyerSearchSupplierForIdeaModel} from './buyer-search-supplier-for-idea-view.model'
 import {styles} from './buyer-search-supplier-for-idea-view.style'
+import {observer} from 'mobx-react'
 
-@observer
-export class BuyerSearchSupplierForIdeaViewRaw extends Component {
-  viewModel = new BuyerSearchSupplierForIdeaModel({history: this.props.history})
+export const BuyerSearchSupplierForIdeaViewRaw = props => {
+  const [viewModel] = useState(() => new BuyerSearchSupplierForIdeaModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      getCurrentData,
-      selectedRowIds,
-      columnsModel,
-      requestStatus,
-      showInfoModal,
-      onSelectionModel,
-      onTriggerOpenModal,
-      onPickupSomeItems,
-      setDataGridState,
-    } = this.viewModel
-    const {classes: classNames} = this.props
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.btnsWrapper}>
+          <Button
+            color="primary"
+            variant="contained"
+            disabled={viewModel.selectedRowIds.length === 0}
+            onClick={viewModel.onPickupSomeItems}
+          >
+            {t(TranslationKey['Take on the work of the selected'])}
+          </Button>
+        </div>
+        <div className={classNames.datagridWrapper}>
+          <MemoDataGrid
+            checkboxSelection
+            pagination
+            useResizeContainer
+            classes={{
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+            }}
+            components={{
+              Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            localeText={getLocalizationByLanguageTag()}
+            rowsPerPageOptions={[15, 25, 50, 100]}
+            rows={viewModel.getCurrentData()}
+            rowHeight={100}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onSelectionModelChange={newSelection => viewModel.onSelectionModel(newSelection)}
+            onStateChange={viewModel.setDataGridState}
+          />
+        </div>
+      </MainContent>
 
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div className={classNames.btnsWrapper}>
-            <Button
-              color="primary"
-              variant="contained"
-              disabled={selectedRowIds.length === 0}
-              onClick={onPickupSomeItems}
-            >
-              {t(TranslationKey['Take on the work of the selected'])}
-            </Button>
-          </div>
-          <div className={classNames.datagridWrapper}>
-            <MemoDataGrid
-              checkboxSelection
-              pagination
-              useResizeContainer
-              classes={{
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
-              }}
-              localeText={getLocalizationByLanguageTag()}
-              rowsPerPageOptions={[15, 25, 50, 100]}
-              rows={getCurrentData()}
-              rowHeight={100}
-              columns={columnsModel}
-              loading={requestStatus === loadingStatuses.isLoading}
-              onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
-              onStateChange={setDataGridState}
-            />
-          </div>
-        </MainContent>
-
-        <WarningInfoModal
-          openModal={showInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showInfoModal')}
-          title={t(TranslationKey['Taken to Work'])}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showInfoModal')
-          }}
-        />
-      </React.Fragment>
-    )
-  }
+      <WarningInfoModal
+        openModal={viewModel.showInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
+        title={t(TranslationKey['Taken to Work'])}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showInfoModal')
+        }}
+      />
+    </React.Fragment>
+  )
 }
 
-export const BuyerSearchSupplierForIdeaView = withStyles(BuyerSearchSupplierForIdeaViewRaw, styles)
+export const BuyerSearchSupplierForIdeaView = withStyles(observer(BuyerSearchSupplierForIdeaViewRaw), styles)

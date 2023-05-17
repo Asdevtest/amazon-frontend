@@ -1,7 +1,7 @@
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import {Typography} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -16,54 +16,58 @@ import {t} from '@utils/translations'
 import {ClientFreelanceViewModel} from './client-freelance-view.model'
 import {styles} from './client-freelance-view.style'
 
-@observer
-class ClientFreelanceViewRaw extends Component {
-  viewModel = new ClientFreelanceViewModel({history: this.props.history})
+export const ClientFreelanceViewRaw = props => {
+  const [viewModel] = useState(() => new ClientFreelanceViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  render() {
-    const {onClickMyRequests, onClickServiceExchange} = this.viewModel
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div>
+          <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Freelance'])}</Typography>
 
-    const {classes: classNames} = this.props
+          <div className={classNames.btnsWrapper}>
+            <Button
+              className={classNames.button}
+              color="primary"
+              variant="outlined"
+              onClick={viewModel.onClickMyRequests}
+            >
+              <div className={classNames.btnTextWrapper}>
+                <Typography className={classNames.btnText}>{t(TranslationKey['My requests'])}</Typography>
+                <ArrowRightAltIcon color="primary" />
+              </div>
+            </Button>
 
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div>
-            <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Freelance'])}</Typography>
-
-            <div className={classNames.btnsWrapper}>
-              <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickMyRequests}>
-                <div className={classNames.btnTextWrapper}>
-                  <Typography className={classNames.btnText}>{t(TranslationKey['My requests'])}</Typography>
-                  <ArrowRightAltIcon color="primary" />
-                </div>
-              </Button>
-
-              {/* <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickVacRequests}>
+            {/* <Button className={classNames.button} color="primary" variant="outlined" onClick={viewModel.onClickVacRequests}>
                     <div className={classNames.btnTextWrapper}>
                       <Typography className={classNames.btnText}>{t(TranslationKey['Vacant requests'])}</Typography>
                       <ArrowRightAltIcon color="primary" />
                     </div>
                   </Button> */}
-              {/* <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickMyProposals}>
+            {/* <Button className={classNames.button} color="primary" variant="outlined" onClick={viewModel.onClickMyProposals}>
                     <div className={classNames.btnTextWrapper}>
                       <Typography className={classNames.btnText}>{t(TranslationKey['My proposals'])}</Typography>
                       <ArrowRightAltIcon color="primary" />
                     </div>
                   </Button> */}
 
-              <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickServiceExchange}>
-                <div className={classNames.btnTextWrapper}>
-                  <Typography className={classNames.btnText}>{t(TranslationKey['Service exchange'])}</Typography>
-                  <ArrowRightAltIcon color="primary" />
-                </div>
-              </Button>
-            </div>
+            <Button
+              className={classNames.button}
+              color="primary"
+              variant="outlined"
+              onClick={viewModel.onClickServiceExchange}
+            >
+              <div className={classNames.btnTextWrapper}>
+                <Typography className={classNames.btnText}>{t(TranslationKey['Service exchange'])}</Typography>
+                <ArrowRightAltIcon color="primary" />
+              </div>
+            </Button>
           </div>
-        </MainContent>
-      </React.Fragment>
-    )
-  }
+        </div>
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const ClientFreelanceView = withStyles(ClientFreelanceViewRaw, styles)
+export const ClientFreelanceView = withStyles(observer(ClientFreelanceViewRaw), styles)

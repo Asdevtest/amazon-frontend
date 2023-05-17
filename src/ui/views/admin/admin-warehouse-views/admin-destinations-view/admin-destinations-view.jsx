@@ -1,6 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -22,115 +22,86 @@ import {t} from '@utils/translations'
 import {AdminDestinationsViewModel} from './admin-destinations-view.model'
 import {styles} from './admin-destinations-view.style'
 
-@observer
-class AdminDestinationsViewRaw extends Component {
-  viewModel = new AdminDestinationsViewModel({
-    history: this.props.history,
-    location: this.props.location,
-  })
+export const AdminDestinationsViewRaw = props => {
+  const [viewModel] = useState(
+    () =>
+      new AdminDestinationsViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      destinationToEdit,
-      requestStatus,
-      getCurrentData,
-      sortModel,
-      filterModel,
-      densityModel,
-      columnsModel,
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.placeAddBtnWrapper}>
+          <Button success onClick={() => viewModel.onClickAddBtn()}>
+            {t(TranslationKey['Add a destination'])}
+          </Button>
+        </div>
 
-      curPage,
-      rowsPerPage,
-      showAddOrEditDestinationModal,
-      confirmModalSettings,
-      showConfirmModal,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      onTriggerOpenModal,
-      onClickAddBtn,
-      onClickCancelBtn,
+        <MemoDataGrid
+          pagination
+          useResizeContainer
+          classes={{
+            root: classNames.root,
+            footerContainer: classNames.footerContainer,
+            footerCell: classNames.footerCell,
+            toolbarContainer: classNames.toolbarContainer,
+          }}
+          localeText={getLocalizationByLanguageTag()}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          page={viewModel.curPage}
+          pageSize={viewModel.rowsPerPage}
+          rowsPerPageOptions={[15, 25, 50, 100]}
+          rows={viewModel.getCurrentData()}
+          rowHeight={120}
+          components={{
+            Toolbar: DataGridCustomToolbar,
+            ColumnMenuIcon: FilterAltOutlinedIcon,
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onPageSizeChange={viewModel.onChangeRowsPerPage}
+          onPageChange={viewModel.onChangeCurPage}
+          onStateChange={viewModel.setDataGridState}
+          onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
+        />
 
-      setDataGridState,
-      onChangeSortingModel,
-      onChangeFilterModel,
-
-      onSubmitCreateDestination,
-      onSubmitEditDestination,
-    } = this.viewModel
-
-    const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div className={classNames.placeAddBtnWrapper}>
-            <Button success onClick={() => onClickAddBtn()}>
-              {t(TranslationKey['Add a destination'])}
-            </Button>
-          </div>
-
-          <MemoDataGrid
-            pagination
-            useResizeContainer
-            classes={{
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            localeText={getLocalizationByLanguageTag()}
-            sortModel={sortModel}
-            filterModel={filterModel}
-            page={curPage}
-            pageSize={rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
-            rows={getCurrentData()}
-            rowHeight={120}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
-            }}
-            density={densityModel}
-            columns={columnsModel}
-            loading={requestStatus === loadingStatuses.isLoading}
-            onSortModelChange={onChangeSortingModel}
-            onPageSizeChange={onChangeRowsPerPage}
-            onPageChange={onChangeCurPage}
-            onStateChange={setDataGridState}
-            onFilterModelChange={model => onChangeFilterModel(model)}
+        <Modal
+          openModal={viewModel.showAddOrEditDestinationModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditDestinationModal')}
+        >
+          <AddOrEditDestinationForm
+            destinationToEdit={viewModel.destinationToEdit}
+            onCloseModal={() => viewModel.onClickCancelBtn()}
+            onCreateSubmit={viewModel.onSubmitCreateDestination}
+            onEditSubmit={viewModel.onSubmitEditDestination}
           />
+        </Modal>
 
-          <Modal
-            openModal={showAddOrEditDestinationModal}
-            setOpenModal={() => onTriggerOpenModal('showAddOrEditDestinationModal')}
-          >
-            <AddOrEditDestinationForm
-              destinationToEdit={destinationToEdit}
-              onCloseModal={() => onClickCancelBtn()}
-              onCreateSubmit={onSubmitCreateDestination}
-              onEditSubmit={onSubmitEditDestination}
-            />
-          </Modal>
-
-          <ConfirmationModal
-            isWarning={confirmModalSettings.isWarning}
-            openModal={showConfirmModal}
-            setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-            title={t(TranslationKey.Attention)}
-            message={confirmModalSettings.message}
-            successBtnText={t(TranslationKey.Yes)}
-            cancelBtnText={t(TranslationKey.No)}
-            onClickSuccessBtn={confirmModalSettings.onClickSuccess}
-            onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-          />
-        </MainContent>
-      </React.Fragment>
-    )
-  }
+        <ConfirmationModal
+          isWarning={viewModel.confirmModalSettings.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={viewModel.confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const AdminDestinationsView = withStyles(AdminDestinationsViewRaw, styles)
+export const AdminDestinationsView = withStyles(observer(AdminDestinationsViewRaw), styles)

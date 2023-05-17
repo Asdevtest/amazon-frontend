@@ -1,6 +1,6 @@
 import {Avatar, Paper, Typography} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -20,54 +20,55 @@ import {t} from '@utils/translations'
 import {SupervisorDashboardViewModel} from './supervisor-dashboard-view.model'
 import {styles} from './supervisor-dashboard-view.style'
 
-@observer
-export class SupervisorDashboardViewRaw extends Component {
-  viewModel = new SupervisorDashboardViewModel({history: this.props.history})
+export const SupervisorDashboardViewRaw = props => {
+  const [viewModel] = useState(() => new SupervisorDashboardViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
+
+  const supervisorButtonsRoutes = {
+    notifications: '',
+    messages: 'messages',
+    settings: 'settings',
   }
 
-  render() {
-    const {userInfo, dashboardData, onClickInfoCardViewMode} = this.viewModel
-    const {classes: classNames} = this.props
-    const supervisorButtonsRoutes = {
-      notifications: '',
-      messages: 'messages',
-      settings: 'settings',
-    }
-    return (
-      <React.Fragment>
-        <MainContent>
-          <Paper className={classNames.userInfoWrapper}>
-            <div className={classNames.userInfoLeftWrapper}>
-              <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
+  return (
+    <React.Fragment>
+      <MainContent>
+        <Paper className={classNames.userInfoWrapper}>
+          <div className={classNames.userInfoLeftWrapper}>
+            <Avatar src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
 
-              <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+            <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />
+          </div>
+
+          <DashboardButtons user={viewModel.userInfo} routes={supervisorButtonsRoutes} />
+
+          {viewModel.userInfo.masterUser && (
+            <div className={classNames.masterUserWrapper}>
+              <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
+
+              <UserLink
+                blackText
+                name={viewModel.userInfo.masterUser?.name}
+                userId={viewModel.userInfo.masterUser?._id}
+              />
             </div>
-
-            <DashboardButtons user={userInfo} routes={supervisorButtonsRoutes} />
-
-            {userInfo.masterUser && (
-              <div className={classNames.masterUserWrapper}>
-                <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
-
-                <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
-              </div>
-            )}
-          </Paper>
-          {getSupervisorDashboardCardConfig().map(item => (
-            <DashboardOneLineCardsList
-              key={item.key}
-              config={item}
-              valuesData={dashboardData}
-              onClickViewMore={onClickInfoCardViewMode}
-            />
-          ))}
-        </MainContent>
-      </React.Fragment>
-    )
-  }
+          )}
+        </Paper>
+        {getSupervisorDashboardCardConfig().map(item => (
+          <DashboardOneLineCardsList
+            key={item.key}
+            config={item}
+            valuesData={viewModel.dashboardData}
+            onClickViewMore={viewModel.onClickInfoCardViewMode}
+          />
+        ))}
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const SupervisorDashboardView = withStyles(SupervisorDashboardViewRaw, styles)
+export const SupervisorDashboardView = withStyles(observer(SupervisorDashboardViewRaw), styles)

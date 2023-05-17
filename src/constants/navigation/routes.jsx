@@ -1716,12 +1716,18 @@ export const privateRoutesConfigs = [
   },
 
   // {
-  //   routePath: '/client/settings',
+  //   routePath: "/client/settings",
   //   component: ClientSettingsView,
   //   exact: true,
   //   permission: [UserRole.CLIENT],
-
+  //
   //   crumbNameKey: TranslationKey.Profile,
+  //
+  //   navigationInfo: {
+  //     activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
+  //     activeSubCategory: "",
+  //     title: t(TranslationKey.Profile)
+  //   }
   // },
 
   {

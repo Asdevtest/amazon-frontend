@@ -2,7 +2,7 @@
 import {cx} from '@emotion/css'
 import {Alert, Box, Typography} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -33,163 +33,141 @@ import {t} from '@utils/translations'
 import {MyServicesViewModel} from './my-services-view.model'
 import {styles} from './my-services-view.style'
 
-@observer
-class MyServicesViewRaw extends Component {
-  viewModel = new MyServicesViewModel({history: this.props.history, location: this.props.location})
+export const MyServicesViewRaw = props => {
+  const [viewModel] = useState(() => new MyServicesViewModel({history: props.history, location: props.location}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      history,
-      viewMode,
-      selectedTaskType,
-      currentData,
-      bigImagesOptions,
-      showImageModal,
-      acceptMessage,
-      showAcceptMessage,
-      nameSearchValue,
-      userRole,
-      userInfo,
+  const whiteList =
+    !!viewModel.userInfo && checkIsFreelancer(viewModel.userRole)
+      ? [
+          String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
+          ...(viewModel.userInfo?.allowedSpec?.map(spec => spec && String(spec)) || []),
+        ]
+      : Object.keys(freelanceRequestTypeByCode)
 
-      onSearchSubmit,
-      onTriggerOpenModal,
-      onClickTaskType,
-      onClickCreateServiceBtn,
-      onChangeViewMode,
-      onClickThumbnail,
-      onClickOpenButton,
-    } = this.viewModel
-    const {classes: classNames} = this.props
-
-    const whiteList =
-      !!userInfo && checkIsFreelancer(userRole)
-        ? [
-            String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
-            ...(userInfo?.allowedSpec?.map(spec => spec && String(spec)) || []),
-          ]
-        : Object.keys(freelanceRequestTypeByCode)
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div className={classNames.tablePanelWrapper}>
-            <div className={classNames.toggleBtnAndtaskTypeWrapper}>
-              <div className={classNames.tablePanelViewWrapper}>
-                <ToggleBtnGroupFreelance exclusive value={viewMode} onChange={onChangeViewMode}>
-                  <ToggleBtnFreelancer value={tableViewMode.BLOCKS} disabled={viewMode === tableViewMode.BLOCKS}>
-                    <ViewCartsBlock
-                      className={cx(classNames.viewCart, {
-                        [classNames.viewCartSelected]: viewMode === tableViewMode.BLOCKS,
-                      })}
-                    />
-                  </ToggleBtnFreelancer>
-                  <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewMode === tableViewMode.LIST}>
-                    <ViewCartsLine
-                      className={cx(classNames.viewCart, {
-                        [classNames.viewCartSelected]: viewMode === tableViewMode.LIST,
-                      })}
-                    />
-                  </ToggleBtnFreelancer>
-                </ToggleBtnGroupFreelance>
-              </div>
-
-              <div className={classNames.taskTypeWrapper}>
-                {Object.keys({
-                  ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
-                  // freelanceRequestTypeByCode
-                }).map((taskType, taskIndex) => (
-                  <Button
-                    key={taskIndex}
-                    variant="text"
-                    disabled={Number(taskType) === Number(selectedTaskType)}
-                    className={cx(classNames.button, {
-                      [classNames.selectedBoxesBtn]: Number(taskType) === Number(selectedTaskType),
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.tablePanelWrapper}>
+          <div className={classNames.toggleBtnAndtaskTypeWrapper}>
+            <div className={classNames.tablePanelViewWrapper}>
+              <ToggleBtnGroupFreelance exclusive value={viewModel.viewMode} onChange={viewModel.onChangeViewMode}>
+                <ToggleBtnFreelancer
+                  value={tableViewMode.BLOCKS}
+                  disabled={viewModel.viewMode === tableViewMode.BLOCKS}
+                >
+                  <ViewCartsBlock
+                    className={cx(classNames.viewCart, {
+                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.BLOCKS,
                     })}
-                    onClick={() => onClickTaskType(taskType)}
-                  >
-                    {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-                  </Button>
-                ))}
-              </div>
+                  />
+                </ToggleBtnFreelancer>
+                <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewModel.viewMode === tableViewMode.LIST}>
+                  <ViewCartsLine
+                    className={cx(classNames.viewCart, {
+                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.LIST,
+                    })}
+                  />
+                </ToggleBtnFreelancer>
+              </ToggleBtnGroupFreelance>
             </div>
 
-            <div className={classNames.searchInputWrapper}>
-              <SearchInput
-                inputClasses={classNames.searchInput}
-                placeholder={t(TranslationKey['Search by Title, Description'])}
-                value={nameSearchValue}
-                onChange={onSearchSubmit}
+            <div className={classNames.taskTypeWrapper}>
+              {Object.keys({
+                ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
+                // freelanceRequestTypeByCode
+              }).map((taskType, taskIndex) => (
+                <Button
+                  key={taskIndex}
+                  variant="text"
+                  disabled={Number(taskType) === Number(viewModel.selectedTaskType)}
+                  className={cx(classNames.button, {
+                    [classNames.selectedBoxesBtn]: Number(taskType) === Number(viewModel.selectedTaskType),
+                  })}
+                  onClick={() => viewModel.onClickTaskType(taskType)}
+                >
+                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          <div className={classNames.searchInputWrapper}>
+            <SearchInput
+              inputClasses={classNames.searchInput}
+              placeholder={t(TranslationKey['Search by Title, Description'])}
+              value={viewModel.nameSearchValue}
+              onChange={viewModel.onSearchSubmit}
+            />
+          </div>
+
+          <div className={classNames.createServiceBtnWrapper}>
+            <Button success className={cx(classNames.rightAddingBtn)} onClick={viewModel.onClickCreateServiceBtn}>
+              {t(TranslationKey['Create a service'])}
+            </Button>
+          </div>
+        </div>
+        <Box
+          container
+          classes={{root: classNames.dashboardCardWrapper}}
+          display="grid"
+          gridTemplateColumns={
+            viewModel.viewMode === tableViewMode.LIST
+              ? 'repeat(auto-fill, minmax(calc(100% / 2), 1fr))'
+              : 'repeat(auto-fill, minmax(calc(100% / 4), 1fr))'
+          }
+          gridGap="20px"
+        >
+          {viewModel.currentData.map((service, serviceKey) =>
+            viewModel.viewMode === tableViewMode.LIST ? (
+              <ServiceExchangeCardList
+                key={serviceKey}
+                service={service}
+                pathname={viewModel.history?.location?.pathname}
+                onClickThumbnail={viewModel.onClickThumbnail}
+                onClickButton={viewModel.onClickOpenButton}
               />
-            </div>
-
-            <div className={classNames.createServiceBtnWrapper}>
-              <Button success className={cx(classNames.rightAddingBtn)} onClick={onClickCreateServiceBtn}>
-                {t(TranslationKey['Create a service'])}
-              </Button>
-            </div>
-          </div>
-          <Box
-            container
-            classes={{root: classNames.dashboardCardWrapper}}
-            display="grid"
-            gridTemplateColumns={
-              viewMode === tableViewMode.LIST
-                ? 'repeat(auto-fill, minmax(calc(100% / 2), 1fr))'
-                : 'repeat(auto-fill, minmax(calc(100% / 4), 1fr))'
-            }
-            gridGap="20px"
-          >
-            {currentData.map((service, serviceKey) =>
-              viewMode === tableViewMode.LIST ? (
-                <ServiceExchangeCardList
-                  key={serviceKey}
-                  service={service}
-                  pathname={history?.location?.pathname}
-                  onClickThumbnail={onClickThumbnail}
-                  onClickButton={onClickOpenButton}
-                />
-              ) : (
-                <ServiceExchangeCard
-                  key={serviceKey}
-                  service={service}
-                  pathname={history?.location?.pathname}
-                  onClickThumbnail={onClickThumbnail}
-                  onClickButton={onClickOpenButton}
-                />
-              ),
-            )}
-          </Box>
-          {!currentData.length && (
-            <div className={classNames.emptyTableWrapper}>
-              <img src="/assets/icons/empty-table.svg" />
-              <Typography variant="h5" className={classNames.emptyTableText}>
-                {t(TranslationKey.Missing)}
-              </Typography>
-            </div>
+            ) : (
+              <ServiceExchangeCard
+                key={serviceKey}
+                service={service}
+                pathname={viewModel.history?.location?.pathname}
+                onClickThumbnail={viewModel.onClickThumbnail}
+                onClickButton={viewModel.onClickOpenButton}
+              />
+            ),
           )}
-        </MainContent>
-
-        <BigImagesModal
-          openModal={showImageModal}
-          setOpenModal={() => onTriggerOpenModal('showImageModal')}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-        />
-
-        {acceptMessage && showAcceptMessage ? (
-          <div className={classNames.acceptMessageWrapper}>
-            <Alert elevation={5} severity="success">
-              {acceptMessage}
-            </Alert>
+        </Box>
+        {!viewModel.currentData.length && (
+          <div className={classNames.emptyTableWrapper}>
+            <img src="/assets/icons/empty-table.svg" />
+            <Typography variant="h5" className={classNames.emptyTableText}>
+              {t(TranslationKey.Missing)}
+            </Typography>
           </div>
-        ) : null}
-      </React.Fragment>
-    )
-  }
+        )}
+      </MainContent>
+
+      <BigImagesModal
+        openModal={viewModel.showImageModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+        images={viewModel.bigImagesOptions.images}
+        imgIndex={viewModel.bigImagesOptions.imgIndex}
+      />
+
+      {viewModel.acceptMessage && viewModel.showAcceptMessage ? (
+        <div className={classNames.acceptMessageWrapper}>
+          <Alert elevation={5} severity="success">
+            {viewModel.acceptMessage}
+          </Alert>
+        </div>
+      ) : null}
+    </React.Fragment>
+  )
 }
 
-export const MyServicesView = withStyles(MyServicesViewRaw, styles)
+export const MyServicesView = withStyles(observer(MyServicesViewRaw), styles)

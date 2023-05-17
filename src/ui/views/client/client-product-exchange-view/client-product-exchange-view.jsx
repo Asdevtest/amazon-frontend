@@ -1,7 +1,7 @@
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import {Typography} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -16,41 +16,45 @@ import {t} from '@utils/translations'
 import {ClientProductExchangeViewModel} from './client-product-exchange-view.model'
 import {styles} from './client-product-exchange-view.style'
 
-@observer
-class ClientProductExchangeViewRaw extends Component {
-  viewModel = new ClientProductExchangeViewModel({history: this.props.history})
+export const ClientProductExchangeViewRaw = props => {
+  const [viewModel] = useState(() => new ClientProductExchangeViewModel({history: this.props.history}))
+  const {classes: classNames} = props
 
-  render() {
-    const {onClickForksExchange, onClickPrivateLabel} = this.viewModel
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div>
+          <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Freelance'])}</Typography>
 
-    const {classes: classNames} = this.props
+          <div className={classNames.btnsWrapper}>
+            <Button
+              className={classNames.button}
+              color="primary"
+              variant="outlined"
+              onClick={viewModel.onClickForksExchange}
+            >
+              <div className={classNames.btnTextWrapper}>
+                <Typography className={classNames.btnText}>{t(TranslationKey['Deal exchange'])}</Typography>
+                <ArrowRightAltIcon color="primary" />
+              </div>
+            </Button>
 
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div>
-            <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Freelance'])}</Typography>
-
-            <div className={classNames.btnsWrapper}>
-              <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickForksExchange}>
-                <div className={classNames.btnTextWrapper}>
-                  <Typography className={classNames.btnText}>{t(TranslationKey['Deal exchange'])}</Typography>
-                  <ArrowRightAltIcon color="primary" />
-                </div>
-              </Button>
-
-              <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickPrivateLabel}>
-                <div className={classNames.btnTextWrapper}>
-                  <Typography className={classNames.btnText}>{t(TranslationKey['Private Label'])}</Typography>
-                  <ArrowRightAltIcon color="primary" />
-                </div>
-              </Button>
-            </div>
+            <Button
+              className={classNames.button}
+              color="primary"
+              variant="outlined"
+              onClick={viewModel.onClickPrivateLabel}
+            >
+              <div className={classNames.btnTextWrapper}>
+                <Typography className={classNames.btnText}>{t(TranslationKey['Private Label'])}</Typography>
+                <ArrowRightAltIcon color="primary" />
+              </div>
+            </Button>
           </div>
-        </MainContent>
-      </React.Fragment>
-    )
-  }
+        </div>
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const ClientProductExchangeView = withStyles(ClientProductExchangeViewRaw, styles)
+export const ClientProductExchangeView = withStyles(observer(ClientProductExchangeViewRaw), styles)

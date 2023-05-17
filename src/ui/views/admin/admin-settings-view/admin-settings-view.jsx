@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import {useState} from 'react'
 
 import {withStyles} from 'tss-react/mui'
 
@@ -12,31 +12,30 @@ import {t} from '@utils/translations'
 
 import {AdminSettingsViewModel} from './admin-settings-view.model'
 import {styles} from './admin-settings-view.style'
+import {observer} from 'mobx-react'
 
-export class AdminSettingsViewRaw extends Component {
-  viewModel = new AdminSettingsViewModel({
-    history: this.props.history,
-  })
+export const AdminSettingsViewRaw = props => {
+  const [viewModel] = useState(
+    () =>
+      new AdminSettingsViewModel({
+        history: props.history,
+      }),
+  )
+  const {classes: classNames} = props
 
-  render() {
-    const {onClickTechnicalBtn} = this.viewModel
+  return (
+    <>
+      <MainContent>
+        <div className={classNames.mainWrapper}>
+          <Button className={classNames.technicalBtn} onClick={viewModel.onClickTechnicalBtn}>
+            {t(TranslationKey['Technical work and notices'])}
+          </Button>
 
-    const {classes: classNames} = this.props
-
-    return (
-      <>
-        <MainContent>
-          <div className={classNames.mainWrapper}>
-            <Button className={classNames.technicalBtn} onClick={onClickTechnicalBtn}>
-              {t(TranslationKey['Technical work and notices'])}
-            </Button>
-
-            <AdminSettingsContent />
-          </div>
-        </MainContent>
-      </>
-    )
-  }
+          <AdminSettingsContent />
+        </div>
+      </MainContent>
+    </>
+  )
 }
 
-export const AdminSettingsView = withStyles(AdminSettingsViewRaw, styles)
+export const AdminSettingsView = withStyles(observer(AdminSettingsViewRaw), styles)

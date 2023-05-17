@@ -2,7 +2,7 @@ import {cx} from '@emotion/css'
 import DeleteIcon from '@mui/icons-material/Delete'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -27,234 +27,188 @@ import {t} from '@utils/translations'
 import {ClientSentBatchesViewModel} from './client-sent-batches-view.model'
 import {styles} from './client-sent-batches-view.style'
 
-@observer
-class ClientSentBatchesViewRaw extends Component {
-  viewModel = new ClientSentBatchesViewModel({history: this.props.history})
+export const ClientSentBatchesViewRaw = props => {
+  const [viewModel] = useState(() => new ClientSentBatchesViewModel({history: props.history}))
+  const {classes: className} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      storekeepersData,
-      currentStorekeeper,
-      userInfo,
-      warningInfoModalSettings,
-      nameSearchValue,
-      volumeWeightCoefficient,
-      curBatch,
-      showBatchInfoModal,
-      onTriggerOpenModal,
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={className.btnsWrapper}>
+          <Button
+            // tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
+            variant="outlined"
+            className={className.openArchiveBtn}
+            onClick={viewModel.onTriggerArchive}
+          >
+            {viewModel.isArchive ? t(TranslationKey['Back to actual batches']) : t(TranslationKey['Open archive'])}
+          </Button>
 
-      getCurrentData,
-      sortModel,
-      filterModel,
-      requestStatus,
-      densityModel,
-      columnsModel,
-      showWarningInfoModal,
+          <SearchInput
+            key={'client_batches_awaiting-batch_search_input'}
+            inputClasses={className.searchInput}
+            value={viewModel.nameSearchValue}
+            placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
+            onSubmit={viewModel.onSearchSubmit}
+          />
 
-      rowCount,
-      curPage,
-      rowsPerPage,
-      showEditHSCodeModal,
-      hsCodeData,
-      selectedBatches,
-      isArchive,
-      showConfirmModal,
-      confirmModalSettings,
-      onClickTriggerArchOrResetProducts,
-      onClickSaveHsCode,
-      onClickHsCode,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-
-      onSelectionModel,
-      setDataGridState,
-      onChangeSortingModel,
-      onChangeFilterModel,
-
-      setCurrentOpenedBatch,
-      onSearchSubmit,
-      onSubmitChangeBoxFields,
-      onTriggerArchive,
-
-      onClickStorekeeperBtn,
-
-      changeColumnsModel,
-    } = this.viewModel
-    const {classes: className} = this.props
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div className={className.btnsWrapper}>
+          <div className={className.simpleBtnsWrapper}>
             <Button
-              // tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
+              // tooltipInfoContent={t(
+              //   TranslationKey['Delete the selected product (the product is moved to the archive)'],
+              // )}
+              disabled={!viewModel.selectedBatches.length}
               variant="outlined"
-              className={className.openArchiveBtn}
-              onClick={onTriggerArchive}
-            >
-              {isArchive ? t(TranslationKey['Back to actual batches']) : t(TranslationKey['Open archive'])}
-            </Button>
-
-            <SearchInput
-              key={'client_batches_awaiting-batch_search_input'}
-              inputClasses={className.searchInput}
-              value={nameSearchValue}
-              placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
-              onSubmit={onSearchSubmit}
-            />
-
-            <div className={className.simpleBtnsWrapper}>
-              <Button
-                // tooltipInfoContent={t(
-                //   TranslationKey['Delete the selected product (the product is moved to the archive)'],
-                // )}
-                disabled={!selectedBatches.length}
-                variant="outlined"
-                className={className.archiveAddBtn}
-                sx={{
-                  '&.Mui-disabled': {
-                    background: 'none',
-                  },
-                }}
-                onClick={onClickTriggerArchOrResetProducts}
-              >
-                {isArchive ? (
-                  t(TranslationKey['Relocate from archive'])
-                ) : (
-                  <>
-                    {t(TranslationKey['Move to archive'])}
-                    <DeleteIcon className={className.archiveIcon} />
-                  </>
-                )}
-              </Button>
-            </div>
-          </div>
-
-          <div className={className.boxesFiltersWrapper}>
-            {storekeepersData
-              .slice()
-              .sort((a, b) => a.name?.localeCompare(b.name))
-              .map(storekeeper =>
-                storekeeper.boxesCount !== 0 ? (
-                  <Button
-                    key={storekeeper._id}
-                    disabled={currentStorekeeper?._id === storekeeper._id}
-                    className={cx(className.storekeeperButton, {
-                      [className.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
-                    })}
-                    variant="text"
-                    onClick={() => onClickStorekeeperBtn(storekeeper)}
-                  >
-                    {storekeeper.name}
-                  </Button>
-                ) : null,
-              )}
-
-            <Button
-              disabled={!currentStorekeeper?._id}
-              className={cx(className.storekeeperButton, {
-                [className.selectedBoxesBtn]: !currentStorekeeper?._id,
-              })}
-              variant="text"
-              onClick={onClickStorekeeperBtn}
-            >
-              {t(TranslationKey['All warehouses'])}
-            </Button>
-          </div>
-
-          <div className={className.datagridWrapper}>
-            <MemoDataGrid
-              pagination
-              useResizeContainer
-              checkboxSelection
-              localeText={getLocalizationByLanguageTag()}
-              classes={{
-                row: className.row,
-                root: className.root,
-                footerContainer: className.footerContainer,
-                footerCell: className.footerCell,
-                toolbarContainer: className.toolbarContainer,
-              }}
-              sortingMode="server"
-              paginationMode="server"
-              rowCount={rowCount}
-              sortModel={sortModel}
-              filterModel={filterModel}
-              page={curPage}
-              pageSize={rowsPerPage}
-              rowsPerPageOptions={[15, 25, 50, 100]}
-              rows={getCurrentData()}
-              getRowHeight={() => 'auto'}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
-              }}
-              componentsProps={{
-                toolbar: {
-                  columsBtnSettings: {columnsModel, changeColumnsModel},
+              className={className.archiveAddBtn}
+              sx={{
+                '&.Mui-disabled': {
+                  background: 'none',
                 },
               }}
-              density={densityModel}
-              columns={columnsModel}
-              loading={requestStatus === loadingStatuses.isLoading}
-              onSelectionModelChange={onSelectionModel}
-              onSortModelChange={onChangeSortingModel}
-              onPageSizeChange={onChangeRowsPerPage}
-              onPageChange={onChangeCurPage}
-              onStateChange={setDataGridState}
-              onFilterModelChange={model => onChangeFilterModel(model)}
-              onRowDoubleClick={e => setCurrentOpenedBatch(e.row.originalData)}
-            />
+              onClick={viewModel.onClickTriggerArchOrResetProducts}
+            >
+              {viewModel.isArchive ? (
+                t(TranslationKey['Relocate from archive'])
+              ) : (
+                <>
+                  {t(TranslationKey['Move to archive'])}
+                  <DeleteIcon className={className.archiveIcon} />
+                </>
+              )}
+            </Button>
           </div>
-        </MainContent>
+        </div>
 
-        <BatchInfoModal
-          volumeWeightCoefficient={volumeWeightCoefficient}
-          openModal={showBatchInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showBatchInfoModal')}
-          batch={curBatch}
-          userInfo={userInfo}
-          onSubmitChangeBoxFields={onSubmitChangeBoxFields}
-          onClickHsCode={onClickHsCode}
-        />
+        <div className={className.boxesFiltersWrapper}>
+          {viewModel.storekeepersData
+            .slice()
+            .sort((a, b) => a.name?.localeCompare(b.name))
+            .map(storekeeper =>
+              storekeeper.boxesCount !== 0 ? (
+                <Button
+                  key={storekeeper._id}
+                  disabled={viewModel.currentStorekeeper?._id === storekeeper._id}
+                  className={cx(className.storekeeperButton, {
+                    [className.selectedBoxesBtn]: viewModel.currentStorekeeper?._id === storekeeper._id,
+                  })}
+                  variant="text"
+                  onClick={() => viewModel.onClickStorekeeperBtn(storekeeper)}
+                >
+                  {storekeeper.name}
+                </Button>
+              ) : null,
+            )}
 
-        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
-          <EditHSCodeModal
-            hsCodeData={hsCodeData}
-            onClickSaveHsCode={onClickSaveHsCode}
-            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
+          <Button
+            disabled={!viewModel.currentStorekeeper?._id}
+            className={cx(className.storekeeperButton, {
+              [className.selectedBoxesBtn]: !viewModel.currentStorekeeper?._id,
+            })}
+            variant="text"
+            onClick={viewModel.onClickStorekeeperBtn}
+          >
+            {t(TranslationKey['All warehouses'])}
+          </Button>
+        </div>
+
+        <div className={className.datagridWrapper}>
+          <MemoDataGrid
+            pagination
+            useResizeContainer
+            checkboxSelection
+            localeText={getLocalizationByLanguageTag()}
+            classes={{
+              row: className.row,
+              root: className.root,
+              footerContainer: className.footerContainer,
+              footerCell: className.footerCell,
+              toolbarContainer: className.toolbarContainer,
+            }}
+            sortingMode="server"
+            paginationMode="server"
+            rowCount={viewModel.rowCount}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            page={viewModel.curPage}
+            pageSize={viewModel.rowsPerPage}
+            rowsPerPageOptions={[15, 25, 50, 100]}
+            rows={viewModel.getCurrentData()}
+            getRowHeight={() => 'auto'}
+            components={{
+              Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  changeColumnsModel: viewModel.changeColumnsModel,
+                },
+              },
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onSelectionModelChange={viewModel.onSelectionModel}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onPageSizeChange={viewModel.onChangeRowsPerPage}
+            onPageChange={viewModel.onChangeCurPage}
+            onStateChange={viewModel.setDataGridState}
+            onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
+            onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData)}
           />
-        </Modal>
+        </div>
+      </MainContent>
 
-        <ConfirmationModal
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          isWarning={confirmModalSettings.isWarning}
-          title={confirmModalSettings.confirmTitle}
-          message={confirmModalSettings.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-        />
+      <BatchInfoModal
+        volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+        openModal={viewModel.showBatchInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
+        batch={viewModel.curBatch}
+        userInfo={viewModel.userInfo}
+        onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
+        onClickHsCode={viewModel.onClickHsCode}
+      />
 
-        <WarningInfoModal
-          isWarning={warningInfoModalSettings.isWarning}
-          openModal={showWarningInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
-          title={warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showWarningInfoModal')
-          }}
+      <Modal
+        openModal={viewModel.showEditHSCodeModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+      >
+        <EditHSCodeModal
+          hsCodeData={viewModel.hsCodeData}
+          onClickSaveHsCode={viewModel.onClickSaveHsCode}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
         />
-      </React.Fragment>
-    )
-  }
+      </Modal>
+
+      <ConfirmationModal
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        isWarning={viewModel.confirmModalSettings.isWarning}
+        title={viewModel.confirmModalSettings.confirmTitle}
+        message={viewModel.confirmModalSettings.confirmMessage}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+
+      <WarningInfoModal
+        isWarning={viewModel.warningInfoModalSettings.isWarning}
+        openModal={viewModel.showWarningInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        title={viewModel.warningInfoModalSettings.title}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showWarningInfoModal')
+        }}
+      />
+    </React.Fragment>
+  )
 }
 
-export const ClientSentBatchesView = withStyles(ClientSentBatchesViewRaw, styles)
+export const ClientSentBatchesView = withStyles(observer(ClientSentBatchesViewRaw), styles)

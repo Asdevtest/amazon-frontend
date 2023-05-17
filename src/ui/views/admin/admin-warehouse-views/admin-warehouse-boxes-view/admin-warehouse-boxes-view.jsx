@@ -1,6 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -21,102 +21,78 @@ import {t} from '@utils/translations'
 import {AdminWarehouseBoxesViewModel} from './admin-warehouse-boxes-view.model'
 import {styles} from './admin-warehouse-boxes-view.style'
 
-@observer
-export class AdminWarehouseBoxesViewRaw extends Component {
-  viewModel = new AdminWarehouseBoxesViewModel({history: this.props.history})
+export const AdminWarehouseBoxesViewRaw = props => {
+  const [viewModel] = useState(() => new AdminWarehouseBoxesViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      currentData,
-      curBox,
-      volumeWeightCoefficient,
-      showBoxViewModal,
-      sortModel,
-      filterModel,
-      requestStatus,
-      densityModel,
-      columnsModel,
-
-      curPage,
-      rowsPerPage,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-
-      setDataGridState,
-      onChangeSortingModel,
-      onChangeFilterModel,
-
-      onTriggerOpenModal,
-      setCurrentOpenedBox,
-      onSearchSubmit,
-      changeColumnsModel,
-    } = this.viewModel
-
-    const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div className={classNames.topHeaderBtnsWrapper}>
-            <SearchInput
-              inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-              onSubmit={onSearchSubmit}
-            />
-          </div>
-          <MemoDataGrid
-            pagination
-            useResizeContainer
-            localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            sortModel={sortModel}
-            filterModel={filterModel}
-            page={curPage}
-            pageSize={rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
-            rows={currentData}
-            density={densityModel}
-            columns={columnsModel}
-            rowHeight={130}
-            loading={requestStatus === loadingStatuses.isLoading}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
-            }}
-            componentsProps={{
-              toolbar: {
-                columsBtnSettings: {columnsModel, changeColumnsModel},
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.topHeaderBtnsWrapper}>
+          <SearchInput
+            inputClasses={classNames.searchInput}
+            placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+            onSubmit={viewModel.onSearchSubmit}
+          />
+        </div>
+        <MemoDataGrid
+          pagination
+          useResizeContainer
+          localeText={getLocalizationByLanguageTag()}
+          classes={{
+            row: classNames.row,
+            root: classNames.root,
+            footerContainer: classNames.footerContainer,
+            footerCell: classNames.footerCell,
+            toolbarContainer: classNames.toolbarContainer,
+          }}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          page={viewModel.curPage}
+          pageSize={viewModel.rowsPerPage}
+          rowsPerPageOptions={[15, 25, 50, 100]}
+          rows={viewModel.currentData}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          rowHeight={130}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          components={{
+            Toolbar: DataGridCustomToolbar,
+            ColumnMenuIcon: FilterAltOutlinedIcon,
+          }}
+          componentsProps={{
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                changeColumnsModel: viewModel.changeColumnsModel,
               },
-            }}
-            onSortModelChange={onChangeSortingModel}
-            onPageSizeChange={onChangeRowsPerPage}
-            onPageChange={onChangeCurPage}
-            onStateChange={setDataGridState}
-            onFilterModelChange={model => onChangeFilterModel(model)}
-            onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-          />
-        </MainContent>
+            },
+          }}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onPageSizeChange={viewModel.onChangeRowsPerPage}
+          onPageChange={viewModel.onChangeCurPage}
+          onStateChange={viewModel.setDataGridState}
+          onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
+          onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
+        />
+      </MainContent>
 
-        <Modal openModal={showBoxViewModal} setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}>
-          <BoxViewForm
-            box={curBox}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
-          />
-        </Modal>
-      </React.Fragment>
-    )
-  }
+      <Modal
+        openModal={viewModel.showBoxViewModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+      >
+        <BoxViewForm
+          box={viewModel.curBox}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+        />
+      </Modal>
+    </React.Fragment>
+  )
 }
 
-export const AdminWarehouseBoxesView = withStyles(AdminWarehouseBoxesViewRaw, styles)
+export const AdminWarehouseBoxesView = withStyles(observer(AdminWarehouseBoxesViewRaw), styles)

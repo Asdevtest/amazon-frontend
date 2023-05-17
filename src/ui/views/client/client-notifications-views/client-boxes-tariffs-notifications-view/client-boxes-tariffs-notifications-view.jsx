@@ -1,6 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -24,159 +24,129 @@ import {t} from '@utils/translations'
 import {ClientBoxesTariffsNotificationsViewModel} from './client-boxes-tariffs-notifications-view.model'
 import {styles} from './client-boxes-tariffs-notifications-view.style'
 
-@observer
-class ClientBoxesTariffsNotificationsViewRaw extends Component {
-  viewModel = new ClientBoxesTariffsNotificationsViewModel({history: this.props.history})
+export const ClientBoxesTariffsNotificationsViewRaw = props => {
+  const [viewModel] = useState(() => new ClientBoxesTariffsNotificationsViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      warningInfoModalSettings,
-      userInfo,
-      storekeepersData,
-      volumeWeightCoefficient,
-      curBox,
-      showBoxViewModal,
-      requestStatus,
-      getCurrentData,
-      sortModel,
-      filterModel,
-      densityModel,
-      columnsModel,
-      showEditHSCodeModal,
-      hsCodeData,
-      rowsPerPage,
-      curPage,
-      onClickHsCode,
-      onClickSaveHsCode,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      setCurrentOpenedBox,
-      showConfirmModal,
-      showSelectionStorekeeperAndTariffModal,
-      showWarningInfoModal,
-      confirmModalSettings,
-      onTriggerOpenModal,
-      onSelectionModel,
-      setDataGridState,
-      onChangeSortingModel,
-      onChangeFilterModel,
-      onClickConfirmTarrifChangeBtn,
-      onSubmitChangeBoxFields,
-      changeColumnsModel,
-    } = this.viewModel
-    const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div className={classNames.tableWrapper}>
-            <MemoDataGrid
-              pagination
-              useResizeContainer
-              disableVirtualization
-              localeText={getLocalizationByLanguageTag()}
-              classes={{
-                row: classNames.row,
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
-              sortModel={sortModel}
-              filterModel={filterModel}
-              page={curPage}
-              pageSize={rowsPerPage}
-              rowsPerPageOptions={[15, 25, 50, 100]}
-              rows={getCurrentData()}
-              getRowHeight={() => 'auto'}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
-              }}
-              density={densityModel}
-              columns={columnsModel}
-              loading={requestStatus === loadingStatuses.isLoading}
-              componentsProps={{
-                toolbar: {
-                  columsBtnSettings: {columnsModel, changeColumnsModel},
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.tableWrapper}>
+          <MemoDataGrid
+            pagination
+            useResizeContainer
+            disableVirtualization
+            localeText={getLocalizationByLanguageTag()}
+            classes={{
+              row: classNames.row,
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+            }}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            page={viewModel.curPage}
+            pageSize={viewModel.rowsPerPage}
+            rowsPerPageOptions={[15, 25, 50, 100]}
+            rows={viewModel.getCurrentData()}
+            getRowHeight={() => 'auto'}
+            components={{
+              Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  changeColumnsModel: viewModel.changeColumnsModel,
                 },
-              }}
-              onSelectionModelChange={newSelection => {
-                onSelectionModel(newSelection[0])
-              }}
-              onSortModelChange={onChangeSortingModel}
-              onPageSizeChange={onChangeRowsPerPage}
-              onPageChange={onChangeCurPage}
-              onStateChange={setDataGridState}
-              onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-              onFilterModelChange={model => onChangeFilterModel(model)}
-            />
-          </div>
-        </MainContent>
+              },
+            }}
+            onSelectionModelChange={newSelection => {
+              viewModel.onSelectionModel(newSelection[0])
+            }}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onPageSizeChange={viewModel.onChangeRowsPerPage}
+            onPageChange={viewModel.onChangeCurPage}
+            onStateChange={viewModel.setDataGridState}
+            onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
+            onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
+          />
+        </div>
+      </MainContent>
 
-        <ConfirmationModal
-          isWarning={confirmModalSettings.isWarning}
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={t(TranslationKey.Attention)}
-          message={confirmModalSettings.message}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={() => {
-            confirmModalSettings.onClickOkBtn()
-          }}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+      <ConfirmationModal
+        isWarning={viewModel.confirmModalSettings.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={viewModel.confirmModalSettings.message}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={() => {
+          viewModel.confirmModalSettings.onClickOkBtn()
+        }}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+
+      <Modal
+        openModal={viewModel.showSelectionStorekeeperAndTariffModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
+      >
+        <SelectStorekeeperAndTariffForm
+          inNotifications
+          storekeepers={viewModel.storekeepersData.filter(el => el._id === viewModel.curBox?.storekeeper._id)}
+          curStorekeeperId={viewModel.curBox?.storekeeperId}
+          curTariffId={viewModel.curBox?.logicsTariffId}
+          onSubmit={viewModel.onClickConfirmTarrifChangeBtn}
         />
+      </Modal>
 
-        <Modal
-          openModal={showSelectionStorekeeperAndTariffModal}
-          setOpenModal={() => onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
-        >
-          <SelectStorekeeperAndTariffForm
-            inNotifications
-            storekeepers={storekeepersData.filter(el => el._id === curBox?.storekeeper._id)}
-            curStorekeeperId={curBox?.storekeeperId}
-            curTariffId={curBox?.logicsTariffId}
-            onSubmit={onClickConfirmTarrifChangeBtn}
-          />
-        </Modal>
-
-        <Modal openModal={showBoxViewModal} setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}>
-          <BoxViewForm
-            userInfo={userInfo}
-            box={curBox}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
-            onSubmitChangeFields={onSubmitChangeBoxFields}
-            onClickHsCode={onClickHsCode}
-          />
-        </Modal>
-
-        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
-          <EditHSCodeModal
-            hsCodeData={hsCodeData}
-            onClickSaveHsCode={onClickSaveHsCode}
-            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
-          />
-        </Modal>
-
-        <WarningInfoModal
-          isWarning={warningInfoModalSettings.isWarning}
-          openModal={showWarningInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
-          title={warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showWarningInfoModal')
-          }}
+      <Modal
+        openModal={viewModel.showBoxViewModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+      >
+        <BoxViewForm
+          userInfo={viewModel.userInfo}
+          box={viewModel.curBox}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+          onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
+          onClickHsCode={viewModel.onClickHsCode}
         />
-      </React.Fragment>
-    )
-  }
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showEditHSCodeModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+      >
+        <EditHSCodeModal
+          hsCodeData={viewModel.hsCodeData}
+          onClickSaveHsCode={viewModel.onClickSaveHsCode}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+        />
+      </Modal>
+
+      <WarningInfoModal
+        isWarning={viewModel.warningInfoModalSettings.isWarning}
+        openModal={viewModel.showWarningInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        title={viewModel.warningInfoModalSettings.title}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showWarningInfoModal')
+        }}
+      />
+    </React.Fragment>
+  )
 }
 
-export const ClientBoxesTariffsNotificationsView = withStyles(ClientBoxesTariffsNotificationsViewRaw, styles)
+export const ClientBoxesTariffsNotificationsView = withStyles(observer(ClientBoxesTariffsNotificationsViewRaw), styles)

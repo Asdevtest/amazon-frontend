@@ -1,7 +1,7 @@
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import {Typography} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -16,41 +16,40 @@ import {t} from '@utils/translations'
 import {ClientWarehouseViewModel} from './client-warehouse-view.model'
 import {styles} from './client-warehouse-view.style'
 
-@observer
-class ClientWarehouseViewRaw extends Component {
-  viewModel = new ClientWarehouseViewModel({history: this.props.history})
+export const ClientWarehouseViewRaw = props => {
+  const [viewModel] = useState(() => new ClientWarehouseViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  render() {
-    const {onClickInStock, onClickReadyToBatch} = this.viewModel
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div>
+          <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Warehouse'])}</Typography>
 
-    const {classes: classNames} = this.props
+          <div className={classNames.btnsWrapper}>
+            <Button className={classNames.button} color="primary" variant="outlined" onClick={viewModel.onClickInStock}>
+              <div className={classNames.btnTextWrapper}>
+                <Typography className={classNames.btnText}>{t(TranslationKey['Boxes in stock'])}</Typography>
+                <ArrowRightAltIcon color="primary" />
+              </div>
+            </Button>
 
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div>
-            <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Warehouse'])}</Typography>
-
-            <div className={classNames.btnsWrapper}>
-              <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickInStock}>
-                <div className={classNames.btnTextWrapper}>
-                  <Typography className={classNames.btnText}>{t(TranslationKey['Boxes in stock'])}</Typography>
-                  <ArrowRightAltIcon color="primary" />
-                </div>
-              </Button>
-
-              <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickReadyToBatch}>
-                <div className={classNames.btnTextWrapper}>
-                  <Typography className={classNames.btnText}>{t(TranslationKey['Boxes ready to send'])}</Typography>
-                  <ArrowRightAltIcon color="primary" />
-                </div>
-              </Button>
-            </div>
+            <Button
+              className={classNames.button}
+              color="primary"
+              variant="outlined"
+              onClick={viewModel.onClickReadyToBatch}
+            >
+              <div className={classNames.btnTextWrapper}>
+                <Typography className={classNames.btnText}>{t(TranslationKey['Boxes ready to send'])}</Typography>
+                <ArrowRightAltIcon color="primary" />
+              </div>
+            </Button>
           </div>
-        </MainContent>
-      </React.Fragment>
-    )
-  }
+        </div>
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const ClientWarehouseView = withStyles(ClientWarehouseViewRaw, styles)
+export const ClientWarehouseView = withStyles(observer(ClientWarehouseViewRaw), styles)

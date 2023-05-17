@@ -1,7 +1,7 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Typography} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -28,158 +28,124 @@ import {t} from '@utils/translations'
 import {ProfileViewModel} from './user-profile-view.model'
 import {styles} from './user-profile-view.style'
 
-@observer
-class UserProfileViewRaw extends Component {
-  viewModel = new ProfileViewModel({history: this.props.history})
+export const UserProfileViewRaw = props => {
+  const [viewModel] = useState(() => new ProfileViewModel({history: props.history}))
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  const {classes: classNames} = props
 
-  render() {
-    const {
-      sortModel,
-      filterModel,
-      curPage,
-      rowsPerPage,
-      densityModel,
-      columnsModel,
-      requestStatus,
-      tabHistory,
-      tabReview,
-      showTabModal,
-      selectedUser,
-      wrongPassword,
-      user,
-      checkValidationNameOrEmail,
-      headerInfoData,
-      showAvatarEditModal,
-      showInfoModal,
-      showUserInfoModal,
-      warningInfoModalTitle,
-      clearError,
-      onChangeTabHistory,
-      onChangeTabReview,
-      onTriggerShowTabModal,
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-      onTriggerOpenModal,
-      onSubmitAvatarEdit,
-      onClickChangeAvatar,
-      onClickChangeUserInfo,
-      onSubmitUserInfoEdit,
+  return (
+    <>
+      <MainContent>
+        <UserProfile
+          user={viewModel.user}
+          timer={'14 минут'}
+          headerInfoData={viewModel.headerInfoData}
+          tabReview={viewModel.tabReview}
+          tabHistory={viewModel.tabHistory}
+          setTabHistory={viewModel.onChangeTabHistory}
+          setTabReview={viewModel.onChangeTabReview}
+          onClickChangeAvatar={viewModel.onClickChangeAvatar}
+          onClickChangeUserInfo={viewModel.onClickChangeUserInfo}
+        />
 
-      getCurrentData,
-      setDataGridState,
-      onChangeFilterModel,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      onChangeSortingModel,
-    } = this.viewModel
-    const {classes: classNames} = this.props
-    return (
-      <>
-        <MainContent>
-          <UserProfile
-            user={user}
-            timer={'14 минут'}
-            headerInfoData={headerInfoData}
-            tabReview={tabReview}
-            tabHistory={tabHistory}
-            setTabHistory={onChangeTabHistory}
-            setTabReview={onChangeTabReview}
-            onClickChangeAvatar={onClickChangeAvatar}
-            onClickChangeUserInfo={onClickChangeUserInfo}
-          />
-
-          {/* <ActiveOrders
+        {/* <ActiveOrders
                 tabExchange={tabExchange}
                 setTabExchange={onChangeTabExchange}
                 productList={CLIENT_USER_INITIAL_LIST}
                 handlerClickButtonPrivateLabel={onClickButtonPrivateLabel}
               /> */}
 
-          {[
-            // mapUserRoleEnumToKey[UserRole.RESEARCHER],
-            mapUserRoleEnumToKey[UserRole.SUPERVISOR],
-            mapUserRoleEnumToKey[UserRole.BUYER],
-          ].includes(user.role) ? (
-            <>
-              <Typography variant="h6" className={classNames.title}>
-                {t(TranslationKey['Active offers on the commodity exchange'])}
-              </Typography>
+        {[
+          // mapUserRoleEnumToKey[UserRole.RESEARCHER],
+          mapUserRoleEnumToKey[UserRole.SUPERVISOR],
+          mapUserRoleEnumToKey[UserRole.BUYER],
+        ].includes(viewModel.user.role) ? (
+          <>
+            <Typography variant="h6" className={classNames.title}>
+              {t(TranslationKey['Active offers on the commodity exchange'])}
+            </Typography>
 
-              <MemoDataGrid
-                pagination
-                useResizeContainer
-                classes={{
-                  row: classNames.row,
-                  root: classNames.root,
-                  footerContainer: classNames.footerContainer,
-                  footerCell: classNames.footerCell,
-                  toolbarContainer: classNames.toolbarContainer,
-                }}
-                localeText={getLocalizationByLanguageTag()}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
-                rowHeight={100}
-                components={{
-                  Toolbar: DataGridCustomToolbar,
-                  ColumnMenuIcon: FilterAltOutlinedIcon,
-                }}
-                density={densityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onStateChange={setDataGridState}
-                onFilterModelChange={model => onChangeFilterModel(model)}
-              />
-            </>
-          ) : null}
-        </MainContent>
-        <Modal openModal={showTabModal} setOpenModal={onTriggerShowTabModal}>
-          <ContentModal
-            setOpenModal={onTriggerShowTabModal}
-            selected={selectedUser}
-            managersList={CLIENT_USER_MANAGERS_LIST}
-          />
-        </Modal>
-
-        <Modal openModal={showAvatarEditModal} setOpenModal={() => onTriggerOpenModal('showAvatarEditModal')}>
-          <AvatarEditorForm
-            onSubmit={onSubmitAvatarEdit}
-            onCloseModal={() => onTriggerOpenModal('showAvatarEditModal')}
-          />
-        </Modal>
-
-        <Modal openModal={showUserInfoModal} setOpenModal={() => onTriggerOpenModal('showUserInfoModal')}>
-          <UserInfoEditForm
-            user={user}
-            clearError={clearError}
-            wrongPassword={wrongPassword}
-            checkValidationNameOrEmail={checkValidationNameOrEmail}
-            onSubmit={onSubmitUserInfoEdit}
-            onCloseModal={() => onTriggerOpenModal('showUserInfoModal')}
-          />
-        </Modal>
-
-        <WarningInfoModal
-          openModal={showInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showInfoModal')}
-          title={warningInfoModalTitle}
-          btnText={t(TranslationKey.Close)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showInfoModal')
-          }}
+            <MemoDataGrid
+              pagination
+              useResizeContainer
+              classes={{
+                row: classNames.row,
+                root: classNames.root,
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
+              }}
+              localeText={getLocalizationByLanguageTag()}
+              sortModel={viewModel.sortModel}
+              filterModel={viewModel.filterModel}
+              page={viewModel.curPage}
+              pageSize={viewModel.rowsPerPage}
+              rowsPerPageOptions={[15, 25, 50, 100]}
+              rows={viewModel.getCurrentData()}
+              rowHeight={100}
+              components={{
+                Toolbar: DataGridCustomToolbar,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
+              }}
+              density={viewModel.densityModel}
+              columns={viewModel.columnsModel}
+              loading={viewModel.requestStatus === loadingStatuses.isLoading}
+              onSortModelChange={viewModel.onChangeSortingModel}
+              onPageSizeChange={viewModel.onChangeRowsPerPage}
+              onPageChange={viewModel.onChangeCurPage}
+              onStateChange={viewModel.setDataGridState}
+              onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
+            />
+          </>
+        ) : null}
+      </MainContent>
+      <Modal openModal={viewModel.showTabModal} setOpenModal={viewModel.onTriggerShowTabModal}>
+        <ContentModal
+          setOpenModal={viewModel.onTriggerShowTabModal}
+          selected={viewModel.selectedUser}
+          managersList={CLIENT_USER_MANAGERS_LIST}
         />
-      </>
-    )
-  }
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showAvatarEditModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAvatarEditModal')}
+      >
+        <AvatarEditorForm
+          onSubmit={viewModel.onSubmitAvatarEdit}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showAvatarEditModal')}
+        />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showUserInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showUserInfoModal')}
+      >
+        <UserInfoEditForm
+          user={viewModel.user}
+          clearError={viewModel.clearError}
+          wrongPassword={viewModel.wrongPassword}
+          checkValidationNameOrEmail={viewModel.checkValidationNameOrEmail}
+          onSubmit={viewModel.onSubmitUserInfoEdit}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showUserInfoModal')}
+        />
+      </Modal>
+
+      <WarningInfoModal
+        openModal={viewModel.showInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
+        title={viewModel.warningInfoModalTitle}
+        btnText={t(TranslationKey.Close)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showInfoModal')
+        }}
+      />
+    </>
+  )
 }
 
-export const UserProfileView = withStyles(UserProfileViewRaw, styles)
+export const UserProfileView = withStyles(observer(UserProfileViewRaw), styles)

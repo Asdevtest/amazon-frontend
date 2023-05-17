@@ -1,7 +1,7 @@
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import {Typography} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -16,37 +16,32 @@ import {t} from '@utils/translations'
 import {AdminWarehouseViewModel} from './admin-warehouse-view.model'
 import {styles} from './admin-warehouse-view.style'
 
-@observer
-class AdminWarehouseViewRaw extends Component {
-  viewModel = new AdminWarehouseViewModel({history: this.props.history})
+export const AdminWarehouseViewRaw = props => {
+  const [viewModel] = useState(() => new AdminWarehouseViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  render() {
-    const {onClickTasks, onClickBoxes} = this.viewModel
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div>
+          <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Warehouse'])}</Typography>
 
-    const {classes: classNames} = this.props
+          <div className={classNames.btnsWrapper}>
+            <Button className={classNames.button} color="primary" variant="outlined" onClick={viewModel.onClickTasks}>
+              <div className={classNames.btnTextWrapper}>
+                <Typography className={classNames.btnText}>{t(TranslationKey.Tasks)}</Typography>
+                <ArrowRightAltIcon color="primary" />
+              </div>
+            </Button>
 
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div>
-            <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Warehouse'])}</Typography>
+            <Button className={classNames.button} color="primary" variant="outlined" onClick={viewModel.onClickBoxes}>
+              <div className={classNames.btnTextWrapper}>
+                <Typography className={classNames.btnText}>{t(TranslationKey.Boxes)}</Typography>
+                <ArrowRightAltIcon color="primary" />
+              </div>
+            </Button>
 
-            <div className={classNames.btnsWrapper}>
-              <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickTasks}>
-                <div className={classNames.btnTextWrapper}>
-                  <Typography className={classNames.btnText}>{t(TranslationKey.Tasks)}</Typography>
-                  <ArrowRightAltIcon color="primary" />
-                </div>
-              </Button>
-
-              <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickBoxes}>
-                <div className={classNames.btnTextWrapper}>
-                  <Typography className={classNames.btnText}>{t(TranslationKey.Boxes)}</Typography>
-                  <ArrowRightAltIcon color="primary" />
-                </div>
-              </Button>
-
-              {/* <Button
+            {/* <Button
                     className={classNames.button}
                     color="primary"
                     variant="outlined"
@@ -57,12 +52,11 @@ class AdminWarehouseViewRaw extends Component {
                       <ArrowRightAltIcon color="primary" />
                     </div>
                   </Button> */}
-            </div>
           </div>
-        </MainContent>
-      </React.Fragment>
-    )
-  }
+        </div>
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const AdminWarehouseView = withStyles(AdminWarehouseViewRaw, styles)
+export const AdminWarehouseView = withStyles(observer(AdminWarehouseViewRaw), styles)

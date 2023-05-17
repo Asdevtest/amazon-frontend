@@ -1,6 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -24,60 +24,18 @@ import {t} from '@utils/translations'
 import {WarehouseSentBatchesViewModel} from './warehouse-sent-batches-view.model'
 import {styles} from './warehouse-sent-batches-view.style'
 
-@observer
-export class WarehouseSentBatchesViewRaw extends Component {
-  viewModel = new WarehouseSentBatchesViewModel({history: this.props.history})
+export const WarehouseSentBatchesViewRaw = props => {
+  const [viewModel] = useState(() => new WarehouseSentBatchesViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      userInfo,
-      warningInfoModalSettings,
-      nameSearchValue,
-      volumeWeightCoefficient,
-      curBatch,
-      showBatchInfoModal,
-      onTriggerOpenModal,
-      showConfirmModal,
-      sortModel,
-      rowCount,
-      currentData,
-      filterModel,
-      requestStatus,
-      densityModel,
-      columnsModel,
-      isWarning,
-      curPage,
-      rowsPerPage,
-      showEditHSCodeModal,
-      hsCodeData,
-      onClickSaveHsCode,
-      onClickHsCode,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      showWarningInfoModal,
-      onSelectionModel,
-      setDataGridState,
-      onChangeSortingModel,
-
-      onClickConfirmSendToBatchBtn,
-      onChangeFilterModel,
-
-      setCurrentOpenedBatch,
-      onSearchSubmit,
-      onSubmitChangeBoxFields,
-      changeColumnsModel,
-    } = this.viewModel
-
-    const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          {/* <div className={classNames.btnsWrapper}>
+  return (
+    <React.Fragment>
+      <MainContent>
+        {/* <div className={classNames.btnsWrapper}>
                 <Button
                   disableElevation
                   disabled
@@ -89,107 +47,112 @@ export class WarehouseSentBatchesViewRaw extends Component {
                 </Button>
               </div> */}
 
-          <div className={classNames.headerWrapper}>
-            <SearchInput
-              inputClasses={classNames.searchInput}
-              value={nameSearchValue}
-              placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
-              onSubmit={onSearchSubmit}
-            />
-          </div>
-
-          <div className={classNames.datagridWrapper}>
-            <MemoDataGrid
-              checkboxSelection
-              pagination
-              useResizeContainer
-              localeText={getLocalizationByLanguageTag()}
-              classes={{
-                row: classNames.row,
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-                filterForm: classNames.filterForm,
-              }}
-              sortingMode="server"
-              paginationMode="server"
-              rowCount={rowCount}
-              sortModel={sortModel}
-              filterModel={filterModel}
-              page={curPage}
-              pageSize={rowsPerPage}
-              rowsPerPageOptions={[15, 25, 50, 100]}
-              rows={currentData}
-              getRowHeight={() => 'auto'}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
-              }}
-              density={densityModel}
-              columns={columnsModel}
-              loading={requestStatus === loadingStatuses.isLoading}
-              componentsProps={{
-                toolbar: {
-                  columsBtnSettings: {columnsModel, changeColumnsModel},
-                },
-              }}
-              onSelectionModelChange={newSelection => {
-                onSelectionModel(newSelection)
-              }}
-              onSortModelChange={onChangeSortingModel}
-              onPageSizeChange={onChangeRowsPerPage}
-              onPageChange={onChangeCurPage}
-              onStateChange={setDataGridState}
-              onFilterModelChange={model => onChangeFilterModel(model)}
-              onRowDoubleClick={e => setCurrentOpenedBatch(e.row.originalData)}
-            />
-          </div>
-        </MainContent>
-
-        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
-          <EditHSCodeModal
-            hsCodeData={hsCodeData}
-            onClickSaveHsCode={onClickSaveHsCode}
-            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
+        <div className={classNames.headerWrapper}>
+          <SearchInput
+            inputClasses={classNames.searchInput}
+            value={viewModel.nameSearchValue}
+            placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
+            onSubmit={viewModel.onSearchSubmit}
           />
-        </Modal>
+        </div>
 
-        <ConfirmationModal
-          isWarning={isWarning}
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={t(TranslationKey.Attention)}
-          message={t(TranslationKey.Send) + '*'}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={onClickConfirmSendToBatchBtn}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-        />
+        <div className={classNames.datagridWrapper}>
+          <MemoDataGrid
+            checkboxSelection
+            pagination
+            useResizeContainer
+            localeText={getLocalizationByLanguageTag()}
+            classes={{
+              row: classNames.row,
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+              filterForm: classNames.filterForm,
+            }}
+            sortingMode="server"
+            paginationMode="server"
+            rowCount={viewModel.rowCount}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            page={viewModel.curPage}
+            pageSize={viewModel.rowsPerPage}
+            rowsPerPageOptions={[15, 25, 50, 100]}
+            rows={viewModel.currentData}
+            getRowHeight={() => 'auto'}
+            components={{
+              Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  changeColumnsModel: viewModel.changeColumnsModel,
+                },
+              },
+            }}
+            onSelectionModelChange={newSelection => {
+              viewModel.onSelectionModel(newSelection)
+            }}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onPageSizeChange={viewModel.onChangeRowsPerPage}
+            onPageChange={viewModel.onChangeCurPage}
+            onStateChange={viewModel.setDataGridState}
+            onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
+            onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData)}
+          />
+        </div>
+      </MainContent>
 
-        <BatchInfoModal
-          volumeWeightCoefficient={volumeWeightCoefficient}
-          openModal={showBatchInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showBatchInfoModal')}
-          batch={curBatch}
-          userInfo={userInfo}
-          onSubmitChangeBoxFields={onSubmitChangeBoxFields}
-          onClickHsCode={onClickHsCode}
+      <Modal
+        openModal={viewModel.showEditHSCodeModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+      >
+        <EditHSCodeModal
+          hsCodeData={viewModel.hsCodeData}
+          onClickSaveHsCode={viewModel.onClickSaveHsCode}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
         />
+      </Modal>
 
-        <WarningInfoModal
-          isWarning={warningInfoModalSettings.isWarning}
-          openModal={showWarningInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
-          title={warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showWarningInfoModal')
-          }}
-        />
-      </React.Fragment>
-    )
-  }
+      <ConfirmationModal
+        isWarning={viewModel.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={t(TranslationKey.Send) + '*'}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={viewModel.onClickConfirmSendToBatchBtn}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+
+      <BatchInfoModal
+        volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+        openModal={viewModel.showBatchInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
+        batch={viewModel.curBatch}
+        userInfo={viewModel.userInfo}
+        onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
+        onClickHsCode={viewModel.onClickHsCode}
+      />
+
+      <WarningInfoModal
+        isWarning={viewModel.warningInfoModalSettings.isWarning}
+        openModal={viewModel.showWarningInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        title={viewModel.warningInfoModalSettings.title}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showWarningInfoModal')
+        }}
+      />
+    </React.Fragment>
+  )
 }
 
-export const WarehouseSentBatchesView = withStyles(WarehouseSentBatchesViewRaw, styles)
+export const WarehouseSentBatchesView = withStyles(observer(WarehouseSentBatchesViewRaw), styles)
