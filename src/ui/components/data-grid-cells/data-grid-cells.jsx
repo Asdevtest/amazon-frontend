@@ -1876,7 +1876,7 @@ export const TaskDescriptionCell = React.memo(
         <img src="/assets/icons/equal.svg" className={classNames.taskDescriptionIcon} />
 
         <div className={classNames.sideWrapper}>
-          {task.boxes.map((box, index) =>
+          {task.boxes?.map((box, index) =>
             index !== task.boxes.length - 1 ? (
               <div key={index} className={classNames.renderBoxWrapper}>
                 {renderBox(box, index)}
