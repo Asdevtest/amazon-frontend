@@ -221,10 +221,6 @@ export class FreelanceModel {
     try {
       const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(item._id)
 
-      console.log('result', result)
-
-      console.log('item', item)
-
       const proposal = result.find(el => el.proposal.status)
 
       if (!proposal) {
