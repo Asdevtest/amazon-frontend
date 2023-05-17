@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -10,34 +10,16 @@ import {MainContent} from '@components/layout/main-content'
 import {ModeratorAppealsViewModel} from './moderator-appeals-view.model'
 import {styles} from './moderator-appeals-view.style'
 
-@observer
-class ModeratorAppealsViewRaw extends Component {
-  viewModel = new ModeratorAppealsViewModel({history: this.props.history})
+export const ModeratorAppealsViewRaw = props => {
+  const [viewModel] = useState(() => new ModeratorAppealsViewModel({history: props.history}))
 
-  // componentDidMount() {
-  //   this.viewModel.loadData()
-  // }
+  return (
+    <React.Fragment>
+      <MainContent>
+        <AppealsListCard onClickViewMore={viewModel.onClickViewMore} />
+      </MainContent>
 
-  render() {
-    const {
-      // showConfirmModal,
-      // deals,
-      onClickViewMore,
-      // onTriggerOpenModal,
-      // onClickGetToWorkModal,
-      // onClickGetToWork,
-      // requestId,
-      // proposalId,
-    } = this.viewModel
-    // const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <AppealsListCard onClickViewMore={onClickViewMore} />
-        </MainContent>
-
-        {/* <ConfirmationModal
+      {/* <ConfirmationModal
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
           title={t(TranslationKey.Attention)}
@@ -47,9 +29,8 @@ class ModeratorAppealsViewRaw extends Component {
           onClickSuccessBtn={() => onClickGetToWork(proposalId, requestId)}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         /> */}
-      </React.Fragment>
-    )
-  }
+    </React.Fragment>
+  )
 }
 
-export const ModeratorAppealsView = withStyles(ModeratorAppealsViewRaw, styles)
+export const ModeratorAppealsView = withStyles(observer(ModeratorAppealsViewRaw), styles)

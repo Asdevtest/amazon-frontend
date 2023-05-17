@@ -1,7 +1,7 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Paper} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -21,123 +21,96 @@ import {t} from '@utils/translations'
 import {ResearcherProductsViewModel} from './researcher-products-view.model'
 import {styles} from './researcher-products-view.style'
 
-@observer
-class ResearcherProductsViewRaw extends Component {
-  viewModel = new ResearcherProductsViewModel({history: this.props.history, location: this.props.location})
+export const ResearcherProductsViewRaw = props => {
+  const [viewModel] = useState(
+    () =>
+      new ResearcherProductsViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      user,
-      warningInfoModalSettings,
-      showWarningInfoModal,
-      requestStatus,
-      getCurrentData,
-      sortModel,
-      filterModel,
-      densityModel,
-      columnsModel,
-      rowsPerPage,
-      curPage,
-      formFields,
-      error,
-      reasonError,
-      actionStatus,
-      chekedCode,
-      // onClickCheckBtn,
-      // onClickAddBtn,
-      changeColumnsModel,
-      onClickCheckAndAddProductBtn,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      onChangeFormFields,
-      onClickTableRow,
-
-      onSelectionModel,
-      setDataGridState,
-      onChangeSortingModel,
-      onChangeFilterModel,
-      onTriggerOpenModal,
-    } = this.viewModel
-    const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <Paper className={classNames.card}>
-            <div className={classNames.formWrapper}>
-              <ResearcherAddProductForm
-                user={user}
-                formFields={formFields}
-                errorMsg={error}
-                reasonErrorMsg={reasonError}
-                chekedCode={chekedCode}
-                actionStatus={actionStatus}
-                onChangeFormFields={onChangeFormFields}
-                onClickCheckAndAddProductBtn={onClickCheckAndAddProductBtn}
-              />
-            </div>
-          </Paper>
-          <div className={classNames.tableWrapper}>
-            <MemoDataGrid
-              pagination
-              useResizeContainer
-              localeText={getLocalizationByLanguageTag()}
-              classes={{
-                row: classNames.row,
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
-              sortModel={sortModel}
-              filterModel={filterModel}
-              page={curPage}
-              pageSize={rowsPerPage}
-              rowsPerPageOptions={[15, 25, 50, 100]}
-              rows={getCurrentData()}
-              rowHeight={60}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
-              }}
-              density={densityModel}
-              columns={columnsModel}
-              loading={requestStatus === loadingStatuses.isLoading}
-              componentsProps={{
-                toolbar: {
-                  columsBtnSettings: {columnsModel, changeColumnsModel},
-                },
-              }}
-              onSelectionModelChange={newSelection => {
-                onSelectionModel(newSelection[0])
-              }}
-              onSortModelChange={onChangeSortingModel}
-              onPageSizeChange={onChangeRowsPerPage}
-              onPageChange={onChangeCurPage}
-              onStateChange={setDataGridState}
-              onRowDoubleClick={e => onClickTableRow(e.row)}
-              onFilterModelChange={model => onChangeFilterModel(model)}
+  return (
+    <React.Fragment>
+      <MainContent>
+        <Paper className={classNames.card}>
+          <div className={classNames.formWrapper}>
+            <ResearcherAddProductForm
+              user={viewModel.user}
+              formFields={viewModel.formFields}
+              errorMsg={viewModel.error}
+              reasonErrorMsg={viewModel.reasonError}
+              chekedCode={viewModel.chekedCode}
+              actionStatus={viewModel.actionStatus}
+              onChangeFormFields={viewModel.onChangeFormFields}
+              onClickCheckAndAddProductBtn={viewModel.onClickCheckAndAddProductBtn}
             />
           </div>
-        </MainContent>
+        </Paper>
+        <div className={classNames.tableWrapper}>
+          <MemoDataGrid
+            pagination
+            useResizeContainer
+            localeText={getLocalizationByLanguageTag()}
+            classes={{
+              row: classNames.row,
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+            }}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            page={viewModel.curPage}
+            pageSize={viewModel.rowsPerPage}
+            rowsPerPageOptions={[15, 25, 50, 100]}
+            rows={viewModel.getCurrentData()}
+            rowHeight={60}
+            components={{
+              Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  changeColumnsModel: viewModel.changeColumnsModel,
+                },
+              },
+            }}
+            onSelectionModelChange={newSelection => {
+              viewModel.onSelectionModel(newSelection[0])
+            }}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onPageSizeChange={viewModel.onChangeRowsPerPage}
+            onPageChange={viewModel.onChangeCurPage}
+            onStateChange={viewModel.setDataGridState}
+            onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
+          />
+        </div>
+      </MainContent>
 
-        <WarningInfoModal
-          isWarning={warningInfoModalSettings.isWarning}
-          openModal={showWarningInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
-          title={warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Close)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showWarningInfoModal')
-          }}
-        />
-      </React.Fragment>
-    )
-  }
+      <WarningInfoModal
+        isWarning={viewModel.warningInfoModalSettings.isWarning}
+        openModal={viewModel.showWarningInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        title={viewModel.warningInfoModalSettings.title}
+        btnText={t(TranslationKey.Close)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showWarningInfoModal')
+        }}
+      />
+    </React.Fragment>
+  )
 }
 
-export const ResearcherProductsView = withStyles(ResearcherProductsViewRaw, styles)
+export const ResearcherProductsView = withStyles(observer(ResearcherProductsViewRaw), styles)

@@ -1,8 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
-
-import {observer} from 'mobx-react'
+import React, {useEffect, useState} from 'react'
 import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
@@ -21,133 +19,104 @@ import {t} from '@utils/translations'
 
 import {AdminUsersViewModel} from './admin-users-view.model'
 import {styles} from './admin-users-view.style'
+import {observer} from 'mobx-react'
 
-@observer
-class AdminUsersViewRaw extends Component {
-  viewModel = new AdminUsersViewModel({history: this.props.history})
+export const AdminUsersViewRaw = props => {
+  const [viewModel] = useState(() => new AdminUsersViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      nameSearchValue,
-
-      groupPermissions,
-      singlePermissions,
-
-      getCurrentData,
-      sortModel,
-      filterModel,
-      densityModel,
-      columnsModel,
-
-      requestStatus,
-      curPage,
-      rowsPerPage,
-      editUserFormFields,
-      showEditUserModal,
-      checkValidationNameOrEmail,
-      changeNameAndEmail,
-      showConfirmModal,
-      finalStepSubmitEditUserForm,
-      submitEditUserForm,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      onSelectionModel,
-      setDataGridState,
-      onChangeSortingModel,
-      onChangeFilterModel,
-
-      onTriggerOpenModal,
-      onChangeNameSearchValue,
-      changeColumnsModel,
-    } = this.viewModel
-    const {classes: classNames} = this.props
-    return (
-      <React.Fragment>
-        <MainContent>
-          <SearchInput
-            inputClasses={classNames.searchInput}
-            value={nameSearchValue}
-            placeholder={t(TranslationKey.search)}
-            onChange={onChangeNameSearchValue}
-          />
-
-          <div className={classNames.datagridWrapper}>
-            <MemoDataGrid
-              pagination
-              // autoHeight
-              useResizeContainer
-              classes={{
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
-              localeText={getLocalizationByLanguageTag()}
-              sortModel={sortModel}
-              filterModel={filterModel}
-              page={curPage}
-              pageSize={rowsPerPage}
-              rowsPerPageOptions={[15, 25, 50, 100]}
-              rowHeight={80}
-              rows={getCurrentData()}
-              density={densityModel}
-              columns={columnsModel}
-              loading={requestStatus === loadingStatuses.isLoading}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
-              }}
-              componentsProps={{
-                toolbar: {
-                  columsBtnSettings: {columnsModel, changeColumnsModel},
-                },
-              }}
-              onSelectionModelChange={newSelection => {
-                onSelectionModel(newSelection[0])
-              }}
-              onSortModelChange={onChangeSortingModel}
-              onPageSizeChange={onChangeRowsPerPage}
-              onPageChange={onChangeCurPage}
-              onStateChange={setDataGridState}
-              onFilterModelChange={model => onChangeFilterModel(model)}
-            />
-          </div>
-        </MainContent>
-        <Modal openModal={showEditUserModal} setOpenModal={() => onTriggerOpenModal('showEditUserModal')}>
-          <AdminContentModal
-            checkValidationNameOrEmail={checkValidationNameOrEmail}
-            changeNameAndEmail={changeNameAndEmail}
-            singlePermissions={singlePermissions}
-            groupPermissions={groupPermissions}
-            editUserFormFields={editUserFormFields}
-            title={t(TranslationKey['Edit user'])}
-            buttonLabel={t(TranslationKey.Save)}
-            onSubmit={submitEditUserForm}
-            onCloseModal={() => onTriggerOpenModal('showEditUserModal')}
-          />
-        </Modal>
-
-        <ConfirmationModal
-          isWarning
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={t(TranslationKey.Attention)}
-          message={t(TranslationKey['This user has sub-users - they will be deactivated! Are you sure?'])}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={() => {
-            finalStepSubmitEditUserForm()
-            onTriggerOpenModal('showConfirmModal')
-          }}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+  return (
+    <React.Fragment>
+      <MainContent>
+        <SearchInput
+          inputClasses={classNames.searchInput}
+          value={viewModel.nameSearchValue}
+          placeholder={t(TranslationKey.search)}
+          onChange={viewModel.onChangeNameSearchValue}
         />
-      </React.Fragment>
-    )
-  }
+
+        <div className={classNames.datagridWrapper}>
+          <MemoDataGrid
+            pagination
+            // autoHeight
+            useResizeContainer
+            classes={{
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+            }}
+            localeText={getLocalizationByLanguageTag()}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            page={viewModel.curPage}
+            pageSize={viewModel.rowsPerPage}
+            rowsPerPageOptions={[15, 25, 50, 100]}
+            rowHeight={80}
+            rows={viewModel.getCurrentData()}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            components={{
+              Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  changeColumnsModel: viewModel.changeColumnsModel,
+                },
+              },
+            }}
+            onSelectionModelChange={newSelection => {
+              viewModel.onSelectionModel(newSelection[0])
+            }}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onPageSizeChange={viewModel.onChangeRowsPerPage}
+            onPageChange={viewModel.onChangeCurPage}
+            onStateChange={viewModel.setDataGridState}
+            onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
+          />
+        </div>
+      </MainContent>
+      <Modal
+        openModal={viewModel.showEditUserModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showEditUserModal')}
+      >
+        <AdminContentModal
+          checkValidationNameOrEmail={viewModel.checkValidationNameOrEmail}
+          changeNameAndEmail={viewModel.changeNameAndEmail}
+          singlePermissions={viewModel.singlePermissions}
+          groupPermissions={viewModel.groupPermissions}
+          editUserFormFields={viewModel.editUserFormFields}
+          title={t(TranslationKey['Edit user'])}
+          buttonLabel={t(TranslationKey.Save)}
+          onSubmit={viewModel.submitEditUserForm}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showEditUserModal')}
+        />
+      </Modal>
+
+      <ConfirmationModal
+        isWarning
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={t(TranslationKey['This user has sub-users - they will be deactivated! Are you sure?'])}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={() => {
+          viewModel.finalStepSubmitEditUserForm()
+          viewModel.onTriggerOpenModal('showConfirmModal')
+        }}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+    </React.Fragment>
+  )
 }
 
-export const AdminUsersView = withStyles(AdminUsersViewRaw, styles)
+export const AdminUsersView = withStyles(observer(AdminUsersViewRaw), styles)

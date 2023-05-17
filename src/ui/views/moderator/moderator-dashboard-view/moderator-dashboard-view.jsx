@@ -1,15 +1,12 @@
 import {Typography} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
-// import {getFreelancerDashboardCardConfig} from '@constants/dashboard-configs'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-// import {DashboardBalance} from '@components/dashboards/dashboard-balance'
-// import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
 import {MainContent} from '@components/layout/main-content'
 import {UserLink} from '@components/user/user-link'
 
@@ -18,34 +15,29 @@ import {t} from '@utils/translations'
 import {ModeratorDashboardViewModel} from './moderator-dashboard-view.model'
 import {styles} from './moderator-dashboard-view.style'
 
-@observer
-export class ModeratorDashboardViewRaw extends Component {
-  viewModel = new ModeratorDashboardViewModel({history: this.props.history})
+export const ModeratorDashboardViewRaw = props => {
+  const [viewModel] = useState(() => new ModeratorDashboardViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  // componentDidMount() {
-  //   this.viewModel.loadData()
-  // }
+  return (
+    <React.Fragment>
+      <MainContent>
+        <Typography className={classNames.inProcess}>{'В разработке...'}</Typography>
 
-  render() {
-    const {userInfo} = this.viewModel
-    const {classes: classNames} = this.props
+        {viewModel.userInfo.masterUser && (
+          <div className={classNames.masterUserWrapper}>
+            <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
 
-    return (
-      <React.Fragment>
-        <MainContent>
-          <Typography className={classNames.inProcess}>{'В разработке...'}</Typography>
-
-          {userInfo.masterUser && (
-            <div className={classNames.masterUserWrapper}>
-              <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
-
-              <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
-            </div>
-          )}
-        </MainContent>
-      </React.Fragment>
-    )
-  }
+            <UserLink
+              blackText
+              name={viewModel.userInfo.masterUser?.name}
+              userId={viewModel.userInfo.masterUser?._id}
+            />
+          </div>
+        )}
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const ModeratorDashboardView = withStyles(ModeratorDashboardViewRaw, styles)
+export const ModeratorDashboardView = withStyles(observer(ModeratorDashboardViewRaw), styles)

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 /* eslint-disable no-undef */
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -18,56 +18,45 @@ import {t} from '@utils/translations'
 import {ServicesDetailCustomViewModel} from './services-detail-custom-view.model'
 import {styles} from './services-detail-custom-view.style'
 
-@observer
-export class ServicesDetailCustomViewRaw extends Component {
-  viewModel = new ServicesDetailCustomViewModel({
-    history: this.props.history,
-    location: this.props.location,
-  })
+export const ServicesDetailCustomViewRaw = props => {
+  const [viewModel] = useState(
+    () =>
+      new ServicesDetailCustomViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {classes: classNames} = this.props
-    const {
-      request,
-      announcementData,
-      showWarningModal,
-      showConfirmModal,
-      warningInfoModalSettings,
-      onTriggerOpenModal,
-      onClickBackBtn,
-      onClickSuggestDealBtn,
-      onClickCancelRequestProposal,
-    } = this.viewModel
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.backBtnWrapper}>
+          <Button variant="contained" color="primary" className={classNames.backBtn} onClick={viewModel.onClickBackBtn}>
+            {t(TranslationKey.Back)}
+          </Button>
+        </div>
 
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div className={classNames.backBtnWrapper}>
-            <Button variant="contained" color="primary" className={classNames.backBtn} onClick={onClickBackBtn}>
-              {t(TranslationKey.Back)}
-            </Button>
+        <div className={classNames.requestInfoWrapper}>
+          <MyServicesInfoCustom
+            request={viewModel.request}
+            announcementData={viewModel.announcementData}
+            onClickSuggestDealBtn={viewModel.onClickSuggestDealBtn}
+          />
+        </div>
+
+        {viewModel.request ? (
+          <div className={classNames.detailsWrapper}>
+            <CustomSearchRequestDetails request={viewModel.request} announcementData={viewModel.announcementData} />
           </div>
+        ) : null}
+      </MainContent>
 
-          <div className={classNames.requestInfoWrapper}>
-            <MyServicesInfoCustom
-              request={request}
-              announcementData={announcementData}
-              onClickSuggestDealBtn={onClickSuggestDealBtn}
-            />
-          </div>
-
-          {request ? (
-            <div className={classNames.detailsWrapper}>
-              <CustomSearchRequestDetails request={request} announcementData={announcementData} />
-            </div>
-          ) : null}
-        </MainContent>
-
-        {/* <WarningInfoModal
+      {/* <WarningInfoModal
           isWarning={warningInfoModalSettings.isWarning}
           openModal={showWarningModal}
           setOpenModal={() => onTriggerOpenModal('showWarningModal')}
@@ -78,7 +67,7 @@ export class ServicesDetailCustomViewRaw extends Component {
           }}
         /> */}
 
-        {/* <ConfirmationModal
+      {/* <ConfirmationModal
           isWarning
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
@@ -89,9 +78,8 @@ export class ServicesDetailCustomViewRaw extends Component {
           onClickSuccessBtn={onClickCancelRequestProposal}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         /> */}
-      </React.Fragment>
-    )
-  }
+    </React.Fragment>
+  )
 }
 
-export const ServicesDetailCustomView = withStyles(ServicesDetailCustomViewRaw, styles)
+export const ServicesDetailCustomView = withStyles(observer(ServicesDetailCustomViewRaw), styles)

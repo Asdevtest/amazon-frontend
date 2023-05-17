@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
+import React, {Component, useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -25,90 +25,75 @@ import {t} from '@utils/translations'
 import {BuyerSearchSupplierByClientModel} from './buyer-search-supplier-by-client-view.model'
 import {styles} from './buyer-search-supplier-by-client-view.style'
 
-@observer
-export class BuyerSearchSupplierByClientViewRaw extends Component {
-  viewModel = new BuyerSearchSupplierByClientModel({history: this.props.history})
+export const BuyerSearchSupplierByClientViewRaw = props => {
+  const [viewModel] = useState(() => new BuyerSearchSupplierByClientModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      drawerOpen,
-      onTriggerDrawerOpen,
-      getCurrentData,
-      selectedRowIds,
-      columnsModel,
-      requestStatus,
-      showInfoModal,
-      onSelectionModel,
-      onTriggerOpenModal,
-      onPickupSomeItems,
-      setDataGridState,
-      changeColumnsModel,
-    } = this.viewModel
-    const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div className={classNames.btnsWrapper}>
-            <Button
-              color="primary"
-              variant="contained"
-              disabled={selectedRowIds.length === 0}
-              tooltipInfoContent={t(TranslationKey['Assign several supplier search tasks to a Buyer'])}
-              onClick={onPickupSomeItems}
-            >
-              {t(TranslationKey['Take on the work of the selected'])}
-            </Button>
-          </div>
-          <div className={classNames.datagridWrapper}>
-            <MemoDataGrid
-              disableVirtualization
-              checkboxSelection
-              pagination
-              useResizeContainer
-              classes={{
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
-              }}
-              componentsProps={{
-                toolbar: {
-                  columsBtnSettings: {columnsModel, changeColumnsModel},
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.btnsWrapper}>
+          <Button
+            color="primary"
+            variant="contained"
+            disabled={viewModel.selectedRowIds.length === 0}
+            tooltipInfoContent={t(TranslationKey['Assign several supplier search tasks to a Buyer'])}
+            onClick={viewModel.onPickupSomeItems}
+          >
+            {t(TranslationKey['Take on the work of the selected'])}
+          </Button>
+        </div>
+        <div className={classNames.datagridWrapper}>
+          <MemoDataGrid
+            disableVirtualization
+            checkboxSelection
+            pagination
+            useResizeContainer
+            classes={{
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+            }}
+            components={{
+              Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  changeColumnsModel: viewModel.changeColumnsModel,
                 },
-              }}
-              localeText={getLocalizationByLanguageTag()}
-              rowsPerPageOptions={[15, 25, 50, 100]}
-              rows={getCurrentData()}
-              rowHeight={100}
-              columns={columnsModel}
-              loading={requestStatus === loadingStatuses.isLoading}
-              onSelectionModelChange={onSelectionModel}
-              onStateChange={setDataGridState}
-            />
-          </div>
-        </MainContent>
+              },
+            }}
+            localeText={getLocalizationByLanguageTag()}
+            rowsPerPageOptions={[15, 25, 50, 100]}
+            rows={viewModel.getCurrentData()}
+            rowHeight={100}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onSelectionModelChange={viewModel.onSelectionModel}
+            onStateChange={viewModel.setDataGridState}
+          />
+        </div>
+      </MainContent>
 
-        <WarningInfoModal
-          openModal={showInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showInfoModal')}
-          title={t(TranslationKey['Taken to Work'])}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showInfoModal')
-          }}
-        />
-      </React.Fragment>
-    )
-  }
+      <WarningInfoModal
+        openModal={viewModel.showInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
+        title={t(TranslationKey['Taken to Work'])}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showInfoModal')
+        }}
+      />
+    </React.Fragment>
+  )
 }
 
-export const BuyerSearchSupplierByClientView = withStyles(BuyerSearchSupplierByClientViewRaw, styles)
+export const BuyerSearchSupplierByClientView = withStyles(observer(BuyerSearchSupplierByClientViewRaw), styles)

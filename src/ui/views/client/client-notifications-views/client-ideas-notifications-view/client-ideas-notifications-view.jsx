@@ -1,6 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -19,89 +19,68 @@ import {t} from '@utils/translations'
 import {ClientIdeasNotificationsViewModel} from './client-ideas-notifications-view.model'
 import {styles} from './client-ideas-notifications-view.style'
 
-@observer
-class ClientIdeasNotificationsViewRaw extends Component {
-  viewModel = new ClientIdeasNotificationsViewModel({history: this.props.history})
+export const ClientIdeasNotificationsViewRaw = props => {
+  const [viewModel] = useState(() => new ClientIdeasNotificationsViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      requestStatus,
-      getCurrentData,
-      sortModel,
-      filterModel,
-      densityModel,
-      columnsModel,
-      rowsPerPage,
-      curPage,
-      isArchived,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      setCurrentOpenedBox,
-      onSelectionModel,
-      setDataGridState,
-      onChangeSortingModel,
-      onChangeFilterModel,
-      handleArchive,
-      changeColumnsModel,
-    } = this.viewModel
-    const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <Button variant="outlined" className={classNames.archiveHandler} onClick={handleArchive}>
-            {isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
-          </Button>
-          <div className={classNames.tableWrapper}>
-            <MemoDataGrid
-              pagination
-              useResizeContainer
-              disableVirtualization
-              localeText={getLocalizationByLanguageTag()}
-              classes={{
-                row: classNames.row,
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
-              sortModel={sortModel}
-              filterModel={filterModel}
-              page={curPage}
-              pageSize={rowsPerPage}
-              rowsPerPageOptions={[15, 25, 50, 100]}
-              rows={getCurrentData()}
-              // getRowHeight={() => 'auto'}
-              rowHeight={120}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
-              }}
-              componentsProps={{
-                toolbar: {
-                  columsBtnSettings: {columnsModel, changeColumnsModel},
+  return (
+    <React.Fragment>
+      <MainContent>
+        <Button variant="outlined" className={classNames.archiveHandler} onClick={viewModel.handleArchive}>
+          {viewModel.isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
+        </Button>
+        <div className={classNames.tableWrapper}>
+          <MemoDataGrid
+            pagination
+            useResizeContainer
+            disableVirtualization
+            localeText={getLocalizationByLanguageTag()}
+            classes={{
+              row: classNames.row,
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+            }}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            page={viewModel.curPage}
+            pageSize={viewModel.rowsPerPage}
+            rowsPerPageOptions={[15, 25, 50, 100]}
+            rows={viewModel.getCurrentData()}
+            // getRowHeight={() => 'auto'}
+            rowHeight={120}
+            components={{
+              Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  changeColumnsModel: viewModel.changeColumnsModel,
                 },
-              }}
-              density={densityModel}
-              columns={columnsModel}
-              loading={requestStatus === loadingStatuses.isLoading}
-              onSelectionModelChange={onSelectionModel}
-              onSortModelChange={onChangeSortingModel}
-              onPageSizeChange={onChangeRowsPerPage}
-              onPageChange={onChangeCurPage}
-              onStateChange={setDataGridState}
-              onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-              onFilterModelChange={model => onChangeFilterModel(model)}
-            />
-          </div>
-        </MainContent>
-      </React.Fragment>
-    )
-  }
+              },
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onSelectionModelChange={viewModel.onSelectionModel}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onPageSizeChange={viewModel.onChangeRowsPerPage}
+            onPageChange={viewModel.onChangeCurPage}
+            onStateChange={viewModel.setDataGridState}
+            onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
+            onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
+          />
+        </div>
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const ClientIdeasNotificationsView = withStyles(ClientIdeasNotificationsViewRaw, styles)
+export const ClientIdeasNotificationsView = withStyles(observer(ClientIdeasNotificationsViewRaw), styles)

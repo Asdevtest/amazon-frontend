@@ -1,6 +1,6 @@
 import {Avatar, Paper} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -19,47 +19,45 @@ import {t} from '@utils/translations'
 import {AdminDashboardViewModel} from './admin-dashboard-view.model'
 import {styles} from './admin-dashboard-view.style'
 
-@observer
-export class AdminDashboardViewRaw extends Component {
-  viewModel = new AdminDashboardViewModel({history: this.props.history})
+export const AdminDashboardViewRaw = props => {
+  const [viewModel] = useState(() => new AdminDashboardViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
+
+  const buyerButtonsRoutes = {
+    notifications: '',
+    messages: 'messages',
+    settings: 'settings',
   }
 
-  render() {
-    const {onClickInfoCardViewMode, dashboardData, userInfo} = this.viewModel
-    const {classes: classNames} = this.props
-    const buyerButtonsRoutes = {
-      notifications: '',
-      messages: 'messages',
-      settings: 'settings',
-    }
-    return (
-      <React.Fragment>
-        <MainContent>
-          <Paper className={classNames.userInfoWrapper}>
-            <div className={classNames.userInfoLeftWrapper}>
-              <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
+  return (
+    <React.Fragment>
+      <MainContent>
+        <Paper className={classNames.userInfoWrapper}>
+          <div className={classNames.userInfoLeftWrapper}>
+            <Avatar src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
 
-              <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
-            </div>
+            <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />
+          </div>
 
-            <DashboardButtons user={userInfo} routes={buyerButtonsRoutes} />
-          </Paper>
-          {getAdminDashboardCardConfig().map(item => (
-            <DashboardOneLineCardsList
-              key={item.key}
-              config={item}
-              configSubTitle={t(TranslationKey['Accrual data'])}
-              valuesData={dashboardData}
-              onClickViewMore={onClickInfoCardViewMode}
-            />
-          ))}
-        </MainContent>
-      </React.Fragment>
-    )
-  }
+          <DashboardButtons user={viewModel.userInfo} routes={buyerButtonsRoutes} />
+        </Paper>
+
+        {getAdminDashboardCardConfig().map(item => (
+          <DashboardOneLineCardsList
+            key={item.key}
+            config={item}
+            configSubTitle={t(TranslationKey['Accrual data'])}
+            valuesData={viewModel.dashboardData}
+            onClickViewMore={viewModel.onClickInfoCardViewMode}
+          />
+        ))}
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const AdminDashboardView = withStyles(AdminDashboardViewRaw, styles)
+export const AdminDashboardView = withStyles(observer(AdminDashboardViewRaw), styles)

@@ -1,33 +1,20 @@
-import React, {Component} from 'react'
-
-import {observer} from 'mobx-react'
+import React from 'react'
 import {withStyles} from 'tss-react/mui'
 
 import {ClientBuyShopsContent} from '@components/contents/client-buy-shops-content'
 import {MainContent} from '@components/layout/main-content'
-
-import {ClientSellShopsViewModel} from './client-buy-shops-view.model'
 import {styles} from './client-buy-shops-view.style'
+import {observer} from 'mobx-react'
 
-@observer
-class ClientBuyShopsViewRaw extends Component {
-  viewModel = new ClientSellShopsViewModel({history: this.props.history})
+export const ClientBuyShopsViewRaw = () => (
+  // const [viewModel] = useState(() => new ClientSellShopsViewModel({history: props.history}))
+  // const {classes: classNames} = props
 
-  // componentDidMount() {
-  //   this.viewModel.loadData()
-  // }
+  <React.Fragment>
+    <MainContent>
+      <ClientBuyShopsContent />
+    </MainContent>
+  </React.Fragment>
+)
 
-  render() {
-    // const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <ClientBuyShopsContent />
-        </MainContent>
-      </React.Fragment>
-    )
-  }
-}
-
-export const ClientBuyShopsView = withStyles(ClientBuyShopsViewRaw, styles)
+export const ClientBuyShopsView = withStyles(observer(ClientBuyShopsViewRaw), styles)

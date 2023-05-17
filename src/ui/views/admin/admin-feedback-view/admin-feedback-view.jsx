@@ -1,6 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -21,108 +21,83 @@ import {t} from '@utils/translations'
 import {AdminFeedbackViewModel} from './admin-feedback-view.model'
 import {styles} from './admin-feedback-view.style'
 
-@observer
-export class AdminFeedbackViewRaw extends Component {
-  viewModel = new AdminFeedbackViewModel({history: this.props.history})
+export const AdminFeedbackViewRaw = props => {
+  const [viewModel] = useState(() => new AdminFeedbackViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      selectedFeedback,
-      showReplyFeedbackModal,
-      nameSearchValue,
-      getCurrentData,
-      sortModel,
-      filterModel,
-      densityModel,
-      columnsModel,
-
-      requestStatus,
-      curPage,
-      rowsPerPage,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      onSelectionModel,
-      setDataGridState,
-      onChangeSortingModel,
-
-      onChangeFilterModel,
-      onChangeNameSearchValue,
-      onTriggerOpenModal,
-
-      onClickWriteBtn,
-      changeColumnsModel,
-    } = this.viewModel
-
-    const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div className={classNames.headerWrapper}>
-            <SearchInput
-              inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey['Search by name, email'])}
-              value={nameSearchValue}
-              onChange={onChangeNameSearchValue}
-            />
-          </div>
-
-          <MemoDataGrid
-            disableVirtualization
-            pagination
-            useResizeContainer
-            localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            density={densityModel}
-            columns={columnsModel}
-            sortModel={sortModel}
-            filterModel={filterModel}
-            page={curPage}
-            pageSize={rowsPerPage}
-            rowHeight={100}
-            rowsPerPageOptions={[15, 25, 50, 100]}
-            loading={requestStatus === loadingStatuses.isLoading}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
-            }}
-            componentsProps={{
-              toolbar: {
-                columsBtnSettings: {columnsModel, changeColumnsModel},
-              },
-            }}
-            getRowHeight={() => 'auto'}
-            rows={getCurrentData()}
-            onSelectionModelChange={newSelection => {
-              onSelectionModel(newSelection[0])
-            }}
-            onSortModelChange={onChangeSortingModel}
-            onPageSizeChange={onChangeRowsPerPage}
-            onPageChange={onChangeCurPage}
-            onStateChange={setDataGridState}
-            onFilterModelChange={model => onChangeFilterModel(model)}
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.headerWrapper}>
+          <SearchInput
+            inputClasses={classNames.searchInput}
+            placeholder={t(TranslationKey['Search by name, email'])}
+            value={viewModel.nameSearchValue}
+            onChange={viewModel.onChangeNameSearchValue}
           />
+        </div>
 
-          <Modal openModal={showReplyFeedbackModal} setOpenModal={() => onTriggerOpenModal('showReplyFeedbackModal')}>
-            <ReplyFeedbackForm
-              feedback={selectedFeedback}
-              onCloseModal={() => onTriggerOpenModal('showReplyFeedbackModal')}
-              onSubmit={onClickWriteBtn}
-            />
-          </Modal>
-        </MainContent>
-      </React.Fragment>
-    )
-  }
+        <MemoDataGrid
+          disableVirtualization
+          pagination
+          useResizeContainer
+          localeText={getLocalizationByLanguageTag()}
+          classes={{
+            row: classNames.row,
+            footerContainer: classNames.footerContainer,
+            footerCell: classNames.footerCell,
+            toolbarContainer: classNames.toolbarContainer,
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          page={viewModel.curPage}
+          pageSize={viewModel.rowsPerPage}
+          rowHeight={100}
+          rowsPerPageOptions={[15, 25, 50, 100]}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          components={{
+            Toolbar: DataGridCustomToolbar,
+            ColumnMenuIcon: FilterAltOutlinedIcon,
+          }}
+          componentsProps={{
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                changeColumnsModel: viewModel.changeColumnsModel,
+              },
+            },
+          }}
+          getRowHeight={() => 'auto'}
+          rows={viewModel.getCurrentData()}
+          onSelectionModelChange={newSelection => {
+            viewModel.onSelectionModel(newSelection[0])
+          }}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onPageSizeChange={viewModel.onChangeRowsPerPage}
+          onPageChange={viewModel.onChangeCurPage}
+          onStateChange={viewModel.setDataGridState}
+          onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
+        />
+
+        <Modal
+          openModal={viewModel.showReplyFeedbackModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showReplyFeedbackModal')}
+        >
+          <ReplyFeedbackForm
+            feedback={viewModel.selectedFeedback}
+            onCloseModal={() => viewModel.onTriggerOpenModal('showReplyFeedbackModal')}
+            onSubmit={viewModel.onClickWriteBtn}
+          />
+        </Modal>
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const AdminFeedbackView = withStyles(AdminFeedbackViewRaw, styles)
+export const AdminFeedbackView = withStyles(observer(AdminFeedbackViewRaw), styles)

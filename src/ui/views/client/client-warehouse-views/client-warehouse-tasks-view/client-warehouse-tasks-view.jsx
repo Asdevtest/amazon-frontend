@@ -3,7 +3,7 @@ import {cx} from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Checkbox, Typography} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -41,312 +41,283 @@ import {t} from '@utils/translations'
 import {ClientWarehouseTasksViewModel} from './client-warehouse-tasks-view.model'
 import {styles} from './client-warehouse-tasks-view.style'
 
-@observer
-export class ClientWarehouseTasksViewRaw extends Component {
-  viewModel = new ClientWarehouseTasksViewModel({history: this.props.history})
+export const ClientWarehouseTasksViewRaw = props => {
+  const [viewModel] = useState(() => new ClientWarehouseTasksViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      selectedStorekeeperFilters,
-      confirmModalSettings,
-      volumeWeightCoefficient,
-      columnsModel,
-      getCurrentTaskData,
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.headerWrapper}>
+          <SearchInput
+            // disabled
+            value={viewModel.nameSearchValue}
+            inputClasses={classNames.searchInput}
+            placeholder={t(TranslationKey['Search by ASIN, Order ID, Item'])}
+            onSubmit={viewModel.onSearchSubmit}
+          />
+        </div>
 
-      curOpenedTask,
-      curPageForTask,
-      rowsPerPageForTask,
-      showConfirmModal,
-      showTaskInfoModal,
-      showProgress,
-      showConfirmWithCommentModal,
-      showWarningInfoModal,
-      warningInfoModalSettings,
-      rowsCount,
-      showEditPriorityData,
-      columnMenuSettings,
-      editPriorityData,
-      currentPriority,
-      storekeepersData,
-      selectFilterForField,
-      activeFilters,
-      nameSearchValue,
-      requestStatus,
-      onSearchSubmit,
-      onSelectionModel,
-      changeColumnsModel,
-      onChangeFilterModel,
-      onChangeSortingModel,
-      onChangeCurPageForTask,
-      onChangeRowsPerPageForTask,
-      onTriggerOpenModal,
-      onClickCancelAfterConfirm,
-      handleActivePriority,
-      updateTaskPriority,
-      getTasksMy,
-    } = this.viewModel
+        <div className={classNames.filters}>
+          <WithSearchSelect
+            notCloseOneClick
+            isFlat
+            checkbox
+            getRowValue={el => taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[Number(el)])}
+            selectedItemName={t(TranslationKey['All priorities'])}
+            data={Object.keys(mapTaskPriorityStatusEnum).reverse()}
+            currentShops={viewModel.activeFilters.priority}
+            firstItems={
+              <Button
+                className={classNames.filterBtn}
+                variant="text"
+                onClick={() => {
+                  viewModel.selectFilterForField(
+                    'priority',
+                    Object.keys(mapTaskPriorityStatusEnum).length === viewModel.activeFilters.priority.length
+                      ? []
+                      : Object.keys(mapTaskPriorityStatusEnum),
+                  )
+                }}
+              >
+                <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
+                  <>
+                    <Checkbox
+                      checked={
+                        Object.keys(mapTaskPriorityStatusEnum).length === viewModel.activeFilters.priority.length
+                      }
+                      color="primary"
+                    />
+                    <Typography className={classNames.fieldName}>{t(TranslationKey['All priorities'])}</Typography>
+                  </>
+                </div>
+              </Button>
+            }
+            onClickSelect={el => viewModel.selectFilterForField('priority', el)}
+            onClickSubmitBtn={viewModel.getTasksMy}
+          />
 
-    const {classes: classNames} = this.props
+          <WithSearchSelect
+            notCloseOneClick
+            isFlat
+            checkbox
+            getRowValue={el => TaskStatusTranslate(mapTaskStatusKeyToEnum[el])}
+            selectedItemName={t(TranslationKey['All statuses'])}
+            data={Object.keys(mapTaskStatusKeyToEnum)}
+            currentShops={viewModel.activeFilters.status}
+            firstItems={
+              <Button
+                className={classNames.filterBtn}
+                variant="text"
+                onClick={() => {
+                  viewModel.selectFilterForField(
+                    'status',
+                    Object.keys(mapTaskStatusKeyToEnum).length === viewModel.activeFilters.status.length
+                      ? []
+                      : Object.keys(mapTaskStatusKeyToEnum),
+                  )
+                }}
+              >
+                <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
+                  <>
+                    <Checkbox
+                      checked={Object.keys(mapTaskStatusKeyToEnum).length === viewModel.activeFilters.status.length}
+                      color="primary"
+                    />
+                    <Typography className={classNames.fieldName}>{t(TranslationKey['All statuses'])}</Typography>
+                  </>
+                </div>
+              </Button>
+            }
+            onClickSelect={el => viewModel.selectFilterForField('status', el)}
+            onClickSubmitBtn={viewModel.getTasksMy}
+          />
 
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div className={classNames.headerWrapper}>
-            <SearchInput
-              // disabled
-              value={nameSearchValue}
-              inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey['Search by ASIN, Order ID, Item'])}
-              onSubmit={onSearchSubmit}
-            />
-          </div>
+          <WithSearchSelect
+            checkbox
+            notCloseOneClick
+            selectedItemName={t(TranslationKey['All warehouses'])}
+            data={viewModel.storekeepersData}
+            searchFields={['name']}
+            currentShops={viewModel.activeFilters.storekeeper}
+            firstItems={
+              <Button
+                className={classNames.filterBtn}
+                variant="text"
+                onClick={() => {
+                  viewModel.selectFilterForField(
+                    'storekeeper',
+                    viewModel.storekeepersData.length === viewModel.activeFilters.storekeeper.length
+                      ? []
+                      : viewModel.storekeepersData,
+                  )
+                }}
+              >
+                <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
+                  <>
+                    <Checkbox
+                      checked={viewModel.storekeepersData.length === viewModel.activeFilters.storekeeper.length}
+                      color="primary"
+                    />
+                    <Typography className={classNames.fieldName}>{t(TranslationKey['All warehouses'])}</Typography>
+                  </>
+                </div>
+              </Button>
+            }
+            onClickSelect={el => viewModel.selectFilterForField('storekeeper', el, '_id')}
+            onClickSubmitBtn={viewModel.getTasksMy}
+          />
 
-          <div className={classNames.filters}>
-            <WithSearchSelect
-              notCloseOneClick
-              isFlat
-              checkbox
-              getRowValue={el => taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[Number(el)])}
-              selectedItemName={t(TranslationKey['All priorities'])}
-              data={Object.keys(mapTaskPriorityStatusEnum).reverse()}
-              currentShops={activeFilters.priority}
-              firstItems={
-                <Button
-                  className={classNames.filterBtn}
-                  variant="text"
-                  onClick={() => {
-                    selectFilterForField(
-                      'priority',
-                      Object.keys(mapTaskPriorityStatusEnum).length === activeFilters.priority.length
-                        ? []
-                        : Object.keys(mapTaskPriorityStatusEnum),
-                    )
-                  }}
-                >
-                  <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
-                    <>
-                      <Checkbox
-                        checked={Object.keys(mapTaskPriorityStatusEnum).length === activeFilters.priority.length}
-                        color="primary"
-                      />
-                      <Typography className={classNames.fieldName}>{t(TranslationKey['All priorities'])}</Typography>
-                    </>
-                  </div>
-                </Button>
-              }
-              onClickSelect={el => selectFilterForField('priority', el)}
-              onClickSubmitBtn={getTasksMy}
-            />
+          <WithSearchSelect
+            notCloseOneClick
+            isFlat
+            checkbox
+            getRowValue={el => taskOperationTypeTranslate(mapTaskOperationTypeEnumToKey[el])}
+            selectedItemName={t(TranslationKey['All tasks'])}
+            data={Object.keys(mapTaskOperationTypeKeyToEnum)}
+            currentShops={viewModel.activeFilters.type}
+            firstItems={
+              <Button
+                className={classNames.filterBtn}
+                variant="text"
+                onClick={() => {
+                  viewModel.selectFilterForField(
+                    'type',
+                    Object.keys(mapTaskOperationTypeKeyToEnum).length === viewModel.activeFilters.type.length
+                      ? []
+                      : Object.keys(mapTaskOperationTypeKeyToEnum),
+                  )
+                }}
+              >
+                <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
+                  <>
+                    <Checkbox
+                      checked={
+                        Object.keys(mapTaskOperationTypeKeyToEnum).length === viewModel.activeFilters.type.length
+                      }
+                      color="primary"
+                    />
+                    <Typography className={classNames.fieldName}>{t(TranslationKey['All tasks'])}</Typography>
+                  </>
+                </div>
+              </Button>
+            }
+            onClickSelect={el => viewModel.selectFilterForField('type', el)}
+            onClickSubmitBtn={viewModel.getTasksMy}
+          />
+        </div>
 
-            <WithSearchSelect
-              notCloseOneClick
-              isFlat
-              checkbox
-              getRowValue={el => TaskStatusTranslate(mapTaskStatusKeyToEnum[el])}
-              selectedItemName={t(TranslationKey['All statuses'])}
-              data={Object.keys(mapTaskStatusKeyToEnum)}
-              currentShops={activeFilters.status}
-              firstItems={
-                <Button
-                  className={classNames.filterBtn}
-                  variant="text"
-                  onClick={() => {
-                    selectFilterForField(
-                      'status',
-                      Object.keys(mapTaskStatusKeyToEnum).length === activeFilters.status.length
-                        ? []
-                        : Object.keys(mapTaskStatusKeyToEnum),
-                    )
-                  }}
-                >
-                  <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
-                    <>
-                      <Checkbox
-                        checked={Object.keys(mapTaskStatusKeyToEnum).length === activeFilters.status.length}
-                        color="primary"
-                      />
-                      <Typography className={classNames.fieldName}>{t(TranslationKey['All statuses'])}</Typography>
-                    </>
-                  </div>
-                </Button>
-              }
-              onClickSelect={el => selectFilterForField('status', el)}
-              onClickSubmitBtn={getTasksMy}
-            />
-
-            <WithSearchSelect
-              checkbox
-              notCloseOneClick
-              selectedItemName={t(TranslationKey['All warehouses'])}
-              data={storekeepersData}
-              searchFields={['name']}
-              currentShops={activeFilters.storekeeper}
-              firstItems={
-                <Button
-                  className={classNames.filterBtn}
-                  variant="text"
-                  onClick={() => {
-                    selectFilterForField(
-                      'storekeeper',
-                      storekeepersData.length === activeFilters.storekeeper.length ? [] : storekeepersData,
-                    )
-                  }}
-                >
-                  <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
-                    <>
-                      <Checkbox
-                        checked={storekeepersData.length === activeFilters.storekeeper.length}
-                        color="primary"
-                      />
-                      <Typography className={classNames.fieldName}>{t(TranslationKey['All warehouses'])}</Typography>
-                    </>
-                  </div>
-                </Button>
-              }
-              onClickSelect={el => selectFilterForField('storekeeper', el, '_id')}
-              onClickSubmitBtn={getTasksMy}
-            />
-
-            <WithSearchSelect
-              notCloseOneClick
-              isFlat
-              checkbox
-              getRowValue={el => taskOperationTypeTranslate(mapTaskOperationTypeEnumToKey[el])}
-              selectedItemName={t(TranslationKey['All tasks'])}
-              data={Object.keys(mapTaskOperationTypeKeyToEnum)}
-              currentShops={activeFilters.type}
-              firstItems={
-                <Button
-                  className={classNames.filterBtn}
-                  variant="text"
-                  onClick={() => {
-                    selectFilterForField(
-                      'type',
-                      Object.keys(mapTaskOperationTypeKeyToEnum).length === activeFilters.type.length
-                        ? []
-                        : Object.keys(mapTaskOperationTypeKeyToEnum),
-                    )
-                  }}
-                >
-                  <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
-                    <>
-                      <Checkbox
-                        checked={Object.keys(mapTaskOperationTypeKeyToEnum).length === activeFilters.type.length}
-                        color="primary"
-                      />
-                      <Typography className={classNames.fieldName}>{t(TranslationKey['All tasks'])}</Typography>
-                    </>
-                  </div>
-                </Button>
-              }
-              onClickSelect={el => selectFilterForField('type', el)}
-              onClickSubmitBtn={getTasksMy}
-            />
-          </div>
-
-          <div className={classNames.tasksWrapper}>
-            <MemoDataGrid
-              // disableVirtualization
-              key={SettingsModel.languageTag}
-              pagination
-              classes={{
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
-              localeText={getLocalizationByLanguageTag()}
-              rowsPerPageOptions={[15, 25, 50, 100]}
-              page={curPageForTask}
-              pageSize={rowsPerPageForTask}
-              sortingMode="server"
-              rows={getCurrentTaskData()}
-              getRowHeight={() => 'auto'}
-              componentsProps={{
-                columnMenu: columnMenuSettings,
-                toolbar: {
-                  columsBtnSettings: {columnsModel, changeColumnsModel},
+        <div className={classNames.tasksWrapper}>
+          <MemoDataGrid
+            // disableVirtualization
+            key={SettingsModel.languageTag}
+            pagination
+            classes={{
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+            }}
+            localeText={getLocalizationByLanguageTag()}
+            rowsPerPageOptions={[15, 25, 50, 100]}
+            page={viewModel.curPageForTask}
+            pageSize={viewModel.rowsPerPageForTask}
+            sortingMode="server"
+            rows={viewModel.getCurrentTaskData()}
+            getRowHeight={() => 'auto'}
+            componentsProps={{
+              columnMenu: viewModel.columnMenuSettings,
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  changeColumnsModel: viewModel.changeColumnsModel,
                 },
-              }}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
-                ColumnMenu: DataGridCustomColumnMenuComponent,
-              }}
-              loading={requestStatus === loadingStatuses.isLoading}
-              columns={columnsModel}
-              paginationMode="server"
-              // pageSize={15}
-              rowCount={rowsCount}
-              onSelectionModelChange={onSelectionModel}
-              onSortModelChange={onChangeSortingModel}
-              onPageChange={onChangeCurPageForTask}
-              onFilterModelChange={onChangeFilterModel}
-              // onStateChange={setDataGridState}
-              onPageSizeChange={onChangeRowsPerPageForTask}
-            />
-          </div>
-        </MainContent>
-
-        <Modal openModal={showEditPriorityData} setOpenModal={() => onTriggerOpenModal('showEditPriorityData')}>
-          <EditTaskPriorityModal
-            data={editPriorityData}
-            handleClose={() => onTriggerOpenModal('showEditPriorityData')}
-            onSubmitHandler={updateTaskPriority}
+              },
+            }}
+            components={{
+              Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
+              ColumnMenu: DataGridCustomColumnMenuComponent,
+            }}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            columns={viewModel.columnsModel}
+            paginationMode="server"
+            // pageSize={viewModel.15}
+            rowCount={viewModel.rowsCount}
+            onSelectionModelChange={viewModel.onSelectionModel}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onPageChange={viewModel.onChangeCurPageForTask}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+            // onStateChange={viewModel.setDataGridState}
+            onPageSizeChange={viewModel.onChangeRowsPerPageForTask}
           />
-        </Modal>
+        </div>
+      </MainContent>
 
-        <Modal openModal={showTaskInfoModal} setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}>
-          <EditTaskModal
-            readOnly
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            task={curOpenedTask}
-            onClickOpenCloseModal={() => onTriggerOpenModal('showTaskInfoModal')}
-          />
-        </Modal>
-
-        <ConfirmWithCommentModal
-          isWarning
-          openModal={showConfirmWithCommentModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmWithCommentModal')}
-          titleText={t(TranslationKey.Attention)}
-          commentLabelText={t(TranslationKey['Are you sure you want to cancel the task?'])}
-          okBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onSubmit={onClickCancelAfterConfirm}
+      <Modal
+        openModal={viewModel.showEditPriorityData}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showEditPriorityData')}
+      >
+        <EditTaskPriorityModal
+          data={viewModel.editPriorityData}
+          handleClose={() => viewModel.onTriggerOpenModal('showEditPriorityData')}
+          onSubmitHandler={viewModel.updateTaskPriority}
         />
+      </Modal>
 
-        <ConfirmationModal
-          isWarning={confirmModalSettings.isWarning}
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={t(TranslationKey.Attention)}
-          message={confirmModalSettings.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+      <Modal
+        openModal={viewModel.showTaskInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
+      >
+        <EditTaskModal
+          readOnly
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          task={viewModel.curOpenedTask}
+          onClickOpenCloseModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
         />
+      </Modal>
 
-        <WarningInfoModal
-          isWarning={warningInfoModalSettings.isWarning}
-          openModal={showWarningInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
-          title={warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showWarningInfoModal')
-          }}
-        />
+      <ConfirmWithCommentModal
+        isWarning
+        openModal={viewModel.showConfirmWithCommentModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
+        titleText={t(TranslationKey.Attention)}
+        commentLabelText={t(TranslationKey['Are you sure you want to cancel the task?'])}
+        okBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onSubmit={viewModel.onClickCancelAfterConfirm}
+      />
 
-        {showProgress && <CircularProgressWithLabel />}
-      </React.Fragment>
-    )
-  }
+      <ConfirmationModal
+        isWarning={viewModel.confirmModalSettings.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={viewModel.confirmModalSettings.confirmMessage}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+
+      <WarningInfoModal
+        isWarning={viewModel.warningInfoModalSettings.isWarning}
+        openModal={viewModel.showWarningInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        title={viewModel.warningInfoModalSettings.title}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showWarningInfoModal')
+        }}
+      />
+
+      {viewModel.showProgress && <CircularProgressWithLabel />}
+    </React.Fragment>
+  )
 }
 
-export const ClientWarehouseTasksView = withStyles(ClientWarehouseTasksViewRaw, styles)
+export const ClientWarehouseTasksView = withStyles(observer(ClientWarehouseTasksViewRaw), styles)

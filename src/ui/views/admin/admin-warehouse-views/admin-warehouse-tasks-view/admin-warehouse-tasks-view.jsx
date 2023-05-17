@@ -1,123 +1,89 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
-
-import {observer} from 'mobx-react'
+import React, {useEffect, useState} from 'react'
 import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import {MainContent} from '@components/layout/main-content'
-import {Button} from '@components/shared/buttons/button'
 import {MemoDataGrid} from '@components/shared/memo-data-grid'
 import {Modal} from '@components/shared/modal'
 import {EditTaskModal} from '@components/warehouse/edit-task-modal'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
 
 import {AdminWarehouseTasksViewModel} from './admin-warehouse-tasks-view.model'
 import {styles} from './admin-warehouse-tasks-view.style'
+import {observer} from 'mobx-react'
 
-@observer
-export class AdminWarehouseTasksViewRaw extends Component {
-  viewModel = new AdminWarehouseTasksViewModel({history: this.props.history})
+export const AdminWarehouseTasksViewRaw = props => {
+  const [viewModel] = useState(() => new AdminWarehouseTasksViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      curOpenedTask,
-      showTaskInfoModal,
-      onTriggerOpenModal,
-      volumeWeightCoefficient,
-
-      densityModel,
-      columnsModel,
-
-      requestStatus,
-      getCurrentData,
-      sortModel,
-      filterModel,
-      rowsPerPage,
-      curPage,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      onSelectionModel,
-      setDataGridState,
-      onChangeSortingModel,
-      onChangeFilterModel,
-      changeColumnsModel,
-    } = this.viewModel
-
-    const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <MemoDataGrid
-            pagination
-            useResizeContainer
-            localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            sortModel={sortModel}
-            filterModel={filterModel}
-            page={curPage}
-            pageSize={rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
-            rows={getCurrentData()}
-            getRowHeight={() => 'auto'}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
-            }}
-            componentsProps={{
-              toolbar: {
-                columsBtnSettings: {columnsModel, changeColumnsModel},
-              },
-            }}
-            density={densityModel}
-            columns={columnsModel}
-            loading={requestStatus === loadingStatuses.isLoading}
-            onSelectionModelChange={newSelection => {
-              onSelectionModel(newSelection[0])
-            }}
-            onSortModelChange={onChangeSortingModel}
-            onPageSizeChange={onChangeRowsPerPage}
-            onPageChange={onChangeCurPage}
-            onStateChange={setDataGridState}
-            onFilterModelChange={model => onChangeFilterModel(model)}
-          />
-        </MainContent>
-        <Modal openModal={showTaskInfoModal} setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}>
-          <EditTaskModal
-            readOnly
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            task={curOpenedTask}
-            onClickOpenCloseModal={() => onTriggerOpenModal('showTaskInfoModal')}
-          />
-        </Modal>
-      </React.Fragment>
-    )
-  }
-
-  renderAdminBtns = params => (
+  return (
     <React.Fragment>
-      <Button variant="contained" onClick={() => this.viewModel.setCurrentOpenedTask(params.row)}>
-        {t(TranslationKey['View more'])}
-      </Button>
+      <MainContent>
+        <MemoDataGrid
+          pagination
+          useResizeContainer
+          localeText={getLocalizationByLanguageTag()}
+          classes={{
+            row: classNames.row,
+            root: classNames.root,
+            footerContainer: classNames.footerContainer,
+            footerCell: classNames.footerCell,
+            toolbarContainer: classNames.toolbarContainer,
+          }}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          page={viewModel.curPage}
+          pageSize={viewModel.rowsPerPage}
+          rowsPerPageOptions={[15, 25, 50, 100]}
+          rows={viewModel.getCurrentData()}
+          getRowHeight={() => 'auto'}
+          components={{
+            Toolbar: DataGridCustomToolbar,
+            ColumnMenuIcon: FilterAltOutlinedIcon,
+          }}
+          componentsProps={{
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                changeColumnsModel: viewModel.changeColumnsModel,
+              },
+            },
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          onSelectionModelChange={newSelection => {
+            viewModel.onSelectionModel(newSelection[0])
+          }}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onPageSizeChange={viewModel.onChangeRowsPerPage}
+          onPageChange={viewModel.onChangeCurPage}
+          onStateChange={viewModel.setDataGridState}
+          onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
+        />
+      </MainContent>
+      <Modal
+        openModal={viewModel.showTaskInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
+      >
+        <EditTaskModal
+          readOnly
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          task={viewModel.curOpenedTask}
+          onClickOpenCloseModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
+        />
+      </Modal>
     </React.Fragment>
   )
 }
 
-export const AdminWarehouseTasksView = withStyles(AdminWarehouseTasksViewRaw, styles)
+export const AdminWarehouseTasksView = withStyles(observer(AdminWarehouseTasksViewRaw), styles)

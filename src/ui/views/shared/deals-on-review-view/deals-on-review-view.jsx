@@ -2,7 +2,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import {Typography} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -19,69 +19,64 @@ import {t} from '@utils/translations'
 import {DealsOnReviewModel} from './deals-on-review-view.model'
 import {styles} from './deals-on-review-view.style'
 
-@observer
-class DealsOnReviewViewRaw extends Component {
-  viewModel = new DealsOnReviewModel({history: this.props.history})
+export const DealsOnReviewViewRaw = props => {
+  const [viewModel] = useState(() => new DealsOnReviewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
+
+  const getSortedData = mode => {
+    switch (mode) {
+      case tableSortMode.DESK:
+        return viewModel.getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+
+      case tableSortMode.ASC:
+        return viewModel.getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+    }
   }
 
-  render() {
-    const {getCurrentData, onTriggerSortMode, sortMode, viewMode, onClickViewMore} = this.viewModel
-    const {classes: classNames} = this.props
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.tablePanelWrapper}>
+          <div className={classNames.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
+            <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
 
-    const getSortedData = mode => {
-      switch (mode) {
-        case tableSortMode.DESK:
-          return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
-
-        case tableSortMode.ASC:
-          return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
-      }
-    }
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div className={classNames.tablePanelWrapper}>
-            <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
-              <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
-
-              {sortMode === tableSortMode.DESK ? (
-                <ArrowDropDownIcon color="primary" />
-              ) : (
-                <ArrowDropUpIcon color="primary" />
-              )}
-            </div>
-          </div>
-
-          <div className={classNames.dealsOnReviewWrapper}>
-            {getSortedData(sortMode).length ? (
-              getSortedData(sortMode).map((deal, index) =>
-                viewMode === tableViewMode.LIST ? (
-                  <VacantDealsListCard
-                    key={index}
-                    showDetails
-                    item={deal}
-                    onClickViewMore={onClickViewMore}
-                    // onClickGetToWorkModal={onClickGetToWorkModal}
-                  />
-                ) : null,
-              )
+            {viewModel.sortMode === tableSortMode.DESK ? (
+              <ArrowDropDownIcon color="primary" />
             ) : (
-              <div className={classNames.emptyTableWrapper}>
-                <img src="/assets/icons/empty-table.svg" />
-                <Typography variant="h5" className={classNames.emptyTableText}>
-                  {t(TranslationKey['No deals yet'])}
-                </Typography>
-              </div>
+              <ArrowDropUpIcon color="primary" />
             )}
           </div>
-        </MainContent>
-      </React.Fragment>
-    )
-  }
+        </div>
+
+        <div className={classNames.dealsOnReviewWrapper}>
+          {getSortedData(viewModel.sortMode).length ? (
+            getSortedData(viewModel.sortMode).map((deal, index) =>
+              viewModel.viewMode === tableViewMode.LIST ? (
+                <VacantDealsListCard
+                  key={index}
+                  showDetails
+                  item={deal}
+                  onClickViewMore={viewModel.onClickViewMore}
+                  // onClickGetToWorkModal={viewModel.onClickGetToWorkModal}
+                />
+              ) : null,
+            )
+          ) : (
+            <div className={classNames.emptyTableWrapper}>
+              <img src="/assets/icons/empty-table.svg" />
+              <Typography variant="h5" className={classNames.emptyTableText}>
+                {t(TranslationKey['No deals yet'])}
+              </Typography>
+            </div>
+          )}
+        </div>
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const DealsOnReviewView = withStyles(DealsOnReviewViewRaw, styles)
+export const DealsOnReviewView = withStyles(observer(DealsOnReviewViewRaw), styles)

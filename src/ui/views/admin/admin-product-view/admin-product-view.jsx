@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 
@@ -13,69 +13,52 @@ import {t} from '@utils/translations'
 
 import {AdminProductViewModel} from './admin-product-view.model'
 
-@observer
-export class AdminProductView extends Component {
-  viewModel = new AdminProductViewModel({
-    history: this.props.history,
-    location: this.props.location,
-  })
+export const AdminProductView = observer(props => {
+  const [viewModel] = useState(
+    () =>
+      new AdminProductViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      storekeepersData,
-      volumeWeightCoefficient,
-      yuanToDollarRate,
-      supplierModalReadOnly,
-      showAddOrEditSupplierModal,
-      userInfo,
-      product,
-      selectedSupplier,
-      formFieldsValidationErrors,
-      handleProductActionButtons,
-      onChangeSelectedSupplier,
-      onChangeProductFields,
-      onTriggerAddOrEditSupplierModal,
-      onClickSupplierButtons,
-    } = this.viewModel
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          {product ? (
-            <ProductWrapper
-              userRole={userInfo.role}
-              product={product}
-              selectedSupplier={selectedSupplier}
-              formFieldsValidationErrors={formFieldsValidationErrors}
-              handleSupplierButtons={onClickSupplierButtons}
-              handleProductActionButtons={handleProductActionButtons}
-              onClickSupplier={onChangeSelectedSupplier}
-              onChangeField={onChangeProductFields}
-            />
-          ) : undefined}
-        </MainContent>
-
-        <Modal
-          missClickModalOn={!supplierModalReadOnly}
-          openModal={showAddOrEditSupplierModal}
-          setOpenModal={onTriggerAddOrEditSupplierModal}
-        >
-          <AddOrEditSupplierModalContent
-            product={product}
-            storekeepersData={storekeepersData}
-            onlyRead={supplierModalReadOnly}
-            sourceYuanToDollarRate={yuanToDollarRate}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            title={t(TranslationKey['Adding and editing a supplier'])}
-            supplier={selectedSupplier}
-            onTriggerShowModal={onTriggerAddOrEditSupplierModal}
+  return (
+    <React.Fragment>
+      <MainContent>
+        {viewModel.product ? (
+          <ProductWrapper
+            userRole={viewModel.userInfo.role}
+            product={viewModel.product}
+            selectedSupplier={viewModel.selectedSupplier}
+            formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
+            handleSupplierButtons={viewModel.onClickSupplierButtons}
+            handleProductActionButtons={viewModel.handleProductActionButtons}
+            onClickSupplier={viewModel.onChangeSelectedSupplier}
+            onChangeField={viewModel.onChangeProductFields}
           />
-        </Modal>
-      </React.Fragment>
-    )
-  }
-}
+        ) : undefined}
+      </MainContent>
+
+      <Modal
+        missClickModalOn={!viewModel.supplierModalReadOnly}
+        openModal={viewModel.showAddOrEditSupplierModal}
+        setOpenModal={viewModel.onTriggerAddOrEditSupplierModal}
+      >
+        <AddOrEditSupplierModalContent
+          product={viewModel.product}
+          storekeepersData={viewModel.storekeepersData}
+          onlyRead={viewModel.supplierModalReadOnly}
+          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          supplier={viewModel.selectedSupplier}
+          onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
+        />
+      </Modal>
+    </React.Fragment>
+  )
+})

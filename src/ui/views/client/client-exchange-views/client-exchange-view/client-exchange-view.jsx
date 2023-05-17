@@ -1,6 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -24,160 +24,125 @@ import {t} from '@utils/translations'
 import {ClientExchangeViewModel} from './client-exchange-view.model'
 import {styles} from './client-exchange-view.style'
 
-@observer
-export class ClientExchangeViewRaw extends Component {
-  viewModel = new ClientExchangeViewModel({history: this.props.history})
+export const ClientExchangeViewRaw = props => {
+  const [viewModel] = useState(() => new ClientExchangeViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-    this.viewModel.getDataGridState()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+    viewModel.getDataGridState()
+  }, [])
 
-  render() {
-    const {
-      destinationsFavourites,
-      confirmModalSettings,
-      platformSettings,
-      showOrderModal,
-      onDoubleClickBarcode,
-
-      requestStatus,
-      getCurrentData,
-      sortModel,
-      filterModel,
-      densityModel,
-      columnsModel,
-      storekeepers,
-      destinations,
-      shopsData,
-      showWarningModalText,
-      curPage,
-      rowsPerPage,
-      selectedProduct,
-      showConfirmModal,
-      showSuccessModal,
-      showWarningModal,
-      showSelectShopsModal,
-      setDestinationsFavouritesItem,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      onClickOrderNowBtn,
-      onClickCancelBtn,
-      onTriggerOpenModal,
-      onClickBuyProductBtn,
-
-      onSelectionModel,
-      setDataGridState,
-      onChangeSortingModel,
-      onChangeFilterModel,
-      changeColumnsModel,
-    } = this.viewModel
-    const {classes: classNames} = this.props
-    return (
-      <React.Fragment>
-        <MainContent>
-          <MemoDataGrid
-            pagination
-            useResizeContainer
-            classes={{
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            localeText={getLocalizationByLanguageTag()}
-            sortModel={sortModel}
-            filterModel={filterModel}
-            page={curPage}
-            pageSize={rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
-            rows={getCurrentData()}
-            rowHeight={100}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
-            }}
-            density={densityModel}
-            columns={columnsModel}
-            loading={requestStatus === loadingStatuses.isLoading}
-            componentsProps={{
-              toolbar: {
-                columsBtnSettings: {columnsModel, changeColumnsModel},
+  return (
+    <React.Fragment>
+      <MainContent>
+        <MemoDataGrid
+          pagination
+          useResizeContainer
+          classes={{
+            root: classNames.root,
+            footerContainer: classNames.footerContainer,
+            footerCell: classNames.footerCell,
+            toolbarContainer: classNames.toolbarContainer,
+          }}
+          localeText={getLocalizationByLanguageTag()}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          page={viewModel.curPage}
+          pageSize={viewModel.rowsPerPage}
+          rowsPerPageOptions={[15, 25, 50, 100]}
+          rows={viewModel.getCurrentData()}
+          rowHeight={100}
+          components={{
+            Toolbar: DataGridCustomToolbar,
+            ColumnMenuIcon: FilterAltOutlinedIcon,
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          componentsProps={{
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                changeColumnsModel: viewModel.changeColumnsModel,
               },
-            }}
-            getRowHeight={() => 'auto'}
-            onSelectionModelChange={newSelection => {
-              onSelectionModel(newSelection[0])
-            }}
-            onSortModelChange={onChangeSortingModel}
-            onPageSizeChange={onChangeRowsPerPage}
-            onPageChange={onChangeCurPage}
-            onStateChange={setDataGridState}
-            onFilterModelChange={model => onChangeFilterModel(model)}
-          />
-        </MainContent>
-
-        <Modal openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
-          <OrderProductModal
-            // volumeWeightCoefficient={volumeWeightCoefficient}
-            platformSettings={platformSettings}
-            destinations={destinations}
-            storekeepers={storekeepers}
-            requestStatus={requestStatus}
-            selectedProductsData={[selectedProduct]}
-            destinationsFavourites={destinationsFavourites}
-            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
-            onTriggerOpenModal={onTriggerOpenModal}
-            onDoubleClickBarcode={onDoubleClickBarcode}
-            onSubmit={onClickOrderNowBtn}
-            onClickCancel={onClickCancelBtn}
-          />
-        </Modal>
-
-        <Modal openModal={showSelectShopsModal} setOpenModal={() => onTriggerOpenModal('showSelectShopsModal')}>
-          <SelectShopsModal
-            title={confirmModalSettings.confirmTitle}
-            message={confirmModalSettings.confirmMessage}
-            shops={shopsData}
-            onClickSuccessBtn={onClickBuyProductBtn}
-            onClickCancelBtn={() => onTriggerOpenModal('showSelectShopsModal')}
-          />
-        </Modal>
-
-        <ConfirmationModal
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          isWarning={confirmModalSettings.isWarning}
-          title={confirmModalSettings.confirmTitle}
-          message={confirmModalSettings.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-        />
-
-        <WarningInfoModal
-          openModal={showWarningModal}
-          setOpenModal={() => onTriggerOpenModal('showWarningModal')}
-          title={showWarningModalText}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showWarningModal')
+            },
           }}
-        />
-
-        <SuccessInfoModal
-          openModal={showSuccessModal}
-          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-          title={t(TranslationKey['Order successfully created!'])}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => {
-            onTriggerOpenModal('showSuccessModal')
+          getRowHeight={() => 'auto'}
+          onSelectionModelChange={newSelection => {
+            viewModel.onSelectionModel(newSelection[0])
           }}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onPageSizeChange={viewModel.onChangeRowsPerPage}
+          onPageChange={viewModel.onChangeCurPage}
+          onStateChange={viewModel.setDataGridState}
+          onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
         />
-      </React.Fragment>
-    )
-  }
+      </MainContent>
+
+      <Modal openModal={viewModel.showOrderModal} setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}>
+        <OrderProductModal
+          // volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          platformSettings={viewModel.platformSettings}
+          destinations={viewModel.destinations}
+          storekeepers={viewModel.storekeepers}
+          requestStatus={viewModel.requestStatus}
+          selectedProductsData={[viewModel.selectedProduct]}
+          destinationsFavourites={viewModel.destinationsFavourites}
+          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          onTriggerOpenModal={viewModel.onTriggerOpenModal}
+          onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
+          onSubmit={viewModel.onClickOrderNowBtn}
+          onClickCancel={viewModel.onClickCancelBtn}
+        />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showSelectShopsModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showSelectShopsModal')}
+      >
+        <SelectShopsModal
+          title={viewModel.confirmModalSettings.confirmTitle}
+          message={viewModel.confirmModalSettings.confirmMessage}
+          shops={viewModel.shopsData}
+          onClickSuccessBtn={viewModel.onClickBuyProductBtn}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showSelectShopsModal')}
+        />
+      </Modal>
+
+      <ConfirmationModal
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        isWarning={viewModel.confirmModalSettings.isWarning}
+        title={viewModel.confirmModalSettings.confirmTitle}
+        message={viewModel.confirmModalSettings.confirmMessage}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+
+      <WarningInfoModal
+        openModal={viewModel.showWarningModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
+        title={viewModel.showWarningModalText}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showWarningModal')
+        }}
+      />
+
+      <SuccessInfoModal
+        openModal={viewModel.showSuccessModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        title={t(TranslationKey['Order successfully created!'])}
+        successBtnText={t(TranslationKey.Ok)}
+        onClickSuccessBtn={() => {
+          viewModel.onTriggerOpenModal('showSuccessModal')
+        }}
+      />
+    </React.Fragment>
+  )
 }
 
-export const ClientExchangeView = withStyles(ClientExchangeViewRaw, styles)
+export const ClientExchangeView = withStyles(observer(ClientExchangeViewRaw), styles)
