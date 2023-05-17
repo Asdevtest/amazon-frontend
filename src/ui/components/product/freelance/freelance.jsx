@@ -12,7 +12,9 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar'
+import {RequestDesignerResultClientForm} from '@components/forms/request-designer-result-client-form'
 import {MemoDataGrid} from '@components/memo-data-grid'
+import {Modal} from '@components/modal'
 import {SearchInput} from '@components/search-input'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -32,14 +34,19 @@ export const Freelance = observer(({productId}) => {
   }, [])
 
   const {
+    curProposal,
+    curRequest,
+    userInfo,
     nameSearchValue,
     selectedTaskType,
     requestStatus,
+    showRequestDesignerResultClientModal,
     getCurrentData,
     densityModel,
     columnsModel,
     onChangeNameSearchValue,
     onClickTaskType,
+    onTriggerOpenModal,
   } = freelanceModel.current
 
   return (
@@ -95,6 +102,21 @@ export const Freelance = observer(({productId}) => {
           loading={requestStatus === loadingStatuses.isLoading}
         />
       </div>
+
+      <Modal
+        missClickModalOn
+        openModal={showRequestDesignerResultClientModal}
+        setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
+      >
+        <RequestDesignerResultClientForm
+          onlyRead
+          userInfo={userInfo}
+          request={{request: curRequest}}
+          proposal={curProposal}
+          curResultMedia={curProposal?.proposal.media}
+          setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
+        />
+      </Modal>
     </div>
   )
 })

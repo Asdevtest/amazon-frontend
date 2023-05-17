@@ -2280,8 +2280,13 @@ export const ClientNotificationsBtnsCell = React.memo(
 
 export const ProductMyRequestsBtnsCell =
   //  React.memo(
-  withStyles(
-    ({classes: classNames, row, handlers}) => (
+  withStyles(({classes: classNames, row, handlers}) => {
+    const disableOpenResultBtn =
+      !row.countProposalsByStatuses.acceptedProposals &&
+      !row.countProposalsByStatuses.atWorkProposals &&
+      !row.countProposalsByStatuses.verifyingProposals
+
+    return (
       <div className={classNames.productMyRequestsBtnsWrapper}>
         <Button
           variant="contained"
@@ -2293,18 +2298,15 @@ export const ProductMyRequestsBtnsCell =
         </Button>
         <Button
           success
-          disabled
+          disabled={disableOpenResultBtn}
           className={classNames.productMyRequestsBtn}
-          // onClick={() => {
-          //   handlers.onTriggerOpenRejectModal(row)
-          // }}
+          onClick={() => handlers.onClickOpenResult(row)}
         >
           {t(TranslationKey['Open result'])}
         </Button>
       </div>
-    ),
-    styles,
-  )
+    )
+  }, styles)
 // )
 
 export const AdminUsersActionBtnsCell = React.memo(
