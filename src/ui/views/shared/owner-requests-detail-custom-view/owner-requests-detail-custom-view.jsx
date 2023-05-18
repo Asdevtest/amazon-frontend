@@ -16,7 +16,6 @@ import { RequestProposalResultToCorrectForm } from '@components/forms/request-pr
 import { ReviewsForm } from '@components/forms/reviews-form'
 import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { ConfirmWithCommentModal } from '@components/modals/confirmation-with-comment-modal'
 import { OwnerGeneralRequestInfo } from '@components/requests-and-request-proposals/owner-general-request-info'
 import { DealsOfRequest } from '@components/requests-and-request-proposals/request-proposals/deals-of-request'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
@@ -226,14 +225,17 @@ export const OwnerRequestDetailCustomViewRaw = props => {
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
 
-      <ConfirmWithCommentModal
+      <ConfirmationModal
+        withComment
+        asCommentModalDefault
         openModal={viewModel.showConfirmWithCommentModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
-        titleText={t(TranslationKey['Suspend the acceptance of proposals?'])}
+        title={t(TranslationKey['Suspend the acceptance of proposals?'])}
         commentLabelText={`${t(TranslationKey['State the reason for stopping'])}: `}
-        okBtnText={t(TranslationKey.Ok)}
+        successBtnText={t(TranslationKey.Ok)}
         cancelBtnText={t(TranslationKey.Cancel)}
-        onSubmit={viewModel.onSubmitAbortRequest}
+        onClickSuccessBtn={viewModel.onSubmitAbortRequest}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
 
       {viewModel.acceptMessage && viewModel.showAcceptMessage ? (
