@@ -48,11 +48,6 @@ export const useClassNames = makeStyles()(theme => ({
     maxWidth: 320,
   },
 
-  filesText: {
-    color: theme.palette.text.second,
-    marginTop: 10,
-  },
-
   avatarWrapper: {
     width: 53,
     height: 53,

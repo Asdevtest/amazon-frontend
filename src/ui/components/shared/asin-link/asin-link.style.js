@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
-//
-
 export const useClassNames = makeStyles()(theme => ({
   copyAsin: {
     display: 'flex',
@@ -20,14 +18,11 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',
-
-    // color: theme.palette.text.main,
   },
   missingSpan: {
     fontWeight: 400,
     fontSize: 16,
     lineHeight: '22px',
-
     color: theme.palette.text.second,
   },
 }))

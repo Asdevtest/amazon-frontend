@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import CloseIcon from '@mui/icons-material/Close'
 import { Autocomplete } from '@mui/material'
@@ -69,7 +70,7 @@ export const TagSelector: FC<TagSelectorProps> = props => {
   }
 
   return (
-    <div className={styles.body}>
+    <div>
       {isEditMode && (
         <div className={styles.search}>
           <Autocomplete

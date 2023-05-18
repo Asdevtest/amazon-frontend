@@ -87,11 +87,11 @@ export class BuyerMyProductsViewModel {
     }
   }
 
-  async onClickFeesCalculate(product) {
+  async onClickFeesCalculate(productId) {
     try {
-      const result = await ResearcherModel.parseParseSellerCentral(product.id)
+      const result = await ResearcherModel.parseParseSellerCentral(productId)
 
-      BuyerModel.updateProduct(product._id, { fbafee: result.amazonFee })
+      BuyerModel.updateProduct(productId, { fbafee: result.amazonFee })
     } catch (error) {
       console.log(error)
     }

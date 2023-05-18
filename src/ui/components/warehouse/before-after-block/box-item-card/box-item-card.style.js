@@ -62,8 +62,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '16px',
-    // width: '280px',
-
     color: theme.palette.primary.main,
   },
 
@@ -71,7 +69,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     color: theme.palette.text.second,
     lineHeight: '19px',
-    // marginRight: theme.spacing(1),
     whiteSpace: 'nowrap',
   },
   asin: {
@@ -90,32 +87,13 @@ export const useClassNames = makeStyles()(theme => ({
     maxWidth: 185,
   },
 
-  trackNum: {
-    fontSize: '14px',
-
-    color: theme.palette.text.general,
-    lineHeight: '19px',
-    fontWeight: 600,
-
-    maxWidth: 185,
-  },
-
   asinTitle: {
     fontSize: '16px',
     color: theme.palette.text.general,
     lineHeight: '19px',
     fontWeight: 600,
   },
-  inputWrapper: {
-    border: '1px solid rgba(143, 152, 165, 1)',
-    borderRadius: '4px',
-    maxWidth: '80px',
-    height: '40px',
-  },
-  input: {
-    fontSize: '20px',
-    textAlign: 'center',
-  },
+
   countWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -145,9 +123,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   countSuperBoxWrapper: {
-    // width: 150,
     marginLeft: 20,
-
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -223,20 +199,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  link: {
-    maxWidth: '280px',
-    whiteSpace: 'nowrap',
-    overflowX: 'auto',
-  },
-  copyImg: {
-    width: '20px',
-    height: '20px',
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.2)',
-    },
-  },
   barCodeWrapper: {
     display: 'flex',
     gap: '15px',
@@ -292,7 +254,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   copyValueMainWrapper: {
-    // width: '59%',
     display: 'flex',
     justifyContent: 'start',
   },

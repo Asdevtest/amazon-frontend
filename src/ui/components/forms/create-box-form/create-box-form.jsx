@@ -46,14 +46,12 @@ const BlockOfNewBox = ({
       <div className={classNames.numberInputFieldsBlocksSubWrapper}>
         <div className={classNames.numberInputFieldsWrapper}>
           <Field
-            containerClasses={classNames.numberInputField}
             inputProps={{ maxLength: 6 }}
             label={`${t(TranslationKey['Box length'])}`}
             value={orderBox.lengthCmSupplier}
             onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
           />
           <Field
-            containerClasses={classNames.numberInputField}
             inputProps={{ maxLength: 6 }}
             label={`${t(TranslationKey['Box width'])}`}
             value={orderBox.widthCmSupplier}
@@ -62,14 +60,12 @@ const BlockOfNewBox = ({
         </div>
         <div className={classNames.numberInputFieldsWrapper}>
           <Field
-            containerClasses={classNames.numberInputField}
             inputProps={{ maxLength: 6 }}
             label={`${t(TranslationKey['Box height'])}`}
             value={orderBox.heightCmSupplier}
             onChange={setFormField('heightCmSupplier', orderBoxIndex)}
           />
           <Field
-            containerClasses={classNames.numberInputField}
             inputProps={{ maxLength: 6 }}
             label={t(TranslationKey['Real weight'])}
             value={orderBox.weighGrossKgSupplier}
@@ -79,7 +75,6 @@ const BlockOfNewBox = ({
         <div className={classNames.numberInputFieldsWrapper}>
           <Field
             disabled
-            containerClasses={classNames.numberInputField}
             label={t(TranslationKey['Volume weight, kg'])}
             value={toFixed(
               (sizeSetting === sizesType.INCHES
@@ -96,7 +91,6 @@ const BlockOfNewBox = ({
           />
           <Field
             disabled
-            containerClasses={classNames.numberInputField}
             label={t(TranslationKey['Final weight, kg'])}
             value={toFixed(
               Math.max(
@@ -118,7 +112,6 @@ const BlockOfNewBox = ({
 
         <div className={classNames.numberInputFieldsWrapper}>
           <Field
-            containerClasses={classNames.numberInputField}
             error={orderBox.amount < 1}
             inputProps={{ maxLength: 3 }}
             label={t(TranslationKey['Quantity of boxes'])}
@@ -126,7 +119,6 @@ const BlockOfNewBox = ({
             onChange={setFormField('amount', orderBoxIndex)}
           />
           <Field
-            containerClasses={classNames.numberInputField}
             error={
               currentSupplier.multiplicity &&
               currentSupplier.boxProperties?.amountInBox &&

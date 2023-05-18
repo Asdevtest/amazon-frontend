@@ -1,6 +1,7 @@
 import { Avatar, Paper, Typography } from '@mui/material'
 
 import React, { useEffect, useState } from 'react'
+
 import { withStyles } from 'tss-react/mui'
 
 import { getBuyerDashboardCardConfig } from '@constants/navigation/dashboard-configs'

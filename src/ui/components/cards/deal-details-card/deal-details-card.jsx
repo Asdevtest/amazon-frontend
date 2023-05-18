@@ -71,7 +71,7 @@ export const DealDetailsCard = ({
               </div>
             </div>
           </div>
-          <div className={classNames.cardTitleBlockWrapper}>
+          <div>
             <div className={classNames.cardTitleBlockHeaderWrapper}>
               <Typography className={classNames.cardTitle}>{`${t(TranslationKey['Client task'])}:`}</Typography>
               <Typography className={classNames.cardTitle}>{request?.request?.title}</Typography>

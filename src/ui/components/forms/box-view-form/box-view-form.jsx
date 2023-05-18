@@ -215,7 +215,6 @@ export const BoxViewForm = observer(
 
                     <div className={classNames.rightColumn}>
                       <Field
-                        inputClasses={classNames.countField}
                         labelClasses={classNames.label}
                         label={t(TranslationKey['HS code'])}
                         inputProps={{ maxLength: 255 }}
@@ -295,7 +294,6 @@ export const BoxViewForm = observer(
                       )}
                       <Field
                         disabled
-                        inputClasses={classNames.countField}
                         containerClasses={classNames.countContainer}
                         labelClasses={classNames.label}
                         label={t(TranslationKey.Quantity)}
@@ -305,7 +303,6 @@ export const BoxViewForm = observer(
 
                       <Field
                         disabled
-                        inputClasses={classNames.countField}
                         containerClasses={classNames.countContainer}
                         labelClasses={classNames.label}
                         label={t(TranslationKey['Order number/Item'])}

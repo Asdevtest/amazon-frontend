@@ -27,7 +27,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
       />
     ),
 
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 117,
     type: 'date',
   },
@@ -109,7 +109,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
       />
     ),
 
-    renderCell: params => <AsinCell text={params.value} product={params.row.originalData} />,
+    renderCell: params => <AsinCell asin={params.row.originalData.asin} />,
     width: 123,
   },
 
@@ -138,7 +138,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
       />
     ),
 
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 115,
     type: 'date',
   },

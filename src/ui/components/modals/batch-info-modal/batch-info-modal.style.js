@@ -1,10 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  commentsWrapper: {
-    display: 'flex',
-    gap: '10px',
-  },
   form: {
     // marginTop: theme.spacing(2.5),
     // marginBottom: theme.spacing(2.5),
@@ -65,79 +61,6 @@ export const useClassNames = makeStyles()(theme => ({
       marginRight: 0,
     },
   },
-  subTitle: {
-    color: theme.palette.text.general,
-    fontSize: '16px',
-    fontWeight: '600',
-    lineHeight: '20px',
-    marginBottom: '12px',
-  },
-
-  methodInput: {
-    width: 280,
-  },
-  tariffInput: {
-    width: 210,
-  },
-
-  sumField: {
-    width: 'min-content !important',
-    marginBottom: '10px !important',
-  },
-
-  shortInput: {
-    color: `red !important`,
-    width: 150,
-  },
-
-  pricesWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    height: 'auto',
-    flexGrow: 1,
-
-    gap: 45,
-  },
-
-  imgBox: {
-    width: '50px',
-    height: '50px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
-
-  productTitle: {
-    whiteSpace: 'nowrap',
-    width: '250px',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-
-  shippinLabel: {
-    whiteSpace: 'nowrap',
-    width: '250px',
-    overflowX: 'auto',
-  },
-
-  imgBlock: {
-    display: 'flex',
-  },
-
-  imgSubBlock: {
-    display: 'flex',
-    marginLeft: '10px',
-    flexDirection: 'column',
-  },
-
-  countBlock: {
-    display: 'flex',
-  },
 
   buttonsWrapper: {
     display: 'flex',
@@ -155,13 +78,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: 216,
     height: 40,
     gap: 5,
-  },
-
-  superboxTypo: {
-    marginLeft: '10px',
-    color: theme.palette.primary.main,
-    fontSize: '20px',
-    fontWeight: '900px',
   },
 
   amount: {
@@ -203,12 +119,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  needPay: {
-    color: 'red',
-    fontWeight: 'bold',
-    marginLeft: '15px',
-  },
-
   titleWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -232,53 +142,11 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'flex-end',
   },
 
-  imageFileInputWrapper: {
-    width: '100%',
-    display: 'flex',
-    marginTop: '20px',
-    alignItems: 'flex-start',
-  },
-
-  // filesWrapper: {
-  //   width: '450px',
-  //   maxHeight: '220px',
-  //   overflow: 'auto',
-  // },
-
-  filesContainer: {
-    width: 'auto',
-    marginLeft: '30px',
-  },
-
-  linkText: {
-    color: theme.palette.primary.main,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    transition: '.3s ease',
-    whiteSpace: 'nowrap',
-    overflow: 'auto',
-
-    '&:hover': {
-      opacity: '0.8',
-    },
-  },
-
-  filesWrapper: {
-    marginTop: 20,
-    height: 125,
-  },
-
   files: {
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
     color: theme.palette.text.general,
-  },
-
-  textEllipsis: {
-    maxWidth: 150,
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
   },
 
   searchInput: {
@@ -297,16 +165,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  searchContainer: {
-    width: 'auto',
-    justifySelf: 'flex-start',
-  },
-
-  searchWrapper: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginBottom: 20,
-  },
   fieldLabel: {
     fontWeight: 600,
     fontSize: 18,
@@ -353,9 +211,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   tableWrapper: {
-    // height: '600px',
-    // minHeight: 400,
-    // maxHeight: 600,
     height: 502,
     overflowY: 'auto',
     width: '100%',

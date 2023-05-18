@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -26,18 +26,22 @@ export const depersonalizedPickColumns = (handlers, isSupervisor, firstRowId) =>
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    renderCell: params => (
-      <NormalActionBtnCell
-        isFirstRow={firstRowId === params.row.id}
-        tooltipText={
-          isSupervisor
-            ? t(TranslationKey['Assign a product card to a supervisor'])
-            : t(TranslationKey['To assign the order to Byer'])
-        }
-        bTnText={t(TranslationKey['Get to work'])}
-        onClickOkBtn={() => handlers.onPickUp(params.row.originalData)}
-      />
-    ),
+    renderCell: params => {
+      const onPickUp = useCallback(() => handlers.onPickUp(params.row.originalData), [])
+
+      return (
+        <NormalActionBtnCell
+          isFirstRow={firstRowId === params.row.id}
+          tooltipText={
+            isSupervisor
+              ? t(TranslationKey['Assign a product card to a supervisor'])
+              : t(TranslationKey['To assign the order to Byer'])
+          }
+          bTnText={t(TranslationKey['Get to work'])}
+          onClickOkBtn={onPickUp}
+        />
+      )
+    },
     width: 550,
   },
 
@@ -48,7 +52,7 @@ export const depersonalizedPickColumns = (handlers, isSupervisor, firstRowId) =>
 
     minWidth: 150,
     flex: 1,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     type: 'date',
   },
 ]

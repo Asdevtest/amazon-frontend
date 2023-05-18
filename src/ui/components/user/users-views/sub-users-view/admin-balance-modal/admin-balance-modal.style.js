@@ -39,10 +39,6 @@ export const useClassNames = makeStyles()(theme => ({
   confirmModal: {
     width: '360px',
   },
-  multilineField: {
-    height: 'auto',
-    width: '100%',
-  },
 
   modalTextArea: {
     height: '100px',

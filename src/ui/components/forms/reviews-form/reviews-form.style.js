@@ -5,13 +5,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '1643px',
   },
 
-  btnWrapper: {},
-  modalTitle: {
-    fontWeight: 600,
-    fontSize: '18px',
-    lineHeight: '140%',
-    color: theme.palette.text.general,
-  },
   modalHeader: {
     width: '100%',
     display: 'flex',

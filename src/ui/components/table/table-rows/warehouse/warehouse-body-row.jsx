@@ -210,7 +210,7 @@ const WarehouseBodyRowRaw = ({
             )}
           </TableRow>
           {isMaximizedMasterBox ? (
-            <TableRow className={classNames.subBoxesTableWrapper}>
+            <TableRow>
               <TableCell colSpan="2" />
               <TableCell colSpan="40">
                 <Table className={classNames.subBoxesTable}>

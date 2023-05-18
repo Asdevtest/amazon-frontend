@@ -1,6 +1,8 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React, { useEffect, useState } from 'react'
+
+import { observer } from 'mobx-react'
 import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -15,7 +17,6 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 
 import { AdminWarehouseTasksViewModel } from './admin-warehouse-tasks-view.model'
 import { styles } from './admin-warehouse-tasks-view.style'
-import { observer } from 'mobx-react'
 
 export const AdminWarehouseTasksViewRaw = props => {
   const [viewModel] = useState(() => new AdminWarehouseTasksViewModel({ history: props.history }))

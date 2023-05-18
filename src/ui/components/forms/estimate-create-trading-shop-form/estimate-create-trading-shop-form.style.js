@@ -19,20 +19,6 @@ export const useClassNames = makeStyles()(theme => ({
     alignSelf: 'start',
   },
 
-  commentLabelText: {
-    fontSize: '18px',
-    fontWeight: '400',
-    lineHeight: '140%',
-    color: theme.palette.text.general,
-  },
-
-  heightFieldAuto: {
-    height: 'auto',
-    width: '100%',
-
-    padding: 0,
-  },
-
   buttonOk: {
     padding: '8px 36px',
     marginRight: '10px',

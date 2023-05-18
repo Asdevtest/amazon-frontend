@@ -8,38 +8,12 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     marginBottom: '24px',
   },
-  modalSubTitle: {
-    color: theme.palette.text.general,
-    fontSize: '13px',
-    fontWeight: 700,
-    lineHeight: '15px',
-    marginBottom: '8px',
-  },
-  modalText: {
-    color: theme.palette.text.general,
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '21px',
-  },
-  inputWrapper: {
-    marginBottom: '16px',
-  },
 
   pendingOrderWrapper: {
     display: 'flex',
     gap: 20,
     cursor: 'pointer',
     marginRight: 20,
-  },
-  input: {
-    width: '100%',
-  },
-  inputLabel: {
-    color: theme.palette.text.general,
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '21px',
-    marginBottom: '8px',
   },
 
   modalButton: {
@@ -49,31 +23,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 500,
     lineHeight: '19px',
   },
-  footerTitle: {
-    color: 'rgba(189, 194, 209, 1)',
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '21px',
-    marginRight: '10px',
-    flexGrow: 1,
-  },
-  imgBox: {
-    backgroundColor: 'rgba(196, 196, 196, 1)',
-    height: '64px',
-    width: '64px',
-    borderRadius: '3px',
-    textAlign: 'center',
-    position: 'relative',
-    margin: '12px',
-  },
-  imgCross: {
-    color: '#fff',
-    fontSize: '68px',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -59%)',
-  },
+
   table: {
     '& td': {
       flexShrink: 0,
@@ -93,15 +43,7 @@ export const useClassNames = makeStyles()(theme => ({
       borderBottom: '1px solid rgba(224, 224, 224, 1)',
     },
   },
-  tableCell: {
-    align: 'center',
-    maxWidth: '100px',
-    borderRight: '1px solid #e0e0e0',
-    margin: 0,
-  },
-  // divider: {
-  //   margin: '0px -24px',
-  // },
+
   tableWrapper: {
     margin: '0px -30px',
     width: 'auto',
@@ -136,8 +78,6 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'auto',
     border: 'none',
     borderRadius: 0,
-    // height: 'auto',
-
     '&:hover': {
       backgroundColor: 'inherit !important',
     },
@@ -152,17 +92,12 @@ export const useClassNames = makeStyles()(theme => ({
     width: 50,
     padding: '0 10px',
     borderRight: '1px solid #e0e0e0',
-
     textAlign: 'center',
     margin: 0,
   },
 
   deliveryCellBtn: {
     width: '100%',
-
-    // height: 'auto',
-    // height: 80,
-
     cursor: 'auto',
     border: 'none',
     borderRadius: 0,
@@ -213,7 +148,6 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'auto',
     border: 'none',
     borderRadius: 0,
-
     '&:hover': {
       backgroundColor: 'inherit !important',
     },
@@ -282,11 +216,9 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'auto',
     border: 'none',
     borderRadius: 0,
-
     '&:hover': {
       backgroundColor: 'inherit !important',
     },
-
     '&:disabled': {
       backgroundColor: 'inherit !important',
       color: theme.palette.text.general,
@@ -310,15 +242,12 @@ export const useClassNames = makeStyles()(theme => ({
 
   commentCellBtn: {
     width: '100%',
-
     cursor: 'auto',
     border: 'none',
     borderRadius: 0,
-
     '&:hover': {
       backgroundColor: 'inherit !important',
     },
-
     '&:disabled': {
       backgroundColor: 'inherit !important',
       color: theme.palette.text.general,
@@ -333,7 +262,6 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '30px',
   },
   buyNowBtn: {
-    // backgroundColor: 'rgba(0, 123, 255, 1)',
     color: '#fff',
   },
   cancelBtn: {

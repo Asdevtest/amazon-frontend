@@ -1,35 +1,13 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  boxesWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  currentBox: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',
-  },
-  currentBoxFooter: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '15px',
-  },
   newBoxes: {
     marginBottom: '20px',
   },
   box: {
     minWidth: '300px',
   },
-  order: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: '5px',
-  },
-  divider: {
-    margin: '0 10px',
-  },
+
   img: {
     width: '40px',
     height: '40px',
@@ -48,27 +26,12 @@ export const useClassNames = makeStyles()(theme => ({
     WebkitBoxOrient: 'vertical',
     height: 85,
     whiteSpace: 'normal',
-
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
-    // marginRight: '10px',
-
     width: '100px',
-  },
-  titleOfCurBox: {
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '21px',
-    width: '250px',
-  },
-  subTitle: {
-    fontSize: '14px',
-    color: theme.palette.text.second,
-    marginRight: theme.spacing(1),
   },
 
   inputWrapper: {
@@ -81,8 +44,6 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '22px',
     textAlign: 'center',
     padding: '6px 8px',
-
-    // color: `${theme.palette.text.second} !important`,
   },
   row: {
     minWidth: '300px',
@@ -121,13 +82,7 @@ export const useClassNames = makeStyles()(theme => ({
   descriptionWrapper: {
     display: 'flex',
   },
-  qtyWrapper: {
-    display: 'flex',
-    gap: '5px',
-  },
-  buttonsWrapper: {
-    marginTop: '30px',
-  },
+
   qtyCell: {
     minWidth: '80px',
   },

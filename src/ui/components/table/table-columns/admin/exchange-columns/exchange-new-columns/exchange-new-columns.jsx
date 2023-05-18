@@ -20,7 +20,7 @@ export const exchangeNewColumns = () => [
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
     type: 'date',
   },
@@ -29,7 +29,7 @@ export const exchangeNewColumns = () => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
     type: 'date',
   },
@@ -39,7 +39,18 @@ export const exchangeNewColumns = () => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    renderCell: params => <ProductAsinCell product={params.row.originalData} />,
+    renderCell: params => {
+      const product = params.row.originalData
+
+      return (
+        <ProductAsinCell
+          image={product?.images?.slice()[0]}
+          amazonTitle={product?.amazonTitle}
+          asin={product?.asin}
+          skusByClient={product?.skusByClient?.slice()[0]}
+        />
+      )
+    },
     width: 300,
   },
   {

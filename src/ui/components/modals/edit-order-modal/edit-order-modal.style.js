@@ -1,14 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  modalTitle: {
-    color: theme.palette.text.general,
-    fontSize: '24px',
-    fontWeight: 500,
-    lineHeight: '28px',
-    marginBottom: '24px',
-  },
-
   modalText: {
     color: theme.palette.text.general,
     fontSize: 18,
@@ -99,9 +91,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: 'max-content',
     width: '100%',
   },
-  divider: {
-    margin: '10px -16px 10px',
-  },
+
   buttonsBox: {
     textAlign: 'right',
     display: 'flex',
@@ -157,7 +147,6 @@ export const useClassNames = makeStyles()(theme => ({
   trackNumberPhotoWrapper: {
     width: 225,
     height: 137,
-
     border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: 4,
     display: 'flex',
@@ -179,8 +168,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  addBtn: {},
-
   addBoxTitle: {
     marginBottom: '10px',
     marginTop: '40px',
@@ -191,7 +178,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   addBoxButtonWrapper: {
     display: 'flex',
-
     justifyContent: 'space-between',
     alignItems: 'end',
   },
@@ -270,8 +256,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   disableSelect: {
-    // color: 'rgba(0, 0, 0, .2) !important',
-
     color: theme.palette.input.customDisabled,
   },
 
@@ -307,29 +291,7 @@ export const useClassNames = makeStyles()(theme => ({
   rushOrder: {
     color: theme.palette.text.main,
   },
-  sharpCell: {
-    width: 10,
-  },
-  updatedCell: {
-    width: 65,
-  },
-  statusCell: {
-    width: 60,
-  },
-  productCell: {
-    width: 210,
-    textAlign: 'center',
-  },
-  finalWeightCell: {
-    width: 90,
-    whiteSpace: 'pre-wrap',
-    textAlign: 'center',
-  },
-  grossWeightCell: {
-    width: 90,
-    whiteSpace: 'pre-wrap',
-    textAlign: 'center',
-  },
+
   commentInput: {
     fontSize: '14px',
     marginTop: '2px',
@@ -337,9 +299,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: 107,
     padding: 0,
   },
-  tmpContainerField: {
-    margin: '0 !important',
-  },
+
   inputWrapper: {
     height: 'auto',
   },
@@ -353,8 +313,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '12px',
     lineHeight: '14px',
     fontWeight: '400',
-    // color: theme.palette.text.second,
-
     color: theme.palette.text.second,
   },
   supplierCheckboxWrapper: {
@@ -381,7 +339,5 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-
-    // whiteSpace: 'nowrap',
   },
 }))

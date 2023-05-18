@@ -21,15 +21,6 @@ export const styles = theme => ({
     gap: 20,
   },
 
-  datesFilterWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: 400,
-    maxHeight: 500,
-    padding: '10px 0',
-    gap: 20,
-  },
   searchInputWrapper: {
     width: 255,
     height: 30,
@@ -39,6 +30,7 @@ export const styles = theme => ({
     width: '100%',
     height: '100%',
   },
+
   shopsBody: {
     width: 255,
     minHeight: 50,
@@ -48,6 +40,7 @@ export const styles = theme => ({
 
     boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
   },
+
   shop: {
     display: 'flex',
     alignItems: 'center',

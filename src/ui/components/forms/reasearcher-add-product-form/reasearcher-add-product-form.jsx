@@ -154,7 +154,7 @@ export const ResearcherAddProductFormRaw = observer(
 
           {!disabledNoProvatLabel && (
             <div className={classNames.rightBlockWrapper}>
-              <div className={classNames.fieldsWrapper}>
+              <div>
                 <Field
                   disabled={disabledNoProvatLabel}
                   inputProps={{ maxLength: 255 }}
@@ -190,7 +190,7 @@ export const ResearcherAddProductFormRaw = observer(
                 </div>
               </div>
 
-              <div className={classNames.fieldsWrapper}>
+              <div>
                 <Field
                   disabled={disabledNoProvatLabel}
                   inputProps={{ maxLength: 10 }}

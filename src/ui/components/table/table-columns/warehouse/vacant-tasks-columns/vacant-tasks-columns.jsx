@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -23,14 +23,18 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    renderCell: params => (
-      <NormalActionBtnCell
-        tooltipText={t(TranslationKey['Take the task to work'])}
-        bTnText={t(TranslationKey['Get to work'])}
-        isFirstRow={firstRowId === params.row.id}
-        onClickOkBtn={() => handlers.onClickPickupBtn(params.row.originalData)}
-      />
-    ),
+    renderCell: params => {
+      const onClickPickupBtn = useCallback(() => handlers.onClickPickupBtn(params.row.originalData), [])
+
+      return (
+        <NormalActionBtnCell
+          tooltipText={t(TranslationKey['Take the task to work'])}
+          bTnText={t(TranslationKey['Get to work'])}
+          isFirstRow={firstRowId === params.row.id}
+          onClickOkBtn={onClickPickupBtn}
+        />
+      )
+    },
     width: window.innerWidth < 1282 ? 150 : 190,
     filterable: false,
     sortable: false,
@@ -80,7 +84,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
     width: 180,
-    renderCell: params => <TaskTypeCell task={params.row.originalData} />,
+    renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
   },
 
   {
@@ -90,7 +94,11 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
 
     // width: window.innerWidth < 1282 ? 338 : 850,
     width: 290,
-    renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
+    renderCell: params => {
+      const rowMemo = useMemo(() => params.row.originalData, [])
+
+      return <TaskDescriptionCell task={rowMemo} />
+    },
     filterable: false,
     sortable: false,
   },

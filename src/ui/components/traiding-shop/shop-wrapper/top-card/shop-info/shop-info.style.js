@@ -80,9 +80,6 @@ export const useClassNames = makeStyles()(theme => ({
     border: '1px solid #006CFF',
   },
 
-  chartWrapper: {
-    // maxWidth: '245px',
-  },
   chartLabel: {
     fontSize: '14px',
     lineHeight: '19px',

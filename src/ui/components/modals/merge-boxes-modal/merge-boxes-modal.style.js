@@ -26,22 +26,8 @@ export const useClassNames = makeStyles()(theme => ({
     outline: '2px solid #F5CF00',
   },
 
-  boxesWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
   buttonsWrapper: { display: 'flex', gap: '10px' },
-  currentBox: {
-    marginBottom: '20px',
-  },
-  currentBoxFooter: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    height: '60px',
-  },
-  newBoxes: {
-    marginBottom: '20px',
-  },
+
   box: {
     minWidth: '300px',
     marginBottom: '10px',
@@ -52,56 +38,26 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     marginBottom: '30px',
   },
-  divider: {
-    margin: '0 30px',
-  },
+
   img: {
     width: '66px',
     height: '66px',
     objectFit: 'contain',
     objectPosition: 'center',
   },
-  sectionTitle: {
-    color: theme.palette.text.second,
-    marginBottom: theme.spacing(1),
-  },
 
-  standartText: {
-    color: theme.palette.text.general,
-  },
   title: {
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
     marginRight: '10px',
     width: '299px',
-    // overflow: 'hidden',
-    // textOverflow: 'ellipsis',
-    // whiteSpace: 'wrap',
-
     color: theme.palette.text.general,
   },
-  subTitle: {
-    fontSize: '14px',
-    color: theme.palette.text.second,
-    marginRight: theme.spacing(1),
-  },
 
-  inputWrapper: {
-    border: '1px solid rgba(143, 152, 165, 1)',
-    borderRadius: '4px',
-    maxWidth: '80px',
-    height: '40px',
-  },
   input: {
     fontSize: '14px',
     textAlign: 'center',
-  },
-
-  itemsWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '5px',
   },
 
   barcodeChip: {
@@ -134,7 +90,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainWrapper: {
     display: 'flex',
-    // flexDirection: 'column',
     gap: '40px',
   },
 
@@ -142,10 +97,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: 'red',
     fontSize: '14px',
     fontWeight: 'bold',
-  },
-
-  modalText: {
-    marginBottom: '8px',
   },
 
   storekeeperBtn: {
@@ -181,10 +132,6 @@ export const useClassNames = makeStyles()(theme => ({
     gridTemplateColumns: 'repeat(2, 231px)',
     columnGap: '25px',
     rowGap: '30px',
-  },
-
-  destinationSelect: {
-    height: '40px',
   },
 
   label: {

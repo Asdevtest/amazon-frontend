@@ -142,7 +142,6 @@ export const BindStockGoodsToInventoryForm = observer(
             </Button>
 
             <SearchInput
-              inputClasses={classNames.searchInput}
               disabled={chipConfig === chipConfigSettings.RECOMMENDED}
               value={searchInputValue}
               placeholder={t(TranslationKey.search)}

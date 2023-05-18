@@ -5,20 +5,6 @@ export const styles = theme => ({
     '&:hover': {
       transform: 'scale(1.01)',
     },
-
-    // border: 0,
-    // boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: '#fff',
-  },
-
-  datagridWrapper: {
-    marginTop: '10px',
-    height: '79vh',
-  },
-  root: {
-    // border: '0 !important',
-    // boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: '#fff',
   },
 
   footerContainer: {

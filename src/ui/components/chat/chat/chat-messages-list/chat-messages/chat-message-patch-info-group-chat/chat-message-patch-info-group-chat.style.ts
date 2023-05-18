@@ -23,13 +23,6 @@ export const useClassNames = makeStyles()(theme => ({
     maxWidth: 200,
   },
 
-  usersWrapper: {
-    display: 'flex',
-    gap: 5,
-    maxWidth: 350,
-    flexWrap: 'wrap',
-  },
-
   changeTitleWrapper: {
     display: 'flex',
     marginBottom: 30,

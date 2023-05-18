@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import { orderColorByStatus, OrderStatusByCode } from '@constants/statuses/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -49,7 +49,11 @@ export const adminOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
     width: 400,
-    renderCell: params => <OrderCell product={params.row.originalData.product} />,
+    renderCell: params => {
+      const productMemo = useMemo(() => params.row.originalData.product, [])
+
+      return <OrderCell product={productMemo} />
+    },
   },
 
   {
@@ -166,7 +170,7 @@ export const adminOrdersViewColumns = () => [
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
     type: 'date',
   },
@@ -176,7 +180,7 @@ export const adminOrdersViewColumns = () => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
     type: 'date',
   },

@@ -26,15 +26,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '21px',
   },
-  title: {
-    fontSize: '20px',
-    fontWeight: 500,
-    color: theme.palette.text.general,
-  },
-  tableHeadTypography: {
-    color: theme.palette.text.general,
-    fontWeight: 500,
-  },
+
   paper: {
     padding: '24px',
     display: 'flex',
@@ -52,24 +44,11 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
-  hisGoodsOptionsBox: {
-    display: 'flex',
-  },
-  filterGoods: {
-    color: 'rgba(0, 123, 255, 1)',
-    marginRight: '16px',
-  },
-  ignoreGoods: {
-    color: 'rgba(0, 123, 255, 1)',
-  },
+
   normalBox: {
     display: 'flex',
     margin: '12px 0',
     gap: '16px',
-  },
-  visibilityIcon: {
-    color: 'rgba(0, 123, 255, 1)',
-    marginRight: '8px',
   },
 
   rightSideWrapper: {
@@ -117,18 +96,6 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       fontSize: '12px',
       fontWeight: 600,
-    },
-  },
-
-  badge: {
-    backgroundColor: theme.palette.background.general,
-    borderRadius: '50%',
-    border: `1px solid ${theme.palette.primary.main}`,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    transition: '0.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.1) rotate(45deg)',
     },
   },
 

@@ -33,7 +33,7 @@ export const AppealDetailsCard = () => {
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
         <div className={classNames.leftBlockWrapper}>
-          <div className={classNames.cardTitleBlockWrapper}>
+          <div>
             <Typography>{'Обращение от клиента Вася'}</Typography>
             <div className={classNames.cardTitleBlockHeaderWrapper}>
               <Typography className={classNames.cardTitle}>{'Причина обращения'}</Typography>

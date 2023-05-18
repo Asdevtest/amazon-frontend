@@ -32,26 +32,7 @@ export const TabMainContent = ({
   onClickAddProxyBtn,
 }) => {
   const { classes: classNames } = useClassNames()
-  // const [proxy, setProxy] = useState('')
-  // const [error, setError] = useState(false)
   const [showFullCard, setShowFullCard] = useState(false)
-
-  // const regExp =
-  //   /\b[a-zA-Z0-9]+:[a-zA-Z0-9]+@(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):\d{1,5}\b/
-
-  // const onClickAddProxy = () => {
-  //   setProxyArr(prev => [...new Set([...prev, proxy])])
-
-  //   setProxy('')
-  // }
-
-  // useEffect(() => {
-  //   if (proxy?.length && !proxy.match(regExp)) {
-  //     setError(true)
-  //   } else {
-  //     setError(false)
-  //   }
-  // }, [proxy])
 
   const onClickDeleteProxy = proxy => {
     const removeProxy = proxyArr.filter(p => p !== proxy)
@@ -83,8 +64,6 @@ export const TabMainContent = ({
         labelClasses={disabled && classNames.unselectable}
         label={t(TranslationKey['Link for financial transactions'])}
         classes={{ root: disabled ? classNames.textFieldUnSelection : classNames.textField }}
-        // value={formFields.volumeWeightCoefficient}
-        // onChange={onChangeField('volumeWeightCoefficient')}
       />
       <div className={classNames.placeAddBtnWrapper}>
         <Button disabled={disabledSubmit} className={classNames.submitButton} onClick={onSubmit}>
@@ -96,20 +75,7 @@ export const TabMainContent = ({
           {t(TranslationKey['Proxy servers for parsing'])}
         </Typography>
         <div className={classNames.proxyField}>
-          {/* <Field
-            disabled={disabled}
-            error={error && t(TranslationKey['Invalid proxy'])}
-            // label={t(TranslationKey['Proxy servers for parsing'])}
-            containerClasses={classNames.textContainer}
-            classes={{root: disabled ? classNames.textFieldUnSelection : classNames.textField}}
-            value={proxy}
-            onChange={e => setProxy(e.target.value)}
-          /> */}
-          <Button
-            disabled={disabledAddButton /* || error */}
-            className={classNames.addProxyButton}
-            onClick={onClickAddProxyBtn}
-          >
+          <Button disabled={disabledAddButton /* || error */} onClick={onClickAddProxyBtn}>
             {t(TranslationKey['Add proxy'])}
           </Button>
         </div>

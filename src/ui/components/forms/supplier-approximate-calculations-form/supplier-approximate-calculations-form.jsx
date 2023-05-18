@@ -4,18 +4,14 @@ import { Typography } from '@mui/material'
 
 import React, { useState } from 'react'
 
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { Field } from '@components/shared/field/field'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
 import { calcTotalFbaForProduct, roundSafely } from '@utils/calculation'
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
-import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { supplierApproximateCalculationsFormColumns } from './supplier-approximate-calculations-form-columns'

@@ -356,9 +356,9 @@ export class ClientInventoryViewModel {
     win.focus()
   }
 
-  onClickInStock(row, storekeeper) {
+  onClickInStock(boxId, storekeeper) {
     const win = window.open(
-      `${window.location.origin}/client/warehouse/in-stock?storekeeper-id=${storekeeper?._id}&search-text=${row._id}`,
+      `${window.location.origin}/client/warehouse/in-stock?storekeeper-id=${storekeeper?._id}&search-text=${boxId}`,
       '_blank',
     )
 
@@ -1134,9 +1134,9 @@ export class ClientInventoryViewModel {
     this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
-  async onClickSaveFourMonthesStockValue(item, fourMonthesStock) {
+  async onClickSaveFourMonthesStockValue(productId, fourMonthesStock) {
     try {
-      await ClientModel.updateProductFourMonthesStock(item._id, { fourMonthesStock })
+      await ClientModel.updateProductFourMonthesStock(productId, { fourMonthesStock })
 
       this.getProductsMy()
     } catch (error) {
@@ -1152,9 +1152,9 @@ export class ClientInventoryViewModel {
     this.onTriggerOpenModal('showBarcodeOrHscodeModal')
   }
 
-  async onClickSaveStockUs(item, value) {
+  async onClickSaveStockUs(productId, value) {
     try {
-      await ClientModel.editProductsStockUS(item._id, {
+      await ClientModel.editProductsStockUS(productId, {
         stockUSA: value,
       })
 

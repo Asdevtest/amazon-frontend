@@ -2,14 +2,9 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    // minHeight: '36px !important',
     minWidth: '36px !important',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-
-    // color: theme.palette.text.negativeMain,
     color: '#fff',
-    // color: '#fff !important',
-
     height: 40,
     // padding: '11px 25px 10px', ломает все кнопки
     fontSize: 14,
@@ -23,9 +18,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   success: {
-    // color: `${theme.palette.text.negativeMain} !important`,
-    // color: '#fff',
-
     backgroundColor: '#009a07 !important',
     '&:hover': {
       backgroundColor: '#1E7422 !important',
@@ -44,11 +36,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   danger: {
     color: '#fff !important',
-
-    // color: `${theme.palette.text.negativeMain} !important`,
-    // color: '#fff',
-
-    // background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
     background: '#DD2121',
 
     '&:hover': {
@@ -63,15 +50,6 @@ export const useClassNames = makeStyles()(theme => ({
       background: theme.palette.button.disabledDangerBackground,
       // background: 'linear-gradient(180deg, #FF1616 100%, #DF0C0C 100%)',
     },
-  },
-  // disabled: { работает
-  // backgroundColor: '#a0a0a4 !important',
-  // color: theme.palette.text.general,
-  // backgroundColor: `${theme.palette.background.disabled} !important`,
-  // },
-
-  text: {
-    color: theme.palette.text.general,
   },
 
   tooltipsWrapper: {
@@ -104,8 +82,6 @@ export const useClassNames = makeStyles()(theme => ({
       transform: 'scale(1.1)',
     },
   },
-
-  tooltipCenter: {},
 
   tooltipInfo: {
     marginLeft: '3px',

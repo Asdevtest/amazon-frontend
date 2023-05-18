@@ -11,7 +11,6 @@ export const useClassNames = makeStyles()(() => ({
   addProductBtnsWrapper: {
     width: '100%',
     display: 'flex',
-    // justifyContent: 'space-between',
     padding: '10px',
   },
 

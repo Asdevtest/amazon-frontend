@@ -43,7 +43,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, han
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
-        <div className={classNames.headerWrapper}>
+        <div>
           <Typography className={classNames.headerText}>{t(TranslationKey.Result)}</Typography>
         </div>
         <div className={classNames.timeWrapper}>
@@ -60,7 +60,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, han
           </Linkify>
         </div>
       </div>
-      <div className={classNames.resultTextWrapper}>
+      <div>
         <Linkify>
           <Typography className={classNames.resultText}>{message.data.edited.result}</Typography>
         </Linkify>
@@ -79,7 +79,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, han
           onChangeImagesForLoad={undefined}
         />
 
-        <div className={classNames.resultRightSide}>
+        <div>
           <div className={classNames.timeToCheckBlockWrapper}>
             <Typography className={classNames.timeToCheckBlockLabelText}>
               {t(TranslationKey['Time to check'])}
@@ -104,7 +104,6 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, han
               <Button
                 variant="contained"
                 color="primary"
-                btnWrapperStyle={classNames.actionBtnWrapperStyle}
                 className={cx(classNames.actionButton, classNames.editButton)}
                 onClick={() => handlers.onClickProposalResultToCorrect(proposal._id)}
               >
@@ -114,7 +113,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, han
             <Button
               variant="contained"
               color="primary"
-              btnWrapperStyle={cx(classNames.actionBtnWrapperStyle, classNames.actionBtnWrapperStyleNotFirst)}
+              btnWrapperStyle={classNames.actionBtnWrapperStyleNotFirst}
               className={cx(classNames.actionButton, classNames.successBtn)}
               onClick={() => handlers.onClickProposalResultAccept(proposal._id)}
             >

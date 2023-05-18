@@ -13,8 +13,4 @@ export const useClassNames = makeStyles()(() => ({
     padding: '0 0px',
     margin: '0 auto',
   },
-  flexContainer: {
-    // flexDirection: 'column',
-    // width: '200px',
-  },
 }))

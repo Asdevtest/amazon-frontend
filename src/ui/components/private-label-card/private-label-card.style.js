@@ -31,16 +31,6 @@ export const useClassNames = makeStyles()(theme => ({
     height: '100%',
     justifyContent: 'space-between',
   },
-  title: {
-    color: theme.palette.text.general,
-    fontSize: '20px',
-    fontWeight: 600,
-    lineHeight: '26px',
-    marginBottom: '12px',
-    height: '100px',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
 
   category: {
     height: '25px',

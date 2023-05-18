@@ -1,12 +1,4 @@
 export const styles = theme => ({
-  root: {
-    width: 280,
-    height: 36,
-    position: 'relative',
-
-    display: 'visible !important',
-  },
-
   control: {
     background: theme.palette.background.general,
     maxWidth: 500,
@@ -20,7 +12,6 @@ export const styles = theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '0 5px',
-    // textColor: theme.palette.primary.main,
     background: '#CCE2FF',
   },
 

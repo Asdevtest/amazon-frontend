@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey } from '@constants/statuses/order-status'
@@ -56,7 +56,11 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
     width: 400,
-    renderCell: params => <OrderCell product={params.row.originalData.product} />,
+    renderCell: params => {
+      const productMemo = useMemo(() => params.row.originalData.product, [])
+
+      return <OrderCell product={productMemo} />
+    },
     sortable: false,
   },
   {
@@ -228,7 +232,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
     type: 'date',
   },
@@ -238,7 +242,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 130,
     type: 'date',
   },

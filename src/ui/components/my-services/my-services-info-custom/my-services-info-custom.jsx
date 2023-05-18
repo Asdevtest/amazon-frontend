@@ -155,7 +155,7 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
           </div>
         </div>
 
-        <Divider orientation="vertical" className={classNames.divider} />
+        <Divider orientation="vertical" />
 
         <div className={cx(classNames.announcementBlock)}>
           <Typography className={classNames.requestTitle}>{t(TranslationKey.Announcement)}</Typography>

@@ -135,7 +135,6 @@ export const FieldsAndSuppliers = observer(
                     <Button
                       tooltipInfoContent={t(TranslationKey['Open the field to edit the link'])}
                       disabled={!checkIsClient(curUserRole)}
-                      className={classNames.editButton}
                       onClick={() => setEdit(!edit)}
                     >
                       {t(TranslationKey.Edit)}
@@ -145,7 +144,6 @@ export const FieldsAndSuppliers = observer(
                       success
                       tooltipInfoContent={t(TranslationKey['Saves a link to an Amazon product'])}
                       disabled={!checkIsClient(curUserRole)}
-                      className={classNames.editButton}
                       onClick={() => setEdit(!edit)}
                     >
                       {t(TranslationKey.Save)}

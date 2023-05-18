@@ -6,7 +6,6 @@ export const useClassNames = makeStyles()(theme => ({
     top: '1px',
     right: '1px',
     zIndex: '10',
-
     display: 'flex',
   },
 
@@ -46,6 +45,5 @@ export const useClassNames = makeStyles()(theme => ({
 
   selected: {
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
-    // textTransform: 'none',
   },
 }))

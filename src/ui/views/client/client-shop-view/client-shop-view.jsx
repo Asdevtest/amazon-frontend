@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
+import { observer } from 'mobx-react'
+
 import { MainContent } from '@components/layout/main-content'
 import { ShopWrapper } from '@components/traiding-shop/shop-wrapper/shop-wrapper'
 
 import { ClientShopViewModel } from './client-shop-view.model'
-import { observer } from 'mobx-react'
 
 export const ClientShopView = observer(props => {
   const [viewModel] = useState(

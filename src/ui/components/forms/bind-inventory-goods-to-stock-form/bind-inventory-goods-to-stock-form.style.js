@@ -9,14 +9,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  mainTitle: {
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontSize: '24px',
-    lineHeight: '33px',
-    color: 'black',
-  },
-
   tableWrapper: {
     marginTop: '10px',
     height: '30vh',
@@ -31,12 +23,6 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '20px',
     display: 'flex',
     justifyContent: 'flex-end',
-  },
-
-  searchBtnText: {
-    fontSize: '14px',
-    lineHeight: '17px',
-    color: theme.palette.primary.main,
   },
 
   form: {
@@ -55,10 +41,6 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: 100,
 
     color: theme.palette.text.second,
-  },
-
-  asinChip: {
-    marginLeft: '8px',
   },
 
   chipLeftMargin: {

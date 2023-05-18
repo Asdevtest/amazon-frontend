@@ -33,7 +33,7 @@ export const ReviewsForm = observer(({ onClickCloseButton }) => {
           <FeedbackCard isPositive counter={300} />
           <FeedbackCard isPositive={false} counter={11} />
         </div>
-        <div className={classNames.btnWrapper}>
+        <div>
           <Button color="primary" className={classNames.closeButton} onClick={() => onClickCloseButton()}>
             {t(TranslationKey.Close)}
           </Button>

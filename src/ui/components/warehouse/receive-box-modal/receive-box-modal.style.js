@@ -142,8 +142,6 @@ export const useClassNames = makeStyles()(theme => ({
     objectFit: 'contain',
     objectPosition: 'center',
     [theme.breakpoints.down(768)]: {
-      // width: '50px',
-      // height: '50px',
       marginRight: '10px',
     },
   },
@@ -189,11 +187,6 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(1282)]: {
       width: '100%',
     },
-  },
-  subTitle: {
-    fontSize: '14px',
-    color: theme.palette.text.second,
-    marginRight: theme.spacing(1),
   },
 
   inputWrapper: {
@@ -306,9 +299,7 @@ export const useClassNames = makeStyles()(theme => ({
       gap: '20px',
     },
   },
-  qtyCell: {
-    minWidth: '80px',
-  },
+
   deleteBtn: {
     color: 'rgba(189, 194, 209, 1)',
     [theme.breakpoints.down(768)]: {
@@ -384,20 +375,6 @@ export const useClassNames = makeStyles()(theme => ({
       marginTop: '30px',
     },
   },
-  checkboxContainer: {
-    width: '190px',
-    margin: 0,
-  },
-  label: {
-    maxWidth: '150px',
-    fontSize: '14px',
-    lineHeight: '19px',
-    whiteSpace: 'pre-wrap',
-    color: theme.palette.text.second,
-  },
-  checkboxCell: {
-    width: '200px',
-  },
 
   unitsWrapper: {
     display: 'flex',
@@ -443,14 +420,7 @@ export const useClassNames = makeStyles()(theme => ({
       alignItems: 'center',
     },
   },
-  boxTitle: {
-    [theme.breakpoints.down(768)]: {
-      fontSize: '12px',
-      lineHeight: '16px',
-      color: theme.palette.text.second,
-      marginBottom: '12px',
-    },
-  },
+
   boxTitleMobile: {
     [theme.breakpoints.down(768)]: {
       fontSize: '12px',

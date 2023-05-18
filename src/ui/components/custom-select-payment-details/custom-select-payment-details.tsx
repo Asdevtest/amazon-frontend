@@ -151,7 +151,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
               {!onlyRead && ( // @ts-ignore
                 <MenuItem value={{ _id: 'SELECT_ALL' }}>
                   <Checkbox color="primary" checked={value?.length === paymentMethods?.length} />
-                  <Typography className={classNames.standartText}>{t(TranslationKey.All)}</Typography>
+                  <Typography>{t(TranslationKey.All)}</Typography>
                 </MenuItem>
               )}
 
@@ -160,7 +160,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
                   // @ts-ignore
                   <MenuItem key={paymentMethodIndex} value={paymentMethod}>
                     <Checkbox color="primary" checked={value?.some(item => item?._id === paymentMethod?._id)} />
-                    <Typography className={classNames.standartText}>{paymentMethod?.title}</Typography>
+                    <Typography>{paymentMethod?.title}</Typography>
                   </MenuItem>
                 ))}
 
@@ -173,7 +173,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
                       color="primary"
                       checked={value?.some(item => item?._id === paymentMethod?._id)}
                     />
-                    <Typography className={classNames.standartText}>{paymentMethod?.title}</Typography>
+                    <Typography>{paymentMethod?.title}</Typography>
                   </MenuItem>
                 ))}
             </Select>

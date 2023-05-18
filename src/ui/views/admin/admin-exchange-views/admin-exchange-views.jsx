@@ -3,6 +3,8 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Grid } from '@mui/material'
 
 import React, { useEffect, useState } from 'react'
+
+import { observer } from 'mobx-react'
 import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -17,7 +19,6 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 
 import { AdminExchangeViewModel } from './admin-exchange-views.model'
 import { styles } from './admin-exchange-views.style'
-import { observer } from 'mobx-react'
 
 export const AdminExchangeViewsRaw = props => {
   const [viewModel] = useState(() => new AdminExchangeViewModel({ history: props.history }))

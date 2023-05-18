@@ -11,9 +11,7 @@ import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react'
 
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
-import { operationTypes } from '@constants/keys/operation-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'

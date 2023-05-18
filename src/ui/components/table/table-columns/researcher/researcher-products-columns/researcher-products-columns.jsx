@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import {
   colorByProductStatus,
@@ -26,7 +26,11 @@ export const researcherProductsViewColumns = () => [
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextCell text={t(TranslationKey.ASIN)} />,
 
-    renderCell: params => <AsinCell text={params.value} product={params.row.originalData} />,
+    renderCell: params => {
+      const originalData = useMemo(() => params.row.originalData, [])
+
+      return <AsinCell text={params.value} product={originalData} />
+    },
     width: 180,
   },
 
@@ -106,7 +110,7 @@ export const researcherProductsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     minWidth: 150,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     type: 'date',
   },
 ]

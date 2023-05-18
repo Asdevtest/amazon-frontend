@@ -120,7 +120,7 @@ export const addOrEditBatchFormColumns = isClient => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
     type: 'date',
   },

@@ -71,7 +71,9 @@ export const logisticsTariffsColumns = handlers => [
     field: 'dates',
     headerName: t(TranslationKey.Dates),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dates)} />,
-    renderCell: params => <WarehouseTariffDatesCell row={params.row} />,
+    renderCell: params => (
+      <WarehouseTariffDatesCell cls={params.row?.cls} etd={params.row?.etd} eta={params.row?.eta} />
+    ),
     width: 330,
     filterable: false,
     sortable: false,

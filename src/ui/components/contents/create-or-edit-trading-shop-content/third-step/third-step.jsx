@@ -71,7 +71,6 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
           multiline
           inputProps={{ maxLength: 100 }}
           labelClasses={classNames.spanLabelSmall}
-          containerClasses={classNames.fieldContainer}
           label={t(TranslationKey.Opportunities)}
           inputComponent={
             <Paper className={classNames.assetsPaper}>
@@ -110,7 +109,6 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
           multiline
           inputProps={{ maxLength: 100 }}
           labelClasses={classNames.spanLabelSmall}
-          containerClasses={classNames.fieldContainer}
           label={t(TranslationKey.Risks)}
           inputComponent={
             <Paper className={classNames.assetsPaper}>
@@ -149,7 +147,6 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
           multiline
           inputProps={{ maxLength: 100 }}
           labelClasses={classNames.spanLabelSmall}
-          containerClasses={classNames.fieldContainer}
           label={t(TranslationKey['Work and skills required'])}
           inputComponent={
             <Paper className={classNames.assetsPaper}>
@@ -190,7 +187,6 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
           multiline
           inputProps={{ maxLength: 100 }}
           labelClasses={classNames.spanLabelSmall}
-          containerClasses={classNames.fieldContainer}
           label={t(TranslationKey['Seller support includes'])}
           inputComponent={
             <Paper className={classNames.assetsPaper}>
@@ -229,7 +225,6 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
           multiline
           inputProps={{ maxLength: 100 }}
           labelClasses={classNames.spanLabelSmall}
-          containerClasses={classNames.fieldContainer}
           label={t(TranslationKey['Reasons for sale'])}
           inputComponent={
             <Paper className={classNames.assetsPaper}>
@@ -268,7 +263,6 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
           multiline
           inputProps={{ maxLength: 100 }}
           labelClasses={classNames.spanLabelSmall}
-          containerClasses={classNames.fieldContainer}
           label={t(TranslationKey['Additional Information'])}
           inputComponent={
             <Paper className={classNames.assetsPaper}>

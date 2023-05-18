@@ -234,7 +234,7 @@ export const EditBoxTasksModal = ({
       <div className={classNames.modalHeaderWrapper}>
         <Typography className={classNames.modalTitle}>{t(TranslationKey['Editing the box'])}</Typography>
 
-        <div className={classNames.sizesSubWrapper}>
+        <div>
           <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
             <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
               {'In'}

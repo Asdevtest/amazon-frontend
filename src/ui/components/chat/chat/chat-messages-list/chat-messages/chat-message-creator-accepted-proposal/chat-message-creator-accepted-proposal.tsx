@@ -17,7 +17,7 @@ export const ChatMessageCreatorAcceptedProposal: FC<Props> = () => {
           <p className={classNames.headerText}>ПРЕДЛОЖЕНИЕ ПРИНЯТО КЛИЕНТОМ</p>
         </div>
       </div>
-      <div className={classNames.mainInfoWrapper}>
+      <div>
         <div className={classNames.titleWrapper}>
           <p className={classNames.titleText}>
             Название задачи надо писать вот тут и тут пишется полное название заявки точнее
@@ -31,7 +31,7 @@ export const ChatMessageCreatorAcceptedProposal: FC<Props> = () => {
         </div>
       </div>
       <div className={classNames.otherInfoWrapper}>
-        <div className={classNames.labelValueDoubleBlockWrapper}>
+        <div>
           <LabelValueDoubleBlock
             bgColor="green"
             labelValueDouble={[
@@ -40,7 +40,7 @@ export const ChatMessageCreatorAcceptedProposal: FC<Props> = () => {
             ]}
           />
         </div>
-        <div className={cx(classNames.labelValueDoubleBlockWrapper, classNames.labelValueDoubleBlockWrapperNotFirst)}>
+        <div className={cx(classNames.labelValueDoubleBlockWrapperNotFirst)}>
           <LabelValueDoubleBlock
             bgColor="green"
             labelValueDouble={[

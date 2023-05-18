@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -21,7 +21,11 @@ export const adminBatchesViewColumns = () => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     width: 550,
-    renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
+    renderCell: params => {
+      const boxesMemo = useMemo(() => params.row.originalData.boxes, [])
+
+      return <BatchBoxesCell boxes={boxesMemo} />
+    },
     filterable: false,
     sortable: false,
   },
@@ -30,7 +34,7 @@ export const adminBatchesViewColumns = () => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
     type: 'date',
   },
@@ -95,7 +99,13 @@ export const adminBatchesViewColumns = () => [
     headerName: t(TranslationKey.Dates),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dates)} />,
 
-    renderCell: params => <WarehouseTariffDatesCell row={params.row.originalData.boxes[0].logicsTariff} />,
+    renderCell: params => (
+      <WarehouseTariffDatesCell
+        cls={params.row.originalData.boxes[0].logicsTariff?.cls}
+        etd={params.row.originalData.boxes[0].logicsTariff?.etd}
+        eta={params.row.originalData.boxes[0].logicsTariff?.eta}
+      />
+    ),
     width: 350,
     filterable: false,
     sortable: false,

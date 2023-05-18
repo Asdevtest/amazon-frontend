@@ -18,7 +18,7 @@ export const DashboardWidgetsCard = observer(({ config, valuesData, onClickViewM
   const { classes: classNames } = useClassNames()
 
   return (
-    <div className={classNames.cardWrapper}>
+    <div>
       <DashboardOneLineCardsList
         isClient
         config={config.inventory}

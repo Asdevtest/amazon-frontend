@@ -48,19 +48,15 @@ export const useBoxNotificationStyles = makeStyles()(theme => ({
     paddingInlineStart: '0 !important',
     display: 'flex',
     flexDirection: 'column',
-    // gap: '10px',
-
     a: {
       cursor: 'pointer',
       textDecoration: 'none',
     },
-
     p: {
       margin: 0,
       fontSize: 14,
       color: theme.palette.text.general,
     },
-
     '& > p': {
       marginBottom: 5,
     },

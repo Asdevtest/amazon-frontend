@@ -27,9 +27,6 @@ export const useClassNames = makeStyles()(theme => ({
   closeButton: {
     color: theme.palette.text.general,
   },
-  title: {
-    color: theme.palette.text.general,
-  },
 
   multiline: {
     width: '100%',
@@ -42,31 +39,6 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'hidden',
 
     padding: 0,
-  },
-
-  allowUrlsWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-  },
-
-  urlInputWrapper: {
-    width: 'auto',
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  httpMethodSelect: {
-    height: '65px',
-    width: '95px',
-  },
-
-  urlInput: {
-    overflowY: 'auto',
-    whiteSpace: 'wrap',
-    height: '65px',
-    marginRight: '20px',
-    width: '450px',
   },
 
   form: {

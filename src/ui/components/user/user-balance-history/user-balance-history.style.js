@@ -54,7 +54,6 @@ export const useClassNames = makeStyles()(theme => ({
       textAlign: 'right',
     },
   },
-  amountCell: {},
 
   usernameCell: {
     width: '100%',

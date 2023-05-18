@@ -31,53 +31,6 @@ export const useClassNames = makeStyles()(theme => ({
       marginBottom: '24px',
     },
   },
-  modalText: {
-    color: theme.palette.text.general,
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '21px',
-  },
-  count: {
-    fontSize: '13px',
-    lineHeight: '15px',
-    color: 'rgba(189, 194, 209, 1)',
-  },
-  order: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  orderImg: {
-    height: '64px',
-    width: '64px',
-    marginRight: '12px',
-  },
-  orderTitle: {
-    fontWeight: 500,
-  },
-  orderText: {
-    fontSize: '14px',
-  },
-  orderChip: {
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
-    fontSize: '13px',
-    borderRadius: '4px',
-  },
-  orderChipHover: {
-    '&:hover, &:focus': {
-      backgroundColor: theme.palette.primary.main,
-    },
-  },
-  orderChipIcon: {
-    color: 'rgba(255,255,255,0.26)',
-    '&:hover, &:focus': {
-      color: 'rgba(255,255,255,0.46)',
-    },
-  },
-  tooltip: {
-    fontSize: '13px',
-    margin: '0px',
-  },
 
   boxCode: {
     display: 'flex',
@@ -97,9 +50,7 @@ export const useClassNames = makeStyles()(theme => ({
       width: '100%',
     },
   },
-  typoCode: {
-    marginRight: '8px',
-  },
+
   input: {
     width: '400px',
   },
@@ -153,11 +104,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: 40,
     margin: 0,
   },
-  blockOfNewBoxWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',
-  },
+
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'end',
@@ -184,21 +131,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  imgBox: {
-    width: '200px',
-    height: '200px',
-    objectFit: 'contain',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
-
-  sizesSubWrapper: {
-    // margin: '5px 0 0 25px',
-  },
-
   photoAndFilesTitle: {
     color: theme.palette.text.general,
     fontSize: '14px',
@@ -209,9 +141,7 @@ export const useClassNames = makeStyles()(theme => ({
       textAlign: 'center',
     },
   },
-  checkboxContainer: {
-    marginTop: '10px',
-  },
+
   label: {
     fontSize: '14px',
     lineHeight: '19px',
@@ -223,23 +153,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  dimensionsWrapper: {
-    display: 'flex',
-    gap: 14,
-    alignItems: 'flex-end',
-    marginTop: 35,
-  },
-
-  subTitle: {
-    fontWeight: 600,
-    fontSize: 14,
-    color: theme.palette.text.general,
-  },
-
-  divider: {
-    height: '160px',
-    // marginBottom: 15,
-  },
   photoAndFilesTitleMobileWrapper: {
     [theme.breakpoints.down(768)]: {
       display: 'flex',
