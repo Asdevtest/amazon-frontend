@@ -1,1 +1,1 @@
-export {EditBoxForm} from './edit-box-form'
+export { EditBoxForm } from './edit-box-form'

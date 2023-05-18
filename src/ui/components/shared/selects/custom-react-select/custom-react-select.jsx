@@ -1,18 +1,18 @@
-import {useMemo} from 'react'
+import { useMemo } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 import Select from 'react-select'
-import {withStyles} from 'tss-react/mui'
+import { withStyles } from 'tss-react/mui'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {styles} from './custom-react-select.style'
+import { styles } from './custom-react-select.style'
 
-const CustomReactSelectRaw = observer(({classes: classNames, hideDropdownIndicator, ...restProps}) => {
+const CustomReactSelectRaw = observer(({ classes: classNames, hideDropdownIndicator, ...restProps }) => {
   const result = useMemo(
     () => (
       <Select
@@ -29,7 +29,7 @@ const CustomReactSelectRaw = observer(({classes: classNames, hideDropdownIndicat
           dropdownIndicator: () => hideDropdownIndicator && classNames.hideDropdownIndicator,
           indicatorSeparator: () => hideDropdownIndicator && classNames.hideIndicatorSeparator,
         }}
-        components={{...restProps.components}}
+        components={{ ...restProps.components }}
         placeholder={t(TranslationKey.Select) + '...'}
         noOptionsMessage={() => t(TranslationKey['No options'])}
       />

@@ -3,8 +3,8 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React from 'react'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ShortDateCell,
@@ -17,8 +17,8 @@ import {
   VacantRequestPriceCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
   {
@@ -101,7 +101,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time till deadline'])} />,
 
     renderCell: params => (
-      <MultilineTextCell withLineBreaks text={timeToDeadlineInDaysAndHours({date: params.row.timeoutAt})} />
+      <MultilineTextCell withLineBreaks text={timeToDeadlineInDaysAndHours({ date: params.row.timeoutAt })} />
     ),
     width: 91,
   },

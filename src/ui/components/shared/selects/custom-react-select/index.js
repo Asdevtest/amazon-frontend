@@ -1,1 +1,1 @@
-export {CustomReactSelect} from './custom-react-select'
+export { CustomReactSelect } from './custom-react-select'

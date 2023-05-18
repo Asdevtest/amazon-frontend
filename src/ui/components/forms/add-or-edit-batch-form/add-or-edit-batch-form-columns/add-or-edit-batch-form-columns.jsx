@@ -1,4 +1,4 @@
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   NormDateCell, // OrderCell,
@@ -11,8 +11,8 @@ import {
   OrdersIdsItemsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const addOrEditBatchFormColumns = isClient => [
   // {

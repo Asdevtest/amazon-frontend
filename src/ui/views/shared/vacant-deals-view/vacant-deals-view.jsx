@@ -1,28 +1,28 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {tableSortMode, tableViewMode} from '@constants/table/table-view-modes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {VacantDealsListCard} from '@components/cards/vacant-deals-list-card'
-import {MainContent} from '@components/layout/main-content'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import { VacantDealsListCard } from '@components/cards/vacant-deals-list-card'
+import { MainContent } from '@components/layout/main-content'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
 
-import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
-import {t} from '@utils/translations'
+import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
+import { t } from '@utils/translations'
 
-import {VacantDealsViewModel} from './vacant-deals-view.model'
-import {styles} from './vacant-deals-view.style'
+import { VacantDealsViewModel } from './vacant-deals-view.model'
+import { styles } from './vacant-deals-view.style'
 
 export const VacantDealsViewRaw = props => {
-  const [viewModel] = useState(() => new VacantDealsViewModel({history: props.history}))
-  const {classes: classNames} = props
+  const [viewModel] = useState(() => new VacantDealsViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()

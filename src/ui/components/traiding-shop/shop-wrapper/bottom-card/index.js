@@ -1,1 +1,1 @@
-export {BottomCard} from './bottom-card'
+export { BottomCard } from './bottom-card'

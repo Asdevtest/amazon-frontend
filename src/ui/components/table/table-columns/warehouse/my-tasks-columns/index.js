@@ -1,1 +1,1 @@
-export {warehouseMyTasksViewColumns} from './my-tasks-columns'
+export { warehouseMyTasksViewColumns } from './my-tasks-columns'

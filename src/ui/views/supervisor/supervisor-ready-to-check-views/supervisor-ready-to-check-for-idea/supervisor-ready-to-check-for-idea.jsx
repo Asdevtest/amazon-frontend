@@ -1,28 +1,28 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
-import {MainContent} from '@components/layout/main-content'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Button} from '@components/shared/buttons/button'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
+import { MainContent } from '@components/layout/main-content'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {SupervisorReadyToCheckForIdeaViewModel} from './supervisor-ready-to-check-for-idea.model'
-import {styles} from './supervisor-ready-to-check-for-idea.style'
+import { SupervisorReadyToCheckForIdeaViewModel } from './supervisor-ready-to-check-for-idea.model'
+import { styles } from './supervisor-ready-to-check-for-idea.style'
 
 export const SupervisorReadyToCheckForIdeaViewRaw = props => {
-  const [viewModel] = useState(() => new SupervisorReadyToCheckForIdeaViewModel({history: props.history}))
-  const {classes: classNames} = props
+  const [viewModel] = useState(() => new SupervisorReadyToCheckForIdeaViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()

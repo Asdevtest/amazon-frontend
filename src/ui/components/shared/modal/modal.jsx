@@ -1,19 +1,19 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
-import {Dialog, DialogContent} from '@mui/material'
+import { Dialog, DialogContent } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './modal.style'
+import { useClassNames } from './modal.style'
 
-export const Modal = ({openModal, isWarning, setOpenModal, dialogContextClassName, children, missClickModalOn}) => {
-  const {classes: classNames} = useClassNames()
+export const Modal = ({ openModal, isWarning, setOpenModal, dialogContextClassName, children, missClickModalOn }) => {
+  const { classes: classNames } = useClassNames()
 
   const [showMissclickModal, setShowMissclickModal] = useState(false)
 
@@ -32,7 +32,7 @@ export const Modal = ({openModal, isWarning, setOpenModal, dialogContextClassNam
     <Dialog
       maxWidth={false}
       classes={{
-        paperScrollBody: cx(classNames.dialogContent, {[classNames.warningPaper]: isWarning}),
+        paperScrollBody: cx(classNames.dialogContent, { [classNames.warningPaper]: isWarning }),
       }}
       open={openModal}
       scroll={'body'}
@@ -45,7 +45,11 @@ export const Modal = ({openModal, isWarning, setOpenModal, dialogContextClassNam
       <CloseRoundedIcon className={classNames.closeIcon} fontSize="large" onClick={() => setOpenModal()} />
 
       <DialogContent
-        className={cx(classNames.dialogPadding, {[classNames.warningDialogPadding]: isWarning}, dialogContextClassName)}
+        className={cx(
+          classNames.dialogPadding,
+          { [classNames.warningDialogPadding]: isWarning },
+          dialogContextClassName,
+        )}
       >
         {children}
       </DialogContent>

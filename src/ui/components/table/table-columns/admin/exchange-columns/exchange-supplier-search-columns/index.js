@@ -1,1 +1,1 @@
-export {exchangeSupplierSearchColumns} from './exchange-supplier-search-columns'
+export { exchangeSupplierSearchColumns } from './exchange-supplier-search-columns'

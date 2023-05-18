@@ -1,18 +1,18 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {PermissionsModel} from '@models/permissions-model'
-import {SettingsModel} from '@models/settings-model'
+import { PermissionsModel } from '@models/permissions-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {adminGroupPermissionsColumns} from '@components/table/table-columns/admin/group-permissions-columns copy'
+import { adminGroupPermissionsColumns } from '@components/table/table-columns/admin/group-permissions-columns copy'
 
-import {adminGroupPermissionsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { adminGroupPermissionsDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
 
 export class GroupPermissionsModel {
   history = undefined
@@ -45,15 +45,15 @@ export class GroupPermissionsModel {
 
   firstRowId = undefined
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = adminGroupPermissionsColumns(this.rowHandlers, this.firstRowId)
 
-  constructor({history}) {
+  constructor({ history }) {
     this.history = history
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
@@ -180,7 +180,7 @@ export class GroupPermissionsModel {
     try {
       const result = await PermissionsModel.getSinglePermissions()
       runInAction(() => {
-        this.singlePermissions = result.map(per => ({...per, id: per._id})).sort((a, b) => a.role - b.role)
+        this.singlePermissions = result.map(per => ({ ...per, id: per._id })).sort((a, b) => a.role - b.role)
       })
     } catch (error) {
       this.payments = []
@@ -216,7 +216,7 @@ export class GroupPermissionsModel {
     try {
       if (newSinglePermissions.length > 0) {
         await this.createAllSinglePermissions(newSinglePermissions)
-        data = {...data, permissions: [...data.permissions, ...this.newPermissionIds]}
+        data = { ...data, permissions: [...data.permissions, ...this.newPermissionIds] }
       }
 
       await this.createGroupPermission(data)
@@ -254,7 +254,7 @@ export class GroupPermissionsModel {
     try {
       if (newSinglePermissions.length > 0) {
         await this.createAllSinglePermissions(newSinglePermissions)
-        data = {...data, permissions: [...data.permissions, ...this.newPermissionIds]}
+        data = { ...data, permissions: [...data.permissions, ...this.newPermissionIds] }
       }
 
       await this.updateGroupPermission(data, permissionId)

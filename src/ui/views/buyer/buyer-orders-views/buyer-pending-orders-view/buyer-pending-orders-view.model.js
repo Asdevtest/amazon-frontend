@@ -1,31 +1,31 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
-import {routsPathes} from '@constants/navigation/routs-pathes'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {OrderStatus, OrderStatusByKey} from '@constants/statuses/order-status'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {creatSupplier, patchSuppliers} from '@constants/white-list'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { routsPathes } from '@constants/navigation/routs-pathes'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { TranslationKey } from '@constants/translations/translation-key'
+import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
-import {BoxesModel} from '@models/boxes-model'
-import {BuyerModel} from '@models/buyer-model'
-import {OrderModel} from '@models/order-model'
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {SupplierModel} from '@models/supplier-model'
-import {UserModel} from '@models/user-model'
+import { BoxesModel } from '@models/boxes-model'
+import { BuyerModel } from '@models/buyer-model'
+import { OrderModel } from '@models/order-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { SupplierModel } from '@models/supplier-model'
+import { UserModel } from '@models/user-model'
 
-import {buyerMyOrdersViewColumns} from '@components/table/table-columns/buyer/buyer-my-orders-columns'
+import { buyerMyOrdersViewColumns } from '@components/table/table-columns/buyer/buyer-my-orders-columns'
 
-import {calcOrderTotalPrice, calcOrderTotalPriceInYuann} from '@utils/calculation'
-import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {objectToUrlQs, toFixed} from '@utils/text'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { calcOrderTotalPrice, calcOrderTotalPriceInYuann } from '@utils/calculation'
+import { buyerMyOrdersDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { objectToUrlQs, toFixed } from '@utils/text'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 const updateOrderKeys = ['amount', 'orderSupplierId', 'images', 'totalPrice', 'item', 'buyerComment', 'priceInYuan']
 
@@ -74,7 +74,7 @@ export class BuyerMyOrdersViewModel {
 
   showSuccessModalText = ''
 
-  dataToCancelOrder = {orderId: undefined, buyerComment: undefined}
+  dataToCancelOrder = { orderId: undefined, buyerComment: undefined }
 
   firstRowId = undefined
 
@@ -86,7 +86,7 @@ export class BuyerMyOrdersViewModel {
   rowCount = 0
   sortModel = []
   startFilterModel = undefined
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -109,15 +109,15 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     this.history = history
 
     if (location.state?.orderId) {
       this.onClickOrder(location.state.orderId)
 
-      const state = {...history.location.state}
+      const state = { ...history.location.state }
       delete state.orderId
-      history.replace({...history.location, state})
+      history.replace({ ...history.location, state })
     }
 
     if (location?.state?.dataGridFilter) {
@@ -127,7 +127,7 @@ export class BuyerMyOrdersViewModel {
     //       this.startFilterModel = resetDataGridFilter
     //     }
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -208,7 +208,7 @@ export class BuyerMyOrdersViewModel {
       this.filterModel = this.startFilterModel
         ? {
             ...this.startFilterModel,
-            items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
+            items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
           }
         : state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
@@ -358,7 +358,9 @@ export class BuyerMyOrdersViewModel {
 
   async onSubmitCancelOrder() {
     try {
-      await BuyerModel.returnOrder(this.dataToCancelOrder.orderId, {buyerComment: this.dataToCancelOrder.buyerComment})
+      await BuyerModel.returnOrder(this.dataToCancelOrder.orderId, {
+        buyerComment: this.dataToCancelOrder.buyerComment,
+      })
 
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
@@ -368,7 +370,7 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSubmitSaveOrder({order, orderFields, photosToLoad, hsCode}) {
+  async onSubmitSaveOrder({ order, orderFields, photosToLoad, hsCode }) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -385,7 +387,7 @@ export class BuyerMyOrdersViewModel {
       this.clearReadyImages()
 
       if (photosToLoad.length) {
-        await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: photosToLoad, type: 'readyImages' })
       }
 
       const orderFieldsToSave = {
@@ -396,7 +398,7 @@ export class BuyerMyOrdersViewModel {
       this.clearReadyImages()
 
       if (this.imagesForLoad.length) {
-        await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'readyImages' })
 
         this.clearImagesForLoad()
       }
@@ -409,7 +411,7 @@ export class BuyerMyOrdersViewModel {
       this.clearReadyImages()
 
       if (order.status === OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) {
-        await OrderModel.changeOrderComments(order._id, {buyerComment: orderFields.buyerComment})
+        await OrderModel.changeOrderComments(order._id, { buyerComment: orderFields.buyerComment })
       } else {
         await this.onSaveOrder(order, orderFieldsToSaveWithImagesForLoad)
 
@@ -445,7 +447,7 @@ export class BuyerMyOrdersViewModel {
       this.uploadedFiles = []
 
       if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
 
       await BoxesModel.editAdditionalInfo(data._id, {
@@ -497,12 +499,12 @@ export class BuyerMyOrdersViewModel {
     this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
   }
 
-  async onClickSaveSupplierBtn({supplier, photosOfSupplier, productId, editPhotosOfSupplier}) {
+  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, productId, editPhotosOfSupplier }) {
     try {
       this.clearReadyImages()
 
       if (editPhotosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: editPhotosOfSupplier, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
       }
 
       supplier = {
@@ -517,7 +519,7 @@ export class BuyerMyOrdersViewModel {
       this.clearReadyImages()
 
       if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
         supplier = {
           ...supplier,
           images: [...supplier.images, ...this.readyImages],
@@ -593,11 +595,11 @@ export class BuyerMyOrdersViewModel {
 
       const filter = objectToUrlQs({
         or: [
-          {asin: {$contains: this.nameSearchValue}},
-          {amazonTitle: {$contains: this.nameSearchValue}},
-          {skusByClient: {$contains: this.nameSearchValue}},
-          {id: {$eq: this.nameSearchValue}},
-          {item: {$eq: this.nameSearchValue}},
+          { asin: { $contains: this.nameSearchValue } },
+          { amazonTitle: { $contains: this.nameSearchValue } },
+          { skusByClient: { $contains: this.nameSearchValue } },
+          { id: { $eq: this.nameSearchValue } },
+          { item: { $eq: this.nameSearchValue } },
         ].filter(
           el =>
             ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||

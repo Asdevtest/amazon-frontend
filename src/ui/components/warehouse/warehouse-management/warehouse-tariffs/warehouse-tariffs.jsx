@@ -1,30 +1,30 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
 
-import {observer} from 'mobx-react'
-import {useHistory} from 'react-router-dom'
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {AddOrEditWarehouseTariffForm} from '@components/forms/add-or-edit-warehouse-tariff-form'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {Button} from '@components/shared/buttons/button'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {Modal} from '@components/shared/modal'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { AddOrEditWarehouseTariffForm } from '@components/forms/add-or-edit-warehouse-tariff-form'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {WarehouseTariffModel} from './warehouse-tariffs.model'
-import {useClassNames} from './warehouse-tariffs.style'
+import { WarehouseTariffModel } from './warehouse-tariffs.model'
+import { useClassNames } from './warehouse-tariffs.style'
 
 export const WarehouseTariffs = observer(() => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
   const history = useHistory()
-  const spModel = useRef(new WarehouseTariffModel({history}))
+  const spModel = useRef(new WarehouseTariffModel({ history }))
 
   useEffect(() => {
     spModel.current.loadData()
@@ -90,7 +90,7 @@ export const WarehouseTariffs = observer(() => {
         }}
         componentsProps={{
           toolbar: {
-            columsBtnSettings: {columnsModel, changeColumnsModel},
+            columsBtnSettings: { columnsModel, changeColumnsModel },
           },
         }}
         density={densityModel}

@@ -1,25 +1,25 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Typography, Avatar} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography, Avatar } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
-import React, {FC} from 'react'
+import React, { FC } from 'react'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
-import {CustomCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {UserLink} from '@components/user/user-link'
+import { Button } from '@components/shared/buttons/button'
+import { CustomCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { UserLink } from '@components/user/user-link'
 
-import {checkIsImageLink} from '@utils/checks'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {t} from '@utils/translations'
+import { checkIsImageLink } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './service-exchange-card.style'
+import { useClassNames } from './service-exchange-card.style'
 
 interface onClickThumbnailArguments {
   images: Array<string | linksToMediaFilesInterface>
@@ -43,7 +43,7 @@ interface CreatedBy {
 }
 
 interface linksToMediaFilesInterface {
-  file: {name: Array<string>}
+  file: { name: Array<string> }
 }
 
 interface Service {
@@ -67,9 +67,9 @@ interface ServiceExchangeCardProps {
 }
 
 export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = props => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
-  const {service, choose, order, pathname, onClickButton, onClickThumbnail} = props
+  const { service, choose, order, pathname, onClickButton, onClickThumbnail } = props
 
   const imagesForRender = service?.linksToMediaFiles?.filter(el =>
     checkIsImageLink(typeof el !== 'string' ? el?.file?.name : el),
@@ -127,7 +127,7 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = props => {
                   blackText
                   name={service?.createdBy?.name}
                   userId={service?.createdBy?._id}
-                  customStyles={{fontSize: 14}}
+                  customStyles={{ fontSize: 14 }}
                 />
                 <Rating disabled value={5} size="small" />
               </div>

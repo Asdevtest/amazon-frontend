@@ -1,54 +1,54 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import AddIcon from '@mui/icons-material/Add'
-import {Divider, IconButton, Paper, TableCell, TableRow, Typography, Tooltip} from '@mui/material'
+import { Divider, IconButton, Paper, TableCell, TableRow, Typography, Tooltip } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
-import {transformAndValidate} from 'class-transformer-validator'
+import { transformAndValidate } from 'class-transformer-validator'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BoxesWarehouseReceiveBoxModalContract} from '@models/boxes-model/boxes-model.contracts'
+import { BoxesWarehouseReceiveBoxModalContract } from '@models/boxes-model/boxes-model.contracts'
 
 // import {Field} from '@components/field/field'
-import {AddFilesForm} from '@components/forms/add-files-form'
-import {CheckQuantityForm} from '@components/forms/check-quantity-form'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Button} from '@components/shared/buttons/button'
-import {CopyValue} from '@components/shared/copy-value'
-import {CustomCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {Input} from '@components/shared/input'
-import {Modal} from '@components/shared/modal'
-import {Table} from '@components/shared/table'
-import {TableHeadRow} from '@components/table/table-rows/batches-view/table-head-row'
+import { AddFilesForm } from '@components/forms/add-files-form'
+import { CheckQuantityForm } from '@components/forms/check-quantity-form'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { CopyValue } from '@components/shared/copy-value'
+import { CustomCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { Input } from '@components/shared/input'
+import { Modal } from '@components/shared/modal'
+import { Table } from '@components/shared/table'
+import { TableHeadRow } from '@components/table/table-rows/batches-view/table-head-row'
 
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
-import {toFixed, toFixedWithKg, getShortenStringIfLongerThanCount, shortAsin} from '@utils/text'
-import {t} from '@utils/translations'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
+import { toFixed, toFixedWithKg, getShortenStringIfLongerThanCount, shortAsin } from '@utils/text'
+import { t } from '@utils/translations'
 
 // import {CommentsLine} from './comments-line'
-import {useClassNames} from './receive-box-modal.style'
+import { useClassNames } from './receive-box-modal.style'
 
 const WAREHOUSE_RECEIVE_HEAD_CELLS = classNames => [
-  {title: <Typography className={classNames.headerCell}>{t(TranslationKey.Box)}</Typography>},
-  {title: <Typography className={classNames.headerCell}>{t(TranslationKey['Boxes in group'])}</Typography>},
+  { title: <Typography className={classNames.headerCell}>{t(TranslationKey.Box)}</Typography> },
+  { title: <Typography className={classNames.headerCell}>{t(TranslationKey['Boxes in group'])}</Typography> },
   // {title: <Typography className={classNames.headerCell}>{t(TranslationKey.Quantity)}</Typography>},
 
-  {title: <Typography className={classNames.headerCell}>{t(TranslationKey.Total)}</Typography>},
+  { title: <Typography className={classNames.headerCell}>{t(TranslationKey.Total)}</Typography> },
   {
     title: (
       <Typography className={classNames.headerCell}>{`${t(TranslationKey.Sizes)}, ${t(TranslationKey.cm)}`}</Typography>
     ),
   },
-  {title: <Typography className={classNames.headerCell}>{t(TranslationKey['Weight, kg'])}</Typography>},
-  {title: <Typography className={classNames.headerCell}>{t(TranslationKey['Volume weight, kg'])}</Typography>},
-  {title: <Typography className={classNames.headerCell}>{t(TranslationKey['Final weight, kg'])}</Typography>},
+  { title: <Typography className={classNames.headerCell}>{t(TranslationKey['Weight, kg'])}</Typography> },
+  { title: <Typography className={classNames.headerCell}>{t(TranslationKey['Volume weight, kg'])}</Typography> },
+  { title: <Typography className={classNames.headerCell}>{t(TranslationKey['Final weight, kg'])}</Typography> },
 ]
 
-const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
-  const {classes: classNames} = useClassNames()
+const TableBodyBoxRow = ({ item, /* itemIndex,*/ handlers }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <TableRow className={classNames.row}>
@@ -88,7 +88,7 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
                     }),
                     input: classNames.input,
                   }}
-                  inputProps={{maxLength: 6}}
+                  inputProps={{ maxLength: 6 }}
                   value={el.amount}
                   onChange={e => handlers.onChangeQtyInput(e, item._id, el.order)}
                 />
@@ -106,7 +106,7 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
             }),
             input: classNames.input,
           }}
-          inputProps={{maxLength: 6}}
+          inputProps={{ maxLength: 6 }}
           value={item.amount}
           onChange={e => handlers.onChangeFieldInput(e, item._id, 'amount')}
         />
@@ -115,7 +115,7 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
       <TableCell className={classNames.standartCell}>
         <Input
           disabled
-          classes={{root: classNames.inputWrapper, input: classNames.input}}
+          classes={{ root: classNames.inputWrapper, input: classNames.input }}
           // value={item.items[0].amount * item.amount}
           value={item.items.reduce((ac, cur) => (ac += cur.amount), 0) * item.amount}
         />
@@ -132,7 +132,7 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
                 }),
                 input: classNames.input,
               }}
-              inputProps={{maxLength: 6}}
+              inputProps={{ maxLength: 6 }}
               value={item.lengthCmWarehouse}
               onChange={e => handlers.onChangeFieldInput(e, item._id, 'lengthCmWarehouse')}
             />
@@ -147,7 +147,7 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
                 }),
                 input: classNames.input,
               }}
-              inputProps={{maxLength: 6}}
+              inputProps={{ maxLength: 6 }}
               value={item.widthCmWarehouse}
               onChange={e => handlers.onChangeFieldInput(e, item._id, 'widthCmWarehouse')}
             />
@@ -161,7 +161,7 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
                 }),
                 input: classNames.input,
               }}
-              inputProps={{maxLength: 6}}
+              inputProps={{ maxLength: 6 }}
               value={item.heightCmWarehouse}
               onChange={e => handlers.onChangeFieldInput(e, item._id, 'heightCmWarehouse')}
             />
@@ -176,7 +176,7 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
             }),
             input: classNames.input,
           }}
-          inputProps={{maxLength: 6}}
+          inputProps={{ maxLength: 6 }}
           value={item.weighGrossKgWarehouse}
           onChange={e => handlers.onChangeFieldInput(e, item._id, 'weighGrossKgWarehouse')}
         />
@@ -184,14 +184,14 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
       <TableCell className={classNames.standartCell}>
         <Input
           disabled
-          classes={{root: classNames.inputWrapper, input: classNames.input}}
+          classes={{ root: classNames.inputWrapper, input: classNames.input }}
           value={toFixed(item.volumeWeightKgWarehouse, 3)}
         />
       </TableCell>
       <TableCell className={classNames.standartCell}>
         <Input
           disabled
-          classes={{root: classNames.inputWrapper, input: classNames.input}}
+          classes={{ root: classNames.inputWrapper, input: classNames.input }}
           value={toFixed(item.weightFinalAccountingKgWarehouse, 3)}
         />
       </TableCell>
@@ -215,8 +215,8 @@ const TableBodyBoxRow = ({item, /* itemIndex,*/ handlers}) => {
   )
 }
 
-const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages, addDouble}) => {
-  const {classes: classNames} = useClassNames()
+const NewBoxes = ({ newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages, addDouble }) => {
+  const { classes: classNames } = useClassNames()
 
   const renderHeadRow = () => <TableHeadRow headCells={WAREHOUSE_RECEIVE_HEAD_CELLS(classNames)} />
 
@@ -229,7 +229,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
           data={newBoxes}
           BodyRow={TableBodyBoxRow}
           renderHeadRow={renderHeadRow()}
-          rowsHandlers={{onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages, addDouble}}
+          rowsHandlers={{ onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages, addDouble }}
         />
       </div>
 
@@ -264,7 +264,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
                           }),
                           input: classNames.input,
                         }}
-                        inputProps={{maxLength: 6}}
+                        inputProps={{ maxLength: 6 }}
                         value={el.amount}
                         onChange={e => onChangeQtyInput(e, item._id, el.order)}
                       />
@@ -283,7 +283,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
                   }),
                   input: classNames.input,
                 }}
-                inputProps={{maxLength: 6}}
+                inputProps={{ maxLength: 6 }}
                 value={item.amount}
                 onChange={e => onChangeFieldInput(e, item._id, 'amount')}
               />
@@ -293,7 +293,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
               <Typography className={classNames.boxTitleMobile}>{t(TranslationKey.Total)}</Typography>
               <Input
                 disabled
-                classes={{root: classNames.inputWrapper, input: classNames.input}}
+                classes={{ root: classNames.inputWrapper, input: classNames.input }}
                 value={item.items[0].amount * item.amount}
               />
             </div>
@@ -309,7 +309,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
                     }),
                     input: classNames.input,
                   }}
-                  inputProps={{maxLength: 6}}
+                  inputProps={{ maxLength: 6 }}
                   value={item.lengthCmWarehouse}
                   onChange={e => onChangeFieldInput(e, item._id, 'lengthCmWarehouse')}
                 />
@@ -323,7 +323,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
                     }),
                     input: classNames.input,
                   }}
-                  inputProps={{maxLength: 6}}
+                  inputProps={{ maxLength: 6 }}
                   value={item.widthCmWarehouse}
                   onChange={e => onChangeFieldInput(e, item._id, 'widthCmWarehouse')}
                 />
@@ -337,7 +337,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
                     }),
                     input: classNames.input,
                   }}
-                  inputProps={{maxLength: 6}}
+                  inputProps={{ maxLength: 6 }}
                   value={item.heightCmWarehouse}
                   onChange={e => onChangeFieldInput(e, item._id, 'heightCmWarehouse')}
                 />
@@ -352,7 +352,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
                   }),
                   input: classNames.input,
                 }}
-                inputProps={{maxLength: 6}}
+                inputProps={{ maxLength: 6 }}
                 value={item.weighGrossKgWarehouse}
                 onChange={e => onChangeFieldInput(e, item._id, 'weighGrossKgWarehouse')}
               />
@@ -361,7 +361,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
               <Typography className={classNames.boxTitleMobile}>{t(TranslationKey['Volume weight, kg'])}</Typography>
               <Input
                 disabled
-                classes={{root: classNames.inputWrapper, input: classNames.input}}
+                classes={{ root: classNames.inputWrapper, input: classNames.input }}
                 value={toFixed(item.volumeWeightKgWarehouse, 3)}
               />
             </div>
@@ -369,7 +369,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
               <Typography className={classNames.boxTitleMobile}>{t(TranslationKey['Final weight, kg'])}</Typography>
               <Input
                 disabled
-                classes={{root: classNames.inputWrapper, input: classNames.input}}
+                classes={{ root: classNames.inputWrapper, input: classNames.input }}
                 value={toFixed(item.weightFinalAccountingKgWarehouse, 3)}
               />
             </div>
@@ -388,8 +388,8 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
   )
 }
 
-export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoefficient, boxesBefore}) => {
-  const {classes: classNames} = useClassNames()
+export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoefficient, boxesBefore }) => {
+  const { classes: classNames } = useClassNames()
   const [showNoDimensionsErrorModal, setShowNoDimensionsErrorModal] = useState(false)
   const [showAddImagesModal, setShowAddImagesModal] = useState(false)
 
@@ -401,10 +401,10 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
 
   const receiveNotFromBuyer = isManyItemsInSomeBox || noTariffInSomeBox
 
-  const emptyProducts = boxesBefore[0].items.map(product => ({...product, amount: ''}))
+  const emptyProducts = boxesBefore[0].items.map(product => ({ ...product, amount: '' }))
 
   const getEmptyBox = () => {
-    const emptyBox = {...boxesBefore[0], _id: 'new_id_' + Date.now(), items: emptyProducts, amount: 1}
+    const emptyBox = { ...boxesBefore[0], _id: 'new_id_' + Date.now(), items: emptyProducts, amount: 1 }
 
     const emptyBoxWithDemensions = {
       ...emptyBox,
@@ -427,7 +427,7 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
       const startBox = {
         ...el,
         _id: 'new_id_' + index + Date.now(),
-        items: el.items.map(product => ({...product})),
+        items: el.items.map(product => ({ ...product })),
       }
 
       const volumeWeight =
@@ -501,11 +501,11 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
     }
     const targetBox = newBoxes.filter(box => box._id === _id)[0]
     const targetProduct = targetBox.items.filter(product => product.order === order)[0]
-    const updatedTargetProduct = {...targetProduct, amount: Number(e.target.value)}
+    const updatedTargetProduct = { ...targetProduct, amount: Number(e.target.value) }
     const updatedTargetProducts = targetBox.items.map(product =>
       product.order === order ? updatedTargetProduct : product,
     )
-    const updatedTargetBox = {...targetBox, items: updatedTargetProducts}
+    const updatedTargetBox = { ...targetBox, items: updatedTargetProducts }
     const updatedNewBoxes = newBoxes.map(box => (box._id === _id ? updatedTargetBox : box))
 
     setNewBoxes(updatedNewBoxes)
@@ -519,9 +519,9 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
   const addDouble = boxId => {
     const foundedBox = newBoxes.find(box => box._id === boxId)
 
-    const copyedBox = {...JSON.parse(JSON.stringify(foundedBox)), tmpImages: foundedBox.tmpImages}
+    const copyedBox = { ...JSON.parse(JSON.stringify(foundedBox)), tmpImages: foundedBox.tmpImages }
 
-    const updatedNewBoxes = [...newBoxes, {...copyedBox, _id: `${copyedBox._id} + 'double' ${Date.now()}`}]
+    const updatedNewBoxes = [...newBoxes, { ...copyedBox, _id: `${copyedBox._id} + 'double' ${Date.now()}` }]
     setNewBoxes(updatedNewBoxes)
   }
 
@@ -537,7 +537,7 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
   const onClickRedistributeBtn = async () => {
     try {
       const newBoxesWithoutEmptyBoxes = newBoxes
-        .map(box => ({...box, items: box.items.filter(e => e.amount > 0)}))
+        .map(box => ({ ...box, items: box.items.filter(e => e.amount > 0) }))
         .filter(el => el.items[0].amount !== (0 || ''))
 
       const newBoxesWithoutNumberFields = newBoxesWithoutEmptyBoxes.map(el => ({

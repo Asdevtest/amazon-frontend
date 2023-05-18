@@ -1,10 +1,14 @@
-import {useCallback} from 'react'
+import { useCallback } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {MultilineTextCell, renderFieldValueCell, TrashCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
+import {
+  MultilineTextCell,
+  renderFieldValueCell,
+  TrashCell,
+} from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const sourceColumns = () => [
   {

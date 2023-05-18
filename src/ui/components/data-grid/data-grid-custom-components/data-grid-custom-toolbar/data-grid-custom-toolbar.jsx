@@ -10,14 +10,14 @@ import {
 
 import React from 'react'
 
-import {DataGridCustomColumnsButton} from '../data-grid-custom-columns-button'
-import {DataGridCustomFilterButton} from '../data-grid-custom-filter-button'
-import {DataGridResetFilterButton} from '../data-grid-reset-filter-button'
-import {useClassNames} from './data-grid-custom-toolbar.style'
+import { DataGridCustomColumnsButton } from '../data-grid-custom-columns-button'
+import { DataGridCustomFilterButton } from '../data-grid-custom-filter-button'
+import { DataGridResetFilterButton } from '../data-grid-reset-filter-button'
+import { useClassNames } from './data-grid-custom-toolbar.style'
 
 export const DataGridCustomToolbar = React.forwardRef((props, ref) => {
-  const {classes: classNames} = useClassNames()
-  const {className, resetFiltersBtnSettings, columsBtnSettings, ...other} = props
+  const { classes: classNames } = useClassNames()
+  const { className, resetFiltersBtnSettings, columsBtnSettings, ...other } = props
   const rootProps = useGridRootProps()
 
   if (rootProps.disableColumnFilter && rootProps.disableColumnSelector && rootProps.disableDensitySelector) {

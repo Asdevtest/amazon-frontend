@@ -1,16 +1,16 @@
-import {cx} from '@emotion/css'
-import {Tab, Tabs, Typography, Paper} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Tab, Tabs, Typography, Paper } from '@mui/material'
 
 import React from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './purchase-history.style'
+import { useClassNames } from './purchase-history.style'
 
-export const PurchaseHistory = ({user, tabHistory, setTabHistory}) => {
-  const {classes: classNames} = useClassNames()
+export const PurchaseHistory = ({ user, tabHistory, setTabHistory }) => {
+  const { classes: classNames } = useClassNames()
   return (
     <React.Fragment>
       <Typography variant="h6" className={classNames.mainTitle}>

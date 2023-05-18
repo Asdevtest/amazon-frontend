@@ -1,28 +1,28 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 
 import React from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {UserLinkCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
-import {CopyValue} from '@components/shared/copy-value/copy-value'
-import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {NewSupplier} from '@components/shared/svg-icons'
+import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { NewSupplier } from '@components/shared/svg-icons'
 
-import {formatNormDateTime} from '@utils/date-time'
-import {checkAndMakeAbsoluteUrl, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { formatNormDateTime } from '@utils/date-time'
+import { checkAndMakeAbsoluteUrl, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './table-supplier.style'
+import { useClassNames } from './table-supplier.style'
 
-export const TableSupplier = observer(({isClient, product, productBaseData, selectedSupplier, onClickSupplier}) => {
-  const {classes: classNames} = useClassNames()
+export const TableSupplier = observer(({ isClient, product, productBaseData, selectedSupplier, onClickSupplier }) => {
+  const { classes: classNames } = useClassNames()
 
   const renderHeader = () => (
     <TableHead className={classNames.tableHead}>
@@ -48,7 +48,7 @@ export const TableSupplier = observer(({isClient, product, productBaseData, sele
   )
 
   return (
-    <TableContainer className={classNames.table} sx={{maxHeight: 540}}>
+    <TableContainer className={classNames.table} sx={{ maxHeight: 540 }}>
       <Table className={classNames.tableBody}>
         {SettingsModel.languageTag && renderHeader()}
         <TableBody>
@@ -74,7 +74,7 @@ export const TableSupplier = observer(({isClient, product, productBaseData, sele
                     {isClient ? (
                       new Date(productBaseData.createdAt) < new Date(supplier.createdAt) ? (
                         <div className={classNames.imgWrapper}>
-                          <NewSupplier fontSize={'large'} classes={{root: classNames.primary}} />
+                          <NewSupplier fontSize={'large'} classes={{ root: classNames.primary }} />
                         </div>
                       ) : null
                     ) : null}

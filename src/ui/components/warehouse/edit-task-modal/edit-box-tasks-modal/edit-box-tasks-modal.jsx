@@ -1,29 +1,29 @@
-import {Box, Container, Typography} from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {inchesCoefficient, sizesType} from '@constants/configs/sizes-settings'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
-import {ToggleBtnGroup} from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import {ToggleBtn} from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
-import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {Field} from '@components/shared/field'
-import {UploadFilesInput} from '@components/shared/upload-files-input'
+import { Button } from '@components/shared/buttons/button'
+import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
+import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { Field } from '@components/shared/field'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './edit-box-tasks-modal.style'
+import { useClassNames } from './edit-box-tasks-modal.style'
 
-const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, sizeSetting}) => {
-  const {classes: classNames} = useClassNames()
+const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, sizeSetting }) => {
+  const { classes: classNames } = useClassNames()
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
-          inputProps={{maxLength: 6}}
+          inputProps={{ maxLength: 6 }}
           error={Number(box.lengthCmWarehouse) === 0 && true}
           className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
@@ -34,7 +34,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
         />
 
         <Field
-          inputProps={{maxLength: 6}}
+          inputProps={{ maxLength: 6 }}
           error={Number(box.heightCmWarehouse) === 0 && true}
           labelClasses={classNames.label}
           className={classNames.numberInputField}
@@ -65,7 +65,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
       </div>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
-          inputProps={{maxLength: 6}}
+          inputProps={{ maxLength: 6 }}
           error={Number(box.widthCmWarehouse) === 0 && true}
           className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
@@ -76,7 +76,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
         />
 
         <Field
-          inputProps={{maxLength: 6}}
+          inputProps={{ maxLength: 6 }}
           error={Number(box.weighGrossKgWarehouse) === 0 && true}
           className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
@@ -123,12 +123,12 @@ export const EditBoxTasksModal = ({
   volumeWeightCoefficient,
   storekeeperWarehouseSubmit,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
-  const [editingBox, setEditingBox] = useState(isInStorekeeperWarehouse ? {...box, tmpImages: []} : box)
+  const [editingBox, setEditingBox] = useState(isInStorekeeperWarehouse ? { ...box, tmpImages: [] } : box)
 
   const setNewBoxField = fieldName => e => {
-    const newFormFields = {...editingBox}
+    const newFormFields = { ...editingBox }
     if (fieldName === 'fitsInitialDimensions') {
       newFormFields[fieldName] = e.target.checked
     } else {
@@ -143,7 +143,7 @@ export const EditBoxTasksModal = ({
   }
 
   const setImagesOfBox = images => {
-    const newFormFields = {...editingBox}
+    const newFormFields = { ...editingBox }
 
     newFormFields.tmpImages = [...images]
 

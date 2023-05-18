@@ -1,1 +1,1 @@
-export {clientBatchesViewColumns} from './client-batches-columns'
+export { clientBatchesViewColumns } from './client-batches-columns'

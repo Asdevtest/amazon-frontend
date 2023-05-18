@@ -1,8 +1,8 @@
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class SupervisorModelStatic {
   getProductsVacant = async isCreatedByClient => {
-    const response = await restApiService.supervisorApi.apiV1SupervisorsProductsVacGet({isCreatedByClient})
+    const response = await restApiService.supervisorApi.apiV1SupervisorsProductsVacGet({ isCreatedByClient })
     return response
   }
 
@@ -17,7 +17,7 @@ class SupervisorModelStatic {
   }
 
   updateProduct = async (id, data) => {
-    const response = await restApiService.supervisorApi.apiV1SupervisorsProductsGuidPatch(id, {body: data})
+    const response = await restApiService.supervisorApi.apiV1SupervisorsProductsGuidPatch(id, { body: data })
     return response
   }
 

@@ -1,36 +1,36 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Alert, Typography} from '@mui/material'
+import { Alert, Typography } from '@mui/material'
 
-import React, {Component, useEffect, useState} from 'react'
+import React, { Component, useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { navBarActiveCategory, navBarActiveSubCategory } from '@constants/navigation/navbar-active-category'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomColumnMenuComponent} from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
-import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {CustomSearchRequestForm} from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
-import {Button} from '@components/shared/buttons/button'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {Modal} from '@components/shared/modal'
-import {SearchInput} from '@components/shared/search-input'
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { Appbar } from '@components/layout/appbar'
+import { Main } from '@components/layout/main'
+import { MainContent } from '@components/layout/main-content'
+import { Navbar } from '@components/layout/navbar'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {getDistanceBetweenDatesInSeconds} from '@utils/date-time'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'
+import { t } from '@utils/translations'
 
-import {MyRequestsViewModel} from './my-requests-view.model'
-import {styles} from './my-requests-view.style'
+import { MyRequestsViewModel } from './my-requests-view.model'
+import { styles } from './my-requests-view.style'
 
 export const MyRequestsViewRaw = props => {
   const [viewModel] = useState(
@@ -40,7 +40,7 @@ export const MyRequestsViewRaw = props => {
         location: props.location,
       }),
   )
-  const {classes: classNames} = props
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()

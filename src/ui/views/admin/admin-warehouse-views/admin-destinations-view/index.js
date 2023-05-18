@@ -1,1 +1,1 @@
-export {AdminDestinationsView} from './admin-destinations-view'
+export { AdminDestinationsView } from './admin-destinations-view'

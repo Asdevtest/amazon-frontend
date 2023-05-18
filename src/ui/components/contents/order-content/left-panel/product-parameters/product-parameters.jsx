@@ -1,21 +1,21 @@
-import {Typography, Link, Chip} from '@mui/material'
+import { Typography, Link, Chip } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 import clsx from 'clsx'
 
-import {inchesCoefficient, sizesType} from '@constants/configs/sizes-settings'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ToggleBtnGroup} from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import {ToggleBtn} from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
-import {CopyValue} from '@components/shared/copy-value'
-import {Field} from '@components/shared/field'
+import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
+import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { CopyValue } from '@components/shared/copy-value'
+import { Field } from '@components/shared/field'
 
-import {toFixed, checkAndMakeAbsoluteUrl, trimBarcode} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixed, checkAndMakeAbsoluteUrl, trimBarcode } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './product-parameters.style'
+import { useClassNames } from './product-parameters.style'
 
 export const ProductParameters = ({
   order,
@@ -26,7 +26,7 @@ export const ProductParameters = ({
   onClickBarcode,
   onDeleteBarcode,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
 
@@ -34,7 +34,7 @@ export const ProductParameters = ({
     setSizeSetting(newAlignment)
   }
 
-  const OrderParameter = ({label, value}) => (
+  const OrderParameter = ({ label, value }) => (
     <Field
       oneLine
       label={label}
@@ -49,10 +49,10 @@ export const ProductParameters = ({
       <Field
         oneLine
         disabled={!isCanChange}
-        inputProps={{maxLength: 8}}
+        inputProps={{ maxLength: 8 }}
         label={t(TranslationKey['Quantity (pcs.)'])}
         inputClasses={classNames.amountInput}
-        classes={{input: classNames.amountInput}}
+        classes={{ input: classNames.amountInput }}
         containerClasses={classNames.parameterTableCellWrapper}
         labelClasses={classNames.fieldLabel}
         value={formFields.amount}
@@ -132,7 +132,7 @@ export const ProductParameters = ({
                   deletable: classNames.barcodeChipHover,
                   deleteIcon: classNames.barcodeChipIcon,
                 }}
-                className={clsx({[classNames.barcodeChipExists]: formFields.product.barCode})}
+                className={clsx({ [classNames.barcodeChipExists]: formFields.product.barCode })}
                 size="small"
                 label={
                   formFields.tmpBarCode.length

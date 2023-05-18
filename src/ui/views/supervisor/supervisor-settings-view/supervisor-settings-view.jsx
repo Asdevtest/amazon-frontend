@@ -1,9 +1,9 @@
-import {withStyles} from 'tss-react/mui'
+import { withStyles } from 'tss-react/mui'
 
-import {SupervisorSettingsContent} from '@components/contents/supervisor-settings-content'
-import {MainContent} from '@components/layout/main-content'
+import { SupervisorSettingsContent } from '@components/contents/supervisor-settings-content'
+import { MainContent } from '@components/layout/main-content'
 
-import {styles} from './supervisor-settings-view.style'
+import { styles } from './supervisor-settings-view.style'
 
 export const SupervisorSettingsViewRaw = () => (
   <>

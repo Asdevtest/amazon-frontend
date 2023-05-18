@@ -1,1 +1,1 @@
-export {GroupPermissions} from './group-permissions'
+export { GroupPermissions } from './group-permissions'

@@ -1,12 +1,12 @@
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {Button} from '@components/shared/buttons/button'
-import {Modal} from '@components/shared/modal'
+import { Button } from '@components/shared/buttons/button'
+import { Modal } from '@components/shared/modal'
 
-import {useClassNames} from './confirmation-modal.style'
+import { useClassNames } from './confirmation-modal.style'
 
 export const ConfirmationModal = ({
   openModal,
@@ -20,7 +20,7 @@ export const ConfirmationModal = ({
   onClickSuccessBtn,
   onClickCancelBtn,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
@@ -50,25 +50,25 @@ export const ConfirmationModal = ({
 
   return (
     <Modal /* isWarning={isWarning}*/ openModal={openModal} setOpenModal={setOpenModal}>
-      <div className={cx(classNames.modalMessageWrapper, {[classNames.warningModalMessageWrapper]: isWarning})}>
+      <div className={cx(classNames.modalMessageWrapper, { [classNames.warningModalMessageWrapper]: isWarning })}>
         <div className={classNames.titleWrapper}>
-          <Typography variant="h5" className={cx(classNames.title, {[classNames.warningTitle]: isWarning})}>
+          <Typography variant="h5" className={cx(classNames.title, { [classNames.warningTitle]: isWarning })}>
             {title}
           </Typography>
         </div>
 
-        <Typography paragraph className={cx(classNames.modalMessage, {[classNames.warningModalMessage]: isWarning})}>
+        <Typography paragraph className={cx(classNames.modalMessage, { [classNames.warningModalMessage]: isWarning })}>
           {message}
         </Typography>
 
         <Typography
           paragraph
-          className={cx(classNames.modalSmallMessage, {[classNames.warningModalMessage]: isWarning})}
+          className={cx(classNames.modalSmallMessage, { [classNames.warningModalMessage]: isWarning })}
         >
           {smallMessage}
         </Typography>
 
-        <div className={cx(classNames.buttonsWrapper, {[classNames.warningButtonsWrapper]: isWarning})}>
+        <div className={cx(classNames.buttonsWrapper, { [classNames.warningButtonsWrapper]: isWarning })}>
           {isWarning ? (
             <Button
               danger

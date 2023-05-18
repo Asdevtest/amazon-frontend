@@ -1,21 +1,21 @@
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
 import React from 'react'
 
-import {zipCodeGroups} from '@constants/configs/zip-code-groups'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Text} from '@components/shared/text'
-import {UserLink} from '@components/user/user-link'
+import { Text } from '@components/shared/text'
+import { UserLink } from '@components/user/user-link'
 
-import {calcFinalWeightForBox} from '@utils/calculation'
-import {findTariffInStorekeepersData} from '@utils/checks'
-import {toFixed, toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
-import {t} from '@utils/translations'
+import { calcFinalWeightForBox } from '@utils/calculation'
+import { findTariffInStorekeepersData } from '@utils/checks'
+import { toFixed, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {RequestToSendBatchBox} from '../request-to-send-batch-box'
-import {useClassNames} from './request-to-send-batch-group-boxes.style'
+import { RequestToSendBatchBox } from '../request-to-send-batch-box'
+import { useClassNames } from './request-to-send-batch-group-boxes.style'
 
 export const RequestToSendBatchesGroupBoxes = ({
   userInfo,
@@ -28,7 +28,7 @@ export const RequestToSendBatchesGroupBoxes = ({
   onSubmitChangeBoxFields,
   onClickHsCode,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const totalPrice = selectedGroup.boxes.reduce(
     (acc, cur) => (acc += boxesDeliveryCosts.find(priceObj => priceObj.guid === cur._id)?.deliveryCost),
@@ -65,7 +65,7 @@ export const RequestToSendBatchesGroupBoxes = ({
   const currentTariff = selectedGroup.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate
 
   return (
-    <div className={cx(classNames.tableWrapper, {[classNames.tableAlertWrapper]: tariffIsInvalid})}>
+    <div className={cx(classNames.tableWrapper, { [classNames.tableAlertWrapper]: tariffIsInvalid })}>
       {selectedGroup.price !== 0 && (
         <div className={classNames.headerWrapper}>
           <div className={classNames.headerSubWrapper}>

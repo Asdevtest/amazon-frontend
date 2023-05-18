@@ -1,7 +1,7 @@
-import React, {useMemo} from 'react'
+import React, { useMemo } from 'react'
 
 // import {colorByProductStatus, ProductStatusByCode} from '@constants/product-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextHeaderCell,
@@ -9,7 +9,7 @@ import {
   MultilineTextAlignLeftCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const supervisorSettingsViewColumns = handlers => [
   {

@@ -1,30 +1,30 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
-import {operationTypes} from '@constants/keys/operation-types'
-import {BoxStatus} from '@constants/statuses/box-status'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TaskOperationType} from '@constants/task/task-operation-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { operationTypes } from '@constants/keys/operation-types'
+import { BoxStatus } from '@constants/statuses/box-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TaskOperationType } from '@constants/task/task-operation-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BatchesModel} from '@models/batches-model'
-import {BoxesModel} from '@models/boxes-model'
-import {ClientModel} from '@models/client-model'
-import {GeneralModel} from '@models/general-model'
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {ShopModel} from '@models/shop-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { BatchesModel } from '@models/batches-model'
+import { BoxesModel } from '@models/boxes-model'
+import { ClientModel } from '@models/client-model'
+import { GeneralModel } from '@models/general-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {clientBoxesViewColumns} from '@components/table/table-columns/client/client-boxes-columns'
+import { clientBoxesViewColumns } from '@components/table/table-columns/client/client-boxes-columns'
 
-import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {getTableByColumn, objectToUrlQs} from '@utils/text'
-import {t} from '@utils/translations'
-import {onSubmitPostFilesInData, onSubmitPostImages} from '@utils/upload-files'
+import { clientWarehouseDataConverter } from '@utils/data-grid-data-converters'
+import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getTableByColumn, objectToUrlQs } from '@utils/text'
+import { t } from '@utils/translations'
+import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
 
 const updateBoxWhiteList = [
   'amount',
@@ -121,7 +121,7 @@ export class ClientInStockBoxesViewModel {
 
     filterRequestStatus: undefined,
 
-    isFormedData: {isFormed: null, onChangeIsFormed: value => this.onChangeIsFormed(value)},
+    isFormedData: { isFormed: null, onChangeIsFormed: value => this.onChangeIsFormed(value) },
 
     ...filtersFields.reduce(
       (ac, cur) =>
@@ -220,7 +220,7 @@ export class ClientInStockBoxesViewModel {
 
   rowCount = 0
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
 
   curPage = 0
   rowsPerPage = 15
@@ -266,20 +266,20 @@ export class ClientInStockBoxesViewModel {
       .some(el => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     const url = new URL(window.location.href)
 
     runInAction(() => {
       this.history = history
 
-      this.currentStorekeeper = {_id: url.searchParams.get('storekeeper-id')}
+      this.currentStorekeeper = { _id: url.searchParams.get('storekeeper-id') }
       this.nameSearchValue = url.searchParams.get('search-text')
     })
 
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -471,7 +471,7 @@ export class ClientInStockBoxesViewModel {
       })
 
       if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
 
       await BoxesModel.editAdditionalInfo(data._id, {
@@ -546,7 +546,7 @@ export class ClientInStockBoxesViewModel {
 
   async returnBoxesToStock() {
     try {
-      await ClientModel.returnBoxFromBatch(this.selectedBoxes.map(boxId => ({boxId})))
+      await ClientModel.returnBoxFromBatch(this.selectedBoxes.map(boxId => ({ boxId })))
       runInAction(() => {
         this.selectedBoxes = []
       })
@@ -654,11 +654,11 @@ export class ClientInStockBoxesViewModel {
     })
 
     if (tmpShippingLabel.length) {
-      await onSubmitPostImages.call(this, {images: tmpShippingLabel, type: 'uploadedFiles'})
+      await onSubmitPostImages.call(this, { images: tmpShippingLabel, type: 'uploadedFiles' })
     }
 
     if (this.selectedBox.shippingLabel === null) {
-      await ClientModel.editShippingLabelFirstTime(this.selectedBox._id, {shippingLabel: this.uploadedFiles[0]})
+      await ClientModel.editShippingLabelFirstTime(this.selectedBox._id, { shippingLabel: this.uploadedFiles[0] })
 
       this.checkAndOpenFbaShipmentEdit()
 
@@ -684,7 +684,7 @@ export class ClientInStockBoxesViewModel {
 
   async onSaveShippingLabelInTableSubmit() {
     try {
-      const boxData = {...this.selectedBox, shippingLabel: this.uploadedFiles[0]}
+      const boxData = { ...this.selectedBox, shippingLabel: this.uploadedFiles[0] }
 
       const sourceData = this.selectedBox
 
@@ -712,7 +712,7 @@ export class ClientInStockBoxesViewModel {
         updateBoxWhiteList,
       )
 
-      const editBoxesResult = await this.editBox({id: this.selectedBox._id, data: requestBox})
+      const editBoxesResult = await this.editBox({ id: this.selectedBox._id, data: requestBox })
 
       await this.postTask({
         idsData: [editBoxesResult.guid],
@@ -797,7 +797,7 @@ export class ClientInStockBoxesViewModel {
 
   async onDeleteFbaShipment(box) {
     try {
-      await BoxesModel.editBoxAtClient(box._id, {fbaShipment: ''})
+      await BoxesModel.editBoxAtClient(box._id, { fbaShipment: '' })
 
       this.loadData()
     } catch (error) {
@@ -807,7 +807,7 @@ export class ClientInStockBoxesViewModel {
 
   async onClickSaveFbaShipment(fbaShipment) {
     try {
-      await BoxesModel.editBoxAtClient(this.selectedBox._id, {fbaShipment})
+      await BoxesModel.editBoxAtClient(this.selectedBox._id, { fbaShipment })
 
       runInAction(() => {
         this.warningInfoModalSettings = {
@@ -822,7 +822,7 @@ export class ClientInStockBoxesViewModel {
       this.loadData()
 
       runInAction(() => {
-        this.selectedBox = {...this.selectedBox, fbaShipment}
+        this.selectedBox = { ...this.selectedBox, fbaShipment }
       })
     } catch (err) {
       console.log(err)
@@ -990,7 +990,7 @@ export class ClientInStockBoxesViewModel {
           })
 
           if (updatedBoxes[i].tmpShippingLabel.length) {
-            await onSubmitPostImages.call(this, {images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles'})
+            await onSubmitPostImages.call(this, { images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles' })
           }
 
           const boxToPush = {
@@ -1016,7 +1016,7 @@ export class ClientInStockBoxesViewModel {
 
         const splitBoxesResult = await this.splitBoxes(id, resBoxes)
 
-        await this.postTask({idsData: splitBoxesResult, idsBeforeData: [id], type, clientComment: comment})
+        await this.postTask({ idsData: splitBoxesResult, idsBeforeData: [id], type, clientComment: comment })
         this.setRequestStatus(loadingStatuses.success)
 
         if (splitBoxesResult) {
@@ -1154,7 +1154,7 @@ export class ClientInStockBoxesViewModel {
 
   async updateOneBarCodeInInventory(id, data) {
     try {
-      await ClientModel.updateProductBarCode(id, {barCode: data})
+      await ClientModel.updateProductBarCode(id, { barCode: data })
     } catch (error) {
       console.log(error)
     }
@@ -1188,7 +1188,7 @@ export class ClientInStockBoxesViewModel {
       })
 
       for (let i = 0; i < newBoxes.length; i++) {
-        const newBox = {...newBoxes[i]}
+        const newBox = { ...newBoxes[i] }
         const sourceBox = selectedBoxes[i]
         const isMultipleEdit = true
 
@@ -1442,7 +1442,7 @@ export class ClientInStockBoxesViewModel {
           updateBoxWhiteList,
         )
 
-        const editBoxesResult = await this.editBox({id, data: requestBox})
+        const editBoxesResult = await this.editBox({ id, data: requestBox })
 
         await this.updateBarCodesInInventory(dataToBarCodeChange)
 
@@ -1502,11 +1502,11 @@ export class ClientInStockBoxesViewModel {
       })
 
       if (boxBody.tmpShippingLabel.length) {
-        await onSubmitPostImages.call(this, {images: boxBody.tmpShippingLabel, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: boxBody.tmpShippingLabel, type: 'uploadedFiles' })
       }
 
       const newBoxBody = getObjectFilteredByKeyArrayBlackList(
-        {...boxBody, shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxBody.shippingLabel},
+        { ...boxBody, shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxBody.shippingLabel },
         ['tmpShippingLabel', 'storekeeperId', 'humanFriendlyId'],
       )
 
@@ -1558,7 +1558,7 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
-  async onClickSubmitGroupingBoxes({oldBoxes, newBoxes}) {
+  async onClickSubmitGroupingBoxes({ oldBoxes, newBoxes }) {
     try {
       await BoxesModel.regroupBoxes({
         boxIds: oldBoxes.map(el => el._id),
@@ -1617,7 +1617,7 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
-  async postTask({idsData, idsBeforeData, type, clientComment}) {
+  async postTask({ idsData, idsBeforeData, type, clientComment }) {
     try {
       const res = await ClientModel.createTask({
         taskId: 0,
@@ -1771,7 +1771,7 @@ export class ClientInStockBoxesViewModel {
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
           ...this.columnMenuSettings,
-          [column]: {...this.columnMenuSettings[column], filterData: data},
+          [column]: { ...this.columnMenuSettings[column], filterData: data },
         }
       }
 
@@ -1829,14 +1829,14 @@ export class ClientInStockBoxesViewModel {
 
     const filter = objectToUrlQs({
       or: [
-        {asin: {$contains: this.nameSearchValue}},
-        {amazonTitle: {$contains: this.nameSearchValue}},
-        {skusByClient: {$contains: this.nameSearchValue}},
-        {id: {$eq: this.nameSearchValue}},
-        {item: {$eq: this.nameSearchValue}},
-        {productId: {$eq: this.nameSearchValue}},
-        {humanFriendlyId: {$eq: this.nameSearchValue}},
-        {prepId: {$contains: this.nameSearchValue}},
+        { asin: { $contains: this.nameSearchValue } },
+        { amazonTitle: { $contains: this.nameSearchValue } },
+        { skusByClient: { $contains: this.nameSearchValue } },
+        { id: { $eq: this.nameSearchValue } },
+        { item: { $eq: this.nameSearchValue } },
+        { productId: { $eq: this.nameSearchValue } },
+        { humanFriendlyId: { $eq: this.nameSearchValue } },
+        { prepId: { $contains: this.nameSearchValue } },
       ].filter(
         el =>
           ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
@@ -1846,50 +1846,50 @@ export class ClientInStockBoxesViewModel {
       ),
 
       ...(humanFriendlyIdFilter && {
-        humanFriendlyId: {$eq: humanFriendlyIdFilter},
+        humanFriendlyId: { $eq: humanFriendlyIdFilter },
       }),
       ...(idFilter && {
-        id: {$eq: idFilter},
+        id: { $eq: idFilter },
       }),
 
       ...(itemFilter && {
-        item: {$eq: itemFilter},
+        item: { $eq: itemFilter },
       }),
 
       ...(asinFilter && {
-        asin: {$eq: asinFilter},
+        asin: { $eq: asinFilter },
       }),
       ...(skusByClientFilter && {
-        skusByClient: {$eq: skusByClientFilter},
+        skusByClient: { $eq: skusByClientFilter },
       }),
       ...(amazonTitleFilter && {
-        amazonTitle: {$eq: amazonTitleFilter},
+        amazonTitle: { $eq: amazonTitleFilter },
       }),
 
       ...(destinationFilter && {
-        destinationId: {$eq: destinationFilter},
+        destinationId: { $eq: destinationFilter },
       }),
       ...(logicsTariffFilter && {
-        logicsTariffId: {$eq: logicsTariffFilter},
+        logicsTariffId: { $eq: logicsTariffFilter },
       }),
 
       ...(createdAtFilter && {
-        createdAt: {$eq: createdAtFilter},
+        createdAt: { $eq: createdAtFilter },
       }),
       ...(updatedAtFilter && {
-        updatedAt: {$eq: updatedAtFilter},
+        updatedAt: { $eq: updatedAtFilter },
       }),
 
       ...(amountFilter && {
-        amount: {$eq: amountFilter},
+        amount: { $eq: amountFilter },
       }),
 
       ...(prepIdFilter && {
-        prepId: {$eq: prepIdFilter},
+        prepId: { $eq: prepIdFilter },
       }),
 
       ...(storekeeperIdFilter && {
-        storekeeperId: {$eq: storekeeperIdFilter},
+        storekeeperId: { $eq: storekeeperIdFilter },
       }),
     })
 

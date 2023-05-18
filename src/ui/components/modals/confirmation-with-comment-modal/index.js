@@ -1,1 +1,1 @@
-export {ConfirmWithCommentModal} from './confirmation-with-comment-modal'
+export { ConfirmWithCommentModal } from './confirmation-with-comment-modal'

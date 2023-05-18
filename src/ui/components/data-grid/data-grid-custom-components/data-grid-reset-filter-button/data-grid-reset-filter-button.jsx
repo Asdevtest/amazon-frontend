@@ -1,21 +1,21 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import FilterAltOffOutlinedIcon from '@mui/icons-material/FilterAltOffOutlined'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {t} from 'i18n-js'
+import { t } from 'i18n-js'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
+import { Button } from '@components/shared/buttons/button'
 
-import {useClassNames} from './data-grid-reset-filter-button.style'
+import { useClassNames } from './data-grid-reset-filter-button.style'
 
 export const DataGridResetFilterButton = props => {
-  const {classes: classNames} = useClassNames()
-  const {className, resetFiltersBtnSettings, ...other} = props
+  const { classes: classNames } = useClassNames()
+  const { className, resetFiltersBtnSettings, ...other } = props
 
   return (
     <div>

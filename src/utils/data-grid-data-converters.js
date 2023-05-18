@@ -1,16 +1,16 @@
-import {UserRoleCodeMap} from '@constants/keys/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import {
   ProductStatus,
   ProductStatusByCode,
   ProductStatusByKey,
   productStatusTranslateKey,
 } from '@constants/product/product-status'
-import {mapProductStrategyStatusEnum} from '@constants/product/product-strategy-status'
-import {ideaStatusByCode, ideaStatusTranslate} from '@constants/statuses/idea-status'
-import {OrderStatusByCode, OrderStatusTranslate} from '@constants/statuses/order-status'
-import {mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel} from '@constants/task/task-operation-type'
-import {mapTaskStatusKeyToEnum} from '@constants/task/task-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
+import { OrderStatusByCode, OrderStatusTranslate } from '@constants/statuses/order-status'
+import { mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel } from '@constants/task/task-operation-type'
+import { mapTaskStatusKeyToEnum } from '@constants/task/task-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   calcFinalWeightForBox,
@@ -20,10 +20,10 @@ import {
   checkActualBatchWeightGreaterVolumeBatchWeight,
   getTariffRateForBoxOrOrder,
 } from './calculation'
-import {getFullTariffTextForBoxOrOrder} from './text'
-import {t} from './translations'
+import { getFullTariffTextForBoxOrOrder } from './text'
+import { t } from './translations'
 
-export const addIdDataConverter = data => data.map((item, index) => ({...item, id: item._id ? item._id : index}))
+export const addIdDataConverter = data => data.map((item, index) => ({ ...item, id: item._id ? item._id : index }))
 
 export const ideaNoticeDataConverter = data =>
   data.map((item, index) => ({

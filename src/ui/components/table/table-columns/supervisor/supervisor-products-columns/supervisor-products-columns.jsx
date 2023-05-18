@@ -1,7 +1,7 @@
 import React from 'react'
 
-import {colorByProductStatus, ProductStatusByCode, productStatusTranslateKey} from '@constants/product/product-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { colorByProductStatus, ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineStatusCell,
@@ -13,7 +13,7 @@ import {
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const supervisorProductsViewColumns = () => [
   {

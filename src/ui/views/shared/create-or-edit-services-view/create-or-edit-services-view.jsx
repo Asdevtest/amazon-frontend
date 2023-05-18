@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {CreateOrEditServiceContent} from '@components/contents/create-or-edit-services-content/create-or-edit-services-content'
-import {MainContent} from '@components/layout/main-content'
+import { CreateOrEditServiceContent } from '@components/contents/create-or-edit-services-content/create-or-edit-services-content'
+import { MainContent } from '@components/layout/main-content'
 
-import {CreateOrEditServicesViewModel} from './create-or-edit-services-view.model'
-import {styles} from './create-or-edit-services-view.style'
+import { CreateOrEditServicesViewModel } from './create-or-edit-services-view.model'
+import { styles } from './create-or-edit-services-view.style'
 
 export const CreateOrEditServicesViewRaw = props => {
   const [viewModel] = useState(
@@ -18,7 +18,7 @@ export const CreateOrEditServicesViewRaw = props => {
         location: props.location,
       }),
   )
-  const {classes: classNames} = props
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()

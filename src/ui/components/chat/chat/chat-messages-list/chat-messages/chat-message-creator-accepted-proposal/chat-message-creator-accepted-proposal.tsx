@@ -1,14 +1,14 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 
-import React, {FC} from 'react'
+import React, { FC } from 'react'
 
-import {useClassNames} from './chat-message-creator-accepted-proposal.style'
-import {LabelValueDoubleBlock} from './label-value-double-block'
+import { useClassNames } from './chat-message-creator-accepted-proposal.style'
+import { LabelValueDoubleBlock } from './label-value-double-block'
 
 interface Props {}
 
 export const ChatMessageCreatorAcceptedProposal: FC<Props> = () => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
   return (
     <div className={classNames.root}>
       <div className={classNames.headerWrapper}>
@@ -35,8 +35,8 @@ export const ChatMessageCreatorAcceptedProposal: FC<Props> = () => {
           <LabelValueDoubleBlock
             bgColor="green"
             labelValueDouble={[
-              {label: 'Статус', value: 'CREATED'},
-              {label: 'Стоимость', value: '30$'},
+              { label: 'Статус', value: 'CREATED' },
+              { label: 'Стоимость', value: '30$' },
             ]}
           />
         </div>
@@ -44,8 +44,8 @@ export const ChatMessageCreatorAcceptedProposal: FC<Props> = () => {
           <LabelValueDoubleBlock
             bgColor="green"
             labelValueDouble={[
-              {label: 'Время', value: '10 ч. 15 мин.'},
-              {label: 'Срок', value: '24.01.22 12:00'},
+              { label: 'Время', value: '10 ч. 15 мин.' },
+              { label: 'Срок', value: '24.01.22 12:00' },
             ]}
           />
         </div>

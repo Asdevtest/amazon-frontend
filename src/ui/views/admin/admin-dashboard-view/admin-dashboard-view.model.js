@@ -1,10 +1,10 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {AdminDashboardCardDataKey} from '@constants/navigation/dashboard-configs'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import { AdminDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {AdministratorModel} from '@models/administrator-model'
-import {UserModel} from '@models/user-model'
+import { AdministratorModel } from '@models/administrator-model'
+import { UserModel } from '@models/user-model'
 
 export class AdminDashboardViewModel {
   history = undefined
@@ -26,11 +26,11 @@ export class AdminDashboardViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {

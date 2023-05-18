@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {keyframes} from '@emotion/react'
+import { keyframes } from '@emotion/react'
 
 const ani = keyframes`
 0% {

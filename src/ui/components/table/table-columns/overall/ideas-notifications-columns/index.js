@@ -1,1 +1,1 @@
-export {ideasNotificationsViewColumns} from './ideas-notifications-columns'
+export { ideasNotificationsViewColumns } from './ideas-notifications-columns'

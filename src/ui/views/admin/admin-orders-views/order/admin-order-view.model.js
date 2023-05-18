@@ -1,12 +1,12 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {BoxesModel} from '@models/boxes-model'
-import {ClientModel} from '@models/client-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { BoxesModel } from '@models/boxes-model'
+import { ClientModel } from '@models/client-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
 export class AdminOrderViewModel {
   history = undefined
@@ -24,13 +24,13 @@ export class AdminOrderViewModel {
 
   order = undefined
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
       this.orderId = history.location.search.slice(1)
       SettingsModel.changeLastCrumbAdditionalText(` № ${this.orderId}`)
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {

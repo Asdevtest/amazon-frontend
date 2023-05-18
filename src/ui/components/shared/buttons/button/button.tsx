@@ -1,17 +1,17 @@
-import {cx} from '@emotion/css'
-import {Box} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Box } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
-import React, {FC, ReactElement, useEffect, useState} from 'react'
+import React, { FC, ReactElement, useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {TooltipAttention, TooltipInfoIcon} from '@components/shared/svg-icons'
+import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
 
-import {useClassNames} from './button.style'
-import {StyledButton} from './styled-button'
+import { useClassNames } from './button.style'
+import { StyledButton } from './styled-button'
 
 enum tooltipPositions {
   Corner = 'corner',
@@ -49,7 +49,7 @@ export const Button: FC<Props> = observer(
     btnWrapperStyle,
     ...restProps
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const [showHints, setShowHints] = useState(SettingsModel.showHints)
 

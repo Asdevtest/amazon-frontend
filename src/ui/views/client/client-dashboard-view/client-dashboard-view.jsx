@@ -1,32 +1,32 @@
-import {cx} from '@emotion/css'
-import {Avatar, Paper, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Avatar, Paper, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {getClientDashboardCardConfig} from '@constants/navigation/dashboard-configs'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { getClientDashboardCardConfig } from '@constants/navigation/dashboard-configs'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DashboardBalance} from '@components/dashboards/dashboard-balance'
-import {DashboardButtons} from '@components/dashboards/dashboard-buttons'
-import {DashboardWidgetsCard} from '@components/dashboards/dashboard-widgets-card'
+import { DashboardBalance } from '@components/dashboards/dashboard-balance'
+import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
+import { DashboardWidgetsCard } from '@components/dashboards/dashboard-widgets-card'
 // import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
-import {MainContent} from '@components/layout/main-content'
-import {UserMoneyTransferModal} from '@components/modals/user-money-transfer-modal'
-import {Button} from '@components/shared/buttons/button'
-import {UserLink} from '@components/user/user-link'
+import { MainContent } from '@components/layout/main-content'
+import { UserMoneyTransferModal } from '@components/modals/user-money-transfer-modal'
+import { Button } from '@components/shared/buttons/button'
+import { UserLink } from '@components/user/user-link'
 
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {t} from '@utils/translations'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { t } from '@utils/translations'
 
-import {ClientDashboardViewModel} from './client-dashboard-view.model'
-import {styles} from './client-dashboard-view.style'
+import { ClientDashboardViewModel } from './client-dashboard-view.model'
+import { styles } from './client-dashboard-view.style'
 
 export const ClientDashboardViewRaw = props => {
-  const [viewModel] = useState(() => new ClientDashboardViewModel({history: props.history}))
-  const {classes} = props
+  const [viewModel] = useState(() => new ClientDashboardViewModel({ history: props.history }))
+  const { classes } = props
 
   useEffect(() => {
     viewModel.loadData()

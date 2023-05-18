@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-indent */
 
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
@@ -22,33 +22,33 @@ import {
 } from '@mui/material'
 import Zoom from '@mui/material/Zoom'
 
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
-import {nanoid} from 'nanoid'
+import { nanoid } from 'nanoid'
 
-import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
-import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/statuses/freelance-request-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BigObjectImagesModal} from '@components/modals/big-object-images-modal'
-import {Button} from '@components/shared/buttons/button'
-import {CopyValue} from '@components/shared/copy-value'
-import {CustomCarousel} from '@components/shared/custom-carousel/custom-carousel'
+import { BigObjectImagesModal } from '@components/modals/big-object-images-modal'
+import { Button } from '@components/shared/buttons/button'
+import { CopyValue } from '@components/shared/copy-value'
+import { CustomCarousel } from '@components/shared/custom-carousel/custom-carousel'
 // import {PhotoCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {Field} from '@components/shared/field'
-import {Input} from '@components/shared/input'
-import {Modal} from '@components/shared/modal'
-import {SetDuration} from '@components/shared/set-duration/set-duration'
-import {BigPlus, PhotoCameraWithPlus} from '@components/shared/svg-icons'
-import {UploadFilesInput} from '@components/shared/upload-files-input'
+import { Field } from '@components/shared/field'
+import { Input } from '@components/shared/input'
+import { Modal } from '@components/shared/modal'
+import { SetDuration } from '@components/shared/set-duration/set-duration'
+import { BigPlus, PhotoCameraWithPlus } from '@components/shared/svg-icons'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import {checkIsImageLink} from '@utils/checks'
-import {getFileNameFromUrl} from '@utils/get-file-name-from-url'
-import {checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount, minsToTime} from '@utils/text'
-import {t} from '@utils/translations'
-import {downloadFile, downloadFileByLink} from '@utils/upload-files'
+import { checkIsImageLink } from '@utils/checks'
+import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
+import { checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
+import { t } from '@utils/translations'
+import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
-import {useClassNames} from './request-designer-result-client-form.style'
+import { useClassNames } from './request-designer-result-client-form.style'
 
 const Slot = ({
   item,
@@ -62,7 +62,7 @@ const Slot = ({
   imagesForDownload,
   onClickAddDownload,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const menuAnchor = useRef()
 
@@ -89,8 +89,8 @@ const Slot = ({
         className={cx(
           classNames.imageWrapper,
 
-          {[classNames.isHaveImage]: !!item.image},
-          {[classNames.mainImageWrapper]: index === 0},
+          { [classNames.isHaveImage]: !!item.image },
+          { [classNames.mainImageWrapper]: index === 0 },
         )}
       >
         {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
@@ -101,11 +101,11 @@ const Slot = ({
             title={getFileNameFromUrl(typeof item.image === 'string' ? item.image : item.image?.file.name)?.fullName}
             placement="right-end"
             TransitionComponent={Zoom}
-            TransitionProps={{timeout: 300}}
+            TransitionProps={{ timeout: 300 }}
           >
             <Avatar
               className={classNames.image}
-              classes={{img: classNames.image}}
+              classes={{ img: classNames.image }}
               src={
                 typeof item.image === 'string'
                   ? checkIsImageLink(item.image)
@@ -166,19 +166,19 @@ const Slot = ({
                 open
                 anchorEl={menuAnchor.current}
                 autoFocus={false}
-                classes={{/* paper: classNames.menu, */ list: classNames.list}}
+                classes={{ /* paper: classNames.menu, */ list: classNames.list }}
                 onClose={handleClose}
               >
                 <Input
                   autoFocus
                   multiline
                   type="text"
-                  inputProps={{maxLength: 500}}
+                  inputProps={{ maxLength: 500 }}
                   minRows={5}
                   maxRows={10}
                   variant="filled"
                   className={classNames.imageObjInput}
-                  classes={{input: classNames.subImageObjInput}}
+                  classes={{ input: classNames.subImageObjInput }}
                   value={item.commentByClient}
                   onChange={onChangeImageFileds('commentByClient', item._id)}
                 />
@@ -206,7 +206,7 @@ export const RequestDesignerResultClientForm = ({
   userInfo,
   curResultMedia,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   // console.log('request', request)
   // console.log('proposal', proposal)
@@ -241,7 +241,7 @@ export const RequestDesignerResultClientForm = ({
   const [imagesData, setImagesData] = useState(sourceImagesData)
 
   const onChangeImageFileds = (field, imageId) => event => {
-    const findImage = {...imagesData.find(el => el._id === imageId)}
+    const findImage = { ...imagesData.find(el => el._id === imageId) }
 
     findImage[field] = event.target.value
 
@@ -249,7 +249,7 @@ export const RequestDesignerResultClientForm = ({
   }
 
   const onClickCommentBtn = imageId => {
-    const findImage = {...imagesData.find(el => el._id === imageId)}
+    const findImage = { ...imagesData.find(el => el._id === imageId) }
 
     findImage.isEditCommentOpen = !findImage.isEditCommentOpen
 
@@ -291,7 +291,7 @@ export const RequestDesignerResultClientForm = ({
   const [formFields, setFormFields] = useState(sourceFormFields)
 
   const onChangeField = fieldName => event => {
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
     if (['execution_time'].includes(fieldName)) {
       newFormFields[fieldName] = Number(event) || ''
     }
@@ -520,7 +520,7 @@ export const RequestDesignerResultClientForm = ({
               className={cx(classNames.heightFieldAuto)}
               labelClasses={classNames.fieldLabel}
               containerClasses={classNames.containerField}
-              inputProps={{maxLength: 1000}}
+              inputProps={{ maxLength: 1000 }}
               minRows={4}
               maxRows={4}
               placeholder={t(TranslationKey['Enter remarks'])}
@@ -605,7 +605,7 @@ export const RequestDesignerResultClientForm = ({
       <BigObjectImagesModal
         openModal={showImageModal}
         setOpenModal={() => setShowImageModal(!showImageModal)}
-        imagesData={imagesData.map(el => ({...el, imageComment: el.commentByClient || ''}))}
+        imagesData={imagesData.map(el => ({ ...el, imageComment: el.commentByClient || '' }))}
         curImageId={curImageId}
         setCurImageId={setCurImageId}
       />

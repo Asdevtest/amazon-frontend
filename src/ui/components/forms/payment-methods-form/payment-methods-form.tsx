@@ -1,16 +1,16 @@
 /* eslint-disable no-unused-vars */
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {FC, useState} from 'react'
+import React, { FC, useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
+import { Button } from '@components/shared/buttons/button'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {PaymentMethodCard} from './payment-method-card'
-import {useClassNames} from './payment-methods-form.style'
+import { PaymentMethodCard } from './payment-method-card'
+import { useClassNames } from './payment-methods-form.style'
 
 interface PaymentMethod {
   _id: string
@@ -32,9 +32,9 @@ interface PaymentMethodsFormProps {
 }
 
 export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = props => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
-  const {payments, readOnly, onClickSaveButton, onClickCancelButton} = props
+  const { payments, readOnly, onClickSaveButton, onClickCancelButton } = props
 
   const [childStates, setChildStates] = useState(
     payments

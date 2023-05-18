@@ -1,1 +1,1 @@
-export {ExchangeProductItem} from './exchange-product-item'
+export { ExchangeProductItem } from './exchange-product-item'

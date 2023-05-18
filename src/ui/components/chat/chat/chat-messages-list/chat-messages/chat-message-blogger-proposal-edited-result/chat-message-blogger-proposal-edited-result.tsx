@@ -1,29 +1,29 @@
-import {cx} from '@emotion/css'
-import {Link, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Link, Typography } from '@mui/material'
 
-import React, {FC, useContext} from 'react'
+import React, { FC, useContext } from 'react'
 
 import Linkify from 'react-linkify-always-blank'
 
-import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatMessageDataBloggerProposalResultEditedContract} from '@models/chat-model/contracts/chat-message-data.contract'
-import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
-import {UserModel} from '@models/user-model'
+import { ChatMessageDataBloggerProposalResultEditedContract } from '@models/chat-model/contracts/chat-message-data.contract'
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
+import { UserModel } from '@models/user-model'
 
-import {Button} from '@components/shared/buttons/button'
-import {CopyValue} from '@components/shared/copy-value'
-import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {Field} from '@components/shared/field'
+import { Button } from '@components/shared/buttons/button'
+import { CopyValue } from '@components/shared/copy-value'
+import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { Field } from '@components/shared/field'
 
-import {formatDateOnlyTime} from '@utils/date-time'
-import {checkAndMakeAbsoluteUrl} from '@utils/text'
-import {t} from '@utils/translations'
+import { formatDateOnlyTime } from '@utils/date-time'
+import { checkAndMakeAbsoluteUrl } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
+import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import {useClassNames} from './chat-message-blogger-proposal-edited-result.style'
+import { useClassNames } from './chat-message-blogger-proposal-edited-result.style'
 
 export interface ChatMessageRequestProposalResultEditedHandlers {
   onClickProposalResultToCorrect: (proposalId: string) => void
@@ -35,8 +35,8 @@ interface Props {
   handlers: ChatMessageRequestProposalResultEditedHandlers
 }
 
-export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({message, handlers}) => {
-  const {classes: classNames} = useClassNames()
+export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, handlers }) => {
+  const { classes: classNames } = useClassNames()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 

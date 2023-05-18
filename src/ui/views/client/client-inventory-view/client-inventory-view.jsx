@@ -1,49 +1,49 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import DeleteIcon from '@mui/icons-material/Delete'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Alert} from '@mui/material'
+import { Alert } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomColumnMenuComponent} from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {AddOwnProductForm} from '@components/forms/add-own-product-form'
-import {AddSupplierToIdeaFromInventoryForm} from '@components/forms/add-supplier-to-idea-from-inventory-form'
-import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-goods-to-stock-form'
-import {CheckPendingOrderForm} from '@components/forms/check-pending-order-form'
-import {GetFilesForm} from '@components/forms/get-files-form'
-import {ProductLotDataForm} from '@components/forms/product-lot-data-form/product-lot-data-form'
-import {MainContent} from '@components/layout/main-content'
-import {AddSuppliersModal} from '@components/modals/add-suppliers-modal'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
-import {OrderProductModal} from '@components/modals/order-product-modal'
-import {SelectionSupplierModal} from '@components/modals/selection-supplier-modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
-import {SetChipValueModal} from '@components/modals/set-chip-value-modal'
-import {SetFourMonthesStockModal} from '@components/modals/set-four-monthes-stock-value-modal.js'
-import {ShowBarOrHscodeModal} from '@components/modals/show-bar-or-hs-code-modal'
-import {SuccessInfoModal} from '@components/modals/success-info-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/'
-import {Button} from '@components/shared/buttons/button'
-import {CircularProgressWithLabel} from '@components/shared/circular-progress-with-label'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {Modal} from '@components/shared/modal'
-import {SearchInput} from '@components/shared/search-input'
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { AddOwnProductForm } from '@components/forms/add-own-product-form'
+import { AddSupplierToIdeaFromInventoryForm } from '@components/forms/add-supplier-to-idea-from-inventory-form'
+import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
+import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
+import { GetFilesForm } from '@components/forms/get-files-form'
+import { ProductLotDataForm } from '@components/forms/product-lot-data-form/product-lot-data-form'
+import { MainContent } from '@components/layout/main-content'
+import { AddSuppliersModal } from '@components/modals/add-suppliers-modal'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { OrderProductModal } from '@components/modals/order-product-modal'
+import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
+import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { SetChipValueModal } from '@components/modals/set-chip-value-modal'
+import { SetFourMonthesStockModal } from '@components/modals/set-four-monthes-stock-value-modal.js'
+import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {ClientInventoryViewModel} from './client-inventory-view.model'
-import {styles} from './client-inventory-view.style'
+import { ClientInventoryViewModel } from './client-inventory-view.model'
+import { styles } from './client-inventory-view.style'
 
 export const ClientInventoryViewRaw = props => {
   const [viewModel] = useState(
@@ -53,7 +53,7 @@ export const ClientInventoryViewRaw = props => {
         location: props.location,
       }),
   )
-  const {classes: classNames} = props
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()

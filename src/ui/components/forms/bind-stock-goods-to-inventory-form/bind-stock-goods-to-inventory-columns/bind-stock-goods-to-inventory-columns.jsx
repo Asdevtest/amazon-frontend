@@ -1,8 +1,8 @@
-import {Radio} from '@mui/material'
+import { Radio } from '@mui/material'
 
-import {useCallback} from 'react'
+import { useCallback } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextCell,
@@ -11,7 +11,7 @@ import {
   TrashCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const inventoryColumns = (handlers, selectedRow) => [
   {

@@ -1,19 +1,19 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ClientModel} from '@models/client-model'
-import {SettingsModel} from '@models/settings-model'
-import {ShopModel} from '@models/shop-model'
+import { ClientModel } from '@models/client-model'
+import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
 
-import {shopsColumns} from '@components/table/table-columns/shops-columns'
+import { shopsColumns } from '@components/table/table-columns/shops-columns'
 
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
 
 export class ShopsViewModel {
   history = undefined
@@ -49,7 +49,7 @@ export class ShopsViewModel {
 
   firstRowId = undefined
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -60,14 +60,14 @@ export class ShopsViewModel {
     title: '',
   }
 
-  constructor({history, tabsValues, onChangeTabIndex, onChangeCurShop, openModal}) {
+  constructor({ history, tabsValues, onChangeTabIndex, onChangeCurShop, openModal }) {
     this.history = history
 
     this.tabsValues = tabsValues
     this.onChangeTabIndex = onChangeTabIndex
     this.onChangeCurShop = onChangeCurShop
     this.openModal = openModal
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,

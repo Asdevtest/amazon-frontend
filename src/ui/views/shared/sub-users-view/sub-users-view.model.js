@@ -1,25 +1,25 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
-import {UserRole, UserRoleCodeMap} from '@constants/keys/user-roles'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BuyerModel} from '@models/buyer-model'
-import {ClientModel} from '@models/client-model'
-import {PermissionsModel} from '@models/permissions-model'
-import {ResearcherModel} from '@models/researcher-model'
-import {SettingsModel} from '@models/settings-model'
-import {ShopModel} from '@models/shop-model'
-import {SupervisorModel} from '@models/supervisor-model'
-import {UserModel} from '@models/user-model'
+import { BuyerModel } from '@models/buyer-model'
+import { ClientModel } from '@models/client-model'
+import { PermissionsModel } from '@models/permissions-model'
+import { ResearcherModel } from '@models/researcher-model'
+import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
+import { SupervisorModel } from '@models/supervisor-model'
+import { UserModel } from '@models/user-model'
 
-import {subUsersColumns} from '@components/table/table-columns/sub-users-columns/sub-users-columns'
+import { subUsersColumns } from '@components/table/table-columns/sub-users-columns/sub-users-columns'
 
-import {addIdDataConverter, clientInventoryDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { addIdDataConverter, clientInventoryDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
 
 export class SubUsersViewModel {
   history = undefined
@@ -54,7 +54,7 @@ export class SubUsersViewModel {
 
   firstRowId = undefined
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -78,11 +78,11 @@ export class SubUsersViewModel {
     })
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -354,7 +354,7 @@ export class SubUsersViewModel {
     try {
       await PermissionsModel.setPermissionsForUser(id, data)
 
-      await PermissionsModel.setProductsPermissionsForUser({userId: id, productIds: allowedProductsIds})
+      await PermissionsModel.setProductsPermissionsForUser({ userId: id, productIds: allowedProductsIds })
 
       runInAction(() => {
         this.warningInfoModalSettings = {
@@ -383,7 +383,7 @@ export class SubUsersViewModel {
 
   async onSubmitUserPermissionsForm(permissions, subUserId, allowedProductsIds) {
     try {
-      await this.setPermissionsForUser(subUserId, {permissions, permissionGroups: []}, allowedProductsIds)
+      await this.setPermissionsForUser(subUserId, { permissions, permissionGroups: [] }, allowedProductsIds)
 
       await this.getUsers()
     } catch (error) {
@@ -423,7 +423,7 @@ export class SubUsersViewModel {
 
   async unlinkSubUser() {
     try {
-      await UserModel.unlinkSubUser({userId: this.selectedSubUser._id})
+      await UserModel.unlinkSubUser({ userId: this.selectedSubUser._id })
 
       runInAction(() => {
         this.warningInfoModalSettings = {

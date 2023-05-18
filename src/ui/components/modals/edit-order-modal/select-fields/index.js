@@ -1,1 +1,1 @@
-export {SelectFields} from './select-fields'
+export { SelectFields } from './select-fields'

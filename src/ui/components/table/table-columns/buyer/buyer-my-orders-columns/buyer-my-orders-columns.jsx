@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {useMemo} from 'react'
+import React, { useMemo } from 'react'
 
-import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
-import {orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey} from '@constants/statuses/order-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey } from '@constants/statuses/order-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   DownloadAndCopyBtnsCell,
@@ -20,9 +20,9 @@ import {
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {convertDaysToSeconds, formatDate, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
-import {timeToDeadlineInHoursAndMins, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { convertDaysToSeconds, formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
+import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const buyerMyOrdersViewColumns = firstRowId => [
   {
@@ -142,7 +142,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
       params.row.originalData.status < 20 ? (
         <MultilineTextCell
           withLineBreaks
-          tooltipText={params.value ? timeToDeadlineInHoursAndMins({date: params.value}) : ''}
+          tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
           color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
           text={params.value ? formatDate(params.value) : ''}
         />

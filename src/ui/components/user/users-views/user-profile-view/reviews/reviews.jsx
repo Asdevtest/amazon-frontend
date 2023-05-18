@@ -1,16 +1,16 @@
-import {cx} from '@emotion/css'
-import {Tab, Tabs, Typography, Paper} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Tab, Tabs, Typography, Paper } from '@mui/material'
 
 import React from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './reviews.style'
+import { useClassNames } from './reviews.style'
 
-export const Reviews = ({tabReview, setTabReview}) => {
-  const {classes: classNames} = useClassNames()
+export const Reviews = ({ tabReview, setTabReview }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <div className={classNames.mainWrapper}>

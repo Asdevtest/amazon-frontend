@@ -1,1 +1,1 @@
-export {NavbarCategory} from './navbar-category'
+export { NavbarCategory } from './navbar-category'

@@ -1,7 +1,7 @@
-import React, {useCallback} from 'react'
+import React, { useCallback } from 'react'
 
-import {colorByProductStatus, ProductStatusByCode} from '@constants/product/product-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { colorByProductStatus, ProductStatusByCode } from '@constants/product/product-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ProductAsinCell,
@@ -12,8 +12,8 @@ import {
   MultilineStatusCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const buyerProductsViewColumns = handlers => [
   {

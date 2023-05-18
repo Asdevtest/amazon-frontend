@@ -1,6 +1,6 @@
-import {keyframes} from '@emotion/react'
+import { keyframes } from '@emotion/react'
 
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 const ani = keyframes`
  0% {

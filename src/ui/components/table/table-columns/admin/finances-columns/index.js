@@ -1,1 +1,1 @@
-export {adminFinancesViewColumns} from './finances-columns'
+export { adminFinancesViewColumns } from './finances-columns'

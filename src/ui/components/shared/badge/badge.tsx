@@ -1,8 +1,8 @@
-import {Badge as MuiBadge} from '@mui/material'
+import { Badge as MuiBadge } from '@mui/material'
 
-import {withStyles} from 'tss-react/mui'
+import { withStyles } from 'tss-react/mui'
 
-import {styles} from './badge.style'
+import { styles } from './badge.style'
 
 interface Props {
   badgeContent: number

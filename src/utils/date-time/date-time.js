@@ -16,7 +16,7 @@ import {
 import enUS from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
 export const getYearDate = dateString => format(parseISO(dateString), 'yyyy')
 
@@ -61,7 +61,7 @@ export const formatDateDistanceFromNowStrict = (date, tryNow) =>
   })
 
 export const formatDateMonthYear = date =>
-  format(parseISO(isValid(date) ? formatISO(date, {representation: 'date'}) : date), 'MMM yyyy', {
+  format(parseISO(isValid(date) ? formatISO(date, { representation: 'date' }) : date), 'MMM yyyy', {
     locale: SettingsModel.languageTag === 'ru' ? ruLocale : enUS,
   })
 
@@ -76,7 +76,7 @@ export const formatDateDayMonthYear = date =>
   })
 
 export const formatDateDistanceFromNow = date =>
-  formatDistance(parseISO(date), new Date(), {addSuffix: true, locale: ruLocale})
+  formatDistance(parseISO(date), new Date(), { addSuffix: true, locale: ruLocale })
 
 export const sortObjectsArrayByFiledDate = fieldName => (a, b) => compareDesc(a[fieldName], b[fieldName])
 

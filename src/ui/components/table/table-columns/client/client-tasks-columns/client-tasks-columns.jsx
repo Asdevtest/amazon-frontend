@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React, {useCallback, useMemo} from 'react'
+import React, { useCallback, useMemo } from 'react'
 
-import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   NormDateFromUnixCell,
@@ -18,7 +18,7 @@ import {
   CheckboxCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const clientTasksViewColumns = handlers => [
   {

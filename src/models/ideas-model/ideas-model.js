@@ -1,8 +1,8 @@
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class IdeaModelStatic {
   getIdeas = async productId => {
-    const response = await restApiService.ideaApi.apiV1IdeasGet(productId && {productId})
+    const response = await restApiService.ideaApi.apiV1IdeasGet(productId && { productId })
     return response
   }
 
@@ -17,22 +17,22 @@ class IdeaModelStatic {
   }
 
   createSupplierSearchRequestForIdea = async (id, data) => {
-    const response = await restApiService.ideaApi.apiV1IdeasFindSupplierGuidPost(id, {body: data})
+    const response = await restApiService.ideaApi.apiV1IdeasFindSupplierGuidPost(id, { body: data })
     return response
   }
 
   editSupplierSearchRequestStatus = async (id, status) => {
-    const response = await restApiService.ideaApi.apiV1IdeasEditRequestsStatusGuidPatch(id, {body: status})
+    const response = await restApiService.ideaApi.apiV1IdeasEditRequestsStatusGuidPatch(id, { body: status })
     return response
   }
 
   createIdea = async data => {
-    const response = await restApiService.ideaApi.apiV1IdeasPost({body: data})
+    const response = await restApiService.ideaApi.apiV1IdeasPost({ body: data })
     return response
   }
 
   editIdea = async (id, data) => {
-    const response = await restApiService.ideaApi.apiV1IdeasGuidPatch(id, {body: data})
+    const response = await restApiService.ideaApi.apiV1IdeasGuidPatch(id, { body: data })
     return response
   }
 
@@ -41,12 +41,12 @@ class IdeaModelStatic {
     return response
   }
   addSuppliersToIdea = async (id, data) => {
-    const response = await restApiService.ideaApi.apiV1IdeasAddSuppliersGuidPost(id, {body: data})
+    const response = await restApiService.ideaApi.apiV1IdeasAddSuppliersGuidPost(id, { body: data })
     return response
   }
 
   removeSupplierFromIdea = async (id, data) => {
-    const response = await restApiService.ideaApi.apiV1IdeasRemoveSupplierGuidPost(id, {body: data})
+    const response = await restApiService.ideaApi.apiV1IdeasRemoveSupplierGuidPost(id, { body: data })
     return response
   }
 }

@@ -1,1 +1,1 @@
-export {exchangeBuyerWorkColumns} from './exchange-buyer-work-columns'
+export { exchangeBuyerWorkColumns } from './exchange-buyer-work-columns'

@@ -1,19 +1,19 @@
-import {cx} from '@emotion/css'
-import {Box, Divider, Paper, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Box, Divider, Paper, Typography } from '@mui/material'
 
 import React from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {toFixedWithDollarSign, withText} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixedWithDollarSign, withText } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './info.style'
+import { useClassNames } from './info.style'
 
-export const Info = ({headerInfoData}) => {
-  const {classes: classNames} = useClassNames()
+export const Info = ({ headerInfoData }) => {
+  const { classes: classNames } = useClassNames()
 
-  const InfoRow = ({label, value}) => (
+  const InfoRow = ({ label, value }) => (
     <Box className={classNames.infoRow}>
       <Typography className={cx(classNames.text, classNames.typoLabel)}>{label}</Typography>
       <Typography className={cx(classNames.text, classNames.typoValue)}>{value}</Typography>

@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import React, { useMemo } from 'react'
 
 import {
   colorByProductStatus,
@@ -6,7 +6,7 @@ import {
   ProductStatusByCode,
   ProductStatusByKey,
 } from '@constants/product/product-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextHeaderCell,
@@ -18,7 +18,7 @@ import {
   MultilineTextAlignLeftCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const researcherProductsViewColumns = () => [
   {

@@ -1,1 +1,1 @@
-export {ScrollToTopOrBottom} from './scroll-to-top-or-bottom'
+export { ScrollToTopOrBottom } from './scroll-to-top-or-bottom'

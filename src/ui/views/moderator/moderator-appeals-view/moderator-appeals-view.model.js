@@ -1,8 +1,8 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 
-import {UserModel} from '@models/user-model'
+import { UserModel } from '@models/user-model'
 
 export class ModeratorAppealsViewModel {
   history = undefined
@@ -16,11 +16,11 @@ export class ModeratorAppealsViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onClickViewMore() {

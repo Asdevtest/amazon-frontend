@@ -1,1 +1,1 @@
-export {adminSinglePermissionsColumns} from './single-permissions-columns'
+export { adminSinglePermissionsColumns } from './single-permissions-columns'

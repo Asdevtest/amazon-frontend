@@ -1,1 +1,1 @@
-export {LeftPanel} from './left-panel'
+export { LeftPanel } from './left-panel'

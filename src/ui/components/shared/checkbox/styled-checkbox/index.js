@@ -1,1 +1,1 @@
-export {StyledCheckbox} from './styled-checkbox'
+export { StyledCheckbox } from './styled-checkbox'

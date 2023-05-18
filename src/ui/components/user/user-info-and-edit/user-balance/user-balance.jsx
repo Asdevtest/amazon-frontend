@@ -1,29 +1,29 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
 
-import {observer} from 'mobx-react'
-import {useHistory} from 'react-router-dom'
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DashboardBalance} from '@components/dashboards/dashboard-balance'
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {Button} from '@components/shared/buttons/button'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {Modal} from '@components/shared/modal'
-import {AdminBalanceModal} from '@components/user/users-views/sub-users-view/admin-balance-modal'
+import { DashboardBalance } from '@components/dashboards/dashboard-balance'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
+import { AdminBalanceModal } from '@components/user/users-views/sub-users-view/admin-balance-modal'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {UserBalanceModel} from './user-balance.model'
-import {useClassNames} from './user-balance.style'
+import { UserBalanceModel } from './user-balance.model'
+import { useClassNames } from './user-balance.style'
 
-export const UserBalance = observer(({userId}) => {
-  const {classes: classNames} = useClassNames()
+export const UserBalance = observer(({ userId }) => {
+  const { classes: classNames } = useClassNames()
   const history = useHistory()
-  const model = useRef(new UserBalanceModel({history, userId}))
+  const model = useRef(new UserBalanceModel({ history, userId }))
 
   useEffect(() => {
     model.current.loadData()
@@ -108,7 +108,7 @@ export const UserBalance = observer(({userId}) => {
           loading={requestStatus === loadingStatuses.isLoading}
           componentsProps={{
             toolbar: {
-              columsBtnSettings: {columnsModel, changeColumnsModel},
+              columsBtnSettings: { columnsModel, changeColumnsModel },
             },
           }}
           onSelectionModelChange={newSelection => {

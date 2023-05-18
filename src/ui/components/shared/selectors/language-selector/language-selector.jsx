@@ -1,20 +1,20 @@
 // ГОТОВЫЙ ВАРИАНТ С МОДАЛКОЙ, КОГДА ЯЗЫКОВ БУДЕТ БОЛЬШЕ
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {languageOptions} from '@constants/translations/language-options'
+import { languageOptions } from '@constants/translations/language-options'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {setI18nConfig} from '@utils/translations'
+import { setI18nConfig } from '@utils/translations'
 
-import {useClassNames} from './language-selector.style'
+import { useClassNames } from './language-selector.style'
 
 export const LanguageSelector = () => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [anchorEl, setAnchorEl] = useState(false)
 
@@ -46,7 +46,7 @@ export const LanguageSelector = () => {
             .map(languageOption => (
               <MenuItem
                 key={languageOption.key}
-                style={{cursor: 'pointer'}}
+                style={{ cursor: 'pointer' }}
                 className={classNames.option}
                 onClick={() => {
                   SettingsModel.setLanguageTag(languageOption.key)

@@ -1,1 +1,1 @@
-export {ProductStatusButtons} from './product-status-buttons'
+export { ProductStatusButtons } from './product-status-buttons'

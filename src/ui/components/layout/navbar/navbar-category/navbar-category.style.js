@@ -19,7 +19,7 @@ export const styles = theme => ({
     '&$selected:hover': {
       borderLeft: `5px solid ${theme.palette.primary.main}`,
     },
-    '&:hover': {backgroundColor: 'rgba(0,123,255,0.3)'},
+    '&:hover': { backgroundColor: 'rgba(0,123,255,0.3)' },
   },
   selected: {
     color: `${theme.palette.primary.main} !important`,

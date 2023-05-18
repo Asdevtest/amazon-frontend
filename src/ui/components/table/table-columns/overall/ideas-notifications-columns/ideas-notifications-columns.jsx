@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React, {useCallback} from 'react'
+import React, { useCallback } from 'react'
 
-import {colorByIdeaStatus, ideaStatusByCode} from '@constants/statuses/idea-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { colorByIdeaStatus, ideaStatusByCode } from '@constants/statuses/idea-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextHeaderCell,
@@ -13,7 +13,7 @@ import {
   ShortDateCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const ideasNotificationsViewColumns = handlers => [
   {

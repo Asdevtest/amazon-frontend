@@ -1,39 +1,39 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import {Container, Divider, Typography, useTheme, useMediaQuery, Paper, TableRow, TableCell} from '@mui/material'
+import { Container, Divider, Typography, useTheme, useMediaQuery, Paper, TableRow, TableCell } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {isPast, isValid, parseISO} from 'date-fns'
+import { isPast, isValid, parseISO } from 'date-fns'
 
-import {OrderStatusByCode, OrderStatus, OrderStatusByKey, OrderStatusText} from '@constants/statuses/order-status'
-import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table/table-head-cells'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { OrderStatusByCode, OrderStatus, OrderStatusByKey, OrderStatusText } from '@constants/statuses/order-status'
+import { CLIENT_WAREHOUSE_HEAD_CELLS } from '@constants/table/table-head-cells'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ClientModel} from '@models/client-model'
-import {SettingsModel} from '@models/settings-model'
+import { ClientModel } from '@models/client-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {EditOrderSuppliersTable} from '@components/modals/edit-order-modal/edit-order-suppliers-table'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
-import {TableSupplier} from '@components/product/table-supplier'
-import {Button} from '@components/shared/buttons/button'
-import {Field} from '@components/shared/field'
-import {Modal} from '@components/shared/modal'
-import {Table} from '@components/shared/table'
-import {Text} from '@components/shared/text'
-import {WarehouseBodyRow} from '@components/table/table-rows/warehouse'
+import { EditOrderSuppliersTable } from '@components/modals/edit-order-modal/edit-order-suppliers-table'
+import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { TableSupplier } from '@components/product/table-supplier'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
+import { Modal } from '@components/shared/modal'
+import { Table } from '@components/shared/table'
+import { Text } from '@components/shared/text'
+import { WarehouseBodyRow } from '@components/table/table-rows/warehouse'
 
-import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
-import {formatShortDateTime} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
+import { formatShortDateTime } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
+import { toFixed, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {DeliveryParameters} from './delivery-parameters'
-import {ExtraOrderInfo} from './extra-order-info'
-import {LeftPanel} from './left-panel'
-import {useClassNames} from './order-content.style'
+import { DeliveryParameters } from './delivery-parameters'
+import { ExtraOrderInfo } from './extra-order-info'
+import { LeftPanel } from './left-panel'
+import { useClassNames } from './order-content.style'
 
 const MEDIA_SCALE_POINTS = '1812'
 
@@ -56,7 +56,7 @@ export const OrderContent = ({
   onTriggerAddOrEditSupplierModal,
   onClickHsCode,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [collapsed, setCollapsed] = useState(false)
   const [updatedOrder, setUpdatedOrder] = useState(order)
@@ -84,7 +84,7 @@ export const OrderContent = ({
   }, [order])
 
   const onChangeField = fieldName => event => {
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
 
     if ('deadline' === fieldName) {
       newFormFields[fieldName] = event
@@ -120,7 +120,7 @@ export const OrderContent = ({
   }, [SettingsModel.languageTag])
 
   useEffect(() => {
-    setUpdatedOrder(() => ({...order}))
+    setUpdatedOrder(() => ({ ...order }))
   }, [SettingsModel.languageTag, order])
 
   const triggerBarcodeModal = () => {
@@ -283,7 +283,7 @@ export const OrderContent = ({
                     onSubmitSaveOrder(
                       {
                         data: getObjectFilteredByKeyArrayBlackList(
-                          {...formFields, images: formFields.images ? formFields.images : []},
+                          { ...formFields, images: formFields.images ? formFields.images : [] },
                           formFields.deadline ? [] : ['deadline'],
                           true,
                         ),

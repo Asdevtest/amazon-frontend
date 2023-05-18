@@ -1,1 +1,1 @@
-export {clientBoxesViewColumns} from './client-boxes-columns'
+export { clientBoxesViewColumns } from './client-boxes-columns'

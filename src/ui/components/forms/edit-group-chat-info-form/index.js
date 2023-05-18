@@ -1,1 +1,1 @@
-export {EditGroupChatInfoForm} from './edit-group-chat-info-form'
+export { EditGroupChatInfoForm } from './edit-group-chat-info-form'

@@ -1,1 +1,1 @@
-export {adminTasksViewColumns} from './tasks-columns'
+export { adminTasksViewColumns } from './tasks-columns'

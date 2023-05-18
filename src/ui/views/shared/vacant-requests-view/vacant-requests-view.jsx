@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Box, Typography} from '@mui/material'
+import { Box, Typography } from '@mui/material'
 
-import React, {Component, useEffect, useState} from 'react'
+import React, { Component, useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
 import {
   freelanceRequestType,
@@ -16,38 +16,38 @@ import {
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
 } from '@constants/statuses/freelance-request-type'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {tableSortMode, tableViewMode} from '@constants/table/table-view-modes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {VacantRequestListCard} from '@components/cards/vacant-request-list-card'
-import {VacantRequestShortCard} from '@components/cards/vacant-request-short-card'
-import {DataGridCustomColumnMenuComponent} from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
-import {MainContent} from '@components/layout/main-content'
-import {Button} from '@components/shared/buttons/button/button'
-import {ToggleBtnGroupFreelance} from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import {ToggleBtnFreelancer} from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {SearchInput} from '@components/shared/search-input'
-import {ViewCartsBlock, ViewCartsLine, ViewCartsTable} from '@components/shared/svg-icons'
+import { VacantRequestListCard } from '@components/cards/vacant-request-list-card'
+import { VacantRequestShortCard } from '@components/cards/vacant-request-short-card'
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
+import { MainContent } from '@components/layout/main-content'
+import { Button } from '@components/shared/buttons/button/button'
+import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
+import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { SearchInput } from '@components/shared/search-input'
+import { ViewCartsBlock, ViewCartsLine, ViewCartsTable } from '@components/shared/svg-icons'
 
-import {checkIsFreelancer} from '@utils/checks'
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
+import { checkIsFreelancer } from '@utils/checks'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import {
   getDistanceBetweenDatesInSeconds,
   sortObjectsArrayByFiledDateWithParseISO,
   sortObjectsArrayByFiledDateWithParseISOAsc,
 } from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
 
-import {VacantRequestsViewModel} from './vacant-requests-view.model'
-import {styles} from './vacant-requests-view.style'
+import { VacantRequestsViewModel } from './vacant-requests-view.model'
+import { styles } from './vacant-requests-view.style'
 
 export const VacantRequestsViewRaw = props => {
-  const [viewModel] = useState(() => new VacantRequestsViewModel({history: props.history, location: props.location}))
-  const {classes: classNames} = props
+  const [viewModel] = useState(() => new VacantRequestsViewModel({ history: props.history, location: props.location }))
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -154,7 +154,7 @@ export const VacantRequestsViewRaw = props => {
         {getSortedData(viewModel.sortMode)?.length && viewModel.viewMode !== tableViewMode.TABLE ? (
           <Box
             container
-            classes={{root: classNames.dashboardCardWrapper}}
+            classes={{ root: classNames.dashboardCardWrapper }}
             display="grid"
             gridTemplateColumns={
               viewModel.viewMode === tableViewMode.LIST

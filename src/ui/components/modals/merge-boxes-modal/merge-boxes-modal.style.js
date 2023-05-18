@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   heightFieldAuto: {
@@ -26,7 +26,7 @@ export const useClassNames = makeStyles()(theme => ({
     outline: '2px solid #F5CF00',
   },
 
-  buttonsWrapper: {display: 'flex', gap: '10px'},
+  buttonsWrapper: { display: 'flex', gap: '10px' },
 
   box: {
     minWidth: '300px',

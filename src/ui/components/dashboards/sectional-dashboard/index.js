@@ -1,1 +1,1 @@
-export {SectionalDashboard} from './sectional-dashboard'
+export { SectionalDashboard } from './sectional-dashboard'

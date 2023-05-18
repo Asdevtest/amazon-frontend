@@ -1,7 +1,7 @@
-import {objectFlip} from '@utils/object'
-import {t} from '@utils/translations'
+import { objectFlip } from '@utils/object'
+import { t } from '@utils/translations'
 
-import {TranslationKey} from '../translations/translation-key'
+import { TranslationKey } from '../translations/translation-key'
 
 export const freelanceRequestType = {
   DEFAULT: 'DEFAULT',
@@ -11,7 +11,7 @@ export const freelanceRequestType = {
   PPC: 'PPC',
 }
 
-export const freelanceRequestTypeByCode: {[key: number]: string} = {
+export const freelanceRequestTypeByCode: { [key: number]: string } = {
   0: freelanceRequestType.DEFAULT,
   10: freelanceRequestType.DESIGNER,
   20: freelanceRequestType.SEO,

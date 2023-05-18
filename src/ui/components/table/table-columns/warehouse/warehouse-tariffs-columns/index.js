@@ -1,1 +1,1 @@
-export {warehouseTariffsColumns} from './warehouse-tariffs-columns'
+export { warehouseTariffsColumns } from './warehouse-tariffs-columns'

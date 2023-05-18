@@ -1,23 +1,23 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task/task-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { mapTaskStatusEmumToKey, TaskStatus } from '@constants/task/task-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {OtherModel} from '@models/other-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { OtherModel } from '@models/other-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {warehouseVacantTasksViewColumns} from '@components/table/table-columns/warehouse/vacant-tasks-columns'
+import { warehouseVacantTasksViewColumns } from '@components/table/table-columns/warehouse/vacant-tasks-columns'
 
-import {isStringInArray} from '@utils/checks'
-import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {objectToUrlQs} from '@utils/text'
-import {t} from '@utils/translations'
+import { isStringInArray } from '@utils/checks'
+import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { objectToUrlQs } from '@utils/text'
+import { t } from '@utils/translations'
 
 const adaptationHiddenFields = ['barcode']
 
@@ -62,17 +62,17 @@ export class WarehouseVacantViewModel {
 
   firstRowId = undefined
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers, this.firstRowId)
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
@@ -289,7 +289,7 @@ export class WarehouseVacantViewModel {
   }
 
   goToMyTasks() {
-    this.history.push('/warehouse/tasks/my-tasks', {task: toJS(this.curTask)})
+    this.history.push('/warehouse/tasks/my-tasks', { task: toJS(this.curTask) })
     this.onTriggerOpenModal('showTwoVerticalChoicesModal')
   }
 
@@ -303,7 +303,7 @@ export class WarehouseVacantViewModel {
 
   startEditTaskPriority(taskId, newPriority) {
     runInAction(() => {
-      this.editPriorityData = {taskId, newPriority}
+      this.editPriorityData = { taskId, newPriority }
       this.showEditPriorityData = true
     })
   }
@@ -339,7 +339,7 @@ export class WarehouseVacantViewModel {
 
       const filter = objectToUrlQs({
         or: [
-          {asin: {$contains: this.nameSearchValue}},
+          { asin: { $contains: this.nameSearchValue } },
           {
             trackNumberText: {
               [`${
@@ -347,8 +347,8 @@ export class WarehouseVacantViewModel {
               }`]: this.nameSearchValue,
             },
           },
-          {id: {$eq: this.nameSearchValue}},
-          {item: {$eq: this.nameSearchValue}},
+          { id: { $eq: this.nameSearchValue } },
+          { item: { $eq: this.nameSearchValue } },
         ].filter(
           el =>
             ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||

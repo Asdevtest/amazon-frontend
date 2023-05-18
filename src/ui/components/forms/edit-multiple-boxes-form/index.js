@@ -1,1 +1,1 @@
-export {EditMultipleBoxesForm} from './edit-multiple-boxes-form'
+export { EditMultipleBoxesForm } from './edit-multiple-boxes-form'

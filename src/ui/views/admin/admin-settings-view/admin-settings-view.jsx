@@ -1,18 +1,18 @@
-import {useState} from 'react'
+import { useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {AdminSettingsContent} from '@components/contents/admin-settings-content/admin-settings-content'
-import {MainContent} from '@components/layout/main-content'
-import {Button} from '@components/shared/buttons/button'
+import { AdminSettingsContent } from '@components/contents/admin-settings-content/admin-settings-content'
+import { MainContent } from '@components/layout/main-content'
+import { Button } from '@components/shared/buttons/button'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {AdminSettingsViewModel} from './admin-settings-view.model'
-import {styles} from './admin-settings-view.style'
+import { AdminSettingsViewModel } from './admin-settings-view.model'
+import { styles } from './admin-settings-view.style'
 
 export const AdminSettingsViewRaw = props => {
   const [viewModel] = useState(
@@ -21,7 +21,7 @@ export const AdminSettingsViewRaw = props => {
         history: props.history,
       }),
   )
-  const {classes: classNames} = props
+  const { classes: classNames } = props
 
   return (
     <>

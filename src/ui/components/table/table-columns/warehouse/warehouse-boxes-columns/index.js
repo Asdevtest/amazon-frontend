@@ -1,1 +1,1 @@
-export {warehouseBoxesViewColumns} from './warehouse-boxes-columns'
+export { warehouseBoxesViewColumns } from './warehouse-boxes-columns'

@@ -1,1 +1,1 @@
-export {exchangeProductsColumns} from './exchange-columns'
+export { exchangeProductsColumns } from './exchange-columns'

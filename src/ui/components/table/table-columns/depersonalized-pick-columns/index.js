@@ -1,1 +1,1 @@
-export {depersonalizedPickColumns} from './depersonalized-pick-columns'
+export { depersonalizedPickColumns } from './depersonalized-pick-columns'

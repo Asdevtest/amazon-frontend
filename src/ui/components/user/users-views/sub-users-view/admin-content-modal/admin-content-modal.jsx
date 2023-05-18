@@ -1,26 +1,26 @@
-import {Container, Button, Typography, Select, Checkbox, ListItemText, MenuItem, Rating} from '@mui/material'
+import { Container, Button, Typography, Select, Checkbox, ListItemText, MenuItem, Rating } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/keys/user-roles'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { mapUserRoleEnumToKey, UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {AddOrEditUserPermissionsForm} from '@components/forms/add-or-edit-user-permissions-form'
-import {Field} from '@components/shared/field'
-import {Input} from '@components/shared/input'
-import {Modal} from '@components/shared/modal'
-import {UserLink} from '@components/user/user-link'
+import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user-permissions-form'
+import { Field } from '@components/shared/field'
+import { Input } from '@components/shared/input'
+import { Modal } from '@components/shared/modal'
+import { UserLink } from '@components/user/user-link'
 
-import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail} from '@utils/checks'
-import {t} from '@utils/translations'
+import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail } from '@utils/checks'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './admin-content-modal.style'
+import { useClassNames } from './admin-content-modal.style'
 
 const activeOptions = [
-  {value: true, label: t(TranslationKey.Active)},
-  {value: false, label: t(TranslationKey.Banned)},
+  { value: true, label: t(TranslationKey.Active) },
+  { value: false, label: t(TranslationKey.Banned) },
 ]
 
 export const AdminContentModal = observer(
@@ -35,7 +35,7 @@ export const AdminContentModal = observer(
     checkValidationNameOrEmail,
     changeNameAndEmail,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const [showPermissionModal, setShowPermissionModal] = useState(false)
 
@@ -76,7 +76,7 @@ export const AdminContentModal = observer(
     ])
 
     const onChangeFormField = fieldName => event => {
-      const newFormFields = {...formFields}
+      const newFormFields = { ...formFields }
       if (fieldName === 'rate') {
         newFormFields[fieldName] = event.target.value.replace(/[-]/, '')
       } else if (['fba', 'canByMasterUser', 'hideSuppliers'].includes(fieldName)) {
@@ -118,7 +118,7 @@ export const AdminContentModal = observer(
     }, [formFields.email])
 
     const onSubmitUserPermissionsForm = permissions => {
-      const newFormFields = {...formFields}
+      const newFormFields = { ...formFields }
       newFormFields.permissions = permissions
       newFormFields.permissionGroups = []
       setFormFields(newFormFields)
@@ -201,14 +201,14 @@ export const AdminContentModal = observer(
         ) : null}
 
         <Field
-          inputProps={{maxLength: 50}}
+          inputProps={{ maxLength: 50 }}
           label={t(TranslationKey.Name)}
           error={checkValidationNameOrEmail.nameIsUnique && 'Пользователь с таким именем уже существует'}
           value={formFields.name}
           onChange={onChangeFormField('name')}
         />
         <Field
-          inputProps={{maxLength: 50}}
+          inputProps={{ maxLength: 50 }}
           label={t(TranslationKey.Email)}
           error={
             (checkValidationNameOrEmail.emailIsUnique && 'Пользователь с таким email уже существует') ||
@@ -220,7 +220,7 @@ export const AdminContentModal = observer(
         />
 
         <Field
-          inputProps={{maxLength: 10}}
+          inputProps={{ maxLength: 10 }}
           label={t(TranslationKey.Overdraft)}
           value={formFields.overdraft}
           onChange={onChangeFormField('overdraft')}
@@ -228,7 +228,7 @@ export const AdminContentModal = observer(
 
         {!editUserFormFields.masterUser ? (
           <Field
-            inputProps={{maxLength: 8}}
+            inputProps={{ maxLength: 8 }}
             label={t(TranslationKey.Rate)}
             value={formFields.rate}
             onChange={onChangeFormField('rate')}

@@ -1,43 +1,43 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import CloseIcon from '@mui/icons-material/Close'
-import {Drawer, Hidden, IconButton, List, Typography} from '@mui/material'
+import { Drawer, Hidden, IconButton, List, Typography } from '@mui/material'
 
-import React, {useEffect, useRef, useState} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import MenuIcon from '@material-ui/icons/Menu'
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {appVersion} from '@constants/app-version'
-import {UserRoleCodeMap} from '@constants/keys/user-roles'
-import {navbarConfig} from '@constants/navigation/navbar'
-import {UiTheme} from '@constants/theme/themes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { appVersion } from '@constants/app-version'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { navbarConfig } from '@constants/navigation/navbar'
+import { UiTheme } from '@constants/theme/themes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {FeedBackModal} from '@components/modals/feedback-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Modal} from '@components/shared/modal'
-import {Feedback} from '@components/shared/svg-icons'
+import { FeedBackModal } from '@components/modals/feedback-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { Modal } from '@components/shared/modal'
+import { Feedback } from '@components/shared/svg-icons'
 
-import {checkIsAdmin} from '@utils/checks'
-import {t} from '@utils/translations'
+import { checkIsAdmin } from '@utils/checks'
+import { t } from '@utils/translations'
 
-import {NavbarCategory} from './navbar-category'
-import {NavbarCollapse} from './navbar-collapse'
-import {NavbarModel} from './navbar.model'
-import {useClassNames} from './navbar.style'
+import { NavbarCategory } from './navbar-category'
+import { NavbarCollapse } from './navbar-collapse'
+import { NavbarModel } from './navbar.model'
+import { useClassNames } from './navbar.style'
 
 export const Navbar = observer(
-  ({activeCategory, activeSubCategory, drawerOpen, setDrawerOpen, onChangeSubCategory}) => {
-    const {classes: classNames} = useClassNames()
+  ({ activeCategory, activeSubCategory, drawerOpen, setDrawerOpen, onChangeSubCategory }) => {
+    const { classes: classNames } = useClassNames()
 
     const viewModel = useRef(new NavbarModel())
 
-    const {showFeedbackModal, showWarningModal, onTriggerOpenModal, sendFeedbackAboutPlatform, userInfo} =
+    const { showFeedbackModal, showWarningModal, onTriggerOpenModal, sendFeedbackAboutPlatform, userInfo } =
       viewModel.current
 
     const [showOverlayNavBar, setShowOverlayNavBar] = useState(false)
@@ -57,7 +57,7 @@ export const Navbar = observer(
     }, [shortNavbar])
 
     const renderNavbarButton = (
-      <div className={cx(classNames.iconButtonWrapper, {[classNames.iconButtonWrapperLeft]: !shortNavbar})}>
+      <div className={cx(classNames.iconButtonWrapper, { [classNames.iconButtonWrapperLeft]: !shortNavbar })}>
         {shortNavbar && (
           <IconButton
             onClick={() => {
@@ -65,7 +65,7 @@ export const Navbar = observer(
               setShowOverlayNavBar(!showOverlayNavBar)
             }}
           >
-            <MenuIcon classes={{root: classNames.menuIcon}} />
+            <MenuIcon classes={{ root: classNames.menuIcon }} />
           </IconButton>
         )}
 
@@ -82,7 +82,7 @@ export const Navbar = observer(
     )
 
     const drawerContent = (
-      <div className={cx(classNames.mainSubWrapper, {[classNames.reverseMainSubWrapper]: shortNavbar})}>
+      <div className={cx(classNames.mainSubWrapper, { [classNames.reverseMainSubWrapper]: shortNavbar })}>
         {!shortNavbar ? (
           <div className={classNames.logoWrapper}>
             <img
@@ -171,7 +171,7 @@ export const Navbar = observer(
 
           {!checkIsAdmin(UserRoleCodeMap[userInfo.role]) ? (
             <div
-              className={cx(classNames.feedBackButton, {[classNames.shortFeedBackButton]: shortNavbar})}
+              className={cx(classNames.feedBackButton, { [classNames.shortFeedBackButton]: shortNavbar })}
               onClick={() => onTriggerOpenModal('showFeedbackModal')}
             >
               {!shortNavbar && (
@@ -181,7 +181,7 @@ export const Navbar = observer(
             </div>
           ) : null}
 
-          <Typography className={cx(classNames.appVersion, {[classNames.smallAppVersion]: shortNavbar})}>
+          <Typography className={cx(classNames.appVersion, { [classNames.smallAppVersion]: shortNavbar })}>
             {appVersion}
           </Typography>
         </div>
@@ -229,7 +229,7 @@ export const Navbar = observer(
           <Drawer
             open={false}
             classes={{
-              root: cx(classNames.root, {[classNames.hideNavbar]: shortNavbar}),
+              root: cx(classNames.root, { [classNames.hideNavbar]: shortNavbar }),
               paper: cx(classNames.paper, classNames.positionStatic),
             }}
             variant="permanent"
@@ -244,7 +244,7 @@ export const Navbar = observer(
             anchor="left"
             classes={{
               root: classNames.root,
-              paper: cx(classNames.paper, {[classNames.moreWidth]: window.innerWidth < 1282}),
+              paper: cx(classNames.paper, { [classNames.moreWidth]: window.innerWidth < 1282 }),
             }}
             onClose={() => {
               setDrawerOpen()
@@ -267,7 +267,7 @@ export const Navbar = observer(
           </Drawer>
         </Hidden> */}
         <div
-          className={cx(classNames.hideAndShowIconWrapper, {[classNames.hideAndShowIcon]: shortNavbar})}
+          className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: shortNavbar })}
           onClick={() => setShortNavbar(!shortNavbar)}
         >
           {shortNavbar ? (

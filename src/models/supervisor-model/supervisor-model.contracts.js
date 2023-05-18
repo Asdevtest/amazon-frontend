@@ -1,6 +1,6 @@
-import {IsInt, IsString, IsNotEmpty, IsOptional, IsNumber, IsBoolean, IsArray} from 'class-validator'
+import { IsInt, IsString, IsNotEmpty, IsOptional, IsNumber, IsBoolean, IsArray } from 'class-validator'
 
-import {InlineObject18, InlineResponse200, InlineResponse2004} from '@services/rest-api-service/codegen/src'
+import { InlineObject18, InlineResponse200, InlineResponse2004 } from '@services/rest-api-service/codegen/src'
 
 export class SupervisorProduct extends InlineResponse200 {}
 

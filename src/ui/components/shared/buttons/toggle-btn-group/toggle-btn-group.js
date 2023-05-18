@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import {ToggleButtonGroup} from '@mui/material'
+import { ToggleButtonGroup } from '@mui/material'
 
-import {withStyles} from 'tss-react/mui'
+import { withStyles } from 'tss-react/mui'
 
 export const ToggleBtnGroup = withStyles(ToggleButtonGroup, theme => ({
   root: {

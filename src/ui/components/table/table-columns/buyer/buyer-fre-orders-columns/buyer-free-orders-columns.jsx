@@ -1,6 +1,6 @@
-import React, {useCallback, useMemo} from 'react'
+import React, { useCallback, useMemo } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   OrderCell,
@@ -15,9 +15,9 @@ import {
   PriorityAndChinaDeliverCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {formatDate, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
-import {timeToDeadlineInHoursAndMins, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
+import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
   {
@@ -134,7 +134,7 @@ export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
       // />
       <MultilineTextCell
         withLineBreaks
-        tooltipText={params.value ? timeToDeadlineInHoursAndMins({date: params.value}) : ''}
+        tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
         color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
         text={params.value ? formatDate(params.value) : ''}
       />

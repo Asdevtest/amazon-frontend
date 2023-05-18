@@ -1,6 +1,6 @@
-import React, {useMemo} from 'react'
+import React, { useMemo } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   // EditOrRemoveBtnsCell,
@@ -14,7 +14,7 @@ import {
   MultilineTextAlignLeftCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const logisticsTariffsColumns = (handlers, firstRowId, isArchive) => [
   {

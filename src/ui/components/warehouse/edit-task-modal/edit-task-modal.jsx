@@ -1,30 +1,30 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
-import {Divider, Typography} from '@mui/material'
+import { Divider, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TaskOperationType} from '@constants/task/task-operation-type'
-import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task/task-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TaskOperationType } from '@constants/task/task-operation-type'
+import { mapTaskStatusEmumToKey, TaskStatus } from '@constants/task/task-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {OtherModel} from '@models/other-model'
+import { OtherModel } from '@models/other-model'
 
-import {Button} from '@components/shared/buttons/button'
-import {CircularProgressWithLabel} from '@components/shared/circular-progress-with-label'
-import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {Field} from '@components/shared/field'
-import {Modal} from '@components/shared/modal'
-import {UploadFilesInput} from '@components/shared/upload-files-input'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { Field } from '@components/shared/field'
+import { Modal } from '@components/shared/modal'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {BeforeAfterBlock} from '../before-after-block'
-import {ReceiveBoxModal} from '../receive-box-modal'
-import {useClassNames} from './edit-task-modal.style'
+import { BeforeAfterBlock } from '../before-after-block'
+import { ReceiveBoxModal } from '../receive-box-modal'
+import { useClassNames } from './edit-task-modal.style'
 
 export const EditTaskModal = observer(
   ({
@@ -41,7 +41,7 @@ export const EditTaskModal = observer(
     onTriggerShowEditBoxModal,
     readOnly,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const [receiveBoxModal, setReceiveBoxModal] = useState(false)
     const [isFileDownloading, setIsFileDownloading] = useState(false)
@@ -190,7 +190,7 @@ export const EditTaskModal = observer(
                 disabled={readOnly}
                 minRows={currentScreenWidth < 768 ? 4 : currentScreenWidth < 1282 ? 7 : 11}
                 maxRows={currentScreenWidth < 768 ? 4 : currentScreenWidth < 1282 ? 7 : 11}
-                inputProps={{maxLength: 2000}}
+                inputProps={{ maxLength: 2000 }}
                 label={t(TranslationKey['Storekeeper comment'])}
                 placeholder={t(TranslationKey['Storekeeper comment to client'])}
                 value={storekeeperComment || ''}

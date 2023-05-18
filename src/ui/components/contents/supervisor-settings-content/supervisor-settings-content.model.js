@@ -1,18 +1,18 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
-import {mapProductStrategyStatusEnumToKey} from '@constants/product/product-strategy-status'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { mapProductStrategyStatusEnumToKey } from '@constants/product/product-strategy-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {OtherModel} from '@models/other-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { OtherModel } from '@models/other-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {supervisorSettingsViewColumns} from '@components/table/table-columns/supervisor/supervisor-settings-columns/supervisor-settings-columns'
+import { supervisorSettingsViewColumns } from '@components/table/table-columns/supervisor/supervisor-settings-columns/supervisor-settings-columns'
 
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
 
 export class SupervisorSettingsContentModel {
   history = undefined
@@ -20,7 +20,7 @@ export class SupervisorSettingsContentModel {
   error = undefined
   curPage = 0
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = supervisorSettingsViewColumns()
@@ -52,11 +52,11 @@ export class SupervisorSettingsContentModel {
     onClickEditBtn: row => this.onClickEditBtn(row),
   }
 
-  constructor({history, tabIndex}) {
+  constructor({ history, tabIndex }) {
     this.history = history
     this.tabIndex = tabIndex
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
@@ -98,7 +98,7 @@ export class SupervisorSettingsContentModel {
       this.filterModel = this.startFilterModel
         ? {
             ...this.startFilterModel,
-            items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
+            items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
           }
         : state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize

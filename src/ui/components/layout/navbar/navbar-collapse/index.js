@@ -1,1 +1,1 @@
-export {NavbarCollapse} from './navbar-collapse'
+export { NavbarCollapse } from './navbar-collapse'

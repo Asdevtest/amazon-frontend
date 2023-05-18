@@ -1,1 +1,1 @@
-export {adminGroupPermissionsColumns} from './group-permissions-columns'
+export { adminGroupPermissionsColumns } from './group-permissions-columns'

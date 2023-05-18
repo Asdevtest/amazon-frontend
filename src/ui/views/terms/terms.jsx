@@ -1,16 +1,16 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import {withStyles} from 'tss-react/mui'
+import { withStyles } from 'tss-react/mui'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {styles} from './terms.style'
+import { styles } from './terms.style'
 
 export const TermsRaw = props => {
   // const [viewModel] = useState(() => new TermsViewModel({ history: props.history }));
-  const {classes: classNames} = props
+  const { classes: classNames } = props
 
   return (
     <div className={classNames.root}>

@@ -1,1 +1,1 @@
-export {EditTaskModal} from './edit-task-modal'
+export { EditTaskModal } from './edit-task-modal'

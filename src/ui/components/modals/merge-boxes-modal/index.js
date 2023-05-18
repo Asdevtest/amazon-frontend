@@ -1,1 +1,1 @@
-export {MergeBoxesModal} from './merge-boxes-modal'
+export { MergeBoxesModal } from './merge-boxes-modal'

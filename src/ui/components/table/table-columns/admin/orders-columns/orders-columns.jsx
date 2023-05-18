@@ -1,7 +1,7 @@
-import React, {useMemo} from 'react'
+import React, { useMemo } from 'react'
 
-import {orderColorByStatus, OrderStatusByCode} from '@constants/statuses/order-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { orderColorByStatus, OrderStatusByCode } from '@constants/statuses/order-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActiveBarcodeCell,
@@ -15,8 +15,8 @@ import {
   PriorityAndChinaDeliverCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const adminOrdersViewColumns = () => [
   {

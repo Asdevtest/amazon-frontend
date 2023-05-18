@@ -1,17 +1,17 @@
-import {Button, IconButton, InputAdornment, Select, Toolbar, Typography, MenuItem} from '@mui/material'
+import { Button, IconButton, InputAdornment, Select, Toolbar, Typography, MenuItem } from '@mui/material'
 
-import {FormatAlignLeft, Search} from '@material-ui/icons'
+import { FormatAlignLeft, Search } from '@material-ui/icons'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Input} from '@components/shared/input'
+import { Input } from '@components/shared/input'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './table-toolbar.style'
+import { useClassNames } from './table-toolbar.style'
 
-export const TableToolbar = ({rowsPerPage, handlerRowsPerPage}) => {
-  const {classes: classNames} = useClassNames()
+export const TableToolbar = ({ rowsPerPage, handlerRowsPerPage }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <Toolbar className={classNames.root}>
@@ -28,7 +28,7 @@ export const TableToolbar = ({rowsPerPage, handlerRowsPerPage}) => {
       />
 
       <div className={classNames.filter}>
-        <Button classes={{iconSizeMedium: classNames.icon}} startIcon={<FormatAlignLeft />}>
+        <Button classes={{ iconSizeMedium: classNames.icon }} startIcon={<FormatAlignLeft />}>
           <Typography className={classNames.filterTitle}>{t(TranslationKey.Filter)}</Typography>
         </Button>
       </div>

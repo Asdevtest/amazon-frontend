@@ -1,6 +1,6 @@
-import React, {useMemo, useCallback} from 'react'
+import React, { useMemo, useCallback } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineStatusCell,
@@ -13,10 +13,10 @@ import {
   ToFixedWithKgSignCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import {Button} from '@components/shared/buttons/button'
+import { Button } from '@components/shared/buttons/button'
 
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const clientExchangeViewColumns = rowHandlers => [
   {
@@ -133,7 +133,7 @@ export const clientExchangeViewColumns = rowHandlers => [
       )
 
       return (
-        <Button success width="100%" sx={{height: '30px !important'}} onClick={onClickLaunchPrivateLabelBtn}>
+        <Button success width="100%" sx={{ height: '30px !important' }} onClick={onClickLaunchPrivateLabelBtn}>
           {t(TranslationKey['Buy for'])} {toFixedWithDollarSign(params.row.originalData.priceForClient, 2)}
         </Button>
       )

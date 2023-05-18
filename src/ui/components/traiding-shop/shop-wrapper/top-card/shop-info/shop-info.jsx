@@ -1,24 +1,24 @@
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
-import {Box, Link, Typography} from '@mui/material'
+import { Box, Link, Typography } from '@mui/material'
 
 import React from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
-import {LinesChart} from '@components/shared/charts/lines-chart/lines-chart'
-import {PhotoCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {Field} from '@components/shared/field/field'
+import { Button } from '@components/shared/buttons/button'
+import { LinesChart } from '@components/shared/charts/lines-chart/lines-chart'
+import { PhotoCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { Field } from '@components/shared/field/field'
 
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './shop-info.style'
+import { useClassNames } from './shop-info.style'
 
-export const ShopInfo = observer(({userInfo, data, onClickEditBtn}) => {
-  const {classes: classNames} = useClassNames()
+export const ShopInfo = observer(({ userInfo, data, onClickEditBtn }) => {
+  const { classes: classNames } = useClassNames()
 
   const averageGrossIncome =
     data.statistics.reduce((acc, cur) => (acc += +cur.grossIncome), 0) /

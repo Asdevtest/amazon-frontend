@@ -1,1 +1,1 @@
-export {ClientBuyShopsView} from './client-buy-shops-view'
+export { ClientBuyShopsView } from './client-buy-shops-view'

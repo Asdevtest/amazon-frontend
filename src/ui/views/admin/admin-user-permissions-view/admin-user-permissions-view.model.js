@@ -1,6 +1,6 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 export class AdminUserPermissionsViewModel {
   history = undefined
@@ -9,7 +9,7 @@ export class AdminUserPermissionsViewModel {
 
   order = undefined
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
     })
@@ -18,7 +18,7 @@ export class AdminUserPermissionsViewModel {
         this.order = location.state.order
       })
     }
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {

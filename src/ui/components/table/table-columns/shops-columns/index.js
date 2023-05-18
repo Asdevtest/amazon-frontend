@@ -1,1 +1,1 @@
-export {shopsColumns} from './shops-columns'
+export { shopsColumns } from './shops-columns'

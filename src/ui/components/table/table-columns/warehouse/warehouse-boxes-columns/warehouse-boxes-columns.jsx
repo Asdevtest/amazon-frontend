@@ -1,7 +1,7 @@
-import React, {useMemo, useCallback} from 'react'
+import React, { useMemo, useCallback } from 'react'
 
-import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ChangeInputCell,
@@ -16,8 +16,8 @@ import {
   WarehouseBoxesBtnsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {getFileNameFromUrl} from '@utils/get-file-name-from-url'
-import {t} from '@utils/translations'
+import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
+import { t } from '@utils/translations'
 
 export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
   {
@@ -126,7 +126,7 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Destination and tariff'])} />,
 
     renderCell: params => (
-      <div style={{display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center', width: '100%'}}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center', width: '100%' }}>
         <MultilineTextCell text={params.row.warehouse} />
         <MultilineTextCell text={params.row.logicsTariff} />
       </div>

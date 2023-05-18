@@ -1,1 +1,1 @@
-export {DeliveryParameters} from './delivery-parameters'
+export { DeliveryParameters } from './delivery-parameters'

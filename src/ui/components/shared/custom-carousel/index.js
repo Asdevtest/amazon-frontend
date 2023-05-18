@@ -1,1 +1,1 @@
-export {CustomCarousel} from './custom-carousel'
+export { CustomCarousel } from './custom-carousel'

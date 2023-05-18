@@ -1,22 +1,22 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import {IconButton, Typography} from '@mui/material'
+import { IconButton, Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
-import {CopyValue} from '@components/shared/copy-value/copy-value'
-import {Field} from '@components/shared/field/field'
+import { Button } from '@components/shared/buttons/button'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { Field } from '@components/shared/field/field'
 
-import {getShortenStringIfLongerThanCount} from '@utils/text'
-import {t} from '@utils/translations'
+import { getShortenStringIfLongerThanCount } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './tab-main-content.style'
+import { useClassNames } from './tab-main-content.style'
 
 export const TabMainContent = ({
   disabled,
@@ -31,7 +31,7 @@ export const TabMainContent = ({
   proxyArr,
   onClickAddProxyBtn,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
   const [showFullCard, setShowFullCard] = useState(false)
 
   const onClickDeleteProxy = proxy => {
@@ -45,7 +45,7 @@ export const TabMainContent = ({
         disabled={disabled}
         labelClasses={disabled && classNames.unselectable}
         label={t(TranslationKey['Yuan to USD exchange rate']) + ', ¥'}
-        classes={{root: disabled ? classNames.textFieldUnSelection : classNames.textField}}
+        classes={{ root: disabled ? classNames.textFieldUnSelection : classNames.textField }}
         value={formFields.yuanToDollarRate}
         onChange={onChangeField('yuanToDollarRate')}
       />
@@ -54,7 +54,7 @@ export const TabMainContent = ({
         disabled={disabled}
         labelClasses={disabled && classNames.unselectable}
         label={t(TranslationKey['Divider for calculating volume weight'])}
-        classes={{root: disabled ? classNames.textFieldUnSelection : classNames.textField}}
+        classes={{ root: disabled ? classNames.textFieldUnSelection : classNames.textField }}
         value={formFields.volumeWeightCoefficient}
         onChange={onChangeField('volumeWeightCoefficient')}
       />
@@ -63,7 +63,7 @@ export const TabMainContent = ({
         disabled={disabled}
         labelClasses={disabled && classNames.unselectable}
         label={t(TranslationKey['Link for financial transactions'])}
-        classes={{root: disabled ? classNames.textFieldUnSelection : classNames.textField}}
+        classes={{ root: disabled ? classNames.textFieldUnSelection : classNames.textField }}
       />
       <div className={classNames.placeAddBtnWrapper}>
         <Button disabled={disabledSubmit} className={classNames.submitButton} onClick={onSubmit}>
@@ -88,7 +88,7 @@ export const TabMainContent = ({
             proxyArr.map((proxy, index) => (
               <div key={index} className={classNames.proxyWrapper}>
                 <div className={classNames.proxySubWrapper}>
-                  <Typography className={cx(classNames.proxy, {[classNames.unselectable]: disabled})}>
+                  <Typography className={cx(classNames.proxy, { [classNames.unselectable]: disabled })}>
                     {getShortenStringIfLongerThanCount(proxy, 32)}
                   </Typography>
                 </div>
@@ -106,10 +106,10 @@ export const TabMainContent = ({
         </div>
         {proxyArr.length > 5 ? (
           <div
-            className={cx(classNames.tablePanelSortWrapper, {[classNames.disabledTablePanelSortWrapper]: disabled})}
+            className={cx(classNames.tablePanelSortWrapper, { [classNames.disabledTablePanelSortWrapper]: disabled })}
             onClick={() => !disabled && setShowFullCard(!showFullCard)}
           >
-            <Typography className={cx(classNames.tablePanelViewText, {[classNames.unselectable]: disabled})}>
+            <Typography className={cx(classNames.tablePanelViewText, { [classNames.unselectable]: disabled })}>
               {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey['View all'])}
             </Typography>
 

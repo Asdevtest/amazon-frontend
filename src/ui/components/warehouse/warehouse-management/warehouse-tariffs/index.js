@@ -1,1 +1,1 @@
-export {WarehouseTariffs} from './warehouse-tariffs'
+export { WarehouseTariffs } from './warehouse-tariffs'

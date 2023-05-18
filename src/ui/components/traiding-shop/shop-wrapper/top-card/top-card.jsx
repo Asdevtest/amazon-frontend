@@ -1,15 +1,15 @@
-import {Paper} from '@mui/material'
+import { Paper } from '@mui/material'
 
 import React from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {BusinessInfo} from './business-info'
-import {ShopInfo} from './shop-info'
-import {useClassNames} from './top-card.style'
+import { BusinessInfo } from './business-info'
+import { ShopInfo } from './shop-info'
+import { useClassNames } from './top-card.style'
 
-export const TopCard = observer(({userInfo, data, onClickEditBtn}) => {
-  const {classes: classNames} = useClassNames()
+export const TopCard = observer(({ userInfo, data, onClickEditBtn }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <div className={classNames.mainWrapper}>

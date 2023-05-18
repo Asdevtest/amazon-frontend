@@ -1,1 +1,1 @@
-export {PurchaseHistory} from './purchase-history'
+export { PurchaseHistory } from './purchase-history'

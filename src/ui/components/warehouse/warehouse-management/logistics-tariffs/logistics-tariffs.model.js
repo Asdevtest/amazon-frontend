@@ -1,19 +1,19 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ClientModel} from '@models/client-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { ClientModel } from '@models/client-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {logisticsTariffsColumns} from '@components/table/table-columns/warehouse/logistics-tariffs-columns'
+import { logisticsTariffsColumns } from '@components/table/table-columns/warehouse/logistics-tariffs-columns'
 
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
 
 export class LogisticsTariffsModel {
   history = undefined
@@ -46,7 +46,7 @@ export class LogisticsTariffsModel {
 
   firstRowId = undefined
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -56,9 +56,9 @@ export class LogisticsTariffsModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     this.history = history
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
@@ -108,7 +108,9 @@ export class LogisticsTariffsModel {
 
   async onSubmitTriggerArchiveBtn() {
     try {
-      await StorekeeperModel.editLogisticTariff(this.tariffArchiveMove._id, {archive: !this.tariffArchiveMove.archive})
+      await StorekeeperModel.editLogisticTariff(this.tariffArchiveMove._id, {
+        archive: !this.tariffArchiveMove.archive,
+      })
 
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
@@ -239,7 +241,7 @@ export class LogisticsTariffsModel {
 
   async getLogisticsTariffs() {
     try {
-      const result = await StorekeeperModel.getLogisticsTariffs({archive: this.isArchive})
+      const result = await StorekeeperModel.getLogisticsTariffs({ archive: this.isArchive })
 
       runInAction(() => {
         this.logisticsTariffs = addIdDataConverter(result)

@@ -1,1 +1,1 @@
-export {AddOrEditUserPermissionsForm} from './add-or-edit-user-permissions-form'
+export { AddOrEditUserPermissionsForm } from './add-or-edit-user-permissions-form'

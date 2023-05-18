@@ -1,21 +1,21 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Menu, Typography} from '@mui/material'
+import { Menu, Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {t} from 'i18n-js'
+import { t } from 'i18n-js'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
+import { Button } from '@components/shared/buttons/button'
 
-import {useClassNames} from './data-grid-custom-filter-button.style'
+import { useClassNames } from './data-grid-custom-filter-button.style'
 
 export const DataGridCustomFilterButton = props => {
-  const {classes: classNames} = useClassNames()
-  const {className, ...other} = props
+  const { classes: classNames } = useClassNames()
+  const { className, ...other } = props
 
   const [menuAnchor, setMenuAnchor] = useState(null)
 
@@ -45,7 +45,7 @@ export const DataGridCustomFilterButton = props => {
         // classes={{paper: classNames.menu, list: classNames.list}}
         onClose={handleClose}
       >
-        <div style={{/* background: 'green', */ width: '2000px', height: 200}}></div>
+        <div style={{ /* background: 'green', */ width: '2000px', height: 200 }}></div>
       </Menu>
     </div>
   )

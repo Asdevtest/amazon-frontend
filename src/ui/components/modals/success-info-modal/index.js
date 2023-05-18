@@ -1,1 +1,1 @@
-export {SuccessInfoModal} from './success-info-modal'
+export { SuccessInfoModal } from './success-info-modal'

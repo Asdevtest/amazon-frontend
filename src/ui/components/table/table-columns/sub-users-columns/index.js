@@ -1,1 +1,1 @@
-export {adminSubUsersColumns} from './sub-users-columns'
+export { adminSubUsersColumns } from './sub-users-columns'

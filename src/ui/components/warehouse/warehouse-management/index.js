@@ -1,1 +1,1 @@
-export {WarehouseManagement} from './warehouse-management'
+export { WarehouseManagement } from './warehouse-management'

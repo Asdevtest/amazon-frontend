@@ -1,1 +1,1 @@
-export {OrderContent} from './order-content'
+export { OrderContent } from './order-content'

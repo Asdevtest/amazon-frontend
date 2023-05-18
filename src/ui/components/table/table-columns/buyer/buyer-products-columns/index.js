@@ -1,1 +1,1 @@
-export {buyerProductsViewColumns} from './buyer-products-columns'
+export { buyerProductsViewColumns } from './buyer-products-columns'

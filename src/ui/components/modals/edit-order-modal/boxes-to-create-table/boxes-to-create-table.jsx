@@ -1,35 +1,35 @@
 import EditIcon from '@mui/icons-material/Edit'
-import {Checkbox, TableCell, TableRow, Typography} from '@mui/material'
+import { Checkbox, TableCell, TableRow, Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
 
-import {inchesCoefficient, sizesType} from '@constants/configs/sizes-settings'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
-import {ToggleBtnGroup} from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import {ToggleBtn} from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
-import {Field} from '@components/shared/field/field'
-import {Input} from '@components/shared/input'
-import {Table} from '@components/shared/table'
+import { Button } from '@components/shared/buttons/button'
+import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
+import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { Field } from '@components/shared/field/field'
+import { Input } from '@components/shared/input'
+import { Table } from '@components/shared/table'
 
-import {calcFinalWeightForBoxWithoutAmount, calcVolumeWeightForBox} from '@utils/calculation'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { calcFinalWeightForBoxWithoutAmount, calcVolumeWeightForBox } from '@utils/calculation'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './boxes-to-create-table.style'
+import { useClassNames } from './boxes-to-create-table.style'
 
 const WAREHOUSE_RECEIVE_HEAD_CELLS = () => [
-  {align: 'center', title: t(TranslationKey.Box)},
-  {align: 'center', title: t(TranslationKey['Boxes in group'])},
-  {align: 'center', title: t(TranslationKey.Quantity)},
-  {align: 'center', title: t(TranslationKey.Sizes)},
-  {align: 'center', title: t(TranslationKey.Weight)},
-  {align: 'center', title: t(TranslationKey['Volume weight'])},
-  {align: 'center', title: t(TranslationKey['Final weight'])},
+  { align: 'center', title: t(TranslationKey.Box) },
+  { align: 'center', title: t(TranslationKey['Boxes in group']) },
+  { align: 'center', title: t(TranslationKey.Quantity) },
+  { align: 'center', title: t(TranslationKey.Sizes) },
+  { align: 'center', title: t(TranslationKey.Weight) },
+  { align: 'center', title: t(TranslationKey['Volume weight']) },
+  { align: 'center', title: t(TranslationKey['Final weight']) },
 ]
 
 const renderHeadRow = () => (
@@ -42,8 +42,8 @@ const renderHeadRow = () => (
   </TableRow>
 )
 
-const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
-  const {classes: classNames} = useClassNames()
+const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <TableRow className={classNames.row}>
@@ -66,7 +66,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
 
       <TableCell className={classNames.qtyCell}>
         <div className={classNames.normalCell}>
-          <Input disabled classes={{root: classNames.inputWrapper, input: classNames.input}} value={item.amount} />
+          <Input disabled classes={{ root: classNames.inputWrapper, input: classNames.input }} value={item.amount} />
         </div>
       </TableCell>
 
@@ -74,7 +74,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
         <div className={classNames.normalCell}>
           <Input
             disabled
-            classes={{root: classNames.inputWrapper, input: classNames.input}}
+            classes={{ root: classNames.inputWrapper, input: classNames.input }}
             value={item.items[0].amount}
           />
         </div>
@@ -86,7 +86,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
             <Typography>{t(TranslationKey.H) + ': '}</Typography>
             <Input
               disabled
-              classes={{root: classNames.inputWrapper, input: classNames.input}}
+              classes={{ root: classNames.inputWrapper, input: classNames.input }}
               value={toFixed(
                 item.heightCmSupplier / (restProps.sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
                 2,
@@ -97,7 +97,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
             <Typography>{t(TranslationKey.W) + ': '}</Typography>
             <Input
               disabled
-              classes={{root: classNames.inputWrapper, input: classNames.input}}
+              classes={{ root: classNames.inputWrapper, input: classNames.input }}
               value={toFixed(
                 item.widthCmSupplier / (restProps.sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
                 2,
@@ -108,7 +108,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
             <Typography>{t(TranslationKey.L) + ': '}</Typography>
             <Input
               disabled
-              classes={{root: classNames.inputWrapper, input: classNames.input}}
+              classes={{ root: classNames.inputWrapper, input: classNames.input }}
               value={toFixed(
                 item.lengthCmSupplier / (restProps.sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
                 2,
@@ -121,7 +121,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
         <div className={classNames.normalCell}>
           <Input
             disabled
-            classes={{root: classNames.inputWrapper, input: classNames.input}}
+            classes={{ root: classNames.inputWrapper, input: classNames.input }}
             value={item.weighGrossKgSupplier}
           />
         </div>
@@ -130,7 +130,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
         <div className={classNames.normalCell}>
           <Input
             disabled
-            classes={{root: classNames.inputWrapper, input: classNames.input}}
+            classes={{ root: classNames.inputWrapper, input: classNames.input }}
             value={toFixed(calcVolumeWeightForBox(item, restProps.volumeWeightCoefficient), 2)}
           />
         </div>
@@ -139,7 +139,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
         <div className={classNames.normalCell}>
           <Input
             disabled
-            classes={{root: classNames.inputWrapper, input: classNames.input}}
+            classes={{ root: classNames.inputWrapper, input: classNames.input }}
             value={toFixed(calcFinalWeightForBoxWithoutAmount(item, restProps.volumeWeightCoefficient), 2)}
           />
         </div>
@@ -209,7 +209,7 @@ export const BoxesToCreateTable = ({
   onClickUpdateSupplierStandart,
   volumeWeightCoefficient,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
 
@@ -239,7 +239,7 @@ export const BoxesToCreateTable = ({
         data={newBoxes}
         BodyRow={TableBodyBoxRow}
         renderHeadRow={renderHeadRow()}
-        rowsHandlers={{onRemoveBox, onEditBox, onClickBarcodeCheckbox, onClickUpdateSupplierStandart}}
+        rowsHandlers={{ onRemoveBox, onEditBox, onClickBarcodeCheckbox, onClickUpdateSupplierStandart }}
         barcodeIsExist={barcodeIsExist}
         volumeWeightCoefficient={volumeWeightCoefficient}
         sizeSetting={sizeSetting}

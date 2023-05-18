@@ -1,6 +1,6 @@
-import React, {useCallback} from 'react'
+import React, { useCallback } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   NormDateCell,
@@ -11,7 +11,7 @@ import {
   UserCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const adminFeedbackViewColumns = handlers => [
   {

@@ -1,1 +1,1 @@
-export {DataGridCustomFilterButton} from './data-grid-custom-filter-button'
+export { DataGridCustomFilterButton } from './data-grid-custom-filter-button'

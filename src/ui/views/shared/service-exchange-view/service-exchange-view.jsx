@@ -1,34 +1,34 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Box, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Box, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
-import {tableViewMode} from '@constants/table/table-view-modes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { tableViewMode } from '@constants/table/table-view-modes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ServiceExchangeCard} from '@components/cards/service-exchange-card'
-import {ServiceExchangeCardList} from '@components/cards/service-exchange-card-list'
-import {MainContent} from '@components/layout/main-content'
-import {BigImagesModal} from '@components/modals/big-images-modal'
-import {Button} from '@components/shared/buttons/button'
-import {ToggleBtnGroupFreelance} from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import {ToggleBtnFreelancer} from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
-import {SearchInput} from '@components/shared/search-input'
-import {ViewCartsBlock, ViewCartsLine} from '@components/shared/svg-icons'
+import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
+import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
+import { MainContent } from '@components/layout/main-content'
+import { BigImagesModal } from '@components/modals/big-images-modal'
+import { Button } from '@components/shared/buttons/button'
+import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
+import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { SearchInput } from '@components/shared/search-input'
+import { ViewCartsBlock, ViewCartsLine } from '@components/shared/svg-icons'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {ServiceExchangeViewModel} from './service-exchange-view.model'
-import {styles} from './service-exchange-view.style'
+import { ServiceExchangeViewModel } from './service-exchange-view.model'
+import { styles } from './service-exchange-view.style'
 
 export const ServiceExchangeViewRaw = props => {
-  const [viewModel] = useState(() => new ServiceExchangeViewModel({history: props.history}))
-  const {classes: classNames} = props
+  const [viewModel] = useState(() => new ServiceExchangeViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -91,7 +91,7 @@ export const ServiceExchangeViewRaw = props => {
 
         <Box
           container
-          classes={{root: classNames.dashboardCardWrapper}}
+          classes={{ root: classNames.dashboardCardWrapper }}
           className={classNames.dashboardCardWrapper}
           sx={{
             gridTemplateColumns:
@@ -136,7 +136,7 @@ export const ServiceExchangeViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
         images={viewModel.bigImagesOptions.images}
         imgIndex={viewModel.bigImagesOptions.imgIndex}
-        setImageIndex={imgIndex => viewModel.setBigImagesOptions({...viewModel.bigImagesOptions, imgIndex})}
+        setImageIndex={imgIndex => viewModel.setBigImagesOptions({ ...viewModel.bigImagesOptions, imgIndex })}
       />
     </React.Fragment>
   )

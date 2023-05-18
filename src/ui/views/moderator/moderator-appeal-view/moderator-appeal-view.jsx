@@ -1,12 +1,12 @@
 import React from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {AppealDetailsCard} from '@components/cards/appeal-details-card'
-import {MainContent} from '@components/layout/main-content'
+import { AppealDetailsCard } from '@components/cards/appeal-details-card'
+import { MainContent } from '@components/layout/main-content'
 
-import {styles} from './moderator-appeal-view.style'
+import { styles } from './moderator-appeal-view.style'
 
 export const ModeratorAppealViewRaw = () => (
   // const [viewModel] = useState(() => new ModeratorAppealsViewModel({history: props.history}))

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React, {useCallback} from 'react'
+import React, { useCallback } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextHeaderCell,
@@ -11,7 +11,7 @@ import {
   NormDateCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const buyerSearchSuppliersViewColumns = (handlers, firstRowId) => [
   {

@@ -1,13 +1,13 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import {withStyles} from 'tss-react/mui'
+import { withStyles } from 'tss-react/mui'
 
-import {MainContent} from '@components/layout/main-content'
+import { MainContent } from '@components/layout/main-content'
 
-import {styles} from './moderator-settings-view.style'
+import { styles } from './moderator-settings-view.style'
 
 export const ModeratorSettingsViewRaw = props => {
-  const {classes: classNames} = props
+  const { classes: classNames } = props
 
   return (
     <>

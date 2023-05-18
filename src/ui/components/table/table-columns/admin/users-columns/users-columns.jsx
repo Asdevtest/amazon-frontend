@@ -1,7 +1,7 @@
-import React, {useCallback} from 'react'
+import React, { useCallback } from 'react'
 
-import {mapUserRoleEnumToKey, UserRole} from '@constants/keys/user-roles'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { mapUserRoleEnumToKey, UserRole } from '@constants/keys/user-roles'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextHeaderCell,
@@ -10,8 +10,8 @@ import {
   NormalActionBtnCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const adminUsersViewColumns = handlers => [
   {

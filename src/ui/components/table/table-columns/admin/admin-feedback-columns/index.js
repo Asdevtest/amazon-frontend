@@ -1,1 +1,1 @@
-export {adminFeedbackViewColumns} from './admin-feedback-columns'
+export { adminFeedbackViewColumns } from './admin-feedback-columns'

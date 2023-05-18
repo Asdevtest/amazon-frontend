@@ -1,1 +1,1 @@
-export {DataGridCustomColumnsButton} from './data-grid-custom-columns-button'
+export { DataGridCustomColumnsButton } from './data-grid-custom-columns-button'

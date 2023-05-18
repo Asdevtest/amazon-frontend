@@ -1,20 +1,20 @@
-import {cx} from '@emotion/css'
-import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 
 import React from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {UserLink} from '@components/user/user-link'
+import { UserLink } from '@components/user/user-link'
 
-import {formatNormDateTime} from '@utils/date-time'
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { formatNormDateTime } from '@utils/date-time'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './user-balance-history.style'
+import { useClassNames } from './user-balance-history.style'
 
-export const UserBalanceHistory = ({historyData, title}) => {
-  const {classes: classNames} = useClassNames()
+export const UserBalanceHistory = ({ historyData, title }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <Paper className={classNames.mainWrapper}>

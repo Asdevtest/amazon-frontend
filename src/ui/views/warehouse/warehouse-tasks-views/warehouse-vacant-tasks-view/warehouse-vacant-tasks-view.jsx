@@ -1,40 +1,40 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Alert, Button} from '@mui/material'
+import { Alert, Button } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import {
   mapTaskOperationTypeKeyToEnum,
   TaskOperationType,
   taskOperationTypeTranslate,
 } from '@constants/task/task-operation-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {MainContent} from '@components/layout/main-content'
-import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {Modal} from '@components/shared/modal'
-import {SearchInput} from '@components/shared/search-input'
-import {TaskPrioritySelector} from '@components/shared/task-priority-selector/task-priority-selector'
-import {EditTaskModal} from '@components/warehouse/edit-task-modal'
-import {EditTaskPriorityModal} from '@components/warehouse/edit-task-priority-modal'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { MainContent } from '@components/layout/main-content'
+import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
+import { TaskPrioritySelector } from '@components/shared/task-priority-selector/task-priority-selector'
+import { EditTaskModal } from '@components/warehouse/edit-task-modal'
+import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {WarehouseVacantViewModel} from './warehouse-vacant-tasks-view.model'
-import {styles} from './warehouse-vacant-tasks-view.style'
+import { WarehouseVacantViewModel } from './warehouse-vacant-tasks-view.model'
+import { styles } from './warehouse-vacant-tasks-view.style'
 
 export const WarehouseVacantTasksViewRaw = props => {
-  const [viewModel] = useState(() => new WarehouseVacantViewModel({history: props.history}))
-  const {classes: classNames} = props
+  const [viewModel] = useState(() => new WarehouseVacantViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -94,7 +94,7 @@ export const WarehouseVacantTasksViewRaw = props => {
           <div className={classNames.boxesFiltersWrapper}>
             <Button
               disabled={viewModel.curTaskType === null}
-              className={cx(classNames.button, {[classNames.selectedBoxesBtn]: viewModel.curTaskType === null})}
+              className={cx(classNames.button, { [classNames.selectedBoxesBtn]: viewModel.curTaskType === null })}
               variant="text"
               onClick={() => viewModel.onClickOperationTypeBtn(null)}
             >
