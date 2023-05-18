@@ -1,6 +1,4 @@
 /* eslint-disable no-unused-vars */
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
 import React, {useCallback, useMemo} from 'react'
 
 import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
@@ -16,7 +14,6 @@ import {
   HsCodeCell,
   MultilineTextHeaderCell,
   MultilineTextCell,
-  ShowBarcodeOrHscodeCell,
   FourMonthesStockCell,
   MultilineTextAlignLeftCell,
   ChangeInputCell,
@@ -53,9 +50,16 @@ export const clientInventoryColumns = (
     ),
 
     renderCell: params => {
-      const originalDataMemo = useMemo(() => params.row.originalData, [])
+      const product = params.row.originalData
 
-      return <ProductAsinCell product={originalDataMemo} />
+      return (
+        <ProductAsinCell
+          image={product?.images?.slice()[0]}
+          amazonTitle={product?.amazonTitle}
+          asin={product?.asin}
+          skusByClient={product?.skusByClient?.slice()[0]}
+        />
+      )
     },
     width: 300,
 
@@ -189,9 +193,15 @@ export const clientInventoryColumns = (
 
     renderCell: params => {
       const onClickSaveStockUsMemo = useCallback(stockUsHandlers.onClickSaveStockUs, [])
-      const rowMemo = useMemo(() => params.row.originalData, [])
 
-      return <ChangeInputCell isInts row={rowMemo} text={params.value} onClickSubmit={onClickSaveStockUsMemo} />
+      return (
+        <ChangeInputCell
+          isInts
+          rowId={params.row.originalData._id}
+          text={params.value}
+          onClickSubmit={onClickSaveStockUsMemo}
+        />
+      )
     },
     width: 150,
 
@@ -237,11 +247,12 @@ export const clientInventoryColumns = (
 
     renderCell: params => {
       const onClickInStockMemo = useCallback(otherHandlers.onClickInStock, [])
+      const boxAmountsMemo = useMemo(() => params.row.originalData.boxAmounts, [])
 
       return (
         <InStockCell
-          boxAmounts={params.row.originalData.boxAmounts}
-          box={params.row.originalData}
+          boxAmounts={boxAmountsMemo}
+          boxId={params.row.originalData._id}
           onClickInStock={onClickInStockMemo}
         />
       )
@@ -297,12 +308,12 @@ export const clientInventoryColumns = (
     ),
     renderCell: params => {
       const onClickSaveFourMonthsStock = useCallback(fourMonthesStockHandlers.onClickSaveFourMonthsStock, [])
-      const paramsMemo = useMemo(() => params, [])
 
       return (
         <FourMonthesStockCell
-          params={paramsMemo}
+          rowId={params.row.originalData._id}
           value={params.value}
+          fourMonthesStock={params.row.fourMonthesStock}
           onClickSaveFourMonthsStock={onClickSaveFourMonthsStock}
         />
       )

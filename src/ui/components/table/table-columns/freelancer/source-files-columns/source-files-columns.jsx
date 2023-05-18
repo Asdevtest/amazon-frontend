@@ -47,7 +47,11 @@ export const sourceFilesColumns = (rowHandlers, languageTag, editField) => [
     headerName: t(TranslationKey.Performer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
     width: 137,
-    renderCell: params => <UserMiniCell user={params.row.sub ? params.row.sub : params.row.performer} />,
+    renderCell: params => {
+      const user = params.row.sub ? params.row.sub : params.row.performer
+
+      return <UserMiniCell userName={user?.name} userId={user?._id} />
+    },
   },
 
   {
@@ -55,7 +59,7 @@ export const sourceFilesColumns = (rowHandlers, languageTag, editField) => [
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
     width: 137,
-    renderCell: params => <UserMiniCell user={params.row.client} />,
+    renderCell: params => <UserMiniCell userName={params.row.client?.name} userId={params.row.client?._id} />,
   },
 
   {

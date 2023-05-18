@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import {Typography} from '@mui/material'
 
+import {useMemo} from 'react'
+
 import {getBatchWeightCalculationMethodForBox} from '@constants/statuses/batch-weight-calculations-method'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -105,7 +107,11 @@ export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod,
   {
     field: 'pricePerUnit',
     headerName: <MultilineTextHeaderCell text={t(TranslationKey['Price per unit'])} />,
-    renderCell: params => <PricePerUnitCell item={params.row} />,
+    renderCell: params => {
+      const rowMemo = useMemo(() => params.row, [])
+
+      return <PricePerUnitCell item={rowMemo} />
+    },
     type: 'number',
     width: 90,
   },

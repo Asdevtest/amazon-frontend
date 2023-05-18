@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback} from 'react'
 
 import {colorByProductStatus, ProductStatusByCode} from '@constants/product/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -22,9 +22,16 @@ export const buyerProductsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
     renderCell: params => {
-      const originalDataMemo = useMemo(() => params.row.originalData, [])
+      const product = params.row.originalData
 
-      return <ProductAsinCell product={originalDataMemo} />
+      return (
+        <ProductAsinCell
+          image={product?.images?.slice()[0]}
+          amazonTitle={product?.amazonTitle}
+          asin={product?.asin}
+          skusByClient={product?.skusByClient?.slice()[0]}
+        />
+      )
     },
     width: 350,
   },

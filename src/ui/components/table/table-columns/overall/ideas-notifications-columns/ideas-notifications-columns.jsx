@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback} from 'react'
 
 import {colorByIdeaStatus, ideaStatusByCode} from '@constants/statuses/idea-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -47,9 +47,16 @@ export const ideasNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
     renderCell: params => {
-      const originalDataMemo = useMemo(() => params?.row?.originalData?.product, [])
+      const product = params?.row?.originalData?.product
 
-      return <ProductAsinCell product={originalDataMemo} />
+      return (
+        <ProductAsinCell
+          image={product?.images?.slice()[0]}
+          amazonTitle={product?.amazonTitle}
+          asin={product?.asin}
+          skusByClient={product?.skusByClient?.slice()[0]}
+        />
+      )
     },
     width: 300,
     // columnKey: columnnsKeys.client.INVENTORY_PRODUCT,

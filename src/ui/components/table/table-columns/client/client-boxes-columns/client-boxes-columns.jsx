@@ -391,14 +391,18 @@ export const clientBoxesViewColumns = (
       />
     ),
 
-    renderCell: params => (
-      <ChangeInputCell
-        maxLength={25}
-        row={params.row.originalData}
-        text={params.value}
-        onClickSubmit={handlers.onClickSavePrepId}
-      />
-    ),
+    renderCell: params => {
+      const onClickSavePrepId = useCallback(handlers.onClickSavePrepId, [])
+
+      return (
+        <ChangeInputCell
+          maxLength={25}
+          rowId={params.row.originalData._id}
+          text={params.value}
+          onClickSubmit={onClickSavePrepId}
+        />
+      )
+    },
     width: 240,
 
     columnKey: columnnsKeys.shared.STRING,

@@ -25,11 +25,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Image)} />,
 
     width: 100,
-    renderCell: params => {
-      const imagesMemo = useMemo(() => params.row.images, [])
-
-      return <SmallRowImageCell images={imagesMemo} />
-    },
+    renderCell: params => <SmallRowImageCell image={params.row.images[0]} />,
     filterable: false,
     sortable: false,
   },

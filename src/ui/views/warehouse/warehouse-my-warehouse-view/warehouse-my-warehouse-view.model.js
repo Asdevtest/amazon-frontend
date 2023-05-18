@@ -312,9 +312,9 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickSavePrepId(item, value) {
+  async onClickSavePrepId(itemId, value) {
     try {
-      await BoxesModel.editAdditionalInfo(item._id, {
+      await BoxesModel.editAdditionalInfo(itemId, {
         prepId: value,
       })
 

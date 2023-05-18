@@ -130,11 +130,11 @@ export const UserCell = React.memo(
 
 export const UserMiniCell = React.memo(
   withStyles(
-    ({classes: classNames, user}) => (
+    ({classes: classNames, userName, userId}) => (
       <div className={classNames.userMainWrapper}>
-        <Avatar src={getUserAvatarSrc(user?._id)} className={classNames.userCellAvatar} />
+        <Avatar src={getUserAvatarSrc(userId)} className={classNames.userCellAvatar} />
 
-        <UserLink name={user?.name} userId={user?._id} />
+        <UserLink name={userName} userId={userId} />
       </div>
     ),
     styles,
@@ -143,7 +143,7 @@ export const UserMiniCell = React.memo(
 
 export const InStockCell = React.memo(
   withStyles(
-    ({classes: classNames, boxAmounts, box, onClickInStock}) => (
+    ({classes: classNames, boxAmounts, boxId, onClickInStock}) => (
       <div className={classNames.inStockWrapper}>
         {boxAmounts
           ?.sort((x, y) => x.storekeeper.name.localeCompare(y.storekeeper.name))
@@ -155,7 +155,7 @@ export const InStockCell = React.memo(
                 target="_blank"
                 underline={'hover'}
                 className={classNames.linkWrapper}
-                onClick={() => onClickInStock(box, el.storekeeper)}
+                onClick={() => onClickInStock(boxId, el.storekeeper)}
               >
                 <Typography>{el.amountInBoxes}</Typography>
               </Link>
@@ -213,43 +213,41 @@ export const AsinCell = React.memo(
 
 export const ProductAsinCell = React.memo(
   withStyles(
-    ({classes: classNames, product}) => (
+    ({classes: classNames, image, amazonTitle, asin, skusByClient}) => (
       <div className={classNames.asinCell}>
         <div className={classNames.asinCellContainer}>
-          <img alt="" className={classNames.img} src={getAmazonImageUrl(product?.images?.slice()[0])} />
+          <img alt="" className={classNames.img} src={getAmazonImageUrl(image)} />
 
           <div className={classNames.csCodeTypoWrapper}>
-            <Typography className={classNames.csCodeTypo}>{product?.amazonTitle}</Typography>
+            <Typography className={classNames.csCodeTypo}>{amazonTitle}</Typography>
             <div className={classNames.copyAsin}>
               <Typography className={classNames.typoCell}>
                 {t(TranslationKey.ASIN)}
 
-                {product?.asin ? (
+                {asin ? (
                   <a
                     target="_blank"
                     rel="noreferrer"
-                    href={`https://www.amazon.com/dp/${product.asin}`}
+                    href={`https://www.amazon.com/dp/${asin}`}
                     className={classNames.normalizeLink}
                   >
-                    <span className={classNames.linkSpan}>{shortAsin(product.asin)}</span>
+                    <span className={classNames.linkSpan}>{shortAsin(asin)}</span>
                   </a>
                 ) : (
                   <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
                 )}
               </Typography>
-              {product.asin ? <CopyValue text={product.asin} /> : null}
+              {asin ? <CopyValue text={asin} /> : null}
             </div>
 
             <div className={classNames.copyAsin}>
               <Typography className={classNames.typoCell}>
                 {t(TranslationKey.SKU)}
                 <span className={classNames.typoSpan}>
-                  {product.skusByClient?.slice()[0]
-                    ? shortSku(product.skusByClient?.slice()[0])
-                    : t(TranslationKey.Missing)}
+                  {skusByClient ? shortSku(skusByClient) : t(TranslationKey.Missing)}
                 </span>
               </Typography>
-              {product.skusByClient?.slice()[0] ? <CopyValue text={product.skusByClient?.slice()[0]} /> : null}
+              {skusByClient ? <CopyValue text={skusByClient} /> : null}
             </div>
           </div>
         </div>
@@ -429,29 +427,27 @@ export const StringListCell = React.memo(
 
 export const ProductCell = React.memo(
   withStyles(
-    ({classes: classNames, product}) => (
+    ({classes: classNames, image, amazonTitle, asin, skusByClient}) => (
       <div className={classNames.productCell}>
         <div className={classNames.asinCellContainer}>
-          <img alt="" className={classNames.productCellImg} src={getAmazonImageUrl(product.images?.[0])} />
+          <img alt="" className={classNames.productCellImg} src={getAmazonImageUrl(image)} />
 
           <div className={classNames.productWrapper}>
-            <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
+            <Typography className={classNames.csCodeTypo}>{amazonTitle}</Typography>
             <div className={classNames.skuAndAsinWrapper}>
               <Typography className={classNames.productTypoCell}>
                 {t(TranslationKey.SKU)}
-                <span className={classNames.typoSpan}>
-                  {product.skusByClient?.length ? shortSku(product.skusByClient[0]) : '-'}
-                </span>
+                <span className={classNames.typoSpan}>{skusByClient ? shortSku(skusByClient) : '-'}</span>
                 {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
               </Typography>
-              {product.skusByClient[0] ? <CopyValue text={product.skusByClient[0]} /> : null}
+              {skusByClient ? <CopyValue text={skusByClient} /> : null}
               {'/'}
               <Typography className={classNames.productTypoCell}>
                 {t(TranslationKey.ASIN)}
-                <span className={classNames.typoSpan}>{shortAsin(product.asin)}</span>
+                <span className={classNames.typoSpan}>{shortAsin(asin)}</span>
                 {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
               </Typography>
-              {product.asin ? <CopyValue text={product.asin} /> : null}
+              {asin ? <CopyValue text={asin} /> : null}
             </div>
           </div>
         </div>
@@ -523,42 +519,6 @@ export const UserLinkCell = React.memo(
   ),
 )
 
-export const SupervisorCell = React.memo(
-  withStyles(
-    ({classes: classNames, product}) => (
-      <Typography className={classNames.researcherCell}>{!product.checkedBy ? '-' : product.checkedBy.name}</Typography>
-    ),
-    styles,
-  ),
-)
-
-export const ResearcherCell = React.memo(
-  withStyles(
-    ({classes: classNames, product}) => (
-      <Typography className={classNames.researcherCell}>{!product.createdBy ? '-' : product.createdBy.name}</Typography>
-    ),
-    styles,
-  ),
-)
-
-export const ClientCell = React.memo(
-  withStyles(
-    ({classes: classNames, product}) => (
-      <Typography className={classNames.researcherCell}>{!product.client ? '-' : product.client.name}</Typography>
-    ),
-    styles,
-  ),
-)
-
-export const BuyerCell = React.memo(
-  withStyles(
-    ({classes: classNames, product}) => (
-      <Typography className={classNames.researcherCell}>{!product.buyer ? '-' : product.buyer.name}</Typography>
-    ),
-    styles,
-  ),
-)
-
 export const BarcodeCell = React.memo(
   withStyles(
     ({classes: classNames, product, handlers}) => (
@@ -604,7 +564,7 @@ export const HsCodeCell = React.memo(
 )
 
 export const ChangeInputCell = React.memo(
-  withStyles(({classes: classNames, row, onClickSubmit, text, disabled, isInts, maxLength}) => {
+  withStyles(({classes: classNames, rowId, onClickSubmit, text, disabled, isInts, maxLength}) => {
     const sourceValue = text ? text : ''
 
     const [value, setValue] = useState(sourceValue)
@@ -626,7 +586,7 @@ export const ChangeInputCell = React.memo(
           setTimeout(() => {
             setShow(false)
           }, 2000)
-          onClickSubmit(row, value)
+          onClickSubmit(rowId, value)
         }
       }
       document.addEventListener('keydown', listener)
@@ -659,7 +619,7 @@ export const ChangeInputCell = React.memo(
                       setTimeout(() => {
                         setShow(false)
                       }, 2000)
-                      onClickSubmit(row, value)
+                      onClickSubmit(rowId, value)
                     }}
                   />
                   <ClearIcon classes={{root: classNames.clearIcon}} onClick={() => setValue(defaultValue)} />
@@ -1986,18 +1946,13 @@ export const ShowBarcodeOrHscodeCell = React.memo(
 
 export const FourMonthesStockCell = React.memo(
   withStyles(
-    ({classes: classNames, onClickSaveFourMonthsStock, params, value}) => (
+    ({classes: classNames, onClickSaveFourMonthsStock, rowId, fourMonthesStock, value}) => (
       <div className={classNames.fourMonthesStockWrapper}>
         <Typography className={classNames.fourMonthesStockLabel}>{`${t(
           TranslationKey.Repurchase,
         )}: ${value}`}</Typography>
 
-        <ChangeInputCell
-          isInts
-          row={params.row.originalData}
-          text={params.row.fourMonthesStock}
-          onClickSubmit={onClickSaveFourMonthsStock}
-        />
+        <ChangeInputCell isInts rowId={rowId} text={fourMonthesStock} onClickSubmit={onClickSaveFourMonthsStock} />
       </div>
     ),
     styles,
@@ -2009,17 +1964,6 @@ export const CommentUsersCell = React.memo(
     ({classes: classNames, handler, id, comment}) => (
       <div className={classNames.CommentUsersCellWrapper}>
         <ChangeInputCommentCell id={id} text={comment} onClickSubmit={handler} />
-      </div>
-    ),
-    styles,
-  ),
-)
-
-export const CommentSourceFilesCell = React.memo(
-  withStyles(
-    ({classes: classNames, handler, params}) => (
-      <div className={classNames.CommentUsersCellWrapper}>
-        <ChangeInputCommentCell id={params.row._id} text={params?.row?.note?.comment} onClickSubmit={handler} />
       </div>
     ),
     styles,
@@ -2060,9 +2004,9 @@ export const ToFixedWithKgSignCell = React.memo(
 
 export const SmallRowImageCell = React.memo(
   withStyles(
-    ({classes: classNames, images}) => (
+    ({classes: classNames, image}) => (
       <div className={classNames.smallRowImgWrapper}>
-        <img alt="" className={classNames.img} src={getAmazonImageUrl(images[0])} />
+        <img alt="" className={classNames.img} src={getAmazonImageUrl(image)} />
       </div>
     ),
     styles,
@@ -2130,18 +2074,18 @@ export const NormalActionBtnCell = React.memo(
 
 export const WarehouseMyTasksBtnsCell = React.memo(
   withStyles(
-    ({classes: classNames, row, handlers, isFirstRow}) => (
+    ({classes: classNames, handlers, isFirstRow, operationType, rowId, boxId}) => (
       <div className={classNames.warehouseMyTasksBtnsWrapper}>
         <Button
           success
           tooltipInfoContent={isFirstRow && t(TranslationKey['Open a window to perform a task'])}
           className={classNames.warehouseMyTasksSuccessBtn}
-          onClick={() => handlers.onClickResolveBtn(row)}
+          onClick={() => handlers.onClickResolveBtn(rowId)}
         >
           {t(TranslationKey.Resolve)}
         </Button>
 
-        {row.operationType !== TaskOperationType.RECEIVE && (
+        {operationType !== TaskOperationType.RECEIVE && (
           <Button
             danger
             tooltipInfoContent={
@@ -2149,7 +2093,7 @@ export const WarehouseMyTasksBtnsCell = React.memo(
             }
             className={cx(classNames.rowCancelBtn, classNames.warehouseMyTasksCancelBtn)}
             onClick={() => {
-              handlers.onClickCancelTask(row.boxes[0]._id, row._id, row.operationType)
+              handlers.onClickCancelTask(boxId, rowId, operationType)
             }}
           >
             {t(TranslationKey.Cancel)}
@@ -2270,13 +2214,13 @@ export const ClientNotificationsBtnsCell = React.memo(
 export const ProductMyRequestsBtnsCell =
   //  React.memo(
   withStyles(
-    ({classes: classNames, row, handlers}) => (
+    ({classes: classNames, rowId, handlers}) => (
       <div className={classNames.productMyRequestsBtnsWrapper}>
         <Button
           variant="contained"
           color="primary"
           className={classNames.productMyRequestsBtn}
-          onClick={() => handlers.onClickOpenRequest(row)}
+          onClick={() => handlers.onClickOpenRequest(rowId)}
         >
           {t(TranslationKey['Open a request'])}
         </Button>
@@ -2295,28 +2239,6 @@ export const ProductMyRequestsBtnsCell =
     styles,
   )
 // )
-
-export const AdminUsersActionBtnsCell = React.memo(
-  withStyles(
-    ({classes: classNames, row, handlers, editBtnText, balanceBtnText}) => (
-      <React.Fragment>
-        <Button
-          className={classNames.marginRightBtn}
-          disabled={row.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
-          variant="contained"
-          color="primary"
-          onClick={() => handlers.onClickEditUser(row)}
-        >
-          {editBtnText}
-        </Button>
-        <Button variant="contained" color="primary" onClick={() => handlers.onClickBalance(row)}>
-          {balanceBtnText}
-        </Button>
-      </React.Fragment>
-    ),
-    styles,
-  ),
-)
 
 export const SuperboxQtyCell = React.memo(
   withStyles(
@@ -2419,23 +2341,6 @@ export const ScrollingCell = React.memo(
   ),
 )
 
-// export const ScrollingCell = React.memo( withStyles(({classes: classNames, value}) => (
-//   <React.Fragment>
-//     <Typography className={classNames.scrollingValue}>{value || '-'}</Typography>
-//   </React.Fragment>
-// ))
-
-export const MultilineCell = React.memo(
-  withStyles(
-    ({classes: classNames, value}) => (
-      <React.Fragment>
-        <Typography className={classNames.multilineValue}>{value || '-'}</Typography>
-      </React.Fragment>
-    ),
-    styles,
-  ),
-)
-
 export const ManyItemsPriceCell = React.memo(
   withStyles(
     ({classes: classNames, params, withoutSku, withQuantity}) => {
@@ -2499,24 +2404,6 @@ export const FinalPricePerUnitCell = React.memo(
           </Typography>
         ))}
       </div>
-    ),
-    styles,
-  ),
-)
-
-export const ScrollingLinkCell = React.memo(
-  withStyles(
-    ({classes: classNames, value}) => (
-      <React.Fragment>
-        <Link
-          target="_blank"
-          rel="noopener"
-          href={checkAndMakeAbsoluteUrl(value)}
-          className={classNames.scrollingValue}
-        >
-          <Typography>{value || '-'}</Typography>
-        </Link>
-      </React.Fragment>
     ),
     styles,
   ),

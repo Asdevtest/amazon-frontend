@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import React from 'react'
 
 import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
 import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
@@ -109,11 +109,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
       />
     ),
 
-    renderCell: params => {
-      const originalDataMemo = useMemo(() => params.row.originalData, [])
-
-      return <AsinCell text={params.value} product={originalDataMemo} />
-    },
+    renderCell: params => <AsinCell asin={params.row.originalData.asin} />,
     width: 123,
   },
 

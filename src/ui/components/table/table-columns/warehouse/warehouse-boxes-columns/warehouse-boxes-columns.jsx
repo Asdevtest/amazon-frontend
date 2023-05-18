@@ -212,11 +212,16 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
     ),
 
     renderCell: params => {
-      const rowMemo = useMemo(() => params.row.originalData, [])
-
       const onClickSavePrepId = useCallback(handlers.onClickSavePrepId, [])
 
-      return <ChangeInputCell maxLength={25} row={rowMemo} text={params.value} onClickSubmit={onClickSavePrepId} />
+      return (
+        <ChangeInputCell
+          maxLength={25}
+          rowId={params.row.originalData._id}
+          text={params.value}
+          onClickSubmit={onClickSavePrepId}
+        />
+      )
     },
     width: 240,
 

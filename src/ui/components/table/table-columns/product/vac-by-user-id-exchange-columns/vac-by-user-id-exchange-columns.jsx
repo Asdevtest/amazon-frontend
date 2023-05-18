@@ -21,7 +21,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Image)} />,
 
     width: 100,
-    renderCell: params => <SmallRowImageCell images={params.row.images} />,
+    renderCell: params => <SmallRowImageCell image={params.row.images[0]} />,
     filterable: false,
     sortable: false,
   },

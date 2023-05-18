@@ -35,12 +35,13 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
 
     renderCell: params => {
       const handlersMemo = useMemo(() => handlers, [])
-      const originalDataMemo = useMemo(() => params.row.originalData, [])
 
       return (
         <WarehouseMyTasksBtnsCell
           handlers={handlersMemo}
-          row={originalDataMemo}
+          boxId={params.row.originalData.boxes[0]._id}
+          rowId={params.row.originalData._id}
+          operationType={params.row.originalData.operationType}
           isFirstRow={firstRowId === params.row.id}
         />
       )

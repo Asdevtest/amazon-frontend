@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -55,12 +55,16 @@ export const adminFeedbackViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 180,
-    renderCell: params => (
-      <NormalActionBtnCell
-        bTnText={t(TranslationKey.View)}
-        // isFirstRow={firstRowId === params.row.id}
-        onClickOkBtn={() => handlers.onClickOpenFeedbackBtn(params.row.originalData)}
-      />
-    ),
+    renderCell: params => {
+      const onClickOpenFeedbackBtn = useCallback(() => handlers.onClickOpenFeedbackBtn(params.row.originalData), [])
+
+      return (
+        <NormalActionBtnCell
+          bTnText={t(TranslationKey.View)}
+          // isFirstRow={firstRowId === params.row.id}
+          onClickOkBtn={onClickOpenFeedbackBtn}
+        />
+      )
+    },
   },
 ]

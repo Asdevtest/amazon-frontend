@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 
 import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -113,7 +113,11 @@ export const productMyRequestsViewColumns = (languageTag, handlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     // width: 330,
-    renderCell: params => <ProductMyRequestsBtnsCell row={params.row.originalData} handlers={handlers} />,
+    renderCell: params => {
+      const handlersMemo = useMemo(() => handlers, [])
+
+      return <ProductMyRequestsBtnsCell rowId={params.row.originalData._id} handlers={handlersMemo} />
+    },
     filterable: false,
     sortable: false,
     flex: 1,
