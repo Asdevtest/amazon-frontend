@@ -1,31 +1,31 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Checkbox, TableCell, TableRow, Typography, Table, TableBody, Tooltip} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Checkbox, TableCell, TableRow, Typography, Table, TableBody, Tooltip } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
-import {withStyles} from 'tss-react/mui'
+import { withStyles } from 'tss-react/mui'
 
-import {UserRoleCodeMap} from '@constants/keys/user-roles'
-import {BoxStatus, boxStatusTranslateKey, colorByBoxStatus} from '@constants/statuses/box-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { BoxStatus, boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BoxViewForm} from '@components/forms/box-view-form'
-import {BigImagesModal} from '@components/modals/big-images-modal'
-import {Button} from '@components/shared/buttons/button'
-import {CopyValue} from '@components/shared/copy-value'
-import {Modal} from '@components/shared/modal'
+import { BoxViewForm } from '@components/forms/box-view-form'
+import { BigImagesModal } from '@components/modals/big-images-modal'
+import { Button } from '@components/shared/buttons/button'
+import { CopyValue } from '@components/shared/copy-value'
+import { Modal } from '@components/shared/modal'
 
-import {calcPriceForBox} from '@utils/calculation'
-import {checkIsClient, checkIsImageLink} from '@utils/checks'
-import {formatShortDateTime} from '@utils/date-time'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {shortAsin, shortSku, toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
-import {t} from '@utils/translations'
+import { calcPriceForBox } from '@utils/calculation'
+import { checkIsClient, checkIsImageLink } from '@utils/checks'
+import { formatShortDateTime } from '@utils/date-time'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { shortAsin, shortSku, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {styles} from './warehouse-body-row.style'
+import { styles } from './warehouse-body-row.style'
 
 const WarehouseBodyRowRaw = ({
   item: box,
@@ -47,13 +47,13 @@ const WarehouseBodyRowRaw = ({
 
   // const style = colorByBoxStatus(box.status)
 
-  const BoxUpdatedAt = ({product}) => (
+  const BoxUpdatedAt = ({ product }) => (
     <Typography className={classNames.shortDateCellTypo}>
       {product.updatedAt ? formatShortDateTime(product.updatedAt) : '-'}
     </Typography>
   )
 
-  const ProductStatus = ({product}) => (
+  const ProductStatus = ({ product }) => (
     <div className={classNames.multilineTextWrapper}>
       <Typography className={classNames.multilineText} style={colorByBoxStatus(product)}>
         {t(boxStatusTranslateKey(product))}
@@ -61,7 +61,7 @@ const WarehouseBodyRowRaw = ({
     </div>
   )
 
-  const ProductCell = ({product}) => (
+  const ProductCell = ({ product }) => (
     <div className={classNames.asinCell}>
       <div className={classNames.asinCellContainer}>
         <img alt="" className={classNames.img} src={getAmazonImageUrl(product.images.slice()[0])} />
@@ -111,7 +111,7 @@ const WarehouseBodyRowRaw = ({
       {box.items.map((order, orderIndex) => (
         <React.Fragment key={`orderBox_${order.order._id}_${orderIndex}`}>
           <TableRow
-            className={cx(classNames.row, {[classNames.boxLastRow]: orderIndex === ordersQty - 1})}
+            className={cx(classNames.row, { [classNames.boxLastRow]: orderIndex === ordersQty - 1 })}
             onDoubleClick={() => setShowBoxViewModal(!showBoxViewModal)}
           >
             {orderIndex === 0 && (
@@ -210,7 +210,7 @@ const WarehouseBodyRowRaw = ({
             )}
           </TableRow>
           {isMaximizedMasterBox ? (
-            <TableRow className={classNames.subBoxesTableWrapper}>
+            <TableRow>
               <TableCell colSpan="2" />
               <TableCell colSpan="40">
                 <Table className={classNames.subBoxesTable}>

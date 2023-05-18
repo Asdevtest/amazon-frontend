@@ -1,1 +1,1 @@
-export {AddUsersToGroupChatForm} from './add-users-to-group-chat-form'
+export { AddUsersToGroupChatForm } from './add-users-to-group-chat-form'

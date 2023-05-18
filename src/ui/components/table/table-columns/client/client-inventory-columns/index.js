@@ -1,1 +1,1 @@
-export {clientInventoryColumns} from './client-inventory-columns'
+export { clientInventoryColumns } from './client-inventory-columns'

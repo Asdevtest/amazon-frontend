@@ -1,16 +1,16 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {useFaviconNotification} from 'react-favicon-notification'
-import {Redirect, Route, useLocation} from 'react-router-dom'
+import { observer } from 'mobx-react'
+import { useFaviconNotification } from 'react-favicon-notification'
+import { Redirect, Route, useLocation } from 'react-router-dom'
 
-import {UserRoleCodeMap} from '@constants/keys/user-roles'
-import {overallRoutesConfigs, privateRoutesConfigs} from '@constants/navigation/routes'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigation/routes'
 
-import {ChatModel} from '@models/chat-model'
-import {UserModel} from '@models/user-model'
+import { ChatModel } from '@models/chat-model'
+import { UserModel } from '@models/user-model'
 
-import {isHaveMasterUser} from '@utils/checks'
+import { isHaveMasterUser } from '@utils/checks'
 
 export const PrivateRoutes = observer(() => {
   const location = useLocation()
@@ -21,9 +21,9 @@ export const PrivateRoutes = observer(() => {
 
   useEffect(() => {
     if (ChatModel.unreadMessages > 0) {
-      setConfig({...config, show: true, counter: ChatModel.unreadMessages})
+      setConfig({ ...config, show: true, counter: ChatModel.unreadMessages })
     } else {
-      setConfig({...config, show: false, counter: 0})
+      setConfig({ ...config, show: false, counter: 0 })
     }
   }, [ChatModel.unreadMessages])
 

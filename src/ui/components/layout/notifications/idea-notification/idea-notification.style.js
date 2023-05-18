@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
@@ -13,21 +13,11 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  titleWrapper: {
-    display: 'flex',
-  },
-
   attentionTitle: {
     color: '#FF1616',
     fontSize: 14,
     fontWeight: 600,
     marginRight: 5,
-  },
-
-  title: {
-    color: theme.palette.text.general,
-    fontSize: 14,
-    fontWeight: 600,
   },
 
   messageText: {
@@ -52,11 +42,6 @@ export const useClassNames = makeStyles()(theme => ({
     '&: hover': {
       opacity: '.8',
     },
-  },
-
-  filesText: {
-    color: theme.palette.text.second,
-    marginTop: 10,
   },
 
   avatarWrapper: {

@@ -1,1 +1,1 @@
-export {clientTasksViewColumns} from './client-tasks-columns'
+export { clientTasksViewColumns } from './client-tasks-columns'

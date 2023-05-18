@@ -1,22 +1,22 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {formatDateMonthYearWithoutFormatISO} from '@utils/date-time'
+import { formatDateMonthYearWithoutFormatISO } from '@utils/date-time'
 
-import {BarChartsCard} from './bar-charts-card/bar-charts-card'
-import {BottomCard} from './bottom-card'
-import {useClassNames} from './shop-wrapper.style'
-import {TopCard} from './top-card'
+import { BarChartsCard } from './bar-charts-card/bar-charts-card'
+import { BottomCard } from './bottom-card'
+import { useClassNames } from './shop-wrapper.style'
+import { TopCard } from './top-card'
 
-export const ShopWrapper = observer(({userInfo, shopInfo, onClickEditBtn}) => {
-  const {classes: classNames} = useClassNames()
+export const ShopWrapper = observer(({ userInfo, shopInfo, onClickEditBtn }) => {
+  const { classes: classNames } = useClassNames()
   const [updatedShopInfo, setUpdatedShopInfo] = useState(shopInfo)
 
   useEffect(() => {
-    setUpdatedShopInfo(() => ({...shopInfo}))
+    setUpdatedShopInfo(() => ({ ...shopInfo }))
   }, [SettingsModel.languageTag])
 
   return (

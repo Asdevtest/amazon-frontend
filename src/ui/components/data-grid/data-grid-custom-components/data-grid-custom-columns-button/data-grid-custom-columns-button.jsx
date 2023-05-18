@@ -1,24 +1,24 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
-import {Checkbox, Menu, Typography} from '@mui/material'
+import { Checkbox, Menu, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {t} from 'i18n-js'
+import { t } from 'i18n-js'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
-import {SearchInput} from '@components/shared/search-input'
+import { Button } from '@components/shared/buttons/button'
+import { SearchInput } from '@components/shared/search-input'
 
-import {useClassNames} from './data-grid-custom-columns-button.style'
+import { useClassNames } from './data-grid-custom-columns-button.style'
 
 export const DataGridCustomColumnsButton = props => {
-  const {classes: classNames} = useClassNames()
-  const {className, columsBtnSettings, ...other} = props
+  const { classes: classNames } = useClassNames()
+  const { className, columsBtnSettings, ...other } = props
 
-  const {columnsModel, changeColumnsModel} = columsBtnSettings
+  const { columnsModel, changeColumnsModel } = columsBtnSettings
 
   const [menuAnchor, setMenuAnchor] = useState(null)
   const handleClick = event => {
@@ -46,15 +46,15 @@ export const DataGridCustomColumnsButton = props => {
 
   const onClickItem = field => {
     changeColumnsModel(
-      columnsModel.reduce((ac, cur) => ({...ac, [cur.field]: cur.field === field ? !cur.hide : cur.hide}), {}),
+      columnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: cur.field === field ? !cur.hide : cur.hide }), {}),
     )
   }
 
   const onClickAllItemBtn = () => {
     if (columnsModel.some(el => el.hide)) {
-      changeColumnsModel(columnsModel.reduce((ac, cur) => ({...ac, [cur.field]: false}), {}))
+      changeColumnsModel(columnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: false }), {}))
     } else {
-      changeColumnsModel(columnsModel.reduce((ac, cur) => ({...ac, [cur.field]: true}), {}))
+      changeColumnsModel(columnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: true }), {}))
     }
   }
 
@@ -73,7 +73,7 @@ export const DataGridCustomColumnsButton = props => {
         anchorEl={menuAnchor}
         autoFocus={false}
         open={Boolean(menuAnchor)}
-        classes={{paper: classNames.menu, list: classNames.list}}
+        classes={{ paper: classNames.menu, list: classNames.list }}
         onClose={handleClose}
       >
         <div className={classNames.mainWrapper}>

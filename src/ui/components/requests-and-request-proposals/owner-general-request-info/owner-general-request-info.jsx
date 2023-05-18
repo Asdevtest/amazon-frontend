@@ -1,34 +1,34 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Avatar, Paper, Rating, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Avatar, Paper, Rating, Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
-import {RequestStatus} from '@constants/requests/request-status'
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { RequestStatus } from '@constants/requests/request-status'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
 } from '@constants/statuses/freelance-request-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {RequestStatusCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
-import {RestoreRequestModal} from '@components/requests-and-request-proposals/restore-request-modal/restore-request-modal'
-import {AsinLink} from '@components/shared/asin-link'
-import {Button} from '@components/shared/buttons/button'
-import {Modal} from '@components/shared/modal'
-import {UserLink} from '@components/user/user-link'
+import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { RestoreRequestModal } from '@components/requests-and-request-proposals/restore-request-modal/restore-request-modal'
+import { AsinLink } from '@components/shared/asin-link'
+import { Button } from '@components/shared/buttons/button'
+import { Modal } from '@components/shared/modal'
+import { UserLink } from '@components/user/user-link'
 
-import {calcNumberMinusPercent} from '@utils/calculation'
-import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-time'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
-import {translateProposalsLeftMessage} from '@utils/validation'
+import { calcNumberMinusPercent } from '@utils/calculation'
+import { formatDateDistanceFromNowStrict, formatNormDateTime } from '@utils/date-time'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
+import { translateProposalsLeftMessage } from '@utils/validation'
 
-import {useClassNames} from './owner-general-request-info.style'
+import { useClassNames } from './owner-general-request-info.style'
 
 export const OwnerGeneralRequestInfo = ({
   requestProposals,
@@ -39,7 +39,7 @@ export const OwnerGeneralRequestInfo = ({
   onClickAbortBtn,
   onRecoverRequest,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [isRestoreModalOpen, setIsRestoreModalOpen] = useState(false)
 
@@ -66,7 +66,7 @@ export const OwnerGeneralRequestInfo = ({
                   blackText
                   name={request.request.sub.name}
                   userId={request.request.sub._id}
-                  customStyles={{fontSize: 18}}
+                  customStyles={{ fontSize: 18 }}
                   withAvatar={undefined}
                   maxNameWidth={undefined}
                   customClassNames={undefined}
@@ -160,7 +160,7 @@ export const OwnerGeneralRequestInfo = ({
                   <div className={classNames.pricesWrapper}>
                     {newProductPrice && (
                       <Typography
-                        className={cx(classNames.blockInfoCellText, {[classNames.newPrice]: newProductPrice})}
+                        className={cx(classNames.blockInfoCellText, { [classNames.newPrice]: newProductPrice })}
                       >
                         {'$ ' + toFixed(newProductPrice, 2)}
                       </Typography>
@@ -224,56 +224,56 @@ export const OwnerGeneralRequestInfo = ({
 
       <div className={classNames.middleBlockWrapper}>
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
             {t(TranslationKey.Total)}
           </Typography>
-          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
             {requestProposals?.length || 0}
           </Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
             {t(TranslationKey.Submitted)}
           </Typography>
-          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
             {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.CREATED).length || 0}
           </Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
             {t(TranslationKey['In the work'])}
           </Typography>
-          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
             {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED)
               .length || 0}
           </Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
             {t(TranslationKey['On refinement'])}
           </Typography>
-          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
             {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.TO_CORRECT).length || 0}
           </Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
             {t(TranslationKey['Waiting for checks'])}
           </Typography>
-          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
             {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.READY_TO_VERIFY).length || 0}
           </Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
             {t(TranslationKey.Accepted)}
           </Typography>
-          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
             {requestProposals?.filter(
               el =>
                 el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
@@ -284,10 +284,10 @@ export const OwnerGeneralRequestInfo = ({
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
             {t(TranslationKey.Rejected)}
           </Typography>
-          <Typography className={cx(classNames.standartText, {[classNames.standartTextGrey]: isDraft})}>
+          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
             {requestProposals?.filter(
               el =>
                 el.proposal.status === RequestProposalStatus.CANCELED_BY_CREATOR_OF_REQUEST ||

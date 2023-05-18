@@ -1,54 +1,54 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {useEffect, useRef, useState} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-import {toJS} from 'mobx'
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { toJS } from 'mobx'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {BoxStatus} from '@constants/statuses/box-status'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { BoxStatus } from '@constants/statuses/box-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomColumnMenuComponent} from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {BoxViewForm} from '@components/forms/box-view-form'
-import {EditBoxForm} from '@components/forms/edit-box-form'
-import {EditMultipleBoxesForm} from '@components/forms/edit-multiple-boxes-form'
-import {GroupingBoxesForm} from '@components/forms/grouping-boxes-form'
-import {RequestToSendBatchForm} from '@components/forms/request-to-send-batch-form'
-import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
-import {MainContent} from '@components/layout/main-content'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
-import {MergeBoxesModal} from '@components/modals/merge-boxes-modal'
-import {SetChipValueModal} from '@components/modals/set-chip-value-modal'
-import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
-import {SuccessInfoModal} from '@components/modals/success-info-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Button} from '@components/shared/buttons/button'
-import {CircularProgressWithLabel} from '@components/shared/circular-progress-with-label'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {Modal} from '@components/shared/modal'
-import {SearchInput} from '@components/shared/search-input'
-import {EditTaskPriorityModal} from '@components/warehouse/edit-task-priority-modal'
-import {RedistributeBox} from '@components/warehouse/reditstribute-box-modal'
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { BoxViewForm } from '@components/forms/box-view-form'
+import { EditBoxForm } from '@components/forms/edit-box-form'
+import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-form'
+import { GroupingBoxesForm } from '@components/forms/grouping-boxes-form'
+import { RequestToSendBatchForm } from '@components/forms/request-to-send-batch-form'
+import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
+import { MainContent } from '@components/layout/main-content'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { MergeBoxesModal } from '@components/modals/merge-boxes-modal'
+import { SetChipValueModal } from '@components/modals/set-chip-value-modal'
+import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
+import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
+import { RedistributeBox } from '@components/warehouse/reditstribute-box-modal'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {ClientInStockBoxesViewModel} from './client-in-stock-boxes-view.model'
-import {styles} from './client-in-stock-boxes-view.style'
+import { ClientInStockBoxesViewModel } from './client-in-stock-boxes-view.model'
+import { styles } from './client-in-stock-boxes-view.style'
 
 export const ClientInStockBoxesViewRaw = props => {
   const topHeaderBtnsWrapperRef = useRef()
   const boxesFiltersWrapperRef = useRef()
   const btnsWrapperRef = useRef()
-  const [viewModel] = useState(() => new ClientInStockBoxesViewModel({history: props.history}))
+  const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history: props.history }))
   const [heightSum, setHeightSum] = useState(0)
-  const {classes: classNames} = props
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -154,7 +154,7 @@ export const ClientInStockBoxesViewRaw = props => {
             <Button
               disabled={!viewModel.currentStorekeeper?._id}
               tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-              className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !viewModel.currentStorekeeper?._id})}
+              className={cx(classNames.button, { [classNames.selectedBoxesBtn]: !viewModel.currentStorekeeper?._id })}
               variant="text"
               onClick={viewModel.onClickStorekeeperBtn}
             >
@@ -193,9 +193,11 @@ export const ClientInStockBoxesViewRaw = props => {
 
           <Button
             disabled={viewModel.curDestination?._id === 'null'}
-            className={cx(classNames.button, {[classNames.selectedBoxesBtn]: viewModel.curDestination?._id === 'null'})}
+            className={cx(classNames.button, {
+              [classNames.selectedBoxesBtn]: viewModel.curDestination?._id === 'null',
+            })}
             variant="text"
-            onClick={() => viewModel.onClickDestinationBtn({_id: 'null'})}
+            onClick={() => viewModel.onClickDestinationBtn({ _id: 'null' })}
           >
             {t(TranslationKey.Undistributed)}
           </Button>
@@ -203,7 +205,7 @@ export const ClientInStockBoxesViewRaw = props => {
           <Button
             disabled={!viewModel.curDestination?._id}
             tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-            className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !viewModel.curDestination?._id})}
+            className={cx(classNames.button, { [classNames.selectedBoxesBtn]: !viewModel.curDestination?._id })}
             variant="text"
             onClick={viewModel.onClickDestinationBtn}
           >
@@ -221,9 +223,9 @@ export const ClientInStockBoxesViewRaw = props => {
           </Button>
         </div>
 
-        <div className={classNames.tasksWrapper} style={{height: `calc(100vh - ${heightSum + 170}px)`}}>
+        <div className={classNames.tasksWrapper} style={{ height: `calc(100vh - ${heightSum + 170}px)` }}>
           <MemoDataGrid
-            // disableVirtualization
+            disableVirtualization
             pagination
             checkboxSelection
             localeText={getLocalizationByLanguageTag()}
@@ -488,7 +490,7 @@ export const ClientInStockBoxesViewRaw = props => {
           curStorekeeperId={viewModel.changeItem?.storekeeper?._id}
           curTariffId={viewModel.changeItem?.logicsTariff?._id}
           onSubmit={(storekeeperId, tariffId) =>
-            viewModel.editTariff(viewModel.changeItem?._id, {logicsTariffId: tariffId, storekeeperId})
+            viewModel.editTariff(viewModel.changeItem?._id, { logicsTariffId: tariffId, storekeeperId })
           }
         />
       </Modal>

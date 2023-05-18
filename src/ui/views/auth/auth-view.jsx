@@ -1,26 +1,26 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {EntryLeftPanel} from '@components/auth/entry-left-panel'
-import {EntryRightPanel} from '@components/auth/entry-right-panel'
-import {AuthForm} from '@components/forms/auth-form'
+import { EntryLeftPanel } from '@components/auth/entry-left-panel'
+import { EntryRightPanel } from '@components/auth/entry-right-panel'
+import { AuthForm } from '@components/forms/auth-form'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {AuthViewModel} from './auth-view.model'
-import {styles} from './auth-view.style'
+import { AuthViewModel } from './auth-view.model'
+import { styles } from './auth-view.style'
 
 export const AuthViewRaw = props => {
-  const [viewModel] = useState(() => new AuthViewModel({history: props.history}))
-  const {classes: classNames} = props
+  const [viewModel] = useState(() => new AuthViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.onLoadPage()

@@ -1,1 +1,1 @@
-export {AdminInventoryView} from './admin-inventory-view'
+export { AdminInventoryView } from './admin-inventory-view'

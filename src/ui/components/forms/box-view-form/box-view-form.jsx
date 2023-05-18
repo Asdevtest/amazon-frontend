@@ -1,30 +1,30 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Checkbox, Divider, Grid, Link, Typography, Tooltip} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Checkbox, Divider, Grid, Link, Typography, Tooltip } from '@mui/material'
 
-import {React, useState} from 'react'
+import { React, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {inchesCoefficient, sizesType} from '@constants/configs/sizes-settings'
-import {UserRoleCodeMap} from '@constants/keys/user-roles'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BigImagesModal} from '@components/modals/big-images-modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
-import {Button} from '@components/shared/buttons/button'
-import {ToggleBtnGroup} from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import {ToggleBtn} from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
-import {CopyValue} from '@components/shared/copy-value/copy-value'
-import {CustomCarousel, PhotoCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {Field} from '@components/shared/field/field'
-import {Input} from '@components/shared/input'
-import {Modal} from '@components/shared/modal'
-import {UserLink} from '@components/user/user-link'
+import { BigImagesModal } from '@components/modals/big-images-modal'
+import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { Button } from '@components/shared/buttons/button'
+import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
+import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { CustomCarousel, PhotoCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { Field } from '@components/shared/field/field'
+import { Input } from '@components/shared/input'
+import { Modal } from '@components/shared/modal'
+import { UserLink } from '@components/user/user-link'
 
-import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
-import {checkIsBuyer, checkIsClient, checkIsStorekeeper} from '@utils/checks'
-import {formatShortDateTime} from '@utils/date-time'
+import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
+import { checkIsBuyer, checkIsClient, checkIsStorekeeper } from '@utils/checks'
+import { formatShortDateTime } from '@utils/date-time'
 import {
   getShortenStringIfLongerThanCount,
   checkAndMakeAbsoluteUrl,
@@ -33,9 +33,9 @@ import {
   toFixed,
   toFixedWithKg,
 } from '@utils/text'
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './box-view-form.style'
+import { useClassNames } from './box-view-form.style'
 
 export const BoxViewForm = observer(
   ({
@@ -49,9 +49,9 @@ export const BoxViewForm = observer(
     onClickHsCode,
     calcFinalWeightForBoxFunction,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
-    const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+    const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
     const [showPhotosModal, setShowPhotosModal] = useState(false)
 
     const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
@@ -68,24 +68,24 @@ export const BoxViewForm = observer(
       setSizeSetting(newAlignment)
     }
 
-    const [formFields, setFormFields] = useState({...box, tmpTrackNumberFile: []})
+    const [formFields, setFormFields] = useState({ ...box, tmpTrackNumberFile: [] })
 
     const onChangeField = fieldName => event => {
-      const newFormFields = {...formFields}
+      const newFormFields = { ...formFields }
       newFormFields[fieldName] = event.target.value
 
       setFormFields(newFormFields)
     }
 
     const onChangeHsCode = index => event => {
-      const newFormFields = {...formFields}
+      const newFormFields = { ...formFields }
       newFormFields.items[index].product.hsCode = event.target.value
 
       setFormFields(newFormFields)
     }
 
     const setTmpTrackNumberFile = () => value => {
-      onChangeField('tmpTrackNumberFile')({target: {value}})
+      onChangeField('tmpTrackNumberFile')({ target: { value } })
     }
 
     const finalWeightForBox = calcFinalWeightForBoxFunction
@@ -105,8 +105,8 @@ export const BoxViewForm = observer(
               <Input
                 disabled={!(isClient || isStorekeeper)}
                 className={classNames.itemInput}
-                classes={{input: classNames.input}}
-                inputProps={{maxLength: 25}}
+                classes={{ input: classNames.input }}
+                inputProps={{ maxLength: 25 }}
                 value={formFields.prepId}
                 onChange={onChangeField('prepId')}
               />
@@ -215,10 +215,9 @@ export const BoxViewForm = observer(
 
                     <div className={classNames.rightColumn}>
                       <Field
-                        inputClasses={classNames.countField}
                         labelClasses={classNames.label}
                         label={t(TranslationKey['HS code'])}
-                        inputProps={{maxLength: 255}}
+                        inputProps={{ maxLength: 255 }}
                         value={item.product.hsCode}
                         placeholder={t(TranslationKey['Not available'])}
                         inputComponent={
@@ -295,7 +294,6 @@ export const BoxViewForm = observer(
                       )}
                       <Field
                         disabled
-                        inputClasses={classNames.countField}
                         containerClasses={classNames.countContainer}
                         labelClasses={classNames.label}
                         label={t(TranslationKey.Quantity)}
@@ -305,7 +303,6 @@ export const BoxViewForm = observer(
 
                       <Field
                         disabled
-                        inputClasses={classNames.countField}
                         containerClasses={classNames.countContainer}
                         labelClasses={classNames.label}
                         label={t(TranslationKey['Order number/Item'])}
@@ -461,7 +458,7 @@ export const BoxViewForm = observer(
                   labelClasses={classNames.label}
                   containerClasses={classNames.containerField}
                   inputClasses={classNames.shortInputField}
-                  inputProps={{maxLength: 250}}
+                  inputProps={{ maxLength: 250 }}
                   label={t(TranslationKey['Reference id'])}
                   value={formFields.referenceId}
                   onChange={onChangeField('referenceId')}
@@ -472,7 +469,7 @@ export const BoxViewForm = observer(
                   labelClasses={classNames.label}
                   containerClasses={classNames.containerField}
                   inputClasses={classNames.shortInputField}
-                  inputProps={{maxLength: 250}}
+                  inputProps={{ maxLength: 250 }}
                   label={'FBA number'}
                   value={formFields.fbaNumber}
                   onChange={onChangeField('fbaNumber')}
@@ -483,7 +480,7 @@ export const BoxViewForm = observer(
                   labelClasses={classNames.label}
                   containerClasses={classNames.containerField}
                   inputClasses={classNames.inputField}
-                  inputProps={{maxLength: 250}}
+                  inputProps={{ maxLength: 250 }}
                   label={'UPS Track number'}
                   value={formFields.upsTrackNumber}
                   onChange={onChangeField('upsTrackNumber')}
@@ -498,7 +495,7 @@ export const BoxViewForm = observer(
                       labelClasses={classNames.label}
                       containerClasses={classNames.containerField}
                       inputClasses={classNames.inputField}
-                      inputProps={{maxLength: 250}}
+                      inputProps={{ maxLength: 250 }}
                       label={t(TranslationKey['Track number'])}
                       value={formFields.trackNumberText}
                       onChange={onChangeField('trackNumberText')}
@@ -617,7 +614,7 @@ export const BoxViewForm = observer(
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
+          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
       </div>
     )

@@ -1,18 +1,18 @@
 /* eslint-disable no-unused-vars */
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
-import {Divider, Typography, Button} from '@mui/material'
+import { Divider, Typography, Button } from '@mui/material'
 
 import React from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {CopyValue} from '@components/shared/copy-value/copy-value'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
 
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {t} from '@utils/translations'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './left-panel.style'
-import {ProductParameters} from './product-parameters'
+import { useClassNames } from './left-panel.style'
+import { ProductParameters } from './product-parameters'
 
 export const LeftPanel = ({
   order,
@@ -25,7 +25,7 @@ export const LeftPanel = ({
   onClickBarcode,
   onDeleteBarcode,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   return (
     <div className={classNames.orderContainer}>

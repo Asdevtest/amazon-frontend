@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   orderContainer: {
@@ -12,13 +12,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  orderPrice: {
-    fontSize: '24px',
-    fontWeight: 500,
-    lineHeight: '28px',
-    color: theme.palette.text.general,
-    whiteSpace: 'nowrap',
-  },
   product: {
     display: 'flex',
   },
@@ -29,36 +22,21 @@ export const useClassNames = makeStyles()(theme => ({
     objectFit: 'cover',
     objectPosition: 'center',
   },
-  parameterTableCell: {
-    borderBottom: 'none',
-    padding: '12px 16px',
-  },
+
   containerTitle: {
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',
     color: theme.palette.primary.main,
   },
-  label: {
-    fontSize: '12px',
-    fontWeight: 400,
-    lineHeight: '20px',
-    color: 'rgba(143, 152, 165, 1)',
-  },
+
   text: {
     color: theme.palette.text.second,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '16px',
   },
-  input: {
-    fontSize: '13px',
-    height: '29px',
-    marginTop: '24px',
-  },
-  radio: {
-    height: '20px',
-  },
+
   documentsButton: {
     border: '1px solid #e0e0e0',
     borderRadius: '4px',
@@ -89,15 +67,7 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     marginTop: '79px',
   },
-  copyImg: {
-    width: '20px',
-    height: '20px',
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.07)',
-    },
-  },
+
   copyValueWrapper: {
     display: 'flex',
     alignItems: 'center',

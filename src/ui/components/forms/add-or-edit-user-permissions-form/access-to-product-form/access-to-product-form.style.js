@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   accordion: {
@@ -36,10 +36,6 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     margin: '20px 0',
-  },
-
-  searchContainer: {
-    margin: 0,
   },
 
   searchInput: {

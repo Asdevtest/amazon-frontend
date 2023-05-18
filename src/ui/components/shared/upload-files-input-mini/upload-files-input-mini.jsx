@@ -1,4 +1,4 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import AddIcon from '@mui/icons-material/Add'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
@@ -11,23 +11,23 @@ import {
 } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 import ImageUploading from 'react-images-uploading-alex76457-version'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {Button} from '@components/shared/buttons/button'
-import {Field} from '@components/shared/field/field'
-import {Input} from '@components/shared/input'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field/field'
+import { Input } from '@components/shared/input'
 
 // import {checkAndMakeAbsoluteUrl} from '@utils/text'
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './upload-files-input-mini.style'
+import { useClassNames } from './upload-files-input-mini.style'
 
 const regExpUriChecking =
   /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)|\/|\?)*)?$/i
@@ -53,7 +53,7 @@ export const UploadFilesInputMini = observer(
     withComment,
     oneLineMaxHeight,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const [linkInput, setLinkInput] = useState('')
 
@@ -69,7 +69,7 @@ export const UploadFilesInputMini = observer(
 
       if (linkIsValid) {
         if (withComment) {
-          setImages([...images, {file: linkInput, comment: '', _id: `${Date.now()}`}])
+          setImages([...images, { file: linkInput, comment: '', _id: `${Date.now()}` }])
         } else {
           setImages([...images, linkInput])
         }
@@ -122,7 +122,7 @@ export const UploadFilesInputMini = observer(
             ...images,
             ...readyFilesArr
               .slice(0, filesAlowLength)
-              .map((el, i) => ({file: el, comment: '', _id: `${Date.now()}${i}`})),
+              .map((el, i) => ({ file: el, comment: '', _id: `${Date.now()}${i}` })),
           ])
         } else {
           setImages([...images, ...readyFilesArr.slice(0, filesAlowLength)])
@@ -150,7 +150,7 @@ export const UploadFilesInputMini = observer(
     )
 
     const onChangeComment = index => e => {
-      setImages(() => images.map((el, i) => (i === index ? {...el, comment: e.target.value} : el)))
+      setImages(() => images.map((el, i) => (i === index ? { ...el, comment: e.target.value } : el)))
     }
 
     const onClickImageRemove = index => {
@@ -176,7 +176,7 @@ export const UploadFilesInputMini = observer(
                     placeholder={t(TranslationKey.Link)}
                     // className={classNames.loadImageInput}
                     classes={{
-                      root: cx(classNames.loadImageInput, {[classNames.loadImageInputSmall]: requestWidth}),
+                      root: cx(classNames.loadImageInput, { [classNames.loadImageInputSmall]: requestWidth }),
                       input: classNames.inputColor,
                     }}
                     value={linkInput}
@@ -219,7 +219,7 @@ export const UploadFilesInputMini = observer(
               dragProps,
               errors,
             }) => (
-              <div className={cx(classNames.mainWrapper, {[classNames.oneLineMainWrapper]: oneLine})}>
+              <div className={cx(classNames.mainWrapper, { [classNames.oneLineMainWrapper]: oneLine })}>
                 {errors?.maxNumber && (
                   <Typography className={classNames.errorText}>{t(TranslationKey['You cannot load more!'])}</Typography>
                 )}
@@ -231,7 +231,7 @@ export const UploadFilesInputMini = observer(
                       [classNames.dragingOnDropBtnWithoutTitle]: withoutTitle,
                       [classNames.dragingOnDropBtn]: isDragging,
                     })}
-                    style={dragAndDropBtnHeight && {height: dragAndDropBtnHeight}}
+                    style={dragAndDropBtnHeight && { height: dragAndDropBtnHeight }}
                     onClick={onImageUpload}
                     {...dragProps}
                   >
@@ -267,8 +267,8 @@ export const UploadFilesInputMini = observer(
                 {showImages && (
                   <Grid
                     container
-                    className={cx(classNames.imageListWrapper, {[classNames.oneLineMaxHeight]: oneLineMaxHeight})}
-                    style={maxHeight && {maxHeight}}
+                    className={cx(classNames.imageListWrapper, { [classNames.oneLineMaxHeight]: oneLineMaxHeight })}
+                    style={maxHeight && { maxHeight }}
                     justifyContent="flex-start"
                     spacing={2}
                   >
@@ -276,7 +276,7 @@ export const UploadFilesInputMini = observer(
                       typeof image === 'string' ? (
                         <Grid key={index} item>
                           <div className={classNames.imageLinkListItem}>
-                            <Tooltip title={renderImageInfo(image, image)} classes={{popper: classNames.imgTooltip}}>
+                            <Tooltip title={renderImageInfo(image, image)} classes={{ popper: classNames.imgTooltip }}>
                               <Avatar className={classNames.image} src={image} alt={image} variant="square" />
                             </Tooltip>
 
@@ -287,7 +287,7 @@ export const UploadFilesInputMini = observer(
                             {withComment && (
                               <Input
                                 multiline
-                                inputProps={{maxLength: 64}}
+                                inputProps={{ maxLength: 64 }}
                                 startAdornment={
                                   <InputAdornment position="start">
                                     <Typography className={classNames.inputIndex}>{index + 1 + '.'}</Typography>
@@ -297,7 +297,7 @@ export const UploadFilesInputMini = observer(
                                 maxRows={3}
                                 variant="filled"
                                 className={classNames.imageObjInput}
-                                classes={{input: classNames.subImageObjInput}}
+                                classes={{ input: classNames.subImageObjInput }}
                                 value={images[index]?.comment}
                                 onChange={onChangeComment(index)}
                               />
@@ -323,7 +323,7 @@ export const UploadFilesInputMini = observer(
                           <div className={classNames.imageLinkListItem /* imageListItem */}>
                             <Tooltip
                               title={renderImageInfo(image?.data_url, image?.file.name)}
-                              classes={{popper: classNames.imgTooltip}}
+                              classes={{ popper: classNames.imgTooltip }}
                             >
                               <Avatar
                                 className={classNames.image}
@@ -338,7 +338,7 @@ export const UploadFilesInputMini = observer(
                             {withComment && (
                               <Input
                                 multiline
-                                inputProps={{maxLength: 64}}
+                                inputProps={{ maxLength: 64 }}
                                 startAdornment={
                                   <InputAdornment position="start">
                                     <Typography className={classNames.inputIndex}>{index + 1 + '.'}</Typography>
@@ -348,7 +348,7 @@ export const UploadFilesInputMini = observer(
                                 maxRows={3}
                                 variant="filled"
                                 className={classNames.imageObjInput}
-                                classes={{input: classNames.subImageObjInput}}
+                                classes={{ input: classNames.subImageObjInput }}
                                 value={images[index]?.comment}
                                 onChange={onChangeComment(index)}
                               />

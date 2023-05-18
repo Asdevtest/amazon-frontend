@@ -1,1 +1,1 @@
-export {ProductWrapper} from './shop-wrapper'
+export { ProductWrapper } from './shop-wrapper'

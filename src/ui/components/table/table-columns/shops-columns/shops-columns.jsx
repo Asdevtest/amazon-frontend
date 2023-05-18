@@ -1,4 +1,6 @@
-import {TranslationKey} from '@constants/translations/translation-key'
+import { useCallback, useMemo } from 'react'
+
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   EditOrRemoveIconBtnsCell,
@@ -8,7 +10,7 @@ import {
   ShortDateCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const shopsColumns = (handlers, firstRowId) => [
   {
@@ -17,7 +19,7 @@ export const shopsColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     minWidth: 150,
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     type: 'date',
   },
 
@@ -36,13 +38,17 @@ export const shopsColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Warehouse report'])} />,
 
     width: 249,
-    renderCell: params => (
-      <ShopsReportBtnsCell
-        value={params.value}
-        isFirstRow={firstRowId === params.row.id}
-        onClickSeeMore={() => handlers.onClickSeeStockReport(params.row)}
-      />
-    ),
+    renderCell: params => {
+      const onClickSeeStockReport = useCallback(() => handlers.onClickSeeStockReport(params.row), [])
+
+      return (
+        <ShopsReportBtnsCell
+          value={params.value}
+          isFirstRow={firstRowId === params.row.id}
+          onClickSeeMore={onClickSeeStockReport}
+        />
+      )
+    },
   },
 
   {
@@ -51,12 +57,11 @@ export const shopsColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Dashboard by goods/days'])} />,
 
     width: 247,
-    renderCell: params => (
-      <ShopsReportBtnsCell
-        value={params.value}
-        onClickSeeMore={() => handlers.onClickSeeGoodsDailyReport(params.row)}
-      />
-    ),
+    renderCell: params => {
+      const onClickSeeGoodsDailyReport = useCallback(() => handlers.onClickSeeGoodsDailyReport(params.row), [])
+
+      return <ShopsReportBtnsCell value={params.value} onClickSeeMore={onClickSeeGoodsDailyReport} />
+    },
   },
 
   {
@@ -65,15 +70,20 @@ export const shopsColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     width: 510,
-    renderCell: params => (
-      <EditOrRemoveIconBtnsCell
-        tooltipFirstButton={t(TranslationKey['Change store name or links to reports'])}
-        tooltipSecondButton={t(TranslationKey['Remove a store from your list'])}
-        handlers={handlers}
-        row={params.row}
-        isFirstRow={firstRowId === params.row.id}
-      />
-    ),
+    renderCell: params => {
+      const handlersMemo = useMemo(() => handlers, [])
+      const rowMemo = useMemo(() => params.row, [])
+
+      return (
+        <EditOrRemoveIconBtnsCell
+          tooltipFirstButton={t(TranslationKey['Change store name or links to reports'])}
+          tooltipSecondButton={t(TranslationKey['Remove a store from your list'])}
+          handlers={handlersMemo}
+          row={rowMemo}
+          isFirstRow={firstRowId === params.row.id}
+        />
+      )
+    },
 
     filterable: false,
     sortable: false,

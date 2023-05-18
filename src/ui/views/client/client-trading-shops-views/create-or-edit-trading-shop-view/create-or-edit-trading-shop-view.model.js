@@ -1,11 +1,11 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ShopSellModel} from '@models/shop-sell-model'
+import { ShopSellModel } from '@models/shop-sell-model'
 
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class CreateOrEditTradingShopViewModel {
   history = undefined
@@ -24,7 +24,7 @@ export class CreateOrEditTradingShopViewModel {
   progressValue = 0
   showProgress = false
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
 
@@ -33,7 +33,7 @@ export class CreateOrEditTradingShopViewModel {
       }
     })
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async onSubmitCreateShopSell(data, files) {
@@ -43,10 +43,10 @@ export class CreateOrEditTradingShopViewModel {
       })
 
       if (files.length) {
-        await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
       }
 
-      const dataWithFiles = {...data, files: this.uploadedFiles}
+      const dataWithFiles = { ...data, files: this.uploadedFiles }
 
       await ShopSellModel.createShopSell(dataWithFiles)
 
@@ -71,10 +71,10 @@ export class CreateOrEditTradingShopViewModel {
   async onSubmitEditRequest(data, files) {
     try {
       if (files.length) {
-        await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
       }
 
-      const dataWithFiles = {...data, files: [...data.files, ...this.uploadedFiles]}
+      const dataWithFiles = { ...data, files: [...data.files, ...this.uploadedFiles] }
 
       await ShopSellModel.editShopSell(this.requestToEdit._id, dataWithFiles)
 

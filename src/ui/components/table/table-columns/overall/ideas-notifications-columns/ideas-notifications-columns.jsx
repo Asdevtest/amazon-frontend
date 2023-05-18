@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useCallback } from 'react'
 
-import {colorByIdeaStatus, ideaStatusByCode} from '@constants/statuses/idea-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { colorByIdeaStatus, ideaStatusByCode } from '@constants/statuses/idea-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextHeaderCell,
@@ -13,7 +13,7 @@ import {
   ShortDateCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const ideasNotificationsViewColumns = handlers => [
   {
@@ -21,7 +21,7 @@ export const ideasNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 85,
     type: 'date',
   },
@@ -32,12 +32,11 @@ export const ideasNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 200,
-    renderCell: params => (
-      <NormalActionBtnCell
-        bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.onClickViewBtn(params?.row?.product?._id)}
-      />
-    ),
+    renderCell: params => {
+      const onClickViewBtn = useCallback(() => handlers.onClickViewBtn(params?.row?.product?._id), [])
+
+      return <NormalActionBtnCell bTnText={t(TranslationKey.View)} onClickOkBtn={onClickViewBtn} />
+    },
     filterable: false,
     sortable: false,
   },
@@ -47,7 +46,18 @@ export const ideasNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    renderCell: params => <ProductAsinCell product={params?.row?.originalData?.product} />,
+    renderCell: params => {
+      const product = params?.row?.originalData?.product
+
+      return (
+        <ProductAsinCell
+          image={product?.images?.slice()[0]}
+          amazonTitle={product?.amazonTitle}
+          asin={product?.asin}
+          skusByClient={product?.skusByClient?.slice()[0]}
+        />
+      )
+    },
     width: 300,
     // columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },

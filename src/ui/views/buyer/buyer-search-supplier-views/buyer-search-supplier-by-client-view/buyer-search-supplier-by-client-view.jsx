@@ -1,33 +1,33 @@
 /* eslint-disable no-unused-vars */
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component, useEffect, useState} from 'react'
+import React, { Component, useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { navBarActiveCategory } from '@constants/navigation/navbar-active-category'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
-import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Button} from '@components/shared/buttons/button'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { Appbar } from '@components/layout/appbar'
+import { Main } from '@components/layout/main'
+import { MainContent } from '@components/layout/main-content'
+import { Navbar } from '@components/layout/navbar'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {BuyerSearchSupplierByClientModel} from './buyer-search-supplier-by-client-view.model'
-import {styles} from './buyer-search-supplier-by-client-view.style'
+import { BuyerSearchSupplierByClientModel } from './buyer-search-supplier-by-client-view.model'
+import { styles } from './buyer-search-supplier-by-client-view.style'
 
 export const BuyerSearchSupplierByClientViewRaw = props => {
-  const [viewModel] = useState(() => new BuyerSearchSupplierByClientModel({history: props.history}))
-  const {classes: classNames} = props
+  const [viewModel] = useState(() => new BuyerSearchSupplierByClientModel({ history: props.history }))
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()

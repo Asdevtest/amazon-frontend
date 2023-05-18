@@ -1,1 +1,1 @@
-export {destinationsColumns} from './destinations-columns'
+export { destinationsColumns } from './destinations-columns'

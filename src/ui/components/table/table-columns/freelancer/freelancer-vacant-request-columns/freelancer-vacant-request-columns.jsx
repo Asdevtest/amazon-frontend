@@ -3,8 +3,8 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React from 'react'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ShortDateCell,
@@ -17,8 +17,8 @@ import {
   VacantRequestPriceCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
   {
@@ -42,7 +42,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
     width: 112,
-    renderCell: params => <UserMiniCell user={params.row.createdBy} />,
+    renderCell: params => <UserMiniCell userName={params.row.createdBy.name} userId={params.row.createdBy._id} />,
   },
 
   {
@@ -82,7 +82,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
 
-    renderCell: params => <AsinCell text={params.value} product={params.row} />,
+    renderCell: params => <AsinCell asin={params.row.asin} />,
     width: 128,
   },
 
@@ -90,7 +90,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
     field: 'timeoutAt',
     headerName: t(TranslationKey.Deadline),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 87,
     type: 'date',
   },
@@ -101,7 +101,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time till deadline'])} />,
 
     renderCell: params => (
-      <MultilineTextCell withLineBreaks text={timeToDeadlineInDaysAndHours({date: params.row.timeoutAt})} />
+      <MultilineTextCell withLineBreaks text={timeToDeadlineInDaysAndHours({ date: params.row.timeoutAt })} />
     ),
     width: 91,
   },
@@ -187,7 +187,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 97,
     type: 'date',
   },

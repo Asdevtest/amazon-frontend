@@ -1,32 +1,32 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Alert} from '@mui/material'
+import { Alert } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomColumnMenuComponent} from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {CheckPendingOrderForm} from '@components/forms/check-pending-order-form'
-import {MainContent} from '@components/layout/main-content'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {OrderProductModal} from '@components/modals/order-product-modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
-import {Button} from '@components/shared/buttons/button'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {Modal} from '@components/shared/modal'
-import {SearchInput} from '@components/shared/search-input'
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
+import { MainContent } from '@components/layout/main-content'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { OrderProductModal } from '@components/modals/order-product-modal'
+import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {ClientOrdersViewModel} from './client-orders-view.model'
-import {styles} from './client-orders-view.style'
+import { ClientOrdersViewModel } from './client-orders-view.model'
+import { styles } from './client-orders-view.style'
 
 export const ClientOrdersViewRaw = props => {
   const [viewModel] = useState(
@@ -36,7 +36,7 @@ export const ClientOrdersViewRaw = props => {
         location: props.location,
       }),
   )
-  const {classes: classNames} = props
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -76,7 +76,7 @@ export const ClientOrdersViewRaw = props => {
             onSubmit={viewModel.onSearchSubmit}
           />
 
-          <div className={cx({[classNames.invis]: viewModel.isPendingOrdering})} />
+          <div className={cx({ [classNames.invis]: viewModel.isPendingOrdering })} />
         </div>
         <div className={classNames.datagridWrapper}>
           <MemoDataGrid
@@ -109,7 +109,7 @@ export const ClientOrdersViewRaw = props => {
               ColumnMenu: DataGridCustomColumnMenuComponent,
             }}
             componentsProps={{
-              columnMenu: {orderStatusData: viewModel.orderStatusData},
+              columnMenu: { orderStatusData: viewModel.orderStatusData },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,

@@ -1,1 +1,1 @@
-export {RedistributeBox} from './reditstribute-box-modal'
+export { RedistributeBox } from './reditstribute-box-modal'

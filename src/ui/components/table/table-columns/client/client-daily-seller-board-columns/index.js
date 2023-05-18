@@ -1,1 +1,1 @@
-export {clientDailySellerBoardColumns} from './client-daily-seller-board-columns'
+export { clientDailySellerBoardColumns } from './client-daily-seller-board-columns'

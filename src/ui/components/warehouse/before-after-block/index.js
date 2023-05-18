@@ -1,1 +1,1 @@
-export {BeforeAfterBlock} from './before-after-block'
+export { BeforeAfterBlock } from './before-after-block'

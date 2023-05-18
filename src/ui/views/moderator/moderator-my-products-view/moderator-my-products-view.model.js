@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 // import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 // import {loadingStatuses} from '@constants/loading-statuses'
@@ -33,11 +33,11 @@ export class ModeratorMyProductsViewModel {
   // densityModel = 'compact'
   // columnsModel = buyerProductsViewColumns(this.rowHandlers)
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     // reaction(
     //   () => SettingsModel.languageTag,

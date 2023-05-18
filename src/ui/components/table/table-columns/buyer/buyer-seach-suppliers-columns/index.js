@@ -1,1 +1,1 @@
-export {buyerSearchSuppliersViewColumns} from './buyer-seach-suppliers-columns'
+export { buyerSearchSuppliersViewColumns } from './buyer-seach-suppliers-columns'

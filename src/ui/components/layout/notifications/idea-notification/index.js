@@ -1,1 +1,1 @@
-export {IdeaNotification} from './idea-notification'
+export { IdeaNotification } from './idea-notification'

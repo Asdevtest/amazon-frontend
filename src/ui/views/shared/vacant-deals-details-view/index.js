@@ -1,1 +1,1 @@
-export {VacantDealsDetailsView} from './vacant-deals-details-view'
+export { VacantDealsDetailsView } from './vacant-deals-details-view'

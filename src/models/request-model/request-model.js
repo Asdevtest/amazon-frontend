@@ -1,4 +1,4 @@
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class RequestModelStatic {
   createProductSearchRequest = async data => {
@@ -21,7 +21,7 @@ class RequestModelStatic {
   }
 
   removeProductSearchRequests = async id => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsSearchProductsGuidDelete(id, {body: {}})
+    const response = await restApiService.SearchRequestApi.apiV1RequestsSearchProductsGuidDelete(id, { body: {} })
     return response
   }
 
@@ -79,7 +79,7 @@ class RequestModelStatic {
 
   completeRequest = async (requestId, requestProposalIds) => {
     const response = await restApiService.SearchRequestApi.apiV1RequestsGuidCompletePost(requestId, {
-      body: {requestProposalIds},
+      body: { requestProposalIds },
     })
     return response
   }
@@ -120,7 +120,7 @@ class RequestModelStatic {
   }
 
   pickupRequestById = async (id, data) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidPickupPost(id, {body: data})
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidPickupPost(id, { body: data })
     return response
   }
 
@@ -130,7 +130,7 @@ class RequestModelStatic {
   }
 
   toPublishRequest = async (id, data) => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidToPublishPatch(id, {body: data})
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGuidToPublishPatch(id, { body: data })
     return response
   }
 
@@ -147,7 +147,7 @@ class RequestModelStatic {
   }
 
   editRequestsMediaMany = async data => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsMediaManyPatch({body: data})
+    const response = await restApiService.SearchRequestApi.apiV1RequestsMediaManyPatch({ body: data })
     return response
   }
 

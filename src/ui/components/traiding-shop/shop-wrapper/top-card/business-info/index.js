@@ -1,1 +1,1 @@
-export {BusinessInfo} from './business-info'
+export { BusinessInfo } from './business-info'

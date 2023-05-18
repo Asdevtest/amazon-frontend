@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -34,14 +34,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
   input: {
     display: 'flex',
-    // alignItems: 'center',
     width: 35,
-
     border: 'none',
-    // borderBottom: '1px solid #C4C4C4',
     margin: '0 !important',
     padding: '0 !important',
-
     '&:after': {
       position: 'absolute',
       bottom: 0,
@@ -52,15 +48,11 @@ export const useClassNames = makeStyles()(theme => ({
       width: 20,
       background: theme.palette.text.second,
     },
-
     borderRadius: 0,
-
     '&:focus': {
       width: 35,
     },
-
     '& >::-webkit-outer-spin-button,::-webkit-inner-spin-button': {
-      // '-webkit-appearance': 'none',
       WebkitAppearance: 'none',
       margin: 0,
       padding: 0,

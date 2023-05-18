@@ -1,1 +1,1 @@
-export {exchangeHighPriceColumns} from './exchange-high-price-columns'
+export { exchangeHighPriceColumns } from './exchange-high-price-columns'

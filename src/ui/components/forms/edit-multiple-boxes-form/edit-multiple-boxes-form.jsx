@@ -1,36 +1,34 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DoneIcon from '@mui/icons-material/Done'
-import {Checkbox, Chip, IconButton, Typography} from '@mui/material'
+import { Checkbox, Chip, IconButton, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {zipCodeGroups} from '@constants/configs/zip-code-groups'
-import {operationTypes} from '@constants/keys/operation-types'
-import {UserRoleCodeMap} from '@constants/keys/user-roles'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
-import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
-import {Button} from '@components/shared/buttons/button'
-import {CopyValue} from '@components/shared/copy-value/copy-value'
-import {Field} from '@components/shared/field'
-import {Modal} from '@components/shared/modal'
-import {SearchInput} from '@components/shared/search-input'
-import {WithSearchSelect} from '@components/shared/selects/with-search-select'
+import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
+import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
+import { Button } from '@components/shared/buttons/button'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { Field } from '@components/shared/field'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-import {checkIsStorekeeper} from '@utils/checks'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {t} from '@utils/translations'
+import { checkIsStorekeeper } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './edit-multiple-boxes-form.style'
+import { useClassNames } from './edit-multiple-boxes-form.style'
 
 const Box = ({
   userInfo,
@@ -44,7 +42,7 @@ const Box = ({
   destinationsFavourites,
   setDestinationsFavouritesItem,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
@@ -72,10 +70,10 @@ const Box = ({
 
     const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
 
-    const newFormFields = {...targetBox}
+    const newFormFields = { ...targetBox }
 
     newFormFields.items = [
-      ...targetBox.items.map(el => (el.product._id === product.product._id ? {...el, tmpBarCode: value} : el)),
+      ...targetBox.items.map(el => (el.product._id === product.product._id ? { ...el, tmpBarCode: value } : el)),
     ]
 
     const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === box._id ? newFormFields : newBox))
@@ -88,13 +86,13 @@ const Box = ({
   const onChangeBarcodeGlued = (product, field) => value => {
     const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
 
-    const newFormFields = {...targetBox}
+    const newFormFields = { ...targetBox }
 
     if (field === 'isBarCodeAttachedByTheStorekeeper' && value) {
       newFormFields.items = [
         ...targetBox.items.map(el =>
           el.product._id === product.product._id
-            ? {...el, [field]: value, isBarCodeAlreadyAttachedByTheSupplier: false}
+            ? { ...el, [field]: value, isBarCodeAlreadyAttachedByTheSupplier: false }
             : el,
         ),
       ]
@@ -102,13 +100,13 @@ const Box = ({
       newFormFields.items = [
         ...targetBox.items.map(el =>
           el.product._id === product.product._id
-            ? {...el, [field]: value, isBarCodeAttachedByTheStorekeeper: false}
+            ? { ...el, [field]: value, isBarCodeAttachedByTheStorekeeper: false }
             : el,
         ),
       ]
     } else {
       newFormFields.items = [
-        ...targetBox.items.map(el => (el.product._id === product.product._id ? {...el, [field]: value} : el)),
+        ...targetBox.items.map(el => (el.product._id === product.product._id ? { ...el, [field]: value } : el)),
       ]
     }
 
@@ -118,7 +116,7 @@ const Box = ({
   }
 
   const setShippingLabel = () => value => {
-    onChangeField({target: {value}}, 'tmpShippingLabel', box._id)
+    onChangeField({ target: { value } }, 'tmpShippingLabel', box._id)
   }
 
   const onClickShippingLabel = () => {
@@ -126,14 +124,14 @@ const Box = ({
   }
 
   const onDeleteShippingLabel = () => {
-    onChangeField({target: {value: ''}}, 'shippingLabel', box._id)
+    onChangeField({ target: { value: '' } }, 'shippingLabel', box._id)
   }
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
   const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-    onChangeField({target: {value: storekeeperId}}, 'storekeeperId', box._id)
-    onChangeField({target: {value: tariffId}}, 'logicsTariffId', box._id)
+    onChangeField({ target: { value: storekeeperId } }, 'storekeeperId', box._id)
+    onChangeField({ target: { value: tariffId } }, 'logicsTariffId', box._id)
 
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
@@ -197,7 +195,7 @@ const Box = ({
                             deleteIcon: classNames.barcodeChipIcon,
                             label: classNames.barcodeChiplabel,
                           }}
-                          className={cx({[classNames.barcodeChipExists]: order.barCode})}
+                          className={cx({ [classNames.barcodeChipExists]: order.barCode })}
                           size="small"
                           label={
                             order.tmpBarCode?.length
@@ -303,8 +301,8 @@ const Box = ({
                     }
                     data={destinations.filter(el => el.storekeeper?._id !== box?.storekeeperId)}
                     searchFields={['name']}
-                    onClickNotChosen={() => onChangeField({target: {value: null}}, 'destinationId', box._id)}
-                    onClickSelect={el => onChangeField({target: {value: el._id}}, 'destinationId', box._id)}
+                    onClickNotChosen={() => onChangeField({ target: { value: null } }, 'destinationId', box._id)}
+                    onClickSelect={el => onChangeField({ target: { value: el._id } }, 'destinationId', box._id)}
                     onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                   />
                 }
@@ -342,7 +340,7 @@ const Box = ({
               />
 
               <Field
-                inputProps={{maxLength: 255}}
+                inputProps={{ maxLength: 255 }}
                 tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
                 containerClasses={classNames.field}
                 labelClasses={classNames.label}
@@ -370,7 +368,7 @@ const Box = ({
                       deleteIcon: classNames.barcodeChipIcon,
                       label: classNames.barcodeChiplabel,
                     }}
-                    className={cx({[classNames.barcodeChipExists]: box.shippingLabel})}
+                    className={cx({ [classNames.barcodeChipExists]: box.shippingLabel })}
                     size="small"
                     label={
                       box.tmpShippingLabel?.length
@@ -406,7 +404,7 @@ const Box = ({
           ) : null}
 
           <div className={classNames.bottomBlockWrapper}>
-            <IconButton classes={{root: classNames.icon}} onClick={() => onRemoveBox(box._id)}>
+            <IconButton classes={{ root: classNames.icon }} onClick={() => onRemoveBox(box._id)}>
               <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
             </IconButton>
             <div className={classNames.incomingBtnWrapper}>
@@ -474,7 +472,7 @@ const NewBoxes = ({
   destinationsFavourites,
   setDestinationsFavouritesItem,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -511,7 +509,7 @@ const NewBoxes = ({
       </div>
 
       {visibleBoxes.map((box, boxIndex) => (
-        <div key={boxIndex} className={cx({[classNames.marginBox]: newBoxes.length > 1})}>
+        <div key={boxIndex} className={cx({ [classNames.marginBox]: newBoxes.length > 1 })}>
           <Box
             isNewBox
             userInfo={userInfo}
@@ -545,7 +543,7 @@ export const EditMultipleBoxesForm = observer(
     destinationsFavourites,
     setDestinationsFavouritesItem,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const [sharedFields, setSharedFields] = useState({
       destinationId: null,
@@ -563,7 +561,7 @@ export const EditMultipleBoxesForm = observer(
     })
 
     const onChangeSharedFields = (event, field) => {
-      const newFormFields = {...sharedFields}
+      const newFormFields = { ...sharedFields }
 
       if (['isShippingLabelAttachedByStorekeeper'].includes(field)) {
         newFormFields[field] = event.target.checked
@@ -593,20 +591,20 @@ export const EditMultipleBoxesForm = observer(
     }
 
     const onClickSaveBarcode = product => value => {
-      onChangeSharedFields({target: {value}}, 'tmpBarCode')
+      onChangeSharedFields({ target: { value } }, 'tmpBarCode')
 
       setShowSetBarcodeModal(!showSetBarcodeModal)
     }
 
     const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-      onChangeSharedFields({target: {value: storekeeperId}}, 'storekeeperId')
-      onChangeSharedFields({target: {value: tariffId}}, 'logicsTariffId')
+      onChangeSharedFields({ target: { value: storekeeperId } }, 'storekeeperId')
+      onChangeSharedFields({ target: { value: tariffId } }, 'logicsTariffId')
 
       setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
     }
 
     const setShippingLabel = () => value => {
-      onChangeSharedFields({target: {value}}, 'tmpShippingLabel')
+      onChangeSharedFields({ target: { value } }, 'tmpShippingLabel')
     }
 
     const onClickShippingLabel = () => {
@@ -614,7 +612,7 @@ export const EditMultipleBoxesForm = observer(
     }
 
     const onDeleteShippingLabel = () => {
-      onChangeSharedFields({target: {value: ''}}, 'shippingLabel')
+      onChangeSharedFields({ target: { value: '' } }, 'shippingLabel')
     }
 
     const [newBoxes, setNewBoxes] = useState(
@@ -625,7 +623,7 @@ export const EditMultipleBoxesForm = observer(
         logicsTariffId: el.logicsTariff?._id || null,
 
         tmpShippingLabel: [],
-        items: el?.items ? [...el.items.map(el => ({...el, changeBarCodInInventory: false, tmpBarCode: []}))] : [],
+        items: el?.items ? [...el.items.map(el => ({ ...el, changeBarCodInInventory: false, tmpBarCode: [] }))] : [],
       })),
     )
 
@@ -717,9 +715,9 @@ export const EditMultipleBoxesForm = observer(
         )
       }
 
-      setApplyBtnsClicked({...applyBtnsClicked, [field]: true})
+      setApplyBtnsClicked({ ...applyBtnsClicked, [field]: true })
 
-      setTimeout(() => setApplyBtnsClicked({...applyBtnsClicked, [field]: false}), 1000)
+      setTimeout(() => setApplyBtnsClicked({ ...applyBtnsClicked, [field]: false }), 1000)
 
       // if (field === 'destinationId') {
       //   updatedNewBoxes = newBoxes.map(newBox => ({
@@ -807,8 +805,8 @@ export const EditMultipleBoxesForm = observer(
                       }
                       data={destinations.filter(el => el.storekeeper?._id !== sharedFields.storekeeperId)}
                       searchFields={['name']}
-                      onClickNotChosen={() => onChangeSharedFields({target: {value: null}}, 'destinationId')}
-                      onClickSelect={el => onChangeSharedFields({target: {value: el._id}}, 'destinationId')}
+                      onClickNotChosen={() => onChangeSharedFields({ target: { value: null } }, 'destinationId')}
+                      onClickSelect={el => onChangeSharedFields({ target: { value: el._id } }, 'destinationId')}
                       onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                     />
                   }
@@ -870,7 +868,7 @@ export const EditMultipleBoxesForm = observer(
 
               <div>
                 <Field
-                  inputProps={{maxLength: 255}}
+                  inputProps={{ maxLength: 255 }}
                   tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
                   containerClasses={classNames.field}
                   labelClasses={classNames.label}
@@ -905,7 +903,7 @@ export const EditMultipleBoxesForm = observer(
                         deleteIcon: classNames.barcodeChipIcon,
                         label: classNames.barcodeChiplabel,
                       }}
-                      className={cx({[classNames.barcodeChipExists]: sharedFields.shippingLabel})}
+                      className={cx({ [classNames.barcodeChipExists]: sharedFields.shippingLabel })}
                       size="small"
                       label={
                         sharedFields.tmpShippingLabel?.length
@@ -944,7 +942,7 @@ export const EditMultipleBoxesForm = observer(
                           deleteIcon: classNames.barcodeChipIcon,
                           label: classNames.barcodeChiplabel,
                         }}
-                        className={cx({[classNames.barcodeChipExists]: sharedFields.barCode})}
+                        className={cx({ [classNames.barcodeChipExists]: sharedFields.barCode })}
                         size="small"
                         label={
                           sharedFields.tmpBarCode?.length

@@ -1,1 +1,1 @@
-export {CopyValue} from './copy-value'
+export { CopyValue } from './copy-value'

@@ -1,1 +1,1 @@
-export {BreadCrumbsLine} from './bread-crumbs-line'
+export { BreadCrumbsLine } from './bread-crumbs-line'

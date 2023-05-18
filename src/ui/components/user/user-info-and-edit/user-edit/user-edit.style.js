@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(() => ({
   mainWrapper: {
@@ -7,10 +7,5 @@ export const useClassNames = makeStyles()(() => ({
     width: '100%',
     flexDirection: 'column',
     minHeight: '85vh',
-  },
-  placeAddBtnWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'flex-start',
   },
 }))

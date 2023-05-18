@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {AnnouncementsModel} from '@models/announcements-model'
-import {ChatModel} from '@models/chat-model'
-import {RequestModel} from '@models/request-model'
-import {RequestProposalModel} from '@models/request-proposal'
+import { AnnouncementsModel } from '@models/announcements-model'
+import { ChatModel } from '@models/chat-model'
+import { RequestModel } from '@models/request-model'
+import { RequestProposalModel } from '@models/request-proposal'
 
 export class ServicesDetailCustomViewModel {
   history = undefined
@@ -31,17 +31,17 @@ export class ServicesDetailCustomViewModel {
     title: '',
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
 
       if (location.state) {
-        console.log(location.state)
+        // console.log(location.state)
         this.requestId = location.state.requestId
         this.announcementId = location.state.announcementId
       }
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {

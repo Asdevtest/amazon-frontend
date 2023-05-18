@@ -1,30 +1,30 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import CircleIcon from '@mui/icons-material/Circle'
-import {Avatar, Checkbox, Link, List, ListItem, ListItemText, Typography, Rating} from '@mui/material'
+import { Avatar, Checkbox, Link, List, ListItem, ListItemText, Typography, Rating } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
-import {CircularProgressWithLabel} from '@components/shared/circular-progress-with-label'
-import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {CustomTextEditor} from '@components/shared/custom-text-editor'
-import {Field} from '@components/shared/field'
-import {SetDuration} from '@components/shared/set-duration/set-duration'
-import {UploadFilesInputMini} from '@components/shared/upload-files-input-mini'
-import {UserLink} from '@components/user/user-link'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { CustomTextEditor } from '@components/shared/custom-text-editor'
+import { Field } from '@components/shared/field'
+import { SetDuration } from '@components/shared/set-duration/set-duration'
+import { UploadFilesInputMini } from '@components/shared/upload-files-input-mini'
+import { UserLink } from '@components/user/user-link'
 
-import {calcNumberMinusPercent} from '@utils/calculation'
-import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
-import {formatNormDateTime} from '@utils/date-time'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { calcNumberMinusPercent } from '@utils/calculation'
+import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
+import { formatNormDateTime } from '@utils/date-time'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './create-or-edit-proposal-content.style'
+import { useClassNames } from './create-or-edit-proposal-content.style'
 
 export const CreateOrEditProposalContent = ({
   onCreateSubmit,
@@ -35,7 +35,7 @@ export const CreateOrEditProposalContent = ({
   proposalToEdit,
   onClickBackBtn,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [images, setImages] = useState(
     proposalToEdit?.linksToMediaFiles.length ? proposalToEdit?.linksToMediaFiles : [],
@@ -57,7 +57,7 @@ export const CreateOrEditProposalContent = ({
   const [checked, setChecked] = useState(false)
 
   const onChangeField = fieldName => event => {
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
     if (['execution_time'].includes(fieldName)) {
       newFormFields[fieldName] = Number(event) || ''
     } else if (
@@ -99,21 +99,21 @@ export const CreateOrEditProposalContent = ({
 
         <List>
           <ListItem className={classNames.adviceListItem}>
-            <CircleIcon color="primary" classes={{root: classNames.listItemDot}} />
+            <CircleIcon color="primary" classes={{ root: classNames.listItemDot }} />
 
             <ListItemText className={classNames.adviceListItemText}>
               {t(TranslationKey['Specify exactly how you are going to perform this task. Describe the key points.'])}
             </ListItemText>
           </ListItem>
           <ListItem className={classNames.adviceListItem}>
-            <CircleIcon color="primary" classes={{root: classNames.listItemDot}} />
+            <CircleIcon color="primary" classes={{ root: classNames.listItemDot }} />
 
             <ListItemText className={classNames.adviceListItemText}>
               {t(TranslationKey['Compose unique feedback that shows your competence and interest in the project.'])}
             </ListItemText>
           </ListItem>
           <ListItem className={classNames.adviceListItem}>
-            <CircleIcon color="primary" classes={{root: classNames.listItemDot}} />
+            <CircleIcon color="primary" classes={{ root: classNames.listItemDot }} />
 
             <ListItemText className={classNames.adviceListItemText}>
               {t(
@@ -209,7 +209,7 @@ export const CreateOrEditProposalContent = ({
                   <div className={classNames.pricesWrapper}>
                     {newProductPrice && (
                       <Typography
-                        className={cx(classNames.blockInfoCellText, {[classNames.newPrice]: newProductPrice})}
+                        className={cx(classNames.blockInfoCellText, { [classNames.newPrice]: newProductPrice })}
                       >
                         {'$ ' + toFixed(newProductPrice, 2)}
                       </Typography>
@@ -264,7 +264,7 @@ export const CreateOrEditProposalContent = ({
               <Field
                 className={classNames.nameField}
                 labelClasses={classNames.spanLabel}
-                inputProps={{maxLength: 100}}
+                inputProps={{ maxLength: 100 }}
                 label={t(TranslationKey['Proposal Name*'])}
                 value={formFields.title}
                 onChange={onChangeField('title')}
@@ -280,16 +280,16 @@ export const CreateOrEditProposalContent = ({
                 className={classNames.descriptionField}
                 containerClasses={classNames.conrainer}
                 labelClasses={classNames.spanLabel}
-                inputProps={{maxLength: 2100}}
+                inputProps={{ maxLength: 2100 }}
                 minRows={9}
                 maxRows={9}
                 label={t(TranslationKey['Describe your proposal'])}
                 value={formFields.comment}
                 onChange={onChangeField('comment')}
               />
-              <span className={cx(classNames.standartText, {[classNames.error]: formFields.comment.length > 2000})}>{`${
-                formFields.comment.length
-              } ${t(TranslationKey.of)} 2000 ${t(TranslationKey.characters)}`}</span>
+              <span
+                className={cx(classNames.standartText, { [classNames.error]: formFields.comment.length > 2000 })}
+              >{`${formFields.comment.length} ${t(TranslationKey.of)} 2000 ${t(TranslationKey.characters)}`}</span>
             </div>
 
             <div className={classNames.imageFileInputWrapper}>
@@ -315,7 +315,7 @@ export const CreateOrEditProposalContent = ({
             <Field
               disabled={!checked}
               label={t(TranslationKey['Enter the offer price'])}
-              inputProps={{maxLength: 10}}
+              inputProps={{ maxLength: 10 }}
               value={formFields.price}
               onChange={onChangeField('price')}
             />

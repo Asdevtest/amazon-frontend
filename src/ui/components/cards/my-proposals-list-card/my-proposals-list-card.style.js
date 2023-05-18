@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
@@ -57,17 +57,6 @@ export const useClassNames = makeStyles()(theme => ({
     WebkitBoxOrient: 'vertical',
   },
 
-  cardDescription: {
-    fontSize: '16px',
-    lineHeight: '19px',
-    fontWeight: '400',
-    maxHeight: 90,
-    overflow: 'auto',
-    minHeight: 100,
-
-    maxWidth: '420px',
-  },
-
   cardSubTitle: {
     color: theme.palette.text.second,
     fontWeight: 400,
@@ -117,10 +106,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '40%',
   },
 
-  userRating: {
-    marginLeft: '100px',
-  },
-
   cardImg: {
     width: 38,
     height: 38,
@@ -129,74 +114,10 @@ export const useClassNames = makeStyles()(theme => ({
     marginRight: 10,
   },
 
-  actionButton: {
-    width: '242px',
-    height: '52px',
-  },
-
-  cardPrice: {
-    fontSize: '18px',
-    lineHeight: '21px',
-    color: theme.palette.primary.main,
-  },
-
-  statusText: {
-    fontSize: '18px',
-    lineHeight: '21px',
-    color: '#00B746',
-  },
-
   rightBlockSubWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%',
-  },
-
-  rightItemSubWrapper: {
-    display: 'flex',
-  },
-
-  timeWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  timeCount: {
-    marginLeft: '20px',
-    fontWeight: '600',
-    fontSize: '18px',
-    lineHeight: '140%',
-    color: theme.palette.text.general,
-  },
-
-  btnsWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-
-  price: {
-    marginLeft: '20px',
-    color: theme.palette.text.general,
-    fontWeight: '600',
-    fontSize: '18px',
-    lineHeight: '140%',
-  },
-
-  updatedAtWrapper: {
-    alignSelf: 'flex-end',
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: '20px',
-  },
-
-  updatedAtText: {
-    marginRight: '5px',
-    fontSize: '14px',
-    lineHeight: '16px',
-    fontWeight: '400',
-
-    color: theme.palette.text.second,
   },
 
   proposalFooter: {
@@ -205,43 +126,6 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 15,
 
     justifyContent: 'flex-end',
-  },
-
-  mainContainer: {
-    width: '100%',
-  },
-
-  window: {
-    width: '100%',
-    overflow: 'hidden',
-  },
-
-  allPages: {
-    display: 'flex',
-
-    transition: 'translate',
-    transitionProperty: 'transform',
-    transitionDuration: '300ms',
-    transitionTimingFunction: 'ease-in-out',
-  },
-
-  buttonWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  carouselBtn: {
-    backgroundColor: 'inherit',
-  },
-  headerCarouselWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-
-  proposalCount: {
-    fontWeight: '600',
-    fontSize: '18px',
-    lineHeight: '140%',
   },
 
   circleIndicator: {
@@ -255,12 +139,6 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
 
     gap: 10,
-  },
-
-  timeAndPriceWrapper: {
-    display: 'flex',
-    width: '540px',
-    justifyContent: 'space-between',
   },
 
   editAndOpenButtonWrapper: {
@@ -296,58 +174,8 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
     marginRight: '20px',
   },
-
-  conditionsInput: {
-    height: 'auto',
-
-    width: '100%',
-    border: 'none',
-    color: theme.palette.text.general,
-  },
-
-  conditionsField: {
-    height: 'auto',
-    overflow: 'auto',
-  },
   divider: {
     height: 107,
-  },
-
-  cardTitleBlockSubWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-
-  accentText: {
-    fontSize: 14,
-    fontWeight: 600,
-    color: theme.palette.text.general,
-    whiteSpace: 'nowrap',
-  },
-
-  fieldLabel: {
-    fontSize: '14px',
-    lineHeight: '16px',
-    fontWeight: '400',
-    color: theme.palette.text.second,
-    whiteSpace: 'nowrap',
-  },
-
-  rightLieldLabel: {
-    textAlign: 'right',
-    justifySelf: 'end',
-    margin: '0 0 12px auto !important',
-  },
-
-  fieldContainer: {
-    minHeight: 55,
-    marginBottom: '25px !important',
-
-    width: 'min-content',
-
-    '&:last-child': {
-      marginBottom: '0px !important',
-    },
   },
 
   customUserLink: {
@@ -377,9 +205,6 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
 
     color: theme.palette.text.second,
-  },
-  darkBlue: {
-    color: theme.palette.primary.main,
   },
   blockInfoCellText: {
     fontWeight: 600,

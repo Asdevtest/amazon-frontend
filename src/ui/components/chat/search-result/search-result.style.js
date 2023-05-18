@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   searchResultWrapper: {
@@ -6,11 +6,6 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     gap: 5,
     flexWrap: 'wrap',
-  },
-
-  searchContainer: {
-    width: 'auto',
-    margin: 0,
   },
 
   searchResult: {

@@ -1,34 +1,34 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {BoxViewForm} from '@components/forms/box-view-form'
-import {MainContent} from '@components/layout/main-content'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Button} from '@components/shared/buttons/button'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {Modal} from '@components/shared/modal'
-import {SearchInput} from '@components/shared/search-input'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { BoxViewForm } from '@components/forms/box-view-form'
+import { MainContent } from '@components/layout/main-content'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {ClientReadyBoxesViewModel} from './client-ready-boxes-view.model'
-import {styles} from './client-ready-boxes-view.style'
+import { ClientReadyBoxesViewModel } from './client-ready-boxes-view.model'
+import { styles } from './client-ready-boxes-view.style'
 
 export const ClientReadyBoxesViewRaw = props => {
-  const [viewModel] = useState(() => new ClientReadyBoxesViewModel({history: props.history}))
-  const {classes: classNames} = props
+  const [viewModel] = useState(() => new ClientReadyBoxesViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -57,7 +57,7 @@ export const ClientReadyBoxesViewRaw = props => {
 
           <Button
             disabled={!viewModel.currentStorekeeper?._id}
-            className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !viewModel.currentStorekeeper?._id})}
+            className={cx(classNames.button, { [classNames.selectedBoxesBtn]: !viewModel.currentStorekeeper?._id })}
             variant="text"
             color="primary"
             onClick={viewModel.onClickStorekeeperBtn}
@@ -89,7 +89,7 @@ export const ClientReadyBoxesViewRaw = props => {
           <Button
             disabled={!viewModel.curDestination?._id}
             tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-            className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !viewModel.curDestination?._id})}
+            className={cx(classNames.button, { [classNames.selectedBoxesBtn]: !viewModel.curDestination?._id })}
             variant="text"
             onClick={viewModel.onClickDestinationBtn}
           >

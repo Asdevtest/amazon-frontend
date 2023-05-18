@@ -1,1 +1,1 @@
-export {AddOrEditShopForm} from './add-or-edit-shop-form'
+export { AddOrEditShopForm } from './add-or-edit-shop-form'

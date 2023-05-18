@@ -1,10 +1,6 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  commentsWrapper: {
-    display: 'flex',
-    gap: '10px',
-  },
   form: {
     display: 'flex',
     flexDirection: 'column',
@@ -22,13 +18,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
     color: theme.palette.text.general,
   },
-  subTitle: {
-    color: theme.palette.text.general,
-    fontSize: '16px',
-    fontWeight: '600',
-    lineHeight: '20px',
-    marginBottom: '12px',
-  },
 
   imgBox: {
     width: '50px',
@@ -42,12 +31,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '250px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-  },
-
-  shippinLabel: {
-    whiteSpace: 'nowrap',
-    width: '250px',
-    overflowX: 'auto',
   },
 
   imgBlock: {
@@ -87,12 +70,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   amount: {
     marginLeft: '5px',
-  },
-
-  infoWrapper: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    gap: '10px',
   },
 
   closeButton: {

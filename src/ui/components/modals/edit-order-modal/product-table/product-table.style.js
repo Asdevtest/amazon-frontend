@@ -1,4 +1,5 @@
-import {makeStyles} from 'tss-react/mui'
+/* eslint-disable no-unused-vars */
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   tableContainer: {
@@ -31,39 +32,11 @@ export const useClassNames = makeStyles()(theme => ({
       border: '1px solid #e0e0e0',
     },
   },
-  orderChip: {
-    backgroundColor: theme.palette.primary.main,
-    fontSize: '13px',
-    borderRadius: '4px',
-  },
-  orderChipHover: {
-    '&:hover, &:focus': {
-      backgroundColor: theme.palette.primary.main,
-    },
-  },
 
   tableCell: {
     textAlign: 'center',
   },
-  input: {
-    width: '80px',
-  },
-  selected: {
-    backgroundColor: 'rgba(0, 123, 255, 1)',
-    '&:hover, &:focus': {
-      backgroundColor: '#1269ec',
-    },
-  },
-  checkboxWithLabelWrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  suplierLinkCell: {
-    maxWidth: '400px',
-    overflowX: 'auto',
-  },
+
   amazonTitle: {
     display: '-webkit-box',
     WebkitLineClamp: 3,
@@ -86,7 +59,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   commentInput: {
     fontSize: '14px',
-    // marginTop: '2px',
     width: '100%',
     height: 40,
     padding: 0,

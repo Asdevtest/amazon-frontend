@@ -1,1 +1,1 @@
-export {FeedbackCard} from './feedback-card'
+export { FeedbackCard } from './feedback-card'

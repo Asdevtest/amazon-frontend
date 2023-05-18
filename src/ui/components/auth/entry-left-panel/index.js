@@ -1,1 +1,1 @@
-export {EntryLeftPanel} from './entry-left-panel'
+export { EntryLeftPanel } from './entry-left-panel'

@@ -1,34 +1,34 @@
 import InboxIcon from '@mui/icons-material/Inbox'
-import {Accordion, AccordionDetails, AccordionSummary, Alert, Paper, Typography} from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Alert, Paper, Typography } from '@mui/material'
 
-import React, {useEffect, useRef, useState} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {OwnerRequestProposalsCard} from '@components/cards/owner-request-proposals-card'
-import {MultipleChats} from '@components/chat/multiple-chats'
-import {RequestDesignerResultClientForm} from '@components/forms/request-designer-result-client-form'
-import {RequestProposalAcceptOrRejectResultForm} from '@components/forms/request-proposal-accept-or-reject-result-form/request-proposal-accept-or-reject-result-form'
-import {RequestProposalResultToCorrectForm} from '@components/forms/request-proposal-result-to-correct-form'
-import {ReviewsForm} from '@components/forms/reviews-form'
-import {MainContent} from '@components/layout/main-content'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comment-modal'
-import {OwnerGeneralRequestInfo} from '@components/requests-and-request-proposals/owner-general-request-info'
-import {DealsOfRequest} from '@components/requests-and-request-proposals/request-proposals/deals-of-request'
-import {CustomSearchRequestForm} from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
-import {CustomSearchRequestDetails} from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
-import {Button} from '@components/shared/buttons/button'
-import {Modal} from '@components/shared/modal'
+import { OwnerRequestProposalsCard } from '@components/cards/owner-request-proposals-card'
+import { MultipleChats } from '@components/chat/multiple-chats'
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form/request-proposal-accept-or-reject-result-form'
+import { RequestProposalResultToCorrectForm } from '@components/forms/request-proposal-result-to-correct-form'
+import { ReviewsForm } from '@components/forms/reviews-form'
+import { MainContent } from '@components/layout/main-content'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { ConfirmWithCommentModal } from '@components/modals/confirmation-with-comment-modal'
+import { OwnerGeneralRequestInfo } from '@components/requests-and-request-proposals/owner-general-request-info'
+import { DealsOfRequest } from '@components/requests-and-request-proposals/request-proposals/deals-of-request'
+import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
+import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
+import { Button } from '@components/shared/buttons/button'
+import { Modal } from '@components/shared/modal'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {ChatRequestAndRequestProposalContext} from '../../../../contexts/chat-request-and-request-proposal-context'
-import {OwnerRequestDetailCustomViewModel} from './owner-requests-detail-custom-view.model'
-import {styles} from './owner-requests-detail-custom-view.style'
+import { ChatRequestAndRequestProposalContext } from '../../../../contexts/chat-request-and-request-proposal-context'
+import { OwnerRequestDetailCustomViewModel } from './owner-requests-detail-custom-view.model'
+import { styles } from './owner-requests-detail-custom-view.style'
 
 export const OwnerRequestDetailCustomViewRaw = props => {
   const chatRef = useRef()
@@ -39,12 +39,12 @@ export const OwnerRequestDetailCustomViewRaw = props => {
         location: props.location,
         scrollToChat: () => {
           if (chatRef?.current) {
-            chatRef.current.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'})
+            chatRef.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
           }
         },
       }),
   )
-  const {classes: classNames} = props
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -102,7 +102,7 @@ export const OwnerRequestDetailCustomViewRaw = props => {
         ) : (
           <div className={classNames.emptyProposalsIconWrapper}>
             <div className={classNames.emptyProposalsIcon}>
-              <InboxIcon style={{color: '#C4C4C4', fontSize: '76px'}} />
+              <InboxIcon style={{ color: '#C4C4C4', fontSize: '76px' }} />
             </div>
             <Typography className={classNames.emptyProposalsDescription}>
               {t(TranslationKey['No new proposals at the moment'])}
@@ -111,9 +111,9 @@ export const OwnerRequestDetailCustomViewRaw = props => {
         )}
 
         <Accordion expanded={viewModel.showChat}>
-          <AccordionSummary style={{display: 'none'}} />
+          <AccordionSummary style={{ display: 'none' }} />
           {viewModel.chatIsConnected && (
-            <AccordionDetails style={{padding: '0'}}>
+            <AccordionDetails style={{ padding: '0' }}>
               <div className={classNames.chatWrapper}>
                 <ChatRequestAndRequestProposalContext.Provider
                   value={{

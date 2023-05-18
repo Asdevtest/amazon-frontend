@@ -1,20 +1,20 @@
 /* eslint-disable no-unused-vars */
-import React, {Component, useState} from 'react'
+import React, { Component, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {CreateOrEditProposalContent} from '@components/contents/create-or-edit-proposal-content'
-import {MainContent} from '@components/layout/main-content'
-import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
+import { CreateOrEditProposalContent } from '@components/contents/create-or-edit-proposal-content'
+import { MainContent } from '@components/layout/main-content'
+import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {CreateOrEditProposalViewModel} from './create-or-edit-proposal-view.model'
-import {styles} from './create-or-edit-proposal-view.style'
+import { CreateOrEditProposalViewModel } from './create-or-edit-proposal-view.model'
+import { styles } from './create-or-edit-proposal-view.style'
 
 export const CreateOrEditProposalViewRaw = props => {
   const [viewModel] = useState(
@@ -24,7 +24,7 @@ export const CreateOrEditProposalViewRaw = props => {
         location: props.location,
       }),
   )
-  const {classes: classNames} = props
+  const { classes: classNames } = props
 
   return (
     <React.Fragment>
@@ -50,7 +50,7 @@ export const CreateOrEditProposalViewRaw = props => {
         openModal={viewModel.showResultModal}
         setOpenModal={() => {
           viewModel.onTriggerOpenModal('showResultModal')
-          viewModel.onClickResultModal({goBack: true})
+          viewModel.onClickResultModal({ goBack: true })
         }}
         title={viewModel.infoModalText}
         // topBtnText={t(TranslationKey['To vacant requests'])}
@@ -62,8 +62,8 @@ export const CreateOrEditProposalViewRaw = props => {
         bottomBtnText={t(TranslationKey['To vacant requests'])}
         thirdBtnText={t(TranslationKey['To the list of proposals'])}
         onClickTopBtn={() => viewModel.goToMyRequest()}
-        onClickBottomBtn={() => viewModel.onClickResultModal({goBack: true})}
-        onClickThirdBtn={() => viewModel.onClickResultModal({goBack: false})}
+        onClickBottomBtn={() => viewModel.onClickResultModal({ goBack: true })}
+        onClickThirdBtn={() => viewModel.onClickResultModal({ goBack: false })}
       />
 
       <WarningInfoModal

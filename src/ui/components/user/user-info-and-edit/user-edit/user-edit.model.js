@@ -1,10 +1,10 @@
-import {makeAutoObservable, reaction, runInAction} from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
-import {AdministratorModel} from '@models/administrator-model'
-import {PermissionsModel} from '@models/permissions-model'
-import {UserModel} from '@models/user-model'
+import { AdministratorModel } from '@models/administrator-model'
+import { PermissionsModel } from '@models/permissions-model'
+import { UserModel } from '@models/user-model'
 
-import {adminGroupPermissionsColumns} from '@components/table/table-columns/admin/group-permissions-columns copy'
+import { adminGroupPermissionsColumns } from '@components/table/table-columns/admin/group-permissions-columns copy'
 
 export class UserEditModel {
   history = undefined
@@ -12,7 +12,7 @@ export class UserEditModel {
   error = undefined
 
   checkValidationNameOrEmail = {}
-  changeFields = {email: '', name: '', oldPassword: '', newPassword: '', confirmNewPassword: ''}
+  changeFields = { email: '', name: '', oldPassword: '', newPassword: '', confirmNewPassword: '' }
   editUserFormFields = undefined
 
   wrongPassword = null
@@ -46,18 +46,18 @@ export class UserEditModel {
   }
 
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = adminGroupPermissionsColumns(this.rowHandlers)
 
-  constructor({history, user}) {
+  constructor({ history, user }) {
     this.history = history
 
     this.userId = user._id
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.userId,
@@ -74,7 +74,7 @@ export class UserEditModel {
 
       this.onTriggerOpenModal('showTwoVerticalChoicesModal')
 
-      this.changeFields = {email: '', name: ''}
+      this.changeFields = { email: '', name: '' }
     } catch (error) {
       console.log(error)
       this.error = error?.body?.message || error
@@ -105,7 +105,7 @@ export class UserEditModel {
         email: this.changeFields.email,
       })
 
-      this.submitEditData = {...data, permissions: data.active && data.active !== 'false' ? data.permissions : []} // удаляем пермишены если баним юзера
+      this.submitEditData = { ...data, permissions: data.active && data.active !== 'false' ? data.permissions : [] } // удаляем пермишены если баним юзера
 
       this.availableSubUsers = undefined
 

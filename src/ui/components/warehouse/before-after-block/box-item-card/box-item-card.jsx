@@ -1,21 +1,21 @@
-import {cx} from '@emotion/css'
-import {Checkbox, Link, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Checkbox, Link, Typography } from '@mui/material'
 
 import React from 'react'
 
-import {TaskOperationType} from '@constants/task/task-operation-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TaskOperationType } from '@constants/task/task-operation-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
-import {CopyValue} from '@components/shared/copy-value/copy-value'
-import {Field} from '@components/shared/field'
-import {Text} from '@components/shared/text'
+import { Button } from '@components/shared/buttons/button'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { Field } from '@components/shared/field'
+import { Text } from '@components/shared/text'
 
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {checkAndMakeAbsoluteUrl} from '@utils/text'
-import {t} from '@utils/translations'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { checkAndMakeAbsoluteUrl } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './box-item-card.style'
+import { useClassNames } from './box-item-card.style'
 
 export const BoxItemCard = ({
   box,
@@ -32,7 +32,7 @@ export const BoxItemCard = ({
   boxIndex,
   onApplyGluedBarcodeToAllBoxes,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   return (
     <div className={classNames.root}>

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineRequestStatusCell,
@@ -12,8 +12,8 @@ import {
   ShortDateCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const productMyRequestsViewColumns = (languageTag, handlers) => [
   {
@@ -21,7 +21,7 @@ export const productMyRequestsViewColumns = (languageTag, handlers) => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 120,
     type: 'date',
     headerAlign: 'center',
@@ -82,7 +82,7 @@ export const productMyRequestsViewColumns = (languageTag, handlers) => [
     headerName: t(TranslationKey.Deadline),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
 
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 115,
     type: 'date',
     headerAlign: 'center',
@@ -113,7 +113,11 @@ export const productMyRequestsViewColumns = (languageTag, handlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     // width: 330,
-    renderCell: params => <ProductMyRequestsBtnsCell row={params.row.originalData} handlers={handlers} />,
+    renderCell: params => {
+      const handlersMemo = useMemo(() => handlers, [])
+
+      return <ProductMyRequestsBtnsCell rowId={params.row.originalData._id} handlers={handlersMemo} />
+    },
     filterable: false,
     sortable: false,
     flex: 1,

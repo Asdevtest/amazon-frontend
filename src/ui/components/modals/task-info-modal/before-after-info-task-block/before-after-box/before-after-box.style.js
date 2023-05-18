@@ -1,33 +1,8 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  boxesWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  buttonsWrapper: {},
-  currentBox: {
-    marginBottom: '20px',
-  },
-  currentBoxFooter: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    height: '60px',
-  },
-
   itemsWrapper: {
     marginTop: '5px',
-  },
-  orderChip: {
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
-    fontSize: '13px',
-    borderRadius: '14px',
-    marginLeft: '10px',
-  },
-  select: {
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
   },
 
   chipWrapper: {
@@ -52,9 +27,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '10px',
     height: '220px',
   },
-  editBtn: {
-    marginTop: '5px',
-  },
+
   bottomBlockWrapper: {
     marginTop: '5px',
     padding: '10px',
@@ -67,20 +40,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
   },
 
-  editBtnWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
   superWrapper: {
     display: 'flex',
     gap: '5px',
   },
-  barCodeActionsWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
+
   shippingLabelField: {
     maxWidth: '325px',
     whiteSpace: 'nowrap',
@@ -105,18 +69,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '200px',
     marginLeft: '20px',
     minHeight: '150px',
-  },
-
-  imgBox: {
-    width: '200px',
-    height: '100px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
   },
 
   checkboxContainer: {

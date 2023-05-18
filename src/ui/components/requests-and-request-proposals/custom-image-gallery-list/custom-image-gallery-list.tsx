@@ -1,22 +1,22 @@
-import {Avatar, Tooltip, Typography} from '@mui/material'
+import { Avatar, Tooltip, Typography } from '@mui/material'
 
-import {FC, useEffect, useState} from 'react'
+import { FC, useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {BigImagesModal} from '@components/modals/big-images-modal'
-import {BigObjectImagesModal} from '@components/modals/big-object-images-modal'
-import {NoPhotoIcon} from '@components/shared/svg-icons'
+import { BigImagesModal } from '@components/modals/big-images-modal'
+import { BigObjectImagesModal } from '@components/modals/big-object-images-modal'
+import { NoPhotoIcon } from '@components/shared/svg-icons'
 
-import {checkIsImageLink} from '@utils/checks'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {t} from '@utils/translations'
+import { checkIsImageLink } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './custom-image-gallery-list.style'
+import { useClassNames } from './custom-image-gallery-list.style'
 
 interface FilesObject {
   fileLink: string
@@ -36,9 +36,9 @@ interface BigImagesOptionsState {
 }
 
 export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(props => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
-  const {files, isAmazonPhoto} = props
+  const { files, isAmazonPhoto } = props
 
   const isObjectFiles = files?.some(el => typeof el === 'object')
 
@@ -52,7 +52,7 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
     setFilesForRender(files)
   }, [SettingsModel.languageTag, files])
 
-  const [bigImagesOptions, setBigImagesOptions] = useState<BigImagesOptionsState>({images: [], imgIndex: 0})
+  const [bigImagesOptions, setBigImagesOptions] = useState<BigImagesOptionsState>({ images: [], imgIndex: 0 })
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
   const notEmptyPhotos = isAmazonPhoto
@@ -74,7 +74,7 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
             alt={'!'}
             src={typeof photo === 'string' ? photo : photo?.fileLink}
             className={classNames.smallImage}
-            classes={{img: classNames.img}}
+            classes={{ img: classNames.img }}
             onClick={() => {
               if (isObjectFiles) {
                 setCurImageId(typeof photo === 'string' ? photo : photo._id)
@@ -117,7 +117,7 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
           openModal={showPhotosModal}
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           imagesData={files.map(
-            el => typeof el === 'object' && {...el, image: el.fileLink, imageComment: el.commentByClient || ''},
+            el => typeof el === 'object' && { ...el, image: el.fileLink, imageComment: el.commentByClient || '' },
           )}
           curImageId={curImageId}
           setCurImageId={setCurImageId}
@@ -130,7 +130,7 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={(imgIndex: number) => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
+          setImageIndex={(imgIndex: number) => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
       )}
     </div>

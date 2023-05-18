@@ -1,29 +1,29 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {SuccessInfoModal} from '@components/modals/success-info-modal'
-import {Button} from '@components/shared/buttons/button'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {WithSearchSelect} from '@components/shared/selects/with-search-select'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {GoodsDaysReportModel} from './goods-days-report.model'
-import {styles} from './goods-days-report.style'
+import { GoodsDaysReportModel } from './goods-days-report.model'
+import { styles } from './goods-days-report.style'
 
 export const GoodsDaysReportRaw = props => {
-  const [viewModel] = useState(() => new GoodsDaysReportModel({history: props.history, curShop: props.curShop}))
-  const {classes: className} = props
+  const [viewModel] = useState(() => new GoodsDaysReportModel({ history: props.history, curShop: props.curShop }))
+  const { classes: className } = props
 
   useEffect(() => {
     viewModel.loadData()

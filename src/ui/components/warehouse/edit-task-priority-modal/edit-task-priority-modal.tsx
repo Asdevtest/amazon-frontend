@@ -1,7 +1,7 @@
-import {cx} from '@emotion/css'
-import {MenuItem, Select, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { MenuItem, Select, Typography } from '@mui/material'
 
-import React, {FC, useState} from 'react'
+import React, { FC, useState } from 'react'
 
 import {
   colorByTaskPriorityStatus,
@@ -10,14 +10,14 @@ import {
   TaskPriorityStatus,
   taskPriorityStatusTranslate,
 } from '@constants/task/task-priority-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
-import {Field} from '@components/shared/field'
-import {Input} from '@components/shared/input'
-import {useEditTaskPriorityModalStyles} from '@components/warehouse/edit-task-priority-modal/edit-task-priority-modal.styles'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
+import { Input } from '@components/shared/input'
+import { useEditTaskPriorityModalStyles } from '@components/warehouse/edit-task-priority-modal/edit-task-priority-modal.styles'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 interface EditTaskPriorityModalProps {
   data: {
@@ -30,11 +30,11 @@ interface EditTaskPriorityModalProps {
 }
 
 export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
-  const {data, onSubmitHandler, handleClose, withSelect} = props
-  const {classes: styles} = useEditTaskPriorityModalStyles()
+  const { data, onSubmitHandler, handleClose, withSelect } = props
+  const { classes: styles } = useEditTaskPriorityModalStyles()
 
   const [curPriority, setCurPriority] = useState<number>(
-    data.newPriority || (mapTaskPriorityStatusEnumToKey as {[key: string]: number})[TaskPriorityStatus.STANDART],
+    data.newPriority || (mapTaskPriorityStatusEnumToKey as { [key: string]: number })[TaskPriorityStatus.STANDART],
   )
 
   const [reason, setReason] = useState<string>('')
@@ -45,7 +45,7 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
         <Typography className={styles.title}>
           {t(TranslationKey['Change the priority to'])}{' '}
           {!withSelect && (
-            <span style={{color: colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[data.newPriority])}}>
+            <span style={{ color: colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[data.newPriority]) }}>
               {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[data.newPriority])}
             </span>
           )}
@@ -60,12 +60,13 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
               select: cx({
                 [styles.colorYellow]:
                   curPriority ===
-                  (mapTaskPriorityStatusEnumToKey as {[key: string]: number})[TaskPriorityStatus.STANDART],
+                  (mapTaskPriorityStatusEnumToKey as { [key: string]: number })[TaskPriorityStatus.STANDART],
                 [styles.colorGreen]:
-                  curPriority === (mapTaskPriorityStatusEnumToKey as {[key: string]: number})[TaskPriorityStatus.LONG],
+                  curPriority ===
+                  (mapTaskPriorityStatusEnumToKey as { [key: string]: number })[TaskPriorityStatus.LONG],
                 [styles.colorRed]: [
-                  (mapTaskPriorityStatusEnumToKey as {[key: string]: number})[TaskPriorityStatus.URGENT],
-                  (mapTaskPriorityStatusEnumToKey as {[key: string]: number})[TaskPriorityStatus.PROBLEMATIC],
+                  (mapTaskPriorityStatusEnumToKey as { [key: string]: number })[TaskPriorityStatus.URGENT],
+                  (mapTaskPriorityStatusEnumToKey as { [key: string]: number })[TaskPriorityStatus.PROBLEMATIC],
                 ].includes(curPriority),
               }),
             }}
@@ -79,14 +80,15 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
                   value={statusCode}
                   style={{
                     color: colorByTaskPriorityStatus(
-                      (mapTaskPriorityStatusEnum as {[key: string]: string})[statusCode],
+                      (mapTaskPriorityStatusEnum as { [key: string]: string })[statusCode],
                     ),
                   }}
                   className={styles.menuItem}
                 >
-                  {taskPriorityStatusTranslate((mapTaskPriorityStatusEnum as {[key: string]: string})[statusCode])}
+                  {taskPriorityStatusTranslate((mapTaskPriorityStatusEnum as { [key: string]: string })[statusCode])}
 
-                  {TaskPriorityStatus.URGENT === (mapTaskPriorityStatusEnum as {[key: string]: string})[statusCode] && (
+                  {TaskPriorityStatus.URGENT ===
+                    (mapTaskPriorityStatusEnum as { [key: string]: string })[statusCode] && (
                     <img className={styles.rushOrderImg} src="/assets/icons/fire.svg" alt="Fire" />
                   )}
                 </MenuItem>
@@ -117,7 +119,7 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
             maxRows={2}
             className={styles.reasonInput}
             value={reason}
-            inputProps={{maxLength: 250}}
+            inputProps={{ maxLength: 250 }}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => setReason(event.target.value)}
           />
         }

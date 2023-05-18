@@ -1,14 +1,14 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {BuyerModel} from '@models/buyer-model'
-import {IdeaModel} from '@models/ideas-model'
+import { BuyerModel } from '@models/buyer-model'
+import { IdeaModel } from '@models/ideas-model'
 
-import {buyerSearchSuppliersViewColumns} from '@components/table/table-columns/buyer/buyer-seach-suppliers-columns'
+import { buyerSearchSuppliersViewColumns } from '@components/table/table-columns/buyer/buyer-seach-suppliers-columns'
 
-import {depersonalizedPickDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 
 export class BuyerSearchSupplierForIdeaModel {
   history = undefined
@@ -30,11 +30,11 @@ export class BuyerSearchSupplierForIdeaModel {
 
   columnsModel = buyerSearchSuppliersViewColumns(this.rowHandlers, this.firstRowId)
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   getCurrentData() {
@@ -104,7 +104,7 @@ export class BuyerSearchSupplierForIdeaModel {
       for (let i = 0; i < this.selectedRowIds.length; i++) {
         const itemId = this.selectedRowIds[i]
 
-        await this.onClickTableRowBtn({_id: itemId}, true)
+        await this.onClickTableRowBtn({ _id: itemId }, true)
       }
 
       runInAction(() => {

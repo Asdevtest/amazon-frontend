@@ -1,20 +1,20 @@
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
 import React from 'react'
 
-import {useClassNames} from './on-off-selector.style'
+import { useClassNames } from './on-off-selector.style'
 
-export const OnOffSelector = ({value, onClick}) => {
-  const {classes: classNames} = useClassNames()
+export const OnOffSelector = ({ value, onClick }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <div className={classNames.mainWrapper}>
-      <Typography className={cx(classNames.option, {[classNames.offSelected]: !value})} onClick={value && onClick}>
+      <Typography className={cx(classNames.option, { [classNames.offSelected]: !value })} onClick={value && onClick}>
         {'Off'}
       </Typography>
 
-      <Typography className={cx(classNames.option, {[classNames.onSelected]: value})} onClick={!value && onClick}>
+      <Typography className={cx(classNames.option, { [classNames.onSelected]: value })} onClick={!value && onClick}>
         {'On'}
       </Typography>
     </div>

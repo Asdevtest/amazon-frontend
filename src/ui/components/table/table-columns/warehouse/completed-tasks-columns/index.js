@@ -1,1 +1,1 @@
-export {warehouseCompletedTasksViewColumns} from './completed-tasks-columns'
+export { warehouseCompletedTasksViewColumns } from './completed-tasks-columns'

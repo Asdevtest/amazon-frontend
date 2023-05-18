@@ -1,1 +1,1 @@
-export {SupplierApproximateCalculationsForm} from './supplier-approximate-calculations-form'
+export { SupplierApproximateCalculationsForm } from './supplier-approximate-calculations-form'

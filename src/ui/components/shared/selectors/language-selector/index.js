@@ -1,1 +1,1 @@
-export {LanguageSelector} from './language-selector'
+export { LanguageSelector } from './language-selector'

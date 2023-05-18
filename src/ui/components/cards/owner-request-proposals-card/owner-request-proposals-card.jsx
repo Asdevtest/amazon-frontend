@@ -1,5 +1,5 @@
-import {cx} from '@emotion/css'
-import {Typography, Avatar} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography, Avatar } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import React from 'react'
@@ -9,18 +9,18 @@ import {
   RequestProposalStatusColor,
   RequestProposalStatusTranslate,
 } from '@constants/requests/request-proposal-status'
-import {RequestStatus} from '@constants/requests/request-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { RequestStatus } from '@constants/requests/request-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
-import {PhotoCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {UserLink} from '@components/user/user-link'
+import { Button } from '@components/shared/buttons/button'
+import { PhotoCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { UserLink } from '@components/user/user-link'
 
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {minsToTime, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { minsToTime, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './owner-request-proposals-card.style'
+import { useClassNames } from './owner-request-proposals-card.style'
 
 export const OwnerRequestProposalsCard = ({
   item,
@@ -30,7 +30,7 @@ export const OwnerRequestProposalsCard = ({
   onClickOrderProposal,
   onClickRejectProposal,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   return (
     <div className={classNames.cardMainWrapper}>
@@ -95,7 +95,7 @@ export const OwnerRequestProposalsCard = ({
         <div className={classNames.statusField}>
           <span
             className={classNames.circleIndicator}
-            style={{backgroundColor: RequestProposalStatusColor(item.proposal.status)}}
+            style={{ backgroundColor: RequestProposalStatusColor(item.proposal.status) }}
           />
           <Typography className={classNames.standartText}>
             {RequestProposalStatusTranslate(item.proposal.status)}

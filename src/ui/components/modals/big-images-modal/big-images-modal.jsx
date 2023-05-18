@@ -1,24 +1,24 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import ZoomOutMapOutlinedIcon from '@mui/icons-material/ZoomOutMapOutlined'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Carousel from 'react-material-ui-carousel'
 
-import {ImageZoomForm} from '@components/forms/image-zoom-form'
-import {Button} from '@components/shared/buttons/button'
-import {Modal} from '@components/shared/modal'
+import { ImageZoomForm } from '@components/forms/image-zoom-form'
+import { Button } from '@components/shared/buttons/button'
+import { Modal } from '@components/shared/modal'
 
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {downloadFile, downloadFileByLink} from '@utils/upload-files'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
-import {useClassNames} from './big-images-modal.style'
+import { useClassNames } from './big-images-modal.style'
 
 export const BigImagesModal = props => {
-  const {openModal, setOpenModal, images, imgIndex = 0, showPreviews = false, setImageIndex, controls} = props
-  const {classes: classNames} = useClassNames()
+  const { openModal, setOpenModal, images, imgIndex = 0, showPreviews = false, setImageIndex, controls } = props
+  const { classes: classNames } = useClassNames()
   const [currentScreenWidth, setCurrentScreenWidth] = useState(window.innerWidth)
 
   const [zoomOpen, setZoomOpen] = useState(false)

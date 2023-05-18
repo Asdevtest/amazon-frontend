@@ -1,6 +1,6 @@
-import {Route} from 'react-router'
+import { Route } from 'react-router'
 
-import {publicRoutesConfigs} from '@constants/navigation/routes'
+import { publicRoutesConfigs } from '@constants/navigation/routes'
 
 export const generatePublicRoutes = () =>
   publicRoutesConfigs.map((route, index) => (

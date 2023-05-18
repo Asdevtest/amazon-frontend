@@ -1,25 +1,25 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
-import {BatchStatus} from '@constants/statuses/batch-status'
-import {BoxStatus} from '@constants/statuses/box-status'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { BatchStatus } from '@constants/statuses/batch-status'
+import { BoxStatus } from '@constants/statuses/box-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BatchesModel} from '@models/batches-model'
-import {BoxesModel} from '@models/boxes-model'
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { BatchesModel } from '@models/batches-model'
+import { BoxesModel } from '@models/boxes-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {clientBatchesViewColumns} from '@components/table/table-columns/client/client-batches-columns'
+import { clientBatchesViewColumns } from '@components/table/table-columns/client/client-batches-columns'
 
-import {warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {objectToUrlQs} from '@utils/text'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { objectToUrlQs } from '@utils/text'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class ClientAwaitingBatchesViewModel {
   history = undefined
@@ -63,7 +63,7 @@ export class ClientAwaitingBatchesViewModel {
 
   rowCount = 0
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -73,11 +73,11 @@ export class ClientAwaitingBatchesViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -269,7 +269,7 @@ export class ClientAwaitingBatchesViewModel {
       this.uploadedFiles = []
 
       if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
 
       await BoxesModel.editAdditionalInfo(data._id, {
@@ -315,10 +315,10 @@ export class ClientAwaitingBatchesViewModel {
 
       const filter = objectToUrlQs({
         or: [
-          {asin: {$contains: this.nameSearchValue}},
-          {title: {$contains: this.nameSearchValue}},
-          {humanFriendlyId: {$eq: this.nameSearchValue}},
-          {orderHumanFriendlyId: {$eq: this.nameSearchValue}},
+          { asin: { $contains: this.nameSearchValue } },
+          { title: { $contains: this.nameSearchValue } },
+          { humanFriendlyId: { $eq: this.nameSearchValue } },
+          { orderHumanFriendlyId: { $eq: this.nameSearchValue } },
         ].filter(
           el =>
             ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
@@ -451,14 +451,14 @@ export class ClientAwaitingBatchesViewModel {
     }
   }
 
-  async onSubmitAddOrEditBatch({boxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields}) {
+  async onSubmitAddOrEditBatch({ boxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields }) {
     try {
       runInAction(() => {
         this.uploadedFiles = []
       })
 
       if (filesToAdd.length) {
-        await onSubmitPostImages.call(this, {images: filesToAdd, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
       }
 
       if (!batchToEdit) {

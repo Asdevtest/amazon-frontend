@@ -1,34 +1,34 @@
-import {action, makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {poundsWeightCoefficient} from '@constants/configs/sizes-settings'
-import {ProductDataParser} from '@constants/product/product-data-parser'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {creatSupplier, patchSuppliers} from '@constants/white-list'
+import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
+import { ProductDataParser } from '@constants/product/product-data-parser'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
+import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
-import {ClientModel} from '@models/client-model'
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {ShopModel} from '@models/shop-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {SupplierModel} from '@models/supplier-model'
-import {UserModel} from '@models/user-model'
+import { ClientModel } from '@models/client-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { SupplierModel } from '@models/supplier-model'
+import { UserModel } from '@models/user-model'
 
-import {updateProductAutoCalculatedFields} from '@utils/calculation'
+import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import {
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
 } from '@utils/checks'
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import {
   getNewObjectWithDefaultValue,
   getObjectFilteredByKeyArrayBlackList,
   getObjectFilteredByKeyArrayWhiteList,
 } from '@utils/object'
-import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 const formFieldsDefault = {
   checkednotes: '',
@@ -147,7 +147,7 @@ export class ClientProductViewModel {
   progressValue = 0
   showProgress = false
 
-  formFields = {...formFieldsDefault}
+  formFields = { ...formFieldsDefault }
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
@@ -159,7 +159,7 @@ export class ClientProductViewModel {
     return SettingsModel.languageTag
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     const url = new URL(window.location.href)
 
     runInAction(() => {
@@ -170,13 +170,13 @@ export class ClientProductViewModel {
       this.showTab = url.searchParams.get('show-tab')
     })
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.languageTag,
       () =>
         runInAction(() => {
-          this.product = this.product ? {...this.product} : undefined
+          this.product = this.product ? { ...this.product } : undefined
         }),
     )
   }
@@ -229,7 +229,7 @@ export class ClientProductViewModel {
   onChangeProductFields = fieldName =>
     action(e => {
       runInAction(() => {
-        this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
+        this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldName]: '' }
       })
       if (
         [
@@ -249,12 +249,12 @@ export class ClientProductViewModel {
         ].includes(fieldName)
       ) {
         runInAction(() => {
-          this.product = {...this.product, [fieldName]: e.target.value}
+          this.product = { ...this.product, [fieldName]: e.target.value }
         })
       } else {
         if (['asin'].includes(fieldName)) {
           runInAction(() => {
-            this.product = {...this.product, [fieldName]: e.target.value.replace(/[^0-9a-zA-Z]/g, '')}
+            this.product = { ...this.product, [fieldName]: e.target.value.replace(/[^0-9a-zA-Z]/g, '') }
           })
         }
 
@@ -280,7 +280,7 @@ export class ClientProductViewModel {
         }
 
         runInAction(() => {
-          this.product = {...this.product, [fieldName]: e.target.value}
+          this.product = { ...this.product, [fieldName]: e.target.value }
         })
       }
 
@@ -341,8 +341,8 @@ export class ClientProductViewModel {
         break
       case 'cancel':
         this.product.archive
-          ? this.history.push('/client/inventory/archive', {isArchive: this.product.archive})
-          : this.history.push('/client/inventory', {isArchive: this.product.archive})
+          ? this.history.push('/client/inventory/archive', { isArchive: this.product.archive })
+          : this.history.push('/client/inventory', { isArchive: this.product.archive })
         break
       case 'delete':
         runInAction(() => {
@@ -382,7 +382,7 @@ export class ClientProductViewModel {
     try {
       await ClientModel.updateProduct(
         this.product._id,
-        getObjectFilteredByKeyArrayWhiteList({...this.product, archive: false}, ['archive']),
+        getObjectFilteredByKeyArrayWhiteList({ ...this.product, archive: false }, ['archive']),
       )
 
       this.history.goBack()
@@ -398,7 +398,7 @@ export class ClientProductViewModel {
     try {
       await ClientModel.updateProduct(
         this.product._id,
-        getObjectFilteredByKeyArrayWhiteList({...this.product, archive: true}, ['archive']),
+        getObjectFilteredByKeyArrayWhiteList({ ...this.product, archive: true }, ['archive']),
       )
 
       this.history.goBack()
@@ -484,7 +484,7 @@ export class ClientProductViewModel {
       })
 
       if (this.imagesForLoad.length) {
-        await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'uploadedImages'})
+        await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
 
         runInAction(() => {
           this.imagesForLoad = []
@@ -551,8 +551,8 @@ export class ClientProductViewModel {
         break
       case 'accept':
         runInAction(() => {
-          this.product = {...this.product, currentSupplierId: this.selectedSupplier._id}
-          this.product = {...this.product, currentSupplier: this.selectedSupplier}
+          this.product = { ...this.product, currentSupplierId: this.selectedSupplier._id }
+          this.product = { ...this.product, currentSupplier: this.selectedSupplier }
           this.selectedSupplier = undefined
         })
         updateProductAutoCalculatedFields.call(this)
@@ -561,8 +561,8 @@ export class ClientProductViewModel {
         break
       case 'acceptRevoke':
         runInAction(() => {
-          this.product = {...this.product, currentSupplierId: null}
-          this.product = {...this.product, currentSupplier: undefined}
+          this.product = { ...this.product, currentSupplierId: null }
+          this.product = { ...this.product, currentSupplier: undefined }
           this.selectedSupplier = undefined
         })
         updateProductAutoCalculatedFields.call(this)
@@ -584,14 +584,14 @@ export class ClientProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({supplier, photosOfSupplier, editPhotosOfSupplier}) {
+  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, editPhotosOfSupplier }) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       this.clearReadyImages()
 
       if (editPhotosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: editPhotosOfSupplier, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
       }
 
       supplier = {
@@ -604,7 +604,7 @@ export class ClientProductViewModel {
       }
 
       if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
         supplier = {
           ...supplier,
           images: [...supplier.images, ...this.readyImages],
@@ -797,7 +797,7 @@ export class ClientProductViewModel {
         })
       } else {
         runInAction(() => {
-          this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN'])}
+          this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN']) }
         })
       }
 

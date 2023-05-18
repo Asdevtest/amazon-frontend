@@ -1,1 +1,1 @@
-export {OwnerRequestProposalsCard} from './owner-request-proposals-card'
+export { OwnerRequestProposalsCard } from './owner-request-proposals-card'

@@ -1,21 +1,4 @@
 export const styles = theme => ({
-  productCell: {
-    display: 'flex',
-    alignItems: 'center',
-    width: '300px',
-  },
-
-  productCellTitle: {
-    display: '-webkit-box',
-    WebkitLineClamp: 4,
-    WebkitBoxOrient: 'vertical',
-    width: '200px',
-    height: 90,
-    whiteSpace: 'normal',
-
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
   img: {
     height: '64px',
     width: '64px',
@@ -34,18 +17,6 @@ export const styles = theme => ({
   },
   centerCell: {
     textAlign: 'center',
-  },
-  subBoxesTableWrapper: {},
-  checkboxRow: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  barCode: {
-    maxWidth: '200px',
-    whiteSpace: 'nowrap',
-    overflowX: 'auto',
   },
 
   row: {
@@ -86,8 +57,6 @@ export const styles = theme => ({
     fontWeight: 500,
     whiteSpace: 'nowrap',
     maxWidth: '150px',
-    // maxWidth: '100%',
-
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },

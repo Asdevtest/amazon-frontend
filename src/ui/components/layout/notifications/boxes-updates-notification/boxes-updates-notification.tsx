@@ -1,18 +1,18 @@
-import {Avatar, Link, Typography} from '@mui/material'
+import { Avatar, Link, Typography } from '@mui/material'
 
-import React, {FC} from 'react'
+import React, { FC } from 'react'
 
-import {format} from 'date-fns'
-import {History} from 'history'
+import { format } from 'date-fns'
+import { History } from 'history'
 
-import {UiTheme} from '@constants/theme/themes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { UiTheme } from '@constants/theme/themes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {useBoxNotificationStyles} from '@components/layout/notifications/boxes-updates-notification/boxes-updates-notification.styles'
+import { useBoxNotificationStyles } from '@components/layout/notifications/boxes-updates-notification/boxes-updates-notification.styles'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export interface BoxProduct {
   _id: string
@@ -43,8 +43,8 @@ interface BoxesUpdatesNotificationProps {
 }
 
 export const BoxesUpdatesNotification: FC<BoxesUpdatesNotificationProps> = props => {
-  const {classes: styles} = useBoxNotificationStyles()
-  const {noticeItem, history} = props
+  const { classes: styles } = useBoxNotificationStyles()
+  const { noticeItem, history } = props
 
   const goToBox = (boxId: number) => {
     history.push(`/client/warehouse/in-stock?search-text=${boxId}`)

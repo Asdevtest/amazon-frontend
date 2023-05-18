@@ -1,31 +1,31 @@
 /* eslint-disable no-unused-vars */
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter'
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify'
 import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft'
 import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {forwardRef, useEffect, useRef, useState} from 'react'
+import React, { forwardRef, useEffect, useRef, useState } from 'react'
 
-import {EditorState, convertToRaw} from 'draft-js'
-import {observer} from 'mobx-react'
+import { EditorState, convertToRaw } from 'draft-js'
+import { observer } from 'mobx-react'
 import MUIRichTextEditor from 'mui-rte'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './custom-text-editor.style'
+import { useClassNames } from './custom-text-editor.style'
 
-const TextAlign = ({children, textAlign}) => <span style={{textAlign: `${textAlign}`}}>{children}</span>
+const TextAlign = ({ children, textAlign }) => <span style={{ textAlign: `${textAlign}` }}>{children}</span>
 
 export const CustomTextEditor = observer(props => {
-  const {conditions = '', changeConditions, readOnly, editorMaxHeight, verticalResize, textToCheck} = props
+  const { conditions = '', changeConditions, readOnly, editorMaxHeight, verticalResize, textToCheck } = props
 
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const isJSON = text => {
     try {

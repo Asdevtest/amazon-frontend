@@ -1,1 +1,1 @@
-export {SinglePermissions} from './single-permissions'
+export { SinglePermissions } from './single-permissions'

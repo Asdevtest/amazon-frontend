@@ -1,6 +1,8 @@
-import {Radio} from '@mui/material'
+import { Radio } from '@mui/material'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { useCallback } from 'react'
+
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextCell,
@@ -9,7 +11,7 @@ import {
   TrashCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const inventoryColumns = (handlers, selectedRow) => [
   {
@@ -37,7 +39,7 @@ export const inventoryColumns = (handlers, selectedRow) => [
     field: 'image',
     headerName: t(TranslationKey.Image),
     width: 100,
-    renderCell: params => <SmallRowImageCell images={params.row.images} />,
+    renderCell: params => <SmallRowImageCell image={params.row.images[0]} />,
     filterable: false,
     sortable: false,
   },
@@ -95,12 +97,11 @@ export const chosenGoodsColumns = handlers => [
   {
     field: ' ',
     headerName: '',
-    renderCell: params => (
-      <TrashCell
-        tooltipText={t(TranslationKey['Remove a position from the list'])}
-        onClick={() => handlers.onClickTrash(params.row.asin)}
-      />
-    ),
+    renderCell: params => {
+      const onClickTrash = useCallback(() => handlers.onClickTrash(params.row.asin), [])
+
+      return <TrashCell tooltipText={t(TranslationKey['Remove a position from the list'])} onClick={onClickTrash} />
+    },
     width: 60,
   },
 ]

@@ -1,16 +1,16 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ProductModel} from '@models/product-model'
-import {SellerBoardModel} from '@models/seller-board-model'
-import {SettingsModel} from '@models/settings-model'
+import { ProductModel } from '@models/product-model'
+import { SellerBoardModel } from '@models/seller-board-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {productIntegrationsColumns} from '@components/table/table-columns/product/integrations-columns'
+import { productIntegrationsColumns } from '@components/table/table-columns/product/integrations-columns'
 
-import {addIdDataConverter, stockReportDataConverter} from '@utils/data-grid-data-converters'
-import {t} from '@utils/translations'
+import { addIdDataConverter, stockReportDataConverter } from '@utils/data-grid-data-converters'
+import { t } from '@utils/translations'
 
 export class IntegrationsModel {
   history = undefined
@@ -33,11 +33,11 @@ export class IntegrationsModel {
 
   columnsModel = productIntegrationsColumns()
 
-  constructor({history, productId}) {
+  constructor({ history, productId }) {
     this.history = history
 
     this.productId = productId
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,

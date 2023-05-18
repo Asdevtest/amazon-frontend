@@ -1,8 +1,8 @@
-import {enUS, ruRU, zhCN} from '@mui/x-data-grid'
+import { enUS, ruRU, zhCN } from '@mui/x-data-grid'
 
-import {LanguageKey} from '@constants/translations/language-key'
+import { LanguageKey } from '@constants/translations/language-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
 export const getLocalizationByLanguageTag = () => {
   switch (SettingsModel.languageTag) {

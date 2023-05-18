@@ -1,15 +1,15 @@
-import {makeAutoObservable, runInAction, reaction} from 'mobx'
+import { makeAutoObservable, runInAction, reaction } from 'mobx'
 
-import {chatsType} from '@constants/keys/chats'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { chatsType } from '@constants/keys/chats'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatModel} from '@models/chat-model'
-import {ChatsModel} from '@models/chats-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { ChatModel } from '@models/chat-model'
+import { ChatsModel } from '@models/chats-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {t} from '@utils/translations'
-import {dataURLtoFile, onSubmitPostImages} from '@utils/upload-files'
+import { t } from '@utils/translations'
+import { dataURLtoFile, onSubmitPostImages } from '@utils/upload-files'
 
 export class MessagesViewModel {
   history = undefined
@@ -61,7 +61,7 @@ export class MessagesViewModel {
     return SettingsModel.noticeOfSimpleChats
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
 
@@ -89,7 +89,7 @@ export class MessagesViewModel {
       }
     })
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.simpleChats,
@@ -190,7 +190,7 @@ export class MessagesViewModel {
     try {
       this.onTriggerOpenModal('showAddUsersToGroupChatModal')
 
-      await ChatModel.addUsersToGroupChat({chatId: this.chatSelectedId, users: users.map(el => el._id)})
+      await ChatModel.addUsersToGroupChat({ chatId: this.chatSelectedId, users: users.map(el => el._id) })
 
       // await ChatModel.getSimpleChats()
     } catch (error) {
@@ -200,7 +200,7 @@ export class MessagesViewModel {
 
   async onRemoveUsersFromGroupChat(usersIds) {
     try {
-      await ChatModel.removeUsersFromGroupChat({chatId: this.chatSelectedId, users: usersIds})
+      await ChatModel.removeUsersFromGroupChat({ chatId: this.chatSelectedId, users: usersIds })
 
       // await ChatModel.getSimpleChats()
     } catch (error) {
@@ -217,7 +217,7 @@ export class MessagesViewModel {
       if (imageIsNeedChange) {
         const file = dataURLtoFile(state.preview, this.user._id)
 
-        await onSubmitPostImages.call(this, {images: [{file}], type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: [{ file }], type: 'readyImages' })
       }
 
       await ChatModel.patchInfoGroupChat({
@@ -252,7 +252,7 @@ export class MessagesViewModel {
         }
       } else {
         if (formFields.images.length) {
-          await onSubmitPostImages.call(this, {images: formFields.images, type: 'readyImages'})
+          await onSubmitPostImages.call(this, { images: formFields.images, type: 'readyImages' })
         }
 
         await ChatsModel.createSimpleGroupChat({
@@ -269,7 +269,7 @@ export class MessagesViewModel {
   }
 
   onTypingMessage(chatId) {
-    ChatModel.typingMessage({chatId})
+    ChatModel.typingMessage({ chatId })
   }
 
   onTriggerNoticeOfSimpleChats() {

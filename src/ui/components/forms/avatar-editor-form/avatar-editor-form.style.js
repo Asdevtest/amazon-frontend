@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -15,22 +15,15 @@ export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     width: '100%',
     minHeight: 320,
-
     display: 'flex',
-    // alignItems: 'center',
-
     padding: '20px  0 20px ',
   },
 
   avatarWrapper: {
     width: '100%',
     minHeight: 320,
-
     maxHeight: 500,
-
     display: 'flex',
-    // alignItems: 'center',
-
     overflow: 'auto',
   },
 
@@ -38,8 +31,6 @@ export const useClassNames = makeStyles()(theme => ({
     marginLeft: '70px',
     display: 'flex',
     flexDirection: 'column',
-
-    // justifyContent: 'center',
     alignItems: 'center',
   },
 
@@ -51,11 +42,6 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: '50%',
 
     backgroundColor: theme.palette.background.disabled,
-  },
-
-  imgFallback: {
-    width: '50% !important',
-    height: '50% !important',
   },
 
   btnsWrapper: {

@@ -1,31 +1,31 @@
 /* eslint-disable no-unused-vars */
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {MultipleChats} from '@components/chat/multiple-chats'
-import {RequestDesignerResultClientForm} from '@components/forms/request-designer-result-client-form'
-import {RequestDesignerResultForm} from '@components/forms/request-designer-result-form'
-import {MainContent} from '@components/layout/main-content'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {RequestResultModal} from '@components/modals/request-result-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {CustomSearchRequestDetails} from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
-import {ServantGeneralRequestInfo} from '@components/requests-and-request-proposals/servant-general-request-info'
-import {Button} from '@components/shared/buttons/button'
-import {CircularProgressWithLabel} from '@components/shared/circular-progress-with-label'
-import {Modal} from '@components/shared/modal'
+import { MultipleChats } from '@components/chat/multiple-chats'
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { RequestDesignerResultForm } from '@components/forms/request-designer-result-form'
+import { MainContent } from '@components/layout/main-content'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { RequestResultModal } from '@components/modals/request-result-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
+import { ServantGeneralRequestInfo } from '@components/requests-and-request-proposals/servant-general-request-info'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { Modal } from '@components/shared/modal'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
+import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import {RequestDetailCustomViewModel} from './servant-requests-detail-custom-view.model'
-import {styles} from './servant-requests-detail-custom-view.style'
+import { RequestDetailCustomViewModel } from './servant-requests-detail-custom-view.model'
+import { styles } from './servant-requests-detail-custom-view.style'
 
 const requestProposalCancelAllowedStatuses = [
   RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED,
@@ -42,7 +42,7 @@ export const RequestDetailCustomViewRaw = props => {
         location: props.location,
       }),
   )
-  const {classes: classNames} = props
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()

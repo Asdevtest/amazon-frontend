@@ -1,1 +1,1 @@
-export {FallBack} from './fall-back.jsx'
+export { FallBack } from './fall-back.jsx'

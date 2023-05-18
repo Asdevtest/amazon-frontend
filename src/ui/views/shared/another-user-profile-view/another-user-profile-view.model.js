@@ -1,29 +1,29 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
-import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { mapUserRoleEnumToKey, UserRole, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatModel} from '@models/chat-model'
-import {ChatsModel} from '@models/chats-model'
-import {ClientModel} from '@models/client-model'
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {ShopModel} from '@models/shop-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { ChatModel } from '@models/chat-model'
+import { ChatsModel } from '@models/chats-model'
+import { ClientModel } from '@models/client-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {clientExchangeViewColumns} from '@components/table/table-columns/client/client-exchange-columns'
+import { clientExchangeViewColumns } from '@components/table/table-columns/client/client-exchange-columns'
 // import {UserModel} from '@models/user-model'
-import {vacByUserIdExchangeColumns} from '@components/table/table-columns/product/vac-by-user-id-exchange-columns'
+import { vacByUserIdExchangeColumns } from '@components/table/table-columns/product/vac-by-user-id-exchange-columns'
 
-import {addIdDataConverter, clientProductsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { addIdDataConverter, clientProductsDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class AnotherProfileViewModel {
   history = undefined
@@ -94,7 +94,7 @@ export class AnotherProfileViewModel {
   }
 
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -103,14 +103,14 @@ export class AnotherProfileViewModel {
       ? clientExchangeViewColumns(this.rowHandlers, this.firstRowId)
       : vacByUserIdExchangeColumns()
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
 
       this.userId = history.location.search.slice(1)
     })
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
@@ -305,7 +305,7 @@ export class AnotherProfileViewModel {
     await UserModel.getUserInfo()
   }
 
-  onClickOrderNowBtn = ({ordersDataState, totalOrdersCost}) => {
+  onClickOrderNowBtn = ({ ordersDataState, totalOrdersCost }) => {
     runInAction(() => {
       this.ordersDataStateToSubmit = ordersDataState[0]
 
@@ -326,7 +326,7 @@ export class AnotherProfileViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const requestProduct = getObjectFilteredByKeyArrayBlackList({...this.ordersDataStateToSubmit}, [
+      const requestProduct = getObjectFilteredByKeyArrayBlackList({ ...this.ordersDataStateToSubmit }, [
         'tmpResearcherName',
         'tmpBuyerName',
         'tmpStrategyStatus',
@@ -359,9 +359,9 @@ export class AnotherProfileViewModel {
       })
 
       if (orderObject.tmpBarCode.length) {
-        await onSubmitPostImages.call(this, {images: orderObject.tmpBarCode, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
       } else if (!orderObject.barCode) {
-        await ClientModel.updateProductBarCode(orderObject.productId, {barCode: null})
+        await ClientModel.updateProductBarCode(orderObject.productId, { barCode: null })
       }
 
       const createorderData = {
@@ -377,7 +377,7 @@ export class AnotherProfileViewModel {
       await ClientModel.createOrder(createorderData)
 
       if (this.uploadedFiles.length) {
-        await ClientModel.updateProductBarCode(orderObject.productId, {barCode: this.uploadedFiles[0]})
+        await ClientModel.updateProductBarCode(orderObject.productId, { barCode: this.uploadedFiles[0] })
       }
 
       runInAction(() => {

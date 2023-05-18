@@ -1,11 +1,11 @@
-import {makeAutoObservable} from 'mobx'
+import { makeAutoObservable } from 'mobx'
 
-import {snackNoticeKey} from '@constants/keys/snack-notifications'
-import {UserRoleCodeMapForRoutes, UserRole, mapUserRoleEnumToKey} from '@constants/keys/user-roles'
+import { snackNoticeKey } from '@constants/keys/snack-notifications'
+import { UserRoleCodeMapForRoutes, UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 
-import {ChatModel} from '@models/chat-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { ChatModel } from '@models/chat-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
 export class AppbarModel {
   history = undefined
@@ -52,9 +52,9 @@ export class AppbarModel {
     return SettingsModel.snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]?.crmItemId || null
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     this.history = history
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   checkMessageIsRead(message) {
@@ -119,6 +119,6 @@ export class AppbarModel {
   }
 
   clearSnackNoticeByKey(key) {
-    SettingsModel.setSnackNotifications({key, notice: null})
+    SettingsModel.setSnackNotifications({ key, notice: null })
   }
 }

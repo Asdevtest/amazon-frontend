@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   NormDateCell,
@@ -11,14 +11,18 @@ import {
   UserCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const adminFeedbackViewColumns = handlers => [
   {
     field: 'userName',
     headerName: t(TranslationKey.User),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
-    renderCell: params => <UserCell user={params.row.originalData.user} />,
+    renderCell: params => {
+      const user = params.row.originalData.user
+
+      return <UserCell userId={user?._id} name={user?.name} email={user?.email} rating={user?.rating} />
+    },
     width: 450,
   },
 
@@ -26,7 +30,7 @@ export const adminFeedbackViewColumns = handlers => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 90,
     type: 'date',
   },
@@ -51,12 +55,16 @@ export const adminFeedbackViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 180,
-    renderCell: params => (
-      <NormalActionBtnCell
-        bTnText={t(TranslationKey.View)}
-        // isFirstRow={firstRowId === params.row.id}
-        onClickOkBtn={() => handlers.onClickOpenFeedbackBtn(params.row.originalData)}
-      />
-    ),
+    renderCell: params => {
+      const onClickOpenFeedbackBtn = useCallback(() => handlers.onClickOpenFeedbackBtn(params.row.originalData), [])
+
+      return (
+        <NormalActionBtnCell
+          bTnText={t(TranslationKey.View)}
+          // isFirstRow={firstRowId === params.row.id}
+          onClickOkBtn={onClickOpenFeedbackBtn}
+        />
+      )
+    },
   },
 ]

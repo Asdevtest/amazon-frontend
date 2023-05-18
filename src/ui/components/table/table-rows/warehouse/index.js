@@ -1,1 +1,1 @@
-export {WarehouseBodyRow} from './warehouse-body-row'
+export { WarehouseBodyRow } from './warehouse-body-row'

@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {fontWeight} from '@mui/system'
+import { fontWeight } from '@mui/system'
 
-import React from 'react'
+import React, { useCallback, useMemo } from 'react'
 
-import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
-import {orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey} from '@constants/statuses/order-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey } from '@constants/statuses/order-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   DownloadAndCopyBtnsCell,
@@ -22,9 +22,9 @@ import {
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {convertDaysToSeconds, formatDate, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
-import {timeToDeadlineInHoursAndMins, toFixed, toFixedWithDollarSign, toFixedWithYuanSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { convertDaysToSeconds, formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
+import { timeToDeadlineInHoursAndMins, toFixed, toFixedWithDollarSign, toFixedWithYuanSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers, columnMenuSettings) => [
   {
@@ -58,7 +58,11 @@ export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers, columnMenuS
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
     width: 400,
-    renderCell: params => <OrderCell product={params.row.originalData.product} />,
+    renderCell: params => {
+      const productMemo = useMemo(() => params.row.originalData.product, [])
+
+      return <OrderCell product={productMemo} />
+    },
     sortable: false,
   },
   {
@@ -109,14 +113,21 @@ export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers, columnMenuS
       />
     ),
 
-    renderCell: params => (
-      <StringListCell
-        sourceString={params?.value?.map(method => method?.paymentMethod?.title)}
-        maxItemsDisplay={3}
-        maxLettersInItem={15}
-        onClickCell={() => rowHandlers.onClickPaymentMethodCell(params?.row?.originalData)}
-      />
-    ),
+    renderCell: params => {
+      const onClickPaymentMethodCell = useCallback(
+        () => rowHandlers.onClickPaymentMethodCell(params?.row?.originalData),
+        [],
+      )
+
+      return (
+        <StringListCell
+          sourceString={params?.value?.map(method => method?.paymentMethod?.title)}
+          maxItemsDisplay={3}
+          maxLettersInItem={15}
+          onClickCell={onClickPaymentMethodCell}
+        />
+      )
+    },
     type: 'number',
     width: 178,
     align: 'center',
@@ -176,7 +187,7 @@ export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers, columnMenuS
       params.row.originalData.status < 20 ? (
         <MultilineTextCell
           withLineBreaks
-          tooltipText={params.value ? timeToDeadlineInHoursAndMins({date: params.value}) : ''}
+          tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
           color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
           text={params.value ? formatDate(params.value) : ''}
         />
@@ -266,7 +277,7 @@ export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers, columnMenuS
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
     type: 'date',
   },
@@ -276,7 +287,7 @@ export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers, columnMenuS
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 130,
     type: 'date',
   },

@@ -1,43 +1,43 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Avatar, Typography, Link} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Avatar, Typography, Link } from '@mui/material'
 
-import React, {Component, useEffect, useRef, useState} from 'react'
+import React, { Component, useEffect, useRef, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {chatsType} from '@constants/keys/chats'
-import {UserRoleCodeMap} from '@constants/keys/user-roles'
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { chatsType } from '@constants/keys/chats'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { navBarActiveCategory } from '@constants/navigation/navbar-active-category'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {MultipleChats} from '@components/chat/multiple-chats'
-import {SearchResult} from '@components/chat/search-result'
-import {AddNewChatByEmailForm} from '@components/forms/add-new-chat-by-email-form'
-import {AddUsersToGroupChatForm} from '@components/forms/add-users-to-group-chat-form'
-import {EditGroupChatInfoForm} from '@components/forms/edit-group-chat-info-form'
-import {Appbar} from '@components/layout/appbar'
-import {Main} from '@components/layout/main'
-import {MainContent} from '@components/layout/main-content'
-import {Navbar} from '@components/layout/navbar'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Button} from '@components/shared/buttons/button'
-import {CircularProgressWithLabel} from '@components/shared/circular-progress-with-label'
-import {Modal} from '@components/shared/modal'
-import {SearchInput} from '@components/shared/search-input'
+import { MultipleChats } from '@components/chat/multiple-chats'
+import { SearchResult } from '@components/chat/search-result'
+import { AddNewChatByEmailForm } from '@components/forms/add-new-chat-by-email-form'
+import { AddUsersToGroupChatForm } from '@components/forms/add-users-to-group-chat-form'
+import { EditGroupChatInfoForm } from '@components/forms/edit-group-chat-info-form'
+import { Appbar } from '@components/layout/appbar'
+import { Main } from '@components/layout/main'
+import { MainContent } from '@components/layout/main-content'
+import { Navbar } from '@components/layout/navbar'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
 
-import {checkIsResearcher} from '@utils/checks'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {t} from '@utils/translations'
+import { checkIsResearcher } from '@utils/checks'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { t } from '@utils/translations'
 
-import {MessagesViewModel} from './messages-view.model'
-import {styles} from './messages-view.style'
+import { MessagesViewModel } from './messages-view.model'
+import { styles } from './messages-view.style'
 
 export const MessagesViewRaw = props => {
-  const [viewModel] = useState(() => new MessagesViewModel({history: props.history, location: props.location}))
+  const [viewModel] = useState(() => new MessagesViewModel({ history: props.history, location: props.location }))
   const chatRef = useRef()
-  const {classes: classNames} = props
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -55,7 +55,7 @@ export const MessagesViewRaw = props => {
     <React.Fragment>
       <MainContent>
         <div
-          className={cx(classNames.chatHeaderWrapper, {[classNames.hideChatHeaderWrapper]: viewModel.chatSelectedId})}
+          className={cx(classNames.chatHeaderWrapper, { [classNames.hideChatHeaderWrapper]: viewModel.chatSelectedId })}
         >
           <div className={classNames.leftSide}>
             <SearchInput
@@ -101,7 +101,7 @@ export const MessagesViewRaw = props => {
                   <SearchResult
                     curFoundedMessageIndex={curFoundedMessageIndex}
                     messagesFound={viewModel.messagesFound}
-                    onClose={() => viewModel.onChangeMesSearchValue({target: {value: ''}})}
+                    onClose={() => viewModel.onChangeMesSearchValue({ target: { value: '' } })}
                     onChangeCurFoundedMessage={viewModel.onChangeCurFoundedMessage}
                   />
                 ) : (

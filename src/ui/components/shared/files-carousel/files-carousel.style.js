@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   imagesCarouselWrapper: {
@@ -34,7 +34,7 @@ export const useClassNames = makeStyles()(theme => ({
       color: theme.palette.text.general,
     },
   },
-  emptyProposalsDescriptionWrapper: {},
+
   documentTitle: {
     fontSize: '12px',
     textAlign: 'center',
@@ -46,25 +46,16 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    // minWidth: '400px',
     justifyContent: 'center',
     alignItems: 'center',
     margin: '24px 0 24px 0',
   },
   emptyProposalsIcon: {
-    // backgroundColor: '#e0e0e0',
-    // borderRadius: '50%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  emptyProposalsTitle: {
-    fontSize: '16px',
-    lineHeight: '19px',
-    fontWeight: '400',
-    color: theme.palette.text.general,
-    marginBottom: '10px',
-  },
+
   emptyIconWrapper: {
     width: '100%',
     display: 'flex',
@@ -88,10 +79,8 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-
     textAlign: 'center',
     color: theme.palette.text.second,
-
     marginTop: 15,
   },
 

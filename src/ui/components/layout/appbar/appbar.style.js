@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
@@ -10,8 +10,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     height: theme.spacing(7),
     boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
-
-    // backgroundColor: theme.palette.background.second,
     borderRadius: '0',
     zIndex: 1100,
     flexShrink: 0,
@@ -70,7 +68,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   username: {
     color: theme.palette.text.second,
-
     fontSize: '14px',
     fontWeight: 500,
     width: '110px',
@@ -78,7 +75,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   userroleTitle: {
     color: theme.palette.text.second,
-
     marginRight: '5px',
     [theme.breakpoints.down(768)]: {
       display: 'none',
@@ -94,8 +90,6 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       marginRight: 0,
       color: theme.palette.text.general,
-
-      // color: theme.palette.text.second,
       fontSize: '14px',
       lineHeight: '19px',
       padding: 0,
@@ -111,7 +105,6 @@ export const useClassNames = makeStyles()(theme => ({
     transition: '0.3s ease',
     height: '100%',
     '&:hover': {
-      // backgroundColor: '#CCE2FF',
       backgroundColor: theme.palette.background.second,
     },
   },
@@ -124,32 +117,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
   balance: {
     color: theme.palette.text.second,
-
     fontSize: '14px',
     fontWeight: 500,
     lineHeight: 1,
-  },
-  notificationWrapper: {
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-  },
-  notificationList: {
-    width: '420px',
-    [theme.breakpoints.down('xs')]: {
-      width: '320px',
-    },
-  },
-  menuItemText: {
-    fontSize: '15px',
-    fontWeight: 400,
-    lineHeight: '18px',
-    color: 'rgba(90, 97, 105, 1)',
-  },
-
-  footer: {
-    bottom: 0,
   },
 
   menu: {
@@ -212,35 +182,6 @@ export const useClassNames = makeStyles()(theme => ({
     height: 25,
     width: 25,
   },
-  menuTitle: {
-    height: '30px',
-    fontSize: '18px',
-    fontWeight: 400,
-    lineHeight: '18px',
-    color: 'rgba(90, 97, 105, 1)',
-    textAlign: 'center',
-  },
-
-  roleWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    padding: '5px',
-  },
-
-  roleSubWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-  },
-  roleSelect: {
-    width: '150px',
-  },
-
-  menuBtn: {
-    width: '80px',
-    height: '30px',
-  },
 
   allowedRolesWrapper: {
     display: 'flex',
@@ -285,8 +226,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   сurrentAllowedRolesItem: {
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
-    // background: theme.palette.primary.main,
-
     borderBottom: `5px solid ${theme.palette.primary.main}`,
     color: theme.palette.primary.main,
     [theme.breakpoints.down(768)]: {
@@ -305,7 +244,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   breadCrumbsWrapper: {
-    // position: 'absolute',
     width: '100%',
     display: 'flex',
     paddingLeft: 30,
@@ -352,7 +290,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   menuIcon: {
-    // color: '#006CFF',
     color: theme.palette.primary.main,
   },
 
@@ -390,7 +327,7 @@ export const useClassNames = makeStyles()(theme => ({
       textAlign: 'end',
     },
   },
-  mobileAllowedRolesMainWrapper: {},
+
   mobileAllowedRolesWrapper: {
     display: 'none',
     [theme.breakpoints.down(768)]: {
@@ -413,15 +350,7 @@ export const useClassNames = makeStyles()(theme => ({
       textTransform: 'capitalize',
     },
   },
-  menuClientRoleWrapper: {
-    display: 'none',
-    [theme.breakpoints.down(768)]: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'start',
-    },
-  },
-  mobileAllowedRolesItem: {display: 'none'},
+
   indicator: {
     [theme.breakpoints.down(768)]: {
       display: 'block',

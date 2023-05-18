@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
-import {mapUserRoleEnumToKey, UserRole} from '@constants/keys/user-roles'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { mapUserRoleEnumToKey, UserRole } from '@constants/keys/user-roles'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextHeaderCell,
@@ -10,8 +10,8 @@ import {
   NormalActionBtnCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const adminUsersViewColumns = handlers => [
   {
@@ -19,7 +19,7 @@ export const adminUsersViewColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
     type: 'date',
   },
@@ -99,13 +99,17 @@ export const adminUsersViewColumns = handlers => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    renderCell: params => (
-      <NormalActionBtnCell
-        disabled={params.row.originalData.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
-        bTnText={t(TranslationKey['Edit and balance'])}
-        onClickOkBtn={() => handlers.onClickUser(params.row.originalData)}
-      />
-    ),
+    renderCell: params => {
+      const onClickUser = useCallback(() => handlers.onClickUser(params.row.originalData), [])
+
+      return (
+        <NormalActionBtnCell
+          disabled={params.row.originalData.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
+          bTnText={t(TranslationKey['Edit and balance'])}
+          onClickOkBtn={onClickUser}
+        />
+      )
+    },
 
     width: 270,
     filterable: false,

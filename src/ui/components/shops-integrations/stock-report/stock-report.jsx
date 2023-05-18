@@ -1,35 +1,35 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {BindStockGoodsToInventoryForm} from '@components/forms/bind-stock-goods-to-inventory-form'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {SelectionSupplierModal} from '@components/modals/selection-supplier-modal'
-import {SuccessInfoModal} from '@components/modals/success-info-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
-import {Button} from '@components/shared/buttons/button'
-import {CircularProgressWithLabel} from '@components/shared/circular-progress-with-label'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {Modal} from '@components/shared/modal'
-import {WithSearchSelect} from '@components/shared/selects/with-search-select'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { BindStockGoodsToInventoryForm } from '@components/forms/bind-stock-goods-to-inventory-form'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {StockReportModel} from './stock-report.model'
-import {styles} from './stock-report.style'
+import { StockReportModel } from './stock-report.model'
+import { styles } from './stock-report.style'
 
 export const StockReportRaw = props => {
-  const [viewModel] = useState(() => new StockReportModel({history: props.history, curShop: props.curShop}))
-  const {classes: className} = props
+  const [viewModel] = useState(() => new StockReportModel({ history: props.history, curShop: props.curShop }))
+  const { classes: className } = props
 
   useEffect(() => {
     viewModel.loadData()

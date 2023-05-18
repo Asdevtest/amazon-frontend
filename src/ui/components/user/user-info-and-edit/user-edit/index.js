@@ -1,1 +1,1 @@
-export {UserEdit} from './user-edit'
+export { UserEdit } from './user-edit'

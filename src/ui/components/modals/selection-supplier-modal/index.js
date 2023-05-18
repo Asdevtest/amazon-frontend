@@ -1,1 +1,1 @@
-export {SelectionSupplierModal} from './selection-supplier-modal'
+export { SelectionSupplierModal } from './selection-supplier-modal'

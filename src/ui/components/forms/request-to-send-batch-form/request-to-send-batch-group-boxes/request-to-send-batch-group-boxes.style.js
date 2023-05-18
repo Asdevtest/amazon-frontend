@@ -1,7 +1,6 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  dialogContextClassName: {},
   table: {
     borderCollapse: 'collapse',
     border: 0,
@@ -16,14 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
   tableAlertWrapper: {
     border: '1px solid red',
   },
-  tableWrapperInfo: {
-    fontSize: '16px',
-    textAlign: 'center',
-  },
-  block: {
-    height: '50px',
-    backgroundColor: 'f6b2b3a4',
-  },
+
   boxWrapper: {
     width: '100%',
   },
@@ -34,10 +26,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    // padding: '0 70px 0 60px',
     padding: '0 85px 0 65px',
     zIndex: 999,
-
     position: 'sticky',
     top: 0,
   },
@@ -74,11 +64,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    // paddingRight: '80px',
-    // padding: '0 70px 0 60px',
     paddingRight: '85px',
     paddingLeft: '65px',
-
     position: 'sticky',
     bottom: 0,
   },
@@ -87,7 +74,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     marginLeft: '50px',
-
     '&: nth-of-type(1)': {
       marginLeft: 0,
     },

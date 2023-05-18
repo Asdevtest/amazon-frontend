@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useCallback, useMemo } from 'react'
 
 import {
   colorByTaskPriorityStatus,
   mapTaskPriorityStatusEnum,
   taskPriorityStatusTranslate,
 } from '@constants/task/task-priority-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   TaskDescriptionCell,
@@ -17,7 +17,7 @@ import {
   MultilineTextCell, // AsinCopyCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const warehouseCompletedTasksViewColumns = (handlers, firstRowId) => [
   {
@@ -26,14 +26,18 @@ export const warehouseCompletedTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: window.innerWidth < 1282 ? 118 : 190,
-    renderCell: params => (
-      <NormalActionBtnCell
-        isFirstRow={firstRowId === params.row.id}
-        tooltipText={t(TranslationKey['Open the window with task information'])}
-        bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row.originalData)}
-      />
-    ),
+    renderCell: params => {
+      const setCurrentOpenedTask = useCallback(() => handlers.setCurrentOpenedTask(params.row.originalData), [])
+
+      return (
+        <NormalActionBtnCell
+          isFirstRow={firstRowId === params.row.id}
+          tooltipText={t(TranslationKey['Open the window with task information'])}
+          bTnText={t(TranslationKey.View)}
+          onClickOkBtn={setCurrentOpenedTask}
+        />
+      )
+    },
     filterable: false,
     sortable: false,
   },
@@ -44,7 +48,7 @@ export const warehouseCompletedTasksViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
     width: window.innerWidth < 1282 ? 125 : 180,
-    renderCell: params => <TaskTypeCell task={params.row.originalData} />,
+    renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
   },
 
   {
@@ -68,7 +72,11 @@ export const warehouseCompletedTasksViewColumns = (handlers, firstRowId) => [
 
     // width: window.innerWidth < 1282 ? 338 : 850,
     width: 290,
-    renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
+    renderCell: params => {
+      const rowMemo = useMemo(() => params.row.originalData, [])
+
+      return <TaskDescriptionCell task={rowMemo} />
+    },
     filterable: false,
     sortable: false,
   },

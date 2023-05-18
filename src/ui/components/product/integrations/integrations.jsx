@@ -1,33 +1,33 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
 
-import {observer} from 'mobx-react'
-import {useHistory} from 'react-router-dom'
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-goods-to-stock-form'
-import {SuccessInfoModal} from '@components/modals/success-info-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Button} from '@components/shared/buttons/button'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {Modal} from '@components/shared/modal'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {IntegrationsModel} from './integrations.model'
-import {useClassNames} from './integrations.style'
+import { IntegrationsModel } from './integrations.model'
+import { useClassNames } from './integrations.style'
 
-export const Integrations = observer(({productId}) => {
-  const {classes: classNames} = useClassNames()
+export const Integrations = observer(({ productId }) => {
+  const { classes: classNames } = useClassNames()
   const history = useHistory()
-  const model = useRef(new IntegrationsModel({history, productId}))
+  const model = useRef(new IntegrationsModel({ history, productId }))
 
   useEffect(() => {
     model.current.loadData()
@@ -89,7 +89,7 @@ export const Integrations = observer(({productId}) => {
         }}
         componentsProps={{
           toolbar: {
-            columsBtnSettings: {columnsModel, changeColumnsModel},
+            columsBtnSettings: { columnsModel, changeColumnsModel },
           },
         }}
         columns={columnsModel}

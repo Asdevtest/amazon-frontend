@@ -1,1 +1,1 @@
-export {clientExchangeViewColumns} from './client-exchange-columns'
+export { clientExchangeViewColumns } from './client-exchange-columns'

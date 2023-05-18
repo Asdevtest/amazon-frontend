@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -6,10 +6,5 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '5px',
     width: '100%',
     border: 'none !important',
-    // outline: 'none',
-  },
-
-  datePickerRoot: {
-    border: '1px solid #E0E0E0',
   },
 }))

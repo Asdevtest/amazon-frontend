@@ -1,19 +1,19 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SellerBoardModel} from '@models/seller-board-model'
-import {SettingsModel} from '@models/settings-model'
-import {ShopModel} from '@models/shop-model'
+import { SellerBoardModel } from '@models/seller-board-model'
+import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
 
-import {clientLast30DaySellerBoardColumns} from '@components/table/table-columns/client/client-last-30-day-seller-board-columns copy'
+import { clientLast30DaySellerBoardColumns } from '@components/table/table-columns/client/client-last-30-day-seller-board-columns copy'
 
-import {addIdDataConverter, stockReportDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { addIdDataConverter, stockReportDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
 
 export class GoodsDaysReportModel {
   history = undefined
@@ -33,7 +33,7 @@ export class GoodsDaysReportModel {
   showConfirmModal = false
 
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -49,12 +49,12 @@ export class GoodsDaysReportModel {
     onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
   }
 
-  constructor({history, curShop}) {
+  constructor({ history, curShop }) {
     this.history = history
 
     this.currentShop = curShop
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   changeColumnsModel(newHideState) {
@@ -164,7 +164,7 @@ export class GoodsDaysReportModel {
   async getMyDailyReportsLast30Days() {
     try {
       const result = await SellerBoardModel.getMyDailyReportsLast30Days(
-        this.currentShop && {shopId: this.currentShop._id},
+        this.currentShop && { shopId: this.currentShop._id },
       )
 
       runInAction(() => {

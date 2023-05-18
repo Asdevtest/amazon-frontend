@@ -1,23 +1,23 @@
-import {Typography, Paper} from '@mui/material'
+import { Typography, Paper } from '@mui/material'
 
 import React from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {CustomList} from '@components/shared/custom-list'
+import { CustomList } from '@components/shared/custom-list'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 // import {TranslationKey} from '@constants/translations/translation-key'
 // import {Field} from '@components/field'
 // import {toFixed} from '@utils/text'
 // import {t} from '@utils/translations'
-import {useClassNames} from './bottom-card.style'
+import { useClassNames } from './bottom-card.style'
 
-export const BottomCard = observer(({data}) => {
-  const {classes: classNames} = useClassNames()
+export const BottomCard = observer(({ data }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <React.Fragment>

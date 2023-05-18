@@ -1,9 +1,7 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   imageModalWrapper: {
-    // minWidth: '60vw',
-    // height: '80vh',
     display: 'flex',
     justifyContent: 'space-between',
     gap: '30px',
@@ -33,8 +31,6 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: 220,
     display: 'flex',
     flexDirection: 'column',
-    // alignSelf: "flex-end",
-    // marginBottom: "78px"
     marginTop: '58px',
   },
 
@@ -47,24 +43,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imageModalSubWrapper: {
-    // display: 'flex',
-    // flexDirection: 'column',
     height: 630,
-    // justifyContent: 'flex-end',
     overflowY: 'auto',
-    // overflowX: 'hidden',
     minWidth: 220,
-    // position: 'absolute',
-    // bottom: 30,
-    // left: 30,
   },
 
   imageModalSubWrapperRightSide: {
-    // alignItems: "flex-end",
     display: 'flex',
     marginTop: '580px',
-    // flexDirection: 'column',
-    // justifyContent: 'flex-end',
     marginLeft: 20,
     gap: 20,
   },
@@ -72,14 +58,11 @@ export const useClassNames = makeStyles()(theme => ({
   imageModalImageWrapperLeftSide: {
     padding: 5,
     display: 'flex',
-    // justifyContent: 'center',
     width: 200,
     height: 'auto',
     gap: 10,
-
     cursor: 'pointer',
     transition: '.3s ease',
-
     '&: hover': {
       transform: 'scale(0.9)',
     },

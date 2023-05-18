@@ -1,1 +1,1 @@
-export {ExtraOrderInfo} from './extra-order-info'
+export { ExtraOrderInfo } from './extra-order-info'

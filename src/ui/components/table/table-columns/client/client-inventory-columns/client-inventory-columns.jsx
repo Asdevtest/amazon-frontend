@@ -1,11 +1,9 @@
 /* eslint-disable no-unused-vars */
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import React, { useCallback, useMemo } from 'react'
 
-import React from 'react'
-
-import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
-import {colorByProductStatus, ProductStatusByCode} from '@constants/product/product-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { colorByProductStatus, ProductStatusByCode } from '@constants/product/product-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ToFixedCell,
@@ -16,7 +14,6 @@ import {
   HsCodeCell,
   MultilineTextHeaderCell,
   MultilineTextCell,
-  ShowBarcodeOrHscodeCell,
   FourMonthesStockCell,
   MultilineTextAlignLeftCell,
   ChangeInputCell,
@@ -25,8 +22,8 @@ import {
   ProductAsinCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const clientInventoryColumns = (
   barCodeHandlers,
@@ -52,7 +49,18 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <ProductAsinCell product={params.row.originalData} />,
+    renderCell: params => {
+      const product = params.row.originalData
+
+      return (
+        <ProductAsinCell
+          image={product?.images?.slice()[0]}
+          amazonTitle={product?.amazonTitle}
+          asin={product?.asin}
+          skusByClient={product?.skusByClient?.slice()[0]}
+        />
+      )
+    },
     width: 300,
 
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
@@ -157,16 +165,15 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => (
-      <MultilineTextCell
-        text={params.value}
-        onClickText={e => {
-          e.stopPropagation()
+    renderCell: params => {
+      const onClickTextMemo = useCallback(e => {
+        e.stopPropagation()
 
-          otherHandlers.onClickOrderCell(params.row.originalData._id)
-        }}
-      />
-    ),
+        otherHandlers.onClickOrderCell(params.row.originalData._id)
+      }, [])
+
+      return <MultilineTextCell text={params.value} onClickText={onClickTextMemo} />
+    },
     type: 'number',
     width: 90,
 
@@ -184,14 +191,18 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => (
-      <ChangeInputCell
-        isInts
-        row={params.row.originalData}
-        text={params.value}
-        onClickSubmit={stockUsHandlers.onClickSaveStockUs}
-      />
-    ),
+    renderCell: params => {
+      const onClickSaveStockUsMemo = useCallback(stockUsHandlers.onClickSaveStockUs, [])
+
+      return (
+        <ChangeInputCell
+          isInts
+          rowId={params.row.originalData._id}
+          text={params.value}
+          onClickSubmit={onClickSaveStockUsMemo}
+        />
+      )
+    },
     width: 150,
 
     columnKey: columnnsKeys.shared.QUANTITY,
@@ -208,16 +219,15 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => (
-      <MultilineTextCell
-        text={params.value}
-        onClickText={e => {
-          e.stopPropagation()
+    renderCell: params => {
+      const onClickInTransferMemo = useCallback(e => {
+        e.stopPropagation()
 
-          otherHandlers.onClickInTransfer(params.row.originalData._id)
-        }}
-      />
-    ),
+        otherHandlers.onClickInTransfer(params.row.originalData._id)
+      }, [])
+
+      return <MultilineTextCell text={params.value} onClickText={onClickInTransferMemo} />
+    },
     type: 'number',
     width: 90,
 
@@ -235,13 +245,18 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => (
-      <InStockCell
-        boxAmounts={params.row.originalData.boxAmounts}
-        box={params.row.originalData}
-        onClickInStock={otherHandlers.onClickInStock}
-      />
-    ),
+    renderCell: params => {
+      const onClickInStockMemo = useCallback(otherHandlers.onClickInStock, [])
+      const boxAmountsMemo = useMemo(() => params.row.originalData.boxAmounts, [])
+
+      return (
+        <InStockCell
+          boxAmounts={boxAmountsMemo}
+          boxId={params.row.originalData._id}
+          onClickInStock={onClickInStockMemo}
+        />
+      )
+    },
     width: 160,
     sortable: false,
     columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
@@ -291,9 +306,18 @@ export const clientInventoryColumns = (
         text={t(TranslationKey['Recommendation for additional purchases'])}
       />
     ),
-    renderCell: params => (
-      <FourMonthesStockCell handlers={fourMonthesStockHandlers} params={params} value={params.value} />
-    ),
+    renderCell: params => {
+      const onClickSaveFourMonthsStock = useCallback(fourMonthesStockHandlers.onClickSaveFourMonthsStock, [])
+
+      return (
+        <FourMonthesStockCell
+          rowId={params.row.originalData._id}
+          value={params.value}
+          fourMonthesStock={params.row.fourMonthesStock}
+          onClickSaveFourMonthsStock={onClickSaveFourMonthsStock}
+        />
+      )
+    },
 
     width: 150,
     type: 'number',
@@ -364,7 +388,12 @@ export const clientInventoryColumns = (
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell withIcon isFilterActive text={t(TranslationKey.BarCode)} />,
 
-    renderCell: params => <BarcodeCell product={params.row.originalData} handlers={barCodeHandlers} />,
+    renderCell: params => {
+      const barCodeHandlersMemo = useMemo(() => barCodeHandlers, [])
+      const productMemo = useMemo(() => params.row.originalData, [])
+
+      return <BarcodeCell product={productMemo} handlers={barCodeHandlersMemo} />
+    },
     minWidth: 100,
     headerAlign: 'center',
     filterable: false,
@@ -378,7 +407,12 @@ export const clientInventoryColumns = (
     headerName: 'HS code',
     renderHeader: () => <MultilineTextHeaderCell text={'HS code'} />,
 
-    renderCell: params => <HsCodeCell product={params.row.originalData} handlers={hsCodeHandlers} />,
+    renderCell: params => {
+      const hsCodeHandlersMemo = useMemo(() => hsCodeHandlers, [])
+      const productMemo = useMemo(() => params.row.originalData, [])
+
+      return <HsCodeCell product={productMemo} handlers={hsCodeHandlersMemo} />
+    },
     minWidth: 100,
     headerAlign: 'center',
     type: 'actions',
@@ -418,7 +452,7 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     minWidth: 90,
     type: 'date',
 
@@ -436,7 +470,7 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     minWidth: 90,
     type: 'date',
 
@@ -471,7 +505,11 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => <CommentOfSbCell productsInWarehouse={params.row.originalData.productsInWarehouse} />,
+    renderCell: params => {
+      const productsInWarehouseMemo = useMemo(() => params.row.originalData.productsInWarehouse, [])
+
+      return <CommentOfSbCell productsInWarehouse={productsInWarehouseMemo} />
+    },
     width: 400,
     filterable: false,
     sortable: false,

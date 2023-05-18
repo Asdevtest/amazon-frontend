@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
@@ -58,43 +58,11 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
   },
 
-  rightBlockWrapper: {
-    marginLeft: '40px',
-    width: '30%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end',
-  },
-
-  divider: {
-    width: '100%',
-  },
-
   userInfoWrapper: {
     display: 'flex',
     alignItems: 'center',
 
     marginBottom: '30px',
-  },
-
-  userRating: {
-    marginLeft: '100px',
-  },
-
-  middleBlockWrapper: {
-    width: '819px',
-
-    display: 'flex',
-
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-
-  timeItemInfoWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
   },
 
   cardImg: {
@@ -107,18 +75,6 @@ export const useClassNames = makeStyles()(theme => ({
   actionButton: {
     width: '242px',
     height: '40px',
-  },
-
-  cardPrice: {
-    fontSize: '16px',
-    lineHeight: '21px',
-    color: theme.palette.primary.main,
-  },
-
-  statusText: {
-    fontSize: '18px',
-    lineHeight: '21px',
-    color: '#00B746',
   },
 
   updatedAtWrapper: {
@@ -142,39 +98,9 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
   },
 
-  subBlockWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-
-  leftSubBlockWrapper: {
-    width: '403px',
-    border: '1px solid #E0E0E0',
-    borderRadius: '8px',
-    padding: '30px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '23px',
-  },
-
-  rightSubBlockWrapper: {
-    width: '377px',
-    border: '1px solid #E0E0E0',
-    borderRadius: '8px',
-    padding: '30px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '23px',
-  },
-
   buttonWrapper: {
     display: 'flex',
     justifyContent: 'end',
-  },
-
-  standartText: {
-    color: theme.palette.text.general,
   },
 
   fieldLabel: {
@@ -241,6 +167,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '395px',
     height: 80,
   },
+
   idTitle: {
     fontWeight: 600,
     fontSize: 14,
@@ -248,6 +175,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.general,
   },
+
   idText: {
     color: `${theme.palette.text.second} !important`,
   },

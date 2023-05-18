@@ -1,14 +1,17 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
 import React from 'react'
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
-import {MainContent} from '@components/layout/main-content'
-import {styles} from './moderator-my-products-view.style'
+
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
+
+import { MainContent } from '@components/layout/main-content'
+
+import { styles } from './moderator-my-products-view.style'
 
 export const ModeratorMyProductsViewRaw = props => {
   // const [viewModel] = useState(() => new ModeratorMyProductsViewModel({ history: props.history }));
-  const {classes: classNames} = props
+  const { classes: classNames } = props
 
   return (
     <React.Fragment>

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
-import {orderColorByStatus, OrderStatusByCode} from '@constants/statuses/order-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { orderColorByStatus, OrderStatusByCode } from '@constants/statuses/order-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ClientNotificationsBtnsCell,
@@ -15,8 +15,8 @@ import {
   ShortDateCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const clientOrdersNotificationsViewColumns = handlers => [
   {
@@ -25,7 +25,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
     headerName: t(TranslationKey.Created),
     width: 90,
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     type: 'date',
   },
 
@@ -75,7 +75,12 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
     headerName: t(TranslationKey.Action),
     width: 305,
-    renderCell: params => <ClientNotificationsBtnsCell handlers={handlers} row={params.row.originalData} />,
+    renderCell: params => {
+      const handlersMemo = useMemo(() => handlers, [])
+      const rowMemo = useMemo(() => params.row.originalData, [])
+
+      return <ClientNotificationsBtnsCell handlers={handlersMemo} row={rowMemo} />
+    },
     filterable: false,
     sortable: false,
   },
@@ -86,7 +91,11 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Orders)} />,
 
     width: 250,
-    renderCell: params => <OrderCell product={params.row.originalData.product} />,
+    renderCell: params => {
+      const productMemo = useMemo(() => params.row.originalData.product, [])
+
+      return <OrderCell product={productMemo} />
+    },
   },
 
   {

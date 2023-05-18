@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ClearIcon from '@mui/icons-material/Clear'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DoneIcon from '@mui/icons-material/Done'
@@ -25,21 +25,21 @@ import {
   Typography,
 } from '@mui/material'
 
-import React, {useEffect, useRef, useState} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-import {fromUnixTime} from 'date-fns'
-import {flushSync} from 'react-dom'
-import {useReactToPrint} from 'react-to-print'
-import {withStyles} from 'tss-react/mui'
+import { fromUnixTime } from 'date-fns'
+import { flushSync } from 'react-dom'
+import { useReactToPrint } from 'react-to-print'
+import { withStyles } from 'tss-react/mui'
 
-import {imageTypes} from '@constants/configs/image-types'
-import {zipCodeGroups} from '@constants/configs/zip-code-groups'
-import {mapUserRoleEnumToKey, UserRole, UserRolePrettyMap} from '@constants/keys/user-roles'
-import {MyRequestStatusTranslate} from '@constants/requests/request-proposal-status'
-import {RequestStatus} from '@constants/requests/request-status'
-import {BoxStatus} from '@constants/statuses/box-status'
-import {OrderStatus, OrderStatusByKey} from '@constants/statuses/order-status'
-import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task/task-operation-type'
+import { imageTypes } from '@constants/configs/image-types'
+import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { mapUserRoleEnumToKey, UserRole, UserRolePrettyMap } from '@constants/keys/user-roles'
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { RequestStatus } from '@constants/requests/request-status'
+import { BoxStatus } from '@constants/statuses/box-status'
+import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { mapTaskOperationTypeKeyToEnum, TaskOperationType } from '@constants/task/task-operation-type'
 import {
   colorByTaskPriorityStatus,
   mapTaskPriorityStatusEnum,
@@ -47,22 +47,22 @@ import {
   TaskPriorityStatus,
   taskPriorityStatusTranslate,
 } from '@constants/task/task-priority-status'
-import {mapTaskStatusEmumToKey, TaskStatus, TaskStatusTranslate} from '@constants/task/task-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { mapTaskStatusEmumToKey, TaskStatus, TaskStatusTranslate } from '@constants/task/task-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BigImagesModal} from '@components/modals/big-images-modal'
-import {Button} from '@components/shared/buttons/button'
-import {CopyValue} from '@components/shared/copy-value/copy-value'
-import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {NewDatePicker} from '@components/shared/date-picker/date-picker'
-import {Field} from '@components/shared/field'
-import {Input} from '@components/shared/input'
-import {RedFlags} from '@components/shared/redFlags/red-flags'
-import {SearchInput} from '@components/shared/search-input'
-import {WithSearchSelect} from '@components/shared/selects/with-search-select'
-import {ClockIcon} from '@components/shared/svg-icons'
-import {Text} from '@components/shared/text'
-import {UserLink} from '@components/user/user-link'
+import { BigImagesModal } from '@components/modals/big-images-modal'
+import { Button } from '@components/shared/buttons/button'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { Field } from '@components/shared/field'
+import { Input } from '@components/shared/input'
+import { RedFlags } from '@components/shared/redFlags/red-flags'
+import { SearchInput } from '@components/shared/search-input'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { ClockIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
+import { UserLink } from '@components/user/user-link'
 
 import {
   calcFinalWeightForBox,
@@ -71,7 +71,7 @@ import {
   getTariffRateForBoxOrOrder,
   roundHalf,
 } from '@utils/calculation'
-import {checkIsPositiveNum, checkIsString} from '@utils/checks'
+import { checkIsPositiveNum, checkIsString } from '@utils/checks'
 import {
   formatDateForShowWithoutParseISO,
   formatDateTime,
@@ -80,9 +80,9 @@ import {
   formatNormDateTimeWithParseISO,
   formatShortDateTime,
 } from '@utils/date-time'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import {
   checkAndMakeAbsoluteUrl,
   getShortenStringIfLongerThanCount,
@@ -93,33 +93,33 @@ import {
   toFixedWithKg,
   trimBarcode,
 } from '@utils/text'
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {styles} from './data-grid-cells.style'
+import { styles } from './data-grid-cells.style'
 
 export const UserCell = React.memo(
   withStyles(
-    ({classes: classNames, user}) => (
+    ({ classes: classNames, userId, name, email, rating }) => (
       <div className={classNames.sabUserWrapper}>
         <div className={classNames.userAvatarWrapper}>
-          <Avatar src={getUserAvatarSrc(user?._id)} className={classNames.userAvatar} />
+          <Avatar src={getUserAvatarSrc(userId)} className={classNames.userAvatar} />
         </div>
 
         <div className={classNames.sabUserInfoWrapper}>
           <div className={classNames.userLink}>
             <UserLink
-              customStyles={{fontWeight: 600, fontSize: '14px', lineHeight: '19px'}}
-              name={user?.name}
-              userId={user?._id}
+              customStyles={{ fontWeight: 600, fontSize: '14px', lineHeight: '19px' }}
+              name={name}
+              userId={userId}
             />
           </div>
 
-          <Typography className={classNames.userEmail}>{user?.email}</Typography>
+          <Typography className={classNames.userEmail}>{email}</Typography>
 
           <div className={classNames.sabUserRatingWrapper}>
-            <Typography className={classNames.ratingScore}>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>
+            <Typography className={classNames.ratingScore}>{`Rating ${toFixed(rating, 1)}`}</Typography>
 
-            <Rating disabled className={classNames.sabUserRating} value={user?.rating} />
+            <Rating disabled className={classNames.sabUserRating} value={rating} />
           </div>
         </div>
       </div>
@@ -130,11 +130,11 @@ export const UserCell = React.memo(
 
 export const UserMiniCell = React.memo(
   withStyles(
-    ({classes: classNames, user}) => (
+    ({ classes: classNames, userName, userId }) => (
       <div className={classNames.userMainWrapper}>
-        <Avatar src={getUserAvatarSrc(user?._id)} className={classNames.userCellAvatar} />
+        <Avatar src={getUserAvatarSrc(userId)} className={classNames.userCellAvatar} />
 
-        <UserLink name={user?.name} userId={user?._id} />
+        <UserLink name={userName} userId={userId} />
       </div>
     ),
     styles,
@@ -143,7 +143,7 @@ export const UserMiniCell = React.memo(
 
 export const InStockCell = React.memo(
   withStyles(
-    ({classes: classNames, boxAmounts, box, onClickInStock}) => (
+    ({ classes: classNames, boxAmounts, boxId, onClickInStock }) => (
       <div className={classNames.inStockWrapper}>
         {boxAmounts
           ?.sort((x, y) => x.storekeeper.name.localeCompare(y.storekeeper.name))
@@ -155,7 +155,7 @@ export const InStockCell = React.memo(
                 target="_blank"
                 underline={'hover'}
                 className={classNames.linkWrapper}
-                onClick={() => onClickInStock(box, el.storekeeper)}
+                onClick={() => onClickInStock(boxId, el.storekeeper)}
               >
                 <Typography>{el.amountInBoxes}</Typography>
               </Link>
@@ -169,7 +169,7 @@ export const InStockCell = React.memo(
 
 export const UserRolesCell = React.memo(
   withStyles(
-    ({classes: classNames, user}) => (
+    ({ classes: classNames, user }) => (
       <div className={classNames.userRolesWrapper}>
         <Typography className={classNames.userRole}>{UserRolePrettyMap[user.role]}</Typography>
 
@@ -188,7 +188,7 @@ export const UserRolesCell = React.memo(
 
 export const AsinCell = React.memo(
   withStyles(
-    ({classes: classNames, product, asin}) => (
+    ({ classes: classNames, product, asin }) => (
       <div className={classNames.multilineTextHeaderWrapper}>
         <Typography className={classNames.typoCell}>
           {product?.asin || asin ? (
@@ -213,43 +213,41 @@ export const AsinCell = React.memo(
 
 export const ProductAsinCell = React.memo(
   withStyles(
-    ({classes: classNames, product}) => (
+    ({ classes: classNames, image, amazonTitle, asin, skusByClient }) => (
       <div className={classNames.asinCell}>
         <div className={classNames.asinCellContainer}>
-          <img alt="" className={classNames.img} src={getAmazonImageUrl(product?.images?.slice()[0])} />
+          <img alt="" className={classNames.img} src={getAmazonImageUrl(image)} />
 
           <div className={classNames.csCodeTypoWrapper}>
-            <Typography className={classNames.csCodeTypo}>{product?.amazonTitle}</Typography>
+            <Typography className={classNames.csCodeTypo}>{amazonTitle}</Typography>
             <div className={classNames.copyAsin}>
               <Typography className={classNames.typoCell}>
                 {t(TranslationKey.ASIN)}
 
-                {product?.asin ? (
+                {asin ? (
                   <a
                     target="_blank"
                     rel="noreferrer"
-                    href={`https://www.amazon.com/dp/${product.asin}`}
+                    href={`https://www.amazon.com/dp/${asin}`}
                     className={classNames.normalizeLink}
                   >
-                    <span className={classNames.linkSpan}>{shortAsin(product.asin)}</span>
+                    <span className={classNames.linkSpan}>{shortAsin(asin)}</span>
                   </a>
                 ) : (
                   <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
                 )}
               </Typography>
-              {product.asin ? <CopyValue text={product.asin} /> : null}
+              {asin ? <CopyValue text={asin} /> : null}
             </div>
 
             <div className={classNames.copyAsin}>
               <Typography className={classNames.typoCell}>
                 {t(TranslationKey.SKU)}
                 <span className={classNames.typoSpan}>
-                  {product.skusByClient?.slice()[0]
-                    ? shortSku(product.skusByClient?.slice()[0])
-                    : t(TranslationKey.Missing)}
+                  {skusByClient ? shortSku(skusByClient) : t(TranslationKey.Missing)}
                 </span>
               </Typography>
-              {product.skusByClient?.slice()[0] ? <CopyValue text={product.skusByClient?.slice()[0]} /> : null}
+              {skusByClient ? <CopyValue text={skusByClient} /> : null}
             </div>
           </div>
         </div>
@@ -261,7 +259,7 @@ export const ProductAsinCell = React.memo(
 
 export const SelectProductAsinCellWithourTitle = React.memo(
   withStyles(
-    ({classes: classNames, product, preventDefault}) => (
+    ({ classes: classNames, product, preventDefault }) => (
       <div className={classNames.asinCellMainWrapper}>
         <img alt="" className={cx(classNames.imgMini)} src={getAmazonImageUrl(product?.images?.slice()[0])} />
 
@@ -312,7 +310,7 @@ export const SelectProductAsinCellWithourTitle = React.memo(
 )
 
 export const AsinCopyCell = React.memo(
-  withStyles(({classes: classNames, asinData}) => {
+  withStyles(({ classes: classNames, asinData }) => {
     const asins = asinData.split(', ').map((asin, i) =>
       asin ? (
         <div key={i} className={classNames.multilineTextHeaderWrapper}>
@@ -332,7 +330,7 @@ export const AsinCopyCell = React.memo(
 )
 
 export const StringListCell = React.memo(
-  withStyles(({classes: classNames, sourceString, withCopy, maxItemsDisplay, maxLettersInItem, onClickCell}) => {
+  withStyles(({ classes: classNames, sourceString, withCopy, maxItemsDisplay, maxLettersInItem, onClickCell }) => {
     const [menuAnchor, setMenuAnchor] = useState(null)
     const handleClick = event => {
       setMenuAnchor(event.currentTarget)
@@ -429,29 +427,27 @@ export const StringListCell = React.memo(
 
 export const ProductCell = React.memo(
   withStyles(
-    ({classes: classNames, product}) => (
+    ({ classes: classNames, image, amazonTitle, asin, skusByClient }) => (
       <div className={classNames.productCell}>
         <div className={classNames.asinCellContainer}>
-          <img alt="" className={classNames.productCellImg} src={getAmazonImageUrl(product.images?.[0])} />
+          <img alt="" className={classNames.productCellImg} src={getAmazonImageUrl(image)} />
 
           <div className={classNames.productWrapper}>
-            <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
+            <Typography className={classNames.csCodeTypo}>{amazonTitle}</Typography>
             <div className={classNames.skuAndAsinWrapper}>
               <Typography className={classNames.productTypoCell}>
                 {t(TranslationKey.SKU)}
-                <span className={classNames.typoSpan}>
-                  {product.skusByClient?.length ? shortSku(product.skusByClient[0]) : '-'}
-                </span>
+                <span className={classNames.typoSpan}>{skusByClient ? shortSku(skusByClient) : '-'}</span>
                 {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
               </Typography>
-              {product.skusByClient[0] ? <CopyValue text={product.skusByClient[0]} /> : null}
+              {skusByClient ? <CopyValue text={skusByClient} /> : null}
               {'/'}
               <Typography className={classNames.productTypoCell}>
                 {t(TranslationKey.ASIN)}
-                <span className={classNames.typoSpan}>{shortAsin(product.asin)}</span>
+                <span className={classNames.typoSpan}>{shortAsin(asin)}</span>
                 {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
               </Typography>
-              {product.asin ? <CopyValue text={product.asin} /> : null}
+              {asin ? <CopyValue text={asin} /> : null}
             </div>
           </div>
         </div>
@@ -463,22 +459,22 @@ export const ProductCell = React.memo(
 
 export const FeesValuesWithCalculateBtnCell = React.memo(
   withStyles(
-    ({classes: classNames, product, noCalculate, onClickCalculate}) => (
+    ({ classes: classNames, noCalculate, onClickCalculate, productId, fbafee, reffee }) => (
       <div className={classNames.feesTableWrapper}>
         <Typography className={classNames.typoCell}>
           {t(TranslationKey.Fees) + ': '}
-          <span className={classNames.typoSpan}>{toFixedWithDollarSign(product.fbafee, 2)}</span>
+          <span className={classNames.typoSpan}>{toFixedWithDollarSign(fbafee, 2)}</span>
         </Typography>
         <Typography className={classNames.typoCell}>
           {t(TranslationKey.Net) + ': '}
-          <span className={classNames.typoSpan}>{toFixedWithDollarSign(product.reffee, 2)}</span>
+          <span className={classNames.typoSpan}>{toFixedWithDollarSign(reffee, 2)}</span>
         </Typography>
         {!noCalculate && (
           <Button
             disableElevation
             className={classNames.cellBtn}
             startIcon={<img alt="calculate icon" src="/assets/icons/calculate.svg" />}
-            onClick={() => onClickCalculate(product)}
+            onClick={() => onClickCalculate(productId)}
           >
             {'Calculate fees'}
           </Button>
@@ -491,15 +487,13 @@ export const FeesValuesWithCalculateBtnCell = React.memo(
 
 export const SupplierCell = React.memo(
   withStyles(
-    ({classes: classNames, product}) => (
+    ({ classes: classNames, supplierName, supplierLink }) => (
       <>
-        <Typography className={classNames.researcherCell}>
-          {!product.currentSupplier ? '-' : product.currentSupplier.name}
-        </Typography>
+        <Typography className={classNames.researcherCell}>{supplierName || '-'}</Typography>
 
-        {product.currentSupplier && (
-          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(product.currentSupplier?.link)}>
-            <Typography className={classNames.noActiveLink}>{product.currentSupplier?.link}</Typography>
+        {supplierLink && (
+          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(supplierLink)}>
+            <Typography className={classNames.noActiveLink}>{supplierLink}</Typography>
           </Link>
         )}
       </>
@@ -510,14 +504,14 @@ export const SupplierCell = React.memo(
 
 export const UserLinkCell = React.memo(
   withStyles(
-    ({classes: classNames, name, userId, blackText, customStyles}) => (
+    ({ classes: classNames, name, userId, blackText, customStyles }) => (
       <div className={classNames.userLinkWrapper}>
         <UserLink
           withAvatar
           name={name}
           userId={userId}
           blackText={blackText}
-          customStyles={{fontWeight: 400, fontSize: 14, ...customStyles}}
+          customStyles={{ fontWeight: 400, fontSize: 14, ...customStyles }}
         />
       </div>
     ),
@@ -525,45 +519,9 @@ export const UserLinkCell = React.memo(
   ),
 )
 
-export const SupervisorCell = React.memo(
-  withStyles(
-    ({classes: classNames, product}) => (
-      <Typography className={classNames.researcherCell}>{!product.checkedBy ? '-' : product.checkedBy.name}</Typography>
-    ),
-    styles,
-  ),
-)
-
-export const ResearcherCell = React.memo(
-  withStyles(
-    ({classes: classNames, product}) => (
-      <Typography className={classNames.researcherCell}>{!product.createdBy ? '-' : product.createdBy.name}</Typography>
-    ),
-    styles,
-  ),
-)
-
-export const ClientCell = React.memo(
-  withStyles(
-    ({classes: classNames, product}) => (
-      <Typography className={classNames.researcherCell}>{!product.client ? '-' : product.client.name}</Typography>
-    ),
-    styles,
-  ),
-)
-
-export const BuyerCell = React.memo(
-  withStyles(
-    ({classes: classNames, product}) => (
-      <Typography className={classNames.researcherCell}>{!product.buyer ? '-' : product.buyer.name}</Typography>
-    ),
-    styles,
-  ),
-)
-
 export const BarcodeCell = React.memo(
   withStyles(
-    ({classes: classNames, product, handlers}) => (
+    ({ classes: classNames, product, handlers }) => (
       <Chip
         classes={{
           root: classNames.barcodeChip,
@@ -571,7 +529,7 @@ export const BarcodeCell = React.memo(
           deletable: classNames.barcodeChipHover,
           deleteIcon: classNames.barcodeChipIcon,
         }}
-        className={cx({[classNames.barcodeChipNoExists]: !product.barCode})}
+        className={cx({ [classNames.barcodeChipNoExists]: !product.barCode })}
         size="small"
         label={product.barCode ? trimBarcode(product.barCode) : t(TranslationKey.BarCode)}
         onClick={() => handlers.onClickBarcode(product)}
@@ -585,7 +543,7 @@ export const BarcodeCell = React.memo(
 
 export const HsCodeCell = React.memo(
   withStyles(
-    ({classes: classNames, product, handlers}) => (
+    ({ classes: classNames, product, handlers }) => (
       <Chip
         classes={{
           root: classNames.barcodeChip,
@@ -593,7 +551,7 @@ export const HsCodeCell = React.memo(
           deletable: classNames.barcodeChipHover,
           deleteIcon: classNames.barcodeChipIcon,
         }}
-        className={cx({[classNames.barcodeChipNoExists]: !product.hsCode})}
+        className={cx({ [classNames.barcodeChipNoExists]: !product.hsCode })}
         size="small"
         label={product.hsCode ? trimBarcode(product.hsCode) : t(TranslationKey['HS code'])}
         onClick={() => handlers.onClickHsCode(product)}
@@ -606,7 +564,7 @@ export const HsCodeCell = React.memo(
 )
 
 export const ChangeInputCell = React.memo(
-  withStyles(({classes: classNames, row, onClickSubmit, text, disabled, isInts, maxLength}) => {
+  withStyles(({ classes: classNames, rowId, onClickSubmit, text, disabled, isInts, maxLength }) => {
     const sourceValue = text ? text : ''
 
     const [value, setValue] = useState(sourceValue)
@@ -628,7 +586,7 @@ export const ChangeInputCell = React.memo(
           setTimeout(() => {
             setShow(false)
           }, 2000)
-          onClickSubmit(row, value)
+          onClickSubmit(rowId, value)
         }
       }
       document.addEventListener('keydown', listener)
@@ -644,13 +602,13 @@ export const ChangeInputCell = React.memo(
           // className={cx(classNames.changeInput, {[classNames.inputValueNoExists]: !value})}
 
           className={classNames.changeInput}
-          classes={{input: classNames.changeInput}}
-          inputProps={{maxLength: maxLength ? maxLength : 7}}
+          classes={{ input: classNames.changeInput }}
+          inputProps={{ maxLength: maxLength ? maxLength : 7 }}
           value={value}
           endAdornment={
             <InputAdornment position="start">
               {isShow && sourceValue !== value ? (
-                <DoneIcon classes={{root: classNames.doneIcon}} />
+                <DoneIcon classes={{ root: classNames.doneIcon }} />
               ) : sourceValue !== value ? (
                 <div className={classNames.iconWrapper}>
                   <img
@@ -661,10 +619,10 @@ export const ChangeInputCell = React.memo(
                       setTimeout(() => {
                         setShow(false)
                       }, 2000)
-                      onClickSubmit(row, value)
+                      onClickSubmit(rowId, value)
                     }}
                   />
-                  <ClearIcon classes={{root: classNames.clearIcon}} onClick={() => setValue(defaultValue)} />
+                  <ClearIcon classes={{ root: classNames.clearIcon }} onClick={() => setValue(defaultValue)} />
                 </div>
               ) : null}
             </InputAdornment>
@@ -712,17 +670,17 @@ export const ChangeInputCommentCell = React.memo(
             autoFocus={false}
             minRows={rowsCount ?? 2}
             maxRows={rowsCount ?? 2}
-            inputProps={{maxLength: maxLength ? maxLength : 256}}
+            inputProps={{ maxLength: maxLength ? maxLength : 256 }}
             placeholder={placeholder ?? t(TranslationKey.Comment)}
             disabled={disabled}
             className={classNames.changeInputComment}
-            classes={{input: classNames.changeInputComment}}
+            classes={{ input: classNames.changeInputComment }}
             value={value}
             endAdornment={
               !!onClickSubmit && (
                 <InputAdornment position="start" className={classNames.commentControls}>
                   {isShow && text !== value ? (
-                    <DoneIcon classes={{root: classNames.doneIcon}} />
+                    <DoneIcon classes={{ root: classNames.doneIcon }} />
                   ) : isEdited ? (
                     <div className={classNames.iconWrapper}>
                       <img
@@ -738,7 +696,7 @@ export const ChangeInputCommentCell = React.memo(
                         }}
                       />
                       <ClearIcon
-                        classes={{root: classNames.clearIcon}}
+                        classes={{ root: classNames.clearIcon }}
                         onClick={() => {
                           setIsEdited(false)
                           setValue(text)
@@ -769,7 +727,7 @@ export const ChangeInputCommentCell = React.memo(
 
 export const ChangeChipCell = React.memo(
   withStyles(
-    ({classes: classNames, row, value, onClickChip, onDoubleClickChip, onDeleteChip, text, disabled, label}) => (
+    ({ classes: classNames, row, value, onClickChip, onDoubleClickChip, onDeleteChip, text, disabled, label }) => (
       <>
         {label ? <Typography className={classNames.changeChipCellLabel}>{label}</Typography> : null}
         <Chip
@@ -780,7 +738,7 @@ export const ChangeChipCell = React.memo(
             deletable: classNames.barcodeChipHover,
             deleteIcon: classNames.barcodeChipIcon,
           }}
-          className={cx(classNames.chipStock, {[classNames.barcodeChipNoExists]: !value})}
+          className={cx(classNames.chipStock, { [classNames.barcodeChipNoExists]: !value })}
           size="small"
           label={value ? trimBarcode(value) : text}
           onClick={e => {
@@ -809,7 +767,7 @@ export const ChangeChipCell = React.memo(
 
 export const PhotoAndFilesCell = React.memo(
   withStyles(
-    ({classes: classNames, files}) => (
+    ({ classes: classNames, files }) => (
       <div className={classNames.photoWrapper}>
         <PhotoAndFilesCarousel small width={'300px'} files={files} />
       </div>
@@ -819,15 +777,13 @@ export const PhotoAndFilesCell = React.memo(
 )
 
 export const DateCell = React.memo(
-  withStyles(({params}) => <Typography>{!params.value ? '-' : formatDateTime(params.value)}</Typography>, styles),
+  withStyles(({ value }) => <Typography>{!value ? '-' : formatDateTime(value)}</Typography>, styles),
 )
 
 export const NormDateCell = React.memo(
   withStyles(
-    ({classes: classNames, params}) => (
-      <Typography className={classNames.normDateCellTypo}>
-        {!(params && params.value) ? '-' : formatNormDateTime(params.value)}
-      </Typography>
+    ({ classes: classNames, value }) => (
+      <Typography className={classNames.normDateCellTypo}>{value ? formatNormDateTime(value) : '-'}</Typography>
     ),
     styles,
   ),
@@ -835,10 +791,8 @@ export const NormDateCell = React.memo(
 
 export const NormDateWithoutTimeCell = React.memo(
   withStyles(
-    ({classes: classNames, params}) => (
-      <Typography className={classNames.normDateCellTypo}>
-        {!(params && params.value) ? '-' : formatDateWithoutTime(params.value)}
-      </Typography>
+    ({ classes: classNames, value }) => (
+      <Typography className={classNames.normDateCellTypo}>{!value ? '-' : formatDateWithoutTime(value)}</Typography>
     ),
     styles,
   ),
@@ -846,10 +800,8 @@ export const NormDateWithoutTimeCell = React.memo(
 
 export const ShortDateCell = React.memo(
   withStyles(
-    ({classes: classNames, params}) => (
-      <Typography className={classNames.shortDateCellTypo}>
-        {!(params && params.value) ? '-' : formatShortDateTime(params.value)}
-      </Typography>
+    ({ classes: classNames, value }) => (
+      <Typography className={classNames.shortDateCellTypo}>{!value ? '-' : formatShortDateTime(value)}</Typography>
     ),
     styles,
   ),
@@ -857,7 +809,7 @@ export const ShortDateCell = React.memo(
 
 export const NormDateFromUnixCell = React.memo(
   withStyles(
-    ({classes: classNames, value}) => (
+    ({ classes: classNames, value }) => (
       <Typography className={classNames.normDateCellTypo}>
         {!value ? '-' : formatDateForShowWithoutParseISO(fromUnixTime(value))}
       </Typography>
@@ -867,15 +819,12 @@ export const NormDateFromUnixCell = React.memo(
 )
 
 export const NormDateWithParseISOCell = React.memo(
-  withStyles(
-    ({params}) => <Typography>{!params.value ? '-' : formatNormDateTimeWithParseISO(params.value)}</Typography>,
-    styles,
-  ),
+  withStyles(({ value }) => <Typography>{!value ? '-' : formatNormDateTimeWithParseISO(value)}</Typography>, styles),
 )
 
 export const OrderCell = React.memo(
   withStyles(
-    ({classes: classNames, product, superbox, box, error, withoutSku, itemAmount, withQuantity}) => (
+    ({ classes: classNames, product, superbox, box, error, withoutSku, itemAmount, withQuantity }) => (
       <div className={classNames.order}>
         <img alt="" src={getAmazonImageUrl(product?.images[0])} className={classNames.orderImg} />
         <div>
@@ -949,7 +898,7 @@ export const OrderCell = React.memo(
 
 export const DownloadAndPrintFilesCell = React.memo(
   withStyles(props => {
-    const {classes: styles, files} = props
+    const { classes: styles, files } = props
     const imageRef = useRef(null)
     const [isOpenModal, setIsOpenModal] = useState(false)
     const [selectedImage, setSelectedImage] = useState({})
@@ -997,7 +946,7 @@ export const DownloadAndPrintFilesCell = React.memo(
                   </Button>
 
                   <IconButton
-                    sx={{color: '#0164F4'}}
+                    sx={{ color: '#0164F4' }}
                     onClick={e => {
                       e.stopPropagation()
                       printFile(el)
@@ -1008,7 +957,7 @@ export const DownloadAndPrintFilesCell = React.memo(
                 </Box>
               )}
               {!el.fileUrl && (
-                <Typography sx={{marginLeft: '25px', width: 'fit-content'}}>
+                <Typography sx={{ marginLeft: '25px', width: 'fit-content' }}>
                   {t(TranslationKey['Not added'])}
                 </Typography>
               )}
@@ -1039,7 +988,7 @@ export const DownloadAndPrintFilesCell = React.memo(
 
 export const OrderBoxesCell = React.memo(
   withStyles(
-    ({classes: classNames, superbox, superboxQty, qty, box, product, withoutSku, withQuantity}) =>
+    ({ classes: classNames, superbox, superboxQty, qty, box, product, withoutSku, withQuantity }) =>
       superbox ? (
         <div className={classNames.orderBoxesWrapper}>
           <SuperboxQtyCell qty={qty} superbox={superboxQty} />
@@ -1080,7 +1029,7 @@ export const WarehouseTariffDestinationCell = React.memo(
 
 export const WarehouseTariffRatesCell = React.memo(
   withStyles(
-    ({classes: classNames, conditionsByRegion, inYuans}) => (
+    ({ classes: classNames, conditionsByRegion, inYuans }) => (
       <div className={classNames.tariffRatesWrapper}>
         <Typography>
           {toFixed(
@@ -1114,21 +1063,21 @@ export const WarehouseTariffRatesCell = React.memo(
 
 export const WarehouseTariffDatesCell = React.memo(
   withStyles(
-    ({classes: classNames, row}) => (
+    ({ classes: classNames, cls, etd, eta }) => (
       <div>
         <div className={classNames.warehouseTariffDatesItem}>
           <Typography>{t(TranslationKey['CLS (batch closing date)'])}</Typography>
-          <Typography>{!row.cls ? '-' : formatDateWithoutTime(row.cls)}</Typography>
+          <Typography>{!cls ? '-' : formatDateWithoutTime(cls)}</Typography>
         </div>
 
         <div className={classNames.warehouseTariffDatesItem}>
           <Typography>{t(TranslationKey['ETD (date of shipment)'])}</Typography>
-          <Typography>{!row.etd ? '-' : formatDateWithoutTime(row.etd)}</Typography>
+          <Typography>{!etd ? '-' : formatDateWithoutTime(etd)}</Typography>
         </div>
 
         <div className={classNames.warehouseTariffDatesItem}>
           <Typography>{t(TranslationKey['ETA (arrival date)'])}</Typography>
-          <Typography>{!row.eta ? '-' : formatDateWithoutTime(row.eta)}</Typography>
+          <Typography>{!eta ? '-' : formatDateWithoutTime(eta)}</Typography>
         </div>
       </div>
     ),
@@ -1139,7 +1088,7 @@ export const WarehouseTariffDatesCell = React.memo(
 export const TaskPriorityCell =
   /* React.memo( */
   withStyles(
-    ({classes: classNames, curPriority, onChangePriority, taskId}) => (
+    ({ classes: classNames, curPriority, onChangePriority, taskId }) => (
       <Select
         value={curPriority}
         className={classNames.nativeSelect}
@@ -1162,7 +1111,7 @@ export const TaskPriorityCell =
             <MenuItem
               key={statusIndex}
               value={statusCode}
-              style={{color: colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[statusCode])}}
+              style={{ color: colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[statusCode]) }}
               className={classNames.menuItem}
             >
               {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[statusCode])}
@@ -1221,8 +1170,8 @@ export const WarehouseDestinationAndTariffCell = React.memo(
               searchFields={['name']}
               favourites={destinationsFavourites}
               onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-              onClickNotChosen={() => onSelectDestination(boxesMy?._id, {destinationId: null})}
-              onClickSelect={el => onSelectDestination(boxesMy?._id, {destinationId: el._id})}
+              onClickNotChosen={() => onSelectDestination(boxesMy?._id, { destinationId: null })}
+              onClickSelect={el => onSelectDestination(boxesMy?._id, { destinationId: el._id })}
             />
           </div>
           <div className={classNames.tatiff}>
@@ -1261,7 +1210,7 @@ export const WarehouseDestinationAndTariffCell = React.memo(
 
 export const CheckboxCell = React.memo(
   withStyles(
-    ({classes: classNames, checked, disabled, onClick}) => (
+    ({ classes: classNames, checked, disabled, onClick }) => (
       <div className={classNames.checkboxWrapper}>
         <Checkbox
           disabled={disabled}
@@ -1280,7 +1229,7 @@ export const CheckboxCell = React.memo(
 
 export const RenderFieldValueCell = React.memo(
   withStyles(
-    ({classes: classNames, value}) => (
+    ({ classes: classNames, value }) => (
       <Typography className={classNames.renderFieldValueCellText}>{!value && value !== 0 ? '-' : value}</Typography>
     ),
     styles,
@@ -1289,7 +1238,7 @@ export const RenderFieldValueCell = React.memo(
 
 export const BatchTrackingCell = React.memo(
   withStyles(
-    ({classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled, languageTag}) => (
+    ({ classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled, languageTag }) => (
       <div className={classNames.batchTrackingWrapper}>
         <Field
           containerClasses={cx(classNames.batchTrackingContainer)}
@@ -1328,7 +1277,7 @@ export const BatchTrackingCell = React.memo(
 )
 
 export const DatePickerCell = React.memo(
-  withStyles(({classes: classNames, id, arrivalDate, onClickSaveArrivalDate, disabled}) => {
+  withStyles(({ classes: classNames, id, arrivalDate, onClickSaveArrivalDate, disabled }) => {
     const [value, setValue] = useState(arrivalDate || '')
 
     useEffect(() => {
@@ -1350,7 +1299,7 @@ export const DatePickerCell = React.memo(
         {!!onClickSaveArrivalDate && (
           <div className={classNames.arrivalDateControlWrapper}>
             {isShow && arrivalDate !== value ? (
-              <DoneIcon classes={{root: cx(classNames.doneIcon, classNames.arrivalDateIcon)}} />
+              <DoneIcon classes={{ root: cx(classNames.doneIcon, classNames.arrivalDateIcon) }} />
             ) : arrivalDate !== value ? (
               <div className={cx(classNames.iconWrapper, classNames.iconWrapperArrivalDate)}>
                 <img
@@ -1365,7 +1314,7 @@ export const DatePickerCell = React.memo(
                   }}
                 />
                 <ClearIcon
-                  classes={{root: cx(classNames.clearIcon, classNames.arrivalDateIcon)}}
+                  classes={{ root: cx(classNames.clearIcon, classNames.arrivalDateIcon) }}
                   onClick={() => setValue(arrivalDate)}
                 />
               </div>
@@ -1399,17 +1348,19 @@ export const MultilineTextCell = React.memo(
         {withTooltip || tooltipText ? (
           <Tooltip title={tooltipText || text}>
             <div
-              className={cx(classNames.multilineTextWrapper, {[classNames.illuminationCell]: illuminationCell && text})}
+              className={cx(classNames.multilineTextWrapper, {
+                [classNames.illuminationCell]: illuminationCell && text,
+              })}
             >
               <Typography
                 className={cx(
                   classNames.multilineText,
-                  {[classNames.multilineLeftAlignText]: leftAlign},
-                  {[classNames.multilineLink]: onClickText && text},
-                  {[classNames.threeMultilineText]: threeLines},
-                  {[classNames.oneMultilineText]: oneLines},
+                  { [classNames.multilineLeftAlignText]: leftAlign },
+                  { [classNames.multilineLink]: onClickText && text },
+                  { [classNames.threeMultilineText]: threeLines },
+                  { [classNames.oneMultilineText]: oneLines },
                 )}
-                style={otherStyles || customTextStyles || (color && {color})}
+                style={otherStyles || customTextStyles || (color && { color })}
                 onClick={onClickText && onClickText}
               >
                 {checkIsString(text) && !withLineBreaks ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
@@ -1418,18 +1369,18 @@ export const MultilineTextCell = React.memo(
           </Tooltip>
         ) : (
           <div
-            className={cx(classNames.multilineTextWrapper, {[classNames.illuminationCell]: illuminationCell && text})}
+            className={cx(classNames.multilineTextWrapper, { [classNames.illuminationCell]: illuminationCell && text })}
           >
             <Typography
               className={cx(
                 classNames.multilineText,
-                {[classNames.multilineLeftAlignText]: leftAlign},
-                {[classNames.multilineLink]: onClickText && text},
-                {[classNames.threeMultilineText]: threeLines},
-                {[classNames.oneMultilineText]: oneLines},
-                {[classNames.fulfilled]: customTextStyles},
+                { [classNames.multilineLeftAlignText]: leftAlign },
+                { [classNames.multilineLink]: onClickText && text },
+                { [classNames.threeMultilineText]: threeLines },
+                { [classNames.oneMultilineText]: oneLines },
+                { [classNames.fulfilled]: customTextStyles },
               )}
-              style={otherStyles || customTextStyles || (color && {color})}
+              style={otherStyles || customTextStyles || (color && { color })}
               onClick={onClickText && onClickText}
             >
               {checkIsString(text) && !withLineBreaks ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
@@ -1443,11 +1394,11 @@ export const MultilineTextCell = React.memo(
 )
 
 export const VacantRequestPriceCell = React.memo(
-  withStyles(({classes: classNames, price, cashBackInPercent, AlignLeft}) => {
+  withStyles(({ classes: classNames, price, cashBackInPercent, AlignLeft }) => {
     const discountedPrice = calcNumberMinusPercent(price, cashBackInPercent)
 
     return (
-      <div className={cx(classNames.priceCellWrapper, {[classNames.priceCellWrapperAlignLeft]: AlignLeft})}>
+      <div className={cx(classNames.priceCellWrapper, { [classNames.priceCellWrapperAlignLeft]: AlignLeft })}>
         {discountedPrice && cashBackInPercent ? (
           <Typography
             className={cx(classNames.priceText, {
@@ -1471,7 +1422,7 @@ export const VacantRequestPriceCell = React.memo(
 )
 
 export const OrdersIdsItemsCell = React.memo(
-  withStyles(({classes: classNames, value}) => {
+  withStyles(({ classes: classNames, value }) => {
     const sortedValue = value?.split('item')
 
     const orderIds = sortedValue[0]
@@ -1490,7 +1441,7 @@ export const OrdersIdsItemsCell = React.memo(
 
 export const CommentOfSbCell = React.memo(
   withStyles(
-    ({classes: classNames, productsInWarehouse}) => (
+    ({ classes: classNames, productsInWarehouse }) => (
       <div className={classNames.commentOfSbWrapper}>
         {productsInWarehouse?.length === 1 ? (
           <Tooltip title={productsInWarehouse[0].comment}>
@@ -1525,7 +1476,7 @@ export const CommentOfSbCell = React.memo(
 
 export const MultilineTextAlignLeftCell = React.memo(
   withStyles(
-    ({classes: classNames, text, withTooltip, isAsin, pointer, fourLines}) =>
+    ({ classes: classNames, text, withTooltip, isAsin, pointer, fourLines }) =>
       withTooltip ? (
         <Tooltip title={text}>
           <div className={classNames.multilineTextAlignLeftWrapper}>
@@ -1533,8 +1484,8 @@ export const MultilineTextAlignLeftCell = React.memo(
               // disabled
               className={cx(
                 classNames.multilineTextAlignLeft,
-                {[classNames.cursorPointer]: pointer},
-                {[classNames.fourLinesTextAlignLeft]: fourLines},
+                { [classNames.cursorPointer]: pointer },
+                { [classNames.fourLinesTextAlignLeft]: fourLines },
               )}
             >
               {getShortenStringIfLongerThanCount(text, 150)}
@@ -1545,7 +1496,7 @@ export const MultilineTextAlignLeftCell = React.memo(
         <div className={classNames.multilineTextAlignLeftWrapper}>
           {isAsin ? (
             <Typography
-              className={cx(classNames.multilineAsinTextAlignLeft, {[classNames.fourLinesTextAlignLeft]: fourLines})}
+              className={cx(classNames.multilineAsinTextAlignLeft, { [classNames.fourLinesTextAlignLeft]: fourLines })}
             >
               {checkIsString(text) ? text.replace(/\n/g, ' ') : text}
             </Typography>
@@ -1569,7 +1520,7 @@ export const MultilineTextAlignLeftCell = React.memo(
 
 export const MultilineTextAlignLeftHeaderCell = React.memo(
   withStyles(
-    ({classes: classNames, text}) => (
+    ({ classes: classNames, text }) => (
       <div className={classNames.multilineTextAlignLeftHeaderWrapper}>
         <Typography className={classNames.multilineTextAlignLeftHeader}>{text}</Typography>
       </div>
@@ -1580,7 +1531,7 @@ export const MultilineTextAlignLeftHeaderCell = React.memo(
 
 export const MultilineTextHeaderCell = React.memo(
   withStyles(
-    ({classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive}) => (
+    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive }) => (
       <Tooltip title={text}>
         <div className={classNames.multilineTextHeaderWrapper}>
           <Typography className={classNames.multilineHeaderText}>{text}</Typography>
@@ -1598,10 +1549,10 @@ export const MultilineTextHeaderCell = React.memo(
   ),
 )
 
-export const IconHeaderCell = React.memo(withStyles(({classes: classNames, url}) => <img src={url} />, styles))
+export const IconHeaderCell = React.memo(withStyles(({ classes: classNames, url }) => <img src={url} />, styles))
 
 export const PriorityAndChinaDeliverCell = React.memo(
-  withStyles(({classes: classNames, priority, chinaDelivery, status}) => {
+  withStyles(({ classes: classNames, priority, chinaDelivery, status }) => {
     const isPendingOrder = Number(status) <= Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
 
     return (
@@ -1626,7 +1577,7 @@ export const PriorityAndChinaDeliverCell = React.memo(
 )
 
 export const BoxesAndQuantity = React.memo(
-  withStyles(({classes: classNames, boxesData}) => {
+  withStyles(({ classes: classNames, boxesData }) => {
     if (Array.isArray(boxesData)) {
       const mergedBoxes = boxesData.map(item => `${item.boxAmount}x${item.itemAmount}`)
       const filteredBoxes = [...new Set(mergedBoxes)]
@@ -1658,7 +1609,7 @@ export const BoxesAndQuantity = React.memo(
 
 export const TextHeaderCell = React.memo(
   withStyles(
-    ({classes: classNames, text}) => (
+    ({ classes: classNames, text }) => (
       <div className={classNames.textHeaderWrapper}>
         <Typography className={classNames.headerText}>{text}</Typography>
       </div>
@@ -1669,9 +1620,9 @@ export const TextHeaderCell = React.memo(
 
 export const MultilineStatusCell = React.memo(
   withStyles(
-    ({classes: classNames, status, leftAlign}) => (
+    ({ classes: classNames, status, leftAlign }) => (
       <div className={classNames.multilineTextWrapper}>
-        <Typography className={cx(classNames.statusMultilineText, {[classNames.multilineLeftAlignText]: leftAlign})}>
+        <Typography className={cx(classNames.statusMultilineText, { [classNames.multilineLeftAlignText]: leftAlign })}>
           {status?.replace(/_/g, ' ')}
         </Typography>
       </div>
@@ -1681,7 +1632,7 @@ export const MultilineStatusCell = React.memo(
 )
 
 export const TaskStatusCell = React.memo(
-  withStyles(({classes: classNames, status}) => {
+  withStyles(({ classes: classNames, status }) => {
     const colorByStatus = () => {
       if ([TaskStatus.AT_PROCESS, TaskStatus.NEW].includes(status)) {
         return '#F3AF00'
@@ -1698,7 +1649,7 @@ export const TaskStatusCell = React.memo(
 
     return (
       <div className={classNames.statusWrapper}>
-        <Typography className={classNames.orderStatusText} style={{color: colorStatus}}>
+        <Typography className={classNames.orderStatusText} style={{ color: colorStatus }}>
           {TaskStatusTranslate(status)}
         </Typography>
       </div>
@@ -1707,7 +1658,7 @@ export const TaskStatusCell = React.memo(
 )
 
 export const RequestStatusCell = React.memo(
-  withStyles(({classes: classNames, status, isChat, styles}) => {
+  withStyles(({ classes: classNames, status, isChat, styles }) => {
     const colorByStatus = () => {
       if ([RequestStatus.DRAFT].includes(status)) {
         return '#006CFF'
@@ -1755,8 +1706,8 @@ export const RequestStatusCell = React.memo(
     return (
       <div className={classNames.statusWrapper}>
         <Typography
-          className={cx(classNames.statusText, {[classNames.statusTextChat]: isChat})}
-          style={{...styles, color: colorStatus}}
+          className={cx(classNames.statusText, { [classNames.statusTextChat]: isChat })}
+          style={{ ...styles, color: colorStatus }}
         >
           {MyRequestStatusTranslate(status)}
         </Typography>
@@ -1766,7 +1717,7 @@ export const RequestStatusCell = React.memo(
 )
 
 export const MultilineRequestStatusCell = React.memo(
-  withStyles(({classes: classNames, status, fontSize = '14px', languageTag}) => {
+  withStyles(({ classes: classNames, status, fontSize = '14px', languageTag }) => {
     const [statusTranslate, setStatusTranslate] = useState(MyRequestStatusTranslate(status))
 
     useEffect(() => {
@@ -1800,7 +1751,7 @@ export const MultilineRequestStatusCell = React.memo(
 
     return (
       <div className={classNames.multilineTextWrapper}>
-        <Typography className={classNames.multilineStatusText} style={{color: colorStatus, fontSize}}>
+        <Typography className={classNames.multilineStatusText} style={{ color: colorStatus, fontSize }}>
           {statusTranslate}
         </Typography>
       </div>
@@ -1809,7 +1760,7 @@ export const MultilineRequestStatusCell = React.memo(
 )
 
 export const TaskTypeCell = React.memo(
-  withStyles(({classes: classNames, task}) => {
+  withStyles(({ classes: classNames, operationType }) => {
     const renderTaskDescription = type => {
       switch (type) {
         case TaskOperationType.MERGE:
@@ -1827,14 +1778,14 @@ export const TaskTypeCell = React.memo(
 
     return (
       <div className={classNames.taskDescriptionScrollWrapper}>
-        <Typography className={classNames.operationTypeText}>{renderTaskDescription(task.operationType)}</Typography>
+        <Typography className={classNames.operationTypeText}>{renderTaskDescription(operationType)}</Typography>
       </div>
     )
   }, styles),
 )
 
 export const TaskDescriptionCell = React.memo(
-  withStyles(({classes: classNames, task}) => {
+  withStyles(({ classes: classNames, task }) => {
     const renderProductImages = (product, key, box) => (
       <Grid key={key && key} item className={classNames.imgWrapper}>
         <img alt="" className={classNames.taskDescriptionImg} src={getAmazonImageUrl(product?.product.images[0])} />
@@ -1964,7 +1915,7 @@ export const TaskDescriptionCell = React.memo(
 
 export const IdCell = React.memo(
   withStyles(
-    ({id}) => (
+    ({ id }) => (
       <React.Fragment>
         <Typography>{`id: ${id}`}</Typography>
       </React.Fragment>
@@ -1975,7 +1926,7 @@ export const IdCell = React.memo(
 
 export const NoActiveBarcodeCell = React.memo(
   withStyles(
-    ({classes: classNames, barCode}) => (
+    ({ classes: classNames, barCode }) => (
       <React.Fragment>
         <Typography className={classNames.noActivebarCode}>{barCode || '-'}</Typography>
       </React.Fragment>
@@ -1986,7 +1937,7 @@ export const NoActiveBarcodeCell = React.memo(
 
 export const ShowBarcodeOrHscodeCell = React.memo(
   withStyles(
-    ({classes: classNames, barCode, hsCode, handlers}) => (
+    ({ classes: classNames, barCode, hsCode, handlers }) => (
       <div className={classNames.showButton}>
         <Button onClick={() => handlers.showBarcodeOrHscode(barCode, hsCode)}>{t(TranslationKey.View)}</Button>
       </div>
@@ -1997,18 +1948,13 @@ export const ShowBarcodeOrHscodeCell = React.memo(
 
 export const FourMonthesStockCell = React.memo(
   withStyles(
-    ({classes: classNames, handlers, params, value}) => (
+    ({ classes: classNames, onClickSaveFourMonthsStock, rowId, fourMonthesStock, value }) => (
       <div className={classNames.fourMonthesStockWrapper}>
         <Typography className={classNames.fourMonthesStockLabel}>{`${t(
           TranslationKey.Repurchase,
         )}: ${value}`}</Typography>
 
-        <ChangeInputCell
-          isInts
-          row={params.row.originalData}
-          text={params.row.fourMonthesStock}
-          onClickSubmit={handlers.onClickSaveFourMonthsStock}
-        />
+        <ChangeInputCell isInts rowId={rowId} text={fourMonthesStock} onClickSubmit={onClickSaveFourMonthsStock} />
       </div>
     ),
     styles,
@@ -2017,20 +1963,9 @@ export const FourMonthesStockCell = React.memo(
 
 export const CommentUsersCell = React.memo(
   withStyles(
-    ({classes: classNames, handler, params}) => (
+    ({ classes: classNames, handler, id, comment }) => (
       <div className={classNames.CommentUsersCellWrapper}>
-        <ChangeInputCommentCell id={params.row._id} text={params?.row?.note?.comment} onClickSubmit={handler} />
-      </div>
-    ),
-    styles,
-  ),
-)
-
-export const CommentSourceFilesCell = React.memo(
-  withStyles(
-    ({classes: classNames, handler, params}) => (
-      <div className={classNames.CommentUsersCellWrapper}>
-        <ChangeInputCommentCell id={params.row._id} text={params?.row?.note?.comment} onClickSubmit={handler} />
+        <ChangeInputCommentCell id={id} text={comment} onClickSubmit={handler} />
       </div>
     ),
     styles,
@@ -2039,7 +1974,7 @@ export const CommentSourceFilesCell = React.memo(
 
 export const ActiveBarcodeCell = React.memo(
   withStyles(
-    ({classes: classNames, barCode}) => (
+    ({ classes: classNames, barCode }) => (
       <React.Fragment>
         {/* <Typography className={classNames.noActivebarCode}>{barCode || '-'}</Typography> */}
 
@@ -2058,7 +1993,7 @@ export const ActiveBarcodeCell = React.memo(
 
 export const ToFixedWithKgSignCell = React.memo(
   withStyles(
-    ({classes: classNames, value, fix, amount}) => (
+    ({ classes: classNames, value, fix, amount }) => (
       <div className={classNames.multilineTextWrapper}>
         <Typography className={classNames.multilineText}>
           {!value ? (value === 0 ? 0 : '-') : toFixedWithKg(value, fix)}
@@ -2071,9 +2006,9 @@ export const ToFixedWithKgSignCell = React.memo(
 
 export const SmallRowImageCell = React.memo(
   withStyles(
-    ({classes: classNames, images}) => (
+    ({ classes: classNames, image }) => (
       <div className={classNames.smallRowImgWrapper}>
-        <img alt="" className={classNames.img} src={getAmazonImageUrl(images[0])} />
+        <img alt="" className={classNames.img} src={getAmazonImageUrl(image)} />
       </div>
     ),
     styles,
@@ -2082,7 +2017,7 @@ export const SmallRowImageCell = React.memo(
 
 export const ToFixedCell = React.memo(
   withStyles(
-    ({classes: classNames, value, fix}) => (
+    ({ classes: classNames, value, fix }) => (
       <div className={classNames.multilineTextWrapper}>
         <Typography className={classNames.multilineText}>
           {!value ? (value === 0 ? 0 : '-') : toFixed(value, fix)}
@@ -2095,9 +2030,9 @@ export const ToFixedCell = React.memo(
 
 export const ToFixedWithDollarSignCell = React.memo(
   withStyles(
-    ({classes: classNames, value, fix, leftAlign}) => (
+    ({ classes: classNames, value, fix, leftAlign }) => (
       <div className={classNames.multilineTextWrapper}>
-        <Typography className={cx(classNames.multilineText, {[classNames.multilineLeftAlignText]: leftAlign})}>
+        <Typography className={cx(classNames.multilineText, { [classNames.multilineLeftAlignText]: leftAlign })}>
           {!value ? (value === 0 ? 0 : '-') : toFixedWithDollarSign(value, fix)}
         </Typography>
       </div>
@@ -2108,7 +2043,7 @@ export const ToFixedWithDollarSignCell = React.memo(
 
 export const SuccessActionBtnCell = React.memo(
   withStyles(
-    ({classes: classNames, onClickOkBtn, bTnText, tooltipText, isFirstRow}) => (
+    ({ classes: classNames, onClickOkBtn, bTnText, tooltipText, isFirstRow }) => (
       <div className={classNames.successActionBtnWrapper}>
         <Button success tooltipInfoContent={isFirstRow && tooltipText} onClick={onClickOkBtn}>
           {bTnText}
@@ -2121,14 +2056,14 @@ export const SuccessActionBtnCell = React.memo(
 
 export const NormalActionBtnCell = React.memo(
   withStyles(
-    ({classes: classNames, onClickOkBtn, bTnText, tooltipText, disabled, isFirstRow, smallActionBtn}) => (
+    ({ classes: classNames, onClickOkBtn, bTnText, tooltipText, disabled, isFirstRow, smallActionBtn }) => (
       <div className={classNames.normalActionBtnWrapper}>
         <Button
           disabled={disabled}
           tooltipInfoContent={isFirstRow && tooltipText}
           variant="contained"
           color="primary"
-          className={cx(classNames.actionBtn, {[classNames.smallActionBtn]: smallActionBtn})}
+          className={cx(classNames.actionBtn, { [classNames.smallActionBtn]: smallActionBtn })}
           onClick={onClickOkBtn}
         >
           {bTnText}
@@ -2141,18 +2076,18 @@ export const NormalActionBtnCell = React.memo(
 
 export const WarehouseMyTasksBtnsCell = React.memo(
   withStyles(
-    ({classes: classNames, row, handlers, isFirstRow}) => (
+    ({ classes: classNames, handlers, isFirstRow, operationType, rowId, boxId }) => (
       <div className={classNames.warehouseMyTasksBtnsWrapper}>
         <Button
           success
           tooltipInfoContent={isFirstRow && t(TranslationKey['Open a window to perform a task'])}
           className={classNames.warehouseMyTasksSuccessBtn}
-          onClick={() => handlers.onClickResolveBtn(row)}
+          onClick={() => handlers.onClickResolveBtn(rowId)}
         >
           {t(TranslationKey.Resolve)}
         </Button>
 
-        {row.operationType !== TaskOperationType.RECEIVE && (
+        {operationType !== TaskOperationType.RECEIVE && (
           <Button
             danger
             tooltipInfoContent={
@@ -2160,7 +2095,7 @@ export const WarehouseMyTasksBtnsCell = React.memo(
             }
             className={cx(classNames.rowCancelBtn, classNames.warehouseMyTasksCancelBtn)}
             onClick={() => {
-              handlers.onClickCancelTask(row.boxes[0]._id, row._id, row.operationType)
+              handlers.onClickCancelTask(boxId, rowId, operationType)
             }}
           >
             {t(TranslationKey.Cancel)}
@@ -2173,7 +2108,7 @@ export const WarehouseMyTasksBtnsCell = React.memo(
 )
 
 export const ClientTasksActionBtnsCell = React.memo(
-  withStyles(({classes: classNames, row, handlers}) => {
+  withStyles(({ classes: classNames, row, handlers }) => {
     const checkIfTaskCouldBeCanceled = status => {
       if (status === mapTaskStatusEmumToKey[TaskStatus.NEW]) {
         return true
@@ -2251,7 +2186,7 @@ export const ClientTasksActionBtnsCell = React.memo(
 
 export const ClientNotificationsBtnsCell = React.memo(
   withStyles(
-    ({classes: classNames, row, handlers, disabled}) => (
+    ({ classes: classNames, row, handlers, disabled }) => (
       <div className={classNames.notificationBtnsWrapper}>
         <Button
           disabled={disabled}
@@ -2281,13 +2216,13 @@ export const ClientNotificationsBtnsCell = React.memo(
 export const ProductMyRequestsBtnsCell =
   //  React.memo(
   withStyles(
-    ({classes: classNames, row, handlers}) => (
+    ({ classes: classNames, rowId, handlers }) => (
       <div className={classNames.productMyRequestsBtnsWrapper}>
         <Button
           variant="contained"
           color="primary"
           className={classNames.productMyRequestsBtn}
-          onClick={() => handlers.onClickOpenRequest(row)}
+          onClick={() => handlers.onClickOpenRequest(rowId)}
         >
           {t(TranslationKey['Open a request'])}
         </Button>
@@ -2307,31 +2242,9 @@ export const ProductMyRequestsBtnsCell =
   )
 // )
 
-export const AdminUsersActionBtnsCell = React.memo(
-  withStyles(
-    ({classes: classNames, row, handlers, editBtnText, balanceBtnText}) => (
-      <React.Fragment>
-        <Button
-          className={classNames.marginRightBtn}
-          disabled={row.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
-          variant="contained"
-          color="primary"
-          onClick={() => handlers.onClickEditUser(row)}
-        >
-          {editBtnText}
-        </Button>
-        <Button variant="contained" color="primary" onClick={() => handlers.onClickBalance(row)}>
-          {balanceBtnText}
-        </Button>
-      </React.Fragment>
-    ),
-    styles,
-  ),
-)
-
 export const SuperboxQtyCell = React.memo(
   withStyles(
-    ({classes: classNames, qty, superbox}) => (
+    ({ classes: classNames, qty, superbox }) => (
       <div className={classNames.superBoxQtyWrapper}>
         <Typography>{qty * superbox}</Typography>
         {/* <Typography className={classNames.superboxTypo}>{` x ${superbox}`}</Typography> */}
@@ -2342,7 +2255,7 @@ export const SuperboxQtyCell = React.memo(
 )
 
 export const OrderManyItemsCell = React.memo(
-  withStyles(({classes: classNames, box, error, withoutSku}) => {
+  withStyles(({ classes: classNames, box, error, withoutSku }) => {
     const isEqualsItems = box.items.every(el => el.product._id === box.items[0].product._id)
 
     const renderProductInfo = () => (
@@ -2419,9 +2332,9 @@ export const OrderManyItemsCell = React.memo(
 
 export const ScrollingCell = React.memo(
   withStyles(
-    ({classes: classNames, value, fontSize}) => (
+    ({ classes: classNames, value, fontSize }) => (
       <React.Fragment>
-        <Typography style={{fontSize}} className={classNames.scrollingValue}>
+        <Typography style={{ fontSize }} className={classNames.scrollingValue}>
           {value || '-'}
         </Typography>
       </React.Fragment>
@@ -2430,26 +2343,9 @@ export const ScrollingCell = React.memo(
   ),
 )
 
-// export const ScrollingCell = React.memo( withStyles(({classes: classNames, value}) => (
-//   <React.Fragment>
-//     <Typography className={classNames.scrollingValue}>{value || '-'}</Typography>
-//   </React.Fragment>
-// ))
-
-export const MultilineCell = React.memo(
-  withStyles(
-    ({classes: classNames, value}) => (
-      <React.Fragment>
-        <Typography className={classNames.multilineValue}>{value || '-'}</Typography>
-      </React.Fragment>
-    ),
-    styles,
-  ),
-)
-
 export const ManyItemsPriceCell = React.memo(
   withStyles(
-    ({classes: classNames, params, withoutSku, withQuantity}) => {
+    ({ classes: classNames, params, withoutSku, withQuantity }) => {
       const cell = params?.items?.map((el, itemIndex) => (
         <OrderCell
           key={itemIndex}
@@ -2472,7 +2368,7 @@ export const ManyItemsPriceCell = React.memo(
 
 export const PricePerUnitCell = React.memo(
   withStyles(
-    ({classes: classNames, item}) => (
+    ({ classes: classNames, item }) => (
       <div className={classNames.pricesWrapper}>
         {item.items.map((el, i) => (
           <Typography key={i} className={classNames.multilineText}>
@@ -2488,7 +2384,7 @@ export const PricePerUnitCell = React.memo(
 
 export const FinalPricePerUnitCell = React.memo(
   withStyles(
-    ({classes: classNames, box, boxFinalWeight}) => (
+    ({ classes: classNames, box, boxFinalWeight }) => (
       <div className={classNames.pricesWrapper}>
         {box.items.map((el, i) => (
           <Typography key={i} className={classNames.multilineText}>
@@ -2515,26 +2411,8 @@ export const FinalPricePerUnitCell = React.memo(
   ),
 )
 
-export const ScrollingLinkCell = React.memo(
-  withStyles(
-    ({classes: classNames, value}) => (
-      <React.Fragment>
-        <Link
-          target="_blank"
-          rel="noopener"
-          href={checkAndMakeAbsoluteUrl(value)}
-          className={classNames.scrollingValue}
-        >
-          <Typography>{value || '-'}</Typography>
-        </Link>
-      </React.Fragment>
-    ),
-    styles,
-  ),
-)
-
 export const CopyAndEditLinkCell = React.memo(
-  withStyles(({classes: classNames, link, isEdit, onChangeText}) => {
+  withStyles(({ classes: classNames, link, isEdit, onChangeText }) => {
     const [value, setValue] = useState(link)
 
     useEffect(() => {
@@ -2550,7 +2428,7 @@ export const CopyAndEditLinkCell = React.memo(
               inputProps={256}
               placeholder={t(TranslationKey.Comment)}
               className={classNames.changeInputComment}
-              classes={{input: classNames.changeInputComment}}
+              classes={{ input: classNames.changeInputComment }}
               value={value}
               onChange={e => {
                 setValue(e.target.value)
@@ -2706,7 +2584,7 @@ export const EditOrRemoveIconBtnsCell = React.memo(
 )
 
 export const BatchBoxesCell = React.memo(
-  withStyles(({classes: classNames, boxes}) => {
+  withStyles(({ classes: classNames, boxes }) => {
     const renderProductInfo = (box, boxesLength) => (
       <div className={classNames.batchProductsWrapper}>
         {boxesLength > 1 ? (
@@ -2793,7 +2671,7 @@ export const BatchBoxesCell = React.memo(
 
 export const TrashCell = React.memo(
   withStyles(
-    ({classes: classNames, onClick, tooltipText, isFirstRow}) => (
+    ({ classes: classNames, onClick, tooltipText, isFirstRow }) => (
       <Button tooltipInfoContent={isFirstRow && tooltipText} className={classNames.trashWrapper}>
         <img className={classNames.trashImg} src="/assets/icons/trash.svg" alt="" onClick={onClick} />
       </Button>
@@ -2804,7 +2682,7 @@ export const TrashCell = React.memo(
 
 export const WarehouseBoxesBtnsCell = React.memo(
   withStyles(
-    ({classes: classNames, row, handlers, isFirstRow}) => (
+    ({ classes: classNames, row, handlers, isFirstRow }) => (
       <div className={classNames.warehouseBoxesBtnsWrapper}>
         {row.status !== BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
           <Typography>{t(TranslationKey['Not ready to ship'])}</Typography>
@@ -2861,7 +2739,7 @@ export const WarehouseBoxesBtnsCell = React.memo(
 
 export const ShopsReportBtnsCell = React.memo(
   withStyles(
-    ({classes: classNames, value, onClickSeeMore, isFirstRow}) => (
+    ({ classes: classNames, value, onClickSeeMore, isFirstRow }) => (
       <div className={classNames.shopsReportBtnsWrapper}>
         {/* <div className={classNames.shopsReportBtnsSubWrapper}> */}
         <Text /* tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])} */>
@@ -2894,11 +2772,11 @@ export const ShopsReportBtnsCell = React.memo(
 
 export const DownloadAndCopyBtnsCell = React.memo(
   withStyles(
-    ({classes: classNames, value, isFirstRow}) => (
+    ({ classes: classNames, value, isFirstRow }) => (
       <>
         {value ? (
           <div className={classNames.shopsReportBtnsWrapper}>
-            <div className={cx({[classNames.tooltipWrapperMargin]: isFirstRow})}>
+            <div className={cx({ [classNames.tooltipWrapperMargin]: isFirstRow })}>
               <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
                 <a
                   download
@@ -2930,7 +2808,7 @@ export const DownloadAndCopyBtnsCell = React.memo(
 )
 
 export const ShortBoxDimensions = React.memo(
-  withStyles(({classes: classNames, box, volumeWeightCoefficient, curUser, handlers}) => {
+  withStyles(({ classes: classNames, box, volumeWeightCoefficient, curUser, handlers }) => {
     const finalWeight = calcFinalWeightForBox(box, volumeWeightCoefficient)
 
     return (
@@ -2983,7 +2861,7 @@ export const ShortBoxDimensions = React.memo(
 
 export const RedFlagsCell = React.memo(
   withStyles(
-    ({classes: classNames, flags}) => (
+    ({ classes: classNames, flags }) => (
       <div className={classNames.redFlags}>
         <RedFlags activeFlags={flags} />
       </div>
@@ -2993,7 +2871,7 @@ export const RedFlagsCell = React.memo(
 )
 export const TagsCell = React.memo(
   withStyles(
-    ({classes: classNames, tags}) => (
+    ({ classes: classNames, tags }) => (
       <div className={classNames.tags}>
         <MultilineTextHeaderCell
           text={

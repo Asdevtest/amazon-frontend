@@ -1,8 +1,8 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {AdministratorModel} from '@models/administrator-model'
+import { AdministratorModel } from '@models/administrator-model'
 
 export class AdminUserViewModel {
   history = undefined
@@ -14,7 +14,7 @@ export class AdminUserViewModel {
 
   order = undefined
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
     })
@@ -24,7 +24,7 @@ export class AdminUserViewModel {
         this.user = location.state.user
       })
     }
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async getUserInfo(id) {

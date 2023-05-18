@@ -1,27 +1,27 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Field} from '@components/shared/field'
+import { Field } from '@components/shared/field'
 
-import {checkIsPositiveNum} from '@utils/checks'
-import {getDaysHoursMinutesForMinuter} from '@utils/date-time'
-import {clearEverythingExceptNumbers} from '@utils/text'
-import {t} from '@utils/translations'
+import { checkIsPositiveNum } from '@utils/checks'
+import { getDaysHoursMinutesForMinuter } from '@utils/date-time'
+import { clearEverythingExceptNumbers } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './set-duration.style'
+import { useClassNames } from './set-duration.style'
 
-export const SetDuration = observer(({title, titleStyle, setTotalTimeInMinute, duration}) => {
-  const {classes: classNames} = useClassNames()
+export const SetDuration = observer(({ title, titleStyle, setTotalTimeInMinute, duration }) => {
+  const { classes: classNames } = useClassNames()
 
   const timeDuration = getDaysHoursMinutesForMinuter(duration)
 
@@ -36,7 +36,7 @@ export const SetDuration = observer(({title, titleStyle, setTotalTimeInMinute, d
   const [formFields, setFormFields] = useState(initialState)
 
   const onChangeField = fieldName => event => {
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
 
     if (['days'].includes(fieldName)) {
       if (event.target.value > 99) {

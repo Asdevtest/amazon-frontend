@@ -1,20 +1,7 @@
-import {makeStyles} from 'tss-react/mui'
+/* eslint-disable no-unused-vars */
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  button: {
-    color: 'white',
-    backgroundColor: theme.palette.primary.main,
-    textTransform: 'none',
-  },
-  balanceButtonsWrapper: {
-    display: 'flex',
-    '& > button': {
-      marginRight: '40px',
-    },
-    '& > button:last-child': {
-      marginRight: '0px',
-    },
-  },
   buttonWrapper: {
     textAlign: 'right',
   },

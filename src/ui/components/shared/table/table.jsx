@@ -1,12 +1,12 @@
-import {Paper, Table as MuiTable, TableBody, TableContainer, TableHead, Toolbar, Typography} from '@mui/material'
+import { Paper, Table as MuiTable, TableBody, TableContainer, TableHead, Toolbar, Typography } from '@mui/material'
 
 import React from 'react'
 
-import {Pagination} from '@material-ui/lab'
-import {observer} from 'mobx-react'
+import { Pagination } from '@material-ui/lab'
+import { observer } from 'mobx-react'
 
-import {TableToolbar} from './table-toolbar'
-import {useClassNames} from './table.style'
+import { TableToolbar } from './table-toolbar'
+import { useClassNames } from './table.style'
 
 export const Table = observer(
   ({
@@ -24,7 +24,7 @@ export const Table = observer(
     rowsHandlers,
     ...restProps
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const dataWithPages = data.slice(rowsPerPage * (currentPage - 1), rowsPerPage * currentPage)
 

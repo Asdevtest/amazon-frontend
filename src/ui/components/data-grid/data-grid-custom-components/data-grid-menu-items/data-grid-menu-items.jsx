@@ -11,34 +11,34 @@ import {
   Typography,
 } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {compareDesc, isAfter, parseISO} from 'date-fns'
-import {withStyles} from 'tss-react/mui'
+import { compareDesc, isAfter, parseISO } from 'date-fns'
+import { withStyles } from 'tss-react/mui'
 
-import {MyRequestStatus, MyRequestStatusTranslate} from '@constants/requests/request-proposal-status'
-import {BoxStatus, boxStatusTranslateKey} from '@constants/statuses/box-status'
-import {freelanceRequestType, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {OrderStatusTranslate} from '@constants/statuses/order-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { MyRequestStatus, MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { BoxStatus, boxStatusTranslateKey } from '@constants/statuses/box-status'
+import { freelanceRequestType, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { OrderStatusTranslate } from '@constants/statuses/order-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridSelectAllFilters} from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters'
-import {Button} from '@components/shared/buttons/button'
-import {NewDatePicker} from '@components/shared/date-picker/date-picker'
-import {Input} from '@components/shared/input'
-import {SearchInput} from '@components/shared/search-input'
+import { DataGridSelectAllFilters } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters'
+import { Button } from '@components/shared/buttons/button'
+import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { Input } from '@components/shared/input'
+import { SearchInput } from '@components/shared/search-input'
 
-import {checkIsPositiveNum} from '@utils/checks'
-import {formatNormDateTime} from '@utils/date-time'
-import {getStatusByColumnKeyAndStatusKey, toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { checkIsPositiveNum } from '@utils/checks'
+import { formatNormDateTime } from '@utils/date-time'
+import { getStatusByColumnKeyAndStatusKey, toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {styles} from './data-grid-menu-items.style'
+import { styles } from './data-grid-menu-items.style'
 
 export const IsFormedMenuItem = React.memo(
   withStyles(
-    ({classes: classNames, isFormedData}) => (
+    ({ classes: classNames, isFormedData }) => (
       <div className={classNames.isFormedWrapper}>
         <div className={classNames.isFormedSubWrapper}>
           <Typography>{t(TranslationKey['Not formed'])}</Typography>
@@ -77,7 +77,7 @@ export const IsFormedMenuItem = React.memo(
 
 export const IsNeedPurchaseFilterMenuItem = React.memo(
   withStyles(
-    ({classes: classNames, isNeedPurchaseFilterData}) => (
+    ({ classes: classNames, isNeedPurchaseFilterData }) => (
       <div className={classNames.isFormedWrapper}>
         <div className={classNames.isFormedSubWrapper}>
           <Typography>{t(TranslationKey['Not need refills'])}</Typography>
@@ -128,7 +128,7 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
 
 export const IsHaveBarCodeFilterMenuItem = React.memo(
   withStyles(
-    ({classes: classNames, isHaveBarCodeFilterData}) => (
+    ({ classes: classNames, isHaveBarCodeFilterData }) => (
       <div className={classNames.isFormedWrapper}>
         <div className={classNames.isFormedSubWrapper}>
           <Typography>{t(TranslationKey['Got barcode'])}</Typography>
@@ -179,7 +179,7 @@ export const IsHaveBarCodeFilterMenuItem = React.memo(
 
 export const OrderStatusMenuItem = React.memo(
   withStyles(
-    ({classes: classNames, orderStatusData}) => (
+    ({ classes: classNames, orderStatusData }) => (
       <div className={classNames.isFormedWrapper}>
         <div className={classNames.isFormedSubWrapper}>
           <Typography>{t(TranslationKey.All)}</Typography>
@@ -229,10 +229,10 @@ export const OrderStatusMenuItem = React.memo(
 )
 
 export const MyRequestsStatusMenuItem = React.memo(
-  withStyles(({classes: classNames, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept}) => {
+  withStyles(({ classes: classNames, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept }) => {
     const filterData = Object.keys(MyRequestStatus)
 
-    const {currentFilterData} = data
+    const { currentFilterData } = data
 
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -325,10 +325,10 @@ export const MyRequestsStatusMenuItem = React.memo(
 )
 
 export const FreelanceRequestType = React.memo(
-  withStyles(({classes: classNames, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept}) => {
+  withStyles(({ classes: classNames, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept }) => {
     const filterData = Object.values(freelanceRequestType)
 
-    const {currentFilterData} = data
+    const { currentFilterData } = data
 
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -424,8 +424,8 @@ export const FreelanceRequestType = React.memo(
 )
 
 export const ClientOrderAllStatusesMenuItem = React.memo(
-  withStyles(({classes: classNames, orderStatusData}) => {
-    const {orderStatusDataBase, chosenStatus, onClickOrderStatusData} = orderStatusData
+  withStyles(({ classes: classNames, orderStatusData }) => {
+    const { orderStatusDataBase, chosenStatus, onClickOrderStatusData } = orderStatusData
 
     return (
       <div className={classNames.orderStatusDataWrapper}>
@@ -459,7 +459,7 @@ export const ObJectFieldMenuItem = React.memo(
       onClickAccept,
       onClickFilterBtn,
     }) => {
-      const {filterData, currentFilterData} = data
+      const { filterData, currentFilterData } = data
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -483,7 +483,7 @@ export const ObJectFieldMenuItem = React.memo(
 
       useEffect(() => {
         setItemsForRender(
-          [...filterData, ...[addNullObj && {name: t(TranslationKey['Without stores']), _id: 'null'}]]
+          [...filterData, ...[addNullObj && { name: t(TranslationKey['Without stores']), _id: 'null' }]]
             .filter(el => el)
             .sort(
               (a, b) =>
@@ -577,8 +577,8 @@ export const ObJectFieldMenuItem = React.memo(
 )
 
 export const BoxestatusMenuItem = React.memo(
-  withStyles(({classes: classNames, data, onChangeFullFieldMenuItem, onClose, field, onClickAccept}) => {
-    const {/* filterData, */ currentFilterData} = data
+  withStyles(({ classes: classNames, data, onChangeFullFieldMenuItem, onClose, field, onClickAccept }) => {
+    const { /* filterData, */ currentFilterData } = data
 
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -665,7 +665,7 @@ export const NormalFieldMenuItem = React.memo(
         onClickFilterBtn(field)
       }, [])
 
-      const {filterData, currentFilterData} = data
+      const { filterData, currentFilterData } = data
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -792,7 +792,7 @@ export const ProductMenuItem = React.memo(
         ? 'skusByClient'
         : 'asin',
     )
-    const {filterData, currentFilterData} = data[currentOption]
+    const { filterData, currentFilterData } = data[currentOption]
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -948,7 +948,7 @@ export const OrderOrItemMenuItem = React.memo(
         }
       }, [currentOption])
 
-      const {filterData, currentFilterData} = data[currentOption]
+      const { filterData, currentFilterData } = data[currentOption]
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -1098,7 +1098,7 @@ export const DestinationMenuItem = React.memo(
     const [currentOption, setCurrentOption] = useState(
       data.logicsTariff.currentFilterData.length ? 'logicsTariff' : 'destination',
     )
-    const {filterData, currentFilterData} = data[currentOption]
+    const { filterData, currentFilterData } = data[currentOption]
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -1246,7 +1246,7 @@ export const FromToDateMenuItem = React.memo(
         onClickFilterBtn(field)
       }, [])
 
-      const {filterData, currentFilterData} = data
+      const { filterData, currentFilterData } = data
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -1395,7 +1395,7 @@ export const NumberFieldMenuItem = React.memo(
         onClickFilterBtn(field)
       }, [])
 
-      const {filterData, currentFilterData} = data
+      const { filterData, currentFilterData } = data
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -1441,14 +1441,14 @@ export const NumberFieldMenuItem = React.memo(
           <div className={classNames.numInputsWrapper}>
             <Input
               className={classNames.numInput}
-              classes={{input: classNames.numInput}}
+              classes={{ input: classNames.numInput }}
               placeholder={t(TranslationKey.From)}
               value={fromValue}
               onChange={e => checkIsPositiveNum(e.target.value) && setFromValue(e.target.value)}
             />
             <Input
               className={classNames.numInput}
-              classes={{input: classNames.numInput}}
+              classes={{ input: classNames.numInput }}
               placeholder={t(TranslationKey.To)}
               value={toValue}
               onChange={e => checkIsPositiveNum(e.target.value) && setToValue(e.target.value)}
@@ -1557,7 +1557,7 @@ export const InStockMenuItem = React.memo(
           ),
       }
 
-      const {filterData, currentFilterData} = newData
+      const { filterData, currentFilterData } = newData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -1636,14 +1636,14 @@ export const InStockMenuItem = React.memo(
           <div className={classNames.numInputsWrapper}>
             <Input
               className={classNames.numInput}
-              classes={{input: classNames.numInput}}
+              classes={{ input: classNames.numInput }}
               placeholder={t(TranslationKey.From)}
               value={fromValue}
               onChange={e => checkIsPositiveNum(e.target.value) && setFromValue(e.target.value)}
             />
             <Input
               className={classNames.numInput}
-              classes={{input: classNames.numInput}}
+              classes={{ input: classNames.numInput }}
               placeholder={t(TranslationKey.To)}
               value={toValue}
               onChange={e => checkIsPositiveNum(e.target.value) && setToValue(e.target.value)}

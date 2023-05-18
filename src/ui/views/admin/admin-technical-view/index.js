@@ -1,1 +1,1 @@
-export {AdminTechnicalView} from './admin-technical-view'
+export { AdminTechnicalView } from './admin-technical-view'

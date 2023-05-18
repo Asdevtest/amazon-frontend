@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(() => ({
   root: {
@@ -12,9 +12,5 @@ export const useClassNames = makeStyles()(() => ({
     width: '100%',
     padding: '0 0px',
     margin: '0 auto',
-  },
-  flexContainer: {
-    // flexDirection: 'column',
-    // width: '200px',
   },
 }))

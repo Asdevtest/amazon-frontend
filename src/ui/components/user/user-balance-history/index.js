@@ -1,1 +1,1 @@
-export {UserBalanceHistory} from './user-balance-history'
+export { UserBalanceHistory } from './user-balance-history'

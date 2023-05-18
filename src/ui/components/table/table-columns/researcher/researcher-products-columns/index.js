@@ -1,1 +1,1 @@
-export {researcherProductsViewColumns} from './researcher-products-columns'
+export { researcherProductsViewColumns } from './researcher-products-columns'

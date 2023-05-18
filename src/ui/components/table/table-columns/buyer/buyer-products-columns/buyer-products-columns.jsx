@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
-import {colorByProductStatus, ProductStatusByCode} from '@constants/product/product-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { colorByProductStatus, ProductStatusByCode } from '@constants/product/product-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ProductAsinCell,
@@ -12,8 +12,8 @@ import {
   MultilineStatusCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const buyerProductsViewColumns = handlers => [
   {
@@ -21,7 +21,18 @@ export const buyerProductsViewColumns = handlers => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    renderCell: params => <ProductAsinCell product={params.row.originalData} />,
+    renderCell: params => {
+      const product = params.row.originalData
+
+      return (
+        <ProductAsinCell
+          image={product?.images?.slice()[0]}
+          amazonTitle={product?.amazonTitle}
+          asin={product?.asin}
+          skusByClient={product?.skusByClient?.slice()[0]}
+        />
+      )
+    },
     width: 350,
   },
 
@@ -53,13 +64,19 @@ export const buyerProductsViewColumns = handlers => [
     headerName: t(TranslationKey['Fees & Net']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Fees & Net'])} />,
 
-    renderCell: params => (
-      <FeesValuesWithCalculateBtnCell
-        noCalculate={!['30', '40', '50', '60'].includes(params.row.status)}
-        product={params.row.originalData}
-        onClickCalculate={handlers.onClickFeesCalculate}
-      />
-    ),
+    renderCell: params => {
+      const onClickFeesCalculateMemo = useCallback(handlers.onClickFeesCalculate, [])
+
+      return (
+        <FeesValuesWithCalculateBtnCell
+          noCalculate={!['30', '40', '50', '60'].includes(params.row.status)}
+          fbafee={params.row.originalData.fbafee}
+          reffee={params.row.originalData.reffee}
+          productId={params.row.originalData._id}
+          onClickCalculate={onClickFeesCalculateMemo}
+        />
+      )
+    },
     minWidth: 110,
 
     filterable: false,
@@ -128,7 +145,7 @@ export const buyerProductsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     minWidth: 120,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     type: 'date',
   },
 
@@ -139,7 +156,7 @@ export const buyerProductsViewColumns = handlers => [
 
     minWidth: 150,
     flex: 1,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     type: 'date',
   },
 ]

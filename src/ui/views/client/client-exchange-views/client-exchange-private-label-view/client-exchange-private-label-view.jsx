@@ -1,33 +1,34 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
-import {withStyles} from 'tss-react/mui'
+import React, { useEffect, useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {MainContent} from '@components/layout/main-content'
-import {SelectShopsModal} from '@components/modals/select-shops-modal'
-import {SuccessInfoModal} from '@components/modals/success-info-modal'
-import {PrivateLabelCard} from '@components/private-label-card'
-import {Modal} from '@components/shared/modal'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { MainContent } from '@components/layout/main-content'
+import { SelectShopsModal } from '@components/modals/select-shops-modal'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { PrivateLabelCard } from '@components/private-label-card'
+import { Modal } from '@components/shared/modal'
 
-import {ClientExchangePrivateLabelViewModel} from './client-exchange-private-label-view.model'
-import {styles} from './client-exchange-private-label-view.style'
-import {observer} from 'mobx-react'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
+
+import { ClientExchangePrivateLabelViewModel } from './client-exchange-private-label-view.model'
+import { styles } from './client-exchange-private-label-view.style'
 
 export const ClientExchangePrivateLabelViewRaw = props => {
-  const [viewModel] = useState(() => new ClientExchangePrivateLabelViewModel({history: props.history}))
-  const {classes: classNames} = props
+  const [viewModel] = useState(() => new ClientExchangePrivateLabelViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   const renderProductsVacant = () => {
-    const {productsVacant, setProductToPay} = viewModel
+    const { productsVacant, setProductToPay } = viewModel
 
     return productsVacant.map((item, index) => (
       <div key={`product_${item._id}_${index}`} className={classNames.cardWrapper}>

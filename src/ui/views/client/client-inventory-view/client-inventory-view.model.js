@@ -1,40 +1,40 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {poundsWeightCoefficient} from '@constants/configs/sizes-settings'
-import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
-import {ProductDataParser} from '@constants/product/product-data-parser'
-import {ProductStatus, ProductStatusByCode} from '@constants/product/product-status'
-import {RequestStatus} from '@constants/requests/request-status'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {creatSupplier} from '@constants/white-list'
+import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { ProductDataParser } from '@constants/product/product-data-parser'
+import { ProductStatus, ProductStatusByCode } from '@constants/product/product-status'
+import { RequestStatus } from '@constants/requests/request-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
+import { creatSupplier } from '@constants/white-list'
 
-import {BatchesModel} from '@models/batches-model'
-import {BoxesModel} from '@models/boxes-model'
-import {ClientModel} from '@models/client-model'
-import {GeneralModel} from '@models/general-model'
-import {IdeaModel} from '@models/ideas-model'
-import {OrderModel} from '@models/order-model'
-import {OtherModel} from '@models/other-model'
-import {ProductModel} from '@models/product-model'
-import {SellerBoardModel} from '@models/seller-board-model'
-import {SettingsModel} from '@models/settings-model'
-import {ShopModel} from '@models/shop-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {SupplierModel} from '@models/supplier-model'
-import {UserModel} from '@models/user-model'
+import { BatchesModel } from '@models/batches-model'
+import { BoxesModel } from '@models/boxes-model'
+import { ClientModel } from '@models/client-model'
+import { GeneralModel } from '@models/general-model'
+import { IdeaModel } from '@models/ideas-model'
+import { OrderModel } from '@models/order-model'
+import { OtherModel } from '@models/other-model'
+import { ProductModel } from '@models/product-model'
+import { SellerBoardModel } from '@models/seller-board-model'
+import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { SupplierModel } from '@models/supplier-model'
+import { UserModel } from '@models/user-model'
 
-import {clientInventoryColumns} from '@components/table/table-columns/client/client-inventory-columns'
+import { clientInventoryColumns } from '@components/table/table-columns/client/client-inventory-columns'
 
-import {updateProductAutoCalculatedFields} from '@utils/calculation'
-import {addIdDataConverter, clientInventoryDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
-import {getTableByColumn, objectToUrlQs, toFixed} from '@utils/text'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { updateProductAutoCalculatedFields } from '@utils/calculation'
+import { addIdDataConverter, clientInventoryDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
+import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 const fieldsOfProductAllowedToUpdate = [
   'dirdecision',
@@ -262,7 +262,7 @@ export class ClientInventoryViewModel {
 
   rowCount = 0
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -287,7 +287,7 @@ export class ClientInventoryViewModel {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
     })
@@ -298,12 +298,12 @@ export class ClientInventoryViewModel {
         this.isModalOpen = location.state.isModalOpen
       })
 
-      const state = {...history.location.state}
+      const state = { ...history.location.state }
       delete state.isModalOpen
-      history.replace({...history.location, state})
+      history.replace({ ...history.location, state })
     }
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
@@ -356,9 +356,9 @@ export class ClientInventoryViewModel {
     win.focus()
   }
 
-  onClickInStock(row, storekeeper) {
+  onClickInStock(boxId, storekeeper) {
     const win = window.open(
-      `${window.location.origin}/client/warehouse/in-stock?storekeeper-id=${storekeeper?._id}&search-text=${row._id}`,
+      `${window.location.origin}/client/warehouse/in-stock?storekeeper-id=${storekeeper?._id}&search-text=${boxId}`,
       '_blank',
     )
 
@@ -492,7 +492,7 @@ export class ClientInventoryViewModel {
       })
       this.onTriggerOpenModal('showAddSuppliersModal')
 
-      const blob = new Blob([result.data], {type: result.headers['content-type']})
+      const blob = new Blob([result.data], { type: result.headers['content-type'] })
       const url = window.URL.createObjectURL(blob)
 
       runInAction(() => {
@@ -550,7 +550,7 @@ export class ClientInventoryViewModel {
       for (let i = 0; i < this.selectedRowIds.length; i++) {
         const productId = this.selectedRowIds[i]
 
-        await ClientModel.updateProduct(productId, {archive: this.isArchive ? false : true})
+        await ClientModel.updateProduct(productId, { archive: this.isArchive ? false : true })
       }
 
       this.onTriggerOpenModal('showConfirmModal')
@@ -566,8 +566,8 @@ export class ClientInventoryViewModel {
     })
 
     this.isArchive
-      ? this.history.push('/client/inventory', {isArchive: !this.isArchive})
-      : this.history.push('/client/inventory/archive', {isArchive: !this.isArchive})
+      ? this.history.push('/client/inventory', { isArchive: !this.isArchive })
+      : this.history.push('/client/inventory/archive', { isArchive: !this.isArchive })
   }
 
   async getSuppliersPaymentMethods() {
@@ -821,7 +821,7 @@ export class ClientInventoryViewModel {
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
           ...this.columnMenuSettings,
-          [column]: {...this.columnMenuSettings[column], filterData: data},
+          [column]: { ...this.columnMenuSettings[column], filterData: data },
         }
       }
       this.setFilterRequestStatus(loadingStatuses.success)
@@ -910,50 +910,50 @@ export class ClientInventoryViewModel {
     const stockCostFilter = exclusion !== 'stockCost' && this.columnMenuSettings.stockCost.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
-      archive: {$eq: this.isArchive},
+      archive: { $eq: this.isArchive },
       or: [
-        {asin: {$contains: this.nameSearchValue}},
-        {amazonTitle: {$contains: this.nameSearchValue}},
-        {skusByClient: {$contains: this.nameSearchValue}},
+        { asin: { $contains: this.nameSearchValue } },
+        { amazonTitle: { $contains: this.nameSearchValue } },
+        { skusByClient: { $contains: this.nameSearchValue } },
       ],
 
       ...(asinFilter && {
-        asin: {$eq: asinFilter},
+        asin: { $eq: asinFilter },
       }),
       ...(skusByClientFilter && {
-        skusByClient: {$eq: skusByClientFilter},
+        skusByClient: { $eq: skusByClientFilter },
       }),
       ...(amazonTitleFilter && {
-        amazonTitle: {$eq: amazonTitleFilter},
+        amazonTitle: { $eq: amazonTitleFilter },
       }),
 
       ...(createdAtFilter && {
-        createdAt: {$eq: createdAtFilter},
+        createdAt: { $eq: createdAtFilter },
       }),
       ...(updatedAtFilter && {
-        updatedAt: {$eq: updatedAtFilter},
+        updatedAt: { $eq: updatedAtFilter },
       }),
 
       ...(strategyStatusFilter && {
-        strategyStatus: {$eq: strategyStatusFilter},
+        strategyStatus: { $eq: strategyStatusFilter },
       }),
 
       ...(amountInOrdersFilter && {
-        amountInOrders: {$eq: amountInOrdersFilter},
+        amountInOrders: { $eq: amountInOrdersFilter },
       }),
 
       ...(stockUSAFilter && {
-        stockUSA: {$eq: stockUSAFilter},
+        stockUSA: { $eq: stockUSAFilter },
       }),
       ...(inTransferFilter && {
-        inTransfer: {$eq: inTransferFilter},
+        inTransfer: { $eq: inTransferFilter },
       }),
       ...(boxAmountsFilter && {
-        boxAmounts: {$eq: boxAmountsFilter},
+        boxAmounts: { $eq: boxAmountsFilter },
       }),
 
       ...(sumStockFilter && {
-        sumStock: {$eq: sumStockFilter},
+        sumStock: { $eq: sumStockFilter },
       }),
 
       // ...(purchaseQuantityFilter && {
@@ -961,41 +961,41 @@ export class ClientInventoryViewModel {
       // }),
 
       ...(amazonFilter && {
-        amazon: {$eq: amazonFilter},
+        amazon: { $eq: amazonFilter },
       }),
       ...(profitFilter && {
-        profit: {$eq: profitFilter},
+        profit: { $eq: profitFilter },
       }),
       ...(fbafeeFilter && {
-        fbafee: {$eq: fbafeeFilter},
+        fbafee: { $eq: fbafeeFilter },
       }),
 
       ...(statusFilter && {
-        status: {$eq: statusFilter},
+        status: { $eq: statusFilter },
       }),
 
       ...(fbaFbmStockSumFilter && {
-        fbaFbmStockSum: {$eq: fbaFbmStockSumFilter},
+        fbaFbmStockSum: { $eq: fbaFbmStockSumFilter },
       }),
       ...(reservedSumFilter && {
-        reservedSum: {$eq: reservedSumFilter},
+        reservedSum: { $eq: reservedSumFilter },
       }),
       ...(sentToFbaSumFilter && {
-        sentToFbaSum: {$eq: sentToFbaSumFilter},
+        sentToFbaSum: { $eq: sentToFbaSumFilter },
       }),
 
       ...(ideaCountFilter && {
-        ideaCount: {$eq: ideaCountFilter},
+        ideaCount: { $eq: ideaCountFilter },
       }),
 
       // barCode: {$notnull: true},
 
       ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
-        barCode: {[this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true},
+        barCode: { [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true },
       }),
 
       ...(stockCostFilter && {
-        stockCost: {$eq: stockCostFilter},
+        stockCost: { $eq: stockCostFilter },
       }),
     })
 
@@ -1083,10 +1083,10 @@ export class ClientInventoryViewModel {
     })
 
     if (tmpBarCode.length) {
-      await onSubmitPostImages.call(this, {images: tmpBarCode, type: 'uploadedFiles'})
+      await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
     }
 
-    await ClientModel.updateProductBarCode(this.selectedProduct._id, {barCode: this.uploadedFiles[0]})
+    await ClientModel.updateProductBarCode(this.selectedProduct._id, { barCode: this.uploadedFiles[0] })
 
     const noProductBaseUpdate = true
     this.getProductsMy(noProductBaseUpdate)
@@ -1129,14 +1129,14 @@ export class ClientInventoryViewModel {
   async onClickHsCode(item) {
     this.setSelectedProduct(item)
     this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(this.selectedProduct._id)
-    console.log(this.hsCodeData)
+    // console.log(this.hsCodeData)
 
     this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
-  async onClickSaveFourMonthesStockValue(item, fourMonthesStock) {
+  async onClickSaveFourMonthesStockValue(productId, fourMonthesStock) {
     try {
-      await ClientModel.updateProductFourMonthesStock(item._id, {fourMonthesStock})
+      await ClientModel.updateProductFourMonthesStock(productId, { fourMonthesStock })
 
       this.getProductsMy()
     } catch (error) {
@@ -1152,9 +1152,9 @@ export class ClientInventoryViewModel {
     this.onTriggerOpenModal('showBarcodeOrHscodeModal')
   }
 
-  async onClickSaveStockUs(item, value) {
+  async onClickSaveStockUs(productId, value) {
     try {
-      await ClientModel.editProductsStockUS(item._id, {
+      await ClientModel.editProductsStockUS(productId, {
         stockUSA: value,
       })
 
@@ -1164,7 +1164,7 @@ export class ClientInventoryViewModel {
     }
   }
 
-  onConfirmSubmitOrderProductModal({ordersDataState, totalOrdersCost}) {
+  onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {
     runInAction(() => {
       this.ordersDataStateToSubmit = ordersDataState
 
@@ -1197,11 +1197,11 @@ export class ClientInventoryViewModel {
         })
 
         if (orderObject.tmpBarCode.length) {
-          await onSubmitPostImages.call(this, {images: orderObject.tmpBarCode, type: 'uploadedFiles'})
+          await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
 
-          await ClientModel.updateProductBarCode(orderObject.productId, {barCode: this.uploadedFiles[0]})
+          await ClientModel.updateProductBarCode(orderObject.productId, { barCode: this.uploadedFiles[0] })
         } else if (!orderObject.barCode) {
-          await ClientModel.updateProductBarCode(orderObject.productId, {barCode: null})
+          await ClientModel.updateProductBarCode(orderObject.productId, { barCode: null })
         }
 
         await this.createOrder(orderObject)
@@ -1268,7 +1268,7 @@ export class ClientInventoryViewModel {
 
   async createIdea(data) {
     try {
-      const resId = await IdeaModel.createIdea({...data, price: data.price || 0, quantity: data.quantity || 0})
+      const resId = await IdeaModel.createIdea({ ...data, price: data.price || 0, quantity: data.quantity || 0 })
       runInAction(() => {
         this.ideaId = resId.guid
       })
@@ -1296,14 +1296,14 @@ export class ClientInventoryViewModel {
     }
   }
 
-  async onSubmitSaveSupplier({supplier, photosOfSupplier, addMore, makeMainSupplier}) {
+  async onSubmitSaveSupplier({ supplier, photosOfSupplier, addMore, makeMainSupplier }) {
     try {
       runInAction(() => {
         this.readyImages = []
       })
 
       if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
       }
 
       supplier = {
@@ -1454,7 +1454,7 @@ export class ClientInventoryViewModel {
 
   async onClickProductLotDataBtn() {
     try {
-      const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0], {archive: false})
+      const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0], { archive: false })
       runInAction(() => {
         this.isTransfer = false
         this.batchesData = result
@@ -1471,7 +1471,7 @@ export class ClientInventoryViewModel {
 
   async onClickToggleArchiveProductLotData(isArchive) {
     try {
-      const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0], {archive: isArchive})
+      const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0], { archive: isArchive })
       runInAction(() => {
         this.batchesData = result
       })
@@ -1603,7 +1603,7 @@ export class ClientInventoryViewModel {
 
       if (!isNoAsin) {
         runInAction(() => {
-          this.product = {asin: data.asin, lamazon: data.lamazon, fba: true, images: []}
+          this.product = { asin: data.asin, lamazon: data.lamazon, fba: true, images: [] }
         })
 
         await this.parseAmazon(data.asin)
@@ -1650,10 +1650,10 @@ export class ClientInventoryViewModel {
         }
       } else {
         if (photosOfNewProduct.length) {
-          await onSubmitPostImages.call(this, {images: photosOfNewProduct, type: 'readyImages'})
+          await onSubmitPostImages.call(this, { images: photosOfNewProduct, type: 'readyImages' })
         }
 
-        const resData = {...data, images: this.readyImages.length ? this.readyImages : data.images}
+        const resData = { ...data, images: this.readyImages.length ? this.readyImages : data.images }
 
         const result = await ClientModel.createProduct(resData)
 
@@ -1703,7 +1703,7 @@ export class ClientInventoryViewModel {
 
   async onDeleteBarcode(product) {
     try {
-      await ClientModel.updateProductBarCode(product._id, {barCode: null})
+      await ClientModel.updateProductBarCode(product._id, { barCode: null })
 
       this.loadData()
     } catch (error) {
@@ -1713,7 +1713,7 @@ export class ClientInventoryViewModel {
 
   async onDeleteHsCode(product) {
     try {
-      await ProductModel.editProductsHsCods([{productId: product._id, hsCode: ''}])
+      await ProductModel.editProductsHsCods([{ productId: product._id, hsCode: '' }])
 
       this.loadData()
     } catch (error) {

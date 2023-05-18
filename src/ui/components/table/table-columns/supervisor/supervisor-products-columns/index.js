@@ -1,1 +1,1 @@
-export {supervisorProductsViewColumns} from './supervisor-products-columns'
+export { supervisorProductsViewColumns } from './supervisor-products-columns'

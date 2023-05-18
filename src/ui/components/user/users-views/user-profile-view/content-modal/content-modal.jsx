@@ -12,17 +12,17 @@ import {
 
 import React from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
-import {ModalTableBodyRow} from '@components/table/table-rows/user-profile-view/modal-table-body-row'
+import { Button } from '@components/shared/buttons/button'
+import { ModalTableBodyRow } from '@components/table/table-rows/user-profile-view/modal-table-body-row'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './content-modal.style'
+import { useClassNames } from './content-modal.style'
 
 export const ContentModal = props => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
   return (
     <Container disableGutters>
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Order of goods'])}</Typography>

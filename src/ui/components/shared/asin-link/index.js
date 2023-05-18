@@ -1,1 +1,1 @@
-export {AsinLink} from './asin-link'
+export { AsinLink } from './asin-link'

@@ -1,9 +1,9 @@
-import {Text} from '@components/shared/text'
+import { Text } from '@components/shared/text'
 
-import {objectFlip} from '@utils/object'
-import {t} from '@utils/translations'
+import { objectFlip } from '@utils/object'
+import { t } from '@utils/translations'
 
-import {TranslationKey} from '../translations/translation-key'
+import { TranslationKey } from '../translations/translation-key'
 
 export const OrderStatus = {
   FORMED: 'FORMED',
@@ -213,7 +213,7 @@ export const orderColorByStatus = status => {
   }
 }
 
-export const OrderStatusText = ({className, status, isClient}) => {
+export const OrderStatusText = ({ className, status, isClient }) => {
   const colorByStatus = () => {
     if (
       [
@@ -245,7 +245,7 @@ export const OrderStatusText = ({className, status, isClient}) => {
     <Text
       tooltipInfoContent={t(TranslationKey['Current order status'])}
       className={className}
-      style={{color: colorStatus}}
+      style={{ color: colorStatus }}
     >
       {OrderStatusTranslate(status, isClient)}
     </Text>

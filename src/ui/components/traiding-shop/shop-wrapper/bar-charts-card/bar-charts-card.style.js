@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(() => ({
   cardHeaderWrapper: {
@@ -37,7 +37,6 @@ export const useClassNames = makeStyles()(() => ({
   selectedBtn: {
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
-
     borderBottom: '5px solid #0460DE',
   },
 }))

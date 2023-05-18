@@ -1,1 +1,1 @@
-export {Appbar} from './appbar.tsx'
+export { Appbar } from './appbar.tsx'

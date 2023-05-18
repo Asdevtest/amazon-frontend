@@ -34,10 +34,8 @@ export const styles = theme => ({
 
   mainWrapper: {
     width: '100%',
-
     border: `1px solid ${theme.palette.primary.main}`,
     borderRadius: 4,
-
     transition: '0.3s ease',
     maxHeight: 36,
     overflow: 'hidden',
@@ -50,30 +48,16 @@ export const styles = theme => ({
     border: `1px solid ${theme.palette.input.customBorder}`,
   },
 
-  selectorIsOpen: {
-    backgroundColor: theme.palette.background.general,
-    maxHeight: 400,
-    position: 'absolute',
-
-    overflow: 'visible !important',
-  },
-
   chosenItem: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-
     height: 36,
-
     marginBottom: 10,
-
     borderBottom: '1px solid #E0E0E0',
-
     padding: '0 17px',
-
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '0.3s ease',
-
     '&:hover': {
       transform: 'scale(1.01)',
       backgroundColor: '#F4F4F4',
@@ -118,19 +102,10 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
-
-    // textOverflow: 'ellipsis',
-    // minHeight: '20px',
-
     height: 'auto !important',
-    // overflow: 'hidden',
-    // whiteSpace: 'nowrap',
-
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },
-
-    // color: 'red',
   },
 
   fieldNamesWrapper: {
@@ -153,8 +128,6 @@ export const styles = theme => ({
     color: theme.palette.background.disabled,
     borderRadius: 30,
     transition: '.3s ease',
-    // backgroundColor: theme.palette.background.disabled,
-
     '&:hover': {
       transform: 'scale(1.1)',
     },
@@ -164,17 +137,11 @@ export const styles = theme => ({
   },
 
   fieldName: {
-    // height: 20,
     textOverflow: 'ellipsis',
-    // overflow: 'hidden',
-    // whiteSpace: 'nowrap',
-
     wordBreak: 'break-word',
     textAlign: 'left',
-
     whiteSpace: 'pre-wrap',
     overflow: 'hidden',
-
     display: '-webkit-box',
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',

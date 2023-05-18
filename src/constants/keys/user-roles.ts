@@ -1,5 +1,5 @@
 // import {objectFlip} from '../utils/object-utils'
-import {objectFlip} from '@utils/object'
+import { objectFlip } from '@utils/object'
 
 // console.log('objectFlip', objectFlip)
 

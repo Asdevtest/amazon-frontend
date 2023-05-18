@@ -1,22 +1,22 @@
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {toJS} from 'mobx'
-import {observer} from 'mobx-react'
+import { toJS } from 'mobx'
+import { observer } from 'mobx-react'
 import qs from 'qs'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {SearchInput} from '@components/shared/search-input'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { SearchInput } from '@components/shared/search-input'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './bind-inventory-goods-to-stock-form.style'
-import {chosenGoodsColumns, sourceColumns} from './bind-stock-goods-to-inventory-columns'
+import { useClassNames } from './bind-inventory-goods-to-stock-form.style'
+import { chosenGoodsColumns, sourceColumns } from './bind-stock-goods-to-inventory-columns'
 
 const chipConfigSettings = {
   RECOMMENDED: 'RECOMMENDED',
@@ -25,8 +25,8 @@ const chipConfigSettings = {
   SKU: 'SKU',
 }
 
-export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockData, product, onSubmit}) => {
-  const {classes: classNames} = useClassNames()
+export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockData, product, onSubmit }) => {
+  const { classes: classNames } = useClassNames()
 
   const [selectedGoods, setSelectedGoods] = useState([])
   const [chosenGoods, setChosenGoods] = useState([])
@@ -53,7 +53,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
   }
 
   const filter = qs
-    .stringify({[filterByChipConfig(chipConfig)]: {$contains: searchInputValue}}, {encode: false})
+    .stringify({ [filterByChipConfig(chipConfig)]: { $contains: searchInputValue } }, { encode: false })
     .replace(/&/, ';')
 
   const setRecommendChip = () => {
@@ -84,7 +84,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
 
   useEffect(() => {
     if (chipConfig === chipConfigSettings.RECOMMENDED) {
-      const recFilter = qs.stringify({asin: {$contains: product.asin}}, {encode: false}).replace(/&/, ';')
+      const recFilter = qs.stringify({ asin: { $contains: product.asin } }, { encode: false }).replace(/&/, ';')
       const isRecCall = true
 
       updateStockData(recFilter, isRecCall)
@@ -100,9 +100,9 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
   }, [searchInputValue])
 
   const onClickSubmit = () => {
-    const selectedWarehouseStocks = chosenGoods.map(el => ({sku: el.sku, shopId: el.shop._id}))
+    const selectedWarehouseStocks = chosenGoods.map(el => ({ sku: el.sku, shopId: el.shop._id }))
 
-    onSubmit({productId: product._id, warehouseStocks: selectedWarehouseStocks})
+    onSubmit({ productId: product._id, warehouseStocks: selectedWarehouseStocks })
   }
 
   const firstRowId = chosenGoods.length ? chosenGoods[0].id : null
@@ -207,7 +207,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
             //   backgroundColor: theme.palette.background.general,
             // }}
             rows={chosenGoods || []}
-            columns={chosenGoodsColumns({onClickTrash}, firstRowId)}
+            columns={chosenGoodsColumns({ onClickTrash }, firstRowId)}
             rowHeight={60}
           />
         </div>

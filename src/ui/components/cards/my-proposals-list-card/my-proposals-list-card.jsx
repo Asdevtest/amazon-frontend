@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Grid, Typography, Avatar, Divider} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Grid, Typography, Avatar, Divider } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import React from 'react'
@@ -15,18 +15,18 @@ import {
   freelanceRequestTypeTranslate,
   freelanceRequestType,
 } from '@constants/statuses/freelance-request-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {AsinLink} from '@components/shared/asin-link'
-import {Button} from '@components/shared/buttons/button'
-import {CustomCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {UserLink} from '@components/user/user-link'
+import { AsinLink } from '@components/shared/asin-link'
+import { Button } from '@components/shared/buttons/button'
+import { CustomCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { UserLink } from '@components/user/user-link'
 
-import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {t} from '@utils/translations'
+import { formatNormDateTime, formatNormDateTimeWithParseISO } from '@utils/date-time'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './my-proposals-list-card.style'
+import { useClassNames } from './my-proposals-list-card.style'
 
 export const MyProposalsListCard = ({
   item,
@@ -36,7 +36,7 @@ export const MyProposalsListCard = ({
   onClickResultBtn,
   isFirst,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const noDisabledEditBtnStatuses = [
     RequestProposalStatus.CREATED,
@@ -133,7 +133,7 @@ export const MyProposalsListCard = ({
           </div>
         </div>
 
-        <Divider flexItem orientation="vertical" classes={{root: classNames.divider}} />
+        <Divider flexItem orientation="vertical" classes={{ root: classNames.divider }} />
         <div className={classNames.rightBlockWrapper}>
           <CustomCarousel title={t(TranslationKey.Proposal)} view="complex">
             {item.proposals.map((proposal, index) => (
@@ -151,7 +151,7 @@ export const MyProposalsListCard = ({
                   <div className={classNames.statusField}>
                     <span
                       className={classNames.circleIndicator}
-                      style={{backgroundColor: RequestProposalStatusColor(proposal.status)}}
+                      style={{ backgroundColor: RequestProposalStatusColor(proposal.status) }}
                     />
                     <Typography className={classNames.standartText}>
                       {RequestProposalStatusTranslate(proposal.status)}

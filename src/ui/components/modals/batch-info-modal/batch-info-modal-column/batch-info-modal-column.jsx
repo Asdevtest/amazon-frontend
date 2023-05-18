@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import {getBatchWeightCalculationMethodForBox} from '@constants/statuses/batch-weight-calculations-method'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { useMemo } from 'react'
+
+import { getBatchWeightCalculationMethodForBox } from '@constants/statuses/batch-weight-calculations-method'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextCell,
@@ -15,9 +17,9 @@ import {
   OrdersIdsItemsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {calcFinalWeightForBox} from '@utils/calculation'
-import {toFixedWithKg, getFullTariffTextForBoxOrOrder} from '@utils/text'
-import {t} from '@utils/translations'
+import { calcFinalWeightForBox } from '@utils/calculation'
+import { toFixedWithKg, getFullTariffTextForBoxOrOrder } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod, isActualGreaterTheVolume) => [
   {
@@ -79,7 +81,7 @@ export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod,
     field: 'updatedAt',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     headerName: t(TranslationKey.Updated),
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
     type: 'date',
   },
@@ -105,7 +107,11 @@ export const batchInfoModalColumn = (volumeWeightCoefficient, calculationMethod,
   {
     field: 'pricePerUnit',
     headerName: <MultilineTextHeaderCell text={t(TranslationKey['Price per unit'])} />,
-    renderCell: params => <PricePerUnitCell item={params.row} />,
+    renderCell: params => {
+      const rowMemo = useMemo(() => params.row, [])
+
+      return <PricePerUnitCell item={rowMemo} />
+    },
     type: 'number',
     width: 90,
   },

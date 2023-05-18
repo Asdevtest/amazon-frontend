@@ -1,13 +1,13 @@
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class PermissionsModelStatic {
   createSinglePermission = async data => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsPost({body: data})
+    const response = await restApiService.permissionsApi.apiV1PermissionsPost({ body: data })
     return response
   }
 
   getSinglePermissions = async role => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsGet({role})
+    const response = await restApiService.permissionsApi.apiV1PermissionsGet({ role })
     return response
   }
 
@@ -24,12 +24,12 @@ class PermissionsModelStatic {
   }
 
   createGroupPermission = async data => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsPost({body: data})
+    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsPost({ body: data })
     return response
   }
 
   getGroupPermissions = async role => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsGet({role})
+    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsGet({ role })
     return response
   }
 

@@ -1,1 +1,1 @@
-export {UserMoneyTransferModal} from './user-money-transfer-modal'
+export { UserMoneyTransferModal } from './user-money-transfer-modal'

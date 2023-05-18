@@ -1,1 +1,1 @@
-export {CustomList} from './custom-list'
+export { CustomList } from './custom-list'

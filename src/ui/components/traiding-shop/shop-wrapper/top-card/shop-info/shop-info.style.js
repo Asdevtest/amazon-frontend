@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   photosWrapper: {
@@ -80,9 +80,6 @@ export const useClassNames = makeStyles()(theme => ({
     border: '1px solid #006CFF',
   },
 
-  chartWrapper: {
-    // maxWidth: '245px',
-  },
   chartLabel: {
     fontSize: '14px',
     lineHeight: '19px',

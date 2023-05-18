@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
@@ -46,11 +46,6 @@ export const useClassNames = makeStyles()(theme => ({
     maxHeight: 150,
     minWidth: 150,
     maxWidth: 320,
-  },
-
-  filesText: {
-    color: theme.palette.text.second,
-    marginTop: 10,
   },
 
   avatarWrapper: {

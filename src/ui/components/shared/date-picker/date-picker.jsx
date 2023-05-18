@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 import DateFnsUtils from '@date-io/date-fns'
 import TextField from '@mui/material/TextField'
-import {ThemeProvider, createTheme} from '@mui/material/styles'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
 // import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
 // import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment'
-import {DatePicker as NewestDatePicker, TimePicker} from '@mui/x-date-pickers'
-import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns'
-import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider'
+import { DatePicker as NewestDatePicker, TimePicker } from '@mui/x-date-pickers'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 
 import {
   KeyboardDatePicker,
@@ -19,12 +19,12 @@ import enLocale from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
 import zhLocale from 'date-fns/locale/zh-CN'
 
-import {UiTheme} from '@constants/theme/themes'
-import {LanguageKey} from '@constants/translations/language-key'
+import { UiTheme } from '@constants/theme/themes'
+import { LanguageKey } from '@constants/translations/language-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {useClassNames} from './date-picker.style'
+import { useClassNames } from './date-picker.style'
 
 const getLocalByLanguageTag = languageTag => {
   switch (languageTag) {
@@ -138,8 +138,8 @@ const darkTheme = createTheme({
   },
 })
 
-export const DateMonthYearPicker = ({value, onChange, ...restProps}) => {
-  const {classes: classNames} = useClassNames()
+export const DateMonthYearPicker = ({ value, onChange, ...restProps }) => {
+  const { classes: classNames } = useClassNames()
 
   const [local, setLocal] = useState(enLocale)
 
@@ -170,8 +170,8 @@ export const DateMonthYearPicker = ({value, onChange, ...restProps}) => {
   )
 }
 
-export const NewDatePicker = ({value, onChange, ...restProps}) => {
-  const {classes: classNames} = useClassNames()
+export const NewDatePicker = ({ value, onChange, ...restProps }) => {
+  const { classes: classNames } = useClassNames()
 
   const [local, setLocal] = useState(enLocale)
 
@@ -212,7 +212,7 @@ export const NewDatePicker = ({value, onChange, ...restProps}) => {
   )
 }
 
-export const DatePicker = ({value, onChange}) => {
+export const DatePicker = ({ value, onChange }) => {
   const [local, setLocal] = useState(enLocale)
 
   useEffect(() => {
@@ -233,7 +233,7 @@ export const DatePicker = ({value, onChange}) => {
   )
 }
 
-export const DatePickerDate = ({value, onChange}) => {
+export const DatePickerDate = ({ value, onChange }) => {
   const [local, setLocal] = useState(enLocale)
 
   useEffect(() => {
@@ -246,7 +246,7 @@ export const DatePickerDate = ({value, onChange}) => {
         clearable
         // views={['year', 'month']}
         value={value}
-        style={{width: '100%'}}
+        style={{ width: '100%' }}
         placeholder="10/10/2018"
         // minDate={new Date()}
         format="dd/MM/yyyy"
@@ -255,8 +255,8 @@ export const DatePickerDate = ({value, onChange}) => {
     </MuiPickersUtilsProvider>
   )
 }
-export const DatePickerTime = ({value, onChange, ...restProps}) => {
-  const {classes: classNames} = useClassNames()
+export const DatePickerTime = ({ value, onChange, ...restProps }) => {
+  const { classes: classNames } = useClassNames()
 
   const [local, setLocal] = useState(enLocale)
 
@@ -268,7 +268,7 @@ export const DatePickerTime = ({value, onChange, ...restProps}) => {
     <ThemeProvider theme={SettingsModel.uiTheme === UiTheme.light ? lightTheme : darkTheme}>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={local}>
         <TimePicker
-          inputProps={{placeholder: '10:00', className: classNames.root}}
+          inputProps={{ placeholder: '10:00', className: classNames.root }}
           value={value}
           renderInput={params => <TextField {...params} helperText={null} variant="standard" size="small" />}
           onChange={newValue => {

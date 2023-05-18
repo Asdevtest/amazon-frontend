@@ -1,1 +1,1 @@
-export {ServantGeneralRequestInfo} from './servant-general-request-info'
+export { ServantGeneralRequestInfo } from './servant-general-request-info'

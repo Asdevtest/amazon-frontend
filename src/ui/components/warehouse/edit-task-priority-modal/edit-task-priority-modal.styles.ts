@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useEditTaskPriorityModalStyles = makeStyles()(theme => ({
   body: {
@@ -43,9 +43,6 @@ export const useEditTaskPriorityModalStyles = makeStyles()(theme => ({
   },
 
   nativeSelect: {
-    // [theme.breakpoints.down(1282)]: {
-    //   width: 130,
-    // },
     width: 150,
     '& > div': {
       display: 'flex',

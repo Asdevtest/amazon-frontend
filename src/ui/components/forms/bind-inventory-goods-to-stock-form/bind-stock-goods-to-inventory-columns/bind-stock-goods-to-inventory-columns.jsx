@@ -1,8 +1,14 @@
-import {TranslationKey} from '@constants/translations/translation-key'
+import { useCallback } from 'react'
 
-import {MultilineTextCell, renderFieldValueCell, TrashCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {t} from '@utils/translations'
+import {
+  MultilineTextCell,
+  renderFieldValueCell,
+  TrashCell,
+} from '@components/data-grid/data-grid-cells/data-grid-cells'
+
+import { t } from '@utils/translations'
 
 export const sourceColumns = () => [
   {
@@ -94,13 +100,17 @@ export const chosenGoodsColumns = (handlers, firstRowId) => [
   {
     field: ' ',
     headerName: '',
-    renderCell: params => (
-      <TrashCell
-        isFirstRow={firstRowId === params.row.id}
-        tooltipText={t(TranslationKey['Remove from the list'])}
-        onClick={() => handlers.onClickTrash(params.row.asin)}
-      />
-    ),
+    renderCell: params => {
+      const onClickTrash = useCallback(() => handlers.onClickTrash(params.row.asin), [])
+
+      return (
+        <TrashCell
+          isFirstRow={firstRowId === params.row.id}
+          tooltipText={t(TranslationKey['Remove from the list'])}
+          onClick={onClickTrash}
+        />
+      )
+    },
     width: 60,
   },
 ]

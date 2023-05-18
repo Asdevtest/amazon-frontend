@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 export class ClientSellShopsViewModel {
   history = undefined
@@ -6,11 +6,11 @@ export class ClientSellShopsViewModel {
   error = undefined
   actionStatus = undefined
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   // async onClickViewMore() {

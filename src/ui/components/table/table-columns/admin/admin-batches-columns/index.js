@@ -1,1 +1,1 @@
-export {adminBatchesViewColumns} from './admin-batches-columns'
+export { adminBatchesViewColumns } from './admin-batches-columns'

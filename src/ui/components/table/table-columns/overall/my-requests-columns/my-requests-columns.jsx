@@ -1,8 +1,8 @@
 import React from 'react'
 
-import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   AsinCell,
@@ -12,8 +12,8 @@ import {
   ShortDateCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) => [
   {
@@ -27,7 +27,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
       />
     ),
 
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 117,
     type: 'date',
   },
@@ -109,7 +109,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
       />
     ),
 
-    renderCell: params => <AsinCell text={params.value} product={params.row.originalData} />,
+    renderCell: params => <AsinCell asin={params.row.originalData.asin} />,
     width: 123,
   },
 
@@ -138,7 +138,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
       />
     ),
 
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 115,
     type: 'date',
   },

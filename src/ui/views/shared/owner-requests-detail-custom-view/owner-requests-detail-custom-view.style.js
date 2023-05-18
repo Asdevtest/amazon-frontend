@@ -1,4 +1,4 @@
-import {keyframes} from '@emotion/react'
+import { keyframes } from '@emotion/react'
 
 const ani = keyframes`
 0% {
@@ -12,22 +12,6 @@ const ani = keyframes`
 `
 
 export const styles = theme => ({
-  btnsWrapper: {
-    marginTop: '20px',
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  btnsLeftSide: {},
-  btnsRightSide: {
-    display: 'flex',
-  },
-  requestProposalsWrapper: {
-    marginTop: '10px',
-    backgroundColor: 'white',
-    borderRadius: '4px',
-    padding: '10px',
-  },
-
   button: {
     marginRight: '10px',
   },
@@ -47,7 +31,6 @@ export const styles = theme => ({
   },
 
   proposalsTitle: {
-    // margin: '50px 0 20px',
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
@@ -108,9 +91,7 @@ export const styles = theme => ({
   acceptMessageWrapper: {
     position: 'absolute',
     top: 0,
-    // top: '50%',
     left: '50%',
-
     padding: '10px',
     marginTop: '63px',
     zIndex: 999,

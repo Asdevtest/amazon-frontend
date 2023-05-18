@@ -1,1 +1,1 @@
-export {adminUsersViewColumns} from './users-columns'
+export { adminUsersViewColumns } from './users-columns'

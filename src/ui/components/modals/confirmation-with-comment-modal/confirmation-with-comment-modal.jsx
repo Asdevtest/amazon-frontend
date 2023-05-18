@@ -1,12 +1,12 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 
-import {Button} from '@components/shared/buttons/button'
-import {Field} from '@components/shared/field/field'
-import {Modal} from '@components/shared/modal'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field/field'
+import { Modal } from '@components/shared/modal'
 
-import {useClassNames} from './confirmation-with-comment-modal.style'
+import { useClassNames } from './confirmation-with-comment-modal.style'
 
 export const ConfirmWithCommentModal = ({
   isWarning,
@@ -19,7 +19,7 @@ export const ConfirmWithCommentModal = ({
   commentConvertToArray,
   onSubmit,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [comment, setComment] = useState('')
 
@@ -66,7 +66,7 @@ export const ConfirmWithCommentModal = ({
           className={classNames.heightFieldAuto}
           minRows={7}
           maxRows={7}
-          inputProps={{maxLength: 35000}}
+          inputProps={{ maxLength: 35000 }}
           // placeholder={t(TranslationKey.Reason)}
           labelClasses={classNames.commentLabelText}
           label={commentLabelText}

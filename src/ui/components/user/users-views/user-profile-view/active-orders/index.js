@@ -1,1 +1,1 @@
-export {ActiveOrders} from './active-orders'
+export { ActiveOrders } from './active-orders'

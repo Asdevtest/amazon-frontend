@@ -1,1 +1,1 @@
-export {CustomTextEditor} from './custom-text-editor'
+export { CustomTextEditor } from './custom-text-editor'

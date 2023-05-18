@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -49,7 +49,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     color: theme.palette.text.second,
     lineHeight: '19px',
-    // marginRight: theme.spacing(1),
   },
   asin: {
     fontSize: '14px',
@@ -79,8 +78,6 @@ export const useClassNames = makeStyles()(theme => ({
       flexWrap: 'wrap',
       justifyContent: 'space-between',
       gap: 25,
-      // flexDirection: 'column',
-      // alignItems: 'start',
     },
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
@@ -111,9 +108,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainWrapper: {
     display: 'flex',
-    // justifyContent: 'space-between',
     width: '100%',
-    // padding: '10px',
     gap: '10px',
   },
   attributeWrapper: {
@@ -145,29 +140,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  link: {
-    maxWidth: '280px',
-    whiteSpace: 'nowrap',
-    overflowX: 'auto',
-  },
-  copyImg: {
-    width: '20px',
-    height: '20px',
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.2)',
-    },
-  },
-
   attributeFooterWrapper: {
     [theme.breakpoints.down(768)]: {
       display: 'none',
     },
-  },
-
-  label: {
-    fontSize: '14px',
   },
 
   attributeFooterMobileWrapper: {

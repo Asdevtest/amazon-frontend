@@ -1,11 +1,11 @@
-import {lazy} from 'react'
+import { lazy } from 'react'
 
-import {UserRole} from '@constants/keys/user-roles'
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navigation/navbar-active-category'
+import { UserRole } from '@constants/keys/user-roles'
+import { navBarActiveCategory, navBarActiveSubCategory } from '@constants/navigation/navbar-active-category'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {permissionsKeys} from '../keys/permissions'
+import { permissionsKeys } from '../keys/permissions'
 // import {AdminAwaitingBatchesView} from '@views/admin/admin-batches-views/admin-awaiting-batches-view'
 // import {AdminBatchesView} from '@views/admin/admin-batches-views/admin-batches-view'
 // import {AdminSentBatchesView} from '@views/admin/admin-batches-views/admin-sent-batches-view'
@@ -108,7 +108,7 @@ import {permissionsKeys} from '../keys/permissions'
 // import {WarehouseMyTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-my-tasks-view'
 // import {WarehouseTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-tasks-view'
 // import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-vacant-tasks-view'
-import {TranslationKey} from '../translations/translation-key'
+import { TranslationKey } from '../translations/translation-key'
 
 const AdminAwaitingBatchesView = lazy(() =>
   import('@views/admin/admin-batches-views/admin-awaiting-batches-view').then(module => ({
@@ -116,7 +116,7 @@ const AdminAwaitingBatchesView = lazy(() =>
   })),
 )
 const AdminBatchesView = lazy(() =>
-  import('@views/admin/admin-batches-views/admin-batches-view').then(module => ({default: module.AdminBatchesView})),
+  import('@views/admin/admin-batches-views/admin-batches-view').then(module => ({ default: module.AdminBatchesView })),
 )
 const AdminSentBatchesView = lazy(() =>
   import('@views/admin/admin-batches-views/admin-sent-batches-view').then(module => ({
@@ -124,40 +124,40 @@ const AdminSentBatchesView = lazy(() =>
   })),
 )
 const AdminDashboardView = lazy(() =>
-  import('@views/admin/admin-dashboard-view').then(module => ({default: module.AdminDashboardView})),
+  import('@views/admin/admin-dashboard-view').then(module => ({ default: module.AdminDashboardView })),
 )
 const AdminExchangeViews = lazy(() =>
-  import('@views/admin/admin-exchange-views').then(module => ({default: module.AdminExchangeViews})),
+  import('@views/admin/admin-exchange-views').then(module => ({ default: module.AdminExchangeViews })),
 )
 const AdminFeedbackView = lazy(() =>
-  import('@views/admin/admin-feedback-view').then(module => ({default: module.AdminFeedbackView})),
+  import('@views/admin/admin-feedback-view').then(module => ({ default: module.AdminFeedbackView })),
 )
 const AdminInventoryView = lazy(() =>
-  import('@views/admin/admin-inventory-view').then(module => ({default: module.AdminInventoryView})),
+  import('@views/admin/admin-inventory-view').then(module => ({ default: module.AdminInventoryView })),
 )
 const AdminOrderView = lazy(() =>
-  import('@views/admin/admin-orders-views/order').then(module => ({default: module.AdminOrderView})),
+  import('@views/admin/admin-orders-views/order').then(module => ({ default: module.AdminOrderView })),
 )
 const AdminOrdersViews = lazy(() =>
-  import('@views/admin/admin-orders-views/orders').then(module => ({default: module.AdminOrdersViews})),
+  import('@views/admin/admin-orders-views/orders').then(module => ({ default: module.AdminOrdersViews })),
 )
 const AdminProductView = lazy(() =>
-  import('@views/admin/admin-product-view').then(module => ({default: module.AdminProductView})),
+  import('@views/admin/admin-product-view').then(module => ({ default: module.AdminProductView })),
 )
 const AdminSettingsView = lazy(() =>
-  import('@views/admin/admin-settings-view').then(module => ({default: module.AdminSettingsView})),
+  import('@views/admin/admin-settings-view').then(module => ({ default: module.AdminSettingsView })),
 )
 const AdminTechnicalView = lazy(() =>
-  import('@views/admin/admin-technical-view').then(module => ({default: module.AdminTechnicalView})),
+  import('@views/admin/admin-technical-view').then(module => ({ default: module.AdminTechnicalView })),
 )
 const AdminUserPermissionsView = lazy(() =>
-  import('@views/admin/admin-user-permissions-view').then(module => ({default: module.AdminUserPermissionsView})),
+  import('@views/admin/admin-user-permissions-view').then(module => ({ default: module.AdminUserPermissionsView })),
 )
 const AdminUserView = lazy(() =>
-  import('@views/admin/admin-users-view/admin-user-view').then(module => ({default: module.AdminUserView})),
+  import('@views/admin/admin-users-view/admin-user-view').then(module => ({ default: module.AdminUserView })),
 )
 const AdminUsersView = lazy(() =>
-  import('@views/admin/admin-users-view/admin-users-view').then(module => ({default: module.AdminUsersView})),
+  import('@views/admin/admin-users-view/admin-users-view').then(module => ({ default: module.AdminUsersView })),
 )
 const AdminDestinationsView = lazy(() =>
   import('@views/admin/admin-warehouse-views/admin-destinations-view').then(module => ({
@@ -179,14 +179,14 @@ const AdminWarehouseView = lazy(() =>
     default: module.AdminWarehouseView,
   })),
 )
-const AuthView = lazy(() => import('@views/auth').then(module => ({default: module.AuthView})))
+const AuthView = lazy(() => import('@views/auth').then(module => ({ default: module.AuthView })))
 
 const BuyerDashboardView = lazy(() =>
-  import('@views/buyer/buyer-dashboard-view').then(module => ({default: module.BuyerDashboardView})),
+  import('@views/buyer/buyer-dashboard-view').then(module => ({ default: module.BuyerDashboardView })),
 )
 
 const BuyerMyProductsView = lazy(() =>
-  import('@views/buyer/buyer-my-products-view').then(module => ({default: module.BuyerMyProductsView})),
+  import('@views/buyer/buyer-my-products-view').then(module => ({ default: module.BuyerMyProductsView })),
 )
 
 const BuyerFreeOrdersView = lazy(() =>
@@ -201,10 +201,12 @@ const BuyerPendingOrdersView = lazy(() =>
   })),
 )
 const BuyerMyOrdersView = lazy(() =>
-  import('@views/buyer/buyer-orders-views/buyer-my-orders-view').then(module => ({default: module.BuyerMyOrdersView})),
+  import('@views/buyer/buyer-orders-views/buyer-my-orders-view').then(module => ({
+    default: module.BuyerMyOrdersView,
+  })),
 )
 const BuyerProductView = lazy(() =>
-  import('@views/buyer/buyer-product-view').then(module => ({default: module.BuyerProductView})),
+  import('@views/buyer/buyer-product-view').then(module => ({ default: module.BuyerProductView })),
 )
 const BuyerSearchSupplierByClientView = lazy(() =>
   import('@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-client-view').then(module => ({
@@ -263,7 +265,7 @@ const ClientSentBatchesView = lazy(() =>
   })),
 )
 const ClientDashboardView = lazy(() =>
-  import('@views/client/client-dashboard-view').then(module => ({default: module.ClientDashboardView})),
+  import('@views/client/client-dashboard-view').then(module => ({ default: module.ClientDashboardView })),
 )
 const ClientExchangePrivateLabelView = lazy(() =>
   import('@views/client/client-exchange-views/client-exchange-private-label-view').then(module => ({
@@ -276,10 +278,10 @@ const ClientExchangeView = lazy(() =>
   })),
 )
 const ClientFreelanceView = lazy(() =>
-  import('@views/client/client-freelance-view').then(module => ({default: module.ClientFreelanceView})),
+  import('@views/client/client-freelance-view').then(module => ({ default: module.ClientFreelanceView })),
 )
 const ClientInventoryView = lazy(() =>
-  import('@views/client/client-inventory-view').then(module => ({default: module.ClientInventoryView})),
+  import('@views/client/client-inventory-view').then(module => ({ default: module.ClientInventoryView })),
 )
 const ClientBoxesNotificationsView = lazy(() =>
   import('@views/client/client-notifications-views/client-boxes-notifications-view').then(module => ({
@@ -315,25 +317,25 @@ const ClientMyOrdersView = lazy(() =>
 )
 
 const ClientOrderView = lazy(() =>
-  import('@views/client/client-orders-views/order').then(module => ({default: module.ClientOrderView})),
+  import('@views/client/client-orders-views/order').then(module => ({ default: module.ClientOrderView })),
 )
 const ClientOrdersView = lazy(() =>
-  import('@views/client/client-orders-views/orders').then(module => ({default: module.ClientOrdersView})),
+  import('@views/client/client-orders-views/orders').then(module => ({ default: module.ClientOrdersView })),
 )
 const ClientProductExchangeView = lazy(() =>
-  import('@views/client/client-product-exchange-view').then(module => ({default: module.ClientProductExchangeView})),
+  import('@views/client/client-product-exchange-view').then(module => ({ default: module.ClientProductExchangeView })),
 )
 const ClientProductView = lazy(() =>
-  import('@views/client/client-product-view').then(module => ({default: module.ClientProductView})),
+  import('@views/client/client-product-view').then(module => ({ default: module.ClientProductView })),
 )
 // const ClientSettingsView = lazy(() =>
 //   import('@views/client/client-settings-view').then(module => ({default: module.ClientSettingsView})),
 // )
 const ClientShopView = lazy(() =>
-  import('@views/client/client-shop-view').then(module => ({default: module.ClientShopView})),
+  import('@views/client/client-shop-view').then(module => ({ default: module.ClientShopView })),
 )
 const ClientShopsView = lazy(() =>
-  import('@views/client/client-shops-view').then(module => ({default: module.ClientShopsView})),
+  import('@views/client/client-shops-view').then(module => ({ default: module.ClientShopsView })),
 )
 const ClientBuyShopsView = lazy(() =>
   import('@views/client/client-trading-shops-views/client-buy-shops-view').then(module => ({
@@ -368,10 +370,10 @@ const ClientInStockBoxesView = lazy(() =>
   })),
 )
 const FreelancerDashboardView = lazy(() =>
-  import('@views/freelancer/freelancer-dashboard-view').then(module => ({default: module.FreelancerDashboardView})),
+  import('@views/freelancer/freelancer-dashboard-view').then(module => ({ default: module.FreelancerDashboardView })),
 )
 const FreelancerFreelanceView = lazy(() =>
-  import('@views/freelancer/freelancer-freelance-view').then(module => ({default: module.FreelancerFreelanceView})),
+  import('@views/freelancer/freelancer-freelance-view').then(module => ({ default: module.FreelancerFreelanceView })),
 )
 const ModeratorAppealView = lazy(() =>
   import('@views/moderator/moderator-appeal-view/moderator-appeal-view').then(module => ({
@@ -385,17 +387,19 @@ const ModeratorAppealsView = lazy(() =>
   })),
 )
 const ModeratorDashboardView = lazy(() =>
-  import('@views/moderator/moderator-dashboard-view').then(module => ({default: module.ModeratorDashboardView})),
+  import('@views/moderator/moderator-dashboard-view').then(module => ({ default: module.ModeratorDashboardView })),
 )
 const ModeratorMyProductsView = lazy(() =>
-  import('@views/moderator/moderator-my-products-view').then(module => ({default: module.ModeratorMyProductsView})),
+  import('@views/moderator/moderator-my-products-view').then(module => ({ default: module.ModeratorMyProductsView })),
 )
 const ModeratorSettingsView = lazy(() =>
-  import('@views/moderator/moderator-settings-view').then(module => ({default: module.ModeratorSettingsView})),
+  import('@views/moderator/moderator-settings-view').then(module => ({ default: module.ModeratorSettingsView })),
 )
-const RegistrationView = lazy(() => import('@views/registration').then(module => ({default: module.RegistrationView})))
+const RegistrationView = lazy(() =>
+  import('@views/registration').then(module => ({ default: module.RegistrationView })),
+)
 const ResearcherDashboardView = lazy(() =>
-  import('@views/researcher/researcher-dashboard-view').then(module => ({default: module.ResearcherDashboardView})),
+  import('@views/researcher/researcher-dashboard-view').then(module => ({ default: module.ResearcherDashboardView })),
 )
 const ResearcherProductView = lazy(() =>
   import('@views/researcher/researcher-product-view/researcher-product-view').then(module => ({
@@ -403,50 +407,54 @@ const ResearcherProductView = lazy(() =>
   })),
 )
 const ResearcherProductsView = lazy(() =>
-  import('@views/researcher/researcher-products-view').then(module => ({default: module.ResearcherProductsView})),
+  import('@views/researcher/researcher-products-view').then(module => ({ default: module.ResearcherProductsView })),
 )
 const AnotherUserProfileView = lazy(() =>
-  import('@views/shared/another-user-profile-view').then(module => ({default: module.AnotherUserProfileView})),
+  import('@views/shared/another-user-profile-view').then(module => ({ default: module.AnotherUserProfileView })),
 )
 const CreateOrEditProposalView = lazy(() =>
-  import('@views/shared/create-or-edit-proposal-view').then(module => ({default: module.CreateOrEditProposalView})),
+  import('@views/shared/create-or-edit-proposal-view').then(module => ({ default: module.CreateOrEditProposalView })),
 )
 const MyServicesView = lazy(() =>
-  import('@views/shared/my-services-view').then(module => ({default: module.MyServicesView})),
+  import('@views/shared/my-services-view').then(module => ({ default: module.MyServicesView })),
 )
 
 const CreateOrEditServicesView = lazy(() =>
-  import('@views/shared/create-or-edit-services-view').then(module => ({default: module.CreateOrEditServicesView})),
+  import('@views/shared/create-or-edit-services-view').then(module => ({ default: module.CreateOrEditServicesView })),
 )
 
 const ServicesDetailCustomView = lazy(() =>
-  import('@views/shared/services-detail-custom-view').then(module => ({default: module.ServicesDetailCustomView})),
+  import('@views/shared/services-detail-custom-view').then(module => ({ default: module.ServicesDetailCustomView })),
 )
 
 const CreateOrEditRequestView = lazy(() =>
-  import('@views/shared/create-or-edit-request-view').then(module => ({default: module.CreateOrEditRequestView})),
+  import('@views/shared/create-or-edit-request-view').then(module => ({ default: module.CreateOrEditRequestView })),
 )
 const DealsOnReviewDetailsView = lazy(() =>
-  import('@views/shared/deals-on-review-details-view').then(module => ({default: module.DealsOnReviewDetailsView})),
+  import('@views/shared/deals-on-review-details-view').then(module => ({ default: module.DealsOnReviewDetailsView })),
 )
 const DealsOnReviewView = lazy(() =>
   import('@views/shared/deals-on-review-view/deals-on-review-view').then(module => ({
     default: module.DealsOnReviewView,
   })),
 )
-const FinancesView = lazy(() => import('@views/shared/finances-view').then(module => ({default: module.FinancesView})))
-const MessagesView = lazy(() => import('@views/shared/messages-view').then(module => ({default: module.MessagesView})))
+const FinancesView = lazy(() =>
+  import('@views/shared/finances-view').then(module => ({ default: module.FinancesView })),
+)
+const MessagesView = lazy(() =>
+  import('@views/shared/messages-view').then(module => ({ default: module.MessagesView })),
+)
 
 const MyProposalsView = lazy(() =>
-  import('@views/shared/my-proposals-view').then(module => ({default: module.MyProposalsView})),
+  import('@views/shared/my-proposals-view').then(module => ({ default: module.MyProposalsView })),
 )
 
 const ServiceExchangeView = lazy(() =>
-  import('@views/shared/service-exchange-view').then(module => ({default: module.ServiceExchangeView})),
+  import('@views/shared/service-exchange-view').then(module => ({ default: module.ServiceExchangeView })),
 )
 
 const MyRequestsView = lazy(() =>
-  import('@views/shared/my-requests-view').then(module => ({default: module.MyRequestsView})),
+  import('@views/shared/my-requests-view').then(module => ({ default: module.MyRequestsView })),
 )
 
 // const FreelancerMyRequestsView = lazy(() =>
@@ -477,17 +485,17 @@ const ServiceDetailsView = lazy(() =>
 )
 
 const SubUsersView = lazy(() =>
-  import('@views/shared/sub-users-view/sub-users-view').then(module => ({default: module.SubUsersView})),
+  import('@views/shared/sub-users-view/sub-users-view').then(module => ({ default: module.SubUsersView })),
 )
 const UserProfileView = lazy(() =>
-  import('@views/shared/user-profile-view/user-profile-view').then(module => ({default: module.UserProfileView})),
+  import('@views/shared/user-profile-view/user-profile-view').then(module => ({ default: module.UserProfileView })),
 )
-const UsersView = lazy(() => import('@views/shared/users-view').then(module => ({default: module.UsersView})))
+const UsersView = lazy(() => import('@views/shared/users-view').then(module => ({ default: module.UsersView })))
 const VacantDealsDetailsView = lazy(() =>
-  import('@views/shared/vacant-deals-details-view').then(module => ({default: module.VacantDealsDetailsView})),
+  import('@views/shared/vacant-deals-details-view').then(module => ({ default: module.VacantDealsDetailsView })),
 )
 const VacantDealsView = lazy(() =>
-  import('@views/shared/vacant-deals-view').then(module => ({default: module.VacantDealsView})),
+  import('@views/shared/vacant-deals-view').then(module => ({ default: module.VacantDealsView })),
 )
 const VacantRequestsView = lazy(() =>
   import('@views/shared/vacant-requests-view/vacant-requests-view').then(module => ({
@@ -495,10 +503,10 @@ const VacantRequestsView = lazy(() =>
   })),
 )
 const SupervisorDashboardView = lazy(() =>
-  import('@views/supervisor/supervisor-dashboard-view').then(module => ({default: module.SupervisorDashboardView})),
+  import('@views/supervisor/supervisor-dashboard-view').then(module => ({ default: module.SupervisorDashboardView })),
 )
 const SupervisorFreelanceView = lazy(() =>
-  import('@views/supervisor/supervisor-freelance-view').then(module => ({default: module.SupervisorFreelanceView})),
+  import('@views/supervisor/supervisor-freelance-view').then(module => ({ default: module.SupervisorFreelanceView })),
 )
 const SupervisorProductView = lazy(() =>
   import('@views/supervisor/supervisor-product-view/supervisor-product-view').then(module => ({
@@ -506,7 +514,7 @@ const SupervisorProductView = lazy(() =>
   })),
 )
 const SupervisorProductsView = lazy(() =>
-  import('@views/supervisor/supervisor-products-view').then(module => ({default: module.SupervisorProductsView})),
+  import('@views/supervisor/supervisor-products-view').then(module => ({ default: module.SupervisorProductsView })),
 )
 const SupervisorReadyToCheckByClientView = lazy(() =>
   import('@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-by-client-view').then(module => ({
@@ -524,9 +532,9 @@ const SupervisorReadyToCheckView = lazy(() =>
   })),
 )
 const SupervisorSettingsView = lazy(() =>
-  import('@views/supervisor/supervisor-settings-view').then(module => ({default: module.SupervisorSettingsView})),
+  import('@views/supervisor/supervisor-settings-view').then(module => ({ default: module.SupervisorSettingsView })),
 )
-const TermsView = lazy(() => import('@views/terms').then(module => ({default: module.TermsView})))
+const TermsView = lazy(() => import('@views/terms').then(module => ({ default: module.TermsView })))
 const WarehouseAwaitingBatchesView = lazy(() =>
   import('@views/warehouse/warehouse-batches-views/warehouse-awaiting-batches-view').then(module => ({
     default: module.WarehouseAwaitingBatchesView,
@@ -539,17 +547,17 @@ const WarehouseBatchesView = lazy(() =>
 )
 const WarehouseSentBatchesView = lazy(() =>
   import('@views/warehouse/warehouse-batches-views/warehouse-sent-batches-view/warehouse-sent-batches-view').then(
-    module => ({default: module.WarehouseSentBatchesView}),
+    module => ({ default: module.WarehouseSentBatchesView }),
   ),
 )
 const WarehouseDashboardView = lazy(() =>
-  import('@views/warehouse/warehouse-dashboard-view').then(module => ({default: module.WarehouseDashboardView})),
+  import('@views/warehouse/warehouse-dashboard-view').then(module => ({ default: module.WarehouseDashboardView })),
 )
 const WarehouseManagementView = lazy(() =>
-  import('@views/warehouse/warehouse-management-view').then(module => ({default: module.WarehouseManagementView})),
+  import('@views/warehouse/warehouse-management-view').then(module => ({ default: module.WarehouseManagementView })),
 )
 const WarehouseMyWarehouseView = lazy(() =>
-  import('@views/warehouse/warehouse-my-warehouse-view').then(module => ({default: module.WarehouseMyWarehouseView})),
+  import('@views/warehouse/warehouse-my-warehouse-view').then(module => ({ default: module.WarehouseMyWarehouseView })),
 )
 const WarehouseCanceledTasksView = lazy(() =>
   import('@views/warehouse/warehouse-tasks-views/warehouse-canceled-tasks-view').then(module => ({

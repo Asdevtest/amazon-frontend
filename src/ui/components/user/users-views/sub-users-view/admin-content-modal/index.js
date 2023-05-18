@@ -1,1 +1,1 @@
-export {AdminContentModal} from './admin-content-modal'
+export { AdminContentModal } from './admin-content-modal'

@@ -1,1 +1,1 @@
-export {DataGridCustomToolbar} from './data-grid-custom-toolbar'
+export { DataGridCustomToolbar } from './data-grid-custom-toolbar'

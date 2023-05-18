@@ -1,7 +1,7 @@
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '../checks'
-import {t} from '../translations'
+import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '../checks'
+import { t } from '../translations'
 
 export const translateTooltipSaveBtnMessage = role => {
   if (checkIsResearcher(role)) {

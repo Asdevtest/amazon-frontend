@@ -1,6 +1,6 @@
-import {tooltipClasses} from '@mui/material/Tooltip'
+import { tooltipClasses } from '@mui/material/Tooltip'
 
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   boxWrapper: {
@@ -19,7 +19,6 @@ export const useClassNames = makeStyles()(theme => ({
     boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
   },
   boxesWrapper: {
-    // padding: '20px 30px',
     display: 'flex',
     justifyContent: 'space-between',
     overflow: 'hidden',
@@ -27,19 +26,15 @@ export const useClassNames = makeStyles()(theme => ({
       flexDirection: 'column',
     },
   },
-  buttonsWrapper: {},
 
   trackNumberPhotoWrapper: {
     width: 230,
     height: 80,
-
-    // border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: 4,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     paddingBottom: 30,
-
     [theme.breakpoints.down(1282)]: {
       width: 270,
     },
@@ -51,7 +46,6 @@ export const useClassNames = makeStyles()(theme => ({
     objectFit: 'contain',
     cursor: 'pointer',
     transition: '.3s ease',
-
     '&:hover': {
       transform: 'scale(1.01)',
     },
@@ -64,7 +58,6 @@ export const useClassNames = makeStyles()(theme => ({
   currentBox: {
     marginBottom: '20px',
     width: '690px',
-
     [theme.breakpoints.down(1282)]: {
       width: 550,
     },
@@ -73,16 +66,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  currentBoxFooter: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    height: '60px',
-  },
-  // newBoxesWrapper: {
-  //   maxHeight: '730px',
-  //   overflow: 'auto',
-  //   overflowX: 'hidden',
-  // },
   newBoxes: {
     [theme.breakpoints.down(1282)]: {
       width: 550,
@@ -95,25 +78,14 @@ export const useClassNames = makeStyles()(theme => ({
   itemsWrapper: {
     marginTop: '5px',
   },
-  orderChip: {
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
-    fontSize: '13px',
-    borderRadius: '14px',
-    marginLeft: '10px',
-  },
-  select: {
-    backgroundColor: 'rgba(0, 123, 255, 1)',
-    color: 'white',
-  },
+
   mainPaper: {
     display: 'flex',
     flexDirection: 'column',
     marginBottom: '20px',
-    // padding: '10px',
     width: '100%',
   },
-  boxSizeInfoWrapper: {},
+
   chipWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -171,24 +143,12 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'end',
     alignItems: 'center',
   },
-  superWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '5px',
-  },
+
   barCodeActionsWrapper: {
     display: 'flex',
     flexDirection: 'column',
   },
-  shippingLabelField: {
-    marginLeft: '5px',
-    fontSize: '14px',
-    fontWeight: 500,
-    lineHeight: '21px',
-    width: '250px',
-    height: '45px',
-    overflowX: 'auto',
-  },
+
   fieldsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -200,7 +160,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   boxInfoWrapper: {
     display: 'flex',
-    // gap: '46px',
     justifyContent: 'space-between',
     marginBottom: 20,
     [theme.breakpoints.down(768)]: {
@@ -225,12 +184,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: '300px',
     marginLeft: '20px',
     minHeight: '150px',
-
     [theme.breakpoints.down(1282)]: {
       width: '100%',
       minHeight: 200,
     },
-
     [theme.breakpoints.down(768)]: {
       width: '100%',
       display: 'flex',
@@ -252,22 +209,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  imgBox: {
-    width: '230px',
-    height: '100px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
   link: {
     maxWidth: '325px',
     whiteSpace: 'nowrap',
     overflowX: 'auto',
-
     color: theme.palette.text.general,
   },
 
@@ -276,7 +221,6 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     width: '100%',
     margin: 0,
-
     [theme.breakpoints.down(1282)]: {
       width: '100%',
     },
@@ -301,7 +245,6 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: '10px',
     backgroundColor: theme.palette.background.second,
     padding: '5px',
-
     display: 'flex',
     alignItems: 'center',
     gap: '3px',
@@ -327,7 +270,6 @@ export const useClassNames = makeStyles()(theme => ({
     border: ' 1px solid rgba(0,123, 255, .7)',
     borderRadius: '10px',
     backgroundColor: theme.palette.background.second,
-
     width: '90px',
     display: 'flex',
     flexDirection: 'column',
@@ -355,7 +297,6 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     fontSize: '9px',
-
     color: theme.palette.text.second,
   },
 
@@ -415,16 +356,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  hideBlock: {
-    maxHeight: 0,
-    overflow: 'hidden',
-  },
-
-  showFullBlock: {
-    maxHeight: '100%',
-    overflow: 'visible',
-  },
-
   tablePanelSortWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -465,15 +396,7 @@ export const useClassNames = makeStyles()(theme => ({
       width: 'fit-content',
     },
   },
-  labelShipping: {
-    fontSize: '14px',
-    lineHeight: '19px',
-    color: theme.palette.text.general,
-    fontWeight: 400,
-    [theme.breakpoints.down(768)]: {
-      width: '100px',
-    },
-  },
+
   footerWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -483,11 +406,9 @@ export const useClassNames = makeStyles()(theme => ({
   footerSubWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    // alignItems: 'center',
     [theme.breakpoints.down(1282)]: {
       flexDirection: 'column',
     },
-
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       gap: '14px',
@@ -498,10 +419,8 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 4,
     padding: 5,
     border: `1px solid ${theme.palette.input.customBorder}`,
-
     display: 'flex',
     justifyContent: 'space-between',
-    // alignItems: 'center',
     [theme.breakpoints.down(1282)]: {
       flexDirection: 'column',
     },
@@ -512,7 +431,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   trackNum: {
-    // marginLeft: 20,
     maxWidth: 400,
     whiteSpace: 'pre-line',
     wordBreak: 'break-word',
@@ -535,20 +453,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
     [theme.breakpoints.down(768)]: {
       padding: 0,
-    },
-  },
-
-  superAmount: {
-    color: theme.palette.primary.main,
-  },
-
-  copyImg: {
-    width: '20px',
-    height: '20px',
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.2)',
     },
   },
 
@@ -607,43 +511,12 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'end',
   },
 
-  checkboxSizesContainer: {
-    width: '190px',
-    marginLeft: '5px',
-    marginTop: '30px',
-  },
-
   sizesSubWrapper: {
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     marginBottom: '10px',
-  },
-
-  sizesLabel: {
-    fontSize: '14px',
-    lineHeight: '19px',
-    color: '#c4c4c4',
-    cursor: 'pointer',
-  },
-
-  selectedLabel: {
-    color: theme.palette.primary.main,
-  },
-  selectedIndicator: {
-    backgroundColor: '#006CFF',
-  },
-  toggleItemWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 5,
-  },
-  indicator: {
-    display: 'block',
-    backgroundColor: '#006CFF',
-    width: '2px',
-    height: '10px',
   },
 
   editAccent: {
@@ -661,9 +534,6 @@ export const useClassNames = makeStyles()(theme => ({
     marginRight: 30,
   },
 
-  standartText: {
-    color: theme.palette.text.general,
-  },
   smallLabel: {
     [theme.breakpoints.down(768)]: {
       fontSize: '14px',
@@ -700,8 +570,6 @@ export const useClassNames = makeStyles()(theme => ({
   applyAllBtn: {
     transition: '.3s ease',
     '&:hover:not(:active)': {
-      // background: theme.palette.background.green,
-
       background: 'green',
     },
   },
@@ -734,15 +602,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     color: theme.palette.text.second,
     lineHeight: '19px',
-    // marginRight: theme.spacing(1),
     whiteSpace: 'nowrap',
-  },
-
-  subValue: {
-    fontSize: '16px',
-
-    color: theme.palette.text.general,
-    lineHeight: '19px',
-    fontWeight: 600,
   },
 }))

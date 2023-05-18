@@ -1,4 +1,4 @@
-import {getFloatOrZero} from '@utils/text'
+import { getFloatOrZero } from '@utils/text'
 
 export const ProductDataParser = {
   AMAZON: 'AMAZON',

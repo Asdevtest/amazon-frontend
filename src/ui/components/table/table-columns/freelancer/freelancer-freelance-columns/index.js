@@ -1,1 +1,1 @@
-export {FreelancerFreelanceColumns} from './freelancer-freelance-columns'
+export { FreelancerFreelanceColumns } from './freelancer-freelance-columns'

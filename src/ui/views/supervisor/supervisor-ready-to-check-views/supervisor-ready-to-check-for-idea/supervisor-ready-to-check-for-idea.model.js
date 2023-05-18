@@ -1,13 +1,13 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {SupervisorModel} from '@models/supervisor-model'
+import { SupervisorModel } from '@models/supervisor-model'
 
-import {depersonalizedPickColumns} from '@components/table/table-columns/depersonalized-pick-columns'
+import { depersonalizedPickColumns } from '@components/table/table-columns/depersonalized-pick-columns'
 
-import {depersonalizedPickDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 
 export class SupervisorReadyToCheckForIdeaViewModel {
   history = undefined
@@ -29,11 +29,11 @@ export class SupervisorReadyToCheckForIdeaViewModel {
   firstRowId = undefined
   columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor, this.firstRowId)
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   getCurrentData() {
@@ -99,7 +99,7 @@ export class SupervisorReadyToCheckForIdeaViewModel {
       for (let i = 0; i < this.selectedRowIds.length; i++) {
         const itemId = this.selectedRowIds[i]
 
-        await this.onClickTableRowBtn({_id: itemId}, true)
+        await this.onClickTableRowBtn({ _id: itemId }, true)
       }
 
       runInAction(() => {

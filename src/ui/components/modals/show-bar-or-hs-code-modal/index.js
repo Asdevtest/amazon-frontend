@@ -1,1 +1,1 @@
-export {ShowBarOrHscodeModal} from './show-bar-or-hs-code-modal'
+export { ShowBarOrHscodeModal } from './show-bar-or-hs-code-modal'

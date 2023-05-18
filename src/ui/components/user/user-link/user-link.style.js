@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   linkText: {
@@ -59,8 +59,5 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     height: 'min-content',
     width: 'min-content',
-  },
-  boldLinkText: {
-    fontWeight: 600,
   },
 }))

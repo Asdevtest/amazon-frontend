@@ -1,9 +1,9 @@
-import {UserRole} from '@constants/keys/user-roles'
+import { UserRole } from '@constants/keys/user-roles'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {TranslationKey} from '../translations/translation-key'
-import {ProductStatus, ProductStatusByKey} from './product-status'
+import { TranslationKey } from '../translations/translation-key'
+import { ProductStatus, ProductStatusByKey } from './product-status'
 
 export const productStatusButtonsConfigs = {
   [UserRole.RESEARCHER]: curStatus => {

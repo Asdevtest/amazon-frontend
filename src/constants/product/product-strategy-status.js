@@ -1,7 +1,7 @@
-import {objectFlip} from '@utils/object'
-import {t} from '@utils/translations'
+import { objectFlip } from '@utils/object'
+import { t } from '@utils/translations'
 
-import {TranslationKey} from '../translations/translation-key'
+import { TranslationKey } from '../translations/translation-key'
 
 export const ProductStrategyStatus = {
   NONE: 'NONE',

@@ -1,22 +1,22 @@
-import {Avatar, Typography} from '@mui/material'
+import { Avatar, Typography } from '@mui/material'
 
-import {FC} from 'react'
+import { FC } from 'react'
 
-import {format} from 'date-fns'
+import { format } from 'date-fns'
 
-import {UiTheme} from '@constants/theme/themes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { UiTheme } from '@constants/theme/themes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
 import {
   formatDateDistanceFromNowStrict,
   getDistanceBetweenDatesInSeconds,
   sortObjectsArrayByFiledDateWithParseISOAsc,
 } from '@utils/date-time'
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './order-deadline-notification.style'
+import { useClassNames } from './order-deadline-notification.style'
 
 interface InoticeItem {
   _id: string
@@ -29,9 +29,9 @@ interface OrderDeadlineNotificationProps {
 }
 
 export const OrderDeadlineNotification: FC<OrderDeadlineNotificationProps> = props => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
-  const {noticeItem} = props
+  const { noticeItem } = props
 
   const onClickNoticeItem = (orderId: string) => {
     const win = window.open(`${window.location.origin}/client/my-orders/pending-orders/order?${orderId}`, '_blank')

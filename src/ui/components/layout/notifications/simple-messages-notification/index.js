@@ -1,1 +1,1 @@
-export {SimpleMessagesNotification} from './simple-messages-notification'
+export { SimpleMessagesNotification } from './simple-messages-notification'

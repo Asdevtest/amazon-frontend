@@ -4,19 +4,19 @@ import Breadcrumbs from '@mui/material/Breadcrumbs'
 import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {Link as RouterLink, useHistory, useLocation} from 'react-router-dom'
+import { observer } from 'mobx-react'
+import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom'
 
-import {overallRoutesConfigs, privateRoutesConfigs} from '@constants/navigation/routes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigation/routes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './bread-crumbs-line.style'
+import { useClassNames } from './bread-crumbs-line.style'
 
 const exclusionWords = [
   '/client',
@@ -29,8 +29,8 @@ const exclusionWords = [
   '/moderator',
 ]
 
-export const BreadCrumbsLine = observer(({lastCrumbAdditionalText, savedLastCrumbAdditionalText}) => {
-  const {classes: classNames} = useClassNames()
+export const BreadCrumbsLine = observer(({ lastCrumbAdditionalText, savedLastCrumbAdditionalText }) => {
+  const { classes: classNames } = useClassNames()
 
   const hostory = useHistory()
 

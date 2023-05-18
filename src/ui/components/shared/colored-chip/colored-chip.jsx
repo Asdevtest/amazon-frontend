@@ -1,15 +1,15 @@
-import {cx} from '@emotion/css'
-import {Chip, Tooltip} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Chip, Tooltip } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {TooltipAttention, TooltipInfoIcon} from '@components/shared/svg-icons'
+import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
 
-import {useClassNames} from './colored-chip.style'
+import { useClassNames } from './colored-chip.style'
 
 export const ColoredChip = observer(
   ({
@@ -24,9 +24,9 @@ export const ColoredChip = observer(
 
     ...restProps
   }) => {
-    const styleProps = {color, colorHover}
+    const styleProps = { color, colorHover }
 
-    const {classes: classNames} = useClassNames(styleProps)
+    const { classes: classNames } = useClassNames(styleProps)
 
     const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
     const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
@@ -40,7 +40,7 @@ export const ColoredChip = observer(
     return (
       <div className={classNames.chipWrapper}>
         <Chip
-          className={cx(classNames.chip, {[classNames.chipActive]: !!selected})}
+          className={cx(classNames.chip, { [classNames.chipActive]: !!selected })}
           {...restProps}
           onClick={onClickChip}
         />

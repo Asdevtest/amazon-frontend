@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   richTextEditorWrapper: {
@@ -15,11 +15,9 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'absolute',
     top: 10,
     left: 0,
-
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-
     color: theme.palette.text.second,
   },
   root: {
@@ -29,7 +27,6 @@ export const useClassNames = makeStyles()(theme => ({
   editor: {
     minHeight: 184,
     maxHeight: 1550,
-    // maxHeight: 184,
     overflowY: 'auto',
   },
   verticalResize: {
@@ -42,10 +39,6 @@ export const useClassNames = makeStyles()(theme => ({
   editorContainer: {
     padding: '10px 16px !important',
     margin: '0px !important',
-    // height: 'auto !important',
-    // minHeight: 174,
-    // maxHeight: 1550,
-    // height: 'calc(100% - 50px)',
     width: '100% !important',
   },
   container: {
@@ -70,7 +63,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-
     color: `${theme.palette.text.gray} !important`,
   },
 }))

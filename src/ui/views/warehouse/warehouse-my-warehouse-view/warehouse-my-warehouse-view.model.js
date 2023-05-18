@@ -1,27 +1,27 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
-import {BatchStatus} from '@constants/statuses/batch-status'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { BatchStatus } from '@constants/statuses/batch-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BatchesModel} from '@models/batches-model'
-import {BoxesModel} from '@models/boxes-model'
-import {ClientModel} from '@models/client-model'
-import {GeneralModel} from '@models/general-model'
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { BatchesModel } from '@models/batches-model'
+import { BoxesModel } from '@models/boxes-model'
+import { ClientModel } from '@models/client-model'
+import { GeneralModel } from '@models/general-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {warehouseBoxesViewColumns} from '@components/table/table-columns/warehouse/warehouse-boxes-columns'
+import { warehouseBoxesViewColumns } from '@components/table/table-columns/warehouse/warehouse-boxes-columns'
 
-import {warehouseBatchesDataConverter, warehouseBoxesDataConverter} from '@utils/data-grid-data-converters'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {getTableByColumn, objectToUrlQs} from '@utils/text'
-import {t} from '@utils/translations'
-import {onSubmitPostFilesInData, onSubmitPostImages} from '@utils/upload-files'
+import { warehouseBatchesDataConverter, warehouseBoxesDataConverter } from '@utils/data-grid-data-converters'
+import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getTableByColumn, objectToUrlQs } from '@utils/text'
+import { t } from '@utils/translations'
+import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
 
 const updateBoxWhiteList = [
   'shippingLabel',
@@ -134,7 +134,7 @@ export class WarehouseMyWarehouseViewModel {
 
   firstRowId = undefined
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -157,11 +157,11 @@ export class WarehouseMyWarehouseViewModel {
     return SettingsModel.destinationsFavourites
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -305,9 +305,9 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickSavePrepId(item, value) {
+  async onClickSavePrepId(itemId, value) {
     try {
-      await BoxesModel.editAdditionalInfo(item._id, {
+      await BoxesModel.editAdditionalInfo(itemId, {
         prepId: value,
       })
 
@@ -324,7 +324,7 @@ export class WarehouseMyWarehouseViewModel {
       })
 
       if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
 
       await BoxesModel.editAdditionalInfo(data._id, {
@@ -387,7 +387,7 @@ export class WarehouseMyWarehouseViewModel {
       const uploadedBarcodes = []
 
       for (let i = 0; i < newBoxes.length; i++) {
-        const newBox = {...newBoxes[i]}
+        const newBox = { ...newBoxes[i] }
         const sourceBox = selectedBoxes[i]
 
         if (newBox.tmpShippingLabel?.length) {
@@ -469,7 +469,7 @@ export class WarehouseMyWarehouseViewModel {
           }
         })
 
-        await this.onClickSubmitEditBox({id: sourceBox._id, boxData: newBox, isMultipleEdit: true})
+        await this.onClickSubmitEditBox({ id: sourceBox._id, boxData: newBox, isMultipleEdit: true })
       }
 
       runInAction(() => {
@@ -489,7 +489,7 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickSubmitEditBox({id, boxData, imagesOfBox, dataToSubmitHsCode, isMultipleEdit}) {
+  async onClickSubmitEditBox({ id, boxData, imagesOfBox, dataToSubmitHsCode, isMultipleEdit }) {
     try {
       runInAction(() => {
         this.selectedBoxes = []
@@ -775,7 +775,7 @@ export class WarehouseMyWarehouseViewModel {
           })
 
           if (updatedBoxes[i].tmpShippingLabel.length) {
-            await onSubmitPostImages.call(this, {images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles'})
+            await onSubmitPostImages.call(this, { images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles' })
           }
 
           if (updatedBoxes[i]?.tmpImages?.length) {
@@ -874,7 +874,7 @@ export class WarehouseMyWarehouseViewModel {
       })
 
       if (boxBody.tmpShippingLabel.length) {
-        await onSubmitPostImages.call(this, {images: boxBody.tmpShippingLabel, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: boxBody.tmpShippingLabel, type: 'uploadedFiles' })
       }
 
       if (imagesOfBox?.length) {
@@ -979,7 +979,7 @@ export class WarehouseMyWarehouseViewModel {
     })
   }
 
-  async onClickSubmitGroupingBoxes({oldBoxes, newBoxes}) {
+  async onClickSubmitGroupingBoxes({ oldBoxes, newBoxes }) {
     try {
       await BoxesModel.regroupBoxes({
         boxIds: oldBoxes.map(el => el._id),
@@ -1072,9 +1072,9 @@ export class WarehouseMyWarehouseViewModel {
   async onSubmitEditBox(id, data) {
     try {
       if (data.tmpImages.length > 0) {
-        await onSubmitPostImages.call(this, {images: data.tmpImages, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: data.tmpImages, type: 'uploadedFiles' })
 
-        data = {...data, images: [...data.images, ...this.uploadedFiles]}
+        data = { ...data, images: [...data.images, ...this.uploadedFiles] }
       }
 
       const updateBoxData = {
@@ -1105,14 +1105,14 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onSubmitAddBatch({boxesIds, filesToAdd, batchFields}) {
+  async onSubmitAddBatch({ boxesIds, filesToAdd, batchFields }) {
     try {
       runInAction(() => {
         this.uploadedFiles = []
       })
 
       if (filesToAdd.length) {
-        await onSubmitPostImages.call(this, {images: filesToAdd, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
       }
 
       const batchId = await BatchesModel.createBatch({
@@ -1257,7 +1257,7 @@ export class WarehouseMyWarehouseViewModel {
 
       // console.log('filter', filter)
 
-      console.log(this.getFilter())
+      // console.log(this.getFilter())
       const boxes = await StorekeeperModel.getBoxesMyPag({
         filters: this.getFilter(),
 
@@ -1363,7 +1363,7 @@ export class WarehouseMyWarehouseViewModel {
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
           ...this.columnMenuSettings,
-          [column]: {...this.columnMenuSettings[column], filterData: data},
+          [column]: { ...this.columnMenuSettings[column], filterData: data },
         }
       }
       // this.setFilterRequestStatus(loadingStatuses.success)
@@ -1413,13 +1413,13 @@ export class WarehouseMyWarehouseViewModel {
 
     const filter = objectToUrlQs({
       or: [
-        {asin: {$contains: this.nameSearchValue}},
-        {amazonTitle: {$contains: this.nameSearchValue}},
-        {skusByClient: {$contains: this.nameSearchValue}},
-        {item: {$eq: this.nameSearchValue}},
-        {id: {$eq: this.nameSearchValue}},
-        {humanFriendlyId: {$eq: this.nameSearchValue}},
-        {prepId: {$contains: this.nameSearchValue}},
+        { asin: { $contains: this.nameSearchValue } },
+        { amazonTitle: { $contains: this.nameSearchValue } },
+        { skusByClient: { $contains: this.nameSearchValue } },
+        { item: { $eq: this.nameSearchValue } },
+        { id: { $eq: this.nameSearchValue } },
+        { humanFriendlyId: { $eq: this.nameSearchValue } },
+        { prepId: { $contains: this.nameSearchValue } },
       ].filter(
         el =>
           ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
@@ -1429,43 +1429,43 @@ export class WarehouseMyWarehouseViewModel {
       ),
 
       ...(idFilter && {
-        id: {$eq: idFilter},
+        id: { $eq: idFilter },
       }),
 
       ...(itemFilter && {
-        item: {$eq: itemFilter},
+        item: { $eq: itemFilter },
       }),
 
       ...(amountFilter && {
-        amount: {$eq: amountFilter},
+        amount: { $eq: amountFilter },
       }),
 
       ...(humanFriendlyIdFilter && {
-        humanFriendlyId: {$eq: humanFriendlyIdFilter},
+        humanFriendlyId: { $eq: humanFriendlyIdFilter },
       }),
 
       ...(prepIdFilter && {
-        prepId: {$eq: prepIdFilter},
+        prepId: { $eq: prepIdFilter },
       }),
 
       ...(asinFilter && {
-        asin: {$eq: asinFilter},
+        asin: { $eq: asinFilter },
       }),
       ...(skusByClientFilter && {
-        skusByClient: {$eq: skusByClientFilter},
+        skusByClient: { $eq: skusByClientFilter },
       }),
       ...(amazonTitleFilter && {
-        amazonTitle: {$eq: amazonTitleFilter},
+        amazonTitle: { $eq: amazonTitleFilter },
       }),
 
       ...(destinationFilter && {
-        destinationId: {$eq: destinationFilter},
+        destinationId: { $eq: destinationFilter },
       }),
       ...(logicsTariffFilter && {
-        logicsTariffId: {$eq: logicsTariffFilter},
+        logicsTariffId: { $eq: logicsTariffFilter },
       }),
       ...(batchIdFilter && {
-        batchId: {$eq: batchIdFilter},
+        batchId: { $eq: batchIdFilter },
       }),
 
       // ...(orderIdsItemsFilter && {

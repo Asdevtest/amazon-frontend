@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -94,9 +94,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   carouselImage: {
     height: '150px !important',
-    // width: '391px !important',
     objectFit: 'contain',
-
     transition: '.2s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {

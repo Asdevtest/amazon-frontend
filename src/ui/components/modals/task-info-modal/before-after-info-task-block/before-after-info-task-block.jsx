@@ -1,18 +1,18 @@
-import {Divider, Typography} from '@mui/material'
+import { Divider, Typography } from '@mui/material'
 
 import React from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {BeforeAfterBox} from './before-after-box'
-import {useClassNames} from './before-after-info-task-block.style'
+import { BeforeAfterBox } from './before-after-box'
+import { useClassNames } from './before-after-info-task-block.style'
 
-export const BeforeAfterInfoTaskBlock = observer(({beforeBoxes, afterBoxes, taskType, volumeWeightCoefficient}) => {
-  const {classes: classNames} = useClassNames()
+export const BeforeAfterInfoTaskBlock = observer(({ beforeBoxes, afterBoxes, taskType, volumeWeightCoefficient }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <div className={classNames.boxesWrapper}>
@@ -30,10 +30,10 @@ export const BeforeAfterInfoTaskBlock = observer(({beforeBoxes, afterBoxes, task
         ))}
       </div>
 
-      <Divider flexItem className={classNames.divider} orientation="vertical" />
+      <Divider flexItem orientation="vertical" />
 
       {afterBoxes.length > 0 && (
-        <div className={classNames.newBoxes}>
+        <div>
           <Typography variant="h4">{t(TranslationKey['New boxes'])}</Typography>
 
           {afterBoxes.map((box, boxIndex) => (

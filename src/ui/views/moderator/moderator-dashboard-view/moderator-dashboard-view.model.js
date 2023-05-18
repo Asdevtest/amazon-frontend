@@ -1,10 +1,10 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 // import {FreelancerDashboardCardDataKey} from '@constants/dashboard-configs'
 // import {loadingStatuses} from '@constants/loading-statuses'
 // import {OtherModel} from '@models/other-model'
 // import {ResearcherModel} from '@models/researcher-model'
-import {UserModel} from '@models/user-model'
+import { UserModel } from '@models/user-model'
 
 // import {toFixed} from '@utils/text'
 
@@ -26,11 +26,11 @@ export class ModeratorDashboardViewModel {
   //   [FreelancerDashboardCardDataKey.FINES]: '',
   // }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   // onClickInfoCardViewMode(route) {

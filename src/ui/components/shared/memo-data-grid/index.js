@@ -1,1 +1,1 @@
-export {MemoDataGrid} from './memo-data-grid'
+export { MemoDataGrid } from './memo-data-grid'

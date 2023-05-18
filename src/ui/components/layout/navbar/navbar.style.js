@@ -1,15 +1,10 @@
 // import {makeStyles} from 'tss-react/mui'
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     backgroundColor: theme.palette.background.general,
-
-    // position: 'relative',
-
     height: '100vh',
-    // height: '100%',
-
     display: 'flex',
     flexDirection: 'column',
   },
@@ -20,13 +15,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainSubWrapper: {
     backgroundColor: theme.palette.background.general,
-
-    // position: 'relative',
-
     height: '100vh',
-    // height: '100%',
     flexGrow: 1,
-
     display: 'flex',
     flexDirection: 'column',
   },
@@ -47,13 +37,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   appVersion: {
     color: theme.palette.primary.main,
-
     marginLeft: 15,
   },
 
   paper: {
-    // boxShadow: `0px 1px 2px 0px rgba(225, 229, 235, 0.8),
-    //             0px 13px 27px 0px rgba(90, 97, 105, 0.15)`,
     border: 'none',
   },
   positionStatic: {
@@ -77,15 +64,6 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '15px',
     height: '100%',
     transform: 'scale(1.2)',
-  },
-
-  iconWrapper: {
-    minWidth: '0',
-    margin: '16px 16px 16px 11px',
-    color: 'rgba(189, 194, 209, 1)',
-  },
-  icon: {
-    fontSize: theme.spacing(3),
   },
 
   hideAndShowIconWrapper: {
@@ -134,11 +112,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '0 15px',
-    // margin: '0 auto',
-    // width: '80%',
-
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-
     '&:hover': {
       backgroundColor: 'rgba(0,123,255,0.3)',
       opacity: 0.7,
@@ -152,9 +126,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-
     '&:hover': {
       backgroundColor: 'rgba(0,123,255,0.3)',
       opacity: 0.7,
@@ -185,7 +157,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-
     marginBottom: 20,
   },
   iconButtonWrapperLeft: {

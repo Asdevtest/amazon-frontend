@@ -3,10 +3,10 @@ import {
   calcFinalWeightForBoxByMoreActualWeight,
   calcVolumeWeightForBox,
 } from '@utils/calculation'
-import {objectFlip} from '@utils/object'
-import {t} from '@utils/translations'
+import { objectFlip } from '@utils/object'
+import { t } from '@utils/translations'
 
-import {TranslationKey} from '../translations/translation-key'
+import { TranslationKey } from '../translations/translation-key'
 
 export const BatchWeightCalculationMethod = {
   BY_MORE_WEIGHT: 'BY_MORE_WEIGHT',

@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   text: {
@@ -26,13 +26,9 @@ export const useClassNames = makeStyles()(theme => ({
   paper: {
     marginTop: '20px',
     width: '470px',
-    // border: '1px solid #C8CED3',
     marginRight: '16px',
     padding: '8px 16px',
     height: 'max-content',
-  },
-  divider: {
-    margin: '8px -16px',
   },
 
   miss: {

@@ -1,6 +1,6 @@
-import {keyframes} from '@emotion/react'
+import { keyframes } from '@emotion/react'
 
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 const hypnoEye = keyframes`
  0% {
@@ -62,15 +62,6 @@ export const useClassNames = makeStyles()((theme, props) => ({
     top: '-10px',
     right: '-15px',
     zIndex: '10',
-    display: 'flex',
-  },
-
-  tooltipsCenterWrapper: {
-    position: 'absolute',
-    top: 'calc(50% - 8.5px)',
-    right: '10px',
-    zIndex: '10',
-
     display: 'flex',
   },
 

@@ -1,1 +1,1 @@
-export {BuyerReadyForPaymentColumns} from './buyer-ready-for-payment-columns'
+export { BuyerReadyForPaymentColumns } from './buyer-ready-for-payment-columns'

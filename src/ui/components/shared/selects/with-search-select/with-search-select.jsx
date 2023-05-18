@@ -1,24 +1,24 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
-import {Button, Checkbox, ClickAwayListener, Popover, Tooltip, Typography} from '@mui/material'
+import { Button, Checkbox, ClickAwayListener, Popover, Tooltip, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
 import isEqual from 'lodash.isequal'
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SelectProductAsinCellWithourTitle} from '@components/data-grid/data-grid-cells/data-grid-cells'
-import {SearchInput} from '@components/shared/search-input'
+import { SelectProductAsinCellWithourTitle } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { SearchInput } from '@components/shared/search-input'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {styles} from './with-search-select.style'
+import { styles } from './with-search-select.style'
 
 const WithSearchSelectRaw = observer(
   ({
@@ -124,9 +124,9 @@ const WithSearchSelectRaw = observer(
             [classNames.selectHeight]: asinSelect,
             [classNames.disableRoot]: disabled,
           })}
-          style={width && {width}}
+          style={width && { width }}
         >
-          <div className={cx(classNames.mainWrapper, {[classNames.grayBorder]: grayBorder})}>
+          <div className={cx(classNames.mainWrapper, { [classNames.grayBorder]: grayBorder })}>
             <div
               className={cx(classNames.chosenItem, {
                 [classNames.disabledChosenItem]: disabled,
@@ -147,9 +147,9 @@ const WithSearchSelectRaw = observer(
               </Typography>
 
               {open ? (
-                <ArrowDropUpIcon className={cx(classNames.icon, {[classNames.darkIcon]: darkIcon})} />
+                <ArrowDropUpIcon className={cx(classNames.icon, { [classNames.darkIcon]: darkIcon })} />
               ) : (
-                <ArrowDropDownIcon className={cx(classNames.icon, {[classNames.darkIcon]: darkIcon})} />
+                <ArrowDropDownIcon className={cx(classNames.icon, { [classNames.darkIcon]: darkIcon })} />
               )}
             </div>
 
@@ -164,7 +164,7 @@ const WithSearchSelectRaw = observer(
             >
               <div
                 className={cx(classNames.subMainWrapper, customSubMainWrapper)}
-                style={widthPopover && {width: widthPopover || width}}
+                style={widthPopover && { width: widthPopover || width }}
               >
                 {!withoutSearch ? (
                   <SearchInput
@@ -210,7 +210,7 @@ const WithSearchSelectRaw = observer(
                       <Button
                         key={index}
                         className={classNames.button}
-                        style={changeColorById && {color: changeColorById(el._id)}}
+                        style={changeColorById && { color: changeColorById(el._id) }}
                         variant="text"
                         onClick={e => {
                           e.stopPropagation()

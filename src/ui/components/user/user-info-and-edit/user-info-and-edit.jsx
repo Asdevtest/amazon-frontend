@@ -1,22 +1,22 @@
-import {Tabs} from '@mui/material'
+import { Tabs } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {ITab} from '@components/shared/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab/i-tab'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {UserBalance} from './user-balance'
-import {UserEdit} from './user-edit'
-import {useClassNames} from './user-info-and-edit.style'
+import { UserBalance } from './user-balance'
+import { UserEdit } from './user-edit'
+import { useClassNames } from './user-info-and-edit.style'
 
-const TabPanel = ({children, value, index, ...other}) => (
+const TabPanel = ({ children, value, index, ...other }) => (
   <div
     role="tabpanel"
     hidden={value !== index}
@@ -28,15 +28,15 @@ const TabPanel = ({children, value, index, ...other}) => (
   </div>
 )
 
-export const UserInfoAndEdit = observer(({user}) => {
-  const {classes: classNames} = useClassNames()
+export const UserInfoAndEdit = observer(({ user }) => {
+  const { classes: classNames } = useClassNames()
 
   const [tabIndex, setTabIndex] = React.useState(0)
 
   const [updatedUser, setUpdatedUser] = useState(user)
 
   useEffect(() => {
-    setUpdatedUser(() => ({...user}))
+    setUpdatedUser(() => ({ ...user }))
   }, [SettingsModel.languageTag, user])
 
   return (

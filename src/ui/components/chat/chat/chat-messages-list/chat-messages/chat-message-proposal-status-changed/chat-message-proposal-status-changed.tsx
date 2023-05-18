@@ -1,27 +1,27 @@
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {FC, useContext} from 'react'
+import React, { FC, useContext } from 'react'
 
-import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatMessageDataProposalStatusChangedContract} from '@models/chat-model/contracts/chat-message-data.contract'
-import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
-import {UserModel} from '@models/user-model'
+import { ChatMessageDataProposalStatusChangedContract } from '@models/chat-model/contracts/chat-message-data.contract'
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
+import { UserModel } from '@models/user-model'
 
-import {RequestStatusCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
-import {Button} from '@components/shared/buttons/button'
-import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
+import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { Button } from '@components/shared/buttons/button'
+import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
 
-import {formatDateTime, formatDateTimeHourAndMinutes} from '@utils/date-time'
-import {minsToTime} from '@utils/text'
-import {t} from '@utils/translations'
+import { formatDateTime, formatDateTimeHourAndMinutes } from '@utils/date-time'
+import { minsToTime } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
+import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import {LabelValuePairBlock} from '../label-value-pair-block'
-import {useClassNames} from './chat-message-proposal-status-changed.style'
+import { LabelValuePairBlock } from '../label-value-pair-block'
+import { useClassNames } from './chat-message-proposal-status-changed.style'
 
 export interface ChatMessageRequestProposalStatusChangedHandlers {
   onClickProposalResultToCorrect: (proposalId: string) => void
@@ -35,20 +35,12 @@ interface Props {
   handlers: ChatMessageRequestProposalStatusChangedHandlers
 }
 
-export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers, isLastMessage}) => {
-  const {classes: classNames} = useClassNames()
+export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, handlers, isLastMessage }) => {
+  const { classes: classNames } = useClassNames()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
-  // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
-
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
-
-  // console.log('curUserId', curUserId)
-  // console.log(
-  //   'chatRequestAndRequestProposal.request?.createdBy?._id',
-  //   chatRequestAndRequestProposal.request?.createdBy?._id,
-  // )
 
   if (message.data.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
     return (
@@ -68,7 +60,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers, 
         return (
           <div className={classNames.detailsWrapper}>
             <div className={classNames.headerAndTimeWrapper}>
-              <div className={classNames.titleWrapper}>
+              <div>
                 <p className={classNames.titleText}>{`${t(TranslationKey['Sent for rework'])}`.toUpperCase()}</p>
               </div>
 
@@ -201,7 +193,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers, 
 
   return (
     <div className={classNames.root}>
-      <div className={classNames.statusWrapper}>
+      <div>
         <p className={classNames.statusTextDesciption}>
           {`${t(TranslationKey['New proposal status'])}:`}
           <span className={classNames.statusText}>

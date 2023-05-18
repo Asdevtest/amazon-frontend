@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextHeaderCell,
@@ -10,7 +10,7 @@ import {
   EditOrRemoveIconBtnsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const warehouseTariffsColumns = (handlers, firstRowId) => [
   {
@@ -27,7 +27,7 @@ export const warehouseTariffsColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
     type: 'date',
   },
@@ -59,15 +59,20 @@ export const warehouseTariffsColumns = (handlers, firstRowId) => [
     width: 250,
     renderCell: (
       params, // <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />
-    ) => (
-      <EditOrRemoveIconBtnsCell
-        tooltipFirstButton={t(TranslationKey.Edit)}
-        tooltipSecondButton={t(TranslationKey.Remove)}
-        handlers={handlers}
-        row={params.row}
-        isFirstRow={firstRowId === params.row.id}
-      />
-    ),
+    ) => {
+      const handlersMemo = useMemo(() => handlers, [])
+      const rowMemo = useMemo(() => params.row, [])
+
+      return (
+        <EditOrRemoveIconBtnsCell
+          tooltipFirstButton={t(TranslationKey.Edit)}
+          tooltipSecondButton={t(TranslationKey.Remove)}
+          handlers={handlersMemo}
+          row={rowMemo}
+          isFirstRow={firstRowId === params.row.id}
+        />
+      )
+    },
 
     filterable: false,
     sortable: false,

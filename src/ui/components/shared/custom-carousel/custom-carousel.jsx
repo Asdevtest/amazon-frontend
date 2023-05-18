@@ -1,4 +1,4 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
@@ -8,34 +8,34 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
 import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
-import {Avatar, Link, Typography} from '@mui/material'
+import { Avatar, Link, Typography } from '@mui/material'
 
-import {Children, cloneElement, useEffect, useState} from 'react'
+import { Children, cloneElement, useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {ImageEditForm} from '@components/forms/image-edit-form'
-import {BigImagesModal} from '@components/modals/big-images-modal'
-import {Button} from '@components/shared/buttons/button'
-import {Modal} from '@components/shared/modal'
-import {NoDocumentIcon, NoPhotoIcon} from '@components/shared/svg-icons'
+import { ImageEditForm } from '@components/forms/image-edit-form'
+import { BigImagesModal } from '@components/modals/big-images-modal'
+import { Button } from '@components/shared/buttons/button'
+import { Modal } from '@components/shared/modal'
+import { NoDocumentIcon, NoPhotoIcon } from '@components/shared/svg-icons'
 
-import {checkIsImageLink} from '@utils/checks'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {checkAndMakeAbsoluteUrl, shortenDocumentString} from '@utils/text'
-import {t} from '@utils/translations'
+import { checkIsImageLink } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { checkAndMakeAbsoluteUrl, shortenDocumentString } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './custom-carousel.style'
+import { useClassNames } from './custom-carousel.style'
 
 export const RIGHT_BLOCK_WIDTH = 100
 
 export const CustomCarousel = observer(
-  ({children, title, view = 'simple', alignButtons = 'center', index, onChangeIndex, arrowSize}) => {
-    const {classes: classNames} = useClassNames()
+  ({ children, title, view = 'simple', alignButtons = 'center', index, onChangeIndex, arrowSize }) => {
+    const { classes: classNames } = useClassNames()
     const [clides, setClides] = useState([])
     const [offset, setOffset] = useState(index ? -RIGHT_BLOCK_WIDTH * index : 0)
 
@@ -121,13 +121,13 @@ export const CustomCarousel = observer(
                     width: arrowSize ?? '40px',
                     height: arrowSize ?? '40px',
                   }}
-                  className={cx(classNames.arrowIcon, {[classNames.arrowDisabledIcon]: offset === 0})}
+                  className={cx(classNames.arrowIcon, { [classNames.arrowDisabledIcon]: offset === 0 })}
                   onClick={handleLeftArrowClick}
                 />
               ) : null}
 
               <div className={classNames.window}>
-                <div className={classNames.allClides} style={{transform: `translateX(${offset}%)`}}>
+                <div className={classNames.allClides} style={{ transform: `translateX(${offset}%)` }}>
                   {clides}
                 </div>
               </div>
@@ -152,8 +152,8 @@ export const CustomCarousel = observer(
             ) : (
               <div className={classNames.numberOfFilesFlex}>
                 <ArrowLeftIcon
-                  style={{cursor: offset === 0 ? 'initial' : 'pointer', width: '40px', height: '40px'}}
-                  className={cx(classNames.arrowIcon, {[classNames.arrowDisabledIcon]: offset === 0})}
+                  style={{ cursor: offset === 0 ? 'initial' : 'pointer', width: '40px', height: '40px' }}
+                  className={cx(classNames.arrowIcon, { [classNames.arrowDisabledIcon]: offset === 0 })}
                   onClick={handleLeftArrowClick}
                 />
                 <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>
@@ -177,14 +177,14 @@ export const CustomCarousel = observer(
             <div className={classNames.headerCarouselWrapper}>
               <div className={classNames.buttonWrapper}>
                 <ArrowLeftIcon
-                  style={{cursor: offset === 0 ? 'initial' : 'pointer'}}
-                  className={cx(classNames.arrowIcon, {[classNames.arrowDisabledIcon]: offset === 0})}
+                  style={{ cursor: offset === 0 ? 'initial' : 'pointer' }}
+                  className={cx(classNames.arrowIcon, { [classNames.arrowDisabledIcon]: offset === 0 })}
                   onClick={handleLeftArrowClick}
                 />
                 <Typography className={classNames.proposalCount}>{`${title} №${slideCount}`}</Typography>
 
                 <ArrowRightIcon
-                  style={{cursor: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100 ? 'initial' : 'pointer'}}
+                  style={{ cursor: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100 ? 'initial' : 'pointer' }}
                   className={cx(classNames.arrowIcon, {
                     [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100,
                   })}
@@ -197,7 +197,7 @@ export const CustomCarousel = observer(
             </div>
 
             <div className={classNames.window}>
-              <div className={classNames.allPages} style={{transform: `translateX(${offset}%)`}}>
+              <div className={classNames.allPages} style={{ transform: `translateX(${offset}%)` }}>
                 {clides}
               </div>
             </div>
@@ -227,9 +227,9 @@ export const PhotoAndFilesCarousel = ({
   isEditable,
   withoutMakeMainImage,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
   const [imageEditOpen, setImageEditOpen] = useState(false)
-  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+  const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
   const notEmptyFiles = files?.length ? files.filter(el => !checkIsImageLink(el?.file?.name || el)) : []
@@ -353,7 +353,7 @@ export const PhotoAndFilesCarousel = ({
       {!withoutPhotos && (
         <>
           {(notToShowEmpty && notEmptyPhotos?.length) || !notToShowEmpty ? (
-            <div className={cx(classNames.imagesWrapper, {[classNames.notToShowEmptyWrapper]: notToShowEmpty})}>
+            <div className={cx(classNames.imagesWrapper, { [classNames.notToShowEmptyWrapper]: notToShowEmpty })}>
               {notEmptyPhotos?.length ? (
                 <CustomCarousel>
                   {(isEditable
@@ -368,7 +368,7 @@ export const PhotoAndFilesCarousel = ({
                           alt={'!'}
                           src={photo?.data_url || photo}
                           className={classNames.image}
-                          classes={{img: small ? classNames.smallImage : classNames.image}}
+                          classes={{ img: small ? classNames.smallImage : classNames.image }}
                           onClick={() => {
                             setShowPhotosModal(!showPhotosModal)
 
@@ -407,7 +407,7 @@ export const PhotoAndFilesCarousel = ({
       {!whithoutFiles && (
         <>
           {((notToShowEmpty && notEmptyFiles?.length) || !notToShowEmpty) && (
-            <div className={cx(classNames.documentsWrapper, {[classNames.notToShowEmptyWrapper]: notToShowEmpty})}>
+            <div className={cx(classNames.documentsWrapper, { [classNames.notToShowEmptyWrapper]: notToShowEmpty })}>
               {notEmptyFiles?.length ? (
                 <CustomCarousel>
                   {notEmptyFiles.map((file, index) =>
@@ -417,7 +417,7 @@ export const PhotoAndFilesCarousel = ({
                         className={classNames.documentWrapper}
                         onClick={() => file.data_url && openPdfFile(file.data_url)}
                       >
-                        <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
+                        <InsertDriveFileIcon color="primary" style={{ width: '40px', height: '40px' }} />
                         <Typography className={classNames.documentTitle}>
                           {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
                         </Typography>
@@ -430,7 +430,7 @@ export const PhotoAndFilesCarousel = ({
                         className={classNames.documentWrapper}
                         target="__blank"
                       >
-                        <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
+                        <InsertDriveFileIcon color="primary" style={{ width: '40px', height: '40px' }} />
                         <Typography className={classNames.documentTitle}>
                           {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
                         </Typography>
@@ -468,7 +468,7 @@ export const PhotoAndFilesCarousel = ({
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={bigImagesOptions.images}
         imgIndex={bigImagesOptions.imgIndex}
-        setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
+        setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         controls={isEditable ? bigImagesModalControls : undefined}
       />
     </div>
@@ -484,9 +484,15 @@ export const PhotoAndFilesCarousel = ({
   )
 }
 
-export const PhotoAndFilesCarouselMini = ({files, width, small = false, direction = 'row', notToShowEmpty = false}) => {
-  const {classes: classNames} = useClassNames()
-  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+export const PhotoAndFilesCarouselMini = ({
+  files,
+  width,
+  small = false,
+  direction = 'row',
+  notToShowEmpty = false,
+}) => {
+  const { classes: classNames } = useClassNames()
+  const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
   const notEmptyFiles = files?.length
@@ -503,7 +509,7 @@ export const PhotoAndFilesCarouselMini = ({files, width, small = false, directio
       }}
     >
       {(notToShowEmpty && notEmptyPhotos?.length) || !notToShowEmpty ? (
-        <div className={cx(classNames.imagesWrapper, {[classNames.notToShowEmptyWrapper]: notToShowEmpty})}>
+        <div className={cx(classNames.imagesWrapper, { [classNames.notToShowEmptyWrapper]: notToShowEmpty })}>
           {notEmptyPhotos?.length ? (
             <CustomCarousel>
               {notEmptyPhotos.map((photo, index) => (
@@ -513,7 +519,7 @@ export const PhotoAndFilesCarouselMini = ({files, width, small = false, directio
                   alt={'!'}
                   src={photo?.data_url || photo}
                   className={classNames.image}
-                  classes={{img: small ? classNames.smallImage : classNames.image}}
+                  classes={{ img: small ? classNames.smallImage : classNames.image }}
                   onClick={() => {
                     setShowPhotosModal(!showPhotosModal)
 
@@ -531,7 +537,7 @@ export const PhotoAndFilesCarouselMini = ({files, width, small = false, directio
             <div className={classNames.emptyIconWrapper}>
               <div className={classNames.emptyWrapper}>
                 <div className={classNames.emptyIcon}>
-                  <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
+                  <PhotoCameraIcon style={{ color: '#C4C4C4', fontSize: '30px' }} />
                 </div>
                 <Typography className={classNames.noPhotoText}>{t(TranslationKey['No photos'])}</Typography>
               </div>
@@ -541,7 +547,7 @@ export const PhotoAndFilesCarouselMini = ({files, width, small = false, directio
       ) : null}
 
       {(notToShowEmpty && notEmptyFiles?.length) || !notToShowEmpty ? (
-        <div className={cx(classNames.documentsWrapper, {[classNames.notToShowEmptyWrapper]: notToShowEmpty})}>
+        <div className={cx(classNames.documentsWrapper, { [classNames.notToShowEmptyWrapper]: notToShowEmpty })}>
           {notEmptyFiles?.length ? (
             <CustomCarousel>
               {notEmptyFiles.map((file, index) =>
@@ -551,7 +557,7 @@ export const PhotoAndFilesCarouselMini = ({files, width, small = false, directio
                     className={classNames.documentWrapper}
                     onClick={() => file.data_url && openPdfFile(file.data_url)}
                   >
-                    <InsertDriveFileIcon color="primary" style={{width: '60px', height: '60px'}} />
+                    <InsertDriveFileIcon color="primary" style={{ width: '60px', height: '60px' }} />
                     <Typography className={classNames.documentTitle}>
                       {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
                     </Typography>
@@ -559,7 +565,7 @@ export const PhotoAndFilesCarouselMini = ({files, width, small = false, directio
                   </div>
                 ) : (
                   <Link key={index} href={file} className={classNames.documentWrapper} target="__blank">
-                    <InsertDriveFileIcon color="primary" style={{width: '60px', height: '60px'}} />
+                    <InsertDriveFileIcon color="primary" style={{ width: '60px', height: '60px' }} />
                     <Typography className={classNames.documentTitle}>
                       {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
                     </Typography>
@@ -572,7 +578,7 @@ export const PhotoAndFilesCarouselMini = ({files, width, small = false, directio
             <div className={classNames.emptyIconWrapper}>
               <div className={classNames.emptyWrapperMini}>
                 <div className={classNames.emptyIconMini}>
-                  <InboxIcon style={{color: '#C4C4C4', fontSize: '40px', padding: 10}} />
+                  <InboxIcon style={{ color: '#C4C4C4', fontSize: '40px', padding: 10 }} />
                 </div>
                 <Typography className={classNames.emptyDocs}>{t(TranslationKey['No documents'])}</Typography>
               </div>
@@ -585,24 +591,24 @@ export const PhotoAndFilesCarouselMini = ({files, width, small = false, directio
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={bigImagesOptions.images}
         imgIndex={bigImagesOptions.imgIndex}
-        setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
+        setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
       />
     </div>
   ) : (
     <div className={classNames.emptyProposalsIconWrapperMini}>
       <div className={classNames.emptyProposalsIconMini}>
-        <InboxIcon style={{color: '#C4C4C4', fontSize: '40px', padding: 10}} />
+        <InboxIcon style={{ color: '#C4C4C4', fontSize: '40px', padding: 10 }} />
       </div>
-      <div className={classNames.emptyProposalsDescriptionWrapper}>
+      <div>
         <Typography className={classNames.emptyProposalsTitleMini}>{t(TranslationKey['No files added'])}</Typography>
       </div>
     </div>
   )
 }
 
-export const PhotoCarousel = observer(({files, isAmazonPhoto, view, alignButtons, small = false, imageClass}) => {
-  const {classes: classNames} = useClassNames()
-  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+export const PhotoCarousel = observer(({ files, isAmazonPhoto, view, alignButtons, small = false, imageClass }) => {
+  const { classes: classNames } = useClassNames()
+  const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
   const notEmptyPhotos = isAmazonPhoto
@@ -620,7 +626,7 @@ export const PhotoCarousel = observer(({files, isAmazonPhoto, view, alignButtons
                 variant="square"
                 alt={'!'}
                 src={photo?.data_url || photo}
-                classes={{img: small ? classNames.smallImage : imageClass ? imageClass : classNames.image}}
+                classes={{ img: small ? classNames.smallImage : imageClass ? imageClass : classNames.image }}
                 onClick={() => {
                   setShowPhotosModal(!showPhotosModal)
 
@@ -638,7 +644,7 @@ export const PhotoCarousel = observer(({files, isAmazonPhoto, view, alignButtons
         ) : (
           <div className={classNames.emptyIconWrapper}>
             <div className={classNames.emptyIcon}>
-              <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '40px'}} />
+              <PhotoCameraIcon style={{ color: '#C4C4C4', fontSize: '40px' }} />
             </div>
           </div>
         )}
@@ -649,14 +655,14 @@ export const PhotoCarousel = observer(({files, isAmazonPhoto, view, alignButtons
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={bigImagesOptions.images}
         imgIndex={bigImagesOptions.imgIndex}
-        setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
+        setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
       />
     </div>
   ) : (
     <div className={classNames.emptyIconWrapper}>
       <div className={classNames.emptyWrapper}>
         <div className={classNames.emptyIcon}>
-          <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
+          <PhotoCameraIcon style={{ color: '#C4C4C4', fontSize: '30px' }} />
         </div>
         <Typography className={classNames.noPhotoText}>{t(TranslationKey['No photos'])}</Typography>
       </div>

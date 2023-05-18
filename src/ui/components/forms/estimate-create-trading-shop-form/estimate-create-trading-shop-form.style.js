@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   modalMessageWrapper: {
@@ -17,20 +17,6 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     color: theme.palette.text.general,
     alignSelf: 'start',
-  },
-
-  commentLabelText: {
-    fontSize: '18px',
-    fontWeight: '400',
-    lineHeight: '140%',
-    color: theme.palette.text.general,
-  },
-
-  heightFieldAuto: {
-    height: 'auto',
-    width: '100%',
-
-    padding: 0,
   },
 
   buttonOk: {

@@ -1,1 +1,1 @@
-export {MyRequestsView} from './my-requests-view'
+export { MyRequestsView } from './my-requests-view'

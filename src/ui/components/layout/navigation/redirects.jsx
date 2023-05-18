@@ -1,6 +1,6 @@
-import {Redirect, Route} from 'react-router'
+import { Redirect, Route } from 'react-router'
 
-import {redirectConfigs} from '@constants/navigation/redirects'
+import { redirectConfigs } from '@constants/navigation/redirects'
 
 export const generateRedirects = () =>
   redirectConfigs.map((redirectConfig, index) => (

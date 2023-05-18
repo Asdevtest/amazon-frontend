@@ -1,1 +1,1 @@
-export {Freelance} from './freelance'
+export { Freelance } from './freelance'

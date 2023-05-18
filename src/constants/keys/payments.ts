@@ -1,4 +1,4 @@
-import {objectFlip} from '@utils/object'
+import { objectFlip } from '@utils/object'
 
 export const paymentsMethod = {
   ALIPAY: 'ALIPAY',

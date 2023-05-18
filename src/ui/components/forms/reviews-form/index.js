@@ -1,1 +1,1 @@
-export {ReviewsForm} from './reviews-form'
+export { ReviewsForm } from './reviews-form'

@@ -1,1 +1,1 @@
-export {AddOrEditGroupPermissionForm} from './add-or-edit-group-permission-form'
+export { AddOrEditGroupPermissionForm } from './add-or-edit-group-permission-form'

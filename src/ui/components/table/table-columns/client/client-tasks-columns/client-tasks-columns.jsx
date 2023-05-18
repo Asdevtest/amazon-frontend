@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React, {useCallback} from 'react'
+import React, { useCallback, useMemo } from 'react'
 
-import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   NormDateFromUnixCell,
@@ -18,7 +18,7 @@ import {
   CheckboxCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const clientTasksViewColumns = handlers => [
   {
@@ -28,7 +28,12 @@ export const clientTasksViewColumns = handlers => [
 
     width: 250,
 
-    renderCell: params => <ClientTasksActionBtnsCell handlers={handlers} row={params.row.originalData} />,
+    renderCell: params => {
+      const handlersMemo = useMemo(() => handlers, [])
+      const rowMemo = useMemo(() => params.row.originalData, [])
+
+      return <ClientTasksActionBtnsCell handlers={handlersMemo} row={rowMemo} />
+    },
     filterable: false,
     sortable: false,
   },
@@ -39,13 +44,17 @@ export const clientTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
 
     width: window.innerWidth < 1282 ? 140 : 170,
-    renderCell: params => (
-      <TaskPriorityCell
-        curPriority={params.value}
-        taskId={params.row.originalData._id}
-        onChangePriority={handlers.updateTaskPriority}
-      />
-    ),
+    renderCell: params => {
+      const updateTaskPriority = useCallback(handlers.updateTaskPriority, [])
+
+      return (
+        <TaskPriorityCell
+          curPriority={params.value}
+          taskId={params.row.originalData._id}
+          onChangePriority={updateTaskPriority}
+        />
+      )
+    },
   },
 
   {
@@ -77,7 +86,7 @@ export const clientTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
     width: 180,
-    renderCell: params => <TaskTypeCell task={params.row.originalData} />,
+    renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
   },
 
   {
@@ -86,7 +95,11 @@ export const clientTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
     width: 290,
-    renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
+    renderCell: params => {
+      const rowMemo = useMemo(() => params.row.originalData, [])
+
+      return <TaskDescriptionCell task={rowMemo} />
+    },
     filterable: false,
     sortable: false,
   },

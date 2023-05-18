@@ -1,1 +1,1 @@
-export {OrderDeadlineNotification} from './order-deadline-notification'
+export { OrderDeadlineNotification } from './order-deadline-notification'

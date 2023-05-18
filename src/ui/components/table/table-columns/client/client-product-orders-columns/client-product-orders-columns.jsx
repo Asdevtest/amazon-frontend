@@ -1,10 +1,10 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React from 'react'
+import React, { useMemo, useCallback } from 'react'
 
-import {t} from 'i18n-js'
+import { t } from 'i18n-js'
 
-import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import {
   orderColorByStatus,
   OrderStatus,
@@ -12,7 +12,7 @@ import {
   OrderStatusByKey,
   OrderStatusTranslate,
 } from '@constants/statuses/order-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextHeaderCell,
@@ -28,8 +28,8 @@ import {
   SuccessActionBtnCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {formatDate, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
-import {timeToDeadlineInHoursAndMins, toFixedWithDollarSign} from '@utils/text'
+import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
+import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
 
 export const clientProductOrdersViewColumns = (handlers, firstRowId) => [
   {
@@ -63,7 +63,11 @@ export const clientProductOrdersViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
     width: 400,
-    renderCell: params => <OrderCell product={params.row.originalData.product} />,
+    renderCell: params => {
+      const productMemo = useMemo(() => params.row.originalData.product, [])
+
+      return <OrderCell product={productMemo} />
+    },
     sortable: false,
   },
 
@@ -89,21 +93,20 @@ export const clientProductOrdersViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     width: 200,
-    renderCell: params => (
-      <>
-        {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
-          <NormalActionBtnCell
-            bTnText={t(TranslationKey['Repeat order'])}
-            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData)}
-          />
-        ) : (
-          <SuccessActionBtnCell
-            bTnText={t(TranslationKey['To order'])}
-            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData, true)}
-          />
-        )}
-      </>
-    ),
+    renderCell: params => {
+      const onClickReorder = useCallback(() => handlers.onClickReorder(params.row.originalData), [])
+      const onClickToOrder = useCallback(() => handlers.onClickReorder(params.row.originalData, true), [])
+
+      return (
+        <>
+          {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
+            <NormalActionBtnCell bTnText={t(TranslationKey['Repeat order'])} onClickOkBtn={onClickReorder} />
+          ) : (
+            <SuccessActionBtnCell bTnText={t(TranslationKey['To order'])} onClickOkBtn={onClickToOrder} />
+          )}
+        </>
+      )
+    },
     filterable: false,
     sortable: false,
   },
@@ -180,7 +183,7 @@ export const clientProductOrdersViewColumns = (handlers, firstRowId) => [
       params.row.originalData.status < 20 ? (
         <MultilineTextCell
           withLineBreaks
-          tooltipText={params.value ? timeToDeadlineInHoursAndMins({date: params.value}) : ''}
+          tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
           color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
           text={params.value ? formatDate(params.value) : ''}
         />
@@ -254,7 +257,7 @@ export const clientProductOrdersViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     width: 120,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     type: 'date',
   },
 
@@ -264,7 +267,7 @@ export const clientProductOrdersViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     width: 140,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     type: 'date',
   },
 ]
