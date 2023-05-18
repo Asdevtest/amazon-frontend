@@ -1,18 +1,18 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
 import React from 'react'
 
-import {UiTheme} from '@constants/theme/themes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { UiTheme } from '@constants/theme/themes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './entry-left-panel.style'
+import { useClassNames } from './entry-left-panel.style'
 
 export const EntryLeftPanel = () => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   return (
     <div className={classNames.leftPanel}>

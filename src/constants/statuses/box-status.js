@@ -1,4 +1,4 @@
-import {TranslationKey} from '../translations/translation-key'
+import { TranslationKey } from '../translations/translation-key'
 
 export const BoxStatus = {
   NEW: 'NEW',

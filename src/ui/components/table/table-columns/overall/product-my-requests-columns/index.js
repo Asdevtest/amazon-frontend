@@ -1,1 +1,1 @@
-export {productMyRequestsViewColumns} from './product-my-requests-columns'
+export { productMyRequestsViewColumns } from './product-my-requests-columns'

@@ -1,7 +1,7 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 // import {ClassNamesArg} from '@emotion/react'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
-import {Tab} from '@mui/material'
+import { Tab } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
 import React, {
@@ -10,13 +10,13 @@ import React, {
   useState,
 } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {TooltipAttention, TooltipInfoIcon} from '@components/shared/svg-icons'
+import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
 
-import {useClassNames} from './i-tab.style'
+import { useClassNames } from './i-tab.style'
 
 // interface Props {
 //   tooltipAttentionContent?: ReactElement | string
@@ -27,8 +27,8 @@ import {useClassNames} from './i-tab.style'
 // }
 
 export const ITab /* : FC<Props> */ = observer(
-  ({tooltipAttentionContent, tooltipInfoContent, value, label, withIcon, /* classes,*/ ...restProps}) => {
-    const {classes: classNames} = useClassNames()
+  ({ tooltipAttentionContent, tooltipInfoContent, value, label, withIcon, /* classes,*/ ...restProps }) => {
+    const { classes: classNames } = useClassNames()
 
     const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
     const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)

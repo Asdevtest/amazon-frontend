@@ -1,1 +1,1 @@
-export {warehouseCanceledTasksViewColumns} from './canceled-tasks-columns'
+export { warehouseCanceledTasksViewColumns } from './canceled-tasks-columns'

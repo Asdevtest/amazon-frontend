@@ -1,6 +1,6 @@
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {TranslationKey} from '../translations/translation-key'
+import { TranslationKey } from '../translations/translation-key'
 
 export const adminExchangeBtnsConfig = () => [
   {

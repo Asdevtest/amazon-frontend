@@ -1,22 +1,22 @@
-import {Box, Tabs} from '@mui/material'
+import { Box, Tabs } from '@mui/material'
 
 import React from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {ITab} from '@components/shared/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab/i-tab'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {GroupPermissions} from './group-permissions'
-import {SinglePermissions} from './single-permissions'
-import {useClassNames} from './user-permissions.style'
+import { GroupPermissions } from './group-permissions'
+import { SinglePermissions } from './single-permissions'
+import { useClassNames } from './user-permissions.style'
 
-const TabPanel = ({children, value, index, ...other}) => (
+const TabPanel = ({ children, value, index, ...other }) => (
   <div
     role="tabpanel"
     hidden={value !== index}
@@ -29,7 +29,7 @@ const TabPanel = ({children, value, index, ...other}) => (
 )
 
 export const UserPermissions = observer(() => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [tabIndex, setTabIndex] = React.useState(0)
 

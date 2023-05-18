@@ -1,1 +1,1 @@
-export {FilesCarousel} from './files-carousel'
+export { FilesCarousel } from './files-carousel'

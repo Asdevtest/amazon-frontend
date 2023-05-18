@@ -1,20 +1,20 @@
-import {Box, Typography} from '@mui/material'
+import { Box, Typography } from '@mui/material'
 
 import React from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {CustomList} from '@components/shared/custom-list'
+import { CustomList } from '@components/shared/custom-list'
 
-import {formatDateDayMonthYear, formatDateDistanceFromNowStrict} from '@utils/date-time'
-import {t} from '@utils/translations'
+import { formatDateDayMonthYear, formatDateDistanceFromNowStrict } from '@utils/date-time'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './business-info.style'
+import { useClassNames } from './business-info.style'
 
-export const BusinessInfo = observer(({data}) => {
-  const {classes: classNames} = useClassNames()
+export const BusinessInfo = observer(({ data }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <Box className={classNames.businessInfoWrapper}>

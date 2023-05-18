@@ -1,35 +1,35 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
-import {MainContent} from '@components/layout/main-content'
-import {BatchInfoModal} from '@components/modals/batch-info-modal'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Button} from '@components/shared/buttons/button'
-import {CircularProgressWithLabel} from '@components/shared/circular-progress-with-label'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {Modal} from '@components/shared/modal'
-import {SearchInput} from '@components/shared/search-input'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { AddOrEditBatchForm } from '@components/forms/add-or-edit-batch-form'
+import { MainContent } from '@components/layout/main-content'
+import { BatchInfoModal } from '@components/modals/batch-info-modal'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {WarehouseAwaitingBatchesViewModel} from './warehouse-awaiting-batches-view.model'
-import {styles} from './warehouse-awaiting-batches-view.style'
+import { WarehouseAwaitingBatchesViewModel } from './warehouse-awaiting-batches-view.model'
+import { styles } from './warehouse-awaiting-batches-view.style'
 
 export const WarehouseAwaitingBatchesViewRaw = props => {
-  const [viewModel] = useState(() => new WarehouseAwaitingBatchesViewModel({history: props.history}))
-  const {classes: classNames} = props
+  const [viewModel] = useState(() => new WarehouseAwaitingBatchesViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -67,7 +67,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
               tooltipInfoContent={t(TranslationKey['Add/remove a box or files to a batch'])}
               color="primary"
               variant="contained"
-              onClick={() => viewModel.onClickAddOrEditBatch({isAdding: false})}
+              onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: false })}
             >
               {t(TranslationKey['Edit batch'])}
             </Button>
@@ -83,7 +83,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
             success
             tooltipInfoContent={t(TranslationKey['Open a form to create a new batch'])}
             className={classNames.createBtn}
-            onClick={() => viewModel.onClickAddOrEditBatch({isAdding: true})}
+            onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}
           >
             {t(TranslationKey['Create a batch'])}
           </Button>

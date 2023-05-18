@@ -1,32 +1,32 @@
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {FC} from 'react'
+import React, { FC } from 'react'
 
 import Linkify from 'react-linkify-always-blank'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatMessageDataCreatedNewProposalRequestDescriptionContract} from '@models/chat-model/contracts/chat-message-data.contract'
-import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
+import { ChatMessageDataCreatedNewProposalRequestDescriptionContract } from '@models/chat-model/contracts/chat-message-data.contract'
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-import {RequestStatusCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
-import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {CustomTextEditor} from '@components/shared/custom-text-editor'
+import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { CustomTextEditor } from '@components/shared/custom-text-editor'
 
-import {formatDateTimeHourAndMinutes, formatNormDateTime} from '@utils/date-time'
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { formatDateTimeHourAndMinutes, formatNormDateTime } from '@utils/date-time'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {LabelValuePairBlock} from '../label-value-pair-block'
-import {useClassNames} from './chat-message-request.style'
+import { LabelValuePairBlock } from '../label-value-pair-block'
+import { useClassNames } from './chat-message-request.style'
 
 interface Props {
   message: ChatMessageContract<ChatMessageDataCreatedNewProposalRequestDescriptionContract>
 }
 
-export const ChatMessageRequest: FC<Props> = ({message}) => {
-  const {classes: classNames} = useClassNames()
+export const ChatMessageRequest: FC<Props> = ({ message }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <div className={classNames.root}>

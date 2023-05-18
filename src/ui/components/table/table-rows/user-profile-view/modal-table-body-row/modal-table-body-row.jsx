@@ -1,17 +1,17 @@
-import {Typography, TableRow, TableCell, Select, MenuItem} from '@mui/material'
+import { Typography, TableRow, TableCell, Select, MenuItem } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {withStyles} from 'tss-react/mui'
+import { withStyles } from 'tss-react/mui'
 
-import {Input} from '@components/shared/input'
+import { Input } from '@components/shared/input'
 
-import {priceCalculation} from '@utils/calculation'
-import {toFixedWithDollarSign} from '@utils/text'
+import { priceCalculation } from '@utils/calculation'
+import { toFixedWithDollarSign } from '@utils/text'
 
-import {styles} from './modal-table-body-row.style'
+import { styles } from './modal-table-body-row.style'
 
-const ModalTableBodyRowRaw = ({product, managersList, ...restProps}) => {
+const ModalTableBodyRowRaw = ({ product, managersList, ...restProps }) => {
   const classNames = restProps.classes
 
   const [qty, setQty] = useState(product.qty)

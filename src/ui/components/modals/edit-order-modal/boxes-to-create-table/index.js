@@ -1,1 +1,1 @@
-export {BoxesToCreateTable} from './boxes-to-create-table'
+export { BoxesToCreateTable } from './boxes-to-create-table'

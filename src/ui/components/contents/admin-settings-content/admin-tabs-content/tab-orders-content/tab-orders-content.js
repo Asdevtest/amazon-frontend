@@ -1,16 +1,16 @@
 import React from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
-import {Field} from '@components/shared/field/field'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field/field'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './tab-orders-content.style'
+import { useClassNames } from './tab-orders-content.style'
 
-export const TabOrdersContent = ({disabled, disabledSubmit, onSubmit, onChangeField, formFields}) => {
-  const {classes: classNames} = useClassNames()
+export const TabOrdersContent = ({ disabled, disabledSubmit, onSubmit, onChangeField, formFields }) => {
+  const { classes: classNames } = useClassNames()
   return (
     <>
       <Field
@@ -19,7 +19,7 @@ export const TabOrdersContent = ({disabled, disabledSubmit, onSubmit, onChangeFi
           TranslationKey.hour,
         )}`}
         labelClasses={disabled && classNames.unselectable}
-        classes={{root: disabled ? classNames.textFieldUnSelection : classNames.textField}}
+        classes={{ root: disabled ? classNames.textFieldUnSelection : classNames.textField }}
         value={formFields.timeToDeadlinePendingOrder}
         onChange={onChangeField('timeToDeadlinePendingOrder')}
       />

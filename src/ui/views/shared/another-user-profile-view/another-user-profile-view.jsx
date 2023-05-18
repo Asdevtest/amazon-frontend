@@ -1,35 +1,35 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {mapUserRoleEnumToKey, UserRole} from '@constants/keys/user-roles'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { mapUserRoleEnumToKey, UserRole } from '@constants/keys/user-roles'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {MainContent} from '@components/layout/main-content'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {OrderProductModal} from '@components/modals/order-product-modal'
-import {SelectShopsModal} from '@components/modals/select-shops-modal'
-import {SuccessInfoModal} from '@components/modals/success-info-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {Modal} from '@components/shared/modal'
-import {UserProfile} from '@components/user/users-views/user-profile-view/user-profile'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { MainContent } from '@components/layout/main-content'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { OrderProductModal } from '@components/modals/order-product-modal'
+import { SelectShopsModal } from '@components/modals/select-shops-modal'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
+import { UserProfile } from '@components/user/users-views/user-profile-view/user-profile'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {AnotherProfileViewModel} from './another-user-profile-view.model'
-import {styles} from './another-user-profile-view.style'
+import { AnotherProfileViewModel } from './another-user-profile-view.model'
+import { styles } from './another-user-profile-view.style'
 
 export const AnotherUserProfileViewRaw = props => {
-  const [viewModel] = useState(() => new AnotherProfileViewModel({history: props.history}))
-  const {classes: classNames} = props
+  const [viewModel] = useState(() => new AnotherProfileViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()

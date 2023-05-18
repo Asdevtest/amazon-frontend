@@ -1,17 +1,17 @@
-import {Typography, TableRow, TableCell} from '@mui/material'
+import { Typography, TableRow, TableCell } from '@mui/material'
 
 import React from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
+import { Button } from '@components/shared/buttons/button'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './exchange-product-item.style'
+import { useClassNames } from './exchange-product-item.style'
 
-export const ExchangeProductItem = ({product, handlerPrivateLabel, index}) => {
-  const {classes: classNames} = useClassNames()
+export const ExchangeProductItem = ({ product, handlerPrivateLabel, index }) => {
+  const { classes: classNames } = useClassNames()
   return (
     <TableRow>
       <TableCell>

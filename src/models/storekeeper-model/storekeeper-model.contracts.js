@@ -1,4 +1,4 @@
-import {InlineResponse20011, InlineResponse20012, InlineResponse2008} from '@services/rest-api-service/codegen/src'
+import { InlineResponse20011, InlineResponse20012, InlineResponse2008 } from '@services/rest-api-service/codegen/src'
 
 export class StorekeeperBox extends InlineResponse20011 {}
 

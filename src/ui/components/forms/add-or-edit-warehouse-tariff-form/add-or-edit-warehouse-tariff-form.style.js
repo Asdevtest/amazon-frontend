@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -22,7 +22,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  button: {width: '121px', height: '40px'},
+  button: { width: '121px', height: '40px' },
 
   closeButton: {
     color: theme.palette.text.general,

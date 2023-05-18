@@ -1,29 +1,29 @@
-import {cx} from '@emotion/css'
-import {Divider, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Divider, Typography } from '@mui/material'
 
-import React, {FC, useContext} from 'react'
+import React, { FC, useContext } from 'react'
 
 import Linkify from 'react-linkify-always-blank'
 
-import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatMessageDataCreateNewDesignerProposalContract} from '@models/chat-model/contracts/chat-message-data.contract'
-import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
-import {UserModel} from '@models/user-model'
+import { ChatMessageDataCreateNewDesignerProposalContract } from '@models/chat-model/contracts/chat-message-data.contract'
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
+import { UserModel } from '@models/user-model'
 
-import {Button} from '@components/shared/buttons/button'
-import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {CustomTextEditor} from '@components/shared/custom-text-editor'
+import { Button } from '@components/shared/buttons/button'
+import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { CustomTextEditor } from '@components/shared/custom-text-editor'
 
-import {formatDateOnlyTime, formatNormDateTime} from '@utils/date-time'
-import {minsToTime, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { formatDateOnlyTime, formatNormDateTime } from '@utils/date-time'
+import { minsToTime, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
+import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import {LabelValuePairBlock} from '../label-value-pair-block'
-import {useClassNames} from './chat-message-create-new-designer-proposal.style'
+import { LabelValuePairBlock } from '../label-value-pair-block'
+import { useClassNames } from './chat-message-create-new-designer-proposal.style'
 
 export interface ChatMessageProposalHandlers {
   onClickProposalAccept: (proposalId: string, price: number) => void
@@ -35,8 +35,8 @@ interface Props {
   handlers: ChatMessageProposalHandlers
 }
 
-export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({message, handlers}) => {
-  const {classes: classNames} = useClassNames()
+export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, handlers }) => {
+  const { classes: classNames } = useClassNames()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 

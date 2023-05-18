@@ -1,32 +1,32 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {MainContent} from '@components/layout/main-content'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {OrderProductModal} from '@components/modals/order-product-modal'
-import {SelectShopsModal} from '@components/modals/select-shops-modal/select-shops-modal'
-import {SuccessInfoModal} from '@components/modals/success-info-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {Modal} from '@components/shared/modal'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { MainContent } from '@components/layout/main-content'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { OrderProductModal } from '@components/modals/order-product-modal'
+import { SelectShopsModal } from '@components/modals/select-shops-modal/select-shops-modal'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {ClientExchangeViewModel} from './client-exchange-view.model'
-import {styles} from './client-exchange-view.style'
+import { ClientExchangeViewModel } from './client-exchange-view.model'
+import { styles } from './client-exchange-view.style'
 
 export const ClientExchangeViewRaw = props => {
-  const [viewModel] = useState(() => new ClientExchangeViewModel({history: props.history}))
-  const {classes: classNames} = props
+  const [viewModel] = useState(() => new ClientExchangeViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()

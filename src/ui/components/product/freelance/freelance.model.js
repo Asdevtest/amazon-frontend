@@ -1,19 +1,19 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
-import {UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
-import {RequestSubType, RequestType} from '@constants/requests/request-type'
-import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/statuses/freelance-request-type'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { RequestSubType, RequestType } from '@constants/requests/request-type'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {RequestModel} from '@models/request-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { RequestModel } from '@models/request-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {productMyRequestsViewColumns} from '@components/table/table-columns/overall/product-my-requests-columns'
+import { productMyRequestsViewColumns } from '@components/table/table-columns/overall/product-my-requests-columns'
 
-import {myRequestsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 
 export class FreelanceModel {
   history = undefined
@@ -46,19 +46,19 @@ export class FreelanceModel {
     return SettingsModel.languageTag || {}
   }
 
-  handlers = {onClickOpenRequest: item => this.onClickOpenRequest(item)}
+  handlers = { onClickOpenRequest: item => this.onClickOpenRequest(item) }
 
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = productMyRequestsViewColumns(this.languageTag, this.handlers)
-  constructor({history, productId}) {
+  constructor({ history, productId }) {
     this.history = history
 
     this.productId = productId
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
     runInAction(() => {
       if (this.showAcceptMessage) {
         setTimeout(() => {

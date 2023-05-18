@@ -1,26 +1,26 @@
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {FC, useContext} from 'react'
+import React, { FC, useContext } from 'react'
 
 import Linkify from 'react-linkify-always-blank'
 
-import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatMessageDataProposalResultEditedContract} from '@models/chat-model/contracts/chat-message-data.contract'
-import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
-import {UserModel} from '@models/user-model'
+import { ChatMessageDataProposalResultEditedContract } from '@models/chat-model/contracts/chat-message-data.contract'
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
+import { UserModel } from '@models/user-model'
 
-import {Button} from '@components/shared/buttons/button'
-import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
+import { Button } from '@components/shared/buttons/button'
+import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
 
-import {formatDateTimeHourAndMinutes} from '@utils/date-time'
-import {t} from '@utils/translations'
+import { formatDateTimeHourAndMinutes } from '@utils/date-time'
+import { t } from '@utils/translations'
 
-import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
+import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import {useClassNames} from './chat-message-request-proposal-result-edited.style'
+import { useClassNames } from './chat-message-request-proposal-result-edited.style'
 
 export interface ChatMessageRequestProposalResultEditedHandlers {
   onClickProposalResultToCorrect: (proposalId: string) => void
@@ -32,8 +32,8 @@ interface Props {
   handlers: ChatMessageRequestProposalResultEditedHandlers
 }
 
-export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, handlers}) => {
-  const {classes: classNames} = useClassNames()
+export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, handlers }) => {
+  const { classes: classNames } = useClassNames()
   const proposal = message.data.proposal
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)

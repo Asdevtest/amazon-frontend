@@ -1,15 +1,15 @@
 import axios from 'axios'
-import {compareVersions} from 'compare-versions'
+import { compareVersions } from 'compare-versions'
 import isEqual from 'lodash.isequal'
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
-import {makePersistable} from 'mobx-persist-store'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makePersistable } from 'mobx-persist-store'
 
-import {appVersion} from '@constants/app-version'
-import {snackNoticeKey} from '@constants/keys/snack-notifications'
-import {UiTheme} from '@constants/theme/themes'
-import {LanguageKey} from '@constants/translations/language-key'
+import { appVersion } from '@constants/app-version'
+import { snackNoticeKey } from '@constants/keys/snack-notifications'
+import { UiTheme } from '@constants/theme/themes'
+import { LanguageKey } from '@constants/translations/language-key'
 
-import {setI18nConfig} from '@utils/translations'
+import { setI18nConfig } from '@utils/translations'
 
 const persistProperties = [
   'dataGridState',
@@ -50,9 +50,9 @@ class SettingsModelStatic {
   }
 
   constructor() {
-    makeAutoObservable(this, undefined, {autoBind: true})
-    makePersistable(this, {name: stateModelName, properties: persistProperties})
-      .then(({isHydrated}) => {
+    makeAutoObservable(this, undefined, { autoBind: true })
+    makePersistable(this, { name: stateModelName, properties: persistProperties })
+      .then(({ isHydrated }) => {
         runInAction(() => {
           this.isHydrated = isHydrated
         })
@@ -160,19 +160,19 @@ class SettingsModelStatic {
   }
 
   setDataGridState(state, tableKey) {
-    this.dataGridState = {...this.dataGridState, [tableKey]: state}
+    this.dataGridState = { ...this.dataGridState, [tableKey]: state }
   }
 
   setActiveSubCategoryState(state, tableKey) {
-    this.activeSubCategoryState = {...this.activeSubCategoryState, [tableKey]: state}
+    this.activeSubCategoryState = { ...this.activeSubCategoryState, [tableKey]: state }
   }
 
   setViewTableModeState(state, tableKey) {
-    this.viewTableModeState = {...this.viewTableModeState, [tableKey]: state}
+    this.viewTableModeState = { ...this.viewTableModeState, [tableKey]: state }
   }
 
   setChatMessageState(state, tableKey) {
-    this.chatMessageState = {...this.chatMessageState, [tableKey]: state}
+    this.chatMessageState = { ...this.chatMessageState, [tableKey]: state }
   }
 
   setLanguageTag(languageKey) {
@@ -187,9 +187,9 @@ class SettingsModelStatic {
     this.breadcrumbsForProfile = pathname
   }
 
-  setSnackNotifications({key, notice}) {
+  setSnackNotifications({ key, notice }) {
     runInAction(() => {
-      this.snackNotifications = {...this.snackNotifications, [key]: notice}
+      this.snackNotifications = { ...this.snackNotifications, [key]: notice }
     })
   }
 }

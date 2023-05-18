@@ -1,26 +1,26 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid/data-grid-tables-keys'
-import {BoxStatus} from '@constants/statuses/box-status'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task/task-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { BoxStatus } from '@constants/statuses/box-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { mapTaskStatusEmumToKey, TaskStatus } from '@constants/task/task-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BoxesModel} from '@models/boxes-model'
-import {ClientModel} from '@models/client-model'
-import {GeneralModel} from '@models/general-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { BoxesModel } from '@models/boxes-model'
+import { ClientModel } from '@models/client-model'
+import { GeneralModel } from '@models/general-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {clientBoxesViewColumns} from '@components/table/table-columns/client/client-boxes-columns'
-import {clientTasksViewColumns} from '@components/table/table-columns/client/client-tasks-columns'
+import { clientBoxesViewColumns } from '@components/table/table-columns/client/client-boxes-columns'
+import { clientTasksViewColumns } from '@components/table/table-columns/client/client-tasks-columns'
 
-import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
-import {getTableByColumn, objectToUrlQs} from '@utils/text'
-import {t} from '@utils/translations'
+import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDate } from '@utils/date-time'
+import { getTableByColumn, objectToUrlQs } from '@utils/text'
+import { t } from '@utils/translations'
 
 const filtersFields = ['operationType', 'status', 'storekeeper', 'priority']
 
@@ -66,7 +66,7 @@ export class ClientWarehouseTasksViewModel {
 
   rowCount = 0
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
 
   curPage = 0
   rowsPerPage = 15
@@ -116,7 +116,7 @@ export class ClientWarehouseTasksViewModel {
     })
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
@@ -124,7 +124,7 @@ export class ClientWarehouseTasksViewModel {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     // reaction(
     //   () => SettingsModel.languageTag,
@@ -187,7 +187,7 @@ export class ClientWarehouseTasksViewModel {
 
   startEditTaskPriority(taskId, newPriority) {
     runInAction(() => {
-      this.editPriorityData = {taskId, newPriority}
+      this.editPriorityData = { taskId, newPriority }
       this.showEditPriorityData = true
     })
   }
@@ -420,7 +420,7 @@ export class ClientWarehouseTasksViewModel {
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
           ...this.columnMenuSettings,
-          [column]: {...this.columnMenuSettings[column], filterData: data},
+          [column]: { ...this.columnMenuSettings[column], filterData: data },
         }
       }
     } catch (error) {
@@ -442,12 +442,12 @@ export class ClientWarehouseTasksViewModel {
 
     const filter = objectToUrlQs({
       or: [
-        {asin: {$contains: this.nameSearchValue}},
-        {amazonTitle: {$contains: this.nameSearchValue}},
-        {skusByClient: {$contains: this.nameSearchValue}},
-        {id: {$eq: this.nameSearchValue}},
-        {item: {$eq: this.nameSearchValue}},
-        {humanFriendlyId: {$eq: this.nameSearchValue}},
+        { asin: { $contains: this.nameSearchValue } },
+        { amazonTitle: { $contains: this.nameSearchValue } },
+        { skusByClient: { $contains: this.nameSearchValue } },
+        { id: { $eq: this.nameSearchValue } },
+        { item: { $eq: this.nameSearchValue } },
+        { humanFriendlyId: { $eq: this.nameSearchValue } },
       ].filter(
         el =>
           ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
@@ -461,19 +461,19 @@ export class ClientWarehouseTasksViewModel {
       // }),
 
       ...(typeFilter && {
-        operationType: {$eq: typeFilter},
+        operationType: { $eq: typeFilter },
       }),
 
       ...(statusFilter && {
-        status: {$eq: statusFilter},
+        status: { $eq: statusFilter },
       }),
 
       ...(storekeeperFilter && {
-        storekeeper: {$eq: storekeeperFilter},
+        storekeeper: { $eq: storekeeperFilter },
       }),
 
       ...(priorityFilter && {
-        priority: {$eq: priorityFilter},
+        priority: { $eq: priorityFilter },
       }),
     })
 
@@ -529,7 +529,7 @@ export class ClientWarehouseTasksViewModel {
         this.onTriggerOpenModal('showWarningInfoModal')
       } else {
         runInAction(() => {
-          this.toCancelData = {id, taskId, type}
+          this.toCancelData = { id, taskId, type }
         })
 
         this.onTriggerOpenModal('showConfirmWithCommentModal')
@@ -545,7 +545,7 @@ export class ClientWarehouseTasksViewModel {
 
       this.onTriggerOpenModal('showConfirmWithCommentModal')
 
-      await this.cancelTask(this.toCancelData.taskId, {clientComment: comment})
+      await this.cancelTask(this.toCancelData.taskId, { clientComment: comment })
 
       await this.getBoxesMy()
     } catch (error) {

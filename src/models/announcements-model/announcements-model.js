@@ -1,4 +1,4 @@
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 export class AnnouncementsModelStatic {
   getMyAnnouncements = async type => {

@@ -1,1 +1,1 @@
-export {StyledButton} from './styled-button.tsx'
+export { StyledButton } from './styled-button.tsx'

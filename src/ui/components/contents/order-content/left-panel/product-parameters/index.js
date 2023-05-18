@@ -1,1 +1,1 @@
-export {ProductParameters} from './product-parameters'
+export { ProductParameters } from './product-parameters'

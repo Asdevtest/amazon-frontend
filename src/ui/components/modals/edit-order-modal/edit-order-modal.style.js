@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   modalTitle: {
@@ -108,7 +108,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'end',
     gap: '10px',
   },
-  saveBtn: {width: '190px', height: '40px'},
+  saveBtn: { width: '190px', height: '40px' },
   tableWrapper: {
     marginTop: '15px',
   },

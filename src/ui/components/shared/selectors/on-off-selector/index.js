@@ -1,1 +1,1 @@
-export {OnOffSelector} from './on-off-selector'
+export { OnOffSelector } from './on-off-selector'

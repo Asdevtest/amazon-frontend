@@ -1,1 +1,1 @@
-export {CheckQuantityForm} from './check-quantity-form'
+export { CheckQuantityForm } from './check-quantity-form'

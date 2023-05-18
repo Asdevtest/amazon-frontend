@@ -1,24 +1,24 @@
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {MainContent} from '@components/layout/main-content'
-import {Button} from '@components/shared/buttons/button'
+import { MainContent } from '@components/layout/main-content'
+import { Button } from '@components/shared/buttons/button'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {ClientNotificationsViewModel} from './client-notifications-view.model'
-import {styles} from './client-notifications-view.style'
+import { ClientNotificationsViewModel } from './client-notifications-view.model'
+import { styles } from './client-notifications-view.style'
 
 export const ClientNotificationsViewRaw = props => {
-  const [viewModel] = useState(() => new ClientNotificationsViewModel({history: props.history}))
-  const {classes: classNames} = props
+  const [viewModel] = useState(() => new ClientNotificationsViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
   return (
     <React.Fragment>

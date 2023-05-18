@@ -1,1 +1,1 @@
-export {UploadFilesInput} from './upload-files-input'
+export { UploadFilesInput } from './upload-files-input'

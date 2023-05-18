@@ -1,15 +1,15 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {mapProductStrategyStatusEnumToKey, ProductStrategyStatus} from '@constants/product/product-strategy-status'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import { mapProductStrategyStatusEnumToKey, ProductStrategyStatus } from '@constants/product/product-strategy-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {ClientModel} from '@models/client-model'
-import {ShopModel} from '@models/shop-model'
-import {UserModel} from '@models/user-model'
+import { ClientModel } from '@models/client-model'
+import { ShopModel } from '@models/shop-model'
+import { UserModel } from '@models/user-model'
 
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 
 export class ClientExchangePrivateLabelViewModel {
   history = undefined
@@ -24,11 +24,11 @@ export class ClientExchangePrivateLabelViewModel {
   showConfirmPayModal = false
   showSuccessModal = false
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {

@@ -1,29 +1,29 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import {Avatar, Checkbox, Divider, Link, Paper, Tooltip, Typography} from '@mui/material'
+import { Avatar, Checkbox, Divider, Link, Paper, Tooltip, Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {inchesCoefficient, sizesType} from '@constants/configs/sizes-settings'
-import {TaskOperationType} from '@constants/task/task-operation-type'
-import {UiTheme} from '@constants/theme/themes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import { TaskOperationType } from '@constants/task/task-operation-type'
+import { UiTheme } from '@constants/theme/themes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {BigImagesModal} from '@components/modals/big-images-modal'
-import {Button} from '@components/shared/buttons/button'
-import {ToggleBtnGroup} from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import {ToggleBtn} from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
-import {CopyValue} from '@components/shared/copy-value/copy-value'
-import {CustomCarousel, PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {Field} from '@components/shared/field'
-import {Modal} from '@components/shared/modal'
-import {Text} from '@components/shared/text'
+import { BigImagesModal } from '@components/modals/big-images-modal'
+import { Button } from '@components/shared/buttons/button'
+import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
+import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { CustomCarousel, PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { Field } from '@components/shared/field'
+import { Modal } from '@components/shared/modal'
+import { Text } from '@components/shared/text'
 
 import {
   checkAndMakeAbsoluteUrl,
@@ -32,12 +32,12 @@ import {
   toFixed,
   toFixedWithKg,
 } from '@utils/text'
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {EditBoxTasksModal} from '../edit-task-modal/edit-box-tasks-modal'
-import {useClassNames} from './before-after-block.style'
-import {BoxItemCard} from './box-item-card'
-import {ShortBoxItemCard} from './short-box-item-card'
+import { EditBoxTasksModal } from '../edit-task-modal/edit-box-tasks-modal'
+import { useClassNames } from './before-after-block.style'
+import { BoxItemCard } from './box-item-card'
+import { ShortBoxItemCard } from './short-box-item-card'
 
 const Box = observer(
   ({
@@ -56,17 +56,17 @@ const Box = observer(
     referenceEditingBox,
     onClickApplyAllBtn,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const [showFullCard, setShowFullCard] = useState(true /* && newBoxes[0]._id === box._id ? true : false*/)
 
     const [showPhotosModal, setShowPhotosModal] = useState(false)
 
-    const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+    const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
 
     const onChangeField = (value, field) => {
       const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
-      const updatedTargetBox = {...targetBox, [field]: value}
+      const updatedTargetBox = { ...targetBox, [field]: value }
       const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === box._id ? updatedTargetBox : newBox))
       setNewBoxes(updatedNewBoxes)
     }
@@ -406,7 +406,7 @@ const Box = observer(
                               <div key={index} className={classNames.imageLinkListItem}>
                                 <Tooltip
                                   title={renderImageInfo(image, image)}
-                                  classes={{popper: classNames.imgTooltip}}
+                                  classes={{ popper: classNames.imgTooltip }}
                                 >
                                   <Avatar className={classNames.image} src={image} alt={image} variant="square" />
                                 </Tooltip>
@@ -419,7 +419,7 @@ const Box = observer(
                               <div key={index} className={classNames.imageListItem}>
                                 <Tooltip
                                   title={renderImageInfo(image.data_url, image.file.name)}
-                                  classes={{popper: classNames.imgTooltip}}
+                                  classes={{ popper: classNames.imgTooltip }}
                                 >
                                   <img
                                     className={classNames.image}
@@ -792,7 +792,10 @@ const Box = observer(
                         {box.tmpImages?.map((image, index) =>
                           typeof image === 'string' ? (
                             <div key={index} className={classNames.imageLinkListItem}>
-                              <Tooltip title={renderImageInfo(image, image)} classes={{popper: classNames.imgTooltip}}>
+                              <Tooltip
+                                title={renderImageInfo(image, image)}
+                                classes={{ popper: classNames.imgTooltip }}
+                              >
                                 <Avatar className={classNames.image} src={image} alt={image} variant="square" />
                               </Tooltip>
 
@@ -804,7 +807,7 @@ const Box = observer(
                             <div key={index} className={classNames.imageListItem}>
                               <Tooltip
                                 title={renderImageInfo(image.data_url, image.file.name)}
-                                classes={{popper: classNames.imgTooltip}}
+                                classes={{ popper: classNames.imgTooltip }}
                               >
                                 <img
                                   className={classNames.image}
@@ -844,7 +847,7 @@ const Box = observer(
 
         {isNewBox && (
           <div className={classNames.bottomBlockWrapper}>
-            <div className={cx(classNames.editBtnWrapper, {[classNames.noEditBtnWrapper]: readOnly})}>
+            <div className={cx(classNames.editBtnWrapper, { [classNames.noEditBtnWrapper]: readOnly })}>
               {isEdit && !readOnly && (
                 <div className={classNames.btnsWrapper}>
                   <Button
@@ -903,15 +906,15 @@ const Box = observer(
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
+          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
       </div>
     )
   },
 )
 
-const ReceiveBoxes = ({taskType, onClickOpenModal}) => {
-  const {classes: classNames} = useClassNames()
+const ReceiveBoxes = ({ taskType, onClickOpenModal }) => {
+  const { classes: classNames } = useClassNames()
   return (
     <div className={classNames.receiveBoxWrapper}>
       <div className={classNames.receiveBox}>
@@ -953,7 +956,7 @@ const NewBoxes = observer(
     readOnly,
     onClickApplyAllBtn,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const [curBox, setCurBox] = useState({})
 
@@ -1031,7 +1034,7 @@ export const BeforeAfterBlock = observer(
     readOnly,
     onClickApplyAllBtn,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const onClickEditBox = box => {
       onEditBox(box)

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextHeaderCell,
@@ -10,8 +10,8 @@ import {
   StringListCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {formatDate} from '@utils/date-time'
-import {t} from '@utils/translations'
+import { formatDate } from '@utils/date-time'
+import { t } from '@utils/translations'
 
 export const productLotDataFormColumns = handlers => [
   {

@@ -1,37 +1,37 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {mapUserRoleEnumToKey, UserRole} from '@constants/keys/user-roles'
-import {CLIENT_USER_MANAGERS_LIST} from '@constants/mocks'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { mapUserRoleEnumToKey, UserRole } from '@constants/keys/user-roles'
+import { CLIENT_USER_MANAGERS_LIST } from '@constants/mocks'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {AvatarEditorForm} from '@components/forms/avatar-editor-form'
-import {UserInfoEditForm} from '@components/forms/user-info-edit-form'
-import {MainContent} from '@components/layout/main-content'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {Modal} from '@components/shared/modal'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { AvatarEditorForm } from '@components/forms/avatar-editor-form'
+import { UserInfoEditForm } from '@components/forms/user-info-edit-form'
+import { MainContent } from '@components/layout/main-content'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
 // import {ActiveOrders} from '@components/screens/users-views/user-profile-view/active-orders'
-import {ContentModal} from '@components/user/users-views/user-profile-view/content-modal'
-import {UserProfile} from '@components/user/users-views/user-profile-view/user-profile'
+import { ContentModal } from '@components/user/users-views/user-profile-view/content-modal'
+import { UserProfile } from '@components/user/users-views/user-profile-view/user-profile'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {ProfileViewModel} from './user-profile-view.model'
-import {styles} from './user-profile-view.style'
+import { ProfileViewModel } from './user-profile-view.model'
+import { styles } from './user-profile-view.style'
 
 export const UserProfileViewRaw = props => {
-  const [viewModel] = useState(() => new ProfileViewModel({history: props.history}))
+  const [viewModel] = useState(() => new ProfileViewModel({ history: props.history }))
 
-  const {classes: classNames} = props
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()

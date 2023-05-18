@@ -1,1 +1,1 @@
-export {TabMainContent} from './tab-main-content'
+export { TabMainContent } from './tab-main-content'

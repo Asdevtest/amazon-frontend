@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   rightPanel: {
@@ -24,7 +24,7 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: '300px',
     maxWidth: '600px',
     // flex: '1 1 300px',
-    [theme.breakpoints.down(768)]: {width: '100%'},
+    [theme.breakpoints.down(768)]: { width: '100%' },
   },
   formHeader: {
     display: 'flex',
@@ -72,7 +72,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifySelf: 'flex-end',
     transform: 'translate(150%, 0)',
     color: theme.palette.primary.main,
-    [theme.breakpoints.down(768)]: {transform: 'none'},
+    [theme.breakpoints.down(768)]: { transform: 'none' },
   },
   selectorsWrapper: {
     width: '110px',

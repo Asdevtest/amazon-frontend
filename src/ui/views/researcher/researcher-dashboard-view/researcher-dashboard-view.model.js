@@ -1,10 +1,10 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {ResearcherDashboardCardDataKey} from '@constants/navigation/dashboard-configs'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import { ResearcherDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {DashboardModel} from '@models/dashboard-model'
-import {UserModel} from '@models/user-model'
+import { DashboardModel } from '@models/dashboard-model'
+import { UserModel } from '@models/user-model'
 
 export class ResearcherDashboardViewModel {
   history = undefined
@@ -31,11 +31,11 @@ export class ResearcherDashboardViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {
@@ -81,7 +81,7 @@ export class ResearcherDashboardViewModel {
 
   onClickInfoCardViewMode(route, dataGridFilter) {
     if (dataGridFilter) {
-      this.history.push(route, {dataGridFilter})
+      this.history.push(route, { dataGridFilter })
     } else {
       this.history.push(route)
     }

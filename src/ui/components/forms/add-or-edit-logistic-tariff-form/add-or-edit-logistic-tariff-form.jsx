@@ -1,33 +1,33 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
-import {ToggleBtnGroup} from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import {ToggleBtn} from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
-import {NewDatePicker} from '@components/shared/date-picker/date-picker'
-import {Field} from '@components/shared/field/field'
-import {Text} from '@components/shared/text'
+import { Button } from '@components/shared/buttons/button'
+import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
+import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { Field } from '@components/shared/field/field'
+import { Text } from '@components/shared/text'
 
-import {roundHalf} from '@utils/calculation'
+import { roundHalf } from '@utils/calculation'
 import {
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
 } from '@utils/checks'
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './add-or-edit-logistic-tariff-form.style'
+import { useClassNames } from './add-or-edit-logistic-tariff-form.style'
 
 export const AddOrEditLogisticTariffForm = observer(
-  ({onCloseModal, onCreateSubmit, onEditSubmit, tariffToEdit, sourceYuanToDollarRate}) => {
-    const {classes: classNames} = useClassNames()
+  ({ onCloseModal, onCreateSubmit, onEditSubmit, tariffToEdit, sourceYuanToDollarRate }) => {
+    const { classes: classNames } = useClassNames()
 
     const rateSettings = {
       IN_DOLLAR: 'IN_DOLLAR',
@@ -68,7 +68,7 @@ export const AddOrEditLogisticTariffForm = observer(
     const [formFields, setFormFields] = useState(sourceFormFields)
 
     const onChangeField = (fieldName, direction) => event => {
-      const newFormFields = {...formFields}
+      const newFormFields = { ...formFields }
 
       if (['cls', 'etd', 'eta'].includes(fieldName)) {
         newFormFields[fieldName] = event
@@ -90,7 +90,7 @@ export const AddOrEditLogisticTariffForm = observer(
     }
 
     useEffect(() => {
-      const newFormFields = {...formFields}
+      const newFormFields = { ...formFields }
 
       if (currencyType === rateSettings.IN_YAN) {
         newFormFields.conditionsByRegion.west.rate = toFixed(
@@ -217,7 +217,7 @@ export const AddOrEditLogisticTariffForm = observer(
             <Field
               label={t(TranslationKey.Title) + '*'}
               tooltipInfoContent={t(TranslationKey['Rate name'])}
-              inputProps={{maxLength: 50}}
+              inputProps={{ maxLength: 50 }}
               labelClasses={classNames.fieldLabel}
               containerClasses={classNames.longContainer}
               value={formFields.name}
@@ -229,7 +229,7 @@ export const AddOrEditLogisticTariffForm = observer(
               label={t(TranslationKey['Delivery time, days']) + '*'}
               error={!formFields.deliveryTimeInDay}
               tooltipInfoContent={t(TranslationKey['Approximate delivery time'])}
-              inputProps={{maxLength: 20}}
+              inputProps={{ maxLength: 20 }}
               labelClasses={classNames.fieldLabel}
               containerClasses={classNames.longContainer}
               value={formFields.deliveryTimeInDay}
@@ -240,7 +240,7 @@ export const AddOrEditLogisticTariffForm = observer(
           <Field
             label={t(TranslationKey['Min. weight, kg']) + '*'}
             tooltipInfoContent={t(TranslationKey['Minimum box weight available for this rate'])}
-            inputProps={{maxLength: 12}}
+            inputProps={{ maxLength: 12 }}
             labelClasses={classNames.fieldLabel}
             containerClasses={classNames.longContainer}
             value={formFields.minWeightInKg}
@@ -282,7 +282,7 @@ export const AddOrEditLogisticTariffForm = observer(
                 <Field
                   oneLine
                   label={t(TranslationKey['Yuan to USD exchange rate'])}
-                  inputProps={{maxLength: 8}}
+                  inputProps={{ maxLength: 8 }}
                   tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
                   containerClasses={classNames.rateContainer}
                   labelClasses={cx(classNames.rateLabel, classNames.rightMargin)}
@@ -298,7 +298,7 @@ export const AddOrEditLogisticTariffForm = observer(
                 <Field
                   label={`US West Coast ${currencyType === rateSettings.IN_DOLLAR ? '$' : '¥'}`}
                   error={Number(formFields.conditionsByRegion.west.rate) <= 0}
-                  inputProps={{maxLength: 10}}
+                  inputProps={{ maxLength: 10 }}
                   labelClasses={classNames.fieldLabel}
                   value={formFields.conditionsByRegion.west.rate}
                   onChange={e => {
@@ -316,7 +316,7 @@ export const AddOrEditLogisticTariffForm = observer(
                 <Field
                   label={`US Central ${currencyType === rateSettings.IN_DOLLAR ? '$' : '¥'}`}
                   error={Number(formFields.conditionsByRegion.central.rate) <= 0}
-                  inputProps={{maxLength: 10}}
+                  inputProps={{ maxLength: 10 }}
                   labelClasses={classNames.fieldLabel}
                   value={formFields.conditionsByRegion.central.rate}
                   onChange={e => {
@@ -334,7 +334,7 @@ export const AddOrEditLogisticTariffForm = observer(
                 <Field
                   label={`US East Coast ${currencyType === rateSettings.IN_DOLLAR ? '$' : '¥'}`}
                   error={Number(formFields.conditionsByRegion.east.rate) <= 0}
-                  inputProps={{maxLength: 10}}
+                  inputProps={{ maxLength: 10 }}
                   labelClasses={classNames.fieldLabel}
                   value={formFields.conditionsByRegion.east.rate}
                   onChange={e => {
@@ -427,7 +427,7 @@ export const AddOrEditLogisticTariffForm = observer(
                 minRows={4}
                 maxRows={4}
                 labelClasses={classNames.fieldLabel}
-                inputProps={{maxLength: 320}}
+                inputProps={{ maxLength: 320 }}
                 className={classNames.descriptionField}
                 tooltipInfoContent={t(TranslationKey['Additional information about the rate'])}
                 placeholder={t(TranslationKey.Description)}
@@ -436,7 +436,7 @@ export const AddOrEditLogisticTariffForm = observer(
                 onChange={onChangeField('description')}
               />
               <span
-                className={cx(classNames.standartText, {[classNames.error]: formFields.description.length > 255})}
+                className={cx(classNames.standartText, { [classNames.error]: formFields.description.length > 255 })}
               >{`${formFields.description.length} ${t(TranslationKey.of)} 255 ${t(TranslationKey.characters)}`}</span>
             </div>
           </div>

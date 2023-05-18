@@ -1,19 +1,19 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import {Box, Checkbox, InputAdornment, MenuItem, Paper, Select, TableCell, TableRow, Typography} from '@mui/material'
+import { Box, Checkbox, InputAdornment, MenuItem, Paper, Select, TableCell, TableRow, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
 import AddIcon from '@material-ui/icons/Add'
 import AcceptIcon from '@material-ui/icons/Check'
 import AcceptRevokeIcon from '@material-ui/icons/Clear'
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import {
   getOrderStatusOptionByCode,
   OrderStatus,
@@ -21,46 +21,46 @@ import {
   OrderStatusByKey,
   OrderStatusTranslate,
 } from '@constants/statuses/order-status'
-import {BUYER_WAREHOUSE_HEAD_CELLS} from '@constants/table/table-head-cells'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { BUYER_WAREHOUSE_HEAD_CELLS } from '@constants/table/table-head-cells'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {CheckQuantityForm} from '@components/forms/check-quantity-form'
-import {CreateBoxForm} from '@components/forms/create-box-form'
-import {PaymentMethodsForm} from '@components/forms/payment-methods-form'
-import {SupplierPaymentForm} from '@components/forms/supplier-payment-form'
-import {CommentsForm} from '@components/forms/сomments-form'
-import {BigImagesModal} from '@components/modals/big-images-modal'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
-import {Button} from '@components/shared/buttons/button'
-import {CustomCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {Field} from '@components/shared/field/field'
-import {Input} from '@components/shared/input'
-import {Modal} from '@components/shared/modal'
-import {Table} from '@components/shared/table'
-import {Text} from '@components/shared/text'
-import {WarehouseBodyRow} from '@components/table/table-rows/warehouse'
+import { CheckQuantityForm } from '@components/forms/check-quantity-form'
+import { CreateBoxForm } from '@components/forms/create-box-form'
+import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
+import { SupplierPaymentForm } from '@components/forms/supplier-payment-form'
+import { CommentsForm } from '@components/forms/сomments-form'
+import { BigImagesModal } from '@components/modals/big-images-modal'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
+import { Button } from '@components/shared/buttons/button'
+import { CustomCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { Field } from '@components/shared/field/field'
+import { Input } from '@components/shared/input'
+import { Modal } from '@components/shared/modal'
+import { Table } from '@components/shared/table'
+import { Text } from '@components/shared/text'
+import { WarehouseBodyRow } from '@components/table/table-rows/warehouse'
 
-import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull} from '@utils/checks'
-import {formatDateWithoutTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull } from '@utils/checks'
+import { formatDateWithoutTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import {
   clearEverythingExceptNumbers,
   getShortenStringIfLongerThanCount,
   timeToDeadlineInHoursAndMins,
 } from '@utils/text'
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {BoxesToCreateTable} from './boxes-to-create-table'
-import {useClassNames} from './edit-order-modal.style'
-import {EditOrderSuppliersTable} from './edit-order-suppliers-table'
-import {ProductTable} from './product-table'
-import {SelectFields} from './select-fields'
+import { BoxesToCreateTable } from './boxes-to-create-table'
+import { useClassNames } from './edit-order-modal.style'
+import { EditOrderSuppliersTable } from './edit-order-suppliers-table'
+import { ProductTable } from './product-table'
+import { SelectFields } from './select-fields'
 
 const orderStatusesThatTriggersEditBoxBlock = [OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]]
 
@@ -96,7 +96,7 @@ export const EditOrderModal = observer(
     onClickUpdataSupplierData,
     onChangeImagesForLoad,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(true)
 
@@ -141,9 +141,9 @@ export const EditOrderModal = observer(
 
     const [commentToWarehouse, setCommentToWarehouse] = useState('')
 
-    const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+    const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
     const [showPhotosModal, setShowPhotosModal] = useState(false)
-    const [trackNumber, setTrackNumber] = useState({text: '', files: []})
+    const [trackNumber, setTrackNumber] = useState({ text: '', files: [] })
 
     const [boxesForCreation, setBoxesForCreation] = useState([])
     const [isEdit, setIsEdit] = useState(false)
@@ -189,7 +189,10 @@ export const EditOrderModal = observer(
     }
 
     const onClickUpdateSupplierStandart = boxIndex => e => {
-      const newStateFormFields = [...boxesForCreation].map(el => ({...el, tmpUseToUpdateSupplierBoxDimensions: false}))
+      const newStateFormFields = [...boxesForCreation].map(el => ({
+        ...el,
+        tmpUseToUpdateSupplierBoxDimensions: false,
+      }))
 
       newStateFormFields[boxIndex].tmpUseToUpdateSupplierBoxDimensions = e.target.checked
 
@@ -240,10 +243,10 @@ export const EditOrderModal = observer(
 
     const [orderPayments, setOrderPayments] = useState([...orderFields.payments, ...validOrderPayments])
 
-    const [hsCode, setHsCode] = useState({...hsCodeData})
+    const [hsCode, setHsCode] = useState({ ...hsCodeData })
 
     const onClickUpdateButton = () => {
-      const newOrderFieldsState = {...orderFields}
+      const newOrderFieldsState = { ...orderFields }
 
       newOrderFieldsState.deliveryCostToTheWarehouse =
         (orderFields.orderSupplier.batchDeliveryCostInYuan /
@@ -317,13 +320,13 @@ export const EditOrderModal = observer(
     const [selectedSupplier, setSelectedSupplier] = useState(null)
 
     useEffect(() => {
-      setOrderFields({...orderFields, product: order.product, orderSupplier: order.orderSupplier})
+      setOrderFields({ ...orderFields, product: order.product, orderSupplier: order.orderSupplier })
 
       setSelectedSupplier(null)
     }, [order])
 
     const setOrderField = filedName => e => {
-      const newOrderFieldsState = {...orderFields}
+      const newOrderFieldsState = { ...orderFields }
 
       if (
         [
@@ -449,7 +452,7 @@ export const EditOrderModal = observer(
     const onClickSubmitSaveSupplierBtn = requestData => {
       setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
 
-      const data = {...requestData, productId: order.product?._id}
+      const data = { ...requestData, productId: order.product?._id }
 
       onClickSaveSupplierBtn(data)
     }
@@ -527,7 +530,7 @@ export const EditOrderModal = observer(
               <Input
                 disabled={Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])}
                 className={classNames.itemInput}
-                inputProps={{maxLength: 9}}
+                inputProps={{ maxLength: 9 }}
                 value={orderFields.item}
                 endAdornment={
                   <InputAdornment position="start">
@@ -563,7 +566,7 @@ export const EditOrderModal = observer(
                         [classNames.alertText]: getDistanceBetweenDatesInSeconds(orderFields.deadline) < 86400,
                       })}
                     >
-                      {`(${timeToDeadlineInHoursAndMins({date: orderFields.deadline, withSeconds: true})})`}
+                      {`(${timeToDeadlineInHoursAndMins({ date: orderFields.deadline, withSeconds: true })})`}
                     </Typography>
                   </div>
                 }
@@ -854,10 +857,10 @@ export const EditOrderModal = observer(
                         })}
                         onClick={() => {
                           if (isSupplierAcceptRevokeActive) {
-                            setOrderField('orderSupplier')({target: {value: null}})
+                            setOrderField('orderSupplier')({ target: { value: null } })
                             !isPendingOrder && setUpdateSupplierData(false)
                           } else {
-                            setOrderField('orderSupplier')({target: {value: selectedSupplier}})
+                            setOrderField('orderSupplier')({ target: { value: selectedSupplier } })
                             !isPendingOrder && setUpdateSupplierData(false)
                           }
                         }}
@@ -983,10 +986,10 @@ export const EditOrderModal = observer(
                     labelClasses={classNames.label}
                     containerClasses={classNames.containerField}
                     inputClasses={classNames.inputField}
-                    inputProps={{maxLength: 255}}
+                    inputProps={{ maxLength: 255 }}
                     label={t(TranslationKey['Set track number for new boxes']) + ':'}
                     value={trackNumber.text}
-                    onChange={e => setTrackNumber({...trackNumber, text: e.target.value})}
+                    onChange={e => setTrackNumber({ ...trackNumber, text: e.target.value })}
                   />
 
                   <Button
@@ -1035,7 +1038,7 @@ export const EditOrderModal = observer(
                     multiline
                     minRows={4}
                     maxRows={4}
-                    inputProps={{maxLength: 500}}
+                    inputProps={{ maxLength: 500 }}
                     inputClasses={classNames.commentInput}
                     value={commentToWarehouse}
                     labelClasses={classNames.label}
@@ -1125,7 +1128,7 @@ export const EditOrderModal = observer(
             tmpCode={trackNumber.files}
             maxNumber={50 - trackNumber.files.length}
             onClickSaveBarcode={value => {
-              setTrackNumber({...trackNumber, files: value})
+              setTrackNumber({ ...trackNumber, files: value })
               setShowSetBarcodeModal(!showSetBarcodeModal)
             }}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
@@ -1137,7 +1140,7 @@ export const EditOrderModal = observer(
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
+          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
 
         <Modal
@@ -1152,8 +1155,8 @@ export const EditOrderModal = observer(
             acceptText={t(TranslationKey.Continue) + '?'}
             comparisonQuantity={deliveredGoodsCount}
             onClose={() => setShowCheckQuantityModal(!showCheckQuantityModal)}
-            onSubmit={({refundValue}) => {
-              setTmpNewOrderFieldsState({...tmpNewOrderFieldsState, tmpRefundToClient: refundValue})
+            onSubmit={({ refundValue }) => {
+              setTmpNewOrderFieldsState({ ...tmpNewOrderFieldsState, tmpRefundToClient: refundValue })
 
               setConfirmModalMode(confirmModalModes.STATUS)
               setShowConfirmModal(!showConfirmModal)

@@ -1,19 +1,19 @@
-import {cx} from '@emotion/css'
-import {Link, Typography, Avatar} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Link, Typography, Avatar } from '@mui/material'
 
 import React from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {UserModel} from '@models/user-model'
+import { UserModel } from '@models/user-model'
 
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
 
-import {useClassNames} from './user-link.style'
+import { useClassNames } from './user-link.style'
 
 export const UserLink = observer(
-  ({name, userId, blackText, withAvatar, maxNameWidth, customStyles, customClassNames}) => {
-    const {classes: classNames} = useClassNames()
+  ({ name, userId, blackText, withAvatar, maxNameWidth, customStyles, customClassNames }) => {
+    const { classes: classNames } = useClassNames()
 
     const curUserId = UserModel.userId
 
@@ -35,7 +35,7 @@ export const UserLink = observer(
               <Avatar
                 src={getUserAvatarSrc(userId)}
                 className={classNames.avatarWrapper}
-                sx={{width: 28, height: 28}}
+                sx={{ width: 28, height: 28 }}
               />
             ) : null}
 
@@ -43,7 +43,7 @@ export const UserLink = observer(
               className={cx(classNames.linkText, customClassNames, {
                 [classNames.blackLinkText]: blackText,
               })}
-              style={customStyles || (maxNameWidth && {maxWidth: maxNameWidth})}
+              style={customStyles || (maxNameWidth && { maxWidth: maxNameWidth })}
             >
               {name}
             </Typography>

@@ -1,20 +1,20 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {CopyValue} from '@components/shared/copy-value'
+import { CopyValue } from '@components/shared/copy-value'
 
-import {shortAsin} from '@utils/text'
-import {t} from '@utils/translations'
+import { shortAsin } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './asin-link.style'
+import { useClassNames } from './asin-link.style'
 
-export const AsinLink = observer(({asin, withCopyValue, linkSpanClass, missingSpanClass}) => {
-  const {classes: classNames} = useClassNames()
+export const AsinLink = observer(({ asin, withCopyValue, linkSpanClass, missingSpanClass }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <div className={classNames.copyAsin}>

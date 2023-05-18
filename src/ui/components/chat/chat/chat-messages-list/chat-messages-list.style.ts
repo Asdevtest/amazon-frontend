@@ -1,6 +1,6 @@
-import {tooltipClasses} from '@mui/material/Tooltip'
+import { tooltipClasses } from '@mui/material/Tooltip'
 
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -136,7 +136,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'flex-end',
   },
 
-  filesTitle: {marginBottom: 10},
+  filesTitle: { marginBottom: 10 },
 
   filesMainWrapper: {
     backgroundColor: '#FCFCFC',

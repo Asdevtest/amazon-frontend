@@ -1,1 +1,1 @@
-export {DataGridResetFilterButton} from './data-grid-reset-filter-button'
+export { DataGridResetFilterButton } from './data-grid-reset-filter-button'

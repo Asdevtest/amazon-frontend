@@ -1,29 +1,29 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {ReplyFeedbackForm} from '@components/forms/reply-feedback-form'
-import {MainContent} from '@components/layout/main-content'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {Modal} from '@components/shared/modal'
-import {SearchInput} from '@components/shared/search-input'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { ReplyFeedbackForm } from '@components/forms/reply-feedback-form'
+import { MainContent } from '@components/layout/main-content'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {AdminFeedbackViewModel} from './admin-feedback-view.model'
-import {styles} from './admin-feedback-view.style'
+import { AdminFeedbackViewModel } from './admin-feedback-view.model'
+import { styles } from './admin-feedback-view.style'
 
 export const AdminFeedbackViewRaw = props => {
-  const [viewModel] = useState(() => new AdminFeedbackViewModel({history: props.history}))
-  const {classes: classNames} = props
+  const [viewModel] = useState(() => new AdminFeedbackViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()

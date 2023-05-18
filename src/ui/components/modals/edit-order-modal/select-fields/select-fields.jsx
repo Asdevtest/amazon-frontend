@@ -1,24 +1,28 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import AddIcon from '@mui/icons-material/Add'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import {Box, Checkbox, Grid, Link, Typography} from '@mui/material'
+import { Box, Checkbox, Grid, Link, Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {OrderStatus, OrderStatusByKey} from '@constants/statuses/order-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {CustomSelectPaymentDetails} from '@components/custom-select-payment-details'
-import {UserLinkCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
-import {BigImagesModal} from '@components/modals/big-images-modal'
-import {Button} from '@components/shared/buttons/button'
-import {CircularProgressWithLabel} from '@components/shared/circular-progress-with-label'
-import {CopyValue} from '@components/shared/copy-value/copy-value'
-import {CustomCarousel, PhotoAndFilesCarousel, PhotoCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {Field} from '@components/shared/field/field'
-import {UploadFilesInput} from '@components/shared/upload-files-input'
+import { CustomSelectPaymentDetails } from '@components/custom-select-payment-details'
+import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { BigImagesModal } from '@components/modals/big-images-modal'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import {
+  CustomCarousel,
+  PhotoAndFilesCarousel,
+  PhotoCarousel,
+} from '@components/shared/custom-carousel/custom-carousel'
+import { Field } from '@components/shared/field/field'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import {
   calcExchangeDollarsInYuansPrice,
@@ -26,9 +30,9 @@ import {
   calcOrderTotalPriceInYuann,
   calcPriceForItem,
 } from '@utils/calculation'
-import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
-import {convertDaysToSeconds, formatDateWithoutTime, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
+import { convertDaysToSeconds, formatDateWithoutTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import {
   checkAndMakeAbsoluteUrl,
   getFullTariffTextForBoxOrOrder,
@@ -36,10 +40,10 @@ import {
   toFixedWithDollarSign,
   toFixedWithYuanSign,
 } from '@utils/text'
-import {t} from '@utils/translations'
-import {downloadFileByLink} from '@utils/upload-files'
+import { t } from '@utils/translations'
+import { downloadFileByLink } from '@utils/upload-files'
 
-import {useClassNames} from './select-fields.style'
+import { useClassNames } from './select-fields.style'
 
 export const SelectFields = ({
   userInfo,
@@ -69,10 +73,10 @@ export const SelectFields = ({
   setPaymentMethodsModal,
   orderPayments,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const onChangeHsField = fieldName => event => {
-    const newFormFields = {...hsCode}
+    const newFormFields = { ...hsCode }
     newFormFields[fieldName] = event.target.value
 
     setHsCode(newFormFields)
@@ -80,7 +84,7 @@ export const SelectFields = ({
 
   const [showImageModal, setShowImageModal] = useState(false)
 
-  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+  const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
 
   return (
     <Grid container justifyContent="space-between" className={classNames.container}>
@@ -195,7 +199,7 @@ export const SelectFields = ({
               <div>
                 <Field
                   disabled={usePriceInDollars || checkIsPlanningPrice}
-                  inputProps={{maxLength: 10}}
+                  inputProps={{ maxLength: 10 }}
                   labelClasses={classNames.blueLabel}
                   inputClasses={classNames.input}
                   // value={orderFields.priceInYuan}
@@ -215,7 +219,7 @@ export const SelectFields = ({
               <div>
                 <Field
                   disabled={usePriceInDollars || checkIsPlanningPrice}
-                  inputProps={{maxLength: 10}}
+                  inputProps={{ maxLength: 10 }}
                   labelClasses={classNames.label}
                   inputClasses={classNames.input}
                   value={toFixed(orderFields.priceBatchDeliveryInYuan, 2)}
@@ -235,7 +239,7 @@ export const SelectFields = ({
               <Field
                 // disabled={!usePriceInDollars || checkIsPlanningPrice}
                 disabled
-                inputProps={{maxLength: 10}}
+                inputProps={{ maxLength: 10 }}
                 inputClasses={classNames.input}
                 labelClasses={classNames.label}
                 label={t(TranslationKey['Cost of purchase per pc.']) + ', ¥'}
@@ -259,7 +263,7 @@ export const SelectFields = ({
               <Field
                 disabled={checkIsPlanningPrice}
                 error={`${yuanToDollarRate}` !== `${orderFields.yuanToDollarRate}`}
-                inputProps={{maxLength: 10}}
+                inputProps={{ maxLength: 10 }}
                 inputClasses={classNames.input}
                 tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
                 label={t(TranslationKey['Current order course'])}
@@ -306,7 +310,7 @@ export const SelectFields = ({
               <div>
                 <Field
                   disabled={!usePriceInDollars || checkIsPlanningPrice}
-                  inputProps={{maxLength: 10}}
+                  inputProps={{ maxLength: 10 }}
                   inputClasses={classNames.input}
                   labelClasses={classNames.greenLabel}
                   label={t(TranslationKey['Dollars per batch']) + ', $'}
@@ -322,7 +326,7 @@ export const SelectFields = ({
               <div>
                 <Field
                   disabled={!usePriceInDollars || checkIsPlanningPrice}
-                  inputProps={{maxLength: 10}}
+                  inputProps={{ maxLength: 10 }}
                   inputClasses={classNames.input}
                   labelClasses={classNames.label}
                   label={t(TranslationKey['Of these, for shipping to a warehouse in China']) + ', $'}
@@ -345,7 +349,7 @@ export const SelectFields = ({
             <Field
               // disabled={!usePriceInDollars || checkIsPlanningPrice}
               disabled
-              inputProps={{maxLength: 10}}
+              inputProps={{ maxLength: 10 }}
               inputClasses={classNames.input}
               labelClasses={classNames.label}
               label={t(TranslationKey['Cost of purchase per pc.']) + ', $'}
@@ -365,7 +369,7 @@ export const SelectFields = ({
           <div>
             <Field
               disabled
-              inputProps={{maxLength: 10}}
+              inputProps={{ maxLength: 10 }}
               labelClasses={classNames.greenLabel}
               inputClasses={classNames.input}
               label={t(TranslationKey['Planned cost in dollars']) + ', $'}
@@ -481,7 +485,7 @@ export const SelectFields = ({
             disabled={disableSubmit}
             minRows={4}
             maxRows={4}
-            inputProps={{maxLength: 500}}
+            inputProps={{ maxLength: 500 }}
             inputClasses={classNames.commentInput}
             value={orderFields.buyerComment}
             labelClasses={classNames.label}
@@ -498,7 +502,7 @@ export const SelectFields = ({
             label={t(TranslationKey['Track number'])}
             labelClasses={classNames.label}
             inputClasses={classNames.input}
-            inputProps={{maxLength: 50}}
+            inputProps={{ maxLength: 50 }}
             // onChange={setOrderField('trackingNumberChina')}
           />
 
@@ -551,7 +555,7 @@ export const SelectFields = ({
                     label={t(TranslationKey['Return to Client']) + ', $'}
                     labelClasses={classNames.label}
                     inputClasses={classNames.input}
-                    inputProps={{maxLength: 50}}
+                    inputProps={{ maxLength: 50 }}
                     onChange={setOrderField('tmpRefundToClient')}
                   />
                 ) : null}
@@ -576,7 +580,7 @@ export const SelectFields = ({
             label={'HS Code'}
             labelClasses={classNames.label}
             inputClasses={classNames.input}
-            inputProps={{maxLength: 255}}
+            inputProps={{ maxLength: 255 }}
             value={hsCode.hsCode}
             onChange={onChangeHsField('hsCode')}
           />
@@ -642,7 +646,7 @@ export const SelectFields = ({
             label={'产品中文品名'}
             labelClasses={classNames.label}
             inputClasses={cx(classNames.input, classNames.inputFullHeight)}
-            inputProps={{maxLength: 255}}
+            inputProps={{ maxLength: 255 }}
             value={hsCode.chinaTitle}
             onChange={onChangeHsField('chinaTitle')}
           />
@@ -654,7 +658,7 @@ export const SelectFields = ({
             label={t(TranslationKey.Material)}
             labelClasses={classNames.label}
             inputClasses={cx(classNames.input, classNames.inputFullHeight)}
-            inputProps={{maxLength: 255}}
+            inputProps={{ maxLength: 255 }}
             value={hsCode.material}
             onChange={onChangeHsField('material')}
           />
@@ -668,7 +672,7 @@ export const SelectFields = ({
             label={t(TranslationKey['Product usage'])}
             labelClasses={classNames.label}
             inputClasses={classNames.inputFullHeight}
-            inputProps={{maxLength: 255}}
+            inputProps={{ maxLength: 255 }}
             value={hsCode.productUsage}
             onChange={onChangeHsField('productUsage')}
           />
@@ -732,7 +736,7 @@ export const SelectFields = ({
                       withAvatar
                       name={subUser?.name}
                       userId={subUser?._id}
-                      customStyles={{fontWeight: 600, marginLeft: 5}}
+                      customStyles={{ fontWeight: 600, marginLeft: 5 }}
                       maxNameWidth={100}
                     />
                   </div>
@@ -759,7 +763,7 @@ export const SelectFields = ({
         setOpenModal={() => setShowImageModal(!showImageModal)}
         images={bigImagesOptions.images}
         imgIndex={bigImagesOptions.imgIndex}
-        setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
+        setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         // controls={bigImagesModalControls}
       />
     </Grid>

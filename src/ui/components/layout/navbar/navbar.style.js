@@ -1,5 +1,5 @@
 // import {makeStyles} from 'tss-react/mui'
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {

@@ -1,45 +1,45 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DoneIcon from '@mui/icons-material/Done'
-import {Chip, IconButton, Link, Radio, Typography} from '@mui/material'
+import { Chip, IconButton, Link, Radio, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {inchesCoefficient, sizesType} from '@constants/configs/sizes-settings'
-import {zipCodeGroups} from '@constants/configs/zip-code-groups'
-import {operationTypes} from '@constants/keys/operation-types'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { operationTypes } from '@constants/keys/operation-types'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
-import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
-import {Button} from '@components/shared/buttons/button'
-import {ToggleBtnGroup} from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import {ToggleBtn} from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
-import {CopyValue} from '@components/shared/copy-value/copy-value'
-import {Field} from '@components/shared/field'
-import {Modal} from '@components/shared/modal'
-import {SearchInput} from '@components/shared/search-input'
-import {WithSearchSelect} from '@components/shared/selects/with-search-select'
-import {BigPlus} from '@components/shared/svg-icons'
+import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
+import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
+import { Button } from '@components/shared/buttons/button'
+import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
+import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { Field } from '@components/shared/field'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { BigPlus } from '@components/shared/svg-icons'
 
-import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
-import {checkIsPositiveNum, checkIsStringFilesSame} from '@utils/checks'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
-import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
+import { checkIsPositiveNum, checkIsStringFilesSame } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
+import { checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './grouping-boxes-form.style'
+import { useClassNames } from './grouping-boxes-form.style'
 
-const WarehouseDemensions = ({orderBox, sizeSetting}) => {
-  const {classes: classNames} = useClassNames()
+const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <div className={classNames.demensionsWrapper}>
@@ -83,8 +83,8 @@ const WarehouseDemensions = ({orderBox, sizeSetting}) => {
   )
 }
 
-const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, basicBox, onClickBasicBoxRadio}) => {
-  const {classes: classNames} = useClassNames()
+const Box = ({ isNewBox, destinations, box, onChangeField, onRemoveBox, index, basicBox, onClickBasicBoxRadio }) => {
+  const { classes: classNames } = useClassNames()
 
   const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
 
@@ -132,7 +132,7 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
             oneLine
             disabled={!isNewBox}
             label={t(TranslationKey['Boxes in group']) + ':'}
-            inputProps={{maxLength: 5}}
+            inputProps={{ maxLength: 5 }}
             // tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
             containerClasses={classNames.amountField}
             className={classNames.orderInput}
@@ -272,7 +272,7 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
               />
 
               <Field
-                inputProps={{maxLength: 255}}
+                inputProps={{ maxLength: 255 }}
                 tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
                 containerClasses={classNames.field}
                 labelClasses={classNames.label}
@@ -311,7 +311,7 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
         ) : null}
 
         <div className={classNames.bottomBlockWrapper}>
-          <IconButton classes={{root: classNames.icon}} onClick={() => onRemoveBox(isNewBox ? index : box._id)}>
+          <IconButton classes={{ root: classNames.icon }} onClick={() => onRemoveBox(isNewBox ? index : box._id)}>
             <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
           </IconButton>
           <div className={classNames.incomingBtnWrapper}>
@@ -330,8 +330,8 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
 }
 
 export const GroupingBoxesForm = observer(
-  ({destinations, storekeepers, onSubmit, onCloseModal, volumeWeightCoefficient, selectedBoxes}) => {
-    const {classes: classNames} = useClassNames()
+  ({ destinations, storekeepers, onSubmit, onCloseModal, volumeWeightCoefficient, selectedBoxes }) => {
+    const { classes: classNames } = useClassNames()
     const sourceOldBoxes = selectedBoxes.map(el => ({
       ...el,
       destinationId: el.destination?._id || null,
@@ -366,7 +366,7 @@ export const GroupingBoxesForm = observer(
             el.widthCmWarehouse === box.widthCmWarehouse &&
             JSON.stringify(
               el.items.map(el => ({
-                ...getObjectFilteredByKeyArrayBlackList({...el, productId: el.product._id, orderId: el.order._id}, [
+                ...getObjectFilteredByKeyArrayBlackList({ ...el, productId: el.product._id, orderId: el.order._id }, [
                   'isBarCodeAlreadyAttachedByTheSupplier',
                   'isBarCodeAttachedByTheStorekeeper',
                   'order',
@@ -377,7 +377,7 @@ export const GroupingBoxesForm = observer(
             ) ===
               JSON.stringify(
                 box.items.map(el => ({
-                  ...getObjectFilteredByKeyArrayBlackList({...el, productId: el.product._id, orderId: el.order._id}, [
+                  ...getObjectFilteredByKeyArrayBlackList({ ...el, productId: el.product._id, orderId: el.order._id }, [
                     'isBarCodeAlreadyAttachedByTheSupplier',
                     'isBarCodeAttachedByTheStorekeeper',
                     'order',
@@ -409,7 +409,7 @@ export const GroupingBoxesForm = observer(
     }
 
     const onClickAddBox = () => {
-      setNewBoxes([...newBoxes, {...basicBox, amount: 1, humanFriendlyId: ''}])
+      setNewBoxes([...newBoxes, { ...basicBox, amount: 1, humanFriendlyId: '' }])
     }
     const onRemoveOldBox = boxId => {
       const arr = oldBoxes.filter(box => box._id !== boxId)
@@ -445,7 +445,7 @@ export const GroupingBoxesForm = observer(
     }
 
     const onClickSubmit = () => {
-      onSubmit({oldBoxes, newBoxes})
+      onSubmit({ oldBoxes, newBoxes })
     }
 
     const leftToRedistribute =
@@ -487,7 +487,7 @@ export const GroupingBoxesForm = observer(
           <div className={classNames.currentBox}>
             <div className={classNames.newBoxes}>
               {oldBoxes.map((box, boxIndex) => (
-                <div key={boxIndex} className={cx({[classNames.marginBox]: newBoxes.length > 1})}>
+                <div key={boxIndex} className={cx({ [classNames.marginBox]: newBoxes.length > 1 })}>
                   <Box
                     basicBox={basicBox}
                     destinations={destinations}
@@ -507,7 +507,7 @@ export const GroupingBoxesForm = observer(
               /* newBoxes.length && */ basicBox ? (
                 <div className={classNames.newBoxesWrapper}>
                   {newBoxes.map((box, boxIndex) => (
-                    <div key={boxIndex} className={cx({[classNames.marginBox]: newBoxes.length > 1})}>
+                    <div key={boxIndex} className={cx({ [classNames.marginBox]: newBoxes.length > 1 })}>
                       <Box
                         isNewBox
                         destinations={destinations}

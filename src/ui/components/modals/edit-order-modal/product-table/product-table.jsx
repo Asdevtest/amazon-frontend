@@ -1,21 +1,21 @@
-import {Table, TableCell, TableContainer, TableRow, TableHead, TableBody, Typography, Link} from '@mui/material'
+import { Table, TableCell, TableContainer, TableRow, TableHead, TableBody, Typography, Link } from '@mui/material'
 
 import React from 'react'
 
-import {OrderStatus, OrderStatusByKey} from '@constants/statuses/order-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Field} from '@components/shared/field'
+import { Field } from '@components/shared/field'
 
-import {calcProductsPriceWithDelivery} from '@utils/calculation'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {checkAndMakeAbsoluteUrl, toFixed, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { calcProductsPriceWithDelivery } from '@utils/calculation'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { checkAndMakeAbsoluteUrl, toFixed, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './product-table.style'
+import { useClassNames } from './product-table.style'
 
-export const ProductTable = ({modalHeadCells, order, orderFields, setOrderField, checkIsPlanningPrice}) => {
-  const {classes: classNames} = useClassNames()
+export const ProductTable = ({ modalHeadCells, order, orderFields, setOrderField, checkIsPlanningPrice }) => {
+  const { classes: classNames } = useClassNames()
   return (
     <TableContainer className={classNames.tableContainer}>
       <Table className={classNames.table}>
@@ -56,7 +56,7 @@ export const ProductTable = ({modalHeadCells, order, orderFields, setOrderField,
                       orderFields.status !== OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]) ||
                     checkIsPlanningPrice
                   }
-                  inputProps={{maxLength: 5}}
+                  inputProps={{ maxLength: 5 }}
                   inputClasses={classNames.commentInput}
                   value={orderFields.amount}
                   onChange={e => {

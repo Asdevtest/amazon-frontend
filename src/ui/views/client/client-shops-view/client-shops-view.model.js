@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 export class ClientShopsViewModel {
   history = undefined
@@ -7,13 +7,13 @@ export class ClientShopsViewModel {
 
   openModal = null
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
       if (location.state) {
         this.openModal = location.state.openModal
       }
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 }

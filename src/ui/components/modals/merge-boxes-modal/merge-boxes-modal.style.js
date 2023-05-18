@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   heightFieldAuto: {
@@ -30,7 +30,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
-  buttonsWrapper: {display: 'flex', gap: '10px'},
+  buttonsWrapper: { display: 'flex', gap: '10px' },
   currentBox: {
     marginBottom: '20px',
   },

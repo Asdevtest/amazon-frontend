@@ -1,28 +1,28 @@
 import AutorenewIcon from '@mui/icons-material/Autorenew'
-import {Avatar, Box, Paper, Typography, Button, Rating} from '@mui/material'
+import { Avatar, Box, Paper, Typography, Button, Rating } from '@mui/material'
 
 import React from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/keys/user-roles'
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { mapUserRoleEnumToKey, UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {PurchaseHistory} from '@components/user/users-views/user-profile-view/purchase-history'
-import {Reviews} from '@components/user/users-views/user-profile-view/reviews'
+import { PurchaseHistory } from '@components/user/users-views/user-profile-view/purchase-history'
+import { Reviews } from '@components/user/users-views/user-profile-view/reviews'
 
-import {checkIsAdmin} from '@utils/checks'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { checkIsAdmin } from '@utils/checks'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {FeedbackCard} from './feedback-card'
-import {Info} from './info'
-import {Tested} from './tested'
-import {useClassNames} from './user-profile.style'
+import { FeedbackCard } from './feedback-card'
+import { Info } from './info'
+import { Tested } from './tested'
+import { useClassNames } from './user-profile.style'
 
 export const UserProfile = observer(
   ({
@@ -38,7 +38,7 @@ export const UserProfile = observer(
     setTabReview,
     onClickWriteBtn,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     return (
       <>

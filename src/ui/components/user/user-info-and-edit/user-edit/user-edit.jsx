@@ -1,23 +1,23 @@
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
 
-import {observer} from 'mobx-react'
-import {useHistory} from 'react-router-dom'
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {AdminUserEditContent} from '@components/contents/admin-user-edit-content'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
+import { AdminUserEditContent } from '@components/contents/admin-user-edit-content'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {UserEditModel} from './user-edit.model'
-import {useClassNames} from './user-edit.style'
+import { UserEditModel } from './user-edit.model'
+import { useClassNames } from './user-edit.style'
 
-export const UserEdit = observer(({user}) => {
-  const {classes: classNames} = useClassNames()
+export const UserEdit = observer(({ user }) => {
+  const { classes: classNames } = useClassNames()
   const history = useHistory()
-  const model = useRef(new UserEditModel({history, user}))
+  const model = useRef(new UserEditModel({ history, user }))
 
   useEffect(() => {
     model.current.loadData()

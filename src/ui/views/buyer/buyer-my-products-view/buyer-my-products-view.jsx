@@ -1,24 +1,24 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {useEffect, useState} from 'react'
-import {withStyles} from 'tss-react/mui'
+import React, { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
 
-import {ProductStatus} from '@constants/product/product-status'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { ProductStatus } from '@constants/product/product-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {MainContent} from '@components/layout/main-content'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {SearchInput} from '@components/shared/search-input'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { MainContent } from '@components/layout/main-content'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { SearchInput } from '@components/shared/search-input'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {BuyerMyProductsViewModel} from './buyer-my-products-view.model'
-import {styles} from './buyer-my-products-view.style'
-import {observer} from 'mobx-react'
+import { BuyerMyProductsViewModel } from './buyer-my-products-view.model'
+import { styles } from './buyer-my-products-view.style'
+import { observer } from 'mobx-react'
 
 const attentionStatuses = [
   ProductStatus.TO_BUYER_FOR_RESEARCH,
@@ -35,7 +35,7 @@ export const BuyerMyProductsViewRaw = props => {
         location: props.location,
       }),
   )
-  const {classes: classNames} = props
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -43,8 +43,8 @@ export const BuyerMyProductsViewRaw = props => {
 
   const getRowClassName = params =>
     cx(
-      {[classNames.attentionRow]: attentionStatuses.includes(params.row.statusForAttention)},
-      {[classNames.ideaRow]: !!params.row.originalData.ideaCount},
+      { [classNames.attentionRow]: attentionStatuses.includes(params.row.statusForAttention) },
+      { [classNames.ideaRow]: !!params.row.originalData.ideaCount },
     )
 
   return (

@@ -1,31 +1,31 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Checkbox, Chip, IconButton, TableCell, TableRow, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Checkbox, Chip, IconButton, TableCell, TableRow, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
 import dayjs from 'dayjs'
 
-import {zipCodeGroups} from '@constants/configs/zip-code-groups'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
-import {SupplierApproximateCalculationsForm} from '@components/forms/supplier-approximate-calculations-form'
-import {Button} from '@components/shared/buttons/button'
-import {CopyValue} from '@components/shared/copy-value/copy-value'
-import {NewDatePicker} from '@components/shared/date-picker/date-picker'
-import {Field} from '@components/shared/field/field'
-import {Input} from '@components/shared/input'
-import {Modal} from '@components/shared/modal'
-import {WithSearchSelect} from '@components/shared/selects/with-search-select'
+import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
+import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
+import { Button } from '@components/shared/buttons/button'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { Field } from '@components/shared/field/field'
+import { Input } from '@components/shared/input'
+import { Modal } from '@components/shared/modal'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-import {calcProductsMaxAmountByPriceLimit, calcProductsPriceWithDelivery} from '@utils/calculation'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {toFixed, trimBarcode} from '@utils/text'
-import {t} from '@utils/translations'
+import { calcProductsMaxAmountByPriceLimit, calcProductsPriceWithDelivery } from '@utils/calculation'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { toFixed, trimBarcode } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './order-modal-body-row.style'
+import { useClassNames } from './order-modal-body-row.style'
 
 export const OrderModalBodyRow = ({
   platformSettings,
@@ -45,7 +45,7 @@ export const OrderModalBodyRow = ({
   destinationsFavourites,
   onClickSetDestinationFavourite,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
   const [isLocalPriseOutOfLimit, setIsLocalPriseOutOfLimit] = useState(false)
 
   const onChangeInput = (event, nameInput) => {
@@ -63,8 +63,8 @@ export const OrderModalBodyRow = ({
   const [pricePerUnit, setPerPriceUnit] = useState(null)
 
   const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-    onChangeInput({target: {value: storekeeperId}}, 'storekeeperId')
-    onChangeInput({target: {value: tariffId}}, 'logicsTariffId')
+    onChangeInput({ target: { value: storekeeperId } }, 'storekeeperId')
+    onChangeInput({ target: { value: tariffId } }, 'logicsTariffId')
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
 
@@ -147,7 +147,7 @@ export const OrderModalBodyRow = ({
         key={item._id}
         hover
         role="checkbox"
-        className={cx(classNames.row, {[classNames.noCurrentSupplier]: !item.currentSupplier})}
+        className={cx(classNames.row, { [classNames.noCurrentSupplier]: !item.currentSupplier })}
       >
         <TableCell className={classNames.asinCell}>
           <div className={classNames.asinCellContainer}>
@@ -224,7 +224,7 @@ export const OrderModalBodyRow = ({
               !!orderState.amount &&
               ` ${t(TranslationKey['Value multiple of'])} ${item.currentSupplier.boxProperties?.amountInBox}`
             }
-            inputProps={{maxLength: 6, min: 0}}
+            inputProps={{ maxLength: 6, min: 0 }}
             value={orderState.amount}
             onChange={e => {
               onChangeInput(e, 'amount')
@@ -233,7 +233,7 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         <TableCell className={classNames.cell}>
-          <Typography className={cx(classNames.standartText, {[classNames.errorSpace]: isLocalPriseOutOfLimit})}>
+          <Typography className={cx(classNames.standartText, { [classNames.errorSpace]: isLocalPriseOutOfLimit })}>
             {toFixed(calcProductsPriceWithDelivery(item, orderState), 2)}
           </Typography>
           {isLocalPriseOutOfLimit && (
@@ -251,7 +251,7 @@ export const OrderModalBodyRow = ({
               deletable: classNames.barcodeChipHover,
               deleteIcon: classNames.barcodeChipIcon,
             }}
-            className={cx({[classNames.barcodeChipExists]: item.barCode})}
+            className={cx({ [classNames.barcodeChipExists]: item.barCode })}
             size="small"
             label={
               orderState.tmpBarCode.length
@@ -270,8 +270,8 @@ export const OrderModalBodyRow = ({
           <Button
             variant={item.storekeeperId && 'text'}
             className={cx(
-              {[classNames.storekeeperBtn]: !item.storekeeperId},
-              {[classNames.standartText]: item.storekeeperId},
+              { [classNames.storekeeperBtn]: !item.storekeeperId },
+              { [classNames.standartText]: item.storekeeperId },
             )}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
@@ -299,8 +299,8 @@ export const OrderModalBodyRow = ({
             favourites={destinationsFavourites}
             searchFields={['name']}
             onClickSetDestinationFavourite={onClickSetDestinationFavourite}
-            onClickNotChosen={() => onChangeInput({target: {value: ''}}, 'destinationId')}
-            onClickSelect={el => onChangeInput({target: {value: el._id}}, 'destinationId')}
+            onClickNotChosen={() => onChangeInput({ target: { value: '' } }, 'destinationId')}
+            onClickSelect={el => onChangeInput({ target: { value: el._id } }, 'destinationId')}
           />
         </TableCell>
 
@@ -309,7 +309,7 @@ export const OrderModalBodyRow = ({
             multiline
             minRows={3}
             maxRows={3}
-            inputProps={{maxLength: 500}}
+            inputProps={{ maxLength: 500 }}
             className={classNames.commentInput}
             onChange={e => onChangeInput(e, 'clientComment')}
           />

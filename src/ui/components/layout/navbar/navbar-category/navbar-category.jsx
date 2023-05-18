@@ -1,19 +1,19 @@
-import {cx} from '@emotion/css'
-import {Box, ListItemIcon, ListItemText, SvgIcon} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Box, ListItemIcon, ListItemText, SvgIcon } from '@mui/material'
 import MuiListItem from '@mui/material/ListItem'
 
-import {observer} from 'mobx-react'
-import {Link} from 'react-router-dom'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { Link } from 'react-router-dom'
+import { withStyles } from 'tss-react/mui'
 
-import {Button} from '@components/shared/buttons/button'
-import {HighPriorityValue} from '@components/shared/high-priority-value'
+import { Button } from '@components/shared/buttons/button'
+import { HighPriorityValue } from '@components/shared/high-priority-value'
 
-import {renderTooltipTitle} from '@utils/renders'
+import { renderTooltipTitle } from '@utils/renders'
 
-import {styles} from './navbar-category.style'
+import { styles } from './navbar-category.style'
 
-const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, userInfo, category, shortNavbar}) => {
+const NavBarCategoryRaw = observer(({ badge, classes: classNames, isSelected, userInfo, category, shortNavbar }) => {
   const subRoutes = category.subtitles
     ?.map(subCategory =>
       subCategory.checkHideSubBlock
@@ -58,7 +58,7 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
         component={Link}
         to={subRoutes?.[0] || category.route}
         classes={{
-          root: cx(classNames.root, {[classNames.shortNavbarRoot]: shortNavbar}),
+          root: cx(classNames.root, { [classNames.shortNavbarRoot]: shortNavbar }),
           selected: classNames.selected,
         }}
       >
@@ -70,16 +70,18 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
         >
           <SvgIcon
             inheritviewbox="true"
-            className={cx(classNames.icon, {[classNames.selectedIcon]: isSelected})}
+            className={cx(classNames.icon, { [classNames.selectedIcon]: isSelected })}
             component={category.icon}
           />
 
-          {badge ? <div className={cx(classNames.badge, {[classNames.redBadge]: isRedBadge})}>{badge}</div> : undefined}
+          {badge ? (
+            <div className={cx(classNames.badge, { [classNames.redBadge]: isRedBadge })}>{badge}</div>
+          ) : undefined}
         </ListItemIcon>
         {!shortNavbar && ( // убрать условие если нужно вернуть старый вид
           <ListItemText
             disableTypography
-            className={cx({[classNames.listItemSelected]: isSelected})}
+            className={cx({ [classNames.listItemSelected]: isSelected })}
             primary={category.title}
           />
         )}

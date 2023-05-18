@@ -1,13 +1,13 @@
-import {CircularProgress, Typography} from '@mui/material'
+import { CircularProgress, Typography } from '@mui/material'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
 // import {TranslationKey} from '@constants/translations/translation-key'
 // import {t} from '@utils/translations'
-import {useClassNames} from './dashboard-single-card.style'
+import { useClassNames } from './dashboard-single-card.style'
 
-export const DashboardSingleCard = observer(({item, valuesData, onClickViewMore}) => {
-  const {classes: classNames} = useClassNames()
+export const DashboardSingleCard = observer(({ item, valuesData, onClickViewMore }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <div className={classNames.cardWrapper} onClick={() => onClickViewMore(item.route)}>

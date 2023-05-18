@@ -1,1 +1,1 @@
-export {buyerFreeOrdersViewColumns} from './buyer-free-orders-columns'
+export { buyerFreeOrdersViewColumns } from './buyer-free-orders-columns'

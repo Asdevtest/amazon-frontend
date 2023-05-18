@@ -1,25 +1,25 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import {Avatar, Typography, Rating} from '@mui/material'
+import { Avatar, Typography, Rating } from '@mui/material'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {RequestProposalStatusColor, RequestProposalStatusTranslate} from '@constants/requests/request-proposal-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { RequestProposalStatusColor, RequestProposalStatusTranslate } from '@constants/requests/request-proposal-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {UserLink} from '@components/user/user-link'
+import { UserLink } from '@components/user/user-link'
 
-import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-time'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { formatDateDistanceFromNowStrict, formatNormDateTime } from '@utils/date-time'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './deals-of-request.style'
+import { useClassNames } from './deals-of-request.style'
 
-export const DealsOfRequest = ({requestProposals, onClickReview}) => {
-  const {classes: classNames} = useClassNames()
+export const DealsOfRequest = ({ requestProposals, onClickReview }) => {
+  const { classes: classNames } = useClassNames()
 
   const [showDetails, setShowDetails] = useState(false)
 
@@ -30,7 +30,7 @@ export const DealsOfRequest = ({requestProposals, onClickReview}) => {
   return (
     <div className={classNames.root}>
       <Accordion
-        classes={{root: classNames.accordion}}
+        classes={{ root: classNames.accordion }}
         expanded={showDetails}
         // style={{borderRadius: '4px', boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)'}}
         disabled={!requestProposals.length}
@@ -67,7 +67,7 @@ export const DealsOfRequest = ({requestProposals, onClickReview}) => {
                     <Typography className={classNames.blockText}>{t(TranslationKey.Status)}</Typography>
                     <div className={classNames.requestStatusWrapper}>
                       <Typography className={classNames.requestStatus}>
-                        <span style={{backgroundColor: RequestProposalStatusColor(deal.proposal.status)}}></span>
+                        <span style={{ backgroundColor: RequestProposalStatusColor(deal.proposal.status) }}></span>
                       </Typography>
                       <Typography className={classNames.standartText}>
                         {RequestProposalStatusTranslate(deal.proposal.status)}

@@ -3,9 +3,9 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React from 'react'
 
-import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
-import {colorByProductStatus, ProductStatusByCode} from '@constants/product/product-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { colorByProductStatus, ProductStatusByCode } from '@constants/product/product-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ToFixedCell,
@@ -25,8 +25,8 @@ import {
   ProductAsinCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const clientInventoryColumns = (
   barCodeHandlers,

@@ -1,1 +1,1 @@
-export {EditOrderSuppliersTable} from './edit-order-suppliers-table'
+export { EditOrderSuppliersTable } from './edit-order-suppliers-table'

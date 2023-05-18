@@ -1,26 +1,26 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {EntryLeftPanel} from '@components/auth/entry-left-panel'
-import {EntryRightPanel} from '@components/auth/entry-right-panel'
-import {RegistrationForm} from '@components/forms/registration-form'
-import {SuccessInfoModal} from '@components/modals/success-info-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
+import { EntryLeftPanel } from '@components/auth/entry-left-panel'
+import { EntryRightPanel } from '@components/auth/entry-right-panel'
+import { RegistrationForm } from '@components/forms/registration-form'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
-import {t} from '@utils/translations'
-import {disallowsSpecialCharInEmailField, disallowsSpecialCharInFirstCharEmail} from '@utils/validation'
+import { t } from '@utils/translations'
+import { disallowsSpecialCharInEmailField, disallowsSpecialCharInFirstCharEmail } from '@utils/validation'
 
-import {RegistrationViewModel} from './registration-view.model'
-import {styles} from './registration-view.style'
+import { RegistrationViewModel } from './registration-view.model'
+import { styles } from './registration-view.style'
 
 export const RegistrationViewRaw = props => {
-  const {classes: classNames} = props
+  const { classes: classNames } = props
 
-  const [viewModel] = useState(() => new RegistrationViewModel({history: props.history}))
+  const [viewModel] = useState(() => new RegistrationViewModel({ history: props.history }))
 
   useEffect(() => {
     viewModel.onLoadPage()

@@ -1,19 +1,19 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
-import {RequestSubType, RequestType} from '@constants/requests/request-type'
-import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/statuses/freelance-request-type'
-import {tableViewMode, tableSortMode} from '@constants/table/table-view-modes'
-import {ViewTableModeStateKeys} from '@constants/table/view-table-mode-state-keys'
+import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { RequestSubType, RequestType } from '@constants/requests/request-type'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
+import { tableViewMode, tableSortMode } from '@constants/table/table-view-modes'
+import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
-import {RequestModel} from '@models/request-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { RequestModel } from '@models/request-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {FreelancerVacantRequestColumns} from '@components/table/table-columns/freelancer/freelancer-vacant-request-columns/freelancer-vacant-request-columns'
+import { FreelancerVacantRequestColumns } from '@components/table/table-columns/freelancer/freelancer-vacant-request-columns/freelancer-vacant-request-columns'
 
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
+import { addIdDataConverter } from '@utils/data-grid-data-converters'
 
 export class VacantRequestsViewModel {
   history = undefined
@@ -33,7 +33,7 @@ export class VacantRequestsViewModel {
   rowCount = 0
   curPage = 0
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   rowsPerPage = 15
   columnVisibilityModel = undefined
 
@@ -51,16 +51,16 @@ export class VacantRequestsViewModel {
     return SettingsModel.languageTag || {}
   }
 
-  handlers = {onClickViewMore: id => this.onClickViewMore(id)}
+  handlers = { onClickViewMore: id => this.onClickViewMore(id) }
 
   columnsModel = FreelancerVacantRequestColumns(this.handlers, this.languageTag)
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.requests,
@@ -96,7 +96,7 @@ export class VacantRequestsViewModel {
   }
 
   setTableModeState() {
-    const state = {viewMode: this.viewMode, sortMode: this.sortMode}
+    const state = { viewMode: this.viewMode, sortMode: this.sortMode }
 
     SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.VACANT_REQUESTS)
   }

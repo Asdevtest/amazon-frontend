@@ -1,23 +1,23 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import {Link, Typography} from '@mui/material'
+import { Link, Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {CopyValue} from '@components/shared/copy-value/copy-value'
-import {Field} from '@components/shared/field/field'
-import {WithSearchSelect} from '@components/shared/selects/with-search-select'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { Field } from '@components/shared/field/field'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getFullTariffTextForBoxOrOrder} from '@utils/text'
-import {t} from '@utils/translations'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { getFullTariffTextForBoxOrOrder } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './box-for-merge.style'
+import { useClassNames } from './box-for-merge.style'
 
-export const BoxForMerge = ({box, readOnly = false, index, destinations}) => {
-  const {classes: classNames} = useClassNames()
+export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
+  const { classes: classNames } = useClassNames()
   const [showFullCard, setShowFullCard] = useState(true)
 
   return (
@@ -91,7 +91,7 @@ export const BoxForMerge = ({box, readOnly = false, index, destinations}) => {
             />
             <Field
               disabled
-              inputProps={{maxLength: 255}}
+              inputProps={{ maxLength: 255 }}
               tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
               containerClasses={classNames.field}
               labelClasses={classNames.label}
@@ -101,7 +101,7 @@ export const BoxForMerge = ({box, readOnly = false, index, destinations}) => {
             />
             <Field
               disabled
-              inputProps={{maxLength: 255}}
+              inputProps={{ maxLength: 255 }}
               containerClasses={classNames.field}
               labelClasses={classNames.label}
               className={classNames.fieldInput}

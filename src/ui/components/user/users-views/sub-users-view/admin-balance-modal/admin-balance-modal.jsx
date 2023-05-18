@@ -1,18 +1,18 @@
-import {Container, Typography, Select, MenuItem} from '@mui/material'
+import { Container, Typography, Select, MenuItem } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
-import {Field} from '@components/shared/field'
-import {Input} from '@components/shared/input'
-import {Modal} from '@components/shared/modal'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
+import { Input } from '@components/shared/input'
+import { Modal } from '@components/shared/modal'
 
-import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
-import {t} from '@utils/translations'
+import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './admin-balance-modal.style'
+import { useClassNames } from './admin-balance-modal.style'
 
 const paymentTypeSettings = {
   DEPOSIT: 'DEPOSIT',
@@ -20,8 +20,8 @@ const paymentTypeSettings = {
   FINE: 'FINE',
 }
 
-export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSubmit}) => {
-  const {classes: classNames} = useClassNames()
+export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSubmit }) => {
+  const { classes: classNames } = useClassNames()
 
   const [balanceValue, setBalanceValue] = useState('')
 
@@ -104,7 +104,7 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
 
         <Field
           label={t(TranslationKey.Amount)}
-          inputProps={{maxLength: 8}}
+          inputProps={{ maxLength: 8 }}
           value={balanceValue}
           onChange={e =>
             checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) && setBalanceValue(e.target.value)

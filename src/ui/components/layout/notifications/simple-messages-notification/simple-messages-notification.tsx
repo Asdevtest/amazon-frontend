@@ -1,20 +1,20 @@
-import {Avatar, Typography} from '@mui/material'
+import { Avatar, Typography } from '@mui/material'
 
-import {FC} from 'react'
+import { FC } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-import {ChatMessageTextType} from '@services/websocket-chat-service/interfaces'
+import { ChatMessageTextType } from '@services/websocket-chat-service/interfaces'
 
-import {UserLink} from '@components/user/user-link'
+import { UserLink } from '@components/user/user-link'
 
-import {formatDateTimeHourAndMinutes} from '@utils/date-time'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {t} from '@utils/translations'
+import { formatDateTimeHourAndMinutes } from '@utils/date-time'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './simple-messages-notification.style'
+import { useClassNames } from './simple-messages-notification.style'
 
 interface SimpleMessagesNotificationProps {
   noticeItem: ChatMessageContract | null
@@ -22,9 +22,9 @@ interface SimpleMessagesNotificationProps {
 }
 
 export const SimpleMessagesNotification: FC<SimpleMessagesNotificationProps> = props => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
-  const {noticeItem, onClickMessage} = props
+  const { noticeItem, onClickMessage } = props
 
   const message = noticeItem?.text
     ? (() => {

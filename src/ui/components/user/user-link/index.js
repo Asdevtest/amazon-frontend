@@ -1,1 +1,1 @@
-export {UserLink} from './user-link'
+export { UserLink } from './user-link'

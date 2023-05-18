@@ -1,33 +1,33 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
-import {Typography, Paper, Avatar, Rating} from '@mui/material'
+import { Typography, Paper, Avatar, Rating } from '@mui/material'
 
 import React from 'react'
 
 import Carousel from 'react-material-ui-carousel'
 
-import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
-import {RequestStatus} from '@constants/requests/request-status'
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { RequestStatus } from '@constants/requests/request-status'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {RequestStatusCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
-import {Button} from '@components/shared/buttons/button'
-import {CustomCarousel, PhotoCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {UserLink} from '@components/user/user-link'
+import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { Button } from '@components/shared/buttons/button'
+import { CustomCarousel, PhotoCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { UserLink } from '@components/user/user-link'
 
-import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-time'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
-import {translateProposalsLeftMessage} from '@utils/validation'
+import { formatDateDistanceFromNowStrict, formatNormDateTime } from '@utils/date-time'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
+import { translateProposalsLeftMessage } from '@utils/validation'
 
-import {useClassNames} from './my-services.style'
+import { useClassNames } from './my-services.style'
 
-export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn, onClickCloseAnnouncementBtn}) => {
-  const {classes: classNames} = useClassNames()
+export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBtn, onClickCloseAnnouncementBtn }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <Paper className={classNames.root}>
@@ -40,7 +40,7 @@ export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn
               <div className={classNames.userInfoSubWrapper}>
                 <UserLink
                   blackText
-                  customStyles={{maxWidth: 500, fontSize: 18}}
+                  customStyles={{ maxWidth: 500, fontSize: 18 }}
                   name={announcementData?.createdBy?.name}
                   userId={announcementData?.createdBy?._id}
                 />

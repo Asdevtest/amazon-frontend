@@ -5,7 +5,7 @@ import {
   mapTaskPriorityStatusEnum,
   taskPriorityStatusTranslate,
 } from '@constants/task/task-priority-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   TaskDescriptionCell,
@@ -17,7 +17,7 @@ import {
   MultilineTextCell, // AsinCopyCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const warehouseCompletedTasksViewColumns = (handlers, firstRowId) => [
   {

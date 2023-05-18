@@ -1,1 +1,1 @@
-export {batchesViewColumns} from './batches-columns'
+export { batchesViewColumns } from './batches-columns'

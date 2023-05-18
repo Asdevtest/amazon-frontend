@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextAlignLeftHeaderCell,
@@ -9,7 +9,7 @@ import {
   MultilineTextAlignLeftCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const adminGroupPermissionsColumns = (handlers, firstRowId) => [
   {

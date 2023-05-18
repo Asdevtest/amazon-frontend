@@ -1,16 +1,16 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
-import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
-import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/statuses/freelance-request-type'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {ChatModel} from '@models/chat-model'
-import {RequestModel} from '@models/request-model'
-import {RequestProposalModel} from '@models/request-proposal'
-import {UserModel} from '@models/user-model'
+import { ChatModel } from '@models/chat-model'
+import { RequestModel } from '@models/request-model'
+import { RequestProposalModel } from '@models/request-proposal'
+import { UserModel } from '@models/user-model'
 
-import {onSubmitPostImages} from '@utils/upload-files'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class RequestDetailCustomViewModel {
   history = undefined
@@ -52,7 +52,7 @@ export class RequestDetailCustomViewModel {
     return ChatModel.typingUsers || []
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     const url = new URL(window.location.href)
 
     runInAction(() => {
@@ -70,7 +70,7 @@ export class RequestDetailCustomViewModel {
         this.chatSelectedId = location.state.chatId
       }
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
     try {
       if (ChatModel.isConnected) {
         ChatModel.getChats(this.requestId, 'REQUEST')
@@ -96,7 +96,7 @@ export class RequestDetailCustomViewModel {
   }
 
   onTypingMessage(chatId) {
-    ChatModel.typingMessage({chatId})
+    ChatModel.typingMessage({ chatId })
   }
 
   onClickResultBtn() {
@@ -199,7 +199,7 @@ export class RequestDetailCustomViewModel {
     }
   }
 
-  async onClickSendAsResult({message, files, amazonOrderId, publicationLinks, sourceLink}) {
+  async onClickSendAsResult({ message, files, amazonOrderId, publicationLinks, sourceLink }) {
     try {
       runInAction(() => {
         this.showProgress = true
@@ -273,7 +273,7 @@ export class RequestDetailCustomViewModel {
       const mediaToRemoveIds = curentMediaIds.filter(el => !filesIds.includes(el))
 
       if (mediaToRemoveIds.length) {
-        await RequestModel.editRequestsMediaMany(mediaToRemoveIds.map(el => ({_id: el, proposalId: null})))
+        await RequestModel.editRequestsMediaMany(mediaToRemoveIds.map(el => ({ _id: el, proposalId: null })))
       }
 
       await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
@@ -286,8 +286,8 @@ export class RequestDetailCustomViewModel {
             : null,
           index: i,
         })),
-        ...(amazonOrderId && {amazonOrderId}),
-        ...(publicationLinks && {publicationLinks}),
+        ...(amazonOrderId && { amazonOrderId }),
+        ...(publicationLinks && { publicationLinks }),
         ...(sourceLink && {
           sourceFiles: [
             {
@@ -373,7 +373,7 @@ export class RequestDetailCustomViewModel {
       `/${
         UserRoleCodeMapForRoutes[this.userInfo.role]
       }/freelance/vacant-requests/custom-search-request/create-proposal`,
-      {request: toJS(this.request)},
+      { request: toJS(this.request) },
     )
   }
 

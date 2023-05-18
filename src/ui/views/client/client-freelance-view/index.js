@@ -1,1 +1,1 @@
-export {ClientFreelanceView} from './client-freelance-view'
+export { ClientFreelanceView } from './client-freelance-view'

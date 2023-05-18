@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ClientNotificationsBtnsCell,
@@ -15,7 +15,7 @@ import {
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const clientBoxesTariffsNotificationsViewColumns = handlers => [
   {

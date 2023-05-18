@@ -1,25 +1,25 @@
 /* eslint-disable no-unused-vars */
-import {Box, Container, Link, Typography} from '@mui/material'
+import { Box, Container, Link, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
-import {CopyValue} from '@components/shared/copy-value/copy-value'
+import { Button } from '@components/shared/buttons/button'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
 import {
   PhotoCarousel,
   PhotoAndFilesCarousel,
   PhotoAndFilesCarouselMini,
 } from '@components/shared/custom-carousel/custom-carousel'
-import {Field} from '@components/shared/field/field'
-import {UploadFilesInput} from '@components/shared/upload-files-input'
+import { Field } from '@components/shared/field/field'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount} from '@utils/text'
-import {t} from '@utils/translations'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './supplier-payment-form.style'
+import { useClassNames } from './supplier-payment-form.style'
 
 export const SupplierPaymentForm = ({
   item,
@@ -28,7 +28,7 @@ export const SupplierPaymentForm = ({
   uploadedFiles,
   editPaymentDetailsPhotos,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [files, setFiles] = useState(uploadedFiles || [])
 

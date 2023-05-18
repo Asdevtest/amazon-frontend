@@ -1,10 +1,10 @@
-import {makeAutoObservable} from 'mobx'
+import { makeAutoObservable } from 'mobx'
 
-import {ChatModel} from '@models/chat-model'
-import {OtherModel} from '@models/other-model'
-import {UserModel} from '@models/user-model'
+import { ChatModel } from '@models/chat-model'
+import { OtherModel } from '@models/other-model'
+import { UserModel } from '@models/user-model'
 
-import {onSubmitPostImages} from '@utils/upload-files'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class NavbarModel {
   showFeedbackModal = false
@@ -23,7 +23,7 @@ export class NavbarModel {
   }
 
   constructor() {
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async sendFeedbackAboutPlatform(comment, photos) {
@@ -31,9 +31,9 @@ export class NavbarModel {
       this.readyImages = []
 
       if (photos.length) {
-        await onSubmitPostImages.call(this, {images: photos, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: photos, type: 'readyImages' })
       }
-      await OtherModel.sendFeedback({text: comment, media: this.readyImages})
+      await OtherModel.sendFeedback({ text: comment, media: this.readyImages })
       this.onTriggerOpenModal('showFeedbackModal')
 
       this.onTriggerOpenModal('showWarningModal')

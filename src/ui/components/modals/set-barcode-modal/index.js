@@ -1,1 +1,1 @@
-export {SetBarcodeModal} from './set-barcode-modal'
+export { SetBarcodeModal } from './set-barcode-modal'

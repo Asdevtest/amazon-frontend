@@ -1,23 +1,23 @@
-import {cx} from '@emotion/css'
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Link} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Link } from '@mui/material'
 
 import React from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {OrderStatus, OrderStatusByKey} from '@constants/statuses/order-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {UserLinkCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
-import {CopyValue} from '@components/shared/copy-value/copy-value'
-import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {NewSupplier} from '@components/shared/svg-icons'
+import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { NewSupplier } from '@components/shared/svg-icons'
 
-import {formatNormDateTime} from '@utils/date-time'
-import {toFixedWithDollarSign, checkAndMakeAbsoluteUrl} from '@utils/text'
-import {t} from '@utils/translations'
+import { formatNormDateTime } from '@utils/date-time'
+import { toFixedWithDollarSign, checkAndMakeAbsoluteUrl } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './edit-order-suppliers-table.style'
+import { useClassNames } from './edit-order-suppliers-table.style'
 
 export const EditOrderSuppliersTable = observer(
   ({
@@ -29,7 +29,7 @@ export const EditOrderSuppliersTable = observer(
     productBaseData,
     orderFields,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     return (
       <TableContainer className={classNames.table}>
@@ -83,7 +83,7 @@ export const EditOrderSuppliersTable = observer(
                     <div className={classNames.StatsWrapper}>
                       {new Date(productBaseData?.createdAt) < new Date(supplier?.createdAt) ? (
                         <div className={classNames.imgWrapper}>
-                          <NewSupplier fontSize={'large'} classes={{root: classNames.primary}} />
+                          <NewSupplier fontSize={'large'} classes={{ root: classNames.primary }} />
                         </div>
                       ) : null}
                       {supplier.multiplicity && supplier.boxProperties?.amountInBox ? (

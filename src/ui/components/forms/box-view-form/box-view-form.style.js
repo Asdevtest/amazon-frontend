@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   buttonsWrapper: {
@@ -396,7 +396,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: 40,
   },
 
-  barCode: {display: 'flex', gap: '5px'},
+  barCode: { display: 'flex', gap: '5px' },
   titleSubWrapper: {
     // width: '650px',
     display: 'flex',

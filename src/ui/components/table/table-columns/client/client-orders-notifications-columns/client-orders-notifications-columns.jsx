@@ -1,7 +1,7 @@
 import React from 'react'
 
-import {orderColorByStatus, OrderStatusByCode} from '@constants/statuses/order-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { orderColorByStatus, OrderStatusByCode } from '@constants/statuses/order-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ClientNotificationsBtnsCell,
@@ -15,8 +15,8 @@ import {
   ShortDateCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const clientOrdersNotificationsViewColumns = handlers => [
   {

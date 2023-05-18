@@ -1,1 +1,1 @@
-export {ContentModal} from './content-modal'
+export { ContentModal } from './content-modal'

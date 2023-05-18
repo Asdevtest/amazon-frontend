@@ -1,20 +1,20 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
 import React from 'react'
 
-import {OrderStatus, OrderStatusByKey} from '@constants/statuses/order-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {PhotoCarousel} from '@components/shared/custom-carousel/custom-carousel'
-import {Field} from '@components/shared/field'
-import {Text} from '@components/shared/text'
+import { PhotoCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { Field } from '@components/shared/field'
+import { Text } from '@components/shared/text'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './extra-order-info.style'
+import { useClassNames } from './extra-order-info.style'
 
-export const ExtraOrderInfo = ({order, isClient, onChangeField, formFields}) => {
-  const {classes: classNames} = useClassNames()
+export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) => {
+  const { classes: classNames } = useClassNames()
 
   // console.log('order', order)
 

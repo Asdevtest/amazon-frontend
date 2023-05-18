@@ -1,1 +1,1 @@
-export {AdminOrderView} from './admin-order-view'
+export { AdminOrderView } from './admin-order-view'

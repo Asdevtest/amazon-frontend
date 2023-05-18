@@ -1,1 +1,1 @@
-export {TableToolbar} from './table-toolbar'
+export { TableToolbar } from './table-toolbar'

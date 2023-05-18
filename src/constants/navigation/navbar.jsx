@@ -1,4 +1,4 @@
-import {UserRole} from '@constants/keys/user-roles'
+import { UserRole } from '@constants/keys/user-roles'
 
 import {
   Addresses,
@@ -26,12 +26,12 @@ import {
   UsersPermissionsIcon,
 } from '@components/shared/svg-icons'
 
-import {isHaveMasterUser} from '@utils/checks'
-import {t} from '@utils/translations'
+import { isHaveMasterUser } from '@utils/checks'
+import { t } from '@utils/translations'
 
-import {permissionsKeys} from '../keys/permissions'
-import {TranslationKey} from '../translations/translation-key'
-import {navBarActiveCategory, navBarActiveSubCategory} from './navbar-active-category'
+import { permissionsKeys } from '../keys/permissions'
+import { TranslationKey } from '../translations/translation-key'
+import { navBarActiveCategory, navBarActiveSubCategory } from './navbar-active-category'
 
 export const navbarConfig = () => ({
   [UserRole.CLIENT]: [
@@ -96,8 +96,8 @@ export const navbarConfig = () => ({
       title: t(TranslationKey['Commodity exchange']),
       route: '/client/product-exchange/forks-exchange',
       subtitles: [
-        {subtitle: t(TranslationKey['Deal exchange']), subRoute: '/client/product-exchange/forks-exchange'},
-        {subtitle: 'Private Label', subRoute: '/client/product-exchange/private-label'},
+        { subtitle: t(TranslationKey['Deal exchange']), subRoute: '/client/product-exchange/forks-exchange' },
+        { subtitle: 'Private Label', subRoute: '/client/product-exchange/private-label' },
       ],
       key: navBarActiveCategory.NAVBAR_EXCHANGE,
       checkHideBlock: user =>
@@ -213,7 +213,7 @@ export const navbarConfig = () => ({
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
       route: '/client/users/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/client/users/sub-users'}],
+      subtitles: [{ subtitle: t(TranslationKey['My users']), subRoute: '/client/users/sub-users' }],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
@@ -246,10 +246,10 @@ export const navbarConfig = () => ({
       title: t(TranslationKey.Notifications),
       route: '/client/notifications/orders-notifications',
       subtitles: [
-        {subtitle: t(TranslationKey['On orders']), subRoute: '/client/notifications/orders-notifications'},
-        {subtitle: t(TranslationKey['On boxes']), subRoute: '/client/notifications/boxes-notifications'},
-        {subtitle: t(TranslationKey['On boxes tariffs']), subRoute: '/client/notifications/tariffs-notifications'},
-        {subtitle: t(TranslationKey['On ideas']), subRoute: '/client/notifications/ideas-notifications'},
+        { subtitle: t(TranslationKey['On orders']), subRoute: '/client/notifications/orders-notifications' },
+        { subtitle: t(TranslationKey['On boxes']), subRoute: '/client/notifications/boxes-notifications' },
+        { subtitle: t(TranslationKey['On boxes tariffs']), subRoute: '/client/notifications/tariffs-notifications' },
+        { subtitle: t(TranslationKey['On ideas']), subRoute: '/client/notifications/ideas-notifications' },
       ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
@@ -293,7 +293,7 @@ export const navbarConfig = () => ({
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
       route: '/researcher/users/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/researcher/users/sub-users'}],
+      subtitles: [{ subtitle: t(TranslationKey['My users']), subRoute: '/researcher/users/sub-users' }],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
@@ -398,7 +398,7 @@ export const navbarConfig = () => ({
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
       route: '/freelancer/users/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/freelancer/users/sub-users'}],
+      subtitles: [{ subtitle: t(TranslationKey['My users']), subRoute: '/freelancer/users/sub-users' }],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
@@ -506,7 +506,7 @@ export const navbarConfig = () => ({
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
       route: '/supervisor/users/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/supervisor/users/sub-users'}],
+      subtitles: [{ subtitle: t(TranslationKey['My users']), subRoute: '/supervisor/users/sub-users' }],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
@@ -706,7 +706,7 @@ export const navbarConfig = () => ({
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
       route: '/buyer/users/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/buyer/users/sub-users'}],
+      subtitles: [{ subtitle: t(TranslationKey['My users']), subRoute: '/buyer/users/sub-users' }],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_USERS_BUYER),
@@ -725,7 +725,7 @@ export const navbarConfig = () => ({
       icon: MyNotificationsIcon,
       title: t(TranslationKey.Notifications),
       route: '/buyer/notifications/ideas-notifications',
-      subtitles: [{subtitle: t(TranslationKey['On ideas']), subRoute: '/buyer/notifications/ideas-notifications'}],
+      subtitles: [{ subtitle: t(TranslationKey['On ideas']), subRoute: '/buyer/notifications/ideas-notifications' }],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
@@ -824,7 +824,7 @@ export const navbarConfig = () => ({
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
       route: '/warehouse/users/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/warehouse/users/sub-users'}],
+      subtitles: [{ subtitle: t(TranslationKey['My users']), subRoute: '/warehouse/users/sub-users' }],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
@@ -902,8 +902,8 @@ export const navbarConfig = () => ({
       title: t(TranslationKey.Warehouse),
       route: '/admin/warehouse/tasks',
       subtitles: [
-        {subtitle: t(TranslationKey.Tasks), subRoute: '/admin/warehouse/tasks'},
-        {subtitle: t(TranslationKey.Boxes), subRoute: '/admin/warehouse/boxes'},
+        { subtitle: t(TranslationKey.Tasks), subRoute: '/admin/warehouse/tasks' },
+        { subtitle: t(TranslationKey.Boxes), subRoute: '/admin/warehouse/boxes' },
         // {subtitle: t(TranslationKey.Destinations), subRoute: '/admin/warehouse/destinations'},
       ],
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
@@ -1033,7 +1033,7 @@ export const navbarConfig = () => ({
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
       route: '/moderator/users/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/moderator/users/sub-users'}],
+      subtitles: [{ subtitle: t(TranslationKey['My users']), subRoute: '/moderator/users/sub-users' }],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||

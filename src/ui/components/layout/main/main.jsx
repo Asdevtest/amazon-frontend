@@ -1,4 +1,4 @@
-import {useClassNames} from './main.style'
+import { useClassNames } from './main.style'
 
 // export const Main = props => {
 //   const classes = useClassNames(props.drawerWidth)
@@ -6,6 +6,6 @@ import {useClassNames} from './main.style'
 // }
 
 export const Main = props => {
-  const {classes} = useClassNames()
+  const { classes } = useClassNames()
   return <div className={classes.root}>{props.children}</div>
 }

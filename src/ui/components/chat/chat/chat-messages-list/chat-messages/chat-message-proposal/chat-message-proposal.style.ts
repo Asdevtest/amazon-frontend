@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -24,7 +24,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     lineHeight: '140%',
   },
-  timeWrapper: {width: '50px'},
+  timeWrapper: { width: '50px' },
   timeText: {
     color: theme.palette.text.second,
     fontSize: 14,

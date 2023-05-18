@@ -1,21 +1,21 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import {Collapse, List, ListItemIcon, ListItemText, Menu, Typography} from '@mui/material'
+import { Collapse, List, ListItemIcon, ListItemText, Menu, Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-import {navBarActiveCategory} from '@constants/navigation/navbar-active-category'
+import { navBarActiveCategory } from '@constants/navigation/navbar-active-category'
 
-import {Button} from '@components/shared/buttons/button'
-import {HighPriorityValue} from '@components/shared/high-priority-value'
+import { Button } from '@components/shared/buttons/button'
+import { HighPriorityValue } from '@components/shared/high-priority-value'
 
-import {renderAttentionTooltipTitle, renderTooltipTitle} from '@utils/renders'
+import { renderAttentionTooltipTitle, renderTooltipTitle } from '@utils/renders'
 
-import {NavbarSubCategory} from '../navbar-sub-category'
-import {useClassNames} from './navbar-collapse.style'
+import { NavbarSubCategory } from '../navbar-sub-category'
+import { useClassNames } from './navbar-collapse.style'
 
 export const NavbarCollapse = ({
   activeCategory,
@@ -28,7 +28,7 @@ export const NavbarCollapse = ({
   shortNavbar,
   showHighPriorityNotification,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [menuAnchor, setMenuAnchor] = useState(null)
 
@@ -158,7 +158,7 @@ export const NavbarCollapse = ({
       <Button
         key={subIndex}
         tooltipPosition="center"
-        className={cx(classNames.menuItem, {[classNames.selected]: subIndex === activeSubCategory})}
+        className={cx(classNames.menuItem, { [classNames.selected]: subIndex === activeSubCategory })}
         tooltipInfoContent={!shortNavbar && renderTooltipTitle(subCategory.subtitle, userInfo.role)}
         tooltipAttentionContent={!shortNavbar && renderAttentionTooltipTitle(subCategory.subtitle, userInfo.role)}
       >
@@ -174,7 +174,7 @@ export const NavbarCollapse = ({
           <div className={classNames.badgeContainer}>{renderNotificationBySubRoute(subCategory.subRoute)}</div>
           <ListItemText
             disableTypography
-            className={cx(classNames.listItemText, {[classNames.selected]: subIndex === activeSubCategory})}
+            className={cx(classNames.listItemText, { [classNames.selected]: subIndex === activeSubCategory })}
             primary={subCategory.subtitle}
           />
           {!!highPriorityNotificationCount && <HighPriorityValue value={highPriorityNotificationCount} />}
@@ -204,14 +204,17 @@ export const NavbarCollapse = ({
               aria-haspopup="true"
               onClick={handleClick}
             >
-              <Typography className={cx(classNames.collapseText, {[classNames.selected]: index === activeCategory})}>
+              <Typography className={cx(classNames.collapseText, { [classNames.selected]: index === activeCategory })}>
                 {'...'}
               </Typography>
 
               {menuAnchor ? (
-                <ArrowDropUpIcon className={cx({[classNames.selected]: index === activeCategory})} fontSize="small" />
+                <ArrowDropUpIcon className={cx({ [classNames.selected]: index === activeCategory })} fontSize="small" />
               ) : (
-                <ArrowDropDownIcon className={cx({[classNames.selected]: index === activeCategory})} fontSize="small" />
+                <ArrowDropDownIcon
+                  className={cx({ [classNames.selected]: index === activeCategory })}
+                  fontSize="small"
+                />
               )}
             </div>
           ) : null}
@@ -224,7 +227,7 @@ export const NavbarCollapse = ({
         anchorEl={menuAnchor}
         autoFocus={false}
         open={Boolean(menuAnchor)}
-        classes={{paper: classNames.menu, list: classNames.list}}
+        classes={{ paper: classNames.menu, list: classNames.list }}
         onClose={handleClose}
       >
         <List disablePadding>

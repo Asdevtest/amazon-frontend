@@ -1,1 +1,1 @@
-export {vacByUserIdExchangeColumns} from './vac-by-user-id-exchange-columns'
+export { vacByUserIdExchangeColumns } from './vac-by-user-id-exchange-columns'

@@ -1,27 +1,27 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {OrderContent} from '@components/contents/order-content'
-import {MainContent} from '@components/layout/main-content'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
-import {OrderProductModal} from '@components/modals/order-product-modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
-import {Button} from '@components/shared/buttons/button'
-import {Modal} from '@components/shared/modal'
+import { OrderContent } from '@components/contents/order-content'
+import { MainContent } from '@components/layout/main-content'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { OrderProductModal } from '@components/modals/order-product-modal'
+import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
+import { Button } from '@components/shared/buttons/button'
+import { Modal } from '@components/shared/modal'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {ClientOrderViewModel} from './client-order-view.model'
-import {styles} from './client-order-view.style'
+import { ClientOrderViewModel } from './client-order-view.model'
+import { styles } from './client-order-view.style'
 
 export const ClientOrderViewRaw = props => {
   const [viewModel] = useState(
@@ -30,7 +30,7 @@ export const ClientOrderViewRaw = props => {
         history: props.history,
       }),
   )
-  const {classes: classNames} = props
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()

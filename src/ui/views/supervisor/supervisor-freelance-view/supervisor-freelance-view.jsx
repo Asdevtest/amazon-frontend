@@ -1,24 +1,24 @@
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {MainContent} from '@components/layout/main-content'
-import {Button} from '@components/shared/buttons/button'
+import { MainContent } from '@components/layout/main-content'
+import { Button } from '@components/shared/buttons/button'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {SupervisorFreelanceViewModel} from './supervisor-freelance-view.model'
-import {styles} from './supervisor-freelance-view.style'
+import { SupervisorFreelanceViewModel } from './supervisor-freelance-view.model'
+import { styles } from './supervisor-freelance-view.style'
 
 export const SupervisorFreelanceViewRaw = props => {
-  const [viewModel] = useState(() => new SupervisorFreelanceViewModel({history: props.history}))
-  const {classes: classNames} = props
+  const [viewModel] = useState(() => new SupervisorFreelanceViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
   return (
     <React.Fragment>

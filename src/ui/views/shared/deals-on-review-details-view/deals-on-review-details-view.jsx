@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DealDetailsCard} from '@components/cards/deal-details-card'
-import {RequestProposalAcceptOrRejectResultForm} from '@components/forms/request-proposal-accept-or-reject-result-form'
-import {RequestProposalResultToCorrectForm} from '@components/forms/request-proposal-result-to-correct-form'
-import {MainContent} from '@components/layout/main-content'
-import {Modal} from '@components/shared/modal'
+import { DealDetailsCard } from '@components/cards/deal-details-card'
+import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
+import { RequestProposalResultToCorrectForm } from '@components/forms/request-proposal-result-to-correct-form'
+import { MainContent } from '@components/layout/main-content'
+import { Modal } from '@components/shared/modal'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {VacantDealsDetailsViewModel} from './deals-on-review-details-view.model'
+import { VacantDealsDetailsViewModel } from './deals-on-review-details-view.model'
 
 export const DealsOnReviewDetailsView = observer(props => {
   const [viewModel] = useState(

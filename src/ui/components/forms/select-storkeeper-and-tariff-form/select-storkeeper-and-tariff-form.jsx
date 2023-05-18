@@ -1,30 +1,30 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import {
   Box,
   Tabs,
   /* Tab, */
 } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {toJS} from 'mobx'
-import {observer} from 'mobx-react'
+import { toJS } from 'mobx'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
-import {ITab} from '@components/shared/i-tab/i-tab'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {SearchInput} from '@components/shared/search-input'
+import { Button } from '@components/shared/buttons/button'
+import { ITab } from '@components/shared/i-tab/i-tab'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { SearchInput } from '@components/shared/search-input'
 
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
-import {t} from '@utils/translations'
+import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { t } from '@utils/translations'
 
-import {logisticsTariffsColumns, warehouseTariffsColumns} from './select-storkeeper-and-tariff-form-columns'
-import {useClassNames} from './select-storkeeper-and-tariff-form.style'
-import {TotalTariffsColumns} from './total-storkeeper-and-tariff-form-columns'
+import { logisticsTariffsColumns, warehouseTariffsColumns } from './select-storkeeper-and-tariff-form-columns'
+import { useClassNames } from './select-storkeeper-and-tariff-form.style'
+import { TotalTariffsColumns } from './total-storkeeper-and-tariff-form-columns'
 
-const TabPanel = ({children, value, index, ...other}) => (
+const TabPanel = ({ children, value, index, ...other }) => (
   <div
     role="tabpanel"
     hidden={value !== index}
@@ -37,8 +37,8 @@ const TabPanel = ({children, value, index, ...other}) => (
 )
 
 export const SelectStorekeeperAndTariffForm = observer(
-  ({storekeepers, curStorekeeperId, curTariffId, onSubmit, inNotifications, total}) => {
-    const {classes: classNames} = useClassNames()
+  ({ storekeepers, curStorekeeperId, curTariffId, onSubmit, inNotifications, total }) => {
+    const { classes: classNames } = useClassNames()
 
     const [tabIndex, setTabIndex] = React.useState(0)
 
@@ -126,7 +126,7 @@ export const SelectStorekeeperAndTariffForm = observer(
                   ? filterByNameSearch(addIdDataConverter(curStorekeeper.tariffLogistics))
                   : []
               }
-              columns={total ? TotalTariffsColumns() : logisticsTariffsColumns({onClickSelectTariff})}
+              columns={total ? TotalTariffsColumns() : logisticsTariffsColumns({ onClickSelectTariff })}
               getRowHeight={() => 'auto'}
             />
           </div>

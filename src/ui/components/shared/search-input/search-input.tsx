@@ -1,19 +1,19 @@
-import {cx} from '@emotion/css'
-import {ClassNamesArg} from '@emotion/react'
+import { cx } from '@emotion/css'
+import { ClassNamesArg } from '@emotion/react'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import SearchIcon from '@mui/icons-material/Search'
-import {InputAdornment} from '@mui/material'
+import { InputAdornment } from '@mui/material'
 
-import React, {ChangeEvent, FC, useEffect, useState} from 'react'
+import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/shared/buttons/button'
-import {Input} from '@components/shared/input'
+import { Button } from '@components/shared/buttons/button'
+import { Input } from '@components/shared/input'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './search-input.style'
+import { useClassNames } from './search-input.style'
 
 interface SearchInputProps {
   disabled?: boolean
@@ -26,9 +26,9 @@ interface SearchInputProps {
 }
 
 export const SearchInput: FC<SearchInputProps> = props => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
-  const {disabled, value, onChange, placeholder, inputClasses, onSubmit, startText} = props
+  const { disabled, value, onChange, placeholder, inputClasses, onSubmit, startText } = props
 
   const [isMyInputFocused, setIsMyInputFocused] = useState(false)
 
@@ -67,7 +67,7 @@ export const SearchInput: FC<SearchInputProps> = props => {
       className={cx(classNames.input, !!inputClasses && inputClasses)}
       value={onSubmit ? internalValue : value}
       placeholder={placeholder}
-      classes={{input: classNames.inputClass}}
+      classes={{ input: classNames.inputClass }}
       endAdornment={
         <InputAdornment position={onSubmit ? 'end' : 'start'}>
           {onSubmit ? (

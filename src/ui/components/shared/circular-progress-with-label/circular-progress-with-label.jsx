@@ -3,10 +3,10 @@ import Typography from '@mui/material/Typography'
 
 import React from 'react'
 
-import {useClassNames} from './circular-progress-with-label.style'
+import { useClassNames } from './circular-progress-with-label.style'
 
-export const CircularProgressWithLabel = ({value, title}) => {
-  const {classes: classNames} = useClassNames()
+export const CircularProgressWithLabel = ({ value, title }) => {
+  const { classes: classNames } = useClassNames()
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.progressContainer}>

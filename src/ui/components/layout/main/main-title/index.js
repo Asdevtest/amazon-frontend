@@ -1,1 +1,1 @@
-export {MainTitle} from './main-title'
+export { MainTitle } from './main-title'

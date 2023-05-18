@@ -1,14 +1,14 @@
-import {exchangeBuyerWorkColumns} from './exchange-buyer-work-columns'
-import {exchangeCanceledColumns} from './exchange-canceled-columns'
-import {exchangeСreatedColumns} from './exchange-created-columns'
-import {exchangeHighPriceColumns} from './exchange-high-price-columns'
-import {exchangeNewColumns} from './exchange-new-columns'
-import {exchangePublishedColumns} from './exchange-published-columns'
-import {exchangeSupplierFoundedColumns} from './exchange-supplier-founded-columns'
-import {exchangeSupplierNotFoundedColumns} from './exchange-supplier-not-founded-columns'
-import {exchangeSupplierSearchColumns} from './exchange-supplier-search-columns'
+import { exchangeBuyerWorkColumns } from './exchange-buyer-work-columns'
+import { exchangeCanceledColumns } from './exchange-canceled-columns'
+import { exchangeСreatedColumns } from './exchange-created-columns'
+import { exchangeHighPriceColumns } from './exchange-high-price-columns'
+import { exchangeNewColumns } from './exchange-new-columns'
+import { exchangePublishedColumns } from './exchange-published-columns'
+import { exchangeSupplierFoundedColumns } from './exchange-supplier-founded-columns'
+import { exchangeSupplierNotFoundedColumns } from './exchange-supplier-not-founded-columns'
+import { exchangeSupplierSearchColumns } from './exchange-supplier-search-columns'
 
-export const exchangeProductsColumns = ({activeSubCategory}) => {
+export const exchangeProductsColumns = ({ activeSubCategory }) => {
   const getSubCategoryColumns = () => {
     switch (activeSubCategory) {
       case 0:

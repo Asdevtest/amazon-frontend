@@ -1,1 +1,1 @@
-export {UserInfoAndEdit} from './user-info-and-edit'
+export { UserInfoAndEdit } from './user-info-and-edit'

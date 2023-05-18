@@ -1,1 +1,1 @@
-export {UserInfoEditForm} from './user-info-edit-form'
+export { UserInfoEditForm } from './user-info-edit-form'

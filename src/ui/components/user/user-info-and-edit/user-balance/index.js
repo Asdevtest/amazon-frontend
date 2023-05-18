@@ -1,1 +1,1 @@
-export {UserBalance} from './user-balance'
+export { UserBalance } from './user-balance'

@@ -1,45 +1,45 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // import NotificationsIcon from '@material-ui/icons/Notifications'
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import Brightness3RoundedIcon from '@mui/icons-material/Brightness3Rounded'
 import PersonIcon from '@mui/icons-material/Person'
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
-import {Avatar, Divider, Paper, Typography} from '@mui/material'
+import { Avatar, Divider, Paper, Typography } from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
 
-import React, {FC, ReactElement, useEffect, useRef, useState} from 'react'
+import React, { FC, ReactElement, useEffect, useRef, useState } from 'react'
 
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import {observer} from 'mobx-react'
-import {useHistory, useLocation} from 'react-router-dom'
-import {toast} from 'react-toastify'
+import { observer } from 'mobx-react'
+import { useHistory, useLocation } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
-import {snackNoticeKey} from '@constants/keys/snack-notifications'
-import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/keys/user-roles'
-import {UiTheme} from '@constants/theme/themes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { snackNoticeKey } from '@constants/keys/snack-notifications'
+import { mapUserRoleEnumToKey, UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { UiTheme } from '@constants/theme/themes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {BreadCrumbsLine} from '@components/layout/bread-crumbs-line'
-import {BoxesUpdatesNotification} from '@components/layout/notifications/boxes-updates-notification'
-import {IdeaNotification} from '@components/layout/notifications/idea-notification'
-import {OrderDeadlineNotification} from '@components/layout/notifications/order-deadline-notification'
-import {OrdersUpdatesNotification} from '@components/layout/notifications/orders-updates-notification/orders-updates-notification'
-import {SimpleMessagesNotification} from '@components/layout/notifications/simple-messages-notification'
-import {Button} from '@components/shared/buttons/button'
-import {LanguageSelector} from '@components/shared/selectors/language-selector'
-import {HintsOff, HintsOn} from '@components/shared/svg-icons'
+import { BreadCrumbsLine } from '@components/layout/bread-crumbs-line'
+import { BoxesUpdatesNotification } from '@components/layout/notifications/boxes-updates-notification'
+import { IdeaNotification } from '@components/layout/notifications/idea-notification'
+import { OrderDeadlineNotification } from '@components/layout/notifications/order-deadline-notification'
+import { OrdersUpdatesNotification } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification'
+import { SimpleMessagesNotification } from '@components/layout/notifications/simple-messages-notification'
+import { Button } from '@components/shared/buttons/button'
+import { LanguageSelector } from '@components/shared/selectors/language-selector'
+import { HintsOff, HintsOn } from '@components/shared/svg-icons'
 
-import {checkIsResearcher} from '@utils/checks'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {getShortenStringIfLongerThanCount, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { checkIsResearcher } from '@utils/checks'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { getShortenStringIfLongerThanCount, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {AppbarModel} from './appbar.model'
-import {useClassNames} from './appbar.style'
+import { AppbarModel } from './appbar.model'
+import { useClassNames } from './appbar.style'
 
 interface Props {
   avatarSrc: string
@@ -50,11 +50,11 @@ interface Props {
   children: ReactElement
 }
 
-export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, lastCrumbAdditionalText}) => {
+export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen, lastCrumbAdditionalText }) => {
   const history = useHistory()
   const location = useLocation()
-  const {classes: classNames} = useClassNames()
-  const componentModel = useRef(new AppbarModel({history}))
+  const { classes: classNames } = useClassNames()
+  const componentModel = useRef(new AppbarModel({ history }))
 
   const {
     role,
@@ -78,7 +78,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
           noticeItem={snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]}
           onClickMessage={onClickMessage}
         />,
-        {autoClose: 5000},
+        { autoClose: 5000 },
       )
       markNotificationAsReaded(snackNoticeKey.SIMPLE_MESSAGE)
     }
@@ -142,7 +142,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
 
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null)
 
-  const handleClick = (event: {currentTarget: HTMLDivElement}) => {
+  const handleClick = (event: { currentTarget: HTMLDivElement }) => {
     setAnchorEl(event.currentTarget)
   }
 
@@ -157,7 +157,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
   }
 
   const onChangeUserInfo = (roleNun: number) => {
-    componentModel.current.changeUserInfo({role: roleNun})
+    componentModel.current.changeUserInfo({ role: roleNun })
   }
 
   const onClickProfile = () => {
@@ -169,7 +169,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
   }
 
   const allowedRolesWithoutCandidate = componentModel.current.allowedRoles?.filter(
-    (el: number) => el !== (mapUserRoleEnumToKey as {[key: string]: number})[UserRole.CANDIDATE],
+    (el: number) => el !== (mapUserRoleEnumToKey as { [key: string]: number })[UserRole.CANDIDATE],
   )
 
   return (
@@ -213,13 +213,13 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                       })}
                       onClick={() => onChangeUserInfo(roleCode)}
                     >
-                      {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
+                      {(UserRoleCodeMap as { [key: number]: string })[roleCode]}
                     </Button>
                   ))}
                 </div>
               ) : (
                 <Typography className={cx(classNames.userrole, classNames.сurrentAllowedRolesItem)}>
-                  {(UserRoleCodeMap as {[key: number]: string})[componentModel.current.role]}
+                  {(UserRoleCodeMap as { [key: number]: string })[componentModel.current.role]}
                 </Typography>
               )}
             </div>
@@ -256,7 +256,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                   </Typography>
                 </Tooltip>
 
-                {!checkIsResearcher((UserRoleCodeMap as {[key: number]: string})[role]) && (
+                {!checkIsResearcher((UserRoleCodeMap as { [key: number]: string })[role]) && (
                   <Typography className={classNames.balance}>
                     {toFixedWithDollarSign(componentModel.current.balance, 2)}
                   </Typography>
@@ -273,7 +273,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
               anchorEl={anchorEl}
               autoFocus={false}
               open={Boolean(anchorEl)}
-              classes={{paper: classNames.menu, list: classNames.list}}
+              classes={{ paper: classNames.menu, list: classNames.list }}
               onClose={handleClose}
             >
               <MenuItem className={classNames.menuClientInfoWrapper}>
@@ -282,7 +282,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                     {getShortenStringIfLongerThanCount(componentModel.current.userName, 10)}
                   </Typography>
 
-                  {!checkIsResearcher((UserRoleCodeMap as {[key: number]: string})[role]) && (
+                  {!checkIsResearcher((UserRoleCodeMap as { [key: number]: string })[role]) && (
                     <Typography className={classNames.menuClientInfoText}>
                       {toFixedWithDollarSign(componentModel.current.balance, 2)}
                     </Typography>
@@ -325,7 +325,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                             })}
                             onClick={() => onChangeUserInfo(roleCode)}
                           >
-                            {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
+                            {(UserRoleCodeMap as { [key: number]: string })[roleCode]}
                           </Typography>
                         </div>
                       ))}
@@ -334,7 +334,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                     <div className={classNames.userRoleWrapper}>
                       <span className={classNames.indicator}></span>
                       <Typography className={cx(classNames.userrole, classNames.сurrentAllowedRolesItem)}>
-                        {(UserRoleCodeMap as {[key: number]: string})[componentModel.current.role]}
+                        {(UserRoleCodeMap as { [key: number]: string })[componentModel.current.role]}
                       </Typography>
                     </div>
                   )}

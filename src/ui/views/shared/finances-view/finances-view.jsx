@@ -1,24 +1,24 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {MainContent} from '@components/layout/main-content'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { MainContent } from '@components/layout/main-content'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 
-import {FinancesViewModel} from './finances-view.model'
-import {styles} from './finances-view.style'
+import { FinancesViewModel } from './finances-view.model'
+import { styles } from './finances-view.style'
 
 export const FinancesViewRaw = props => {
-  const [viewModel] = useState(() => new FinancesViewModel({history: props.history, location: props.location}))
-  const {classes: classNames} = props
+  const [viewModel] = useState(() => new FinancesViewModel({ history: props.history, location: props.location }))
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.getPayments()

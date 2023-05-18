@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
-import {DataGrid} from '@mui/x-data-grid'
+import { DataGrid } from '@mui/x-data-grid'
 
-import React, {useMemo} from 'react'
+import React, { useMemo } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-export const MemoDataGrid = observer(({...restProps}) => {
+export const MemoDataGrid = observer(({ ...restProps }) => {
   // console.log('restProps.rows', restProps.rows)
 
   const result = useMemo(

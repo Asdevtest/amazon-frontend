@@ -1,23 +1,23 @@
-import {Box, Tabs} from '@mui/material'
+import { Box, Tabs } from '@mui/material'
 
 import React from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {ITab} from '@components/shared/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab/i-tab'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {GoodsDaysReport} from './goods-days-report'
-import {useClassNames} from './shops-integrations.style'
-import {ShopsView} from './shops-view'
-import {StockReport} from './stock-report/stock-report'
+import { GoodsDaysReport } from './goods-days-report'
+import { useClassNames } from './shops-integrations.style'
+import { ShopsView } from './shops-view'
+import { StockReport } from './stock-report/stock-report'
 
-const TabPanel = ({children, value, index, ...other}) => (
+const TabPanel = ({ children, value, index, ...other }) => (
   <div
     role="tabpanel"
     hidden={value !== index}
@@ -35,8 +35,8 @@ const tabsValues = {
   GOODS_DAYS_REPORT: 'GOODS_DAYS_REPORT',
 }
 
-export const ShopsIntegrations = observer(({openModal}) => {
-  const {classes: classNames} = useClassNames()
+export const ShopsIntegrations = observer(({ openModal }) => {
+  const { classes: classNames } = useClassNames()
 
   const [tabIndex, setTabIndex] = React.useState(tabsValues.SHOPS)
 

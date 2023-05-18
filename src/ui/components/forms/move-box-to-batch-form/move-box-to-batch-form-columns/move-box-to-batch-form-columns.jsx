@@ -1,6 +1,6 @@
-import {Radio} from '@mui/material'
+import { Radio } from '@mui/material'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   NormDateCell,
@@ -9,8 +9,8 @@ import {
   MultilineTextHeaderCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
   {

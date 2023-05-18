@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -70,7 +70,7 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 0,
 
     color: theme.palette.text.second,
-    '&:hover': {backgroundColor: '#0000ff0a'},
+    '&:hover': { backgroundColor: '#0000ff0a' },
   },
 
   subCategory: {

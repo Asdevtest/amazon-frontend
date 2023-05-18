@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   NormDateCell,
@@ -14,8 +14,8 @@ import {
   BatchTrackingCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const clientBatchesViewColumns = (rowHandlers, languageTag) => [
   {

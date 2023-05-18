@@ -2,9 +2,9 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React from 'react'
 
-import {t} from 'i18n-js'
+import { t } from 'i18n-js'
 
-import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import {
   orderColorByStatus,
   OrderStatus,
@@ -12,7 +12,7 @@ import {
   OrderStatusByKey,
   OrderStatusTranslate,
 } from '@constants/statuses/order-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextHeaderCell,
@@ -28,8 +28,8 @@ import {
   SuccessActionBtnCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {formatDate, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
-import {timeToDeadlineInHoursAndMins, toFixedWithDollarSign} from '@utils/text'
+import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
+import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
 
 export const clientProductOrdersViewColumns = (handlers, firstRowId) => [
   {
@@ -180,7 +180,7 @@ export const clientProductOrdersViewColumns = (handlers, firstRowId) => [
       params.row.originalData.status < 20 ? (
         <MultilineTextCell
           withLineBreaks
-          tooltipText={params.value ? timeToDeadlineInHoursAndMins({date: params.value}) : ''}
+          tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
           color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
           text={params.value ? formatDate(params.value) : ''}
         />

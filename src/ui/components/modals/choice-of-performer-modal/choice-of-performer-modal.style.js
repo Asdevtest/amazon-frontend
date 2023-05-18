@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import {keyframes} from '@emotion/react'
+import { keyframes } from '@emotion/react'
 
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {

@@ -1,1 +1,1 @@
-export {TableHeadRow} from './table-head-row'
+export { TableHeadRow } from './table-head-row'

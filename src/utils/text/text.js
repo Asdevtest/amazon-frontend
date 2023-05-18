@@ -1,17 +1,17 @@
 /* eslint-disable no-unused-vars */
-import {hoursToSeconds, minutesToHours, secondsToHours, secondsToMinutes} from 'date-fns'
+import { hoursToSeconds, minutesToHours, secondsToHours, secondsToMinutes } from 'date-fns'
 import QueryString from 'qs'
 
-import {zipCodeGroups} from '@constants/configs/zip-code-groups'
-import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
-import {ProductStatusByCode, productStatusTranslateKey} from '@constants/product/product-status'
-import {humanFriendlyStategyStatus, mapProductStrategyStatusEnum} from '@constants/product/product-strategy-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
+import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {checkIsAbsoluteUrl} from '@utils/checks'
+import { checkIsAbsoluteUrl } from '@utils/checks'
 
-import {getDistanceBetweenDatesInSeconds} from '../date-time'
-import {t} from '../translations'
+import { getDistanceBetweenDatesInSeconds } from '../date-time'
+import { t } from '../translations'
 
 export const getShortenStringIfLongerThanCount = (str, count, showEnd) =>
   str?.length > count ? `${str.slice(0, count)}...${showEnd ? str.slice(str.length - 3) : ''}` : str
@@ -96,7 +96,7 @@ export const getFullTariffTextForBoxOrOrder = box => {
 export const shortSku = value => getShortenStringIfLongerThanCount(value, 12)
 export const shortAsin = value => getShortenStringIfLongerThanCount(value, 10)
 
-export const timeToDeadlineInHoursAndMins = ({date, withSeconds, now}) => {
+export const timeToDeadlineInHoursAndMins = ({ date, withSeconds, now }) => {
   const secondsToDeadline = getDistanceBetweenDatesInSeconds(date, now)
 
   const isExpired = secondsToDeadline < 0
@@ -114,7 +114,7 @@ export const timeToDeadlineInHoursAndMins = ({date, withSeconds, now}) => {
   }${withSeconds ? seconds + t(TranslationKey['s.']) : ''}`
 }
 
-export const timeToDeadlineInDaysAndHours = ({date, now}) => {
+export const timeToDeadlineInDaysAndHours = ({ date, now }) => {
   const secondsToDeadline = getDistanceBetweenDatesInSeconds(date, now)
 
   const isExpired = secondsToDeadline < 0

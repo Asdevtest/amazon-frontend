@@ -1,1 +1,1 @@
-export {exchangeSupplierFoundedColumns} from './exchange-supplier-founded-columns'
+export { exchangeSupplierFoundedColumns } from './exchange-supplier-founded-columns'

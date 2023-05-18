@@ -1,1 +1,1 @@
-export {productIntegrationsColumns} from './integrations-columns'
+export { productIntegrationsColumns } from './integrations-columns'

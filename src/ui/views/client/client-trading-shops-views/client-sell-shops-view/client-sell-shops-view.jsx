@@ -1,11 +1,11 @@
 import React from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {ClientSellShopsContent} from '@components/contents/client-sell-shops-content'
-import {MainContent} from '@components/layout/main-content'
-import {styles} from './client-sell-shops-view.style'
+import { ClientSellShopsContent } from '@components/contents/client-sell-shops-content'
+import { MainContent } from '@components/layout/main-content'
+import { styles } from './client-sell-shops-view.style'
 
 export const ClientSellShopsViewRaw = () => (
   // const [viewModel] = useState(() => new ClientSellShopsViewModel({history: this.props.history}))

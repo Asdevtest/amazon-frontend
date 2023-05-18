@@ -1,4 +1,4 @@
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class AdministratorModelStatic {
   logger = undefined
@@ -29,12 +29,12 @@ class AdministratorModelStatic {
   }
 
   updateProduct = async (id, data) => {
-    const response = await restApiService.administratorApi.apiV1AdminsPatchProductsGuidPatch(id, {body: data})
+    const response = await restApiService.administratorApi.apiV1AdminsPatchProductsGuidPatch(id, { body: data })
     return response
   }
 
   makePayment = async data => {
-    const response = await restApiService.administratorApi.apiV1AdminsMakePaymentPost({body: data})
+    const response = await restApiService.administratorApi.apiV1AdminsMakePaymentPost({ body: data })
     return response
   }
 
@@ -51,7 +51,7 @@ class AdministratorModelStatic {
   }
 
   createProxy = async data => {
-    const response = await restApiService.administratorApi.apiV1AdminsProxyPost({body: data})
+    const response = await restApiService.administratorApi.apiV1AdminsProxyPost({ body: data })
     return response
   }
 
@@ -76,7 +76,7 @@ class AdministratorModelStatic {
   }
 
   getOrdersByStatus = async status => {
-    const response = await restApiService.administratorApi.apiV1AdminsOrdersGet({status})
+    const response = await restApiService.administratorApi.apiV1AdminsOrdersGet({ status })
     return response
   }
 
@@ -133,12 +133,12 @@ class AdministratorModelStatic {
   }
 
   createDestination = async data => {
-    const response = await restApiService.administratorApi.apiV1AdminsDestinationPost({body: data})
+    const response = await restApiService.administratorApi.apiV1AdminsDestinationPost({ body: data })
     return response
   }
 
   editDestination = async (id, data) => {
-    const response = await restApiService.administratorApi.apiV1AdminsDestinationEditGuidPatch(id, {body: data})
+    const response = await restApiService.administratorApi.apiV1AdminsDestinationEditGuidPatch(id, { body: data })
     return response
   }
 

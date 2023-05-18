@@ -1,1 +1,1 @@
-export {AdminBalanceModal} from './admin-balance-modal'
+export { AdminBalanceModal } from './admin-balance-modal'

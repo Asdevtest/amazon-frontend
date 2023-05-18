@@ -1,1 +1,1 @@
-export {NicheSearchRequestDetails} from './niche-request-details'
+export { NicheSearchRequestDetails } from './niche-request-details'

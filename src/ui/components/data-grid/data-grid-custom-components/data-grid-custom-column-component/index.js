@@ -1,1 +1,1 @@
-export {DataGridCustomColumnMenuComponent} from './data-grid-custom-column-component'
+export { DataGridCustomColumnMenuComponent } from './data-grid-custom-column-component'

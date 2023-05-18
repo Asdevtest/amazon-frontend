@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import CloseIcon from '@mui/icons-material/Close'
-import {Autocomplete} from '@mui/material'
+import { Autocomplete } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
-import React, {FC, useEffect, useState} from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
-import {GeneralModel} from '@models/general-model'
+import { GeneralModel } from '@models/general-model'
 
-import {useTagSelectorStyles} from '@components/product/product-wrapper/tag-selector/tag-selector.styles'
+import { useTagSelectorStyles } from '@components/product/product-wrapper/tag-selector/tag-selector.styles'
 
 interface Tag {
   _id: string
@@ -26,8 +26,8 @@ interface TagSelectorProps {
 }
 
 export const TagSelector: FC<TagSelectorProps> = props => {
-  const {currentTags, getTags, handleSaveTags, isEditMode, prefix = '', placeholder = 'Input'} = props
-  const {classes: styles} = useTagSelectorStyles()
+  const { currentTags, getTags, handleSaveTags, isEditMode, prefix = '', placeholder = 'Input' } = props
+  const { classes: styles } = useTagSelectorStyles()
 
   const [tagList, setTagList] = useState<Tag[]>([])
   const [selectedTags, setSelectedTags] = useState<Tag[]>(currentTags)
@@ -60,7 +60,7 @@ export const TagSelector: FC<TagSelectorProps> = props => {
       handleSaveTags(newValue)
     } else {
       GeneralModel.createTag(selectValue!.title).then(res => {
-        newValue = [...selectedTags, {title: selectValue?.title, _id: res._id} as Tag]
+        newValue = [...selectedTags, { title: selectValue?.title, _id: res._id } as Tag]
         setSelectedTags(newValue)
         handleSaveTags(newValue)
         getTags().then(value => setTagList(value))
@@ -79,14 +79,14 @@ export const TagSelector: FC<TagSelectorProps> = props => {
             id="combo-box-demo"
             options={tagList}
             getOptionLabel={el => (typeof el === 'string' ? el : el.title)}
-            sx={{width: '100%', minWidth: 300}}
+            sx={{ width: '100%', minWidth: 300 }}
             renderInput={params => (
               <TextField
                 {...params}
                 // InputProps={{
                 //   startAdornment: selectValue ? <InputAdornment position="start">{prefix}</InputAdornment> : null,
                 // }}
-                style={{width: '100%'}}
+                style={{ width: '100%' }}
                 label={placeholder}
                 value={textValue}
                 onInput={(event: any) => {
@@ -99,7 +99,7 @@ export const TagSelector: FC<TagSelectorProps> = props => {
             value={selectValue}
             onChange={(_, value) => {
               setTextValue(typeof value === 'string' ? value : value?.title || '')
-              setSelectValue(typeof value === 'string' ? ({title: value} as Tag) : value)
+              setSelectValue(typeof value === 'string' ? ({ title: value } as Tag) : value)
             }}
           />
           <button

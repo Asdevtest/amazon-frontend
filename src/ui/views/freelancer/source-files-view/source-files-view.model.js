@@ -1,18 +1,18 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {tableSortMode} from '@constants/table/table-view-modes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { tableSortMode } from '@constants/table/table-view-modes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {RequestProposalModel} from '@models/request-proposal'
-import {SettingsModel} from '@models/settings-model'
+import { RequestProposalModel } from '@models/request-proposal'
+import { SettingsModel } from '@models/settings-model'
 
-import {sourceFilesColumns} from '@components/table/table-columns/freelancer/source-files-columns/source-files-columns'
+import { sourceFilesColumns } from '@components/table/table-columns/freelancer/source-files-columns/source-files-columns'
 
-import {SourceFilesDataConverter} from '@utils/data-grid-data-converters'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { SourceFilesDataConverter } from '@utils/data-grid-data-converters'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
 
 export class SourceFilesViewModel {
   history = undefined
@@ -46,7 +46,7 @@ export class SourceFilesViewModel {
 
   firstRowId = undefined
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -64,9 +64,9 @@ export class SourceFilesViewModel {
     return SettingsModel.languageTag
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     this.history = history
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -233,7 +233,7 @@ export class SourceFilesViewModel {
   }
 
   onChangeText = fieldName => value => {
-    const newFormFields = {...this.editField}
+    const newFormFields = { ...this.editField }
     newFormFields[fieldName] = value
 
     runInAction(() => {

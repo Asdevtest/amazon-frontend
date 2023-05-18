@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import {Checkbox, Grid, Typography} from '@mui/material'
+import { Checkbox, Grid, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
 import {
   RequestProposalStatus,
@@ -20,28 +20,28 @@ import {
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
 } from '@constants/statuses/freelance-request-type'
-import {tableSortMode, tableViewMode} from '@constants/table/table-view-modes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {MyProposalsListCard} from '@components/cards/my-proposals-list-card'
-import {RequestDesignerResultClientForm} from '@components/forms/request-designer-result-client-form'
-import {MainContent} from '@components/layout/main-content'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {Button} from '@components/shared/buttons/button'
-import {Modal} from '@components/shared/modal'
-import {SearchInput} from '@components/shared/search-input'
-import {WithSearchSelect} from '@components/shared/selects/with-search-select'
+import { MyProposalsListCard } from '@components/cards/my-proposals-list-card'
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { MainContent } from '@components/layout/main-content'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { Button } from '@components/shared/buttons/button'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-import {checkIsFreelancer} from '@utils/checks'
+import { checkIsFreelancer } from '@utils/checks'
 import {
   sortObjectsArrayByArrayObjectFiledDateWithParseISO,
   sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc,
 } from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
 
-import {MyProposalsViewModel} from './my-proposals-view.model'
-import {styles} from './my-proposals-view.style'
+import { MyProposalsViewModel } from './my-proposals-view.model'
+import { styles } from './my-proposals-view.style'
 
 export const MyProposalsViewRaw = props => {
   const [viewModel] = useState(
@@ -51,7 +51,7 @@ export const MyProposalsViewRaw = props => {
         location: props.location,
       }),
   )
-  const {classes: classNames} = props
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -169,7 +169,7 @@ export const MyProposalsViewRaw = props => {
         {getSortedData(viewModel.sortMode)?.length ? (
           <Grid
             container
-            classes={{root: classNames.dashboardCardWrapper}}
+            classes={{ root: classNames.dashboardCardWrapper }}
             // spacing={4}
             direction="row"
             justifyContent="flex-start"
@@ -218,7 +218,7 @@ export const MyProposalsViewRaw = props => {
         >
           <RequestDesignerResultClientForm
             userInfo={viewModel.userInfo}
-            request={{request: viewModel.currentRequest}}
+            request={{ request: viewModel.currentRequest }}
             proposal={viewModel.currentProposal}
             setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
             // onClickSendAsResult={viewModel.onClickSendAsResult}

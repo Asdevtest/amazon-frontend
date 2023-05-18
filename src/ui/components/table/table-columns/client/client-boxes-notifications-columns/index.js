@@ -1,1 +1,1 @@
-export {clientBoxesNotificationsViewColumns} from './client-boxes-notifications-columns'
+export { clientBoxesNotificationsViewColumns } from './client-boxes-notifications-columns'

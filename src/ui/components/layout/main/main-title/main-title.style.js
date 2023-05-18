@@ -1,6 +1,6 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import {withStyles} from 'tss-react/mui'
+import { withStyles } from 'tss-react/mui'
 
 export const TitleTypography = withStyles(Typography, theme => ({
   root: {

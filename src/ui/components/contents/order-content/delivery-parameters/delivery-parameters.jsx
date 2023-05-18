@@ -1,27 +1,27 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Checkbox, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Checkbox, Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 import dayjs from 'dayjs'
 
-import {zipCodeGroups} from '@constants/configs/zip-code-groups'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {UserLinkCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
-import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
-import {Button} from '@components/shared/buttons/button'
-import {NewDatePicker} from '@components/shared/date-picker/date-picker'
-import {Field} from '@components/shared/field'
-import {Modal} from '@components/shared/modal'
-import {WithSearchSelect} from '@components/shared/selects/with-search-select'
+import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
+import { Button } from '@components/shared/buttons/button'
+import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { Field } from '@components/shared/field'
+import { Modal } from '@components/shared/modal'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 // import {formatDateWithoutTime} from '@utils/date-time'
 // import {getFullTariffTextForBoxOrOrder} from '@utils/text'
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './delivery-parameters.style'
+import { useClassNames } from './delivery-parameters.style'
 
 export const DeliveryParameters = ({
   isCanChange,
@@ -34,12 +34,12 @@ export const DeliveryParameters = ({
   setFormFields,
   onChangeField,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
   const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-    setFormFields({...formFields, storekeeperId, logicsTariffId: tariffId})
+    setFormFields({ ...formFields, storekeeperId, logicsTariffId: tariffId })
 
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
@@ -98,8 +98,8 @@ export const DeliveryParameters = ({
             searchFields={['name']}
             favourites={destinationsFavourites}
             onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-            onClickNotChosen={() => setFormFields({...formFields, destinationId: ''})}
-            onClickSelect={el => setFormFields({...formFields, destinationId: el._id})}
+            onClickNotChosen={() => setFormFields({ ...formFields, destinationId: '' })}
+            onClickSelect={el => setFormFields({ ...formFields, destinationId: el._id })}
           />
         }
       />
@@ -115,7 +115,7 @@ export const DeliveryParameters = ({
             disabled={!isCanChange}
             color="primary"
             variant={formFields.storekeeperId && 'text'}
-            className={cx({[classNames.storekeeperBtn]: !formFields.storekeeperId})}
+            className={cx({ [classNames.storekeeperBtn]: !formFields.storekeeperId })}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
             {formFields?.storekeeperId
@@ -136,9 +136,9 @@ export const DeliveryParameters = ({
       />
 
       <div
-        className={cx(classNames.expressWrapper, {[classNames.disabledExpressWrapper]: !isCanChange})}
+        className={cx(classNames.expressWrapper, { [classNames.disabledExpressWrapper]: !isCanChange })}
         onClick={() =>
-          isCanChange && onChangeField('priority')({target: {value: formFields.priority === '30' ? '40' : '30'}})
+          isCanChange && onChangeField('priority')({ target: { value: formFields.priority === '30' ? '40' : '30' } })
         }
       >
         <Checkbox
@@ -151,9 +151,9 @@ export const DeliveryParameters = ({
         <img className={classNames.deliveryImg} src="/assets/icons/fire.svg" alt="" />
       </div>
       <div
-        className={cx(classNames.expressWrapper, {[classNames.disabledExpressWrapper]: !isCanChange})}
+        className={cx(classNames.expressWrapper, { [classNames.disabledExpressWrapper]: !isCanChange })}
         onClick={() =>
-          isCanChange && onChangeField('expressChinaDelivery')({target: {value: !formFields.expressChinaDelivery}})
+          isCanChange && onChangeField('expressChinaDelivery')({ target: { value: !formFields.expressChinaDelivery } })
         }
       >
         <Checkbox

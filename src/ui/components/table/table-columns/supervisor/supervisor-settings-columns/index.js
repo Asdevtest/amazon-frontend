@@ -1,1 +1,1 @@
-export {supervisorSettingsViewColumns} from './supervisor-settings-columns'
+export { supervisorSettingsViewColumns } from './supervisor-settings-columns'

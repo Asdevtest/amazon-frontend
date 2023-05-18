@@ -1,8 +1,8 @@
-import {t} from 'i18n-js'
+import { t } from 'i18n-js'
 
-import {objectFlip} from '@utils/object'
+import { objectFlip } from '@utils/object'
 
-import {TranslationKey} from '../translations/translation-key'
+import { TranslationKey } from '../translations/translation-key'
 
 export const TaskOperationType = {
   MERGE: 'merge',

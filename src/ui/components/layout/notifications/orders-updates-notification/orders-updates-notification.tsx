@@ -1,20 +1,20 @@
-import {Avatar, Typography} from '@mui/material'
+import { Avatar, Typography } from '@mui/material'
 
-import React, {FC} from 'react'
+import React, { FC } from 'react'
 
-import {format} from 'date-fns'
-import {History} from 'history'
+import { format } from 'date-fns'
+import { History } from 'history'
 
-import {UiTheme} from '@constants/theme/themes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { UiTheme } from '@constants/theme/themes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {OrdersUpdatesNotificationRow} from '@components/layout/notifications/orders-updates-notification/orders-updates-notification-row'
-import {OrdersUpdatesNotificationItem} from '@components/layout/notifications/orders-updates-notification/orders-updates-notification-types'
-import {useOrdersUpdatesNotificationStyle} from '@components/layout/notifications/orders-updates-notification/orders-updates-notification.styles'
+import { OrdersUpdatesNotificationRow } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification-row'
+import { OrdersUpdatesNotificationItem } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification-types'
+import { useOrdersUpdatesNotificationStyle } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification.styles'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 interface OrdersUpdatesNotificationProps {
   noticeItem: {
@@ -25,8 +25,8 @@ interface OrdersUpdatesNotificationProps {
 }
 
 export const OrdersUpdatesNotification: FC<OrdersUpdatesNotificationProps> = props => {
-  const {classes: styles} = useOrdersUpdatesNotificationStyle()
-  const {noticeItem, history} = props
+  const { classes: styles } = useOrdersUpdatesNotificationStyle()
+  const { noticeItem, history } = props
   return (
     <div className={styles.body}>
       <Avatar

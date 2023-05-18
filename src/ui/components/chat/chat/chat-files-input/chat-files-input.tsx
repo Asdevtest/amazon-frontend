@@ -1,19 +1,19 @@
-import React, {FC} from 'react'
+import React, { FC } from 'react'
 
-import {ImageType} from 'react-images-uploading-alex76457-version'
+import { ImageType } from 'react-images-uploading-alex76457-version'
 
-import {IFile} from '@components/chat/multiple-chats'
-import {UploadFilesInput} from '@components/shared/upload-files-input'
+import { IFile } from '@components/chat/multiple-chats'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import {useClassNames} from './chat-files-input.style'
+import { useClassNames } from './chat-files-input.style'
 
 interface Props {
   files: ImageType[]
   setFiles: (e: IFile[]) => void
 }
 
-export const ChatFilesInput: FC<Props> = ({files, setFiles}) => {
-  const {classes: classNames} = useClassNames()
+export const ChatFilesInput: FC<Props> = ({ files, setFiles }) => {
+  const { classes: classNames } = useClassNames()
   // console.log('files ', files)
   return (
     <div className={classNames.root}>

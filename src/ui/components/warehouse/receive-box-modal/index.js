@@ -1,1 +1,1 @@
-export {ReceiveBoxModal} from './receive-box-modal'
+export { ReceiveBoxModal } from './receive-box-modal'

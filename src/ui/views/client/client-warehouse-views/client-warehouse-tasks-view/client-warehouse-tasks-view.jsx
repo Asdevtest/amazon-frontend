@@ -1,49 +1,49 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Checkbox, Typography} from '@mui/material'
+import { Checkbox, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import {
   mapTaskOperationTypeEnumToKey,
   mapTaskOperationTypeKeyToEnum,
   taskOperationTypeTranslate,
 } from '@constants/task/task-operation-type'
-import {mapTaskPriorityStatusEnum, taskPriorityStatusTranslate} from '@constants/task/task-priority-status'
-import {mapTaskStatusKeyToEnum, TaskStatusTranslate} from '@constants/task/task-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { mapTaskPriorityStatusEnum, taskPriorityStatusTranslate } from '@constants/task/task-priority-status'
+import { mapTaskStatusKeyToEnum, TaskStatusTranslate } from '@constants/task/task-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {DataGridCustomColumnMenuComponent} from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {MainContent} from '@components/layout/main-content'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comment-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Button} from '@components/shared/buttons/button'
-import {CircularProgressWithLabel} from '@components/shared/circular-progress-with-label'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {Modal} from '@components/shared/modal'
-import {SearchInput} from '@components/shared/search-input'
-import {WithSearchSelect} from '@components/shared/selects/with-search-select'
-import {EditTaskModal} from '@components/warehouse/edit-task-modal'
-import {EditTaskPriorityModal} from '@components/warehouse/edit-task-priority-modal'
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { MainContent } from '@components/layout/main-content'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { ConfirmWithCommentModal } from '@components/modals/confirmation-with-comment-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { EditTaskModal } from '@components/warehouse/edit-task-modal'
+import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {ClientWarehouseTasksViewModel} from './client-warehouse-tasks-view.model'
-import {styles} from './client-warehouse-tasks-view.style'
+import { ClientWarehouseTasksViewModel } from './client-warehouse-tasks-view.model'
+import { styles } from './client-warehouse-tasks-view.style'
 
 export const ClientWarehouseTasksViewRaw = props => {
-  const [viewModel] = useState(() => new ClientWarehouseTasksViewModel({history: props.history}))
-  const {classes: classNames} = props
+  const [viewModel] = useState(() => new ClientWarehouseTasksViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()

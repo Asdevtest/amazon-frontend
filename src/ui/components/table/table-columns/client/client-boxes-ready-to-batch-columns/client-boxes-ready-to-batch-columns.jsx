@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextHeaderCell,
@@ -12,8 +12,8 @@ import {
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const clientBoxesReadyToBatchViewColumns = () => [
   {
@@ -45,10 +45,10 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     renderCell: params =>
       params.row.originalData ? (
         params.row.originalData.items.length > 1 ? (
-          <OrderManyItemsCell box={(() => ({...params.row.originalData}))()} />
+          <OrderManyItemsCell box={(() => ({ ...params.row.originalData }))()} />
         ) : (
           <OrderCell
-            box={(() => ({...params.row.originalData}))()}
+            box={(() => ({ ...params.row.originalData }))()}
             product={params.row.originalData.items[0].product}
             superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
           />

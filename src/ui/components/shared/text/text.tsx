@@ -1,16 +1,16 @@
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
-import React, {FC, ReactElement, useEffect, useState} from 'react'
+import React, { FC, ReactElement, useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {TooltipAttention, TooltipInfoIcon} from '@components/shared/svg-icons'
+import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
 
-import {useClassNames} from './text.style'
+import { useClassNames } from './text.style'
 
 enum tooltipPositions {
   Corner = 'corner',
@@ -28,8 +28,8 @@ interface Props {
 }
 
 export const Text: FC<Props> = observer(
-  ({tooltipAttentionContent, tooltipInfoContent, tooltipPosition, children, className, containerClasses, style}) => {
-    const {classes: classNames} = useClassNames()
+  ({ tooltipAttentionContent, tooltipInfoContent, tooltipPosition, children, className, containerClasses, style }) => {
+    const { classes: classNames } = useClassNames()
 
     const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
     const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)

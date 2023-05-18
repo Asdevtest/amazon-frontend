@@ -1,11 +1,11 @@
-import {Link, Typography} from '@mui/material'
+import { Link, Typography } from '@mui/material'
 
-import React, {FC} from 'react'
+import React, { FC } from 'react'
 
-import {History} from 'history'
+import { History } from 'history'
 
-import {OrdersUpdatesNotificationItem} from '@components/layout/notifications/orders-updates-notification/orders-updates-notification-types'
-import {useOrdersUpdatesNotificationStyle} from '@components/layout/notifications/orders-updates-notification/orders-updates-notification.styles'
+import { OrdersUpdatesNotificationItem } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification-types'
+import { useOrdersUpdatesNotificationStyle } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification.styles'
 
 interface OrdersUpdatesNotificationRowProps {
   orders: OrdersUpdatesNotificationItem[]
@@ -15,12 +15,12 @@ interface OrdersUpdatesNotificationRowProps {
 }
 
 export const OrdersUpdatesNotificationRow: FC<OrdersUpdatesNotificationRowProps> = props => {
-  const {classes: styles} = useOrdersUpdatesNotificationStyle()
-  const {idHref, orders, title, history} = props
+  const { classes: styles } = useOrdersUpdatesNotificationStyle()
+  const { idHref, orders, title, history } = props
 
   const goToHref = (id: string) => {
     if (!idHref) return
-    history.push(`${idHref}`, {orderId: id})
+    history.push(`${idHref}`, { orderId: id })
   }
 
   return (
@@ -32,7 +32,7 @@ export const OrdersUpdatesNotificationRow: FC<OrdersUpdatesNotificationRowProps>
             <div>
               <span>ID:</span>{' '}
               {idHref ? (
-                <Link underline="none" sx={{cursor: 'pointer'}} onClick={() => goToHref(el._id)}>
+                <Link underline="none" sx={{ cursor: 'pointer' }} onClick={() => goToHref(el._id)}>
                   {el.id}
                 </Link>
               ) : (

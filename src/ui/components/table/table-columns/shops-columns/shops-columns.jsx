@@ -1,4 +1,4 @@
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   EditOrRemoveIconBtnsCell,
@@ -8,7 +8,7 @@ import {
   ShortDateCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const shopsColumns = (handlers, firstRowId) => [
   {

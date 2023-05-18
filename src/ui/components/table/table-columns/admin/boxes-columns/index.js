@@ -1,1 +1,1 @@
-export {adminBoxesViewColumns} from './boxes-columns'
+export { adminBoxesViewColumns } from './boxes-columns'

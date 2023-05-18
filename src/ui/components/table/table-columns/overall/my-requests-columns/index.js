@@ -1,1 +1,1 @@
-export {myRequestsViewColumns} from './my-requests-columns'
+export { myRequestsViewColumns } from './my-requests-columns'

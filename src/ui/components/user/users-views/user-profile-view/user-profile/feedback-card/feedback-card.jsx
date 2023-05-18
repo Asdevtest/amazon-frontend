@@ -1,18 +1,18 @@
-import {cx} from '@emotion/css'
-import {Paper, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Paper, Typography } from '@mui/material'
 
 import React from 'react'
 
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './feedback-card.style'
+import { useClassNames } from './feedback-card.style'
 
-export const FeedbackCard = ({isPositive, counter}) => {
-  const {classes: classNames} = useClassNames()
+export const FeedbackCard = ({ isPositive, counter }) => {
+  const { classes: classNames } = useClassNames()
   return (
     <Paper
       className={cx(classNames.paper, {

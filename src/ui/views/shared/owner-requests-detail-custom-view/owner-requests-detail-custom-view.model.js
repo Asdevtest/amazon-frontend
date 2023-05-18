@@ -1,18 +1,18 @@
-import {makeAutoObservable, reaction, runInAction} from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
-import {UserRoleCodeMapForRoutes} from '@constants/keys/user-roles'
-import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/statuses/freelance-request-type'
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatModel} from '@models/chat-model'
-import {RequestModel} from '@models/request-model'
-import {RequestProposalModel} from '@models/request-proposal'
-import {UserModel} from '@models/user-model'
+import { ChatModel } from '@models/chat-model'
+import { RequestModel } from '@models/request-model'
+import { RequestProposalModel } from '@models/request-proposal'
+import { UserModel } from '@models/user-model'
 
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class OwnerRequestDetailCustomViewModel {
   history = undefined
@@ -72,7 +72,7 @@ export class OwnerRequestDetailCustomViewModel {
     )
   }
 
-  constructor({history, location, scrollToChat}) {
+  constructor({ history, location, scrollToChat }) {
     const url = new URL(window.location.href)
 
     runInAction(() => {
@@ -92,14 +92,14 @@ export class OwnerRequestDetailCustomViewModel {
         this.acceptMessage = location.state.acceptMessage
         this.showAcceptMessage = location.state.showAcceptMessage
 
-        const state = {...history.location.state}
+        const state = { ...history.location.state }
         delete state.chatId
         delete state.acceptMessage
         delete state.showAcceptMessage
-        history.replace({...history.location, state})
+        history.replace({ ...history.location, state })
       }
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
     try {
       if (ChatModel.isConnected) {
         ChatModel.getChats(this.requestId, 'REQUEST')
@@ -134,7 +134,7 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   onTypingMessage(chatId) {
-    ChatModel.typingMessage({chatId})
+    ChatModel.typingMessage({ chatId })
   }
 
   async loadData() {
@@ -226,7 +226,7 @@ export class OwnerRequestDetailCustomViewModel {
         this.uploadedFiles = []
       })
       if (files.length) {
-        await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
       }
       const findProposalByChatId = this.requestProposals.find(
         requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
@@ -245,7 +245,7 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
-  async onPressSubmitDesignerResultToCorrect({reason, timeLimitInMinutes, imagesData /* .filter(el => el.image) */}) {
+  async onPressSubmitDesignerResultToCorrect({ reason, timeLimitInMinutes, imagesData /* .filter(el => el.image) */ }) {
     try {
       // runInAction(() => {
       //   this.uploadedFiles = []
@@ -263,7 +263,7 @@ export class OwnerRequestDetailCustomViewModel {
         reason,
         timeLimitInMinutes: parseInt(timeLimitInMinutes),
         // linksToMediaFiles: this.uploadedFiles,
-        media: imagesData.map(el => ({_id: el._id, commentByClient: el.commentByClient})),
+        media: imagesData.map(el => ({ _id: el._id, commentByClient: el.commentByClient })),
       })
       this.loadData()
     } catch (error) {
@@ -290,7 +290,7 @@ export class OwnerRequestDetailCustomViewModel {
 
   async toPublishRequest(totalCost) {
     try {
-      await RequestModel.toPublishRequest(this.requestId, {totalCost})
+      await RequestModel.toPublishRequest(this.requestId, { totalCost })
 
       this.onTriggerOpenModal('showConfirmModal')
 
@@ -424,13 +424,13 @@ export class OwnerRequestDetailCustomViewModel {
   onClickEditBtn() {
     this.history.push(
       `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-requests/custom-request/edit-request`,
-      {requestId: this.requestId},
+      { requestId: this.requestId },
     )
   }
 
   async onSubmitAbortRequest(comment) {
     try {
-      await RequestModel.abortRequest(this.requestId, {reason: comment})
+      await RequestModel.abortRequest(this.requestId, { reason: comment })
 
       this.onTriggerOpenModal('showConfirmWithCommentModal')
 

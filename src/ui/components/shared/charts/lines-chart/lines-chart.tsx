@@ -1,13 +1,13 @@
-import React, {FC} from 'react'
+import React, { FC } from 'react'
 
-import {LineChart, Line} from 'recharts'
+import { LineChart, Line } from 'recharts'
 
 interface Props {
   profit?: boolean
   data: [{}]
 }
 
-export const LinesChart: FC<Props> = ({profit, data}) => {
+export const LinesChart: FC<Props> = ({ profit, data }) => {
   return (
     <div>
       {profit ? (

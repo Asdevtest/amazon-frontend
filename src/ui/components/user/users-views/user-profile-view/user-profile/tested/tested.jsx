@@ -1,20 +1,20 @@
 import CheckIcon from '@mui/icons-material/Check'
-import {Box, Paper, Typography} from '@mui/material'
+import { Box, Paper, Typography } from '@mui/material'
 
 import React from 'react'
 
 // import AcUnitIcon from '@material-ui/icons/AcUnit'
-import {humanFriendlyStategyStatus, mapProductStrategyStatusEnum} from '@constants/product/product-strategy-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './tested.style'
+import { useClassNames } from './tested.style'
 
-export const Tested = ({user}) => {
-  const {classes: classNames} = useClassNames()
+export const Tested = ({ user }) => {
+  const { classes: classNames } = useClassNames()
 
-  const CheckedStrategyRow = ({label, icon}) => (
+  const CheckedStrategyRow = ({ label, icon }) => (
     <>
       <Box className={classNames.checkedStrategyRow} mb={1}>
         {icon ? icon : <CheckIcon className={classNames.acUnitIcon} />}

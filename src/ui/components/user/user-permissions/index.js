@@ -1,1 +1,1 @@
-export {UserPermissions} from './user-permissions'
+export { UserPermissions } from './user-permissions'

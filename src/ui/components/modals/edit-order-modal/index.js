@@ -1,1 +1,1 @@
-export {EditOrderModal} from './edit-order-modal'
+export { EditOrderModal } from './edit-order-modal'

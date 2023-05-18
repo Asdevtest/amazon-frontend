@@ -1,32 +1,32 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
 
-import {observer} from 'mobx-react'
-import {useHistory} from 'react-router-dom'
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
-import {loadingStatuses} from '@constants/statuses/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomToolbar} from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {AddOrEditDestinationForm} from '@components/forms/add-or-edit-destination-form'
-import {AddOrEditLogisticTariffForm} from '@components/forms/add-or-edit-logistic-tariff-form'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {Button} from '@components/shared/buttons/button'
-import {MemoDataGrid} from '@components/shared/memo-data-grid'
-import {Modal} from '@components/shared/modal'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
+import { AddOrEditLogisticTariffForm } from '@components/forms/add-or-edit-logistic-tariff-form'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {LogisticsTariffsModel} from './logistics-tariffs.model'
-import {useClassNames} from './logistics-tariffs.style'
+import { LogisticsTariffsModel } from './logistics-tariffs.model'
+import { useClassNames } from './logistics-tariffs.style'
 
 export const LogisticsTariffs = observer(() => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
   const history = useHistory()
-  const gpModel = useRef(new LogisticsTariffsModel({history}))
+  const gpModel = useRef(new LogisticsTariffsModel({ history }))
 
   const {
     isArchive,
@@ -135,7 +135,7 @@ export const LogisticsTariffs = observer(() => {
         }}
         componentsProps={{
           toolbar: {
-            columsBtnSettings: {columnsModel, changeColumnsModel},
+            columsBtnSettings: { columnsModel, changeColumnsModel },
           },
         }}
         density={densityModel}

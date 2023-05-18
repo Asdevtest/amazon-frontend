@@ -1,4 +1,4 @@
-import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
+import { getAmazonCodeFromLink } from '@utils/get-amazon-code-from-link'
 
 describe('Test checkIsString(value)', () => {
   const validTestValue = [

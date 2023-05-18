@@ -1,7 +1,7 @@
 import React from 'react'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/statuses/freelance-request-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineRequestStatusCell,
@@ -12,8 +12,8 @@ import {
   ShortDateCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const productMyRequestsViewColumns = (languageTag, handlers) => [
   {

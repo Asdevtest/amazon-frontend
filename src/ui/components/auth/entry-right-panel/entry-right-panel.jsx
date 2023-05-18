@@ -1,22 +1,22 @@
 import Brightness3RoundedIcon from '@mui/icons-material/Brightness3Rounded'
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
-import {Divider, Typography} from '@mui/material'
+import { Divider, Typography } from '@mui/material'
 
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 
-import {useFaviconNotification} from 'react-favicon-notification'
+import { useFaviconNotification } from 'react-favicon-notification'
 
-import {appVersion} from '@constants/app-version.js'
-import {UiTheme} from '@constants/theme/themes'
+import { appVersion } from '@constants/app-version.js'
+import { UiTheme } from '@constants/theme/themes'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {LanguageSelector} from '@components/shared/selectors/language-selector/language-selector.jsx'
+import { LanguageSelector } from '@components/shared/selectors/language-selector/language-selector.jsx'
 
-import {useClassNames} from './entry-right-panel.style.js'
+import { useClassNames } from './entry-right-panel.style.js'
 
-export const EntryRightPanel = ({onClickRedirect, redirect, title, children}) => {
-  const {classes: classNames} = useClassNames()
+export const EntryRightPanel = ({ onClickRedirect, redirect, title, children }) => {
+  const { classes: classNames } = useClassNames()
 
   const [config, setConfig] = useFaviconNotification()
 
@@ -25,7 +25,7 @@ export const EntryRightPanel = ({onClickRedirect, redirect, title, children}) =>
   }
 
   useEffect(() => {
-    setConfig({...config, show: false})
+    setConfig({ ...config, show: false })
   }, []) // при разлогине скидывает счетчик уведомлений в иконке во вкладке браузера
 
   return (

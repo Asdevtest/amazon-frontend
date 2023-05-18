@@ -1,1 +1,1 @@
-export {BoxForMerge} from './box-for-merge'
+export { BoxForMerge } from './box-for-merge'

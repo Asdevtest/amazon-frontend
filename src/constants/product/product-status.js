@@ -1,9 +1,9 @@
 /* 20, 70, 80, 90 - эти статусы запускают процесс выплат. После того как поставлен
   один из таких статусов - больше нельзя така как появилась запись об оплате.
 */
-import {objectFlip} from '@utils/object'
+import { objectFlip } from '@utils/object'
 
-import {TranslationKey} from '../translations/translation-key'
+import { TranslationKey } from '../translations/translation-key'
 
 export const ProductStatus = {
   NEW_PRODUCT: 'NEW_PRODUCT',

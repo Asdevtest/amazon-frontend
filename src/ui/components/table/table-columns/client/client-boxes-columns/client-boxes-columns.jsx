@@ -3,9 +3,9 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React from 'react'
 
-import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
-import {BoxStatus, boxStatusTranslateKey, colorByBoxStatus} from '@constants/statuses/box-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { BoxStatus, boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ChangeChipCell,
@@ -22,10 +22,10 @@ import {
   ChangeInputCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {findTariffInStorekeepersData} from '@utils/checks'
-import {formatDate, getDistanceBetweenDatesInSeconds} from '@utils/date-time'
-import {timeToDeadlineInHoursAndMins, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { findTariffInStorekeepersData } from '@utils/checks'
+import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
+import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const clientBoxesViewColumns = (
   handlers,
@@ -283,7 +283,7 @@ export const clientBoxesViewColumns = (
     renderCell: params => (
       <MultilineTextCell
         withLineBreaks
-        tooltipText={params.value ? timeToDeadlineInHoursAndMins({date: params.value}) : ''}
+        tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
         color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
         text={params.value ? formatDate(params.value) : ''}
       />
@@ -304,7 +304,7 @@ export const clientBoxesViewColumns = (
 
     renderCell: params =>
       params.row.originalData ? (
-        <div style={{display: 'flex', flexDirection: 'column', gap: '7px', padding: '10px 0'}}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '7px', padding: '10px 0' }}>
           <ChangeChipCell
             label={t(TranslationKey['Shipping label']) + ':'}
             disabled={params.row.originalData?.isDraft || params.row.status !== BoxStatus.IN_STOCK}

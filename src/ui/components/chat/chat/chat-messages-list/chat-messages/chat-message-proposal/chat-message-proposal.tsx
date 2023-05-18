@@ -1,27 +1,27 @@
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {FC, useContext} from 'react'
+import React, { FC, useContext } from 'react'
 
 import Linkify from 'react-linkify-always-blank'
 
-import {RequestProposalStatus} from '@constants/requests/request-proposal-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatMessageDataCreatedNewProposalProposalDescriptionContract} from '@models/chat-model/contracts/chat-message-data.contract'
-import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
+import { ChatMessageDataCreatedNewProposalProposalDescriptionContract } from '@models/chat-model/contracts/chat-message-data.contract'
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-import {Button} from '@components/shared/buttons/button'
-import {PhotoAndFilesCarousel} from '@components/shared/custom-carousel/custom-carousel'
+import { Button } from '@components/shared/buttons/button'
+import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
 
-import {formatDateTimeHourAndMinutes} from '@utils/date-time'
-import {minsToTime, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { formatDateTimeHourAndMinutes } from '@utils/date-time'
+import { minsToTime, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
+import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import {LabelValuePairBlock} from '../label-value-pair-block'
-import {useClassNames} from './chat-message-proposal.style'
+import { LabelValuePairBlock } from '../label-value-pair-block'
+import { useClassNames } from './chat-message-proposal.style'
 
 export interface ChatMessageProposalHandlers {
   onClickProposalAccept: (proposalId: string, price: number) => void
@@ -33,9 +33,9 @@ interface Props {
   handlers: ChatMessageProposalHandlers
 }
 
-export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
+export const ChatMessageProposal: FC<Props> = ({ message, handlers }) => {
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>

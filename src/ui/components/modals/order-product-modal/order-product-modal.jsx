@@ -1,25 +1,25 @@
 /* eslint-disable no-unused-vars */
-import {Typography, Table, TableBody, TableCell, TableHead, TableContainer, TableRow, Checkbox} from '@mui/material'
+import { Typography, Table, TableBody, TableCell, TableHead, TableContainer, TableRow, Checkbox } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {addDays, isPast, isToday, isValid} from 'date-fns'
+import { addDays, isPast, isToday, isValid } from 'date-fns'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {CommentOfSbCell} from '@components/data-grid/data-grid-cells/data-grid-cells'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
-import {Button} from '@components/shared/buttons/button'
-import {Modal} from '@components/shared/modal'
-import {OrderModalBodyRow} from '@components/table/table-rows/client/inventory/order-product-modal/order-modal-body-row'
+import { CommentOfSbCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { Button } from '@components/shared/buttons/button'
+import { Modal } from '@components/shared/modal'
+import { OrderModalBodyRow } from '@components/table/table-rows/client/inventory/order-product-modal/order-modal-body-row'
 
-import {calcProductsPriceWithDelivery} from '@utils/calculation'
-import {checkIsPositiveNum, isNotUndefined} from '@utils/checks'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { calcProductsPriceWithDelivery } from '@utils/calculation'
+import { checkIsPositiveNum, isNotUndefined } from '@utils/checks'
+import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
+import { toFixed, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './order-product-modal.style'
+import { useClassNames } from './order-product-modal.style'
 
 export const OrderProductModal = ({
   platformSettings,
@@ -35,7 +35,7 @@ export const OrderProductModal = ({
   setDestinationsFavouritesItem,
   isPendingOrdering,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)

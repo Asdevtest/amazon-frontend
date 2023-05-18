@@ -1,11 +1,11 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
 import React from 'react'
 
-import {useClassNames} from './fall-back.style'
+import { useClassNames } from './fall-back.style'
 
 export const FallBack = () => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   return (
     <div className={classNames.root}>
