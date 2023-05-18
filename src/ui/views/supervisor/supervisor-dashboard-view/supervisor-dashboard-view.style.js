@@ -1,7 +1,4 @@
 export const styles = theme => ({
-  amountWithLabelCardsWrapper: {
-    marginTop: theme.spacing(4),
-  },
   userInfoWrapper: {
     marginBottom: theme.spacing(5),
 

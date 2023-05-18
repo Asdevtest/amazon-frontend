@@ -3,6 +3,8 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
+
+import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
 import {routsPathes} from '@constants/navigation/routs-pathes'
@@ -30,7 +32,6 @@ import {t} from '@utils/translations'
 
 import {BuyerMyOrdersViewModel} from './buyer-my-orders-view.model'
 import {styles} from './buyer-my-orders-view.style'
-import {observer} from 'mobx-react'
 
 const attentionStatuses = [
   OrderStatusByKey[OrderStatus.AT_PROCESS],

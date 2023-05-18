@@ -49,7 +49,7 @@ export const VacantDealsListCard = ({onClickViewMore, showDetails, onClickGetToW
               </div>
             </div>
           </div>
-          <div className={classNames.cardTitleBlockWrapper}>
+          <div>
             <div className={classNames.cardTitleBlockHeaderWrapper}>
               <Typography className={classNames.cardTitle}>{item.title}</Typography>
               <Typography className={classNames.cardDescription}>{item.comment}</Typography>

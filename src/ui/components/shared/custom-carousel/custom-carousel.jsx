@@ -620,7 +620,7 @@ export const PhotoAndFilesCarouselMini = ({files, width, small = false, directio
       <div className={classNames.emptyProposalsIconMini}>
         <InboxIcon style={{color: '#C4C4C4', fontSize: '40px', padding: 10}} />
       </div>
-      <div className={classNames.emptyProposalsDescriptionWrapper}>
+      <div>
         <Typography className={classNames.emptyProposalsTitleMini}>{t(TranslationKey['No files added'])}</Typography>
       </div>
     </div>

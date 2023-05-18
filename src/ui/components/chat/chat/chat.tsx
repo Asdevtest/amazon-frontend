@@ -248,7 +248,7 @@ export const Chat: FC<Props> = observer(
                 <div className={classNames.groupSettingsImageShadow}></div>
 
                 <div className={classNames.groupSettingsInfoWrapper}>
-                  <div className={classNames.groupSettingsInfo}>
+                  <div>
                     <Typography className={classNames.groupSettingsInfoTitle}>{chat.info?.title}</Typography>
                     <Typography className={classNames.usersCount}>{`${chat.users?.length} ${t(
                       TranslationKey.Members,

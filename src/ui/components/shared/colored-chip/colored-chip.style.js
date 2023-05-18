@@ -65,15 +65,6 @@ export const useClassNames = makeStyles()((theme, props) => ({
     display: 'flex',
   },
 
-  tooltipsCenterWrapper: {
-    position: 'absolute',
-    top: 'calc(50% - 8.5px)',
-    right: '10px',
-    zIndex: '10',
-
-    display: 'flex',
-  },
-
   tooltip: {
     width: '17px',
     height: '17px',

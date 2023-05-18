@@ -19,8 +19,6 @@ export const useClassNames = makeStyles()(theme => ({
   rootYellow: {
     backgroundColor: theme.palette.background.yellow,
   },
-
-  labelWrapper: {},
   labelText: {
     fontWeight: 400,
     fontSize: '16px',
@@ -29,7 +27,7 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     textAlign: 'center',
   },
-  valueWrapper: {},
+
   valueText: {
     fontWeight: 400,
     fontSize: '16px',

@@ -12,12 +12,6 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
   label: {
-    // fontSize: '16px',
-    // lineHeight: '20px',
-    // color: theme.palette.text.general,
-    // fontWeight: '600',
-    // marginBottom: '12px',
-
     fontWeight: 400,
     fontSize: 18,
     lineHeight: '140%',
@@ -29,12 +23,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: 0,
   },
   input: {
-    // width: '100%',
-    // height: '32px',
-    // borderRadius: '4px',
-    // overflow: 'hidden',
     border: `1px solid ${theme.palette.input?.customBorder}`,
-    // color: theme.palette.text.general,
   },
   errorText: {
     marginTop: '2px',
@@ -59,18 +48,10 @@ export const useClassNames = makeStyles()(theme => ({
   errorActive: {
     border: '1px solid red',
   },
-  noFullWidth: {
-    width: 'auto',
-  },
 
   tooltipsWrapper: {
     display: 'flex',
     marginLeft: 3,
-  },
-
-  tooltipWrapper: {
-    width: '18 !important',
-    height: '18 !important',
   },
 
   tooltip: {
@@ -93,8 +74,4 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
   },
-
-  // inputDisabled: {
-  //   backgroundColor: theme.palette.input.customDisabled,
-  // },
 }))

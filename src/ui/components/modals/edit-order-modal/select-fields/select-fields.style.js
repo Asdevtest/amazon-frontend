@@ -1,26 +1,8 @@
 import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  modalText: {
-    color: theme.palette.text.general,
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '21px',
-    minWidth: '230px',
-  },
   nativeSelect: {
     width: '210px',
-  },
-  numInput: {
-    width: '80px',
-  },
-
-  numWideInput: {
-    width: '300px',
-  },
-
-  errorInput: {
-    border: '1px solid red',
   },
 
   deliveredGoodsWrapper: {
@@ -57,7 +39,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   deliveredGoodsMiddleText: {
-    // color: theme.palette.text.disabled,
     color: theme.palette.text.general,
   },
 
@@ -70,11 +51,8 @@ export const useClassNames = makeStyles()(theme => ({
   commentInput: {
     fontSize: '14px',
     height: 'auto',
-
     marginTop: '2px',
-
     width: 231,
-
     padding: 0,
   },
   priceOptionsWrapper: {
@@ -86,9 +64,6 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: '4px',
     padding: '30px',
   },
-  // disabledPriceOptionsWrapper: {
-  //   opacity: '0.7',
-  // },
 
   noFlexElement: {
     marginBottom: '10px',
@@ -103,14 +78,11 @@ export const useClassNames = makeStyles()(theme => ({
   barCodeWrapper: {
     width: '100%',
     display: 'flex',
-    // flexDirection: 'column',
     gap: '5px',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
   },
-  totalPriceWrapper: {
-    marginTop: '20px',
-  },
+
   totalPrice: {
     color: theme.palette.text.general,
     fontSize: '16px',
@@ -120,10 +92,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   imageFileInputWrapper: {
     width: '500px',
-  },
-
-  imagesButton: {
-    marginTop: '20px',
   },
 
   onLineWrapper: {
@@ -137,10 +105,6 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  disableSelect: {
-    color: 'rgba(0,0,0, .3)',
-  },
-
   barCodeLinkWrapper: {
     display: 'flex',
   },
@@ -151,27 +115,9 @@ export const useClassNames = makeStyles()(theme => ({
     overflowX: 'auto',
   },
 
-  linkPreview: {
-    width: '100px',
-    height: '60px',
-    objectFit: 'contain',
-  },
-
   checkboxLabel: {
     width: '140px',
     height: '50px',
-  },
-
-  hidden: {
-    display: 'none',
-  },
-
-  labelCheckbox: {
-    margin: 0,
-  },
-
-  checkboxLabelContainer: {
-    margin: 0,
   },
 
   gridItem: {
@@ -199,18 +145,14 @@ export const useClassNames = makeStyles()(theme => ({
   normalPaymentText: {
     width: 'fit-content',
     color: theme.palette.primary.main,
-    // color: 'green',
-
     fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',
-
     whiteSpace: 'nowrap',
   },
 
   whiteNormalPaymentText: {
     color: '#fff',
-
     fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',
@@ -228,13 +170,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 15,
-
     width: 130,
   },
 
   researchLabel: {
     width: 100,
-
     color: theme.palette.text.second,
     fontWeight: '400',
     fontSize: '14px',
@@ -243,13 +183,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   label: {
     maxWidth: '231px',
-
     color: theme.palette.text.second,
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '19px',
     marginBottom: 10,
-    // whiteSpace: 'nowrap',
   },
 
   yuanToDollarRate: {
@@ -278,18 +216,6 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 30,
   },
 
-  copyImg: {
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.2)',
-    },
-  },
-  hsCodeBtn: {
-    width: '100%',
-    height: 32,
-    color: '#fff !important',
-  },
   button: {
     height: '40px',
     padding: '0 25px',
@@ -332,32 +258,25 @@ export const useClassNames = makeStyles()(theme => ({
     width: 270,
     maxHeight: 175,
     overflowY: 'auto',
-
     backgroundColor: theme.palette.background.general,
-
     border: `1px solid ${theme.palette.input.customDisabled}`,
     borderRadius: '4px',
-
     padding: 5,
   },
 
   subUsersBody: {
     display: 'flex',
     flexDirection: 'column',
-
     width: '100%',
     padding: '6px 0 6px 10px',
-
     backgroundColor: theme.palette.background.general,
     boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
-
     gap: 10,
   },
 
   supplierPaymentButtonWrapper: {
     width: '100%',
     height: '100%',
-
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'end',
@@ -367,16 +286,12 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // height: 32,
     width: 230,
-
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-    // width: '100%',
     marginBottom: '20px',
     color: '#fff',
-
     gap: 5,
   },
 
@@ -398,23 +313,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
   },
 
-  imagesModalBtnsWrapper: {
-    display: 'flex',
-    // flexDirection: 'column',
-    gap: 20,
-    position: 'absolute',
-    bottom: 30,
-    right: 30,
-    marginRight: 20,
-  },
-
-  imagesModalBtn: {
-    width: 40,
-    height: 40,
-  },
-
   carouselImage: {
-    // height: '100%',
     height: '100% !important',
     maxHeight: '254px !important',
     objectFit: 'contain',
@@ -424,17 +323,6 @@ export const useClassNames = makeStyles()(theme => ({
     '&:hover': {
       transform: 'scale(1.02)',
     },
-  },
-
-  pasteInput: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    borderRadius: '10px',
-    top: 0,
-    left: 0,
-    opacity: 0,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
   paymentsBlock: {

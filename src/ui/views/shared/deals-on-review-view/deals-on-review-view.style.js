@@ -24,7 +24,6 @@ export const styles = theme => ({
     fontSize: '16px',
     lineHeight: '19px',
     color: theme.palette.primary.main,
-
     marginRight: '15px',
   },
   emptyTableWrapper: {
@@ -35,7 +34,6 @@ export const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
   emptyTableText: {
     marginTop: '30px',
     color: theme.palette.text.second,

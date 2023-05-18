@@ -33,15 +33,11 @@ export const styles = theme => ({
 
   selectedIcon: {
     color: `${theme.palette.primary.main} !important`,
-
-    // color: theme.palette.primary.main,
   },
   notSelected: {
-    // color: 'rgba(189, 194, 209, 1)',
     color: theme.palette.text.general,
   },
   iconWrapper: {
-    // position: 'relative',
     minWidth: '0',
     margin: '16px 16px 16px 11px',
   },
@@ -82,8 +78,6 @@ export const styles = theme => ({
 
   icon: {
     backgroundColor: 'none',
-    // color: '#fff',
-
     color: theme.palette.text.general,
   },
 
@@ -95,7 +89,6 @@ export const styles = theme => ({
     padding: 0,
     display: 'inline-flex',
     backgroundColor: 'inherit',
-
     color: theme.palette.text.general,
     '&:hover': {
       backgroundColor: 'inherit',

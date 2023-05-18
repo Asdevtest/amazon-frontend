@@ -5,6 +5,7 @@ import {withStyles} from 'tss-react/mui'
 
 import {AppealDetailsCard} from '@components/cards/appeal-details-card'
 import {MainContent} from '@components/layout/main-content'
+
 import {styles} from './moderator-appeal-view.style'
 
 export const ModeratorAppealViewRaw = () => (

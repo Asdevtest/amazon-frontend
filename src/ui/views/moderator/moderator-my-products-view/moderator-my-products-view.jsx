@@ -1,9 +1,12 @@
 import {Typography} from '@mui/material'
 
 import React from 'react'
+
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
+
 import {MainContent} from '@components/layout/main-content'
+
 import {styles} from './moderator-my-products-view.style'
 
 export const ModeratorMyProductsViewRaw = props => {

@@ -22,7 +22,6 @@ export const ReviewCard = () => {
             <Avatar src={''} className={classNames.cardImg} />
 
             <div className={classNames.nameWrapper}>
-              {/* <Typography>{item.createdBy.name}</Typography> */}
               <UserLink blackText name={'Петя Петров'} userId={'2'} />
               <div className={classNames.ratingWrapper}>
                 <Typography className={classNames.rating}>{'Тип услуги'}</Typography>

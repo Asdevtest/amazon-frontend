@@ -8,18 +8,8 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
   },
 
-  link: {
-    width: '500px',
-    overflowX: 'auto',
-    whiteSpace: 'nowrap',
-  },
-
   noSettingsWarning: {
     color: 'red',
-  },
-
-  cancelButton: {
-    marginLeft: '10px',
   },
 
   textField: {

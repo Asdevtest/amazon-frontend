@@ -70,7 +70,7 @@ export const TagSelector: FC<TagSelectorProps> = props => {
   }
 
   return (
-    <div className={styles.body}>
+    <div>
       {isEditMode && (
         <div className={styles.search}>
           <Autocomplete

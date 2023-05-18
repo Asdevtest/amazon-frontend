@@ -19,6 +19,7 @@ export const useClassNames = makeStyles()(theme => ({
       overflow: 'hidden',
     },
   },
+
   chatsWrapper: {
     width: '296px',
     height: '100%',
@@ -27,6 +28,7 @@ export const useClassNames = makeStyles()(theme => ({
       height: '100%',
     },
   },
+
   chatWrapper: {
     flex: 1,
     display: 'flex',
@@ -51,12 +53,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.general,
   },
-  hideChatWrapper: {
-    display: 'none',
-    [theme.breakpoints.down(768)]: {
-      display: 'none',
-    },
-  },
+
   hideChatsWrapper: {
     [theme.breakpoints.down(768)]: {
       display: 'none',

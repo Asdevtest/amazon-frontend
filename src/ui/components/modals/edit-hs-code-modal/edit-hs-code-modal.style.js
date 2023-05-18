@@ -15,9 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
   field: {
     width: '100%',
   },
-  // multiline: {
-  //   height: '300',
-  // },
+
   label: {
     height: 19,
     color: theme.palette.text.second,

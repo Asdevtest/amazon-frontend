@@ -52,18 +52,7 @@ export const styles = theme => ({
     display: 'flex',
     gap: '10px',
   },
-  chip: {
-    height: '20px',
-    color: theme.palette.text.general,
-    backgroundColor: 'rgba(240, 242, 244, 1)',
-    fontSize: '12px',
-  },
-  indexCell: {
-    fontSize: '13px',
-    lineHeight: '15px',
-    color: 'rgba(189, 194, 209, 1)',
-    textAlign: 'center',
-  },
+
   asinCell: {
     padding: '12px 0px',
     // height: '88px',
@@ -99,11 +88,6 @@ export const styles = theme => ({
     lineHeight: '21px',
     color: 'rgba(189, 194, 209, 1)',
   },
-  ideaInfo: {
-    color: theme.palette.primary.main,
-    fontWeight: 600,
-    marginTop: -15,
-  },
 
   productTypoCell: {
     fontSize: '14px',
@@ -114,10 +98,6 @@ export const styles = theme => ({
   },
 
   typoSpan: {
-    marginLeft: 10,
-    color: theme.palette.text.second,
-  },
-  misSpan: {
     marginLeft: 10,
     color: theme.palette.text.second,
   },
@@ -133,12 +113,6 @@ export const styles = theme => ({
     textTransform: 'none',
   },
 
-  priceTableCell: {
-    textAlign: 'center',
-  },
-  feesTableCell: {
-    textAlign: 'center',
-  },
   feesTableWrapper: {
     width: '100%',
     maxHeight: '100px',
@@ -147,64 +121,12 @@ export const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  rankTableCell: {
-    textAlign: 'center',
-  },
 
-  ratingTableCell: {
-    textAlign: 'right',
-  },
-  ratingTableCellContainer: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  ratingTypo: {
-    fontWeight: 500,
-    marginRight: '6px',
-  },
-  rankCount: {
-    display: 'flex',
-    paddingBottom: '2px',
-  },
-  rankTypoReviews: {
-    color: 'rgb(189, 194, 209)',
-    whiteSpace: 'nowrap',
-    textAlign: 'left',
-  },
-  salesCell: {
-    textAlign: 'center',
-  },
-  salersTotal: {
-    textAlign: 'center',
-  },
-  typoTableCell: {
-    textAlign: 'center',
-  },
-  revenueCell: {
-    textAlign: 'center',
-  },
-  amazonCell: {
-    textAlign: 'center',
-  },
-  bsrCell: {
-    textAlign: 'center',
-  },
-  fbaCell: {
-    textAlign: 'center',
-  },
-  deleteBtnCell: {
-    textAlign: 'center',
-  },
-  deleteBtn: {
-    color: 'rgba(189, 194, 209, 1)',
-  },
   startIcon: {
     color: '#C8CED3',
     fontSize: '22px',
   },
-  selectedStarIcon: {
-    color: '#FFC632',
-  },
+
   barcodeChip: {
     backgroundColor: theme.palette.primary.main,
     color: 'white',
@@ -223,9 +145,7 @@ export const styles = theme => ({
       color: 'rgba(255,255,255,0.46)',
     },
   },
-  barcodeChipExists: {
-    backgroundcolor: theme.palette.text.general,
-  },
+
   barcodeChipNoExists: {
     // color: '#F5CF00',
     backgroundColor: '#F5CF00',
@@ -307,47 +227,14 @@ export const styles = theme => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
   },
-  orderChip: {
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
-    fontSize: '13px',
-    borderRadius: '4px',
-  },
-  orderChipHover: {
-    '&:hover, &:focus': {
-      backgroundColor: theme.palette.primary.main,
-    },
-  },
-  orderChipIcon: {
-    color: 'rgba(255,255,255,0.26)',
-    '&:hover, &:focus': {
-      color: 'rgba(255,255,255,0.46)',
-    },
-  },
-  tooltip: {
-    fontSize: '13px',
-    margin: '0px',
-  },
+
   orderTextSpan: {
     color: 'rgb(189, 194, 209)',
   },
   select: {
     backgroundcolor: theme.palette.text.general,
   },
-  defaultOrderSpan: {
-    color: 'rgba(0, 123, 255, 1)',
-  },
 
-  changeOrderSpan: {
-    color: 'rgb(16, 179, 49)',
-  },
-  description: {
-    color: '#939292',
-    textDecoration: 'line-through',
-  },
-  centerTextCell: {
-    textAlign: 'center',
-  },
   ordersImg: {
     width: '30px',
     height: '30px',
@@ -367,14 +254,8 @@ export const styles = theme => ({
     },
   },
 
-  descriptionWrapper: {
-    display: 'flex',
-    gap: '5px',
-    alignItems: 'center',
-  },
   gridEditWrapper: {
     maxWidth: 550,
-    // overflow: 'auto',
   },
 
   gridBoxesWrapper: {
@@ -453,20 +334,10 @@ export const styles = theme => ({
     marginRight: 30,
   },
 
-  buttonsWrapper: {
-    display: 'flex',
-
-    gap: '10px',
-  },
-
-  cancelBtn: {
-    marginLeft: '10px',
-  },
   blockProductsImagesWrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    // gap: '3px',
   },
   receiveOrEditWrapper: {
     display: 'flex',
@@ -503,25 +374,10 @@ export const styles = theme => ({
   rowCancelBtn: {
     height: '40px',
     padding: '0 25px',
-    // width: '166px',
-
-    // color: '#fff',
-    // backgroundColor: '#ff0000',
-    // '&:hover': {
-    //   backgroundColor: '#c51a1c',
-    //   '@media (hover: none)': {
-    //     backgroundColor: '#c51a1c',
-    //   },
-    // },
-    // '&$disabled': {
-    //   backgroundColor: 'rgba(210, 35, 35, 0.5)',
-    // },
     [theme.breakpoints.down(1282)]: {
       height: 30,
       width: 90,
     },
-    // height: 30,
-    // padding: '0 27px',
   },
 
   warehouseMyTasksSuccessBtn: {
@@ -637,12 +493,6 @@ export const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-
-    // border: '1px solid rgba(0, 123, 255, 0.5)',
-    // borderRadius: '10px',
-    // padding: '3px',
-    // marginBottom: '5px',
-
     width: 480,
 
     maxHeight: 500,
@@ -736,8 +586,6 @@ export const styles = theme => ({
     justifyContent: 'center',
     gap: 5,
 
-    // marginLeft: '6px',
-
     padding: '5px 0',
   },
 
@@ -747,8 +595,6 @@ export const styles = theme => ({
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'start',
-    // marginLeft: '6px',
-
     padding: '5px 0',
   },
 
@@ -756,36 +602,17 @@ export const styles = theme => ({
     backgroundColor: theme.palette.background.green,
   },
 
-  multilineSuperBoxWrapper: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-  },
-
   multilineText: {
     width: '100%',
     maxHeight: '100%',
-    // userSelect: 'none',
     textAlign: 'center',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
 
-    // overflow: 'auto',
-
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',
-
-    // textOverflow: 'ellipsis',
-    // overflow: 'hidden',
-
-    // display: '-webkit-box',
-    // WebkitLineClamp: 3,
-    // WebkitBoxOrient: 'vertical',
   },
 
   threeMultilineText: {
@@ -815,8 +642,6 @@ export const styles = theme => ({
 
   boxesAndQuantityText: {
     whiteSpace: 'normal',
-
-    // color: theme.palette.text.general,
     color: theme.palette.text.general,
 
     fontWeight: '400',
@@ -842,17 +667,12 @@ export const styles = theme => ({
     lineHeight: '16px',
   },
 
-  multilineLeftText: {
-    textAlign: 'start',
-  },
-
   statusMultilineText: {
     width: '100%',
     maxHeight: '100%',
     textAlign: 'center',
     whiteSpace: 'normal',
     textOverflow: 'ellipsis',
-    // overflow: 'hidden',
 
     fontWeight: '400',
     fontSize: '14px',
@@ -1005,22 +825,6 @@ export const styles = theme => ({
     padding: '0 10px',
   },
 
-  blackLinkText: {
-    color: theme.palette.text.general,
-    fontSize: '16px',
-    lineHeight: '140%',
-    fontWeight: '400',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    transition: '.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.01)',
-      opacity: '0.8',
-      textDecoration: 'none',
-      border: 'none',
-    },
-  },
-
   renderFieldValueCellText: {
     fontSize: '14px',
 
@@ -1040,17 +844,14 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    // alignItems: 'center',
     justifyContent: 'center',
     gap: '10px',
-    // minWidth: '190px',
     height: '100%',
     padding: '6px 0',
   },
 
   warehouseBoxesBtn: {
     width: '210px',
-    // height: 'auto',
   },
 
   shopsReportBtnsWrapper: {
@@ -1072,26 +873,6 @@ export const styles = theme => ({
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.1)',
-    },
-  },
-
-  copyImg: {
-    width: '20px',
-    height: '20px',
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.2)',
-    },
-  },
-
-  copyImgAsin: {
-    width: '18px',
-    height: '18px',
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.2)',
     },
   },
 
@@ -1123,7 +904,6 @@ export const styles = theme => ({
   },
 
   statusWrapper: {
-    // width: '270px',
     display: 'flex',
     justifyContent: 'start',
   },
@@ -1204,10 +984,6 @@ export const styles = theme => ({
     gap: '10px',
   },
 
-  avatarWrapper: {
-    width: '28px',
-    height: '28px',
-  },
   clientTasksActionBtnsWrapper: {
     width: '100%',
     display: 'flex',
@@ -1269,11 +1045,6 @@ export const styles = theme => ({
     },
   },
 
-  // showButton: {
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  // },
-
   inStockWrapper: {
     width: '100%',
   },
@@ -1328,7 +1099,6 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 15,
-    // padding: '20px 0',
   },
 
   editOrRemoveBtnWrapper: {
@@ -1365,7 +1135,6 @@ export const styles = theme => ({
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',
-    // gap: '30px',
   },
 
   notificationBtn: {
@@ -1487,14 +1256,6 @@ export const styles = theme => ({
     width: '166px',
   },
 
-  sizesSubWrapper: {
-    display: 'flex',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: '10px',
-  },
-
   sizesLabel: {
     fontSize: '14px',
     lineHeight: '19px',
@@ -1506,9 +1267,6 @@ export const styles = theme => ({
     color: theme.palette.primary.main,
   },
 
-  selectedIndicator: {
-    backgroundColor: '#006CFF',
-  },
   toggleItemWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -1560,33 +1318,7 @@ export const styles = theme => ({
   cursorPointer: {
     cursor: 'pointer',
   },
-  ManyItemsPriceCellWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: 'auto',
-  },
-  imgBlock: {
-    display: 'flex',
-  },
-  imgBox: {
-    width: '50px',
-    height: '50px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
-  imgSubBlock: {
-    display: 'flex',
-    marginLeft: '10px',
-    flexDirection: 'column',
-  },
-  countBlock: {
-    display: 'flex',
-  },
+
   amount: {
     marginLeft: '5px',
   },
@@ -1605,9 +1337,7 @@ export const styles = theme => ({
 
     gap: 77,
   },
-  asd: {
-    color: 'red',
-  },
+
   searchInputWrapper: {
     width: '100%',
     height: 30,
@@ -1641,17 +1371,6 @@ export const styles = theme => ({
       height: '100%',
     },
 
-    // nativeSelect: {
-    //   [theme.breakpoints.down(1282)]: {
-    //     width: 108,
-    //   },
-    //   // width: '210px',
-    //   '& > div': {
-    //     display: 'flex',
-    //     justifyContent: 'space-between',
-    //     alignItems: 'center',
-    //   },
-    // },
     stringListMenuWrapper: {
       width: 150,
       padding: '10px',
@@ -1737,14 +1456,6 @@ export const styles = theme => ({
   },
   attributeMissing: {
     color: theme.palette.text.second,
-    // nativeSelect: {
-    //   // width: '210px',
-    //   '& > div': {
-    //     display: 'flex',
-    //     justifyContent: 'space-between',
-    //     alignItems: 'center',
-    //   },
-    // },
   },
   colorRed: {
     color: '#FF1616 !important',
@@ -1860,7 +1571,6 @@ export const styles = theme => ({
   },
   linkTextClass: {
     whiteSpace: 'nowrap',
-    // maxWidth: 'calc(100% - 20px)',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
 
@@ -1905,15 +1615,6 @@ export const styles = theme => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
-
-  trackingNumberWrapper: {
-    width: '100%',
-  },
-
-  // as: {
-  //   border: '1px solid #E0E0E0',
-  //   borderRadius: 4,
-  // },
 
   batchTrackingWrapper: {
     width: '100%',

@@ -23,7 +23,7 @@ export const BoxForMerge = ({box, readOnly = false, index, destinations}) => {
   return (
     <div className={classNames.box}>
       <Typography className={classNames.boxTitle}>{`${t(TranslationKey.Box)} № ${box.humanFriendlyId}`}</Typography>
-      <div className={classNames.itemsWrapper}>
+      <div>
         <div>
           {box.items.map((order, orderIndex) => (
             <div key={`box_${box._id}_${readOnly ? 1 : 0}_${index}`}>

@@ -1,6 +1,8 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React, {useEffect, useState} from 'react'
+
+import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
@@ -19,7 +21,6 @@ import {t} from '@utils/translations'
 
 import {AdminUsersViewModel} from './admin-users-view.model'
 import {styles} from './admin-users-view.style'
-import {observer} from 'mobx-react'
 
 export const AdminUsersViewRaw = props => {
   const [viewModel] = useState(() => new AdminUsersViewModel({history: props.history}))

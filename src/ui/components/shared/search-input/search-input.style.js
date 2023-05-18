@@ -1,15 +1,7 @@
 import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    width: '300px',
-    height: 36,
-    position: 'relative',
-  },
-
   input: {
-    // border: `1px solid ${theme.palette.primary.main}`,
     border: `1px solid ${theme.palette.primary.main}`,
     width: '300px',
     height: 36,
@@ -18,12 +10,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   inputClass: {
     paddingLeft: '15px !important',
-  },
-
-  searchContainer: {
-    width: 'auto',
-    // justifySelf: 'flex-start',
-    margin: 0,
   },
 
   icon: {
@@ -49,16 +35,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   submit: {
-    // position: 'absolute',
-    // border: `1px solid ${theme.palette.primary.main}`,
-
     border: `1px solid ${theme.palette.primary.main}`,
-
     borderLeft: 'none',
     height: 36,
     padding: '6px',
-    // right: -1,
-    // top: -18,
     flexGrow: 1,
   },
 }))

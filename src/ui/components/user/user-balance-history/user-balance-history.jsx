@@ -44,7 +44,7 @@ export const UserBalanceHistory = ({historyData, title}) => {
                     })}
                   >
                     <TableCell className={classNames.dateCell}>{formatNormDateTime(item.createdAt)}</TableCell>
-                    <TableCell className={classNames.amountCell}>{toFixedWithDollarSign(item.sum, 2)}</TableCell>
+                    <TableCell>{toFixedWithDollarSign(item.sum, 2)}</TableCell>
                     <TableCell className={classNames.typeCell}>{item.sum >= 0 ? 'replenish' : 'withdraw'}</TableCell>
                     <TableCell className={classNames.commentCell}>{item.comment}</TableCell>
                     {/* <TableCell className={classNames.usernameCell}>{item.recipient?.name}</TableCell> */}

@@ -30,10 +30,10 @@ export const BeforeAfterInfoTaskBlock = observer(({beforeBoxes, afterBoxes, task
         ))}
       </div>
 
-      <Divider flexItem className={classNames.divider} orientation="vertical" />
+      <Divider flexItem orientation="vertical" />
 
       {afterBoxes.length > 0 && (
-        <div className={classNames.newBoxes}>
+        <div>
           <Typography variant="h4">{t(TranslationKey['New boxes'])}</Typography>
 
           {afterBoxes.map((box, boxIndex) => (

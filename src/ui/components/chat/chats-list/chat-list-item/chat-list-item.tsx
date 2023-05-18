@@ -101,7 +101,7 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
 
   return (
     <div className={cx(classNames.root, {[classNames.rootIsSelected]: isSelected})} onClick={onClick}>
-      <div className={classNames.leftSide}>
+      <div>
         <Avatar
           src={
             isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0

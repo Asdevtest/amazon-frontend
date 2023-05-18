@@ -5,6 +5,8 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Alert} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
+
+import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/statuses/loading-statuses'
@@ -42,7 +44,6 @@ import {t} from '@utils/translations'
 
 import {ClientInventoryViewModel} from './client-inventory-view.model'
 import {styles} from './client-inventory-view.style'
-import {observer} from 'mobx-react'
 
 export const ClientInventoryViewRaw = props => {
   const [viewModel] = useState(

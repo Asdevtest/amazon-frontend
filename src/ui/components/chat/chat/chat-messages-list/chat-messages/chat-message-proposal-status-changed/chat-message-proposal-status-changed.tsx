@@ -40,15 +40,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers, 
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
-  // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
-
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
-
-  // console.log('curUserId', curUserId)
-  // console.log(
-  //   'chatRequestAndRequestProposal.request?.createdBy?._id',
-  //   chatRequestAndRequestProposal.request?.createdBy?._id,
-  // )
 
   if (message.data.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
     return (
@@ -68,7 +60,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers, 
         return (
           <div className={classNames.detailsWrapper}>
             <div className={classNames.headerAndTimeWrapper}>
-              <div className={classNames.titleWrapper}>
+              <div>
                 <p className={classNames.titleText}>{`${t(TranslationKey['Sent for rework'])}`.toUpperCase()}</p>
               </div>
 
@@ -201,7 +193,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers, 
 
   return (
     <div className={classNames.root}>
-      <div className={classNames.statusWrapper}>
+      <div>
         <p className={classNames.statusTextDesciption}>
           {`${t(TranslationKey['New proposal status'])}:`}
           <span className={classNames.statusText}>

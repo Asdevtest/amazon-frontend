@@ -7,14 +7,6 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
   },
 
-  mainTitle: {
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontSize: '24px',
-    lineHeight: '33px',
-    color: 'black',
-  },
-
   title: {
     marginBottom: '25px',
     color: theme.palette.text.general,
@@ -61,17 +53,6 @@ export const useClassNames = makeStyles()(theme => ({
   linkText: {
     overflow: 'auto',
     whiteSpace: 'nowrap',
-  },
-
-  copyImg: {
-    marginRight: 15,
-    width: '20px',
-    height: '20px',
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.07)',
-    },
   },
 
   input: {

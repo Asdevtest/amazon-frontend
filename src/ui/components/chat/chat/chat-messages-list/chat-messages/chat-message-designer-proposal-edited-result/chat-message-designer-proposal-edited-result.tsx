@@ -140,7 +140,6 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({message, han
         </div>
 
         <Button
-          btnWrapperStyle={classNames.actionBtnWrapperStyle}
           className={cx(classNames.actionButton, classNames.editButton)}
           onClick={() => handlers.onClickOpenRequest(message.data.proposal.media)}
         >

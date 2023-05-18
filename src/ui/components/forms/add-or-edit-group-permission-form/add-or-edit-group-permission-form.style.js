@@ -48,14 +48,6 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'flex-end',
   },
 
-  urlInput: {
-    overflowY: 'auto',
-    whiteSpace: 'wrap',
-    height: '65px',
-
-    width: '450px',
-  },
-
   permissionSelect: {
     maxWidth: '200px',
 

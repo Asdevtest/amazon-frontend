@@ -7,6 +7,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {DealDetailsCard} from '@components/cards/deal-details-card'
 import {MainContent} from '@components/layout/main-content'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+
 import {t} from '@utils/translations'
 
 import {VacantDealsDetailsViewModel} from './vacant-deals-details-view.model'

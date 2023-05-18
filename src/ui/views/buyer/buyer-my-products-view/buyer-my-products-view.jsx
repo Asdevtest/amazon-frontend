@@ -2,6 +2,8 @@ import {cx} from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React, {useEffect, useState} from 'react'
+
+import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
 import {ProductStatus} from '@constants/product/product-status'
@@ -18,7 +20,6 @@ import {t} from '@utils/translations'
 
 import {BuyerMyProductsViewModel} from './buyer-my-products-view.model'
 import {styles} from './buyer-my-products-view.style'
-import {observer} from 'mobx-react'
 
 const attentionStatuses = [
   ProductStatus.TO_BUYER_FOR_RESEARCH,

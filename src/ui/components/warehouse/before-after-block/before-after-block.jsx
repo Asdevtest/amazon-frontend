@@ -203,7 +203,7 @@ const Box = observer(
               ))}
             </div>
             <div className={cx(classNames.boxInfoWrapper)}>
-              <div className={cx(classNames.boxSizeInfoWrapper)}>
+              <div>
                 <Typography className={classNames.categoryTitle}>
                   {taskType === TaskOperationType.RECEIVE
                     ? isCurrentBox

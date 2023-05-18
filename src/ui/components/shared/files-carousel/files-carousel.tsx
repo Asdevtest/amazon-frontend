@@ -85,7 +85,7 @@ export const FilesCarousel: FC<FilesCarouselProps> = observer(props => {
             <div className={classNames.emptyProposalsIcon}>
               <NoDocumentIcon className={classNames.noDocumentIcon} />
             </div>
-            <div className={classNames.emptyProposalsDescriptionWrapper}>
+            <div>
               <Typography className={classNames.noDocumentText}>{t(TranslationKey['No files'])}</Typography>
             </div>
           </div>

@@ -32,7 +32,7 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
   }
 
   return (
-    <div className={classNames.root}>
+    <div>
       {filteredBatches.length ? (
         <div className={classNames.batchesExistBlock}>
           <div className={classNames.titleWrapper}>
