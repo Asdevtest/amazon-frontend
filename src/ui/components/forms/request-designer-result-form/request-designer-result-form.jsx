@@ -150,7 +150,7 @@ const Slot = ({
                   variant="square"
                   onClick={() => {
                     if (checkIsImageLink(slot.image?.file?.name || slot.image)) {
-                      console.log('slot', slot)
+                      // console.log('slot', slot)
 
                       setCurImageId(slot._id)
                       setShowImageModal(!showImageModal)

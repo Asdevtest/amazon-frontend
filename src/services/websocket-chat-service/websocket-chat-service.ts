@@ -71,7 +71,7 @@ export class WebsocketChatService {
 
   public disconnect(): void {
     this.socket.disconnect()
-    console.log('IN_DISCONNECT')
+    // console.log('IN_DISCONNECT')
   }
 
   public async getChats(crmItemId?: string | null, crmItemType?: string | null): Promise<Chat[]> {
@@ -154,7 +154,7 @@ export class WebsocketChatService {
   }
 
   public async readMessage(messageIds: string[]): Promise<ChatMessage> {
-    console.log('***READ_OPPONENT_MESSAGE!!!')
+    // console.log('***READ_OPPONENT_MESSAGE!!!')
 
     return new Promise(() => {
       this.socket.emit(EentToEmit.READ_MESSAGE, { messageIds })

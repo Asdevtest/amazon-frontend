@@ -1257,7 +1257,7 @@ export class WarehouseMyWarehouseViewModel {
 
       // console.log('filter', filter)
 
-      console.log(this.getFilter())
+      // console.log(this.getFilter())
       const boxes = await StorekeeperModel.getBoxesMyPag({
         filters: this.getFilter(),
 

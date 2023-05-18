@@ -36,7 +36,7 @@ export class ServicesDetailCustomViewModel {
       this.history = history
 
       if (location.state) {
-        console.log(location.state)
+        // console.log(location.state)
         this.requestId = location.state.requestId
         this.announcementId = location.state.announcementId
       }

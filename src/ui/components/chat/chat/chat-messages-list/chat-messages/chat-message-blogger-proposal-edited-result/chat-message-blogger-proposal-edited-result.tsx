@@ -42,10 +42,6 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, han
 
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
-  console.log('curUserId', curUserId)
-
-  console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
-
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>
