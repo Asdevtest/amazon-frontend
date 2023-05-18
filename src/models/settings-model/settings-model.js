@@ -81,21 +81,21 @@ class SettingsModelStatic {
     })
 
     const cach = await caches.keys()
-    console.log('appVersion', appVersion)
-    console.log('response.data.version', response.data.version)
-
-    console.log('caches', caches)
-    console.log('cach.keys()', cach)
+    // console.log('appVersion', appVersion)
+    // console.log('response.data.version', response.data.version)
+    //
+    // console.log('caches', caches)
+    // console.log('cach.keys()', cach)
 
     // if (appVersion !== response.data.version) {
 
-    console.log(
-      'compareVersions(response.data.version, appVersion)',
-      compareVersions(response.data.version, appVersion),
-    )
+    // console.log(
+    //   'compareVersions(response.data.version, appVersion)',
+    //   compareVersions(response.data.version, appVersion),
+    // )
 
     if (compareVersions(response.data.version, appVersion) > 0) {
-      console.log('!!!*** versions do not match')
+      // console.log('!!!*** versions do not match')
 
       // if (caches) {
       //   caches.keys().then(names => {
@@ -113,7 +113,7 @@ class SettingsModelStatic {
         })
       }
 
-      console.log('!!!*** start reload window')
+      // console.log('!!!*** start reload window')
       window.location.reload()
 
       // function redirectFunc() {
@@ -135,17 +135,17 @@ class SettingsModelStatic {
     } else {
       this.destinationsFavourites.push(item)
     }
-    console.log('this.destinationsFavourites ', toJS(this.destinationsFavourites))
+    // console.log('this.destinationsFavourites ', toJS(this.destinationsFavourites))
   }
 
   setIntervalCheckAppVersion() {
     setTimeout(() => {
-      console.log('!!!*** setTimeout version check')
+      // console.log('!!!*** setTimeout version check')
       this.checkAppVersion()
     }, 30000)
 
     setInterval(() => {
-      console.log('!!!*** setInterval version check')
+      // console.log('!!!*** setInterval version check')
 
       this.checkAppVersion()
     }, 300000)

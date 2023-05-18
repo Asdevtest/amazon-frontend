@@ -25,7 +25,7 @@ export const DealsOfRequest = ({ requestProposals, onClickReview }) => {
 
   const now = new Date()
 
-  console.log('requestProposals', requestProposals)
+  // console.log('requestProposals', requestProposals)
 
   return (
     <div className={classNames.root}>

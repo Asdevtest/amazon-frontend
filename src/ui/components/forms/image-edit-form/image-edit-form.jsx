@@ -51,7 +51,7 @@ export const ImageEditForm = ({ item, onSave, setOpenModal }) => {
           canvas.toBlob(blob => {
             const url = URL.createObjectURL(blob)
 
-            console.log('blob', blob)
+            // console.log('blob', blob)
 
             const readyFile = {
               data_url: url,
