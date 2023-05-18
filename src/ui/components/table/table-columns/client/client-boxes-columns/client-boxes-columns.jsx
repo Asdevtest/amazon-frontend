@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React from 'react'
+import React, {useMemo, useCallback} from 'react'
 
 import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
 import {BoxStatus, boxStatusTranslateKey, colorByBoxStatus} from '@constants/statuses/box-status'
@@ -145,11 +145,14 @@ export const clientBoxesViewColumns = (
     ),
 
     width: 400,
-    renderCell: params =>
-      params.row.originalData ? (
+    renderCell: params => {
+      const productMemo = useMemo(() => params.row.originalData?.items[0]?.product, [])
+      const rowMemo = useMemo(() => params.row.originalData, [])
+
+      return params.row.originalData ? (
         params.row.originalData?.items.length > 1 ? (
           <OrderManyItemsCell
-            box={params.row.originalData}
+            box={rowMemo}
             error={
               !findTariffInStorekeepersData(
                 storekeepersData,
@@ -160,8 +163,8 @@ export const clientBoxesViewColumns = (
           />
         ) : (
           <OrderCell
-            box={params.row.originalData}
-            product={params.row.originalData?.items[0].product}
+            box={rowMemo}
+            product={productMemo}
             superbox={params.row.originalData?.amount > 1 && params.row.originalData?.amount}
             error={
               !findTariffInStorekeepersData(
@@ -174,7 +177,8 @@ export const clientBoxesViewColumns = (
         )
       ) : (
         ''
-      ),
+      )
+    },
     filterable: false,
     sortable: false,
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
@@ -185,16 +189,19 @@ export const clientBoxesViewColumns = (
     headerName: t(TranslationKey.Formed),
     renderHeader: () => <MultilineTextHeaderCell withIcon isFilterActive text={t(TranslationKey.Formed)} />,
 
-    renderCell: params =>
-      params.row.originalData ? (
+    renderCell: params => {
+      const onChangeIsFormedInBox = useCallback(() => handlers.onChangeIsFormedInBox(params.row.originalData), [])
+
+      return params.row.originalData ? (
         <CheckboxCell
           disabled={params.row.originalData.isDraft || params.row.status !== BoxStatus.IN_STOCK}
           checked={params.value}
-          onClick={() => handlers.onChangeIsFormedInBox(params.row.originalData)}
+          onClick={onChangeIsFormedInBox}
         />
       ) : (
         ''
-      ),
+      )
+    },
     width: 130,
     sortable: false,
     filterable: false,
@@ -236,22 +243,31 @@ export const clientBoxesViewColumns = (
       />
     ),
 
-    renderCell: params =>
-      params.row.originalData ? (
+    renderCell: params => {
+      const destinationsMemo = useMemo(() => destinations, [destinations])
+      const destinationsFavouritesMemo = useMemo(() => destinationsFavourites, [destinationsFavourites])
+      const storekeepersDataMemo = useMemo(() => storekeepersData, [storekeepersData])
+
+      const rowMemo = useMemo(() => params.row.originalData, [params.row.originalData])
+
+      const handlersMemo = useMemo(() => handlers, [])
+
+      return params.row.originalData ? (
         <WarehouseDestinationAndTariffCell
-          destinations={destinations}
-          boxesMy={params.row.originalData}
-          destinationsFavourites={destinationsFavourites}
-          setDestinationsFavouritesItem={handlers.onClickSetDestinationFavourite}
-          storekeepers={storekeepersData}
-          setShowSelectionStorekeeperAndTariffModal={handlers.setShowSelectionStorekeeperAndTariffModal}
+          destinations={destinationsMemo}
+          boxesMy={rowMemo}
+          destinationsFavourites={destinationsFavouritesMemo}
+          setDestinationsFavouritesItem={handlersMemo.onClickSetDestinationFavourite}
+          storekeepers={storekeepersDataMemo}
+          setShowSelectionStorekeeperAndTariffModal={handlersMemo.setShowSelectionStorekeeperAndTariffModal}
           disabled={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-          onSelectDestination={handlers.onSelectDestination}
-          onClickSetTariff={handlers.onClickSetTariff}
+          onSelectDestination={handlersMemo.onSelectDestination}
+          onClickSetTariff={handlersMemo.onClickSetTariff}
         />
       ) : (
         ''
-      ),
+      )
+    },
     width: 215,
     filterable: false,
     sortable: false,
@@ -302,34 +318,39 @@ export const clientBoxesViewColumns = (
       />
     ),
 
-    renderCell: params =>
-      params.row.originalData ? (
+    renderCell: params => {
+      const rowMemo = useMemo(() => params.row.originalData, [params.row.originalData])
+
+      const handlersMemo = useMemo(() => handlers, [])
+
+      return params.row.originalData ? (
         <div style={{display: 'flex', flexDirection: 'column', gap: '7px', padding: '10px 0'}}>
           <ChangeChipCell
             label={t(TranslationKey['Shipping label']) + ':'}
             disabled={params.row.originalData?.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-            row={params.row.originalData}
+            row={rowMemo}
             value={params.row.shippingLabel}
             text={'Set Shipping Label'}
-            onClickChip={handlers.onClickShippingLabel}
-            onDoubleClickChip={handlers.onDoubleClickShippingLabel}
-            onDeleteChip={handlers.onDeleteShippingLabel}
+            onClickChip={handlersMemo.onClickShippingLabel}
+            onDoubleClickChip={handlersMemo.onDoubleClickShippingLabel}
+            onDeleteChip={handlersMemo.onDeleteShippingLabel}
           />
 
           <ChangeChipCell
             label={t(TranslationKey['FBA Shipment']) + ':'}
             disabled={params.row.originalData?.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-            row={params.row.originalData}
+            row={rowMemo}
             value={params.row.fbaShipment}
             text={t(TranslationKey['FBA Shipment'])}
-            onClickChip={handlers.onClickFbaShipment}
-            onDoubleClickChip={handlers.onDoubleClickFbaShipment}
-            onDeleteChip={handlers.onDeleteFbaShipment}
+            onClickChip={handlersMemo.onClickFbaShipment}
+            onDoubleClickChip={handlersMemo.onDoubleClickFbaShipment}
+            onDeleteChip={handlersMemo.onDeleteFbaShipment}
           />
         </div>
       ) : (
         ''
-      ),
+      )
+    },
     minWidth: 150,
     headerAlign: 'center',
     sortable: false,
@@ -346,15 +367,15 @@ export const clientBoxesViewColumns = (
       />
     ),
 
-    renderCell: params =>
-      params.row.originalData ? (
-        <ShortBoxDimensions
-          box={params.row.originalData}
-          volumeWeightCoefficient={params.row.volumeWeightCoefficient}
-        />
+    renderCell: params => {
+      const rowMemo = useMemo(() => params.row.originalData, [])
+
+      return params.row.originalData ? (
+        <ShortBoxDimensions box={rowMemo} volumeWeightCoefficient={params.row.volumeWeightCoefficient} />
       ) : (
         ''
-      ),
+      )
+    },
     width: 210,
     sortable: false,
   },
@@ -370,14 +391,18 @@ export const clientBoxesViewColumns = (
       />
     ),
 
-    renderCell: params => (
-      <ChangeInputCell
-        maxLength={25}
-        row={params.row.originalData}
-        text={params.value}
-        onClickSubmit={handlers.onClickSavePrepId}
-      />
-    ),
+    renderCell: params => {
+      const onClickSavePrepId = useCallback(handlers.onClickSavePrepId, [])
+
+      return (
+        <ChangeInputCell
+          maxLength={25}
+          rowId={params.row.originalData._id}
+          text={params.value}
+          onClickSubmit={onClickSavePrepId}
+        />
+      )
+    },
     width: 240,
 
     columnKey: columnnsKeys.shared.STRING,
@@ -394,7 +419,7 @@ export const clientBoxesViewColumns = (
       />
     ),
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
     type: 'date',
     columnKey: columnnsKeys.shared.DATE,
@@ -411,7 +436,7 @@ export const clientBoxesViewColumns = (
       />
     ),
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
     type: 'date',
     columnKey: columnnsKeys.shared.DATE,

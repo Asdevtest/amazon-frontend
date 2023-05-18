@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, {useMemo} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -33,7 +33,7 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
     type: 'date',
   },
@@ -44,7 +44,12 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 325,
-    renderCell: params => <ClientNotificationsBtnsCell handlers={handlers} row={params.row.originalData} />,
+    renderCell: params => {
+      const handlersMemo = useMemo(() => handlers, [])
+      const rowMemo = useMemo(() => params.row.originalData, [])
+
+      return <ClientNotificationsBtnsCell handlers={handlersMemo} row={rowMemo} />
+    },
     filterable: false,
     sortable: false,
   },
@@ -55,17 +60,23 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
     width: 400,
-    renderCell: params =>
-      // console.log(params.row),
-      params.row.originalData.items.length > 1 ? (
-        <OrderManyItemsCell box={params.row.originalData} />
-      ) : (
-        <OrderCell
-          product={params.row.originalData.items[0].product}
-          superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
-          box={params.row.originalData}
-        />
-      ),
+    renderCell: params => {
+      const productMemo = useMemo(() => params.row.originalData.items[0].product, [])
+      const rowMemo = useMemo(() => params.row.originalData, [])
+
+      return (
+        // console.log(params.row),
+        params.row.originalData.items.length > 1 ? (
+          <OrderManyItemsCell box={rowMemo} />
+        ) : (
+          <OrderCell
+            product={productMemo}
+            superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
+            box={rowMemo}
+          />
+        )
+      )
+    },
     filterable: false,
     sortable: false,
   },

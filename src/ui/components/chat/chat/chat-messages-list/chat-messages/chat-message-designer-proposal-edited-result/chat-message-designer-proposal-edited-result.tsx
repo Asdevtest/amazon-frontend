@@ -1,7 +1,10 @@
 import {cx} from '@emotion/css'
 import {Avatar, Typography} from '@mui/material'
 
-import React, {FC /* , useContext */} from 'react'
+import React, {
+  FC,
+  /* , useContext */
+} from 'react'
 
 import Linkify from 'react-linkify-always-blank'
 
@@ -9,8 +12,8 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatMessageDataDesignerProposalResultEditedContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
-// import {UserModel} from '@models/user-model'
 
+// import {UserModel} from '@models/user-model'
 import {Button} from '@components/shared/buttons/button'
 import {Field} from '@components/shared/field'
 
@@ -20,7 +23,6 @@ import {minsToTime} from '@utils/text'
 import {t} from '@utils/translations'
 
 // import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
-
 import {useClassNames} from './chat-message-designer-proposal-edited-result.style'
 
 export interface ChatMessageRequestProposalDesignerResultEditedHandlers {

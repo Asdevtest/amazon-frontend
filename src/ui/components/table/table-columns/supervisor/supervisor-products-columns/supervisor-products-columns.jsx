@@ -21,7 +21,18 @@ export const supervisorProductsViewColumns = () => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    renderCell: params => <ProductAsinCell product={params.row.originalData} />,
+    renderCell: params => {
+      const product = params.row.originalData
+
+      return (
+        <ProductAsinCell
+          image={product?.images?.slice()[0]}
+          amazonTitle={product?.amazonTitle}
+          asin={product?.asin}
+          skusByClient={product?.skusByClient?.slice()[0]}
+        />
+      )
+    },
     width: 350,
   },
 
@@ -131,7 +142,7 @@ export const supervisorProductsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     width: 120,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     type: 'date',
   },
 
@@ -142,7 +153,7 @@ export const supervisorProductsViewColumns = () => [
 
     minWidth: 150,
     flex: 1,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     type: 'date',
   },
 ]

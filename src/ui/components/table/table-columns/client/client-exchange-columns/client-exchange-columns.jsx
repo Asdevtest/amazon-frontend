@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo, useCallback} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -25,7 +25,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Image)} />,
 
     width: 100,
-    renderCell: params => <SmallRowImageCell images={params.row.images} />,
+    renderCell: params => <SmallRowImageCell image={params.row.images[0]} />,
     filterable: false,
     sortable: false,
   },
@@ -126,16 +126,18 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 190,
-    renderCell: params => (
-      <Button
-        success
-        width="100%"
-        sx={{height: '30px !important'}}
-        onClick={() => rowHandlers.onClickLaunchPrivateLabelBtn(params.row.originalData)}
-      >
-        {t(TranslationKey['Buy for'])} {toFixedWithDollarSign(params.row.originalData.priceForClient, 2)}
-      </Button>
-    ),
+    renderCell: params => {
+      const onClickLaunchPrivateLabelBtn = useCallback(
+        () => rowHandlers.onClickLaunchPrivateLabelBtn(params.row.originalData),
+        [],
+      )
+
+      return (
+        <Button success width="100%" sx={{height: '30px !important'}} onClick={onClickLaunchPrivateLabelBtn}>
+          {t(TranslationKey['Buy for'])} {toFixedWithDollarSign(params.row.originalData.priceForClient, 2)}
+        </Button>
+      )
+    },
   },
 
   {
@@ -144,7 +146,11 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
 
     width: 130,
-    renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
+    renderCell: params => {
+      const redFlagsMemo = useMemo(() => params.row.originalData.redFlags, [])
+
+      return <RedFlagsCell flags={redFlagsMemo} />
+    },
   },
 
   {
@@ -153,7 +159,11 @@ export const clientExchangeViewColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
 
     width: 160,
-    renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
+    renderCell: params => {
+      const redTagsMemo = useMemo(() => params.row.originalData.tags, [])
+
+      return <TagsCell tags={redTagsMemo} />
+    },
   },
 
   {
@@ -161,7 +171,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     minWidth: 120,
     type: 'date',
   },

@@ -42,7 +42,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
     width: 112,
-    renderCell: params => <UserMiniCell user={params.row.createdBy} />,
+    renderCell: params => <UserMiniCell userName={params.row.createdBy.name} userId={params.row.createdBy._id} />,
   },
 
   {
@@ -82,7 +82,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
 
-    renderCell: params => <AsinCell text={params.value} product={params.row} />,
+    renderCell: params => <AsinCell asin={params.row.asin} />,
     width: 128,
   },
 
@@ -90,7 +90,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
     field: 'timeoutAt',
     headerName: t(TranslationKey.Deadline),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 87,
     type: 'date',
   },
@@ -187,7 +187,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 97,
     type: 'date',
   },

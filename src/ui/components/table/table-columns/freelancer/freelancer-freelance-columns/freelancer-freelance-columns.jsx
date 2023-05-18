@@ -1,35 +1,20 @@
 /* eslint-disable no-unused-vars */
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React from 'react'
+import React, {useCallback} from 'react'
 
-import {columnnsKeys} from '@constants/data-grid/data-grid-columns-keys'
-import {colorByProductStatus, ProductStatusByCode} from '@constants/product/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  ToFixedCell,
-  BarcodeCell,
   ShortDateCell,
-  MultilineStatusCell, // ActiveBarcodeCell,
-  // NoActiveBarcodeCell,
-  HsCodeCell,
   MultilineTextHeaderCell,
   MultilineTextCell,
-  ShowBarcodeOrHscodeCell,
-  FourMonthesStockCell,
-  MultilineTextAlignLeftCell,
-  ChangeInputCell,
-  InStockCell,
-  CommentOfSbCell,
-  ProductAsinCell,
-  UserCell,
   MultilineRequestStatusCell,
   UserMiniCell,
   NormalActionBtnCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
+import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const FreelancerFreelanceColumns = (handlers, languageTag) => [
@@ -45,13 +30,15 @@ export const FreelancerFreelanceColumns = (handlers, languageTag) => [
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
     width: 228,
-    renderCell: params => <UserMiniCell user={params.row.originalData.createdBy} />,
+    renderCell: params => (
+      <UserMiniCell userName={params.row.originalData.createdBy.name} userId={params.row.originalData.createdBy._id} />
+    ),
   },
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 116,
     type: 'date',
   },
@@ -85,7 +72,7 @@ export const FreelancerFreelanceColumns = (handlers, languageTag) => [
     field: 'timeoutAt',
     headerName: t(TranslationKey.Deadline),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 134,
     type: 'date',
   },
@@ -95,13 +82,17 @@ export const FreelancerFreelanceColumns = (handlers, languageTag) => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    renderCell: params => (
-      <NormalActionBtnCell
-        // disabled={!params.row.batch}
-        bTnText={t(TranslationKey.Open)}
-        onClickOkBtn={() => handlers.onClickOpenButton(params.row.id)}
-      />
-    ),
+    renderCell: params => {
+      const onClickOpenButton = useCallback(() => handlers.onClickOpenButton(params.row.id), [])
+
+      return (
+        <NormalActionBtnCell
+          // disabled={!params.row.batch}
+          bTnText={t(TranslationKey.Open)}
+          onClickOkBtn={onClickOpenButton}
+        />
+      )
+    },
     width: 190,
   },
 ]

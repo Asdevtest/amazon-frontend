@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -55,15 +55,20 @@ export const adminSinglePermissionsColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     width: 180,
-    renderCell: params => (
-      <EditOrRemoveIconBtnsCell
-        tooltipFirstButton={t(TranslationKey.Edit)}
-        tooltipSecondButton={t(TranslationKey.Remove)}
-        handlers={handlers}
-        row={params.row.originalData}
-        isFirstRow={firstRowId === params.row.id}
-      />
-    ),
+    renderCell: params => {
+      const handlersMemo = useMemo(() => handlers, [])
+      const rowMemo = useMemo(() => params.row.originalData, [])
+
+      return (
+        <EditOrRemoveIconBtnsCell
+          tooltipFirstButton={t(TranslationKey.Edit)}
+          tooltipSecondButton={t(TranslationKey.Remove)}
+          handlers={handlersMemo}
+          row={rowMemo}
+          isFirstRow={firstRowId === params.row.id}
+        />
+      )
+    },
 
     filterable: false,
     sortable: false,
@@ -74,7 +79,7 @@ export const adminSinglePermissionsColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <ShortDateCell params={params} />,
+    renderCell: params => <ShortDateCell value={params.value} />,
     width: 110,
     type: 'date',
   },

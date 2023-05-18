@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useCallback, useMemo} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -31,7 +31,7 @@ export const adminTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
     width: 180,
-    renderCell: params => <TaskTypeCell task={params.row.originalData} />,
+    renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
   },
 
   {
@@ -40,7 +40,11 @@ export const adminTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
     width: 850,
-    renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
+    renderCell: params => {
+      const rowMemo = useMemo(() => params.row.originalData, [])
+
+      return <TaskDescriptionCell task={rowMemo} />
+    },
     filterable: false,
     sortable: false,
   },
@@ -62,12 +66,11 @@ export const adminTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 190,
-    renderCell: params => (
-      <NormalActionBtnCell
-        bTnText={t(TranslationKey['View more'])}
-        onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row.originalData)}
-      />
-    ),
+    renderCell: params => {
+      const setCurrentOpenedTask = useCallback(() => handlers.setCurrentOpenedTask(params.row.originalData), [])
+
+      return <NormalActionBtnCell bTnText={t(TranslationKey['View more'])} onClickOkBtn={setCurrentOpenedTask} />
+    },
     filterable: false,
     sortable: false,
   },
