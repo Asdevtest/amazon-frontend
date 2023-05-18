@@ -223,7 +223,7 @@ export const ClientInStockBoxesViewRaw = props => {
 
         <div className={classNames.tasksWrapper} style={{height: `calc(100vh - ${heightSum + 170}px)`}}>
           <MemoDataGrid
-            // disableVirtualization
+            disableVirtualization
             pagination
             checkboxSelection
             localeText={getLocalizationByLanguageTag()}
