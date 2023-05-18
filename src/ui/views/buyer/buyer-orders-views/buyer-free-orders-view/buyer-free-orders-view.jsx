@@ -1,6 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -21,121 +21,96 @@ import {t} from '@utils/translations'
 import {BuyerFreeOrdersViewModel} from './buyer-free-orders-view.model'
 import {styles} from './buyer-free-orders-view.style'
 
-@observer
-class BuyerFreeOrdersViewRaw extends Component {
-  viewModel = new BuyerFreeOrdersViewModel({history: this.props.history})
+export const BuyerFreeOrdersViewRaw = props => {
+  const [viewModel] = useState(() => new BuyerFreeOrdersViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      selectedRowIds,
-      onPickupSomeItems,
-      requestStatus,
-      getCurrentData,
-      sortModel,
-      filterModel,
-      densityModel,
-      columnsModel,
-      curPage,
-      rowsPerPage,
-      warningTitle,
-      showWarningModal,
-      showTwoVerticalChoicesModal,
-      goToMyOrders,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      onTriggerOpenModal,
-      onSelectionModel,
-      setDataGridState,
-      onChangeSortingModel,
-      onChangeFilterModel,
-      onClickContinueWorkButton,
-      changeColumnsModel,
-    } = this.viewModel
-    const {classes: classNames} = this.props
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div className={classNames.btnsWrapper}>
-            <Button
-              color="primary"
-              variant="contained"
-              disabled={selectedRowIds.length === 0}
-              onClick={onPickupSomeItems}
-            >
-              {t(TranslationKey['Take on the work of the selected'])}
-            </Button>
-          </div>
-          <div className={classNames.dataGridWrapper}>
-            <MemoDataGrid
-              disableVirtualization
-              checkboxSelection
-              pagination
-              useResizeContainer
-              classes={{
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
-              localeText={getLocalizationByLanguageTag()}
-              sortModel={sortModel}
-              filterModel={filterModel}
-              page={curPage}
-              pageSize={rowsPerPage}
-              rowsPerPageOptions={[15, 25, 50, 100]}
-              rows={getCurrentData()}
-              // rowHeight={100}
-              getRowHeight={() => 'auto'}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
-              }}
-              componentsProps={{
-                toolbar: {
-                  columsBtnSettings: {columnsModel, changeColumnsModel},
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.btnsWrapper}>
+          <Button
+            color="primary"
+            variant="contained"
+            disabled={viewModel.selectedRowIds.length === 0}
+            onClick={viewModel.onPickupSomeItems}
+          >
+            {t(TranslationKey['Take on the work of the selected'])}
+          </Button>
+        </div>
+        <div className={classNames.dataGridWrapper}>
+          <MemoDataGrid
+            disableVirtualization
+            checkboxSelection
+            pagination
+            useResizeContainer
+            classes={{
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+            }}
+            localeText={getLocalizationByLanguageTag()}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            page={viewModel.curPage}
+            pageSize={viewModel.rowsPerPage}
+            rowsPerPageOptions={[15, 25, 50, 100]}
+            rows={viewModel.getCurrentData()}
+            // rowHeight={100}
+            getRowHeight={() => 'auto'}
+            components={{
+              Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  changeColumnsModel: viewModel.changeColumnsModel,
                 },
-              }}
-              density={densityModel}
-              columns={columnsModel}
-              loading={requestStatus === loadingStatuses.isLoading}
-              onSortModelChange={onChangeSortingModel}
-              onPageSizeChange={onChangeRowsPerPage}
-              onPageChange={onChangeCurPage}
-              onStateChange={setDataGridState}
-              onFilterModelChange={model => onChangeFilterModel(model)}
-              onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
-            />
-          </div>
-        </MainContent>
+              },
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onPageSizeChange={viewModel.onChangeRowsPerPage}
+            onPageChange={viewModel.onChangeCurPage}
+            onStateChange={viewModel.setDataGridState}
+            onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
+            onSelectionModelChange={newSelection => viewModel.onSelectionModel(newSelection)}
+          />
+        </div>
+      </MainContent>
 
-        <TwoVerticalChoicesModal
-          tooltipFirstButton={t(TranslationKey['Go to the order and open the "Edit order" window'])}
-          tooltipSecondButton={t(TranslationKey['Stay in "Free Orders"'])}
-          openModal={showTwoVerticalChoicesModal}
-          setOpenModal={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
-          title={t(TranslationKey['Order picked up'])}
-          topBtnText={t(TranslationKey['Go to order'])}
-          bottomBtnText={t(TranslationKey['Continue to work with free orders'])}
-          onClickTopBtn={() => goToMyOrders()}
-          onClickBottomBtn={onClickContinueWorkButton}
-        />
+      <TwoVerticalChoicesModal
+        tooltipFirstButton={t(TranslationKey['Go to the order and open the "Edit order" window'])}
+        tooltipSecondButton={t(TranslationKey['Stay in "Free Orders"'])}
+        openModal={viewModel.showTwoVerticalChoicesModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
+        title={t(TranslationKey['Order picked up'])}
+        topBtnText={t(TranslationKey['Go to order'])}
+        bottomBtnText={t(TranslationKey['Continue to work with free orders'])}
+        onClickTopBtn={() => viewModel.goToMyOrders()}
+        onClickBottomBtn={viewModel.onClickContinueWorkButton}
+      />
 
-        <WarningInfoModal
-          openModal={showWarningModal}
-          setOpenModal={() => onTriggerOpenModal('showWarningModal')}
-          title={warningTitle}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showWarningModal')
-          }}
-        />
-      </React.Fragment>
-    )
-  }
+      <WarningInfoModal
+        openModal={viewModel.showWarningModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
+        title={viewModel.warningTitle}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showWarningModal')
+        }}
+      />
+    </React.Fragment>
+  )
 }
 
-export const BuyerFreeOrdersView = withStyles(BuyerFreeOrdersViewRaw, styles)
+export const BuyerFreeOrdersView = withStyles(observer(BuyerFreeOrdersViewRaw), styles)

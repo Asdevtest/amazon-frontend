@@ -5,7 +5,7 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Box, Typography} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {Component, useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -45,229 +45,200 @@ import {t} from '@utils/translations'
 import {VacantRequestsViewModel} from './vacant-requests-view.model'
 import {styles} from './vacant-requests-view.style'
 
-@observer
-class VacantRequestsViewRaw extends Component {
-  viewModel = new VacantRequestsViewModel({history: this.props.history, location: this.props.location})
+export const VacantRequestsViewRaw = props => {
+  const [viewModel] = useState(() => new VacantRequestsViewModel({history: props.history, location: props.location}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
+
+  const whiteList =
+    !!viewModel.userInfo && checkIsFreelancer(viewModel.userRole)
+      ? [
+          String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
+          ...(viewModel.userInfo?.allowedSpec?.map(spec => spec && String(spec)) || []),
+        ]
+      : Object.keys(freelanceRequestTypeByCode)
+
+  const getSortedData = mode => {
+    switch (mode) {
+      case tableSortMode.DESK:
+        return viewModel.currentData.slice().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+
+      case tableSortMode.ASC:
+        return viewModel.currentData.slice().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+    }
   }
 
-  render() {
-    const {
-      selectedTaskType,
-      nameSearchValue,
-      viewMode,
-      sortMode,
-
-      rowCount,
-      curPage,
-      sortModel,
-      filterModel,
-      rowsPerPage,
-      columnVisibilityModel,
-      requestStatus,
-      columnsModel,
-      currentData,
-      userRole,
-      userInfo,
-
-      onTriggerSortMode,
-      onClickViewMore,
-      onChangeViewMode,
-      onChangeNameSearchValue,
-      onClickTaskType,
-      onChangeCurPage,
-      onChangeSortingModel,
-      onChangeFilterModel,
-      onChangeRowsPerPage,
-    } = this.viewModel
-    const {classes: classNames} = this.props
-
-    const whiteList =
-      !!userInfo && checkIsFreelancer(userRole)
-        ? [
-            String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
-            ...(userInfo?.allowedSpec?.map(spec => spec && String(spec)) || []),
-          ]
-        : Object.keys(freelanceRequestTypeByCode)
-
-    const getSortedData = mode => {
-      switch (mode) {
-        case tableSortMode.DESK:
-          return currentData.slice().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
-
-        case tableSortMode.ASC:
-          return currentData.slice().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
-      }
+  const getRowClassName = params => {
+    if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 86400) {
+      return classNames.redBorder
+    } else if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 172800) {
+      return classNames.yellowBorder
     }
+  }
 
-    const getRowClassName = params => {
-      if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 86400) {
-        return classNames.redBorder
-      } else if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 172800) {
-        return classNames.yellowBorder
-      }
-    }
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div className={classNames.tablePanelWrapper}>
-            <div className={classNames.taskTypeWrapper}>
-              {Object.keys({
-                ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
-                // freelanceRequestTypeByCode
-              }).map((taskType, taskIndex) => (
-                <Button
-                  key={taskIndex}
-                  variant="text"
-                  disabled={taskType === selectedTaskType}
-                  className={cx(classNames.button, {
-                    [classNames.selectedBoxesBtn]: Number(taskType) === Number(selectedTaskType),
-                  })}
-                  onClick={() => onClickTaskType(taskType)}
-                >
-                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-                </Button>
-              ))}
-            </div>
-
-            <SearchInput
-              placeholder={t(TranslationKey['Search by Title, ASIN, ID'])}
-              inputClasses={classNames.searchInput}
-              value={nameSearchValue}
-              onChange={onChangeNameSearchValue}
-            />
-
-            <div className={classNames.tablePanelSubWrapper}>
-              <div className={classNames.tablePanelViewWrapper}>
-                <ToggleBtnGroupFreelance exclusive value={viewMode} onChange={onChangeViewMode}>
-                  <ToggleBtnFreelancer value={tableViewMode.TABLE} disabled={viewMode === tableViewMode.TABLE}>
-                    <ViewCartsTable
-                      className={cx(classNames.viewCart, {
-                        [classNames.viewCartSelected]: viewMode === tableViewMode.TABLE,
-                      })}
-                    />
-                  </ToggleBtnFreelancer>
-                  <ToggleBtnFreelancer value={tableViewMode.BLOCKS} disabled={viewMode === tableViewMode.BLOCKS}>
-                    <ViewCartsBlock
-                      className={cx(classNames.viewCart, {
-                        [classNames.viewCartSelected]: viewMode === tableViewMode.BLOCKS,
-                      })}
-                    />
-                  </ToggleBtnFreelancer>
-                  <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewMode === tableViewMode.LIST}>
-                    <ViewCartsLine
-                      className={cx(classNames.viewCart, {
-                        [classNames.viewCartSelected]: viewMode === tableViewMode.LIST,
-                      })}
-                    />
-                  </ToggleBtnFreelancer>
-                </ToggleBtnGroupFreelance>
-              </div>
-
-              <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
-                <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
-
-                {sortMode === tableSortMode.DESK ? (
-                  <ArrowDropDownIcon color="primary" />
-                ) : (
-                  <ArrowDropUpIcon color="primary" />
-                )}
-              </div>
-            </div>
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.tablePanelWrapper}>
+          <div className={classNames.taskTypeWrapper}>
+            {Object.keys({
+              ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
+              // freelanceRequestTypeByCode
+            }).map((taskType, taskIndex) => (
+              <Button
+                key={taskIndex}
+                variant="text"
+                disabled={taskType === viewModel.selectedTaskType}
+                className={cx(classNames.button, {
+                  [classNames.selectedBoxesBtn]: Number(taskType) === Number(viewModel.selectedTaskType),
+                })}
+                onClick={() => viewModel.onClickTaskType(taskType)}
+              >
+                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
+              </Button>
+            ))}
           </div>
 
-          {getSortedData(sortMode)?.length && viewMode !== tableViewMode.TABLE ? (
-            <Box
-              container
-              classes={{root: classNames.dashboardCardWrapper}}
-              display="grid"
-              gridTemplateColumns={
-                viewMode === tableViewMode.LIST
-                  ? 'repeat(auto-fill, minmax(100%, 1fr))'
-                  : viewMode === tableViewMode.BLOCKS
-                  ? 'repeat(auto-fill, minmax(297px, 1fr))'
-                  : 'repeat(auto-fill, 100%'
-              }
-              // gridGap="20px"
-              // gridGap="35px"
-              gap={'35px'}
-            >
-              {getSortedData(sortMode)?.map((item, index) =>
-                viewMode === tableViewMode.LIST ? (
-                  <VacantRequestListCard
-                    key={item._id}
-                    isFirst={index === 0}
-                    item={item}
-                    onClickViewMore={onClickViewMore}
-                  />
-                ) : (
-                  <VacantRequestShortCard
-                    key={item._id}
-                    isFirst={index === 0}
-                    item={item}
-                    onClickViewMore={onClickViewMore}
-                  />
-                ),
-              )}
-            </Box>
-          ) : getSortedData(sortMode)?.length && viewMode === tableViewMode.TABLE ? (
-            <div className={classNames.dataGridWrapper}>
-              <MemoDataGrid
-                disableVirtualization
-                pagination
-                useResizeContainer
-                localeText={getLocalizationByLanguageTag()}
-                classes={{
-                  row: classNames.row,
-                  root: classNames.root,
-                  footerContainer: classNames.footerContainer,
-                  footerCell: classNames.footerCell,
-                  toolbarContainer: classNames.toolbarContainer,
+          <SearchInput
+            placeholder={t(TranslationKey['Search by Title, ASIN, ID'])}
+            inputClasses={classNames.searchInput}
+            value={viewModel.nameSearchValue}
+            onChange={viewModel.onChangeNameSearchValue}
+          />
 
-                  iconSeparator: classNames.iconSeparator,
-                  columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-                  columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-                }}
-                rowCount={rowCount}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getSortedData(sortMode)}
-                rowHeight={75}
-                components={{
-                  Toolbar: DataGridCustomToolbar,
-                  ColumnMenuIcon: FilterAltOutlinedIcon,
-                  ColumnMenu: DataGridCustomColumnMenuComponent,
-                }}
-                columnVisibilityModel={columnVisibilityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                getRowClassName={getRowClassName}
-                onPageChange={onChangeCurPage}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onFilterModelChange={onChangeFilterModel}
-                // onStateChange={setFirstRowId}
-                onRowDoubleClick={e => onClickViewMore(e.row._id)}
-              />
+          <div className={classNames.tablePanelSubWrapper}>
+            <div className={classNames.tablePanelViewWrapper}>
+              <ToggleBtnGroupFreelance exclusive value={viewModel.viewMode} onChange={viewModel.onChangeViewMode}>
+                <ToggleBtnFreelancer value={tableViewMode.TABLE} disabled={viewModel.viewMode === tableViewMode.TABLE}>
+                  <ViewCartsTable
+                    className={cx(classNames.viewCart, {
+                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.TABLE,
+                    })}
+                  />
+                </ToggleBtnFreelancer>
+                <ToggleBtnFreelancer
+                  value={tableViewMode.BLOCKS}
+                  disabled={viewModel.viewMode === tableViewMode.BLOCKS}
+                >
+                  <ViewCartsBlock
+                    className={cx(classNames.viewCart, {
+                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.BLOCKS,
+                    })}
+                  />
+                </ToggleBtnFreelancer>
+                <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewModel.viewMode === tableViewMode.LIST}>
+                  <ViewCartsLine
+                    className={cx(classNames.viewCart, {
+                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.LIST,
+                    })}
+                  />
+                </ToggleBtnFreelancer>
+              </ToggleBtnGroupFreelance>
             </div>
-          ) : (
-            <div className={classNames.emptyTableWrapper}>
-              <img src="/assets/icons/empty-table.svg" />
-              <Typography variant="h5" className={classNames.emptyTableText}>
-                {t(TranslationKey['No vacant applications yet'])}
-              </Typography>
+
+            <div className={classNames.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
+              <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
+
+              {viewModel.sortMode === tableSortMode.DESK ? (
+                <ArrowDropDownIcon color="primary" />
+              ) : (
+                <ArrowDropUpIcon color="primary" />
+              )}
             </div>
-          )}
-        </MainContent>
-      </React.Fragment>
-    )
-  }
+          </div>
+        </div>
+
+        {getSortedData(viewModel.sortMode)?.length && viewModel.viewMode !== tableViewMode.TABLE ? (
+          <Box
+            container
+            classes={{root: classNames.dashboardCardWrapper}}
+            display="grid"
+            gridTemplateColumns={
+              viewModel.viewMode === tableViewMode.LIST
+                ? 'repeat(auto-fill, minmax(100%, 1fr))'
+                : viewModel.viewMode === tableViewMode.BLOCKS
+                ? 'repeat(auto-fill, minmax(297px, 1fr))'
+                : 'repeat(auto-fill, 100%'
+            }
+            // gridGap="20px"
+            // gridGap="35px"
+            gap={'35px'}
+          >
+            {getSortedData(viewModel.sortMode)?.map((item, index) =>
+              viewModel.viewMode === tableViewMode.LIST ? (
+                <VacantRequestListCard
+                  key={item._id}
+                  isFirst={index === 0}
+                  item={item}
+                  onClickViewMore={viewModel.onClickViewMore}
+                />
+              ) : (
+                <VacantRequestShortCard
+                  key={item._id}
+                  isFirst={index === 0}
+                  item={item}
+                  onClickViewMore={viewModel.onClickViewMore}
+                />
+              ),
+            )}
+          </Box>
+        ) : getSortedData(viewModel.sortMode)?.length && viewModel.viewMode === tableViewMode.TABLE ? (
+          <div className={classNames.dataGridWrapper}>
+            <MemoDataGrid
+              disableVirtualization
+              pagination
+              useResizeContainer
+              localeText={getLocalizationByLanguageTag()}
+              classes={{
+                row: classNames.row,
+                root: classNames.root,
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
+
+                iconSeparator: classNames.iconSeparator,
+                columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
+                columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
+              }}
+              rowCount={viewModel.rowCount}
+              sortModel={viewModel.sortModel}
+              filterModel={viewModel.filterModel}
+              page={viewModel.curPage}
+              pageSize={viewModel.rowsPerPage}
+              rowsPerPageOptions={[15, 25, 50, 100]}
+              rows={getSortedData(viewModel.sortMode)}
+              rowHeight={75}
+              components={{
+                Toolbar: DataGridCustomToolbar,
+                ColumnMenuIcon: FilterAltOutlinedIcon,
+                ColumnMenu: DataGridCustomColumnMenuComponent,
+              }}
+              columnVisibilityModel={viewModel.columnVisibilityModel}
+              columns={viewModel.columnsModel}
+              loading={viewModel.requestStatus === loadingStatuses.isLoading}
+              getRowClassName={getRowClassName}
+              onPageChange={viewModel.onChangeCurPage}
+              onSortModelChange={viewModel.onChangeSortingModel}
+              onPageSizeChange={viewModel.onChangeRowsPerPage}
+              onFilterModelChange={viewModel.onChangeFilterModel}
+              // onStateChange={viewModel.setFirstRowId}
+              onRowDoubleClick={e => viewModel.onClickViewMore(e.row._id)}
+            />
+          </div>
+        ) : (
+          <div className={classNames.emptyTableWrapper}>
+            <img src="/assets/icons/empty-table.svg" />
+            <Typography variant="h5" className={classNames.emptyTableText}>
+              {t(TranslationKey['No vacant applications yet'])}
+            </Typography>
+          </div>
+        )}
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const VacantRequestsView = withStyles(VacantRequestsViewRaw, styles)
+export const VacantRequestsView = withStyles(observer(VacantRequestsViewRaw), styles)

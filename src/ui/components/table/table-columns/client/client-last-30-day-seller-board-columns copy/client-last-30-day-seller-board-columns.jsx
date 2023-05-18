@@ -17,7 +17,7 @@ export const clientLast30DaySellerBoardColumns = () => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
     type: 'date',
   },
@@ -62,7 +62,7 @@ export const clientLast30DaySellerBoardColumns = () => [
     headerName: t(TranslationKey.Date),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Date)} />,
 
-    renderCell: params => <NormDateWithoutTimeCell params={params} />,
+    renderCell: params => <NormDateWithoutTimeCell value={params.value} />,
     minWidth: 80,
     type: 'date',
   },

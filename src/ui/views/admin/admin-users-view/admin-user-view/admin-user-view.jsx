@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 
@@ -7,26 +7,24 @@ import {UserInfoAndEdit} from '@components/user/user-info-and-edit'
 
 import {AdminUserViewModel} from './admin-user-view.model'
 
-@observer
-export class AdminUserView extends Component {
-  viewModel = new AdminUserViewModel({
-    history: this.props.history,
-    location: this.props.location,
-  })
+export const AdminUserView = observer(props => {
+  const [viewModel] = useState(
+    () =>
+      new AdminUserViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {user} = this.viewModel
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <UserInfoAndEdit user={user} />
-        </MainContent>
-      </React.Fragment>
-    )
-  }
-}
+  return (
+    <React.Fragment>
+      <MainContent>
+        <UserInfoAndEdit user={viewModel.user} />
+      </MainContent>
+    </React.Fragment>
+  )
+})

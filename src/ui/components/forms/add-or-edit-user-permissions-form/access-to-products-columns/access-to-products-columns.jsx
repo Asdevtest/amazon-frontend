@@ -8,7 +8,19 @@ export const sourceColumns = () => [
   {
     field: 'product',
     headerName: t(TranslationKey.Product),
-    renderCell: params => <ProductCell product={params.row.originalData} />,
+
+    renderCell: params => {
+      const product = params.row.originalData
+
+      return (
+        <ProductCell
+          image={product?.images?.slice()[0]}
+          amazonTitle={product?.amazonTitle}
+          asin={product?.asin}
+          skusByClient={product?.skusByClient?.slice()[0]}
+        />
+      )
+    },
     width: 550,
     sortable: false,
   },

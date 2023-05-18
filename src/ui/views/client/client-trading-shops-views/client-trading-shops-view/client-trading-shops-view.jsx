@@ -1,7 +1,7 @@
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import {Typography} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -16,43 +16,45 @@ import {t} from '@utils/translations'
 import {ClientTradingShopsViewModel} from './client-trading-shops-view.model'
 import {styles} from './client-trading-shops-view.style'
 
-@observer
-class ClientTradingShopsViewRaw extends Component {
-  viewModel = new ClientTradingShopsViewModel({history: this.props.history})
+export const ClientTradingShopsViewRaw = props => {
+  const [viewModel] = useState(() => new ClientTradingShopsViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  render() {
-    const {onClickBuyShops, onClickSellShops} = this.viewModel
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div>
+          <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Trading Shops'])}</Typography>
 
-    const {classes: classNames} = this.props
+          <div className={classNames.btnsWrapper}>
+            <Button
+              className={classNames.button}
+              color="primary"
+              variant="outlined"
+              onClick={viewModel.onClickBuyShops}
+            >
+              <div className={classNames.btnTextWrapper}>
+                <Typography className={classNames.btnText}>{t(TranslationKey['Buy store'])}</Typography>
+                <ArrowRightAltIcon color="primary" />
+              </div>
+            </Button>
 
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div>
-            <Typography className={classNames.title}>
-              {t(TranslationKey['Choose a section in Trading Shops'])}
-            </Typography>
-
-            <div className={classNames.btnsWrapper}>
-              <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickBuyShops}>
-                <div className={classNames.btnTextWrapper}>
-                  <Typography className={classNames.btnText}>{t(TranslationKey['Buy store'])}</Typography>
-                  <ArrowRightAltIcon color="primary" />
-                </div>
-              </Button>
-
-              <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickSellShops}>
-                <div className={classNames.btnTextWrapper}>
-                  <Typography className={classNames.btnText}>{t(TranslationKey['Sell the store'])}</Typography>
-                  <ArrowRightAltIcon color="primary" />
-                </div>
-              </Button>
-            </div>
+            <Button
+              className={classNames.button}
+              color="primary"
+              variant="outlined"
+              onClick={viewModel.onClickSellShops}
+            >
+              <div className={classNames.btnTextWrapper}>
+                <Typography className={classNames.btnText}>{t(TranslationKey['Sell the store'])}</Typography>
+                <ArrowRightAltIcon color="primary" />
+              </div>
+            </Button>
           </div>
-        </MainContent>
-      </React.Fragment>
-    )
-  }
+        </div>
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const ClientTradingShopsView = withStyles(ClientTradingShopsViewRaw, styles)
+export const ClientTradingShopsView = withStyles(observer(ClientTradingShopsViewRaw), styles)

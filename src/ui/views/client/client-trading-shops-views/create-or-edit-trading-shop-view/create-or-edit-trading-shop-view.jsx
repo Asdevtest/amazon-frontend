@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {useState} from 'react'
 
 import {observer} from 'mobx-react'
 
@@ -14,49 +14,38 @@ import {t} from '@utils/translations'
 
 import {CreateOrEditTradingShopViewModel} from './create-or-edit-trading-shop-view.model'
 
-@observer
-export class CreateOrEditTradingShopView extends Component {
-  viewModel = new CreateOrEditTradingShopViewModel({
-    history: this.props.history,
-    location: this.props.location,
-  })
+export const CreateOrEditTradingShopView = observer(props => {
+  const [viewModel] = useState(
+    () =>
+      new CreateOrEditTradingShopViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
+  // const {classes: classNames} = props
 
-  render() {
-    const {
-      progressValue,
-      showProgress,
-      requestToEdit,
-      infoModalText,
-      showInfoModal,
-      onTriggerOpenModal,
-      onSubmitCreateShopSell,
-      onSubmitEditRequest,
-      onClickOkInfoModal,
-    } = this.viewModel
+  return (
+    <React.Fragment>
+      <MainContent>
+        {SettingsModel.languageTag && (
+          <CreateOrEditTradingShopContent
+            progressValue={viewModel.progressValue}
+            showProgress={viewModel.showProgress}
+            requestToEdit={viewModel.requestToEdit}
+            history={props.history}
+            onCreateSubmit={viewModel.onSubmitCreateShopSell}
+            onEditSubmit={viewModel.onSubmitEditRequest}
+          />
+        )}
+      </MainContent>
 
-    return (
-      <React.Fragment>
-        <MainContent>
-          {SettingsModel.languageTag && (
-            <CreateOrEditTradingShopContent
-              progressValue={progressValue}
-              showProgress={showProgress}
-              requestToEdit={requestToEdit}
-              history={this.props.history}
-              onCreateSubmit={onSubmitCreateShopSell}
-              onEditSubmit={onSubmitEditRequest}
-            />
-          )}
-        </MainContent>
-
-        <WarningInfoModal
-          openModal={showInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showInfoModal')}
-          title={infoModalText}
-          btnText={t(TranslationKey.Close)}
-          onClickBtn={onClickOkInfoModal}
-        />
-      </React.Fragment>
-    )
-  }
-}
+      <WarningInfoModal
+        openModal={viewModel.showInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
+        title={viewModel.infoModalText}
+        btnText={t(TranslationKey.Close)}
+        onClickBtn={viewModel.onClickOkInfoModal}
+      />
+    </React.Fragment>
+  )
+})

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 
@@ -7,24 +7,24 @@ import {UserPermissions} from '@components/user/user-permissions/user-permission
 
 import {AdminUserPermissionsViewModel} from './admin-user-permissions-view.model'
 
-@observer
-export class AdminUserPermissionsView extends Component {
-  viewModel = new AdminUserPermissionsViewModel({
-    history: this.props.history,
-    location: this.props.location,
-  })
+export const AdminUserPermissionsView = observer(props => {
+  const [viewModel] = useState(
+    () =>
+      new AdminUserPermissionsViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    return (
-      <React.Fragment>
-        <MainContent>
-          <UserPermissions />
-        </MainContent>
-      </React.Fragment>
-    )
-  }
-}
+  return (
+    <React.Fragment>
+      <MainContent>
+        <UserPermissions />
+      </MainContent>
+    </React.Fragment>
+  )
+})

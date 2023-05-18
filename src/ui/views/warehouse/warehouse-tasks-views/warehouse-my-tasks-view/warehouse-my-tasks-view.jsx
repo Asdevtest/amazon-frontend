@@ -2,7 +2,7 @@ import {cx} from '@emotion/css'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -38,271 +38,230 @@ import {t} from '@utils/translations'
 import {WarehouseMyTasksViewModel} from './warehouse-my-tasks-view.model'
 import {styles} from './warehouse-my-tasks-view.style'
 
-@observer
-export class WarehouseMyTasksViewRaw extends Component {
-  viewModel = new WarehouseMyTasksViewModel({history: this.props.history, location: this.props.location})
+export const WarehouseMyTasksViewRaw = props => {
+  const [viewModel] = useState(
+    () =>
+      new WarehouseMyTasksViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      selectedTasks,
-      curTaskType,
-      curTaskPriority,
-      rowCount,
-      nameSearchValue,
-      volumeWeightCoefficient,
-      requestStatus,
-      getCurrentData,
-      sortModel,
-      filterModel,
-      densityModel,
-      columnsModel,
+  const getRowClassName = params =>
+    params.row.originalData.operationType === TaskOperationType.RECEIVE && params.row.barcode && classNames.successRow
 
-      curPage,
-      showEditTaskModal,
-      rowsPerPage,
-      selectedTask,
-      progressValue,
-      showProgress,
-      showEditBoxModal,
-      showNoDimensionsErrorModal,
-      showCancelTaskModal,
-      showConfirmModal,
-      showEditPriorityData,
-      editPriorityData,
-      updateTaskPriority,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      onTriggerEditTaskModal,
-      onTriggerShowBarcodeModal,
-      onTriggerShowEditBoxModal,
-      onClickSolveTask,
-      onTriggerOpenModal,
-      onClickConfirmCancelTask,
-      onSelectionModel,
-
-      setDataGridState,
-      onChangeSortingModel,
-      onChangeFilterModel,
-      onClickResolveBtn,
-
-      onSearchSubmit,
-      onClickOperationTypeBtn,
-      onClickReportBtn,
-      onClickTaskPriorityBtn,
-      changeColumnsModel,
-    } = this.viewModel
-
-    const {classes: classNames} = this.props
-
-    const getRowClassName = params =>
-      params.row.originalData.operationType === TaskOperationType.RECEIVE && params.row.barcode && classNames.successRow
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div className={classNames.headerWrapper}>
-            <div className={classNames.boxesFiltersWrapper}>
-              <Button
-                disabled={curTaskPriority === null}
-                className={cx(classNames.button, {[classNames.selectedBoxesBtn]: curTaskPriority === null})}
-                variant="text"
-                onClick={() => onClickTaskPriorityBtn(null)}
-              >
-                {t(TranslationKey['All priorities'])}
-              </Button>
-
-              {Object.keys(mapTaskPriorityStatusEnum)
-                .reverse()
-                .map(type => (
-                  <Button
-                    key={type}
-                    disabled={curTaskPriority === type}
-                    className={cx(classNames.button, {
-                      [classNames.selectedBoxesBtn]: curTaskPriority === type,
-                    })}
-                    variant="text"
-                    onClick={() => onClickTaskPriorityBtn(type)}
-                  >
-                    {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[type])}
-
-                    {TaskPriorityStatus.URGENT === mapTaskPriorityStatusEnum[type] && (
-                      <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" alt="Fire" />
-                    )}
-                  </Button>
-                ))}
-            </div>
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.headerWrapper}>
+          <div className={classNames.boxesFiltersWrapper}>
             <Button
-              variant="contained"
-              disabled={
-                !selectedTasks.length ||
-                selectedTasks.length > 1 ||
-                getCurrentData().filter(el => selectedTasks.includes(el.id))[0]?.originalData.operationType !==
-                  TaskOperationType.RECEIVE
-              }
-              className={classNames.pickupOrdersButton}
-              onClick={onClickReportBtn}
+              disabled={viewModel.curTaskPriority === null}
+              className={cx(classNames.button, {[classNames.selectedBoxesBtn]: viewModel.curTaskPriority === null})}
+              variant="text"
+              onClick={() => viewModel.onClickTaskPriorityBtn(null)}
             >
-              {t(TranslationKey['Download task file'])}
-              <FileDownloadIcon />
+              {t(TranslationKey['All priorities'])}
             </Button>
+
+            {Object.keys(mapTaskPriorityStatusEnum)
+              .reverse()
+              .map(type => (
+                <Button
+                  key={type}
+                  disabled={viewModel.curTaskPriority === type}
+                  className={cx(classNames.button, {
+                    [classNames.selectedBoxesBtn]: viewModel.curTaskPriority === type,
+                  })}
+                  variant="text"
+                  onClick={() => viewModel.onClickTaskPriorityBtn(type)}
+                >
+                  {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[type])}
+
+                  {TaskPriorityStatus.URGENT === mapTaskPriorityStatusEnum[type] && (
+                    <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" alt="Fire" />
+                  )}
+                </Button>
+              ))}
+          </div>
+          <Button
+            variant="contained"
+            disabled={
+              !viewModel.selectedTasks.length ||
+              viewModel.selectedTasks.length > 1 ||
+              viewModel.getCurrentData().filter(el => viewModel.selectedTasks.includes(el.id))[0]?.originalData
+                .operationType !== TaskOperationType.RECEIVE
+            }
+            className={classNames.pickupOrdersButton}
+            onClick={viewModel.onClickReportBtn}
+          >
+            {t(TranslationKey['Download task file'])}
+            <FileDownloadIcon />
+          </Button>
+        </div>
+
+        <div className={classNames.headerWrapper}>
+          <div className={classNames.boxesFiltersWrapper}>
+            <Button
+              disabled={viewModel.curTaskType === null}
+              className={cx(classNames.button, {[classNames.selectedBoxesBtn]: viewModel.curTaskType === null})}
+              variant="text"
+              onClick={() => viewModel.onClickOperationTypeBtn(null)}
+            >
+              {t(TranslationKey['All tasks'])}
+            </Button>
+
+            {Object.keys(mapTaskOperationTypeKeyToEnum)
+              .filter(el => el !== TaskOperationType.EDIT_BY_STOREKEEPER)
+              .map(type => (
+                <Button
+                  key={type}
+                  disabled={viewModel.curTaskType === type}
+                  className={cx(classNames.button, {
+                    [classNames.selectedBoxesBtn]: viewModel.curTaskType === type,
+                  })}
+                  variant="text"
+                  onClick={() => viewModel.onClickOperationTypeBtn(type)}
+                >
+                  {taskOperationTypeTranslate(type)}
+                </Button>
+              ))}
           </div>
 
-          <div className={classNames.headerWrapper}>
-            <div className={classNames.boxesFiltersWrapper}>
-              <Button
-                disabled={curTaskType === null}
-                className={cx(classNames.button, {[classNames.selectedBoxesBtn]: curTaskType === null})}
-                variant="text"
-                onClick={() => onClickOperationTypeBtn(null)}
-              >
-                {t(TranslationKey['All tasks'])}
-              </Button>
-
-              {Object.keys(mapTaskOperationTypeKeyToEnum)
-                .filter(el => el !== TaskOperationType.EDIT_BY_STOREKEEPER)
-                .map(type => (
-                  <Button
-                    key={type}
-                    disabled={curTaskType === type}
-                    className={cx(classNames.button, {
-                      [classNames.selectedBoxesBtn]: curTaskType === type,
-                    })}
-                    variant="text"
-                    onClick={() => onClickOperationTypeBtn(type)}
-                  >
-                    {taskOperationTypeTranslate(type)}
-                  </Button>
-                ))}
-            </div>
-
-            <SearchInput
-              value={nameSearchValue}
-              inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
-              onSubmit={onSearchSubmit}
-            />
-          </div>
-          <div className={classNames.tableWrapper}>
-            <MemoDataGrid
-              pagination
-              checkboxSelection
-              disableVirtualization
-              localeText={getLocalizationByLanguageTag()}
-              classes={{
-                row: classNames.row,
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-                filterForm: classNames.filterForm,
-              }}
-              getRowClassName={getRowClassName}
-              sortingMode="server"
-              paginationMode="server"
-              rowCount={rowCount}
-              sortModel={sortModel}
-              filterModel={filterModel}
-              page={curPage}
-              pageSize={rowsPerPage}
-              rowsPerPageOptions={[15, 25, 50, 100]}
-              rows={getCurrentData()}
-              getRowHeight={() => '147px'}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
-              }}
-              componentsProps={{
-                toolbar: {
-                  columsBtnSettings: {columnsModel, changeColumnsModel},
+          <SearchInput
+            value={viewModel.nameSearchValue}
+            inputClasses={classNames.searchInput}
+            placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
+            onSubmit={viewModel.onSearchSubmit}
+          />
+        </div>
+        <div className={classNames.tableWrapper}>
+          <MemoDataGrid
+            pagination
+            checkboxSelection
+            disableVirtualization
+            localeText={getLocalizationByLanguageTag()}
+            classes={{
+              row: classNames.row,
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+              filterForm: classNames.filterForm,
+            }}
+            getRowClassName={getRowClassName}
+            sortingMode="server"
+            paginationMode="server"
+            rowCount={viewModel.rowCount}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            page={viewModel.curPage}
+            pageSize={viewModel.rowsPerPage}
+            rowsPerPageOptions={[15, 25, 50, 100]}
+            rows={viewModel.getCurrentData()}
+            getRowHeight={() => '147px'}
+            components={{
+              Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  changeColumnsModel: viewModel.changeColumnsModel,
                 },
-              }}
-              density={densityModel}
-              columns={columnsModel}
-              loading={requestStatus === loadingStatuses.isLoading}
-              onSelectionModelChange={onSelectionModel}
-              onSortModelChange={onChangeSortingModel}
-              onPageSizeChange={onChangeRowsPerPage}
-              onPageChange={onChangeCurPage}
-              onStateChange={setDataGridState}
-              onFilterModelChange={onChangeFilterModel}
-              onRowDoubleClick={params => onClickResolveBtn(params.row.originalData)}
-            />
-          </div>
-        </MainContent>
-
-        <Modal openModal={showEditPriorityData} setOpenModal={() => onTriggerOpenModal('showEditPriorityData')}>
-          <EditTaskPriorityModal
-            data={editPriorityData}
-            handleClose={() => onTriggerOpenModal('showEditPriorityData')}
-            onSubmitHandler={updateTaskPriority}
+              },
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onSelectionModelChange={viewModel.onSelectionModel}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onPageSizeChange={viewModel.onChangeRowsPerPage}
+            onPageChange={viewModel.onChangeCurPage}
+            onStateChange={viewModel.setDataGridState}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+            onRowDoubleClick={params => viewModel.onClickResolveBtn(params.row.originalData)}
           />
-        </Modal>
+        </div>
+      </MainContent>
 
-        <Modal
-          missClickModalOn
-          dialogContextClassName={classNames.resolveTaskModalContent}
-          openModal={showEditTaskModal}
-          setOpenModal={onTriggerEditTaskModal}
-        >
-          <EditTaskModal
-            requestStatus={requestStatus}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            task={selectedTask}
-            showEditBoxModal={showEditBoxModal}
-            progressValue={progressValue}
-            showProgress={showProgress}
-            onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
-            onClickOpenCloseModal={onTriggerEditTaskModal}
-            onSetBarcode={onTriggerShowBarcodeModal}
-            onEditBox={onTriggerShowEditBoxModal}
-            onClickSolveTask={onClickSolveTask}
-          />
-        </Modal>
-
-        <ConfirmWithCommentModal
-          isWarning
-          openModal={showCancelTaskModal}
-          setOpenModal={() => {
-            onTriggerOpenModal('showCancelTaskModal')
-            onTriggerOpenModal('showConfirmModal')
-          }}
-          titleText={t(TranslationKey['Cancel task'])}
-          commentLabelText={t(TranslationKey['Reason for canceling the task'])}
-          okBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onSubmit={onClickConfirmCancelTask}
+      <Modal
+        openModal={viewModel.showEditPriorityData}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showEditPriorityData')}
+      >
+        <EditTaskPriorityModal
+          data={viewModel.editPriorityData}
+          handleClose={() => viewModel.onTriggerOpenModal('showEditPriorityData')}
+          onSubmitHandler={viewModel.updateTaskPriority}
         />
+      </Modal>
 
-        <WarningInfoModal
-          openModal={showNoDimensionsErrorModal}
-          setOpenModal={() => onTriggerOpenModal('showNoDimensionsErrorModal')}
-          title={t(TranslationKey['Enter dimensions'])}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showNoDimensionsErrorModal')
-          }}
+      <Modal
+        missClickModalOn
+        dialogContextClassName={classNames.resolveTaskModalContent}
+        openModal={viewModel.showEditTaskModal}
+        setOpenModal={viewModel.onTriggerEditTaskModal}
+      >
+        <EditTaskModal
+          requestStatus={viewModel.requestStatus}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          task={viewModel.selectedTask}
+          showEditBoxModal={viewModel.showEditBoxModal}
+          progressValue={viewModel.progressValue}
+          showProgress={viewModel.showProgress}
+          onTriggerShowEditBoxModal={viewModel.onTriggerShowEditBoxModal}
+          onClickOpenCloseModal={viewModel.onTriggerEditTaskModal}
+          onSetBarcode={viewModel.onTriggerShowBarcodeModal}
+          onEditBox={viewModel.onTriggerShowEditBoxModal}
+          onClickSolveTask={viewModel.onClickSolveTask}
         />
+      </Modal>
 
-        <ConfirmationModal
-          isWarning
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={t(TranslationKey['Confirm action'])}
-          message={t(TranslationKey['After confirmation, the task will be cancelled. Confirm?'])}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={() => {
-            onTriggerOpenModal('showCancelTaskModal')
-          }}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-        />
-      </React.Fragment>
-    )
-  }
+      <ConfirmWithCommentModal
+        isWarning
+        openModal={viewModel.showCancelTaskModal}
+        setOpenModal={() => {
+          viewModel.onTriggerOpenModal('showCancelTaskModal')
+          viewModel.onTriggerOpenModal('showConfirmModal')
+        }}
+        titleText={t(TranslationKey['Cancel task'])}
+        commentLabelText={t(TranslationKey['Reason for canceling the task'])}
+        okBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onSubmit={viewModel.onClickConfirmCancelTask}
+      />
+
+      <WarningInfoModal
+        openModal={viewModel.showNoDimensionsErrorModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
+        title={t(TranslationKey['Enter dimensions'])}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')
+        }}
+      />
+
+      <ConfirmationModal
+        isWarning
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey['Confirm action'])}
+        message={t(TranslationKey['After confirmation, the task will be cancelled. Confirm?'])}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={() => {
+          viewModel.onTriggerOpenModal('showCancelTaskModal')
+        }}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+    </React.Fragment>
+  )
 }
 
-export const WarehouseMyTasksView = withStyles(WarehouseMyTasksViewRaw, styles)
+export const WarehouseMyTasksView = withStyles(observer(WarehouseMyTasksViewRaw), styles)

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 
@@ -15,128 +15,92 @@ import {t} from '@utils/translations'
 
 import {ClientProductViewModel} from './client-product-view.model'
 
-@observer
-export class ClientProductView extends Component {
-  viewModel = new ClientProductViewModel({
-    history: this.props.history,
-  })
+export const ClientProductView = observer(props => {
+  const [viewModel] = useState(
+    () =>
+      new ClientProductViewModel({
+        history: props.history,
+      }),
+  )
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      showTab,
-      storekeepersData,
-      getCurrentData,
-      shopsData,
-      supplierModalReadOnly,
-      actionStatus,
-      volumeWeightCoefficient,
-      yuanToDollarRate,
-      userInfo,
-      selectedSupplier,
-      requestStatus,
-      showProgress,
-      progressValue,
-      product,
-      productBase,
-      formFieldsValidationErrors,
-      showWarningModal,
-      warningModalTitle,
-      imagesForLoad,
-      showConfirmModal,
-      showAddOrEditSupplierModal,
-      confirmModalSettings,
-      paymentMethods,
-      onChangeProductFields,
-      handleProductActionButtons,
-      onTriggerOpenModal,
-      onChangeImagesForLoad,
-      onClickSupplierButtons,
-      onClickSaveSupplierBtn,
-      onTriggerAddOrEditSupplierModal,
-      onChangeSelectedSupplier,
-      onClickParseProductData,
-      acceptMessage,
-    } = this.viewModel
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          {product ? (
-            <ProductWrapper
-              showTab={showTab}
-              user={userInfo}
-              userRole={userInfo.role}
-              imagesForLoad={imagesForLoad}
-              showProgress={showProgress}
-              progressValue={progressValue}
-              product={getCurrentData()}
-              shops={shopsData}
-              acceptMessage={acceptMessage}
-              actionStatus={actionStatus}
-              productBase={productBase}
-              selectedSupplier={selectedSupplier}
-              handleSupplierButtons={onClickSupplierButtons}
-              handleProductActionButtons={handleProductActionButtons}
-              formFieldsValidationErrors={formFieldsValidationErrors}
-              onClickSupplier={onChangeSelectedSupplier}
-              onChangeField={onChangeProductFields}
-              onChangeImagesForLoad={onChangeImagesForLoad}
-              onClickParseProductData={onClickParseProductData}
-            />
-          ) : undefined}
-        </MainContent>
-
-        <Modal
-          missClickModalOn={!supplierModalReadOnly}
-          openModal={showAddOrEditSupplierModal}
-          setOpenModal={onTriggerAddOrEditSupplierModal}
-        >
-          <AddOrEditSupplierModalContent
-            paymentMethods={paymentMethods}
-            product={product}
-            storekeepersData={storekeepersData}
-            onlyRead={supplierModalReadOnly}
-            requestStatus={requestStatus}
-            sourceYuanToDollarRate={yuanToDollarRate}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            title={t(TranslationKey['Adding and editing a supplier'])}
-            supplier={selectedSupplier}
-            showProgress={showProgress}
-            progressValue={progressValue}
-            onClickSaveBtn={onClickSaveSupplierBtn}
-            onTriggerShowModal={onTriggerAddOrEditSupplierModal}
+  return (
+    <React.Fragment>
+      <MainContent>
+        {viewModel.product ? (
+          <ProductWrapper
+            showTab={viewModel.showTab}
+            user={viewModel.userInfo}
+            userRole={viewModel.userInfo.role}
+            imagesForLoad={viewModel.imagesForLoad}
+            showProgress={viewModel.showProgress}
+            progressValue={viewModel.progressValue}
+            product={viewModel.getCurrentData()}
+            shops={viewModel.shopsData}
+            acceptMessage={viewModel.acceptMessage}
+            actionStatus={viewModel.actionStatus}
+            productBase={viewModel.productBase}
+            selectedSupplier={viewModel.selectedSupplier}
+            handleSupplierButtons={viewModel.onClickSupplierButtons}
+            handleProductActionButtons={viewModel.handleProductActionButtons}
+            formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
+            onClickSupplier={viewModel.onChangeSelectedSupplier}
+            onChangeField={viewModel.onChangeProductFields}
+            onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
+            onClickParseProductData={viewModel.onClickParseProductData}
           />
-        </Modal>
+        ) : undefined}
+      </MainContent>
 
-        <WarningInfoModal
-          openModal={showWarningModal}
-          setOpenModal={() => onTriggerOpenModal('showWarningModal')}
-          title={warningModalTitle}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showWarningModal')
-          }}
+      <Modal
+        missClickModalOn={!viewModel.supplierModalReadOnly}
+        openModal={viewModel.showAddOrEditSupplierModal}
+        setOpenModal={viewModel.onTriggerAddOrEditSupplierModal}
+      >
+        <AddOrEditSupplierModalContent
+          paymentMethods={viewModel.paymentMethods}
+          product={viewModel.product}
+          storekeepersData={viewModel.storekeepersData}
+          onlyRead={viewModel.supplierModalReadOnly}
+          requestStatus={viewModel.requestStatus}
+          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          supplier={viewModel.selectedSupplier}
+          showProgress={viewModel.showProgress}
+          progressValue={viewModel.progressValue}
+          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
+          onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
         />
+      </Modal>
 
-        <ConfirmationModal
-          isWarning={confirmModalSettings.isWarning}
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={confirmModalSettings.title}
-          message={confirmModalSettings.message}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onClickSuccessBtn={() => {
-            confirmModalSettings.onClickOkBtn()
-            onTriggerOpenModal('showConfirmModal')
-          }}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-        />
-      </React.Fragment>
-    )
-  }
-}
+      <WarningInfoModal
+        openModal={viewModel.showWarningModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
+        title={viewModel.warningModalTitle}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showWarningModal')
+        }}
+      />
+
+      <ConfirmationModal
+        isWarning={viewModel.confirmModalSettings.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={viewModel.confirmModalSettings.title}
+        message={viewModel.confirmModalSettings.message}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={() => {
+          viewModel.confirmModalSettings.onClickOkBtn()
+          viewModel.onTriggerOpenModal('showConfirmModal')
+        }}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+    </React.Fragment>
+  )
+})

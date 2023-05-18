@@ -2,7 +2,7 @@ import {cx} from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Box, Checkbox, Typography} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -25,175 +25,148 @@ import {t} from '@utils/translations'
 import {ShopsViewModel} from './shops-view.model'
 import {styles} from './shops-view.style'
 
-@observer
-class ShopsViewRaw extends Component {
-  viewModel = new ShopsViewModel({
-    history: this.props.history,
+export const ShopsViewRaw = props => {
+  const [viewModel] = useState(
+    () =>
+      new ShopsViewModel({
+        history: props.history,
+        onChangeTabIndex: props.onChangeTabIndex,
+        tabsValues: props.tabsValues,
+        onChangeCurShop: props.onChangeCurShop,
+        openModal: props.openModal,
+      }),
+  )
+  const {classes: className} = props
 
-    onChangeTabIndex: this.props.onChangeTabIndex,
-    tabsValues: this.props.tabsValues,
-    onChangeCurShop: this.props.onChangeCurShop,
-    openModal: this.props.openModal,
-  })
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  return (
+    <React.Fragment>
+      <div>
+        <Box className={className.buttonBox}>
+          <Button
+            tooltipInfoContent={t(TranslationKey['Open the window to add a store'])}
+            onClick={viewModel.onClickAddBtn}
+          >
+            {t(TranslationKey['Add shop'])}
+          </Button>
 
-  render() {
-    const {
-      selectionModel,
-      showConfirmModal,
-      showWarningModal,
-      showAddOrEditShopModal,
-      warningInfoModalSettings,
-      selectedShop,
+          <Button
+            disabled={!viewModel.selectionModel.length || viewModel.requestStatus === loadingStatuses.isLoading}
+            onClick={viewModel.updateShops}
+          >
+            {t(TranslationKey.Update)}
+          </Button>
 
-      requestStatus,
-      getCurrentData,
-      sortModel,
-      filterModel,
-      densityModel,
-      columnsModel,
-
-      rowsPerPage,
-      curPage,
-      shopsData,
-      selectedShopFilters,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-
-      setDataGridState,
-      onChangeSortingModel,
-      onChangeFilterModel,
-
-      onClickAddBtn,
-      onTriggerOpenModal,
-      onSubmitShopForm,
-      onSubmitRemoveShop,
-      onSelectionModel,
-      updateShops,
-      changeColumnsModel,
-      onSelectShopFilter,
-      handleSelectAllShops,
-    } = this.viewModel
-
-    const {classes: className} = this.props
-
-    return (
-      <React.Fragment>
-        <div>
-          <Box className={className.buttonBox}>
-            <Button tooltipInfoContent={t(TranslationKey['Open the window to add a store'])} onClick={onClickAddBtn}>
-              {t(TranslationKey['Add shop'])}
-            </Button>
-
-            <Button
-              disabled={!selectionModel.length || requestStatus === loadingStatuses.isLoading}
-              onClick={updateShops}
-            >
-              {t(TranslationKey.Update)}
-            </Button>
-
-            <div className={className.shopsSelect}>
-              <WithSearchSelect
-                checkbox
-                notCloseOneClick
-                firstItems={
-                  <Button className={className.filterBtn} variant="text" onClick={handleSelectAllShops}>
-                    <div className={cx(className.fieldNamesWrapper, className.fieldNamesWrapperWithCheckbox)}>
-                      <>
-                        <Checkbox checked={selectedShopFilters.length === shopsData.length} color="primary" />
-                        <Typography className={className.fieldName}>{t(TranslationKey['All shops'])}</Typography>
-                      </>
-                    </div>
-                  </Button>
-                }
-                currentShops={selectedShopFilters}
-                data={shopsData}
-                searchFields={['name']}
-                selectedItemName={t(TranslationKey['All shops'])}
-                onClickSelect={onSelectShopFilter}
-              />
-            </div>
-          </Box>
-
-          <div className={className.datagridWrapper}>
-            <MemoDataGrid
-              pagination
-              useResizeContainer
-              checkboxSelection
-              classes={{
-                root: className.root,
-                footerContainer: className.footerContainer,
-                footerCell: className.footerCell,
-                toolbarContainer: className.toolbarContainer,
-              }}
-              localeText={getLocalizationByLanguageTag()}
-              sortModel={sortModel}
-              filterModel={filterModel}
-              page={curPage}
-              pageSize={rowsPerPage}
-              rowsPerPageOptions={[15, 25, 50, 100]}
-              rows={getCurrentData()}
-              // rowHeight={100}
-              getRowHeight={() => 'auto'}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
-              }}
-              componentsProps={{
-                toolbar: {
-                  columsBtnSettings: {columnsModel, changeColumnsModel},
-                },
-              }}
-              density={densityModel}
-              columns={columnsModel}
-              loading={requestStatus === loadingStatuses.isLoading}
-              selectionModel={selectionModel}
-              onSelectionModelChange={onSelectionModel}
-              onSortModelChange={onChangeSortingModel}
-              onPageSizeChange={onChangeRowsPerPage}
-              onPageChange={onChangeCurPage}
-              onStateChange={setDataGridState}
-              onFilterModelChange={onChangeFilterModel}
+          <div className={className.shopsSelect}>
+            <WithSearchSelect
+              checkbox
+              notCloseOneClick
+              firstItems={
+                <Button className={className.filterBtn} variant="text" onClick={viewModel.handleSelectAllShops}>
+                  <div className={cx(className.fieldNamesWrapper, className.fieldNamesWrapperWithCheckbox)}>
+                    <>
+                      <Checkbox
+                        checked={viewModel.selectedShopFilters.length === viewModel.shopsData.length}
+                        color="primary"
+                      />
+                      <Typography className={className.fieldName}>{t(TranslationKey['All shops'])}</Typography>
+                    </>
+                  </div>
+                </Button>
+              }
+              currentShops={viewModel.selectedShopFilters}
+              data={viewModel.shopsData}
+              searchFields={['name']}
+              selectedItemName={t(TranslationKey['All shops'])}
+              onClickSelect={viewModel.onSelectShopFilter}
             />
           </div>
+        </Box>
 
-          <Modal openModal={showAddOrEditShopModal} setOpenModal={() => onTriggerOpenModal('showAddOrEditShopModal')}>
-            <AddOrEditShopForm
-              shopToEdit={selectedShop}
-              onCloseModal={() => onTriggerOpenModal('showAddOrEditShopModal')}
-              onSubmit={onSubmitShopForm}
-            />
-          </Modal>
-
-          <WarningInfoModal
-            isWarning={warningInfoModalSettings.isWarning}
-            openModal={showWarningModal}
-            setOpenModal={() => onTriggerOpenModal('showWarningModal')}
-            title={warningInfoModalSettings.title}
-            btnText={t(TranslationKey.Ok)}
-            onClickBtn={() => {
-              onTriggerOpenModal('showWarningModal')
+        <div className={className.datagridWrapper}>
+          <MemoDataGrid
+            pagination
+            useResizeContainer
+            checkboxSelection
+            classes={{
+              root: className.root,
+              footerContainer: className.footerContainer,
+              footerCell: className.footerCell,
+              toolbarContainer: className.toolbarContainer,
             }}
-          />
-
-          <ConfirmationModal
-            isWarning
-            openModal={showConfirmModal}
-            setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-            title={t(TranslationKey.Attention)}
-            message={t(TranslationKey['Are you sure you want to delete the store?'])}
-            successBtnText={t(TranslationKey.Yes)}
-            cancelBtnText={t(TranslationKey.No)}
-            onClickSuccessBtn={onSubmitRemoveShop}
-            onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+            localeText={getLocalizationByLanguageTag()}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            page={viewModel.curPage}
+            pageSize={viewModel.rowsPerPage}
+            rowsPerPageOptions={[15, 25, 50, 100]}
+            rows={viewModel.getCurrentData()}
+            // rowHeight={100}
+            getRowHeight={() => 'auto'}
+            components={{
+              Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  changeColumnsModel: viewModel.changeColumnsModel,
+                },
+              },
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            selectionModel={viewModel.selectionModel}
+            onSelectionModelChange={viewModel.onSelectionModel}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onPageSizeChange={viewModel.onChangeRowsPerPage}
+            onPageChange={viewModel.onChangeCurPage}
+            onStateChange={viewModel.setDataGridState}
+            onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
-      </React.Fragment>
-    )
-  }
+
+        <Modal
+          openModal={viewModel.showAddOrEditShopModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditShopModal')}
+        >
+          <AddOrEditShopForm
+            shopToEdit={viewModel.selectedShop}
+            onCloseModal={() => viewModel.onTriggerOpenModal('showAddOrEditShopModal')}
+            onSubmit={viewModel.onSubmitShopForm}
+          />
+        </Modal>
+
+        <WarningInfoModal
+          isWarning={viewModel.warningInfoModalSettings.isWarning}
+          openModal={viewModel.showWarningModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
+          title={viewModel.warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => {
+            viewModel.onTriggerOpenModal('showWarningModal')
+          }}
+        />
+
+        <ConfirmationModal
+          isWarning
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Are you sure you want to delete the store?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.onSubmitRemoveShop}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      </div>
+    </React.Fragment>
+  )
 }
 
-export const ShopsView = withStyles(ShopsViewRaw, styles)
+export const ShopsView = withStyles(observer(ShopsViewRaw), styles)

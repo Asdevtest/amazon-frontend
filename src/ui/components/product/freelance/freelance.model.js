@@ -193,7 +193,7 @@ export class FreelanceModel {
     }
   }
 
-  onClickOpenRequest(item) {
+  onClickOpenRequest(itemId) {
     // this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request`, {
     //   request: toJS(item),
     // })
@@ -201,7 +201,7 @@ export class FreelanceModel {
     const win = window.open(
       `${window.location.origin}/${
         UserRoleCodeMapForRoutes[this.userInfo.role]
-      }/freelance/my-requests/custom-request?request-id=${item._id}`,
+      }/freelance/my-requests/custom-request?request-id=${itemId}`,
       '_blank',
     )
 

@@ -1,6 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -28,168 +28,131 @@ import {t} from '@utils/translations'
 import {SubUsersViewModel} from './sub-users-view.model'
 import {styles} from './sub-users-view.style'
 
-@observer
-class SubUsersViewRaw extends Component {
-  viewModel = new SubUsersViewModel({history: this.props.history})
+export const SubUsersViewRaw = props => {
+  const [viewModel] = useState(() => new SubUsersViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      productPermissionsData,
-      userInfo,
-      curUserProductPermissions,
-      nameSearchValue,
-      showConfirmModal,
-      showAddSubUserModal,
-      showWarningModal,
-      showPermissionModal,
-      warningInfoModalSettings,
-      singlePermissions,
-      groupPermissions,
-      selectedSubUser,
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.subUserHeader}>
+          <div />
 
-      requestStatus,
-      currentData,
-
-      shopsData,
-
-      sortModel,
-      filterModel,
-      densityModel,
-      columnsModel,
-      rowsPerPage,
-      curPage,
-
-      onChangeCurPage,
-      onChangeRowsPerPage,
-
-      setDataGridState,
-      onChangeSortingModel,
-      onChangeFilterModel,
-
-      onTriggerOpenModal,
-      onSubmitlinkSubUser,
-      onSubmitUserPermissionsForm,
-      onSubmitUnlinkSubUser,
-      changeColumnsModel,
-
-      onChangeNameSearchValue,
-    } = this.viewModel
-
-    const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div className={classNames.subUserHeader}>
-            <div />
-
-            <SearchInput
-              inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey['Search by name, email'])}
-              value={nameSearchValue}
-              onChange={onChangeNameSearchValue}
-            />
-            <div className={classNames.buttonWrapper}>
-              <Button
-                success
-                tooltipInfoContent={t(TranslationKey['Add your own sub-user'])}
-                className={classNames.addUserButton}
-                onClick={() => onTriggerOpenModal('showAddSubUserModal')}
-              >
-                {t(TranslationKey['Add a user'])}
-              </Button>
-            </div>
+          <SearchInput
+            inputClasses={classNames.searchInput}
+            placeholder={t(TranslationKey['Search by name, email'])}
+            value={viewModel.nameSearchValue}
+            onChange={viewModel.onChangeNameSearchValue}
+          />
+          <div className={classNames.buttonWrapper}>
+            <Button
+              success
+              tooltipInfoContent={t(TranslationKey['Add your own sub-user'])}
+              className={classNames.addUserButton}
+              onClick={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
+            >
+              {t(TranslationKey['Add a user'])}
+            </Button>
           </div>
-          <div className={classNames.datagridWrapper}>
-            <MemoDataGrid
-              pagination
-              disableEnforceFocus
-              useResizeContainer
-              disableSelectionOnClick
-              classes={{
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-                filterForm: classNames.filterForm,
-              }}
-              localeText={getLocalizationByLanguageTag()}
-              sortModel={sortModel}
-              filterModel={filterModel}
-              page={curPage}
-              pageSize={rowsPerPage}
-              rowsPerPageOptions={[15, 25, 50, 100]}
-              rows={currentData}
-              rowHeight={145}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
-              }}
-              componentsProps={{
-                toolbar: {
-                  columsBtnSettings: {columnsModel, changeColumnsModel},
+        </div>
+        <div className={classNames.datagridWrapper}>
+          <MemoDataGrid
+            pagination
+            disableEnforceFocus
+            useResizeContainer
+            disableSelectionOnClick
+            classes={{
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+              filterForm: classNames.filterForm,
+            }}
+            localeText={getLocalizationByLanguageTag()}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            page={viewModel.curPage}
+            pageSize={viewModel.rowsPerPage}
+            rowsPerPageOptions={[15, 25, 50, 100]}
+            rows={viewModel.currentData}
+            rowHeight={145}
+            components={{
+              Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  changeColumnsModel: viewModel.changeColumnsModel,
                 },
-              }}
-              density={densityModel}
-              columns={columnsModel}
-              loading={requestStatus === loadingStatuses.isLoading}
-              onSortModelChange={onChangeSortingModel}
-              onPageSizeChange={onChangeRowsPerPage}
-              onPageChange={onChangeCurPage}
-              onStateChange={setDataGridState}
-              onFilterModelChange={model => onChangeFilterModel(model)}
-            />
-          </div>
-        </MainContent>
-        <Modal openModal={showAddSubUserModal} setOpenModal={() => onTriggerOpenModal('showAddSubUserModal')}>
-          <LinkSubUserForm
-            closeModal={() => onTriggerOpenModal('showAddSubUserModal')}
-            onSubmit={onSubmitlinkSubUser}
+              },
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onPageSizeChange={viewModel.onChangeRowsPerPage}
+            onPageChange={viewModel.onChangeCurPage}
+            onStateChange={viewModel.setDataGridState}
+            onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
           />
-        </Modal>
-        <Modal openModal={showPermissionModal} setOpenModal={() => onTriggerOpenModal('showPermissionModal')}>
-          <AddOrEditUserPermissionsForm
-            isWithoutProductPermissions={checkIsStorekeeper(UserRoleCodeMap[userInfo.role])}
-            isWithoutShopsDepends={!checkIsClient(UserRoleCodeMap[userInfo.role])}
-            curUserProductPermissions={curUserProductPermissions}
-            permissionsToSelect={singlePermissions}
-            permissionGroupsToSelect={groupPermissions}
-            sourceData={selectedSubUser}
-            shops={shopsData}
-            productPermissionsData={productPermissionsData}
-            onCloseModal={() => onTriggerOpenModal('showPermissionModal')}
-            onSubmit={onSubmitUserPermissionsForm}
-          />
-        </Modal>
+        </div>
+      </MainContent>
+      <Modal
+        openModal={viewModel.showAddSubUserModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
+      >
+        <LinkSubUserForm
+          closeModal={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
+          onSubmit={viewModel.onSubmitlinkSubUser}
+        />
+      </Modal>
+      <Modal
+        openModal={viewModel.showPermissionModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showPermissionModal')}
+      >
+        <AddOrEditUserPermissionsForm
+          isWithoutProductPermissions={checkIsStorekeeper(UserRoleCodeMap[viewModel.userInfo.role])}
+          isWithoutShopsDepends={!checkIsClient(UserRoleCodeMap[viewModel.userInfo.role])}
+          curUserProductPermissions={viewModel.curUserProductPermissions}
+          permissionsToSelect={viewModel.singlePermissions}
+          permissionGroupsToSelect={viewModel.groupPermissions}
+          sourceData={viewModel.selectedSubUser}
+          shops={viewModel.shopsData}
+          productPermissionsData={viewModel.productPermissionsData}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showPermissionModal')}
+          onSubmit={viewModel.onSubmitUserPermissionsForm}
+        />
+      </Modal>
 
-        <WarningInfoModal
-          isWarning={warningInfoModalSettings.isWarning}
-          openModal={showWarningModal}
-          setOpenModal={() => onTriggerOpenModal('showWarningModal')}
-          title={warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showWarningModal')
-          }}
-        />
-        <ConfirmationModal
-          isWarning
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={t(TranslationKey.Attention)}
-          message={t(TranslationKey['Are you sure you want to unbind the sub-user?'])}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={onSubmitUnlinkSubUser}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-        />
-      </React.Fragment>
-    )
-  }
+      <WarningInfoModal
+        isWarning={viewModel.warningInfoModalSettings.isWarning}
+        openModal={viewModel.showWarningModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
+        title={viewModel.warningInfoModalSettings.title}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showWarningModal')
+        }}
+      />
+      <ConfirmationModal
+        isWarning
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={t(TranslationKey['Are you sure you want to unbind the sub-user?'])}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={viewModel.onSubmitUnlinkSubUser}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+    </React.Fragment>
+  )
 }
 
-export const SubUsersView = withStyles(SubUsersViewRaw, styles)
+export const SubUsersView = withStyles(observer(SubUsersViewRaw), styles)

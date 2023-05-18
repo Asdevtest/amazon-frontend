@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 
@@ -7,26 +7,30 @@ import {ShopWrapper} from '@components/traiding-shop/shop-wrapper/shop-wrapper'
 
 import {ClientShopViewModel} from './client-shop-view.model'
 
-@observer
-export class ClientShopView extends Component {
-  viewModel = new ClientShopViewModel({
-    history: this.props.history,
-    location: this.props.location,
-  })
+export const ClientShopView = observer(props => {
+  const [viewModel] = useState(
+    () =>
+      new ClientShopViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {userInfo, shopInfo, onClickEditBtn} = this.viewModel
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          {shopInfo ? <ShopWrapper userInfo={userInfo} shopInfo={shopInfo} onClickEditBtn={onClickEditBtn} /> : null}
-        </MainContent>
-      </React.Fragment>
-    )
-  }
-}
+  return (
+    <React.Fragment>
+      <MainContent>
+        {viewModel.shopInfo ? (
+          <ShopWrapper
+            userInfo={viewModel.userInfo}
+            shopInfo={viewModel.shopInfo}
+            onClickEditBtn={viewModel.onClickEditBtn}
+          />
+        ) : null}
+      </MainContent>
+    </React.Fragment>
+  )
+})

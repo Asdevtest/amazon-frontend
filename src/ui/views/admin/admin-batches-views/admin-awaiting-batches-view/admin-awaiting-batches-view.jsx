@@ -1,6 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -20,101 +20,74 @@ import {t} from '@utils/translations'
 import {AdminAwaitingBatchesViewModel} from './admin-awaiting-batches-view.model'
 import {styles} from './admin-awaiting-batches-view.style'
 
-@observer
-export class AdminAwaitingBatchesViewRaw extends Component {
-  viewModel = new AdminAwaitingBatchesViewModel({history: this.props.history})
+export const AdminAwaitingBatchesViewRaw = props => {
+  const [viewModel] = useState(() => new AdminAwaitingBatchesViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      volumeWeightCoefficient,
-      curBatch,
-      showBatchInfoModal,
-      onTriggerOpenModal,
-      currentData,
-      sortModel,
-      filterModel,
-      requestStatus,
-      densityModel,
-      columnsModel,
-      curPage,
-      rowsPerPage,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-
-      setDataGridState,
-      onChangeSortingModel,
-
-      onChangeFilterModel,
-
-      setCurrentOpenedBatch,
-      onSearchSubmit,
-      changeColumnsModel,
-    } = this.viewModel
-
-    const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div className={classNames.topHeaderBtnsWrapper}>
-            <SearchInput
-              inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey['Search by ASIN, Title'])}
-              onSubmit={onSearchSubmit}
-            />
-          </div>
-          <MemoDataGrid
-            pagination
-            useResizeContainer
-            localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            sortModel={sortModel}
-            filterModel={filterModel}
-            page={curPage}
-            pageSize={rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
-            rows={currentData}
-            getRowHeight={() => 'auto'}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
-            }}
-            componentsProps={{
-              toolbar: {
-                columsBtnSettings: {columnsModel, changeColumnsModel},
-              },
-            }}
-            density={densityModel}
-            columns={columnsModel}
-            loading={requestStatus === loadingStatuses.isLoading}
-            onSortModelChange={onChangeSortingModel}
-            onPageSizeChange={onChangeRowsPerPage}
-            onPageChange={onChangeCurPage}
-            onStateChange={setDataGridState}
-            onFilterModelChange={model => onChangeFilterModel(model)}
-            onRowDoubleClick={e => setCurrentOpenedBatch(e.row.originalData)}
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.topHeaderBtnsWrapper}>
+          <SearchInput
+            inputClasses={classNames.searchInput}
+            placeholder={t(TranslationKey['Search by ASIN, Title'])}
+            onSubmit={viewModel.onSearchSubmit}
           />
-        </MainContent>
-
-        <BatchInfoModal
-          volumeWeightCoefficient={volumeWeightCoefficient}
-          openModal={showBatchInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showBatchInfoModal')}
-          batch={curBatch}
+        </div>
+        <MemoDataGrid
+          pagination
+          useResizeContainer
+          localeText={getLocalizationByLanguageTag()}
+          classes={{
+            row: classNames.row,
+            root: classNames.root,
+            footerContainer: classNames.footerContainer,
+            footerCell: classNames.footerCell,
+            toolbarContainer: classNames.toolbarContainer,
+          }}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          page={viewModel.curPage}
+          pageSize={viewModel.rowsPerPage}
+          rowsPerPageOptions={[15, 25, 50, 100]}
+          rows={viewModel.currentData}
+          getRowHeight={() => 'auto'}
+          components={{
+            Toolbar: DataGridCustomToolbar,
+            ColumnMenuIcon: FilterAltOutlinedIcon,
+          }}
+          componentsProps={{
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                changeColumnsModel: viewModel.changeColumnsModel,
+              },
+            },
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onPageSizeChange={viewModel.onChangeRowsPerPage}
+          onPageChange={viewModel.onChangeCurPage}
+          onStateChange={viewModel.setDataGridState}
+          onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
+          onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData)}
         />
-      </React.Fragment>
-    )
-  }
+      </MainContent>
+
+      <BatchInfoModal
+        volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+        openModal={viewModel.showBatchInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
+        batch={viewModel.curBatch}
+      />
+    </React.Fragment>
+  )
 }
 
-export const AdminAwaitingBatchesView = withStyles(AdminAwaitingBatchesViewRaw, styles)
+export const AdminAwaitingBatchesView = withStyles(observer(AdminAwaitingBatchesViewRaw), styles)

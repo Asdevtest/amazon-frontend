@@ -1,8 +1,7 @@
 import {Avatar, Paper, Typography} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
-import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
 import {getBuyerDashboardCardConfig} from '@constants/navigation/dashboard-configs'
@@ -21,60 +20,61 @@ import {t} from '@utils/translations'
 import {BuyerDashboardViewModel} from './buyer-dashboard-view.model'
 import {styles} from './buyer-dashboard-view.style'
 
-@observer
-export class BuyerDashboardViewRaw extends Component {
-  viewModel = new BuyerDashboardViewModel({history: this.props.history})
+export const BuyerDashboardViewRaw = props => {
+  const [viewModel] = useState(() => new BuyerDashboardViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
+
+  const buyerButtonsRoutes = {
+    notifications: 'notifications/ideas-notifications',
+    messages: 'messages',
   }
 
-  render() {
-    const {dashboardData, userInfo, onClickInfoCardViewMode} = this.viewModel
-    const {classes: classNames} = this.props
-    const buyerButtonsRoutes = {
-      notifications: 'notifications/ideas-notifications',
-      messages: 'messages',
-    }
-    return (
-      <React.Fragment>
-        <MainContent>
-          <Paper className={classNames.userInfoWrapper}>
-            <div className={classNames.userInfoLeftWrapper}>
-              <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
+  return (
+    <React.Fragment>
+      <MainContent>
+        <Paper className={classNames.userInfoWrapper}>
+          <div className={classNames.userInfoLeftWrapper}>
+            <Avatar src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
 
-              <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+            <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />
+          </div>
+
+          <DashboardButtons user={viewModel.userInfo} routes={buyerButtonsRoutes} />
+
+          {viewModel.userInfo.masterUser && (
+            <div className={classNames.masterUserWrapper}>
+              <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
+
+              <UserLink
+                blackText
+                name={viewModel.userInfo.masterUser?.name}
+                userId={viewModel.userInfo.masterUser?._id}
+              />
             </div>
-
-            <DashboardButtons user={userInfo} routes={buyerButtonsRoutes} />
-
-            {userInfo.masterUser && (
-              <div className={classNames.masterUserWrapper}>
-                <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
-
-                <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
-              </div>
-            )}
-          </Paper>
-          {getBuyerDashboardCardConfig().map(item => (
-            <DashboardOneLineCardsList
-              key={item.key}
-              config={item}
-              valuesData={dashboardData}
-              onClickViewMore={onClickInfoCardViewMode}
-            />
-          ))}
-          {/* <div className={classNames.amountWithLabelCardsWrapper}>
+          )}
+        </Paper>
+        {getBuyerDashboardCardConfig().map(item => (
+          <DashboardOneLineCardsList
+            key={item.key}
+            config={item}
+            valuesData={viewModel.dashboardData}
+            onClickViewMore={viewModel.onClickInfoCardViewMode}
+          />
+        ))}
+        {/* <div className={classNames.amountWithLabelCardsWrapper}>
                 <SectionalDashboard
                   config={getBuyerDashboardCardConfig()}
                   valuesData={dashboardData}
                   onClickViewMore={onClickInfoCardViewMode}
                 />
               </div> */}
-        </MainContent>
-      </React.Fragment>
-    )
-  }
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
 export const BuyerDashboardView = withStyles(BuyerDashboardViewRaw, styles)

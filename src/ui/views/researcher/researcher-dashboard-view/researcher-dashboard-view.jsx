@@ -1,6 +1,6 @@
 import {Avatar, Paper, Typography} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -22,55 +22,56 @@ import {t} from '@utils/translations'
 import {ResearcherDashboardViewModel} from './researcher-dashboard-view.model'
 import {styles} from './researcher-dashboard-view.style'
 
-@observer
-export class ResearcherDashboardViewRaw extends Component {
-  viewModel = new ResearcherDashboardViewModel({history: this.props.history})
+export const ResearcherDashboardViewRaw = props => {
+  const [viewModel] = useState(() => new ResearcherDashboardViewModel({history: props.history}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
+
+  const researcherButtonsRoutes = {
+    notifications: '',
+    messages: 'messages',
   }
 
-  render() {
-    const {userInfo, dashboardData, onClickInfoCardViewMode} = this.viewModel
-    const {classes: classNames} = this.props
-    const researcherButtonsRoutes = {
-      notifications: '',
-      messages: 'messages',
-    }
-    return (
-      <React.Fragment>
-        <MainContent>
-          <Paper className={classNames.userInfoWrapper}>
-            <div className={classNames.userInfoLeftWrapper}>
-              <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
+  return (
+    <React.Fragment>
+      <MainContent>
+        <Paper className={classNames.userInfoWrapper}>
+          <div className={classNames.userInfoLeftWrapper}>
+            <Avatar src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
 
-              {!checkIsResearcher(UserRoleCodeMap[userInfo.role]) && (
-                <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
-              )}
-            </div>
-
-            <DashboardButtons user={userInfo} routes={researcherButtonsRoutes} />
-
-            {userInfo.masterUser && (
-              <div className={classNames.masterUserWrapper}>
-                <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
-
-                <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
-              </div>
+            {!checkIsResearcher(UserRoleCodeMap[viewModel.userInfo.role]) && (
+              <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />
             )}
-          </Paper>
-          {getResearcherDashboardCardConfig().map(item => (
-            <DashboardOneLineCardsList
-              key={item.key}
-              config={item}
-              valuesData={dashboardData}
-              onClickViewMore={onClickInfoCardViewMode}
-            />
-          ))}
-        </MainContent>
-      </React.Fragment>
-    )
-  }
+          </div>
+
+          <DashboardButtons user={viewModel.userInfo} routes={researcherButtonsRoutes} />
+
+          {viewModel.userInfo.masterUser && (
+            <div className={classNames.masterUserWrapper}>
+              <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
+
+              <UserLink
+                blackText
+                name={viewModel.userInfo.masterUser?.name}
+                userId={viewModel.userInfo.masterUser?._id}
+              />
+            </div>
+          )}
+        </Paper>
+        {getResearcherDashboardCardConfig().map(item => (
+          <DashboardOneLineCardsList
+            key={item.key}
+            config={item}
+            valuesData={viewModel.dashboardData}
+            onClickViewMore={viewModel.onClickInfoCardViewMode}
+          />
+        ))}
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const ResearcherDashboardView = withStyles(ResearcherDashboardViewRaw, styles)
+export const ResearcherDashboardView = withStyles(observer(ResearcherDashboardViewRaw), styles)

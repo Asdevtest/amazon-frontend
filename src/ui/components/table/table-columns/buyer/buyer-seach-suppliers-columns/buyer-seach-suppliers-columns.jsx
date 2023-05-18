@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, {useCallback} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -28,14 +28,18 @@ export const buyerSearchSuppliersViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    renderCell: params => (
-      <NormalActionBtnCell
-        isFirstRow={firstRowId === params.row.id}
-        tooltipText={t(TranslationKey['Assign the task of finding a supplier to the Buyer'])}
-        bTnText={t(TranslationKey['Get to work'])}
-        onClickOkBtn={() => handlers.onPickUp(params.row.originalData)}
-      />
-    ),
+    renderCell: params => {
+      const onPickUpeMemo = useCallback(() => handlers.onPickUp(params.row.originalData), [])
+
+      return (
+        <NormalActionBtnCell
+          isFirstRow={firstRowId === params.row.id}
+          tooltipText={t(TranslationKey['Assign the task of finding a supplier to the Buyer'])}
+          bTnText={t(TranslationKey['Get to work'])}
+          onClickOkBtn={onPickUpeMemo}
+        />
+      )
+    },
     width: 550,
     filterable: false,
     sortable: false,
@@ -57,7 +61,7 @@ export const buyerSearchSuppliersViewColumns = (handlers, firstRowId) => [
 
     minWidth: 150,
     flex: 1,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     type: 'date',
   },
 ]

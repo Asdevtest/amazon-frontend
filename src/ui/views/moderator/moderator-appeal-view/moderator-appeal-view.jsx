@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -6,28 +6,17 @@ import {withStyles} from 'tss-react/mui'
 import {AppealDetailsCard} from '@components/cards/appeal-details-card'
 import {MainContent} from '@components/layout/main-content'
 
-// import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {ModeratorAppealsViewModel} from './moderator-appeal-view.model'
 import {styles} from './moderator-appeal-view.style'
 
-@observer
-class ModeratorAppealViewRaw extends Component {
-  viewModel = new ModeratorAppealsViewModel({history: this.props.history})
+export const ModeratorAppealViewRaw = () => (
+  // const [viewModel] = useState(() => new ModeratorAppealsViewModel({history: props.history}))
 
-  // componentDidMount() {
-  //   this.viewModel.loadData()
-  // }
+  <React.Fragment>
+    <MainContent>
+      <AppealDetailsCard />
+    </MainContent>
 
-  render() {
-    // const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <AppealDetailsCard />
-        </MainContent>
-
-        {/* <ConfirmationModal
+    {/* <ConfirmationModal
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
           title={t(TranslationKey.Attention)}
@@ -37,9 +26,7 @@ class ModeratorAppealViewRaw extends Component {
           onClickSuccessBtn={() => onClickGetToWork(proposalId, requestId)}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         /> */}
-      </React.Fragment>
-    )
-  }
-}
+  </React.Fragment>
+)
 
-export const ModeratorAppealView = withStyles(ModeratorAppealViewRaw, styles)
+export const ModeratorAppealView = withStyles(observer(ModeratorAppealViewRaw), styles)

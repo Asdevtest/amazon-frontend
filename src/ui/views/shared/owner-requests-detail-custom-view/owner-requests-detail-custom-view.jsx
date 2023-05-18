@@ -1,7 +1,7 @@
 import InboxIcon from '@mui/icons-material/Inbox'
 import {Accordion, AccordionDetails, AccordionSummary, Alert, Paper, Typography} from '@mui/material'
 
-import React, {Component, createRef} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -30,263 +30,221 @@ import {ChatRequestAndRequestProposalContext} from '../../../../contexts/chat-re
 import {OwnerRequestDetailCustomViewModel} from './owner-requests-detail-custom-view.model'
 import {styles} from './owner-requests-detail-custom-view.style'
 
-@observer
-export class OwnerRequestDetailCustomViewRaw extends Component {
-  chatRef = createRef()
-  viewModel = new OwnerRequestDetailCustomViewModel({
-    history: this.props.history,
-    location: this.props.location,
-    scrollToChat: () => {
-      if (this.chatRef?.current) {
-        this.chatRef.current.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'})
-      }
-    },
-  })
+export const OwnerRequestDetailCustomViewRaw = props => {
+  const chatRef = useRef()
+  const [viewModel] = useState(
+    () =>
+      new OwnerRequestDetailCustomViewModel({
+        history: props.history,
+        location: props.location,
+        scrollToChat: () => {
+          if (chatRef?.current) {
+            chatRef.current.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'})
+          }
+        },
+      }),
+  )
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
 
-  componentWillUnmount() {
-    this.viewModel.resetChats()
-  }
+    return () => {
+      viewModel.resetChats()
+    }
+  }, [])
 
-  render() {
-    const {
-      curResultMedia,
-      findRequestProposalForCurChat,
-      acceptMessage,
-      showAcceptMessage,
-      typingUsers,
-      requestProposals,
-      request,
-      confirmModalSettings,
-      acceptProposalResultSetting,
-      showRequestForm,
-      showConfirmModal,
-      showConfirmWithCommentModal,
-      showReviewModal,
-      chatSelectedId,
-      chats,
-      userInfo,
-      chatIsConnected,
-      showResultToCorrectFormModal,
-      showConfirmWorkResultFormModal,
-      showRequestDesignerResultClientModal,
-      onRecoverRequest,
-      onSubmitMessage,
-      onTriggerOpenModal,
-      onSubmitEditCustomSearchRequest,
-      onClickPublishBtn,
-      onClickEditBtn,
-      onClickCancelBtn,
-      onClickAbortBtn,
-      onSubmitAbortRequest,
-      onClickChat,
-      onClickContactWithExecutor,
-      onClickRejectProposal,
-      onClickProposalResultAccept,
-      onClickProposalResultToCorrect,
-      onClickReview,
-      onPressSubmitRequestProposalResultToCorrectForm,
-      triggerShowResultToCorrectFormModal,
-      showChat,
-      onClickHideChat,
-      onClickOrderProposal,
-      onTypingMessage,
-      onClickOpenRequest,
-      onPressSubmitDesignerResultToCorrect,
-    } = this.viewModel
+  return (
+    <React.Fragment>
+      <MainContent>
+        {viewModel.request ? (
+          <OwnerGeneralRequestInfo
+            requestProposals={viewModel.requestProposals}
+            request={viewModel.request}
+            onClickPublishBtn={viewModel.onClickPublishBtn}
+            onClickEditBtn={viewModel.onClickEditBtn}
+            onClickCancelBtn={viewModel.onClickCancelBtn}
+            onClickAbortBtn={viewModel.onClickAbortBtn}
+            onRecoverRequest={viewModel.onRecoverRequest}
+          />
+        ) : null}
 
-    const {classes: classNames} = this.props
+        <div className={classNames.detailsWrapper}>
+          <CustomSearchRequestDetails request={viewModel.request} />
+        </div>
 
-    return (
-      <React.Fragment>
-        <MainContent>
-          {request ? (
-            <OwnerGeneralRequestInfo
-              requestProposals={requestProposals}
-              request={request}
-              onClickPublishBtn={onClickPublishBtn}
-              onClickEditBtn={onClickEditBtn}
-              onClickCancelBtn={onClickCancelBtn}
-              onClickAbortBtn={onClickAbortBtn}
-              onRecoverRequest={onRecoverRequest}
-            />
-          ) : null}
-
+        {viewModel.requestProposals?.length ? (
           <div className={classNames.detailsWrapper}>
-            <CustomSearchRequestDetails request={request} />
-          </div>
-
-          {requestProposals?.length ? (
-            <div className={classNames.detailsWrapper}>
-              <DealsOfRequest requestProposals={requestProposals} onClickReview={onClickReview} />
-            </div>
-          ) : null}
-
-          {requestProposals?.length ? (
-            <div className={classNames.proposalsWrapper}>
-              <Typography className={classNames.proposalsTitle}>
-                {t(TranslationKey['Proposals for the request'])}
-              </Typography>
-              {requestProposals.map(item => (
-                <div key={item?.proposal?._id} className={classNames.proposalAndChatWrapper}>
-                  <Paper>
-                    <OwnerRequestProposalsCard
-                      item={item}
-                      request={request}
-                      onClickContactWithExecutor={onClickContactWithExecutor}
-                      onClickOrderProposal={onClickOrderProposal}
-                      onClickRejectProposal={onClickRejectProposal}
-                      onClickReview={onClickReview}
-                    />
-                  </Paper>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className={classNames.emptyProposalsIconWrapper}>
-              <div className={classNames.emptyProposalsIcon}>
-                <InboxIcon style={{color: '#C4C4C4', fontSize: '76px'}} />
-              </div>
-              <Typography className={classNames.emptyProposalsDescription}>
-                {t(TranslationKey['No new proposals at the moment'])}
-              </Typography>
-            </div>
-          )}
-
-          <Accordion expanded={showChat}>
-            <AccordionSummary style={{display: 'none'}} />
-            {chatIsConnected && (
-              <AccordionDetails style={{padding: '0'}}>
-                <div className={classNames.chatWrapper}>
-                  <ChatRequestAndRequestProposalContext.Provider
-                    value={{
-                      request,
-                      requestProposal: findRequestProposalForCurChat,
-                    }}
-                  >
-                    <MultipleChats
-                      ref={this.chatRef}
-                      isFreelanceOwner
-                      typingUsers={typingUsers}
-                      chats={chats}
-                      userId={userInfo._id}
-                      chatSelectedId={chatSelectedId}
-                      chatMessageHandlers={{
-                        onClickProposalAccept: onClickOrderProposal,
-                        onClickProposalRegect: onClickRejectProposal,
-                        onClickProposalResultToCorrect,
-                        onClickProposalResultAccept,
-                        onClickOrderProposal,
-                        onClickOpenRequest,
-                      }}
-                      // renderAdditionalButtons={() => (
-                      //   <Button onClick={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}>
-                      //     ПОКАЗАТЬ РЕЗУЛЬТАТ (тест дизайнера)
-                      //   </Button>
-                      // )}
-                      updateData={this.viewModel.loadData}
-                      onSubmitMessage={onSubmitMessage}
-                      onClickChat={onClickChat}
-                      onTypingMessage={onTypingMessage}
-                    />
-                  </ChatRequestAndRequestProposalContext.Provider>
-                </div>
-              </AccordionDetails>
-            )}
-          </Accordion>
-          {showChat && (
-            <div className={classNames.hideChatButtonWrapper}>
-              <Button className={classNames.hideChatButton} onClick={onClickHideChat}>
-                {t(TranslationKey['Hide chat'])}
-              </Button>
-            </div>
-          )}
-        </MainContent>
-
-        <Modal openModal={showRequestForm} setOpenModal={() => onTriggerOpenModal('showRequestForm')}>
-          <Typography variant="h5">{t(TranslationKey['New request'])}</Typography>
-          <CustomSearchRequestForm
-            isEdit
-            setOpenModal={() => onTriggerOpenModal('showRequestForm')}
-            requestToEdit={request}
-            onSubmit={onSubmitEditCustomSearchRequest}
-          />
-        </Modal>
-        <Modal openModal={showResultToCorrectFormModal} setOpenModal={triggerShowResultToCorrectFormModal}>
-          <RequestProposalResultToCorrectForm onPressSubmitForm={onPressSubmitRequestProposalResultToCorrectForm} />
-        </Modal>
-
-        <Modal openModal={showReviewModal} setOpenModal={() => onTriggerOpenModal('showReviewModal')}>
-          <ReviewsForm onClickCloseButton={() => onTriggerOpenModal('showReviewModal')} />
-        </Modal>
-
-        <Modal
-          missClickModalOn
-          openModal={showRequestDesignerResultClientModal}
-          setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
-        >
-          <RequestDesignerResultClientForm
-            userInfo={userInfo}
-            request={request}
-            proposal={findRequestProposalForCurChat}
-            curResultMedia={curResultMedia}
-            setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
-            onClickProposalResultAccept={onClickProposalResultAccept}
-            onPressSubmitDesignerResultToCorrect={onPressSubmitDesignerResultToCorrect}
-          />
-        </Modal>
-
-        <Modal
-          openModal={showConfirmWorkResultFormModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmWorkResultFormModal')}
-        >
-          <RequestProposalAcceptOrRejectResultForm
-            title={t(TranslationKey['Confirm acceptance of the work result'])}
-            rateLabel={t(TranslationKey['Rate the performer'])}
-            reviewLabel={t(TranslationKey["Review of the performer's work"])}
-            confirmButtonText={t(TranslationKey.Confirm)}
-            cancelBtnText={t(TranslationKey.Reject)}
-            onSubmit={acceptProposalResultSetting.onSubmit}
-            onClose={() => onTriggerOpenModal('showConfirmWorkResultFormModal')}
-          />
-        </Modal>
-
-        <ConfirmationModal
-          isWarning={confirmModalSettings.isWarning}
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={t(TranslationKey.Attention)}
-          message={confirmModalSettings.message}
-          smallMessage={confirmModalSettings.smallMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onClickSuccessBtn={confirmModalSettings.onSubmit}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-        />
-
-        <ConfirmWithCommentModal
-          openModal={showConfirmWithCommentModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmWithCommentModal')}
-          titleText={t(TranslationKey['Suspend the acceptance of proposals?'])}
-          commentLabelText={`${t(TranslationKey['State the reason for stopping'])}: `}
-          okBtnText={t(TranslationKey.Ok)}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onSubmit={onSubmitAbortRequest}
-        />
-
-        {acceptMessage && showAcceptMessage ? (
-          <div className={classNames.acceptMessageWrapper}>
-            <Alert elevation={5} severity="success">
-              {acceptMessage}
-            </Alert>
+            <DealsOfRequest requestProposals={viewModel.requestProposals} onClickReview={viewModel.onClickReview} />
           </div>
         ) : null}
-      </React.Fragment>
-    )
-  }
+
+        {viewModel.requestProposals?.length ? (
+          <div className={classNames.proposalsWrapper}>
+            <Typography className={classNames.proposalsTitle}>
+              {t(TranslationKey['Proposals for the request'])}
+            </Typography>
+            {viewModel.requestProposals.map(item => (
+              <div key={item?.proposal?._id} className={classNames.proposalAndChatWrapper}>
+                <Paper>
+                  <OwnerRequestProposalsCard
+                    item={item}
+                    request={viewModel.request}
+                    onClickContactWithExecutor={viewModel.onClickContactWithExecutor}
+                    onClickOrderProposal={viewModel.onClickOrderProposal}
+                    onClickRejectProposal={viewModel.onClickRejectProposal}
+                    onClickReview={viewModel.onClickReview}
+                  />
+                </Paper>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className={classNames.emptyProposalsIconWrapper}>
+            <div className={classNames.emptyProposalsIcon}>
+              <InboxIcon style={{color: '#C4C4C4', fontSize: '76px'}} />
+            </div>
+            <Typography className={classNames.emptyProposalsDescription}>
+              {t(TranslationKey['No new proposals at the moment'])}
+            </Typography>
+          </div>
+        )}
+
+        <Accordion expanded={viewModel.showChat}>
+          <AccordionSummary style={{display: 'none'}} />
+          {viewModel.chatIsConnected && (
+            <AccordionDetails style={{padding: '0'}}>
+              <div className={classNames.chatWrapper}>
+                <ChatRequestAndRequestProposalContext.Provider
+                  value={{
+                    request: viewModel.request,
+                    requestProposal: viewModel.findRequestProposalForCurChat,
+                  }}
+                >
+                  <MultipleChats
+                    ref={chatRef}
+                    isFreelanceOwner
+                    typingUsers={viewModel.typingUsers}
+                    chats={viewModel.chats}
+                    userId={viewModel.userInfo._id}
+                    chatSelectedId={viewModel.chatSelectedId}
+                    chatMessageHandlers={{
+                      onClickProposalAccept: viewModel.onClickOrderProposal,
+                      onClickProposalRegect: viewModel.onClickRejectProposal,
+                      onClickProposalResultToCorrect: viewModel.onClickProposalResultToCorrect,
+                      onClickProposalResultAccept: viewModel.onClickProposalResultAccept,
+                      onClickOrderProposal: viewModel.onClickOrderProposal,
+                      onClickOpenRequest: viewModel.onClickOpenRequest,
+                    }}
+                    // renderAdditionalButtons={() => (
+                    //   <Button onClick={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}>
+                    //     ПОКАЗАТЬ РЕЗУЛЬТАТ (тест дизайнера)
+                    //   </Button>
+                    // )}
+                    updateData={viewModel.loadData}
+                    onSubmitMessage={viewModel.onSubmitMessage}
+                    onClickChat={viewModel.onClickChat}
+                    onTypingMessage={viewModel.onTypingMessage}
+                  />
+                </ChatRequestAndRequestProposalContext.Provider>
+              </div>
+            </AccordionDetails>
+          )}
+        </Accordion>
+        {viewModel.showChat && (
+          <div className={classNames.hideChatButtonWrapper}>
+            <Button className={classNames.hideChatButton} onClick={viewModel.onClickHideChat}>
+              {t(TranslationKey['Hide chat'])}
+            </Button>
+          </div>
+        )}
+      </MainContent>
+
+      <Modal openModal={viewModel.showRequestForm} setOpenModal={() => viewModel.onTriggerOpenModal('showRequestForm')}>
+        <Typography variant="h5">{t(TranslationKey['New request'])}</Typography>
+        <CustomSearchRequestForm
+          isEdit
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestForm')}
+          requestToEdit={viewModel.request}
+          onSubmit={viewModel.onSubmitEditCustomSearchRequest}
+        />
+      </Modal>
+      <Modal
+        openModal={viewModel.showResultToCorrectFormModal}
+        setOpenModal={viewModel.triggerShowResultToCorrectFormModal}
+      >
+        <RequestProposalResultToCorrectForm
+          onPressSubmitForm={viewModel.onPressSubmitRequestProposalResultToCorrectForm}
+        />
+      </Modal>
+
+      <Modal openModal={viewModel.showReviewModal} setOpenModal={() => viewModel.onTriggerOpenModal('showReviewModal')}>
+        <ReviewsForm onClickCloseButton={() => viewModel.onTriggerOpenModal('showReviewModal')} />
+      </Modal>
+
+      <Modal
+        missClickModalOn
+        openModal={viewModel.showRequestDesignerResultClientModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+      >
+        <RequestDesignerResultClientForm
+          userInfo={viewModel.userInfo}
+          request={viewModel.request}
+          proposal={viewModel.findRequestProposalForCurChat}
+          curResultMedia={viewModel.curResultMedia}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+          onClickProposalResultAccept={viewModel.onClickProposalResultAccept}
+          onPressSubmitDesignerResultToCorrect={viewModel.onPressSubmitDesignerResultToCorrect}
+        />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showConfirmWorkResultFormModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+      >
+        <RequestProposalAcceptOrRejectResultForm
+          title={t(TranslationKey['Confirm acceptance of the work result'])}
+          rateLabel={t(TranslationKey['Rate the performer'])}
+          reviewLabel={t(TranslationKey["Review of the performer's work"])}
+          confirmButtonText={t(TranslationKey.Confirm)}
+          cancelBtnText={t(TranslationKey.Reject)}
+          onSubmit={viewModel.acceptProposalResultSetting.onSubmit}
+          onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+        />
+      </Modal>
+
+      <ConfirmationModal
+        isWarning={viewModel.confirmModalSettings.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={viewModel.confirmModalSettings.message}
+        smallMessage={viewModel.confirmModalSettings.smallMessage}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+
+      <ConfirmWithCommentModal
+        openModal={viewModel.showConfirmWithCommentModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
+        titleText={t(TranslationKey['Suspend the acceptance of proposals?'])}
+        commentLabelText={`${t(TranslationKey['State the reason for stopping'])}: `}
+        okBtnText={t(TranslationKey.Ok)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onSubmit={viewModel.onSubmitAbortRequest}
+      />
+
+      {viewModel.acceptMessage && viewModel.showAcceptMessage ? (
+        <div className={classNames.acceptMessageWrapper}>
+          <Alert elevation={5} severity="success">
+            {viewModel.acceptMessage}
+          </Alert>
+        </div>
+      ) : null}
+    </React.Fragment>
+  )
 }
 
-export const OwnerRequestDetailCustomView = withStyles(OwnerRequestDetailCustomViewRaw, styles)
+export const OwnerRequestDetailCustomView = withStyles(observer(OwnerRequestDetailCustomViewRaw), styles)

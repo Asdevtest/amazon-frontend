@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 
@@ -7,24 +7,24 @@ import {WarehouseManagement} from '@components/warehouse/warehouse-management'
 
 import {WarehouseManagementViewModel} from './warehouse-management-view.model'
 
-@observer
-export class WarehouseManagementView extends Component {
-  viewModel = new WarehouseManagementViewModel({
-    history: this.props.history,
-    location: this.props.location,
-  })
+export const WarehouseManagementView = observer(props => {
+  const [viewModel] = useState(
+    () =>
+      new WarehouseManagementViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    return (
-      <React.Fragment>
-        <MainContent>
-          <WarehouseManagement />
-        </MainContent>
-      </React.Fragment>
-    )
-  }
-}
+  return (
+    <React.Fragment>
+      <MainContent>
+        <WarehouseManagement />
+      </MainContent>
+    </React.Fragment>
+  )
+})

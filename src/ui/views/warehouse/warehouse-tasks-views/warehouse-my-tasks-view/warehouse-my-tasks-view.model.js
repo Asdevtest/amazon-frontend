@@ -679,9 +679,9 @@ export class WarehouseMyTasksViewModel {
     })
   }
 
-  async onClickResolveBtn(item) {
+  async onClickResolveBtn(itemId) {
     try {
-      const result = await StorekeeperModel.getTaskById(item._id)
+      const result = await StorekeeperModel.getTaskById(itemId)
 
       const platformSettingsResult = await UserModel.getPlatformSettings()
 

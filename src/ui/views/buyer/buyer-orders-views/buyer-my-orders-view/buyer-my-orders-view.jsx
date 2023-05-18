@@ -2,7 +2,7 @@ import {cx} from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {Typography} from '@mui/material'
 
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
@@ -39,333 +39,264 @@ const attentionStatuses = [
   OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
 ]
 
-@observer
-class BuyerMyOrdersViewRaw extends Component {
-  viewModel = new BuyerMyOrdersViewModel({history: this.props.history, location: this.props.location})
+export const BuyerMyOrdersViewRaw = props => {
+  const [viewModel] = useState(() => new BuyerMyOrdersViewModel({history: props.history, location: props.location}))
+  const {classes: classNames} = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-    this.viewModel.getDataGridState()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+    viewModel.getDataGridState()
+  }, [])
 
-  render() {
-    const {
-      isSomeFilterOn,
-      columnMenuSettings,
-      pathnameNotPaid,
-      yuanToDollarRate,
-      orderStatusData,
-      warningInfoModalSettings,
-      updateSupplierData,
-      confirmModalSettings,
-      onClickUpdataSupplierData,
-      onClickSaveWithoutUpdateSupData,
-      setUpdateSupplierData,
-      userInfo,
-      rowCount,
-      showSuccessModalText,
-      volumeWeightCoefficient,
-      photosToLoad,
-      requestStatus,
-      currentData,
-      sortModel,
-      filterModel,
-      densityModel,
-      columnsModel,
-      columnVisibilityModel,
+  const getRowClassName = params =>
+    attentionStatuses.includes(params.row.originalData.status) &&
+    props.history.location.pathname === routsPathes.BUYER_MY_ORDERS_ALL_ORDERS &&
+    classNames.attentionRow
 
-      paymentAmount,
+  const validOrderPayments =
+    viewModel.currentOrder && viewModel.currentOrder?.orderSupplier?.paymentMethods?.length
+      ? viewModel.currentOrder?.orderSupplier?.paymentMethods.filter(
+          method => !viewModel.currentOrder?.payments.some(payment => payment.paymentMethod._id === method._id),
+        )
+      : viewModel.paymentMethods.filter(
+          method => !viewModel.currentOrder?.payments.some(payment => payment.paymentMethod._id === method._id),
+        )
 
-      curBoxesOfOrder,
-      curPage,
-      rowsPerPage,
-      selectedOrder,
-      showOrderModal,
-      showSuccessModal,
-      showNoDimensionsErrorModal,
-      showWarningNewBoxesModal,
-      showOrderPriceMismatchModal,
-      showPaymentMethodsModal,
-      showWarningInfoModal,
-      showConfirmModal,
-      showEditHSCodeModal,
-      hsCodeData,
+  const payments = viewModel.currentOrder && [...viewModel.currentOrder.payments, ...validOrderPayments]
 
-      showProgress,
-      progressValue,
-      imagesForLoad,
-      paymentMethods,
-      currentOrder,
-      orderStatusDataBase,
+  const isNoPaidedOrders = viewModel.orderStatusDataBase.some(
+    status =>
+      Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
+      Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
+  )
 
-      onClickHsCode,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      onClickOrder,
-      onSubmitSaveOrder,
-      onTriggerOpenModal,
-      onClickSaveSupplierBtn,
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div
+          className={cx(classNames.headerWrapper, {
+            [classNames.headerWrapperCenter]: !viewModel.paymentAmount?.totalPriceInYuan,
+          })}
+        >
+          {viewModel.paymentAmount?.totalPriceInYuan > 0 && <div className={classNames.totalPriceWrapper} />}
 
-      setDataGridState,
-      onColumnVisibilityModelChange,
-      onChangeSortingModel,
-      onChangeFilterModel,
-      // onSubmitCancelOrder,
-      onSaveOrderItem,
-      saveOrderPayment,
+          <SearchInput
+            inputClasses={classNames.searchInput}
+            placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
+            onSubmit={viewModel.onSearchSubmit}
+          />
 
-      onSearchSubmit,
-      onSubmitChangeBoxFields,
-      onClickSaveHsCode,
-
-      changeColumnsModel,
-      onChangeImagesForLoad,
-      onClickResetFilters,
-      setPhotosToLoad,
-    } = this.viewModel
-    const {classes: classNames} = this.props
-
-    const getRowClassName = params =>
-      attentionStatuses.includes(params.row.originalData.status) &&
-      this.props.history.location.pathname === routsPathes.BUYER_MY_ORDERS_ALL_ORDERS &&
-      classNames.attentionRow
-
-    const validOrderPayments =
-      currentOrder && currentOrder?.orderSupplier?.paymentMethods?.length
-        ? currentOrder?.orderSupplier?.paymentMethods.filter(
-            method => !currentOrder?.payments.some(payment => payment.paymentMethod._id === method._id),
-          )
-        : paymentMethods.filter(
-            method => !currentOrder?.payments.some(payment => payment.paymentMethod._id === method._id),
-          )
-
-    const payments = currentOrder && [...currentOrder.payments, ...validOrderPayments]
-
-    const isNoPaidedOrders = orderStatusDataBase.some(
-      status =>
-        Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
-        Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
-    )
-
-    return (
-      <React.Fragment>
-        <MainContent>
-          <div
-            className={cx(classNames.headerWrapper, {
-              [classNames.headerWrapperCenter]: !paymentAmount?.totalPriceInYuan,
-            })}
-          >
-            {paymentAmount?.totalPriceInYuan > 0 && <div className={classNames.totalPriceWrapper} />}
-
-            <SearchInput
-              inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
-              onSubmit={onSearchSubmit}
-            />
-
-            {paymentAmount?.totalPriceInYuan > 0 && (
-              <div className={classNames.totalPriceWrapper}>
-                <Typography className={classNames.totalPriceText}>
-                  {isNoPaidedOrders ? t(TranslationKey.Sum) + ':' : t(TranslationKey['Payment to all suppliers']) + ':'}
+          {viewModel.paymentAmount?.totalPriceInYuan > 0 && (
+            <div className={classNames.totalPriceWrapper}>
+              <Typography className={classNames.totalPriceText}>
+                {isNoPaidedOrders ? t(TranslationKey.Sum) + ':' : t(TranslationKey['Payment to all suppliers']) + ':'}
+              </Typography>
+              <div className={classNames.totalPriceTextWrapper}>
+                <Typography className={cx(classNames.totalPriceText, classNames.totalPrice)}>
+                  {`${toFixedWithYuanSign(
+                    isNoPaidedOrders
+                      ? viewModel.paymentAmount?.totalPriceInUSD * viewModel.yuanToDollarRate
+                      : viewModel.paymentAmount?.totalPriceInYuan,
+                    2,
+                  )} ${t(TranslationKey.Or).toLocaleLowerCase()} ${toFixedWithDollarSign(
+                    viewModel.paymentAmount?.totalPriceInUSD,
+                    2,
+                  )}`}
                 </Typography>
-                <div className={classNames.totalPriceTextWrapper}>
-                  <Typography className={cx(classNames.totalPriceText, classNames.totalPrice)}>
-                    {`${toFixedWithYuanSign(
-                      isNoPaidedOrders
-                        ? paymentAmount?.totalPriceInUSD * yuanToDollarRate
-                        : paymentAmount?.totalPriceInYuan,
-                      2,
-                    )} ${t(TranslationKey.Or).toLocaleLowerCase()} ${toFixedWithDollarSign(
-                      paymentAmount?.totalPriceInUSD,
-                      2,
-                    )}`}
-                  </Typography>
-                </div>
               </div>
-            )}
-          </div>
-
-          <div className={classNames.dataGridWrapper}>
-            <MemoDataGrid
-              disableVirtualization
-              pagination
-              useResizeContainer
-              localeText={getLocalizationByLanguageTag()}
-              classes={{
-                row: classNames.row,
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
-              getRowClassName={getRowClassName}
-              sortingMode="server"
-              paginationMode="server"
-              rowCount={rowCount}
-              sortModel={sortModel}
-              filterModel={filterModel}
-              page={curPage}
-              pageSize={rowsPerPage}
-              rowsPerPageOptions={[15, 25, 50, 100]}
-              rows={currentData}
-              // rowHeight={100}
-              getRowHeight={() => 'auto'}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
-                ColumnMenu: DataGridCustomColumnMenuComponent,
-              }}
-              componentsProps={{
-                columnMenu: {...columnMenuSettings, orderStatusData},
-                toolbar: {
-                  resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
-                  columsBtnSettings: {columnsModel, changeColumnsModel},
-                },
-              }}
-              columnVisibilityModel={columnVisibilityModel}
-              density={densityModel}
-              columns={columnsModel}
-              loading={requestStatus === loadingStatuses.isLoading}
-              onSortModelChange={onChangeSortingModel}
-              onPageSizeChange={onChangeRowsPerPage}
-              onPageChange={onChangeCurPage}
-              onFilterModelChange={onChangeFilterModel}
-              onColumnVisibilityModelChange={onColumnVisibilityModelChange}
-              onStateChange={setDataGridState}
-              onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
-            />
-          </div>
-        </MainContent>
-
-        <Modal
-          missClickModalOn
-          openModal={showOrderModal}
-          setOpenModal={() => {
-            setUpdateSupplierData(false)
-            onTriggerOpenModal('showOrderModal')
-          }}
-          dialogContextClassName={classNames.dialogContextClassName}
-        >
-          <EditOrderModal
-            paymentMethods={paymentMethods}
-            imagesForLoad={imagesForLoad}
-            hsCodeData={hsCodeData}
-            userInfo={userInfo}
-            updateSupplierData={updateSupplierData}
-            pathnameNotPaid={pathnameNotPaid}
-            yuanToDollarRate={yuanToDollarRate}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            photosToLoad={photosToLoad}
-            requestStatus={requestStatus}
-            boxes={curBoxesOfOrder}
-            order={selectedOrder}
-            modalHeadCells={BUYER_MY_ORDERS_MODAL_HEAD_CELLS()}
-            showProgress={showProgress}
-            progressValue={progressValue}
-            setPhotosToLoad={setPhotosToLoad}
-            setUpdateSupplierData={setUpdateSupplierData}
-            onChangeImagesForLoad={onChangeImagesForLoad}
-            onClickUpdataSupplierData={onClickUpdataSupplierData}
-            onClickSaveWithoutUpdateSupData={onClickSaveWithoutUpdateSupData}
-            onTriggerOpenModal={onTriggerOpenModal}
-            onSubmitSaveOrder={onSubmitSaveOrder}
-            onSaveOrderItem={onSaveOrderItem}
-            onSubmitChangeBoxFields={onSubmitChangeBoxFields}
-            onClickHsCode={onClickHsCode}
-            onClickSaveSupplierBtn={onClickSaveSupplierBtn}
-          />
-        </Modal>
-
-        <ConfirmationModal
-          isWarning={confirmModalSettings.isWarning}
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={confirmModalSettings.title}
-          message={confirmModalSettings.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-        />
-
-        <WarningInfoModal
-          openModal={showNoDimensionsErrorModal}
-          setOpenModal={() => onTriggerOpenModal('showNoDimensionsErrorModal')}
-          title={t(TranslationKey['The fields must be filled in to create the box!'])}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showNoDimensionsErrorModal')
-          }}
-        />
-
-        <WarningInfoModal
-          openModal={showWarningNewBoxesModal}
-          setOpenModal={() => onTriggerOpenModal('showWarningNewBoxesModal')}
-          title={t(TranslationKey['Creating new boxes. Be careful!'])}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showWarningNewBoxesModal')
-          }}
-        />
-
-        <WarningInfoModal
-          isWarning={warningInfoModalSettings.isWarning}
-          openModal={showWarningInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
-          title={warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showWarningInfoModal')
-          }}
-        />
-
-        <WarningInfoModal
-          openModal={showOrderPriceMismatchModal}
-          setOpenModal={() => onTriggerOpenModal('showOrderPriceMismatchModal')}
-          title={t(
-            TranslationKey[
-              'The "Paid" status will become available after the client confirms the change of the cost of the order. The current status will not be changed! Boxes will not be created'
-            ],
+            </div>
           )}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showOrderPriceMismatchModal')
-          }}
-        />
+        </div>
 
-        <SuccessInfoModal
-          openModal={showSuccessModal}
-          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-          title={showSuccessModalText}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => {
-            onTriggerOpenModal('showSuccessModal')
-          }}
-        />
-
-        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
-          <EditHSCodeModal
-            hsCodeData={hsCodeData}
-            onClickSaveHsCode={onClickSaveHsCode}
-            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
+        <div className={classNames.dataGridWrapper}>
+          <MemoDataGrid
+            disableVirtualization
+            pagination
+            useResizeContainer
+            localeText={getLocalizationByLanguageTag()}
+            classes={{
+              row: classNames.row,
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+            }}
+            getRowClassName={getRowClassName}
+            sortingMode="server"
+            paginationMode="server"
+            rowCount={viewModel.rowCount}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            page={viewModel.curPage}
+            pageSize={viewModel.rowsPerPage}
+            rowsPerPageOptions={[15, 25, 50, 100]}
+            rows={viewModel.currentData}
+            // rowHeight={100}
+            getRowHeight={() => 'auto'}
+            components={{
+              Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
+              ColumnMenu: DataGridCustomColumnMenuComponent,
+            }}
+            componentsProps={{
+              columnMenu: {...viewModel.columnMenuSettings, orderStatusData: viewModel.orderStatusData},
+              toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  changeColumnsModel: viewModel.changeColumnsModel,
+                },
+              },
+            }}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onPageSizeChange={viewModel.onChangeRowsPerPage}
+            onPageChange={viewModel.onChangeCurPage}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onStateChange={viewModel.setDataGridState}
+            onRowDoubleClick={e => viewModel.onClickOrder(e.row.originalData._id)}
           />
-        </Modal>
+        </div>
+      </MainContent>
 
-        <Modal
-          missClickModalOn
-          openModal={showPaymentMethodsModal}
-          setOpenModal={() => onTriggerOpenModal('showPaymentMethodsModal')}
-        >
-          <PaymentMethodsForm
-            readOnly={Number(currentOrder?.status) !== Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])}
-            payments={payments}
-            onClickSaveButton={state => saveOrderPayment(currentOrder, state)}
-            onClickCancelButton={() => onTriggerOpenModal('showPaymentMethodsModal')}
-          />
-        </Modal>
-      </React.Fragment>
-    )
-  }
+      <Modal
+        missClickModalOn
+        openModal={viewModel.showOrderModal}
+        setOpenModal={() => {
+          viewModel.setUpdateSupplierData(false)
+          viewModel.onTriggerOpenModal('showOrderModal')
+        }}
+        dialogContextClassName={classNames.dialogContextClassName}
+      >
+        <EditOrderModal
+          paymentMethods={viewModel.paymentMethods}
+          imagesForLoad={viewModel.imagesForLoad}
+          hsCodeData={viewModel.hsCodeData}
+          userInfo={viewModel.userInfo}
+          updateSupplierData={viewModel.updateSupplierData}
+          pathnameNotPaid={viewModel.pathnameNotPaid}
+          yuanToDollarRate={viewModel.yuanToDollarRate}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          photosToLoad={viewModel.photosToLoad}
+          requestStatus={viewModel.requestStatus}
+          boxes={viewModel.curBoxesOfOrder}
+          order={viewModel.selectedOrder}
+          modalHeadCells={BUYER_MY_ORDERS_MODAL_HEAD_CELLS()}
+          showProgress={viewModel.showProgress}
+          progressValue={viewModel.progressValue}
+          setPhotosToLoad={viewModel.setPhotosToLoad}
+          setUpdateSupplierData={viewModel.setUpdateSupplierData}
+          onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
+          onClickUpdataSupplierData={viewModel.onClickUpdataSupplierData}
+          onClickSaveWithoutUpdateSupData={viewModel.onClickSaveWithoutUpdateSupData}
+          onTriggerOpenModal={viewModel.onTriggerOpenModal}
+          onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
+          onSaveOrderItem={viewModel.onSaveOrderItem}
+          onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
+          onClickHsCode={viewModel.onClickHsCode}
+          onClickSaveSupplierBtn={viewModel.onClickSaveSupplierBtn}
+        />
+      </Modal>
+
+      <ConfirmationModal
+        isWarning={viewModel.confirmModalSettings.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={viewModel.confirmModalSettings.title}
+        message={viewModel.confirmModalSettings.confirmMessage}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+
+      <WarningInfoModal
+        openModal={viewModel.showNoDimensionsErrorModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
+        title={t(TranslationKey['The fields must be filled in to create the box!'])}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')
+        }}
+      />
+
+      <WarningInfoModal
+        openModal={viewModel.showWarningNewBoxesModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningNewBoxesModal')}
+        title={t(TranslationKey['Creating new boxes. Be careful!'])}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showWarningNewBoxesModal')
+        }}
+      />
+
+      <WarningInfoModal
+        isWarning={viewModel.warningInfoModalSettings.isWarning}
+        openModal={viewModel.showWarningInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        title={viewModel.warningInfoModalSettings.title}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showWarningInfoModal')
+        }}
+      />
+
+      <WarningInfoModal
+        openModal={viewModel.showOrderPriceMismatchModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')}
+        title={t(
+          TranslationKey[
+            'The "Paid" status will become available after the client confirms the change of the cost of the order. The current status will not be changed! Boxes will not be created'
+          ],
+        )}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')
+        }}
+      />
+
+      <SuccessInfoModal
+        openModal={viewModel.showSuccessModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        title={viewModel.showSuccessModalText}
+        successBtnText={t(TranslationKey.Ok)}
+        onClickSuccessBtn={() => {
+          viewModel.onTriggerOpenModal('showSuccessModal')
+        }}
+      />
+
+      <Modal
+        openModal={viewModel.showEditHSCodeModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+      >
+        <EditHSCodeModal
+          hsCodeData={viewModel.hsCodeData}
+          onClickSaveHsCode={viewModel.onClickSaveHsCode}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+        />
+      </Modal>
+
+      <Modal
+        missClickModalOn
+        openModal={viewModel.showPaymentMethodsModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showPaymentMethodsModal')}
+      >
+        <PaymentMethodsForm
+          readOnly={Number(viewModel.currentOrder?.status) !== Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])}
+          payments={payments}
+          onClickSaveButton={state => viewModel.saveOrderPayment(viewModel.currentOrder, state)}
+          onClickCancelButton={() => viewModel.onTriggerOpenModal('showPaymentMethodsModal')}
+        />
+      </Modal>
+    </React.Fragment>
+  )
 }
 
-export const BuyerMyOrdersView = withStyles(BuyerMyOrdersViewRaw, styles)
+export const BuyerMyOrdersView = withStyles(observer(BuyerMyOrdersViewRaw), styles)

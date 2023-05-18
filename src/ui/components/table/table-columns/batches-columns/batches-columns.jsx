@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, {useMemo} from 'react'
 
 import {BatchStatus} from '@constants/statuses/batch-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -24,7 +24,11 @@ export const batchesViewColumns = (rowHandlers, status, languageTag) => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     width: 550,
-    renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
+    renderCell: params => {
+      const boxesMemo = useMemo(() => params.row.originalData.boxes, [])
+
+      return <BatchBoxesCell boxes={boxesMemo} />
+    },
     filterable: false,
     sortable: false,
   },
@@ -85,16 +89,20 @@ export const batchesViewColumns = (rowHandlers, status, languageTag) => [
     field: 'batchTracking',
     headerName: t(TranslationKey['Batch tracking']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch tracking'])} />,
-    renderCell: params => (
-      <BatchTrackingCell
-        disabled={status !== BatchStatus.HAS_DISPATCHED}
-        languageTag={languageTag}
-        id={params.row?.originalData?._id}
-        arrivalDate={params.row?.originalData?.arrivalDate}
-        trackingNumber={params.row?.originalData?.trackingNumber}
-        rowHandlers={rowHandlers}
-      />
-    ),
+    renderCell: params => {
+      const rowHandlersMemo = useMemo(() => rowHandlers, [])
+
+      return (
+        <BatchTrackingCell
+          disabled={status !== BatchStatus.HAS_DISPATCHED}
+          languageTag={languageTag}
+          id={params.row?.originalData?._id}
+          arrivalDate={params.row?.originalData?.arrivalDate}
+          trackingNumber={params.row?.originalData?.trackingNumber}
+          rowHandlers={rowHandlersMemo}
+        />
+      )
+    },
     width: 198,
     filterable: false,
     sortable: false,
@@ -135,7 +143,13 @@ export const batchesViewColumns = (rowHandlers, status, languageTag) => [
     field: 'dates',
     headerName: t(TranslationKey.Dates),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dates)} />,
-    renderCell: params => <WarehouseTariffDatesCell row={params.row.originalData.boxes[0].logicsTariff} />,
+    renderCell: params => (
+      <WarehouseTariffDatesCell
+        cls={params.row.originalData.boxes[0].logicsTariff?.cls}
+        etd={params.row.originalData.boxes[0].logicsTariff?.etd}
+        eta={params.row.originalData.boxes[0].logicsTariff?.eta}
+      />
+    ),
     width: 350,
     filterable: false,
     sortable: false,
@@ -145,7 +159,7 @@ export const batchesViewColumns = (rowHandlers, status, languageTag) => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
     type: 'date',
   },
