@@ -277,9 +277,9 @@ export const ClientInventoryViewRaw = props => {
             filterModel={viewModel.filterModel}
             page={viewModel.curPage}
             pageSize={viewModel.rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
-            headerHeight={65}
+            columnHeaderHeight={65}
             rowHeight={160}
             components={{
               Toolbar: DataGridCustomToolbar,
@@ -299,7 +299,7 @@ export const ClientInventoryViewRaw = props => {
                 },
               },
             }}
-            selectionModel={viewModel.selectedRowIds}
+            rowSelectionModel={viewModel.selectedRowIds}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
@@ -307,7 +307,7 @@ export const ClientInventoryViewRaw = props => {
               viewModel.onHoverColumnField(params.field)
             }}
             onColumnHeaderLeave={viewModel.onLeaveColumnField}
-            onSelectionModelChange={viewModel.onSelectionModel}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onPageSizeChange={viewModel.onChangeRowsPerPage}
             onPageChange={viewModel.onChangeCurPage}

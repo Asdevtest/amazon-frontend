@@ -172,6 +172,6 @@ export const clientBatchesViewColumns = (rowHandlers, languageTag) => [
     headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell value={params.value} />,
     width: 130,
-    type: 'date',
+    // type: 'date',
   },
 ]

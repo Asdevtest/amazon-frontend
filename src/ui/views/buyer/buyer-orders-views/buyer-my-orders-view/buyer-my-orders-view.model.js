@@ -111,8 +111,6 @@ export class BuyerMyOrdersViewModel {
 
   dataToCancelOrder = { orderId: undefined, buyerComment: undefined }
 
-  firstRowId = undefined
-
   warningInfoModalSettings = {
     isWarning: false,
     title: '',
@@ -132,7 +130,7 @@ export class BuyerMyOrdersViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = BuyerReadyForPaymentColumns(this.firstRowId, this.rowHandlers, this.columnMenuSettings)
+  columnsModel = BuyerReadyForPaymentColumns(this.rowHandlers, this.columnMenuSettings)
 
   rowHandlers = {
     onClickPaymentMethodCell: row => this.onClickPaymentMethodCell(row),
@@ -204,16 +202,6 @@ export class BuyerMyOrdersViewModel {
     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
 
     reaction(
       () => this.ordersMy,
@@ -332,15 +320,15 @@ export class BuyerMyOrdersViewModel {
     // this.getDataGridState()
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
+  // async updateColumnsModel() {
+  //   if (await SettingsModel.languageTag) {
+  //     this.getDataGridState()
 
-      runInAction(() => {
-        this.ordersMy = buyerMyOrdersDataConverter(this.baseNoConvertedOrders)
-      })
-    }
-  }
+  //     runInAction(() => {
+  //       this.ordersMy = buyerMyOrdersDataConverter(this.baseNoConvertedOrders)
+  //     })
+  //   }
+  // }
 
   setDataGridTablesKeys = pathname => {
     if (pathname) {
@@ -572,12 +560,6 @@ export class BuyerMyOrdersViewModel {
     this.setDataGridState()
   }
 
-  setFirstRowId(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
-    })
-  }
-
   setDataGridState(state) {
     // const requestState = {
     //   sorting: {sortModel: this.sortModel},
@@ -591,7 +573,6 @@ export class BuyerMyOrdersViewModel {
       return
     }
 
-    this.firstRowId = state?.sorting?.sortedRows[0]
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -623,12 +604,10 @@ export class BuyerMyOrdersViewModel {
 
         this.columnVisibilityModel = state.columnVisibilityModel
 
-        this.columnsModel = BuyerReadyForPaymentColumns(this.firstRowId, this.rowHandlers, this.columnMenuSettings).map(
-          el => ({
-            ...el,
-            hide: state.columns?.lookup[el?.field]?.hide,
-          }),
-        )
+        this.columnsModel = BuyerReadyForPaymentColumns(this.rowHandlers, this.columnMenuSettings).map(el => ({
+          ...el,
+          hide: state.columns?.lookup[el?.field]?.hide,
+        }))
       }
     })
   }

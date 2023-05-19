@@ -132,17 +132,16 @@ export class WarehouseMyWarehouseViewModel {
 
   rowCount = 0
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.firstRowId, this.userInfo)
+  columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.userInfo)
 
   changeColumnsModel(newHideState) {
     runInAction(() => {
-      this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.firstRowId, this.userInfo).map(el => ({
+      this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.userInfo).map(el => ({
         ...el,
         hide: !!newHideState[el?.field],
       }))
@@ -164,16 +163,6 @@ export class WarehouseMyWarehouseViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
       () => this.boxesMy,
       () => {
         runInAction(() => {
@@ -187,15 +176,15 @@ export class WarehouseMyWarehouseViewModel {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      runInAction(() => {
-        this.boxesMy = warehouseBoxesDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient)
-      })
+  // async updateColumnsModel() {
+  //   if (await SettingsModel.languageTag) {
+  //     runInAction(() => {
+  //       this.boxesMy = warehouseBoxesDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient)
+  //     })
 
-      this.getDataGridState()
-    }
-  }
+  //     this.getDataGridState()
+  //   }
+  // }
 
   async updateUserInfo() {
     await UserModel.getUserInfo()
@@ -215,10 +204,6 @@ export class WarehouseMyWarehouseViewModel {
   }
 
   setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
-    })
-
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -240,7 +225,7 @@ export class WarehouseMyWarehouseViewModel {
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.firstRowId, this.userInfo).map(el => ({
+        this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.userInfo).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))

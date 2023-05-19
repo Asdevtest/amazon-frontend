@@ -19,7 +19,7 @@ import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
+export const buyerFreeOrdersViewColumns = handlers => [
   {
     field: 'ID',
     headerName: t(TranslationKey.ID),
@@ -59,7 +59,7 @@ export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
         <NormalActionBtnCell
           tooltipText={t(TranslationKey['To assign the order to Byer'])}
           bTnText={t(TranslationKey['Get to work'])}
-          isFirstRow={firstRowId === params.row.id}
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
           onClickOkBtn={onClickTableRowBtn}
         />
       )
@@ -107,7 +107,9 @@ export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
     width: 200,
-    renderCell: params => <DownloadAndCopyBtnsCell value={params.value} isFirstRow={firstRowId === params.row.id} />,
+    renderCell: params => (
+      <DownloadAndCopyBtnsCell value={params.value} isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id} />
+    ),
   },
 
   {
@@ -198,6 +200,6 @@ export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
-    type: 'date',
+    // type: 'date',
   },
 ]

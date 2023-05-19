@@ -199,7 +199,7 @@ export const AccessToProductForm = React.memo(
                   <MemoDataGrid
                     disableVirtualization
                     hideFooter
-                    disableSelectionOnClick
+                    disableRowSelectionOnClick
                     keepNonExistentRowsSelected
                     checkboxSelection={selectedAccess === accessProductSettings.NEED_SELECT}
                     rows={toJS(
@@ -209,8 +209,8 @@ export const AccessToProductForm = React.memo(
                     )}
                     columns={sourceColumns()}
                     rowHeight={65}
-                    selectionModel={chosenGoods}
-                    onSelectionModelChange={newSelection => {
+                    rowSelectionModel={chosenGoods}
+                    onRowSelectionModelChange={newSelection => {
                       setChosenGoods(newSelection)
                     }}
                   />

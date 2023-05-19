@@ -12,7 +12,7 @@ import {
 
 import { t } from '@utils/translations'
 
-export const warehouseTariffsColumns = (handlers, firstRowId) => [
+export const warehouseTariffsColumns = handlers => [
   {
     field: 'name',
     headerName: t(TranslationKey.Title),
@@ -29,7 +29,7 @@ export const warehouseTariffsColumns = (handlers, firstRowId) => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
-    type: 'date',
+    // type: 'date',
   },
 
   {
@@ -69,7 +69,7 @@ export const warehouseTariffsColumns = (handlers, firstRowId) => [
           tooltipSecondButton={t(TranslationKey.Remove)}
           handlers={handlersMemo}
           row={rowMemo}
-          isFirstRow={firstRowId === params.row.id}
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         />
       )
     },

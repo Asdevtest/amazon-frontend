@@ -31,7 +31,7 @@ import {
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
 
-export const clientProductOrdersViewColumns = (handlers, firstRowId) => [
+export const clientProductOrdersViewColumns = handlers => [
   {
     field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
@@ -117,7 +117,9 @@ export const clientProductOrdersViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
     width: 170,
-    renderCell: params => <DownloadAndCopyBtnsCell value={params.value} isFirstRow={firstRowId === params.row.id} />,
+    renderCell: params => (
+      <DownloadAndCopyBtnsCell value={params.value} isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id} />
+    ),
     sortable: false,
   },
 
@@ -258,7 +260,7 @@ export const clientProductOrdersViewColumns = (handlers, firstRowId) => [
 
     width: 120,
     renderCell: params => <NormDateCell value={params.value} />,
-    type: 'date',
+    // type: 'date',
   },
 
   {
@@ -268,6 +270,6 @@ export const clientProductOrdersViewColumns = (handlers, firstRowId) => [
 
     width: 140,
     renderCell: params => <NormDateCell value={params.value} />,
-    type: 'date',
+    // type: 'date',
   },
 ]

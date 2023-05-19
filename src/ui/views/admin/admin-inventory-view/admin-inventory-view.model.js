@@ -24,7 +24,7 @@ export class AdminInventoryViewModel {
 
   currentData = []
 
-  selectionModel = undefined
+  rowSelectionModel = undefined
 
   selectedProduct = undefined
 
@@ -182,7 +182,7 @@ export class AdminInventoryViewModel {
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
+      this.rowSelectionModel = model
     })
   }
 

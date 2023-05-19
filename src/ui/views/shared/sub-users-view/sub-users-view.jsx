@@ -64,7 +64,7 @@ export const SubUsersViewRaw = props => {
             pagination
             disableEnforceFocus
             useResizeContainer
-            disableSelectionOnClick
+            disableRowSelectionOnClick
             classes={{
               root: classNames.root,
               footerContainer: classNames.footerContainer,
@@ -77,7 +77,7 @@ export const SubUsersViewRaw = props => {
             filterModel={viewModel.filterModel}
             page={viewModel.curPage}
             pageSize={viewModel.rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
             rowHeight={145}
             components={{

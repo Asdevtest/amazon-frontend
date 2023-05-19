@@ -25,7 +25,7 @@ export const exchangeInventoryColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
-    type: 'date',
+    // type: 'date',
   },
 
   {
@@ -35,7 +35,7 @@ export const exchangeInventoryColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
-    type: 'date',
+    // type: 'date',
   },
 
   {

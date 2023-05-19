@@ -142,7 +142,7 @@ export const WarehouseCanceledTasksViewRaw = props => {
             filterModel={viewModel.filterModel}
             page={viewModel.curPage}
             pageSize={viewModel.rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
             getRowHeight={() => 'auto'}
             // rowHeight={200}
@@ -161,7 +161,7 @@ export const WarehouseCanceledTasksViewRaw = props => {
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onSelectionModelChange={viewModel.onSelectionModel}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onPageSizeChange={viewModel.onChangeRowsPerPage}
             onPageChange={viewModel.onChangeCurPage}

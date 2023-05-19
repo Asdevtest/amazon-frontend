@@ -157,12 +157,12 @@ export const ClientReadyBoxesViewRaw = props => {
             }}
             // isRowSelectable={params => params.row.isDraft === false}
             getRowClassName={getRowClassName}
-            selectionModel={viewModel.selectedBoxes}
+            rowSelectionModel={viewModel.selectedBoxes}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
             page={viewModel.curPage}
             pageSize={viewModel.rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData || []}
             // rowHeight={150}
             getRowHeight={() => 'auto'}
@@ -181,7 +181,7 @@ export const ClientReadyBoxesViewRaw = props => {
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onSelectionModelChange={viewModel.onSelectionModel}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onPageSizeChange={viewModel.onChangeRowsPerPage}
             onPageChange={viewModel.onChangeCurPage}

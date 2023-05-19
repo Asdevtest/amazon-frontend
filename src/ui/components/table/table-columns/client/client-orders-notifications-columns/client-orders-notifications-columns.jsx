@@ -26,7 +26,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Created),
     width: 90,
     renderCell: params => <ShortDateCell value={params.value} />,
-    type: 'date',
+    // type: 'date',
   },
 
   {

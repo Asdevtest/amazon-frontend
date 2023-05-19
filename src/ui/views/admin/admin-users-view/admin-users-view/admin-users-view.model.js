@@ -27,7 +27,7 @@ export class AdminUsersViewModel {
   availableSubUsers = undefined
   changeNameAndEmail = { email: '', name: '' }
   editUserFormFields = undefined
-  selectionModel = undefined
+  rowSelectionModel = undefined
   dataGridState = null
 
   submitEditData = undefined
@@ -199,7 +199,7 @@ export class AdminUsersViewModel {
       })
 
       if (sourceData.canByMasterUser === true && data.canByMasterUser === false) {
-        this.availableSubUsers = !!(await AdministratorModel.getUsersById(this.selectionModel)).subUsers.length
+        this.availableSubUsers = !!(await AdministratorModel.getUsersById(this.rowSelectionModel)).subUsers.length
       }
 
       if (this.checkValidationNameOrEmail.nameIsUnique || this.checkValidationNameOrEmail.emailIsUnique) {
@@ -220,7 +220,7 @@ export class AdminUsersViewModel {
 
   async finalStepSubmitEditUserForm() {
     try {
-      await AdministratorModel.updateUser(this.selectionModel, this.submitEditData)
+      await AdministratorModel.updateUser(this.rowSelectionModel, this.submitEditData)
       this.setRequestStatus(loadingStatuses.success)
 
       this.onTriggerOpenModal('showEditUserModal')
@@ -252,7 +252,7 @@ export class AdminUsersViewModel {
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
+      this.rowSelectionModel = model
     })
   }
 

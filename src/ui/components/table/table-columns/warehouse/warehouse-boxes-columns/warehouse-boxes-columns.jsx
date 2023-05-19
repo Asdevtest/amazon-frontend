@@ -19,7 +19,7 @@ import {
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { t } from '@utils/translations'
 
-export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
+export const warehouseBoxesViewColumns = (handlers, user) => [
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey['Box ID']),
@@ -194,7 +194,13 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
       const handlersMemo = useMemo(() => handlers, [])
       const rowMemo = useMemo(() => params.row.originalData, [])
 
-      return <WarehouseBoxesBtnsCell row={rowMemo} handlers={handlersMemo} isFirstRow={firstRowId === params.row.id} />
+      return (
+        <WarehouseBoxesBtnsCell
+          row={rowMemo}
+          handlers={handlersMemo}
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+        />
+      )
     },
     filterable: false,
     sortable: false,

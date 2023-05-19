@@ -36,7 +36,7 @@ export class AdminExchangeViewModel {
   activeSubCategory = SettingsModel.activeSubCategoryState[ActiveSubCategoryTablesKeys.ADMIN_EXCHANGE] || 0
   currentProductsData = []
 
-  selectionModel = undefined
+  rowSelectionModel = undefined
 
   sortModel = []
   filterModel = { items: [] }

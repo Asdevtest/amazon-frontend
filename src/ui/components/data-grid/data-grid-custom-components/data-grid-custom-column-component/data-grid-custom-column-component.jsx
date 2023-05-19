@@ -1,9 +1,9 @@
 import {
   GridColumnMenu,
-  GridColumnMenuContainer, // GridFilterMenuItem,
-  // SortGridMenuItems,
-  // HideGridColMenuItem,
-  // GridColumnsMenuItem,
+  GridColumnMenuContainer, // GridColumnMenuFilterItem,
+  // GridColumnMenuSortItem,
+  // GridColumnMenuHideItem,
+  // GridColumnMenuColumnsItem,
 } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
@@ -49,10 +49,10 @@ export const DataGridCustomColumnMenuComponent = props => {
 
   // const renderStandartItems = () => ( // стандартные
   //   <div>
-  //     <SortGridMenuItems column={currentColumn} onClick={hideMenu} />
-  //     <GridFilterMenuItem column={currentColumn} onClick={hideMenu} />
-  //     <HideGridColMenuItem column={currentColumn} onClick={hideMenu} />
-  //     <GridColumnsMenuItem column={currentColumn} onClick={hideMenu} />
+  //     <GridColumnMenuSortItem column={currentColumn} onClick={hideMenu} />
+  //     <GridColumnMenuFilterItem column={currentColumn} onClick={hideMenu} />
+  //     <GridColumnMenuHideItem column={currentColumn} onClick={hideMenu} />
+  //     <GridColumnMenuColumnsItem column={currentColumn} onClick={hideMenu} />
   //   </div>
   // )
 

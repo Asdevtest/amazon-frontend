@@ -59,7 +59,7 @@ export const AdminFeedbackViewRaw = props => {
           page={viewModel.curPage}
           pageSize={viewModel.rowsPerPage}
           rowHeight={100}
-          rowsPerPageOptions={[15, 25, 50, 100]}
+          pageSizeOptions={[15, 25, 50, 100]}
           loading={viewModel.requestStatus === loadingStatuses.isLoading}
           components={{
             Toolbar: DataGridCustomToolbar,
@@ -75,7 +75,7 @@ export const AdminFeedbackViewRaw = props => {
           }}
           getRowHeight={() => 'auto'}
           rows={viewModel.getCurrentData()}
-          onSelectionModelChange={newSelection => {
+          onRowSelectionModelChange={newSelection => {
             viewModel.onSelectionModel(newSelection[0])
           }}
           onSortModelChange={viewModel.onChangeSortingModel}

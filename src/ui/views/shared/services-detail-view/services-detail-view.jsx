@@ -68,7 +68,7 @@ export const ServiceDetailsViewRaw = props => {
             pageSize={viewModel.rowsPerPage}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
             rowHeight={143}
             components={{

@@ -44,7 +44,7 @@ export const AdminWarehouseTasksViewRaw = props => {
           filterModel={viewModel.filterModel}
           page={viewModel.curPage}
           pageSize={viewModel.rowsPerPage}
-          rowsPerPageOptions={[15, 25, 50, 100]}
+          pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.getCurrentData()}
           getRowHeight={() => 'auto'}
           components={{
@@ -62,7 +62,7 @@ export const AdminWarehouseTasksViewRaw = props => {
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatuses.isLoading}
-          onSelectionModelChange={newSelection => {
+          onRowSelectionModelChange={newSelection => {
             viewModel.onSelectionModel(newSelection[0])
           }}
           onSortModelChange={viewModel.onChangeSortingModel}

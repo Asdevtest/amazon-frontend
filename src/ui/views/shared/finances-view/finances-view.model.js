@@ -10,7 +10,6 @@ import { financesViewColumns } from '@components/table/table-columns/admin/finan
 
 import { financesDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 
 export class FinancesViewModel {
   history = undefined
@@ -19,15 +18,15 @@ export class FinancesViewModel {
 
   currentFinancesData = []
 
-  selectionModel = undefined
+  rowSelectionModel = undefined
 
   sortModel = []
   startFilterModel = undefined
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
+  paginationModel = { page: 0, pageSize: 15 }
   densityModel = 'compact'
   columnsModel = financesViewColumns()
+  columnVisibilityModel = {}
 
   constructor({ history, location }) {
     runInAction(() => {
@@ -42,26 +41,6 @@ export class FinancesViewModel {
     //     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = financesViewColumns().map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
   }
 
   onChangeFilterModel(model) {
@@ -70,14 +49,28 @@ export class FinancesViewModel {
     })
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.SHARED_FINANCES)
   }
@@ -87,15 +80,12 @@ export class FinancesViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = this.startFilterModel ? this.startFilterModel : state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS({ ...state.paginationModel, page: 0 })
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
 
-        this.densityModel = state.density.value
-        this.columnsModel = financesViewColumns().map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        // this.columnsModel = financesViewColumns()
       }
     })
   }
@@ -108,25 +98,31 @@ export class FinancesViewModel {
 
   async getPayments() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      runInAction(() => {
-        this.error = undefined
-      })
-      this.getDataGridState()
       const result = await OtherModel.getMyPayments()
       runInAction(() => {
         this.currentFinancesData = financesDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('createdAt'),
         )
       })
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       runInAction(() => {
         this.error = error
         this.currentFinancesData = []
       })
+    }
+  }
+
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      await this.getPayments()
+      this.getDataGridState()
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
     }
   }
 
@@ -136,8 +132,10 @@ export class FinancesViewModel {
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
+      this.rowSelectionModel = model
     })
+
+    this.setDataGridState()
   }
 
   onChangeCurPage = e => {
@@ -150,11 +148,14 @@ export class FinancesViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+    this.setDataGridState()
   }
 
   onChangeRowsPerPage(e) {
     runInAction(() => {
       this.rowsPerPage = e
     })
+
+    this.setDataGridState()
   }
 }

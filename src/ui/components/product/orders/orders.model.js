@@ -66,9 +66,7 @@ export class OrdersModel {
     onClickReorder: (item, isPendingOrder) => this.onClickReorder(item, isPendingOrder),
   }
 
-  firstRowId = undefined
-
-  columnsModel = clientProductOrdersViewColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = clientProductOrdersViewColumns(this.rowHandlers)
 
   get orderStatusData() {
     return {
@@ -88,16 +86,6 @@ export class OrdersModel {
     })
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
   }
 
   changeColumnsModel(newHideState) {
@@ -107,16 +95,6 @@ export class OrdersModel {
         hide: !!newHideState[el?.field],
       }))
     })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.columnsModel = clientProductOrdersViewColumns(this.rowHandlers, this.firstRowId)
-    }
-  }
-
-  setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
   }
 
   setRequestStatus(requestStatus) {

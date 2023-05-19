@@ -84,7 +84,7 @@ export const UserProfileViewRaw = props => {
               filterModel={viewModel.filterModel}
               page={viewModel.curPage}
               pageSize={viewModel.rowsPerPage}
-              rowsPerPageOptions={[15, 25, 50, 100]}
+              pageSizeOptions={[15, 25, 50, 100]}
               rows={viewModel.getCurrentData()}
               rowHeight={100}
               components={{

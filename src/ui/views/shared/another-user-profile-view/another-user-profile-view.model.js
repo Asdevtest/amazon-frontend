@@ -46,7 +46,6 @@ export class AnotherProfileViewModel {
   selectedUser = undefined
   showTabModal = false
   showInfoModal = false
-  firstRowId = undefined
 
   headerInfoData = {
     investorsCount: 255,
@@ -100,7 +99,7 @@ export class AnotherProfileViewModel {
   densityModel = 'compact'
   columnsModel =
     this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT]
-      ? clientExchangeViewColumns(this.rowHandlers, this.firstRowId)
+      ? clientExchangeViewColumns(this.rowHandlers)
       : vacByUserIdExchangeColumns()
 
   constructor({ history }) {
@@ -111,14 +110,6 @@ export class AnotherProfileViewModel {
     })
 
     makeAutoObservable(this, undefined, { autoBind: true })
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
   }
 
   async updateColumnsModel() {
@@ -128,9 +119,6 @@ export class AnotherProfileViewModel {
   }
 
   setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
-    })
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -154,7 +142,7 @@ export class AnotherProfileViewModel {
         this.densityModel = state.density.value
         this.columnsModel = (
           this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT]
-            ? clientExchangeViewColumns(this.rowHandlers, this.firstRowId)
+            ? clientExchangeViewColumns(this.rowHandlers)
             : vacByUserIdExchangeColumns()
         ).map(el => ({
           ...el,

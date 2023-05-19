@@ -53,13 +53,12 @@ export class ClientExchangeViewModel {
     onClickLaunchPrivateLabelBtn: item => this.onClickLaunchPrivateLabelBtn(item),
   }
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = clientExchangeViewColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = clientExchangeViewColumns(this.rowHandlers)
 
   showOrderModal = false
 
@@ -79,31 +78,6 @@ export class ClientExchangeViewModel {
       this.history = history
     })
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
   }
 
   onChangeFilterModel(model) {
@@ -118,10 +92,6 @@ export class ClientExchangeViewModel {
   }
 
   setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
-    })
-
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -143,7 +113,7 @@ export class ClientExchangeViewModel {
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = clientExchangeViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+        this.columnsModel = clientExchangeViewColumns(this.rowHandlers).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))
@@ -171,7 +141,7 @@ export class ClientExchangeViewModel {
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
+      this.rowSelectionModel = model
     })
   }
 

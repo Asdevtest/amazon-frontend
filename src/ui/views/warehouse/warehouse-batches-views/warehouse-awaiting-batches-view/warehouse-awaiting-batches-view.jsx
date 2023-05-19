@@ -102,7 +102,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
               toolbarContainer: classNames.toolbarContainer,
               filterForm: classNames.filterForm,
             }}
-            selectionModel={viewModel.selectedBatches}
+            rowSelectionModel={viewModel.selectedBatches}
             sortingMode="server"
             paginationMode="server"
             rowCount={viewModel.rowCount}
@@ -110,7 +110,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
             filterModel={viewModel.filterModel}
             page={viewModel.curPage}
             pageSize={viewModel.rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
             getRowHeight={() => 'auto'}
             components={{
@@ -134,7 +134,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
             onStateChange={viewModel.setDataGridState}
             onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
             onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData)}
-            onSelectionModelChange={newSelection => {
+            onRowSelectionModelChange={newSelection => {
               viewModel.onSelectionModel(newSelection)
             }}
           />

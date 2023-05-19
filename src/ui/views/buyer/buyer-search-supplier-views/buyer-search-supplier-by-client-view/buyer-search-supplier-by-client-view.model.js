@@ -24,9 +24,7 @@ export class BuyerSearchSupplierByClientModel {
     onPickUp: row => this.onClickTableRowBtn(row),
   }
 
-  firstRowId = undefined
-
-  columnsModel = buyerSearchSuppliersViewColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = buyerSearchSuppliersViewColumns(this.rowHandlers)
 
   constructor({ history }) {
     runInAction(() => {
@@ -51,12 +49,6 @@ export class BuyerSearchSupplierByClientModel {
   onSelectionModel(model) {
     runInAction(() => {
       this.selectedRowIds = model
-    })
-  }
-
-  setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
     })
   }
 

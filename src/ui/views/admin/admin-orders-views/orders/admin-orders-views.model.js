@@ -40,7 +40,7 @@ export class AdminOrdersAllViewModel {
 
   baseNoConvertedOrders = []
 
-  selectionModel = undefined
+  rowSelectionModel = undefined
 
   activeSubCategory = SettingsModel.activeSubCategoryState[ActiveSubCategoryTablesKeys.ADMIN_ORDERS] || 0
 
@@ -202,7 +202,7 @@ export class AdminOrdersAllViewModel {
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
+      this.rowSelectionModel = model
     })
   }
 

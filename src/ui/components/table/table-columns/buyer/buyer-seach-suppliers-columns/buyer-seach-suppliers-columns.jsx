@@ -13,7 +13,7 @@ import {
 
 import { t } from '@utils/translations'
 
-export const buyerSearchSuppliersViewColumns = (handlers, firstRowId) => [
+export const buyerSearchSuppliersViewColumns = handlers => [
   {
     field: 'number',
     headerName: '№',
@@ -33,7 +33,7 @@ export const buyerSearchSuppliersViewColumns = (handlers, firstRowId) => [
 
       return (
         <NormalActionBtnCell
-          isFirstRow={firstRowId === params.row.id}
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
           tooltipText={t(TranslationKey['Assign the task of finding a supplier to the Buyer'])}
           bTnText={t(TranslationKey['Get to work'])}
           onClickOkBtn={onPickUpeMemo}
@@ -62,6 +62,6 @@ export const buyerSearchSuppliersViewColumns = (handlers, firstRowId) => [
     minWidth: 150,
     flex: 1,
     renderCell: params => <NormDateCell value={params.value} />,
-    type: 'date',
+    // type: 'date',
   },
 ]

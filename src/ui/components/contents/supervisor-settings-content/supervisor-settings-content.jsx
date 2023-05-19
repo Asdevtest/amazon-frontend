@@ -149,7 +149,7 @@ export const SupervisorSettingsContent = observer(() => {
             filterModel={filterModel}
             page={curPage}
             pageSize={rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
@@ -170,7 +170,7 @@ export const SupervisorSettingsContent = observer(() => {
             onPageChange={onChangeCurPage}
             onStateChange={setDataGridState}
             onFilterModelChange={model => onChangeFilterModel(model)}
-            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+            onRowSelectionModelChange={newSelection => onSelectionModel(newSelection)}
           />
         </div>
       </TabPanel>
@@ -215,7 +215,7 @@ export const SupervisorSettingsContent = observer(() => {
             filterModel={filterModel}
             page={curPage}
             pageSize={rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
@@ -236,7 +236,7 @@ export const SupervisorSettingsContent = observer(() => {
             onPageChange={onChangeCurPage}
             onStateChange={setDataGridState}
             onFilterModelChange={model => onChangeFilterModel(model)}
-            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+            onRowSelectionModelChange={newSelection => onSelectionModel(newSelection)}
           />
         </div>
       </TabPanel>
@@ -281,7 +281,7 @@ export const SupervisorSettingsContent = observer(() => {
             filterModel={filterModel}
             page={curPage}
             pageSize={rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
@@ -302,7 +302,7 @@ export const SupervisorSettingsContent = observer(() => {
             onPageChange={onChangeCurPage}
             onStateChange={setDataGridState}
             onFilterModelChange={model => onChangeFilterModel(model)}
-            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+            onRowSelectionModelChange={newSelection => onSelectionModel(newSelection)}
           />
         </div>
       </TabPanel>
@@ -347,7 +347,7 @@ export const SupervisorSettingsContent = observer(() => {
             filterModel={filterModel}
             page={curPage}
             pageSize={rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
@@ -368,7 +368,7 @@ export const SupervisorSettingsContent = observer(() => {
             onPageChange={onChangeCurPage}
             onStateChange={setDataGridState}
             onFilterModelChange={model => onChangeFilterModel(model)}
-            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+            onRowSelectionModelChange={newSelection => onSelectionModel(newSelection)}
           />
         </div>
       </TabPanel>

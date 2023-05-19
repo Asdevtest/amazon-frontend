@@ -125,7 +125,7 @@ export class AdminWarehouseTasksViewModel {
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
+      this.rowSelectionModel = model
     })
   }
 

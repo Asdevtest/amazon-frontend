@@ -33,7 +33,7 @@ export const vacByUserIdExchangeColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     minWidth: 100,
-    type: 'date',
+    // type: 'date',
   },
 
   {

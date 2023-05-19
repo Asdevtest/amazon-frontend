@@ -44,13 +44,12 @@ export class LogisticsTariffsModel {
     onTriggerArchive: row => this.onTriggerArchiveBtn(row),
   }
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = logisticsTariffsColumns(this.rowHandlers, this.firstRowId, this.isArchive)
+  columnsModel = logisticsTariffsColumns(this.rowHandlers, this.isArchive)
 
   get userInfo() {
     return UserModel.userInfo
@@ -59,15 +58,6 @@ export class LogisticsTariffsModel {
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
 
     reaction(
       () => this.isArchive,
@@ -77,17 +67,11 @@ export class LogisticsTariffsModel {
 
   changeColumnsModel(newHideState) {
     runInAction(() => {
-      this.columnsModel = logisticsTariffsColumns(this.rowHandlers, this.firstRowId, this.isArchive).map(el => ({
+      this.columnsModel = logisticsTariffsColumns(this.rowHandlers, this.isArchive).map(el => ({
         ...el,
         hide: !!newHideState[el?.field],
       }))
     })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
   }
 
   onTriggerArchiveBtn(row) {
@@ -131,8 +115,6 @@ export class LogisticsTariffsModel {
   }
 
   setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
-
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -153,7 +135,7 @@ export class LogisticsTariffsModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = logisticsTariffsColumns(this.rowHandlers, this.firstRowId, this.isArchive).map(el => ({
+      this.columnsModel = logisticsTariffsColumns(this.rowHandlers, this.isArchive).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
@@ -177,7 +159,7 @@ export class LogisticsTariffsModel {
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    this.rowSelectionModel = model
   }
 
   onChangeCurPage(e) {

@@ -92,7 +92,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 87,
-    type: 'date',
+    // type: 'date',
   },
 
   {
@@ -164,7 +164,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
       />
     ),
     width: 140,
-    type: 'date',
+    // type: 'date',
   },
 
   {
@@ -189,6 +189,6 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 97,
-    type: 'date',
+    // type: 'date',
   },
 ]

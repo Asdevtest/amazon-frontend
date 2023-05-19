@@ -57,12 +57,12 @@ export const BuyerSearchSupplierForIdeaViewRaw = props => {
               ColumnMenuIcon: FilterAltOutlinedIcon,
             }}
             localeText={getLocalizationByLanguageTag()}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
             rowHeight={100}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onSelectionModelChange={newSelection => viewModel.onSelectionModel(newSelection)}
+            onRowSelectionModelChange={newSelection => viewModel.onSelectionModel(newSelection)}
             onStateChange={viewModel.setDataGridState}
           />
         </div>

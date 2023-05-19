@@ -40,7 +40,7 @@ export const FreelancerFreelanceColumns = (handlers, languageTag) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 116,
-    type: 'date',
+    // type: 'date',
   },
 
   {
@@ -74,7 +74,7 @@ export const FreelancerFreelanceColumns = (handlers, languageTag) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 134,
-    type: 'date',
+    // type: 'date',
   },
 
   {

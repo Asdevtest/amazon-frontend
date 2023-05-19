@@ -29,7 +29,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
 
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 117,
-    type: 'date',
+    // type: 'date',
   },
 
   {
@@ -140,7 +140,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
 
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 115,
-    type: 'date',
+    // type: 'date',
   },
 
   {

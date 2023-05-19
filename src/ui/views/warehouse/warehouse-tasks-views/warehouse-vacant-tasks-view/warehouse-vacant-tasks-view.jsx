@@ -153,7 +153,7 @@ export const WarehouseVacantTasksViewRaw = props => {
             filterModel={viewModel.filterModel}
             page={viewModel.curPage}
             pageSize={viewModel.rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
             getRowHeight={() => 148}
             components={{
@@ -171,7 +171,7 @@ export const WarehouseVacantTasksViewRaw = props => {
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onSelectionModelChange={viewModel.onSelectionModel}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onPageSizeChange={viewModel.onChangeRowsPerPage}
             onPageChange={viewModel.onChangeCurPage}

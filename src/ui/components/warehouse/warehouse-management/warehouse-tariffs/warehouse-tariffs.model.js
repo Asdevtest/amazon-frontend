@@ -36,38 +36,21 @@ export class WarehouseTariffModel {
     onClickEditBtn: row => this.onClickEditBtn(row),
   }
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = warehouseTariffsColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = warehouseTariffsColumns(this.rowHandlers)
 
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
   }
 
   changeColumnsModel(newHideState) {
     runInAction(() => {
-      this.columnsModel = warehouseTariffsColumns(this.rowHandlers, this.firstRowId).map(el => ({
+      this.columnsModel = warehouseTariffsColumns(this.rowHandlers).map(el => ({
         ...el,
         hide: !!newHideState[el?.field],
       }))
@@ -79,8 +62,6 @@ export class WarehouseTariffModel {
   }
 
   setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
-
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -101,7 +82,7 @@ export class WarehouseTariffModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = warehouseTariffsColumns(this.rowHandlers, this.firstRowId).map(el => ({
+      this.columnsModel = warehouseTariffsColumns(this.rowHandlers).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
@@ -125,7 +106,7 @@ export class WarehouseTariffModel {
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    this.rowSelectionModel = model
   }
 
   onChangeCurPage(e) {

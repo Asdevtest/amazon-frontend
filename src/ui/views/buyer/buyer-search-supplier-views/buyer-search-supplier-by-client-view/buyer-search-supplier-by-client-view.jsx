@@ -72,12 +72,12 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
               },
             }}
             localeText={getLocalizationByLanguageTag()}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
             rowHeight={100}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onSelectionModelChange={viewModel.onSelectionModel}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
             onStateChange={viewModel.setDataGridState}
           />
         </div>

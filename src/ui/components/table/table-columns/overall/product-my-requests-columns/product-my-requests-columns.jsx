@@ -23,7 +23,7 @@ export const productMyRequestsViewColumns = (languageTag, handlers) => [
 
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 120,
-    type: 'date',
+    // type: 'date',
     headerAlign: 'center',
   },
 
@@ -84,7 +84,7 @@ export const productMyRequestsViewColumns = (languageTag, handlers) => [
 
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 115,
-    type: 'date',
+    // type: 'date',
     headerAlign: 'center',
   },
 

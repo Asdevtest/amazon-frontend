@@ -56,7 +56,7 @@ export const AdminInventoryViewRaw = props => {
           page={viewModel.curPage}
           pageSize={viewModel.rowsPerPage}
           rowHeight={100}
-          rowsPerPageOptions={[15, 25, 50, 100]}
+          pageSizeOptions={[15, 25, 50, 100]}
           loading={viewModel.requestStatus === loadingStatuses.isLoading}
           components={{
             Toolbar: DataGridCustomToolbar,
@@ -71,7 +71,7 @@ export const AdminInventoryViewRaw = props => {
             },
           }}
           rows={viewModel.currentData}
-          onSelectionModelChange={newSelection => {
+          onRowSelectionModelChange={newSelection => {
             viewModel.onSelectionModel(newSelection[0])
           }}
           onSortModelChange={viewModel.onChangeSortingModel}

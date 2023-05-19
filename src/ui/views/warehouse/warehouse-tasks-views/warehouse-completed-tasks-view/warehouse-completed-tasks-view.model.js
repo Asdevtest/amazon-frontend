@@ -41,13 +41,12 @@ export class WarehouseCompletedViewModel {
     setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
   }
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers)
 
   showTaskInfoModal = false
 
@@ -58,28 +57,12 @@ export class WarehouseCompletedViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
       () => this.completedTasks,
       () =>
         runInAction(() => {
           this.currentData = this.getCurrentData()
         }),
     )
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
   }
 
   onChangeFilterModel(model) {
@@ -91,10 +74,6 @@ export class WarehouseCompletedViewModel {
   }
 
   setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
-    })
-
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -116,7 +95,7 @@ export class WarehouseCompletedViewModel {
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+        this.columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))
@@ -126,7 +105,7 @@ export class WarehouseCompletedViewModel {
 
   changeColumnsModel(newHideState) {
     runInAction(() => {
-      this.columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+      this.columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers).map(el => ({
         ...el,
         hide: !!newHideState[el?.field],
       }))

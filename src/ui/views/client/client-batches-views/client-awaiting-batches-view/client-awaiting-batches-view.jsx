@@ -132,11 +132,11 @@ export const ClientAwaitingBatchesViewRaw = props => {
             paginationMode="server"
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
-            selectionModel={viewModel.selectedBatches}
+            rowSelectionModel={viewModel.selectedBatches}
             filterModel={viewModel.filterModel}
             page={viewModel.curPage}
             pageSize={viewModel.rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
             getRowHeight={() => 'auto'}
             components={{
@@ -154,7 +154,7 @@ export const ClientAwaitingBatchesViewRaw = props => {
                 },
               },
             }}
-            onSelectionModelChange={newSelection => {
+            onRowSelectionModelChange={newSelection => {
               viewModel.onSelectionModel(newSelection)
             }}
             onSortModelChange={viewModel.onChangeSortingModel}

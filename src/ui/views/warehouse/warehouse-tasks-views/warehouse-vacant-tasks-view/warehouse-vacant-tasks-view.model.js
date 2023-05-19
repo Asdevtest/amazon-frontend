@@ -60,39 +60,23 @@ export class WarehouseVacantViewModel {
     updateTaskComment: (taskId, priority, reason) => this.updateTaskComment(taskId, priority, reason),
   }
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers)
 
   constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
     makeAutoObservable(this, undefined, { autoBind: true })
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
   }
 
   changeColumnsModel(newHideState) {
     runInAction(() => {
-      this.columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+      this.columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers).map(el => ({
         ...el,
         hide: !!newHideState[el?.field],
       }))
@@ -108,9 +92,6 @@ export class WarehouseVacantViewModel {
   }
 
   setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
-    })
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -132,7 +113,7 @@ export class WarehouseVacantViewModel {
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+        this.columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers).map(el => ({
           ...el,
           hide:
             window.innerWidth < 1282

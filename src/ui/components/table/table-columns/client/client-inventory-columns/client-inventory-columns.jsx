@@ -454,7 +454,7 @@ export const clientInventoryColumns = (
 
     renderCell: params => <ShortDateCell value={params.value} />,
     minWidth: 90,
-    type: 'date',
+    // type: 'date',
 
     columnKey: columnnsKeys.shared.DATE,
   },
@@ -472,7 +472,7 @@ export const clientInventoryColumns = (
 
     renderCell: params => <ShortDateCell value={params.value} />,
     minWidth: 90,
-    type: 'date',
+    // type: 'date',
 
     columnKey: columnnsKeys.shared.DATE,
   },

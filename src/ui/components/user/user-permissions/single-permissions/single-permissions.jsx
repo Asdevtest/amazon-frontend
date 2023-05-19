@@ -80,7 +80,7 @@ export const SinglePermissions = observer(() => {
           filterModel={filterModel}
           page={curPage}
           pageSize={rowsPerPage}
-          rowsPerPageOptions={[15, 25, 50, 100]}
+          pageSizeOptions={[15, 25, 50, 100]}
           rows={getCurrentData()}
           getRowHeight={() => 'auto'}
           components={{

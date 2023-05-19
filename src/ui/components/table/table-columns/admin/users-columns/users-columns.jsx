@@ -21,7 +21,7 @@ export const adminUsersViewColumns = handlers => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
-    type: 'date',
+    // type: 'date',
   },
 
   {

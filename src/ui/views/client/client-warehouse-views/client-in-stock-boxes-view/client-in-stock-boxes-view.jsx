@@ -258,9 +258,9 @@ export const ClientInStockBoxesViewRaw = props => {
                 },
               },
             }}
-            headerHeight={65}
+            columnHeaderHeight={65}
             getRowClassName={getRowClassName}
-            selectionModel={viewModel.selectedBoxes}
+            rowSelectionModel={viewModel.selectedBoxes}
             sortingMode="server"
             paginationMode="server"
             rowCount={viewModel.rowCount}
@@ -268,7 +268,7 @@ export const ClientInStockBoxesViewRaw = props => {
             filterModel={viewModel.filterModel}
             page={viewModel.curPage}
             pageSize={viewModel.rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData || []}
             getRowHeight={() => 'auto'}
             components={{
@@ -296,7 +296,7 @@ export const ClientInStockBoxesViewRaw = props => {
               viewModel.onHoverColumnField(params.field)
             }}
             onColumnHeaderLeave={viewModel.onLeaveColumnField}
-            onSelectionModelChange={viewModel.onSelectionModel}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onPageSizeChange={viewModel.onChangeRowsPerPage}
             onPageChange={viewModel.onChangeCurPage}

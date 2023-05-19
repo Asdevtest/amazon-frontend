@@ -35,7 +35,7 @@ export class ShopsViewModel {
   showWarningModal = false
   showConfirmModal = false
 
-  selectionModel = []
+  rowSelectionModel = []
 
   activeSubCategory = 0
 
@@ -47,13 +47,12 @@ export class ShopsViewModel {
     onClickSeeGoodsDailyReport: row => this.onClickSeeGoodsDailyReport(row),
   }
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = shopsColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = shopsColumns(this.rowHandlers)
   openModal = null
   warningInfoModalSettings = {
     isWarning: false,
@@ -68,16 +67,6 @@ export class ShopsViewModel {
     this.onChangeCurShop = onChangeCurShop
     this.openModal = openModal
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
   }
 
   changeColumnsModel(newHideState) {
@@ -89,19 +78,11 @@ export class ShopsViewModel {
     })
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
-  }
-
   onChangeFilterModel(model) {
     this.filterModel = model
   }
 
   setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
-
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -122,7 +103,7 @@ export class ShopsViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = shopsColumns(this.rowHandlers, this.firstRowId).map(el => ({
+      this.columnsModel = shopsColumns(this.rowHandlers).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
@@ -138,7 +119,7 @@ export class ShopsViewModel {
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    this.rowSelectionModel = model
   }
 
   onChangeDrawerOpen() {
@@ -220,7 +201,7 @@ export class ShopsViewModel {
   async updateShops() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await ClientModel.updateShops(this.selectionModel)
+      await ClientModel.updateShops(this.rowSelectionModel)
 
       this.setRequestStatus(loadingStatuses.success)
 

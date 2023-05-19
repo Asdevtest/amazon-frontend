@@ -16,7 +16,7 @@ import {
 
 import { t } from '@utils/translations'
 
-export const logisticsTariffsColumns = (handlers, firstRowId, isArchive) => [
+export const logisticsTariffsColumns = (handlers, isArchive) => [
   {
     field: 'name',
     headerName: t(TranslationKey.Title),
@@ -117,7 +117,7 @@ export const logisticsTariffsColumns = (handlers, firstRowId, isArchive) => [
           tooltipSecondButton={t(TranslationKey.Remove)}
           handlers={handlersMemo}
           row={rowMemo}
-          isFirstRow={firstRowId === params.row.id}
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
           isArchive={isArchive}
         />
       )
@@ -133,6 +133,6 @@ export const logisticsTariffsColumns = (handlers, firstRowId, isArchive) => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
-    type: 'date',
+    // type: 'date',
   },
 ]

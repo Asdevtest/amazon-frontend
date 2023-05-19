@@ -338,7 +338,7 @@ export const BatchInfoModal = observer(
               // autoHeight
               pagination
               localeText={getLocalizationByLanguageTag()}
-              rowsPerPageOptions={[50, 100]}
+              pageSizeOptions={[50, 100]}
               classes={{
                 columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
                 columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,

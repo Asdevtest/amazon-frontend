@@ -339,14 +339,14 @@ export const AdminSettingsContent = observer(() => {
                   filterModel={filterModel}
                   page={curPage}
                   pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  pageSizeOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
                   rowHeight={120}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
+                  slots={{
+                    toolbar: DataGridCustomToolbar,
+                    columnMenuIcon: FilterAltOutlinedIcon,
                   }}
-                  componentsProps={{
+                  slotProps={{
                     toolbar: {
                       columsBtnSettings: { columnsModel, changeColumnsModel },
                     },

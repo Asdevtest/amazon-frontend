@@ -134,7 +134,7 @@ export class AdminSettingsModel {
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    this.rowSelectionModel = model
   }
 
   onChangeCurPage(e) {

@@ -67,13 +67,12 @@ export class WarehouseMyTasksViewModel {
     updateTaskComment: (taskId, priority, reason) => this.updateTaskComment(taskId, priority, reason),
   }
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = warehouseMyTasksViewColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = warehouseMyTasksViewColumns(this.rowHandlers)
 
   tmpDataForCancelTask = {}
 
@@ -91,21 +90,6 @@ export class WarehouseMyTasksViewModel {
     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
   }
 
   onChangeFilterModel(model) {
@@ -115,10 +99,6 @@ export class WarehouseMyTasksViewModel {
   }
 
   setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
-    })
-
     SettingsModel.setDataGridState(state, DataGridTablesKeys.WAREHOUSE_MY_TASKS)
   }
 
@@ -133,7 +113,7 @@ export class WarehouseMyTasksViewModel {
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = warehouseMyTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+        this.columnsModel = warehouseMyTasksViewColumns(this.rowHandlers).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))
@@ -173,7 +153,7 @@ export class WarehouseMyTasksViewModel {
 
   changeColumnsModel(newHideState) {
     runInAction(() => {
-      this.columnsModel = warehouseMyTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+      this.columnsModel = warehouseMyTasksViewColumns(this.rowHandlers).map(el => ({
         ...el,
         hide: !!newHideState[el?.field],
       }))

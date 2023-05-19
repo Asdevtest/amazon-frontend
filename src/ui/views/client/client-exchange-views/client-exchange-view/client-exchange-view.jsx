@@ -50,7 +50,7 @@ export const ClientExchangeViewRaw = props => {
           filterModel={viewModel.filterModel}
           page={viewModel.curPage}
           pageSize={viewModel.rowsPerPage}
-          rowsPerPageOptions={[15, 25, 50, 100]}
+          pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.getCurrentData()}
           rowHeight={100}
           components={{
@@ -69,7 +69,7 @@ export const ClientExchangeViewRaw = props => {
             },
           }}
           getRowHeight={() => 'auto'}
-          onSelectionModelChange={newSelection => {
+          onRowSelectionModelChange={newSelection => {
             viewModel.onSelectionModel(newSelection[0])
           }}
           onSortModelChange={viewModel.onChangeSortingModel}

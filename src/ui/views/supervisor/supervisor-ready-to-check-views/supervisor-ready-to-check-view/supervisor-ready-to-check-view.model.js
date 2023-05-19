@@ -26,8 +26,6 @@ export class SupervisorReadyToCheckViewModel {
     onPickUp: row => this.onClickTableRowBtn(row),
   }
 
-  firstRowId = undefined
-
   columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor)
 
   constructor({ history }) {
@@ -53,12 +51,6 @@ export class SupervisorReadyToCheckViewModel {
   onSelectionModel(model) {
     runInAction(() => {
       this.selectedRowIds = model
-    })
-  }
-
-  setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
     })
   }
 

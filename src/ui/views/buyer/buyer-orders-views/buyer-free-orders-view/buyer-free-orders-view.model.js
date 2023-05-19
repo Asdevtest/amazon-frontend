@@ -38,60 +38,42 @@ export class BuyerFreeOrdersViewModel {
 
   selectedRowIds = []
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers)
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   showWarningModal = false
 
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
   }
 
   onChangeFilterModel(model) {
     this.filterModel = model
+
+    this.setDataGridState()
   }
 
-  setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
 
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+    this.setDataGridState()
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.BUYER_FREE_ORDERS)
   }
@@ -99,21 +81,14 @@ export class BuyerFreeOrdersViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.BUYER_FREE_ORDERS]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
-
-      this.densityModel = state.density.value
-      this.columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
-  }
-
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS({ ...state.paginationModel, page: 0 })
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
+    })
   }
 
   setRequestStatus(requestStatus) {
@@ -122,10 +97,19 @@ export class BuyerFreeOrdersViewModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
+
+    this.setDataGridState()
   }
 
   onSelectionModel(model) {
     this.selectedRowIds = model
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
   }
 
   getCurrentData() {
@@ -233,10 +217,6 @@ export class BuyerFreeOrdersViewModel {
 
   onTriggerShowOrderModal() {
     this.showOrderModal = !this.showOrderModal
-  }
-
-  onChangeCurPage(e) {
-    this.curPage = e
   }
 
   setActionStatus(actionStatus) {

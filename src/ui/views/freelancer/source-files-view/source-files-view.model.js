@@ -29,7 +29,7 @@ export class SourceFilesViewModel {
   showWarningModal = false
   showConfirmModal = false
 
-  selectionModel = []
+  rowSelectionModel = []
 
   activeSubCategory = 0
 
@@ -44,7 +44,6 @@ export class SourceFilesViewModel {
     onChangeText: fileName => value => this.onChangeText(fileName)(value),
   }
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
   curPage = 0
@@ -130,7 +129,7 @@ export class SourceFilesViewModel {
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
+      this.rowSelectionModel = model
     })
   }
 

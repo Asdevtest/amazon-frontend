@@ -222,7 +222,7 @@ export const ClientWarehouseTasksViewRaw = props => {
               toolbarContainer: classNames.toolbarContainer,
             }}
             localeText={getLocalizationByLanguageTag()}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             page={viewModel.curPageForTask}
             pageSize={viewModel.rowsPerPageForTask}
             sortingMode="server"
@@ -247,7 +247,7 @@ export const ClientWarehouseTasksViewRaw = props => {
             paginationMode="server"
             // pageSize={viewModel.15}
             rowCount={viewModel.rowsCount}
-            onSelectionModelChange={viewModel.onSelectionModel}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onPageChange={viewModel.onChangeCurPageForTask}
             onFilterModelChange={viewModel.onChangeFilterModel}

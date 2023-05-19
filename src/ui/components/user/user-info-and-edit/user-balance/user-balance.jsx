@@ -96,7 +96,7 @@ export const UserBalance = observer(({ userId }) => {
           filterModel={filterModel}
           page={curPage}
           pageSize={rowsPerPage}
-          rowsPerPageOptions={[15, 25, 50, 100]}
+          pageSizeOptions={[15, 25, 50, 100]}
           rows={getCurrentData()}
           rowHeight={75}
           components={{
@@ -111,7 +111,7 @@ export const UserBalance = observer(({ userId }) => {
               columsBtnSettings: { columnsModel, changeColumnsModel },
             },
           }}
-          onSelectionModelChange={newSelection => {
+          onRowSelectionModelChange={newSelection => {
             onSelectionModel(newSelection[0])
           }}
           onSortModelChange={onChangeSortingModel}

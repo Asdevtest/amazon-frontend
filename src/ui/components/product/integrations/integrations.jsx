@@ -80,7 +80,7 @@ export const Integrations = observer(({ productId }) => {
         classes={{
           row: classNames.row,
         }}
-        rowsPerPageOptions={[15, 25, 50, 100]}
+        pageSizeOptions={[15, 25, 50, 100]}
         rows={getCurrentData()}
         rowHeight={100}
         components={{
@@ -94,8 +94,8 @@ export const Integrations = observer(({ productId }) => {
         }}
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.isLoading}
-        selectionModel={selectedRowIds}
-        onSelectionModelChange={onSelectionModel}
+        rowSelectionModel={selectedRowIds}
+        onRowSelectionModelChange={onSelectionModel}
       />
 
       <Modal

@@ -76,8 +76,6 @@ export class BuyerMyOrdersViewModel {
 
   dataToCancelOrder = { orderId: undefined, buyerComment: undefined }
 
-  firstRowId = undefined
-
   warningInfoModalSettings = {
     isWarning: false,
     title: '',
@@ -90,7 +88,7 @@ export class BuyerMyOrdersViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = buyerMyOrdersViewColumns(this.firstRowId)
+  columnsModel = buyerMyOrdersViewColumns()
 
   progressValue = 0
   showProgress = false
@@ -130,16 +128,6 @@ export class BuyerMyOrdersViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
       () => this.ordersMy,
       () => {
         this.currentData = this.getCurrentData()
@@ -156,13 +144,13 @@ export class BuyerMyOrdersViewModel {
     })
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
+  // async updateColumnsModel() {
+  //   if (await SettingsModel.languageTag) {
+  //     this.getDataGridState()
 
-      this.ordersMy = buyerMyOrdersDataConverter(this.baseNoConvertedOrders)
-    }
-  }
+  //     this.ordersMy = buyerMyOrdersDataConverter(this.baseNoConvertedOrders)
+  //   }
+  // }
 
   setDataGridTablesKeys = pathname => {
     if (pathname) {
@@ -188,7 +176,6 @@ export class BuyerMyOrdersViewModel {
   }
 
   setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -214,7 +201,7 @@ export class BuyerMyOrdersViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = buyerMyOrdersViewColumns(this.firstRowId).map(el => ({
+      this.columnsModel = buyerMyOrdersViewColumns().map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
@@ -237,7 +224,7 @@ export class BuyerMyOrdersViewModel {
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    this.rowSelectionModel = model
   }
 
   getCurrentData() {

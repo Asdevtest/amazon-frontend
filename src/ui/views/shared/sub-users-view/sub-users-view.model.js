@@ -44,7 +44,7 @@ export class SubUsersViewModel {
   showPermissionModal = false
   showConfirmModal = false
 
-  selectionModel = undefined
+  rowSelectionModel = undefined
 
   rowHandlers = {
     onClickRemoveBtn: row => this.onClickRemoveBtn(row),
@@ -52,13 +52,12 @@ export class SubUsersViewModel {
     onClickSaveComment: (id, comment) => this.onClickSaveComment(id, comment),
   }
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = subUsersColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = subUsersColumns(this.rowHandlers)
 
   warningInfoModalSettings = {
     isWarning: false,
@@ -69,30 +68,11 @@ export class SubUsersViewModel {
     return UserModel.userInfo
   }
 
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = subUsersColumns(this.rowHandlers, this.firstRowId).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
   constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
 
     reaction(
       () => this.subUsersData,
@@ -109,12 +89,6 @@ export class SubUsersViewModel {
           this.currentData = this.getCurrentData()
         }),
     )
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
   }
 
   onChangeFilterModel(model) {
@@ -137,10 +111,6 @@ export class SubUsersViewModel {
   }
 
   setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
-    })
-
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -162,7 +132,7 @@ export class SubUsersViewModel {
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = subUsersColumns(this.rowHandlers, this.firstRowId).map(el => ({
+        this.columnsModel = subUsersColumns(this.rowHandlers).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))
@@ -196,7 +166,7 @@ export class SubUsersViewModel {
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
+      this.rowSelectionModel = model
     })
   }
 

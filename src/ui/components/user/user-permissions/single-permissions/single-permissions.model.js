@@ -41,26 +41,16 @@ export class SinglePermissionsModel {
     onClickEditBtn: row => this.onClickEditBtn(row),
   }
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = adminSinglePermissionsColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = adminSinglePermissionsColumns(this.rowHandlers)
 
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
   }
 
   changeColumnsModel(newHideState) {
@@ -72,20 +62,12 @@ export class SinglePermissionsModel {
     })
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
-  }
-
   onChangeFilterModel(model) {
     this.filterModel = model
   }
 
   setDataGridState(state) {
     if (this.requestStatus && this.requestStatus !== loadingStatuses.isLoading) {
-      this.firstRowId = state?.sorting?.sortedRows[0]
-
       const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
         'sorting',
         'filter',
@@ -107,7 +89,7 @@ export class SinglePermissionsModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = adminSinglePermissionsColumns(this.rowHandlers, this.firstRowId).map(el => ({
+      this.columnsModel = adminSinglePermissionsColumns(this.rowHandlers).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
@@ -131,7 +113,7 @@ export class SinglePermissionsModel {
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    this.rowSelectionModel = model
   }
 
   onChangeCurPage(e) {

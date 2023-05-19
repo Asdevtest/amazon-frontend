@@ -56,7 +56,7 @@ export const AdminUsersViewRaw = props => {
             filterModel={viewModel.filterModel}
             page={viewModel.curPage}
             pageSize={viewModel.rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             rowHeight={80}
             rows={viewModel.getCurrentData()}
             density={viewModel.densityModel}
@@ -74,7 +74,7 @@ export const AdminUsersViewRaw = props => {
                 },
               },
             }}
-            onSelectionModelChange={newSelection => {
+            onRowSelectionModelChange={newSelection => {
               viewModel.onSelectionModel(newSelection[0])
             }}
             onSortModelChange={viewModel.onChangeSortingModel}

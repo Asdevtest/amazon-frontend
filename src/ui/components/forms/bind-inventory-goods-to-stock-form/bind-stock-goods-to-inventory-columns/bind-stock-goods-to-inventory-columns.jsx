@@ -54,7 +54,7 @@ export const sourceColumns = () => [
   },
 ]
 
-export const chosenGoodsColumns = (handlers, firstRowId) => [
+export const chosenGoodsColumns = handlers => [
   {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
@@ -105,7 +105,7 @@ export const chosenGoodsColumns = (handlers, firstRowId) => [
 
       return (
         <TrashCell
-          isFirstRow={firstRowId === params.row.id}
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
           tooltipText={t(TranslationKey['Remove from the list'])}
           onClick={onClickTrash}
         />

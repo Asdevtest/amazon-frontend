@@ -89,7 +89,7 @@ export const SourceFilesViewRaw = props => {
             filterModel={viewModel.filterModel}
             page={viewModel.curPage}
             pageSize={viewModel.rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={getSortedData(viewModel.sortMode)}
             rowHeight={75}
             components={{
@@ -101,7 +101,7 @@ export const SourceFilesViewRaw = props => {
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             onPageChange={viewModel.onChangeCurPage}
-            onSelectionModelChange={viewModel.onSelectionModel}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onPageSizeChange={viewModel.onChangeRowsPerPage}
             onFilterModelChange={viewModel.onChangeFilterModel}

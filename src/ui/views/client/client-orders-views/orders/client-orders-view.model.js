@@ -71,7 +71,6 @@ export class ClientOrdersViewModel {
   }
 
   rowCount = 0
-  firstRowId = undefined
   startFilterModel = undefined
   sortModel = []
   filterModel = { items: [] }
@@ -79,7 +78,7 @@ export class ClientOrdersViewModel {
   rowsPerPage = 15
   densityModel = 'compact'
   amountLimit = 1000
-  columnsModel = clientOrdersViewColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = clientOrdersViewColumns(this.rowHandlers)
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
@@ -111,15 +110,6 @@ export class ClientOrdersViewModel {
     //     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
 
     reaction(
       () => this.orders,
@@ -144,15 +134,15 @@ export class ClientOrdersViewModel {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
+  // async updateColumnsModel() {
+  //   if (await SettingsModel.languageTag) {
+  //     this.getDataGridState()
 
-      runInAction(() => {
-        this.orders = clientOrdersDataConverter(this.baseNoConvertedOrders)
-      })
-    }
-  }
+  //     runInAction(() => {
+  //       this.orders = clientOrdersDataConverter(this.baseNoConvertedOrders)
+  //     })
+  //   }
+  // }
 
   onChangeFilterModel(model) {
     runInAction(() => {
@@ -161,10 +151,6 @@ export class ClientOrdersViewModel {
   }
 
   setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
-    })
-
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -191,7 +177,7 @@ export class ClientOrdersViewModel {
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = clientOrdersViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+        this.columnsModel = clientOrdersViewColumns(this.rowHandlers).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))
