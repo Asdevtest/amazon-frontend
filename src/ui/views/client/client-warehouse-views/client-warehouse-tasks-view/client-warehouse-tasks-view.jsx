@@ -24,7 +24,6 @@ import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-gr
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { ConfirmWithCommentModal } from '@components/modals/confirmation-with-comment-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
@@ -281,15 +280,18 @@ export const ClientWarehouseTasksViewRaw = props => {
         />
       </Modal>
 
-      <ConfirmWithCommentModal
+      <ConfirmationModal
+        withComment
         isWarning
+        asCommentModalDefault
         openModal={viewModel.showConfirmWithCommentModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
-        titleText={t(TranslationKey.Attention)}
+        title={t(TranslationKey.Attention)}
         commentLabelText={t(TranslationKey['Are you sure you want to cancel the task?'])}
-        okBtnText={t(TranslationKey.Yes)}
+        successBtnText={t(TranslationKey.Yes)}
         cancelBtnText={t(TranslationKey.Cancel)}
-        onSubmit={viewModel.onClickCancelAfterConfirm}
+        onClickSuccessBtn={viewModel.onClickCancelAfterConfirm}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
       />
 
       <ConfirmationModal

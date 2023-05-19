@@ -63,7 +63,9 @@ export const useClassNames = makeStyles()(theme => ({
   buttonDocumentsWrapper: {
     display: 'flex',
     alignItems: 'center',
-    height: '100%',
+    // height: '100%',
+
+    height: 110,
   },
 
   headerCarouselDocumentsWrapper: {
@@ -99,8 +101,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imagesAndFilesWrapper: {
-    // height: '100%' /* вернуть если что-то сломается */,
     height: 'auto',
+    width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -119,7 +121,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    // justifyContent: 'space-between',
+    gap: 20,
   },
 
   imagesCarouselWrapper: {
@@ -135,6 +137,10 @@ export const useClassNames = makeStyles()(theme => ({
   imagesWrapper: {
     width: '50%',
     height: '100%',
+
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   imageSubWrapper: {
@@ -149,7 +155,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   documentsWrapper: {
     width: '50%',
+    height: '100%',
+
     display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   documentWrapper: {
@@ -158,7 +168,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover > :not(:last-child)': {
@@ -201,7 +211,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 140.99,
+
+    // height: 140.99, // вернуть если сломается
   },
 
   emptyIcon: {
