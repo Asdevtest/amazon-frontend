@@ -11,7 +11,7 @@ import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@cons
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { CustomCarousel } from '@components/shared/custom-carousel/custom-carousel'
+
 import { UserLink } from '@components/user/user-link'
 
 import { checkIsImageLink } from '@utils/checks'
@@ -20,6 +20,7 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './service-exchange-card.style'
+import { CustomSlider } from '@components/shared/custom-slider'
 
 interface onClickThumbnailArguments {
   images: Array<string | linksToMediaFilesInterface>
@@ -87,7 +88,7 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = props => {
 
       <div className={classNames.cardCarouselWrapper}>
         {/* @ts-ignore */}
-        <CustomCarousel>
+        <CustomSlider>
           {imagesForRender.map((imageHash, index) => (
             <img
               key={index}
@@ -103,7 +104,7 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = props => {
               }}
             />
           ))}
-        </CustomCarousel>
+        </CustomSlider>
       </div>
 
       {pathname !== '/freelancer/freelance/my-services' ? (

@@ -10,7 +10,7 @@ import { ChatMessageDataCreatedNewProposalRequestDescriptionContract } from '@mo
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 
 import { formatDateTimeHourAndMinutes, formatNormDateTime } from '@utils/date-time'

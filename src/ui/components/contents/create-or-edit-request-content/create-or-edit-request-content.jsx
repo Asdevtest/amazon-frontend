@@ -33,7 +33,7 @@ import { ChoiceOfPerformerModal } from '@components/modals/choice-of-performer-m
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CopyValue } from '@components/shared/copy-value'
-import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { NewDatePicker, DatePickerTime } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'

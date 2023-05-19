@@ -9,7 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { LinesChart } from '@components/shared/charts/lines-chart/lines-chart'
-import { PhotoCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { Field } from '@components/shared/field/field'
 
 import { toFixed } from '@utils/text'

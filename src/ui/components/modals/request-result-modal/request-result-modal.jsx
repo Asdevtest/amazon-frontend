@@ -12,7 +12,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
-import { PhotoCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { UploadFilesInput } from '@components/shared/upload-files-input'

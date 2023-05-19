@@ -5,7 +5,6 @@ import React from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
 import { UserLink } from '@components/user/user-link'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -25,6 +24,7 @@ import { t } from '@utils/translations'
 // import {t} from '@utils/translations'
 // import {translateProposalsLeftMessage} from '@utils/validation'
 import { useClassNames } from './appeals-list-card.style'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 export const AppealsListCard = ({ onClickViewMore }) => {
   const { classes: classNames } = useClassNames()

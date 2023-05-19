@@ -13,7 +13,7 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { UserModel } from '@models/user-model'
 
 import { Button } from '@components/shared/buttons/button'
-import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 import { formatDateTimeHourAndMinutes } from '@utils/date-time'
 import { t } from '@utils/translations'

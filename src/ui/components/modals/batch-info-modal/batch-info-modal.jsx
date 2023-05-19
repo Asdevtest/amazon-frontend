@@ -23,7 +23,6 @@ import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-co
 import { BoxViewForm } from '@components/forms/box-view-form'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { PhotoAndFilesCarouselMini } from '@components/shared/custom-carousel/custom-carousel'
 import { Field } from '@components/shared/field/field'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -44,6 +43,7 @@ import { t } from '@utils/translations'
 import { BigImagesModal } from '../big-images-modal'
 import { batchInfoModalColumn } from './batch-info-modal-column'
 import { useClassNames } from './batch-info-modal.style'
+import { PhotoAndFilesCarouselMini } from '@components/shared/photo-and-files-carousel-mini'
 
 export const BatchInfoModal = observer(
   ({ openModal, setOpenModal, batch, volumeWeightCoefficient, userInfo, onSubmitChangeBoxFields, onClickHsCode }) => {

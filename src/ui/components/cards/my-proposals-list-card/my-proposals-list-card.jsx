@@ -19,7 +19,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinLink } from '@components/shared/asin-link'
 import { Button } from '@components/shared/buttons/button'
-import { CustomCarousel } from '@components/shared/custom-carousel/custom-carousel'
+
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime, formatNormDateTimeWithParseISO } from '@utils/date-time'
@@ -27,6 +27,7 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './my-proposals-list-card.style'
+import { CustomSlider } from '@components/shared/custom-slider'
 
 export const MyProposalsListCard = ({
   item,
@@ -135,7 +136,7 @@ export const MyProposalsListCard = ({
 
         <Divider flexItem orientation="vertical" classes={{ root: classNames.divider }} />
         <div className={classNames.rightBlockWrapper}>
-          <CustomCarousel title={t(TranslationKey.Proposal)} view="complex">
+          <CustomSlider title={t(TranslationKey.Proposal)} view="complex">
             {item.proposals.map((proposal, index) => (
               <div key={index} className={classNames.proposalWrapper}>
                 <div className={classNames.performerInfoCell}>
@@ -203,7 +204,7 @@ export const MyProposalsListCard = ({
                 </div>
               </div>
             ))}
-          </CustomCarousel>
+          </CustomSlider>
         </div>
       </div>
     </Grid>
