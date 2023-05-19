@@ -23,7 +23,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { ConfirmWithCommentModal } from '@components/modals/confirmation-with-comment-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -223,20 +222,6 @@ export const WarehouseMyTasksViewRaw = props => {
         />
       </Modal>
 
-      <ConfirmWithCommentModal
-        isWarning
-        openModal={viewModel.showCancelTaskModal}
-        setOpenModal={() => {
-          viewModel.onTriggerOpenModal('showCancelTaskModal')
-          viewModel.onTriggerOpenModal('showConfirmModal')
-        }}
-        titleText={t(TranslationKey['Cancel task'])}
-        commentLabelText={t(TranslationKey['Reason for canceling the task'])}
-        okBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onSubmit={viewModel.onClickConfirmCancelTask}
-      />
-
       <WarningInfoModal
         openModal={viewModel.showNoDimensionsErrorModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
@@ -249,15 +234,17 @@ export const WarehouseMyTasksViewRaw = props => {
 
       <ConfirmationModal
         isWarning
+        withComment
+        commentTitleText={t(TranslationKey['Cancel task'])}
+        commentLabelText={t(TranslationKey['Reason for canceling the task'])}
         openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         title={t(TranslationKey['Confirm action'])}
         message={t(TranslationKey['After confirmation, the task will be cancelled. Confirm?'])}
         successBtnText={t(TranslationKey.Yes)}
         cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showCancelTaskModal')
-        }}
+        commentCancelBtnText={t(TranslationKey.Cancel)}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        onClickSuccessBtn={viewModel.onClickConfirmCancelTask}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
     </React.Fragment>

@@ -24,12 +24,52 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     padding: '0 28px',
     backgroundColor: theme.palette.background.general,
+
     [theme.breakpoints.down(768)]: {
       width: '300px',
       minHeight: '0',
       height: '122px',
       padding: 0,
     },
+  },
+
+  commentMessageWrapper: {
+    width: '586px',
+    minHeight: '168px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    gap: '30px',
+
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+      minHeight: '168px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      gap: '30px',
+    },
+  },
+
+  commentTitle: {
+    fontSize: '18px',
+    fontWeight: '600',
+    lineHeight: '140%',
+    color: theme.palette.text.general,
+  },
+
+  commentLabelText: {
+    fontSize: '14px',
+    fontWeight: '400',
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+  },
+
+  heightFieldAuto: {
+    height: 'auto',
+    width: '100%',
+
+    padding: 0,
   },
 
   warningModalMessageWrapper: {
@@ -75,6 +115,12 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       marginTop: '18px',
     },
+  },
+
+  commentButtonsWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gap: 20,
   },
 
   titleWrapper: {
