@@ -33,7 +33,6 @@ export const UploadFilesInput = observer(
     setImages,
     maxNumber,
     acceptType = [''],
-    // acceptType = ['jpg', 'gif', 'png', 'jpeg', 'pdf'],
     withoutLinks = false,
     withoutTitle = false,
     oneLine = false,
@@ -67,8 +66,6 @@ export const UploadFilesInput = observer(
         } else {
           setImages([...images, linkInput])
         }
-
-        // setImages([...images, linkInput])
         setLinkInput('')
       } else {
         setLinkInputError(true)
@@ -76,8 +73,6 @@ export const UploadFilesInput = observer(
     }
 
     const onChange = (imageList /* , addUpdateIndex  тут можно индекс получить*/) => {
-      // console.log('addUpdateIndex', addUpdateIndex)
-
       if (withComment) {
         setImages(
           imageList.map((el, i) => ({
@@ -89,7 +84,6 @@ export const UploadFilesInput = observer(
       } else {
         setImages(imageList)
       }
-      // setImages(imageList)
     }
 
     const onPasteFiles = async evt => {
@@ -166,7 +160,6 @@ export const UploadFilesInput = observer(
                   <Input
                     disabled={disabled}
                     placeholder={t(TranslationKey.Link)}
-                    // className={classNames.loadImageInput}
                     classes={{ root: classNames.loadImageInput, input: classNames.inputColor }}
                     value={linkInput}
                     onChange={e => onChangeLinkInput(e.target.value)}
@@ -271,10 +264,6 @@ export const UploadFilesInput = observer(
                               <Avatar className={classNames.image} src={image} alt={image} variant="square" />
                             </Tooltip>
 
-                            {/* <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(image)}>
-                              <Typography className={classNames.linkName}>{image}</Typography>
-                            </Link> */}
-
                             {withComment && (
                               <Input
                                 multiline
@@ -323,8 +312,6 @@ export const UploadFilesInput = observer(
                                 variant="square"
                               />
                             </Tooltip>
-
-                            {/* <Typography className={classNames.fileName}>{image?.file.name} </Typography> */}
 
                             {withComment && (
                               <Input

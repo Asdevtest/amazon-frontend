@@ -717,7 +717,6 @@ export const SelectFields = ({
             isEditable
             small
             files={order.images}
-            width="400px"
             imagesForLoad={imagesForLoad}
             onChangeImagesForLoad={onChangeImagesForLoad}
           />

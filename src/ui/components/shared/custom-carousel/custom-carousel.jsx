@@ -69,9 +69,6 @@ export const CustomCarousel = observer(
       onChangeIndex(slideCount - 1)
     }, [slideCount])
 
-    // console.log('slideCount', slideCount)
-    // console.log('index', index)
-
     const handleLeftArrowClick = () => {
       setOffset(currentOffset => {
         const newOffset = currentOffset + RIGHT_BLOCK_WIDTH
@@ -81,7 +78,6 @@ export const CustomCarousel = observer(
 
       if (slideCount > 1) {
         setSlideCount(prev => prev - 1)
-        // onChangeIndex(slideCount)
       }
     }
 
@@ -96,7 +92,6 @@ export const CustomCarousel = observer(
 
       if (slideCount < children.length) {
         setSlideCount(prev => prev + 1)
-        // onChangeIndex(slideCount - 2)
       }
     }
 
@@ -126,7 +121,6 @@ export const CustomCarousel = observer(
                     width: arrowSize ?? '40px',
                     height: arrowSize ?? '40px',
                   }}
-                  // color={offset === 0 ? 'disabled' : 'primary'}
                   className={cx(classNames.arrowIcon, { [classNames.arrowDisabledIcon]: offset === 0 })}
                   onClick={handleLeftArrowClick}
                 />
@@ -144,7 +138,6 @@ export const CustomCarousel = observer(
                     width: arrowSize ?? '40px',
                     height: arrowSize ?? '40px',
                   }}
-                  // color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
                   className={cx(classNames.arrowIcon, {
                     [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100,
                   })}
@@ -160,7 +153,6 @@ export const CustomCarousel = observer(
               <div className={classNames.numberOfFilesFlex}>
                 <ArrowLeftIcon
                   style={{ cursor: offset === 0 ? 'initial' : 'pointer', width: '40px', height: '40px' }}
-                  // color={offset === 0 ? 'disabled' : 'primary'}
                   className={cx(classNames.arrowIcon, { [classNames.arrowDisabledIcon]: offset === 0 })}
                   onClick={handleLeftArrowClick}
                 />
@@ -171,7 +163,6 @@ export const CustomCarousel = observer(
                     width: '40px',
                     height: '40px',
                   }}
-                  // color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
                   className={cx(classNames.arrowIcon, {
                     [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100,
                   })}
@@ -187,7 +178,6 @@ export const CustomCarousel = observer(
               <div className={classNames.buttonWrapper}>
                 <ArrowLeftIcon
                   style={{ cursor: offset === 0 ? 'initial' : 'pointer' }}
-                  // color={offset === 0 ? 'disabled' : 'primary'}
                   className={cx(classNames.arrowIcon, { [classNames.arrowDisabledIcon]: offset === 0 })}
                   onClick={handleLeftArrowClick}
                 />
@@ -195,7 +185,6 @@ export const CustomCarousel = observer(
 
                 <ArrowRightIcon
                   style={{ cursor: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100 ? 'initial' : 'pointer' }}
-                  // color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
                   className={cx(classNames.arrowIcon, {
                     [classNames.arrowDisabledIcon]: offset === -(RIGHT_BLOCK_WIDTH * children?.length) + 100,
                   })}
@@ -233,7 +222,6 @@ export const PhotoAndFilesCarousel = ({
   withoutPhotos,
   whithoutFiles,
   imagesTitles = [],
-
   imagesForLoad,
   onChangeImagesForLoad,
   isEditable,
@@ -283,8 +271,6 @@ export const PhotoAndFilesCarousel = ({
         }),
       }))
 
-      // setImagesData(() => imagesData.map(el => (el._id === imageId ? {...el, image: readyFilesArr[0]} : el)))
-
       onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === imageIndex ? readyFilesArr[0] : el)))
       setBigImagesOptions(() => ({
         ...bigImagesOptions,
@@ -307,8 +293,6 @@ export const PhotoAndFilesCarousel = ({
   }
 
   const onClickEditImageSubmit = image => {
-    // bigImagesOptions.images[bigImagesOptions.imgIndex]
-
     onChangeImagesForLoad(imagesForLoad.map((el, i) => (i === bigImagesOptions.imgIndex ? image : el)))
     setBigImagesOptions(() => ({
       ...bigImagesOptions,
@@ -318,9 +302,6 @@ export const PhotoAndFilesCarousel = ({
 
   const bigImagesModalControls = (imageIndex, image) => (
     <>
-      {/* {(checkIsResearcher(curUserRole) || checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) &&
-        !product.archive &&
-        showActionBtns && ( */}
       <>
         {!withoutMakeMainImage && (
           <>
@@ -331,7 +312,6 @@ export const PhotoAndFilesCarousel = ({
             ) : (
               <Button
                 disabled={imageIndex === 0}
-                // success={imageIndex === 0}
                 className={cx(classNames.imagesModalBtn)}
                 onClick={() => onClickMakeMainImageObj(imageIndex, image)}
               >
@@ -343,12 +323,6 @@ export const PhotoAndFilesCarousel = ({
 
         <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickEditImage()}>
           <ModeOutlinedIcon />
-          {/* <input
-                  type={'file'}
-                  className={classNames.pasteInput}
-                  defaultValue={''}
-                  onChange={onUploadFile(imageIndex)}
-                /> */}
         </Button>
 
         <Button className={cx(classNames.imagesModalBtn)}>
@@ -365,7 +339,6 @@ export const PhotoAndFilesCarousel = ({
           <DeleteOutlineOutlinedIcon />
         </Button>
       </>
-      {/* )} */}
     </>
   )
 
