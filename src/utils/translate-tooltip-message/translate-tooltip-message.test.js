@@ -1,7 +1,7 @@
-import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 import {
   translateTooltipAttentionMessageByRole,

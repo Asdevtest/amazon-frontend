@@ -1,27 +1,27 @@
-import {cx} from '@emotion/css'
-import {Container, Link, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Container, Link, Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {CopyValue} from '@components/copy-value/copy-value'
-import {UploadFilesInput} from '@components/upload-files-input'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 // import {TranslationKey} from '@constants/translations/translation-key'
 // import {Button} from '@components/buttons/button'
 // import {Field} from '@components/field'
 // import {checkIsPositiveNum} from '@utils/checks'
 // import {t} from '@utils/translations'
-import {useClassNames} from './add-suppliers-modal.style'
+import { useClassNames } from './add-suppliers-modal.style'
 import Template from './template.xlsx'
 
-export const AddSuppliersModal = ({userInfo, onSubmit, onClose, showProgress, progressValue}) => {
-  const {classes: classNames} = useClassNames()
+export const AddSuppliersModal = ({ userInfo, onSubmit, onClose, showProgress, progressValue }) => {
+  const { classes: classNames } = useClassNames()
 
   const [images, setImages] = useState('')
 

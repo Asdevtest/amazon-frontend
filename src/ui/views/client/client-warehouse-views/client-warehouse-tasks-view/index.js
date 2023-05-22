@@ -1,1 +1,1 @@
-export {ClientWarehouseTasksView} from './client-warehouse-tasks-view'
+export { ClientWarehouseTasksView } from './client-warehouse-tasks-view'

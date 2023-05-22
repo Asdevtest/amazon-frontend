@@ -1,35 +1,35 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Box, Grid, Link, ListItemText, MenuItem, Select, Tooltip, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Box, Grid, Link, ListItemText, MenuItem, Select, Tooltip, Typography } from '@mui/material'
 import MuiCheckbox from '@mui/material/Checkbox'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
+import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import {
   mapProductStrategyStatusEnum,
   mapProductStrategyStatusEnumToKey,
   ProductStrategyStatus,
-} from '@constants/product-strategy-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+} from '@constants/product/product-strategy-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {GeneralModel} from '@models/general-model'
+import { GeneralModel } from '@models/general-model'
 
-import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value/copy-value'
-import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
-import {Field} from '@components/field'
-import {Input} from '@components/input'
-import {TagSelector} from '@components/product/product-wrapper/tag-selector/tag-selector'
-import {RedFlags} from '@components/shared/redFlags/red-flags'
+import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { TagSelector } from '@components/product/product-wrapper/tag-selector/tag-selector'
+import { Button } from '@components/shared/buttons/button'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { Field } from '@components/shared/field'
+import { Input } from '@components/shared/input'
+import { RedFlags } from '@components/shared/redFlags/red-flags'
 
-import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
-import {checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount} from '@utils/text'
-import {t} from '@utils/translations'
+import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
+import { checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './fields-and-suppliers.style'
+import { useClassNames } from './fields-and-suppliers.style'
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
@@ -52,12 +52,12 @@ export const FieldsAndSuppliers = observer(
     onClickHsCode,
     onClickParseProductData,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const [edit, setEdit] = useState(true)
 
     const onChangeShop = e => {
-      onChangeField('shopIds')({target: {value: e.target.value ? [e.target.value] : []}})
+      onChangeField('shopIds')({ target: { value: e.target.value ? [e.target.value] : [] } })
     }
 
     const isEditRedFlags =
@@ -87,7 +87,7 @@ export const FieldsAndSuppliers = observer(
                       target="_blank"
                       rel="noopener"
                       href={checkAndMakeAbsoluteUrl(product.lamazon)}
-                      className={cx(classNames.inputLink, {[classNames.linkDecoration]: !edit || !product.lamazon})}
+                      className={cx(classNames.inputLink, { [classNames.linkDecoration]: !edit || !product.lamazon })}
                     >
                       <Typography className={classNames.lamazonText}>{product.lamazon}</Typography>
                     </Link>
@@ -97,8 +97,8 @@ export const FieldsAndSuppliers = observer(
                       classes={{
                         input: cx(
                           classNames.inputLink,
-                          {[classNames.inputDisabled]: edit},
-                          {[classNames.linkOnEdit]: edit && product.lamazon},
+                          { [classNames.inputDisabled]: edit },
+                          { [classNames.linkOnEdit]: edit && product.lamazon },
                         ),
                       }}
                       placeholder={!product.lamazon ? t(TranslationKey['Enter link']) : ''}
@@ -135,7 +135,6 @@ export const FieldsAndSuppliers = observer(
                     <Button
                       tooltipInfoContent={t(TranslationKey['Open the field to edit the link'])}
                       disabled={!checkIsClient(curUserRole)}
-                      className={classNames.editButton}
                       onClick={() => setEdit(!edit)}
                     >
                       {t(TranslationKey.Edit)}
@@ -145,7 +144,6 @@ export const FieldsAndSuppliers = observer(
                       success
                       tooltipInfoContent={t(TranslationKey['Saves a link to an Amazon product'])}
                       disabled={!checkIsClient(curUserRole)}
-                      className={classNames.editButton}
                       onClick={() => setEdit(!edit)}
                     >
                       {t(TranslationKey.Save)}
@@ -175,7 +173,7 @@ export const FieldsAndSuppliers = observer(
                       )
                     }
                     value={product.asin}
-                    inputProps={{maxLength: 254}}
+                    inputProps={{ maxLength: 254 }}
                     className={cx(classNames.inputAsin, {
                       [classNames.inputDisabled]: !(
                         checkIsClient(curUserRole) &&
@@ -204,11 +202,13 @@ export const FieldsAndSuppliers = observer(
                         <div className={classNames.subInputWrapper}>
                           <Input
                             placeholder={t(TranslationKey.SKU)}
-                            inputProps={{maxLength: 50}}
+                            inputProps={{ maxLength: 50 }}
                             value={product.skusByClient}
                             className={classNames.inputAsin}
                             onChange={e =>
-                              onChangeField('skusByClient')({target: {value: e.target.value ? [e.target.value] : []}})
+                              onChangeField('skusByClient')({
+                                target: { value: e.target.value ? [e.target.value] : [] },
+                              })
                             }
                           />
                           {product.skusByClient[0] ? <CopyValue text={product.skusByClient[0]} /> : null}
@@ -238,7 +238,7 @@ export const FieldsAndSuppliers = observer(
                     }
                     color="primary"
                     checked={product.fba}
-                    onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
+                    onClick={() => onChangeField('fba')({ target: { value: !product.fba } })}
                   />
                 </Box>
 
@@ -258,7 +258,7 @@ export const FieldsAndSuppliers = observer(
                     }
                     color="primary"
                     checked={!product.fba}
-                    onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
+                    onClick={() => onChangeField('fba')({ target: { value: !product.fba } })}
                   />
                 </Box>
               </div>
@@ -319,7 +319,7 @@ export const FieldsAndSuppliers = observer(
               </div>
               <TagSelector
                 isEditMode={showActionBtns}
-                handleSaveTags={tags => onChangeField('tags')({target: {value: tags}})}
+                handleSaveTags={tags => onChangeField('tags')({ target: { value: tags } })}
                 currentTags={product.tags}
                 getTags={GeneralModel.getTagList}
                 prefix="# "
@@ -333,11 +333,11 @@ export const FieldsAndSuppliers = observer(
               <div className={classNames.subUsersTitleWrapper}>
                 <Typography className={classNames.subUsersTitle}>{t(TranslationKey['Red flags'])}</Typography>
               </div>
-              <div className={cx(classNames.redFlags, {[classNames.redFlagsView]: !isEditRedFlags})}>
+              <div className={cx(classNames.redFlags, { [classNames.redFlagsView]: !isEditRedFlags })}>
                 <RedFlags
                   isEditMode={isEditRedFlags}
                   activeFlags={product.redFlags}
-                  handleSaveFlags={flags => onChangeField('redFlags')({target: {value: flags || []}})}
+                  handleSaveFlags={flags => onChangeField('redFlags')({ target: { value: flags || [] } })}
                 />
               </div>
             </div>
@@ -351,7 +351,7 @@ export const FieldsAndSuppliers = observer(
                   <div className={classNames.fieldsWrapper}>
                     <Field
                       disabled={disabledPrivateLabelFields}
-                      inputProps={{maxLength: 255}}
+                      inputProps={{ maxLength: 255 }}
                       containerClasses={classNames.field}
                       inputClasses={classNames.inputField}
                       label={t(TranslationKey.Niche)}
@@ -360,7 +360,7 @@ export const FieldsAndSuppliers = observer(
                     />
                     <Field
                       disabled={disabledPrivateLabelFields}
-                      inputProps={{maxLength: 255}}
+                      inputProps={{ maxLength: 255 }}
                       containerClasses={classNames.field}
                       inputClasses={classNames.inputField}
                       label={'Asins'}
@@ -371,7 +371,7 @@ export const FieldsAndSuppliers = observer(
                     <div className={classNames.fieldsSubWrapper}>
                       <Field
                         disabled={disabledPrivateLabelFields}
-                        inputProps={{maxLength: 10}}
+                        inputProps={{ maxLength: 10 }}
                         containerClasses={classNames.shortInput}
                         inputClasses={classNames.shortInputClass}
                         label={t(TranslationKey['Average revenue'])}
@@ -382,7 +382,7 @@ export const FieldsAndSuppliers = observer(
                         disabled={disabledPrivateLabelFields}
                         containerClasses={classNames.shortInput}
                         inputClasses={classNames.shortInputClass}
-                        inputProps={{maxLength: 10}}
+                        inputProps={{ maxLength: 10 }}
                         label={t(TranslationKey['Average BSR'])}
                         value={product.avgBSR}
                         onChange={onChangeField('avgBSR')}
@@ -393,7 +393,7 @@ export const FieldsAndSuppliers = observer(
                   <div className={classNames.fieldsWrapper}>
                     <Field
                       disabled={disabledPrivateLabelFields}
-                      inputProps={{maxLength: 10}}
+                      inputProps={{ maxLength: 10 }}
                       label={t(TranslationKey['Total Revenue'])}
                       containerClasses={classNames.field}
                       inputClasses={classNames.inputField}
@@ -402,7 +402,7 @@ export const FieldsAndSuppliers = observer(
                     />
                     <Field
                       disabled={disabledPrivateLabelFields}
-                      inputProps={{maxLength: 10}}
+                      inputProps={{ maxLength: 10 }}
                       label={t(TranslationKey.Coefficient)}
                       containerClasses={classNames.field}
                       inputClasses={classNames.inputField}
@@ -413,7 +413,7 @@ export const FieldsAndSuppliers = observer(
                     <div className={classNames.fieldsSubWrapper}>
                       <Field
                         disabled={disabledPrivateLabelFields}
-                        inputProps={{maxLength: 10}}
+                        inputProps={{ maxLength: 10 }}
                         containerClasses={classNames.shortInput}
                         inputClasses={classNames.shortInputClass}
                         label={t(TranslationKey['Average Price'])}
@@ -424,7 +424,7 @@ export const FieldsAndSuppliers = observer(
                         disabled={disabledPrivateLabelFields}
                         containerClasses={classNames.shortInput}
                         inputClasses={classNames.shortInputClass}
-                        inputProps={{maxLength: 10}}
+                        inputProps={{ maxLength: 10 }}
                         label={t(TranslationKey['Average Review'])}
                         value={product.avgReviews}
                         onChange={onChangeField('avgReviews')}
@@ -449,7 +449,7 @@ export const FieldsAndSuppliers = observer(
                           withAvatar
                           name={subUser?.name}
                           userId={subUser?._id}
-                          customStyles={{fontWeight: 600, marginLeft: 5}}
+                          customStyles={{ fontWeight: 600, marginLeft: 5 }}
                           maxNameWidth={100}
                         />
                       </div>

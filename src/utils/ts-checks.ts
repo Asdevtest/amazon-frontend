@@ -11,9 +11,9 @@ import {
   ChatMessageRemovePatchInfoGroupChatContract,
   ChatMessageRemoveUsersFromGroupChatContract,
 } from '@models/chat-model/contracts/chat-message-data.contract'
-import {ChatMessageContract, ChatMessageType} from '@models/chat-model/contracts/chat-message.contract'
+import { ChatMessageContract, ChatMessageType } from '@models/chat-model/contracts/chat-message.contract'
 
-import {ChatMessageTextType} from '@services/websocket-chat-service/interfaces'
+import { ChatMessageTextType } from '@services/websocket-chat-service/interfaces'
 
 export const checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract = (
   value: ChatMessageContract,

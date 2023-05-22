@@ -1,1 +1,1 @@
-export {ClientNotificationsView} from './client-notifications-view'
+export { ClientNotificationsView } from './client-notifications-view'

@@ -1,18 +1,18 @@
-import {cx} from '@emotion/css'
-import {Button} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Button } from '@mui/material'
 
-import React, {FC} from 'react'
+import React, { FC } from 'react'
 
 import {
   mapTaskPriorityStatusEnum,
   TaskPriorityStatus,
   taskPriorityStatusTranslate,
-} from '@constants/task-priority-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+} from '@constants/task/task-priority-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {useTaskPrioritySelectorStyles} from '@components/shared/task-priority-selector/task-priority-selector.styles'
+import { useTaskPrioritySelectorStyles } from '@components/shared/task-priority-selector/task-priority-selector.styles'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 interface TaskPrioritySelectorProps {
   currentPriority: string
@@ -21,8 +21,8 @@ interface TaskPrioritySelectorProps {
 }
 
 export const TaskPrioritySelector: FC<TaskPrioritySelectorProps> = props => {
-  const {wrapperStyles, currentPriority, handleActivePriority} = props
-  const {classes: styles} = useTaskPrioritySelectorStyles()
+  const { wrapperStyles, currentPriority, handleActivePriority } = props
+  const { classes: styles } = useTaskPrioritySelectorStyles()
 
   return (
     <div
@@ -32,7 +32,7 @@ export const TaskPrioritySelector: FC<TaskPrioritySelectorProps> = props => {
     >
       <Button
         disabled={currentPriority === null}
-        className={cx(styles.button, {[styles.selectedButton]: currentPriority === null})}
+        className={cx(styles.button, { [styles.selectedButton]: currentPriority === null })}
         variant="text"
         onClick={() => handleActivePriority(null)}
       >

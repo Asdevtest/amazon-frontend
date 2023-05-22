@@ -1,10 +1,10 @@
-import {cx} from '@emotion/css'
-import {Box} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Box } from '@mui/material'
 
-import React, {FC, useState} from 'react'
+import React, { FC, useState } from 'react'
 
-import {useClassNames} from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile.styles'
-import {BigImagesModal} from '@components/modals/big-images-modal'
+import { useClassNames } from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile.styles'
+import { BigImagesModal } from '@components/modals/big-images-modal'
 
 interface ImagesTileProps {
   images: string[]
@@ -12,11 +12,11 @@ interface ImagesTileProps {
 }
 
 export const ImagesTile: FC<ImagesTileProps> = props => {
-  const {images, controls} = props
+  const { images, controls } = props
   const [selectedImage, setSelectedImage] = useState(0)
   const [isShowImagePreview, setIsShowImagePreview] = useState(false)
 
-  const {classes: styles} = useClassNames()
+  const { classes: styles } = useClassNames()
 
   const handlePreview = (index: number) => {
     setSelectedImage(index)

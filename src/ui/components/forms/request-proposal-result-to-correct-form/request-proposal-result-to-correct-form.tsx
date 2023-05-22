@@ -1,18 +1,18 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {ChangeEvent, FC, useEffect, useState} from 'react'
+import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
-import {UploadFilesInput} from '@components/upload-files-input'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './request-proposal-result-to-correct-form.style'
+import { useClassNames } from './request-proposal-result-to-correct-form.style'
 
 interface Props {
   onPressSubmitForm: (formFields: FormFileds, images?: Array<{}>) => void
@@ -24,7 +24,7 @@ interface FormFileds {
   timeLimitInMinutes: string
 }
 
-export const RequestProposalResultToCorrectForm: FC<Props> = observer(({onPressSubmitForm}) => {
+export const RequestProposalResultToCorrectForm: FC<Props> = observer(({ onPressSubmitForm }) => {
   const [formFields, setFormFields] = useState<FormFileds>({
     reason: '',
     linksToMediaFiles: [],
@@ -33,7 +33,7 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({onPressS
   const [hour, setHour] = useState('')
   const [minute, setMinute] = useState('')
   const [images, setImages] = useState([])
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const onChangeHour = (value: string) => {
     const maxValue = 99
@@ -56,7 +56,7 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({onPressS
 
   const onChangeField =
     (fieldName: keyof FormFileds) => (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      const formFieldsNewState = {...formFields}
+      const formFieldsNewState = { ...formFields }
       const value = event.target.value
 
       if (typeof formFieldsNewState[fieldName] === 'number') {
@@ -69,7 +69,7 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({onPressS
     }
 
   useEffect(() => {
-    setFormFields(prev => ({...prev, linksToMediaFiles: images, timeLimitInMinutes: totalTimeInMinute}))
+    setFormFields(prev => ({ ...prev, linksToMediaFiles: images, timeLimitInMinutes: totalTimeInMinute }))
   }, [totalTimeInMinute, images])
 
   return (
@@ -82,7 +82,7 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({onPressS
         <Field
           multiline
           className={classNames.reasonInput}
-          inputProps={{maxLength: 1100}}
+          inputProps={{ maxLength: 1100 }}
           minRows={6}
           maxRows={6}
           label={t(TranslationKey['Reason for rework']) + '*'}

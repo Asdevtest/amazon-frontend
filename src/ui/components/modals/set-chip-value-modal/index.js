@@ -1,1 +1,1 @@
-export {SetChipValueModal} from './set-chip-value-modal'
+export { SetChipValueModal } from './set-chip-value-modal'

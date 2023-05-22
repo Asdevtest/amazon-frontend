@@ -1,1 +1,1 @@
-export {ClientInStockBoxesView} from './client-in-stock-boxes-view'
+export { ClientInStockBoxesView } from './client-in-stock-boxes-view'

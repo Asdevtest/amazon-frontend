@@ -1,1 +1,1 @@
-export {PaymentMethodsForm} from './payment-methods-form'
+export { PaymentMethodsForm } from './payment-methods-form'

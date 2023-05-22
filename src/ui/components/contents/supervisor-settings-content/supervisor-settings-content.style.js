@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -8,11 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
   indicator: {
     backgroundColor: '#1da1f2',
   },
-  // row: {
-  //   width: '100%',
-  //   padding: '0 0px',
-  //   margin: '0 auto',
-  // },
+
   buttonWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -28,11 +24,6 @@ export const useClassNames = makeStyles()(theme => ({
       transform: 'scale(1.01)',
     },
   },
-  // rootDataGrid: {
-  //   border: '0 !important',
-  //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-  //   backgroundColor: theme.palette.background.general,
-  // },
 
   footerContainer: {
     position: 'absolute',
@@ -51,10 +42,6 @@ export const useClassNames = makeStyles()(theme => ({
     border: `1px solid ${theme.palette.primary.main}`,
     width: '300px',
     height: 36,
-  },
-  searchContainer: {
-    width: 'auto',
-    justifySelf: 'flex-start',
   },
 
   buttonsWrapper: {

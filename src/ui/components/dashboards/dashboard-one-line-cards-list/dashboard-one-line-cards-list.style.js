@@ -1,7 +1,6 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  cardsWrapper: {},
   cardWrapper: {
     width: '277px',
 
@@ -31,9 +30,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   iconBtn: {
     marginLeft: '15px',
-    // position: 'absolute',
-    // top: '11px',
-    // right: '25px',
 
     width: 15,
     height: 15,

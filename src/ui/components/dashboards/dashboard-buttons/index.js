@@ -1,1 +1,1 @@
-export {DashboardButtons} from './dashboard-buttons'
+export { DashboardButtons } from './dashboard-buttons'

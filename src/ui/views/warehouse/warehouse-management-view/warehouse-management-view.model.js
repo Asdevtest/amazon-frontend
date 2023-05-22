@@ -1,23 +1,22 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 export class WarehouseManagementViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
 
-  drawerOpen = false
   order = undefined
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
       if (location.state) {
         this.order = location.state.order
       }
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {
@@ -30,11 +29,6 @@ export class WarehouseManagementViewModel {
     }
   }
 
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus

@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
@@ -37,14 +37,6 @@ export const useClassNames = makeStyles()(theme => ({
     // marginTop: '56px',
   },
 
-  cardTitleBlockWrapper: {
-    // width: '50%',
-    // height: '100%',
-    // display: 'flex',
-    // flexDirection: 'column',
-    // justifyContent: 'space-between',
-  },
-
   cardTitle: {
     // margin: '0 10px 0 20px',
     fontWeight: '600',
@@ -62,36 +54,11 @@ export const useClassNames = makeStyles()(theme => ({
     height: '57px',
   },
 
-  cardSubTitle: {
-    fontWeight: '400',
-    fontSize: '16px',
-    lineHeight: '19px',
-    color: theme.palette.text.second,
-  },
-
   leftBlockWrapper: {
     display: 'flex',
     flexDirection: 'column',
     // alignItems: 'flex-end',
     justifyContent: 'space-between',
-  },
-
-  rightBlockWrapper: {
-    marginLeft: '40px',
-    width: '30%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end',
-  },
-
-  divider: {
-    width: '100%',
-  },
-
-  usersInfoBlockWrapper: {
-    display: 'flex',
-    gap: '92px',
   },
 
   userInfo: {
@@ -105,10 +72,6 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     color: theme.palette.text.general,
     marginBottom: '10px',
-  },
-
-  userRating: {
-    marginLeft: '100px',
   },
 
   middleBlockWrapper: {
@@ -140,33 +103,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '21px',
     color: theme.palette.primary.main,
-  },
-
-  statusText: {
-    fontSize: '18px',
-    lineHeight: '21px',
-    color: '#00B746',
-  },
-
-  updatedAtWrapper: {
-    marginTop: 'auto',
-    alignSelf: 'flex-end',
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  updatedAtText: {
-    fontWeight: '400',
-    fontSize: '16px',
-    lineHeight: '19px',
-    color: theme.palette.text.second,
-    marginRight: 5,
-  },
-
-  cardTitleBlockFooterWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
   },
 
   subBlockWrapper: {

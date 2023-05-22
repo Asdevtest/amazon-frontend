@@ -1,1 +1,1 @@
-export {BuyerSearchSupplierBySupervisorView} from './buyer-search-supplier-by-supervisor-view'
+export { BuyerSearchSupplierBySupervisorView } from './buyer-search-supplier-by-supervisor-view'

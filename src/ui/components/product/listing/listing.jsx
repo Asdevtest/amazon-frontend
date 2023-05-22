@@ -1,32 +1,32 @@
 /* eslint-disable no-unused-vars */
-import {Typography, Divider, Paper} from '@mui/material'
+import { Typography, Divider, Paper } from '@mui/material'
 
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
 
-import {observer} from 'mobx-react'
-import {useHistory} from 'react-router-dom'
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
-import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
-import {Field} from '@components/field'
-import {SuccessInfoModal} from '@components/modals/success-info-modal'
-import {UserBalanceHistory} from '@components/screens/user-balance-history'
-import {UploadFilesInput} from '@components/upload-files-input'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { Field } from '@components/shared/field'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
+import { UserBalanceHistory } from '@components/user/user-balance-history'
 
-import {checkIsClient, checkIsSupervisor} from '@utils/checks'
-import {t} from '@utils/translations'
+import { checkIsClient, checkIsSupervisor } from '@utils/checks'
+import { t } from '@utils/translations'
 
-import {Button} from '../../buttons/button'
-import {ListingModel} from './listing.model'
-import {useClassNames} from './listing.style'
+import { ListingModel } from './listing.model'
+import { useClassNames } from './listing.style'
 
-export const Listing = observer(({productId, onClickBack}) => {
-  const {classes: classNames} = useClassNames()
+export const Listing = observer(({ productId, onClickBack }) => {
+  const { classes: classNames } = useClassNames()
   const history = useHistory()
-  const listingModel = useRef(new ListingModel({history, productId}))
+  const listingModel = useRef(new ListingModel({ history, productId }))
 
   useEffect(() => {
     listingModel.current.loadData()
@@ -65,7 +65,7 @@ export const Listing = observer(({productId, onClickBack}) => {
               disabled={!userCanEdit}
               className={classNames.listingTitle}
               minRows={4}
-              inputProps={{maxLength: 1000}}
+              inputProps={{ maxLength: 1000 }}
               label={t(TranslationKey['Listing title'])}
               placeholder={t(TranslationKey['Enter the title of the listing'])}
               value={listingProduct.listingName}
@@ -84,7 +84,7 @@ export const Listing = observer(({productId, onClickBack}) => {
                     : !listingProduct.listingBulletPoints?.slice()[index - 1]) || !userCanEdit
                 }
                 className={classNames.descriptionProduct}
-                inputProps={{maxLength: 1000}}
+                inputProps={{ maxLength: 1000 }}
                 labelClasses={classNames.label}
                 label={`Bullet Point #${el}: `}
                 value={listingProduct.listingBulletPoints?.slice()[index] || ''}
@@ -98,7 +98,7 @@ export const Listing = observer(({productId, onClickBack}) => {
               disabled={!userCanEdit}
               minRows={4}
               // maxRows={4}
-              inputProps={{maxLength: 1000}}
+              inputProps={{ maxLength: 1000 }}
               value={listingProduct.listingProductDetails}
               placeholder={t(TranslationKey['Enter a description'])}
               className={classNames.modalTextArea}
@@ -113,7 +113,7 @@ export const Listing = observer(({productId, onClickBack}) => {
               // multiline
               className={classNames.listingSearchTerms}
               disabled={!userCanEdit}
-              inputProps={{maxLength: 1000}}
+              inputProps={{ maxLength: 1000 }}
               label={t(TranslationKey['Search terms:'])}
               placeholder={t(TranslationKey['Enter search terms'])}
               value={listingProduct.listingSearchTerms}
@@ -131,7 +131,7 @@ export const Listing = observer(({productId, onClickBack}) => {
                     ? false
                     : !listingProduct.listingSubjectMatters?.slice()[index - 1]) || !userCanEdit
                 }
-                inputProps={{maxLength: 1000}}
+                inputProps={{ maxLength: 1000 }}
                 className={classNames.descriptionSecondProduct}
                 labelClasses={classNames.secondLabel}
                 label={`Subject Matter #${el}: `}

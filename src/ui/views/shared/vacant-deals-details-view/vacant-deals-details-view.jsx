@@ -1,87 +1,52 @@
-import React, {Component} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-// import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {DealDetailsCard} from '@components/cards/deal-details-card'
-// import {VacantRequestListCard} from '@components/cards/vacant-request-list-card'
-// import {VacantRequestShortCard} from '@components/cards/vacant-request-short-card'
-// import {Field} from '@components/field'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {Navbar} from '@components/navbar'
+import { DealDetailsCard } from '@components/cards/deal-details-card'
+import { MainContent } from '@components/layout/main-content'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
 
-// import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
-// import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
-// import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {VacantDealsDetailsViewModel} from './vacant-deals-details-view.model'
+import { VacantDealsDetailsViewModel } from './vacant-deals-details-view.model'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_DEALS
-const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS
+export const VacantDealsDetailsView = observer(props => {
+  const [viewModel] = useState(
+    () =>
+      new VacantDealsDetailsViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
 
-@observer
-export class VacantDealsDetailsView extends Component {
-  viewModel = new VacantDealsDetailsViewModel({history: this.props.history, location: this.props.location})
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
-
-  render() {
-    const {
-      requestId,
-      drawerOpen,
-      requester,
-      showConfirmModal,
-      requestProposals,
-      curProposalId,
-      onTriggerDrawerOpen,
-      onTriggerOpenModal,
-      onClickGetToWorkModal,
-      onClickGetToWork,
-    } = this.viewModel
-    // const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
+  return (
+    <React.Fragment>
+      <MainContent>
+        <DealDetailsCard
+          dealsOnReview
+          proposalId={viewModel.curProposalId}
+          requestProposals={viewModel.requestProposals}
+          requester={viewModel.requester}
+          onClickGetToWorkModal={viewModel.onClickGetToWorkModal}
         />
-        <Main>
-          <Appbar title={t(TranslationKey['Vacant deals'])} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <DealDetailsCard
-                dealsOnReview
-                proposalId={curProposalId}
-                requestProposals={requestProposals}
-                requester={requester}
-                onClickGetToWorkModal={onClickGetToWorkModal}
-              />
-            </MainContent>
-          </Appbar>
+      </MainContent>
 
-          <ConfirmationModal
-            openModal={showConfirmModal}
-            setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-            title={t(TranslationKey.Attention)}
-            message={t(TranslationKey['Taking the deal check to work?'])}
-            successBtnText={t(TranslationKey.Yes)}
-            cancelBtnText={t(TranslationKey.No)}
-            onClickSuccessBtn={() => onClickGetToWork(curProposalId, requestId)}
-            onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-          />
-        </Main>
-      </React.Fragment>
-    )
-  }
-}
+      <ConfirmationModal
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={t(TranslationKey['Taking the deal check to work?'])}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={() => viewModel.onClickGetToWork(viewModel.curProposalId, viewModel.requestId)}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+    </React.Fragment>
+  )
+})

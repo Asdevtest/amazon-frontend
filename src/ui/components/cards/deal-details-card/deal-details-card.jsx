@@ -1,26 +1,26 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Avatar, Grid, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Avatar, Grid, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import React from 'react'
 
 import Linkify from 'react-linkify-always-blank'
 
-import {RequestStatus} from '@constants/request-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { RequestStatus } from '@constants/requests/request-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
-import {UserLink} from '@components/user-link'
+import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { Button } from '@components/shared/buttons/button'
+import { UserLink } from '@components/user/user-link'
 
-import {formatNormDateTime} from '@utils/date-time'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {minsToTime, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { formatNormDateTime } from '@utils/date-time'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { minsToTime, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './deal-details-card.style'
+import { useClassNames } from './deal-details-card.style'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 export const DealDetailsCard = ({
   onClickGetToWorkModal,
@@ -32,13 +32,13 @@ export const DealDetailsCard = ({
   requestProposals,
   proposalId,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
   const curProposal = requestProposals?.find(el => el?.proposal._id === proposalId)
 
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
-        <div className={cx(classNames.leftBlockWrapper, {[classNames.leftBlockMarginWrapper]: dealsOnReview})}>
+        <div className={cx(classNames.leftBlockWrapper, { [classNames.leftBlockMarginWrapper]: dealsOnReview })}>
           <div className={classNames.usersInfoBlockWrapper}>
             <div className={classNames.userInfoWrapper}>
               <Typography className={classNames.userInfoName}>{t(TranslationKey.Client)}</Typography>
@@ -71,7 +71,7 @@ export const DealDetailsCard = ({
               </div>
             </div>
           </div>
-          <div className={classNames.cardTitleBlockWrapper}>
+          <div>
             <div className={classNames.cardTitleBlockHeaderWrapper}>
               <Typography className={classNames.cardTitle}>{`${t(TranslationKey['Client task'])}:`}</Typography>
               <Typography className={classNames.cardTitle}>{request?.request?.title}</Typography>

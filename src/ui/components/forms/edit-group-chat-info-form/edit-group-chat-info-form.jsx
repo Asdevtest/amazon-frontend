@@ -1,25 +1,25 @@
-import {cx} from '@emotion/css'
-import {Typography, Avatar as AvatarMui} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography, Avatar as AvatarMui } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 import Avatar from 'react-avatar-edit'
 
-import {UiTheme} from '@constants/themes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { UiTheme } from '@constants/theme/themes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './edit-group-chat-info-form.style'
+import { useClassNames } from './edit-group-chat-info-form.style'
 
-export const EditGroupChatInfoForm = ({onSubmit, onCloseModal, chat}) => {
-  const {classes: classNames} = useClassNames()
+export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
+  const { classes: classNames } = useClassNames()
 
   const [showInfoModal, setShowInfoModal] = useState(false)
 
@@ -33,11 +33,11 @@ export const EditGroupChatInfoForm = ({onSubmit, onCloseModal, chat}) => {
   const [state, setState] = useState(sourceState)
 
   const onClose = () => {
-    setState({...state, preview: null})
+    setState({ ...state, preview: null })
   }
 
   const onCrop = preview => {
-    setState({...state, preview})
+    setState({ ...state, preview })
   }
 
   const onBeforeFileLoad = elem => {
@@ -75,7 +75,7 @@ export const EditGroupChatInfoForm = ({onSubmit, onCloseModal, chat}) => {
         label={t(TranslationKey['Name of group chat']) + '*'}
         labelClasses={classNames.labelField}
         value={state.title}
-        onChange={e => setState({...state, title: e.target.value})}
+        onChange={e => setState({ ...state, title: e.target.value })}
       />
 
       <Field
@@ -121,12 +121,12 @@ export const EditGroupChatInfoForm = ({onSubmit, onCloseModal, chat}) => {
       />
 
       <div className={classNames.textsWrapper}>
-        <Typography className={cx(classNames.standartText, {[classNames.successText]: state.preview})}>
+        <Typography className={cx(classNames.standartText, { [classNames.successText]: state.preview })}>
           {t(TranslationKey['The image size should not exceed'])}{' '}
           {<span className={classNames.spanText}>{'15 mb.'}</span>}
         </Typography>
 
-        <Typography className={cx(classNames.standartText, {[classNames.successText]: state.preview})}>
+        <Typography className={cx(classNames.standartText, { [classNames.successText]: state.preview })}>
           {t(TranslationKey['Allowed image formats'])}
           {'('}
           {<span className={classNames.spanText}>{`'jpeg', 'jpg', 'png', 'webp', 'gif', 'ico', 'svg', 'avif'`}</span>}

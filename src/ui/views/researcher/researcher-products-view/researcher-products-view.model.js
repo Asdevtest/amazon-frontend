@@ -1,23 +1,23 @@
-import {action, makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
-import {mapProductStrategyStatusEnumToKey, ProductStrategyStatus} from '@constants/product-strategy-status'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
+import { mapProductStrategyStatusEnumToKey, ProductStrategyStatus } from '@constants/product/product-strategy-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {ResearcherModel} from '@models/researcher-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { ResearcherModel } from '@models/researcher-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {researcherProductsViewColumns} from '@components/table-columns/researcher/researcher-products-columns'
+import { researcherProductsViewColumns } from '@components/table/table-columns/researcher/researcher-products-columns'
 
-import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
-import {researcherProductsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
-import {getNewObjectWithDefaultValue, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
-import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
+import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
+import { researcherProductsDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getAmazonCodeFromLink } from '@utils/get-amazon-code-from-link'
+import { getNewObjectWithDefaultValue, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
+import { isValidationErrors, plainValidationErrorAndApplyFuncForEachError } from '@utils/validation'
 
 const formFieldsDefault = {
   amazonLink: '',
@@ -41,9 +41,7 @@ export class ResearcherProductsViewModel {
   reasonError = undefined
   actionStatus = undefined
 
-  drawerOpen = false
-
-  formFields = {...formFieldsDefault}
+  formFields = { ...formFieldsDefault }
   newProductId = undefined
 
   showWarningInfoModal = false
@@ -56,7 +54,7 @@ export class ResearcherProductsViewModel {
 
   sortModel = []
   startFilterModel = undefined
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -71,7 +69,7 @@ export class ResearcherProductsViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
 
@@ -83,7 +81,7 @@ export class ResearcherProductsViewModel {
     //       this.startFilterModel = resetDataGridFilter
     //     }
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -139,7 +137,7 @@ export class ResearcherProductsViewModel {
         this.filterModel = this.startFilterModel
           ? {
               ...this.startFilterModel,
-              items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
+              items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
             }
           : state.filter.filterModel
         this.rowsPerPage = state.pagination.pageSize
@@ -162,12 +160,6 @@ export class ResearcherProductsViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -324,7 +316,7 @@ export class ResearcherProductsViewModel {
             pathname: '/researcher/products/product',
             search: foundedProd.originalData._id,
           },
-          {startParse: true},
+          { startParse: true },
         )
       } catch (error) {
         console.warn(error)
@@ -361,7 +353,7 @@ export class ResearcherProductsViewModel {
       this.onTriggerOpenModal('showWarningInfoModal')
 
       if (isValidationErrors(error)) {
-        plainValidationErrorAndApplyFuncForEachError(error, ({errorProperty, constraint}) => {
+        plainValidationErrorAndApplyFuncForEachError(error, ({ errorProperty, constraint }) => {
           runInAction(() => {
             this.formFieldsValidationErrors[errorProperty] = constraint
           })
@@ -481,12 +473,6 @@ export class ResearcherProductsViewModel {
   onChangeCurPage(e) {
     runInAction(() => {
       this.curPage = e
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

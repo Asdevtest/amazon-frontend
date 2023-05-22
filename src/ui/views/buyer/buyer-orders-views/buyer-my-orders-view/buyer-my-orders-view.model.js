@@ -1,36 +1,36 @@
 /* eslint-disable no-unused-vars */
-import {transformAndValidate} from 'class-transformer-validator'
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { transformAndValidate } from 'class-transformer-validator'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
-import {routsPathes} from '@constants/routs-pathes'
-import {mapTaskPriorityStatusEnumToKey, TaskPriorityStatus} from '@constants/task-priority-status'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {creatSupplier, patchSuppliers} from '@constants/white-list'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { navBarActiveSubCategory } from '@constants/navigation/navbar-active-category'
+import { routsPathes } from '@constants/navigation/routs-pathes'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
+import { TranslationKey } from '@constants/translations/translation-key'
+import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
-import {BoxesModel} from '@models/boxes-model'
-import {BoxesCreateBoxContract} from '@models/boxes-model/boxes-model.contracts'
-import {BuyerModel} from '@models/buyer-model'
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {SupplierModel} from '@models/supplier-model'
-import {UserModel} from '@models/user-model'
+import { BoxesModel } from '@models/boxes-model'
+import { BoxesCreateBoxContract } from '@models/boxes-model/boxes-model.contracts'
+import { BuyerModel } from '@models/buyer-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { SupplierModel } from '@models/supplier-model'
+import { UserModel } from '@models/user-model'
 
-import {BuyerReadyForPaymentColumns} from '@components/table-columns/buyer/buyer-ready-for-payment-columns'
+import { BuyerReadyForPaymentColumns } from '@components/table/table-columns/buyer/buyer-ready-for-payment-columns'
 
 // import {calcOrderTotalPrice} from '@utils/calculation'
-import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import { buyerMyOrdersDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 // import {resetDataGridFilter} from '@utils/filters'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {objectToUrlQs, toFixed} from '@utils/text'
+import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { objectToUrlQs, toFixed } from '@utils/text'
 // import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 const updateOrderKeys = [
   'deliveryMethod',
@@ -51,27 +51,6 @@ const updateOrderKeys = [
   'priceInYuan',
   'priceBatchDeliveryInYuan',
 ]
-
-const setNavbarActiveSubCategory = pathname => {
-  if (pathname) {
-    switch (pathname) {
-      case routsPathes.BUYER_MY_ORDERS_NEED_TRACK_NUMBER:
-        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NEED_TRACK_NUMBER
-      case routsPathes.BUYER_MY_ORDERS_INBOUND:
-        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_INBOUND
-      case routsPathes.BUYER_MY_ORDERS_CONFIRMATION_REQUIRED:
-        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CONFIRMATION_REQUIRED
-      case routsPathes.BUYER_MY_ORDERS_CLOSED_AND_CANCELED:
-        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CLOSED_AND_CANCELED
-      case routsPathes.BUYER_MY_ORDERS_ALL_ORDERS:
-        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_ALL_ORDERS
-      case routsPathes.BUYER_MY_ORDERS_READY_FOR_PAYMENT:
-        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_READY_FOR_PAYMENT
-      default:
-        return navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NOT_PAID
-    }
-  }
-}
 
 const filtersFields = ['payments']
 
@@ -108,7 +87,6 @@ export class BuyerMyOrdersViewModel {
 
   nameSearchValue = ''
 
-  drawerOpen = false
   showBarcodeModal = false
   showOrderModal = false
   selectedOrder = undefined
@@ -131,7 +109,7 @@ export class BuyerMyOrdersViewModel {
 
   showSuccessModalText = ''
 
-  dataToCancelOrder = {orderId: undefined, buyerComment: undefined}
+  dataToCancelOrder = { orderId: undefined, buyerComment: undefined }
 
   firstRowId = undefined
 
@@ -150,7 +128,7 @@ export class BuyerMyOrdersViewModel {
   rowCount = 0
   sortModel = []
   startFilterModel = undefined
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -193,10 +171,6 @@ export class BuyerMyOrdersViewModel {
     return UserModel.userInfo
   }
 
-  get navbarActiveSubCategory() {
-    return setNavbarActiveSubCategory(this.history.location.pathname)
-  }
-
   // НЕ было до создания фильтрации по статусам
   get orderStatusData() {
     return {
@@ -210,7 +184,7 @@ export class BuyerMyOrdersViewModel {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
     })
@@ -218,9 +192,9 @@ export class BuyerMyOrdersViewModel {
     if (location.state?.orderId) {
       this.onClickOrder(location.state.orderId)
 
-      const state = {...history.location.state}
+      const state = { ...history.location.state }
       delete state.orderId
-      history.replace({...history.location, state})
+      history.replace({ ...history.location, state })
     }
 
     if (location?.state?.dataGridFilter) {
@@ -229,7 +203,7 @@ export class BuyerMyOrdersViewModel {
       })
     }
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -277,7 +251,7 @@ export class BuyerMyOrdersViewModel {
         if (this.columnMenuSettings[column]) {
           this.columnMenuSettings = {
             ...this.columnMenuSettings,
-            [column]: {...this.columnMenuSettings[column], filterData: data.map(el => ({...el, name: el.title}))},
+            [column]: { ...this.columnMenuSettings[column], filterData: data.map(el => ({ ...el, name: el.title })) },
           }
         }
       }
@@ -479,12 +453,12 @@ export class BuyerMyOrdersViewModel {
     this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
   }
 
-  async onClickSaveSupplierBtn({supplier, photosOfSupplier, productId, editPhotosOfSupplier}) {
+  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, productId, editPhotosOfSupplier }) {
     try {
       this.clearReadyImages()
 
       if (editPhotosOfSupplier?.length) {
-        await onSubmitPostImages.call(this, {images: editPhotosOfSupplier, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
       }
 
       supplier = {
@@ -499,7 +473,7 @@ export class BuyerMyOrdersViewModel {
       this.clearReadyImages()
 
       if (photosOfSupplier?.length) {
-        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
 
         supplier = {
           ...supplier,
@@ -547,7 +521,7 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onClickUpdataSupplierData({supplier, productId, orderFields}) {
+  async onClickUpdataSupplierData({ supplier, productId, orderFields }) {
     this.updateSupplierData = false
 
     this.getPlatformSettings()
@@ -639,7 +613,7 @@ export class BuyerMyOrdersViewModel {
         this.filterModel = this.startFilterModel
           ? {
               ...this.startFilterModel,
-              items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
+              items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
             }
           : state.filter.filterModel
 
@@ -671,12 +645,6 @@ export class BuyerMyOrdersViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -846,7 +814,9 @@ export class BuyerMyOrdersViewModel {
 
   async onSubmitCancelOrder() {
     try {
-      await BuyerModel.returnOrder(this.dataToCancelOrder.orderId, {buyerComment: this.dataToCancelOrder.buyerComment})
+      await BuyerModel.returnOrder(this.dataToCancelOrder.orderId, {
+        buyerComment: this.dataToCancelOrder.buyerComment,
+      })
       await UserModel.getUserInfo()
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
@@ -865,7 +835,7 @@ export class BuyerMyOrdersViewModel {
         for (const payment of orderPayments) {
           if (payment?.photosForLoad?.length) {
             this.clearReadyImages()
-            await onSubmitPostImages.call(this, {images: payment.photosForLoad, type: 'readyImages'})
+            await onSubmitPostImages.call(this, { images: payment.photosForLoad, type: 'readyImages' })
           }
 
           const readyPhotosForLoad = await this.readyImages
@@ -880,7 +850,7 @@ export class BuyerMyOrdersViewModel {
 
           if (payment?.paymentImages?.length) {
             this.clearReadyImages()
-            await onSubmitPostImages.call(this, {images: payment.paymentImages, type: 'readyImages'})
+            await onSubmitPostImages.call(this, { images: payment.paymentImages, type: 'readyImages' })
           }
 
           const readyPaymentImages = await this.readyImages
@@ -893,7 +863,7 @@ export class BuyerMyOrdersViewModel {
           })
         }
 
-        await BuyerModel.PatchBuyersOrdersPaymentByGuid(order._id, {orderPayments: validOrderPayments})
+        await BuyerModel.PatchBuyersOrdersPaymentByGuid(order._id, { orderPayments: validOrderPayments })
         this.loadData()
       } catch (error) {
         console.log('error', error)
@@ -926,7 +896,7 @@ export class BuyerMyOrdersViewModel {
       this.clearReadyImages()
 
       // if (this.imagesForLoad.length) {
-      await onSubmitPostImages.call(this, {images: this.imagesForLoad || [], type: 'readyImages'})
+      await onSubmitPostImages.call(this, { images: this.imagesForLoad || [], type: 'readyImages' })
 
       this.clearImagesForLoad()
 
@@ -939,7 +909,7 @@ export class BuyerMyOrdersViewModel {
       this.clearReadyImages()
 
       if (photosToLoad?.length) {
-        await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: photosToLoad, type: 'readyImages' })
 
         orderFields = {
           ...orderFields,
@@ -950,7 +920,7 @@ export class BuyerMyOrdersViewModel {
       this.clearReadyImages()
 
       // if (editPaymentDetailsPhotos?.length) {
-      await onSubmitPostImages.call(this, {images: editPaymentDetailsPhotos || [], type: 'readyImages'})
+      await onSubmitPostImages.call(this, { images: editPaymentDetailsPhotos || [], type: 'readyImages' })
 
       orderFields = {
         ...orderFields,
@@ -961,7 +931,7 @@ export class BuyerMyOrdersViewModel {
       this.clearReadyImages()
 
       if (paymentDetailsPhotosToLoad?.length) {
-        await onSubmitPostImages.call(this, {images: paymentDetailsPhotosToLoad, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: paymentDetailsPhotosToLoad, type: 'readyImages' })
 
         orderFields = {
           ...orderFields,
@@ -980,7 +950,7 @@ export class BuyerMyOrdersViewModel {
         !isMismatchOrderPrice &&
         orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`
       ) {
-        await this.onSubmitCreateBoxes({order, boxesForCreation, trackNumber, commentToWarehouse})
+        await this.onSubmitCreateBoxes({ order, boxesForCreation, trackNumber, commentToWarehouse })
       }
 
       // if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2) && isMismatchOrderPrice) {
@@ -989,7 +959,7 @@ export class BuyerMyOrdersViewModel {
         orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
       ) {
         if (toFixed(orderFields.totalPriceChanged, 2) !== toFixed(orderFields.totalPrice, 2)) {
-          await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
+          await BuyerModel.setOrderTotalPriceChanged(order._id, { totalPriceChanged: orderFields.totalPriceChanged })
         }
       }
 
@@ -1007,7 +977,7 @@ export class BuyerMyOrdersViewModel {
       }
 
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`) {
-        await BuyerModel.orderSetInStock(order._id, {refundPrice: Number(orderFields.tmpRefundToClient)})
+        await BuyerModel.orderSetInStock(order._id, { refundPrice: Number(orderFields.tmpRefundToClient) })
       }
 
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}`) {
@@ -1017,7 +987,7 @@ export class BuyerMyOrdersViewModel {
         for (const payment of orderPayments) {
           if (payment?.photosForLoad?.length) {
             this.clearReadyImages()
-            await onSubmitPostImages.call(this, {images: payment.photosForLoad, type: 'readyImages'})
+            await onSubmitPostImages.call(this, { images: payment.photosForLoad, type: 'readyImages' })
           }
 
           const readyPhotosForLoad = await this.readyImages
@@ -1032,7 +1002,7 @@ export class BuyerMyOrdersViewModel {
 
           if (payment?.paymentImages?.length) {
             this.clearReadyImages()
-            await onSubmitPostImages.call(this, {images: payment.paymentImages, type: 'readyImages'})
+            await onSubmitPostImages.call(this, { images: payment.paymentImages, type: 'readyImages' })
           }
 
           const readyPaymentImages = await this.readyImages
@@ -1045,12 +1015,12 @@ export class BuyerMyOrdersViewModel {
           })
         }
 
-        await BuyerModel.orderReadyForPayment(order._id, {orderPayments: validOrderPayments})
+        await BuyerModel.orderReadyForPayment(order._id, { orderPayments: validOrderPayments })
       }
 
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
         runInAction(() => {
-          this.dataToCancelOrder = {orderId: order._id, buyerComment: orderFields.buyerComment}
+          this.dataToCancelOrder = { orderId: order._id, buyerComment: orderFields.buyerComment }
         })
 
         this.confirmModalSettings = {
@@ -1081,7 +1051,7 @@ export class BuyerMyOrdersViewModel {
       this.setRequestStatus(loadingStatuses.success)
       if (orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
         runInAction(() => {
-          this.dataToCancelOrder = {orderId: order._id, buyerComment: orderFields.buyerComment}
+          this.dataToCancelOrder = { orderId: order._id, buyerComment: orderFields.buyerComment }
         })
         this.onTriggerOpenModal('showOrderModal')
         UserModel.getUserInfo()
@@ -1100,7 +1070,7 @@ export class BuyerMyOrdersViewModel {
       this.uploadedFiles = []
 
       if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
 
       await BoxesModel.editAdditionalInfo(data._id, {
@@ -1166,7 +1136,7 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSubmitCreateBoxes({order, boxesForCreation, trackNumber, commentToWarehouse}) {
+  async onSubmitCreateBoxes({ order, boxesForCreation, trackNumber, commentToWarehouse }) {
     try {
       runInAction(() => {
         this.error = undefined
@@ -1176,7 +1146,7 @@ export class BuyerMyOrdersViewModel {
 
       this.readyImages = []
       if (trackNumber?.files.length) {
-        await onSubmitPostImages.call(this, {images: trackNumber.files, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: trackNumber.files, type: 'readyImages' })
       }
 
       for (let i = 0; i < boxesForCreation.length; i++) {
@@ -1305,11 +1275,11 @@ export class BuyerMyOrdersViewModel {
     try {
       const filter = objectToUrlQs({
         or: [
-          {asin: {$contains: this.nameSearchValue}},
-          {amazonTitle: {$contains: this.nameSearchValue}},
-          {skusByClient: {$contains: this.nameSearchValue}},
-          {item: {$eq: this.nameSearchValue}},
-          {id: {$eq: this.nameSearchValue}},
+          { asin: { $contains: this.nameSearchValue } },
+          { amazonTitle: { $contains: this.nameSearchValue } },
+          { skusByClient: { $contains: this.nameSearchValue } },
+          { item: { $eq: this.nameSearchValue } },
+          { id: { $eq: this.nameSearchValue } },
         ].filter(
           el =>
             ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
@@ -1356,12 +1326,6 @@ export class BuyerMyOrdersViewModel {
   onTriggerShowBarcodeModal() {
     runInAction(() => {
       this.showBarcodeModal = !this.showBarcodeModal
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

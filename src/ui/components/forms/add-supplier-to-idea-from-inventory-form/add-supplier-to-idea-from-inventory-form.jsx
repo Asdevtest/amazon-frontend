@@ -1,31 +1,31 @@
 /* eslint-disable no-unused-vars */
-import {Typography, IconButton, Grid, Checkbox, NativeSelect, Link} from '@mui/material'
+import { Typography, IconButton, Grid, Checkbox, NativeSelect, Link } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {CopyValue} from '@components/copy-value/copy-value'
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {Field} from '@components/field/field'
-import {Input} from '@components/input'
-import {WithSearchSelect} from '@components/selects/with-search-select'
-import {UploadFilesInput} from '@components/upload-files-input'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { Field } from '@components/shared/field/field'
+import { Input } from '@components/shared/input'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
-import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
-import {t} from '@utils/translations'
+import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
+import { getAmazonCodeFromLink } from '@utils/get-amazon-code-from-link'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './add-supplier-to-idea-from-inventory-form.style'
+import { useClassNames } from './add-supplier-to-idea-from-inventory-form.style'
 
 export const AddSupplierToIdeaFromInventoryForm = observer(
-  ({onSubmit, showProgress, progressValue, onClose, ideas, product}) => {
-    const {classes: classNames} = useClassNames()
+  ({ onSubmit, showProgress, progressValue, onClose, ideas, product }) => {
+    const { classes: classNames } = useClassNames()
 
     const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
@@ -77,7 +77,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
     }, [curIdeaId])
 
     const onChangeField = fieldName => event => {
-      const newFormFields = {...formFields}
+      const newFormFields = { ...formFields }
       // if (['execution_time'].includes(fieldName)) {
       //   newFormFields[fieldName] = parseInt(event.target.value) || ''
       // } else
@@ -94,7 +94,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
     }
 
     const onClickLinkBtn = () => {
-      onChangeField('links')({target: {value: [...formFields.links, linkLine]}})
+      onChangeField('links')({ target: { value: [...formFields.links, linkLine] } })
 
       setLinkLine('')
     }
@@ -102,7 +102,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
     const onRemoveLink = index => {
       const newArr = formFields.links.filter((el, i) => i !== index)
 
-      onChangeField('links')({target: {value: [...newArr]}})
+      onChangeField('links')({ target: { value: [...newArr] } })
     }
 
     const onCreateSearchSupplierRequest = () => {
@@ -162,7 +162,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
         />
 
         <Field
-          inputProps={{maxLength: 50}}
+          inputProps={{ maxLength: 50 }}
           label={t(TranslationKey['Product name'])}
           labelClasses={classNames.label}
           value={formFields.title}
@@ -179,7 +179,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
               <div className={classNames.inputWrapper}>
                 <Input
                   placeholder={t(TranslationKey['Product Link'])}
-                  inputProps={{maxLength: 1500}}
+                  inputProps={{ maxLength: 1500 }}
                   value={linkLine}
                   className={classNames.input}
                   onChange={e => setLinkLine(e.target.value)}
@@ -243,7 +243,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
               multiline
               minRows={9}
               maxRows={9}
-              inputProps={{maxLength: 200}}
+              inputProps={{ maxLength: 200 }}
               label={t(TranslationKey['Important criteria'])}
               labelClasses={classNames.label}
               inputClasses={classNames.bigInput}
@@ -257,7 +257,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
           <div className={classNames.bottomFieldsSubWrapper}>
             <div className={classNames.sizesBottomWrapper}>
               <Field
-                inputProps={{maxLength: 9}}
+                inputProps={{ maxLength: 9 }}
                 labelClasses={classNames.label}
                 inputClasses={classNames.sizesInput}
                 containerClasses={classNames.sizesContainer}
@@ -266,7 +266,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
                 onChange={onChangeField('width')}
               />
               <Field
-                inputProps={{maxLength: 9}}
+                inputProps={{ maxLength: 9 }}
                 labelClasses={classNames.label}
                 inputClasses={classNames.sizesInput}
                 containerClasses={classNames.sizesContainer}
@@ -275,7 +275,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
                 onChange={onChangeField('height')}
               />
               <Field
-                inputProps={{maxLength: 9}}
+                inputProps={{ maxLength: 9 }}
                 labelClasses={classNames.label}
                 inputClasses={classNames.sizesInput}
                 containerClasses={classNames.sizesContainer}
@@ -286,7 +286,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
             </div>
 
             <Field
-              inputProps={{maxLength: 9}}
+              inputProps={{ maxLength: 9 }}
               label={t(TranslationKey.Quantity)}
               labelClasses={classNames.label}
               value={formFields.quantity}
@@ -294,7 +294,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
               onChange={onChangeField('quantity')}
             />
             <Field
-              inputProps={{maxLength: 9}}
+              inputProps={{ maxLength: 9 }}
               label={t(TranslationKey['Desired purchase price']) + ', $'}
               labelClasses={classNames.label}
               value={formFields.price}

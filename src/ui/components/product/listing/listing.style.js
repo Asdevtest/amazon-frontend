@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
@@ -29,7 +29,6 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'flex-start',
     gap: '15px',
     width: '706px',
-    // padding: '16px',
   },
 
   title: {
@@ -45,7 +44,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     display: 'block',
     fontSize: '25px',
-
     padding: 0,
   },
 
@@ -53,52 +51,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: 'auto',
     width: '100%',
     display: 'block',
-
     padding: 0,
-  },
-
-  searchSupplierField: {
-    height: 'auto',
-    width: '100%',
-    display: 'block',
-  },
-
-  link: {
-    width: '100%',
-    overflowX: 'auto',
-    whiteSpace: 'nowrap',
-  },
-
-  competitorMainWrapper: {
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-beetwen',
-
-    gap: '20px',
-  },
-
-  competitorWrapper: {
-    width: '90%',
-  },
-
-  detailDescriptionWrapper: {
-    width: '100%',
-  },
-
-  detailDescription: {
-    height: '100px',
-    width: '100%',
-    display: 'block',
-    border: '1px solid rgba(217, 222, 229, 1)',
-    borderRadius: '4px',
-    padding: '6px 8px 7px',
-    color: theme.palette.text.general,
-    fontSize: '17px',
-    '&:focus': {
-      border: '1px solid rgba(0, 123, 255, 1)',
-      outline: 'none',
-    },
   },
 
   subTitle: {
@@ -113,97 +66,13 @@ export const useClassNames = makeStyles()(theme => ({
     width: '200px',
   },
 
-  text: {
-    color: theme.palette.text.general,
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '22px',
-  },
   label: {
     width: '142px',
   },
   secondLabel: {
     width: '162px',
   },
-  boxCode: {
-    display: 'flex',
-    alignItems: 'center',
-    margin: '48px 0px',
-  },
-  modalText: {
-    color: theme.palette.text.general,
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '21px',
-  },
-  typoCode: {
-    marginRight: '8px',
-  },
 
-  imgBox: {
-    width: '200px',
-    height: '80px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
-
-  bigImg: {
-    height: '70vh',
-    objectFit: 'center',
-  },
-  competitorsWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-  },
-  competitorTypo: {
-    height: '60px',
-    maxWidth: '400px',
-    whiteSpace: 'nowrap',
-    overflowX: 'auto',
-  },
-
-  inputFileWrapper: {
-    width: '150px',
-    height: '150px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    border: '1px solid rgba(61, 81, 112, 1)',
-    borderRadius: '10px',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    transition: '0.3s ease',
-    '&:hover': {
-      opacity: '0.7',
-    },
-  },
-  inputWaitFileWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  fileInput: {
-    display: 'none',
-  },
-
-  filesInputList: {
-    listStyle: 'none',
-    display: 'grid',
-    gridTemplateColumns: 'repeat(4, auto)',
-    gap: '10px',
-  },
-
-  filesInputListItem: {
-    padding: '0',
-  },
   buttonsWrapper: {
     width: '100%',
     display: 'flex',
@@ -221,7 +90,6 @@ export const useClassNames = makeStyles()(theme => ({
   modalTextArea: {
     height: 'auto',
     width: '100%',
-    // overflowY: 'hidden',
     padding: 0,
   },
 

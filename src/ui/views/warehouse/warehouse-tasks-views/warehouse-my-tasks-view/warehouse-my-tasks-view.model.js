@@ -1,26 +1,26 @@
-import {transformAndValidate} from 'class-transformer-validator'
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { transformAndValidate } from 'class-transformer-validator'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
-import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
-import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { mapTaskOperationTypeKeyToEnum, TaskOperationType } from '@constants/task/task-operation-type'
+import { mapTaskStatusEmumToKey, TaskStatus } from '@constants/task/task-status'
 
-import {BoxesModel} from '@models/boxes-model'
-import {BoxesWarehouseUpdateBoxInTaskContract} from '@models/boxes-model/boxes-model.contracts'
-import {OtherModel} from '@models/other-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { BoxesModel } from '@models/boxes-model'
+import { BoxesWarehouseUpdateBoxInTaskContract } from '@models/boxes-model/boxes-model.contracts'
+import { OtherModel } from '@models/other-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {warehouseMyTasksViewColumns} from '@components/table-columns/warehouse/my-tasks-columns'
+import { warehouseMyTasksViewColumns } from '@components/table/table-columns/warehouse/my-tasks-columns'
 
-import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {objectToUrlQs} from '@utils/text'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDate } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { objectToUrlQs } from '@utils/text'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class WarehouseMyTasksViewModel {
   history = undefined
@@ -46,7 +46,6 @@ export class WarehouseMyTasksViewModel {
   showProgress = false
   progressValue = 0
 
-  drawerOpen = false
   showEditTaskModal = false
   showNoDimensionsErrorModal = false
   selectedTask = undefined
@@ -70,7 +69,7 @@ export class WarehouseMyTasksViewModel {
 
   firstRowId = undefined
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -78,7 +77,7 @@ export class WarehouseMyTasksViewModel {
 
   tmpDataForCancelTask = {}
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
     })
@@ -86,12 +85,12 @@ export class WarehouseMyTasksViewModel {
     if (location.state?.task) {
       this.onClickResolveBtn(location.state?.task)
 
-      const state = {...history.location.state}
+      const state = { ...history.location.state }
       delete state.task
-      history.replace({...history.location, state})
+      history.replace({ ...history.location, state })
     }
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
@@ -154,12 +153,6 @@ export class WarehouseMyTasksViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -239,12 +232,6 @@ export class WarehouseMyTasksViewModel {
     }
   }
 
-  onChangeTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
   onChangeCurPage(e) {
     runInAction(() => {
       this.curPage = e
@@ -278,7 +265,7 @@ export class WarehouseMyTasksViewModel {
 
       const filter = objectToUrlQs({
         or: [
-          {asin: {$contains: this.nameSearchValue}},
+          { asin: { $contains: this.nameSearchValue } },
           {
             trackNumberText: {
               [`${
@@ -286,8 +273,8 @@ export class WarehouseMyTasksViewModel {
               }`]: this.nameSearchValue,
             },
           },
-          {id: {$eq: this.nameSearchValue}},
-          {item: {$eq: this.nameSearchValue}},
+          { id: { $eq: this.nameSearchValue } },
+          { item: { $eq: this.nameSearchValue } },
         ].filter(
           el =>
             ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
@@ -364,9 +351,9 @@ export class WarehouseMyTasksViewModel {
   async updateBox(id, data) {
     try {
       if (data.tmpImages.length > 0) {
-        await onSubmitPostImages.call(this, {images: data.tmpImages, type: 'imagesOfBox'})
+        await onSubmitPostImages.call(this, { images: data.tmpImages, type: 'imagesOfBox' })
 
-        data = {...data, images: [...data.images, ...this.imagesOfBox]}
+        data = { ...data, images: [...data.images, ...this.imagesOfBox] }
       }
 
       const updateBoxData = {
@@ -419,7 +406,7 @@ export class WarehouseMyTasksViewModel {
 
   async resolveTask(taskId, newBoxes) {
     try {
-      await StorekeeperModel.resolveTask(taskId, {additionalBoxes: newBoxes})
+      await StorekeeperModel.resolveTask(taskId, { additionalBoxes: newBoxes })
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -428,7 +415,7 @@ export class WarehouseMyTasksViewModel {
     }
   }
 
-  async onClickSolveTask({task, newBoxes, operationType, comment, photos}) {
+  async onClickSolveTask({ task, newBoxes, operationType, comment, photos }) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -469,7 +456,7 @@ export class WarehouseMyTasksViewModel {
           })
 
           if (box.tmpImages.length > 0) {
-            await onSubmitPostImages.call(this, {images: box.tmpImages, type: 'imagesOfBox'})
+            await onSubmitPostImages.call(this, { images: box.tmpImages, type: 'imagesOfBox' })
           }
 
           const newBox = getObjectFilteredByKeyArrayWhiteList(
@@ -536,7 +523,7 @@ export class WarehouseMyTasksViewModel {
       }
 
       if (photos.length > 0) {
-        await onSubmitPostImages.call(this, {images: photos, type: 'imagesOfTask'})
+        await onSubmitPostImages.call(this, { images: photos, type: 'imagesOfTask' })
       } else {
         runInAction(() => {
           this.imagesOfTask = []
@@ -581,7 +568,7 @@ export class WarehouseMyTasksViewModel {
 
   startEditTaskPriority(taskId, newPriority) {
     runInAction(() => {
-      this.editPriorityData = {taskId, newPriority}
+      this.editPriorityData = { taskId, newPriority }
       this.showEditPriorityData = true
     })
   }
@@ -613,7 +600,7 @@ export class WarehouseMyTasksViewModel {
 
   onClickCancelTask(boxId, taskId, taskType) {
     runInAction(() => {
-      this.tmpDataForCancelTask = {boxId, taskId, taskType}
+      this.tmpDataForCancelTask = { boxId, taskId, taskType }
     })
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -692,9 +679,9 @@ export class WarehouseMyTasksViewModel {
     })
   }
 
-  async onClickResolveBtn(item) {
+  async onClickResolveBtn(itemId) {
     try {
-      const result = await StorekeeperModel.getTaskById(item._id)
+      const result = await StorekeeperModel.getTaskById(itemId)
 
       const platformSettingsResult = await UserModel.getPlatformSettings()
 

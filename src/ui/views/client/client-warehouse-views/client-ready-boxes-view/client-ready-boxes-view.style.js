@@ -1,57 +1,17 @@
 export const styles = theme => ({
-  sendOwnProductBtn: {
-    marginBottom: theme.spacing(2),
-  },
-  redistributionWrapper: {},
-  modalMessageWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  modalMessage: {
-    maxWidth: '400px',
-  },
-  modalMessageBtn: {
-    alignSelf: 'flex-end',
-  },
-
-  heightFieldAuto: {
-    height: 'auto',
-    maxWidth: '380px',
-    minWidth: '250px',
-
-    padding: 0,
-  },
-  buttonsWrapper: {
-    marginTop: '15px',
-  },
   button: {
     marginBottom: 5,
     marginRight: '10px',
-    // height: 'auto',
-
-    // color: theme.palette.text.general,
     padding: '0 45px',
     fontWeight: 600,
-
     color: theme.palette.primary.main,
-
     '&>disabled': {
       backgroundColor: 'inherit',
     },
   },
 
-  tableWrapper: {
-    minWidth: '100%',
-  },
-
   isDraftRow: {
     opacity: '.5',
-  },
-
-  tasksWrapper: {
-    marginTop: '30px',
-
-    height: '60vh',
   },
 
   boxesFiltersWrapper: {
@@ -84,8 +44,6 @@ export const styles = theme => ({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
   },
 
@@ -107,10 +65,6 @@ export const styles = theme => ({
     height: '77vh',
   },
 
-  searchContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: '300px',

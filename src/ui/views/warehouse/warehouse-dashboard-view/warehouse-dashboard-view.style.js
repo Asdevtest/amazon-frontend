@@ -1,7 +1,4 @@
 export const styles = theme => ({
-  dashboardCardWrapper: {
-    marginTop: '24px',
-  },
   userInfoWrapper: {
     marginBottom: theme.spacing(5),
 
@@ -36,9 +33,6 @@ export const styles = theme => ({
 
   addressMainWrapper: {
     marginTop: 20,
-    // display: 'flex',
-    // alignItems: 'center',
-    // gap: 20,
   },
 
   addressSubWrapper: {

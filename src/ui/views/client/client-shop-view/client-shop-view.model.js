@@ -1,12 +1,11 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {ShopSellModel} from '@models/shop-sell-model'
-import {UserModel} from '@models/user-model'
+import { ShopSellModel } from '@models/shop-sell-model'
+import { UserModel } from '@models/user-model'
 
 export class ClientShopViewModel {
   history = undefined
   shopInfo = undefined
-  drawerOpen = false
 
   shopSellId = undefined
 
@@ -14,7 +13,7 @@ export class ClientShopViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
 
@@ -23,7 +22,7 @@ export class ClientShopViewModel {
       }
     })
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
   async loadData() {
     try {
@@ -46,12 +45,6 @@ export class ClientShopViewModel {
   }
 
   onClickEditBtn() {
-    this.history.push('/client/trading-shops/sell-shops/edit-trading-shop', {request: this.shopInfo})
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
+    this.history.push('/client/trading-shops/sell-shops/edit-trading-traiding-shop', { request: this.shopInfo })
   }
 }

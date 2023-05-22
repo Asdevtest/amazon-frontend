@@ -1,1 +1,1 @@
-export {ImageZoomForm} from './image-zoom-form'
+export { ImageZoomForm } from './image-zoom-form'

@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   boxesWrapper: {
@@ -52,9 +52,7 @@ export const useClassNames = makeStyles()(theme => ({
   orderInput: {
     width: '79px',
   },
-  divider: {
-    margin: '0 30px',
-  },
+
   img: {
     width: '66px',
     height: '66px',
@@ -75,10 +73,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
   },
 
-  standartText: {
-    color: theme.palette.text.general,
-  },
-
   deleteBtn: {
     color: theme.palette.text.second,
   },
@@ -89,33 +83,12 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '21px',
     marginRight: '10px',
     width: '299px',
-    // overflow: 'hidden',
-    // textOverflow: 'ellipsis',
-    // whiteSpace: 'wrap',
-
     color: theme.palette.text.general,
   },
   subTitle: {
     fontSize: '14px',
     color: theme.palette.text.second,
     marginRight: theme.spacing(1),
-  },
-
-  inputWrapper: {
-    border: '1px solid rgba(143, 152, 165, 1)',
-    borderRadius: '4px',
-    maxWidth: '80px',
-    height: '40px',
-  },
-  input: {
-    fontSize: '14px',
-    textAlign: 'center',
-  },
-  heightFieldAuto: {
-    height: '420px',
-    width: '330px',
-
-    padding: 0,
   },
 
   itemWrapper: {
@@ -159,16 +132,6 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundcolor: theme.palette.text.general,
   },
 
-  link: {
-    maxWidth: 370,
-    whiteSpace: 'nowrap',
-    overflowX: 'auto',
-  },
-
-  modalText: {
-    marginBottom: '5px',
-  },
-
   storekeeperBtn: {
     height: 40,
   },
@@ -178,12 +141,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   storekeeperDisableBtn: {
-    // backgroundColor: '#e4e7ea',
     borderRadius: '4px',
     padding: '6px 7px',
-
-    // color: '#001029',
-
     backgroundColor: theme.palette.input.customDisabled,
   },
 
@@ -209,9 +168,6 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '10px',
   },
 
-  destinationSelect: {
-    height: '40px',
-  },
   icon: {
     padding: 4,
   },
@@ -264,15 +220,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.general,
   },
-  copyImg: {
-    width: '20px',
-    height: '20px',
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.07)',
-    },
-  },
+
   shippingLabelWrapper: {
     height: '40px',
     display: 'flex',
@@ -295,8 +243,6 @@ export const useClassNames = makeStyles()(theme => ({
   applyAllBtn: {
     transition: '.3s ease',
     '&:hover:not(:active)': {
-      // background: theme.palette.background.green,
-
       background: 'green',
     },
   },

@@ -1,18 +1,18 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {BuyerModel} from '@models/buyer-model'
-import {ResearcherModel} from '@models/researcher-model'
-import {SettingsModel} from '@models/settings-model'
+import { BuyerModel } from '@models/buyer-model'
+import { ResearcherModel } from '@models/researcher-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {buyerProductsViewColumns} from '@components/table-columns/buyer/buyer-products-columns'
+import { buyerProductsViewColumns } from '@components/table/table-columns/buyer/buyer-products-columns'
 
-import {buyerProductsDataConverter} from '@utils/data-grid-data-converters'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {objectToUrlQs} from '@utils/text'
-import {t} from '@utils/translations'
+import { buyerProductsDataConverter } from '@utils/data-grid-data-converters'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { objectToUrlQs } from '@utils/text'
+import { t } from '@utils/translations'
 
 export class BuyerMyProductsViewModel {
   history = undefined
@@ -20,7 +20,6 @@ export class BuyerMyProductsViewModel {
 
   baseNoConvertedProducts = []
   productsMy = []
-  drawerOpen = false
 
   currentData = []
 
@@ -33,13 +32,13 @@ export class BuyerMyProductsViewModel {
   rowCount = 0
   sortModel = []
   startFilterModel = undefined
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = buyerProductsViewColumns(this.rowHandlers)
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
     })
@@ -53,7 +52,7 @@ export class BuyerMyProductsViewModel {
     //       this.startFilterModel = resetDataGridFilter
     //     }
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -88,11 +87,11 @@ export class BuyerMyProductsViewModel {
     }
   }
 
-  async onClickFeesCalculate(product) {
+  async onClickFeesCalculate(productId) {
     try {
-      const result = await ResearcherModel.parseParseSellerCentral(product.id)
+      const result = await ResearcherModel.parseParseSellerCentral(productId)
 
-      BuyerModel.updateProduct(product._id, {fbafee: result.amazonFee})
+      BuyerModel.updateProduct(productId, { fbafee: result.amazonFee })
     } catch (error) {
       console.log(error)
     }
@@ -125,7 +124,7 @@ export class BuyerMyProductsViewModel {
         this.filterModel = this.startFilterModel
           ? {
               ...this.startFilterModel,
-              items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
+              items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
             }
           : state.filter.filterModel
         this.rowsPerPage = state.pagination.pageSize
@@ -150,12 +149,6 @@ export class BuyerMyProductsViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -216,9 +209,9 @@ export class BuyerMyProductsViewModel {
 
       const filter = objectToUrlQs({
         or: [
-          {asin: {$contains: this.nameSearchValue}},
-          {amazonTitle: {$contains: this.nameSearchValue}},
-          {skusByClient: {$contains: this.nameSearchValue}},
+          { asin: { $contains: this.nameSearchValue } },
+          { amazonTitle: { $contains: this.nameSearchValue } },
+          { skusByClient: { $contains: this.nameSearchValue } },
         ],
       })
 
@@ -262,12 +255,6 @@ export class BuyerMyProductsViewModel {
     )
 
     win.focus()
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

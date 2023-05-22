@@ -1,33 +1,33 @@
-import {action, makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductDataParser} from '@constants/product-data-parser'
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
-import {poundsWeightCoefficient} from '@constants/sizes-settings'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {creatSupplier, patchSuppliers} from '@constants/white-list'
+import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
+import { ProductDataParser } from '@constants/product/product-data-parser'
+import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
+import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
-import {ProductModel} from '@models/product-model'
-import {ResearcherModel} from '@models/researcher-model'
-import {SettingsModel} from '@models/settings-model'
-import {SupplierModel} from '@models/supplier-model'
-import {UserModel} from '@models/user-model'
+import { ProductModel } from '@models/product-model'
+import { ResearcherModel } from '@models/researcher-model'
+import { SettingsModel } from '@models/settings-model'
+import { SupplierModel } from '@models/supplier-model'
+import { UserModel } from '@models/user-model'
 
-import {updateProductAutoCalculatedFields} from '@utils/calculation'
+import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import {
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
 } from '@utils/checks'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import {
   getNewObjectWithDefaultValue,
   getObjectFilteredByKeyArrayBlackList,
   getObjectFilteredByKeyArrayWhiteList,
 } from '@utils/object'
-import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
-import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
+import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
+import { isValidationErrors, plainValidationErrorAndApplyFuncForEachError } from '@utils/validation'
 
 const fieldsOfProductAllowedToForceUpdate = [
   'lamazon',
@@ -165,7 +165,6 @@ export class ResearcherProductViewModel {
 
   startParse = false
 
-  drawerOpen = false
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
   showConfirmModal = false
@@ -186,7 +185,7 @@ export class ResearcherProductViewModel {
   progressValue = 0
   showProgress = false
 
-  formFields = {...formFieldsDefault}
+  formFields = { ...formFieldsDefault }
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
@@ -198,7 +197,7 @@ export class ResearcherProductViewModel {
     return SettingsModel.languageTag
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
 
@@ -208,13 +207,13 @@ export class ResearcherProductViewModel {
 
       this.productId = history.location.search.slice(1)
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.languageTag,
       () =>
         runInAction(() => {
-          this.product = this.product ? {...this.product} : undefined
+          this.product = this.product ? { ...this.product } : undefined
         }),
     )
   }
@@ -280,7 +279,7 @@ export class ResearcherProductViewModel {
   onChangeProductFields = fieldName =>
     action(e => {
       runInAction(() => {
-        this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
+        this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldName]: '' }
       })
       if (
         [
@@ -296,7 +295,7 @@ export class ResearcherProductViewModel {
         ].includes(fieldName)
       ) {
         runInAction(() => {
-          this.product = {...this.product, [fieldName]: e.target.value}
+          this.product = { ...this.product, [fieldName]: e.target.value }
         })
       } else {
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
@@ -316,15 +315,15 @@ export class ResearcherProductViewModel {
 
         runInAction(() => {
           if (['strategyStatus'].includes(fieldName)) {
-            this.product = {...this.product, [fieldName]: e.target.value, status: this.productBase.status}
+            this.product = { ...this.product, [fieldName]: e.target.value, status: this.productBase.status }
           }
         })
 
         runInAction(() => {
           if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
-            this.product = {...this.product, [fieldName]: parseInt(e.target.value)}
+            this.product = { ...this.product, [fieldName]: parseInt(e.target.value) }
           } else {
-            this.product = {...this.product, [fieldName]: e.target.value}
+            this.product = { ...this.product, [fieldName]: e.target.value }
           }
         })
       }
@@ -337,12 +336,6 @@ export class ResearcherProductViewModel {
   onChangeActiveChip(e, value) {
     runInAction(() => {
       this.activeChip = value
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 
@@ -372,8 +365,8 @@ export class ResearcherProductViewModel {
         break
       case 'accept':
         runInAction(() => {
-          this.product = {...this.product, currentSupplierId: this.selectedSupplier._id}
-          this.product = {...this.product, currentSupplier: this.selectedSupplier}
+          this.product = { ...this.product, currentSupplierId: this.selectedSupplier._id }
+          this.product = { ...this.product, currentSupplier: this.selectedSupplier }
           this.selectedSupplier = undefined
         })
         updateProductAutoCalculatedFields.call(this)
@@ -382,8 +375,8 @@ export class ResearcherProductViewModel {
         break
       case 'acceptRevoke':
         runInAction(() => {
-          this.product = {...this.product, currentSupplierId: null}
-          this.product = {...this.product, currentSupplier: undefined}
+          this.product = { ...this.product, currentSupplierId: null }
+          this.product = { ...this.product, currentSupplier: undefined }
           this.selectedSupplier = undefined
         })
         updateProductAutoCalculatedFields.call(this)
@@ -466,7 +459,7 @@ export class ResearcherProductViewModel {
 
         this.onTriggerOpenModal('showWarningModal')
       } else {
-        this.product = {...this.product, status: ProductStatusByKey[statusKey]}
+        this.product = { ...this.product, status: ProductStatusByKey[statusKey] }
       }
     })
   }
@@ -545,7 +538,7 @@ export class ResearcherProductViewModel {
       this.setActionStatus(loadingStatuses.failed)
 
       if (isValidationErrors(error)) {
-        plainValidationErrorAndApplyFuncForEachError(error, ({errorProperty, constraint}) => {
+        plainValidationErrorAndApplyFuncForEachError(error, ({ errorProperty, constraint }) => {
           runInAction(() => {
             this.formFieldsValidationErrors[errorProperty] = constraint
             this.alertFailedText = fieldsNotFilledText()
@@ -561,14 +554,14 @@ export class ResearcherProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({supplier, photosOfSupplier, editPhotosOfSupplier}) {
+  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, editPhotosOfSupplier }) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
 
       this.clearReadyImages()
 
       if (editPhotosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: editPhotosOfSupplier, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
       }
 
       supplier = {
@@ -583,7 +576,7 @@ export class ResearcherProductViewModel {
       this.clearReadyImages()
 
       if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
         supplier = {
           ...supplier,
           images: [...supplier.images, ...this.readyImages],
@@ -690,7 +683,7 @@ export class ResearcherProductViewModel {
         })
       } else {
         runInAction(() => {
-          this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN'])}
+          this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN']) }
         })
       }
 
@@ -783,7 +776,7 @@ export class ResearcherProductViewModel {
       this.setActionStatus(loadingStatuses.isLoading)
 
       if (this.imagesForLoad.length) {
-        await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'uploadedImages'})
+        await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
         this.imagesForLoad = []
       }
 

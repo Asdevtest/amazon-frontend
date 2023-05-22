@@ -1,4 +1,4 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import {
   FormControlLabel,
@@ -8,45 +8,45 @@ import {
   Typography,
 } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {toJS} from 'mobx'
-import {observer} from 'mobx-react'
+import { toJS } from 'mobx'
+import { observer } from 'mobx-react'
 
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import {
   BatchWeightCalculationMethod,
   BatchWeightCalculationMethodByKey,
   BatchWeightCalculationMethodTranslateKey,
   getBatchWeightCalculationMethodForBox,
   getBatchWeightCalculationMethodsData,
-} from '@constants/batch-weight-calculations-method'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
+} from '@constants/statuses/batch-weight-calculations-method'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar'
-import {Field} from '@components/field/field'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {SearchInput} from '@components/search-input'
-import {WithSearchSelect} from '@components/selects/with-search-select'
-import {UploadFilesInput} from '@components/upload-files-input'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { Field } from '@components/shared/field/field'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { SearchInput } from '@components/shared/search-input'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import {
   calcFinalWeightForBatchByMoreTotalWeight,
   calcVolumeWeightForBox,
   checkActualBatchWeightGreaterVolumeBatchWeight,
 } from '@utils/calculation'
-import {checkIsClient} from '@utils/checks'
-import {addOrEditBatchDataConverter} from '@utils/data-grid-data-converters'
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {formatDateWithoutTime} from '@utils/date-time'
-import {getFullTariffTextForBoxOrOrder, toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { checkIsClient } from '@utils/checks'
+import { addOrEditBatchDataConverter } from '@utils/data-grid-data-converters'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { formatDateWithoutTime } from '@utils/date-time'
+import { getFullTariffTextForBoxOrOrder, toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {addOrEditBatchFormColumns} from './add-or-edit-batch-form-columns'
-import {useClassNames} from './add-or-edit-batch-form.style'
+import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
+import { useClassNames } from './add-or-edit-batch-form.style'
 
 export const AddOrEditBatchForm = observer(
   ({
@@ -59,7 +59,7 @@ export const AddOrEditBatchForm = observer(
     showProgress,
     progressValue,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const isClient = checkIsClient(UserRoleCodeMap[userRole])
 
@@ -93,7 +93,7 @@ export const AddOrEditBatchForm = observer(
     )
 
     const changeBatchFields = fieldName => value => {
-      const newFields = {...batchFields}
+      const newFields = { ...batchFields }
 
       newFields[fieldName] = value
       setBatchFields(newFields)
@@ -103,7 +103,7 @@ export const AddOrEditBatchForm = observer(
 
     const sourceChosenBoxesBase = batchToEdit
       ? addOrEditBatchDataConverter(
-          batchToEdit.originalData?.boxes.map(box => ({...box, storekeeper: batchToEdit.originalData?.storekeeper})),
+          batchToEdit.originalData?.boxes.map(box => ({ ...box, storekeeper: batchToEdit.originalData?.storekeeper })),
           batchFields.volumeWeightDivide,
           getBatchWeightCalculationMethodForBox(
             batchFields.calculationMethod,
@@ -116,7 +116,7 @@ export const AddOrEditBatchForm = observer(
       : sourceBox
       ? [
           ...addOrEditBatchDataConverter(
-            [sourceBox].map(box => ({...box, storekeeper: sourceBox?.storekeeper})),
+            [sourceBox].map(box => ({ ...box, storekeeper: sourceBox?.storekeeper })),
             batchFields.volumeWeightDivide,
             getBatchWeightCalculationMethodForBox(
               batchFields.calculationMethod,
@@ -351,7 +351,7 @@ export const AddOrEditBatchForm = observer(
 
       const sourceBoxesIds = batchToEdit?.originalData.boxes.map(el => el._id) || []
 
-      onSubmit({boxesIds: chosenBoxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields})
+      onSubmit({ boxesIds: chosenBoxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields })
 
       setSubmitIsClicked(true)
     }
@@ -491,7 +491,7 @@ export const AddOrEditBatchForm = observer(
               keepNonExistentRowsSelected
               initialState={{
                 sorting: {
-                  sortModel: [{field: 'updatedAt', sort: 'desc'}],
+                  sortModel: [{ field: 'updatedAt', sort: 'desc' }],
                 },
               }}
               localeText={getLocalizationByLanguageTag()}

@@ -1,4 +1,4 @@
-import {isNull, isUndefined} from '@utils/checks'
+import { isNull, isUndefined } from '@utils/checks'
 
 export const getObjectKeys = target => Object.keys(target)
 

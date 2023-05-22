@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -30,18 +30,6 @@ export const useClassNames = makeStyles()(theme => ({
       padding: '10px 40px 10px 10px',
       width: '100vw',
     },
-  },
-
-  btnsWrapper: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-
-  backBtn: {
-    marginRight: '10px',
   },
 
   endAdornment: {
@@ -192,7 +180,6 @@ export const useClassNames = makeStyles()(theme => ({
       gap: 10,
     },
   },
-  backIcon: {},
   sendBtnText: {
     [theme.breakpoints.down(768)]: {
       display: 'none',
@@ -288,10 +275,6 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'flex-end',
   },
 
-  groupSettingsInfo: {
-    // marginLeft: 10,
-  },
-
   groupSettingsInfoTitle: {
     fontWeight: 600,
     fontSize: 14,
@@ -343,14 +326,6 @@ export const useClassNames = makeStyles()(theme => ({
     height: 30,
 
     marginRight: 10,
-
-    // cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    // transition: '.3s ease',
-
-    // '&:hover': {
-    //   transform: 'scale(1.01)',
-    //   opacity: '0.8',
-    // },
   },
 
   memberWrapper: {

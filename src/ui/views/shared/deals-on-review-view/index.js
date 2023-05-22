@@ -1,1 +1,1 @@
-export {DealsOnReviewView} from './deals-on-review-view'
+export { DealsOnReviewView } from './deals-on-review-view'

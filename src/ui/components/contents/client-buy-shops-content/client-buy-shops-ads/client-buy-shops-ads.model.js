@@ -1,11 +1,11 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
-import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
+import { tableViewMode, tableSortMode } from '@constants/table/table-view-modes'
+import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
-import {SettingsModel} from '@models/settings-model'
-import {ShopSellModel} from '@models/shop-sell-model'
-import {UserModel} from '@models/user-model'
+import { SettingsModel } from '@models/settings-model'
+import { ShopSellModel } from '@models/shop-sell-model'
+import { UserModel } from '@models/user-model'
 
 export class ClientBuyShopsAdsModel {
   history = undefined
@@ -34,13 +34,13 @@ export class ClientBuyShopsAdsModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     this.history = history
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   setTableModeState() {
-    const state = {viewMode: this.viewMode, sortMode: this.sortMode}
+    const state = { viewMode: this.viewMode, sortMode: this.sortMode }
 
     SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.VACANT_REQUESTS)
   }
@@ -97,7 +97,7 @@ export class ClientBuyShopsAdsModel {
   }
 
   async onClickViewMore(id) {
-    this.history.push('/client/trading-shops/buy-shops/shop', {shopSellId: id})
+    this.history.push('/client/trading-shops/buy-shops/traiding-shop', { shopSellId: id })
   }
 
   onTriggerDrawerOpen() {

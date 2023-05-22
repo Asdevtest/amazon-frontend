@@ -1,16 +1,16 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {FC} from 'react'
+import React, { FC } from 'react'
 
-import {nanoid} from 'nanoid'
+import { nanoid } from 'nanoid'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
+import { Button } from '@components/shared/buttons/button'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './comments-form.style'
+import { useClassNames } from './comments-form.style'
 
 interface CommentsFormProps {
   comments?: Array<string>
@@ -18,9 +18,9 @@ interface CommentsFormProps {
 }
 
 export const CommentsForm: FC<CommentsFormProps> = props => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
-  const {comments, onCloseModal} = props
+  const { comments, onCloseModal } = props
 
   return (
     <div className={classNames.root}>

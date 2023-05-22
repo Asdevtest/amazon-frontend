@@ -1,1 +1,1 @@
-export {SupervisorSettingsContent} from './supervisor-settings-content'
+export { SupervisorSettingsContent } from './supervisor-settings-content'

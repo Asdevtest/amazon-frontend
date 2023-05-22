@@ -1,10 +1,8 @@
 /* eslint-disable no-unused-vars */
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
-    // minHeight: 410,
-    // maxHeight: 515,
     height: 550,
     width: 375,
 
@@ -16,11 +14,13 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: 40,
     marginLeft: 5,
   },
+
   cardCarouselWrapper: {
     height: 180,
     width: 335,
     marginBottom: 40,
   },
+
   carouselImage: {
     width: 277,
     objectFit: 'contain',
@@ -35,6 +35,7 @@ export const useClassNames = makeStyles()(theme => ({
   titleWrapper: {
     marginBottom: 10,
   },
+
   cardTitle: {
     width: '100%',
 
@@ -52,6 +53,7 @@ export const useClassNames = makeStyles()(theme => ({
   descriptionWrapper: {
     marginBottom: 15,
   },
+
   cardDescription: {
     fontWeight: 400,
     fontSize: '14px',
@@ -74,6 +76,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.second,
   },
+
   detailDescription: {
     fontWeight: 600,
     fontSize: 14,
@@ -124,6 +127,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: 28,
     height: 28,
   },
+
   userInfo: {
     display: 'flex',
     alignItems: 'center',

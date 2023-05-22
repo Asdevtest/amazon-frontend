@@ -1,8 +1,8 @@
-import {BACKEND_API_URL} from '@constants/env'
+import { BACKEND_API_URL } from '@constants/keys/env'
 
-import {OtherModel} from '@models/other-model'
+import { OtherModel } from '@models/other-model'
 
-import {getFileNameFromUrl} from './get-file-name-from-url'
+import { getFileNameFromUrl } from './get-file-name-from-url'
 
 export const dataURLtoFile = (dataurl, filename) => {
   const arr = dataurl.split(',')
@@ -14,7 +14,7 @@ export const dataURLtoFile = (dataurl, filename) => {
   while (n--) {
     u8arr[n] = bstr.charCodeAt(n)
   }
-  return new File([u8arr], filename, {type: mime})
+  return new File([u8arr], filename, { type: mime })
 }
 
 const onPostImage = async imageData => {
@@ -47,7 +47,7 @@ const uploadFileByUrl = async image => {
   }
 }
 
-export const onSubmitPostFilesInData = async ({dataWithFiles, nameOfField}) => {
+export const onSubmitPostFilesInData = async ({ dataWithFiles, nameOfField }) => {
   for (let j = 0; j < dataWithFiles.length; j++) {
     const item = dataWithFiles[j]
 
@@ -57,11 +57,11 @@ export const onSubmitPostFilesInData = async ({dataWithFiles, nameOfField}) => {
       if (typeof file === 'string') {
         const res = await uploadFileByUrl(file)
 
-        dataWithFiles[j] = {...dataWithFiles[j], newData: [...dataWithFiles[j].newData, res]}
+        dataWithFiles[j] = { ...dataWithFiles[j], newData: [...dataWithFiles[j].newData, res] }
       } else {
         const res = await onPostImage(file)
 
-        dataWithFiles[j] = {...dataWithFiles[j], newData: [...dataWithFiles[j].newData, res]}
+        dataWithFiles[j] = { ...dataWithFiles[j], newData: [...dataWithFiles[j].newData, res] }
       }
     }
   }
@@ -69,7 +69,7 @@ export const onSubmitPostFilesInData = async ({dataWithFiles, nameOfField}) => {
   return dataWithFiles
 }
 
-export async function onSubmitPostImages({images, type, withoutShowProgress}) {
+export async function onSubmitPostImages({ images, type, withoutShowProgress }) {
   this[type] = []
   const loadingStep = 100 / images.length
 

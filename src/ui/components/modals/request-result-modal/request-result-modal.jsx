@@ -1,29 +1,28 @@
 /* eslint-disable react/jsx-indent */
 
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import {IconButton, Input, Link, Typography} from '@mui/material'
+import { IconButton, Input, Link, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value'
-import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
-import {Field} from '@components/field'
-import {Modal} from '@components/modal'
-import {UploadFilesInput} from '@components/upload-files-input'
-import {UploadFilesInputMini} from '@components/upload-files-input-mini'
+import { Button } from '@components/shared/buttons/button'
+import { CopyValue } from '@components/shared/copy-value'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { Field } from '@components/shared/field'
+import { Modal } from '@components/shared/modal'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './request-result-modal.style'
+import { useClassNames } from './request-result-modal.style'
 
-export const RequestResultModal = ({openModal, setOpenModal, onClickSendAsResult, request}) => {
-  const {classes: classNames} = useClassNames()
+export const RequestResultModal = ({ openModal, setOpenModal, onClickSendAsResult, request }) => {
+  const { classes: classNames } = useClassNames()
 
   const [linkLine, setLinkLine] = useState('')
 
@@ -41,7 +40,7 @@ export const RequestResultModal = ({openModal, setOpenModal, onClickSendAsResult
   const [formFields, setFormFields] = useState(sourceFormFields)
 
   const onChangeField = fieldName => event => {
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
 
     newFormFields[fieldName] = event.target.value
 
@@ -49,7 +48,7 @@ export const RequestResultModal = ({openModal, setOpenModal, onClickSendAsResult
   }
 
   const onClickLinkBtn = () => {
-    onChangeField('publicationLinks')({target: {value: [...formFields.publicationLinks, linkLine]}})
+    onChangeField('publicationLinks')({ target: { value: [...formFields.publicationLinks, linkLine] } })
 
     setLinkLine('')
   }
@@ -57,7 +56,7 @@ export const RequestResultModal = ({openModal, setOpenModal, onClickSendAsResult
   const onRemoveLink = index => {
     const newArr = formFields.publicationLinks.filter((el, i) => i !== index)
 
-    onChangeField('publicationLinks')({target: {value: [...newArr]}})
+    onChangeField('publicationLinks')({ target: { value: [...newArr] } })
   }
 
   const disabledBtn =
@@ -86,7 +85,7 @@ export const RequestResultModal = ({openModal, setOpenModal, onClickSendAsResult
 
         {`${request?.request?.typeTask}` === `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
           <Field
-            inputProps={{maxLength: 100}}
+            inputProps={{ maxLength: 100 }}
             labelClasses={classNames.label}
             label={'Amazon order ID*'}
             className={classNames.input}
@@ -105,7 +104,7 @@ export const RequestResultModal = ({openModal, setOpenModal, onClickSendAsResult
               <div className={classNames.linksWrapper}>
                 <div className={classNames.inputWrapper}>
                   <Input
-                    inputProps={{maxLength: 512}}
+                    inputProps={{ maxLength: 512 }}
                     value={linkLine}
                     className={classNames.pubInput}
                     onChange={e => setLinkLine(e.target.value)}
@@ -152,7 +151,7 @@ export const RequestResultModal = ({openModal, setOpenModal, onClickSendAsResult
           containerClasses={classNames.commentFieldWrapper}
           labelClasses={classNames.label}
           className={classNames.commentField}
-          inputProps={{maxLength: 255}}
+          inputProps={{ maxLength: 255 }}
           minRows={4}
           maxRows={4}
           label={t(TranslationKey.Comments)}
@@ -181,7 +180,7 @@ export const RequestResultModal = ({openModal, setOpenModal, onClickSendAsResult
             onClick={() => {
               onClickSendAsResult({
                 message: formFields.result,
-                files: images.map(el => ({...el, image: el.file})),
+                files: images.map(el => ({ ...el, image: el.file })),
                 amazonOrderId: formFields.amazonOrderId,
                 publicationLinks: formFields.publicationLinks,
               })

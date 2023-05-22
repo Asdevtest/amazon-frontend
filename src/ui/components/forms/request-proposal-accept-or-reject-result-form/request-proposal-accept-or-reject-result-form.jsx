@@ -1,15 +1,15 @@
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {Rating} from '@material-ui/lab'
-import {observer} from 'mobx-react'
+import { Rating } from '@material-ui/lab'
+import { observer } from 'mobx-react'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field/field'
 
-import {useClassNames} from './request-proposal-accept-or-reject-result-form.style'
+import { useClassNames } from './request-proposal-accept-or-reject-result-form.style'
 
 export const RequestProposalAcceptOrRejectResultForm = observer(
   ({
@@ -24,8 +24,8 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
     cancelBtnText,
     rejectButtonText,
   }) => {
-    const [formFields, setFormFields] = useState({review: '', rating: ''})
-    const {classes: classNames} = useClassNames()
+    const [formFields, setFormFields] = useState({ review: '', rating: '' })
+    const { classes: classNames } = useClassNames()
 
     const onChangeField = fieldName => event => {
       setFormFields({
@@ -43,7 +43,7 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
               <div className={classNames.rating}>
                 <Rating
                   value={formFields.rating}
-                  classes={{icon: classNames.icon}}
+                  classes={{ icon: classNames.icon }}
                   size="large"
                   onChange={onChangeField('rating')}
                 />
@@ -54,7 +54,7 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
 
         <Field
           multiline
-          inputProps={{maxLength: 500}}
+          inputProps={{ maxLength: 500 }}
           label={reviewLabel}
           minRows={6}
           maxRows={6}
@@ -69,7 +69,7 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
             success={!isReject}
             danger={isReject}
             color="primary"
-            className={cx(classNames.btnSubmit, {[classNames.btnLargeSubmit]: isSupervisor})}
+            className={cx(classNames.btnSubmit, { [classNames.btnLargeSubmit]: isSupervisor })}
             onClick={() => onSubmit(formFields)}
           >
             {isReject ? rejectButtonText : confirmButtonText}

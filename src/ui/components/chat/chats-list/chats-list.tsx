@@ -1,24 +1,25 @@
-import {cx} from '@emotion/css'
-import {Box, Tabs} from '@mui/material'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { cx } from '@emotion/css'
+import { Box, Tabs } from '@mui/material'
 
-import React, {FC, ReactElement, useEffect, useMemo} from 'react'
+import React, { FC, ReactElement, useEffect, useMemo } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {RequestProposalStatus} from '@constants/request-proposal-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatContract} from '@models/chat-model/contracts'
-import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
+import { ChatContract } from '@models/chat-model/contracts'
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-import {OnTypingMessageResponse} from '@services/websocket-chat-service/interfaces'
+import { OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
-import {ITab} from '@components/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab/i-tab'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {ChatListItem} from './chat-list-item'
-import {useClassNames} from './chats-list.style'
+import { ChatListItem } from './chat-list-item'
+import { useClassNames } from './chats-list.style'
 
 interface TabPanelProps {
   children: ReactElement
@@ -31,7 +32,7 @@ const tabsValues = {
   SOLVED: 'SOLVED',
 }
 
-const TabPanel = ({children, value, index, ...other}: TabPanelProps) => (
+const TabPanel = ({ children, value, index, ...other }: TabPanelProps) => (
   <div
     role="tabpanel"
     hidden={value !== index}
@@ -53,8 +54,8 @@ interface Props {
 }
 
 export const ChatsList: FC<Props> = observer(
-  ({chats, userId, chatSelectedId, onClickChat, typingUsers, isFreelanceOwner}) => {
-    const {classes: classNames} = useClassNames()
+  ({ chats, userId, chatSelectedId, onClickChat, typingUsers, isFreelanceOwner }) => {
+    const { classes: classNames } = useClassNames()
 
     // console.log('chats', chats)
 
@@ -134,7 +135,7 @@ export const ChatsList: FC<Props> = observer(
                   return (
                     <div
                       key={`chat_${chat._id}`}
-                      className={cx(classNames.chatWrapper, {[classNames.chatWrapperIsSelected]: isSelected})}
+                      className={cx(classNames.chatWrapper, { [classNames.chatWrapperIsSelected]: isSelected })}
                     >
                       <ChatListItem
                         typingUsers={typingUsers}
@@ -157,7 +158,7 @@ export const ChatsList: FC<Props> = observer(
                   return (
                     <div
                       key={`chat_${chat._id}`}
-                      className={cx(classNames.chatWrapper, {[classNames.chatWrapperIsSelected]: isSelected})}
+                      className={cx(classNames.chatWrapper, { [classNames.chatWrapperIsSelected]: isSelected })}
                     >
                       <ChatListItem
                         typingUsers={typingUsers}
@@ -180,7 +181,7 @@ export const ChatsList: FC<Props> = observer(
               return (
                 <div
                   key={`chat_${chat._id}`}
-                  className={cx(classNames.chatWrapper, {[classNames.chatWrapperIsSelected]: isSelected})}
+                  className={cx(classNames.chatWrapper, { [classNames.chatWrapperIsSelected]: isSelected })}
                 >
                   <ChatListItem
                     typingUsers={typingUsers}

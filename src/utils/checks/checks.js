@@ -1,5 +1,5 @@
-import {BACKEND_API_URL} from '@constants/env'
-import {UserRole} from '@constants/user-roles'
+import { BACKEND_API_URL } from '@constants/keys/env'
+import { UserRole } from '@constants/keys/user-roles'
 
 export const isNotUndefined = value => typeof value !== 'undefined'
 export const isUndefined = value => typeof value === 'undefined'

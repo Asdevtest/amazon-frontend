@@ -1,35 +1,35 @@
-import {transformAndValidate} from 'class-transformer-validator'
-import {action, makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { transformAndValidate } from 'class-transformer-validator'
+import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductDataParser} from '@constants/product-data-parser'
-import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
-import {poundsWeightCoefficient} from '@constants/sizes-settings'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
+import { ProductDataParser } from '@constants/product/product-data-parser'
+import { ProductStatus, ProductStatusByCode, ProductStatusByKey } from '@constants/product/product-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {SupervisorModel} from '@models/supervisor-model'
-import {SupervisorUpdateProductContract} from '@models/supervisor-model/supervisor-model.contracts'
-import {SupplierModel} from '@models/supplier-model'
-import {UserModel} from '@models/user-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { SupervisorModel } from '@models/supervisor-model'
+import { SupervisorUpdateProductContract } from '@models/supervisor-model/supervisor-model.contracts'
+import { SupplierModel } from '@models/supplier-model'
+import { UserModel } from '@models/user-model'
 
-import {updateProductAutoCalculatedFields} from '@utils/calculation'
+import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import {
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
 } from '@utils/checks'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import {
   getNewObjectWithDefaultValue,
   getObjectFilteredByKeyArrayWhiteList,
   getObjectFilteredByKeyArrayBlackList,
 } from '@utils/object'
-import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
-import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
+import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
+import { isValidationErrors, plainValidationErrorAndApplyFuncForEachError } from '@utils/validation'
 
 const fieldsOfProductAllowedToUpdate = [
   'checkednotes',
@@ -149,12 +149,11 @@ export class SupervisorProductViewModel {
   confirmMessage = ''
   warningModalTitle = ''
 
-  drawerOpen = false
   selectedSupplier = undefined
   showWarningModal = false
   showConfirmModal = false
 
-  formFields = {...formFieldsDefault}
+  formFields = { ...formFieldsDefault }
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
@@ -166,7 +165,7 @@ export class SupervisorProductViewModel {
     return SettingsModel.languageTag
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     const url = new URL(window.location.href)
 
     runInAction(() => {
@@ -175,13 +174,13 @@ export class SupervisorProductViewModel {
       this.productId = url.searchParams.get('product-id')
     })
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.languageTag,
       () =>
         runInAction(() => {
-          this.product = this.product ? {...this.product} : undefined
+          this.product = this.product ? { ...this.product } : undefined
         }),
     )
   }
@@ -239,7 +238,7 @@ export class SupervisorProductViewModel {
   onChangeProductFields = fieldName =>
     action(e => {
       runInAction(() => {
-        this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
+        this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldName]: '' }
       })
 
       if (
@@ -256,7 +255,7 @@ export class SupervisorProductViewModel {
         ].includes(fieldName)
       ) {
         runInAction(() => {
-          this.product = {...this.product, [fieldName]: e.target.value}
+          this.product = { ...this.product, [fieldName]: e.target.value }
         })
       } else {
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
@@ -273,11 +272,11 @@ export class SupervisorProductViewModel {
         }
         if (['bsr', 'fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
           runInAction(() => {
-            this.product = {...this.product, [fieldName]: parseInt(e.target.value)}
+            this.product = { ...this.product, [fieldName]: parseInt(e.target.value) }
           })
         } else {
           runInAction(() => {
-            this.product = {...this.product, [fieldName]: e.target.value}
+            this.product = { ...this.product, [fieldName]: e.target.value }
           })
         }
       }
@@ -310,7 +309,7 @@ export class SupervisorProductViewModel {
 
         this.onTriggerOpenModal('showWarningModal')
       } else {
-        this.product = {...this.product, status: ProductStatusByKey[statusKey]}
+        this.product = { ...this.product, status: ProductStatusByKey[statusKey] }
       }
     })
   }
@@ -405,7 +404,7 @@ export class SupervisorProductViewModel {
       this.setActionStatus(loadingStatuses.failed)
 
       if (isValidationErrors(error)) {
-        plainValidationErrorAndApplyFuncForEachError(error, ({errorProperty, constraint}) => {
+        plainValidationErrorAndApplyFuncForEachError(error, ({ errorProperty, constraint }) => {
           runInAction(() => {
             this.formFieldsValidationErrors[errorProperty] = constraint
           })
@@ -424,7 +423,7 @@ export class SupervisorProductViewModel {
       this.setActionStatus(loadingStatuses.isLoading)
 
       if (this.imagesForLoad.length) {
-        await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'uploadedImages'})
+        await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
         runInAction(() => {
           this.imagesForLoad = []
         })
@@ -523,12 +522,6 @@ export class SupervisorProductViewModel {
     }
   }
 
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
@@ -616,7 +609,7 @@ export class SupervisorProductViewModel {
         })
       } else {
         runInAction(() => {
-          this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN'])}
+          this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN']) }
         })
       }
 

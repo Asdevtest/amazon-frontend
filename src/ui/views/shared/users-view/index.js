@@ -1,1 +1,1 @@
-export {UsersView} from './users-view'
+export { UsersView } from './users-view'

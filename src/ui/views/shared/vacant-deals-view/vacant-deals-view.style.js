@@ -16,7 +16,6 @@ export const styles = theme => ({
 
   emptyTableText: {
     marginTop: '30px',
-
     color: theme.palette.text.second,
   },
 
@@ -40,7 +39,6 @@ export const styles = theme => ({
     fontSize: '16px',
     lineHeight: '19px',
     color: theme.palette.primary.main,
-
     marginRight: '15px',
   },
 })

@@ -1,8 +1,8 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 
-import React, {FC} from 'react'
+import React, { FC } from 'react'
 
-import {useClassNames} from './label-value-double-block.style'
+import { useClassNames } from './label-value-double-block.style'
 
 export interface LabelValuePair {
   label: string
@@ -14,10 +14,10 @@ interface Props {
   labelValueDouble: [LabelValuePair, LabelValuePair]
 }
 
-export const LabelValueDoubleBlock: FC<Props> = ({labelValueDouble, bgColor}) => {
-  const {classes: classNames} = useClassNames()
+export const LabelValueDoubleBlock: FC<Props> = ({ labelValueDouble, bgColor }) => {
+  const { classes: classNames } = useClassNames()
   return (
-    <div className={cx(classNames.root, {[classNames.rootGreen]: bgColor === 'green'})}>
+    <div className={cx(classNames.root, { [classNames.rootGreen]: bgColor === 'green' })}>
       <div className={classNames.row}>
         <div className={classNames.labelWrapper}>
           <p className={classNames.labelText}>{labelValueDouble[0].label}</p>

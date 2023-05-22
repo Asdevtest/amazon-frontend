@@ -12,7 +12,7 @@ module.exports = {
     '@styles/(.*)': ['<rootDir>/src/styles/$1'],
     '@components/(.*)': ['<rootDir>/src/ui/components/$1'],
     '@views/(.*)': ['<rootDir>/src/ui/views/$1'],
-    '@typings/(.*)': ['<rootDir>/src/typings/$1'],
+    '@typings/(.*)': ['<rootDir>/src/types/$1'],
     '@contexts/(.*)': ['<rootDir>/src/contexts/$1'],
   },
   preset: 'ts-jest',

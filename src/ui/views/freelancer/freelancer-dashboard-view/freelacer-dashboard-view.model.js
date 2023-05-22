@@ -1,11 +1,11 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {FreelancerDashboardCardDataKey} from '@constants/dashboard-configs'
-import {loadingStatuses} from '@constants/loading-statuses'
+import { FreelancerDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {DashboardModel} from '@models/dashboard-model'
-import {ResearcherModel} from '@models/researcher-model'
-import {UserModel} from '@models/user-model'
+import { DashboardModel } from '@models/dashboard-model'
+import { ResearcherModel } from '@models/researcher-model'
+import { UserModel } from '@models/user-model'
 
 export class FreelancerDashboardViewModel {
   history = undefined
@@ -13,7 +13,6 @@ export class FreelancerDashboardViewModel {
   error = undefined
 
   balance = UserModel.userInfo?.balance
-  drawerOpen = false
   productsVacant = []
   paymentsMy = []
 
@@ -26,16 +25,16 @@ export class FreelancerDashboardViewModel {
     [FreelancerDashboardCardDataKey.FINES]: '',
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onClickInfoCardViewMode(route, dataGridFilter) {
     if (dataGridFilter) {
-      this.history.push(route, {dataGridFilter})
+      this.history.push(route, { dataGridFilter })
     } else {
       this.history.push(route)
     }
@@ -75,12 +74,6 @@ export class FreelancerDashboardViewModel {
     const result = await ResearcherModel.getProductsVacant()
     runInAction(() => {
       this.productsVacant = result
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

@@ -1,6 +1,6 @@
-import {getModelNameWithotPostfix} from '@utils/text'
+import { getModelNameWithotPostfix } from '@utils/text'
 
-import {LoggerService} from '../logger-service/index'
+import { LoggerService } from '../logger-service/index'
 
 export const getLoggerServiceForClass = modelInstance =>
   new LoggerService({

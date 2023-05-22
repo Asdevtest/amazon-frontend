@@ -1,18 +1,18 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {Button} from '@components/buttons/button'
+import { Button } from '@components/shared/buttons/button'
 
-import {formatDateTime} from '@utils/date-time'
+import { formatDateTime } from '@utils/date-time'
 
-import {useClassNames} from './request-proposals-details-custom-item.style'
+import { useClassNames } from './request-proposals-details-custom-item.style'
 
-export const RequestProposalsDetailsCustomItem = observer(({requestProposal}) => {
-  const {classes: classNames} = useClassNames()
-  const {proposal, details} = requestProposal
-  const {createdAt, createdById} = proposal
-  const {result, comment} = details
+export const RequestProposalsDetailsCustomItem = observer(({ requestProposal }) => {
+  const { classes: classNames } = useClassNames()
+  const { proposal, details } = requestProposal
+  const { createdAt, createdById } = proposal
+  const { result, comment } = details
   return (
     <div className={classNames.root}>
       <div className={classNames.infoWrapper}>

@@ -1,18 +1,18 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {ActiveSubCategoryTablesKeys} from '@constants/active-sub-category-tables-keys'
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { ActiveSubCategoryTablesKeys } from '@constants/table/active-sub-category-tables-keys'
 
-import {AdministratorModel} from '@models/administrator-model'
-import {SettingsModel} from '@models/settings-model'
+import { AdministratorModel } from '@models/administrator-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {exchangeProductsColumns} from '@components/table-columns/admin/exchange-columns'
+import { exchangeProductsColumns } from '@components/table/table-columns/admin/exchange-columns'
 
-import {adminProductsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import { adminProductsDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 
 const productsStatusBySubCategory = {
   0: ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT], // 5 статус
@@ -39,21 +39,19 @@ export class AdminExchangeViewModel {
   selectionModel = undefined
 
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = exchangeProductsColumns({activeSubCategory: this.activeSubCategory})
-
-  drawerOpen = false
+  columnsModel = exchangeProductsColumns({ activeSubCategory: this.activeSubCategory })
   showSetBarcodeModal = false
   selectedProduct = undefined
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -149,7 +147,7 @@ export class AdminExchangeViewModel {
         this.rowsPerPage = state.pagination.pageSize
 
         this.densityModel = state.density.value
-        this.columnsModel = exchangeProductsColumns({activeSubCategory: this.activeSubCategory}).map(el => ({
+        this.columnsModel = exchangeProductsColumns({ activeSubCategory: this.activeSubCategory }).map(el => ({
           ...el,
           hide: state.columns?.lookup[el?.field]?.hide,
         }))
@@ -209,12 +207,6 @@ export class AdminExchangeViewModel {
         this.currentProductsData = []
       })
     }
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setSelectedProduct(item) {

@@ -1,1 +1,1 @@
-export {AddOrEditDestinationForm} from './add-or-edit-destination-form'
+export { AddOrEditDestinationForm } from './add-or-edit-destination-form'

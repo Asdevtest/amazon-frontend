@@ -1,1 +1,1 @@
-export {ClientExchangeView} from './client-exchange-view'
+export { ClientExchangeView } from './client-exchange-view'

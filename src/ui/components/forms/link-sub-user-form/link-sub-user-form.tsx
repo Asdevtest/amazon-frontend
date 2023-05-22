@@ -1,27 +1,27 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {ChangeEvent, FC, useState} from 'react'
+import React, { ChangeEvent, FC, useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './link-sub-user-form.style'
+import { useClassNames } from './link-sub-user-form.style'
 
 interface LinkSubUserFormProps {
   closeModal?: () => void
-  onSubmit?: (email: {email: string}) => void
+  onSubmit?: (email: { email: string }) => void
 }
 
 export const LinkSubUserForm: FC<LinkSubUserFormProps> = props => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
-  const {closeModal, onSubmit} = props
+  const { closeModal, onSubmit } = props
 
   const [email, setEmail] = useState('')
 
@@ -37,7 +37,7 @@ export const LinkSubUserForm: FC<LinkSubUserFormProps> = props => {
         label={t(TranslationKey['Enter the email of the user you want to add'])}
         labelClasses={classNames.labelField}
         value={email}
-        inputProps={{'data-testid': 'input'}}
+        inputProps={{ 'data-testid': 'input' }}
         onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
       />
 
@@ -48,7 +48,7 @@ export const LinkSubUserForm: FC<LinkSubUserFormProps> = props => {
           disabled={email === ''}
           variant="contained"
           className={classNames.button}
-          onClick={() => !!onSubmit && onSubmit({email: email.toLowerCase()})}
+          onClick={() => !!onSubmit && onSubmit({ email: email.toLowerCase() })}
         >
           {t(TranslationKey.Add)}
         </Button>

@@ -1,21 +1,21 @@
-import {cx} from '@emotion/css'
-import {Typography, Checkbox} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography, Checkbox } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value/copy-value'
-import {BoxViewForm} from '@components/forms/box-view-form'
-import {Modal} from '@components/modal'
+import { BoxViewForm } from '@components/forms/box-view-form'
+import { Button } from '@components/shared/buttons/button'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { Modal } from '@components/shared/modal'
 
-import {calcVolumeWeightForBox, calcFinalWeightForBox, calculateDeliveryCostPerPcs} from '@utils/calculation'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {toFixedWithDollarSign, toFixedWithKg, getShortenStringIfLongerThanCount} from '@utils/text'
-import {t} from '@utils/translations'
+import { calcVolumeWeightForBox, calcFinalWeightForBox, calculateDeliveryCostPerPcs } from '@utils/calculation'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { toFixedWithDollarSign, toFixedWithKg, getShortenStringIfLongerThanCount } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './request-to-send-batch-box.styles'
+import { useClassNames } from './request-to-send-batch-box.styles'
 
 export const RequestToSendBatchBox = ({
   box,
@@ -26,7 +26,7 @@ export const RequestToSendBatchBox = ({
   onSubmitChangeBoxFields,
   onClickHsCode,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
   const tableCellClsx = cx(classNames.tableCell)
@@ -46,7 +46,7 @@ export const RequestToSendBatchBox = ({
 
   return (
     <tr
-      className={cx(classNames.box, classNames.row, {[classNames.badBox]: isBadBox})}
+      className={cx(classNames.box, classNames.row, { [classNames.badBox]: isBadBox })}
       onDoubleClick={() => setShowBoxViewModal(!showBoxViewModal)}
     >
       <div className={cx(tableCellClsx, classNames.indexCell)}>
@@ -77,7 +77,7 @@ export const RequestToSendBatchBox = ({
                   </div>
 
                   <div className={classNames.barCodeLabelWrapper}>
-                    <Typography className={cx(classNames.spanText, {[classNames.alertSpan]: !box.items[0].barCode})}>
+                    <Typography className={cx(classNames.spanText, { [classNames.alertSpan]: !box.items[0].barCode })}>
                       {t(TranslationKey.BarCode)}
                     </Typography>
 
@@ -99,7 +99,7 @@ export const RequestToSendBatchBox = ({
                     )}
 
                     <div className={classNames.checkboxWrapper}>
-                      <Typography className={cx({[classNames.alertSpan]: isNoBarCodGlued})}>
+                      <Typography className={cx({ [classNames.alertSpan]: isNoBarCodGlued })}>
                         {t(TranslationKey.glued)}
                       </Typography>
 
@@ -137,7 +137,7 @@ export const RequestToSendBatchBox = ({
                     </div>
 
                     <div className={classNames.barCodeLabelWrapper}>
-                      <Typography className={cx(classNames.spanText, {[classNames.alertSpan]: !item.barCode})}>
+                      <Typography className={cx(classNames.spanText, { [classNames.alertSpan]: !item.barCode })}>
                         {t(TranslationKey.BarCode)}
                       </Typography>
 
@@ -159,7 +159,7 @@ export const RequestToSendBatchBox = ({
                       )}
 
                       <div className={classNames.checkboxWrapper}>
-                        <Typography className={cx({[classNames.alertSpan]: isNoBarCodGlued})}>
+                        <Typography className={cx({ [classNames.alertSpan]: isNoBarCodGlued })}>
                           {t(TranslationKey.glued)}
                         </Typography>
 
@@ -233,9 +233,9 @@ export const RequestToSendBatchBox = ({
         ) : null}
       </div>
 
-      <td className={cx(tableCellClsx, classNames.shippingLabelCell)}>
+      <td>
         <div className={classNames.shippingLabelWrapper}>
-          <Typography className={cx(classNames.spanText, {[classNames.alertSpan]: !box.shippingLabel})}>
+          <Typography className={cx(classNames.spanText, { [classNames.alertSpan]: !box.shippingLabel })}>
             {t(TranslationKey['Shipping label'])}
           </Typography>
 

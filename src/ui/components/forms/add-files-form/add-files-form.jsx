@@ -1,23 +1,23 @@
-import {Box, Typography} from '@mui/material'
+import { Box, Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {UploadFilesInput} from '@components/upload-files-input'
+import { Button } from '@components/shared/buttons/button'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './add-files-form.style'
+import { useClassNames } from './add-files-form.style'
 
-export const AddFilesForm = ({item, allItemsArray, setAllItemsArray, onCloseModal}) => {
-  const {classes: classNames} = useClassNames()
+export const AddFilesForm = ({ item, allItemsArray, setAllItemsArray, onCloseModal }) => {
+  const { classes: classNames } = useClassNames()
 
   const [editingItem, setEditingItem] = useState(item)
 
   const setImagesOfItem = images => {
-    const newFormFields = {...editingItem}
+    const newFormFields = { ...editingItem }
 
     newFormFields.tmpImages = [...images]
 

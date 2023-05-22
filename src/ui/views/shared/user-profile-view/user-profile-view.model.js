@@ -1,21 +1,21 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {OtherModel} from '@models/other-model'
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { OtherModel } from '@models/other-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {vacByUserIdExchangeColumns} from '@components/table-columns/product/vac-by-user-id-exchange-columns'
+import { vacByUserIdExchangeColumns } from '@components/table/table-columns/product/vac-by-user-id-exchange-columns'
 
-import {clientProductsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
-import {dataURLtoFile} from '@utils/upload-files'
+import { clientProductsDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
+import { dataURLtoFile } from '@utils/upload-files'
 
 export class ProfileViewModel {
   history = undefined
@@ -37,7 +37,6 @@ export class ProfileViewModel {
 
   warningInfoModalTitle = ''
 
-  drawerOpen = false
   productList = []
   tabExchange = 0
   tabHistory = 0
@@ -58,17 +57,17 @@ export class ProfileViewModel {
   }
 
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = vacByUserIdExchangeColumns()
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
@@ -126,12 +125,6 @@ export class ProfileViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -267,7 +260,7 @@ export class ProfileViewModel {
       if (this.checkValidationNameOrEmail.nameIsUnique || this.checkValidationNameOrEmail.emailIsUnique) {
         return
       } else {
-        await UserModel.changeUserInfo({name: data.name, email: data.email})
+        await UserModel.changeUserInfo({ name: data.name, email: data.email })
 
         await UserModel.getUserInfo()
       }
@@ -330,12 +323,6 @@ export class ProfileViewModel {
       this.selectedUser = item
     })
     this.onTriggerShowTabModal()
-  }
-
-  onTriggerDrawerOpen = () => {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

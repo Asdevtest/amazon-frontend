@@ -1,1 +1,1 @@
-export {MoveBoxToBatchForm} from './move-box-to-batch-form'
+export { MoveBoxToBatchForm } from './move-box-to-batch-form'

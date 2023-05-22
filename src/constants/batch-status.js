@@ -1,4 +1,0 @@
-export const BatchStatus = {
-  IS_BEING_COLLECTED: 'IS_BEING_COLLECTED',
-  HAS_DISPATCHED: 'HAS_DISPATCHED',
-}

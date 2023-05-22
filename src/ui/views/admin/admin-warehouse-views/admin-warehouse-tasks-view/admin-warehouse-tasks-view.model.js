@@ -1,18 +1,18 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {AdministratorModel} from '@models/administrator-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { AdministratorModel } from '@models/administrator-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {adminTasksViewColumns} from '@components/table-columns/admin/tasks-columns'
+import { adminTasksViewColumns } from '@components/table/table-columns/admin/tasks-columns'
 
-import {adminTasksDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import { adminTasksDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDate } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 
 export class AdminWarehouseTasksViewModel {
   history = undefined
@@ -23,14 +23,12 @@ export class AdminWarehouseTasksViewModel {
   tasksData = []
   curOpenedTask = {}
 
-  drawerOpen = false
-
   rowHandlers = {
     setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
   }
 
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -38,11 +36,11 @@ export class AdminWarehouseTasksViewModel {
 
   showTaskInfoModal = false
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -119,12 +117,6 @@ export class AdminWarehouseTasksViewModel {
     })
   }
 
-  onChangeDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -147,7 +139,7 @@ export class AdminWarehouseTasksViewModel {
 
       runInAction(() => {
         this.tasksData = adminTasksDataConverter(
-          result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({...el, beforeBoxes: el.boxesBefore})),
+          result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({ ...el, beforeBoxes: el.boxesBefore })),
         )
       })
     } catch (error) {

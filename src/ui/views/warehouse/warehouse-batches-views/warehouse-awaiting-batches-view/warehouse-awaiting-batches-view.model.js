@@ -1,25 +1,25 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {BatchStatus} from '@constants/batch-status'
-import {BoxStatus} from '@constants/box-status'
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { BatchStatus } from '@constants/statuses/batch-status'
+import { BoxStatus } from '@constants/statuses/box-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BatchesModel} from '@models/batches-model'
-import {BoxesModel} from '@models/boxes-model'
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { BatchesModel } from '@models/batches-model'
+import { BoxesModel } from '@models/boxes-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {batchesViewColumns} from '@components/table-columns/batches-columns'
+import { batchesViewColumns } from '@components/table/table-columns/batches-columns'
 
-import {warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {objectToUrlQs} from '@utils/text'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { objectToUrlQs } from '@utils/text'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class WarehouseAwaitingBatchesViewModel {
   history = undefined
@@ -34,7 +34,6 @@ export class WarehouseAwaitingBatchesViewModel {
   selectedBatches = []
   curBatch = {}
   showConfirmModal = false
-  drawerOpen = false
   isWarning = false
   showBatchInfoModal = false
 
@@ -63,7 +62,7 @@ export class WarehouseAwaitingBatchesViewModel {
   showEditHSCodeModal = false
 
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -104,11 +103,11 @@ export class WarehouseAwaitingBatchesViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -184,12 +183,6 @@ export class WarehouseAwaitingBatchesViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -224,7 +217,7 @@ export class WarehouseAwaitingBatchesViewModel {
       })
 
       if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
 
       await BoxesModel.editAdditionalInfo(data._id, {
@@ -253,12 +246,6 @@ export class WarehouseAwaitingBatchesViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {
@@ -310,10 +297,10 @@ export class WarehouseAwaitingBatchesViewModel {
 
       const filter = objectToUrlQs({
         or: [
-          {asin: {$contains: this.nameSearchValue}},
-          {title: {$contains: this.nameSearchValue}},
-          {humanFriendlyId: {$eq: this.nameSearchValue}},
-          {orderHumanFriendlyId: {$eq: this.nameSearchValue}},
+          { asin: { $contains: this.nameSearchValue } },
+          { title: { $contains: this.nameSearchValue } },
+          { humanFriendlyId: { $eq: this.nameSearchValue } },
+          { orderHumanFriendlyId: { $eq: this.nameSearchValue } },
         ].filter(
           el =>
             ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
@@ -390,14 +377,14 @@ export class WarehouseAwaitingBatchesViewModel {
     }
   }
 
-  async onSubmitAddOrEditBatch({boxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields}) {
+  async onSubmitAddOrEditBatch({ boxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields }) {
     try {
       runInAction(() => {
         this.uploadedFiles = []
       })
 
       if (filesToAdd.length) {
-        await onSubmitPostImages.call(this, {images: filesToAdd, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
       }
 
       if (!batchToEdit) {

@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
@@ -18,20 +18,6 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     fontWeight: '600',
     color: theme.palette.text.general,
-  },
-
-  link: {
-    width: '500px',
-    overflowX: 'auto',
-    whiteSpace: 'nowrap',
-  },
-
-  noSettingsWarning: {
-    color: 'red',
-  },
-
-  cancelButton: {
-    marginLeft: '10px',
   },
 
   btnsWrapper: {

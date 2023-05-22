@@ -1,1 +1,1 @@
-export {TwoVerticalChoicesModal} from './two-vertical-choices-modal'
+export { TwoVerticalChoicesModal } from './two-vertical-choices-modal'

@@ -1,1 +1,1 @@
-export {BuyerProductView} from './supervisor-product-view'
+export { BuyerProductView } from './supervisor-product-view'

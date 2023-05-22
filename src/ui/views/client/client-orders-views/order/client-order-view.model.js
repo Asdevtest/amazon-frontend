@@ -1,36 +1,20 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {routsPathes} from '@constants/routs-pathes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BoxesModel} from '@models/boxes-model'
-import {ClientModel} from '@models/client-model'
-import {OrderModel} from '@models/order-model'
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { BoxesModel } from '@models/boxes-model'
+import { ClientModel } from '@models/client-model'
+import { OrderModel } from '@models/order-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
-
-const setNavbarActiveSubCategory = pathname => {
-  if (pathname) {
-    switch (pathname) {
-      case routsPathes.CLIENT_ORDERS + '/order':
-        return navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS
-      case routsPathes.CLIENT_PENDING_ORDERS + '/order':
-        return navBarActiveSubCategory.SUB_NAVBAR_CLIENT_PENDING_ORDERS
-
-      default:
-        return navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS
-    }
-  }
-}
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class ClientOrderViewModel {
   history = undefined
@@ -52,7 +36,6 @@ export class ClientOrderViewModel {
   hsCodeData = {}
   showEditHSCodeModal = false
 
-  drawerOpen = false
   order = undefined
 
   showConfirmModal = false
@@ -82,22 +65,19 @@ export class ClientOrderViewModel {
     return UserModel.userInfo
   }
 
-  get navbarActiveSubCategory() {
-    return setNavbarActiveSubCategory(this.history.location.pathname)
-  }
-
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
 
       this.orderId = history.location.search.slice(1)
+      SettingsModel.changeLastCrumbAdditionalText(` № ${history.location.search.slice(1)}`)
     })
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {
@@ -233,10 +213,10 @@ export class ClientOrderViewModel {
     })
 
     if (tmpBarCode.length) {
-      await onSubmitPostImages.call(this, {images: tmpBarCode, type: 'uploadedFiles'})
+      await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
     }
 
-    await ClientModel.updateProductBarCode(this.selectedProduct._id, {barCode: this.uploadedFiles[0]})
+    await ClientModel.updateProductBarCode(this.selectedProduct._id, { barCode: this.uploadedFiles[0] })
 
     this.onTriggerOpenModal('showSetBarcodeModal')
     runInAction(() => {
@@ -250,7 +230,7 @@ export class ClientOrderViewModel {
     await UserModel.getUserInfo()
   }
 
-  onConfirmSubmitOrderProductModal({ordersDataState, totalOrdersCost}) {
+  onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {
     runInAction(() => {
       this.ordersDataStateToSubmit = ordersDataState
 
@@ -282,11 +262,11 @@ export class ClientOrderViewModel {
         })
 
         if (orderObject.tmpBarCode.length) {
-          await onSubmitPostImages.call(this, {images: orderObject.tmpBarCode, type: 'uploadedFiles'})
+          await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
 
-          await ClientModel.updateProductBarCode(orderObject.productId, {barCode: this.uploadedFiles[0]})
+          await ClientModel.updateProductBarCode(orderObject.productId, { barCode: this.uploadedFiles[0] })
         } else if (!orderObject.barCode) {
-          await ClientModel.updateProductBarCode(orderObject.productId, {barCode: null})
+          await ClientModel.updateProductBarCode(orderObject.productId, { barCode: null })
         }
 
         const dataToRequest = getObjectFilteredByKeyArrayWhiteList(orderObject, [
@@ -378,18 +358,18 @@ export class ClientOrderViewModel {
     }
   }
 
-  async onSubmitSaveOrder({data}) {
+  async onSubmitSaveOrder({ data }) {
     try {
       runInAction(() => {
         this.uploadedFiles = []
       })
 
       if (data.tmpBarCode.length) {
-        await onSubmitPostImages.call(this, {images: data.tmpBarCode, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: data.tmpBarCode, type: 'uploadedFiles' })
 
-        await ClientModel.updateProductBarCode(data.product._id, {barCode: this.uploadedFiles[0]})
+        await ClientModel.updateProductBarCode(data.product._id, { barCode: this.uploadedFiles[0] })
       } else if (!data.product.barCode) {
-        await ClientModel.updateProductBarCode(data.product._id, {barCode: null})
+        await ClientModel.updateProductBarCode(data.product._id, { barCode: null })
       }
 
       const dataToRequest = getObjectFilteredByKeyArrayWhiteList(
@@ -441,7 +421,7 @@ export class ClientOrderViewModel {
       })
 
       if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
 
       await BoxesModel.editAdditionalInfo(data._id, {
@@ -455,7 +435,7 @@ export class ClientOrderViewModel {
         prepId: data.prepId,
       })
 
-      const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
+      const dataToSubmitHsCode = data.items.map(el => ({ productId: el.product._id, hsCode: el.product.hsCode }))
       await ProductModel.editProductsHsCods(dataToSubmitHsCode)
 
       this.getBoxesOfOrder(this.orderId)
@@ -521,11 +501,6 @@ export class ClientOrderViewModel {
     }
   }
 
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus

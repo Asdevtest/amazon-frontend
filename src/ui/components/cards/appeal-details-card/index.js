@@ -1,1 +1,1 @@
-export {AppealDetailsCard} from './appeal-details-card'
+export { AppealDetailsCard } from './appeal-details-card'

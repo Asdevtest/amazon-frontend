@@ -1,7 +1,7 @@
-import {getUserAvatarSrc} from './get-user-avatar'
+import { getUserAvatarSrc } from './get-user-avatar'
 
 describe('Test getUserAvatarSrc(userId)', () => {
-  const validTestValue = [{userId: '5dd42e16-9594-4f3a-9a6b-e9453193e78c'}]
+  const validTestValue = [{ userId: '5dd42e16-9594-4f3a-9a6b-e9453193e78c' }]
 
   validTestValue.forEach(value => {
     test('Valid props', () => {

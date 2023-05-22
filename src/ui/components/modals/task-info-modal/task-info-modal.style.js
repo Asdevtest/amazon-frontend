@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   heightFieldAuto: {
@@ -36,17 +36,6 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '12px',
   },
 
-  imgBox: {
-    width: '200px',
-    height: '200px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
   photoWrapper: {
     width: '200px',
   },

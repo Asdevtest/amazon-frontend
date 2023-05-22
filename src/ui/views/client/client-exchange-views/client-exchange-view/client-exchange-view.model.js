@@ -1,24 +1,24 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ClientModel} from '@models/client-model'
+import { ClientModel } from '@models/client-model'
 // import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {ShopModel} from '@models/shop-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {clientExchangeViewColumns} from '@components/table-columns/client/client-exchange-columns'
+import { clientExchangeViewColumns } from '@components/table/table-columns/client/client-exchange-columns'
 
-import {addIdDataConverter, clientProductsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { addIdDataConverter, clientProductsDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class ClientExchangeViewModel {
   history = undefined
@@ -36,7 +36,6 @@ export class ClientExchangeViewModel {
 
   ordersDataStateToSubmit = undefined
 
-  drawerOpen = false
   showPrivateLabelModal = false
   showConfirmModal = false
   showSuccessModal = false
@@ -56,7 +55,7 @@ export class ClientExchangeViewModel {
 
   firstRowId = undefined
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -75,11 +74,11 @@ export class ClientExchangeViewModel {
     return SettingsModel.destinationsFavourites
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -161,12 +160,6 @@ export class ClientExchangeViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -281,9 +274,9 @@ export class ClientExchangeViewModel {
       })
 
       if (orderObject.tmpBarCode.length) {
-        await onSubmitPostImages.call(this, {images: orderObject.tmpBarCode, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
       } else if (!orderObject.barCode) {
-        await ClientModel.updateProductBarCode(orderObject.productId, {barCode: null})
+        await ClientModel.updateProductBarCode(orderObject.productId, { barCode: null })
       }
 
       const createorderData = {
@@ -309,7 +302,7 @@ export class ClientExchangeViewModel {
       }
 
       if (this.uploadedFiles.length) {
-        await ClientModel.updateProductBarCode(orderObject.productId, {barCode: this.uploadedFiles[0]})
+        await ClientModel.updateProductBarCode(orderObject.productId, { barCode: this.uploadedFiles[0] })
       }
 
       runInAction(() => {
@@ -329,7 +322,7 @@ export class ClientExchangeViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const requestProduct = getObjectFilteredByKeyArrayBlackList({...this.ordersDataStateToSubmit}, [
+      const requestProduct = getObjectFilteredByKeyArrayBlackList({ ...this.ordersDataStateToSubmit }, [
         'tmpResearcherName',
         'tmpBuyerName',
         'tmpStrategyStatus',
@@ -471,7 +464,7 @@ export class ClientExchangeViewModel {
     this.onTriggerOpenModal('showWarningModal')
   }
 
-  onClickOrderNowBtn = ({ordersDataState, totalOrdersCost}) => {
+  onClickOrderNowBtn = ({ ordersDataState, totalOrdersCost }) => {
     runInAction(() => {
       this.ordersDataStateToSubmit = ordersDataState[0]
 
@@ -491,12 +484,6 @@ export class ClientExchangeViewModel {
   onChangeCurPage(e) {
     runInAction(() => {
       this.curPage = e
-    })
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 }

@@ -1,4 +1,4 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import {
   /* Divider,  */
   Grid,
@@ -9,32 +9,32 @@ import Rating from '@mui/material/Rating'
 
 import React from 'react'
 
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { colorByRequestStatus } from '@constants/requests/request-status'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
-} from '@constants/freelance-request-type'
-import {MyRequestStatusTranslate} from '@constants/request-proposal-status'
-import {colorByRequestStatus} from '@constants/request-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+} from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {VacantRequestPriceCell} from '@components/data-grid-cells/data-grid-cells'
+import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { Button } from '@components/shared/buttons/button'
 // import {MultilineRequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
-import {Field} from '@components/field'
-import {UserLink} from '@components/user-link'
+import { Field } from '@components/shared/field'
+import { UserLink } from '@components/user/user-link'
 
-import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
-import {translateProposalsLeftMessage} from '@utils/validation'
+import { formatNormDateTime, formatNormDateTimeWithParseISO } from '@utils/date-time'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { toFixed, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
+import { translateProposalsLeftMessage } from '@utils/validation'
 
-import {useClassNames} from './vacant-request-short-card.style'
+import { useClassNames } from './vacant-request-short-card.style'
 
-export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
-  const {classes: classNames} = useClassNames()
+export const VacantRequestShortCard = ({ item, onClickViewMore, isFirst }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <Grid item>
@@ -142,7 +142,7 @@ export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
                 inputComponent={
                   <Typography
                     className={cx(classNames.accentText, classNames.rightText)}
-                    style={{color: colorByRequestStatus(item.status)}}
+                    style={{ color: colorByRequestStatus(item.status) }}
                   >
                     {MyRequestStatusTranslate(item.status)}
                   </Typography>

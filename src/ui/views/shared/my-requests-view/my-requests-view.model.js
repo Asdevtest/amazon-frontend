@@ -1,21 +1,21 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {freelanceRequestType, freelanceRequestTypeByCode} from '@constants/freelance-request-type'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {MyRequestStatus} from '@constants/request-proposal-status'
-import {RequestStatus} from '@constants/request-status'
-import {RequestSubType, RequestType} from '@constants/request-type'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { MyRequestStatus } from '@constants/requests/request-proposal-status'
+import { RequestStatus } from '@constants/requests/request-status'
+import { RequestSubType, RequestType } from '@constants/requests/request-type'
+import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {RequestModel} from '@models/request-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { RequestModel } from '@models/request-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {myRequestsViewColumns} from '@components/table-columns/overall/my-requests-columns'
+import { myRequestsViewColumns } from '@components/table/table-columns/overall/my-requests-columns'
 
-import {myRequestsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 
 const allowStatuses = [RequestStatus.DRAFT, RequestStatus.PUBLISHED, RequestStatus.IN_PROCESS]
 
@@ -26,7 +26,6 @@ export class MyRequestsViewModel {
   requestStatus = undefined
   error = undefined
 
-  drawerOpen = false
   showRequestForm = false
   showConfirmModal = false
 
@@ -66,7 +65,7 @@ export class MyRequestsViewModel {
 
   isRequestsAtWork = true
 
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -103,7 +102,7 @@ export class MyRequestsViewModel {
     ),
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
 
@@ -111,14 +110,14 @@ export class MyRequestsViewModel {
         this.acceptMessage = location?.state?.acceptMessage
         this.showAcceptMessage = location?.state?.showAcceptMessage
 
-        const state = {...history?.location?.state}
+        const state = { ...history?.location?.state }
         delete state?.acceptMessage
         delete state?.showAcceptMessage
-        history.replace({...history?.location, state})
+        history.replace({ ...history?.location, state })
       }
     })
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     runInAction(() => {
       if (this.showAcceptMessage) {
@@ -216,12 +215,6 @@ export class MyRequestsViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -470,18 +463,6 @@ export class MyRequestsViewModel {
     )
 
     win.focus()
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

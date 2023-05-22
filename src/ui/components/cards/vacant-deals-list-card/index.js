@@ -1,1 +1,1 @@
-export {VacantDealsListCard} from './vacant-deals-list-card'
+export { VacantDealsListCard } from './vacant-deals-list-card'

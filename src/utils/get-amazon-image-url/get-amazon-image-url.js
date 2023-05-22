@@ -1,5 +1,9 @@
-import {amazonImageUrlSmallPostfix, amazonImageUrlPrefix, amazonImageUrlBigPostfix} from '@constants/amazon-images'
-import {BACKEND_API_URL} from '@constants/env'
+import {
+  amazonImageUrlSmallPostfix,
+  amazonImageUrlPrefix,
+  amazonImageUrlBigPostfix,
+} from '@constants/configs/amazon-images'
+import { BACKEND_API_URL } from '@constants/keys/env'
 
 export const getAmazonImageUrl = (str, big) => {
   if (str) {

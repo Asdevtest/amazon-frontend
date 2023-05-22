@@ -1,1 +1,1 @@
-export {AddOwnProductForm} from './add-own-product-form'
+export { AddOwnProductForm } from './add-own-product-form'

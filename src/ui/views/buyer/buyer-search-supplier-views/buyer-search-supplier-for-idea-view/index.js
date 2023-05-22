@@ -1,1 +1,1 @@
-export {BuyerSearchSupplierForIdeaView} from './buyer-search-supplier-for-idea-view'
+export { BuyerSearchSupplierForIdeaView } from './buyer-search-supplier-for-idea-view'
