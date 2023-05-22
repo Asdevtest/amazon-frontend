@@ -89,7 +89,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, han
                   </Typography>
 
                   {message.data.proposal.details.amazonOrderId && (
-                    <CopyValue text={message.data.proposal.details.amazonOrderId} disabled={undefined} />
+                    <CopyValue text={message.data.proposal.details.amazonOrderId} />
                   )}
                 </div>
               }
@@ -125,7 +125,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, han
                             {el}
                           </Link>
 
-                          <CopyValue text={el} disabled={undefined} />
+                          <CopyValue text={el} />
                         </div>
                       ))}
                     </div>
