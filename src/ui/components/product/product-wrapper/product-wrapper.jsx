@@ -1,28 +1,28 @@
 /* eslint-disable no-unused-vars */
-import {Box, Tabs} from '@mui/material'
+import { Box, Tabs } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {ITab} from '@components/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab/i-tab'
 
-import {checkIsBuyer, checkIsClient, checkIsResearcher} from '@utils/checks'
-import {t} from '@utils/translations'
+import { checkIsBuyer, checkIsClient, checkIsResearcher } from '@utils/checks'
+import { t } from '@utils/translations'
 
-import {Freelance} from '../freelance'
-import {Integrations} from '../integrations'
-import {Listing} from '../listing'
-import {Orders} from '../orders'
-import {SuppliersAndIdeas} from '../suppliers-and-ideas'
-import {BottomCard} from './bottom-card'
-import {useClassNames} from './product-wrapper.style'
-import {TopCard} from './top-card'
+import { Freelance } from '../freelance'
+import { Integrations } from '../integrations'
+import { Listing } from '../listing'
+import { Orders } from '../orders'
+import { SuppliersAndIdeas } from '../suppliers-and-ideas'
+import { BottomCard } from './bottom-card'
+import { useClassNames } from './product-wrapper.style'
+import { TopCard } from './top-card'
 
 const tabsValues = {
   MAIN_INFO: 'MAIN_INFO',
@@ -46,7 +46,7 @@ const getTab = tabKey => {
   }
 }
 
-const TabPanel = ({children, value, index, ...other}) => (
+const TabPanel = ({ children, value, index, ...other }) => (
   <div
     role="tabpanel"
     hidden={value !== index}
@@ -84,7 +84,7 @@ export const ProductWrapper = observer(
     acceptMessage,
     onClickHsCode,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const [curUserRole, seturUserRole] = useState(UserRoleCodeMap[userRole])
 

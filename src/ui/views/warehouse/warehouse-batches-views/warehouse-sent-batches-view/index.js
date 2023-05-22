@@ -1,1 +1,1 @@
-export {WarehouseSentBatchesView} from './warehouse-sent-batches-view'
+export { WarehouseSentBatchesView } from './warehouse-sent-batches-view'

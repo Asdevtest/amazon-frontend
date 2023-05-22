@@ -1,1 +1,1 @@
-export {AnnouncementsModel} from './announcements-model'
+export { AnnouncementsModel } from './announcements-model'

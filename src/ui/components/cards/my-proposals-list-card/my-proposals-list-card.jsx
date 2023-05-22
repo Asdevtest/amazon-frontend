@@ -1,32 +1,33 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Grid, Typography, Avatar, Divider} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Grid, Typography, Avatar, Divider } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import React from 'react'
 
 import {
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeTranslate,
-  freelanceRequestType,
-} from '@constants/freelance-request-type'
-import {
   RequestProposalStatus,
   RequestProposalStatusColor,
   RequestProposalStatusTranslate,
-} from '@constants/request-proposal-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+} from '@constants/requests/request-proposal-status'
+import {
+  freelanceRequestTypeByCode,
+  freelanceRequestTypeTranslate,
+  freelanceRequestType,
+} from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {AsinLink} from '@components/asin-link'
-import {Button} from '@components/buttons/button'
-import {CustomCarousel} from '@components/custom-carousel'
-import {UserLink} from '@components/user-link'
+import { AsinLink } from '@components/shared/asin-link'
+import { Button } from '@components/shared/buttons/button'
 
-import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {t} from '@utils/translations'
+import { UserLink } from '@components/user/user-link'
 
-import {useClassNames} from './my-proposals-list-card.style'
+import { formatNormDateTime, formatNormDateTimeWithParseISO } from '@utils/date-time'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { t } from '@utils/translations'
+
+import { useClassNames } from './my-proposals-list-card.style'
+import { CustomSlider } from '@components/shared/custom-slider'
 
 export const MyProposalsListCard = ({
   item,
@@ -36,7 +37,7 @@ export const MyProposalsListCard = ({
   onClickResultBtn,
   isFirst,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const noDisabledEditBtnStatuses = [
     RequestProposalStatus.CREATED,
@@ -133,9 +134,9 @@ export const MyProposalsListCard = ({
           </div>
         </div>
 
-        <Divider flexItem orientation="vertical" classes={{root: classNames.divider}} />
+        <Divider flexItem orientation="vertical" classes={{ root: classNames.divider }} />
         <div className={classNames.rightBlockWrapper}>
-          <CustomCarousel title={t(TranslationKey.Proposal)} view="complex">
+          <CustomSlider title={t(TranslationKey.Proposal)} view="complex">
             {item.proposals.map((proposal, index) => (
               <div key={index} className={classNames.proposalWrapper}>
                 <div className={classNames.performerInfoCell}>
@@ -151,7 +152,7 @@ export const MyProposalsListCard = ({
                   <div className={classNames.statusField}>
                     <span
                       className={classNames.circleIndicator}
-                      style={{backgroundColor: RequestProposalStatusColor(proposal.status)}}
+                      style={{ backgroundColor: RequestProposalStatusColor(proposal.status) }}
                     />
                     <Typography className={classNames.standartText}>
                       {RequestProposalStatusTranslate(proposal.status)}
@@ -203,7 +204,7 @@ export const MyProposalsListCard = ({
                 </div>
               </div>
             ))}
-          </CustomCarousel>
+          </CustomSlider>
         </div>
       </div>
     </Grid>

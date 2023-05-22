@@ -1,6 +1,6 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {UserModel} from '@models/user-model'
+import { UserModel } from '@models/user-model'
 
 export class UserSettingsModel {
   history = undefined
@@ -17,9 +17,9 @@ export class UserSettingsModel {
 
   showSuccessModal = false
 
-  constructor({history}) {
+  constructor({ history }) {
     this.history = history
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {
@@ -32,7 +32,7 @@ export class UserSettingsModel {
   }
 
   onChangeField = fieldName => event => {
-    const newFormFields = {...this.userSettings}
+    const newFormFields = { ...this.userSettings }
 
     newFormFields[fieldName] = event.target.value
 
@@ -67,7 +67,7 @@ export class UserSettingsModel {
 
   async createUserSettings(data) {
     try {
-      await UserModel.createUserSettings({settingOwnerId: this.userId, data})
+      await UserModel.createUserSettings({ settingOwnerId: this.userId, data })
 
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
@@ -77,7 +77,7 @@ export class UserSettingsModel {
 
   async editUserSettings(data) {
     try {
-      await UserModel.editUserSettings(this.userId, {settingOwnerId: this.userId, data})
+      await UserModel.editUserSettings(this.userId, { settingOwnerId: this.userId, data })
 
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {

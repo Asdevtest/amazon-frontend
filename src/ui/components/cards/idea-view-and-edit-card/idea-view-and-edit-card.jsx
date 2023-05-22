@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
@@ -7,30 +7,30 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import SaveIcon from '@mui/icons-material/Save'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import {Divider, Grid, Link, Typography, IconButton, Select, InputAdornment, MenuItem} from '@mui/material'
+import { Divider, Grid, Link, Typography, IconButton, Select, InputAdornment, MenuItem } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
 import AddIcon from '@material-ui/icons/Add'
 import DeleteIcon from '@material-ui/icons/Delete'
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {ideaStatus, ideaStatusByCode, ideaStatusByKey, ideaStatusTranslate} from '@constants/idea-status'
-import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
+import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { ideaStatus, ideaStatusByCode, ideaStatusByKey, ideaStatusTranslate } from '@constants/statuses/idea-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value/copy-value'
-import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
-import {Field} from '@components/field'
-import {Input} from '@components/input'
-import {TableSupplier} from '@components/product/table-supplier'
-import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
-import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
-import {UploadFilesInput} from '@components/upload-files-input'
+import { TableSupplier } from '@components/product/table-supplier'
+import { Button } from '@components/shared/buttons/button'
+import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
+import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { Field } from '@components/shared/field'
+import { Input } from '@components/shared/input'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import {roundSafely} from '@utils/calculation'
+import { roundSafely } from '@utils/calculation'
 import {
   checkIsAdmin,
   checkIsBuyer,
@@ -38,11 +38,11 @@ import {
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsSupervisor,
 } from '@utils/checks'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {clearEverythingExceptNumbers, toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { clearEverythingExceptNumbers, toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './idea-view-and-edit-card.style'
+import { useClassNames } from './idea-view-and-edit-card.style'
 
 const allowOrderStatuses = [
   `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
@@ -72,7 +72,7 @@ export const IdeaViewAndEditCard = observer(
     onClickSupplier,
     onClickSaveIcon,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const [linkLine, setLinkLine] = useState('')
 
@@ -127,7 +127,7 @@ export const IdeaViewAndEditCard = observer(
     }, [idea])
 
     const onChangeField = fieldName => event => {
-      const newFormFields = {...formFields}
+      const newFormFields = { ...formFields }
       if (
         ['price', 'width', 'height', 'length'].includes(fieldName) &&
         !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
@@ -143,7 +143,7 @@ export const IdeaViewAndEditCard = observer(
     }
 
     const onClickLinkBtn = () => {
-      onChangeField('productLinks')({target: {value: [...formFields.productLinks, linkLine]}})
+      onChangeField('productLinks')({ target: { value: [...formFields.productLinks, linkLine] } })
 
       setLinkLine('')
     }
@@ -151,7 +151,7 @@ export const IdeaViewAndEditCard = observer(
     const onRemoveLink = index => {
       const newArr = formFields.productLinks.filter((el, i) => i !== index)
 
-      onChangeField('productLinks')({target: {value: [...newArr]}})
+      onChangeField('productLinks')({ target: { value: [...newArr] } })
     }
 
     const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
@@ -320,7 +320,7 @@ export const IdeaViewAndEditCard = observer(
               disabled={disableFields}
               className={classNames.commentField}
               labelClasses={classNames.spanLabel}
-              inputProps={{maxLength: 255}}
+              inputProps={{ maxLength: 255 }}
               minRows={6}
               maxRows={6}
               label={t(TranslationKey.Comments)}
@@ -330,7 +330,7 @@ export const IdeaViewAndEditCard = observer(
           </div>
         </div>
 
-        <div className={cx(classNames.middleBlock, {[classNames.fullMiddleBlock]: showFullCard})}>
+        <div className={cx(classNames.middleBlock, { [classNames.fullMiddleBlock]: showFullCard })}>
           <Typography className={classNames.supplierSearchTitle}>
             {t(TranslationKey['Supplier search options'])}
           </Typography>
@@ -341,12 +341,12 @@ export const IdeaViewAndEditCard = observer(
                 <Field
                   disabled={disableFields}
                   labelClasses={classNames.spanLabel}
-                  inputProps={{maxLength: 130}}
+                  inputProps={{ maxLength: 130 }}
                   label={t(TranslationKey['Product name'])}
                   value={formFields.productName}
                   onChange={onChangeField('productName')}
                 />
-                <span className={cx(classNames.count, {[classNames.error]: formFields.productName.length > 128})}>{`${
+                <span className={cx(classNames.count, { [classNames.error]: formFields.productName.length > 128 })}>{`${
                   formFields.productName.length
                 } ${t(TranslationKey.of)} 128 ${t(TranslationKey.characters)}`}</span>
 
@@ -354,7 +354,7 @@ export const IdeaViewAndEditCard = observer(
                   multiline
                   disabled={disableFields}
                   className={classNames.criterionsField}
-                  inputProps={{maxLength: 250}}
+                  inputProps={{ maxLength: 250 }}
                   minRows={9}
                   maxRows={9}
                   label={t(TranslationKey['Important criteria'])}
@@ -378,7 +378,7 @@ export const IdeaViewAndEditCard = observer(
                         <Input
                           disabled={disableFields}
                           placeholder={t(TranslationKey['Link to the product'])}
-                          inputProps={{maxLength: 1500}}
+                          inputProps={{ maxLength: 1500 }}
                           value={linkLine}
                           className={classNames.input}
                           onChange={e => setLinkLine(e.target.value)}
@@ -425,7 +425,7 @@ export const IdeaViewAndEditCard = observer(
                 <div className={classNames.shortFieldsSubWrapper}>
                   <Field
                     disabled={disableFields}
-                    inputProps={{maxLength: 6}}
+                    inputProps={{ maxLength: 6 }}
                     labelClasses={classNames.spanLabel}
                     inputClasses={classNames.shortInput}
                     label={t(TranslationKey.Quantity)}
@@ -434,7 +434,7 @@ export const IdeaViewAndEditCard = observer(
                   />
                   <Field
                     disabled={disableFields}
-                    inputProps={{maxLength: 6}}
+                    inputProps={{ maxLength: 6 }}
                     labelClasses={classNames.spanLabel}
                     inputClasses={classNames.shortInput}
                     label={t(TranslationKey['Desired purchase price']) + ', $'}
@@ -460,7 +460,7 @@ export const IdeaViewAndEditCard = observer(
                   <div className={classNames.sizesBottomWrapper}>
                     <Field
                       disabled={disableFields}
-                      inputProps={{maxLength: 6}}
+                      inputProps={{ maxLength: 6 }}
                       labelClasses={classNames.spanLabel}
                       inputClasses={classNames.sizesInput}
                       containerClasses={classNames.sizesContainer}
@@ -470,7 +470,7 @@ export const IdeaViewAndEditCard = observer(
                     />
                     <Field
                       disabled={disableFields}
-                      inputProps={{maxLength: 6}}
+                      inputProps={{ maxLength: 6 }}
                       labelClasses={classNames.spanLabel}
                       inputClasses={classNames.sizesInput}
                       containerClasses={classNames.sizesContainer}
@@ -480,7 +480,7 @@ export const IdeaViewAndEditCard = observer(
                     />
                     <Field
                       disabled={disableFields}
-                      inputProps={{maxLength: 6}}
+                      inputProps={{ maxLength: 6 }}
                       labelClasses={classNames.spanLabel}
                       inputClasses={classNames.sizesInput}
                       containerClasses={classNames.sizesContainer}

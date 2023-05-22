@@ -1,23 +1,6 @@
 export const styles = theme => ({
-  buttonWrapper: {
-    padding: '16px',
-    textAlign: 'right',
-    marginRight: '0px',
-    borderTop: '1px solid rgb(224,224,224)',
-  },
-  tableWrapper: {
-    marginTop: '32px',
-    minWidth: '100%',
-    height: '100%',
-  },
   dialogContextClassName: {
     width: '1200px',
-  },
-  modalMessageWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '20px',
   },
 
   searchInput: {
@@ -45,15 +28,10 @@ export const styles = theme => ({
   attentionRow: {
     boxShadow: 'inset 0 0 30px rgba(247, 179, 7, .3)',
   },
-  datagridWrapper: {
-    marginTop: '10px',
-    height: '79vh',
-  },
+
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
   },
 
@@ -79,9 +57,7 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-
     width: 320,
-
     gap: 5,
   },
 
@@ -89,9 +65,7 @@ export const styles = theme => ({
     fontWeight: 600,
     fontSize: 18,
     lineHeight: '140%',
-
     whiteSpace: 'nowrap',
-
     color: theme.palette.text.second,
   },
 

@@ -1,22 +1,20 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {AdministratorModel} from '@models/administrator-model'
+import { AdministratorModel } from '@models/administrator-model'
 
 export class AdminTechnicalViewModel {
   history = undefined
   requestStatus = undefined
   actionStatus = undefined
 
-  drawerOpen = false
-
   serverWorkOn = false
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onBackBtn() {
@@ -45,11 +43,5 @@ export class AdminTechnicalViewModel {
     } catch (err) {
       console.log(err)
     }
-  }
-
-  onTriggerDrawer = () => {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 }

@@ -1,44 +1,21 @@
-import React, {Component} from 'react'
+import React, { useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { ShopsIntegrations } from '@components/shops-integrations'
 
-import {Appbar} from '@components/appbar'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {Navbar} from '@components/navbar'
-import {ShopsIntegrations} from '@components/shops-integrations'
+import { ClientShopsViewModel } from './client-shops-view.model'
+import { styles } from './client-shops-view.style'
 
-import {t} from '@utils/translations'
+export const ClientShopsViewRaw = props => {
+  const [viewModel] = useState(() => new ClientShopsViewModel({ history: props.history, location: props.location }))
 
-import {ClientShopsViewModel} from './client-shops-view.model'
-import {styles} from './client-shops-view.style'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_SHOPS
-
-@observer
-class ClientShopsViewRaw extends Component {
-  viewModel = new ClientShopsViewModel({history: this.props.history, location: this.props.location})
-
-  render() {
-    const {drawerOpen, onChangeDrawerOpen, openModal} = this.viewModel
-
-    return (
-      <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onChangeDrawerOpen} />
-        <Main>
-          <Appbar title={t(TranslationKey.Shops)} setDrawerOpen={onChangeDrawerOpen}>
-            <MainContent>
-              <ShopsIntegrations openModal={openModal} />
-            </MainContent>
-          </Appbar>
-        </Main>
-      </React.Fragment>
-    )
-  }
+  return (
+    <React.Fragment>
+      <ShopsIntegrations openModal={viewModel.openModal} />
+    </React.Fragment>
+  )
 }
 
-export const ClientShopsView = withStyles(ClientShopsViewRaw, styles)
+export const ClientShopsView = withStyles(observer(ClientShopsViewRaw), styles)

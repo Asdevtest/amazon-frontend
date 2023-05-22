@@ -1,14 +1,14 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 
-import React, {FC} from 'react'
+import React, { FC } from 'react'
 
-import {useClassNames} from './chat-message-creator-accepted-proposal.style'
-import {LabelValueDoubleBlock} from './label-value-double-block'
+import { useClassNames } from './chat-message-creator-accepted-proposal.style'
+import { LabelValueDoubleBlock } from './label-value-double-block'
 
 interface Props {}
 
 export const ChatMessageCreatorAcceptedProposal: FC<Props> = () => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
   return (
     <div className={classNames.root}>
       <div className={classNames.headerWrapper}>
@@ -17,7 +17,7 @@ export const ChatMessageCreatorAcceptedProposal: FC<Props> = () => {
           <p className={classNames.headerText}>ПРЕДЛОЖЕНИЕ ПРИНЯТО КЛИЕНТОМ</p>
         </div>
       </div>
-      <div className={classNames.mainInfoWrapper}>
+      <div>
         <div className={classNames.titleWrapper}>
           <p className={classNames.titleText}>
             Название задачи надо писать вот тут и тут пишется полное название заявки точнее
@@ -31,21 +31,21 @@ export const ChatMessageCreatorAcceptedProposal: FC<Props> = () => {
         </div>
       </div>
       <div className={classNames.otherInfoWrapper}>
-        <div className={classNames.labelValueDoubleBlockWrapper}>
+        <div>
           <LabelValueDoubleBlock
             bgColor="green"
             labelValueDouble={[
-              {label: 'Статус', value: 'CREATED'},
-              {label: 'Стоимость', value: '30$'},
+              { label: 'Статус', value: 'CREATED' },
+              { label: 'Стоимость', value: '30$' },
             ]}
           />
         </div>
-        <div className={cx(classNames.labelValueDoubleBlockWrapper, classNames.labelValueDoubleBlockWrapperNotFirst)}>
+        <div className={cx(classNames.labelValueDoubleBlockWrapperNotFirst)}>
           <LabelValueDoubleBlock
             bgColor="green"
             labelValueDouble={[
-              {label: 'Время', value: '10 ч. 15 мин.'},
-              {label: 'Срок', value: '24.01.22 12:00'},
+              { label: 'Время', value: '10 ч. 15 мин.' },
+              { label: 'Срок', value: '24.01.22 12:00' },
             ]}
           />
         </div>

@@ -1,1 +1,1 @@
-export {AddOrEditSinglePermissionForm} from './add-or-edit-single-permission-form'
+export { AddOrEditSinglePermissionForm } from './add-or-edit-single-permission-form'

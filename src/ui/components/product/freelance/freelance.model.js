@@ -1,20 +1,20 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {RequestSubType, RequestType} from '@constants/request-type'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { RequestSubType, RequestType } from '@constants/requests/request-type'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {RequestModel} from '@models/request-model'
-import {RequestProposalModel} from '@models/request-proposal'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { RequestProposalModel } from '@models/request-proposal'
+import { RequestModel } from '@models/request-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {productMyRequestsViewColumns} from '@components/table-columns/overall/product-my-requests-columns'
+import { productMyRequestsViewColumns } from '@components/table/table-columns/overall/product-my-requests-columns'
 
-import {myRequestsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 
 export class FreelanceModel {
   history = undefined
@@ -58,16 +58,17 @@ export class FreelanceModel {
   }
 
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = productMyRequestsViewColumns(this.languageTag, this.handlers)
-  constructor({history, productId}) {
+
+  constructor({ history, productId }) {
     this.history = history
 
     this.productId = productId
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
     runInAction(() => {
       if (this.showAcceptMessage) {
         setTimeout(() => {
@@ -202,7 +203,7 @@ export class FreelanceModel {
     }
   }
 
-  onClickOpenRequest(item) {
+  onClickOpenRequest(itemId) {
     // this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request`, {
     //   request: toJS(item),
     // })
@@ -210,7 +211,7 @@ export class FreelanceModel {
     const win = window.open(
       `${window.location.origin}/${
         UserRoleCodeMapForRoutes[this.userInfo.role]
-      }/freelance/my-requests/custom-request?request-id=${item._id}`,
+      }/freelance/my-requests/custom-request?request-id=${itemId}`,
       '_blank',
     )
 

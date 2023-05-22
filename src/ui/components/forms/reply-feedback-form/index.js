@@ -1,1 +1,1 @@
-export {ReplyFeedbackForm} from './reply-feedback-form'
+export { ReplyFeedbackForm } from './reply-feedback-form'

@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -69,12 +69,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  currentBoxFooter: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    marginTop: '30px',
-  },
-
   box: {
     width: 527,
     backgroundColor: theme.palette.background.second,
@@ -100,9 +94,7 @@ export const useClassNames = makeStyles()(theme => ({
   orderInput: {
     width: '79px',
   },
-  divider: {
-    margin: '0 30px',
-  },
+
   img: {
     width: '66px',
     height: '66px',
@@ -116,17 +108,6 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
   },
 
-  footerTitle: {
-    color: theme.palette.text.second,
-  },
-  miss: {
-    color: theme.palette.text.second,
-  },
-
-  standartText: {
-    color: theme.palette.text.general,
-  },
-
   deleteBtn: {
     color: theme.palette.text.second,
   },
@@ -135,21 +116,14 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
-    // marginRight: '10px',
     width: '299px',
-    // overflow: 'hidden',
-    // textOverflow: 'ellipsis',
-    // whiteSpace: 'wrap',
-
     display: '-webkit-box',
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
     height: 45,
     whiteSpace: 'normal',
-
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-
     color: theme.palette.text.general,
   },
   subTitle: {
@@ -158,21 +132,9 @@ export const useClassNames = makeStyles()(theme => ({
     marginRight: theme.spacing(1),
   },
 
-  inputWrapper: {
-    border: '1px solid rgba(143, 152, 165, 1)',
-    borderRadius: '4px',
-    maxWidth: '80px',
-    height: '40px',
-  },
   input: {
     fontSize: '14px',
     textAlign: 'center',
-  },
-  heightFieldAuto: {
-    height: '420px',
-    width: '330px',
-
-    padding: 0,
   },
 
   itemWrapper: {
@@ -193,7 +155,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'grid',
     gridTemplateColumns: 'repeat(2, 231px)',
     columnGap: '25px',
-    // rowGap: '30px',
   },
 
   barcodeChip: {
@@ -224,12 +185,6 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundcolor: theme.palette.text.general,
   },
 
-  link: {
-    maxWidth: 370,
-    whiteSpace: 'nowrap',
-    overflowX: 'auto',
-  },
-
   modalText: {
     marginBottom: '5px',
   },
@@ -242,15 +197,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  storekeeperDisableBtn: {
-    backgroundColor: '#e4e7ea',
-    borderRadius: '4px',
-    padding: '6px 7px',
-  },
-
-  field: {
-    // margin: '0',
-  },
   fieldInput: {
     height: '40px',
   },
@@ -281,9 +227,6 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '10px',
   },
 
-  destinationSelect: {
-    height: '40px',
-  },
   icon: {
     padding: 4,
   },
@@ -337,21 +280,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.general,
   },
-  copyImg: {
-    width: '20px',
-    height: '20px',
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.07)',
-    },
-  },
-  shippingLabelWrapper: {
-    height: '40px',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '20px',
-  },
+
   storekeeperBtnDefault: {
     color: theme.palette.text.general,
   },

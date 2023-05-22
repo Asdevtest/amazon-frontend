@@ -1,4 +1,4 @@
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class ProductModelStatic {
   createProduct = async data => {
@@ -12,7 +12,7 @@ class ProductModelStatic {
   }
 
   updateProduct = async (id, data) => {
-    const response = await restApiService.product.apiV1ProductsIdPatch(id, {body: data})
+    const response = await restApiService.product.apiV1ProductsIdPatch(id, { body: data })
     return response
   }
 
@@ -23,14 +23,14 @@ class ProductModelStatic {
 
   addSuppliersToProduct = async (id, supplier) => {
     const response = await restApiService.product.apiV1ProductsAddSuppliersGuidPost(id, {
-      body: {suppliersIds: supplier},
+      body: { suppliersIds: supplier },
     })
     return response
   }
 
   removeSuppliersFromProduct = async (id, supplier) => {
     const response = await restApiService.product.apiV1ProductsRemoveSuppliersGuidPost(id, {
-      body: {suppliersIds: supplier},
+      body: { suppliersIds: supplier },
     })
     return response
   }
@@ -46,7 +46,7 @@ class ProductModelStatic {
   }
 
   editProductsHsCods = async data => {
-    const response = await restApiService.product.apiV1ProductsEditHsCodePatch({body: data})
+    const response = await restApiService.product.apiV1ProductsEditHsCodePatch({ body: data })
     return response
   }
 

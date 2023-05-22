@@ -1,8 +1,8 @@
-import {BACKEND_API_URL} from '@constants/env'
+import { BACKEND_API_URL } from '@constants/keys/env'
 
-import {OtherModel} from '@models/other-model'
+import { OtherModel } from '@models/other-model'
 
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class RequestProposalModelStatic {
   async onPostFile(fileData) {
@@ -35,7 +35,7 @@ class RequestProposalModelStatic {
 
   updateRequestProposalCustom = async (id, data) => {
     const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidProposalEditPatch(id, {
-      body: {...data},
+      body: { ...data },
     })
     return response
   }
@@ -72,7 +72,7 @@ class RequestProposalModelStatic {
   requestProposalCorrected = async (proposalId, data) => {
     const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidProposalCorrectedPatch(
       proposalId,
-      {body: data},
+      { body: data },
     )
     return response
   }
@@ -87,7 +87,7 @@ class RequestProposalModelStatic {
   requestProposalResultToCorrect = async (proposalId, data) => {
     const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidResultToCorrectPatch(
       proposalId,
-      {body: data},
+      { body: data },
     )
     return response
   }
@@ -95,7 +95,7 @@ class RequestProposalModelStatic {
   requestProposalResultCorrected = async (proposalId, data) => {
     const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidResultCorrectedPatch(
       proposalId,
-      {body: data},
+      { body: data },
     )
     return response
   }
@@ -127,7 +127,7 @@ class RequestProposalModelStatic {
   requestProposalLinkOrUnlinkSupervisor = async (proposalId, data) => {
     const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(
       proposalId,
-      {body: data},
+      { body: data },
     )
     return response
   }
@@ -135,7 +135,7 @@ class RequestProposalModelStatic {
   requestProposalResultEdit = async (proposalId, data) => {
     const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsCustomGuidResultEditPatch(
       proposalId,
-      {body: data},
+      { body: data },
     )
     return response
   }

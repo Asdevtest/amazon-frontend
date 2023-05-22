@@ -1,25 +1,23 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {SettingsModel} from '@models/settings-model'
-import {SupervisorModel} from '@models/supervisor-model'
+import { SettingsModel } from '@models/settings-model'
+import { SupervisorModel } from '@models/supervisor-model'
 
-import {supervisorProductsViewColumns} from '@components/table-columns/supervisor/supervisor-products-columns'
+import { supervisorProductsViewColumns } from '@components/table/table-columns/supervisor/supervisor-products-columns'
 
-import {supervisorProductsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { supervisorProductsDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
 
 export class SupervisorProductsViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
-
-  drawerOpen = false
 
   nameSearchValue = ''
 
@@ -32,14 +30,14 @@ export class SupervisorProductsViewModel {
 
   sortModel = []
   startFilterModel = undefined
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = supervisorProductsViewColumns()
   showAsinCheckerModal = false
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
 
@@ -52,7 +50,7 @@ export class SupervisorProductsViewModel {
     //       this.startFilterModel = resetDataGridFilter
     //     }
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -120,7 +118,7 @@ export class SupervisorProductsViewModel {
         this.filterModel = this.startFilterModel
           ? {
               ...this.startFilterModel,
-              items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
+              items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
             }
           : state.filter.filterModel
         this.rowsPerPage = state.pagination.pageSize
@@ -245,12 +243,6 @@ export class SupervisorProductsViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -318,12 +310,6 @@ export class SupervisorProductsViewModel {
     )
 
     win.focus()
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

@@ -1,29 +1,29 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Box, Tabs} from '@mui/material'
+import { Box, Tabs } from '@mui/material'
 
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {AsinProxyCheckerForm} from '@components/forms/asin-proxy-checker-form'
-import {ITab} from '@components/i-tab/i-tab'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {Modal} from '@components/modal'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {EditAsinCheckerModal} from '@components/modals/edit-asin-checker-modal'
-import {FailedAsinsModal} from '@components/modals/failed-asins-modal'
-import {SearchInput} from '@components/search-input'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { EditAsinCheckerModal } from '@components/modals/edit-asin-checker-modal'
+import { FailedAsinsModal } from '@components/modals/failed-asins-modal'
+import { Button } from '@components/shared/buttons/button'
+import { ITab } from '@components/shared/i-tab/i-tab'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {SupervisorSettingsContentModel} from './supervisor-settings-content.model'
-import {useClassNames} from './supervisor-settings-content.style'
+import { SupervisorSettingsContentModel } from './supervisor-settings-content.model'
+import { useClassNames } from './supervisor-settings-content.style'
 
 const tabsValues = {
   ONLINE_ARBITRAGE_CHINA: 'ONLINE_ARBITRAGE_CHINA',
@@ -32,7 +32,7 @@ const tabsValues = {
   WHOLE_SALE_USA: 'WHOLE_SALE_USA',
 }
 
-const TabPanel = ({children, value, index, ...other}) => (
+const TabPanel = ({ children, value, index, ...other }) => (
   <div
     role="tabpanel"
     hidden={value !== index}
@@ -46,7 +46,7 @@ const TabPanel = ({children, value, index, ...other}) => (
 
 export const SupervisorSettingsContent = observer(() => {
   const [tabIndex, setTabIndex] = React.useState(tabsValues.ONLINE_ARBITRAGE_CHINA)
-  const gpModel = useRef(new SupervisorSettingsContentModel({history, tabIndex}))
+  const gpModel = useRef(new SupervisorSettingsContentModel({ history, tabIndex }))
 
   const {
     user,
@@ -85,7 +85,7 @@ export const SupervisorSettingsContent = observer(() => {
     gpModel.current.loadData(tabIndex)
   }, [tabIndex])
 
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   return (
     <React.Fragment>
@@ -159,7 +159,7 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             componentsProps={{
               toolbar: {
-                columsBtnSettings: {columnsModel, changeColumnsModel},
+                columsBtnSettings: { columnsModel, changeColumnsModel },
               },
             }}
             density={densityModel}
@@ -225,7 +225,7 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             componentsProps={{
               toolbar: {
-                columsBtnSettings: {columnsModel, changeColumnsModel},
+                columsBtnSettings: { columnsModel, changeColumnsModel },
               },
             }}
             density={densityModel}
@@ -291,7 +291,7 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             componentsProps={{
               toolbar: {
-                columsBtnSettings: {columnsModel, changeColumnsModel},
+                columsBtnSettings: { columnsModel, changeColumnsModel },
               },
             }}
             density={densityModel}
@@ -357,7 +357,7 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             componentsProps={{
               toolbar: {
-                columsBtnSettings: {columnsModel, changeColumnsModel},
+                columsBtnSettings: { columnsModel, changeColumnsModel },
               },
             }}
             density={densityModel}

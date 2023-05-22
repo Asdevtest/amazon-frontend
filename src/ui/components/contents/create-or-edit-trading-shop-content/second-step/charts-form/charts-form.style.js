@@ -1,10 +1,6 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  mainWrapper: {
-    width: 1100,
-  },
-
   cardHeaderWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -41,7 +37,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
 
-    borderBottom: '5px solid #0460DE',
+    borderBottom: theme.palette.other.tableActiveFilterBtn,
   },
 
   selectionBtns: {

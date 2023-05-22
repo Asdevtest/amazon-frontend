@@ -1,1 +1,1 @@
-export {ClientSubUsersView} from './sub-users-view'
+export { SubUsersView } from './sub-users-view'

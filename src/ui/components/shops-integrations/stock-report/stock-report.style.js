@@ -1,29 +1,10 @@
 export const styles = theme => ({
-  card: {
-    padding: '16px 20px',
-    marginBottom: '42px',
-  },
-  buttonsWrapper: {
-    textAlign: 'right',
-  },
-  tableWrapper: {
-    marginTop: '10px',
-  },
-  mainTitle: {
-    marginBottom: '20px',
-  },
-  errorMessage: {
-    color: 'red',
-  },
-
   button: {
     marginBottom: 5,
     color: theme.palette.primary.main,
-
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
-
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },
@@ -49,12 +30,6 @@ export const styles = theme => ({
     display: 'flex',
   },
 
-  selectedShopBtn: {
-    marginBottom: 0,
-    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
-
-    borderBottom: '5px solid #0460DE',
-  },
   dataGridWrapper: {
     height: '72vh',
     overflow: 'auto',
@@ -63,8 +38,6 @@ export const styles = theme => ({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
   },
 

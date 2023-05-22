@@ -1,27 +1,25 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
-import {RequestProposalStatus, RequestProposalStatusTranslate} from '@constants/request-proposal-status'
-import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
-import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/user-roles'
-import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
+import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { RequestProposalStatus, RequestProposalStatusTranslate } from '@constants/requests/request-proposal-status'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
+import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
+import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
-import {RequestModel} from '@models/request-model'
-import {RequestProposalModel} from '@models/request-proposal'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { RequestModel } from '@models/request-model'
+import { RequestProposalModel } from '@models/request-proposal'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {checkIsFreelancer} from '@utils/checks'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import { checkIsFreelancer } from '@utils/checks'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 
 export class MyProposalsViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
   actionStatus = undefined
-
-  drawerOpen = false
 
   currentData = []
 
@@ -54,7 +52,7 @@ export class MyProposalsViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
     })
@@ -62,12 +60,12 @@ export class MyProposalsViewModel {
     if (location.state) {
       this.onClickOpenBtn(location.state?.request)
 
-      const state = {...history.location.state}
+      const state = { ...history.location.state }
       delete state.task
-      history.replace({...history.location, state})
+      history.replace({ ...history.location, state })
     }
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.requests,
@@ -141,7 +139,7 @@ export class MyProposalsViewModel {
   }
 
   setTableModeState() {
-    const state = {viewMode: this.viewMode, sortMode: this.sortMode}
+    const state = { viewMode: this.viewMode, sortMode: this.sortMode }
 
     SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.MY_PROPOSALS)
   }
@@ -203,7 +201,7 @@ export class MyProposalsViewModel {
         rating: request.createdBy.rating,
         _id: request.createdBy._id,
       },
-      details: {conditions: request.detailsCustom.conditions},
+      details: { conditions: request.detailsCustom.conditions },
       request: {
         price: request.price,
         timeoutAt: request.timeoutAt,
@@ -322,12 +320,6 @@ export class MyProposalsViewModel {
   //     console.log(error)
   //   }
   // }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
 
   setActionStatus(actionStatus) {
     runInAction(() => {

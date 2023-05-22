@@ -1,1 +1,1 @@
-export {ImageEditForm} from './image-edit-form'
+export { ImageEditForm } from './image-edit-form'

@@ -1,9 +1,9 @@
-import {createContext} from 'react'
+import { createContext } from 'react'
 
 export interface TRequest {
   request: {
-    createdBy: {_id: string}
-    sub: {_id: string}
+    createdBy: { _id: string }
+    sub: { _id: string }
   }
 }
 
@@ -16,9 +16,9 @@ export interface TRequestProposal {
     _id: string
     status: string
     chatId: string
-    createdBy: {_id: string}
-    sub: {_id: string}
-    media: {_id: string; fileLink: string}[]
+    createdBy: { _id: string }
+    sub: { _id: string }
+    media: { _id: string; fileLink: string }[]
   }
 }
 

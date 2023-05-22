@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
@@ -8,7 +8,6 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '20px',
     overflow: 'hidden',
   },
-
   cardWrapper: {
     width: '100%',
     marginTop: '20px',
@@ -16,22 +15,12 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
-
   cardBlockWrapper: {
     width: '50%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
-
-  cardImg: {
-    width: '40px',
-    height: '40px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-  },
-
-  //
   photoWrapper: {
     width: '200px',
     display: 'flex',
@@ -40,24 +29,12 @@ export const useClassNames = makeStyles()(theme => ({
     height: '200px',
     padding: '0 0 35px',
   },
-
   bigPhotoWrapper: {
+    display: 'flex',
     width: '400px',
     height: 280,
     padding: '0 0 35px',
   },
-
-  imgBox: {
-    width: '200px',
-    height: '130px',
-    objectFit: 'contain',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
-
   commentField: {
     height: '140px',
     width: '100%',
@@ -88,14 +65,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  successBtn: {
-    backgroundColor: '#4CAF50',
-    '&:hover': {
-      opacity: '0.8',
-      backgroundColor: '#4CAF50',
-    },
-  },
-
   existedIdeaBtnsWrapper: {
     width: '100%',
     display: 'flex',
@@ -107,16 +76,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '50%',
     display: 'flex',
     justifyContent: 'space-between',
-  },
-
-  carouselContainer: {
-    width: '300px',
-  },
-
-  imgWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 
   tablePanelSortWrapper: {
@@ -187,17 +146,6 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-  },
-
-  copyImg: {
-    marginRight: 15,
-    width: '20px',
-    height: '20px',
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.07)',
-    },
   },
 
   shortFieldsWrapper: {
@@ -284,14 +232,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: theme.palette.text.general,
-  },
-
-  searchTitle: {
-    fontWeight: 600,
-    fontSize: 18,
-    lineHeight: '140%',
-
     color: theme.palette.text.general,
   },
 

@@ -1,12 +1,12 @@
-import {makeAutoObservable, reaction, runInAction} from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {updateProductAutoCalculatedFields} from '@utils/calculation'
-import {getNewObjectWithDefaultValue} from '@utils/object'
+import { updateProductAutoCalculatedFields } from '@utils/calculation'
+import { getNewObjectWithDefaultValue } from '@utils/object'
 
 const formFieldsDefault = {
   checkednotes: '',
@@ -45,7 +45,6 @@ export class AdminProductViewModel {
   confirmMessage = ''
   storekeepersData = []
 
-  drawerOpen = false
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
   showNoSuplierErrorModal = false
@@ -60,7 +59,7 @@ export class AdminProductViewModel {
   progressValue = 0
   showProgress = false
 
-  formFields = {...formFieldsDefault}
+  formFields = { ...formFieldsDefault }
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
@@ -72,7 +71,7 @@ export class AdminProductViewModel {
     return SettingsModel.languageTag
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
       this.productId = history.location.search.slice(1)
@@ -83,13 +82,13 @@ export class AdminProductViewModel {
         this.inInventory = location.state.inInventory
       })
     }
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.languageTag,
       () =>
         runInAction(() => {
-          this.product = this.product ? {...this.product} : undefined
+          this.product = this.product ? { ...this.product } : undefined
         }),
     )
   }
@@ -166,12 +165,6 @@ export class AdminProductViewModel {
   onChangeProduct(e, value) {
     runInAction(() => {
       this.product = value
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

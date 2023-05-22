@@ -1,1 +1,1 @@
-export {FreelancerFreelanceView} from './freelancer-freelance-view'
+export { FreelancerFreelanceView } from './freelancer-freelance-view'

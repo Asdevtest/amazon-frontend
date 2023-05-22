@@ -1,16 +1,16 @@
 /* eslint-disable no-unused-vars */
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {FC, useState} from 'react'
+import React, { FC, useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
+import { Button } from '@components/shared/buttons/button'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {PaymentMethodCard} from './payment-method-card'
-import {useClassNames} from './payment-methods-form.style'
+import { PaymentMethodCard } from './payment-method-card'
+import { useClassNames } from './payment-methods-form.style'
 
 interface PaymentMethod {
   _id: string
@@ -32,16 +32,36 @@ interface PaymentMethodsFormProps {
 }
 
 export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = props => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
-  const {payments, readOnly, onClickSaveButton, onClickCancelButton} = props
+  const { payments, readOnly, onClickSaveButton, onClickCancelButton } = props
 
   const [childStates, setChildStates] = useState(
-    payments?.sort((a, b) => {
-      const titleA = typeof a !== 'undefined' && 'paymentMethod' in a ? a.paymentMethod?.title : a?.title
-      const titleB = typeof b !== 'undefined' && 'paymentMethod' in b ? b.paymentMethod?.title : b?.title
-      return titleA?.localeCompare(titleB)
-    }) || [],
+    payments
+      ?.sort((a, b) => {
+        const titleA = typeof a !== 'undefined' && 'paymentMethod' in a ? a.paymentMethod?.title : a?.title
+        const titleB = typeof b !== 'undefined' && 'paymentMethod' in b ? b.paymentMethod?.title : b?.title
+        return titleA?.localeCompare(titleB)
+      })
+      .sort((a, b) => {
+        if (
+          typeof a !== 'undefined' &&
+          'paymentMethod' in a &&
+          typeof b !== 'undefined' &&
+          'paymentMethod' in b &&
+          a.paymentMethod?._id &&
+          b.paymentMethod?._id
+        ) {
+          return 0
+        }
+        if (typeof a !== 'undefined' && 'paymentMethod' in a && a.paymentMethod?._id) {
+          return -1
+        }
+        if (typeof b !== 'undefined' && 'paymentMethod' in b && b.paymentMethod?._id) {
+          return 1
+        }
+        return 0
+      }) || [],
   )
 
   const handleChildStateChange = (index: number, newState: Payments) => {

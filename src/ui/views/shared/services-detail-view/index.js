@@ -1,1 +1,1 @@
-export {ServiceDetailsView} from './services-detail-view'
+export { ServiceDetailsView } from './services-detail-view'

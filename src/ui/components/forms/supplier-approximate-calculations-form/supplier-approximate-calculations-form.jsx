@@ -1,25 +1,21 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {toJS} from 'mobx'
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
-import {MemoDataGrid} from '@components/memo-data-grid'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
-import {calcTotalFbaForProduct, roundSafely} from '@utils/calculation'
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { calcTotalFbaForProduct, roundSafely } from '@utils/calculation'
+import { t } from '@utils/translations'
 
-import {supplierApproximateCalculationsFormColumns} from './supplier-approximate-calculations-form-columns'
-import {useClassNames} from './supplier-approximate-calculations-form.style'
+import { supplierApproximateCalculationsFormColumns } from './supplier-approximate-calculations-form-columns'
+import { useClassNames } from './supplier-approximate-calculations-form.style'
 
 const supplierApproximateCalculationsDataConverter = (tariffLogistics, product, supplier, volumeWeightCoefficient) => {
   const fInalWeightOfUnit =
@@ -61,8 +57,8 @@ const supplierApproximateCalculationsDataConverter = (tariffLogistics, product, 
 }
 
 export const SupplierApproximateCalculationsForm = observer(
-  ({product, supplier, storekeepers, onClose, volumeWeightCoefficient}) => {
-    const {classes: classNames} = useClassNames()
+  ({ product, supplier, storekeepers, onClose, volumeWeightCoefficient }) => {
+    const { classes: classNames } = useClassNames()
 
     const [curStorekeeper, setCurStorekeeper] = useState(
       storekeepers.slice().sort((a, b) => a.name.localeCompare(b.name))[0],

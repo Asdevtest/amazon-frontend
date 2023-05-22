@@ -1,150 +1,152 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
-import {UserLink} from '@components/user-link'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field/field'
+import { UserLink } from '@components/user/user-link'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './add-or-edit-destination-form.style'
+import { useClassNames } from './add-or-edit-destination-form.style'
 
-export const AddOrEditDestinationForm = observer(({onCloseModal, onCreateSubmit, onEditSubmit, destinationToEdit}) => {
-  const {classes: classNames} = useClassNames()
+export const AddOrEditDestinationForm = observer(
+  ({ onCloseModal, onCreateSubmit, onEditSubmit, destinationToEdit }) => {
+    const { classes: classNames } = useClassNames()
 
-  const sourceFormFields = {
-    name: destinationToEdit?.name || '',
-    country: destinationToEdit?.country || '',
-    zipCode: destinationToEdit?.zipCode || '',
-    city: destinationToEdit?.city || '',
-    state: destinationToEdit?.state || '',
-    address: destinationToEdit?.address || '',
-  }
-
-  const [formFields, setFormFields] = useState(sourceFormFields)
-
-  const onChangeField = fieldName => event => {
-    const newFormFields = {...formFields}
-
-    newFormFields[fieldName] = event.target.value
-
-    setFormFields(newFormFields)
-  }
-
-  const onSubmit = () => {
-    if (destinationToEdit) {
-      onEditSubmit(formFields, destinationToEdit._id)
-    } else {
-      onCreateSubmit(formFields)
+    const sourceFormFields = {
+      name: destinationToEdit?.name || '',
+      country: destinationToEdit?.country || '',
+      zipCode: destinationToEdit?.zipCode || '',
+      city: destinationToEdit?.city || '',
+      state: destinationToEdit?.state || '',
+      address: destinationToEdit?.address || '',
     }
-  }
 
-  const disableSubmitBtn =
-    JSON.stringify(sourceFormFields) === JSON.stringify(formFields) ||
-    formFields.name === '' ||
-    formFields.address === '' ||
-    formFields.country === '' ||
-    formFields.city === '' ||
-    formFields.state === '' ||
-    formFields.zipCode === '' ||
-    !/^[0-9]{5}$/.test(formFields.zipCode)
-  formFields.city === '' || formFields.state === ''
+    const [formFields, setFormFields] = useState(sourceFormFields)
 
-  return (
-    <div className={classNames.root}>
-      <Typography variant="h5" className={classNames.standartText}>
-        {t(TranslationKey['Add a new drop off location'])}
-      </Typography>
+    const onChangeField = fieldName => event => {
+      const newFormFields = { ...formFields }
 
-      <div className={classNames.form}>
-        {destinationToEdit && (
+      newFormFields[fieldName] = event.target.value
+
+      setFormFields(newFormFields)
+    }
+
+    const onSubmit = () => {
+      if (destinationToEdit) {
+        onEditSubmit(formFields, destinationToEdit._id)
+      } else {
+        onCreateSubmit(formFields)
+      }
+    }
+
+    const disableSubmitBtn =
+      JSON.stringify(sourceFormFields) === JSON.stringify(formFields) ||
+      formFields.name === '' ||
+      formFields.address === '' ||
+      formFields.country === '' ||
+      formFields.city === '' ||
+      formFields.state === '' ||
+      formFields.zipCode === '' ||
+      !/^[0-9]{5}$/.test(formFields.zipCode)
+    formFields.city === '' || formFields.state === ''
+
+    return (
+      <div className={classNames.root}>
+        <Typography variant="h5" className={classNames.standartText}>
+          {t(TranslationKey['Add a new drop off location'])}
+        </Typography>
+
+        <div className={classNames.form}>
+          {destinationToEdit && (
+            <Field
+              label={t(TranslationKey.Account)}
+              inputComponent={
+                <>
+                  {destinationToEdit.storekeeper ? (
+                    <UserLink
+                      blackText
+                      withAvatar
+                      name={destinationToEdit.storekeeper?.name}
+                      userId={destinationToEdit.storekeeper?._id}
+                    />
+                  ) : (
+                    <Typography className={classNames.standartText}>{t(TranslationKey.Missing)}</Typography>
+                  )}
+                </>
+              }
+            />
+          )}
+
           <Field
-            label={t(TranslationKey.Account)}
-            inputComponent={
-              <>
-                {destinationToEdit.storekeeper ? (
-                  <UserLink
-                    blackText
-                    withAvatar
-                    name={destinationToEdit.storekeeper?.name}
-                    userId={destinationToEdit.storekeeper?._id}
-                  />
-                ) : (
-                  <Typography className={classNames.standartText}>{t(TranslationKey.Missing)}</Typography>
-                )}
-              </>
-            }
+            label={t(TranslationKey.Title)}
+            inputProps={{ maxLength: 255 }}
+            value={formFields.name}
+            placeholder={t(TranslationKey.Title) + '...'}
+            onChange={onChangeField('name')}
           />
-        )}
 
-        <Field
-          label={t(TranslationKey.Title)}
-          inputProps={{maxLength: 255}}
-          value={formFields.name}
-          placeholder={t(TranslationKey.Title) + '...'}
-          onChange={onChangeField('name')}
-        />
+          <Field
+            label={t(TranslationKey.Country)}
+            inputProps={{ maxLength: 255 }}
+            value={formFields.country}
+            placeholder={t(TranslationKey.Country) + '...'}
+            onChange={onChangeField('country')}
+          />
 
-        <Field
-          label={t(TranslationKey.Country)}
-          inputProps={{maxLength: 255}}
-          value={formFields.country}
-          placeholder={t(TranslationKey.Country) + '...'}
-          onChange={onChangeField('country')}
-        />
+          <Field
+            label={t(TranslationKey.City)}
+            inputProps={{ maxLength: 255 }}
+            value={formFields.city}
+            placeholder={t(TranslationKey.City) + '...'}
+            onChange={onChangeField('city')}
+          />
 
-        <Field
-          label={t(TranslationKey.City)}
-          inputProps={{maxLength: 255}}
-          value={formFields.city}
-          placeholder={t(TranslationKey.City) + '...'}
-          onChange={onChangeField('city')}
-        />
+          <Field
+            label={t(TranslationKey.State)}
+            inputProps={{ maxLength: 255 }}
+            value={formFields.state}
+            placeholder={t(TranslationKey.State) + '...'}
+            onChange={onChangeField('state')}
+          />
 
-        <Field
-          label={t(TranslationKey.State)}
-          inputProps={{maxLength: 255}}
-          value={formFields.state}
-          placeholder={t(TranslationKey.State) + '...'}
-          onChange={onChangeField('state')}
-        />
+          <Field
+            label={t(TranslationKey.Address)}
+            inputProps={{ maxLength: 255 }}
+            value={formFields.address}
+            placeholder={t(TranslationKey.Address) + '...'}
+            onChange={onChangeField('address')}
+          />
 
-        <Field
-          label={t(TranslationKey.Address)}
-          inputProps={{maxLength: 255}}
-          value={formFields.address}
-          placeholder={t(TranslationKey.Address) + '...'}
-          onChange={onChangeField('address')}
-        />
+          <Field
+            label={t(TranslationKey['ZIP code'])}
+            inputProps={{ maxLength: 255 }}
+            error={
+              formFields.zipCode &&
+              !/^[0-9]{5}$/.test(formFields.zipCode) &&
+              t(TranslationKey['numeric format, example:']) + ' 90001'
+            }
+            value={formFields.zipCode}
+            placeholder={t(TranslationKey['ZIP code']) + '...'}
+            onChange={onChangeField('zipCode')}
+          />
+        </div>
 
-        <Field
-          label={t(TranslationKey['ZIP code'])}
-          inputProps={{maxLength: 255}}
-          error={
-            formFields.zipCode &&
-            !/^[0-9]{5}$/.test(formFields.zipCode) &&
-            t(TranslationKey['numeric format, example:']) + ' 90001'
-          }
-          value={formFields.zipCode}
-          placeholder={t(TranslationKey['ZIP code']) + '...'}
-          onChange={onChangeField('zipCode')}
-        />
+        <div className={classNames.btnsWrapper}>
+          <Button success disabled={disableSubmitBtn} color="primary" variant="contained" onClick={onSubmit}>
+            {t(TranslationKey.Save)}
+          </Button>
+
+          <Button className={classNames.button} variant="text" onClick={() => onCloseModal()}>
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </div>
       </div>
-
-      <div className={classNames.btnsWrapper}>
-        <Button success disabled={disableSubmitBtn} color="primary" variant="contained" onClick={onSubmit}>
-          {t(TranslationKey.Save)}
-        </Button>
-
-        <Button className={classNames.button} variant="text" onClick={() => onCloseModal()}>
-          {t(TranslationKey.Cancel)}
-        </Button>
-      </div>
-    </div>
-  )
-})
+    )
+  },
+)

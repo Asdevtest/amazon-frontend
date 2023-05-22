@@ -1,21 +1,19 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
-import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
-import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
+import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
+import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
-import {AnnouncementsModel} from '@models/announcements-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { AnnouncementsModel } from '@models/announcements-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
 export class ServiceExchangeViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
   actionStatus = undefined
-
-  drawerOpen = false
 
   announcements = []
   currentData = []
@@ -39,11 +37,11 @@ export class ServiceExchangeViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.announcements,
@@ -126,7 +124,7 @@ export class ServiceExchangeViewModel {
   }
 
   setTableModeState() {
-    const state = {viewMode: this.viewMode, sortMode: this.sortMode}
+    const state = { viewMode: this.viewMode, sortMode: this.sortMode }
 
     SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.MY_SERVICES)
   }

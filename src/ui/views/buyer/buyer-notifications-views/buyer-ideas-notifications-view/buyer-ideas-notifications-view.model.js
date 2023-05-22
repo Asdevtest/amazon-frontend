@@ -1,21 +1,19 @@
-import {fabClasses} from '@mui/material'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { ideasNotificationsViewColumns } from '@components/table/table-columns/overall/ideas-notifications-columns'
 
-import {ideasNotificationsViewColumns} from '@components/table-columns/overall/ideas-notifications-columns'
-
-import {ideaNoticeDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import { ideaNoticeDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 // import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 
 export class BuyerIdeasNotificationsViewModel {
   history = undefined
@@ -24,12 +22,10 @@ export class BuyerIdeasNotificationsViewModel {
   error = undefined
   loadingStatus = undefined
 
-  drawerOpen = fabClasses
-
   ideas = []
 
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -44,11 +40,11 @@ export class BuyerIdeasNotificationsViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -124,12 +120,6 @@ export class BuyerIdeasNotificationsViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -166,7 +156,7 @@ export class BuyerIdeasNotificationsViewModel {
 
   async getIdeas(isArchived = false) {
     try {
-      const result = await restApiService.ideaApi.apiV1IdeasNotificationsGet({archive: isArchived})
+      const result = await restApiService.ideaApi.apiV1IdeasNotificationsGet({ archive: isArchived })
 
       runInAction(() => {
         this.ideas = ideaNoticeDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
@@ -192,12 +182,6 @@ export class BuyerIdeasNotificationsViewModel {
     )
 
     win?.focus()
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

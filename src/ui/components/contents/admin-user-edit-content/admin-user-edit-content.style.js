@@ -1,26 +1,6 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  // '@global': {
-  //   '@keyframes pulse': {
-  //     '0%': {
-  //       boxShadow: '0 0 #006CFF',
-  //     },
-  //     '100%': {
-  //       boxShadow: '0 0 0 5px #006aff91',
-  //     },
-  //   },
-  // },
-
-  balanceButtonsWrapper: {
-    display: 'flex',
-    '& > button': {
-      marginRight: '40px',
-    },
-    '& > button:last-child': {
-      marginRight: '0px',
-    },
-  },
   buttonWrapper: {
     display: 'flex',
     gap: 30,
@@ -31,9 +11,7 @@ export const useClassNames = makeStyles()(theme => ({
   rightBtn: {
     marginLeft: 30,
   },
-  modalContainer: {
-    minWidth: '460px',
-  },
+
   checkboxWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -230,51 +208,13 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
-  actionTagButton: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '22px',
-    height: '22px',
-    fontSize: '18px',
-    backgroundColor: '#006CFF',
-    borderRadius: '4px',
-    color: '#fff',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    marginRight: '15px',
-  },
-
-  tag: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '24px',
-    backgroundColor: '#CCE2FF',
-    padding: '5px 15px',
-    borderRadius: '4px',
-  },
-
-  removeTagButton: {
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-  },
-
   allowedStrategiesContainer: {
     width: '470px !important',
     marginTop: '20px',
   },
 
-  tagsWrapper: {
-    display: 'flex',
-    gap: '12px',
-    flexWrap: 'wrap',
-  },
-
   securityButton: {
     width: '100%',
-  },
-
-  roleSelect: {
-    width: '139px',
-    color: theme.palette.text.general,
   },
 
   standartText: {
@@ -296,7 +236,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  // Новое
   labelField: {
     fontSize: '14px',
     color: theme.palette.text.second,

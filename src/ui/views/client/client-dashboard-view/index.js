@@ -1,1 +1,1 @@
-export {ClientDashboardView} from './client-dashboard-view'
+export { ClientDashboardView } from './client-dashboard-view'

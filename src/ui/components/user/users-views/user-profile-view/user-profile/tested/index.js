@@ -1,0 +1,1 @@
+export { Tested } from './tested'

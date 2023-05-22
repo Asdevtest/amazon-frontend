@@ -1,1 +1,1 @@
-export {AccessToProductForm} from './access-to-product-form'
+export { AccessToProductForm } from './access-to-product-form'

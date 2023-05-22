@@ -1,10 +1,10 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {RequestSubType, RequestType} from '@constants/request-type'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { RequestSubType, RequestType } from '@constants/requests/request-type'
 
-import {RequestProposalModel} from '@models/request-proposal'
-import {UserModel} from '@models/user-model'
+import { RequestProposalModel } from '@models/request-proposal'
+import { UserModel } from '@models/user-model'
 
 export class ModeratorAppealsViewModel {
   history = undefined
@@ -12,7 +12,6 @@ export class ModeratorAppealsViewModel {
   error = undefined
   actionStatus = undefined
 
-  drawerOpen = false
   showConfirmModal = false
   requestId = undefined
   proposalId = undefined
@@ -25,11 +24,11 @@ export class ModeratorAppealsViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {
@@ -68,7 +67,7 @@ export class ModeratorAppealsViewModel {
 
   async onClickGetToWork(id, requestId) {
     try {
-      await RequestProposalModel.requestProposalLinkOrUnlinkSupervisor(id, {action: 'LINK'})
+      await RequestProposalModel.requestProposalLinkOrUnlinkSupervisor(id, { action: 'LINK' })
       this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review/deal-on-review`, {
         requestId,
       })
@@ -86,12 +85,6 @@ export class ModeratorAppealsViewModel {
     })
 
     this.onTriggerOpenModal('showConfirmModal')
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setActionStatus(actionStatus) {

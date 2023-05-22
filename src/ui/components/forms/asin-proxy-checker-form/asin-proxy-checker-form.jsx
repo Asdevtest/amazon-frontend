@@ -1,24 +1,27 @@
 import VisibilityIcon from '@mui/icons-material/Visibility'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {humanFriendlyStategyStatus, mapProductStrategyStatusEnumToKey} from '@constants/product-strategy-status'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import {
+  humanFriendlyStategyStatus,
+  mapProductStrategyStatusEnumToKey,
+} from '@constants/product/product-strategy-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
-import {SearchInput} from '@components/search-input'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field/field'
+import { SearchInput } from '@components/shared/search-input'
 
-import {checkIsAdmin} from '@utils/checks'
-import {t} from '@utils/translations'
+import { checkIsAdmin } from '@utils/checks'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './asin-proxy-checker-form.style'
-import {TableAsinAndReason} from './table-asin-and-reason/table-asin-and-reason'
+import { useClassNames } from './asin-proxy-checker-form.style'
+import { TableAsinAndReason } from './table-asin-and-reason/table-asin-and-reason'
 
-export const AsinProxyCheckerForm = ({user, strategy, onSubmit, onClose}) => {
-  const {classes: classNames} = useClassNames()
+export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
+  const { classes: classNames } = useClassNames()
 
   const userRole = UserRoleCodeMap[user.role]
 
@@ -119,7 +122,7 @@ export const AsinProxyCheckerForm = ({user, strategy, onSubmit, onClose}) => {
           error={error && t(TranslationKey['Invalid proxy'])}
           minRows={7}
           maxRows={7}
-          inputProps={{maxLength: 35000}}
+          inputProps={{ maxLength: 35000 }}
           labelClasses={classNames.commentLabelText}
           containerClasses={classNames.commentContainer}
           label={
@@ -137,7 +140,7 @@ export const AsinProxyCheckerForm = ({user, strategy, onSubmit, onClose}) => {
             className={classNames.heightFieldAuto}
             minRows={7}
             maxRows={7}
-            inputProps={{maxLength: 95000}}
+            inputProps={{ maxLength: 95000 }}
             containerClasses={classNames.commentContainer}
             labelClasses={classNames.commentLabelText}
             label={t(TranslationKey['Add a list of reasons'])}

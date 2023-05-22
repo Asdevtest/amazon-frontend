@@ -1,27 +1,27 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import LockIcon from '@mui/icons-material/Lock'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import PersonIcon from '@mui/icons-material/Person'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import {Checkbox, InputAdornment, Typography} from '@mui/material'
+import { Checkbox, InputAdornment, Typography } from '@mui/material'
 
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 
-import {Link} from 'react-router-dom'
-import {withStyles} from 'tss-react/mui'
+import { Link } from 'react-router-dom'
+import { withStyles } from 'tss-react/mui'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
 
-import {t} from '@utils/translations'
-import {validationMessagesArray} from '@utils/validation'
+import { t } from '@utils/translations'
+import { validationMessagesArray } from '@utils/validation'
 
-import {styles} from './registration-form.style'
+import { styles } from './registration-form.style'
 
 export const RegistrationFormRaw = ({
   classes: classNames,
@@ -118,7 +118,7 @@ export const RegistrationFormRaw = ({
           <>
             <Field
               withIcon
-              inputProps={{maxLength: 30}}
+              inputProps={{ maxLength: 30 }}
               inputClasses={classNames.input}
               containerClasses={classNames.field}
               labelClasses={classNames.labelField}
@@ -137,7 +137,7 @@ export const RegistrationFormRaw = ({
             />
             <Field
               withIcon
-              inputProps={{maxLength: 30}}
+              inputProps={{ maxLength: 30 }}
               inputClasses={classNames.input}
               containerClasses={classNames.field}
               labelClasses={classNames.labelField}
@@ -164,7 +164,7 @@ export const RegistrationFormRaw = ({
             <Field
               disabled={isRecoverPassword}
               withIcon={!isRecoverPassword}
-              inputProps={{maxLength: 128}}
+              inputProps={{ maxLength: 128 }}
               labelClasses={classNames.labelField}
               error={showError}
               inputClasses={classNames.input}
@@ -191,7 +191,7 @@ export const RegistrationFormRaw = ({
           <Field
             disabled={isRecoverPassword}
             withIcon={!isRecoverPassword}
-            inputProps={{maxLength: 128}}
+            inputProps={{ maxLength: 128 }}
             labelClasses={classNames.labelField}
             error={showError}
             inputClasses={classNames.input}
@@ -219,7 +219,7 @@ export const RegistrationFormRaw = ({
               errorLowercaseLetter,
               errorNoEngLetter,
             ).map((text, index) => (
-              <span key={index} className={cx(classNames.validationText, {[classNames.red]: submit && text.error})}>
+              <span key={index} className={cx(classNames.validationText, { [classNames.red]: submit && text.error })}>
                 {text.name}
               </span>
             ))}
@@ -228,8 +228,8 @@ export const RegistrationFormRaw = ({
             <Typography
               className={cx(
                 classNames.validationHiddenText,
-                {[classNames.red]: submit && errorMaxLength},
-                {[classNames.visibility]: errorMaxLength},
+                { [classNames.red]: submit && errorMaxLength },
+                { [classNames.visibility]: errorMaxLength },
               )}
             >
               {`${t(TranslationKey.maximum)} 32 ${t(TranslationKey.characters)}`}
@@ -240,7 +240,7 @@ export const RegistrationFormRaw = ({
           <Field
             disabled={isRecoverPassword}
             withIcon={!isRecoverPassword}
-            inputProps={{maxLength: 128}}
+            inputProps={{ maxLength: 128 }}
             labelClasses={classNames.labelField}
             error={submit && equalityError && t(TranslationKey["Passwords don't match"])}
             inputClasses={classNames.input}

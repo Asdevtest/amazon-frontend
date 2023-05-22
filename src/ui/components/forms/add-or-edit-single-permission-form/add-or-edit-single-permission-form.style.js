@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -11,10 +11,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   deleteBtn: {
-    color: theme.palette.text.general,
-  },
-
-  standartText: {
     color: theme.palette.text.general,
   },
 

@@ -1,33 +1,33 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
 
-import {observer} from 'mobx-react'
-import {useHistory} from 'react-router-dom'
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar'
-import {RequestDesignerResultClientForm} from '@components/forms/request-designer-result-client-form'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {Modal} from '@components/modal'
-import {SearchInput} from '@components/search-input'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { SearchInput } from '@components/shared/search-input'
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { Modal } from '@components/shared/modal'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {Button} from '../../buttons/button'
-import {FreelanceModel} from './freelance.model'
-import {useClassNames} from './freelance.style'
+import { FreelanceModel } from './freelance.model'
+import { useClassNames } from './freelance.style'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 
-export const Freelance = observer(({productId}) => {
-  const {classes: classNames} = useClassNames()
+export const Freelance = observer(({ productId }) => {
+  const { classes: classNames } = useClassNames()
   const history = useHistory()
-  const freelanceModel = useRef(new FreelanceModel({history, productId}))
+  const freelanceModel = useRef(new FreelanceModel({ history, productId }))
 
   useEffect(() => {
     freelanceModel.current.loadData()
@@ -111,7 +111,7 @@ export const Freelance = observer(({productId}) => {
         <RequestDesignerResultClientForm
           onlyRead
           userInfo={userInfo}
-          request={{request: curRequest}}
+          request={{ request: curRequest }}
           proposal={curProposal}
           curResultMedia={curProposal?.proposal.media}
           setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}

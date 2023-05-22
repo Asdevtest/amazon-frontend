@@ -1,4 +1,4 @@
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   NormDateCell, // OrderCell,
@@ -9,12 +9,12 @@ import {
   OrderBoxesCell,
   MultilineTextHeaderCell,
   OrdersIdsItemsCell,
-} from '@components/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-export const addOrEditBatchFormColumns = () => [
+export const addOrEditBatchFormColumns = isClient => [
   // {
   //   field: 'humanFriendlyId',
   //   headerName: t(TranslationKey.ID),
@@ -102,14 +102,25 @@ export const addOrEditBatchFormColumns = () => [
   {
     field: 'client',
     headerName: t(TranslationKey.Client),
-    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.client._id} />,
+    renderHeader: () => (
+      <MultilineTextHeaderCell text={isClient ? t(TranslationKey.Storekeeper) : t(TranslationKey.Client)} />
+    ),
+    renderCell: params => (
+      <UserLinkCell
+        blackText
+        name={isClient ? params.row.originalData?.storekeeper?.name : params.value}
+        userId={isClient ? params.row.originalData?.storekeeper?._id : params.row.originalData?.client?._id}
+      />
+    ),
     width: 160,
+    filterable: false,
+    sortable: false,
   },
 
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
     type: 'date',
   },

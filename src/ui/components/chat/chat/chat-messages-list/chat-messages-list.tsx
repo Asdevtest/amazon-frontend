@@ -1,18 +1,18 @@
-import {cx} from '@emotion/css'
-import {Avatar, Typography, Link} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Avatar, Typography, Link } from '@mui/material'
 
-import React, {FC, useEffect} from 'react'
+import React, { FC, useEffect } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 import ScrollView from 'react-inverted-scrollview'
-import {useScrollToElement} from 'react-use-scroll-to-element-hook'
+import { useScrollToElement } from 'react-use-scroll-to-element-hook'
 
-import {ChatModel} from '@models/chat-model'
-import {ChatMessageContract, ChatMessageType} from '@models/chat-model/contracts/chat-message.contract'
-import {SettingsModel} from '@models/settings-model'
+import { ChatModel } from '@models/chat-model'
+import { ChatMessageContract, ChatMessageType } from '@models/chat-model/contracts/chat-message.contract'
+import { SettingsModel } from '@models/settings-model'
 
-import {formatDateWithoutTime} from '@utils/date-time'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
+import { formatDateWithoutTime } from '@utils/date-time'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import {
   checkIsChatMessageAddUsersToGroupChatContract,
   checkIsChatMessageBloggerProposalResultEditedContract,
@@ -27,24 +27,24 @@ import {
   checkIsChatMessageRemoveUsersFromGroupChatContract,
 } from '@utils/ts-checks'
 
-import {useClassNames} from './chat-messages-list.style'
-import {ChatMessageAddUsersToGroupChat} from './chat-messages/chat-message-add-users-to-group-chat'
-import {ChatMessageBasicText} from './chat-messages/chat-message-basic-text'
-import {ChatMessageBloggerProposalEditedResult} from './chat-messages/chat-message-blogger-proposal-edited-result'
-import {ChatMessageCreateNewBloggerProposal} from './chat-messages/chat-message-create-new-blogger-proposal'
-import {ChatMessageCreateNewDesignerProposal} from './chat-messages/chat-message-create-new-designer-proposal'
+import { useClassNames } from './chat-messages-list.style'
+import { ChatMessageAddUsersToGroupChat } from './chat-messages/chat-message-add-users-to-group-chat'
+import { ChatMessageBasicText } from './chat-messages/chat-message-basic-text'
+import { ChatMessageBloggerProposalEditedResult } from './chat-messages/chat-message-blogger-proposal-edited-result'
+import { ChatMessageCreateNewBloggerProposal } from './chat-messages/chat-message-create-new-blogger-proposal'
+import { ChatMessageCreateNewDesignerProposal } from './chat-messages/chat-message-create-new-designer-proposal'
 import {
   ChatMessageDesignerProposalEditedResult,
   ChatMessageRequestProposalDesignerResultEditedHandlers,
 } from './chat-messages/chat-message-designer-proposal-edited-result'
-import {ChatMessagePatchInfoGroupChat} from './chat-messages/chat-message-patch-info-group-chat'
-import {ChatMessageProposal, ChatMessageProposalHandlers} from './chat-messages/chat-message-proposal'
+import { ChatMessagePatchInfoGroupChat } from './chat-messages/chat-message-patch-info-group-chat'
+import { ChatMessageProposal, ChatMessageProposalHandlers } from './chat-messages/chat-message-proposal'
 import {
   ChatMessageProposalStatusChanged,
   ChatMessageRequestProposalStatusChangedHandlers,
 } from './chat-messages/chat-message-proposal-status-changed'
-import {ChatMessageRemoveUsersFromGroupChat} from './chat-messages/chat-message-remove-users-from-group-chat'
-import {ChatMessageRequest} from './chat-messages/chat-message-request'
+import { ChatMessageRemoveUsersFromGroupChat } from './chat-messages/chat-message-remove-users-from-group-chat'
+import { ChatMessageRequest } from './chat-messages/chat-message-request'
 import {
   ChatMessageRequestProposalResultEdited,
   ChatMessageRequestProposalResultEditedHandlers,
@@ -66,8 +66,8 @@ interface Props {
 }
 
 export const ChatMessagesList: FC<Props> = observer(
-  ({messages, userId, handlers, toScrollMesId, messagesFound, searchPhrase, isGroupChat}) => {
-    const {classes: classNames} = useClassNames()
+  ({ messages, userId, handlers, toScrollMesId, messagesFound, searchPhrase, isGroupChat }) => {
+    const { classes: classNames } = useClassNames()
 
     const messagesFoundIds = messagesFound?.map(el => el._id) || []
 
@@ -79,7 +79,7 @@ export const ChatMessagesList: FC<Props> = observer(
 
     // console.log('firstUnReadMessageId', firstUnReadMessageId)
 
-    const {getScrollToElementRef, scrollToElementClickHandler} = useScrollToElement(messagesIds, {
+    const { getScrollToElementRef, scrollToElementClickHandler } = useScrollToElement(messagesIds, {
       behavior: 'smooth',
     })
 
@@ -209,7 +209,7 @@ export const ChatMessagesList: FC<Props> = observer(
 
     return (
       <div className={classNames.root}>
-        <ScrollView width="100%" height="100%" style={{padding: '20px 12px'}}>
+        <ScrollView width="100%" height="100%" style={{ padding: '20px 12px' }}>
           {messages && SettingsModel.languageTag
             ? messages.map((messageItem: ChatMessageContract, index: number) => {
                 const isIncomming = userId !== messageItem.user?._id
@@ -248,7 +248,6 @@ export const ChatMessagesList: FC<Props> = observer(
                     <div
                       className={cx(classNames.messageWrapper, {
                         [classNames.messageWrapperIsIncomming]: isIncomming,
-                        [classNames.messageWrapperIsNextMessageSameAuthor]: isNextMessageSameAuthor,
                         [classNames.messageWrapperIsLastMessage]: isLastMessage,
                         [classNames.messageWrapperisNotPersonal]: isNotPersonal,
                       })}

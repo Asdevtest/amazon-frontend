@@ -1,1 +1,1 @@
-export {GoodsDaysReport} from './goods-days-report'
+export { GoodsDaysReport } from './goods-days-report'

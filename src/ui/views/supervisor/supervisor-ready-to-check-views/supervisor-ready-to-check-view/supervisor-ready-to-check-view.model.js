@@ -1,21 +1,19 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
+import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {SupervisorModel} from '@models/supervisor-model'
+import { SupervisorModel } from '@models/supervisor-model'
 
-import {depersonalizedPickColumns} from '@components/table-columns/depersonalized-pick-columns'
+import { depersonalizedPickColumns } from '@components/table/table-columns/depersonalized-pick-columns'
 
-import {depersonalizedPickDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
+import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 
 export class SupervisorReadyToCheckViewModel {
   history = undefined
   requestStatus = undefined
   actionStatus = undefined
-
-  drawerOpen = false
 
   showInfoModal = false
 
@@ -32,11 +30,11 @@ export class SupervisorReadyToCheckViewModel {
 
   columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor)
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   changeColumnsModel(newHideState) {
@@ -95,9 +93,6 @@ export class SupervisorReadyToCheckViewModel {
             .sort(sortObjectsArrayByFiledDateWithParseISOAsc('createdAt')),
         )
       })
-
-      console.log('result', result)
-      console.log('this.productsReadyToCheck', this.productsReadyToCheck)
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
@@ -113,18 +108,12 @@ export class SupervisorReadyToCheckViewModel {
     }
   }
 
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
   async onPickupSomeItems() {
     try {
       for (let i = 0; i < this.selectedRowIds.length; i++) {
         const itemId = this.selectedRowIds[i]
 
-        await this.onClickTableRowBtn({_id: itemId}, true)
+        await this.onClickTableRowBtn({ _id: itemId }, true)
       }
 
       runInAction(() => {

@@ -1,30 +1,29 @@
-import {cx} from '@emotion/css'
-import {Avatar, Link, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Avatar, Typography } from '@mui/material'
 
-import React, {FC, useContext} from 'react'
+import React, {
+  FC,
+  /* , useContext */
+} from 'react'
 
 import Linkify from 'react-linkify-always-blank'
 
-import {RequestProposalStatus} from '@constants/request-proposal-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatMessageDataDesignerProposalResultEditedContract} from '@models/chat-model/contracts/chat-message-data.contract'
-import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
-import {UserModel} from '@models/user-model'
+import { ChatMessageDataDesignerProposalResultEditedContract } from '@models/chat-model/contracts/chat-message-data.contract'
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value'
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {Field} from '@components/field'
+// import {UserModel} from '@models/user-model'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
 
-import {checkIsImageLink} from '@utils/checks'
-import {formatDateOnlyTime} from '@utils/date-time'
-import {checkAndMakeAbsoluteUrl, minsToTime} from '@utils/text'
-import {t} from '@utils/translations'
+import { checkIsImageLink } from '@utils/checks'
+import { formatDateOnlyTime } from '@utils/date-time'
+import { minsToTime } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
-
-import {useClassNames} from './chat-message-designer-proposal-edited-result.style'
+// import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
+import { useClassNames } from './chat-message-designer-proposal-edited-result.style'
 
 export interface ChatMessageRequestProposalDesignerResultEditedHandlers {
   onClickOpenRequest: (
@@ -42,12 +41,12 @@ interface Props {
   handlers: ChatMessageRequestProposalDesignerResultEditedHandlers
 }
 
-export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({message, handlers}) => {
-  const {classes: classNames} = useClassNames()
+export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, handlers }) => {
+  const { classes: classNames } = useClassNames()
 
-  const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
+  // const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
-  const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
+  // const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
   // console.log('message.data', message.data)
 
@@ -74,7 +73,7 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({message, han
               .map(el => el.fileLink)
               .map((item, index) => (
                 <div key={index} className={classNames.imageObjWrapper}>
-                  <div className={cx(classNames.imageWrapper, {[classNames.mainImageWrapper]: index === 0})}>
+                  <div className={cx(classNames.imageWrapper, { [classNames.mainImageWrapper]: index === 0 })}>
                     {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
 
                     {index === 3 && message.data.proposal.media.length > 4 && (
@@ -88,7 +87,7 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({message, han
                     <div className={classNames.imageListItem}>
                       <Avatar
                         className={classNames.image}
-                        classes={{img: classNames.image}}
+                        classes={{ img: classNames.image }}
                         src={checkIsImageLink(item) ? item : '/assets/icons/file.png'}
                         alt={''}
                         variant="square"
@@ -141,7 +140,6 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({message, han
         </div>
 
         <Button
-          btnWrapperStyle={classNames.actionBtnWrapperStyle}
           className={cx(classNames.actionButton, classNames.editButton)}
           onClick={() => handlers.onClickOpenRequest(message.data.proposal.media)}
         >

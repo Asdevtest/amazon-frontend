@@ -1,6 +1,4 @@
-import {tooltipClasses} from '@mui/material/Tooltip'
-
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -20,10 +18,6 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       width: '90%',
     },
-  },
-
-  messageWrapperIsNextMessageSameAuthor: {
-    // marginBottom: '40px',
   },
 
   messageWrapperIsIncomming: {
@@ -80,14 +74,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.second,
   },
-  linkText: {
-    fontSize: '10px',
-    textAlign: 'center',
-    overflow: 'auto',
-    maxHeight: '40px',
-    maxWidth: '200px',
-    whiteSpace: 'nowrap',
-  },
+
   timeTextWrapper: {
     // position: 'absolute',
     // bottom: '-30px',
@@ -97,56 +84,6 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
-  },
-  tooltipWrapper: {
-    padding: '0',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  },
-
-  tooltipImg: {
-    width: '300px',
-    height: '200px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-  },
-
-  imgTooltip: {
-    [`& .${tooltipClasses.tooltip}`]: {
-      maxWidth: 450,
-    },
-  },
-
-  image: {
-    marginLeft: '20px',
-    width: '80px',
-    height: '70px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
-
-  imageWrapper: {
-    display: 'flex',
-    alignItems: 'flex-end',
-  },
-
-  filesTitle: {marginBottom: 10},
-
-  filesMainWrapper: {
-    backgroundColor: '#FCFCFC',
-    padding: '14px 10px',
-    borderRadius: '4px',
-  },
-
-  filesWrapper: {
-    display: 'flex',
-    maxWidth: '500px',
   },
 
   message: {
@@ -158,9 +95,4 @@ export const useClassNames = makeStyles()(theme => ({
 
     padding: 10,
   },
-  // '@media (max-width: 768px)': {
-  //   messageWrapper: {
-  //     width: '90%',
-  //   },
-  // },
 }))

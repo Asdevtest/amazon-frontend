@@ -1,23 +1,21 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {RequestProposalStatus} from '@constants/request-proposal-status'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {RequestModel} from '@models/request-model'
-import {RequestProposalModel} from '@models/request-proposal'
-import {UserModel} from '@models/user-model'
+import { RequestModel } from '@models/request-model'
+import { RequestProposalModel } from '@models/request-proposal'
+import { UserModel } from '@models/user-model'
 
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class CreateOrEditProposalViewModel {
   history = undefined
   requestStatus = undefined
   actionStatus = undefined
-
-  drawerOpen = false
 
   request = undefined
   proposalToEdit = undefined
@@ -37,7 +35,7 @@ export class CreateOrEditProposalViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
 
@@ -48,16 +46,16 @@ export class CreateOrEditProposalViewModel {
       }
     })
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async onSubmitEditProposal(data, files) {
     try {
       if (files.length) {
-        await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
       }
 
-      const dataWithFiles = {...data, linksToMediaFiles: [/* ...data.linksToMediaFiles, */ ...this.uploadedFiles]}
+      const dataWithFiles = { ...data, linksToMediaFiles: [/* ...data.linksToMediaFiles, */ ...this.uploadedFiles] }
 
       await RequestProposalModel.updateRequestProposalCustom(this.proposalToEdit._id, dataWithFiles)
 
@@ -92,10 +90,10 @@ export class CreateOrEditProposalViewModel {
       })
 
       if (files.length) {
-        await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
       }
 
-      const dataWithFiles = {...data, linksToMediaFiles: this.uploadedFiles}
+      const dataWithFiles = { ...data, linksToMediaFiles: this.uploadedFiles }
 
       await RequestModel.pickupRequestById(this.request.request._id, dataWithFiles)
 
@@ -147,12 +145,6 @@ export class CreateOrEditProposalViewModel {
   onTriggerOpenModal(modal) {
     runInAction(() => {
       this[modal] = !this[modal]
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 }

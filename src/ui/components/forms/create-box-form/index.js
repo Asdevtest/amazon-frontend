@@ -1,1 +1,1 @@
-export {CreateBoxForm} from './create-box-form'
+export { CreateBoxForm } from './create-box-form'

@@ -1,52 +1,17 @@
-import {keyframes} from '@emotion/react'
-
-import {makeStyles} from 'tss-react/mui'
-
-const animate_gradient = keyframes`
- 0% {
-    backgroundPosition: 0% 50%;
-  }
-  50% {
-    backgroundPosition: 100% 50%;
-  }
-  100% {
-    backgroundPosition: 0% 50%;
-  }
-`
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   modalMessageWrapper: {
     width: '425px',
     minHeight: '168px',
-
     padding: '0 20px',
-    // gap: '20px',
-  },
-
-  warningModalMessageWrapper: {
-    backgroundColor: theme.palette.background.general,
-    borderRadius: '10px 10px',
-    // padding: '10px',
   },
 
   modalMessage: {
-    // maxWidth: '350px',
     textAlign: 'center',
-
     color: theme.palette.text.general,
   },
 
-  warningModalMessage: {
-    fontWeight: '400',
-    fontSize: '18px',
-    lineHeight: '140%',
-    textAlign: 'center',
-    margin: 0,
-  },
-
-  modalMessageBtn: {
-    alignSelf: 'flex-end',
-  },
   buttonsWrapper: {
     width: '100%',
     display: 'flex',
@@ -56,12 +21,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   allowedRoleContainer: {
     margin: 0,
-  },
-
-  warningButtonsWrapper: {
-    borderRadius: '0 0 10px 10px',
-    backgroundColor: theme.palette.background.general,
-    marginTop: '22px',
   },
 
   titleWrapper: {
@@ -76,22 +35,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
-
     color: theme.palette.text.general,
-  },
-
-  warningTitle: {
-    // width: '100%',
-    borderRadius: '10px',
-    backgroundSize: '400% 400%',
-    animation: `${animate_gradient} 1.5s ease infinite`,
-
-    fontWeight: '600',
-    fontSize: '18px',
-    lineHeight: '140%',
-    textAlign: 'center',
-    color: theme.palette.text.second,
-    verticalAlign: 'middle',
   },
 
   button: {
@@ -113,25 +57,19 @@ export const useClassNames = makeStyles()(theme => ({
 
   select: {
     width: '167px',
-
     border: '1px solid #e0e0e0',
     padding: '10px 15px',
     borderRadius: '4px',
-
-    // color: theme.palette.text.general,
   },
 
   shopsSelect: {
     width: '214px',
-
     height: 40,
-
     color: theme.palette.text.general,
   },
 
   selectMenu: {
     width: '317px',
-
     color: theme.palette.text.general,
   },
 
@@ -148,8 +86,6 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     gap: '24px',
     padding: '5px 15px',
-    // backgroundColor: '#CCE2FF',
-
     backgroundColor: theme.palette.background.second,
     borderRadius: '4px',
     fontSize: '14px',

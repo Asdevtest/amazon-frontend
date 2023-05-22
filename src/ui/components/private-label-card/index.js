@@ -1,1 +1,1 @@
-export {PrivateLabelCard} from './private-label-card'
+export { PrivateLabelCard } from './private-label-card'

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {keyframes} from '@emotion/react'
+import { keyframes } from '@emotion/react'
 
 const ani = keyframes`
 0% {
@@ -21,10 +21,6 @@ export const styles = theme => ({
     display: 'flex',
   },
 
-  btnWrapperStyle: {
-    width: 'fit-content',
-  },
-
   tablePanelWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -39,7 +35,6 @@ export const styles = theme => ({
   viewCart: {
     width: '20px !important',
     height: '20px !important',
-
     color: theme.palette.text.second,
   },
   viewCartSelected: {
@@ -79,9 +74,7 @@ export const styles = theme => ({
   selectedBoxesBtn: {
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
-
-    borderBottom: '5px solid #0460DE',
-
+    borderBottom: theme.palette.other.tableActiveFilterBtn,
     color: `${theme.palette.primary.main} !important`,
   },
   rightAddingBtn: {
@@ -101,9 +94,7 @@ export const styles = theme => ({
   acceptMessageWrapper: {
     position: 'absolute',
     top: 0,
-    // top: '50%',
     left: '50%',
-
     padding: '10px',
     marginTop: '63px',
     zIndex: 999,

@@ -1,21 +1,21 @@
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 export class BatchesModelStatic {
   getBatches = async status => {
-    const response = await restApiService.batchesApi.apiV1BatchesGet({status})
+    const response = await restApiService.batchesApi.apiV1BatchesGet({ status })
     return response
   }
 
   calculateBoxDeliveryCostsInBatch = async boxesIds => {
     const response = await restApiService.batchesApi.apiV1BatchesCalculateBoxDeliveryCostsInBatchPost({
-      body: {boxesIds},
+      body: { boxesIds },
     })
     return response
   }
 
   requestSendBoxToBatch = async boxesIds => {
     const response = await restApiService.batchesApi.apiV1BatchesRequestSendBoxesToBatchPost({
-      body: {cancel: false, boxesIds},
+      body: { cancel: false, boxesIds },
     })
     return response
   }
@@ -36,14 +36,14 @@ export class BatchesModelStatic {
 
   removeBoxFromBatch = async (id, boxesIds) => {
     const response = await restApiService.batchesApi.apiV1BatchesGuidRemoveBoxesPatch(id, {
-      body: {boxesIds},
+      body: { boxesIds },
     })
     return response
   }
 
   addBoxToBatch = async (id, boxesIds) => {
     const response = await restApiService.batchesApi.apiV1BatchesGuidAddBoxesPatch(id, {
-      body: {boxesIds},
+      body: { boxesIds },
     })
     return response
   }
@@ -55,7 +55,7 @@ export class BatchesModelStatic {
 
   editAttachedDocuments = async (id, data) => {
     const response = await restApiService.batchesApi.apiV1BatchesGuidEditAttachedDocumentsPatch(id, {
-      body: {attachedDocuments: data},
+      body: { attachedDocuments: data },
     })
     return response
   }

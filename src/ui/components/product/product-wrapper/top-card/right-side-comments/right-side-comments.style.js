@@ -1,6 +1,6 @@
-import {keyframes} from '@emotion/react'
+import { keyframes } from '@emotion/react'
 
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 const ani = keyframes`
  0% {
@@ -20,25 +20,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
     fontWeight: '600',
   },
-  input: {
-    width: '100%',
-  },
-  text: {
-    color: theme.palette.text.general,
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '22px',
-  },
-  iconButton: {
-    height: '40px',
-    width: '40px',
-    color: 'white',
-    backgroundColor: 'rgba(0, 123, 255, 1)',
-    borderRadius: '4px',
-    '&:hover': {
-      backgroundColor: 'rgba(0, 123, 255, 1)',
-    },
-  },
+
   title: {
     fontSize: '24px',
     lineHeight: '20px',
@@ -47,72 +29,7 @@ export const useClassNames = makeStyles()(theme => ({
     textAlign: 'center',
     marginBottom: '24px',
   },
-  table: {
-    border: '1px solid rgb(224, 224, 224)',
-    '& td': {
-      flexShrink: 0,
-      color: theme.palette.text.general,
-      borderBottom: 'none',
-    },
-    '& th': {
-      color: theme.palette.text.general,
-      fontWeight: 700,
-      lineHeight: '15px',
-      fontSize: '15px',
-      padding: '8px',
-    },
-    '& tbody': {
-      borderBottom: '1px solid rgba(224, 224, 224, 1)',
-    },
-  },
-  alert: {
-    marginBottom: '24px',
-  },
-  mainCardWrapper: {
-    padding: '16px',
-    marginBottom: '24px',
-  },
-  parseButtonsWrapper: {
-    display: 'flex',
-    marginBottom: '16px',
-  },
-  buttonParseAmazon: {
-    marginRight: '16px',
-  },
-  productFieldBox: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-    justifyContent: 'flex-end',
-  },
-  productCheckboxBox: {
-    alignItems: 'center',
-    display: 'flex',
-  },
-  typoCheckbox: {
-    marginRight: '16px',
-  },
-  supplierContainer: {
-    marginBottom: '20px',
-  },
-  supplierIcon: {
-    marginRight: '16px',
-  },
-  supplierIconBackground: {
-    backgroundColor: 'rgba(224, 32, 32, 1)',
-  },
-  tableCellPadding: {
-    padding: '16px 24px',
-  },
-  centerTableCellPadding: {
-    padding: '16px 24px',
-  },
-  alignCenter: {
-    textAlign: 'center',
-  },
-  alignRight: {
-    textAlign: 'right',
-  },
+
   rightBoxComments: {
     display: 'flex',
     flexDirection: 'column',
@@ -122,13 +39,11 @@ export const useClassNames = makeStyles()(theme => ({
   heightFieldAuto: {
     height: 'auto',
     width: '100%',
-
     padding: 0,
   },
   buttonsWrapper: {
     position: 'fixed',
     bottom: 50,
-
     zIndex: 999,
     display: 'grid',
     gridTemplateColumns: 'repeat(4,auto)',
@@ -164,13 +79,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
   buttonDelete: {
     flexGrow: 1,
-
     width: '100%',
     color: '#fff',
     background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
     '&:hover': {
       backgroundColor: '#c51a1c',
-
       '@media (hover: none)': {
         backgroundColor: '#c51a1c',
       },
@@ -195,7 +108,6 @@ export const useClassNames = makeStyles()(theme => ({
     background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
     '&:hover': {
       backgroundColor: '#c51a1c',
-
       '@media (hover: none)': {
         backgroundColor: '#c51a1c',
       },
@@ -208,9 +120,7 @@ export const useClassNames = makeStyles()(theme => ({
   acceptMessageWrapper: {
     position: 'absolute',
     top: 0,
-    // top: '50%',
     left: '50%',
-
     padding: '10px',
     marginTop: '63px',
     zIndex: 999,

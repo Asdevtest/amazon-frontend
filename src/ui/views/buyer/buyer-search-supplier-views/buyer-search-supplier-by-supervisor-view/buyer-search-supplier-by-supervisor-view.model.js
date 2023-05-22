@@ -1,13 +1,13 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {BuyerModel} from '@models/buyer-model'
+import { BuyerModel } from '@models/buyer-model'
 
-import {buyerSearchSuppliersViewColumns} from '@components/table-columns/buyer/buyer-seach-suppliers-columns'
+import { buyerSearchSuppliersViewColumns } from '@components/table/table-columns/buyer/buyer-seach-suppliers-columns'
 
-import {depersonalizedPickDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
+import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 
 export class BuyerSearchSupplierBySupervisorModel {
   history = undefined
@@ -15,8 +15,6 @@ export class BuyerSearchSupplierBySupervisorModel {
   actionStatus = undefined
 
   productsVacant = []
-
-  drawerOpen = false
 
   showInfoModal = false
 
@@ -30,11 +28,11 @@ export class BuyerSearchSupplierBySupervisorModel {
 
   columnsModel = buyerSearchSuppliersViewColumns(this.rowHandlers, this.firstRowId)
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   changeColumnsModel(newHideState) {
@@ -110,7 +108,7 @@ export class BuyerSearchSupplierBySupervisorModel {
       for (let i = 0; i < this.selectedRowIds.length; i++) {
         const itemId = this.selectedRowIds[i]
 
-        await this.onClickTableRowBtn({_id: itemId}, true)
+        await this.onClickTableRowBtn({ _id: itemId }, true)
       }
 
       runInAction(() => {
@@ -147,13 +145,6 @@ export class BuyerSearchSupplierBySupervisorModel {
       }
     }
   }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus

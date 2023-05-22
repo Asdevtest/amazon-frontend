@@ -1,19 +1,19 @@
-import {cx} from '@emotion/css'
-import {Typography, Paper} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography, Paper } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {NewDatePicker} from '@components/date-picker/date-picker'
-import {Field} from '@components/field/field'
-import {Input} from '@components/input'
-import {UploadFilesInput} from '@components/upload-files-input'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { Field } from '@components/shared/field/field'
+import { Input } from '@components/shared/input'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './first-step.style'
+import { useClassNames } from './first-step.style'
 
 export const FirstStep = ({
   formFields,
@@ -24,12 +24,12 @@ export const FirstStep = ({
   setImages,
   deadlineError,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [assetLine, setAssetLine] = useState('')
 
   const removeAsset = index => {
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
 
     newFormFields.shopAssets = formFields.shopAssets.filter((asset, i) => i !== index)
 
@@ -37,7 +37,7 @@ export const FirstStep = ({
   }
 
   const addAsset = () => {
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
 
     newFormFields.shopAssets = [assetLine, ...formFields.shopAssets]
 
@@ -51,14 +51,14 @@ export const FirstStep = ({
       <div className={classNames.middleWrapper}>
         <div className={classNames.nameFieldWrapper}>
           <Field
-            inputProps={{maxLength: 100}}
+            inputProps={{ maxLength: 100 }}
             label={`${t(TranslationKey['Store name'])} *`}
             className={classNames.nameField}
             labelClasses={classNames.spanLabelSmall}
             value={formFields.title}
             onChange={onChangeField('title')}
           />
-          <span className={cx(classNames.charactersHints, {[classNames.error]: formFields.title.length > 80})}>{`${
+          <span className={cx(classNames.charactersHints, { [classNames.error]: formFields.title.length > 80 })}>{`${
             formFields.title.length
           } ${t(TranslationKey.of)} 80 ${t(TranslationKey.characters)}`}</span>
         </div>
@@ -66,7 +66,7 @@ export const FirstStep = ({
         <div className={classNames.descriptionFieldWrapper}>
           <Field
             multiline
-            inputProps={{maxLength: 1100}}
+            inputProps={{ maxLength: 1100 }}
             className={classNames.descriptionField}
             labelClasses={classNames.spanLabelSmall}
             minRows={11}
@@ -76,13 +76,13 @@ export const FirstStep = ({
             onChange={onChangeField('shopDetails')}
           />
           <span
-            className={cx(classNames.charactersHints, {[classNames.error]: formFields.shopDetails.length > 1000})}
+            className={cx(classNames.charactersHints, { [classNames.error]: formFields.shopDetails.length > 1000 })}
           >{`${formFields.shopDetails.length} ${t(TranslationKey.of)} 1000 ${t(TranslationKey.characters)}`}</span>
         </div>
 
         <div className={classNames.descriptionFieldWrapper}>
           <Field
-            inputProps={{maxLength: 1900}}
+            inputProps={{ maxLength: 1900 }}
             className={classNames.nameField}
             labelClasses={classNames.spanLabelSmall}
             label={`${t(TranslationKey['Store link'])} *`}
@@ -96,7 +96,7 @@ export const FirstStep = ({
         <div>
           <div className={classNames.dateAndTimeWrapper}>
             <Field
-              inputProps={{maxLength: 100}}
+              inputProps={{ maxLength: 100 }}
               label={`${t(TranslationKey['Enter store cost'])}, $ *`}
               className={classNames.nameField}
               labelClasses={classNames.spanLabelSmall}
@@ -108,7 +108,7 @@ export const FirstStep = ({
               label={`${t(TranslationKey['When did business start?'])} *`}
               labelClasses={classNames.spanLabelSmall}
               inputComponent={
-                <div className={cx({[classNames.deadlineError]: deadlineError})}>
+                <div className={cx({ [classNames.deadlineError]: deadlineError })}>
                   <NewDatePicker value={formFields.businessStartDate} onChange={onChangeField('businessStartDate')} />
 
                   {deadlineError && (
@@ -124,7 +124,7 @@ export const FirstStep = ({
           <div className={classNames.assetsAndFilesWrapper}>
             <Field
               multiline
-              inputProps={{maxLength: 100}}
+              inputProps={{ maxLength: 100 }}
               labelClasses={classNames.spanLabelSmall}
               label={`${t(TranslationKey['Assets included in sale'])} *`}
               inputComponent={
@@ -166,7 +166,7 @@ export const FirstStep = ({
 
             <Field
               multiline
-              inputProps={{maxLength: 100}}
+              inputProps={{ maxLength: 100 }}
               labelClasses={classNames.spanLabelSmall}
               label={`${t(TranslationKey['Attach files to the ad'])} *`}
               inputComponent={

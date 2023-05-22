@@ -1,51 +1,30 @@
-import React, {Component} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { MainContent } from '@components/layout/main-content'
+import { WarehouseManagement } from '@components/warehouse/warehouse-management'
 
-import {Appbar} from '@components/appbar'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {Navbar} from '@components/navbar'
-import {WarehouseManagement} from '@components/warehouse-management'
+import { WarehouseManagementViewModel } from './warehouse-management-view.model'
 
-import {t} from '@utils/translations'
+export const WarehouseManagementView = observer(props => {
+  const [viewModel] = useState(
+    () =>
+      new WarehouseManagementViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
 
-import {WarehouseManagementViewModel} from './warehouse-management-view.model'
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-const activeCategory = navBarActiveCategory.NAVBAR_MANAGEMENT
-
-@observer
-export class WarehouseManagementView extends Component {
-  viewModel = new WarehouseManagementViewModel({
-    history: this.props.history,
-    location: this.props.location,
-  })
-
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
-
-  render() {
-    const {drawerOpen, onTriggerDrawerOpen, history} = this.viewModel
-
-    return (
-      <React.Fragment>
-        <Navbar activeCategory={activeCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
-        <Main>
-          <Appbar
-            title={t(TranslationKey['Warehouse management'])}
-            history={history}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
-            <MainContent>
-              <WarehouseManagement />
-            </MainContent>
-          </Appbar>
-        </Main>
-      </React.Fragment>
-    )
-  }
-}
+  return (
+    <React.Fragment>
+      <MainContent>
+        <WarehouseManagement />
+      </MainContent>
+    </React.Fragment>
+  )
+})

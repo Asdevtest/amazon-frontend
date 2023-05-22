@@ -1,23 +1,23 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
 import React from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
-import {Field} from '@components/field'
-import {Modal} from '@components/modal'
+import { Button } from '@components/shared/buttons/button'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { Field } from '@components/shared/field'
+import { Modal } from '@components/shared/modal'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {BeforeAfterInfoTaskBlock} from './before-after-info-task-block'
-import {useClassNames} from './task-info-modal.style'
+import { BeforeAfterInfoTaskBlock } from './before-after-info-task-block'
+import { useClassNames } from './task-info-modal.style'
 
-export const TaskInfoModal = observer(({openModal, setOpenModal, task, volumeWeightCoefficient}) => {
-  const {classes: classNames} = useClassNames()
+export const TaskInfoModal = observer(({ openModal, setOpenModal, task, volumeWeightCoefficient }) => {
+  const { classes: classNames } = useClassNames()
 
   const renderDescriptionText = () => {
     switch (task.operationType) {

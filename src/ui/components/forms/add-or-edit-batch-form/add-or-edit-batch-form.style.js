@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -59,14 +59,6 @@ export const useClassNames = makeStyles()(theme => ({
     marginLeft: 5,
   },
 
-  mainTitle: {
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontSize: '24px',
-    lineHeight: '33px',
-    color: 'black',
-  },
-
   tableWrapper: {
     marginTop: '10px',
     height: 450,
@@ -75,7 +67,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   chosenGoodsTitle: {
-    // margin: '24px 0 4px',
     color: theme.palette.text.general,
   },
 
@@ -99,46 +90,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  // searchInput: {
-  //   width: '270px',
-  //   height: '30px',
-  //   borderRadius: '22px',
-  //   border: '.5px solid #000000',
-  // },
-  searchInputWrapper: {
-    display: 'flex',
-  },
-
-  searchBtn: {
-    marginLeft: '14px',
-    padding: '0 25px',
-    height: '30px',
-    border: '1px solid #006CFF',
-    borderRadius: '4px',
-    display: 'flex',
-    alignItems: 'center',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    transition: '.3s ease-in-out',
-
-    backgroundColor: 'white',
-    color: theme.palette.primary.main,
-    '&:hover': {
-      opacity: '0.5',
-    },
-    '&:disabled': {
-      backgroundColor: 'white',
-      color: 'black',
-      cursor: 'default',
-      opacity: '0.5',
-    },
-  },
-
-  searchBtnText: {
-    fontSize: '14px',
-    lineHeight: '17px',
-    color: theme.palette.primary.main,
-  },
-
   filtersWrapper: {
     display: 'flex',
     margin: '20px 0 13px',
@@ -147,39 +98,6 @@ export const useClassNames = makeStyles()(theme => ({
       display: 'flex',
       flexDirection: 'column',
     },
-  },
-
-  chip: {
-    color: '#000',
-    backgroundColor: 'white',
-    border: '.5px solid #000000',
-    fontSize: '14px',
-    transition: '.4s ease-in-out',
-    '&:hover, &:focus': {
-      transform: 'scale(1.01)',
-    },
-  },
-  chipActive: {
-    color: '#fff',
-    backgroundColor: '#006CFF',
-    '&:hover, &:focus': {
-      transform: 'scale(1.01)',
-      backgroundColor: '#006CFF',
-    },
-  },
-
-  betweenChipsText: {
-    margin: '0 17px',
-  },
-
-  asinChip: {
-    marginLeft: '8px',
-  },
-
-  addBtnsWrapper: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    margin: '15px 0 10px',
   },
 
   filterField: {
@@ -210,30 +128,12 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  filesContainer: {
-    marginTop: '20px',
-    width: 'auto',
-    marginRight: '50px',
-  },
-
   filesWrapper: {
     width: '450px',
     overflow: 'auto',
     [theme.breakpoints.down(768)]: {
       overflow: 'hidden',
       margin: 0,
-    },
-  },
-
-  linkText: {
-    color: theme.palette.primary.main,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    transition: '.3s ease',
-    whiteSpace: 'nowrap',
-    overflow: 'auto',
-
-    '&:hover': {
-      opacity: '0.8',
     },
   },
 
@@ -269,9 +169,6 @@ export const useClassNames = makeStyles()(theme => ({
       gap: '40px',
     },
   },
-  photoAndFilesWrapper: {
-    height: '200px',
-  },
 
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
@@ -280,11 +177,6 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       width: '280px',
     },
-  },
-
-  searchContainer: {
-    width: 'auto',
-    justifySelf: 'flex-start',
   },
 
   searchWrapper: {

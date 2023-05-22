@@ -1,15 +1,15 @@
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 
-import {Button} from '@components/buttons/button'
-import {Modal} from '@components/modal'
+import { Button } from '@components/shared/buttons/button'
+import { Modal } from '@components/shared/modal'
 
-import {useClassNames} from './warning-info-modal.style'
+import { useClassNames } from './warning-info-modal.style'
 
-export const WarningInfoModal = ({openModal, setOpenModal, title, btnText, onClickBtn, isWarning}) => {
-  const {classes: classNames} = useClassNames()
+export const WarningInfoModal = ({ openModal, setOpenModal, title, btnText, onClickBtn, isWarning }) => {
+  const { classes: classNames } = useClassNames()
 
   useEffect(() => {
     const listener = event => {
@@ -27,7 +27,7 @@ export const WarningInfoModal = ({openModal, setOpenModal, title, btnText, onCli
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.modalMessageWrapper}>
-        <Typography variant="h6" className={cx(classNames.title, {[classNames.titleWarning]: isWarning})}>
+        <Typography variant="h6" className={cx(classNames.title, { [classNames.titleWarning]: isWarning })}>
           {title}
         </Typography>
 

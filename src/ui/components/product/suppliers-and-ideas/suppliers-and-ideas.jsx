@@ -1,34 +1,34 @@
 /* eslint-disable no-unused-vars */
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useRef, useState} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {useHistory} from 'react-router-dom'
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
-import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
-import {IdeaViewAndEditCard} from '@components/cards/idea-view-and-edit-card'
-import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {Modal} from '@components/modal'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {SuccessInfoModal} from '@components/modals/success-info-modal'
+import { IdeaViewAndEditCard } from '@components/cards/idea-view-and-edit-card'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { Modal } from '@components/shared/modal'
 
-import {checkIsBuyer, checkIsClient} from '@utils/checks'
-import {t} from '@utils/translations'
+import { checkIsBuyer, checkIsClient } from '@utils/checks'
+import { t } from '@utils/translations'
 
-import {AddOrEditSupplierModalContent} from '../add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
-import {SuppliersAndIdeasModel} from './suppliers-and-ideas.model'
-import {useClassNames} from './suppliers-and-ideas.style'
+import { AddOrEditSupplierModalContent } from '../add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
+import { SuppliersAndIdeasModel } from './suppliers-and-ideas.model'
+import { useClassNames } from './suppliers-and-ideas.style'
 
-export const SuppliersAndIdeas = observer(({productId, product}) => {
-  const {classes: classNames} = useClassNames()
+export const SuppliersAndIdeas = observer(({ productId, product }) => {
+  const { classes: classNames } = useClassNames()
   const history = useHistory()
-  const model = useRef(new SuppliersAndIdeasModel({history, productId, product}))
+  const model = useRef(new SuppliersAndIdeasModel({ history, productId, product }))
 
   useEffect(() => {
     model.current.loadData()
@@ -71,10 +71,8 @@ export const SuppliersAndIdeas = observer(({productId, product}) => {
 
   const [updatedIdea, setUpdatedIdea] = useState(curIdea)
 
-  console.log('selectedSupplier', selectedSupplier)
-
   useEffect(() => {
-    setUpdatedIdea(() => ({...curIdea}))
+    setUpdatedIdea(() => ({ ...curIdea }))
   }, [SettingsModel.languageTag, curIdea])
 
   return (

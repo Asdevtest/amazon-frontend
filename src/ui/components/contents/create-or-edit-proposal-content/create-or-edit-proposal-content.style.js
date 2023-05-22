@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
@@ -20,44 +20,12 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
   },
 
-  mainSubRightWrapper: {
-    display: 'flex',
-  },
-
-  mainSubRightTwoStepWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-
   mainLeftWrapper: {
     width: '25%',
   },
 
-  mainTitle: {
-    fontWeight: '600',
-    fontSize: '30px',
-    lineHeight: '35px',
-    color: theme.palette.text.second,
-  },
-
   title: {
     marginBottom: '50px',
-  },
-
-  mainSubTitle: {
-    fontSize: '18px',
-    lineHeight: '140%',
-    color: theme.palette.text.second,
-    marginTop: '47px',
-  },
-
-  rightWrapper: {
-    width: '377px',
-    marginLeft: '40px',
-  },
-
-  rightTwoStepWrapper: {
-    width: '377px',
   },
 
   checkboxWrapper: {
@@ -78,12 +46,6 @@ export const useClassNames = makeStyles()(theme => ({
     // marginTop: 10,
   },
 
-  stepsWrapper: {
-    display: 'flex',
-
-    alignItems: 'center',
-  },
-
   buttonsWrapper: {
     display: 'flex',
     gap: 20,
@@ -99,49 +61,13 @@ export const useClassNames = makeStyles()(theme => ({
     width: '210px',
   },
 
-  successBtnTextWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  successBtnArrow: {
-    marginLeft: '15px',
-  },
-
-  footerRightWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-
-  requestDescriptionField: {
-    maxHeight: '300px',
-    width: '100%',
-    overflow: 'auto',
-  },
-
   descriptionField: {
     height: '213px !important',
     width: '100%',
   },
 
-  rightTwoStepSubFieldWrapper: {
-    display: 'flex',
-  },
-
   standartText: {
     color: theme.palette.text.second,
-  },
-
-  twoStepFieldResult: {
-    color: theme.palette.text.second,
-  },
-
-  twoStepDeadlineField: {
-    marginLeft: '30px',
-  },
-
-  mainLeftSubWrapper: {
-    display: 'flex',
   },
 
   middleSubWrapper: {
@@ -155,24 +81,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   dateWrapper: {
     marginLeft: '20px',
-  },
-
-  photoWrapper: {
-    width: '200px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-
-  imgBox: {
-    width: '200px',
-    height: '130px',
-    objectFit: 'contain',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
   },
 
   error: {
@@ -286,10 +194,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'end',
-
-    // '& > span': {
-    //   marginTop: '-20px',
-    // },
   },
 
   descriptionWrapper: {
@@ -299,16 +203,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     marginBottom: 30,
   },
-  conditionsField: {
-    width: '100%',
-    fontSize: '16px',
-    fontFamily: 'inherit',
-    border: 'none',
-    backgroundColor: 'inherit',
-    resize: 'none',
 
-    color: theme.palette.text.second,
-  },
   listItemDot: {
     width: '8px !important',
   },

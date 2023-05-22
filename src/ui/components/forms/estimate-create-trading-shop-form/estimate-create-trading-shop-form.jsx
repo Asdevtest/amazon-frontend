@@ -1,18 +1,18 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field/field'
 
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixed, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './estimate-create-trading-shop-form.style'
+import { useClassNames } from './estimate-create-trading-shop-form.style'
 
 const reqMultiplier = 20
 
@@ -26,7 +26,7 @@ export const EstimateCreateTradingShopForm = ({
   makeEstimate,
   files,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
@@ -54,7 +54,7 @@ export const EstimateCreateTradingShopForm = ({
   }
 
   const applyReqMultiplier = () => {
-    onChangeField('price')({target: {value: averagePureIncome * reqMultiplier}})
+    onChangeField('price')({ target: { value: averagePureIncome * reqMultiplier } })
   }
 
   const averageGrossIncome =
@@ -77,7 +77,7 @@ export const EstimateCreateTradingShopForm = ({
           : t(TranslationKey['Adding an ad to sell the store'])}
       </Typography>
 
-      <div className={cx(classNames.fieldsWrapper, {[classNames.oneFieldInRow]: !makeEstimate})}>
+      <div className={cx(classNames.fieldsWrapper, { [classNames.oneFieldInRow]: !makeEstimate })}>
         <Field
           labelClasses={classNames.fieldLabel}
           label={t(TranslationKey['Total price'])}

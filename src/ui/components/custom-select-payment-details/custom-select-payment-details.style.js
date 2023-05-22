@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '100%',
   },
-  standartText: {},
+
   select: {
     padding: '0 !important',
   },

@@ -1,1 +1,1 @@
-export {RequestProposalAcceptOrRejectResultForm} from './request-proposal-accept-or-reject-result-form'
+export { RequestProposalAcceptOrRejectResultForm } from './request-proposal-accept-or-reject-result-form'

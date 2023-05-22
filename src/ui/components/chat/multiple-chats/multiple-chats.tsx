@@ -1,26 +1,26 @@
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {forwardRef, ReactElement} from 'react'
+import React, { forwardRef, ReactElement } from 'react'
 
-import {compareDesc, parseISO} from 'date-fns'
-import {observer} from 'mobx-react'
+import { compareDesc, parseISO } from 'date-fns'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatContract, ChatUserContract} from '@models/chat-model/contracts'
-import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
-import {SettingsModel} from '@models/settings-model'
+import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
+import { SettingsModel } from '@models/settings-model'
 
-import {OnTypingMessageResponse} from '@services/websocket-chat-service/interfaces'
+import { OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
-import {isNotUndefined} from '@utils/checks'
-import {t} from '@utils/translations'
+import { isNotUndefined } from '@utils/checks'
+import { t } from '@utils/translations'
 
-import {Chat, RenderAdditionalButtonsParams} from '../chat'
-import {ChatMessageUniversalHandlers} from '../chat/chat-messages-list'
-import {ChatsList} from '../chats-list'
-import {useClassNames} from './multiple-chats.style'
+import { Chat, RenderAdditionalButtonsParams } from '../chat'
+import { ChatMessageUniversalHandlers } from '../chat/chat-messages-list'
+import { ChatsList } from '../chats-list'
+import { useClassNames } from './multiple-chats.style'
 
 export interface IFile {
   data_url: string
@@ -91,7 +91,7 @@ export const MultipleChats = observer(
       },
       ref,
     ) => {
-      const {classes: classNames} = useClassNames()
+      const { classes: classNames } = useClassNames()
 
       const filteredChats = chats
         .filter(el => {

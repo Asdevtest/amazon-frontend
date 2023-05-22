@@ -1,17 +1,17 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {BoxesModel} from '@models/boxes-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { BoxesModel } from '@models/boxes-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {adminBoxesViewColumns} from '@components/table-columns/admin/boxes-columns'
+import { adminBoxesViewColumns } from '@components/table/table-columns/admin/boxes-columns'
 
-import {adminBoxesDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import { adminBoxesDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 
 export class AdminWarehouseBoxesViewModel {
   history = undefined
@@ -31,21 +31,20 @@ export class AdminWarehouseBoxesViewModel {
 
   showBoxViewModal = false
 
-  drawerOpen = false
   selectedBoxes = []
 
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = adminBoxesViewColumns()
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -209,12 +208,6 @@ export class AdminWarehouseBoxesViewModel {
         this.error = error
       })
     }
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   onChangeCurPage(e) {

@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -21,13 +21,6 @@ export const useClassNames = makeStyles()(theme => ({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     maxWidth: 200,
-  },
-
-  usersWrapper: {
-    display: 'flex',
-    gap: 5,
-    maxWidth: 350,
-    flexWrap: 'wrap',
   },
 
   changeTitleWrapper: {

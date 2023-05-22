@@ -1,20 +1,20 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ClientModel} from '@models/client-model'
-import {SettingsModel} from '@models/settings-model'
+import { ClientModel } from '@models/client-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {clientOrdersNotificationsViewColumns} from '@components/table-columns/client/client-orders-notifications-columns'
+import { clientOrdersNotificationsViewColumns } from '@components/table/table-columns/client/client-orders-notifications-columns'
 
-import {clientOrdersNotificationsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { clientOrdersNotificationsDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export class ClientOrdersNotificationsViewModel {
   history = undefined
@@ -26,14 +26,13 @@ export class ClientOrdersNotificationsViewModel {
   orders = []
   baseNoConvertedOrders = []
 
-  drawerOpen = false
   showConfirmModal = false
   confirmModalSettings = {
     isWarning: false,
     onClickOkBtn: () => this.onSaveProductData(),
   }
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -43,11 +42,11 @@ export class ClientOrdersNotificationsViewModel {
   }
   columnsModel = clientOrdersNotificationsViewColumns(this.rowHandlers)
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -156,12 +155,6 @@ export class ClientOrdersNotificationsViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
@@ -223,12 +216,6 @@ export class ClientOrdersNotificationsViewModel {
     this.history.push({
       pathname: '/client/my-orders/orders/order',
       search: order.originalData._id,
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

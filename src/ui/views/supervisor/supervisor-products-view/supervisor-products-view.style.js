@@ -1,10 +1,4 @@
 export const styles = theme => ({
-  tableWrapper: {
-    marginTop: '32px',
-    minWidth: '100%',
-    height: '100%',
-  },
-
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
@@ -19,8 +13,6 @@ export const styles = theme => ({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
   },
 
@@ -44,14 +36,7 @@ export const styles = theme => ({
   toolbarContainer: {
     height: '52px',
   },
-  buttonWrapper: {
-    display: 'flex',
-    justifyContent: 'end',
-  },
-  button: {
-    width: '138px',
-    height: '40px',
-  },
+
   dataGridWrapper: {
     marginTop: '20px',
     height: 'calc(100vh - 280px)',
@@ -63,13 +48,10 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     marginBottom: 5,
     color: theme.palette.primary.main,
-
     display: 'flex',
     gap: '10px',
-
     fontSize: 14,
     fontWeight: 600,
-
     '&.Mui-disabled': {
       opacity: '.3',
       backgroundColor: 'transparent',
@@ -80,11 +62,8 @@ export const styles = theme => ({
     height: 20,
     width: 'fit-content',
     background: theme.palette.primary.main,
-
     padding: '1px 6px',
-
     fontSize: '12px',
-
     borderRadius: 30,
     display: 'flex',
     justifyContent: 'center',
@@ -94,9 +73,7 @@ export const styles = theme => ({
   selectedStatusFilterButton: {
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
-
-    borderBottom: '5px solid #0460DE',
-
+    borderBottom: theme.palette.other.tableActiveFilterBtn,
     color: `${theme.palette.primary.main} !important`,
   },
 

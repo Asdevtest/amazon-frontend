@@ -1,57 +1,41 @@
-import {Component} from 'react'
+import { useState } from 'react'
 
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
-import {AdminSettingsContent} from '@components/contents/admin-settings-content/admin-settings-content'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {Navbar} from '@components/navbar'
+import { AdminSettingsContent } from '@components/contents/admin-settings-content/admin-settings-content'
+import { MainContent } from '@components/layout/main-content'
+import { Button } from '@components/shared/buttons/button'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {AdminSettingsViewModel} from './admin-settings-view.model'
-import {styles} from './admin-settings-view.style'
+import { AdminSettingsViewModel } from './admin-settings-view.model'
+import { styles } from './admin-settings-view.style'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_SETTINGS
-export class AdminSettingsViewRaw extends Component {
-  viewModel = new AdminSettingsViewModel({
-    history: this.props.history,
-  })
+export const AdminSettingsViewRaw = props => {
+  const [viewModel] = useState(
+    () =>
+      new AdminSettingsViewModel({
+        history: props.history,
+      }),
+  )
+  const { classes: classNames } = props
 
-  render() {
-    const {drawerOpen, onClickTechnicalBtn} = this.viewModel
+  return (
+    <>
+      <MainContent>
+        <div className={classNames.mainWrapper}>
+          <Button className={classNames.technicalBtn} onClick={viewModel.onClickTechnicalBtn}>
+            {t(TranslationKey['Technical work and notices'])}
+          </Button>
 
-    const {classes: classNames} = this.props
-
-    return (
-      <>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={this.onTriggerDrawer} />
-        <Main>
-          <Appbar setDrawerOpen={this.onTriggerDrawer} title={t(TranslationKey.Settings)}>
-            <MainContent>
-              <div className={classNames.mainWrapper}>
-                <Button className={classNames.technicalBtn} onClick={onClickTechnicalBtn}>
-                  {t(TranslationKey['Technical work and notices'])}
-                </Button>
-
-                <AdminSettingsContent />
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
-      </>
-    )
-  }
-
-  onTriggerDrawer = () => {
-    const {drawerOpen} = this.state
-    this.setState({drawerOpen: !drawerOpen})
-  }
+          <AdminSettingsContent />
+        </div>
+      </MainContent>
+    </>
+  )
 }
 
-export const AdminSettingsView = withStyles(AdminSettingsViewRaw, styles)
+export const AdminSettingsView = withStyles(observer(AdminSettingsViewRaw), styles)

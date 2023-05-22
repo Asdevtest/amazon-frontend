@@ -1,21 +1,21 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BuyerModel} from '@models/buyer-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { BuyerModel } from '@models/buyer-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {buyerFreeOrdersViewColumns} from '@components/table-columns/buyer/buyer-fre-orders-columns'
+import { buyerFreeOrdersViewColumns } from '@components/table/table-columns/buyer/buyer-fre-orders-columns'
 
-import {buyerVacantOrdersDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { buyerVacantOrdersDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
 
 export class BuyerFreeOrdersViewModel {
   history = undefined
@@ -26,7 +26,6 @@ export class BuyerFreeOrdersViewModel {
   curOrder = undefined
 
   ordersVacant = []
-  drawerOpen = false
   showBarcodeModal = false
   showOrderModal = false
   showTwoVerticalChoicesModal = false
@@ -41,7 +40,7 @@ export class BuyerFreeOrdersViewModel {
 
   firstRowId = undefined
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
@@ -49,9 +48,9 @@ export class BuyerFreeOrdersViewModel {
 
   showWarningModal = false
 
-  constructor({history}) {
+  constructor({ history }) {
     this.history = history
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => SettingsModel.languageTag,
@@ -121,10 +120,6 @@ export class BuyerFreeOrdersViewModel {
     this.requestStatus = requestStatus
   }
 
-  onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
-  }
-
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
   }
@@ -176,7 +171,7 @@ export class BuyerFreeOrdersViewModel {
       this.curOrder.status === OrderStatusByKey[OrderStatus.FORMED]
         ? '/buyer/pending-orders'
         : '/buyer/not-paid-orders',
-      {orderId: this.curOrder._id},
+      { orderId: this.curOrder._id },
     )
   }
 
@@ -193,6 +188,8 @@ export class BuyerFreeOrdersViewModel {
 
         this.onTriggerOpenModal('showTwoVerticalChoicesModal')
       }
+
+      this.loadData()
 
       UserModel.getUserInfo()
     } catch (error) {
@@ -236,10 +233,6 @@ export class BuyerFreeOrdersViewModel {
 
   onTriggerShowOrderModal() {
     this.showOrderModal = !this.showOrderModal
-  }
-
-  onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
   }
 
   onChangeCurPage(e) {

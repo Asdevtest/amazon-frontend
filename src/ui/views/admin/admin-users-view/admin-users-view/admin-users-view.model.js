@@ -1,17 +1,17 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {AdministratorModel} from '@models/administrator-model'
-import {PermissionsModel} from '@models/permissions-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { AdministratorModel } from '@models/administrator-model'
+import { PermissionsModel } from '@models/permissions-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {adminUsersViewColumns} from '@components/table-columns/admin/users-columns'
+import { adminUsersViewColumns } from '@components/table/table-columns/admin/users-columns'
 
-import {adminUsersDataConverter} from '@utils/data-grid-data-converters'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import { adminUsersDataConverter } from '@utils/data-grid-data-converters'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 
 export class AdminUsersViewModel {
   history = undefined
@@ -25,7 +25,7 @@ export class AdminUsersViewModel {
   singlePermissions = []
   checkValidationNameOrEmail = {}
   availableSubUsers = undefined
-  changeNameAndEmail = {email: '', name: ''}
+  changeNameAndEmail = { email: '', name: '' }
   editUserFormFields = undefined
   selectionModel = undefined
   dataGridState = null
@@ -39,21 +39,20 @@ export class AdminUsersViewModel {
   }
 
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = adminUsersViewColumns(this.rowHandlers)
 
-  drawerOpen = false
   showConfirmModal = false
   showEditUserModal = false
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
@@ -194,7 +193,7 @@ export class AdminUsersViewModel {
       })
 
       runInAction(() => {
-        this.submitEditData = {...data, permissions: data.active && data.active !== 'false' ? data.permissions : []} // удаляем пермишены если баним юзера
+        this.submitEditData = { ...data, permissions: data.active && data.active !== 'false' ? data.permissions : [] } // удаляем пермишены если баним юзера
 
         this.availableSubUsers = undefined
       })
@@ -229,7 +228,7 @@ export class AdminUsersViewModel {
       await this.getGroupPermissions()
       await this.getSinglePermissions()
       runInAction(() => {
-        this.changeNameAndEmail = {email: '', name: ''}
+        this.changeNameAndEmail = { email: '', name: '' }
       })
     } catch (error) {
       console.log(error)
@@ -276,20 +275,14 @@ export class AdminUsersViewModel {
   async onClickUser(userData) {
     try {
       const result = await AdministratorModel.getUsersById(userData._id)
-      this.history.push('/admin/users/user', {user: result})
+      this.history.push('/admin/users/user', { user: result })
     } catch (error) {
       console.log(error)
     }
   }
 
   onClickBalance(userData) {
-    this.history.push('/admin/users/balance', {user: userData})
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
+    this.history.push('/admin/users/balance', { user: userData })
   }
 
   onChangeCurPage(e) {

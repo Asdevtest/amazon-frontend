@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -7,16 +7,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
   form: {
     borderRadius: '5px',
-
     display: 'flex',
-
-    // alignItems: 'stretch',
-
     gap: 40,
-  },
-  warehouseInfoWrapper: {},
-  ordersWrapper: {
-    flexGrow: 1,
   },
 
   cancelBtn: {
@@ -40,9 +32,7 @@ export const useClassNames = makeStyles()(theme => ({
   button: {
     marginLeft: '40px',
   },
-  subTitle: {
-    color: theme.palette.text.second,
-  },
+
   field: {
     width: '100%',
   },
@@ -64,30 +54,8 @@ export const useClassNames = makeStyles()(theme => ({
   divider: {
     width: '100%',
     flexGrow: 1,
-    // margin: '0 -20px',
-    // marginTop: theme.spacing(1.25),
-    // marginBottom: theme.spacing(2.5),
-  },
-  submit: {
-    marginRight: theme.spacing(2),
   },
 
-  numberInputFieldsBlocksWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    alignItems: 'flex-start',
-    width: '100%',
-  },
-  numberInputFieldsWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    marginLeft: '10px',
-  },
-  numberInputField: {
-    margin: '0 5px',
-  },
   blockOfNewBoxWrapper: {
     height: '100%',
 
@@ -131,17 +99,7 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundcolor: theme.palette.text.general,
     width: '230px',
   },
-  topWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  heightFieldAuto: {
-    height: 'auto',
-    maxWidth: '380px',
-    minWidth: '250px',
 
-    padding: 0,
-  },
   commentsWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -159,16 +117,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
     fontSize: 18,
   },
-  imgBox: {
-    width: '200px',
-    height: '200px',
-    objectFit: 'contain',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
+
   photoWrapper: {
     width: '250px',
     height: 200,
@@ -204,13 +153,6 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     gap: 40,
   },
-  successBtn: {
-    backgroundColor: '#4CAF50',
-    '&:hover': {
-      opacity: '0.8',
-      backgroundColor: '#4CAF50',
-    },
-  },
 
   alertText: {
     color: 'red',
@@ -226,10 +168,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: 20,
     // width: 350,
-  },
-
-  destinationSelect: {
-    width: '230px',
   },
 
   fbaShipmentInput: {
@@ -254,10 +192,6 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
   },
 
-  disabledNumContainer: {
-    // width: 230,
-  },
-
   productsWrapper: {
     width: 700,
   },
@@ -266,12 +200,6 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '10px 20px 0',
     display: 'flex',
     justifyContent: 'space-between',
-
-    // gap: 20,
-    // height: '330px',
-    // width: '480px',
-
-    // padding: '10px',
   },
 
   amazonTitle: {

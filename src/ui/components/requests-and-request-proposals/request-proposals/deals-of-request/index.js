@@ -1,1 +1,1 @@
-export {DealsOfRequest} from './deals-of-request'
+export { DealsOfRequest } from './deals-of-request'
