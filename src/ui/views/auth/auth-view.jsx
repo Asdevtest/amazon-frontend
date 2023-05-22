@@ -9,8 +9,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { EntryLeftPanel } from '@components/auth/entry-left-panel'
-import { EntryRightPanel } from '@components/auth/entry-right-panel'
+import { AuthPageBanner } from '@components/auth/auth-page-banner'
+import { AuthFormWrapper } from '@components/auth/auth-form-wrapper'
 import { AuthForm } from '@components/forms/auth-form'
 
 import { t } from '@utils/translations'
@@ -36,9 +36,9 @@ export const AuthViewRaw = props => {
 
   return (
     <div className={classNames.root}>
-      <EntryLeftPanel />
+      <AuthPageBanner />
 
-      <EntryRightPanel
+      <AuthFormWrapper
         redirect={t(TranslationKey['Create account'])}
         title={t(TranslationKey['Sign in'])}
         onClickRedirect={onClickRedirect}
@@ -64,7 +64,7 @@ export const AuthViewRaw = props => {
                 ))}
           </Typography>
         )}
-      </EntryRightPanel>
+      </AuthFormWrapper>
     </div>
   )
 }

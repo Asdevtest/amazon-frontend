@@ -5,8 +5,8 @@ import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { EntryLeftPanel } from '@components/auth/entry-left-panel'
-import { EntryRightPanel } from '@components/auth/entry-right-panel'
+import { AuthPageBanner } from '@components/auth/auth-page-banner'
+import { AuthFormWrapper } from '@components/auth/auth-form-wrapper'
 import { RegistrationForm } from '@components/forms/registration-form'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
@@ -32,9 +32,9 @@ export const RegistrationViewRaw = props => {
 
   return (
     <div className={classNames.root}>
-      <EntryLeftPanel />
+      <AuthPageBanner />
 
-      <EntryRightPanel
+      <AuthFormWrapper
         redirect={t(TranslationKey['Already have account?'])}
         title={t(TranslationKey.Registration)}
         onClickRedirect={viewModel.onClickRedirect}
@@ -54,7 +54,7 @@ export const RegistrationViewRaw = props => {
           onSubmit={viewModel.onSubmitForm}
         />
         {renderError()}
-      </EntryRightPanel>
+      </AuthFormWrapper>
 
       <SuccessInfoModal
         openModal={viewModel.showSuccessRegistrationModal}
