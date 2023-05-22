@@ -216,11 +216,4 @@ export const styles = theme => ({
       marginRight: '-48px',
     },
   },
-
-  blueButton: {
-    '&:disabled': {
-      background: '#B3D1FB',
-      color: '#F9FCFF',
-    },
-  },
 })
