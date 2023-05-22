@@ -14,6 +14,7 @@ import { UserModel } from '@models/user-model'
 
 import { checkIsFreelancer } from '@utils/checks'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 export class MyProposalsViewModel {
   history = undefined
@@ -187,7 +188,6 @@ export class MyProposalsViewModel {
     runInAction(() => {
       this.selectedTaskType = taskType
     })
-    // this.getRequestsCustom()
 
     this.requests = this.getFilteredRequests()
   }
@@ -252,16 +252,21 @@ export class MyProposalsViewModel {
 
   async loadData() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       await this.getUserInfo()
       await this.getRequestsCustom()
       this.getTableModeState()
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
 
   async getRequestsCustom() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
       const result = await RequestModel.getRequestsCustom(this.user._id)
 
       runInAction(() => {
@@ -279,7 +284,9 @@ export class MyProposalsViewModel {
 
         // console.log('this.requests', this.requests)
       })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -312,15 +319,6 @@ export class MyProposalsViewModel {
     })
   }
 
-  // async onClickViewMore(id) {
-  //   try {
-  //     this.history.push('/custom-search-request', {requestId: id})
-  //   } catch (error) {
-  //     this.onTriggerOpenModal('showWarningModal')
-  //     console.log(error)
-  //   }
-  // }
-
   setActionStatus(actionStatus) {
     runInAction(() => {
       this.actionStatus = actionStatus
@@ -330,6 +328,12 @@ export class MyProposalsViewModel {
   onTriggerOpenModal(modal) {
     runInAction(() => {
       this[modal] = !this[modal]
+    })
+  }
+
+  setRequestStatus(requestStatus) {
+    runInAction(() => {
+      this.requestStatus = requestStatus
     })
   }
 }

@@ -14,6 +14,7 @@ import { UserModel } from '@models/user-model'
 import { FreelancerVacantRequestColumns } from '@components/table/table-columns/freelancer/freelancer-vacant-request-columns/freelancer-vacant-request-columns'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 export class VacantRequestsViewModel {
   history = undefined
@@ -153,16 +154,20 @@ export class VacantRequestsViewModel {
 
   async loadData() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       await this.getUserInfo()
-      this.getRequestsVacant()
-      this.getTableModeState()
+      await this.getRequestsVacant()
+      await this.getTableModeState()
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
 
   async getRequestsVacant() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.VACANT, {
         typeTask:
           Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
@@ -174,7 +179,10 @@ export class VacantRequestsViewModel {
         this.requests = addIdDataConverter(result)
         this.rowCount = result.length
       })
+
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
 
       runInAction(() => {
@@ -245,6 +253,12 @@ export class VacantRequestsViewModel {
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
+    })
+  }
+
+  setRequestStatus(requestStatus) {
+    runInAction(() => {
+      this.requestStatus = requestStatus
     })
   }
 }

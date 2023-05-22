@@ -42,6 +42,8 @@ import { t } from '@utils/translations'
 
 import { MyProposalsViewModel } from './my-proposals-view.model'
 import { styles } from './my-proposals-view.style'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 export const MyProposalsViewRaw = props => {
   const [viewModel] = useState(
@@ -166,7 +168,11 @@ export const MyProposalsViewRaw = props => {
           </div>
         </div>
 
-        {getSortedData(viewModel.sortMode)?.length ? (
+        {viewModel.requestStatus === loadingStatuses.isLoading ? (
+          <div className={classNames.loadingWrapper}>
+            <CircularProgressWithLabel />
+          </div>
+        ) : getSortedData(viewModel.sortMode)?.length ? (
           <Grid
             container
             classes={{ root: classNames.dashboardCardWrapper }}
