@@ -12,7 +12,7 @@ import { UserModel } from '@models/user-model'
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
-import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 import { formatDateTime, formatDateTimeHourAndMinutes } from '@utils/date-time'
 import { minsToTime } from '@utils/text'

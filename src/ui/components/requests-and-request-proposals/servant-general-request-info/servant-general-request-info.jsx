@@ -20,7 +20,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { Button } from '@components/shared/buttons/button'
-import { CustomCarousel } from '@components/shared/custom-carousel/custom-carousel'
 import { Field } from '@components/shared/field'
 import { UserLink } from '@components/user/user-link'
 
@@ -31,6 +30,7 @@ import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { useClassNames } from './servant-general-request-info.style'
+import { CustomSlider } from '@components/shared/custom-slider'
 
 export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals }) => {
   const { classes: classNames } = useClassNames()
@@ -285,7 +285,7 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
         <div className={classNames.proposalsWrapper}>
           <Divider orientation={'vertical'} />
 
-          <CustomCarousel view="complex" title={t(TranslationKey.Proposal)}>
+          <CustomSlider view="complex" title={t(TranslationKey.Proposal)}>
             {requestProposals.map((proposal, index) => (
               <div key={index} className={classNames.proposalWrapper}>
                 <Field
@@ -321,7 +321,7 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
                 </div>
               </div>
             ))}
-          </CustomCarousel>
+          </CustomSlider>
         </div>
       </div>
     </Paper>

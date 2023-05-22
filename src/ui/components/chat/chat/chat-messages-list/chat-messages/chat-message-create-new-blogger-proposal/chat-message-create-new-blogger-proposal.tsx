@@ -13,7 +13,6 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { UserModel } from '@models/user-model'
 
 import { Button } from '@components/shared/buttons/button'
-import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 
 import { formatDateOnlyTime, formatNormDateTime } from '@utils/date-time'
@@ -24,6 +23,7 @@ import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and
 
 import { LabelValuePairBlock } from '../label-value-pair-block'
 import { useClassNames } from './chat-message-create-new-blogger-proposal.style'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 export interface ChatMessageProposalHandlers {
   onClickProposalAccept: (proposalId: string, price: number) => void

@@ -12,7 +12,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { CustomCarousel, openPdfFile } from '@components/shared/custom-carousel/custom-carousel'
+import { openPdfFile } from '@utils/open-pdf-file/open-pdf-file'
+
 import { NoDocumentIcon } from '@components/shared/svg-icons'
 
 import { checkIsImageLink } from '@utils/checks'
@@ -20,6 +21,7 @@ import { shortenDocumentString } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './files-carousel.style'
+import { CustomSlider } from '../custom-slider'
 
 interface FilesCarouselProps {
   files: Array<string | files>
@@ -56,7 +58,7 @@ export const FilesCarousel: FC<FilesCarouselProps> = observer(props => {
       <div className={classNames.imageWrapper}>
         {notEmptyFiles?.length ? (
           // @ts-ignore
-          <CustomCarousel>
+          <CustomSlider>
             {notEmptyFiles.map((file, index) =>
               !isString(file) && file?.data_url ? (
                 <div key={index} className={classNames.documentWrapper} onClick={() => openPdfFile(file.data_url)}>
@@ -79,7 +81,7 @@ export const FilesCarousel: FC<FilesCarouselProps> = observer(props => {
                 </Link>
               ),
             )}
-          </CustomCarousel>
+          </CustomSlider>
         ) : (
           <div className={classNames.emptyProposalsIconWrapper}>
             <div className={classNames.emptyProposalsIcon}>

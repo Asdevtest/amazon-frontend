@@ -3,44 +3,23 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import AutorenewIcon from '@mui/icons-material/Autorenew'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  IconButton,
-  Link,
-  Typography,
-  Avatar,
-  Checkbox,
-  ClickAwayListener,
-  Menu,
-  Tooltip,
-} from '@mui/material'
+import { Link, Typography, Avatar, Checkbox, ClickAwayListener, Menu, Tooltip } from '@mui/material'
 import Zoom from '@mui/material/Zoom'
 
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import { nanoid } from 'nanoid'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
-import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BigObjectImagesModal } from '@components/modals/big-object-images-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
-import { CustomCarousel } from '@components/shared/custom-carousel/custom-carousel'
-// import {PhotoCarousel} from '@components/shared/custom-carousel/custom-carousel'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
-import { Modal } from '@components/shared/modal'
 import { SetDuration } from '@components/shared/set-duration/set-duration'
-import { BigPlus, PhotoCameraWithPlus } from '@components/shared/svg-icons'
-import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { checkIsImageLink } from '@utils/checks'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'

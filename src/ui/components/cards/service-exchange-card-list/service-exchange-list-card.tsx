@@ -13,7 +13,6 @@ import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@cons
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { CustomCarousel } from '@components/shared/custom-carousel/custom-carousel'
 import { UserLink } from '@components/user/user-link'
 
 import { checkIsImageLink } from '@utils/checks'
@@ -22,6 +21,7 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './service-exchange-list-card.style'
+import { CustomSlider } from '@components/shared/custom-slider'
 
 interface CreatedByInterface {
   _id: string
@@ -73,7 +73,7 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = props =
     <div className={classNames.cardWrapper}>
       <div className={classNames.cardCarouselWrapper}>
         {/*  @ts-ignore */}
-        <CustomCarousel>
+        <CustomSlider>
           {service.linksToMediaFiles
             .filter(el => checkIsImageLink(typeof el === 'string' ? el : el?.file?.name))
             .map((imageHash, index) => (
@@ -92,7 +92,7 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = props =
                 }}
               />
             ))}
-        </CustomCarousel>
+        </CustomSlider>
       </div>
 
       <div className={classNames.titleAndDescriptionWrapper}>

@@ -37,7 +37,6 @@ import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import { Button } from '@components/shared/buttons/button'
-import { CustomCarousel } from '@components/shared/custom-carousel/custom-carousel'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
@@ -61,6 +60,7 @@ import { useClassNames } from './edit-order-modal.style'
 import { EditOrderSuppliersTable } from './edit-order-suppliers-table'
 import { ProductTable } from './product-table'
 import { SelectFields } from './select-fields'
+import { CustomSlider } from '@components/shared/custom-slider'
 
 const orderStatusesThatTriggersEditBoxBlock = [OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]]
 
@@ -1002,7 +1002,7 @@ export const EditOrderModal = observer(
 
                 <div className={classNames.trackNumberPhotoWrapper}>
                   {trackNumber.files[0] ? (
-                    <CustomCarousel>
+                    <CustomSlider>
                       {trackNumber.files.map((el, index) => (
                         <img
                           key={index}
@@ -1026,7 +1026,7 @@ export const EditOrderModal = observer(
                           }}
                         />
                       ))}
-                    </CustomCarousel>
+                    </CustomSlider>
                   ) : (
                     <Typography>{'no photo track number...'}</Typography>
                   )}

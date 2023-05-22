@@ -16,11 +16,6 @@ import { BigImagesModal } from '@components/modals/big-images-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import {
-  CustomCarousel,
-  PhotoAndFilesCarousel,
-  PhotoCarousel,
-} from '@components/shared/custom-carousel/custom-carousel'
 import { Field } from '@components/shared/field/field'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -44,6 +39,8 @@ import { t } from '@utils/translations'
 import { downloadFileByLink } from '@utils/upload-files'
 
 import { useClassNames } from './select-fields.style'
+import { CustomSlider } from '@components/shared/custom-slider'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 export const SelectFields = ({
   userInfo,
@@ -95,7 +92,7 @@ export const SelectFields = ({
 
             {!!order.product.images.length && (
               <div className={classNames.carouselWrapper}>
-                <CustomCarousel>
+                <CustomSlider>
                   {order.product.images.map((imageHash, index) => (
                     <img
                       key={index}
@@ -119,7 +116,7 @@ export const SelectFields = ({
                       }}
                     />
                   ))}
-                </CustomCarousel>
+                </CustomSlider>
               </div>
             )}
           </div>
@@ -442,31 +439,6 @@ export const SelectFields = ({
       </Grid>
 
       <Grid item className={classNames.gridItem}>
-        {/* <Box>
-          <Field
-            disabled
-            multiline
-            minRows={4}
-            maxRows={6}
-            inputClasses={classNames.commentInput}
-            value={orderFields.clientComment}
-            label={t(TranslationKey['Client comment'])}
-            onChange={setOrderField('clientComment')}
-          />
-        </Box>
-        <Box my={3}>
-          <Field
-            multiline
-            minRows={4}
-            maxRows={6}
-            inputProps={{maxLength: 500}}
-            inputClasses={classNames.commentInput}
-            value={orderFields.buyerComment}
-            label={t(TranslationKey['Buyer comment'])}
-            onChange={setOrderField('buyerComment')}
-          />
-        </Box> */}
-
         <Box my={3} className={classNames.trackAndHsCodeAndComments}>
           <Field
             disabled

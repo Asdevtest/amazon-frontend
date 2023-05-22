@@ -10,7 +10,7 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { PhotoCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { Field } from '@components/shared/field'
 
 import { getYearDate } from '@utils/date-time'

@@ -24,19 +24,18 @@ import { ImageEditForm } from '@components/forms/image-edit-form'
 import { BigImagesModal } from '@components/modals/big-images-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { CustomCarousel } from '@components/shared/custom-carousel/custom-carousel'
 import { Modal } from '@components/shared/modal'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
-import { downloadFileByLink } from '@utils/upload-files'
 
 import { TableSupplier } from '../../table-supplier'
 import { FieldsAndSuppliers } from './fields-and-suppliers'
 import { RightSideComments } from './right-side-comments'
 import { useClassNames } from './top-card.style'
+import { CustomSlider } from '@components/shared/custom-slider'
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
@@ -225,7 +224,7 @@ export const TopCard = observer(
                 <Box>
                   {product.images && product.images.length ? (
                     <div className={classNames.carouselWrapper}>
-                      <CustomCarousel>
+                      <CustomSlider>
                         {(checkIsBuyer(curUserRole) || checkIsAdmin(curUserRole) ? product.images : imagesForLoad).map(
                           (imageHash, index) => (
                             <img
@@ -254,7 +253,7 @@ export const TopCard = observer(
                             />
                           ),
                         )}
-                      </CustomCarousel>
+                      </CustomSlider>
                     </div>
                   ) : undefined}
                 </Box>

@@ -20,8 +20,7 @@ import { SetShippingLabelModal } from '@components/modals/set-shipping-label-mod
 import { Button } from '@components/shared/buttons/button'
 import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
-import { ColoredChip } from '@components/shared/colored-chip'
-import { CustomCarousel, PhotoCarousel } from '@components/shared/custom-carousel/custom-carousel'
+
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
@@ -36,6 +35,8 @@ import { t } from '@utils/translations'
 
 import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
 import { useClassNames } from './edit-box-form.style'
+import { CustomSlider } from '@components/shared/custom-slider'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 
 const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
   const { classes: classNames } = useClassNames()
@@ -310,7 +311,7 @@ export const EditBoxForm = observer(
                 <Divider className={classNames.divider} />
 
                 <div className={classNames.productsWrapper}>
-                  <CustomCarousel alignButtons="end">
+                  <CustomSlider alignButtons="end">
                     {boxFields.items.map((item, index) => (
                       <div key={index} className={classNames.productWrapper}>
                         <div className={classNames.leftProductColumn}>
@@ -461,7 +462,7 @@ export const EditBoxForm = observer(
                         </div>
                       </div>
                     ))}
-                  </CustomCarousel>
+                  </CustomSlider>
                 </div>
 
                 <Divider className={classNames.divider} />
