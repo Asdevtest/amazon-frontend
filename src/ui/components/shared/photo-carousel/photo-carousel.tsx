@@ -1,9 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
 import { Avatar, Typography } from '@mui/material'
 
-import { useState } from 'react'
-
-import { observer } from 'mobx-react'
+import { FC, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,15 +14,36 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './photo-carousel.style'
 import { CustomSlider } from '../custom-slider'
+import { ClassNamesArg } from '@emotion/css'
 
-export const PhotoCarousel = observer(({ files, isAmazonPhoto, view, alignButtons, small = false, imageClass }) => {
+interface FilesInterface {
+  file: { name: Array<string> }
+  data_url: string
+}
+
+interface PhotoCarouselProps {
+  files: Array<string | FilesInterface>
+  isAmazonPhoto: boolean
+  view: string
+  alignButtons: string
+  small: boolean
+  imageClass: ClassNamesArg
+}
+
+export const PhotoCarousel: FC<PhotoCarouselProps> = props => {
   const { classes: classNames } = useClassNames()
-  const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
+
+  const { files, isAmazonPhoto, view, alignButtons, small = false, imageClass } = props
+
+  const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 } as {
+    images: Array<string>
+    imgIndex: number
+  })
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
   const notEmptyPhotos = isAmazonPhoto
     ? files?.map(el => getAmazonImageUrl(el, true))
-    : files?.filter(el => checkIsImageLink(el?.file?.name || el))
+    : files?.filter(el => checkIsImageLink(typeof el !== 'string' ? el?.file?.name : el))
 
   return files?.length ? (
     <div className={classNames.imagesCarouselWrapper}>
@@ -36,6 +56,7 @@ export const PhotoCarousel = observer(({ files, isAmazonPhoto, view, alignButton
                 variant="square"
                 alt={'!'}
                 src={photo?.data_url || photo}
+                // @ts-ignore
                 classes={{ img: small ? classNames.smallImage : imageClass ? imageClass : classNames.image }}
                 onClick={() => {
                   setShowPhotosModal(!showPhotosModal)
@@ -43,7 +64,9 @@ export const PhotoCarousel = observer(({ files, isAmazonPhoto, view, alignButton
                   setBigImagesOptions({
                     images: isAmazonPhoto
                       ? files?.map(el => getAmazonImageUrl(el, true))
-                      : files?.filter(el => checkIsImageLink(el?.file?.name || el)).map(img => img?.data_url || img),
+                      : files
+                          ?.filter(el => checkIsImageLink(typeof el !== 'string' ? el?.file?.name : el))
+                          .map(img => (typeof img !== 'string' ? img?.data_url : img)),
 
                     imgIndex: index,
                   })
@@ -65,7 +88,7 @@ export const PhotoCarousel = observer(({ files, isAmazonPhoto, view, alignButton
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={bigImagesOptions.images}
         imgIndex={bigImagesOptions.imgIndex}
-        setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        setImageIndex={(imgIndex: number) => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
       />
     </div>
   ) : (
@@ -78,4 +101,4 @@ export const PhotoCarousel = observer(({ files, isAmazonPhoto, view, alignButton
       </div>
     </div>
   )
-})
+}
