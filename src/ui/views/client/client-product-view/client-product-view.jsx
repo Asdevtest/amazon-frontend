@@ -14,8 +14,10 @@ import { Modal } from '@components/shared/modal'
 import { t } from '@utils/translations'
 
 import { ClientProductViewModel } from './client-product-view.model'
+import { useLocation } from 'react-router-dom'
 
 export const ClientProductView = observer(props => {
+  const { search } = useLocation()
   const [viewModel] = useState(
     () =>
       new ClientProductViewModel({
@@ -26,6 +28,15 @@ export const ClientProductView = observer(props => {
   useEffect(() => {
     viewModel.loadData()
   }, [])
+
+  useEffect(() => {
+    const queries = new URLSearchParams(search)
+    const productId = queries.get('product-id')
+
+    if (productId) {
+      viewModel.updateProductId(productId)
+    }
+  }, [search])
 
   return (
     <React.Fragment>
