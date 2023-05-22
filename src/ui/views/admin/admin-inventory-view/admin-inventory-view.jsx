@@ -38,49 +38,51 @@ export const AdminInventoryViewRaw = props => {
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
-        <MemoDataGrid
-          pagination
-          useResizeContainer
-          localeText={getLocalizationByLanguageTag()}
-          classes={{
-            row: classNames.row,
-            root: classNames.root,
-            footerContainer: classNames.footerContainer,
-            footerCell: classNames.footerCell,
-            toolbarContainer: classNames.toolbarContainer,
-          }}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          page={viewModel.curPage}
-          pageSize={viewModel.rowsPerPage}
-          rowHeight={100}
-          rowsPerPageOptions={[15, 25, 50, 100]}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
-          components={{
-            Toolbar: DataGridCustomToolbar,
-            ColumnMenuIcon: FilterAltOutlinedIcon,
-          }}
-          componentsProps={{
-            toolbar: {
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                changeColumnsModel: viewModel.changeColumnsModel,
+        <div className={classNames.datagridWrapper}>
+          <MemoDataGrid
+            pagination
+            useResizeContainer
+            localeText={getLocalizationByLanguageTag()}
+            classes={{
+              row: classNames.row,
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            page={viewModel.curPage}
+            pageSize={viewModel.rowsPerPage}
+            rowHeight={100}
+            rowsPerPageOptions={[15, 25, 50, 100]}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            components={{
+              Toolbar: DataGridCustomToolbar,
+              ColumnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            componentsProps={{
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  changeColumnsModel: viewModel.changeColumnsModel,
+                },
               },
-            },
-          }}
-          rows={viewModel.currentData}
-          onSelectionModelChange={newSelection => {
-            viewModel.onSelectionModel(newSelection[0])
-          }}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onPageSizeChange={viewModel.onChangeRowsPerPage}
-          onPageChange={viewModel.onChangeCurPage}
-          onStateChange={viewModel.setDataGridState}
-          onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
-          onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
-        />
+            }}
+            rows={viewModel.currentData}
+            onSelectionModelChange={newSelection => {
+              viewModel.onSelectionModel(newSelection[0])
+            }}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onPageSizeChange={viewModel.onChangeRowsPerPage}
+            onPageChange={viewModel.onChangeCurPage}
+            onStateChange={viewModel.setDataGridState}
+            onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
+          />
+        </div>
       </MainContent>
     </React.Fragment>
   )
