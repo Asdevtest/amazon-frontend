@@ -455,6 +455,7 @@ export const addOrEditBatchDataConverter = (
 
     destination: item.destination?.name,
     storekeeper: item.storekeeper?.name,
+    // storekeeper: item.storekeeper,
     logicsTariff: getFullTariffTextForBoxOrOrder(item),
     client: item.client?.name,
 
