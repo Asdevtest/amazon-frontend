@@ -39,6 +39,9 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
           key={nanoid()}
           style={{
             height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
             minWidth: `${RIGHT_BLOCK_WIDTH}%`,
             maxWidth: `${RIGHT_BLOCK_WIDTH}%`,
           }}
