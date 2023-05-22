@@ -16,15 +16,7 @@ export const ChatFilesInput: FC<Props> = ({ files, setFiles }) => {
   const { classes: classNames } = useClassNames()
   return (
     <div className={classNames.root}>
-      <UploadFilesInput
-        oneLine
-        withoutLinks
-        title={false}
-        images={files}
-        setImages={setFiles}
-        maxNumber={50}
-        acceptType={['']}
-      />
+      <UploadFilesInput oneLine withoutLinks images={files} setImages={setFiles} maxNumber={50} acceptType={['']} />
     </div>
   )
 }

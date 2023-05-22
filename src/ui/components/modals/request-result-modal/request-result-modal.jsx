@@ -16,7 +16,6 @@ import { PhotoCarousel } from '@components/shared/custom-carousel/custom-carouse
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
-import { UploadFilesInputMini } from '@components/shared/upload-files-input-mini'
 
 import { t } from '@utils/translations'
 

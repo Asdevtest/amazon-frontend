@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import CircleIcon from '@mui/icons-material/Circle'
-import { Avatar, Checkbox, Link, List, ListItem, ListItemText, Typography, Rating } from '@mui/material'
+import { Avatar, Checkbox, Link, List, ListItem, ListItemText, Rating, Typography } from '@mui/material'
 
 import React, { useState } from 'react'
 
@@ -14,7 +14,6 @@ import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Field } from '@components/shared/field'
 import { SetDuration } from '@components/shared/set-duration/set-duration'
-import { UploadFilesInputMini } from '@components/shared/upload-files-input-mini'
 import { UserLink } from '@components/user/user-link'
 
 import { calcNumberMinusPercent } from '@utils/calculation'
@@ -25,6 +24,7 @@ import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './create-or-edit-proposal-content.style'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 export const CreateOrEditProposalContent = ({
   onCreateSubmit,
@@ -301,7 +301,14 @@ export const CreateOrEditProposalContent = ({
                 </Typography>
               </div>
 
-              <UploadFilesInputMini withoutTitle requestWidth images={images} setImages={setImages} maxNumber={50} />
+              <UploadFilesInput
+                minimized
+                withoutTitle
+                requestWidth
+                images={images}
+                setImages={setImages}
+                maxNumber={50}
+              />
               {/* <PhotoAndFilesCarousel small files={formFields.linksToMediaFiles} /> */}
             </div>
           </div>
