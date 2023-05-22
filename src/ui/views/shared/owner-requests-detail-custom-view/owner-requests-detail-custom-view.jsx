@@ -89,6 +89,7 @@ export const OwnerRequestDetailCustomViewRaw = props => {
                   <OwnerRequestProposalsCard
                     item={item}
                     request={viewModel.request}
+                    userInfo={viewModel.userInfo}
                     onClickContactWithExecutor={viewModel.onClickContactWithExecutor}
                     onClickOrderProposal={viewModel.onClickOrderProposal}
                     onClickRejectProposal={viewModel.onClickRejectProposal}

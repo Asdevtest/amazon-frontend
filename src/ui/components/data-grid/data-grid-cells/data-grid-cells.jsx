@@ -1827,7 +1827,7 @@ export const TaskDescriptionCell = React.memo(
         <img src="/assets/icons/equal.svg" className={classNames.taskDescriptionIcon} />
 
         <div className={classNames.sideWrapper}>
-          {task.boxes.map((box, index) =>
+          {task.boxes?.map((box, index) =>
             index !== task.boxes.length - 1 ? (
               <div key={index} className={classNames.renderBoxWrapper}>
                 {renderBox(box, index)}
@@ -2215,8 +2215,13 @@ export const ClientNotificationsBtnsCell = React.memo(
 
 export const ProductMyRequestsBtnsCell =
   //  React.memo(
-  withStyles(
-    ({ classes: classNames, rowId, handlers }) => (
+  withStyles(({ classes: classNames, rowId, row, handlers }) => {
+    const disableOpenResultBtn =
+      !row.countProposalsByStatuses.acceptedProposals &&
+      !row.countProposalsByStatuses.atWorkProposals &&
+      !row.countProposalsByStatuses.verifyingProposals
+
+    return (
       <div className={classNames.productMyRequestsBtnsWrapper}>
         <Button
           variant="contained"
@@ -2228,18 +2233,15 @@ export const ProductMyRequestsBtnsCell =
         </Button>
         <Button
           success
-          disabled
+          disabled={disableOpenResultBtn}
           className={classNames.productMyRequestsBtn}
-          // onClick={() => {
-          //   handlers.onTriggerOpenRejectModal(row)
-          // }}
+          onClick={() => handlers.onClickOpenResult(rowId)}
         >
           {t(TranslationKey['Open result'])}
         </Button>
       </div>
-    ),
-    styles,
-  )
+    )
+  }, styles)
 // )
 
 export const SuperboxQtyCell = React.memo(

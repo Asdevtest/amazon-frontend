@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { compareVersions } from 'compare-versions'
 import isEqual from 'lodash.isequal'
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
 import { makePersistable } from 'mobx-persist-store'
 
 import { appVersion } from '@constants/app-version'
@@ -22,6 +22,7 @@ const persistProperties = [
 ]
 
 const stateModelName = 'SettingsModel'
+
 class SettingsModelStatic {
   dataGridState = {}
   activeSubCategoryState = {}

@@ -184,14 +184,15 @@ export const RequestDesignerResultClientForm = ({
   proposal,
   userInfo,
   curResultMedia,
+  onlyRead,
 }) => {
   const { classes: classNames } = useClassNames()
 
   // console.log('request', request)
-  // console.log('proposal', proposal)
+  // console.log('userInfo', userInfo)
 
   const isNotClient =
-    userInfo._id !== request.request.createdBy._id && userInfo.masterUser?._id !== request.request.createdBy._id
+    userInfo._id !== request.request?.createdBy?._id && userInfo.masterUser?._id !== request.request?.createdBy?._id
 
   const proposalIsAccepted = [
     RequestProposalStatus.ACCEPTED_BY_CLIENT,
@@ -199,7 +200,7 @@ export const RequestDesignerResultClientForm = ({
     RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
   ].includes(proposal.proposal.status)
 
-  const noShowActions = isNotClient || proposalIsAccepted
+  const noShowActions = isNotClient || proposalIsAccepted || onlyRead
 
   const [showImageModal, setShowImageModal] = useState(false)
 
