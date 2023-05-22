@@ -10,8 +10,6 @@ import { darkTheme, lightTheme } from '@constants/theme/mui-theme'
 import { UiTheme } from '@constants/theme/themes'
 
 import { SettingsModel } from '@models/settings-model'
-
-import { Layout } from '@components/layout'
 import { ToastifyProvder } from '@components/layout/navigation/toastify/toastify-provder'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
@@ -46,9 +44,7 @@ export const MainNav = observer(() => {
           <Switch>
             {generateRedirects()}
             {generatePublicRoutes()}
-            <Layout>
-              <PrivateRoutes />
-            </Layout>
+            <PrivateRoutes />
           </Switch>
         </Suspense>
       </Router>

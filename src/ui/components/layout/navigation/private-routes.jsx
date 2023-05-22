@@ -11,6 +11,7 @@ import { ChatModel } from '@models/chat-model'
 import { UserModel } from '@models/user-model'
 
 import { isHaveMasterUser } from '@utils/checks'
+import { Layout } from '@components/layout'
 
 export const PrivateRoutes = observer(() => {
   const location = useLocation()
@@ -98,5 +99,5 @@ export const PrivateRoutes = observer(() => {
     }
   }
 
-  return !UserModel.isAuthenticated() ? redirectToAuth : generateAllowedRoutes()
+  return !UserModel.isAuthenticated() ? redirectToAuth : <Layout>{generateAllowedRoutes()}</Layout>
 })
