@@ -30,7 +30,7 @@ import { Text } from '@components/shared/text'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 // import {checkIsImageLink} from '@utils/checks'
-import { toFixed } from '@utils/text'
+import { toFixed, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
@@ -570,7 +570,7 @@ export const EditBoxForm = observer(
                               boxFields.tmpShippingLabel.length
                                 ? t(TranslationKey['File added'])
                                 : boxFields.shippingLabel
-                                ? boxFields.shippingLabel
+                                ? trimBarcode(boxFields.shippingLabel)
                                 : t(TranslationKey['Set Shipping Label'])
                             }
                             onClick={() => onClickShippingLabel()}
