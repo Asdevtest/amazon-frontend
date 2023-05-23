@@ -1,7 +1,11 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
+import {
+  freelanceRequestType,
+  freelanceRequestTypeByCode,
+  freelanceRequestTypeByKey,
+} from '@constants/freelance-request-type'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {RequestSubType, RequestType} from '@constants/request-type'
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
@@ -33,6 +37,7 @@ export class FreelanceModel {
   selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
 
   showRequestDesignerResultClientModal = false
+  showRequestStandartResultModal = false
 
   showAcceptMessage = undefined
   acceptMessage = undefined
@@ -232,7 +237,19 @@ export class FreelanceModel {
         this.curProposal = proposal
       })
 
-      this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+      switch (freelanceRequestTypeByCode[item.typeTask]) {
+        case freelanceRequestType.DESIGNER:
+          this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+          break
+
+        case freelanceRequestType.SEO:
+          this.onTriggerOpenModal('showRequestStandartResultModal')
+          break
+
+        default:
+          this.onTriggerOpenModal('showRequestStandartResultModal')
+          break
+      }
     } catch (error) {
       console.log(error)
     }
