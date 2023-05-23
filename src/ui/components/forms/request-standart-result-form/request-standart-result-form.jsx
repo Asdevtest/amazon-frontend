@@ -54,7 +54,7 @@ export const RequestStandartResultForm = ({/* request, */ setOpenModal, proposal
           onChangeImagesForLoad={undefined}
         />
 
-        <div className={classNames.resultRightSide}>
+        {/* <div className={classNames.resultRightSide}>
           <div className={classNames.timeToCheckBlockWrapper}>
             <Typography className={classNames.timeToCheckBlockLabelText}>
               {t(TranslationKey['Time to check'])}
@@ -65,7 +65,7 @@ export const RequestStandartResultForm = ({/* request, */ setOpenModal, proposal
               )}`}</Typography>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className={classNames.btnsWrapper}>
         <Button variant="text" className={cx(classNames.button, classNames.cancelButton)} onClick={setOpenModal}>

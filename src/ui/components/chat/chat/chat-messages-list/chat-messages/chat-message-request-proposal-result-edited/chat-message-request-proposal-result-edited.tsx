@@ -28,11 +28,12 @@ export interface ChatMessageRequestProposalResultEditedHandlers {
 }
 
 interface Props {
+  isLastMessage: boolean
   message: ChatMessageContract<ChatMessageDataProposalResultEditedContract>
   handlers: ChatMessageRequestProposalResultEditedHandlers
 }
 
-export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, handlers}) => {
+export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, isLastMessage, handlers}) => {
   const {classes: classNames} = useClassNames()
   const proposal = message.data.proposal
 
@@ -96,8 +97,10 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
         {chatRequestAndRequestProposal &&
         (chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
           RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-          chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY) &&
+          chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY ||
+          chatRequestAndRequestProposal.requestProposal?.proposal?.status !== RequestProposalStatus.TO_CORRECT) &&
         curUserId &&
+        isLastMessage &&
         message.data.needApproveBy?.includes(curUserId) ? (
           <div className={classNames.btnsWrapper}>
             {chatRequestAndRequestProposal.requestProposal?.proposal?.status !== RequestProposalStatus.TO_CORRECT && (
