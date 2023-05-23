@@ -101,9 +101,18 @@ export const useClassNames = makeStyles()(theme => ({
       padding: '0 10px',
       marginBottom: '15px',
     },
+
+    '.swiper-button-prev': {
+      color: theme.palette.primary.main,
+    },
+
+    '.swiper-button-next': {
+      color: theme.palette.primary.main,
+    },
   },
   addButton: {
     height: '40px',
     marginLeft: 50,
   },
 }))
+1
