@@ -32,6 +32,7 @@ import { t } from '@utils/translations'
 import { SetShippingLabelModal } from '../set-shipping-label-modal'
 import { BoxForMerge } from './box-for-merge'
 import { useClassNames } from './merge-boxes-modal.style'
+import { CopyValue } from '@components/shared/copy-value'
 
 export const MergeBoxesModal = ({
   userInfo,
@@ -246,7 +247,10 @@ export const MergeBoxesModal = ({
                   <div>
                     <div className={classNames.asinWrapper}>
                       <Typography className={classNames.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
-                      <Typography className={classNames.asinValue}>{order.product?.asin}</Typography>
+                      <div className={classNames.asinTextWrapper}>
+                        <Typography className={classNames.asinValue}>{order.product?.asin}</Typography>
+                        {order.product?.asin && <CopyValue text={order.product?.asin} />}
+                      </div>
                     </div>
                     <div className={classNames.asinWrapper}>
                       <Typography className={classNames.asinTitle}>{t(TranslationKey.Order)}</Typography>
