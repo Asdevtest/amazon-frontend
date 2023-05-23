@@ -10,6 +10,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatMessageDataCreatedNewProposalProposalDescriptionContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
+import {UserModel} from '@models/user-model'
 
 import {Button} from '@components/buttons/button'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
@@ -36,6 +37,9 @@ interface Props {
 export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
   const {classes: classNames} = useClassNames()
+
+  const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
+
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
@@ -88,11 +92,12 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
           </div>
 
           <div className={classNames.footerWrapper}>
-            {chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ||
-            chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
-              RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
-            chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
-              RequestProposalStatus.OFFER_CONDITIONS_CORRECTED ? (
+            {curUserId === chatRequestAndRequestProposal.request?.request?.createdBy?._id &&
+            (chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ||
+              chatRequestAndRequestProposal.requestProposal?.proposal?.status === // этого условия не было
+                RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
+              chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
+                RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) ? (
               <div className={classNames.rightSide}>
                 {chatRequestAndRequestProposal.requestProposal?.proposal?.status !==
                 RequestProposalStatus.OFFER_CONDITIONS_REJECTED ? (
