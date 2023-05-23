@@ -52,8 +52,6 @@ export const ProductLotDataForm = observer(
 
     const [batches, setBatches] = useState(data)
 
-    useEffect(() => setBatches(data), [data])
-
     const [batchInfo, setBatchInfo] = useState([])
     const [nameSearchValue, setNameSearchValue] = useState('')
     const [isArchive, setIsArchive] = useState(false)
@@ -70,17 +68,11 @@ export const ProductLotDataForm = observer(
           setBatches(
             data?.filter(item => String(item?.humanFriendlyId)?.toLowerCase().includes(nameSearchValue.toLowerCase())),
           )
-        }
-        if (!nameSearchValue) {
+        } else {
           setBatches(data)
         }
       }
-    }, [nameSearchValue])
-
-    // useEffect(() => {
-    //   setBatches(data)
-    //   // setNameSearchValue('')
-    // }, [data])
+    }, [nameSearchValue, data])
 
     const setOpenBatchInfoModal = () => {
       setShowBatchInfoModal(!showBatchInfoModal)

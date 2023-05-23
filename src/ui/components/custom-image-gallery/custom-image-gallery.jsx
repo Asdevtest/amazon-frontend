@@ -4,8 +4,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import React, {useEffect, useState} from 'react'
 
 // import ImageGallery from 'react-image-gallery'
-import 'react-image-gallery/styles/css/image-gallery.css'
-
+// import 'react-image-gallery/styles/css/image-gallery.css'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 
 import {useClassNames} from './custom-image-gallery.style'

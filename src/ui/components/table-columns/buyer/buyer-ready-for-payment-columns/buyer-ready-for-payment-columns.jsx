@@ -126,7 +126,7 @@ export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers, columnMenuS
   },
 
   {
-    field: 'toPay',
+    field: 'priceInYuan',
     headerName: t(TranslationKey['To pay']) + ', Ұ',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['To pay']) + ', Ұ'} />,
 

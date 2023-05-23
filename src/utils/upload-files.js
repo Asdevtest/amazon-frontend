@@ -136,11 +136,11 @@ export const downloadFileByLink = async (str, fileName) => {
       a.remove()
       // alert('your file has downloaded!') // or you know, something with better UX...
     })
-  // .catch(() => alert('oh no!'))
+    .catch(() => alert('oh no!'))
 }
 
 export const getFileWeight = async url =>
-  fetch(url)
+  fetch(url /* , {mode: 'no-cors'} */)
     .then(res => res.blob())
     .then(res => {
       const fileSizeInKB = res.size / 1024

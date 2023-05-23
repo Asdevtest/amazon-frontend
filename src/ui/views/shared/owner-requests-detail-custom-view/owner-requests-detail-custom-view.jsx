@@ -151,6 +151,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                       <Paper>
                         <OwnerRequestProposalsCard
                           item={item}
+                          userInfo={userInfo}
                           request={request}
                           onClickContactWithExecutor={onClickContactWithExecutor}
                           onClickOrderProposal={onClickOrderProposal}
