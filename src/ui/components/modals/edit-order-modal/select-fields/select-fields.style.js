@@ -70,7 +70,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   barCodeText: {
-    width: 230,
+    width: 120,
     height: '46px',
     overflowX: 'auto',
     color: theme.palette.text.second,
@@ -78,9 +78,7 @@ export const useClassNames = makeStyles()(theme => ({
   barCodeWrapper: {
     width: '100%',
     display: 'flex',
-    gap: '5px',
     alignItems: 'flex-start',
-    justifyContent: 'space-between',
   },
 
   totalPrice: {
@@ -107,6 +105,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   barCodeLinkWrapper: {
     display: 'flex',
+    width: '50%',
   },
 
   link: {
@@ -174,7 +173,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   researchLabel: {
-    width: 100,
+    // width: 100,
     color: theme.palette.text.second,
     fontWeight: '400',
     fontSize: '14px',
@@ -214,6 +213,11 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     margin: 0,
     gap: 30,
+  },
+
+  trackAndHsCodeAndCommentsSumWrapper: {
+    width: '100%',
+    display: 'flex',
   },
 
   button: {
