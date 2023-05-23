@@ -97,23 +97,25 @@ export const ClientOrdersViewRaw = props => {
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
-            page={viewModel.curPage}
-            pageSize={viewModel.rowsPerPage}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
             // rowHeight={100}
             getRowHeight={() => 'auto'}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
-              ColumnMenu: DataGridCustomColumnMenuComponent,
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
             }}
-            componentsProps={{
+            slotProps={{
               columnMenu: { orderStatusData: viewModel.orderStatusData },
+
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
-                  changeColumnsModel: viewModel.changeColumnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                 },
               },
             }}
@@ -123,9 +125,8 @@ export const ClientOrdersViewRaw = props => {
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
-            onPageSizeChange={viewModel.onChangeRowsPerPage}
-            onPageChange={viewModel.onChangeCurPage}
-            onStateChange={viewModel.setDataGridState}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
             onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
             onFilterModelChange={viewModel.onChangeFilterModel}
           />

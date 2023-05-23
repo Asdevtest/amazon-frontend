@@ -223,36 +223,36 @@ export const ClientWarehouseTasksViewRaw = props => {
             }}
             localeText={getLocalizationByLanguageTag()}
             pageSizeOptions={[15, 25, 50, 100]}
-            page={viewModel.curPageForTask}
-            pageSize={viewModel.rowsPerPageForTask}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
             sortingMode="server"
             rows={viewModel.getCurrentTaskData()}
             getRowHeight={() => 'auto'}
-            componentsProps={{
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
+            }}
+            slotProps={{
               columnMenu: viewModel.columnMenuSettings,
+
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
-                  changeColumnsModel: viewModel.changeColumnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                 },
               },
-            }}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
-              ColumnMenu: DataGridCustomColumnMenuComponent,
             }}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             columns={viewModel.columnsModel}
             paginationMode="server"
-            // pageSize={viewModel.15}
             rowCount={viewModel.rowsCount}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
-            onPageChange={viewModel.onChangeCurPageForTask}
             onFilterModelChange={viewModel.onChangeFilterModel}
-            // onStateChange={viewModel.setDataGridState}
-            onPageSizeChange={viewModel.onChangeRowsPerPageForTask}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
           />
         </div>
       </MainContent>

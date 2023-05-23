@@ -1,11 +1,10 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductModel } from '@models/product-model'
 import { SellerBoardModel } from '@models/seller-board-model'
-import { SettingsModel } from '@models/settings-model'
 
 import { productIntegrationsColumns } from '@components/table/table-columns/product/integrations-columns'
 
@@ -32,17 +31,13 @@ export class IntegrationsModel {
   selectedRowIds = []
 
   columnsModel = productIntegrationsColumns()
+  columnVisibilityModel = {}
 
   constructor({ history, productId }) {
     this.history = history
 
     this.productId = productId
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
   }
 
   changeColumnsModel(newHideState) {
@@ -54,18 +49,18 @@ export class IntegrationsModel {
     })
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.columnsModel = productIntegrationsColumns()
-    }
-  }
-
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
   }
 
   getCurrentData() {
     return toJS(this.sellerBoardData)
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
   }
 
   async onClickBindInventoryGoodsToStockBtn() {

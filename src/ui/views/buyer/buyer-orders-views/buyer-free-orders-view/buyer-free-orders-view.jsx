@@ -57,26 +57,12 @@ export const BuyerFreeOrdersViewRaw = props => {
             localeText={getLocalizationByLanguageTag()}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
-            // page={viewModel.curPage}
-            // pageSize={viewModel.rowsPerPage}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
             // rowHeight={100}
             getRowHeight={() => 'auto'}
-            // components={{
-            //   Toolbar: DataGridCustomToolbar,
-            //   ColumnMenuIcon: FilterAltOutlinedIcon,
-            // }}
-            // componentsProps={{
-            //   toolbar: {
-            //     columsBtnSettings: {
-            //       columnsModel: viewModel.columnsModel,
-            //       changeColumnsModel: viewModel.changeColumnsModel,
-            //     },
-            //   },
-            // }}
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
@@ -94,12 +80,10 @@ export const BuyerFreeOrdersViewRaw = props => {
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             onSortModelChange={viewModel.onChangeSortingModel}
-            // onPageSizeChange={viewModel.onChangeRowsPerPage}
-            // onPageChange={viewModel.onChangeCurPage}
-            // onStateChange={viewModel.setDataGridState}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
-            onRowSelectionModelChange={newSelection => viewModel.onSelectionModel(newSelection)}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
           />
         </div>
       </MainContent>

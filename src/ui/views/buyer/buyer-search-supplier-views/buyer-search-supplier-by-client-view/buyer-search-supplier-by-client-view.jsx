@@ -59,15 +59,17 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
               footerCell: classNames.footerCell,
               toolbarContainer: classNames.toolbarContainer,
             }}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
             }}
-            componentsProps={{
+            slotProps={{
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
-                  changeColumnsModel: viewModel.changeColumnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                 },
               },
             }}
@@ -78,7 +80,7 @@ export const BuyerSearchSupplierByClientViewRaw = props => {
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
             onRowSelectionModelChange={viewModel.onSelectionModel}
-            onStateChange={viewModel.setDataGridState}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           />
         </div>
       </MainContent>

@@ -293,8 +293,8 @@ export class WarehouseSentBatchesViewModel {
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.HAS_DISPATCHED,
         options: {
-          limit: this.rowsPerPage,
-          offset: this.curPage * this.rowsPerPage,
+          limit: this.paginationModel.pageSize,
+          offset: this.paginationModel.page * this.paginationModel.pageSize,
 
           sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
           sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',

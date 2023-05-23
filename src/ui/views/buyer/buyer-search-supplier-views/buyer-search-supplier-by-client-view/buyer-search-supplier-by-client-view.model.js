@@ -25,6 +25,7 @@ export class BuyerSearchSupplierByClientModel {
   }
 
   columnsModel = buyerSearchSuppliersViewColumns(this.rowHandlers)
+  columnVisibilityModel = {}
 
   constructor({ history }) {
     runInAction(() => {
@@ -50,6 +51,13 @@ export class BuyerSearchSupplierByClientModel {
     runInAction(() => {
       this.selectedRowIds = model
     })
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    // this.setDataGridState()
   }
 
   async loadData() {

@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { mapUserRoleEnumToKey, UserRole, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
@@ -20,7 +20,7 @@ import { vacByUserIdExchangeColumns } from '@components/table/table-columns/prod
 
 import { addIdDataConverter, clientProductsDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -94,13 +94,14 @@ export class AnotherProfileViewModel {
 
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
   densityModel = 'compact'
   columnsModel =
     this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT]
       ? clientExchangeViewColumns(this.rowHandlers)
       : vacByUserIdExchangeColumns()
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   constructor({ history }) {
     runInAction(() => {
@@ -112,20 +113,13 @@ export class AnotherProfileViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
-  }
-
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.PROFILE_VAC_PRODUCTS)
   }
@@ -135,19 +129,10 @@ export class AnotherProfileViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = (
-          this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT]
-            ? clientExchangeViewColumns(this.rowHandlers)
-            : vacByUserIdExchangeColumns()
-        ).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS({ ...state.paginationModel, page: 0 })
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
@@ -383,12 +368,23 @@ export class AnotherProfileViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
   }
 
-  onChangeRowsPerPage(e) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.rowsPerPage = e
+      this.paginationModel = model
     })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
   }
 
   setRequestStatus(requestStatus) {
@@ -401,6 +397,8 @@ export class AnotherProfileViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.setDataGridState()
   }
 
   getCurrentData() {
@@ -485,12 +483,6 @@ export class AnotherProfileViewModel {
   onChangeTabExchange(e, value) {
     runInAction(() => {
       this.tabExchange = value
-    })
-  }
-
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
     })
   }
 

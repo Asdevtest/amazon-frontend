@@ -57,23 +57,22 @@ export const AdminDestinationsViewRaw = props => {
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
-          page={viewModel.curPage}
-          pageSize={viewModel.rowsPerPage}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
           pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.getCurrentData()}
           rowHeight={120}
-          components={{
-            Toolbar: DataGridCustomToolbar,
-            ColumnMenuIcon: FilterAltOutlinedIcon,
+          slots={{
+            toolbar: DataGridCustomToolbar,
+            columnMenuIcon: FilterAltOutlinedIcon,
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatuses.isLoading}
           onSortModelChange={viewModel.onChangeSortingModel}
-          onPageSizeChange={viewModel.onChangeRowsPerPage}
-          onPageChange={viewModel.onChangeCurPage}
-          onStateChange={viewModel.setDataGridState}
-          onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onFilterModelChange={viewModel.onChangeFilterModel}
         />
 
         <Modal

@@ -52,18 +52,28 @@ export const BuyerSearchSupplierForIdeaViewRaw = props => {
               footerCell: classNames.footerCell,
               toolbarContainer: classNames.toolbarContainer,
             }}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
             }}
+            slotProps={{
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                },
+              },
+            }}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
             localeText={getLocalizationByLanguageTag()}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
             rowHeight={100}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onRowSelectionModelChange={newSelection => viewModel.onSelectionModel(newSelection)}
-            onStateChange={viewModel.setDataGridState}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           />
         </div>
       </MainContent>

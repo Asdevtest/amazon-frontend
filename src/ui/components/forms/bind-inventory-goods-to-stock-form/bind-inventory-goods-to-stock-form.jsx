@@ -177,7 +177,7 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
             columns={sourceColumns()}
             rowHeight={60}
             rowSelectionModel={selectedGoods}
-            onRowSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+            onRowSelectionModelChange={onSelectionModel}
           />
         </div>
 

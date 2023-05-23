@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -23,9 +23,10 @@ export class FinancesViewModel {
   sortModel = []
   startFilterModel = undefined
   filterModel = { items: [] }
-  paginationModel = { page: 0, pageSize: 15 }
   densityModel = 'compact'
   columnsModel = financesViewColumns()
+
+  paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
   constructor({ history, location }) {
@@ -41,6 +42,13 @@ export class FinancesViewModel {
     //     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
+  }
+
+  onChangeSortingModel(sortModel) {
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
+    this.setDataGridState()
   }
 
   onChangeFilterModel(model) {
@@ -84,8 +92,6 @@ export class FinancesViewModel {
         this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
         this.paginationModel = toJS({ ...state.paginationModel, page: 0 })
         this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-
-        // this.columnsModel = financesViewColumns()
       }
     })
   }
@@ -134,28 +140,5 @@ export class FinancesViewModel {
     runInAction(() => {
       this.rowSelectionModel = model
     })
-
-    this.setDataGridState()
-  }
-
-  onChangeCurPage = e => {
-    runInAction(() => {
-      this.curPage = e
-    })
-  }
-
-  onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
-    this.setDataGridState()
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
-    })
-
-    this.setDataGridState()
   }
 }

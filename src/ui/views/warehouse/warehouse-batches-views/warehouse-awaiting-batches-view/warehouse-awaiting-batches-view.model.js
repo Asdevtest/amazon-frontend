@@ -313,8 +313,8 @@ export class WarehouseAwaitingBatchesViewModel {
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.IS_BEING_COLLECTED,
         options: {
-          limit: this.rowsPerPage,
-          offset: this.curPage * this.rowsPerPage,
+          limit: this.paginationModel.pageSize,
+          offset: this.paginationModel.page * this.paginationModel.pageSize,
 
           sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
           sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',

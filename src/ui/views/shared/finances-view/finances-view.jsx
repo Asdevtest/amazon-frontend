@@ -45,18 +45,27 @@ export const FinancesViewRaw = props => {
           filterModel={viewModel.filterModel}
           // page={viewModel.curPage}
           // pageSize={viewModel.rowsPerPage}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.getCurrentData()}
           rowHeight={75}
+          // components={{
+          //   Toolbar: DataGridCustomToolbar,
+          //   ColumnMenuIcon: FilterAltOutlinedIcon,
+          // }}
+          // componentsProps={{
+          //   toolbar: {
+          //     columsBtnSettings: {
+          //       columnsModel: viewModel.columnsModel,
+          //       changeColumnsModel: viewModel.changeColumnsModel,
+          //     },
+          //   },
+          // }}
           slots={{
             toolbar: DataGridCustomToolbar,
             columnMenuIcon: FilterAltOutlinedIcon,
           }}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
           slotProps={{
             toolbar: {
               columsBtnSettings: {
@@ -66,15 +75,16 @@ export const FinancesViewRaw = props => {
               },
             },
           }}
-          onRowSelectionModelChange={newSelection => {
-            viewModel.onSelectionModel(newSelection[0])
-          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
           onSortModelChange={viewModel.onChangeSortingModel}
+          onFilterModelChange={viewModel.onChangeFilterModel}
           // onPageSizeChange={viewModel.onChangeRowsPerPage}
           // onPageChange={viewModel.onChangeCurPage}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
+          // onStateChange={viewModel.setDataGridState}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onChangePaginationModelChange}
         />
       </MainContent>
     </React.Fragment>

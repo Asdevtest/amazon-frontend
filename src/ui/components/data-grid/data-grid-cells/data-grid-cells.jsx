@@ -1238,7 +1238,7 @@ export const RenderFieldValueCell = React.memo(
 
 export const BatchTrackingCell = React.memo(
   withStyles(
-    ({ classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled, languageTag }) => (
+    ({ classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled }) => (
       <div className={classNames.batchTrackingWrapper}>
         <Field
           containerClasses={cx(classNames.batchTrackingContainer)}

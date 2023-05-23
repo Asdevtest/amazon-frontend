@@ -122,21 +122,22 @@ export const StockReportRaw = props => {
           sortModel={viewModel.sortModel}
           rowSelectionModel={viewModel.selectedRows}
           filterModel={viewModel.filterModel}
-          page={viewModel.curPage}
-          pageSize={viewModel.rowsPerPage}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
           pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.getCurrentData()}
           // rowHeight={100}
           getRowHeight={() => 'auto'}
-          components={{
-            Toolbar: DataGridCustomToolbar,
-            ColumnMenuIcon: FilterAltOutlinedIcon,
+          slots={{
+            toolbar: DataGridCustomToolbar,
+            columnMenuIcon: FilterAltOutlinedIcon,
           }}
-          componentsProps={{
+          slotProps={{
             toolbar: {
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
-                changeColumnsModel: viewModel.changeColumnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
             },
           }}
@@ -145,9 +146,8 @@ export const StockReportRaw = props => {
           loading={viewModel.requestStatus === loadingStatuses.isLoading}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
-          onPageSizeChange={viewModel.onChangeRowsPerPage}
-          onPageChange={viewModel.onChangeCurPage}
-          onStateChange={viewModel.setDataGridState}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onChangePaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
       </div>

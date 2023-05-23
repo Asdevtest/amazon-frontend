@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
@@ -6,7 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 import { OrderModel } from '@models/order-model'
-import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
@@ -67,6 +66,7 @@ export class OrdersModel {
   }
 
   columnsModel = clientProductOrdersViewColumns(this.rowHandlers)
+  columnVisibilityModel = {}
 
   get orderStatusData() {
     return {
@@ -99,6 +99,12 @@ export class OrdersModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
   }
 
   getCurrentData() {

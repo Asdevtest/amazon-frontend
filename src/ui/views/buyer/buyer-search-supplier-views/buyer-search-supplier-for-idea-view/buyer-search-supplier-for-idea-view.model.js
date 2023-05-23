@@ -27,6 +27,7 @@ export class BuyerSearchSupplierForIdeaModel {
   }
 
   columnsModel = buyerSearchSuppliersViewColumns(this.rowHandlers)
+  columnVisibilityModel = {}
 
   constructor({ history }) {
     runInAction(() => {
@@ -42,6 +43,12 @@ export class BuyerSearchSupplierForIdeaModel {
   onSelectionModel(model) {
     runInAction(() => {
       this.selectedRowIds = model
+    })
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
     })
   }
 

@@ -9,7 +9,7 @@ import { SettingsModel } from '@models/settings-model'
 
 export const MemoDataGrid = observer(({ ...restProps }) => {
   const result = useMemo(
-    () => <DataGrid {...restProps} />,
+    () => <DataGrid key={SettingsModel.languageTag} {...restProps} />,
 
     [
       restProps.rows,

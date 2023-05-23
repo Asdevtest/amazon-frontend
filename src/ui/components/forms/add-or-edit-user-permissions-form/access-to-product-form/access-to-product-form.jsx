@@ -210,9 +210,7 @@ export const AccessToProductForm = React.memo(
                     columns={sourceColumns()}
                     rowHeight={65}
                     rowSelectionModel={chosenGoods}
-                    onRowSelectionModelChange={newSelection => {
-                      setChosenGoods(newSelection)
-                    }}
+                    onRowSelectionModelChange={setChosenGoods}
                   />
                 </div>
               ) : null}

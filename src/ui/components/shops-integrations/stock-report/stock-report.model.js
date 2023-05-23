@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -59,10 +59,6 @@ export class StockReportModel {
     onSubmit: data => this.onSubmitCreateSinglePermission(data),
   }
 
-  rowHandlers = {
-    selectedRow: item => this.onClickRowRadioBtn(item),
-  }
-
   readyImages = []
   progressValue = 0
   showProgress = false
@@ -71,10 +67,11 @@ export class StockReportModel {
   selectedRow = {}
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = clientDailySellerBoardColumns(this.selectedRow, this.rowHandlers)
+  columnsModel = clientDailySellerBoardColumns()
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   confirmModalSettings = {
     isWarning: false,
@@ -89,36 +86,30 @@ export class StockReportModel {
 
     this.currentShop = curShop
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
   }
 
-  changeColumnsModel(newHideState) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
+      this.paginationModel = model
     })
+
+    this.setDataGridState()
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
-  }
-
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_DAILY_SELLER_BOARD)
   }
@@ -126,25 +117,20 @@ export class StockReportModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_DAILY_SELLER_BOARD]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
-
-      this.densityModel = state.density.value
-      this.columnsModel = clientDailySellerBoardColumns(this.selectedRow, this.rowHandlers).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+    runInAction(() => {
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS({ ...state.paginationModel, page: 0 })
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
+    })
   }
 
   onChangeFilterModel(model) {
     this.filterModel = model
-  }
 
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    this.setDataGridState()
   }
 
   setRequestStatus(requestStatus) {
@@ -157,15 +143,12 @@ export class StockReportModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
+
+    this.setDataGridState()
   }
 
   getCurrentData() {
     return toJS(this.sellerBoardDailyData)
-  }
-
-  onClickRowRadioBtn = item => {
-    this.selectedRow = item
-    this.getDataGridState()
   }
 
   onClickShopBtn(shop) {
@@ -203,10 +186,6 @@ export class StockReportModel {
 
   onTriggerDrawer() {
     this.drawerOpen = !this.drawerOpen
-  }
-
-  onChangeCurPage(e) {
-    this.curPage = e
   }
 
   onSelectionModel(model) {

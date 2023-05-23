@@ -63,8 +63,6 @@ export const AdminSettingsContent = observer(() => {
     showInfoModal,
     sortModel,
     filterModel,
-    curPage,
-    rowsPerPage,
     densityModel,
     columnsModel,
     requestStatus,
@@ -73,7 +71,6 @@ export const AdminSettingsContent = observer(() => {
     destinationToEdit,
     confirmModalSettings,
     showConfirmModal,
-    changeColumnsModel,
     onSubmitCreateDestination,
     onSubmitEditDestination,
     createAdminSettings,
@@ -81,11 +78,8 @@ export const AdminSettingsContent = observer(() => {
     getCurrentData,
     onClickAddBtn,
     onChangeSortingModel,
-    onChangeRowsPerPage,
     onChangeFilterModel,
-    onChangeCurPage,
     createProxy,
-    setDataGridState,
     onClickCancelBtn,
     onCloseInfoModal,
   } = asModel.current
@@ -337,8 +331,8 @@ export const AdminSettingsContent = observer(() => {
                   localeText={getLocalizationByLanguageTag()}
                   sortModel={sortModel}
                   filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
+                  columnVisibilityModel={asModel.current.columnVisibilityModel}
+                  paginationModel={asModel.current.paginationModel}
                   pageSizeOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
                   rowHeight={120}
@@ -348,17 +342,19 @@ export const AdminSettingsContent = observer(() => {
                   }}
                   slotProps={{
                     toolbar: {
-                      columsBtnSettings: { columnsModel, changeColumnsModel },
+                      columsBtnSettings: {
+                        columnsModel,
+                        columnVisibilityModel: asModel.current.columnVisibilityModel,
+                        onColumnVisibilityModelChange: asModel.current.onColumnVisibilityModelChange,
+                      },
                     },
                   }}
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
+                  onPaginationModelChange={asModel.current.onChangePaginationModelChange}
+                  onFilterModelChange={onChangeFilterModel}
                 />
               </div>
 

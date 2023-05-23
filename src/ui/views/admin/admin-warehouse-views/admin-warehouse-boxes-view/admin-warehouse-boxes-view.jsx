@@ -52,31 +52,31 @@ export const AdminWarehouseBoxesViewRaw = props => {
           }}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
-          page={viewModel.curPage}
-          pageSize={viewModel.rowsPerPage}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
           pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.currentData}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           rowHeight={130}
           loading={viewModel.requestStatus === loadingStatuses.isLoading}
-          components={{
-            Toolbar: DataGridCustomToolbar,
-            ColumnMenuIcon: FilterAltOutlinedIcon,
+          slots={{
+            toolbar: DataGridCustomToolbar,
+            columnMenuIcon: FilterAltOutlinedIcon,
           }}
-          componentsProps={{
+          slotProps={{
             toolbar: {
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
-                changeColumnsModel: viewModel.changeColumnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
             },
           }}
           onSortModelChange={viewModel.onChangeSortingModel}
-          onPageSizeChange={viewModel.onChangeRowsPerPage}
-          onPageChange={viewModel.onChangeCurPage}
-          onStateChange={viewModel.setDataGridState}
-          onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onFilterModelChange={viewModel.onChangeFilterModel}
           onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
         />
       </MainContent>

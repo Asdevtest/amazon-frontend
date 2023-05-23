@@ -16,7 +16,7 @@ import {
 
 import { t } from '@utils/translations'
 
-export const sourceFilesColumns = (rowHandlers, languageTag, editField) => [
+export const sourceFilesColumns = (rowHandlers, getEditField) => [
   {
     field: 'title',
     headerName: t(TranslationKey['Request title']),
@@ -78,7 +78,7 @@ export const sourceFilesColumns = (rowHandlers, languageTag, editField) => [
     renderCell: params => (
       <CopyAndEditLinkCell
         link={params.value}
-        isEdit={params?.row?.originalData?._id === editField?._id}
+        isEdit={params?.row?.originalData?._id === getEditField()?._id}
         onChangeText={rowHandlers.onChangeText}
       />
     ),
@@ -92,7 +92,7 @@ export const sourceFilesColumns = (rowHandlers, languageTag, editField) => [
     // renderCell: params => (
     //   <ChangeInputCommentCell
     //     text={params?.value}
-    //     disabled={params?.row?.originalData?._id !== editField?._id}
+    //     disabled={params?.row?.originalData?._id !== getEditField()?._id}
     //     onChangeText={rowHandlers.onChangeText}
     //   />
     // ),
@@ -122,7 +122,7 @@ export const sourceFilesColumns = (rowHandlers, languageTag, editField) => [
         tooltipSecondButton={t(TranslationKey['Remove a store from your list'])}
         handlers={rowHandlers}
         row={params.row}
-        isSave={params?.row?.originalData?._id === editField?._id}
+        isSave={params?.row?.originalData?._id === getEditField()?._id}
       />
     ),
 

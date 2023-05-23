@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { action, makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
@@ -15,7 +15,7 @@ import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/che
 import { researcherProductsDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getAmazonCodeFromLink } from '@utils/get-amazon-code-from-link'
-import { getNewObjectWithDefaultValue, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getNewObjectWithDefaultValue } from '@utils/object'
 import { t } from '@utils/translations'
 import { isValidationErrors, plainValidationErrorAndApplyFuncForEachError } from '@utils/validation'
 
@@ -55,10 +55,11 @@ export class ResearcherProductsViewModel {
   sortModel = []
   startFilterModel = undefined
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = researcherProductsViewColumns()
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   warningInfoModalSettings = {
     isWarning: false,
@@ -82,50 +83,40 @@ export class ResearcherProductsViewModel {
     //     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-
-      runInAction(() => {
-        this.products = researcherProductsDataConverter(
-          this.baseNoConvertedProducts.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')),
-        )
-      })
-    }
   }
 
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.RESEARCHER_PRODUCTS)
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = researcherProductsViewColumns().map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
   }
 
   getDataGridState() {
@@ -133,27 +124,18 @@ export class ResearcherProductsViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = this.startFilterModel
-          ? {
-              ...this.startFilterModel,
-              items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
-            }
-          : state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = researcherProductsViewColumns().map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(
+          this.startFilterModel
+            ? {
+                ...this.startFilterModel,
+                items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
+              }
+            : state.filterModel,
+        )
+        this.paginationModel = toJS({ ...state.paginationModel, page: 0 })
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
-    })
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
     })
   }
 
@@ -167,6 +149,8 @@ export class ResearcherProductsViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.setDataGridState()
   }
 
   onSelectionModel(model) {
@@ -469,12 +453,6 @@ export class ResearcherProductsViewModel {
         }
       })
     })
-
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
-  }
 
   onTriggerOpenModal(modal) {
     runInAction(() => {

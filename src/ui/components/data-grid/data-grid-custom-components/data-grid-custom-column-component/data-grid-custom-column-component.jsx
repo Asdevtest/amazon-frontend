@@ -30,7 +30,7 @@ import {
 export const DataGridCustomColumnMenuComponent = props => {
   const {
     hideMenu,
-    currentColumn,
+    colDef,
     isFormedData,
     orderStatusData,
     filterRequestStatus,
@@ -55,6 +55,8 @@ export const DataGridCustomColumnMenuComponent = props => {
   //     <GridColumnMenuColumnsItem column={currentColumn} onClick={hideMenu} />
   //   </div>
   // )
+
+  const currentColumn = colDef
 
   if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_IN_STOCK_IS_FORMED) {
     return (

@@ -1248,8 +1248,8 @@ export class WarehouseMyWarehouseViewModel {
 
         // storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 
-        limit: this.rowsPerPage,
-        offset: this.curPage * this.rowsPerPage,
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
 
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',

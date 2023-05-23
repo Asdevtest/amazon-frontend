@@ -39,22 +39,20 @@ export const SinglePermissions = observer(() => {
     densityModel,
     columnsModel,
 
-    curPage,
-    rowsPerPage,
+    columnVisibilityModel,
+    paginationModel,
     addOrEditSinglePermissionSettings,
     confirmModalSettings,
     showAddOrEditSinglePermissionModal,
     showConfirmModal,
-    onChangeCurPage,
-    onChangeRowsPerPage,
     onTriggerOpenModal,
     onClickAddBtn,
     onClickCancelBtn,
 
-    setDataGridState,
     onChangeSortingModel,
     onChangeFilterModel,
-    changeColumnsModel,
+    onColumnVisibilityModelChange,
+    onChangePaginationModelChange,
   } = spModel.current
 
   return (
@@ -78,28 +76,30 @@ export const SinglePermissions = observer(() => {
           localeText={getLocalizationByLanguageTag()}
           sortModel={sortModel}
           filterModel={filterModel}
-          page={curPage}
-          pageSize={rowsPerPage}
+          columnVisibilityModel={columnVisibilityModel}
+          paginationModel={paginationModel}
           pageSizeOptions={[15, 25, 50, 100]}
           rows={getCurrentData()}
           getRowHeight={() => 'auto'}
-          components={{
-            Toolbar: DataGridCustomToolbar,
-            ColumnMenuIcon: FilterAltOutlinedIcon,
+          slots={{
+            toolbar: DataGridCustomToolbar,
+            columnMenuIcon: FilterAltOutlinedIcon,
           }}
-          componentsProps={{
+          slotProps={{
             toolbar: {
-              columsBtnSettings: { columnsModel, changeColumnsModel },
+              columsBtnSettings: {
+                columnsModel,
+                columnVisibilityModel,
+                onColumnVisibilityModelChange,
+              },
             },
           }}
           density={densityModel}
           columns={columnsModel}
           loading={requestStatus === loadingStatuses.isLoading}
           onSortModelChange={onChangeSortingModel}
-          onPageSizeChange={onChangeRowsPerPage}
-          onPageChange={onChangeCurPage}
-          onStateChange={setDataGridState}
-          onFilterModelChange={model => onChangeFilterModel(model)}
+          onPaginationModelChange={onChangePaginationModelChange}
+          onFilterModelChange={onChangeFilterModel}
         />
       </div>
 
