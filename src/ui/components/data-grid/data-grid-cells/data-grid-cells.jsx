@@ -1860,9 +1860,9 @@ export const TaskDescriptionCell = React.memo(
                     <Typography className={classNames.imgNum}>{el.amount > 1 && ` x${el.amount}`}</Typography>
                   </div>
                 )}
-                <Grid container spacing={2} className={classNames.gridEditWrapper}>
+                <div className={classNames.gridEditWrapper}>
                   {el.items.map((product, productIndex) => renderProductImages(product, productIndex))}
-                </Grid>
+                </div>
               </div>
             ))}
           </div>
@@ -1885,9 +1885,9 @@ export const TaskDescriptionCell = React.memo(
             </div>
           )}
 
-          <Grid container spacing={2} className={classNames.gridEditWrapper}>
+          <div className={classNames.gridEditWrapper}>
             {task.boxesBefore[0]?.items.map((product, productIndex) => renderProductImages(product, productIndex))}
-          </Grid>
+          </div>
         </div>
       </div>
     )

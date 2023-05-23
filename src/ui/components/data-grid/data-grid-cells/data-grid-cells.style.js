@@ -255,7 +255,10 @@ export const styles = theme => ({
   },
 
   gridEditWrapper: {
-    maxWidth: 550,
+    // maxWidth: 550,
+    display: 'flex',
+    flexWrap: 'no-wrap',
+    gap: 16,
   },
 
   gridBoxesWrapper: {
