@@ -22,6 +22,9 @@ export class AdminOrderViewModel {
   orderBoxes = []
   orderId = undefined
 
+  storekeepers = []
+  destinations = []
+
   order = undefined
 
   constructor({ history }) {
@@ -40,9 +43,10 @@ export class AdminOrderViewModel {
       await this.getBoxesOfOrder(this.order._id)
 
       const storekeepers = await StorekeeperModel.getStorekeepers()
+      const destinations = await ClientModel.getDestinations()
 
       runInAction(() => {
-        // this.destinations = await ClientModel.getDestinations()
+        this.destinations = destinations
         this.storekeepers = storekeepers
       })
       this.setRequestStatus(loadingStatuses.success)
