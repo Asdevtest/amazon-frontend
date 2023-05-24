@@ -66,6 +66,7 @@ export const SupervisorSettingsContent = observer(() => {
     confirmModalSettings,
     nameSearchValue,
     selectedRowIds,
+    showConfirmCloseAsinCheckerModal,
     getCurrentData,
     onChangeCurPage,
     onTriggerOpenModal,
@@ -372,12 +373,15 @@ export const SupervisorSettingsContent = observer(() => {
           />
         </div>
       </TabPanel>
-      <Modal openModal={showAsinCheckerModal} setOpenModal={() => onTriggerOpenModal('showAsinCheckerModal')}>
+      <Modal
+        openModal={showAsinCheckerModal}
+        setOpenModal={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
+      >
         <AsinProxyCheckerForm
           user={user}
           strategy={tabIndex}
           onSubmit={onSubmitAsins}
-          onClose={() => onTriggerOpenModal('showAsinCheckerModal')}
+          onClose={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
         />
       </Modal>
       <Modal openModal={showEditAsinCheckerModal} setOpenModal={() => onTriggerOpenModal('showEditAsinCheckerModal')}>
@@ -388,6 +392,19 @@ export const SupervisorSettingsContent = observer(() => {
           onClose={() => onTriggerOpenModal('showEditAsinCheckerModal')}
         />
       </Modal>
+      <ConfirmationModal
+        openModal={showConfirmCloseAsinCheckerModal}
+        title={t(TranslationKey.Attention)}
+        message={t(TranslationKey['Window will be closed'])}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        setOpenModal={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
+        onClickSuccessBtn={() => {
+          onTriggerOpenModal('showConfirmCloseAsinCheckerModal')
+          onTriggerOpenModal('showAsinCheckerModal')
+        }}
+        onClickCancelBtn={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
+      />
       <ConfirmationModal
         isWarning={confirmModalSettings.isWarning}
         openModal={showConfirmModal}
