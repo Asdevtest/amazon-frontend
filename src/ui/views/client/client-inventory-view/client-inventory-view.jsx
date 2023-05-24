@@ -155,7 +155,7 @@ export const ClientInventoryViewRaw = props => {
                   TranslationKey['Bind the selected product from the inventory to an item from the store'],
                 )}
                 disabled={viewModel.selectedRowIds.length !== 1}
-                className={cx(classNames.buttonOffset, classNames.blueButton)}
+                className={cx(classNames.buttonOffset)}
                 onClick={viewModel.onClickBindInventoryGoodsToStockBtn}
               >
                 {t(TranslationKey['Bind an product from Amazon'])}
@@ -164,21 +164,16 @@ export const ClientInventoryViewRaw = props => {
               <Button
                 tooltipInfoContent={t(TranslationKey['Supplier Addition Services'])}
                 disabled={!viewModel.selectedRowIds.length}
-                className={cx(classNames.buttonOffset, classNames.blueButton)}
+                className={cx(classNames.buttonOffset)}
                 onClick={viewModel.onClickAddSupplierBtn}
               >
                 {t(TranslationKey['Supplier search'])}
               </Button>
 
-              <Button
-                className={classNames.blueButton}
-                disabled={!viewModel.selectedRowIds.length}
-                onClick={viewModel.onClickParseProductsBtn}
-              >
+              <Button disabled={!viewModel.selectedRowIds.length} onClick={viewModel.onClickParseProductsBtn}>
                 {'Parse all'}
               </Button>
               <Button
-                className={classNames.blueButton}
                 tooltipInfoContent={t(TranslationKey['Product batches data'])}
                 disabled={viewModel.selectedRowIds.length !== 1}
                 onClick={viewModel.onClickProductLotDataBtn}
