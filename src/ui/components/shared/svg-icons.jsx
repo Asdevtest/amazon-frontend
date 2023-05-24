@@ -626,3 +626,40 @@ export const CrossInRectangleIcon = props => (
     <rect x="0.5" y="0.5" width="20" height="20" rx="3.5" stroke="white" fill="none" />
   </SvgIcon>
 )
+
+export const EditIcon = props => (
+  <SvgIcon {...props} width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M13.331 3.3412L18.8055 9.06437L6.85899 21.5536L0.948158 22.9796C0.888267 22.9936 0.829599 23 0.770931 23C0.290584 23 -0.0944267 22.5285 0.0204654 22.0084L1.3845 15.8304L13.331 3.3412ZM14.1953 2.43768L15.6189 0.949389C16.2227 0.316889 17.0159 0 17.808 0C18.6012 0 19.3932 0.316889 19.9982 0.949389L21.0934 2.09428C22.3022 3.358 22.3022 5.40756 21.0934 6.67256L19.6698 8.16084L14.1953 2.43768Z"
+      // fill="#006CFF"
+    />
+  </SvgIcon>
+)
+
+export const PlusIcon = props => (
+  <SvgIcon {...props} width="17" height="19" viewBox="0 0 17 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.53556 18.5V11.58H0V7.38H6.53556V0.5H10.5022V7.38H17V11.58H10.5022V18.5H6.53556Z" />
+  </SvgIcon>
+)
+
+export const BoxArrow = props => (
+  <SvgIcon {...props} width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.13178 11L0.805725 11L11.4578 -6.87839e-07L22.1099 11L16.7839 11L16.7839 22L6.13178 22L6.13178 11Z" />
+  </SvgIcon>
+)
+
+export const CubeIcon = props => (
+  <SvgIcon {...props} width="21" height="23" viewBox="0 0 21 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10.2387 11.135L0.306885 5.90771V17.25C0.306889 17.2976 0.319896 17.3443 0.344502 17.385C0.369108 17.4258 0.404378 17.459 0.446505 17.4812L10.2387 22.635V11.135Z" />
+    <path d="M10.5002 10.682L20.432 5.45471L10.6219 0.291526C10.5844 0.271788 10.5426 0.261475 10.5002 0.261475C10.4578 0.261475 10.416 0.271788 10.3784 0.291526L0.568359 5.45471L10.5002 10.682Z" />
+    <path d="M10.7615 11.1352V22.6352L20.5537 17.4814C20.5958 17.4592 20.631 17.426 20.6556 17.3852C20.6802 17.3445 20.6933 17.2978 20.6933 17.2502V5.90796L10.7615 11.1352Z" />
+  </SvgIcon>
+)
+
+export const EqualIcon = props => (
+  <SvgIcon {...props} width="17" height="11" viewBox="0 0 17 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 3.85V0H17V3.85H0ZM0 11V7.15H17V11H0Z" />
+  </SvgIcon>
+)
