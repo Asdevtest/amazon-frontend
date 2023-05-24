@@ -19,7 +19,7 @@ import {
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { t } from '@utils/translations'
 
-export const warehouseBoxesViewColumns = (handlers, user) => [
+export const warehouseBoxesViewColumns = (handlers, getUser) => [
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey['Box ID']),
@@ -173,7 +173,7 @@ export const warehouseBoxesViewColumns = (handlers, user) => [
           isShipping
           box={rowMemo}
           volumeWeightCoefficient={params.row.volumeWeightCoefficient}
-          curUser={user.role}
+          curUser={getUser()?.role}
           handlers={handlers}
         />
       )

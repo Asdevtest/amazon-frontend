@@ -12,7 +12,6 @@ import { UserModel } from '@models/user-model'
 import { warehouseCanceledTasksViewColumns } from '@components/table/table-columns/warehouse/canceled-tasks-columns'
 
 import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { objectToUrlQs } from '@utils/text'
 
 export class WarehouseCanceledTasksViewModel {
@@ -39,21 +38,12 @@ export class WarehouseCanceledTasksViewModel {
   }
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
   densityModel = 'compact'
   columnsModel = warehouseCanceledTasksViewColumns(this.rowHandlers)
 
   showTaskInfoModal = false
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = warehouseCanceledTasksViewColumns(this.rowHandlers).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
 
   constructor({ history }) {
     runInAction(() => {
@@ -68,14 +58,13 @@ export class WarehouseCanceledTasksViewModel {
     })
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_CANCELED_TASKS)
   }
@@ -85,26 +74,28 @@ export class WarehouseCanceledTasksViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = warehouseCanceledTasksViewColumns(this.rowHandlers).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
 
-  onChangeRowsPerPage(e) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.rowsPerPage = e
-
-      this.curPage = 0
+      this.paginationModel = model
     })
 
+    this.setDataGridState()
+    this.getTasksMy()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
     this.getTasksMy()
   }
 
@@ -118,6 +109,7 @@ export class WarehouseCanceledTasksViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+    this.setDataGridState()
     this.getTasksMy()
   }
 
@@ -195,14 +187,6 @@ export class WarehouseCanceledTasksViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
-
-    this.getTasksMy()
   }
 
   async getTasksMy() {

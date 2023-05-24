@@ -14,7 +14,6 @@ import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
-import { clientBoxesViewColumns } from '@components/table/table-columns/client/client-boxes-columns'
 import { clientTasksViewColumns } from '@components/table/table-columns/client/client-tasks-columns'
 
 import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
@@ -212,7 +211,7 @@ export class ClientWarehouseTasksViewModel {
       if (state) {
         this.sortModel = toJS(state.sortModel)
         this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS({ ...state.paginationModel, page: 0 })
+        this.paginationModel = toJS(state.paginationModel)
         this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })

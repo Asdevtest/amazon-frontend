@@ -43,8 +43,8 @@ export class WarehouseCompletedViewModel {
 
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
   densityModel = 'compact'
   columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers)
 
@@ -70,17 +70,16 @@ export class WarehouseCompletedViewModel {
       this.filterModel = model
     })
 
-    this.getCompletedTasksPagMy()
+    this.setDataGridState()
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_COMPLETED_TASKS)
   }
@@ -90,35 +89,28 @@ export class WarehouseCompletedViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
 
-  changeColumnsModel(newHideState) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
+      this.paginationModel = model
     })
+
+    this.setDataGridState()
+    this.getCompletedTasksPagMy()
   }
 
-  onChangeRowsPerPage(e) {
+  onColumnVisibilityModelChange(model) {
     runInAction(() => {
-      this.rowsPerPage = e
-
-      this.curPage = 0
+      this.columnVisibilityModel = model
     })
-
+    this.setDataGridState()
     this.getCompletedTasksPagMy()
   }
 
@@ -147,6 +139,7 @@ export class WarehouseCompletedViewModel {
       this.sortModel = sortModel
     })
 
+    this.setDataGridState()
     this.getCompletedTasksPagMy()
   }
 
@@ -264,14 +257,6 @@ export class WarehouseCompletedViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
-
-    this.getCompletedTasksPagMy()
   }
 
   onTriggerOpenModal(modal) {

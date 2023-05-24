@@ -148,7 +148,7 @@ export class AdminExchangeViewModel {
       if (state) {
         this.sortModel = toJS(state.sortModel)
         this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS({ ...state.paginationModel, page: 0 })
+        this.paginationModel = toJS(state.paginationModel)
         this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })

@@ -26,6 +26,8 @@ export class SupervisorReadyToCheckByClientViewModel {
     onPickUp: row => this.onClickTableRowBtn(row),
   }
 
+  columnVisibilityModel = {}
+
   columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor)
 
   constructor({ history }) {
@@ -35,12 +37,9 @@ export class SupervisorReadyToCheckByClientViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  changeColumnsModel(newHideState) {
+  onColumnVisibilityModelChange(model) {
     runInAction(() => {
-      this.columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
+      this.columnVisibilityModel = model
     })
   }
 

@@ -611,7 +611,7 @@ export class BuyerMyOrdersViewModel {
               }
             : state.filterModel,
         )
-        this.paginationModel = toJS({ ...state.paginationModel, page: 0 })
+        this.paginationModel = toJS(state.paginationModel)
         this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })

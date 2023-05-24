@@ -27,6 +27,7 @@ export class SupervisorReadyToCheckForIdeaViewModel {
   }
 
   columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor)
+  columnVisibilityModel = {}
 
   constructor({ history }) {
     runInAction(() => {
@@ -42,6 +43,12 @@ export class SupervisorReadyToCheckForIdeaViewModel {
   onSelectionModel(model) {
     runInAction(() => {
       this.selectedRowIds = model
+    })
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
     })
   }
 

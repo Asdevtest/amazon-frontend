@@ -43,25 +43,11 @@ export const FinancesViewRaw = props => {
           getRowClassName={getRowClassName}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
-          // page={viewModel.curPage}
-          // pageSize={viewModel.rowsPerPage}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.getCurrentData()}
           rowHeight={75}
-          // components={{
-          //   Toolbar: DataGridCustomToolbar,
-          //   ColumnMenuIcon: FilterAltOutlinedIcon,
-          // }}
-          // componentsProps={{
-          //   toolbar: {
-          //     columsBtnSettings: {
-          //       columnsModel: viewModel.columnsModel,
-          //       changeColumnsModel: viewModel.changeColumnsModel,
-          //     },
-          //   },
-          // }}
           slots={{
             toolbar: DataGridCustomToolbar,
             columnMenuIcon: FilterAltOutlinedIcon,
@@ -80,9 +66,6 @@ export const FinancesViewRaw = props => {
           loading={viewModel.requestStatus === loadingStatuses.isLoading}
           onSortModelChange={viewModel.onChangeSortingModel}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          // onPageSizeChange={viewModel.onChangeRowsPerPage}
-          // onPageChange={viewModel.onChangeCurPage}
-          // onStateChange={viewModel.setDataGridState}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onChangePaginationModelChange}
         />

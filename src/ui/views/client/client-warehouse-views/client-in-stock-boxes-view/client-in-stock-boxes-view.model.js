@@ -225,11 +225,11 @@ export class ClientInStockBoxesViewModel {
   densityModel = 'compact'
   columnsModel = clientBoxesViewColumns(
     this.rowHandlers,
-    this.storekeepersData,
-    this.destinations,
-    SettingsModel.destinationsFavourites,
-    this.columnMenuSettings,
-    this.onHover,
+    () => this.storekeepersData,
+    () => this.destinations,
+    () => SettingsModel.destinationsFavourites,
+    () => this.columnMenuSettings,
+    () => this.onHover,
   )
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
@@ -311,6 +311,7 @@ export class ClientInStockBoxesViewModel {
   onChangePaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
+      // this.paginationModel = { ...model, page: 0 }
     })
 
     this.setDataGridState()
@@ -343,25 +344,9 @@ export class ClientInStockBoxesViewModel {
       if (state) {
         this.sortModel = toJS(state.sortModel)
         this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS({ ...state.paginationModel, page: 0 })
+        this.paginationModel = toJS(state.paginationModel)
         this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
-    })
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = clientBoxesViewColumns(
-        this.rowHandlers,
-        this.storekeepersData,
-        this.destinations,
-        SettingsModel.destinationsFavourites,
-        this.columnMenuSettings,
-        this.onHover,
-      ).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
     })
   }
 

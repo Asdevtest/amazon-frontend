@@ -259,7 +259,7 @@ export const ClientInventoryViewRaw = props => {
               columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
               columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
               iconSeparator: classNames.iconSeparator,
-              menuIconButton: classNames.menuIconButton,
+              // menuIconButton: classNames.menuIconButton,
               iconButtonContainer: classNames.iconButtonContainer,
             }}
             sx={{

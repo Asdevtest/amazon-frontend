@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React, { useMemo, useCallback } from 'react'
 
@@ -18,7 +17,6 @@ import {
   OrdersIdsItemsCell,
   CheckboxCell,
   WarehouseDestinationAndTariffCell,
-  ShopsDataCell,
   ChangeInputCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
@@ -29,11 +27,11 @@ import { t } from '@utils/translations'
 
 export const clientBoxesViewColumns = (
   handlers,
-  storekeepersData,
-  destinations,
-  destinationsFavourites,
-  columnMenuSettings,
-  onHover,
+  getStorekeepersData,
+  getDestinations,
+  getDestinationsFavourites,
+  getColumnMenuSettings,
+  getOnHover,
 ) => [
   {
     field: 'storekeeper',
@@ -41,8 +39,8 @@ export const clientBoxesViewColumns = (
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Storekeeper)}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
-        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -58,8 +56,8 @@ export const clientBoxesViewColumns = (
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Shop)}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
-        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -75,8 +73,8 @@ export const clientBoxesViewColumns = (
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Status)}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
-        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -98,8 +96,8 @@ export const clientBoxesViewColumns = (
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.ID)}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
-        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -116,9 +114,10 @@ export const clientBoxesViewColumns = (
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey['№ Order/ № Item'])}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
         isFilterActive={
-          columnMenuSettings?.item?.currentFilterData?.length || columnMenuSettings?.id?.currentFilterData?.length
+          getColumnMenuSettings()?.item?.currentFilterData?.length ||
+          getColumnMenuSettings()?.id?.currentFilterData?.length
         }
       />
     ),
@@ -135,11 +134,11 @@ export const clientBoxesViewColumns = (
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Product)}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
         isFilterActive={
-          columnMenuSettings?.asin?.currentFilterData?.length ||
-          columnMenuSettings?.skusByClient?.currentFilterData?.length ||
-          columnMenuSettings?.amazonTitle?.currentFilterData?.length
+          getColumnMenuSettings()?.asin?.currentFilterData?.length ||
+          getColumnMenuSettings()?.skusByClient?.currentFilterData?.length ||
+          getColumnMenuSettings()?.amazonTitle?.currentFilterData?.length
         }
       />
     ),
@@ -155,7 +154,7 @@ export const clientBoxesViewColumns = (
             box={rowMemo}
             error={
               !findTariffInStorekeepersData(
-                storekeepersData,
+                getStorekeepersData(),
                 params.row.originalData.storekeeper?._id,
                 params.row.originalData.logicsTariff?._id,
               ) && t(TranslationKey['The tariff is invalid or has been removed!'])
@@ -168,7 +167,7 @@ export const clientBoxesViewColumns = (
             superbox={params.row.originalData?.amount > 1 && params.row.originalData?.amount}
             error={
               !findTariffInStorekeepersData(
-                storekeepersData,
+                getStorekeepersData(),
                 params.row.originalData?.storekeeper?._id,
                 params.row.originalData?.logicsTariff?._id,
               ) && t(TranslationKey['The tariff is invalid or has been removed!'])
@@ -215,8 +214,8 @@ export const clientBoxesViewColumns = (
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Quantity)}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
-        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -235,18 +234,18 @@ export const clientBoxesViewColumns = (
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey['Destination and tariff'])}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
         isFilterActive={
-          columnMenuSettings?.logicsTariff?.currentFilterData?.length ||
-          columnMenuSettings?.destination?.currentFilterData?.length
+          getColumnMenuSettings()?.logicsTariff?.currentFilterData?.length ||
+          getColumnMenuSettings()?.destination?.currentFilterData?.length
         }
       />
     ),
 
     renderCell: params => {
-      const destinationsMemo = useMemo(() => destinations, [destinations])
-      const destinationsFavouritesMemo = useMemo(() => destinationsFavourites, [destinationsFavourites])
-      const storekeepersDataMemo = useMemo(() => storekeepersData, [storekeepersData])
+      // const destinationsMemo = useMemo(() => getDestinations(), [getDestinations()])
+      // const destinationsFavouritesMemo = useMemo(() => getDestinationsFavourites(), [getDestinationsFavourites()])
+      // const storekeepersDataMemo = useMemo(() => getStorekeepersData(), [getStorekeepersData()])
 
       const rowMemo = useMemo(() => params.row.originalData, [params.row.originalData])
 
@@ -254,11 +253,11 @@ export const clientBoxesViewColumns = (
 
       return params.row.originalData ? (
         <WarehouseDestinationAndTariffCell
-          destinations={destinationsMemo}
+          destinations={getDestinations()}
           boxesMy={rowMemo}
-          destinationsFavourites={destinationsFavouritesMemo}
+          destinationsFavourites={getDestinationsFavourites()}
           setDestinationsFavouritesItem={handlersMemo.onClickSetDestinationFavourite}
-          storekeepers={storekeepersDataMemo}
+          storekeepers={getStorekeepersData()}
           setShowSelectionStorekeeperAndTariffModal={handlersMemo.setShowSelectionStorekeeperAndTariffModal}
           disabled={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
           onSelectDestination={handlersMemo.onSelectDestination}
@@ -280,8 +279,8 @@ export const clientBoxesViewColumns = (
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey['Total price'])}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
-        // isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -313,8 +312,8 @@ export const clientBoxesViewColumns = (
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={'FBA Shipment / Shipping Label'}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
-        // isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -362,8 +361,8 @@ export const clientBoxesViewColumns = (
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Dimensions)}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
-        // isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -386,8 +385,8 @@ export const clientBoxesViewColumns = (
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={'PREP ID'}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
-        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -414,8 +413,8 @@ export const clientBoxesViewColumns = (
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Created)}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
-        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -431,8 +430,8 @@ export const clientBoxesViewColumns = (
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Updated)}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
-        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 

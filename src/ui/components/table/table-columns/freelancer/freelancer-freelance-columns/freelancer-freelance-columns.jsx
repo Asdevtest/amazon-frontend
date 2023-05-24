@@ -17,12 +17,12 @@ import {
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const FreelancerFreelanceColumns = (handlers, languageTag) => [
+export const FreelancerFreelanceColumns = handlers => [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-    renderCell: params => <MultilineRequestStatusCell languageTag={languageTag} status={params.value} />,
+    renderCell: params => <MultilineRequestStatusCell status={params.value} />,
     width: 160,
   },
   {

@@ -53,15 +53,6 @@ export class AdminSentBatchesViewModel {
     )
   }
 
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
   onSearchSubmit(searchValue) {
     runInAction(() => {
       this.nameSearchValue = searchValue
@@ -106,7 +97,7 @@ export class AdminSentBatchesViewModel {
       if (state) {
         this.sortModel = toJS(state.sortModel)
         this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS({ ...state.paginationModel, page: 0 })
+        this.paginationModel = toJS(state.paginationModel)
         this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })

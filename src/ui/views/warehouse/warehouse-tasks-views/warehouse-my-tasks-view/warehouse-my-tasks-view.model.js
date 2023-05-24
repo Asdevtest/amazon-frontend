@@ -69,8 +69,8 @@ export class WarehouseMyTasksViewModel {
 
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
   densityModel = 'compact'
   columnsModel = warehouseMyTasksViewColumns(this.rowHandlers)
 
@@ -96,10 +96,18 @@ export class WarehouseMyTasksViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+    this.setDataGridState()
   }
 
-  setDataGridState(state) {
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.WAREHOUSE_MY_TASKS)
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_MY_TASKS)
   }
 
   getDataGridState() {
@@ -107,26 +115,28 @@ export class WarehouseMyTasksViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.curPage = state.pagination.page
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = warehouseMyTasksViewColumns(this.rowHandlers).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
 
-  onChangeRowsPerPage(e) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.rowsPerPage = e
-      this.curPage = 0
+      this.paginationModel = model
     })
 
+    this.setDataGridState()
+    this.getTasksMy()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
     this.getTasksMy()
   }
 
@@ -141,6 +151,7 @@ export class WarehouseMyTasksViewModel {
       this.sortModel = sortModel
     })
 
+    this.setDataGridState()
     this.getTasksMy()
   }
 
@@ -149,15 +160,6 @@ export class WarehouseMyTasksViewModel {
       this.nameSearchValue = searchValue
     })
     this.getTasksMy()
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = warehouseMyTasksViewColumns(this.rowHandlers).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
   }
 
   onSelectionModel(model) {

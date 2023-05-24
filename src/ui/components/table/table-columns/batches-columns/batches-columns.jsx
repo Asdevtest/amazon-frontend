@@ -18,7 +18,7 @@ import {
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const batchesViewColumns = (rowHandlers, status, languageTag) => [
+export const batchesViewColumns = (rowHandlers, getStatus) => [
   {
     field: 'orders',
     headerName: t(TranslationKey.Product),
@@ -94,8 +94,7 @@ export const batchesViewColumns = (rowHandlers, status, languageTag) => [
 
       return (
         <BatchTrackingCell
-          disabled={status !== BatchStatus.HAS_DISPATCHED}
-          languageTag={languageTag}
+          disabled={getStatus() !== BatchStatus.HAS_DISPATCHED}
           id={params.row?.originalData?._id}
           arrivalDate={params.row?.originalData?.arrivalDate}
           trackingNumber={params.row?.originalData?.trackingNumber}

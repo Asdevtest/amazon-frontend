@@ -270,8 +270,8 @@ export class ClientInventoryViewModel {
     this.fourMonthesStockHandlers,
     this.stockUsHandlers,
     this.otherHandlers,
-    this.columnMenuSettings,
-    this.onHover,
+    () => this.columnMenuSettings,
+    () => this.onHover,
   )
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
@@ -404,7 +404,7 @@ export class ClientInventoryViewModel {
       if (state) {
         this.sortModel = toJS(state.sortModel)
         this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS({ ...state.paginationModel, page: 0 })
+        this.paginationModel = toJS(state.paginationModel)
         this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })

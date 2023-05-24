@@ -31,11 +31,11 @@ export class VacantRequestsViewModel {
   userRole = undefined
 
   rowCount = 0
-  curPage = 0
   sortModel = []
   filterModel = { items: [] }
-  rowsPerPage = 15
-  columnVisibilityModel = undefined
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   searchMyRequestsIds = []
   requests = []
@@ -71,28 +71,11 @@ export class VacantRequestsViewModel {
     )
 
     reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
       () => this.nameSearchValue,
       () => {
         this.currentData = this.getCurrentData()
       },
     )
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
-  }
-
-  getDataGridState() {
-    runInAction(() => {
-      this.columnsModel = FreelancerVacantRequestColumns(this.handlers, this.languageTag)
-    })
   }
 
   setTableModeState() {
@@ -218,28 +201,21 @@ export class VacantRequestsViewModel {
     this.setTableModeState()
   }
 
-  onChangeCurPage(e) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.curPage = e
+      this.paginationModel = model
     })
-    this.getRequestsVacant()
   }
 
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+  }
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
     })
-
-    this.getRequestsVacant()
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
-      this.curPage = 0
-    })
-
-    this.getRequestsVacant()
   }
 
   onChangeFilterModel(model) {

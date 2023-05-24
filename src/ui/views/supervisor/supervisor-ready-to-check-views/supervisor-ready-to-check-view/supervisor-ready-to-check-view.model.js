@@ -28,6 +28,8 @@ export class SupervisorReadyToCheckViewModel {
 
   columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor)
 
+  columnVisibilityModel = {}
+
   constructor({ history }) {
     runInAction(() => {
       this.history = history
@@ -35,12 +37,9 @@ export class SupervisorReadyToCheckViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  changeColumnsModel(newHideState) {
+  onColumnVisibilityModelChange(model) {
     runInAction(() => {
-      this.columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
+      this.columnVisibilityModel = model
     })
   }
 

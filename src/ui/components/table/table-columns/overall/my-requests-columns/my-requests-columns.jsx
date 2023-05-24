@@ -15,15 +15,15 @@ import {
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) => [
+export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Updated)}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
-        // isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -38,7 +38,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.ID)}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
       />
     ),
 
@@ -53,12 +53,12 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Status)}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
-        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 
-    renderCell: params => <MultilineRequestStatusCell languageTag={languageTag} status={params.value} />,
+    renderCell: params => <MultilineRequestStatusCell /* languageTag={languageTag} */ status={params.value} />,
     width: 161,
     filterable: false,
 
@@ -71,7 +71,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Title)}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
       />
     ),
 
@@ -87,8 +87,8 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey['Request type'])}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
-        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -105,7 +105,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.ASIN)}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
       />
     ),
 
@@ -119,7 +119,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Cost)}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
       />
     ),
 
@@ -134,7 +134,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Deadline)}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
       />
     ),
 
@@ -149,7 +149,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey['Total proposals'])}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
       />
     ), // ПРИМЕР МНОГОСТРОЧНОГО ХЕДЕРА
     renderCell: params => <MultilineTextCell text={params.value} />,
@@ -162,7 +162,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey['Waiting selection'])}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
       />
     ),
 
@@ -176,7 +176,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey['In the work'])}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
       />
     ),
 
@@ -190,7 +190,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey['Waiting check'])}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
       />
     ),
 
@@ -204,7 +204,7 @@ export const myRequestsViewColumns = (languageTag, columnMenuSettings, onHover) 
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Accepted)}
-        isShowIconOnHover={onHover && params.field && onHover === params.field}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
       />
     ),
 

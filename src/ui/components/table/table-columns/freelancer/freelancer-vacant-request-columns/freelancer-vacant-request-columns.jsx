@@ -20,7 +20,7 @@ import {
 import { timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
+export const FreelancerVacantRequestColumns = handlers => [
   {
     field: 'title',
     headerName: t(TranslationKey['Request title']),
@@ -60,7 +60,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
     field: 'status',
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-    renderCell: params => <MultilineRequestStatusCell languageTag={languageTag} status={params.value} />,
+    renderCell: params => <MultilineRequestStatusCell status={params.value} />,
     width: 124,
   },
 
