@@ -116,7 +116,13 @@ export const productMyRequestsViewColumns = handlers => [
     renderCell: params => {
       const handlersMemo = useMemo(() => handlers, [])
 
-      return <ProductMyRequestsBtnsCell rowId={params.row.originalData._id} handlers={handlersMemo} />
+      return (
+        <ProductMyRequestsBtnsCell
+          rowId={params.row.originalData._id}
+          row={params.row.originalData}
+          handlers={handlersMemo}
+        />
+      )
     },
     filterable: false,
     sortable: false,

@@ -20,8 +20,7 @@ import { SetShippingLabelModal } from '@components/modals/set-shipping-label-mod
 import { Button } from '@components/shared/buttons/button'
 import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
-import { ColoredChip } from '@components/shared/colored-chip'
-import { CustomCarousel, PhotoCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
@@ -37,6 +36,7 @@ import { t } from '@utils/translations'
 
 import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
 import { useClassNames } from './edit-box-storekeeper-form.style'
+import { CustomSlider } from '@components/shared/custom-slider'
 
 export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoefficient, setFormField }) => {
   const { classes: classNames } = useClassNames()
@@ -465,7 +465,7 @@ export const EditBoxStorekeeperForm = observer(
                 <Divider className={classNames.divider} />
 
                 <div className={classNames.productsWrapper}>
-                  <CustomCarousel alignButtons="end">
+                  <CustomSlider alignButtons="end">
                     {boxFields.items.map((item, index) => (
                       <div key={index} className={classNames.productWrapper}>
                         <div className={classNames.leftProductColumn}>
@@ -612,7 +612,7 @@ export const EditBoxStorekeeperForm = observer(
                         </div>
                       </div>
                     ))}
-                  </CustomCarousel>
+                  </CustomSlider>
                 </div>
 
                 <Divider className={classNames.divider} />
@@ -795,7 +795,7 @@ export const EditBoxStorekeeperForm = observer(
 
                     <div className={classNames.trackNumberPhotoWrapper}>
                       {boxFields.trackNumberFile[0] || boxFields.tmpTrackNumberFile[0] ? (
-                        <CustomCarousel>
+                        <CustomSlider>
                           {(boxFields.trackNumberFile.length
                             ? boxFields.trackNumberFile
                             : boxFields.tmpTrackNumberFile
@@ -827,7 +827,7 @@ export const EditBoxStorekeeperForm = observer(
                               }}
                             />
                           ))}
-                        </CustomCarousel>
+                        </CustomSlider>
                       ) : (
                         <Typography>{'no photo track number...'}</Typography>
                       )}

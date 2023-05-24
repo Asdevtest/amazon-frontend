@@ -30,6 +30,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 0 35px',
   },
   bigPhotoWrapper: {
+    display: 'flex',
     width: '400px',
     height: 280,
     padding: '0 0 35px',

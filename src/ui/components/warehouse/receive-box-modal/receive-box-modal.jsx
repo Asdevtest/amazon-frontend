@@ -17,7 +17,6 @@ import { CheckQuantityForm } from '@components/forms/check-quantity-form'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
-import { CustomCarousel } from '@components/shared/custom-carousel/custom-carousel'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
 import { Table } from '@components/shared/table'
@@ -30,6 +29,7 @@ import { t } from '@utils/translations'
 
 // import {CommentsLine} from './comments-line'
 import { useClassNames } from './receive-box-modal.style'
+import { CustomSlider } from '@components/shared/custom-slider'
 
 const WAREHOUSE_RECEIVE_HEAD_CELLS = classNames => [
   { title: <Typography className={classNames.headerCell}>{t(TranslationKey.Box)}</Typography> },
@@ -596,7 +596,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
 
       {window.innerWidth >= 1282 && (
         <div className={classNames.currentBoxesWrapper}>
-          <CustomCarousel alignButtons="end">
+          <CustomSlider alignButtons="end">
             {boxesBefore.map((box, index) => (
               <div key={index} className={classNames.demensionsWrapper}>
                 <Typography className={classNames.categoryTitle}>
@@ -640,13 +640,13 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
                 )}`}</Typography>
               </div>
             ))}
-          </CustomCarousel>
+          </CustomSlider>
         </div>
       )}
 
       {window.innerWidth < 1282 && (
         <div className={classNames.currentBoxesWrapper}>
-          <CustomCarousel alignButtons="end">
+          <CustomSlider alignButtons="end">
             {boxesBefore.map((box, index) => (
               <div key={index} className={classNames.demensionsWrapper}>
                 <Typography className={classNames.categoryTitle}>
@@ -696,7 +696,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
                 </div>
               </div>
             ))}
-          </CustomCarousel>
+          </CustomSlider>
         </div>
       )}
     </div>

@@ -11,16 +11,18 @@ import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@cons
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { Modal } from '@components/shared/modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { FreelanceModel } from './freelance.model'
 import { useClassNames } from './freelance.style'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 
 export const Freelance = observer(({ productId }) => {
   const { classes: classNames } = useClassNames()
@@ -32,14 +34,19 @@ export const Freelance = observer(({ productId }) => {
   }, [])
 
   const {
+    curProposal,
+    curRequest,
+    userInfo,
     nameSearchValue,
     selectedTaskType,
     requestStatus,
+    showRequestDesignerResultClientModal,
     getCurrentData,
     densityModel,
     columnsModel,
     onChangeNameSearchValue,
     onClickTaskType,
+    onTriggerOpenModal,
   } = freelanceModel.current
 
   return (
@@ -95,6 +102,21 @@ export const Freelance = observer(({ productId }) => {
           loading={requestStatus === loadingStatuses.isLoading}
         />
       </div>
+
+      <Modal
+        missClickModalOn
+        openModal={showRequestDesignerResultClientModal}
+        setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
+      >
+        <RequestDesignerResultClientForm
+          onlyRead
+          userInfo={userInfo}
+          request={{ request: curRequest }}
+          proposal={curProposal}
+          curResultMedia={curProposal?.proposal.media}
+          setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
+        />
+      </Modal>
     </div>
   )
 })

@@ -13,9 +13,9 @@ import { SettingsModel } from '@models/settings-model'
 
 import { LanguageSelector } from '@components/shared/selectors/language-selector/language-selector.jsx'
 
-import { useClassNames } from './entry-right-panel.style.js'
+import { useClassNames } from './auth-form-wrapper.style.js'
 
-export const EntryRightPanel = ({ onClickRedirect, redirect, title, children }) => {
+export const AuthFormWrapper = ({ onClickRedirect, redirect, title, children }) => {
   const { classes: classNames } = useClassNames()
 
   const [config, setConfig] = useFaviconNotification()

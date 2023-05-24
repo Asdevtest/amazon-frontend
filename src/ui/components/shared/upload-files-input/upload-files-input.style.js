@@ -1,5 +1,4 @@
 import { tooltipClasses } from '@mui/material/Tooltip'
-
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
@@ -12,6 +11,15 @@ export const useClassNames = makeStyles()(theme => ({
   mainSubWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    width: '100%',
+    // maxWidth: 'max-content'
+  },
+
+  controlsWrapper: {
+    display: 'flex',
+    gap: 20,
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
   },
 
   oneLineMainWrapper: {
@@ -34,6 +42,23 @@ export const useClassNames = makeStyles()(theme => ({
     '&:hover': {
       transform: 'scale(1.02)',
     },
+  },
+
+  minimizedDragAndDropBtn: {
+    maxWidth: '185px',
+    // minWidth: "185px",
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 20,
+    minWidth: 'unset',
+    height: 40,
+    color: theme.palette.primary.main,
+  },
+
+  oneLineDADBtn: {
+    marginBottom: 20,
   },
 
   pasteInput: {
@@ -201,6 +226,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: 'calc(100% - 182px)',
 
     border: `1px solid #424250`,
+  },
+
+  loadImageInputSmall: {
+    width: '46%',
   },
 
   inputColor: {

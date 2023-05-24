@@ -455,6 +455,7 @@ export const addOrEditBatchDataConverter = (
 
     destination: item.destination?.name,
     storekeeper: item.storekeeper?.name,
+    // storekeeper: item.storekeeper,
     logicsTariff: getFullTariffTextForBoxOrOrder(item),
     client: item.client?.name,
 
@@ -679,7 +680,7 @@ export const warehouseTasksDataConverter = data =>
       new Set(item.boxesBefore.reduce((ac, c) => [...ac, c.trackNumberText && c.trackNumberText], [])),
     ),
 
-    barcode: !item[item.boxes.length ? 'boxes' : 'boxesBefore'].some(box =>
+    barcode: !item[item.boxes?.length ? 'boxes' : 'boxesBefore'].some(box =>
       box.items.some(item => !item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper),
     ),
   }))

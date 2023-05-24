@@ -20,7 +20,7 @@ import { Button } from '@components/shared/buttons/button'
 import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { CustomCarousel, PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { Text } from '@components/shared/text'
@@ -38,6 +38,7 @@ import { EditBoxTasksModal } from '../edit-task-modal/edit-box-tasks-modal'
 import { useClassNames } from './before-after-block.style'
 import { BoxItemCard } from './box-item-card'
 import { ShortBoxItemCard } from './short-box-item-card'
+import { CustomSlider } from '@components/shared/custom-slider'
 
 const Box = observer(
   ({
@@ -400,7 +401,7 @@ const Box = observer(
                         <Typography className={classNames.greenText}>{`${t(TranslationKey['New files'])}: (+ ${
                           box.tmpImages?.length
                         })`}</Typography>
-                        <CustomCarousel>
+                        <CustomSlider>
                           {box.tmpImages?.map((image, index) =>
                             typeof image === 'string' ? (
                               <div key={index} className={classNames.imageLinkListItem}>
@@ -432,7 +433,7 @@ const Box = observer(
                               </div>
                             ),
                           )}
-                        </CustomCarousel>
+                        </CustomSlider>
                       </div>
                     ) : null}
                   </div>
@@ -646,7 +647,7 @@ const Box = observer(
 
                     <div className={classNames.trackNumberPhotoWrapper}>
                       {box.trackNumberFile.length ? (
-                        <CustomCarousel>
+                        <CustomSlider>
                           {box.trackNumberFile.map((el, index) => (
                             <img
                               key={index}
@@ -662,7 +663,7 @@ const Box = observer(
                               }}
                             />
                           ))}
-                        </CustomCarousel>
+                        </CustomSlider>
                       ) : (
                         <Typography className={classNames.trackNumberNoPhotoText}>
                           {'no photo track number...'}
@@ -743,7 +744,7 @@ const Box = observer(
 
                   <div className={classNames.trackNumberPhotoWrapper}>
                     {box.trackNumberFile.length ? (
-                      <CustomCarousel>
+                      <CustomSlider>
                         {box.trackNumberFile.map((el, index) => (
                           <img
                             key={index}
@@ -759,7 +760,7 @@ const Box = observer(
                             }}
                           />
                         ))}
-                      </CustomCarousel>
+                      </CustomSlider>
                     ) : (
                       <Typography className={classNames.trackNumberNoPhotoText}>
                         {'no photo track number...'}
@@ -788,7 +789,7 @@ const Box = observer(
                       <Typography className={classNames.greenText}>{`${t(TranslationKey['New files'])}: (+ ${
                         box.tmpImages?.length
                       })`}</Typography>
-                      <CustomCarousel>
+                      <CustomSlider>
                         {box.tmpImages?.map((image, index) =>
                           typeof image === 'string' ? (
                             <div key={index} className={classNames.imageLinkListItem}>
@@ -820,7 +821,7 @@ const Box = observer(
                             </div>
                           ),
                         )}
-                      </CustomCarousel>
+                      </CustomSlider>
                     </div>
                   ) : null}
                 </div>

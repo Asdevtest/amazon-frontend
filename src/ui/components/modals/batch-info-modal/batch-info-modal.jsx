@@ -2,7 +2,7 @@
 import { cx } from '@emotion/css'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Typography } from '@mui/material'
+import { Tooltip, Typography } from '@mui/material'
 
 import React, { useState, useEffect } from 'react'
 
@@ -23,14 +23,12 @@ import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-co
 import { BoxViewForm } from '@components/forms/box-view-form'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { PhotoAndFilesCarouselMini } from '@components/shared/custom-carousel/custom-carousel'
 import { Field } from '@components/shared/field/field'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
 import {
-  calcActualBatchWeight,
   calcPriceForBox,
   calcVolumeWeightForBox,
   checkActualBatchWeightGreaterVolumeBatchWeight,
@@ -44,6 +42,7 @@ import { t } from '@utils/translations'
 import { BigImagesModal } from '../big-images-modal'
 import { batchInfoModalColumn } from './batch-info-modal-column'
 import { useClassNames } from './batch-info-modal.style'
+import { PhotoAndFilesCarouselMini } from '@components/shared/photo-and-files-carousel-mini'
 
 export const BatchInfoModal = observer(
   ({ openModal, setOpenModal, batch, volumeWeightCoefficient, userInfo, onSubmitChangeBoxFields, onClickHsCode }) => {
@@ -162,11 +161,7 @@ export const BatchInfoModal = observer(
               inputClasses={cx(classNames.infoField, classNames.batchTitleField)}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey.Tariff)}
-              value={
-                (batch.boxes &&
-                  getShortenStringIfLongerThanCount(getFullTariffTextForBoxOrOrder(batch.boxes?.[0]), 11)) ||
-                ''
-              }
+              value={getFullTariffTextForBoxOrOrder(batch.boxes?.[0])}
               placeholder={t(TranslationKey.Missing)}
             />
 

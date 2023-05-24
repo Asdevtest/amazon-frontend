@@ -370,7 +370,10 @@ export class ClientInStockBoxesViewModel {
     })
 
     this.setDataGridState()
-    this.getBoxesMy()
+    this.requestStatus = loadingStatuses.isLoading
+    this.getBoxesMy().then(() => {
+      this.requestStatus = loadingStatuses.success
+    })
   }
 
   onSelectionModel(model) {
@@ -693,6 +696,7 @@ export class ClientInStockBoxesViewModel {
       })
     }
   }
+
   onClickConfirmCreateSplitTasks(id, updatedBoxes, type, isMasterBox, comment, sourceBox) {
     this.onTriggerOpenModal('showConfirmModal')
 
@@ -706,6 +710,7 @@ export class ClientInStockBoxesViewModel {
       }
     })
   }
+
   onClickConfirmCreateChangeTasks(id, boxData, sourceData) {
     this.onTriggerOpenModal('showConfirmModal')
 
@@ -822,7 +827,11 @@ export class ClientInStockBoxesViewModel {
     runInAction(() => {
       this.curDestination = destination ? destination : undefined
     })
-    this.getBoxesMy()
+
+    this.requestStatus = loadingStatuses.isLoading
+    this.getBoxesMy().then(() => {
+      this.requestStatus = loadingStatuses.success
+    })
   }
 
   openModalAndClear() {
@@ -850,14 +859,14 @@ export class ClientInStockBoxesViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      await this.getStorekeepers()
-      await this.getDestinations()
 
-      await this.getClientDestinations()
-
-      await this.getShops()
-
-      await this.getBoxesMy()
+      await Promise.allSettled([
+        this.getStorekeepers(),
+        this.getDestinations(),
+        this.getClientDestinations(),
+        this.getShops(),
+        this.getBoxesMy(),
+      ])
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -901,7 +910,11 @@ export class ClientInStockBoxesViewModel {
     runInAction(() => {
       this.nameSearchValue = searchValue
     })
-    this.getBoxesMy()
+
+    this.requestStatus = loadingStatuses.isLoading
+    this.getBoxesMy().then(() => {
+      this.requestStatus = loadingStatuses.success
+    })
   }
 
   async onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox) {
@@ -1727,7 +1740,7 @@ export class ClientInStockBoxesViewModel {
 
   async getShops() {
     try {
-      const result = await ShopModel.getMyShops()
+      const result = await ShopModel.getMyShopNames()
       runInAction(() => {
         this.shopsData = result
       })

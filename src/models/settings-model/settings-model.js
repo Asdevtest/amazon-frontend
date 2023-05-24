@@ -22,6 +22,7 @@ const persistProperties = [
 ]
 
 const stateModelName = 'SettingsModel'
+
 class SettingsModelStatic {
   dataGridState = {}
   activeSubCategoryState = {}

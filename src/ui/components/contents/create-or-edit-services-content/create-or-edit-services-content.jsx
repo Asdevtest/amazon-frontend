@@ -10,15 +10,15 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { NewDatePicker, DatePickerTime } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'
-import { UploadFilesInputMini } from '@components/shared/upload-files-input-mini'
 
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './create-or-edit-services-content.style'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 export const CreateOrEditServiceContent = ({
   data,
@@ -119,7 +119,9 @@ export const CreateOrEditServiceContent = ({
       />
 
       <div className={classNames.imageFileInputWrapper}>
-        <UploadFilesInputMini
+        <UploadFilesInput
+          fullWidth
+          minimized
           images={images}
           setImages={setImages}
           maxNumber={50}

@@ -12,7 +12,6 @@ import { ChatMessageDataCreatedNewProposalProposalDescriptionContract } from '@m
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
 import { Button } from '@components/shared/buttons/button'
-import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
 
 import { formatDateTimeHourAndMinutes } from '@utils/date-time'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
@@ -22,6 +21,7 @@ import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and
 
 import { LabelValuePairBlock } from '../label-value-pair-block'
 import { useClassNames } from './chat-message-proposal.style'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 export interface ChatMessageProposalHandlers {
   onClickProposalAccept: (proposalId: string, price: number) => void

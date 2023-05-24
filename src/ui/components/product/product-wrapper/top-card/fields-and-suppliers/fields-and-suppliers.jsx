@@ -30,6 +30,7 @@ import { checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount } from '@uti
 import { t } from '@utils/translations'
 
 import { useClassNames } from './fields-and-suppliers.style'
+import { UserRole } from '@constants/keys/user-roles'
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
@@ -114,6 +115,7 @@ export const FieldsAndSuppliers = observer(
                   <Button
                     tooltipInfoContent={t(TranslationKey['Fills the card with the necessary information'])}
                     className={classNames.buttonParseAmazon}
+                    disabled={curUserRole === UserRole.ADMIN}
                     onClick={() => {
                       // onClickParseProductData(ProductDataParser.AMAZON, product)
                       // onClickParseProductData(ProductDataParser.SELLCENTRAL, product)

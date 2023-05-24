@@ -1,8 +1,8 @@
 import { cx } from '@emotion/css'
-import { Typography, Avatar } from '@mui/material'
+import { Avatar, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
-import React from 'react'
+import React, { useState } from 'react'
 
 import {
   RequestProposalStatus,
@@ -12,8 +12,10 @@ import {
 import { RequestStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { Modal } from '@components/shared/modal'
 import { Button } from '@components/shared/buttons/button'
-import { PhotoCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -21,16 +23,34 @@ import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './owner-request-proposals-card.style'
+import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 
 export const OwnerRequestProposalsCard = ({
   item,
   request,
+  userInfo,
   onClickContactWithExecutor,
   onClickReview,
   onClickOrderProposal,
   onClickRejectProposal,
 }) => {
   const { classes: classNames } = useClassNames()
+
+  const [showRequestDesignerResultClientModal, setShowRequestDesignerResultClientModal] = useState(false)
+
+  const showDesignerResultBtnStatuses = [
+    RequestProposalStatus.READY_TO_VERIFY,
+    RequestProposalStatus.VERIFYING_BY_SUPERVISOR,
+    RequestProposalStatus.TO_CORRECT,
+    RequestProposalStatus.CORRECTED,
+
+    RequestProposalStatus.ACCEPTED_BY_CLIENT,
+    RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST,
+    RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+
+    RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
+    RequestProposalStatus.PROPOSAL_EDITED,
+  ]
 
   return (
     <div className={classNames.cardMainWrapper}>
@@ -102,6 +122,18 @@ export const OwnerRequestProposalsCard = ({
           </Typography>
         </div>
 
+        {freelanceRequestTypeByCode[request.request.typeTask] === freelanceRequestType.DESIGNER && (
+          <Button
+            disabled={!showDesignerResultBtnStatuses.includes(item.proposal.status)}
+            variant="contained"
+            color="primary"
+            className={cx(classNames.actionButton)}
+            onClick={() => setShowRequestDesignerResultClientModal(!showRequestDesignerResultClientModal)}
+          >
+            {t(TranslationKey.Result)}
+          </Button>
+        )}
+
         <div className={classNames.actionButtonWrapper}>
           {(item.proposal.status === RequestProposalStatus.CREATED ||
             item.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) && (
@@ -168,6 +200,22 @@ export const OwnerRequestProposalsCard = ({
           </Button>
         </div>
       </div>
+
+      <Modal
+        missClickModalOn
+        openModal={showRequestDesignerResultClientModal}
+        setOpenModal={() => setShowRequestDesignerResultClientModal(!showRequestDesignerResultClientModal)}
+      >
+        <RequestDesignerResultClientForm
+          onlyRead
+          userInfo={userInfo}
+          request={request}
+          proposal={item}
+          curResultMedia={item.proposal.media}
+          setOpenModal={() => setShowRequestDesignerResultClientModal(!showRequestDesignerResultClientModal)}
+          // onClickSendAsResult={onClickSendAsResult}
+        />
+      </Modal>
     </div>
   )
 }

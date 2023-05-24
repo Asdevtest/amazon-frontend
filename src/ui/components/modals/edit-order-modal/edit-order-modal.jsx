@@ -37,7 +37,6 @@ import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import { Button } from '@components/shared/buttons/button'
-import { CustomCarousel } from '@components/shared/custom-carousel/custom-carousel'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
@@ -47,7 +46,6 @@ import { WarehouseBodyRow } from '@components/table/table-rows/warehouse'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull } from '@utils/checks'
 import { formatDateWithoutTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import {
   clearEverythingExceptNumbers,
@@ -61,6 +59,7 @@ import { useClassNames } from './edit-order-modal.style'
 import { EditOrderSuppliersTable } from './edit-order-suppliers-table'
 import { ProductTable } from './product-table'
 import { SelectFields } from './select-fields'
+import { CustomSlider } from '@components/shared/custom-slider'
 
 const orderStatusesThatTriggersEditBoxBlock = [OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]]
 
@@ -942,10 +941,13 @@ export const EditOrderModal = observer(
           </Button>
         </Box>
 
-        {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) && (
-          <div>
-            <Typography className={classNames.addBoxTitle}>{t(TranslationKey['Add boxes for this order'])}</Typography>
+        <div className={classNames.addBoxButtonAndCommentsWrapper}>
+          {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) ? (
             <div className={classNames.addBoxButtonWrapper}>
+              <Typography className={classNames.addBoxTitle}>
+                {t(TranslationKey['Add boxes for this order'])}
+              </Typography>
+
               <Button
                 tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])}
                 className={classNames.addBoxButton}
@@ -953,14 +955,16 @@ export const EditOrderModal = observer(
               >
                 {t(TranslationKey['Add a box'])}
               </Button>
-
-              <Button className={classNames.seeCommentsButton} onClick={() => setCommentModalModal(!commentModal)}>
-                <Typography className={classNames.seeCommentsText}>{t(TranslationKey['See comments'])}</Typography>
-                <VisibilityIcon className={classNames.seeCommentsIcon} />
-              </Button>
             </div>
-          </div>
-        )}
+          ) : (
+            <div />
+          )}
+
+          <Button className={classNames.seeCommentsButton} onClick={() => setCommentModalModal(!commentModal)}>
+            <Typography className={classNames.seeCommentsText}>{t(TranslationKey['See comments'])}</Typography>
+            <VisibilityIcon className={classNames.seeCommentsIcon} />
+          </Button>
+        </div>
 
         {boxesForCreation.length > 0 && (
           <>
@@ -1002,7 +1006,7 @@ export const EditOrderModal = observer(
 
                 <div className={classNames.trackNumberPhotoWrapper}>
                   {trackNumber.files[0] ? (
-                    <CustomCarousel>
+                    <CustomSlider>
                       {trackNumber.files.map((el, index) => (
                         <img
                           key={index}
@@ -1026,7 +1030,7 @@ export const EditOrderModal = observer(
                           }}
                         />
                       ))}
-                    </CustomCarousel>
+                    </CustomSlider>
                   ) : (
                     <Typography>{'no photo track number...'}</Typography>
                   )}
@@ -1191,13 +1195,6 @@ export const EditOrderModal = observer(
           />
         </Modal>
 
-        <Modal missClickModalOn openModal={commentModal} setOpenModal={() => setCommentModalModal(!commentModal)}>
-          <CommentsForm
-            comments={orderFields.commentsFromTask}
-            onCloseModal={() => setCommentModalModal(!commentModal)}
-          />
-        </Modal>
-
         <Modal
           missClickModalOn={!isOnlyRead}
           openModal={showAddOrEditSupplierModal}
@@ -1218,6 +1215,20 @@ export const EditOrderModal = observer(
             onTriggerShowModal={() => {
               setForceReadOnly(false)
               setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
+            }}
+          />
+        </Modal>
+
+        <Modal
+          openModal={commentModal}
+          setOpenModal={() => {
+            setCommentModalModal(!commentModal)
+          }}
+        >
+          <CommentsForm
+            comments={orderFields.commentsFromTask}
+            onCloseModal={() => {
+              setCommentModalModal(!commentModal)
             }}
           />
         </Modal>

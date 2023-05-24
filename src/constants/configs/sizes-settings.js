@@ -8,3 +8,5 @@ export const inchesCoefficient = 2.54
 export const poundsCoefficient = 2.046223
 
 export const poundsWeightCoefficient = 0.4536
+
+export const RIGHT_BLOCK_WIDTH = 100

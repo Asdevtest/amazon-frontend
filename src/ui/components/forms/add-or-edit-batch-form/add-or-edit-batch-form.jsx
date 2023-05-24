@@ -26,7 +26,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { Field } from '@components/shared/field/field'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
@@ -206,7 +206,9 @@ export const AddOrEditBatchForm = observer(
       } else if (batchToEdit /* && !nameSearchValueChosenBoxes */) {
         const chosenBoxesIds = chosenBoxesBase.map(box => box._id)
         const deletedBoxes = addOrEditBatchDataConverter(
-          [...batchToEdit.originalData.boxes].filter(el => !chosenBoxesIds.includes(el._id)),
+          [...batchToEdit.originalData.boxes]
+            .map(box => ({ ...box, storekeeper: batchToEdit.originalData?.storekeeper }))
+            .filter(el => !chosenBoxesIds.includes(el._id)),
           batchFields.volumeWeightDivide,
           getBatchWeightCalculationMethodForBox(
             batchFields.calculationMethod,
@@ -292,6 +294,7 @@ export const AddOrEditBatchForm = observer(
             getCheckActualBatchWeightGreaterVolumeBatchWeight(),
           ),
         )
+
         setBoxesToAddData(() =>
           filterBySearchValueBoxesToAddData([
             ...addOrEditBatchDataConverter(

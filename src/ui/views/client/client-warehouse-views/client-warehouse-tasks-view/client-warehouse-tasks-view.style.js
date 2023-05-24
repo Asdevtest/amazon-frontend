@@ -50,7 +50,7 @@ export const styles = theme => ({
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: 405,
-    height: '40px',
+    height: 36,
     fontSize: '16px',
     paddingLeft: '7px',
   },

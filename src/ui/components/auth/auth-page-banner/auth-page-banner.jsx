@@ -9,9 +9,9 @@ import { SettingsModel } from '@models/settings-model'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './entry-left-panel.style'
+import { useClassNames } from './auth-page-banner.style'
 
-export const EntryLeftPanel = () => {
+export const AuthPageBanner = () => {
   const { classes: classNames } = useClassNames()
 
   return (

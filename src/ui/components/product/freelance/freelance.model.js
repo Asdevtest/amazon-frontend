@@ -5,6 +5,7 @@ import { RequestSubType, RequestType } from '@constants/requests/request-type'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
+import { RequestProposalModel } from '@models/request-proposal'
 import { RequestModel } from '@models/request-model'
 import { UserModel } from '@models/user-model'
 
@@ -24,7 +25,12 @@ export class FreelanceModel {
 
   nameSearchValue = ''
 
+  curRequest = null
+  curProposal = null
+
   selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+
+  showRequestDesignerResultClientModal = false
 
   showAcceptMessage = undefined
   acceptMessage = undefined
@@ -37,10 +43,13 @@ export class FreelanceModel {
   openModal = null
 
   get userInfo() {
-    return UserModel.userInfo || {}
+    return UserModel.userInfo
   }
 
-  handlers = { onClickOpenRequest: item => this.onClickOpenRequest(item) }
+  handlers = {
+    onClickOpenRequest: item => this.onClickOpenRequest(item),
+    onClickOpenResult: item => this.onClickOpenResult(item),
+  }
 
   sortModel = []
   filterModel = { items: [] }
@@ -160,6 +169,27 @@ export class FreelanceModel {
     )
 
     win.focus()
+  }
+
+  async onClickOpenResult(item) {
+    try {
+      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(item._id)
+
+      const proposal = result.find(el => el.proposal.status)
+
+      if (!proposal) {
+        return
+      }
+
+      runInAction(() => {
+        this.curRequest = item
+        this.curProposal = proposal
+      })
+
+      this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onTriggerDrawer() {

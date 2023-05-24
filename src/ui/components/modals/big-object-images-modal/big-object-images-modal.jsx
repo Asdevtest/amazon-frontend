@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react'
 import { ImageZoomForm } from '@components/forms/image-zoom-form'
 import { Button } from '@components/shared/buttons/button'
 // import React, {useEffect, useState} from 'react'
-import { CustomCarousel } from '@components/shared/custom-carousel/custom-carousel'
 import { Modal } from '@components/shared/modal'
 
 import { checkIsImageLink } from '@utils/checks'
@@ -16,6 +15,7 @@ import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
 import { useClassNames } from './big-object-images-modal.style'
+import { CustomSlider } from '@components/shared/custom-slider'
 
 export const BigObjectImagesModal = ({
   openModal,
@@ -113,7 +113,7 @@ export const BigObjectImagesModal = ({
         </div>
 
         <div className={classNames.carouselWrapper}>
-          <CustomCarousel index={curImageIndex} arrowSize="60px" onChangeIndex={onChangeCurImageIndex}>
+          <CustomSlider index={curImageIndex} arrowSize="60px" onChangeIndex={onChangeCurImageIndex}>
             {filteredImagesData.map(item => (
               <div key={item._id} className={classNames.imageModalImageWrapper}>
                 {/* {item.comment && <Typography className={cx(classNames.imageName, classNames.titleName)}>{item.comment}</Typography>} */}
@@ -138,7 +138,7 @@ export const BigObjectImagesModal = ({
                 </Typography>
               </div>
             ))}
-          </CustomCarousel>
+          </CustomSlider>
         </div>
 
         <div className={cx(/* classNames.imageModalSubWrapper, */ classNames.imageModalSubWrapperRightSide)}>

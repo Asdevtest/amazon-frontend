@@ -16,7 +16,7 @@ import { Button } from '@components/shared/buttons/button'
 import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { CustomCarousel, PhotoCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
@@ -36,6 +36,7 @@ import {
 import { t } from '@utils/translations'
 
 import { useClassNames } from './box-view-form.style'
+import { CustomSlider } from '@components/shared/custom-slider'
 
 export const BoxViewForm = observer(
   ({
@@ -180,7 +181,7 @@ export const BoxViewForm = observer(
             </Grid>
 
             <div className={classNames.productsWrapper}>
-              <CustomCarousel alignButtons="end">
+              <CustomSlider alignButtons="end">
                 {formFields.items.map((item, index) => (
                   <div key={index} className={classNames.productWrapper}>
                     <div className={classNames.leftColumn}>
@@ -311,7 +312,7 @@ export const BoxViewForm = observer(
                     </div>
                   </div>
                 ))}
-              </CustomCarousel>
+              </CustomSlider>
             </div>
           </div>
 
@@ -512,7 +513,7 @@ export const BoxViewForm = observer(
 
                   <div className={classNames.trackNumberPhotoWrapper}>
                     {formFields.trackNumberFile[0] || formFields.tmpTrackNumberFile[0] ? (
-                      <CustomCarousel>
+                      <CustomSlider>
                         {(formFields.trackNumberFile.length
                           ? formFields.trackNumberFile
                           : formFields.tmpTrackNumberFile
@@ -544,7 +545,7 @@ export const BoxViewForm = observer(
                             }}
                           />
                         ))}
-                      </CustomCarousel>
+                      </CustomSlider>
                     ) : (
                       <Typography>{'no photo track number...'}</Typography>
                     )}

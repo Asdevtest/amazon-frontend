@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Alert, Button } from '@mui/material'
+import { Alert } from '@mui/material'
 
 import React, { useEffect, useState } from 'react'
 
@@ -31,6 +31,7 @@ import { t } from '@utils/translations'
 
 import { WarehouseVacantViewModel } from './warehouse-vacant-tasks-view.model'
 import { styles } from './warehouse-vacant-tasks-view.style'
+import { Button } from '@components/shared/buttons/button'
 
 export const WarehouseVacantTasksViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseVacantViewModel({ history: props.history }))
@@ -64,7 +65,6 @@ export const WarehouseVacantTasksViewRaw = props => {
           )}
 
           <Button
-            variant="contained"
             disabled={
               !viewModel.selectedTasks.length ||
               viewModel.selectedTasks.length > 1 ||
@@ -82,7 +82,6 @@ export const WarehouseVacantTasksViewRaw = props => {
         <div className={classNames.headerWrapper}>
           {window.innerWidth > 1281 && (
             <Button
-              variant="contained"
               disabled={!viewModel.selectedTasks.length}
               className={classNames.pickupOrdersButton}
               onClick={viewModel.onClickPickupManyTasksBtn}

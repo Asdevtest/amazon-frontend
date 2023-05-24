@@ -53,14 +53,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { BigImagesModal } from '@components/modals/big-images-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { ClockIcon } from '@components/shared/svg-icons'
+import { BoxArrow, ClockIcon, CubeIcon, EditIcon, EqualIcon, PlusIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
@@ -489,11 +489,11 @@ export const SupplierCell = React.memo(
   withStyles(
     ({ classes: classNames, supplierName, supplierLink }) => (
       <>
-        <Typography className={classNames.researcherCell}>{supplierName || '-'}</Typography>
+        {!supplierName && <Typography className={classNames.researcherCell}>-</Typography>}
 
-        {supplierLink && (
+        {supplierName && (
           <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(supplierLink)}>
-            <Typography className={classNames.noActiveLink}>{supplierLink}</Typography>
+            <Typography className={classNames.noActiveLink}>{supplierName}</Typography>
           </Link>
         )}
       </>
@@ -1816,7 +1816,7 @@ export const TaskDescriptionCell = React.memo(
               index !== task.boxesBefore.length - 1 ? (
                 <div key={index} className={classNames.renderBoxWrapper}>
                   {renderBox(box, index)}
-                  <img key={index + '+'} src="/assets/icons/+.svg" className={classNames.taskDescriptionIcon} />
+                  <PlusIcon className={classNames.taskDescriptionIcon} />
                 </div>
               ) : (
                 renderBox(box, index, task.boxesBefore.length === 1)
@@ -1825,14 +1825,14 @@ export const TaskDescriptionCell = React.memo(
           </div>
         )}
 
-        <img src="/assets/icons/equal.svg" className={classNames.taskDescriptionIcon} />
+        <EqualIcon className={classNames.taskDescriptionIcon} />
 
         <div className={classNames.sideWrapper}>
-          {task.boxes.map((box, index) =>
+          {task.boxes?.map((box, index) =>
             index !== task.boxes.length - 1 ? (
               <div key={index} className={classNames.renderBoxWrapper}>
                 {renderBox(box, index)}
-                <img key={index + '+'} src="/assets/icons/+.svg" className={classNames.taskDescriptionIcon} />
+                <PlusIcon className={classNames.taskDescriptionIcon} />
               </div>
             ) : (
               renderBox(box, index, task.boxes.length === 1)
@@ -1850,20 +1850,20 @@ export const TaskDescriptionCell = React.memo(
       <div className={classNames.blockProductsImagesWrapper}>
         <div className={classNames.receiveOrEditWrapper}>
           <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} />
-          <img src="/assets/icons/box-arrow.svg" className={classNames.boxArrowSvg} />
+          <BoxArrow className={classNames.boxArrowSvg} />
 
           <div className={classNames.gridBoxesWrapper}>
             {task.boxesBefore.map((el, i) => (
               <div key={i} className={classNames.gridBoxWrapper}>
                 {el.amount > 1 && (
                   <div className={classNames.superboxWrapper}>
-                    <img src="/assets/icons/cube.svg" />
+                    <CubeIcon className={classNames.cubeIconSvg} />
                     <Typography className={classNames.imgNum}>{el.amount > 1 && ` x${el.amount}`}</Typography>
                   </div>
                 )}
-                <Grid container spacing={2} className={classNames.gridEditWrapper}>
+                <div className={classNames.gridEditWrapper}>
                   {el.items.map((product, productIndex) => renderProductImages(product, productIndex))}
-                </Grid>
+                </div>
               </div>
             ))}
           </div>
@@ -1875,20 +1875,20 @@ export const TaskDescriptionCell = React.memo(
       <div className={classNames.blockProductsImagesWrapper}>
         <div className={classNames.receiveOrEditWrapper}>
           <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} />
-          <img src="/assets/icons/box-edit.svg" className={classNames.boxEditSvg} />
+          <EditIcon className={classNames.boxEditSvg} />
 
           {task.boxesBefore[0]?.amount > 1 && (
             <div className={classNames.superboxWrapper}>
-              <img src="/assets/icons/cube.svg" />
+              <CubeIcon className={classNames.cubeIconSvg} />
               <Typography className={classNames.imgNum}>
                 {task.boxesBefore[0].amount > 1 && ` x${task.boxesBefore[0].amount}`}
               </Typography>
             </div>
           )}
 
-          <Grid container spacing={2} className={classNames.gridEditWrapper}>
+          <div className={classNames.gridEditWrapper}>
             {task.boxesBefore[0]?.items.map((product, productIndex) => renderProductImages(product, productIndex))}
-          </Grid>
+          </div>
         </div>
       </div>
     )
@@ -2216,8 +2216,13 @@ export const ClientNotificationsBtnsCell = React.memo(
 
 export const ProductMyRequestsBtnsCell =
   //  React.memo(
-  withStyles(
-    ({ classes: classNames, rowId, handlers }) => (
+  withStyles(({ classes: classNames, rowId, row, handlers }) => {
+    const disableOpenResultBtn =
+      !row.countProposalsByStatuses.acceptedProposals &&
+      !row.countProposalsByStatuses.atWorkProposals &&
+      !row.countProposalsByStatuses.verifyingProposals
+
+    return (
       <div className={classNames.productMyRequestsBtnsWrapper}>
         <Button
           variant="contained"
@@ -2229,18 +2234,15 @@ export const ProductMyRequestsBtnsCell =
         </Button>
         <Button
           success
-          disabled
+          disabled={disableOpenResultBtn}
           className={classNames.productMyRequestsBtn}
-          // onClick={() => {
-          //   handlers.onTriggerOpenRejectModal(row)
-          // }}
+          onClick={() => handlers.onClickOpenResult(rowId)}
         >
           {t(TranslationKey['Open result'])}
         </Button>
       </div>
-    ),
-    styles,
-  )
+    )
+  }, styles)
 // )
 
 export const SuperboxQtyCell = React.memo(

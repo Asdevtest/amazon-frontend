@@ -2,24 +2,23 @@
 import { cx } from '@emotion/css'
 import CircleIcon from '@mui/icons-material/Circle'
 import {
+  Avatar,
   Checkbox,
-  Typography,
+  Input,
+  InputAdornment,
   Link,
   List,
   ListItem,
   ListItemText,
-  Select,
-  Input,
-  InputAdornment,
   MenuItem,
-  Avatar,
   Rating,
+  Select,
+  Typography,
 } from '@mui/material'
 
 import React, { useEffect, useRef, useState } from 'react'
 
 import dayjs from 'dayjs'
-import { toJS } from 'mobx'
 
 import {
   freelanceRequestType,
@@ -33,25 +32,25 @@ import { ChoiceOfPerformerModal } from '@components/modals/choice-of-performer-m
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CopyValue } from '@components/shared/copy-value'
-import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
-import { NewDatePicker, DatePickerTime } from '@components/shared/date-picker/date-picker'
+import { DatePickerTime, NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { ScrollToTopOrBottom } from '@components/shared/scroll-to-top-or-bottom/scroll-to-top-or-bottom'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Text } from '@components/shared/text'
-import { UploadFilesInputMini } from '@components/shared/upload-files-input-mini'
 import { UserLink } from '@components/user/user-link'
 
 import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { formatDateForShowWithoutParseISO } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
-import { shortAsin, replaceCommaByDot, toFixed } from '@utils/text'
+import { replaceCommaByDot, shortAsin, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './create-or-edit-request-content.style'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 const stepVariant = {
   STEP_ONE: 'STEP_ONE',
@@ -491,13 +490,15 @@ export const CreateOrEditRequestContent = ({
                 )}
 
                 <div className={classNames.imageFileInputWrapper}>
-                  <UploadFilesInputMini
+                  <UploadFilesInput
+                    minimized
+                    fullWidth
                     withComment
-                    // oneLineMaxHeight
-                    maxHeight={160}
                     images={images}
                     setImages={setImages}
                     maxNumber={50}
+                    // oneLineMaxHeight
+                    maxHeight={160}
                   />
                   {/* {formFields.details.linksToMediaFiles?.length ? (
                     <PhotoAndFilesCarousel

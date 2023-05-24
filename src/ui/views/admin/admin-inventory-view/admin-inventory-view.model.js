@@ -96,14 +96,21 @@ export class AdminInventoryViewModel {
     })
   }
 
+  // onClickTableRow(product) {
+  //   this.history.push(
+  //     {
+  //       pathname: '/admin/inventory/product',
+  //       search: product.originalData._id,
+  //     },
+  //     { inInventory: true },
+  //   )
+  // }
+
   onClickTableRow(product) {
-    this.history.push(
-      {
-        pathname: '/admin/inventory/product',
-        search: product.originalData._id,
-      },
-      { inInventory: true },
-    )
+    const url = `/admin/inventory/product?product-id=${product.originalData._id}`
+
+    const newTab = window.open(`${url}`, '_blank')
+    newTab.focus()
   }
 
   onChangeSortingModel(sortModel) {

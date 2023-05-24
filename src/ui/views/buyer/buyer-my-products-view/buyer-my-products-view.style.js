@@ -50,4 +50,8 @@ export const styles = theme => ({
       marginRight: '-48px',
     },
   },
+
+  dataGridWrapper: {
+    height: 'calc(100vh - 150px)',
+  },
 })

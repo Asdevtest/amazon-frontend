@@ -14,7 +14,6 @@ import { UserModel } from '@models/user-model'
 
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
-import { PhotoAndFilesCarousel } from '@components/shared/custom-carousel/custom-carousel'
 import { Field } from '@components/shared/field'
 
 import { formatDateOnlyTime } from '@utils/date-time'
@@ -24,6 +23,7 @@ import { t } from '@utils/translations'
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
 import { useClassNames } from './chat-message-blogger-proposal-edited-result.style'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
 export interface ChatMessageRequestProposalResultEditedHandlers {
   onClickProposalResultToCorrect: (proposalId: string) => void
@@ -89,7 +89,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, han
                   </Typography>
 
                   {message.data.proposal.details.amazonOrderId && (
-                    <CopyValue text={message.data.proposal.details.amazonOrderId} disabled={undefined} />
+                    <CopyValue text={message.data.proposal.details.amazonOrderId} />
                   )}
                 </div>
               }
@@ -125,7 +125,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, han
                             {el}
                           </Link>
 
-                          <CopyValue text={el} disabled={undefined} />
+                          <CopyValue text={el} />
                         </div>
                       ))}
                     </div>

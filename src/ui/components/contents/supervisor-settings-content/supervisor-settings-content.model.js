@@ -35,6 +35,7 @@ export class SupervisorSettingsContentModel {
 
   showAsinCheckerModal = false
   showEditAsinCheckerModal = false
+  showConfirmCloseAsinCheckerModal = false
   showConfirmModal = false
   showFailedAsinsModal = false
   tabIndex = undefined

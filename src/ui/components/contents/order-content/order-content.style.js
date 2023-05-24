@@ -13,7 +13,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   panelsWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     marginTop: '30px',
   },
   tableWrapper: {
