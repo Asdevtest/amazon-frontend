@@ -489,11 +489,11 @@ export const SupplierCell = React.memo(
   withStyles(
     ({ classes: classNames, supplierName, supplierLink }) => (
       <>
-        <Typography className={classNames.researcherCell}>{supplierName || '-'}</Typography>
+        {!supplierName && <Typography className={classNames.researcherCell}>-</Typography>}
 
-        {supplierLink && (
+        {supplierName && (
           <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(supplierLink)}>
-            <Typography className={classNames.noActiveLink}>{supplierLink}</Typography>
+            <Typography className={classNames.noActiveLink}>{supplierName}</Typography>
           </Link>
         )}
       </>
