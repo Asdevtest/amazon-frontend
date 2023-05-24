@@ -411,11 +411,11 @@ export class ClientOrdersViewModel {
         this.reorderOrdersData = []
       })
 
-      const storekeepers = await StorekeeperModel.getStorekeepers()
-
-      const destinations = await ClientModel.getDestinations()
-
-      const result = await UserModel.getPlatformSettings()
+      const [storekeepers, destinations, result] = await Promise.all([
+        StorekeeperModel.getStorekeepers(),
+        ClientModel.getDestinations(),
+        UserModel.getPlatformSettings(),
+      ])
 
       for (let i = 0; i < this.selectedRowIds.length; i++) {
         const orderId = this.selectedRowIds[i]
@@ -513,13 +513,12 @@ export class ClientOrdersViewModel {
 
   async onClickContinueBtn(item) {
     try {
-      const storekeepers = await StorekeeperModel.getStorekeepers()
-
-      const destinations = await ClientModel.getDestinations()
-
-      const result = await UserModel.getPlatformSettings()
-
-      const order = await ClientModel.getOrderById(item._id)
+      const [storekeepers, destinations, result, order] = await Promise.all([
+        StorekeeperModel.getStorekeepers(),
+        ClientModel.getDestinations(),
+        UserModel.getPlatformSettings(),
+        ClientModel.getOrderById(item._id),
+      ])
 
       runInAction(() => {
         this.storekeepers = storekeepers

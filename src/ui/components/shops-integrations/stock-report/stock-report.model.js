@@ -160,9 +160,10 @@ export class StockReportModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getShops()
+
+      await Promise.all([this.getShops(), this.getStockGoods()])
+
       this.getDataGridState()
-      await this.getStockGoods()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

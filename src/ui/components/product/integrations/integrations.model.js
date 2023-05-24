@@ -68,8 +68,9 @@ export class IntegrationsModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getProductById()
-      await this.getProductsWithSkuById()
+
+      await Promise.all([this.getProductById(), this.getProductsWithSkuById()])
+
       this.updateColumnsModel()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

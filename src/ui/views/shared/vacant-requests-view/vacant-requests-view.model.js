@@ -139,8 +139,9 @@ export class VacantRequestsViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getUserInfo()
-      await this.getRequestsVacant()
-      await this.getTableModeState()
+
+      await Promise.all([this.getRequestsVacant(), this.getTableModeState()])
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

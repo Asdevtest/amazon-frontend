@@ -309,8 +309,7 @@ export class WarehouseMyTasksViewModel {
     for (let i = 0; i < boxes.length; i++) {
       const box = boxes[i]
 
-      await this.updateBox(box._id, box)
-      await this.setBoxBarcodeAttached(box._id, box)
+      await Promise.all([this.updateBox(box._id, box), this.setBoxBarcodeAttached(box._id, box)])
     }
   }
 
@@ -494,14 +493,14 @@ export class WarehouseMyTasksViewModel {
           requestBoxes.push(newBox)
         }
 
-        await this.resolveTask(task._id, requestBoxes)
-
-        await this.updateBarcodeAndStatusInOrder(newBoxes[0].items[0].order._id, {
-          status: OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
-        })
+        await Promise.all([
+          this.resolveTask(task._id, requestBoxes),
+          this.updateBarcodeAndStatusInOrder(newBoxes[0].items[0].order._id, {
+            status: OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
+          }),
+        ])
       } else {
-        await this.onSubmitUpdateBoxes(newBoxes)
-        await this.resolveTask(task._id)
+        await Promise.all([this.onSubmitUpdateBoxes(newBoxes), this.resolveTask(task._id)])
       }
 
       if (photos.length > 0) {
@@ -517,9 +516,7 @@ export class WarehouseMyTasksViewModel {
 
       this.onTriggerEditTaskModal()
 
-      await UserModel.getUserInfo()
-
-      await this.getTasksMy()
+      await Promise.all([UserModel.getUserInfo(), this.getTasksMy()])
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
@@ -663,15 +660,16 @@ export class WarehouseMyTasksViewModel {
 
   async onClickResolveBtn(itemId) {
     try {
-      const result = await StorekeeperModel.getTaskById(itemId)
-
-      const platformSettingsResult = await UserModel.getPlatformSettings()
+      const [task, platformSettings] = await Promise.all([
+        StorekeeperModel.getTaskById(itemId),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
-        this.volumeWeightCoefficient = platformSettingsResult.volumeWeightCoefficient
+        this.volumeWeightCoefficient = platformSettings.volumeWeightCoefficient
       })
 
-      this.onSelectTask(result)
+      this.onSelectTask(task)
       this.onTriggerEditTaskModal()
     } catch (error) {
       console.log(error)

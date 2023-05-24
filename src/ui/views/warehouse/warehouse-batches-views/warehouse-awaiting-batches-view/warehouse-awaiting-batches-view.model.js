@@ -336,9 +336,10 @@ export class WarehouseAwaitingBatchesViewModel {
         this.showCircularProgress = true
       })
 
-      const boxes = await BoxesModel.getBoxesReadyToBatchStorekeeper()
-
-      const result = await UserModel.getPlatformSettings()
+      const [boxes, result] = await Promise.all([
+        BoxesModel.getBoxesReadyToBatchStorekeeper(),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient

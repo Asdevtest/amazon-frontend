@@ -324,9 +324,10 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
   async getBoxes() {
     try {
-      const result = await BoxesModel.getBoxesForCurClient(BoxStatus.NEED_TO_UPDATE_THE_TARIFF)
-
-      const platformSettings = await UserModel.getPlatformSettings()
+      const [result, platformSettings] = await Promise.all([
+        BoxesModel.getBoxesForCurClient(BoxStatus.NEED_TO_UPDATE_THE_TARIFF),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.boxes = clientWarehouseDataConverter(result, platformSettings?.volumeWeightCoefficient).sort(

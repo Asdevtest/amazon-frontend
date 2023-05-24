@@ -384,9 +384,10 @@ export class ClientAwaitingBatchesViewModel {
         this.showCircularProgress = true
       })
 
-      const boxes = await BoxesModel.getBoxesReadyToBatchClient()
-
-      const result = await UserModel.getPlatformSettings()
+      const [boxes, result] = await Promise.all([
+        BoxesModel.getBoxesReadyToBatchClient(),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient

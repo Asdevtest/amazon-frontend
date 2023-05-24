@@ -115,8 +115,7 @@ export class RequestDetailCustomViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await this.getCustomRequestById()
-      await this.getRequestProposals()
+      await Promise.all([this.getCustomRequestById(), this.getRequestProposals()])
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

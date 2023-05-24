@@ -593,9 +593,10 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickEditBtn() {
     try {
-      const destinations = await ClientModel.getDestinations()
-
-      const storekeepersData = await StorekeeperModel.getStorekeepers()
+      const [destinations, storekeepersData] = await Promise.all([
+        ClientModel.getDestinations(),
+        StorekeeperModel.getStorekeepers(),
+      ])
 
       runInAction(() => {
         this.destinations = destinations
@@ -617,8 +618,10 @@ export class WarehouseMyWarehouseViewModel {
 
   async getDataToMoveBatch() {
     try {
-      const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
-      const result = await UserModel.getPlatformSettings()
+      const [batches, result] = await Promise.all([
+        BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
@@ -716,8 +719,10 @@ export class WarehouseMyWarehouseViewModel {
         return
       }
 
-      const destinations = await ClientModel.getDestinations()
-      const storekeepersData = await StorekeeperModel.getStorekeepers()
+      const [destinations, storekeepersData] = await Promise.all([
+        ClientModel.getDestinations(),
+        StorekeeperModel.getStorekeepers(),
+      ])
 
       runInAction(() => {
         this.destinations = destinations
@@ -939,8 +944,10 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickSplitBtn() {
     try {
-      const destinations = await ClientModel.getDestinations()
-      const storekeepersData = await StorekeeperModel.getStorekeepers()
+      const [destinations, storekeepersData] = await Promise.all([
+        ClientModel.getDestinations(),
+        StorekeeperModel.getStorekeepers(),
+      ])
 
       runInAction(() => {
         this.destinations = destinations
@@ -1019,9 +1026,7 @@ export class WarehouseMyWarehouseViewModel {
         return
       }
 
-      const destinations = await ClientModel.getDestinations()
-
-      const result = await UserModel.getPlatformSettings()
+      const [destinations, result] = await Promise.all([ClientModel.getDestinations(), UserModel.getPlatformSettings()])
 
       runInAction(() => {
         this.destinations = destinations
@@ -1172,9 +1177,10 @@ export class WarehouseMyWarehouseViewModel {
 
   async onSubmitCreateBatch(box) {
     try {
-      const boxes = await BoxesModel.getBoxesReadyToBatchStorekeeper()
-
-      const result = await UserModel.getPlatformSettings()
+      const [boxes, result] = await Promise.all([
+        BoxesModel.getBoxesReadyToBatchStorekeeper(),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.boxesData = boxes // clientWarehouseDataConverter(boxes, result.volumeWeightCoefficient)

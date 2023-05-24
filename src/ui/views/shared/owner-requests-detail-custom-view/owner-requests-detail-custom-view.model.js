@@ -273,9 +273,12 @@ export class OwnerRequestDetailCustomViewModel {
 
   async getCustomProposalsForRequestCur() {
     try {
-      this.platformSettings = await UserModel.getPlatformSettings()
+      const [platformSettings, result] = await Promise.all([
+        UserModel.getPlatformSettings(),
+        RequestProposalModel.getRequestProposalsCustomByRequestId(this.requestId),
+      ])
 
-      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(this.requestId)
+      this.platformSettings = platformSettings
 
       runInAction(() => {
         this.requestProposals = result
@@ -324,8 +327,8 @@ export class OwnerRequestDetailCustomViewModel {
   async onClickAcceptProposal(proposalId) {
     try {
       await RequestProposalModel.requestProposalAccept(proposalId)
-      await this.getCustomRequestCur()
-      await this.getCustomProposalsForRequestCur()
+
+      await Promise.all([this.getCustomRequestCur(), this.getCustomProposalsForRequestCur()])
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
@@ -387,8 +390,8 @@ export class OwnerRequestDetailCustomViewModel {
       await RequestProposalModel.requestProposalReject(this.curProposalId)
 
       this.onTriggerOpenModal('showConfirmModal')
-      await this.getCustomRequestCur()
-      await this.getCustomProposalsForRequestCur()
+
+      await Promise.all([this.getCustomRequestCur(), this.getCustomProposalsForRequestCur()])
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -512,8 +515,9 @@ export class OwnerRequestDetailCustomViewModel {
   async onRecoverRequest(timeoutAt, maxAmountOfProposals) {
     this.setRequestStatus(loadingStatuses.isLoading)
     await RequestModel.updateDeadline(this.requestId, timeoutAt, maxAmountOfProposals)
-    await this.getCustomRequestCur()
-    await this.getCustomProposalsForRequestCur()
+
+    await Promise.all([this.getCustomRequestCur(), this.getCustomProposalsForRequestCur()])
+
     this.setRequestStatus(loadingStatuses.success)
   }
 }

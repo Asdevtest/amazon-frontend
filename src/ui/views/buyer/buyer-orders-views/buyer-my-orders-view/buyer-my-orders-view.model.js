@@ -3,7 +3,6 @@ import { transformAndValidate } from 'class-transformer-validator'
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { navBarActiveSubCategory } from '@constants/navigation/navbar-active-category'
 import { routsPathes } from '@constants/navigation/routs-pathes'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
@@ -683,9 +682,13 @@ export class BuyerMyOrdersViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+
       await this.setColumnsModel()
+
       this.getDataGridState()
+
       await this.getOrdersMy()
+
       this.getPlatformSettings()
       this.getBuyersOrdersPaymentByStatus()
 
@@ -747,9 +750,11 @@ export class BuyerMyOrdersViewModel {
   async onClickOrder(orderId) {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
-      const hsCode = await ProductModel.getProductsHsCodeByGuid(orderData.product._id)
 
-      await this.getSuppliersPaymentMethods()
+      const [hsCode] = Promise.all([
+        ProductModel.getProductsHsCodeByGuid(orderData.product._id),
+        this.getSuppliersPaymentMethods(),
+      ])
 
       runInAction(() => {
         this.hsCodeData = hsCode

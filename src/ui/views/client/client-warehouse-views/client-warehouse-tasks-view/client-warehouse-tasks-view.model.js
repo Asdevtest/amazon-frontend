@@ -246,8 +246,8 @@ export class ClientWarehouseTasksViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       // this.getDataGridState()
-      await this.getStorekeepers()
-      await this.getTasksMy()
+
+      await Promise.all([this.getStorekeepers(), this.getTasksMy()])
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

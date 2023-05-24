@@ -143,10 +143,10 @@ export class AdminSettingsModel {
 
   async loadData() {
     try {
-      await this.getDestinations()
-      await this.getAdminSettings()
-      await this.getServerProxy()
       this.setRequestStatus(loadingStatuses.isLoading)
+
+      await Promise.all([this.getDestinations(), this.getAdminSettings(), this.getServerProxy()])
+
       this.getDataGridState()
 
       this.setRequestStatus(loadingStatuses.success)

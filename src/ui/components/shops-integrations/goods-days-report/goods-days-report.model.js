@@ -149,9 +149,9 @@ export class GoodsDaysReportModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getShops()
 
-      await this.getMyDailyReportsLast30Days()
+      await Promise.all([this.getShops(), this.getMyDailyReportsLast30Days()])
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

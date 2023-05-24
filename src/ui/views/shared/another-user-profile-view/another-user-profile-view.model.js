@@ -249,11 +249,11 @@ export class AnotherProfileViewModel {
 
   async openCreateOrder() {
     try {
-      const storekeepers = await StorekeeperModel.getStorekeepers()
-
-      const destinations = await ClientModel.getDestinations()
-
-      const result = await UserModel.getPlatformSettings()
+      const [storekeepers, destinations, result] = await Promise.all([
+        StorekeeperModel.getStorekeepers(),
+        ClientModel.getDestinations(),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.storekeepers = storekeepers
@@ -408,14 +408,14 @@ export class AnotherProfileViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getUserById()
+
+      await Promise.all([
+        this.getUserById(),
+        this.getProductsVacant(),
+        this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT] && this.getShops(),
+      ])
+
       this.getDataGridState()
-
-      if (this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT]) {
-        await this.getShops()
-      }
-
-      await this.getProductsVacant()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

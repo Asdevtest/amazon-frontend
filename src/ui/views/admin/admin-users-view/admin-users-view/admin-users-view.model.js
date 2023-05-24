@@ -112,10 +112,8 @@ export class AdminUsersViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      await this.getUsers()
 
-      await this.getGroupPermissions()
-      await this.getSinglePermissions()
+      await Promise.all([this.getUsers(), this.getGroupPermissions(), this.getSinglePermissions()])
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -216,9 +214,9 @@ export class AdminUsersViewModel {
       this.setRequestStatus(loadingStatuses.success)
 
       this.onTriggerOpenModal('showEditUserModal')
-      await this.getUsers()
-      await this.getGroupPermissions()
-      await this.getSinglePermissions()
+
+      await Promise.all([this.getUsers(), this.getGroupPermissions(), this.getSinglePermissions()])
+
       runInAction(() => {
         this.changeNameAndEmail = { email: '', name: '' }
       })
