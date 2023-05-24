@@ -18,7 +18,6 @@ import { subUsersColumns } from '@components/table/table-columns/sub-users-colum
 
 import { addIdDataConverter, clientInventoryDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
 export class SubUsersViewModel {
@@ -44,7 +43,7 @@ export class SubUsersViewModel {
   showPermissionModal = false
   showConfirmModal = false
 
-  selectionModel = undefined
+  rowSelectionModel = undefined
 
   rowHandlers = {
     onClickRemoveBtn: row => this.onClickRemoveBtn(row),
@@ -52,13 +51,13 @@ export class SubUsersViewModel {
     onClickSaveComment: (id, comment) => this.onClickSaveComment(id, comment),
   }
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = subUsersColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = subUsersColumns(this.rowHandlers)
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   warningInfoModalSettings = {
     isWarning: false,
@@ -69,30 +68,11 @@ export class SubUsersViewModel {
     return UserModel.userInfo
   }
 
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = subUsersColumns(this.rowHandlers, this.firstRowId).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
   constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
 
     reaction(
       () => this.subUsersData,
@@ -111,16 +91,27 @@ export class SubUsersViewModel {
     )
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
-  }
-
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
   }
 
   async onClickSaveComment(id, comment) {
@@ -136,18 +127,13 @@ export class SubUsersViewModel {
     }
   }
 
-  setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
-    })
-
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.OVERALL_SUB_USERS)
   }
@@ -157,15 +143,10 @@ export class SubUsersViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = subUsersColumns(this.rowHandlers, this.firstRowId).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
@@ -196,13 +177,7 @@ export class SubUsersViewModel {
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
-    })
-  }
-
-  onChangeCurPage = e => {
-    runInAction(() => {
-      this.curPage = e
+      this.rowSelectionModel = model
     })
   }
 
@@ -210,12 +185,8 @@ export class SubUsersViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
-  }
 
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
-    })
+    this.setDataGridState()
   }
 
   async loadData() {

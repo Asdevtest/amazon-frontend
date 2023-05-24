@@ -46,7 +46,6 @@ import { WarehouseBodyRow } from '@components/table/table-rows/warehouse'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull } from '@utils/checks'
 import { formatDateWithoutTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import {
   clearEverythingExceptNumbers,
@@ -942,10 +941,13 @@ export const EditOrderModal = observer(
           </Button>
         </Box>
 
-        {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) && (
-          <div>
-            <Typography className={classNames.addBoxTitle}>{t(TranslationKey['Add boxes for this order'])}</Typography>
+        <div className={classNames.addBoxButtonAndCommentsWrapper}>
+          {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) ? (
             <div className={classNames.addBoxButtonWrapper}>
+              <Typography className={classNames.addBoxTitle}>
+                {t(TranslationKey['Add boxes for this order'])}
+              </Typography>
+
               <Button
                 tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])}
                 className={classNames.addBoxButton}
@@ -953,14 +955,16 @@ export const EditOrderModal = observer(
               >
                 {t(TranslationKey['Add a box'])}
               </Button>
-
-              <Button className={classNames.seeCommentsButton} onClick={() => setCommentModalModal(!commentModal)}>
-                <Typography className={classNames.seeCommentsText}>{t(TranslationKey['See comments'])}</Typography>
-                <VisibilityIcon className={classNames.seeCommentsIcon} />
-              </Button>
             </div>
-          </div>
-        )}
+          ) : (
+            <div />
+          )}
+
+          <Button className={classNames.seeCommentsButton} onClick={() => setCommentModalModal(!commentModal)}>
+            <Typography className={classNames.seeCommentsText}>{t(TranslationKey['See comments'])}</Typography>
+            <VisibilityIcon className={classNames.seeCommentsIcon} />
+          </Button>
+        </div>
 
         {boxesForCreation.length > 0 && (
           <>
@@ -1191,13 +1195,6 @@ export const EditOrderModal = observer(
           />
         </Modal>
 
-        <Modal missClickModalOn openModal={commentModal} setOpenModal={() => setCommentModalModal(!commentModal)}>
-          <CommentsForm
-            comments={orderFields.commentsFromTask}
-            onCloseModal={() => setCommentModalModal(!commentModal)}
-          />
-        </Modal>
-
         <Modal
           missClickModalOn={!isOnlyRead}
           openModal={showAddOrEditSupplierModal}
@@ -1218,6 +1215,20 @@ export const EditOrderModal = observer(
             onTriggerShowModal={() => {
               setForceReadOnly(false)
               setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
+            }}
+          />
+        </Modal>
+
+        <Modal
+          openModal={commentModal}
+          setOpenModal={() => {
+            setCommentModalModal(!commentModal)
+          }}
+        >
+          <CommentsForm
+            comments={orderFields.commentsFromTask}
+            onCloseModal={() => {
+              setCommentModalModal(!commentModal)
             }}
           />
         </Modal>

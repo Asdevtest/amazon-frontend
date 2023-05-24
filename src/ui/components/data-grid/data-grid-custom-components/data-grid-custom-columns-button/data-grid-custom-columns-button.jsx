@@ -18,7 +18,7 @@ export const DataGridCustomColumnsButton = props => {
   const { classes: classNames } = useClassNames()
   const { className, columsBtnSettings, ...other } = props
 
-  const { columnsModel, changeColumnsModel } = columsBtnSettings
+  const { columnsModel, changeColumnsModel, columnVisibilityModel, onColumnVisibilityModelChange } = columsBtnSettings
 
   const [menuAnchor, setMenuAnchor] = useState(null)
   const handleClick = event => {
@@ -45,16 +45,19 @@ export const DataGridCustomColumnsButton = props => {
   }, [nameSearchValue])
 
   const onClickItem = field => {
-    changeColumnsModel(
-      columnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: cur.field === field ? !cur.hide : cur.hide }), {}),
-    )
+    onColumnVisibilityModelChange({
+      ...columnVisibilityModel,
+      [field]: columnVisibilityModel?.[field] !== false ? false : true,
+    })
   }
 
+  const isSomeItemChecked = columnVisibilityModel && Object.values(columnVisibilityModel).some(el => el === false)
+
   const onClickAllItemBtn = () => {
-    if (columnsModel.some(el => el.hide)) {
-      changeColumnsModel(columnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: false }), {}))
+    if (isSomeItemChecked) {
+      onColumnVisibilityModelChange(columnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: true }), {}))
     } else {
-      changeColumnsModel(columnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: true }), {}))
+      onColumnVisibilityModelChange(columnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: false }), {}))
     }
   }
 
@@ -90,13 +93,23 @@ export const DataGridCustomColumnsButton = props => {
 
           <div className={classNames.shopsBody}>
             <div className={classNames.shop}>
-              <Checkbox color="primary" checked={!columnsModel.some(el => el.hide)} onClick={onClickAllItemBtn} />
+              <Checkbox
+                color="primary"
+                checked={!columnVisibilityModel || !isSomeItemChecked}
+                onClick={onClickAllItemBtn}
+              />
               <div className={classNames.shopName}>{t(TranslationKey.All)}</div>
             </div>
 
             {itemsForRender.map((el, index) => (
               <div key={index} className={classNames.shop}>
-                <Checkbox color="primary" checked={!el.hide} onClick={() => onClickItem(el.field)} />
+                <Checkbox
+                  color="primary"
+                  checked={
+                    !columnVisibilityModel || (columnVisibilityModel && columnVisibilityModel?.[el.field] !== false)
+                  }
+                  onClick={() => onClickItem(el.field)}
+                />
                 <div className={classNames.shopName}>{el.headerName}</div>
               </div>
             ))}

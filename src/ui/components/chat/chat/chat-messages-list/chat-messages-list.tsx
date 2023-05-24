@@ -141,6 +141,7 @@ export const ChatMessagesList: FC<Props> = observer(
       } else if (handlers && checkIsChatMessageDataProposalResultEditedContract(messageItem)) {
         return (
           <ChatMessageRequestProposalResultEdited
+            isLastMessage={isLastMessage}
             message={messageItem}
             handlers={{
               onClickProposalResultAccept: handlers.onClickProposalResultAccept,

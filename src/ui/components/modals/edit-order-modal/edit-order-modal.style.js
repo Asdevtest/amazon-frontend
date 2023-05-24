@@ -170,13 +170,18 @@ export const useClassNames = makeStyles()(theme => ({
 
   addBoxTitle: {
     marginBottom: '10px',
-    marginTop: '40px',
     color: theme.palette.text.general,
     fontSize: '18px',
     fontWeight: 400,
     lineHeight: '140%',
   },
   addBoxButtonWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  addBoxButtonAndCommentsWrapper: {
+    marginTop: '40px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'end',

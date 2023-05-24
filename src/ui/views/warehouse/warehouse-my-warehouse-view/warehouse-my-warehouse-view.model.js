@@ -132,22 +132,12 @@ export class WarehouseMyWarehouseViewModel {
 
   rowCount = 0
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
   densityModel = 'compact'
-  columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.firstRowId, this.userInfo)
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.firstRowId, this.userInfo).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
+  columnsModel = warehouseBoxesViewColumns(this.rowHandlers, () => this.userInfo)
 
   get userInfo() {
     return UserModel.userInfo
@@ -164,16 +154,6 @@ export class WarehouseMyWarehouseViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
       () => this.boxesMy,
       () => {
         runInAction(() => {
@@ -187,15 +167,15 @@ export class WarehouseMyWarehouseViewModel {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      runInAction(() => {
-        this.boxesMy = warehouseBoxesDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient)
-      })
+  // async updateColumnsModel() {
+  //   if (await SettingsModel.languageTag) {
+  //     runInAction(() => {
+  //       this.boxesMy = warehouseBoxesDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient)
+  //     })
 
-      this.getDataGridState()
-    }
-  }
+  //     this.getDataGridState()
+  //   }
+  // }
 
   async updateUserInfo() {
     await UserModel.getUserInfo()
@@ -205,6 +185,24 @@ export class WarehouseMyWarehouseViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+    this.setDataGridState()
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+    this.getBoxesMy()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+    this.getBoxesMy()
   }
 
   onTriggerShowEditBoxModalR(box) {
@@ -214,18 +212,13 @@ export class WarehouseMyWarehouseViewModel {
     })
   }
 
-  setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
-    })
-
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
   }
@@ -235,26 +228,12 @@ export class WarehouseMyWarehouseViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.firstRowId, this.userInfo).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
-      this.curPage = 0
-    })
-
-    this.getBoxesMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -268,6 +247,7 @@ export class WarehouseMyWarehouseViewModel {
       this.sortModel = sortModel
     })
 
+    this.setDataGridState()
     this.getBoxesMy()
   }
 
@@ -1219,14 +1199,6 @@ export class WarehouseMyWarehouseViewModel {
     })
   }
 
-  onChangeCurPage = e => {
-    runInAction(() => {
-      this.curPage = e
-    })
-
-    this.getBoxesMy()
-  }
-
   onTriggerOpenModal(modalState) {
     runInAction(() => {
       this[modalState] = !this[modalState]
@@ -1263,8 +1235,8 @@ export class WarehouseMyWarehouseViewModel {
 
         // storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 
-        limit: this.rowsPerPage,
-        offset: this.curPage * this.rowsPerPage,
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
 
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',

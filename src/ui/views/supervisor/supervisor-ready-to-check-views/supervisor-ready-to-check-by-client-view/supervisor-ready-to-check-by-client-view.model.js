@@ -26,8 +26,9 @@ export class SupervisorReadyToCheckByClientViewModel {
     onPickUp: row => this.onClickTableRowBtn(row),
   }
 
-  firstRowId = undefined
-  columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor, this.firstRowId)
+  columnVisibilityModel = {}
+
+  columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor)
 
   constructor({ history }) {
     runInAction(() => {
@@ -36,12 +37,9 @@ export class SupervisorReadyToCheckByClientViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  changeColumnsModel(newHideState) {
+  onColumnVisibilityModelChange(model) {
     runInAction(() => {
-      this.columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor, this.firstRowId).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
+      this.columnVisibilityModel = model
     })
   }
 
@@ -52,12 +50,6 @@ export class SupervisorReadyToCheckByClientViewModel {
   onSelectionModel(model) {
     runInAction(() => {
       this.selectedRowIds = model
-    })
-  }
-
-  setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
     })
   }
 

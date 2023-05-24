@@ -2,7 +2,7 @@
 import { cx } from '@emotion/css'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Typography } from '@mui/material'
+import { Tooltip, Typography } from '@mui/material'
 
 import React, { useState, useEffect } from 'react'
 
@@ -29,7 +29,6 @@ import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
 import {
-  calcActualBatchWeight,
   calcPriceForBox,
   calcVolumeWeightForBox,
   checkActualBatchWeightGreaterVolumeBatchWeight,
@@ -177,11 +176,7 @@ export const BatchInfoModal = observer(
               inputClasses={cx(classNames.infoField, classNames.batchTitleField)}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey.Tariff)}
-              value={
-                (currentBatch.boxes &&
-                  getShortenStringIfLongerThanCount(getFullTariffTextForBoxOrOrder(currentBatch.boxes?.[0]), 11)) ||
-                ''
-              }
+              value={getFullTariffTextForBoxOrOrder(batch.boxes?.[0])}
               placeholder={t(TranslationKey.Missing)}
             />
 
@@ -360,7 +355,7 @@ export const BatchInfoModal = observer(
               // autoHeight
               pagination
               localeText={getLocalizationByLanguageTag()}
-              rowsPerPageOptions={[50, 100]}
+              pageSizeOptions={[50, 100]}
               classes={{
                 columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
                 columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
@@ -371,9 +366,9 @@ export const BatchInfoModal = observer(
                 border: `1px solid  #EBEBEB !important`,
                 boxShadow: '0px 2px 10px 2px #EBEBEB !important',
               }}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
+              slots={{
+                toolbar: DataGridCustomToolbar,
+                columnMenuIcon: FilterAltOutlinedIcon,
                 // Footer: () => (
                 //   <div className={classNames.boxCounterWrapper}>
                 //     <Typography className={classNames.boxCounterText}>

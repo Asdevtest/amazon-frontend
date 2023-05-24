@@ -34,7 +34,7 @@ export const ModeratorMyProductsViewRaw = props => {
                 filterModel={filterModel}
                 page={curPage}
                 pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
+                pageSizeOptions={[15, 25, 50, 100]}
                 rows={getCurrentData()}
                 rowHeight={100}
                 components={{
@@ -43,7 +43,7 @@ export const ModeratorMyProductsViewRaw = props => {
                 density={densityModel}
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => {
+                onRowSelectionModelChange={newSelection => {
                   onSelectionModel(newSelection[0])
                 }}
                 onSortModelChange={onChangeSortingModel}

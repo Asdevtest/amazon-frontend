@@ -44,6 +44,7 @@ import { t } from '@utils/translations'
 
 import { VacantRequestsViewModel } from './vacant-requests-view.model'
 import { styles } from './vacant-requests-view.style'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
 export const VacantRequestsViewRaw = props => {
   const [viewModel] = useState(() => new VacantRequestsViewModel({ history: props.history, location: props.location }))
@@ -151,7 +152,11 @@ export const VacantRequestsViewRaw = props => {
           </div>
         </div>
 
-        {getSortedData(viewModel.sortMode)?.length && viewModel.viewMode !== tableViewMode.TABLE ? (
+        {viewModel.requestStatus === loadingStatuses.isLoading ? (
+          <div className={classNames.loadingWrapper}>
+            <CircularProgressWithLabel />
+          </div>
+        ) : getSortedData(viewModel.sortMode)?.length && viewModel.viewMode !== tableViewMode.TABLE ? (
           <Box
             container
             classes={{ root: classNames.dashboardCardWrapper }}
@@ -163,8 +168,6 @@ export const VacantRequestsViewRaw = props => {
                 ? 'repeat(auto-fill, minmax(297px, 1fr))'
                 : 'repeat(auto-fill, 100%'
             }
-            // gridGap="20px"
-            // gridGap="35px"
             gap={'35px'}
           >
             {getSortedData(viewModel.sortMode)?.map((item, index) =>
@@ -206,25 +209,32 @@ export const VacantRequestsViewRaw = props => {
               rowCount={viewModel.rowCount}
               sortModel={viewModel.sortModel}
               filterModel={viewModel.filterModel}
-              page={viewModel.curPage}
-              pageSize={viewModel.rowsPerPage}
-              rowsPerPageOptions={[15, 25, 50, 100]}
+              columnVisibilityModel={viewModel.columnVisibilityModel}
+              paginationModel={viewModel.paginationModel}
+              pageSizeOptions={[15, 25, 50, 100]}
               rows={getSortedData(viewModel.sortMode)}
               rowHeight={75}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
-                ColumnMenu: DataGridCustomColumnMenuComponent,
+              slots={{
+                toolbar: DataGridCustomToolbar,
+                columnMenuIcon: FilterAltOutlinedIcon,
+                columnMenu: DataGridCustomColumnMenuComponent,
               }}
-              columnVisibilityModel={viewModel.columnVisibilityModel}
+              slotProps={{
+                toolbar: {
+                  columsBtnSettings: {
+                    columnsModel: viewModel.columnsModel,
+                    columnVisibilityModel: viewModel.columnVisibilityModel,
+                    onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                  },
+                },
+              }}
               columns={viewModel.columnsModel}
               loading={viewModel.requestStatus === loadingStatuses.isLoading}
               getRowClassName={getRowClassName}
-              onPageChange={viewModel.onChangeCurPage}
               onSortModelChange={viewModel.onChangeSortingModel}
-              onPageSizeChange={viewModel.onChangeRowsPerPage}
               onFilterModelChange={viewModel.onChangeFilterModel}
-              // onStateChange={viewModel.setFirstRowId}
+              onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+              onPaginationModelChange={viewModel.onChangePaginationModelChange}
               onRowDoubleClick={e => viewModel.onClickViewMore(e.row._id)}
             />
           </div>

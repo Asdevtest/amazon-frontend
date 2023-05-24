@@ -39,23 +39,22 @@ export const GroupPermissions = observer(() => {
     densityModel,
     columnsModel,
 
-    curPage,
-    rowsPerPage,
+    columnVisibilityModel,
+    paginationModel,
+
     addOrEditGroupPermissionSettings,
     confirmModalSettings,
     showAddOrEditGroupPermissionModal,
     showConfirmModal,
     singlePermissions,
-    onChangeCurPage,
-    onChangeRowsPerPage,
     onTriggerOpenModal,
     onClickAddBtn,
     onClickCancelBtn,
 
-    setDataGridState,
     onChangeSortingModel,
     onChangeFilterModel,
-    changeColumnsModel,
+    onColumnVisibilityModelChange,
+    onChangePaginationModelChange,
   } = gpModel.current
 
   return (
@@ -79,28 +78,30 @@ export const GroupPermissions = observer(() => {
           localeText={getLocalizationByLanguageTag()}
           sortModel={sortModel}
           filterModel={filterModel}
-          page={curPage}
-          pageSize={rowsPerPage}
-          rowsPerPageOptions={[15, 25, 50, 100]}
+          columnVisibilityModel={columnVisibilityModel}
+          paginationModel={paginationModel}
+          pageSizeOptions={[15, 25, 50, 100]}
           rows={getCurrentData()}
           getRowHeight={() => 'auto'}
-          components={{
-            Toolbar: DataGridCustomToolbar,
-            ColumnMenuIcon: FilterAltOutlinedIcon,
+          slots={{
+            toolbar: DataGridCustomToolbar,
+            columnMenuIcon: FilterAltOutlinedIcon,
           }}
-          componentsProps={{
+          slotProps={{
             toolbar: {
-              columsBtnSettings: { columnsModel, changeColumnsModel },
+              columsBtnSettings: {
+                columnsModel,
+                columnVisibilityModel,
+                onColumnVisibilityModelChange,
+              },
             },
           }}
           density={densityModel}
           columns={columnsModel}
           loading={requestStatus === loadingStatuses.isLoading}
           onSortModelChange={onChangeSortingModel}
-          onPageSizeChange={onChangeRowsPerPage}
-          onPageChange={onChangeCurPage}
-          onStateChange={setDataGridState}
-          onFilterModelChange={model => onChangeFilterModel(model)}
+          onPaginationModelChange={onChangePaginationModelChange}
+          onFilterModelChange={onChangeFilterModel}
         />
       </div>
 

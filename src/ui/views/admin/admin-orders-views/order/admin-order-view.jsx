@@ -49,6 +49,8 @@ export const AdminOrderViewRaw = props => {
         </div>
         {viewModel.order ? (
           <OrderContent
+            storekeepers={viewModel.storekeepers}
+            destinations={viewModel.destinations}
             selectedSupplier={viewModel.selectedSupplier}
             order={viewModel.order}
             boxes={viewModel.orderBoxes}

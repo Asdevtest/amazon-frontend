@@ -16,7 +16,6 @@ import { UserModel } from '@models/user-model'
 import { clientBatchesViewColumns } from '@components/table/table-columns/client/client-batches-columns'
 
 import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -67,10 +66,11 @@ export class ClientSentBatchesViewModel {
   rowCount = 0
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = clientBatchesViewColumns(this.rowHandlers, this.languageTag)
+  columnsModel = clientBatchesViewColumns()
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   get userInfo() {
     return UserModel.userInfo
@@ -92,47 +92,12 @@ export class ClientSentBatchesViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => SettingsModel.languageTag,
-      () => {
-        this.languageTag = SettingsModel.languageTag
-        this.updateColumnsModel()
-      },
-    )
-
-    reaction(
       () => this.batches,
       () =>
         runInAction(() => {
           this.currentData = this.getCurrentData()
         }),
     )
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
-  }
-
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
-
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_BATCHES)
   }
 
   onTriggerArchive() {
@@ -176,37 +141,53 @@ export class ClientSentBatchesViewModel {
     }
   }
 
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_BATCHES)
+  }
+
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_BATCHES]
 
-    if (state) {
-      runInAction(() => {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = clientBatchesViewColumns(this.rowHandlers, this.languageTag).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
-      })
-    }
+    runInAction(() => {
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
+    })
   }
 
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
     })
+    this.setDataGridState()
 
     this.getBatchesPagMy()
   }
 
-  onChangeRowsPerPage(e) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.rowsPerPage = e
+      this.paginationModel = model
     })
 
+    this.setDataGridState()
+    this.getBatchesPagMy()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
     this.getBatchesPagMy()
   }
 
@@ -221,6 +202,7 @@ export class ClientSentBatchesViewModel {
       this.sortModel = sortModel
     })
 
+    this.setDataGridState()
     this.getBatchesPagMy()
   }
 
@@ -342,14 +324,6 @@ export class ClientSentBatchesViewModel {
     }
   }
 
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
-
-    this.getBatchesPagMy()
-  }
-
   async getBatchesPagMy() {
     try {
       // const filter =
@@ -372,13 +346,11 @@ export class ClientSentBatchesViewModel {
         ),
       })
 
-      // const  [archive][$eq]=${this.isArchive ? 'true' : 'false'}
-
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.HAS_DISPATCHED,
         options: {
-          limit: this.rowsPerPage,
-          offset: this.curPage * this.rowsPerPage,
+          limit: this.paginationModel.pageSize,
+          offset: this.paginationModel.page * this.paginationModel.pageSize,
 
           archive: this.isArchive,
 

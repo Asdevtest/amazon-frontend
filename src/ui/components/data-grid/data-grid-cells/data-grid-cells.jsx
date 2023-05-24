@@ -60,7 +60,7 @@ import { Input } from '@components/shared/input'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { ClockIcon } from '@components/shared/svg-icons'
+import { BoxArrow, ClockIcon, CubeIcon, EditIcon, EqualIcon, PlusIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
@@ -489,11 +489,11 @@ export const SupplierCell = React.memo(
   withStyles(
     ({ classes: classNames, supplierName, supplierLink }) => (
       <>
-        <Typography className={classNames.researcherCell}>{supplierName || '-'}</Typography>
+        {!supplierName && <Typography className={classNames.researcherCell}>-</Typography>}
 
-        {supplierLink && (
+        {supplierName && (
           <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(supplierLink)}>
-            <Typography className={classNames.noActiveLink}>{supplierLink}</Typography>
+            <Typography className={classNames.noActiveLink}>{supplierName}</Typography>
           </Link>
         )}
       </>
@@ -1236,7 +1236,7 @@ export const RenderFieldValueCell = React.memo(
 
 export const BatchTrackingCell = React.memo(
   withStyles(
-    ({ classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled, languageTag }) => (
+    ({ classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled }) => (
       <div className={classNames.batchTrackingWrapper}>
         <Field
           containerClasses={cx(classNames.batchTrackingContainer)}
@@ -1716,11 +1716,11 @@ export const RequestStatusCell = React.memo(
 
 export const MultilineRequestStatusCell = React.memo(
   withStyles(({ classes: classNames, status, fontSize = '14px', languageTag }) => {
-    const [statusTranslate, setStatusTranslate] = useState(MyRequestStatusTranslate(status))
+    // const [statusTranslate, setStatusTranslate] = useState(MyRequestStatusTranslate(status))
 
-    useEffect(() => {
-      setStatusTranslate(MyRequestStatusTranslate(status))
-    }, [languageTag])
+    // useEffect(() => {
+    //   setStatusTranslate(MyRequestStatusTranslate(status))
+    // }, [languageTag])
 
     const colorByStatus = () => {
       if ([RequestStatus.DRAFT].includes(status)) {
@@ -1750,7 +1750,8 @@ export const MultilineRequestStatusCell = React.memo(
     return (
       <div className={classNames.multilineTextWrapper}>
         <Typography className={classNames.multilineStatusText} style={{ color: colorStatus, fontSize }}>
-          {statusTranslate}
+          {/* {statusTranslate} */}
+          {MyRequestStatusTranslate(status)}
         </Typography>
       </div>
     )
@@ -1813,7 +1814,7 @@ export const TaskDescriptionCell = React.memo(
               index !== task.boxesBefore.length - 1 ? (
                 <div key={index} className={classNames.renderBoxWrapper}>
                   {renderBox(box, index)}
-                  <img key={index + '+'} src="/assets/icons/+.svg" className={classNames.taskDescriptionIcon} />
+                  <PlusIcon className={classNames.taskDescriptionIcon} />
                 </div>
               ) : (
                 renderBox(box, index, task.boxesBefore.length === 1)
@@ -1822,14 +1823,14 @@ export const TaskDescriptionCell = React.memo(
           </div>
         )}
 
-        <img src="/assets/icons/equal.svg" className={classNames.taskDescriptionIcon} />
+        <EqualIcon className={classNames.taskDescriptionIcon} />
 
         <div className={classNames.sideWrapper}>
           {task.boxes?.map((box, index) =>
             index !== task.boxes.length - 1 ? (
               <div key={index} className={classNames.renderBoxWrapper}>
                 {renderBox(box, index)}
-                <img key={index + '+'} src="/assets/icons/+.svg" className={classNames.taskDescriptionIcon} />
+                <PlusIcon className={classNames.taskDescriptionIcon} />
               </div>
             ) : (
               renderBox(box, index, task.boxes.length === 1)
@@ -1847,20 +1848,20 @@ export const TaskDescriptionCell = React.memo(
       <div className={classNames.blockProductsImagesWrapper}>
         <div className={classNames.receiveOrEditWrapper}>
           <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} />
-          <img src="/assets/icons/box-arrow.svg" className={classNames.boxArrowSvg} />
+          <BoxArrow className={classNames.boxArrowSvg} />
 
           <div className={classNames.gridBoxesWrapper}>
             {task.boxesBefore.map((el, i) => (
               <div key={i} className={classNames.gridBoxWrapper}>
                 {el.amount > 1 && (
                   <div className={classNames.superboxWrapper}>
-                    <img src="/assets/icons/cube.svg" />
+                    <CubeIcon className={classNames.cubeIconSvg} />
                     <Typography className={classNames.imgNum}>{el.amount > 1 && ` x${el.amount}`}</Typography>
                   </div>
                 )}
-                <Grid container spacing={2} className={classNames.gridEditWrapper}>
+                <div className={classNames.gridEditWrapper}>
                   {el.items.map((product, productIndex) => renderProductImages(product, productIndex))}
-                </Grid>
+                </div>
               </div>
             ))}
           </div>
@@ -1872,20 +1873,20 @@ export const TaskDescriptionCell = React.memo(
       <div className={classNames.blockProductsImagesWrapper}>
         <div className={classNames.receiveOrEditWrapper}>
           <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} />
-          <img src="/assets/icons/box-edit.svg" className={classNames.boxEditSvg} />
+          <EditIcon className={classNames.boxEditSvg} />
 
           {task.boxesBefore[0]?.amount > 1 && (
             <div className={classNames.superboxWrapper}>
-              <img src="/assets/icons/cube.svg" />
+              <CubeIcon className={classNames.cubeIconSvg} />
               <Typography className={classNames.imgNum}>
                 {task.boxesBefore[0].amount > 1 && ` x${task.boxesBefore[0].amount}`}
               </Typography>
             </div>
           )}
 
-          <Grid container spacing={2} className={classNames.gridEditWrapper}>
+          <div className={classNames.gridEditWrapper}>
             {task.boxesBefore[0]?.items.map((product, productIndex) => renderProductImages(product, productIndex))}
-          </Grid>
+          </div>
         </div>
       </div>
     )

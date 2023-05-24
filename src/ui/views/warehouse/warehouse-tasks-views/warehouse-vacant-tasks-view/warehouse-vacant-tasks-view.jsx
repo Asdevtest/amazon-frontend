@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Alert, Button } from '@mui/material'
+import { Alert } from '@mui/material'
 
 import React, { useEffect, useState } from 'react'
 
@@ -31,6 +31,7 @@ import { t } from '@utils/translations'
 
 import { WarehouseVacantViewModel } from './warehouse-vacant-tasks-view.model'
 import { styles } from './warehouse-vacant-tasks-view.style'
+import { Button } from '@components/shared/buttons/button'
 
 export const WarehouseVacantTasksViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseVacantViewModel({ history: props.history }))
@@ -64,7 +65,6 @@ export const WarehouseVacantTasksViewRaw = props => {
           )}
 
           <Button
-            variant="contained"
             disabled={
               !viewModel.selectedTasks.length ||
               viewModel.selectedTasks.length > 1 ||
@@ -82,7 +82,6 @@ export const WarehouseVacantTasksViewRaw = props => {
         <div className={classNames.headerWrapper}>
           {window.innerWidth > 1281 && (
             <Button
-              variant="contained"
               disabled={!viewModel.selectedTasks.length}
               className={classNames.pickupOrdersButton}
               onClick={viewModel.onClickPickupManyTasksBtn}
@@ -151,32 +150,32 @@ export const WarehouseVacantTasksViewRaw = props => {
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
-            page={viewModel.curPage}
-            pageSize={viewModel.rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
             getRowHeight={() => 148}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
             }}
-            componentsProps={{
+            slotProps={{
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
-                  changeColumnsModel: viewModel.changeColumnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                 },
               },
             }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onSelectionModelChange={viewModel.onSelectionModel}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
-            onPageSizeChange={viewModel.onChangeRowsPerPage}
-            onPageChange={viewModel.onChangeCurPage}
-            onStateChange={viewModel.setDataGridState}
-            onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onFilterModelChange={viewModel.onChangeFilterModel}
             onRowDoubleClick={params => viewModel.setCurrentOpenedTask(params.row.originalData)}
           />
         </div>

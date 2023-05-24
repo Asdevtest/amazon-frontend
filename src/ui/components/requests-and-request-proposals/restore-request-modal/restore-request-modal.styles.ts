@@ -32,4 +32,8 @@ export const useRestoreRequestModalStyles = makeStyles()(theme => ({
     width: '100%',
     maxWidth: 'unset',
   },
+
+  errorInput: {
+    borderColor: theme.palette.text.red,
+  },
 }))

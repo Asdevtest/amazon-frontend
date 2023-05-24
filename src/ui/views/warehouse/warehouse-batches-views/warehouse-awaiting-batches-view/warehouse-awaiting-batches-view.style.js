@@ -121,7 +121,7 @@ export const styles = theme => ({
   },
   datagridWrapper: {
     marginTop: '10px',
-    height: '75vh',
+    height: 'calc(100vh - 250px)',
   },
 
   searchInput: {

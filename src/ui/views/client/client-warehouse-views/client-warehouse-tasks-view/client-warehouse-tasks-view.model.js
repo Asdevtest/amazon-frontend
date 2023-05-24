@@ -14,7 +14,6 @@ import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
-import { clientBoxesViewColumns } from '@components/table/table-columns/client/client-boxes-columns'
 import { clientTasksViewColumns } from '@components/table/table-columns/client/client-tasks-columns'
 
 import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
@@ -67,15 +66,9 @@ export class ClientWarehouseTasksViewModel {
   rowCount = 0
   sortModel = []
   filterModel = { items: [] }
-
-  curPage = 0
-  rowsPerPage = 15
-
-  curPageForTask = 0
-  rowsPerPageForTask = 15
-  rowsCount = 0
-
   densityModel = 'compact'
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   activeFilters = {
     priority: [],
@@ -107,29 +100,12 @@ export class ClientWarehouseTasksViewModel {
     return UserModel.userInfo
   }
 
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = clientTasksViewColumns(this.rowTaskHandlers).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
   constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
 
-    runInAction(() => {
-      this.history = history
-    })
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    // reaction(
-    //   () => SettingsModel.languageTag,
-    //   () => this.updateColumnsModel(),
-    // )
   }
 
   handleActivePriority(newPriority) {
@@ -192,63 +168,52 @@ export class ClientWarehouseTasksViewModel {
     })
   }
 
-  // async updateColumnsModel() {
-  //   if (await SettingsModel.languageTag) {
-  //     this.getDataGridState()
-  //   }
-  // }
-
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
   }
 
-  // setDataGridState(state) {
-  //   const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-  //     'sorting',
-  //     'filter',
-  //     'pagination',
-  //     'density',
-  //     'columns',
-  //   ])
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
 
-  //   SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
-  // }
+    this.getTasksMy()
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.getTasksMy()
+    this.setDataGridState()
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
+  }
 
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_WAREHOUSE]
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = state.columnsModel
-        this.columnsModel = clientTasksViewColumns(this.rowTaskHandlers).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
-    })
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
-      this.curPage = 0
-    })
-  }
-
-  onChangeRowsPerPageForTask(e) {
-    runInAction(() => {
-      this.rowsPerPageForTask = e
-      this.rowsPerPage = e
-      this.curPageForTask = 0
-
-      this.getTasksMy()
     })
   }
 
@@ -261,8 +226,10 @@ export class ClientWarehouseTasksViewModel {
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
-      this.getTasksMy()
     })
+
+    this.getTasksMy()
+    this.setDataGridState()
   }
 
   onSelectionModel(model) {
@@ -305,19 +272,6 @@ export class ClientWarehouseTasksViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onChangeCurPage = e => {
-    runInAction(() => {
-      this.curPage = e
-    })
-  }
-
-  onChangeCurPageForTask = e => {
-    runInAction(() => {
-      this.curPageForTask = e
-      this.getTasksMy()
-    })
   }
 
   onLeaveColumnField() {
@@ -380,8 +334,8 @@ export class ClientWarehouseTasksViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       const result = await ClientModel.getTasks({
         filters: this.getFilter(),
-        limit: this.rowsPerPage,
-        offset: this.curPageForTask * this.rowsPerPage,
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
 
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',

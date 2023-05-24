@@ -12,7 +12,7 @@ import {
 
 import { t } from '@utils/translations'
 
-export const shopsColumns = (handlers, firstRowId) => [
+export const shopsColumns = handlers => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
@@ -20,7 +20,7 @@ export const shopsColumns = (handlers, firstRowId) => [
 
     minWidth: 150,
     renderCell: params => <ShortDateCell value={params.value} />,
-    type: 'date',
+    // type: 'date',
   },
 
   {
@@ -44,7 +44,7 @@ export const shopsColumns = (handlers, firstRowId) => [
       return (
         <ShopsReportBtnsCell
           value={params.value}
-          isFirstRow={firstRowId === params.row.id}
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
           onClickSeeMore={onClickSeeStockReport}
         />
       )
@@ -80,7 +80,7 @@ export const shopsColumns = (handlers, firstRowId) => [
           tooltipSecondButton={t(TranslationKey['Remove a store from your list'])}
           handlers={handlersMemo}
           row={rowMemo}
-          isFirstRow={firstRowId === params.row.id}
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         />
       )
     },

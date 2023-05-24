@@ -111,7 +111,7 @@ export const ProductParameters = ({
                   toFixed(order.product.height / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2) +
                   ' x ' +
                   toFixed(order.product.length / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)
-                : 'Нет данных'
+                : t(TranslationKey['No data'])
             }`}</Typography>
           </div>
         }

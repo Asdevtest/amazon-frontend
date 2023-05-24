@@ -12,7 +12,6 @@ import { UserModel } from '@models/user-model'
 import { logisticsTariffsColumns } from '@components/table/table-columns/warehouse/logistics-tariffs-columns'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
 export class LogisticsTariffsModel {
@@ -44,13 +43,13 @@ export class LogisticsTariffsModel {
     onTriggerArchive: row => this.onTriggerArchiveBtn(row),
   }
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = logisticsTariffsColumns(this.rowHandlers, this.firstRowId, this.isArchive)
+  columnsModel = logisticsTariffsColumns(this.rowHandlers, this.isArchive)
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   get userInfo() {
     return UserModel.userInfo
@@ -59,35 +58,14 @@ export class LogisticsTariffsModel {
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
 
     reaction(
       () => this.isArchive,
-      () => this.loadData(),
+      () => {
+        this.updateColumns()
+        this.loadData()
+      },
     )
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = logisticsTariffsColumns(this.rowHandlers, this.firstRowId, this.isArchive).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
   }
 
   onTriggerArchiveBtn(row) {
@@ -128,18 +106,38 @@ export class LogisticsTariffsModel {
 
   onChangeFilterModel(model) {
     this.filterModel = model
+
+    this.setDataGridState()
   }
 
-  setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
 
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+  }
+
+  updateColumns() {
+    runInAction(() => {
+      this.columnsModel = logisticsTariffsColumns(this.rowHandlers, this.isArchive)
+    })
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_LOGISTICS_TARIFFS)
   }
@@ -147,21 +145,14 @@ export class LogisticsTariffsModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_LOGISTICS_TARIFFS]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
-
-      this.densityModel = state.density.value
-      this.columnsModel = logisticsTariffsColumns(this.rowHandlers, this.firstRowId, this.isArchive).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
-  }
-
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    runInAction(() => {
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
+    })
   }
 
   setRequestStatus(requestStatus) {
@@ -174,14 +165,12 @@ export class LogisticsTariffsModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
+
+    this.setDataGridState()
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
-  }
-
-  onChangeCurPage(e) {
-    this.curPage = e
+    this.rowSelectionModel = model
   }
 
   getCurrentData() {

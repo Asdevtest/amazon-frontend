@@ -12,7 +12,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import { ITab } from '@components/shared/i-tab/i-tab'
 
-import { checkIsBuyer, checkIsClient, checkIsResearcher } from '@utils/checks'
+import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { Freelance } from '../freelance'
@@ -115,7 +115,7 @@ export const ProductWrapper = observer(
                 label={t(TranslationKey['Basic information'])}
               />
 
-              {checkIsClient(curUserRole) && (
+              {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
                 <ITab
                   tooltipInfoContent={t(TranslationKey['All orders related to this product'])}
                   label={t(TranslationKey.Orders)}
@@ -123,7 +123,7 @@ export const ProductWrapper = observer(
                 />
               )}
 
-              {checkIsClient(curUserRole) && (
+              {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
                 <ITab
                   tooltipInfoContent={t(TranslationKey['Goods from the store, linked to the product card'])}
                   label={t(TranslationKey.Integrations)}
@@ -131,7 +131,9 @@ export const ProductWrapper = observer(
                 />
               )}
 
-              {checkIsClient(curUserRole) && <ITab label={t(TranslationKey.Freelance)} value={tabsValues.FREELANCE} />}
+              {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
+                <ITab label={t(TranslationKey.Freelance)} value={tabsValues.FREELANCE} />
+              )}
 
               {/* {!checkIsBuyer(curUserRole) && <ITab label={t(TranslationKey.Content)} value={tabsValues.LISTING} />} */}
 

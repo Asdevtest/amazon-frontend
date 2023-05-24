@@ -11,7 +11,7 @@ import {
 
 import { t } from '@utils/translations'
 
-export const depersonalizedPickColumns = (handlers, isSupervisor, firstRowId) => [
+export const depersonalizedPickColumns = (handlers, isSupervisor) => [
   {
     field: 'number',
     headerName: '№',
@@ -31,7 +31,7 @@ export const depersonalizedPickColumns = (handlers, isSupervisor, firstRowId) =>
 
       return (
         <NormalActionBtnCell
-          isFirstRow={firstRowId === params.row.id}
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
           tooltipText={
             isSupervisor
               ? t(TranslationKey['Assign a product card to a supervisor'])
@@ -53,6 +53,6 @@ export const depersonalizedPickColumns = (handlers, isSupervisor, firstRowId) =>
     minWidth: 150,
     flex: 1,
     renderCell: params => <NormDateCell value={params.value} />,
-    type: 'date',
+    // type: 'date',
   },
 ]

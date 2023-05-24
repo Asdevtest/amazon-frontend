@@ -155,7 +155,7 @@ export const ClientInventoryViewRaw = props => {
                   TranslationKey['Bind the selected product from the inventory to an item from the store'],
                 )}
                 disabled={viewModel.selectedRowIds.length !== 1}
-                className={cx(classNames.buttonOffset, classNames.blueButton)}
+                className={cx(classNames.buttonOffset)}
                 onClick={viewModel.onClickBindInventoryGoodsToStockBtn}
               >
                 {t(TranslationKey['Bind an product from Amazon'])}
@@ -164,21 +164,16 @@ export const ClientInventoryViewRaw = props => {
               <Button
                 tooltipInfoContent={t(TranslationKey['Supplier Addition Services'])}
                 disabled={!viewModel.selectedRowIds.length}
-                className={cx(classNames.buttonOffset, classNames.blueButton)}
+                className={cx(classNames.buttonOffset)}
                 onClick={viewModel.onClickAddSupplierBtn}
               >
                 {t(TranslationKey['Supplier search'])}
               </Button>
 
-              <Button
-                className={classNames.blueButton}
-                disabled={!viewModel.selectedRowIds.length}
-                onClick={viewModel.onClickParseProductsBtn}
-              >
+              <Button disabled={!viewModel.selectedRowIds.length} onClick={viewModel.onClickParseProductsBtn}>
                 {'Parse all'}
               </Button>
               <Button
-                className={classNames.blueButton}
                 tooltipInfoContent={t(TranslationKey['Product batches data'])}
                 disabled={viewModel.selectedRowIds.length !== 1}
                 onClick={viewModel.onClickProductLotDataBtn}
@@ -259,7 +254,7 @@ export const ClientInventoryViewRaw = props => {
               columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
               columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
               iconSeparator: classNames.iconSeparator,
-              menuIconButton: classNames.menuIconButton,
+              // menuIconButton: classNames.menuIconButton,
               iconButtonContainer: classNames.iconButtonContainer,
             }}
             sx={{
@@ -275,19 +270,20 @@ export const ClientInventoryViewRaw = props => {
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
-            page={viewModel.curPage}
-            pageSize={viewModel.rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
-            headerHeight={65}
+            columnHeaderHeight={65}
             rowHeight={160}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenu: DataGridCustomColumnMenuComponent,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
             }}
-            componentsProps={{
+            slotProps={{
               columnMenu: viewModel.columnMenuSettings,
+
               toolbar: {
                 resetFiltersBtnSettings: {
                   onClickResetFilters: viewModel.onClickResetFilters,
@@ -295,11 +291,12 @@ export const ClientInventoryViewRaw = props => {
                 },
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
-                  changeColumnsModel: viewModel.changeColumnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                 },
               },
             }}
-            selectionModel={viewModel.selectedRowIds}
+            rowSelectionModel={viewModel.selectedRowIds}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
@@ -307,11 +304,10 @@ export const ClientInventoryViewRaw = props => {
               viewModel.onHoverColumnField(params.field)
             }}
             onColumnHeaderLeave={viewModel.onLeaveColumnField}
-            onSelectionModelChange={viewModel.onSelectionModel}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
-            onPageSizeChange={viewModel.onChangeRowsPerPage}
-            onPageChange={viewModel.onChangeCurPage}
-            onStateChange={viewModel.setDataGridState}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onCellClick={(params, event) => {
               if (disableSelectionCells.includes(params.field)) {

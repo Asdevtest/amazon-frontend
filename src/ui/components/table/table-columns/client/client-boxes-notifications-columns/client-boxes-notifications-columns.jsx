@@ -36,7 +36,7 @@ export const clientBoxesNotificationsViewColumns = handlers => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
-    type: 'date',
+    // type: 'date',
   },
 
   {

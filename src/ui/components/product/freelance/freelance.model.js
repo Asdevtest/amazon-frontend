@@ -1,14 +1,16 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestSubType, RequestType } from '@constants/requests/request-type'
-import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
+import {
+  freelanceRequestType,
+  freelanceRequestTypeByCode,
+  freelanceRequestTypeByKey,
+} from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { RequestProposalModel } from '@models/request-proposal'
 import { RequestModel } from '@models/request-model'
-import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
 import { productMyRequestsViewColumns } from '@components/table/table-columns/overall/product-my-requests-columns'
@@ -33,6 +35,7 @@ export class FreelanceModel {
   selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
 
   showRequestDesignerResultClientModal = false
+  showRequestStandartResultModal = false
 
   showAcceptMessage = undefined
   acceptMessage = undefined
@@ -48,10 +51,6 @@ export class FreelanceModel {
     return UserModel.userInfo
   }
 
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
-
   handlers = {
     onClickOpenRequest: item => this.onClickOpenRequest(item),
     onClickOpenResult: item => this.onClickOpenResult(item),
@@ -62,8 +61,7 @@ export class FreelanceModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = productMyRequestsViewColumns(this.languageTag, this.handlers)
-
+  columnsModel = productMyRequestsViewColumns(this.handlers)
   constructor({ history, productId }) {
     this.history = history
 
@@ -77,51 +75,11 @@ export class FreelanceModel {
         }, 3000)
       }
     })
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
   }
 
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
-    })
-  }
-
-  setDataGridState(state) {
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.OVERALL_CUSTOM_SEARCH_REQUESTS)
-  }
-
-  getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.OVERALL_CUSTOM_SEARCH_REQUESTS]
-
-    runInAction(() => {
-      if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.curPage = state.pagination.page
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = productMyRequestsViewColumns(this.languageTag, this.handlers).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
-      }
-    })
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
     })
   }
 
@@ -233,7 +191,19 @@ export class FreelanceModel {
         this.curProposal = proposal
       })
 
-      this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+      switch (freelanceRequestTypeByCode[item.typeTask]) {
+        case freelanceRequestType.DESIGNER:
+          this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+          break
+
+        case freelanceRequestType.SEO:
+          this.onTriggerOpenModal('showRequestStandartResultModal')
+          break
+
+        default:
+          this.onTriggerOpenModal('showRequestStandartResultModal')
+          break
+      }
     } catch (error) {
       console.log(error)
     }
@@ -242,12 +212,6 @@ export class FreelanceModel {
   onTriggerDrawer() {
     runInAction(() => {
       this.drawerOpen = !this.drawerOpen
-    })
-  }
-
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
     })
   }
 

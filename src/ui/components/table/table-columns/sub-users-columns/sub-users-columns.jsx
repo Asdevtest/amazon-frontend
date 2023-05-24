@@ -13,7 +13,7 @@ import {
 
 import { t } from '@utils/translations'
 
-export const subUsersColumns = (handlers, firstRowId) => [
+export const subUsersColumns = handlers => [
   {
     field: 'name',
     headerName: t(TranslationKey.User),
@@ -59,7 +59,7 @@ export const subUsersColumns = (handlers, firstRowId) => [
           )}
           handlers={handlersMemo}
           row={rowMemo}
-          isFirstRow={firstRowId === params.row.id}
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         />
       )
     },

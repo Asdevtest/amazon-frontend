@@ -9,19 +9,19 @@ import { SettingsModel } from '@models/settings-model'
 
 export const MemoDataGrid = observer(({ ...restProps }) => {
   const result = useMemo(
-    () => <DataGrid {...restProps} />,
+    () => <DataGrid key={SettingsModel.languageTag} {...restProps} />,
 
     [
       restProps.rows,
       restProps.columns,
       restProps.loading,
       restProps.density,
-      restProps.pageSize,
-      restProps.page,
+      restProps.paginationModel?.pageSize,
+      restProps.paginationModel?.page,
       restProps.sortModel,
       restProps.filterModel,
-      restProps.selectionModel,
-      restProps.componentsProps?.columnMenu,
+      restProps.rowSelectionModel,
+      restProps.slotProps?.columnMenu,
       SettingsModel.uiTheme,
       SettingsModel.languageTag,
     ],
