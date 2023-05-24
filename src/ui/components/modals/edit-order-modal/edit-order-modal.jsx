@@ -46,7 +46,6 @@ import { WarehouseBodyRow } from '@components/table/table-rows/warehouse'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull } from '@utils/checks'
 import { formatDateWithoutTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import {
   clearEverythingExceptNumbers,
@@ -1191,13 +1190,6 @@ export const EditOrderModal = observer(
           />
         </Modal>
 
-        <Modal missClickModalOn openModal={commentModal} setOpenModal={() => setCommentModalModal(!commentModal)}>
-          <CommentsForm
-            comments={orderFields.commentsFromTask}
-            onCloseModal={() => setCommentModalModal(!commentModal)}
-          />
-        </Modal>
-
         <Modal
           missClickModalOn={!isOnlyRead}
           openModal={showAddOrEditSupplierModal}
@@ -1218,6 +1210,20 @@ export const EditOrderModal = observer(
             onTriggerShowModal={() => {
               setForceReadOnly(false)
               setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
+            }}
+          />
+        </Modal>
+
+        <Modal
+          openModal={commentModal}
+          setOpenModal={() => {
+            setCommentModalModal(!commentModal)
+          }}
+        >
+          <CommentsForm
+            comments={orderFields.commentsFromTask}
+            onCloseModal={() => {
+              setCommentModalModal(!commentModal)
             }}
           />
         </Modal>
