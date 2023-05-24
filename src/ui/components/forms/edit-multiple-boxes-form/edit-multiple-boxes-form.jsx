@@ -29,6 +29,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './edit-multiple-boxes-form.style'
+import { trimBarcode } from '@utils/text'
 
 const Box = ({
   userInfo,
@@ -374,7 +375,7 @@ const Box = ({
                       box.tmpShippingLabel?.length
                         ? t(TranslationKey['File added'])
                         : box.shippingLabel
-                        ? box.shippingLabel
+                        ? trimBarcode(box.shippingLabel)
                         : t(TranslationKey['Set Shipping Label'])
                     }
                     onClick={() => onClickShippingLabel()}
@@ -909,7 +910,7 @@ export const EditMultipleBoxesForm = observer(
                         sharedFields.tmpShippingLabel?.length
                           ? t(TranslationKey['File added'])
                           : sharedFields.shippingLabel
-                          ? sharedFields.shippingLabel
+                          ? trimBarcode(sharedFields.shippingLabel)
                           : t(TranslationKey['Set Shipping Label'])
                       }
                       onClick={() => onClickShippingLabel()}
