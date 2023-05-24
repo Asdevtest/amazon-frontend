@@ -16,6 +16,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {RequestDesignerResultClientForm} from '@components/forms/request-designer-result-client-form'
+import {RequestStandartResultForm} from '@components/forms/request-standart-result-form'
 import {Modal} from '@components/modal'
 import {UserLink} from '@components/user-link'
 
@@ -37,6 +38,23 @@ export const OwnerRequestProposalsCard = ({
   const {classes: classNames} = useClassNames()
 
   const [showRequestDesignerResultClientModal, setShowRequestDesignerResultClientModal] = useState(false)
+  const [showRequestStandartResultModal, setShowRequestStandartResultModal] = useState(false)
+
+  const onClickpenResult = () => {
+    switch (freelanceRequestTypeByCode[request.request.typeTask]) {
+      case freelanceRequestType.DESIGNER:
+        setShowRequestDesignerResultClientModal(!showRequestDesignerResultClientModal)
+        break
+
+      case freelanceRequestType.SEO:
+        setShowRequestStandartResultModal(!showRequestStandartResultModal)
+        break
+
+      default:
+        setShowRequestStandartResultModal(!showRequestStandartResultModal)
+        break
+    }
+  }
 
   const showDesignerResultBtnStatuses = [
     RequestProposalStatus.READY_TO_VERIFY,
@@ -122,13 +140,14 @@ export const OwnerRequestProposalsCard = ({
           </Typography>
         </div>
 
-        {freelanceRequestTypeByCode[request.request.typeTask] === freelanceRequestType.DESIGNER && (
+        {(freelanceRequestTypeByCode[request.request.typeTask] === freelanceRequestType.DESIGNER ||
+          freelanceRequestTypeByCode[request.request.typeTask] === freelanceRequestType.SEO) && (
           <Button
             disabled={!showDesignerResultBtnStatuses.includes(item.proposal.status)}
             variant="contained"
             color="primary"
             className={cx(classNames.actionButton)}
-            onClick={() => setShowRequestDesignerResultClientModal(!showRequestDesignerResultClientModal)}
+            onClick={onClickpenResult}
           >
             {t(TranslationKey.Result)}
           </Button>
@@ -213,6 +232,19 @@ export const OwnerRequestProposalsCard = ({
           proposal={item}
           curResultMedia={item.proposal.media}
           setOpenModal={() => setShowRequestDesignerResultClientModal(!showRequestDesignerResultClientModal)}
+          // onClickSendAsResult={onClickSendAsResult}
+        />
+      </Modal>
+
+      <Modal
+        missClickModalOn
+        openModal={showRequestStandartResultModal}
+        setOpenModal={() => setShowRequestStandartResultModal(!showRequestStandartResultModal)}
+      >
+        <RequestStandartResultForm
+          request={request}
+          proposal={item}
+          setOpenModal={() => setShowRequestStandartResultModal(!showRequestStandartResultModal)}
           // onClickSendAsResult={onClickSendAsResult}
         />
       </Modal>

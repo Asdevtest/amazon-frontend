@@ -1,45 +1,22 @@
+/* eslint-disable react/jsx-indent */
 import {cx} from '@emotion/css'
 import {Typography} from '@mui/material'
 
-import React, {FC, useContext} from 'react'
+import React from 'react'
 
 import Linkify from 'react-linkify-always-blank'
 
-import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
-
-import {ChatMessageDataProposalResultEditedContract} from '@models/chat-model/contracts/chat-message-data.contract'
-import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
-import {UserModel} from '@models/user-model'
 
 import {Button} from '@components/buttons/button'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 
-import {formatDateTimeHourAndMinutes} from '@utils/date-time'
 import {t} from '@utils/translations'
 
-import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
+import {useClassNames} from './request-standart-result-form.style'
 
-import {useClassNames} from './chat-message-request-proposal-result-edited.style'
-
-export interface ChatMessageRequestProposalResultEditedHandlers {
-  onClickProposalResultToCorrect: (proposalId: string) => void
-  onClickProposalResultAccept: (proposalId: string) => void
-}
-
-interface Props {
-  isLastMessage: boolean
-  message: ChatMessageContract<ChatMessageDataProposalResultEditedContract>
-  handlers: ChatMessageRequestProposalResultEditedHandlers
-}
-
-export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, isLastMessage, handlers}) => {
+export const RequestStandartResultForm = ({/* request, */ setOpenModal, proposal}) => {
   const {classes: classNames} = useClassNames()
-  const proposal = message.data.proposal
-
-  const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
-
-  const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
   return (
     <div className={classNames.root}>
@@ -47,14 +24,11 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, isLa
         <div className={classNames.headerWrapper}>
           <Typography className={classNames.headerText}>{t(TranslationKey.Result)}</Typography>
         </div>
-        <div className={classNames.timeWrapper}>
-          <Typography className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</Typography>
-        </div>
       </div>
       <div className={classNames.mainInfoWrapper}>
         {/* <div className={classNames.titleWrapper}>
-          <p className={classNames.titleText}>{message.data.request.title}</p>
-        </div> */}
+        <p className={classNames.titleText}>{message.data.request.title}</p>
+      </div> */}
         <div className={classNames.descriptionWrapper}>
           <Linkify>
             <Typography className={classNames.descriptionText}>{}</Typography>
@@ -63,14 +37,14 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, isLa
       </div>
       <div className={classNames.resultTextWrapper}>
         <Linkify>
-          <Typography className={classNames.resultText}>{message.data.edited.result}</Typography>
+          <Typography className={classNames.resultText}>{proposal.details.result}</Typography>
         </Linkify>
       </div>
       <div className={classNames.resultWrapper}>
         <PhotoAndFilesCarousel
           notToShowEmpty
           small
-          files={message.data.edited.linksToMediaFiles?.map(el => (typeof el === 'object' ? el.fileLink : el))}
+          files={proposal.proposal.media?.map(el => (typeof el === 'object' ? el.fileLink : el))}
           width="340px"
           withoutPhotos={undefined}
           whithoutFiles={undefined}
@@ -80,7 +54,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, isLa
           onChangeImagesForLoad={undefined}
         />
 
-        <div className={classNames.resultRightSide}>
+        {/* <div className={classNames.resultRightSide}>
           <div className={classNames.timeToCheckBlockWrapper}>
             <Typography className={classNames.timeToCheckBlockLabelText}>
               {t(TranslationKey['Time to check'])}
@@ -91,16 +65,19 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, isLa
               )}`}</Typography>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
-      <div className={classNames.footerWrapper}>
+      <div className={classNames.btnsWrapper}>
+        <Button variant="text" className={cx(classNames.button, classNames.cancelButton)} onClick={setOpenModal}>
+          {t(TranslationKey.Cancel)}
+        </Button>
+      </div>
+      {/* <div className={classNames.footerWrapper}>
         {chatRequestAndRequestProposal &&
         (chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
           RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-          chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY ||
-          chatRequestAndRequestProposal.requestProposal?.proposal?.status !== RequestProposalStatus.TO_CORRECT) &&
+          chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY) &&
         curUserId &&
-        isLastMessage &&
         message.data.needApproveBy?.includes(curUserId) ? (
           <div className={classNames.btnsWrapper}>
             {chatRequestAndRequestProposal.requestProposal?.proposal?.status !== RequestProposalStatus.TO_CORRECT && (
@@ -125,19 +102,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, isLa
             </Button>
           </div>
         ) : undefined}
-
-        {/* {chatRequestAndRequestProposal.requestProposal?.proposal?.status !== 'ACCEPTED_BY_CLIENT' && (
-          <div className={classNames.btnEditWrapper}>
-            <Button
-              variant="contained"
-              color="primary"
-             
-            >
-              Редактировать
-            </Button>
-          </div>
-        )} */}
-      </div>
+      </div> */}
     </div>
   )
 }
