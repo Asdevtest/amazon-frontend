@@ -17,7 +17,7 @@ import {
 
 import { t } from '@utils/translations'
 
-export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
+export const warehouseMyTasksViewColumns = handlers => [
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
@@ -29,7 +29,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     //   <WarehouseMyTasksBtnsCell
     //     handlers={handlers}
     //     row={params.row.originalData}
-    //     isFirstRow={firstRowId === params.row.id}
+    //     isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
     //   />
     // ),
 
@@ -42,7 +42,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
           boxId={params.row.originalData.boxes[0]._id}
           rowId={params.row.originalData._id}
           operationType={params.row.originalData.operationType}
-          isFirstRow={firstRowId === params.row.id}
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         />
       )
     },
@@ -204,7 +204,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
 
     width: window.innerWidth < 1282 ? 95 : 120,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    type: 'date',
+    // type: 'date',
   },
 
   // {

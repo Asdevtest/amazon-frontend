@@ -54,7 +54,6 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
     onClickSaveBarcode,
     onDoubleClickBarcode,
     setDataGridState,
-    changeColumnsModel,
   } = model.current
 
   useEffect(() => {
@@ -75,18 +74,23 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
         classes={{
           row: classNames.row,
         }}
-        rowsPerPageOptions={[15, 25, 50, 100]}
+        columnVisibilityModel={model.current.columnVisibilityModel}
+        pageSizeOptions={[15, 25, 50, 100]}
         rows={getCurrentData()}
         rowHeight={100}
-        components={{
-          Toolbar: DataGridCustomToolbar,
-          ColumnMenuIcon: FilterAltOutlinedIcon,
-          ColumnMenu: DataGridCustomColumnMenuComponent,
+        slots={{
+          toolbar: DataGridCustomToolbar,
+          columnMenuIcon: FilterAltOutlinedIcon,
+          columnMenu: DataGridCustomColumnMenuComponent,
         }}
-        componentsProps={{
+        slotsProps={{
           columnMenu: { orderStatusData },
           toolbar: {
-            columsBtnSettings: { columnsModel, changeColumnsModel },
+            columsBtnSettings: {
+              columnsModel,
+              columnVisibilityModel: model.current.columnVisibilityModel,
+              onColumnVisibilityModelChange: model.current.onColumnVisibilityModelChange,
+            },
           },
         }}
         columns={columnsModel}

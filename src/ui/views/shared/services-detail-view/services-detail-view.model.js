@@ -29,15 +29,10 @@ export class ServiceDetailsViewModel {
   announcementData = undefined
   announcementId = undefined
 
-  curPage = 0
   rowCount = 0
-  rowsPerPage = 15
-
   currentData = []
-
   sortModel = []
   filterModel = { items: [] }
-  columnVisibilityModel = undefined
 
   showConfirmModal = false
 
@@ -54,7 +49,10 @@ export class ServiceDetailsViewModel {
     onClickOpenButton: id => this.onClickOpenBtn(id),
   }
 
-  columnsModel = FreelancerFreelanceColumns(this.handlers, this.languageTag)
+  columnsModel = FreelancerFreelanceColumns(this.handlers)
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   get user() {
     return UserModel.userInfo
@@ -84,23 +82,6 @@ export class ServiceDetailsViewModel {
           // console.log('this.currentData', this.currentData)
         }),
     )
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
-  }
-
-  getDataGridState() {
-    runInAction(() => {
-      this.columnsModel = FreelancerFreelanceColumns(this.handlers, this.languageTag)
-    })
   }
 
   getCurrentData() {
@@ -182,19 +163,17 @@ export class ServiceDetailsViewModel {
     })
   }
 
-  onChangeCurPage(e) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.curPage = e
+      this.paginationModel = model
     })
     this.getAnnouncementsDataByGuid()
   }
 
-  onChangeRowsPerPage(e) {
+  onColumnVisibilityModelChange(model) {
     runInAction(() => {
-      this.rowsPerPage = e
-      this.curPage = 0
+      this.columnVisibilityModel = model
     })
-
     this.getAnnouncementsDataByGuid()
   }
 

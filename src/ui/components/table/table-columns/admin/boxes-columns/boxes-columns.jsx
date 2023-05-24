@@ -31,7 +31,7 @@ export const adminBoxesViewColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
-    type: 'date',
+    // type: 'date',
   },
 
   {
@@ -41,7 +41,7 @@ export const adminBoxesViewColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
-    type: 'date',
+    // type: 'date',
   },
 
   {

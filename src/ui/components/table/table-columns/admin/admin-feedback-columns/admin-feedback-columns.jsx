@@ -32,7 +32,7 @@ export const adminFeedbackViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
     renderCell: params => <NormDateCell value={params.value} />,
     width: 90,
-    type: 'date',
+    // type: 'date',
   },
 
   {
@@ -61,7 +61,7 @@ export const adminFeedbackViewColumns = handlers => [
       return (
         <NormalActionBtnCell
           bTnText={t(TranslationKey.View)}
-          // isFirstRow={firstRowId === params.row.id}
+          // isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
           onClickOkBtn={onClickOpenFeedbackBtn}
         />
       )

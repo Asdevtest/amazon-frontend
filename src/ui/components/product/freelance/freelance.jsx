@@ -90,7 +90,7 @@ export const Freelance = observer(({ productId }) => {
             columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
             columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
           }}
-          rowsPerPageOptions={[15, 25, 50, 100]}
+          pageSizeOptions={[15, 25, 50, 100]}
           rows={getCurrentData()}
           rowHeight={100}
           components={{

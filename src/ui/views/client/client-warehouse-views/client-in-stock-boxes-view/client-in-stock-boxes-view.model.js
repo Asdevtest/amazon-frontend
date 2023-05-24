@@ -222,21 +222,17 @@ export class ClientInStockBoxesViewModel {
   sortModel = []
   filterModel = { items: [] }
 
-  curPage = 0
-  rowsPerPage = 15
-
-  curPageForTask = 0
-  rowsPerPageForTask = 15
-
   densityModel = 'compact'
   columnsModel = clientBoxesViewColumns(
     this.rowHandlers,
-    this.storekeepersData,
-    this.destinations,
-    SettingsModel.destinationsFavourites,
-    this.columnMenuSettings,
-    this.onHover,
+    () => this.storekeepersData,
+    () => this.destinations,
+    () => SettingsModel.destinationsFavourites,
+    () => this.columnMenuSettings,
+    () => this.onHover,
   )
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   get userInfo() {
     return UserModel.userInfo
@@ -282,11 +278,6 @@ export class ClientInStockBoxesViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
       () => this.boxesMy,
       () => {
         runInAction(() => {
@@ -301,16 +292,6 @@ export class ClientInStockBoxesViewModel {
     )
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      runInAction(() => {
-        this.boxesMy = clientWarehouseDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient, this.shopsData)
-      })
-
-      this.getDataGridState()
-    }
-  }
-
   async getDestinations() {
     this.destinations = await ClientModel.getDestinations()
   }
@@ -323,16 +304,35 @@ export class ClientInStockBoxesViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+      // this.paginationModel = { ...model, page: 0 }
+    })
+
+    this.setDataGridState()
+    this.getBoxesMy()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+    this.getBoxesMy()
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
   }
@@ -342,39 +342,11 @@ export class ClientInStockBoxesViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = clientBoxesViewColumns(
-          this.rowHandlers,
-          this.storekeepersData,
-          this.destinations,
-          SettingsModel.destinationsFavourites,
-          this.columnMenuSettings,
-          this.onHover,
-        ).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
-    })
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = clientBoxesViewColumns(
-        this.rowHandlers,
-        this.storekeepersData,
-        this.destinations,
-        SettingsModel.destinationsFavourites,
-        this.columnMenuSettings,
-        this.onHover,
-      ).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
     })
   }
 
@@ -384,27 +356,6 @@ export class ClientInStockBoxesViewModel {
 
   setDestinationsFavouritesItem(item) {
     SettingsModel.setDestinationsFavouritesItem(item)
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
-      this.curPage = 0
-    })
-
-    this.requestStatus = loadingStatuses.isLoading
-    this.getBoxesMy().then(() => {
-      this.requestStatus = loadingStatuses.success
-    })
-  }
-
-  onChangeRowsPerPageForTask(e) {
-    runInAction(() => {
-      this.rowsPerPageForTask = e
-      this.curPageForTask = 0
-    })
-
-    this.getBoxesMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -418,6 +369,7 @@ export class ClientInStockBoxesViewModel {
       this.sortModel = sortModel
     })
 
+    this.setDataGridState()
     this.requestStatus = loadingStatuses.isLoading
     this.getBoxesMy().then(() => {
       this.requestStatus = loadingStatuses.success
@@ -952,25 +904,6 @@ export class ClientInStockBoxesViewModel {
     runInAction(() => {
       this.modalRedistributeBoxAddNewBox = value
     })
-  }
-
-  onChangeCurPage = e => {
-    runInAction(() => {
-      this.curPage = e
-    })
-
-    this.requestStatus = loadingStatuses.isLoading
-    this.getBoxesMy().then(() => {
-      this.requestStatus = loadingStatuses.success
-    })
-  }
-
-  onChangeCurPageForTask = e => {
-    runInAction(() => {
-      this.curPageForTask = e
-    })
-
-    this.getBoxesMy()
   }
 
   onSearchSubmit(searchValue) {
@@ -1941,8 +1874,8 @@ export class ClientInStockBoxesViewModel {
 
         isFormed: this.columnMenuSettings.isFormedData.isFormed,
 
-        limit: this.rowsPerPage,
-        offset: this.curPage * this.rowsPerPage,
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
 
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',

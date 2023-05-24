@@ -22,7 +22,7 @@ export const exchangeСreatedColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
-    type: 'date',
+    // type: 'date',
   },
   {
     field: 'updatedAt',
@@ -31,7 +31,7 @@ export const exchangeСreatedColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
-    type: 'date',
+    // type: 'date',
   },
 
   {

@@ -26,7 +26,7 @@ import { convertDaysToSeconds, formatDate, getDistanceBetweenDatesInSeconds } fr
 import { timeToDeadlineInHoursAndMins, toFixed, toFixedWithDollarSign, toFixedWithYuanSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers, columnMenuSettings) => [
+export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings) => [
   {
     field: 'idAndItem',
     headerName: t(TranslationKey.ID) + ' / item',
@@ -109,10 +109,9 @@ export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers, columnMenuS
     renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey['Payment methods'])}
-        isFilterActive={columnMenuSettings?.[params.field]?.currentFilterData?.length}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-
     renderCell: params => {
       const onClickPaymentMethodCell = useCallback(
         () => rowHandlers.onClickPaymentMethodCell(params?.row?.originalData),
@@ -152,7 +151,9 @@ export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers, columnMenuS
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
     width: 160,
-    renderCell: params => <DownloadAndCopyBtnsCell value={params.value} isFirstRow={firstRowId === params.row.id} />,
+    renderCell: params => (
+      <DownloadAndCopyBtnsCell value={params.value} isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id} />
+    ),
     sortable: false,
   },
 
@@ -279,7 +280,7 @@ export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers, columnMenuS
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
-    type: 'date',
+    // type: 'date',
   },
 
   {
@@ -289,6 +290,6 @@ export const BuyerReadyForPaymentColumns = (firstRowId, rowHandlers, columnMenuS
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 130,
-    type: 'date',
+    // type: 'date',
   },
 ]

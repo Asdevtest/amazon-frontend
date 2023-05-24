@@ -111,8 +111,6 @@ export class BuyerMyOrdersViewModel {
 
   dataToCancelOrder = { orderId: undefined, buyerComment: undefined }
 
-  firstRowId = undefined
-
   warningInfoModalSettings = {
     isWarning: false,
     title: '',
@@ -125,21 +123,19 @@ export class BuyerMyOrdersViewModel {
     onClickConfirm: () => {},
   }
 
-  rowCount = 0
-  sortModel = []
-  startFilterModel = undefined
-  filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
-  densityModel = 'compact'
-  columnsModel = BuyerReadyForPaymentColumns(this.firstRowId, this.rowHandlers, this.columnMenuSettings)
-
   rowHandlers = {
     onClickPaymentMethodCell: row => this.onClickPaymentMethodCell(row),
   }
 
-  // columnsModel = []
-  columnVisibilityModel = undefined
+  rowCount = 0
+  sortModel = []
+  startFilterModel = undefined
+  filterModel = { items: [] }
+  densityModel = 'compact'
+  columnsModel = BuyerReadyForPaymentColumns(this.rowHandlers, () => this.columnMenuSettings)
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   progressValue = 0
   showProgress = false
@@ -206,16 +202,6 @@ export class BuyerMyOrdersViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
       () => this.ordersMy,
       () =>
         runInAction(() => {
@@ -230,15 +216,6 @@ export class BuyerMyOrdersViewModel {
           this.currentData = this.getCurrentData()
         }),
     )
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
   }
 
   async onClickFilterBtn(column) {
@@ -332,15 +309,15 @@ export class BuyerMyOrdersViewModel {
     // this.getDataGridState()
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
+  // async updateColumnsModel() {
+  //   if (await SettingsModel.languageTag) {
+  //     this.getDataGridState()
 
-      runInAction(() => {
-        this.ordersMy = buyerMyOrdersDataConverter(this.baseNoConvertedOrders)
-      })
-    }
-  }
+  //     runInAction(() => {
+  //       this.ordersMy = buyerMyOrdersDataConverter(this.baseNoConvertedOrders)
+  //     })
+  //   }
+  // }
 
   setDataGridTablesKeys = pathname => {
     if (pathname) {
@@ -565,40 +542,57 @@ export class BuyerMyOrdersViewModel {
     this.setDataGridState()
   }
 
-  onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
-    this.setDataGridState()
-  }
+  // setDataGridState(state) {
+  //   if (!state) {
+  //     return
+  //   }
 
-  setFirstRowId(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
-    })
-  }
+  //   const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+  //     'sorting',
+  //     'filter',
+  //     'pagination',
+  //     'density',
+  //     'columns',
+  //   ])
 
-  setDataGridState(state) {
-    // const requestState = {
-    //   sorting: {sortModel: this.sortModel},
-    //   filter: {filterModel: this.filterModel},
-    //   pagination: {pageSize: this.rowsPerPage},
-    //   density: {value: this.densityModel},
-    //   columnVisibilityModel: this.columnVisibilityModel,
-    // }
+  //   SettingsModel.setDataGridState(requestState, this.setDataGridTablesKeys(this.history.location.pathname))
+  // }
 
-    if (!state) {
-      return
+  // getDataGridState() {
+  //   const state = SettingsModel.dataGridState[this.setDataGridTablesKeys(this.history.location.pathname)]
+
+  //   runInAction(() => {
+  //     if (state) {
+  //       this.sortModel = state.sorting.sortModel
+
+  //       this.filterModel = this.startFilterModel
+  //         ? {
+  //             ...this.startFilterModel,
+  //             items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
+  //           }
+  //         : state.filter.filterModel
+
+  //       this.rowsPerPage = state.pagination.pageSize
+
+  //       this.densityModel = state.density.value
+
+  //       this.columnVisibilityModel = state.columnVisibilityModel
+
+  //       this.columnsModel = BuyerReadyForPaymentColumns(this.rowHandlers, this.columnMenuSettings).map(el => ({
+  //         ...el,
+  //         hide: state.columns?.lookup[el?.field]?.hide,
+  //       }))
+  //     }
+  //   })
+  // }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
-
-    this.firstRowId = state?.sorting?.sortedRows[0]
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
 
     SettingsModel.setDataGridState(requestState, this.setDataGridTablesKeys(this.history.location.pathname))
   }
@@ -608,38 +602,19 @@ export class BuyerMyOrdersViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-
-        this.filterModel = this.startFilterModel
-          ? {
-              ...this.startFilterModel,
-              items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
-            }
-          : state.filter.filterModel
-
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-
-        this.columnVisibilityModel = state.columnVisibilityModel
-
-        this.columnsModel = BuyerReadyForPaymentColumns(this.firstRowId, this.rowHandlers, this.columnMenuSettings).map(
-          el => ({
-            ...el,
-            hide: state.columns?.lookup[el?.field]?.hide,
-          }),
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(
+          this.startFilterModel
+            ? {
+                ...this.startFilterModel,
+                items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
+              }
+            : state.filterModel,
         )
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
-      this.curPage = 0
-    })
-    this.setDataGridState()
-    this.getOrdersMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -1293,8 +1268,8 @@ export class BuyerMyOrdersViewModel {
       const result = await BuyerModel.getOrdersMyPag({
         filters: this.nameSearchValue ? filter : null,
 
-        limit: this.rowsPerPage,
-        offset: this.curPage * this.rowsPerPage,
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
 
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
@@ -1329,9 +1304,18 @@ export class BuyerMyOrdersViewModel {
     })
   }
 
-  onChangeCurPage(e) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.curPage = e
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+    this.getOrdersMy()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
     })
     this.setDataGridState()
     this.getOrdersMy()

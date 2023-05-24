@@ -1238,7 +1238,7 @@ export const RenderFieldValueCell = React.memo(
 
 export const BatchTrackingCell = React.memo(
   withStyles(
-    ({ classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled, languageTag }) => (
+    ({ classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled }) => (
       <div className={classNames.batchTrackingWrapper}>
         <Field
           containerClasses={cx(classNames.batchTrackingContainer)}
@@ -1718,11 +1718,11 @@ export const RequestStatusCell = React.memo(
 
 export const MultilineRequestStatusCell = React.memo(
   withStyles(({ classes: classNames, status, fontSize = '14px', languageTag }) => {
-    const [statusTranslate, setStatusTranslate] = useState(MyRequestStatusTranslate(status))
+    // const [statusTranslate, setStatusTranslate] = useState(MyRequestStatusTranslate(status))
 
-    useEffect(() => {
-      setStatusTranslate(MyRequestStatusTranslate(status))
-    }, [languageTag])
+    // useEffect(() => {
+    //   setStatusTranslate(MyRequestStatusTranslate(status))
+    // }, [languageTag])
 
     const colorByStatus = () => {
       if ([RequestStatus.DRAFT].includes(status)) {
@@ -1752,7 +1752,8 @@ export const MultilineRequestStatusCell = React.memo(
     return (
       <div className={classNames.multilineTextWrapper}>
         <Typography className={classNames.multilineStatusText} style={{ color: colorStatus, fontSize }}>
-          {statusTranslate}
+          {/* {statusTranslate} */}
+          {MyRequestStatusTranslate(status)}
         </Typography>
       </div>
     )

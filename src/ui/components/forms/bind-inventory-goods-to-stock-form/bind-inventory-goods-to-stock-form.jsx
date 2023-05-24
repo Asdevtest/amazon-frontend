@@ -105,8 +105,6 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
     onSubmit({ productId: product._id, warehouseStocks: selectedWarehouseStocks })
   }
 
-  const firstRowId = chosenGoods.length ? chosenGoods[0].id : null
-
   return (
     <div className={classNames.root}>
       <Typography variant="h6" className={classNames.title}>
@@ -178,8 +176,8 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
             rows={toJS(stockData)}
             columns={sourceColumns()}
             rowHeight={60}
-            selectionModel={selectedGoods}
-            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+            rowSelectionModel={selectedGoods}
+            onRowSelectionModelChange={onSelectionModel}
           />
         </div>
 
@@ -207,7 +205,7 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
             //   backgroundColor: theme.palette.background.general,
             // }}
             rows={chosenGoods || []}
-            columns={chosenGoodsColumns({ onClickTrash }, firstRowId)}
+            columns={chosenGoodsColumns({ onClickTrash })}
             rowHeight={60}
           />
         </div>

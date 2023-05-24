@@ -19,7 +19,7 @@ export const clientLast30DaySellerBoardColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
-    type: 'date',
+    // type: 'date',
   },
   {
     field: 'shopName',
@@ -64,7 +64,7 @@ export const clientLast30DaySellerBoardColumns = () => [
 
     renderCell: params => <NormDateWithoutTimeCell value={params.value} />,
     minWidth: 80,
-    type: 'date',
+    // type: 'date',
   },
   {
     field: 'unitsorganic',

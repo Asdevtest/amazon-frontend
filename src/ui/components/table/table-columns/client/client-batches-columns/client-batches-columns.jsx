@@ -17,7 +17,7 @@ import {
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const clientBatchesViewColumns = (rowHandlers, languageTag) => [
+export const clientBatchesViewColumns = rowHandlers => [
   {
     field: 'orders',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
@@ -100,16 +100,19 @@ export const clientBatchesViewColumns = (rowHandlers, languageTag) => [
     field: 'batchTracking',
     headerName: t(TranslationKey['Batch tracking']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch tracking'])} />,
-    renderCell: params => (
-      <BatchTrackingCell
-        disabled
-        rowHandlers
-        languageTag={languageTag}
-        id={params.row?.originalData?._id}
-        arrivalDate={params.row?.originalData?.arrivalDate}
-        trackingNumber={params.row?.originalData?.trackingNumber}
-      />
-    ),
+    renderCell: params => {
+      const rowHandlersMemo = useMemo(() => rowHandlers, [])
+
+      return (
+        <BatchTrackingCell
+          disabled
+          rowHandlers={rowHandlersMemo}
+          id={params.row?.originalData?._id}
+          arrivalDate={params.row?.originalData?.arrivalDate}
+          trackingNumber={params.row?.originalData?.trackingNumber}
+        />
+      )
+    },
     width: 198,
     filterable: false,
     sortable: false,
@@ -172,6 +175,6 @@ export const clientBatchesViewColumns = (rowHandlers, languageTag) => [
     headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell value={params.value} />,
     width: 130,
-    type: 'date',
+    // type: 'date',
   },
 ]

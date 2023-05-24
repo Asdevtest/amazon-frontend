@@ -16,7 +16,6 @@ import { UserModel } from '@models/user-model'
 import { batchesViewColumns } from '@components/table/table-columns/batches-columns'
 
 import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -63,25 +62,16 @@ export class WarehouseAwaitingBatchesViewModel {
 
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
   densityModel = 'compact'
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   rowHandlers = {}
 
   status = undefined
 
-  columnsModel = batchesViewColumns(this.rowHandlers, this.status, this.languageTag)
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = batchesViewColumns(this.rowHandlers, this.status, this.languageTag).map(el => ({
-        ...el,
-
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
+  columnsModel = batchesViewColumns(this.rowHandlers, () => this.status)
 
   get isInvalidTariffBoxSelected() {
     return this.selectedBatches.some(batchId => {
@@ -110,14 +100,6 @@ export class WarehouseAwaitingBatchesViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => SettingsModel.languageTag,
-      () => {
-        this.languageTag = SettingsModel.languageTag
-        this.updateColumnsModel()
-      },
-    )
-
-    reaction(
       () => this.batches,
       () => {
         runInAction(() => {
@@ -127,20 +109,13 @@ export class WarehouseAwaitingBatchesViewModel {
     )
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
-  }
-
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_AWAITING_BATCHES)
   }
@@ -150,15 +125,10 @@ export class WarehouseAwaitingBatchesViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = batchesViewColumns(this.rowHandlers, this.status, this.languageTag).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
@@ -167,13 +137,23 @@ export class WarehouseAwaitingBatchesViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+    this.setDataGridState()
   }
 
-  onChangeRowsPerPage(e) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.rowsPerPage = e
+      this.paginationModel = model
     })
 
+    this.setDataGridState()
+    this.getBatchesPagMy()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
     this.getBatchesPagMy()
   }
 
@@ -188,6 +168,7 @@ export class WarehouseAwaitingBatchesViewModel {
       this.sortModel = sortModel
     })
 
+    this.setDataGridState()
     this.getBatchesPagMy()
   }
 
@@ -313,8 +294,8 @@ export class WarehouseAwaitingBatchesViewModel {
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.IS_BEING_COLLECTED,
         options: {
-          limit: this.rowsPerPage,
-          offset: this.curPage * this.rowsPerPage,
+          limit: this.paginationModel.pageSize,
+          offset: this.paginationModel.page * this.paginationModel.pageSize,
 
           sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
           sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',

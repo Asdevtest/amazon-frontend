@@ -17,12 +17,12 @@ import {
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const FreelancerFreelanceColumns = (handlers, languageTag) => [
+export const FreelancerFreelanceColumns = handlers => [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-    renderCell: params => <MultilineRequestStatusCell languageTag={languageTag} status={params.value} />,
+    renderCell: params => <MultilineRequestStatusCell status={params.value} />,
     width: 160,
   },
   {
@@ -40,7 +40,7 @@ export const FreelancerFreelanceColumns = (handlers, languageTag) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 116,
-    type: 'date',
+    // type: 'date',
   },
 
   {
@@ -74,7 +74,7 @@ export const FreelancerFreelanceColumns = (handlers, languageTag) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 134,
-    type: 'date',
+    // type: 'date',
   },
 
   {

@@ -173,7 +173,7 @@ export const adminOrdersViewColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
-    type: 'date',
+    // type: 'date',
   },
 
   {
@@ -183,6 +183,6 @@ export const adminOrdersViewColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
-    type: 'date',
+    // type: 'date',
   },
 ]

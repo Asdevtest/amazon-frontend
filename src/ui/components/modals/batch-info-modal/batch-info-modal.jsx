@@ -333,7 +333,7 @@ export const BatchInfoModal = observer(
               // autoHeight
               pagination
               localeText={getLocalizationByLanguageTag()}
-              rowsPerPageOptions={[50, 100]}
+              pageSizeOptions={[50, 100]}
               classes={{
                 columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
                 columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
@@ -344,9 +344,9 @@ export const BatchInfoModal = observer(
                 border: `1px solid  #EBEBEB !important`,
                 boxShadow: '0px 2px 10px 2px #EBEBEB !important',
               }}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
+              slots={{
+                toolbar: DataGridCustomToolbar,
+                columnMenuIcon: FilterAltOutlinedIcon,
                 // Footer: () => (
                 //   <div className={classNames.boxCounterWrapper}>
                 //     <Typography className={classNames.boxCounterText}>

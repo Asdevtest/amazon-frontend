@@ -64,27 +64,36 @@ export const ServiceDetailsViewRaw = props => {
               columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
             }}
             rowCount={viewModel.rowCount}
-            page={viewModel.curPage}
-            pageSize={viewModel.rowsPerPage}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
             rowHeight={143}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
+            // sortingMode="server"
+            // paginationMode="server"
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
               ColumnMenu: DataGridCustomColumnMenuComponent,
             }}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
+            slotProps={{
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                },
+              },
+            }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onPageChange={viewModel.onChangeCurPage}
             onSortModelChange={viewModel.onChangeSortingModel}
-            onPageSizeChange={viewModel.onChangeRowsPerPage}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
-            // onStateChange={viewModel.setFirstRowId}
             // onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
           />
         </div>

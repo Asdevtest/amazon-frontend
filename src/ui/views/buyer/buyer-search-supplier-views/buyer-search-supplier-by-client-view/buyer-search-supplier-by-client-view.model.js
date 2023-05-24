@@ -24,24 +24,14 @@ export class BuyerSearchSupplierByClientModel {
     onPickUp: row => this.onClickTableRowBtn(row),
   }
 
-  firstRowId = undefined
-
-  columnsModel = buyerSearchSuppliersViewColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = buyerSearchSuppliersViewColumns(this.rowHandlers)
+  columnVisibilityModel = {}
 
   constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
     makeAutoObservable(this, undefined, { autoBind: true })
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
   }
 
   getCurrentData() {
@@ -54,10 +44,11 @@ export class BuyerSearchSupplierByClientModel {
     })
   }
 
-  setDataGridState(state) {
+  onColumnVisibilityModelChange(model) {
     runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
+      this.columnVisibilityModel = model
     })
+    // this.setDataGridState()
   }
 
   async loadData() {

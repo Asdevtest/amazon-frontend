@@ -106,7 +106,7 @@ export class ModeratorMyProductsViewModel {
   // }
 
   // onSelectionModel(model) {
-  //   this.selectionModel = model
+  //   this.rowSelectionModel = model
   // }
 
   // getCurrentData() {

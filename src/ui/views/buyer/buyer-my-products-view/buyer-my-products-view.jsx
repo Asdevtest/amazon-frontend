@@ -57,56 +57,52 @@ export const BuyerMyProductsViewRaw = props => {
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
-        <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
-            disableVirtualization
-            pagination
-            useResizeContainer
-            localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            getRowClassName={getRowClassName}
-            sortingMode="server"
-            paginationMode="server"
-            rowCount={viewModel.rowCount}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            page={viewModel.curPage}
-            pageSize={viewModel.rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
-            rows={viewModel.currentData}
-            rowHeight={160}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
-            }}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            componentsProps={{
-              toolbar: {
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  changeColumnsModel: viewModel.changeColumnsModel,
-                },
+
+        <MemoDataGrid
+          disableVirtualization
+          pagination
+          useResizeContainer
+          localeText={getLocalizationByLanguageTag()}
+          classes={{
+            row: classNames.row,
+            root: classNames.root,
+            footerContainer: classNames.footerContainer,
+            footerCell: classNames.footerCell,
+            toolbarContainer: classNames.toolbarContainer,
+          }}
+          getRowClassName={getRowClassName}
+          sortingMode="server"
+          paginationMode="server"
+          rowCount={viewModel.rowCount}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          pageSizeOptions={[15, 25, 50, 100]}
+          rows={viewModel.currentData}
+          rowHeight={160}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          slots={{
+            toolbar: DataGridCustomToolbar,
+            columnMenuIcon: FilterAltOutlinedIcon,
+          }}
+          slotProps={{
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
-            }}
-            onSelectionModelChange={newSelection => {
-              viewModel.onSelectionModel(newSelection[0])
-            }}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onPageSizeChange={viewModel.onChangeRowsPerPage}
-            onPageChange={viewModel.onChangeCurPage}
-            onStateChange={viewModel.setDataGridState}
-            onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
-            onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
-          />
-        </div>
+            },
+          }}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+        />
       </MainContent>
     </React.Fragment>
   )

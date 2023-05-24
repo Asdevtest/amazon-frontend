@@ -56,8 +56,6 @@ export const SupervisorSettingsContent = observer(() => {
     showFailedAsinsModal,
     asinsToEdit,
     failedData,
-    curPage,
-    rowsPerPage,
     filterModel,
     sortModel,
     densityModel,
@@ -68,18 +66,14 @@ export const SupervisorSettingsContent = observer(() => {
     selectedRowIds,
     showConfirmCloseAsinCheckerModal,
     getCurrentData,
-    onChangeCurPage,
     onTriggerOpenModal,
-    onChangeRowsPerPage,
     onChangeFilterModel,
     onChangeSortingModel,
-    setDataGridState,
     onSubmitAsins,
     onEditAsins,
     onChangeNameSearchValue,
     onSelectionModel,
     onClickRemoveSelectedBtn,
-    changeColumnsModel,
   } = gpModel.current
 
   useEffect(() => {
@@ -148,30 +142,32 @@ export const SupervisorSettingsContent = observer(() => {
             localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
-            page={curPage}
-            pageSize={rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            columnVisibilityModel={gpModel.current.columnVisibilityModel}
+            paginationModel={gpModel.current.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
             }}
-            componentsProps={{
+            slotsProps={{
               toolbar: {
-                columsBtnSettings: { columnsModel, changeColumnsModel },
+                columsBtnSettings: {
+                  columnsModel,
+                  columnVisibilityModel: gpModel.current.columnVisibilityModel,
+                  onColumnVisibilityModelChange: gpModel.current.onColumnVisibilityModelChange,
+                },
               },
             }}
             density={densityModel}
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.isLoading}
             onSortModelChange={onChangeSortingModel}
-            onPageSizeChange={onChangeRowsPerPage}
-            onPageChange={onChangeCurPage}
-            onStateChange={setDataGridState}
-            onFilterModelChange={model => onChangeFilterModel(model)}
-            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onFilterModelChange={onChangeFilterModel}
+            onRowSelectionModelChange={onSelectionModel}
           />
         </div>
       </TabPanel>
@@ -214,30 +210,32 @@ export const SupervisorSettingsContent = observer(() => {
             localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
-            page={curPage}
-            pageSize={rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            columnVisibilityModel={gpModel.current.columnVisibilityModel}
+            paginationModel={gpModel.current.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
             }}
-            componentsProps={{
+            slotsProps={{
               toolbar: {
-                columsBtnSettings: { columnsModel, changeColumnsModel },
+                columsBtnSettings: {
+                  columnsModel,
+                  columnVisibilityModel: gpModel.current.columnVisibilityModel,
+                  onColumnVisibilityModelChange: gpModel.current.onColumnVisibilityModelChange,
+                },
               },
             }}
             density={densityModel}
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.isLoading}
             onSortModelChange={onChangeSortingModel}
-            onPageSizeChange={onChangeRowsPerPage}
-            onPageChange={onChangeCurPage}
-            onStateChange={setDataGridState}
-            onFilterModelChange={model => onChangeFilterModel(model)}
-            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onFilterModelChange={onChangeFilterModel}
+            onRowSelectionModelChange={onSelectionModel}
           />
         </div>
       </TabPanel>
@@ -280,30 +278,32 @@ export const SupervisorSettingsContent = observer(() => {
             localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
-            page={curPage}
-            pageSize={rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            columnVisibilityModel={gpModel.current.columnVisibilityModel}
+            paginationModel={gpModel.current.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
             }}
-            componentsProps={{
+            slotsProps={{
               toolbar: {
-                columsBtnSettings: { columnsModel, changeColumnsModel },
+                columsBtnSettings: {
+                  columnsModel,
+                  columnVisibilityModel: gpModel.current.columnVisibilityModel,
+                  onColumnVisibilityModelChange: gpModel.current.onColumnVisibilityModelChange,
+                },
               },
             }}
             density={densityModel}
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.isLoading}
             onSortModelChange={onChangeSortingModel}
-            onPageSizeChange={onChangeRowsPerPage}
-            onPageChange={onChangeCurPage}
-            onStateChange={setDataGridState}
-            onFilterModelChange={model => onChangeFilterModel(model)}
-            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onFilterModelChange={onChangeFilterModel}
+            onRowSelectionModelChange={onSelectionModel}
           />
         </div>
       </TabPanel>
@@ -346,30 +346,32 @@ export const SupervisorSettingsContent = observer(() => {
             localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
-            page={curPage}
-            pageSize={rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            columnVisibilityModel={gpModel.current.columnVisibilityModel}
+            paginationModel={gpModel.current.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
             }}
-            componentsProps={{
+            slotsProps={{
               toolbar: {
-                columsBtnSettings: { columnsModel, changeColumnsModel },
+                columsBtnSettings: {
+                  columnsModel,
+                  columnVisibilityModel: gpModel.current.columnVisibilityModel,
+                  onColumnVisibilityModelChange: gpModel.current.onColumnVisibilityModelChange,
+                },
               },
             }}
             density={densityModel}
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.isLoading}
             onSortModelChange={onChangeSortingModel}
-            onPageSizeChange={onChangeRowsPerPage}
-            onPageChange={onChangeCurPage}
-            onStateChange={setDataGridState}
-            onFilterModelChange={model => onChangeFilterModel(model)}
-            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onFilterModelChange={onChangeFilterModel}
+            onRowSelectionModelChange={onSelectionModel}
           />
         </div>
       </TabPanel>

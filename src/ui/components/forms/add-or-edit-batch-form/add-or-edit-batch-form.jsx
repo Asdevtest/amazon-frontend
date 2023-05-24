@@ -498,10 +498,10 @@ export const AddOrEditBatchForm = observer(
                 },
               }}
               localeText={getLocalizationByLanguageTag()}
-              rowsPerPageOptions={[50, 100]}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
+              pageSizeOptions={[50, 100]}
+              slots={{
+                toolbar: DataGridCustomToolbar,
+                columnMenuIcon: FilterAltOutlinedIcon,
               }}
               sx={{
                 border: `1px solid  #EBEBEB !important`,
@@ -510,8 +510,8 @@ export const AddOrEditBatchForm = observer(
               rows={toJS(boxesToAddData)}
               columns={addOrEditBatchFormColumns(isClient)}
               rowHeight={100}
-              selectionModel={boxesToAddIds}
-              onSelectionModelChange={onSelectionAwaitingBoxes}
+              rowSelectionModel={boxesToAddIds}
+              onRowSelectionModelChange={onSelectionAwaitingBoxes}
             />
           </div>
 
@@ -586,14 +586,14 @@ export const AddOrEditBatchForm = observer(
               checkboxSelection
               // keepNonExistentRowsSelected
               localeText={getLocalizationByLanguageTag()}
-              rowsPerPageOptions={[50, 100]}
+              pageSizeOptions={[50, 100]}
               sx={{
                 boxShadow: '0px 2px 10px 2px #EBEBEB',
                 border: `1px solid  #EBEBEB !important`,
               }}
-              components={{
-                Toolbar: DataGridCustomToolbar,
-                ColumnMenuIcon: FilterAltOutlinedIcon,
+              slots={{
+                toolbar: DataGridCustomToolbar,
+                columnMenuIcon: FilterAltOutlinedIcon,
               }}
               classes={{
                 root: classNames.rootDataGrid,
@@ -601,7 +601,7 @@ export const AddOrEditBatchForm = observer(
               rows={chosenBoxes || []}
               columns={addOrEditBatchFormColumns(isClient)}
               rowHeight={100}
-              onSelectionModelChange={onSelectionChoosenBoxes}
+              onRowSelectionModelChange={onSelectionChoosenBoxes}
             />
           </div>
 

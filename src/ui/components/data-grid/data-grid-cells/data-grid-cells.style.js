@@ -1174,6 +1174,7 @@ export const styles = theme => ({
 
     color: 'gray',
 
+    // zIndex: -1000,
     zIndex: -1000,
 
     position: 'absolute',
