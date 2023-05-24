@@ -476,7 +476,6 @@ export const ClientInventoryViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}
       >
         <OrderProductModal
-          // volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           platformSettings={viewModel.platformSettings}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepers}

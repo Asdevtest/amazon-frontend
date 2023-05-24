@@ -103,7 +103,7 @@ export const WarehouseSentBatchesViewRaw = props => {
             onPageChange={viewModel.onChangeCurPage}
             onStateChange={viewModel.setDataGridState}
             onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
-            onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData)}
+            onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
           />
         </div>
       </MainContent>
@@ -137,6 +137,7 @@ export const WarehouseSentBatchesViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
         batch={viewModel.curBatch}
         userInfo={viewModel.userInfo}
+        patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
         onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
         onClickHsCode={viewModel.onClickHsCode}
       />
