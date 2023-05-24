@@ -44,6 +44,7 @@ import { t } from '@utils/translations'
 
 import { VacantRequestsViewModel } from './vacant-requests-view.model'
 import { styles } from './vacant-requests-view.style'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
 export const VacantRequestsViewRaw = props => {
   const [viewModel] = useState(() => new VacantRequestsViewModel({ history: props.history, location: props.location }))
@@ -151,7 +152,11 @@ export const VacantRequestsViewRaw = props => {
           </div>
         </div>
 
-        {getSortedData(viewModel.sortMode)?.length && viewModel.viewMode !== tableViewMode.TABLE ? (
+        {viewModel.requestStatus === loadingStatuses.isLoading ? (
+          <div className={classNames.loadingWrapper}>
+            <CircularProgressWithLabel />
+          </div>
+        ) : getSortedData(viewModel.sortMode)?.length && viewModel.viewMode !== tableViewMode.TABLE ? (
           <Box
             container
             classes={{ root: classNames.dashboardCardWrapper }}
@@ -163,8 +168,6 @@ export const VacantRequestsViewRaw = props => {
                 ? 'repeat(auto-fill, minmax(297px, 1fr))'
                 : 'repeat(auto-fill, 100%'
             }
-            // gridGap="20px"
-            // gridGap="35px"
             gap={'35px'}
           >
             {getSortedData(viewModel.sortMode)?.map((item, index) =>
