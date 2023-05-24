@@ -13,6 +13,7 @@ import {
   UserLinkCell,
   IconHeaderCell,
   PriorityAndChinaDeliverCell,
+  DownloadAndCopyBtnsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -75,8 +76,8 @@ export const adminOrdersViewColumns = () => [
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-    width: 200,
-    renderCell: params => <ActiveBarcodeCell barCode={params.value} />,
+    width: 170,
+    renderCell: params => <DownloadAndCopyBtnsCell value={params.value} />,
   },
 
   {
