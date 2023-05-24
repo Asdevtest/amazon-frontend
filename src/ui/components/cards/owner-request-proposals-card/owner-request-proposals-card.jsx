@@ -12,20 +12,11 @@ import {
 import { RequestStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-<<<<<<< HEAD
-import {Button} from '@components/buttons/button'
-import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
-import {RequestDesignerResultClientForm} from '@components/forms/request-designer-result-client-form'
-import {RequestStandartResultForm} from '@components/forms/request-standart-result-form'
-import {Modal} from '@components/modal'
-import {UserLink} from '@components/user-link'
-=======
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { Modal } from '@components/shared/modal'
 import { Button } from '@components/shared/buttons/button'
 import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { UserLink } from '@components/user/user-link'
->>>>>>> dev
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
@@ -33,6 +24,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './owner-request-proposals-card.style'
 import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
+import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 
 export const OwnerRequestProposalsCard = ({
   item,

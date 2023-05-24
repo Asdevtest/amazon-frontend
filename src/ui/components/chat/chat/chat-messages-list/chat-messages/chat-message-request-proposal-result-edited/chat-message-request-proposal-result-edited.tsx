@@ -33,13 +33,8 @@ interface Props {
   handlers: ChatMessageRequestProposalResultEditedHandlers
 }
 
-<<<<<<< HEAD
-export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, isLastMessage, handlers}) => {
-  const {classes: classNames} = useClassNames()
-=======
-export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, handlers }) => {
+export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, isLastMessage, handlers }) => {
   const { classes: classNames } = useClassNames()
->>>>>>> dev
   const proposal = message.data.proposal
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)

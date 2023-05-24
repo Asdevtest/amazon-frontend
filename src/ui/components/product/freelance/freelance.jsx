@@ -11,20 +11,11 @@ import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@cons
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-<<<<<<< HEAD
-import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar'
-import {RequestDesignerResultClientForm} from '@components/forms/request-designer-result-client-form'
-import {RequestStandartResultForm} from '@components/forms/request-standart-result-form'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {Modal} from '@components/modal'
-import {SearchInput} from '@components/search-input'
-=======
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { Modal } from '@components/shared/modal'
->>>>>>> dev
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
@@ -32,6 +23,7 @@ import { t } from '@utils/translations'
 import { FreelanceModel } from './freelance.model'
 import { useClassNames } from './freelance.style'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
+import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 
 export const Freelance = observer(({ productId }) => {
   const { classes: classNames } = useClassNames()
@@ -132,7 +124,7 @@ export const Freelance = observer(({ productId }) => {
         setOpenModal={() => onTriggerOpenModal('showRequestStandartResultModal')}
       >
         <RequestStandartResultForm
-          request={{request: curRequest}}
+          request={{ request: curRequest }}
           proposal={curProposal}
           setOpenModal={() => onTriggerOpenModal('showRequestStandartResultModal')}
           // onClickSendAsResult={onClickSendAsResult}

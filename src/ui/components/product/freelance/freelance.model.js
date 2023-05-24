@@ -1,21 +1,13 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-<<<<<<< HEAD
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { RequestSubType, RequestType } from '@constants/requests/request-type'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
   freelanceRequestTypeByKey,
-} from '@constants/freelance-request-type'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {RequestSubType, RequestType} from '@constants/request-type'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
-=======
-import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { RequestSubType, RequestType } from '@constants/requests/request-type'
-import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
+} from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
->>>>>>> dev
 
 import { RequestProposalModel } from '@models/request-proposal'
 import { RequestModel } from '@models/request-model'

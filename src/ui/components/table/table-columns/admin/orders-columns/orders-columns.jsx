@@ -4,7 +4,6 @@ import { orderColorByStatus, OrderStatusByCode } from '@constants/statuses/order
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ActiveBarcodeCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,

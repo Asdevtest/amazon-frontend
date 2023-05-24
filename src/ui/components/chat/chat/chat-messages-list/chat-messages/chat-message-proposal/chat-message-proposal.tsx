@@ -8,14 +8,8 @@ import Linkify from 'react-linkify-always-blank'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-<<<<<<< HEAD
-import {ChatMessageDataCreatedNewProposalProposalDescriptionContract} from '@models/chat-model/contracts/chat-message-data.contract'
-import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
-import {UserModel} from '@models/user-model'
-=======
 import { ChatMessageDataCreatedNewProposalProposalDescriptionContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
->>>>>>> dev
 
 import { Button } from '@components/shared/buttons/button'
 
@@ -28,6 +22,7 @@ import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and
 import { LabelValuePairBlock } from '../label-value-pair-block'
 import { useClassNames } from './chat-message-proposal.style'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { UserModel } from '@models/user-model'
 
 export interface ChatMessageProposalHandlers {
   onClickProposalAccept: (proposalId: string, price: number) => void
@@ -41,14 +36,10 @@ interface Props {
 
 export const ChatMessageProposal: FC<Props> = ({ message, handlers }) => {
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
-<<<<<<< HEAD
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const curUserId: string | undefined = UserModel.masterUserId || UserModel.userId
 
-=======
-  const { classes: classNames } = useClassNames()
->>>>>>> dev
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
