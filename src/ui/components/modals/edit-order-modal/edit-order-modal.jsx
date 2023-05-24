@@ -942,10 +942,13 @@ export const EditOrderModal = observer(
           </Button>
         </Box>
 
-        {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) && (
-          <div>
-            <Typography className={classNames.addBoxTitle}>{t(TranslationKey['Add boxes for this order'])}</Typography>
+        <div className={classNames.addBoxButtonAndCommentsWrapper}>
+          {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) ? (
             <div className={classNames.addBoxButtonWrapper}>
+              <Typography className={classNames.addBoxTitle}>
+                {t(TranslationKey['Add boxes for this order'])}
+              </Typography>
+
               <Button
                 tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])}
                 className={classNames.addBoxButton}
@@ -953,14 +956,16 @@ export const EditOrderModal = observer(
               >
                 {t(TranslationKey['Add a box'])}
               </Button>
-
-              <Button className={classNames.seeCommentsButton} onClick={() => setCommentModalModal(!commentModal)}>
-                <Typography className={classNames.seeCommentsText}>{t(TranslationKey['See comments'])}</Typography>
-                <VisibilityIcon className={classNames.seeCommentsIcon} />
-              </Button>
             </div>
-          </div>
-        )}
+          ) : (
+            <div />
+          )}
+
+          <Button className={classNames.seeCommentsButton} onClick={() => setCommentModalModal(!commentModal)}>
+            <Typography className={classNames.seeCommentsText}>{t(TranslationKey['See comments'])}</Typography>
+            <VisibilityIcon className={classNames.seeCommentsIcon} />
+          </Button>
+        </div>
 
         {boxesForCreation.length > 0 && (
           <>
