@@ -23,6 +23,7 @@ import { t } from '@utils/translations'
 import { FreelanceModel } from './freelance.model'
 import { useClassNames } from './freelance.style'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
+import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 
 export const Freelance = observer(({ productId }) => {
   const { classes: classNames } = useClassNames()
@@ -41,6 +42,7 @@ export const Freelance = observer(({ productId }) => {
     selectedTaskType,
     requestStatus,
     showRequestDesignerResultClientModal,
+    showRequestStandartResultModal,
     getCurrentData,
     densityModel,
     columnsModel,
@@ -104,7 +106,6 @@ export const Freelance = observer(({ productId }) => {
       </div>
 
       <Modal
-        missClickModalOn
         openModal={showRequestDesignerResultClientModal}
         setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
       >
@@ -115,6 +116,18 @@ export const Freelance = observer(({ productId }) => {
           proposal={curProposal}
           curResultMedia={curProposal?.proposal.media}
           setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
+        />
+      </Modal>
+
+      <Modal
+        openModal={showRequestStandartResultModal}
+        setOpenModal={() => onTriggerOpenModal('showRequestStandartResultModal')}
+      >
+        <RequestStandartResultForm
+          request={{ request: curRequest }}
+          proposal={curProposal}
+          setOpenModal={() => onTriggerOpenModal('showRequestStandartResultModal')}
+          // onClickSendAsResult={onClickSendAsResult}
         />
       </Modal>
     </div>

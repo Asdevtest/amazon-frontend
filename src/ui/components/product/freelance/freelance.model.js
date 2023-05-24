@@ -2,7 +2,11 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestSubType, RequestType } from '@constants/requests/request-type'
-import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
+import {
+  freelanceRequestType,
+  freelanceRequestTypeByCode,
+  freelanceRequestTypeByKey,
+} from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { RequestProposalModel } from '@models/request-proposal'
@@ -31,6 +35,7 @@ export class FreelanceModel {
   selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
 
   showRequestDesignerResultClientModal = false
+  showRequestStandartResultModal = false
 
   showAcceptMessage = undefined
   acceptMessage = undefined
@@ -186,7 +191,19 @@ export class FreelanceModel {
         this.curProposal = proposal
       })
 
-      this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+      switch (freelanceRequestTypeByCode[item.typeTask]) {
+        case freelanceRequestType.DESIGNER:
+          this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+          break
+
+        case freelanceRequestType.SEO:
+          this.onTriggerOpenModal('showRequestStandartResultModal')
+          break
+
+        default:
+          this.onTriggerOpenModal('showRequestStandartResultModal')
+          break
+      }
     } catch (error) {
       console.log(error)
     }
