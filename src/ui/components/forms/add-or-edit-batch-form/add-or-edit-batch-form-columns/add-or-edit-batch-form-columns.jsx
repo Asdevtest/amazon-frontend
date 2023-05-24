@@ -108,7 +108,7 @@ export const addOrEditBatchFormColumns = isClient => [
     renderCell: params => (
       <UserLinkCell
         blackText
-        name={isClient ? params.row.originalData?.storekeeper?.name : params.value}
+        name={isClient ? params.row.originalData?.storekeeper?.name : params.row.originalData?.client?.name}
         userId={isClient ? params.row.originalData?.storekeeper?._id : params.row.originalData?.client?._id}
       />
     ),
