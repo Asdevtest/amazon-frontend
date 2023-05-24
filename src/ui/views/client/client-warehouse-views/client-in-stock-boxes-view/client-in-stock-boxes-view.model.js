@@ -392,7 +392,10 @@ export class ClientInStockBoxesViewModel {
       this.curPage = 0
     })
 
-    this.getBoxesMy()
+    this.requestStatus = loadingStatuses.isLoading
+    this.getBoxesMy().then(() => {
+      this.requestStatus = loadingStatuses.success
+    })
   }
 
   onChangeRowsPerPageForTask(e) {
@@ -415,7 +418,10 @@ export class ClientInStockBoxesViewModel {
       this.sortModel = sortModel
     })
 
-    this.getBoxesMy()
+    this.requestStatus = loadingStatuses.isLoading
+    this.getBoxesMy().then(() => {
+      this.requestStatus = loadingStatuses.success
+    })
   }
 
   onSelectionModel(model) {
@@ -869,7 +875,11 @@ export class ClientInStockBoxesViewModel {
     runInAction(() => {
       this.curDestination = destination ? destination : undefined
     })
-    this.getBoxesMy()
+
+    this.requestStatus = loadingStatuses.isLoading
+    this.getBoxesMy().then(() => {
+      this.requestStatus = loadingStatuses.success
+    })
   }
 
   openModalAndClear() {
@@ -949,7 +959,10 @@ export class ClientInStockBoxesViewModel {
       this.curPage = e
     })
 
-    this.getBoxesMy()
+    this.requestStatus = loadingStatuses.isLoading
+    this.getBoxesMy().then(() => {
+      this.requestStatus = loadingStatuses.success
+    })
   }
 
   onChangeCurPageForTask = e => {
@@ -964,7 +977,11 @@ export class ClientInStockBoxesViewModel {
     runInAction(() => {
       this.nameSearchValue = searchValue
     })
-    this.getBoxesMy()
+
+    this.requestStatus = loadingStatuses.isLoading
+    this.getBoxesMy().then(() => {
+      this.requestStatus = loadingStatuses.success
+    })
   }
 
   async onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox) {
