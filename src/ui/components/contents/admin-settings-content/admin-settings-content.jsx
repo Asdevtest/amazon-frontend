@@ -1,34 +1,34 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Box} from '@mui/material'
+import { Box } from '@mui/material'
 
-import React, {useEffect, useRef, useState} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
-import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {AddOrEditDestinationForm} from '@components/forms/add-or-edit-destination-form'
-import {AsinProxyCheckerForm} from '@components/forms/asin-proxy-checker-form'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {Modal} from '@components/modal'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
+import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
 
-import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {AdminSettingsModel} from './admin-settings-content.model'
-import {useClassNames} from './admin-settings-content.style'
-import {TabFreelanceContent} from './admin-tabs-content/tab-freelance-content'
-import {TabMainContent} from './admin-tabs-content/tab-main-content'
-import {TabOrdersContent} from './admin-tabs-content/tab-orders-content'
-import {TabSearchSupplierContent} from './admin-tabs-content/tab-search-supplier-content'
+import { AdminSettingsModel } from './admin-settings-content.model'
+import { useClassNames } from './admin-settings-content.style'
+import { TabFreelanceContent } from './admin-tabs-content/tab-freelance-content'
+import { TabMainContent } from './admin-tabs-content/tab-main-content'
+import { TabOrdersContent } from './admin-tabs-content/tab-orders-content'
+import { TabSearchSupplierContent } from './admin-tabs-content/tab-search-supplier-content'
 
 const fieldsWithoutCharactersAfterDote = [
   'requestPlatformMarginInPercent',
@@ -47,9 +47,9 @@ const tabsValues = {
 }
 
 export const AdminSettingsContent = observer(() => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
-  const asModel = useRef(new AdminSettingsModel({history}))
+  const asModel = useRef(new AdminSettingsModel({ history }))
 
   useEffect(() => {
     asModel.current.loadData()
@@ -63,8 +63,6 @@ export const AdminSettingsContent = observer(() => {
     showInfoModal,
     sortModel,
     filterModel,
-    curPage,
-    rowsPerPage,
     densityModel,
     columnsModel,
     requestStatus,
@@ -73,7 +71,6 @@ export const AdminSettingsContent = observer(() => {
     destinationToEdit,
     confirmModalSettings,
     showConfirmModal,
-    changeColumnsModel,
     onSubmitCreateDestination,
     onSubmitEditDestination,
     createAdminSettings,
@@ -81,11 +78,8 @@ export const AdminSettingsContent = observer(() => {
     getCurrentData,
     onClickAddBtn,
     onChangeSortingModel,
-    onChangeRowsPerPage,
     onChangeFilterModel,
-    onChangeCurPage,
     createProxy,
-    setDataGridState,
     onClickCancelBtn,
     onCloseInfoModal,
   } = asModel.current
@@ -156,7 +150,7 @@ export const AdminSettingsContent = observer(() => {
   }
 
   const onChangeField = fieldName => event => {
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
 
     if (
       !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(
@@ -337,28 +331,30 @@ export const AdminSettingsContent = observer(() => {
                   localeText={getLocalizationByLanguageTag()}
                   sortModel={sortModel}
                   filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  columnVisibilityModel={asModel.current.columnVisibilityModel}
+                  paginationModel={asModel.current.paginationModel}
+                  pageSizeOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
                   rowHeight={120}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
+                  slots={{
+                    toolbar: DataGridCustomToolbar,
+                    columnMenuIcon: FilterAltOutlinedIcon,
                   }}
-                  componentsProps={{
+                  slotProps={{
                     toolbar: {
-                      columsBtnSettings: {columnsModel, changeColumnsModel},
+                      columsBtnSettings: {
+                        columnsModel,
+                        columnVisibilityModel: asModel.current.columnVisibilityModel,
+                        onColumnVisibilityModelChange: asModel.current.onColumnVisibilityModelChange,
+                      },
                     },
                   }}
                   density={densityModel}
                   columns={columnsModel}
                   loading={requestStatus === loadingStatuses.isLoading}
                   onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
+                  onPaginationModelChange={asModel.current.onChangePaginationModelChange}
+                  onFilterModelChange={onChangeFilterModel}
                 />
               </div>
 

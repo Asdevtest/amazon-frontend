@@ -1,1 +1,1 @@
-export {AnotherUserProfileView} from './another-user-profile-view'
+export { AnotherUserProfileView } from './another-user-profile-view'

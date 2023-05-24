@@ -1,16 +1,16 @@
-import {Radio} from '@mui/material'
+import { Radio } from '@mui/material'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   NormDateCell,
   MultilineTextCell,
   ToFixedWithKgSignCell,
   MultilineTextHeaderCell,
-} from '@components/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
   {
@@ -69,9 +69,9 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
-    type: 'date',
+    // type: 'date',
   },
 
   {

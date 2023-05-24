@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
@@ -50,25 +50,12 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  divider: {
-    width: '100%',
-  },
-
   userInfoWrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
     width: '100%',
     marginBottom: '10px',
-  },
-
-  timeInfoWrapper: {
-    width: '100%',
-    margin: '20px 0',
-
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
   },
 
   cardImg: {
@@ -84,65 +71,8 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
   },
 
-  cardPrice: {
-    fontSize: '14px',
-    lineHeight: '17px',
-    fontWeight: '600',
-    color: theme.palette.primary.main,
-  },
-
-  cardTime: {
-    fontSize: '14px',
-    lineHeight: '16px',
-    color: theme.palette.text.second,
-  },
-
   nameRatingWrapper: {
     marginLeft: '10px',
-  },
-
-  updatedAtWrapper: {
-    marginTop: 'auto',
-    alignSelf: 'flex-start',
-    display: 'flex',
-    alignItems: 'center',
-
-    '& > :first-of-type': {
-      marginRight: '5px',
-    },
-  },
-
-  updatedAtText: {
-    fontSize: '14px',
-    lineHeight: '16px',
-    fontWeight: '400',
-    color: theme.palette.text.second,
-  },
-
-  deadline: {
-    fontSize: '14px',
-    lineHeight: '17px',
-    fontWeight: '600',
-    color: theme.palette.text.general,
-  },
-
-  timeWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: '30px',
-  },
-  statusWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: '17px',
-  },
-
-  statusText: {
-    fontWeight: 400,
-    fontSize: '14px',
-    lineHeight: '16px',
-    color: theme.palette.text.second,
   },
 
   mainInfosWrapper: {

@@ -1,19 +1,19 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 // import {mapProductStrategyStatusEnumToKey} from '@constants/product-strategy-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field/field'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './edit-asin-checker-modal.style'
+import { useClassNames } from './edit-asin-checker-modal.style'
 
-export const EditAsinCheckerModal = ({asinsToEdit, onSubmit, onClose, strategy}) => {
-  const {classes: classNames} = useClassNames()
+export const EditAsinCheckerModal = ({ asinsToEdit, onSubmit, onClose, strategy }) => {
+  const { classes: classNames } = useClassNames()
 
   const sourceFormFields = {
     asin: asinsToEdit?.asin || '',
@@ -24,7 +24,7 @@ export const EditAsinCheckerModal = ({asinsToEdit, onSubmit, onClose, strategy})
   const [formFields, setFormFields] = useState(sourceFormFields)
 
   const onChangeField = fieldName => event => {
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
 
     newFormFields[fieldName] = event.target.value
 
@@ -40,7 +40,7 @@ export const EditAsinCheckerModal = ({asinsToEdit, onSubmit, onClose, strategy})
       </div>
       <div className={classNames.modalFieldsWrapper}>
         <Field
-          inputProps={{maxLength: 15}}
+          inputProps={{ maxLength: 15 }}
           labelClasses={classNames.commentLabelText}
           containerClasses={classNames.commentContainer}
           label={t(TranslationKey.ASIN)}
@@ -52,7 +52,7 @@ export const EditAsinCheckerModal = ({asinsToEdit, onSubmit, onClose, strategy})
           className={classNames.heightFieldAuto}
           minRows={7}
           maxRows={7}
-          inputProps={{maxLength: 1024}}
+          inputProps={{ maxLength: 1024 }}
           containerClasses={classNames.commentContainer}
           labelClasses={classNames.commentLabelText}
           label={t(TranslationKey.Reason)}

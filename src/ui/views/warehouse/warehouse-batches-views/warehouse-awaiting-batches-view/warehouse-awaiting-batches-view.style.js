@@ -1,32 +1,4 @@
 export const styles = theme => ({
-  sendOwnProductBtn: {
-    marginBottom: theme.spacing(2),
-  },
-  redistributionWrapper: {},
-  modalMessageWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  modalMessage: {
-    maxWidth: '400px',
-  },
-  modalMessageBtn: {
-    alignSelf: 'flex-end',
-  },
-  addProductBtnWrapper: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    padding: '0 0 10px',
-  },
-
-  tableWrapper: {
-    marginTop: '32px',
-    width: '100%',
-    height: '100%',
-  },
-
   btnsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -80,10 +52,6 @@ export const styles = theme => ({
     },
   },
 
-  addBtn: {
-    height: '36.5px',
-  },
-
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
@@ -94,18 +62,13 @@ export const styles = theme => ({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
-
-    // border: '1px solid rgba(81, 81, 81, 1) !important',
   },
 
   footerContainer: {
     position: 'absolute',
     top: 0,
     right: 0,
-
     borderTop: 'none !important',
     [theme.breakpoints.down(768)]: {
       '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(3)': {
@@ -158,14 +121,7 @@ export const styles = theme => ({
   },
   datagridWrapper: {
     marginTop: '10px',
-    height: '75vh',
-  },
-  searchContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    [theme.breakpoints.down(768)]: {
-      margin: 0,
-    },
+    height: 'calc(100vh - 250px)',
   },
 
   searchInput: {

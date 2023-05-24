@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -76,13 +76,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   highlight: {
     backgroundColor: '#D8B704',
-    // backgroundColor: '#F5CF00',
-
-    // backgroundColor: 'crimson',
-
-    // backgroundColor: theme.palette.primary.main,
-
-    // color: 'white !important',
 
     color: '#001029 !important',
 

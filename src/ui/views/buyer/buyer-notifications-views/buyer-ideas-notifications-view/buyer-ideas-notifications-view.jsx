@@ -1,127 +1,87 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
-import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {Navbar} from '@components/navbar'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { MainContent } from '@components/layout/main-content'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {BuyerIdeasNotificationsViewModel} from './buyer-ideas-notifications-view.model'
-import {styles} from './buyer-ideas-notifications-view.style'
+import { BuyerIdeasNotificationsViewModel } from './buyer-ideas-notifications-view.model'
+import { styles } from './buyer-ideas-notifications-view.style'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS
-const navbarActiveSubCategory = 0
+export const BuyerIdeasNotificationsViewRaw = props => {
+  const [viewModel] = useState(() => new BuyerIdeasNotificationsViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
-@observer
-class BuyerIdeasNotificationsViewRaw extends Component {
-  viewModel = new BuyerIdeasNotificationsViewModel({history: this.props.history})
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  return (
+    <React.Fragment>
+      <MainContent>
+        <Button variant="outlined" className={classNames.archiveHandler} onClick={viewModel.handleArchive}>
+          {viewModel.isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
+        </Button>
 
-  render() {
-    const {
-      requestStatus,
-      getCurrentData,
-      sortModel,
-      isArchived,
-      filterModel,
-      densityModel,
-      columnsModel,
-      drawerOpen,
-      rowsPerPage,
-      curPage,
-      onTriggerDrawerOpen,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      setCurrentOpenedBox,
-      onSelectionModel,
-      setDataGridState,
-      onChangeSortingModel,
-      onChangeFilterModel,
-      handleArchive,
-      changeColumnsModel,
-    } = this.viewModel
-    const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-        />
-        <Main>
-          <Appbar title={t(TranslationKey['Notifications on ideas'])} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <Button variant="outlined" className={classNames.archiveHandler} onClick={handleArchive}>
-                {isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
-              </Button>
-
-              <div className={classNames.tableWrapper}>
-                <MemoDataGrid
-                  pagination
-                  useResizeContainer
-                  disableVirtualization
-                  localeText={getLocalizationByLanguageTag()}
-                  classes={{
-                    row: classNames.row,
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
-                  }}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
-                  // getRowHeight={() => 'auto'}
-                  rowHeight={120}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                  }}
-                  componentsProps={{
-                    toolbar: {
-                      columsBtnSettings: {columnsModel, changeColumnsModel},
-                    },
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={onSelectionModel}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-                  onFilterModelChange={model => onChangeFilterModel(model)}
-                />
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
-      </React.Fragment>
-    )
-  }
+        <div className={classNames.tableWrapper}>
+          <MemoDataGrid
+            pagination
+            useResizeContainer
+            disableVirtualization
+            localeText={getLocalizationByLanguageTag()}
+            classes={{
+              row: classNames.row,
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+            }}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
+            rows={viewModel.getCurrentData()}
+            // getRowHeight={() => 'auto'}
+            rowHeight={120}
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            slotProps={{
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                },
+              },
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+          />
+        </div>
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const BuyerIdeasNotificationsView = withStyles(BuyerIdeasNotificationsViewRaw, styles)
+export const BuyerIdeasNotificationsView = withStyles(observer(BuyerIdeasNotificationsViewRaw), styles)

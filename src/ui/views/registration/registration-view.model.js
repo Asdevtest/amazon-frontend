@@ -1,14 +1,14 @@
-import {transformAndValidate} from 'class-transformer-validator'
-import {action, makeAutoObservable, reaction, runInAction} from 'mobx'
+import { transformAndValidate } from 'class-transformer-validator'
+import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
-import {UserRegistrationContract} from '@models/user-model/user-model.contracts'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
+import { UserRegistrationContract } from '@models/user-model/user-model.contracts'
 
-import {getObjectKeys} from '@utils/object'
-import {setI18nConfig} from '@utils/translations'
+import { getObjectKeys } from '@utils/object'
+import { setI18nConfig } from '@utils/translations'
 
 const delayRedirectToAuthTime = 1000
 
@@ -34,11 +34,11 @@ export class RegistrationViewModel {
     confirmPassword: null,
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
     reaction(
       () => SettingsModel.languageTag,
       () => this.onLoadPage(),
@@ -61,13 +61,13 @@ export class RegistrationViewModel {
         this.requestStatus = loadingStatuses.isLoading
         this.error = undefined
       })
-      const result = await UserModel.isCheckUniqueUser({name: this.name, email: this.email.toLowerCase()})
+      const result = await UserModel.isCheckUniqueUser({ name: this.name, email: this.email.toLowerCase() })
 
       runInAction(() => {
         this.checkValidationNameOrEmail = result
       })
 
-      const requestData = {name: this.name, email: this.email.toLowerCase(), password: this.password}
+      const requestData = { name: this.name, email: this.email.toLowerCase(), password: this.password }
 
       await transformAndValidate(UserRegistrationContract, requestData)
 

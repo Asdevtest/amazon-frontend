@@ -1,44 +1,38 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {AnnouncementsModel} from '@models/announcements-model'
-import {ChatModel} from '@models/chat-model'
-import {RequestModel} from '@models/request-model'
-import {RequestProposalModel} from '@models/request-proposal'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { AnnouncementsModel } from '@models/announcements-model'
+import { ChatModel } from '@models/chat-model'
+import { RequestModel } from '@models/request-model'
+import { RequestProposalModel } from '@models/request-proposal'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {FreelancerFreelanceColumns} from '@views/freelancer/freelancer-freelance-columns'
+import { FreelancerFreelanceColumns } from '@components/table/table-columns/freelancer/freelancer-freelance-columns'
 
-import {freelancerServiceDetaildsDataConverter} from '@utils/data-grid-data-converters'
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { freelancerServiceDetaildsDataConverter } from '@utils/data-grid-data-converters'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class ServiceDetailsViewModel {
   history = undefined
   error = undefined
   uploadedFiles = []
-  drawerOpen = false
 
   requestStatus = undefined
 
   announcementData = undefined
   announcementId = undefined
 
-  curPage = 0
   rowCount = 0
-  rowsPerPage = 15
-
   currentData = []
-
   sortModel = []
-  filterModel = {items: []}
-  columnVisibilityModel = undefined
+  filterModel = { items: [] }
 
   showConfirmModal = false
 
@@ -55,7 +49,10 @@ export class ServiceDetailsViewModel {
     onClickOpenButton: id => this.onClickOpenBtn(id),
   }
 
-  columnsModel = FreelancerFreelanceColumns(this.handlers, this.languageTag)
+  columnsModel = FreelancerFreelanceColumns(this.handlers)
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   get user() {
     return UserModel.userInfo
@@ -65,7 +62,7 @@ export class ServiceDetailsViewModel {
     return SettingsModel.languageTag || {}
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
 
@@ -75,7 +72,7 @@ export class ServiceDetailsViewModel {
         })
       }
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.announcementData,
@@ -85,23 +82,6 @@ export class ServiceDetailsViewModel {
           // console.log('this.currentData', this.currentData)
         }),
     )
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
-  }
-
-  getDataGridState() {
-    runInAction(() => {
-      this.columnsModel = FreelancerFreelanceColumns(this.handlers, this.languageTag)
-    })
   }
 
   getCurrentData() {
@@ -183,19 +163,17 @@ export class ServiceDetailsViewModel {
     })
   }
 
-  onChangeCurPage(e) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.curPage = e
+      this.paginationModel = model
     })
     this.getAnnouncementsDataByGuid()
   }
 
-  onChangeRowsPerPage(e) {
+  onColumnVisibilityModelChange(model) {
     runInAction(() => {
-      this.rowsPerPage = e
-      this.curPage = 0
+      this.columnVisibilityModel = model
     })
-
     this.getAnnouncementsDataByGuid()
   }
 
@@ -205,12 +183,6 @@ export class ServiceDetailsViewModel {
     })
 
     this.getAnnouncementsDataByGuid()
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setRequestStatus(requestStatus) {

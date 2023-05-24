@@ -1,1 +1,1 @@
-export {ModeratorMyProductsView} from './moderator-my-products-view'
+export { ModeratorMyProductsView } from './moderator-my-products-view'

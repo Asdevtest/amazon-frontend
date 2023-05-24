@@ -1,19 +1,19 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {TwoBarsChart} from '@components/charts/two-bars-chart/two-bars-chart'
+import { Button } from '@components/shared/buttons/button'
+import { TwoBarsChart } from '@components/shared/charts/two-bars-chart/two-bars-chart'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './charts-form.style'
+import { useClassNames } from './charts-form.style'
 
 const filterSettings = {
   SIX_MONTHS: 'SIX_MONTHS',
@@ -21,8 +21,8 @@ const filterSettings = {
   ALL_MONTHS: 'ALL_MONTHS',
 }
 
-export const ChartsForm = observer(({data, isRevenueBeggin}) => {
-  const {classes: classNames} = useClassNames()
+export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
+  const { classes: classNames } = useClassNames()
 
   const [isRevenue, setIsRevenue] = useState(isRevenueBeggin)
 
@@ -82,7 +82,7 @@ export const ChartsForm = observer(({data, isRevenueBeggin}) => {
             </Typography>
           </div>
           <div className={classNames.barStatusWrapper}>
-            <FiberManualRecordRoundedIcon classes={{root: classNames.indicator}} />
+            <FiberManualRecordRoundedIcon classes={{ root: classNames.indicator }} />
             <Typography className={classNames.cardTitle}>
               {isRevenue
                 ? t(TranslationKey['Pure profit']).toLowerCase()

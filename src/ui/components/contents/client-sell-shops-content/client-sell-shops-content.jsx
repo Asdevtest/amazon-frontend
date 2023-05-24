@@ -1,23 +1,23 @@
-import {Tabs} from '@mui/material'
+import { Tabs } from '@mui/material'
 
 import React from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {ITab} from '@components/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab/i-tab'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {ClientSellShopsAds} from './client-sell-shops-ads'
-import {useClassNames} from './client-sell-shops-content.style'
-import {ClientSellShopsDeals} from './client-sell-shops-deals'
+import { ClientSellShopsAds } from './client-sell-shops-ads'
+import { useClassNames } from './client-sell-shops-content.style'
+import { ClientSellShopsDeals } from './client-sell-shops-deals'
 
-const TabPanel = ({children, value, index, ...other}) => {
-  const {classes: classNames} = useClassNames()
+const TabPanel = ({ children, value, index, ...other }) => {
+  const { classes: classNames } = useClassNames()
   return (
     <div
       role="tabpanel"
@@ -31,7 +31,7 @@ const TabPanel = ({children, value, index, ...other}) => {
   )
 }
 export const ClientSellShopsContent = observer(() => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [tabIndex, setTabIndex] = React.useState(0)
 

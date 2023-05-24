@@ -1,1 +1,1 @@
-export {TradingShopCard} from './trading-shop-card'
+export { TradingShopCard } from './trading-shop-card'

@@ -1,18 +1,17 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {ActiveSubCategoryTablesKeys} from '@constants/active-sub-category-tables-keys'
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { ActiveSubCategoryTablesKeys } from '@constants/table/active-sub-category-tables-keys'
 
-import {AdministratorModel} from '@models/administrator-model'
-import {SettingsModel} from '@models/settings-model'
+import { AdministratorModel } from '@models/administrator-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {exchangeProductsColumns} from '@components/table-columns/admin/exchange-columns'
+import { exchangeProductsColumns } from '@components/table/table-columns/admin/exchange-columns'
 
-import {adminProductsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import { adminProductsDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 
 const productsStatusBySubCategory = {
   0: ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT], // 5 статус
@@ -36,57 +35,61 @@ export class AdminExchangeViewModel {
   activeSubCategory = SettingsModel.activeSubCategoryState[ActiveSubCategoryTablesKeys.ADMIN_EXCHANGE] || 0
   currentProductsData = []
 
-  selectionModel = undefined
+  rowSelectionModel = undefined
 
   sortModel = []
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = exchangeProductsColumns({activeSubCategory: this.activeSubCategory})
+  columnsModel = exchangeProductsColumns({ activeSubCategory: this.activeSubCategory })
 
-  drawerOpen = false
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
+
   showSetBarcodeModal = false
   selectedProduct = undefined
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
   }
 
   onChangeSubCategory(value) {
     this.setActiveSubCategoryState(value)
     this.activeSubCategory = value
     this.getProductsByStatus(value)
-    this.getDataGridState()
+    this.updateColumns()
+    this.setDataGridState()
+  }
+
+  updateColumns() {
+    runInAction(() => {
+      this.columnsModel = exchangeProductsColumns({ activeSubCategory: this.activeSubCategory })
+    })
   }
 
   onClickTableRow(product) {
@@ -127,14 +130,13 @@ export class AdminExchangeViewModel {
     SettingsModel.setActiveSubCategoryState(state, ActiveSubCategoryTablesKeys.ADMIN_EXCHANGE)
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, this.dataGridTableKeyDependingOnActiveSubCategory())
   }
@@ -142,37 +144,22 @@ export class AdminExchangeViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[this.dataGridTableKeyDependingOnActiveSubCategory()]
 
-    if (state) {
-      runInAction(() => {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = exchangeProductsColumns({activeSubCategory: this.activeSubCategory}).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
-      })
-    }
+    runInAction(() => {
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
+    })
   }
 
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
     })
-  }
 
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
-    })
-  }
-
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
+    this.setDataGridState()
   }
 
   getCurrentData() {
@@ -209,12 +196,6 @@ export class AdminExchangeViewModel {
         this.currentProductsData = []
       })
     }
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setSelectedProduct(item) {

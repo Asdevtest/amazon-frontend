@@ -1,16 +1,15 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {OtherModel} from '@models/other-model'
-import {SettingsModel} from '@models/settings-model'
+import { OtherModel } from '@models/other-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {financesViewColumns} from '@components/table-columns/admin/finances-columns/finances-columns'
+import { financesViewColumns } from '@components/table/table-columns/admin/finances-columns/finances-columns'
 
-import {financesDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import { financesDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 
 export class FinancesViewModel {
   history = undefined
@@ -19,19 +18,18 @@ export class FinancesViewModel {
 
   currentFinancesData = []
 
-  selectionModel = undefined
-
-  drawerOpen = false
+  rowSelectionModel = undefined
 
   sortModel = []
   startFilterModel = undefined
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel = financesViewColumns()
 
-  constructor({history, location}) {
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
+
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
 
@@ -43,27 +41,14 @@ export class FinancesViewModel {
     //       this.startFilterModel = resetDataGridFilter
     //     }
 
-    makeAutoObservable(this, undefined, {autoBind: true})
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  changeColumnsModel(newHideState) {
+  onChangeSortingModel(sortModel) {
     runInAction(() => {
-      this.columnsModel = financesViewColumns().map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
+      this.sortModel = sortModel
     })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
+    this.setDataGridState()
   }
 
   onChangeFilterModel(model) {
@@ -72,14 +57,28 @@ export class FinancesViewModel {
     })
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.SHARED_FINANCES)
   }
@@ -89,15 +88,10 @@ export class FinancesViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = this.startFilterModel ? this.startFilterModel : state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = financesViewColumns().map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
@@ -110,25 +104,31 @@ export class FinancesViewModel {
 
   async getPayments() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      runInAction(() => {
-        this.error = undefined
-      })
-      this.getDataGridState()
       const result = await OtherModel.getMyPayments()
       runInAction(() => {
         this.currentFinancesData = financesDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('createdAt'),
         )
       })
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       runInAction(() => {
         this.error = error
         this.currentFinancesData = []
       })
+    }
+  }
+
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      await this.getPayments()
+      this.getDataGridState()
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
     }
   }
 
@@ -138,31 +138,7 @@ export class FinancesViewModel {
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
-    })
-  }
-
-  onChangeDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
-  onChangeCurPage = e => {
-    runInAction(() => {
-      this.curPage = e
-    })
-  }
-
-  onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
+      this.rowSelectionModel = model
     })
   }
 }

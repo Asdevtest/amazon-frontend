@@ -1,36 +1,36 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
 
-import {observer} from 'mobx-react'
-import {useHistory} from 'react-router-dom'
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
-import {tableSortMode} from '@constants/table-view-modes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { tableSortMode } from '@constants/table/table-view-modes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {TradingShopCard} from '@components/cards/trading-shop-card'
-import {SearchInput} from '@components/search-input'
+import { TradingShopCard } from '@components/cards/trading-shop-card'
+import { SearchInput } from '@components/shared/search-input'
 
-import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
-import {t} from '@utils/translations'
+import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
+import { t } from '@utils/translations'
 
-import {ClientBuyShopsDealsModel} from './client-buy-shops-deals.model'
-import {useClassNames} from './client-buy-shops-deals.style'
+import { ClientBuyShopsDealsModel } from './client-buy-shops-deals.model'
+import { useClassNames } from './client-buy-shops-deals.style'
 
 export const ClientBuyShopsDeals = observer(() => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
   const history = useHistory()
-  const model = useRef(new ClientBuyShopsDealsModel({history}))
+  const model = useRef(new ClientBuyShopsDealsModel({ history }))
 
   useEffect(() => {
     model.current.loadData()
   }, [])
 
-  const {nameSearchValue, getCurrentData, sortMode, onTriggerSortMode, onClickViewMore, onChangeNameSearchValue} =
+  const { nameSearchValue, getCurrentData, sortMode, onTriggerSortMode, onClickViewMore, onChangeNameSearchValue } =
     model.current
 
   const getSortedData = mode => {

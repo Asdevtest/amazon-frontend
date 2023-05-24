@@ -1,19 +1,19 @@
 import RotateLeftOutlinedIcon from '@mui/icons-material/RotateLeftOutlined'
 import RotateRightOutlinedIcon from '@mui/icons-material/RotateRightOutlined'
 
-import {useState} from 'react'
+import { useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
+import { Button } from '@components/shared/buttons/button'
 
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {t} from '@utils/translations'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './image-edit-form.style'
+import { useClassNames } from './image-edit-form.style'
 
-export const ImageEditForm = ({item, onSave, setOpenModal}) => {
-  const {classes: classNames} = useClassNames()
+export const ImageEditForm = ({ item, onSave, setOpenModal }) => {
+  const { classes: classNames } = useClassNames()
 
   const [rotation, setRotation] = useState(0)
 
@@ -51,7 +51,7 @@ export const ImageEditForm = ({item, onSave, setOpenModal}) => {
           canvas.toBlob(blob => {
             const url = URL.createObjectURL(blob)
 
-            console.log('blob', blob)
+            // console.log('blob', blob)
 
             const readyFile = {
               data_url: url,
@@ -72,7 +72,7 @@ export const ImageEditForm = ({item, onSave, setOpenModal}) => {
     <div className={classNames.root}>
       <div className={classNames.imageWrapper}>
         <img
-          style={{transform: `rotate(${rotation}deg)`}}
+          style={{ transform: `rotate(${rotation}deg)` }}
           className={classNames.image}
           src={
             typeof item === 'string'

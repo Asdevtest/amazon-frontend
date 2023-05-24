@@ -1,1 +1,1 @@
-export {RequestStandartResultForm} from './request-standart-result-form'
+export { RequestStandartResultForm } from './request-standart-result-form'

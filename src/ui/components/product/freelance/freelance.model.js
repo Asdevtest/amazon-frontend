@@ -1,5 +1,6 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
+<<<<<<< HEAD
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {
   freelanceRequestType,
@@ -9,16 +10,21 @@ import {
 import {loadingStatuses} from '@constants/loading-statuses'
 import {RequestSubType, RequestType} from '@constants/request-type'
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+=======
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { RequestSubType, RequestType } from '@constants/requests/request-type'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+>>>>>>> dev
 
-import {RequestModel} from '@models/request-model'
-import {RequestProposalModel} from '@models/request-proposal'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { RequestProposalModel } from '@models/request-proposal'
+import { RequestModel } from '@models/request-model'
+import { UserModel } from '@models/user-model'
 
-import {productMyRequestsViewColumns} from '@components/table-columns/overall/product-my-requests-columns'
+import { productMyRequestsViewColumns } from '@components/table/table-columns/overall/product-my-requests-columns'
 
-import {myRequestsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 
 export class FreelanceModel {
   history = undefined
@@ -53,26 +59,22 @@ export class FreelanceModel {
     return UserModel.userInfo
   }
 
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
-
   handlers = {
     onClickOpenRequest: item => this.onClickOpenRequest(item),
     onClickOpenResult: item => this.onClickOpenResult(item),
   }
 
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = productMyRequestsViewColumns(this.languageTag, this.handlers)
-  constructor({history, productId}) {
+  columnsModel = productMyRequestsViewColumns(this.handlers)
+  constructor({ history, productId }) {
     this.history = history
 
     this.productId = productId
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
     runInAction(() => {
       if (this.showAcceptMessage) {
         setTimeout(() => {
@@ -81,51 +83,11 @@ export class FreelanceModel {
         }, 3000)
       }
     })
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
   }
 
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
-    })
-  }
-
-  setDataGridState(state) {
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.OVERALL_CUSTOM_SEARCH_REQUESTS)
-  }
-
-  getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.OVERALL_CUSTOM_SEARCH_REQUESTS]
-
-    runInAction(() => {
-      if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.curPage = state.pagination.page
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = productMyRequestsViewColumns(this.languageTag, this.handlers).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
-      }
-    })
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
     })
   }
 
@@ -207,7 +169,7 @@ export class FreelanceModel {
     }
   }
 
-  onClickOpenRequest(item) {
+  onClickOpenRequest(itemId) {
     // this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request`, {
     //   request: toJS(item),
     // })
@@ -215,7 +177,7 @@ export class FreelanceModel {
     const win = window.open(
       `${window.location.origin}/${
         UserRoleCodeMapForRoutes[this.userInfo.role]
-      }/freelance/my-requests/custom-request?request-id=${item._id}`,
+      }/freelance/my-requests/custom-request?request-id=${itemId}`,
       '_blank',
     )
 
@@ -258,12 +220,6 @@ export class FreelanceModel {
   onTriggerDrawer() {
     runInAction(() => {
       this.drawerOpen = !this.drawerOpen
-    })
-  }
-
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
     })
   }
 

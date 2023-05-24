@@ -1,39 +1,25 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
-import {routsPathes} from '@constants/routs-pathes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { routsPathes } from '@constants/navigation/routs-pathes'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ClientModel} from '@models/client-model'
-import {OrderModel} from '@models/order-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { ClientModel } from '@models/client-model'
+import { OrderModel } from '@models/order-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {clientOrdersViewColumns} from '@components/table-columns/client/client-orders-columns'
+import { clientOrdersViewColumns } from '@components/table/table-columns/client/client-orders-columns'
 
-import {clientOrdersDataConverter} from '@utils/data-grid-data-converters'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {objectToUrlQs} from '@utils/text'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { clientOrdersDataConverter } from '@utils/data-grid-data-converters'
+import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { objectToUrlQs } from '@utils/text'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
-const setNavbarActiveSubCategory = pathname => {
-  if (pathname) {
-    switch (pathname) {
-      case routsPathes.CLIENT_ORDERS:
-        return navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS
-      case routsPathes.CLIENT_PENDING_ORDERS:
-        return navBarActiveSubCategory.SUB_NAVBAR_CLIENT_PENDING_ORDERS
-
-      default:
-        return navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS
-    }
-  }
-}
 export class ClientOrdersViewModel {
   history = undefined
   requestStatus = undefined
@@ -43,8 +29,6 @@ export class ClientOrdersViewModel {
   nameSearchValue = ''
   orders = []
   baseNoConvertedOrders = []
-
-  drawerOpen = false
 
   // НЕ было до создания фильтрации по статусам (3 строки)
   orderStatusDataBase = []
@@ -87,22 +71,18 @@ export class ClientOrdersViewModel {
   }
 
   rowCount = 0
-  firstRowId = undefined
   startFilterModel = undefined
   sortModel = []
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
   densityModel = 'compact'
   amountLimit = 1000
-  columnsModel = clientOrdersViewColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = clientOrdersViewColumns(this.rowHandlers)
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
-  }
-
-  get navbarActiveSubCategory() {
-    return setNavbarActiveSubCategory(this.history.location.pathname)
   }
 
   get isPendingOrdering() {
@@ -118,7 +98,7 @@ export class ClientOrdersViewModel {
     }
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
 
@@ -130,16 +110,7 @@ export class ClientOrdersViewModel {
     //       this.startFilterModel = resetDataGridFilter
     //     }
 
-    makeAutoObservable(this, undefined, {autoBind: true})
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.orders,
@@ -151,47 +122,52 @@ export class ClientOrdersViewModel {
     )
   }
 
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
   setDestinationsFavouritesItem(item) {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
+  // async updateColumnsModel() {
+  //   if (await SettingsModel.languageTag) {
+  //     this.getDataGridState()
 
-      runInAction(() => {
-        this.orders = clientOrdersDataConverter(this.baseNoConvertedOrders)
-      })
-    }
-  }
+  //     runInAction(() => {
+  //       this.orders = clientOrdersDataConverter(this.baseNoConvertedOrders)
+  //     })
+  //   }
+  // }
 
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
   }
 
-  setDataGridState(state) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
+      this.paginationModel = model
     })
 
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+    this.setDataGridState()
+    this.getOrders()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+    this.getOrders()
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, this.getDataGridTableKey(this.history.location.pathname))
   }
@@ -201,31 +177,19 @@ export class ClientOrdersViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = this.startFilterModel
-          ? {
-              ...this.startFilterModel,
-              items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
-            }
-          : state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = clientOrdersViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(
+          this.startFilterModel
+            ? {
+                ...this.startFilterModel,
+                items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
+              }
+            : state.filterModel,
+        )
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
-      this.curPage = 0
-    })
-
-    this.getOrders()
   }
 
   onSearchSubmit(searchValue) {
@@ -239,13 +203,6 @@ export class ClientOrdersViewModel {
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-      console.log('requestStatus', requestStatus)
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -254,6 +211,7 @@ export class ClientOrdersViewModel {
       this.sortModel = sortModel
     })
 
+    this.setDataGridState()
     this.getOrders()
   }
 
@@ -389,11 +347,11 @@ export class ClientOrdersViewModel {
 
       const filter = objectToUrlQs({
         or: [
-          {asin: {$contains: this.nameSearchValue}},
-          {amazonTitle: {$contains: this.nameSearchValue}},
-          {skusByClient: {$contains: this.nameSearchValue}},
-          {item: {$eq: this.nameSearchValue}},
-          {id: {$eq: this.nameSearchValue}},
+          { asin: { $contains: this.nameSearchValue } },
+          { amazonTitle: { $contains: this.nameSearchValue } },
+          { skusByClient: { $contains: this.nameSearchValue } },
+          { item: { $eq: this.nameSearchValue } },
+          { id: { $eq: this.nameSearchValue } },
         ].filter(
           el =>
             ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
@@ -412,8 +370,8 @@ export class ClientOrdersViewModel {
         // Было до создания фильтрации по статусам
         // status: this.setOrderStatus(this.history.location.pathname),
 
-        limit: this.rowsPerPage,
-        offset: this.curPage * this.rowsPerPage,
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
 
         sortField: this.sortModel.length ? this.sortModel[0].field : this.isPendingOrdering ? 'deadline' : 'createdAt',
         sortType: this.sortModel.length
@@ -602,10 +560,10 @@ export class ClientOrdersViewModel {
     })
 
     if (tmpBarCode.length) {
-      await onSubmitPostImages.call(this, {images: tmpBarCode, type: 'uploadedFiles'})
+      await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
     }
 
-    await ClientModel.updateProductBarCode(this.selectedProduct._id, {barCode: this.uploadedFiles[0]})
+    await ClientModel.updateProductBarCode(this.selectedProduct._id, { barCode: this.uploadedFiles[0] })
 
     this.onTriggerOpenModal('showSetBarcodeModal')
     runInAction(() => {
@@ -661,11 +619,11 @@ export class ClientOrdersViewModel {
         })
 
         if (orderObject.tmpBarCode.length) {
-          await onSubmitPostImages.call(this, {images: orderObject.tmpBarCode, type: 'uploadedFiles'})
+          await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
 
-          await ClientModel.updateProductBarCode(orderObject.productId, {barCode: this.uploadedFiles[0]})
+          await ClientModel.updateProductBarCode(orderObject.productId, { barCode: this.uploadedFiles[0] })
         } else if (!orderObject.barCode) {
-          await ClientModel.updateProductBarCode(orderObject.productId, {barCode: null})
+          await ClientModel.updateProductBarCode(orderObject.productId, { barCode: null })
         }
 
         if (this.isPendingOrdering) {
@@ -718,7 +676,7 @@ export class ClientOrdersViewModel {
     }
   }
 
-  onConfirmSubmitOrderProductModal({ordersDataState, totalOrdersCost}) {
+  onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {
     runInAction(() => {
       this.ordersDataStateToSubmit = ordersDataState
 
@@ -742,19 +700,6 @@ export class ClientOrdersViewModel {
 
       search: order.originalData._id,
     })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
-    this.getOrders()
   }
 
   onTriggerOpenModal(modalState) {

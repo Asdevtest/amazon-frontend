@@ -1,27 +1,26 @@
-import {cx} from '@emotion/css'
-import {Avatar} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Avatar } from '@mui/material'
 
-import React, {FC, useContext} from 'react'
+import React, { FC, useContext } from 'react'
 
 import he from 'he'
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {chatsType} from '@constants/chats'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { chatsType } from '@constants/keys/chats'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatContract, ChatUserContract} from '@models/chat-model/contracts'
-import {UserModel} from '@models/user-model'
+import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
 
-import {ChatMessageType} from '@services/websocket-chat-service'
-import {ChatMessageTextType, OnTypingMessageResponse} from '@services/websocket-chat-service/interfaces'
+import { ChatMessageType } from '@services/websocket-chat-service'
+import { ChatMessageTextType, OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
-import {formatDateWithoutTime} from '@utils/date-time'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {t} from '@utils/translations'
+import { formatDateWithoutTime } from '@utils/date-time'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { t } from '@utils/translations'
 
-import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
+import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import {useClassNames} from './chat-list-item.style'
+import { useClassNames } from './chat-list-item.style'
 
 interface Props {
   chat: ChatContract
@@ -32,8 +31,8 @@ interface Props {
   onClick: () => void
 }
 
-export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onClick, typingUsers}) => {
-  const {classes: classNames} = useClassNames()
+export const ChatListItem: FC<Props> = observer(({ chat, isSelected, userId, onClick, typingUsers }) => {
+  const { classes: classNames } = useClassNames()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
@@ -41,7 +40,7 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
     requestProposal => requestProposal.proposal.chatId === chat._id,
   )
 
-  const {messages, users} = chat
+  const { messages, users } = chat
 
   const lastMessage = messages[messages.length - 1] || {}
 
@@ -101,8 +100,8 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
     : ''
 
   return (
-    <div className={cx(classNames.root, {[classNames.rootIsSelected]: isSelected})} onClick={onClick}>
-      <div className={classNames.leftSide}>
+    <div className={cx(classNames.root, { [classNames.rootIsSelected]: isSelected })} onClick={onClick}>
+      <div>
         <Avatar
           src={
             isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0

@@ -1,25 +1,25 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import {Box, Divider, ListItemText, Tabs, Typography} from '@mui/material'
+import { Box, Divider, ListItemText, Tabs, Typography } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import Tooltip from '@mui/material/Tooltip'
 import Zoom from '@mui/material/Zoom'
 
-import React, {useEffect, useState, useMemo} from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {ITab} from '@components/i-tab/i-tab'
+import { Button } from '@components/shared/buttons/button'
+import { ITab } from '@components/shared/i-tab/i-tab'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {AccessToProductForm} from './access-to-product-form'
-import {useClassNames} from './add-or-edit-user-permissions-form.style'
+import { AccessToProductForm } from './access-to-product-form'
+import { useClassNames } from './add-or-edit-user-permissions-form.style'
 
 const tabsValues = {
   ASSIGN_PERMISSIONS: 'ASSIGN_PERMISSIONS',
@@ -28,7 +28,7 @@ const tabsValues = {
 
 const PRODUCTS_WITHOUT_SHOPS_ID = 'PRODUCTS_WITHOUT_SHOPS_ID'
 
-const TabPanel = ({children, value, index, ...other}) => (
+const TabPanel = ({ children, value, index, ...other }) => (
   <div
     role="tabpanel"
     hidden={value !== index}
@@ -54,7 +54,7 @@ export const AddOrEditUserPermissionsForm = observer(
 
     productPermissionsData,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const [tabIndex, setTabIndex] = React.useState(tabsValues.ASSIGN_PERMISSIONS)
 
@@ -164,7 +164,7 @@ export const AddOrEditUserPermissionsForm = observer(
 
     const onClickChooseAllProductCheck = () => {
       if (isChoosenAll) {
-        setShopDataToRender(shopDataToRender?.map(item => ({...item, tmpProductsIds: []})))
+        setShopDataToRender(shopDataToRender?.map(item => ({ ...item, tmpProductsIds: [] })))
       } else {
         setShopDataToRender(
           shopDataToRender?.map(item => ({
@@ -189,14 +189,14 @@ export const AddOrEditUserPermissionsForm = observer(
           }}
         >
           <ITab
-            classes={{root: classNames.tab, selected: classNames.selectedTab}}
+            classes={{ root: classNames.tab, selected: classNames.selectedTab }}
             value={tabsValues.ASSIGN_PERMISSIONS}
             label={t(TranslationKey['Assign permissions'])}
           />
           {!isWithoutProductPermissions ? (
             <ITab
               disabled={isWithoutProductPermissions}
-              classes={{root: classNames.tab, selected: classNames.selectedTab}}
+              classes={{ root: classNames.tab, selected: classNames.selectedTab }}
               value={tabsValues.ACCESS_TO_PRODUCTS}
               label={t(TranslationKey['Access to products'])}
             />
@@ -262,7 +262,7 @@ export const AddOrEditUserPermissionsForm = observer(
                       title={item.description}
                       placement="right-end"
                       TransitionComponent={Zoom}
-                      TransitionProps={{timeout: 900}}
+                      TransitionProps={{ timeout: 900 }}
                     >
                       <Box
                         className={classNames.permissionWrapper}
@@ -341,14 +341,16 @@ export const AddOrEditUserPermissionsForm = observer(
                               title={item.description}
                               placement="right-end"
                               TransitionComponent={Zoom}
-                              TransitionProps={{timeout: 900}}
+                              TransitionProps={{ timeout: 900 }}
                             >
                               <Box
                                 className={classNames.permissionWrapper}
                                 onClick={() => onChangePermissionCheckbox(item._id)}
                               >
                                 <Checkbox color="primary" checked={formFields.includes(item._id)} />
-                                <Typography className={cx({[classNames.keyPermission]: item.key.startsWith('SHOW_')})}>
+                                <Typography
+                                  className={cx({ [classNames.keyPermission]: item.key.startsWith('SHOW_') })}
+                                >
                                   {item.title}
                                 </Typography>
                               </Box>

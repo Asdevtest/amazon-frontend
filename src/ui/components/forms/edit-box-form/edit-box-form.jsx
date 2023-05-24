@@ -1,44 +1,45 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Checkbox, Chip, Divider, NativeSelect, TableCell, TableRow, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Checkbox, Chip, Divider, NativeSelect, TableCell, TableRow, Typography } from '@mui/material'
 
-import {useState} from 'react'
+import { useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
-import {UiTheme} from '@constants/themes'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {zipCodeGroups} from '@constants/zip-code-groups'
+import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { UiTheme } from '@constants/theme/themes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
-import {ColoredChip} from '@components/colored-chip'
-import {CustomCarousel, PhotoCarousel} from '@components/custom-carousel/custom-carousel'
-import {Field} from '@components/field'
-import {Input} from '@components/input'
-import {Modal} from '@components/modal'
-import {BigImagesModal} from '@components/modals/big-images-modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
-import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
-import {WithSearchSelect} from '@components/selects/with-search-select'
-import {Table} from '@components/table'
-import {Text} from '@components/text'
-import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
-import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
+import { BigImagesModal } from '@components/modals/big-images-modal'
+import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
+import { Button } from '@components/shared/buttons/button'
+import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
+import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 
-import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
+import { Field } from '@components/shared/field'
+import { Input } from '@components/shared/input'
+import { Modal } from '@components/shared/modal'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { Table } from '@components/shared/table'
+import { Text } from '@components/shared/text'
+
+import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 // import {checkIsImageLink} from '@utils/checks'
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixed, trimBarcode } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {SelectStorekeeperAndTariffForm} from '../select-storkeeper-and-tariff-form'
-import {useClassNames} from './edit-box-form.style'
+import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
+import { useClassNames } from './edit-box-form.style'
+import { CustomSlider } from '@components/shared/custom-slider'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 
-const WarehouseDemensions = ({orderBox, sizeSetting}) => {
-  const {classes: classNames} = useClassNames()
+const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <div className={classNames.demensionsWrapper}>
@@ -94,12 +95,12 @@ export const EditBoxForm = observer(
     destinationsFavourites,
     setDestinationsFavouritesItem,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
     const [showPhotosModal, setShowPhotosModal] = useState(false)
 
-    const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+    const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
 
     const rowHandlers = {
       onTriggerOpenModal: () => setShowPhotosModal(!showPhotosModal),
@@ -122,11 +123,11 @@ export const EditBoxForm = observer(
     }
 
     const onClickSaveBarcode = product => newBarCodeData => {
-      const newFormFields = {...boxFields}
+      const newFormFields = { ...boxFields }
 
       newFormFields.items = [
         ...boxFields.items.map(el =>
-          el.product._id === product.product._id ? {...el, tmpBarCode: newBarCodeData} : el,
+          el.product._id === product.product._id ? { ...el, tmpBarCode: newBarCodeData } : el,
         ),
       ]
 
@@ -157,21 +158,21 @@ export const EditBoxForm = observer(
       fbaShipment: formItem?.fbaShipment || '',
       tmpShippingLabel: [],
       items: formItem?.items
-        ? [...formItem.items.map(el => ({...el, changeBarCodInInventory: false, tmpBarCode: []}))]
+        ? [...formItem.items.map(el => ({ ...el, changeBarCodInInventory: false, tmpBarCode: [] }))]
         : [],
     }
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
 
     const setFormField = fieldName => e => {
-      const newFormFields = {...boxFields}
+      const newFormFields = { ...boxFields }
       newFormFields[fieldName] = e.target.value
 
       setBoxFields(newFormFields)
     }
 
     const setShippingLabel = () => value => {
-      const newFormFields = {...boxFields}
+      const newFormFields = { ...boxFields }
       newFormFields.shippingLabel = newFormFields.shippingLabel === null ? null : ''
       newFormFields.tmpShippingLabel = value
 
@@ -183,24 +184,24 @@ export const EditBoxForm = observer(
     }
 
     const onDeleteShippingLabel = () => {
-      const newFormFields = {...boxFields}
+      const newFormFields = { ...boxFields }
       newFormFields.shippingLabel = newFormFields.shippingLabel === null ? null : ''
       newFormFields.tmpShippingLabel = []
       setBoxFields(newFormFields)
     }
 
     const onDeleteBarcode = productId => {
-      const newFormFields = {...boxFields}
+      const newFormFields = { ...boxFields }
       newFormFields.items = boxFields.items.map(item =>
-        item.product._id === productId ? {...item, barCode: '', changeBarCodInInventory: false} : item,
+        item.product._id === productId ? { ...item, barCode: '', changeBarCodInInventory: false } : item,
       )
       setBoxFields(newFormFields)
     }
 
     const onClickBarcodeInventoryCheckbox = (productId, value) => {
-      const newFormFields = {...boxFields}
+      const newFormFields = { ...boxFields }
       newFormFields.items = boxFields.items.map(item =>
-        item.product._id === productId ? {...item, changeBarCodInInventory: value} : item,
+        item.product._id === productId ? { ...item, changeBarCodInInventory: value } : item,
       )
       setBoxFields(newFormFields)
     }
@@ -214,7 +215,7 @@ export const EditBoxForm = observer(
     const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
     const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-      setBoxFields({...boxFields, storekeeperId, logicsTariffId: tariffId})
+      setBoxFields({ ...boxFields, storekeeperId, logicsTariffId: tariffId })
 
       setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
     }
@@ -285,8 +286,8 @@ export const EditBoxForm = observer(
                       inputComponent={
                         <Input
                           className={classNames.itemInput}
-                          classes={{input: classNames.input}}
-                          inputProps={{maxLength: 25}}
+                          classes={{ input: classNames.input }}
+                          inputProps={{ maxLength: 25 }}
                           value={boxFields.prepId}
                           onChange={setFormField('prepId')}
                         />
@@ -310,7 +311,7 @@ export const EditBoxForm = observer(
                 <Divider className={classNames.divider} />
 
                 <div className={classNames.productsWrapper}>
-                  <CustomCarousel alignButtons="end">
+                  <CustomSlider alignButtons="end">
                     {boxFields.items.map((item, index) => (
                       <div key={index} className={classNames.productWrapper}>
                         <div className={classNames.leftProductColumn}>
@@ -348,7 +349,7 @@ export const EditBoxForm = observer(
                                       deleteIcon: classNames.barcodeChipIcon,
                                       label: classNames.barcodeChiplabel,
                                     }}
-                                    className={cx({[classNames.barcodeChipExists]: item.barCode})}
+                                    className={cx({ [classNames.barcodeChipExists]: item.barCode })}
                                     size="small"
                                     label={
                                       item.tmpBarCode.length
@@ -461,7 +462,7 @@ export const EditBoxForm = observer(
                         </div>
                       </div>
                     ))}
-                  </CustomCarousel>
+                  </CustomSlider>
                 </div>
 
                 <Divider className={classNames.divider} />
@@ -485,8 +486,8 @@ export const EditBoxForm = observer(
                           searchFields={['name']}
                           favourites={destinationsFavourites}
                           onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-                          onClickNotChosen={() => setBoxFields({...boxFields, destinationId: ''})}
-                          onClickSelect={el => setBoxFields({...boxFields, destinationId: el._id})}
+                          onClickNotChosen={() => setBoxFields({ ...boxFields, destinationId: '' })}
+                          onClickSelect={el => setBoxFields({ ...boxFields, destinationId: el._id })}
                         />
                       }
                     />
@@ -538,7 +539,7 @@ export const EditBoxForm = observer(
                           !boxFields.fbaShipment &&
                           !destinations.find(el => el._id === boxFields.destinationId)?.storekeeper,
                       })}
-                      inputProps={{maxLength: 255}}
+                      inputProps={{ maxLength: 255 }}
                       tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
                       label={t(TranslationKey['FBA Shipment'])}
                       value={boxFields.fbaShipment}
@@ -563,13 +564,13 @@ export const EditBoxForm = observer(
                               deleteIcon: classNames.barcodeChipIcon,
                               label: classNames.barcodeChiplabel,
                             }}
-                            className={cx({[classNames.barcodeChipExists]: boxFields.shippingLabel})}
+                            className={cx({ [classNames.barcodeChipExists]: boxFields.shippingLabel })}
                             size="small"
                             label={
                               boxFields.tmpShippingLabel.length
                                 ? t(TranslationKey['File added'])
                                 : boxFields.shippingLabel
-                                ? boxFields.shippingLabel
+                                ? trimBarcode(boxFields.shippingLabel)
                                 : t(TranslationKey['Set Shipping Label'])
                             }
                             onClick={() => onClickShippingLabel()}
@@ -585,7 +586,7 @@ export const EditBoxForm = observer(
                       labelClasses={classNames.standartLabel}
                       containerClasses={classNames.field}
                       inputClasses={cx(classNames.fbaShipmentInput)}
-                      inputProps={{maxLength: 255}}
+                      inputProps={{ maxLength: 255 }}
                       label={t(TranslationKey['Reference id'])}
                       value={boxFields.referenceId}
                       onChange={setFormField('referenceId')}
@@ -595,7 +596,7 @@ export const EditBoxForm = observer(
                       labelClasses={classNames.standartLabel}
                       containerClasses={classNames.field}
                       inputClasses={cx(classNames.fbaShipmentInput)}
-                      inputProps={{maxLength: 255}}
+                      inputProps={{ maxLength: 255 }}
                       label={'FBA Number'}
                       value={boxFields.fbaNumber}
                       onChange={setFormField('fbaNumber')}
@@ -671,7 +672,7 @@ export const EditBoxForm = observer(
             className={classNames.multiline}
             minRows={25}
             maxRows={25}
-            inputProps={{maxLength: 1000}}
+            inputProps={{ maxLength: 1000 }}
             tooltipAttentionContent={t(TranslationKey['A task will be created for the prep center'])}
             label={t(TranslationKey['Write a comment on the task'])}
             placeholder={t(TranslationKey['Client comment on the task'])}
@@ -685,7 +686,7 @@ export const EditBoxForm = observer(
             tooltipInfoContent={t(TranslationKey['Save changes to the box'])}
             className={classNames.button}
             onClick={() => {
-              onSubmit(formItem?._id, {...boxFields, destinationId: boxFields.destinationId || null}, formItem)
+              onSubmit(formItem?._id, { ...boxFields, destinationId: boxFields.destinationId || null }, formItem)
             }}
           >
             {t(TranslationKey.Save)}
@@ -706,7 +707,7 @@ export const EditBoxForm = observer(
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
+          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
 
         <Modal

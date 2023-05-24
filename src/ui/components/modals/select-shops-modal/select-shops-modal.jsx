@@ -1,21 +1,21 @@
 import ClearIcon from '@mui/icons-material/Clear'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
-import {ListItemText, MenuItem, Select, Typography} from '@mui/material'
+import { ListItemText, MenuItem, Select, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
-import {Input} from '@components/input'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
+import { Input } from '@components/shared/input'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './select-shops-modal.style'
+import { useClassNames } from './select-shops-modal.style'
 
-export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, message, shops}) => {
-  const {classes: classNames} = useClassNames()
+export const SelectShopsModal = ({ onClickSuccessBtn, onClickCancelBtn, title, message, shops }) => {
+  const { classes: classNames } = useClassNames()
 
   const shopsNames = shops.map(shop => shop.name)
   const [clearSelect, setClearSelect] = useState(true)
@@ -68,7 +68,7 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
                       : selectedItem?.name
                   }
                   className={classNames.shopsSelect}
-                  classes={{select: classNames.select}}
+                  classes={{ select: classNames.select }}
                   onChange={e => setSelectedItem(e.target.value)}
                 >
                   {shops.map((shop, index) => (
@@ -78,7 +78,7 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
                       value={shop}
                       className={classNames.selectMenu}
                     >
-                      {/* <Checkbox color="primary" checked={currentShops.includes(shop._id)} /> */}
+                      {/* <Checkbox color="primary" checked={currentShops.includes(traiding-shop._id)} /> */}
 
                       <ListItemText primary={shop.name} />
                     </MenuItem>

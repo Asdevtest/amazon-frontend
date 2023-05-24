@@ -1,1 +1,1 @@
-export {ModeratorSettingsView} from './moderator-settings-view'
+export { ModeratorSettingsView } from './moderator-settings-view'

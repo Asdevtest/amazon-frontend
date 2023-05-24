@@ -1,1 +1,1 @@
-export {WarehouseMyWarehouseView} from './warehouse-my-warehouse-view'
+export { WarehouseMyWarehouseView } from './warehouse-my-warehouse-view'

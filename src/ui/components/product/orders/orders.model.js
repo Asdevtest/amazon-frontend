@@ -1,22 +1,21 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ClientModel} from '@models/client-model'
-import {OrderModel} from '@models/order-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { ClientModel } from '@models/client-model'
+import { OrderModel } from '@models/order-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {clientProductOrdersViewColumns} from '@components/table-columns/client/client-product-orders-columns'
+import { clientProductOrdersViewColumns } from '@components/table/table-columns/client/client-product-orders-columns'
 
-import {clientOrdersDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { clientOrdersDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 const chosenStatusSettings = {
   ALL: 'ALL',
@@ -66,9 +65,8 @@ export class OrdersModel {
     onClickReorder: (item, isPendingOrder) => this.onClickReorder(item, isPendingOrder),
   }
 
-  firstRowId = undefined
-
-  columnsModel = clientProductOrdersViewColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = clientProductOrdersViewColumns(this.rowHandlers)
+  columnVisibilityModel = {}
 
   get orderStatusData() {
     return {
@@ -78,7 +76,7 @@ export class OrdersModel {
     }
   }
 
-  constructor({history, productId, showAtProcessOrders}) {
+  constructor({ history, productId, showAtProcessOrders }) {
     runInAction(() => {
       this.history = history
 
@@ -87,40 +85,17 @@ export class OrdersModel {
       this.productId = productId
     })
 
-    makeAutoObservable(this, undefined, {autoBind: true})
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.columnsModel = clientProductOrdersViewColumns(this.rowHandlers, this.firstRowId)
-    }
-  }
-
-  setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
   }
 
   getCurrentData() {
@@ -234,10 +209,10 @@ export class OrdersModel {
     this.uploadedFiles = []
 
     if (tmpBarCode.length) {
-      await onSubmitPostImages.call(this, {images: tmpBarCode, type: 'uploadedFiles'})
+      await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
     }
 
-    await ClientModel.updateProductBarCode(this.selectedProduct._id, {barCode: this.uploadedFiles[0]})
+    await ClientModel.updateProductBarCode(this.selectedProduct._id, { barCode: this.uploadedFiles[0] })
 
     this.onTriggerOpenModal('showSetBarcodeModal')
     runInAction(() => {
@@ -287,11 +262,11 @@ export class OrdersModel {
         this.uploadedFiles = []
 
         if (product.tmpBarCode.length) {
-          await onSubmitPostImages.call(this, {images: product.tmpBarCode, type: 'uploadedFiles'})
+          await onSubmitPostImages.call(this, { images: product.tmpBarCode, type: 'uploadedFiles' })
 
-          await ClientModel.updateProductBarCode(product.productId, {barCode: this.uploadedFiles[0]})
+          await ClientModel.updateProductBarCode(product.productId, { barCode: this.uploadedFiles[0] })
         } else if (!product.barCode) {
-          await ClientModel.updateProductBarCode(product.productId, {barCode: null})
+          await ClientModel.updateProductBarCode(product.productId, { barCode: null })
         }
 
         if (this.isPendingOrdering) {
@@ -337,7 +312,7 @@ export class OrdersModel {
     }
   }
 
-  onConfirmSubmitOrderProductModal({ordersDataState, totalOrdersCost}) {
+  onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {
     this.ordersDataStateToSubmit = ordersDataState
 
     this.confirmModalSettings = {

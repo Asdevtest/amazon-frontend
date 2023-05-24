@@ -1,17 +1,16 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {SupervisorDashboardCardDataKey} from '@constants/dashboard-configs'
-import {loadingStatuses} from '@constants/loading-statuses'
+import { SupervisorDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {DashboardModel} from '@models/dashboard-model'
-import {SupervisorModel} from '@models/supervisor-model'
-import {UserModel} from '@models/user-model'
+import { DashboardModel } from '@models/dashboard-model'
+import { SupervisorModel } from '@models/supervisor-model'
+import { UserModel } from '@models/user-model'
 
 export class SupervisorDashboardViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
-  drawerOpen = false
 
   productsVacant = []
   producatsMy = []
@@ -37,11 +36,11 @@ export class SupervisorDashboardViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {
@@ -96,7 +95,7 @@ export class SupervisorDashboardViewModel {
 
   onClickInfoCardViewMode(route, dataGridFilter) {
     if (dataGridFilter) {
-      this.history.push(route, {dataGridFilter})
+      this.history.push(route, { dataGridFilter })
     } else {
       this.history.push(route)
     }
@@ -114,11 +113,5 @@ export class SupervisorDashboardViewModel {
         this.error = error
       })
     }
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 }

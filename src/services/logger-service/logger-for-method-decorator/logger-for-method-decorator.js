@@ -1,6 +1,6 @@
-import {isNotUndefined} from '@utils/checks'
+import { isNotUndefined } from '@utils/checks'
 
-import {getLoggerServiceForClass} from '../logger-service-for-class/index'
+import { getLoggerServiceForClass } from '../logger-service-for-class/index'
 
 export const LoggerForMethodDecorator = config => (target, propertyKey, descriptor) => {
   const logger = getLoggerServiceForClass(target)

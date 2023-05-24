@@ -1,29 +1,30 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {mapProductStrategyStatusEnumToKey} from '@constants/product-strategy-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { mapProductStrategyStatusEnumToKey } from '@constants/product/product-strategy-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {OtherModel} from '@models/other-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { OtherModel } from '@models/other-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {supervisorSettingsViewColumns} from '@components/table-columns/supervisor/supervisor-settings-columns/supervisor-settings-columns'
+import { supervisorSettingsViewColumns } from '@components/table/table-columns/supervisor/supervisor-settings-columns/supervisor-settings-columns'
 
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export class SupervisorSettingsContentModel {
   history = undefined
   requestStatus = undefined
   error = undefined
-  curPage = 0
+
   sortModel = []
-  filterModel = {items: []}
-  rowsPerPage = 15
+  filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel = supervisorSettingsViewColumns()
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
+
   asins = []
   failedData = {}
   nameSearchValue = undefined
@@ -34,6 +35,7 @@ export class SupervisorSettingsContentModel {
 
   showAsinCheckerModal = false
   showEditAsinCheckerModal = false
+  showConfirmCloseAsinCheckerModal = false
   showConfirmModal = false
   showFailedAsinsModal = false
   tabIndex = undefined
@@ -52,40 +54,20 @@ export class SupervisorSettingsContentModel {
     onClickEditBtn: row => this.onClickEditBtn(row),
   }
 
-  constructor({history, tabIndex}) {
+  constructor({ history, tabIndex }) {
     this.history = history
     this.tabIndex = tabIndex
 
-    makeAutoObservable(this, undefined, {autoBind: true})
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = supervisorSettingsViewColumns().map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
-  }
-
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.SUPERVISOR_SETTINGS)
   }
@@ -93,22 +75,21 @@ export class SupervisorSettingsContentModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.SUPERVISOR_SETTINGS]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = this.startFilterModel
-        ? {
-            ...this.startFilterModel,
-            items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
-          }
-        : state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+    runInAction(() => {
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
+    })
+  }
 
-      this.densityModel = state.density.value
-      this.columnsModel = supervisorSettingsViewColumns(this.rowHandlers).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
   }
 
   getCurrentData() {
@@ -240,23 +221,28 @@ export class SupervisorSettingsContentModel {
     this[modal] = !this[modal]
   }
 
-  onChangeCurPage(e) {
-    this.curPage = e
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
   }
+
   onSelectionModel(model) {
     this.selectedRowIds = model
   }
 
   onChangeFilterModel(model) {
     this.filterModel = model
-  }
 
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    this.setDataGridState()
   }
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
+
+    this.setDataGridState()
   }
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus

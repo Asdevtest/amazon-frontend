@@ -1,1 +1,1 @@
-export {IdeaViewAndEditCard} from './idea-view-and-edit-card'
+export { IdeaViewAndEditCard } from './idea-view-and-edit-card'

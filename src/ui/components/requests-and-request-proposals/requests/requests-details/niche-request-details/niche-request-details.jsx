@@ -1,14 +1,14 @@
-import {cx} from '@emotion/css'
-import {Typography, Paper} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography, Paper } from '@mui/material'
 
 import React from 'react'
 
-import {toFixedWithDollarSign} from '@utils/text'
+import { toFixedWithDollarSign } from '@utils/text'
 
-import {useClassNames} from './niche-request-details.style'
+import { useClassNames } from './niche-request-details.style'
 
-export const NicheSearchRequestDetails = ({request}) => {
-  const {classes: classNames} = useClassNames()
+export const NicheSearchRequestDetails = ({ request }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <Paper>

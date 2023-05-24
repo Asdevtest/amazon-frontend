@@ -1,27 +1,27 @@
-import {IconButton, Select, Typography, MenuItem} from '@mui/material'
+import { IconButton, Select, Typography, MenuItem } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {HttpMethod} from '@constants/http-method'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
+import { HttpMethod } from '@constants/keys/http-method'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
-import {Input} from '@components/input'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field/field'
+import { Input } from '@components/shared/input'
 
-import {checkIsPositiveNum} from '@utils/checks'
-import {clearSpecialCharacters} from '@utils/text'
-import {t} from '@utils/translations'
+import { checkIsPositiveNum } from '@utils/checks'
+import { clearSpecialCharacters } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './add-or-edit-single-permission-form.style'
+import { useClassNames } from './add-or-edit-single-permission-form.style'
 
 export const AddOrEditSinglePermissionForm = observer(
-  ({onCloseModal, onSubmit, isEdit, permissionToEdit, existingSinglePermissions}) => {
-    const {classes: classNames} = useClassNames()
+  ({ onCloseModal, onSubmit, isEdit, permissionToEdit, existingSinglePermissions }) => {
+    const { classes: classNames } = useClassNames()
 
     const [onKeyFieldEditing, setOnKeyFieldEditing] = useState(false)
 
@@ -54,7 +54,7 @@ export const AddOrEditSinglePermissionForm = observer(
     }
 
     const addAllowUrl = () => {
-      const newFormFields = {...formFields}
+      const newFormFields = { ...formFields }
       const addUrlToArray = newFormFields.allowedUrls.concat({
         url: '',
         httpMethod: '',
@@ -64,7 +64,7 @@ export const AddOrEditSinglePermissionForm = observer(
     }
 
     const onRemovePermission = index => {
-      const newFormFields = {...formFields}
+      const newFormFields = { ...formFields }
       const removeUrlFromArray = newFormFields.allowedUrls.filter(url => url !== newFormFields.allowedUrls[index])
       newFormFields.allowedUrls = removeUrlFromArray
       setFormFields(newFormFields)

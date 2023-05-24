@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import {boxStatusTranslateKey, colorByBoxStatus} from '@constants/box-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextHeaderCell,
@@ -9,11 +9,11 @@ import {
   NormalActionBtnCell,
   BoxesAndQuantity,
   StringListCell,
-} from '@components/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {formatDate} from '@utils/date-time'
-import {getFullTariffTextForBoxOrOrder} from '@utils/text'
-import {t} from '@utils/translations'
+import { formatDate } from '@utils/date-time'
+import { getFullTariffTextForBoxOrOrder } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const productInTransferColumns = handlers => [
   {

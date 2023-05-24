@@ -7,10 +7,6 @@ export const styles = theme => ({
     display: 'flex',
   },
 
-  btnWrapperStyle: {
-    width: 'fit-content',
-  },
-
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
@@ -21,8 +17,6 @@ export const styles = theme => ({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
   },
   footerContainer: {
@@ -55,14 +49,6 @@ export const styles = theme => ({
     padding: '16px 20px',
     marginBottom: '42px',
   },
-  formWrapper: {
-    marginTop: '32px',
-  },
-  tableWrapper: {
-    marginTop: '32px',
-    width: '100%',
-    height: '100%',
-  },
 
   dashboardCardWrapper: {
     width: '100%',
@@ -77,8 +63,6 @@ export const styles = theme => ({
   tablePanelSortWrapper: {
     display: 'flex',
     alignItems: 'center',
-
-    // marginBottom: '20px',
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
@@ -90,7 +74,6 @@ export const styles = theme => ({
     fontSize: '16px',
     lineHeight: '19px',
     color: theme.palette.primary.main,
-
     marginRight: '15px',
   },
 
@@ -105,7 +88,6 @@ export const styles = theme => ({
 
   emptyTableText: {
     marginTop: '30px',
-
     color: theme.palette.text.second,
   },
 
@@ -113,7 +95,6 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-
     marginBottom: '20px',
   },
 
@@ -122,14 +103,9 @@ export const styles = theme => ({
     width: '400px',
   },
 
-  searchContainer: {
-    width: 'auto',
-  },
-
   viewCart: {
     width: '20px !important',
     height: '20px !important',
-
     color: theme.palette.text.second,
   },
 
@@ -143,20 +119,17 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     marginBottom: 5,
     color: theme.palette.primary.main,
-
     fontSize: 14,
     fontWeight: 600,
-
     '&>disabled': {
       backgroundColor: 'inherit',
     },
   },
+
   selectedBoxesBtn: {
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
-
-    borderBottom: '5px solid #0460DE',
-
+    borderBottom: theme.palette.other.tableActiveFilterBtn,
     color: `${theme.palette.primary.main} !important`,
   },
 
@@ -174,8 +147,9 @@ export const styles = theme => ({
     background:
       'linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
   },
-
-  buttonsWrapper: {
+  loadingWrapper: {
     display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })

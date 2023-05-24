@@ -1,32 +1,32 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
 
-import {observer} from 'mobx-react'
-import {useHistory} from 'react-router-dom'
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
-import {tableSortMode} from '@constants/table-view-modes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { tableSortMode } from '@constants/table/table-view-modes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
-import {TradingShopCard} from '@components/cards/trading-shop-card'
-import {SearchInput} from '@components/search-input'
+import { TradingShopCard } from '@components/cards/trading-shop-card'
+import { Button } from '@components/shared/buttons/button'
+import { SearchInput } from '@components/shared/search-input'
 
-import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
-import {t} from '@utils/translations'
+import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
+import { t } from '@utils/translations'
 
-import {ClientBuyShopsAdsModel} from './client-buy-shops-ads.model'
-import {useClassNames} from './client-buy-shops-ads.style'
+import { ClientBuyShopsAdsModel } from './client-buy-shops-ads.model'
+import { useClassNames } from './client-buy-shops-ads.style'
 
 export const ClientBuyShopsAds = observer(() => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
   const history = useHistory()
-  const model = useRef(new ClientBuyShopsAdsModel({history}))
+  const model = useRef(new ClientBuyShopsAdsModel({ history }))
 
   useEffect(() => {
     model.current.loadData()

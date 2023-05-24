@@ -1,198 +1,159 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {Component} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {
-  CLIENT_USER_MANAGERS_LIST,
-  /* CLIENT_USER_INITIAL_LIST*/
-} from '@constants/mocks'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {mapUserRoleEnumToKey, UserRole} from '@constants/user-roles'
+import { mapUserRoleEnumToKey, UserRole } from '@constants/keys/user-roles'
+import { CLIENT_USER_MANAGERS_LIST } from '@constants/mocks'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {AvatarEditorForm} from '@components/forms/avatar-editor-form'
-import {UserInfoEditForm} from '@components/forms/user-info-edit-form'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {Modal} from '@components/modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Navbar} from '@components/navbar'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { AvatarEditorForm } from '@components/forms/avatar-editor-form'
+import { UserInfoEditForm } from '@components/forms/user-info-edit-form'
+import { MainContent } from '@components/layout/main-content'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
 // import {ActiveOrders} from '@components/screens/users-views/user-profile-view/active-orders'
-import {ContentModal} from '@components/screens/users-views/user-profile-view/content-modal'
-import {UserProfile} from '@components/screens/users-views/user-profile-view/user-profile'
+import { ContentModal } from '@components/user/users-views/user-profile-view/content-modal'
+import { UserProfile } from '@components/user/users-views/user-profile-view/user-profile'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {ProfileViewModel} from './user-profile-view.model'
-import {styles} from './user-profile-view.style'
+import { ProfileViewModel } from './user-profile-view.model'
+import { styles } from './user-profile-view.style'
 
-@observer
-class UserProfileViewRaw extends Component {
-  viewModel = new ProfileViewModel({history: this.props.history})
+export const UserProfileViewRaw = props => {
+  const [viewModel] = useState(() => new ProfileViewModel({ history: props.history }))
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  const { classes: classNames } = props
 
-  render() {
-    const {
-      sortModel,
-      filterModel,
-      curPage,
-      rowsPerPage,
-      densityModel,
-      columnsModel,
-      requestStatus,
-      drawerOpen,
-      tabHistory,
-      tabReview,
-      showTabModal,
-      selectedUser,
-      wrongPassword,
-      user,
-      checkValidationNameOrEmail,
-      headerInfoData,
-      showAvatarEditModal,
-      showInfoModal,
-      showUserInfoModal,
-      warningInfoModalTitle,
-      clearError,
-      onTriggerDrawerOpen,
-      onChangeTabHistory,
-      onChangeTabReview,
-      onTriggerShowTabModal,
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-      onTriggerOpenModal,
-      onSubmitAvatarEdit,
-      onClickChangeAvatar,
-      onClickChangeUserInfo,
-      onSubmitUserInfoEdit,
+  return (
+    <>
+      <MainContent>
+        <UserProfile
+          user={viewModel.user}
+          timer={'14 минут'}
+          headerInfoData={viewModel.headerInfoData}
+          tabReview={viewModel.tabReview}
+          tabHistory={viewModel.tabHistory}
+          setTabHistory={viewModel.onChangeTabHistory}
+          setTabReview={viewModel.onChangeTabReview}
+          onClickChangeAvatar={viewModel.onClickChangeAvatar}
+          onClickChangeUserInfo={viewModel.onClickChangeUserInfo}
+        />
 
-      getCurrentData,
-      setDataGridState,
-      onChangeFilterModel,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      onChangeSortingModel,
-    } = this.viewModel
-    const {classes: classNames} = this.props
-    return (
-      <>
-        <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
-        <Main>
-          <Appbar title={t(TranslationKey.Profile)} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <UserProfile
-                user={user}
-                timer={'14 минут'}
-                headerInfoData={headerInfoData}
-                tabReview={tabReview}
-                tabHistory={tabHistory}
-                setTabHistory={onChangeTabHistory}
-                setTabReview={onChangeTabReview}
-                onClickChangeAvatar={onClickChangeAvatar}
-                onClickChangeUserInfo={onClickChangeUserInfo}
-              />
-
-              {/* <ActiveOrders
+        {/* <ActiveOrders
                 tabExchange={tabExchange}
                 setTabExchange={onChangeTabExchange}
                 productList={CLIENT_USER_INITIAL_LIST}
                 handlerClickButtonPrivateLabel={onClickButtonPrivateLabel}
               /> */}
 
-              {[
-                // mapUserRoleEnumToKey[UserRole.RESEARCHER],
-                mapUserRoleEnumToKey[UserRole.SUPERVISOR],
-                mapUserRoleEnumToKey[UserRole.BUYER],
-              ].includes(user.role) ? (
-                <>
-                  <Typography variant="h6" className={classNames.title}>
-                    {t(TranslationKey['Active offers on the commodity exchange'])}
-                  </Typography>
+        {[
+          // mapUserRoleEnumToKey[UserRole.RESEARCHER],
+          mapUserRoleEnumToKey[UserRole.SUPERVISOR],
+          mapUserRoleEnumToKey[UserRole.BUYER],
+        ].includes(viewModel.user.role) ? (
+          <>
+            <Typography variant="h6" className={classNames.title}>
+              {t(TranslationKey['Active offers on the commodity exchange'])}
+            </Typography>
 
-                  <MemoDataGrid
-                    pagination
-                    useResizeContainer
-                    classes={{
-                      row: classNames.row,
-                      root: classNames.root,
-                      footerContainer: classNames.footerContainer,
-                      footerCell: classNames.footerCell,
-                      toolbarContainer: classNames.toolbarContainer,
-                    }}
-                    localeText={getLocalizationByLanguageTag()}
-                    sortModel={sortModel}
-                    filterModel={filterModel}
-                    page={curPage}
-                    pageSize={rowsPerPage}
-                    rowsPerPageOptions={[15, 25, 50, 100]}
-                    rows={getCurrentData()}
-                    rowHeight={100}
-                    components={{
-                      Toolbar: DataGridCustomToolbar,
-                      ColumnMenuIcon: FilterAltOutlinedIcon,
-                    }}
-                    density={densityModel}
-                    columns={columnsModel}
-                    loading={requestStatus === loadingStatuses.isLoading}
-                    onSortModelChange={onChangeSortingModel}
-                    onPageSizeChange={onChangeRowsPerPage}
-                    onPageChange={onChangeCurPage}
-                    onStateChange={setDataGridState}
-                    onFilterModelChange={model => onChangeFilterModel(model)}
-                  />
-                </>
-              ) : null}
-            </MainContent>
-          </Appbar>
-        </Main>
-        <Modal openModal={showTabModal} setOpenModal={onTriggerShowTabModal}>
-          <ContentModal
-            setOpenModal={onTriggerShowTabModal}
-            selected={selectedUser}
-            managersList={CLIENT_USER_MANAGERS_LIST}
-          />
-        </Modal>
-
-        <Modal openModal={showAvatarEditModal} setOpenModal={() => onTriggerOpenModal('showAvatarEditModal')}>
-          <AvatarEditorForm
-            onSubmit={onSubmitAvatarEdit}
-            onCloseModal={() => onTriggerOpenModal('showAvatarEditModal')}
-          />
-        </Modal>
-
-        <Modal openModal={showUserInfoModal} setOpenModal={() => onTriggerOpenModal('showUserInfoModal')}>
-          <UserInfoEditForm
-            user={user}
-            clearError={clearError}
-            wrongPassword={wrongPassword}
-            checkValidationNameOrEmail={checkValidationNameOrEmail}
-            onSubmit={onSubmitUserInfoEdit}
-            onCloseModal={() => onTriggerOpenModal('showUserInfoModal')}
-          />
-        </Modal>
-
-        <WarningInfoModal
-          openModal={showInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showInfoModal')}
-          title={warningInfoModalTitle}
-          btnText={t(TranslationKey.Close)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showInfoModal')
-          }}
+            <MemoDataGrid
+              pagination
+              useResizeContainer
+              classes={{
+                row: classNames.row,
+                root: classNames.root,
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
+              }}
+              localeText={getLocalizationByLanguageTag()}
+              sortModel={viewModel.sortModel}
+              filterModel={viewModel.filterModel}
+              columnVisibilityModel={viewModel.columnVisibilityModel}
+              paginationModel={viewModel.paginationModel}
+              pageSizeOptions={[15, 25, 50, 100]}
+              rows={viewModel.getCurrentData()}
+              rowHeight={100}
+              slots={{
+                toolbar: DataGridCustomToolbar,
+                columnMenuIcon: FilterAltOutlinedIcon,
+              }}
+              slotProps={{
+                toolbar: {
+                  columsBtnSettings: {
+                    columnsModel: viewModel.columnsModel,
+                    columnVisibilityModel: viewModel.columnVisibilityModel,
+                    onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                  },
+                },
+              }}
+              density={viewModel.densityModel}
+              columns={viewModel.columnsModel}
+              loading={viewModel.requestStatus === loadingStatuses.isLoading}
+              onSortModelChange={viewModel.onChangeSortingModel}
+              onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+              onPaginationModelChange={viewModel.onChangePaginationModelChange}
+              onFilterModelChange={viewModel.onChangeFilterModel}
+            />
+          </>
+        ) : null}
+      </MainContent>
+      <Modal openModal={viewModel.showTabModal} setOpenModal={viewModel.onTriggerShowTabModal}>
+        <ContentModal
+          setOpenModal={viewModel.onTriggerShowTabModal}
+          selected={viewModel.selectedUser}
+          managersList={CLIENT_USER_MANAGERS_LIST}
         />
-      </>
-    )
-  }
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showAvatarEditModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAvatarEditModal')}
+      >
+        <AvatarEditorForm
+          onSubmit={viewModel.onSubmitAvatarEdit}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showAvatarEditModal')}
+        />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showUserInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showUserInfoModal')}
+      >
+        <UserInfoEditForm
+          user={viewModel.user}
+          clearError={viewModel.clearError}
+          wrongPassword={viewModel.wrongPassword}
+          checkValidationNameOrEmail={viewModel.checkValidationNameOrEmail}
+          onSubmit={viewModel.onSubmitUserInfoEdit}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showUserInfoModal')}
+        />
+      </Modal>
+
+      <WarningInfoModal
+        openModal={viewModel.showInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
+        title={viewModel.warningInfoModalTitle}
+        btnText={t(TranslationKey.Close)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showInfoModal')
+        }}
+      />
+    </>
+  )
 }
 
-export const UserProfileView = withStyles(UserProfileViewRaw, styles)
+export const UserProfileView = withStyles(observer(UserProfileViewRaw), styles)

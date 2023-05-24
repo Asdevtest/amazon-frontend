@@ -1,1 +1,1 @@
-export {CustomSelectPaymentDetails} from './custom-select-payment-details'
+export { CustomSelectPaymentDetails } from './custom-select-payment-details'

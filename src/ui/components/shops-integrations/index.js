@@ -1,1 +1,1 @@
-export {ShopsIntegrations} from './shops-integrations'
+export { ShopsIntegrations } from './shops-integrations'

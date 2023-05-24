@@ -1,6 +1,6 @@
-import {IsInt, IsString, IsNotEmpty} from 'class-validator'
+import { IsInt, IsString, IsNotEmpty } from 'class-validator'
 
-import {InlineResponse20013} from '@services/rest-api-service/codegen/src'
+import { InlineResponse20013 } from '@services/rest-api-service/codegen/src'
 
 export class Supplier extends InlineResponse20013 {}
 

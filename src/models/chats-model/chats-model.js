@@ -1,4 +1,4 @@
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class ChatsModelStatic {
   createSimpleChatByUserId = async id => {
@@ -7,12 +7,12 @@ class ChatsModelStatic {
   }
 
   createSimpleGroupChat = async data => {
-    const response = await restApiService.chatsApi.apiV1ChatsGroupPost({body: data})
+    const response = await restApiService.chatsApi.apiV1ChatsGroupPost({ body: data })
     return response
   }
 
   createSimpleChatByUserEmail = async email => {
-    const response = await restApiService.chatsApi.apiV1ChatsByEmailPost({body: {email}})
+    const response = await restApiService.chatsApi.apiV1ChatsByEmailPost({ body: { email } })
     return response
   }
 

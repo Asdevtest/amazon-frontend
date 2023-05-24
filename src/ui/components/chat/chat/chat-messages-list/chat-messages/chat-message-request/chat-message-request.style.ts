@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -18,7 +18,6 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  headerWrapper: {},
   headerText: {
     color: theme.palette.text.second,
     fontSize: 18,
@@ -39,17 +38,8 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '50px',
     alignItems: 'start',
   },
-  titleWrapper: {},
-  titleText: {
-    color: theme.palette.text.second,
-    fontSize: 18,
-  },
   descriptionWrapper: {
     marginTop: 18,
-  },
-  descriptionText: {
-    color: theme.palette.text.second,
-    fontSize: 18,
   },
   footerWrapper: {
     marginTop: 25,
@@ -63,69 +53,11 @@ export const useClassNames = makeStyles()(theme => ({
       width: '40%',
     },
   },
-  footerRowNotFirst: {
-    marginTop: 20,
-  },
   labelValueBlockWrapper: {
     // backgroundColor: theme.palette.background.green,
     width: '28%',
   },
-  labelValueBlockWrapperNotFirst: {},
 
-  image: {
-    marginLeft: '20px',
-    width: '80px',
-    height: '70px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
-
-  imageWrapper: {
-    display: 'flex',
-    alignItems: 'flex-end',
-  },
-
-  filesWrapper: {
-    display: 'flex',
-    maxWidth: '300px',
-  },
-  imagesAndFilesWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '40%',
-  },
-
-  imagesWrapper: {},
-  photoTitle: {
-    fontWeight: 600,
-    fontSize: '18px',
-    lineHeight: '140%',
-  },
-  carouselWrapper: {
-    marginTop: '10px',
-  },
-  documentsWrapper: {},
-  documentsTitle: {
-    fontWeight: 600,
-    fontSize: '18px',
-    lineHeight: '140%',
-  },
-  documentWrapper: {
-    marginTop: '10px',
-  },
-  documentTitle: {},
-  emptyDocumentIcon: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '30px',
-  },
-  documentEmpty: {},
   conditionsField: {
     border: 'none',
     resize: 'none',

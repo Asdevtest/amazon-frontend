@@ -1,1 +1,1 @@
-export {FieldsAndSuppliers} from './fields-and-suppliers'
+export { FieldsAndSuppliers } from './fields-and-suppliers'

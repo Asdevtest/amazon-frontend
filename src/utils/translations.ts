@@ -1,11 +1,11 @@
-import i18n, {TranslateOptions} from 'i18n-js'
+import i18n, { TranslateOptions } from 'i18n-js'
 import memoize from 'lodash.memoize'
 
-import {translationGetters} from '@constants/translations'
-import {LanguageKey} from '@constants/translations/language-key'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { translationGetters } from '@constants/translations'
+import { LanguageKey } from '@constants/translations/language-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
 // allow to use dots in translation keys
 i18n.defaultSeparator = '|'
@@ -28,11 +28,11 @@ export const t = memoize(
 const fallback: {
   languageTag: LanguageKey
   isRTL: boolean
-} = {languageTag: LanguageKey.en, isRTL: false}
+} = { languageTag: LanguageKey.en, isRTL: false }
 
 export const setI18nConfig = (): void => {
   if (!SettingsModel.languageTag) {
-    const findBestAvailableLanguageResult = {languageTag: navigator.language} || fallback
+    const findBestAvailableLanguageResult = { languageTag: navigator.language } || fallback
 
     SettingsModel.setLanguageTag(findBestAvailableLanguageResult.languageTag)
   }

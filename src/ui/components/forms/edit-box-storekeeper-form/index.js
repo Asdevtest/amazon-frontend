@@ -1,1 +1,1 @@
-export {EditBoxStorekeeperForm} from './edit-box-storekeeper-form'
+export { EditBoxStorekeeperForm } from './edit-box-storekeeper-form'

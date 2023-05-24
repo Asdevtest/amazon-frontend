@@ -1,23 +1,23 @@
-import {Avatar, Grid, Typography} from '@mui/material'
+import { Avatar, Grid, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import React from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
-import {UserLink} from '@components/user-link'
+import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { Button } from '@components/shared/buttons/button'
+import { UserLink } from '@components/user/user-link'
 
-import {formatNormDateTime} from '@utils/date-time'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {minsToTime, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { formatNormDateTime } from '@utils/date-time'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { minsToTime, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './vacant-deals-list-card.style'
+import { useClassNames } from './vacant-deals-list-card.style'
 
-export const VacantDealsListCard = ({onClickViewMore, showDetails, onClickGetToWorkModal, item}) => {
-  const {classes: classNames} = useClassNames()
+export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetToWorkModal, item }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <Grid item className={classNames.mainWrapper}>
@@ -49,7 +49,7 @@ export const VacantDealsListCard = ({onClickViewMore, showDetails, onClickGetToW
               </div>
             </div>
           </div>
-          <div className={classNames.cardTitleBlockWrapper}>
+          <div>
             <div className={classNames.cardTitleBlockHeaderWrapper}>
               <Typography className={classNames.cardTitle}>{item.title}</Typography>
               <Typography className={classNames.cardDescription}>{item.comment}</Typography>

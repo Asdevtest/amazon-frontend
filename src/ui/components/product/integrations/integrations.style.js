@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(() => ({
   mainWrapper: {
@@ -11,7 +11,6 @@ export const useClassNames = makeStyles()(() => ({
   addProductBtnsWrapper: {
     width: '100%',
     display: 'flex',
-    // justifyContent: 'space-between',
     padding: '10px',
   },
 

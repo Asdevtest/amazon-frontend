@@ -1,1 +1,1 @@
-export {DashboardBalance} from './dashboard-balance'
+export { DashboardBalance } from './dashboard-balance'

@@ -1,1 +1,1 @@
-export {SupervisorFreelanceView} from './supervisor-freelance-view'
+export { SupervisorFreelanceView } from './supervisor-freelance-view'

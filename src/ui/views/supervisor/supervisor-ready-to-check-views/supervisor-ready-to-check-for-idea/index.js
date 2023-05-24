@@ -1,1 +1,1 @@
-export {SupervisorReadyToCheckForIdeaView} from './supervisor-ready-to-check-for-idea'
+export { SupervisorReadyToCheckForIdeaView } from './supervisor-ready-to-check-for-idea'

@@ -1,29 +1,4 @@
 export const styles = theme => ({
-  modalTitle: {
-    color: theme.palette.text.general,
-    fontSize: '24px',
-    fontWeight: 500,
-    lineHeight: '28px',
-    marginBottom: '24px',
-  },
-  buttonWrapper: {
-    padding: '16px',
-    marginRight: '0px',
-    borderTop: '1px solid rgb(224,224,224)',
-  },
-  tableWrapper: {
-    marginTop: '24px',
-    width: '100%',
-    height: '100%',
-  },
-  buttonsWrapper: {
-    '& button': {
-      marginRight: theme.spacing(2),
-    },
-    '& button:last-child': {
-      marginRight: 0,
-    },
-  },
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
@@ -54,17 +29,15 @@ export const styles = theme => ({
     fontWeight: 'bold',
     marginBottom: '0',
 
-    borderBottom: '5px solid #0460DE',
+    borderBottom: theme.palette.other.tableActiveFilterBtn,
   },
   datagridWrapper: {
     marginTop: '10px',
-    height: '84vh',
+    height: 'calc(100vh - 260px)',
   },
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
   },
 

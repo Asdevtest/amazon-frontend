@@ -1,26 +1,31 @@
-import {cx} from '@emotion/css'
-import {Divider, Typography, Checkbox} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Divider, Typography, Checkbox } from '@mui/material'
 
-import {useState} from 'react'
+import { useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByKey, OrderStatusTranslate} from '@constants/order-status'
-import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import {
+  getOrderStatusOptionByCode,
+  OrderStatus,
+  OrderStatusByKey,
+  OrderStatusTranslate,
+} from '@constants/statuses/order-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
-import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
-import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
+import { Button } from '@components/shared/buttons/button'
+import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
+import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { Field } from '@components/shared/field'
 
-import {roundSafely} from '@utils/calculation'
-import {checkIsPositiveNum} from '@utils/checks'
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { roundSafely } from '@utils/calculation'
+import { checkIsPositiveNum } from '@utils/checks'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './create-box-form.style'
+import { useClassNames } from './create-box-form.style'
 
 const BlockOfNewBox = ({
   order,
@@ -34,22 +39,20 @@ const BlockOfNewBox = ({
   volumeWeightCoefficient,
   currentSupplier,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
       <div className={classNames.numberInputFieldsBlocksSubWrapper}>
         <div className={classNames.numberInputFieldsWrapper}>
           <Field
-            containerClasses={classNames.numberInputField}
-            inputProps={{maxLength: 6}}
+            inputProps={{ maxLength: 6 }}
             label={`${t(TranslationKey['Box length'])}`}
             value={orderBox.lengthCmSupplier}
             onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
           />
           <Field
-            containerClasses={classNames.numberInputField}
-            inputProps={{maxLength: 6}}
+            inputProps={{ maxLength: 6 }}
             label={`${t(TranslationKey['Box width'])}`}
             value={orderBox.widthCmSupplier}
             onChange={setFormField('widthCmSupplier', orderBoxIndex)}
@@ -57,15 +60,13 @@ const BlockOfNewBox = ({
         </div>
         <div className={classNames.numberInputFieldsWrapper}>
           <Field
-            containerClasses={classNames.numberInputField}
-            inputProps={{maxLength: 6}}
+            inputProps={{ maxLength: 6 }}
             label={`${t(TranslationKey['Box height'])}`}
             value={orderBox.heightCmSupplier}
             onChange={setFormField('heightCmSupplier', orderBoxIndex)}
           />
           <Field
-            containerClasses={classNames.numberInputField}
-            inputProps={{maxLength: 6}}
+            inputProps={{ maxLength: 6 }}
             label={t(TranslationKey['Real weight'])}
             value={orderBox.weighGrossKgSupplier}
             onChange={setFormField('weighGrossKgSupplier', orderBoxIndex)}
@@ -74,7 +75,6 @@ const BlockOfNewBox = ({
         <div className={classNames.numberInputFieldsWrapper}>
           <Field
             disabled
-            containerClasses={classNames.numberInputField}
             label={t(TranslationKey['Volume weight, kg'])}
             value={toFixed(
               (sizeSetting === sizesType.INCHES
@@ -91,7 +91,6 @@ const BlockOfNewBox = ({
           />
           <Field
             disabled
-            containerClasses={classNames.numberInputField}
             label={t(TranslationKey['Final weight, kg'])}
             value={toFixed(
               Math.max(
@@ -113,15 +112,13 @@ const BlockOfNewBox = ({
 
         <div className={classNames.numberInputFieldsWrapper}>
           <Field
-            containerClasses={classNames.numberInputField}
             error={orderBox.amount < 1}
-            inputProps={{maxLength: 3}}
+            inputProps={{ maxLength: 3 }}
             label={t(TranslationKey['Quantity of boxes'])}
             value={orderBox.amount}
             onChange={setFormField('amount', orderBoxIndex)}
           />
           <Field
-            containerClasses={classNames.numberInputField}
             error={
               currentSupplier.multiplicity &&
               currentSupplier.boxProperties?.amountInBox &&
@@ -176,7 +173,7 @@ export const CreateBoxForm = observer(
     order,
     isEdit,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const sourceBox = {
       lengthCmSupplier: formItem?.lengthCmSupplier || 0,
@@ -211,7 +208,7 @@ export const CreateBoxForm = observer(
         return
       }
 
-      const newFormFields = {...formFieldsArr[orderBoxIndex]}
+      const newFormFields = { ...formFieldsArr[orderBoxIndex] }
 
       if (fieldName === 'amount') {
         newFormFields[fieldName] = isNaN(parseInt(e.target.value)) ? '' : parseInt(e.target.value)
@@ -288,7 +285,7 @@ export const CreateBoxForm = observer(
       if (!checkIsPositiveNum(e.target.value)) {
         return
       }
-      let newFormFields = {...formFieldsArr[orderBoxIndex]}
+      let newFormFields = { ...formFieldsArr[orderBoxIndex] }
 
       newFormFields = {
         ...newFormFields,
@@ -448,7 +445,7 @@ export const CreateBoxForm = observer(
                 color="primary"
                 variant="contained"
                 onClick={() => {
-                  setFormFieldsArr(formFieldsArr.concat({...sourceBox}))
+                  setFormFieldsArr(formFieldsArr.concat({ ...sourceBox }))
                 }}
               >
                 {t(TranslationKey['Add another box'])}

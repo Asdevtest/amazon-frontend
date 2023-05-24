@@ -1,1 +1,1 @@
-export {AdminSentBatchesView} from './admin-sent-batches-view'
+export { AdminSentBatchesView } from './admin-sent-batches-view'

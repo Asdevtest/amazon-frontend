@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
-import {cx} from '@emotion/css'
-import {ClassNamesArg} from '@emotion/react'
+import { cx } from '@emotion/css'
+import { ClassNamesArg } from '@emotion/react'
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
-import {Checkbox, Input, MenuItem, Select, Typography} from '@mui/material'
+import { Checkbox, Input, MenuItem, Select, Typography } from '@mui/material'
 
-import {FC, useEffect, useState} from 'react'
+import { FC, useEffect, useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Field} from '@components/field'
+import { Field } from '@components/shared/field'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './custom-select-payment-details.style'
+import { useClassNames } from './custom-select-payment-details.style'
 
 interface PaymentMethodsObject {
   title: string
@@ -43,7 +43,7 @@ interface CustomSelectPaymentDetailsProps {
 }
 
 export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = props => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
   const {
     currentPaymentMethods,
     paymentMethods,
@@ -78,7 +78,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
       setIsEmpty(false)
 
       return (
-        <div className={cx(classNames.paymentMethodsPlaccholder, {[classNames.generalText]: generalText})}>
+        <div className={cx(classNames.paymentMethodsPlaccholder, { [classNames.generalText]: generalText })}>
           <Typography className={classNames.selectedItemText}>
             {valuesToRender?.map(valueToRender => valueToRender?.title).join(' / ')}
           </Typography>
@@ -149,9 +149,9 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
               }}
             >
               {!onlyRead && ( // @ts-ignore
-                <MenuItem value={{_id: 'SELECT_ALL'}}>
+                <MenuItem value={{ _id: 'SELECT_ALL' }}>
                   <Checkbox color="primary" checked={value?.length === paymentMethods?.length} />
-                  <Typography className={classNames.standartText}>{t(TranslationKey.All)}</Typography>
+                  <Typography>{t(TranslationKey.All)}</Typography>
                 </MenuItem>
               )}
 
@@ -160,7 +160,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
                   // @ts-ignore
                   <MenuItem key={paymentMethodIndex} value={paymentMethod}>
                     <Checkbox color="primary" checked={value?.some(item => item?._id === paymentMethod?._id)} />
-                    <Typography className={classNames.standartText}>{paymentMethod?.title}</Typography>
+                    <Typography>{paymentMethod?.title}</Typography>
                   </MenuItem>
                 ))}
 
@@ -173,7 +173,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
                       color="primary"
                       checked={value?.some(item => item?._id === paymentMethod?._id)}
                     />
-                    <Typography className={classNames.standartText}>{paymentMethod?.title}</Typography>
+                    <Typography>{paymentMethod?.title}</Typography>
                   </MenuItem>
                 ))}
             </Select>

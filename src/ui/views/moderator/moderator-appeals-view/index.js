@@ -1,1 +1,1 @@
-export {ModeratorAppealsView} from './moderator-appeals-view'
+export { ModeratorAppealsView } from './moderator-appeals-view'

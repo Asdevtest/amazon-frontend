@@ -1,28 +1,28 @@
 /* eslint-disable no-unused-vars */
-import {Box, Tabs} from '@mui/material'
+import { Box, Tabs } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {ITab} from '@components/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab/i-tab'
 
-import {checkIsBuyer, checkIsClient, checkIsResearcher} from '@utils/checks'
-import {t} from '@utils/translations'
+import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher } from '@utils/checks'
+import { t } from '@utils/translations'
 
-import {Freelance} from '../freelance'
-import {Integrations} from '../integrations'
-import {Listing} from '../listing'
-import {Orders} from '../orders'
-import {SuppliersAndIdeas} from '../suppliers-and-ideas'
-import {BottomCard} from './bottom-card'
-import {useClassNames} from './product-wrapper.style'
-import {TopCard} from './top-card'
+import { Freelance } from '../freelance'
+import { Integrations } from '../integrations'
+import { Listing } from '../listing'
+import { Orders } from '../orders'
+import { SuppliersAndIdeas } from '../suppliers-and-ideas'
+import { BottomCard } from './bottom-card'
+import { useClassNames } from './product-wrapper.style'
+import { TopCard } from './top-card'
 
 const tabsValues = {
   MAIN_INFO: 'MAIN_INFO',
@@ -46,7 +46,7 @@ const getTab = tabKey => {
   }
 }
 
-const TabPanel = ({children, value, index, ...other}) => (
+const TabPanel = ({ children, value, index, ...other }) => (
   <div
     role="tabpanel"
     hidden={value !== index}
@@ -84,7 +84,7 @@ export const ProductWrapper = observer(
     acceptMessage,
     onClickHsCode,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const [curUserRole, seturUserRole] = useState(UserRoleCodeMap[userRole])
 
@@ -115,7 +115,7 @@ export const ProductWrapper = observer(
                 label={t(TranslationKey['Basic information'])}
               />
 
-              {checkIsClient(curUserRole) && (
+              {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
                 <ITab
                   tooltipInfoContent={t(TranslationKey['All orders related to this product'])}
                   label={t(TranslationKey.Orders)}
@@ -123,7 +123,7 @@ export const ProductWrapper = observer(
                 />
               )}
 
-              {checkIsClient(curUserRole) && (
+              {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
                 <ITab
                   tooltipInfoContent={t(TranslationKey['Goods from the store, linked to the product card'])}
                   label={t(TranslationKey.Integrations)}
@@ -131,7 +131,9 @@ export const ProductWrapper = observer(
                 />
               )}
 
-              {checkIsClient(curUserRole) && <ITab label={t(TranslationKey.Freelance)} value={tabsValues.FREELANCE} />}
+              {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
+                <ITab label={t(TranslationKey.Freelance)} value={tabsValues.FREELANCE} />
+              )}
 
               {/* {!checkIsBuyer(curUserRole) && <ITab label={t(TranslationKey.Content)} value={tabsValues.LISTING} />} */}
 

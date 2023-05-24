@@ -1,1 +1,1 @@
-export {BatchInfoModal} from './batch-info-modal'
+export { BatchInfoModal } from './batch-info-modal'

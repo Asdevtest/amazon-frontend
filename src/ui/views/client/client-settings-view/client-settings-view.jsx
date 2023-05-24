@@ -1,44 +1,21 @@
-import React, {Component} from 'react'
+import React from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { UserSettingsForm } from '@components/forms/user-settings-form'
+import { MainContent } from '@components/layout/main-content'
 
-import {Appbar} from '@components/appbar'
-import {UserSettingsForm} from '@components/forms/user-settings-form'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {Navbar} from '@components/navbar'
+import { styles } from './client-settings-view.style'
 
-import {t} from '@utils/translations'
+export const ClientSettingsViewRaw = () => (
+  // const [viewModel] = useState(() => new ClientSettingsViewModel({ history: props.history }));
 
-import {ClientSettingsViewModel} from './client-settings-view.model'
-import {styles} from './client-settings-view.style'
+  <React.Fragment>
+    <MainContent>
+      <UserSettingsForm />
+    </MainContent>
+  </React.Fragment>
+)
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_SETTINGS
-
-@observer
-class ClientSettingsViewRaw extends Component {
-  viewModel = new ClientSettingsViewModel({history: this.props.history})
-
-  render() {
-    const {drawerOpen, onTriggerDrawerOpen} = this.viewModel
-
-    return (
-      <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
-        <Main>
-          <Appbar title={t(TranslationKey.Profile)} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <UserSettingsForm />
-            </MainContent>
-          </Appbar>
-        </Main>
-      </React.Fragment>
-    )
-  }
-}
-
-export const ClientSettingsView = withStyles(ClientSettingsViewRaw, styles)
+export const ClientSettingsView = withStyles(observer(ClientSettingsViewRaw), styles)

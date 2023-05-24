@@ -1,16 +1,16 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {AnnouncementsModel} from '@models/announcements-model'
-import {ClientModel} from '@models/client-model'
-import {RequestModel} from '@models/request-model'
-import {UserModel} from '@models/user-model'
+import { AnnouncementsModel } from '@models/announcements-model'
+import { ClientModel } from '@models/client-model'
+import { RequestModel } from '@models/request-model'
+import { UserModel } from '@models/user-model'
 
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class CreateOrEditRequestViewModel {
   history = undefined
@@ -21,8 +21,6 @@ export class CreateOrEditRequestViewModel {
   showAcceptMessage = false
 
   platformSettingsData = null
-
-  drawerOpen = false
 
   requestToEdit = undefined
 
@@ -51,7 +49,7 @@ export class CreateOrEditRequestViewModel {
     onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
 
@@ -61,7 +59,7 @@ export class CreateOrEditRequestViewModel {
       }
     })
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async getPlatformSettingsData() {
@@ -95,7 +93,7 @@ export class CreateOrEditRequestViewModel {
 
   async toPublishRequest(requestId, totalCost) {
     try {
-      await RequestModel.toPublishRequest(requestId, {totalCost})
+      await RequestModel.toPublishRequest(requestId, { totalCost })
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
@@ -125,7 +123,7 @@ export class CreateOrEditRequestViewModel {
       })
 
       if (files.length) {
-        await onSubmitPostImages.call(this, {images: files.map(el => el.file), type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: files.map(el => el.file), type: 'uploadedFiles' })
       }
 
       const dataWithFiles = {
@@ -134,7 +132,7 @@ export class CreateOrEditRequestViewModel {
           {
             ...data.request,
             announcementId: announcement?._id || null,
-            linksToMediaFiles: this.uploadedFiles.map((el, i) => ({fileLink: el, commentByClient: files[i].comment})),
+            linksToMediaFiles: this.uploadedFiles.map((el, i) => ({ fileLink: el, commentByClient: files[i].comment })),
           },
           ['discountedPrice'],
         ),
@@ -193,7 +191,7 @@ export class CreateOrEditRequestViewModel {
   async onSubmitEditRequest(data, files, announcement) {
     try {
       if (files.length) {
-        await onSubmitPostImages.call(this, {images: files.map(el => el.file), type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: files.map(el => el.file), type: 'uploadedFiles' })
       }
 
       const dataWithFiles = {
@@ -203,7 +201,7 @@ export class CreateOrEditRequestViewModel {
             ...data.request,
             announcementId: announcement?._id ? announcement?._id : null,
             linksToMediaFiles: [
-              ...this.uploadedFiles.map((el, i) => ({fileLink: el, commentByClient: files[i].comment})),
+              ...this.uploadedFiles.map((el, i) => ({ fileLink: el, commentByClient: files[i].comment })),
             ],
           },
           ['discountedPrice'],
@@ -291,12 +289,6 @@ export class CreateOrEditRequestViewModel {
   onTriggerOpenModal(modalState) {
     runInAction(() => {
       this[modalState] = !this[modalState]
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

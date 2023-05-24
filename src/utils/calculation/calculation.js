@@ -1,6 +1,6 @@
-import {zipCodeGroups} from '@constants/zip-code-groups'
+import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 
-import {toFixed} from '@utils/text'
+import { toFixed } from '@utils/text'
 
 export const roundSafely = num => Math.round(num * 100) / 100
 

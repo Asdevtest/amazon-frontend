@@ -1,117 +1,77 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {Appbar} from '@components/appbar'
-import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {Navbar} from '@components/navbar'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { MainContent } from '@components/layout/main-content'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 
-import {FinancesViewModel} from './finances-view.model'
-import {styles} from './finances-view.style'
+import { FinancesViewModel } from './finances-view.model'
+import { styles } from './finances-view.style'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_FINANCES
+export const FinancesViewRaw = props => {
+  const [viewModel] = useState(() => new FinancesViewModel({ history: props.history, location: props.location }))
+  const { classes: classNames } = props
 
-@observer
-class FinancesViewRaw extends Component {
-  viewModel = new FinancesViewModel({history: this.props.history, location: this.props.location})
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  componentDidMount() {
-    this.viewModel.getPayments(this.viewModel.activeSubCategory)
-    this.viewModel.getDataGridState()
-  }
+  const getRowClassName = params => (params.row.sum < 0 ? classNames.redRow : params.row.sum > 0 && classNames.greenRow)
 
-  render() {
-    const {
-      requestStatus,
-      getCurrentData,
-      sortModel,
-      filterModel,
-      densityModel,
-      columnsModel,
-
-      drawerOpen,
-      rowsPerPage,
-      curPage,
-      onChangeDrawerOpen,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      onSelectionModel,
-
-      setDataGridState,
-      onChangeSortingModel,
-      onChangeFilterModel,
-      changeColumnsModel,
-    } = this.viewModel
-    const {classes: classNames} = this.props
-
-    const getRowClassName = params =>
-      params.row.sum < 0 ? classNames.redRow : params.row.sum > 0 && classNames.greenRow
-
-    return (
-      <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onChangeDrawerOpen} />
-        <Main>
-          <Appbar title={t(TranslationKey.Finances)} setDrawerOpen={onChangeDrawerOpen}>
-            <MainContent>
-              <MemoDataGrid
-                pagination
-                useResizeContainer
-                classes={{
-                  root: classNames.root,
-                  footerContainer: classNames.footerContainer,
-                  footerCell: classNames.footerCell,
-                  toolbarContainer: classNames.toolbarContainer,
-                  filterForm: classNames.filterForm,
-                }}
-                localeText={getLocalizationByLanguageTag()}
-                getRowClassName={getRowClassName}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
-                rowHeight={75}
-                components={{
-                  Toolbar: DataGridCustomToolbar,
-                  ColumnMenuIcon: FilterAltOutlinedIcon,
-                }}
-                density={densityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                componentsProps={{
-                  toolbar: {
-                    columsBtnSettings: {columnsModel, changeColumnsModel},
-                  },
-                }}
-                onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection[0])
-                }}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onStateChange={setDataGridState}
-                onFilterModelChange={model => onChangeFilterModel(model)}
-              />
-            </MainContent>
-          </Appbar>
-        </Main>
-      </React.Fragment>
-    )
-  }
+  return (
+    <React.Fragment>
+      <MainContent>
+        <MemoDataGrid
+          pagination
+          useResizeContainer
+          classes={{
+            root: classNames.root,
+            footerContainer: classNames.footerContainer,
+            footerCell: classNames.footerCell,
+            toolbarContainer: classNames.toolbarContainer,
+            filterForm: classNames.filterForm,
+          }}
+          localeText={getLocalizationByLanguageTag()}
+          getRowClassName={getRowClassName}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          pageSizeOptions={[15, 25, 50, 100]}
+          rows={viewModel.getCurrentData()}
+          rowHeight={75}
+          slots={{
+            toolbar: DataGridCustomToolbar,
+            columnMenuIcon: FilterAltOutlinedIcon,
+          }}
+          slotProps={{
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+            },
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+        />
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const FinancesView = withStyles(FinancesViewRaw, styles)
+export const FinancesView = withStyles(observer(FinancesViewRaw), styles)

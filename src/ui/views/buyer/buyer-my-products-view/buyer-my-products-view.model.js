@@ -1,18 +1,17 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {BuyerModel} from '@models/buyer-model'
-import {ResearcherModel} from '@models/researcher-model'
-import {SettingsModel} from '@models/settings-model'
+import { BuyerModel } from '@models/buyer-model'
+import { ResearcherModel } from '@models/researcher-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {buyerProductsViewColumns} from '@components/table-columns/buyer/buyer-products-columns'
+import { buyerProductsViewColumns } from '@components/table/table-columns/buyer/buyer-products-columns'
 
-import {buyerProductsDataConverter} from '@utils/data-grid-data-converters'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {objectToUrlQs} from '@utils/text'
-import {t} from '@utils/translations'
+import { buyerProductsDataConverter } from '@utils/data-grid-data-converters'
+import { objectToUrlQs } from '@utils/text'
+import { t } from '@utils/translations'
 
 export class BuyerMyProductsViewModel {
   history = undefined
@@ -20,7 +19,6 @@ export class BuyerMyProductsViewModel {
 
   baseNoConvertedProducts = []
   productsMy = []
-  drawerOpen = false
 
   currentData = []
 
@@ -33,13 +31,14 @@ export class BuyerMyProductsViewModel {
   rowCount = 0
   sortModel = []
   startFilterModel = undefined
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel = buyerProductsViewColumns(this.rowHandlers)
 
-  constructor({history, location}) {
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
+
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
     })
@@ -53,12 +52,7 @@ export class BuyerMyProductsViewModel {
     //       this.startFilterModel = resetDataGridFilter
     //     }
 
-    makeAutoObservable(this, undefined, {autoBind: true})
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.productsMy,
@@ -69,30 +63,11 @@ export class BuyerMyProductsViewModel {
     )
   }
 
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-
-      runInAction(() => {
-        this.productsMy = buyerProductsDataConverter(this.baseNoConvertedProducts)
-      })
-    }
-  }
-
-  async onClickFeesCalculate(product) {
+  async onClickFeesCalculate(productId) {
     try {
-      const result = await ResearcherModel.parseParseSellerCentral(product.id)
+      const result = await ResearcherModel.parseParseSellerCentral(productId)
 
-      BuyerModel.updateProduct(product._id, {fbafee: result.amazonFee})
+      BuyerModel.updateProduct(productId, { fbafee: result.amazonFee })
     } catch (error) {
       console.log(error)
     }
@@ -102,16 +77,38 @@ export class BuyerMyProductsViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.getProductsMy()
+
+    this.setDataGridState()
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.getProductsMy()
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.getProductsMy()
+
+    this.setDataGridState()
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.BUYER_PRODUCTS)
   }
@@ -119,43 +116,26 @@ export class BuyerMyProductsViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.BUYER_PRODUCTS]
 
-    if (state) {
-      runInAction(() => {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = this.startFilterModel
-          ? {
-              ...this.startFilterModel,
-              items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
-            }
-          : state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = buyerProductsViewColumns(this.rowHandlers).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
-      })
-    }
-  }
-
-  onChangeRowsPerPage(e) {
     runInAction(() => {
-      this.rowsPerPage = e
-      this.curPage = 0
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(
+          this.startFilterModel
+            ? {
+                ...this.startFilterModel,
+                items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
+              }
+            : state.filterModel,
+        )
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
     })
-
-    this.getProductsMy()
   }
+
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -164,11 +144,12 @@ export class BuyerMyProductsViewModel {
       this.sortModel = sortModel
     })
     this.getProductsMy()
+    this.setDataGridState()
   }
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
+      this.rowSelectionModel = model
     })
   }
 
@@ -216,17 +197,17 @@ export class BuyerMyProductsViewModel {
 
       const filter = objectToUrlQs({
         or: [
-          {asin: {$contains: this.nameSearchValue}},
-          {amazonTitle: {$contains: this.nameSearchValue}},
-          {skusByClient: {$contains: this.nameSearchValue}},
+          { asin: { $contains: this.nameSearchValue } },
+          { amazonTitle: { $contains: this.nameSearchValue } },
+          { skusByClient: { $contains: this.nameSearchValue } },
         ],
       })
 
       const result = await BuyerModel.getProductsMyPag({
         filters: this.nameSearchValue ? filter : null,
 
-        limit: this.rowsPerPage,
-        offset: this.curPage * this.rowsPerPage,
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
 
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
@@ -262,19 +243,5 @@ export class BuyerMyProductsViewModel {
     )
 
     win.focus()
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
-
-    this.getProductsMy()
   }
 }

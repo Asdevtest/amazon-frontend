@@ -1,74 +1,23 @@
-// import { GridToolbar} from '@mui/x-data-grid'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {Component} from 'react'
+import React from 'react'
 
-// import {MemoDataGrid} from '@components/memo-data-grid'
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-// import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveCategory} from '@constants/navbar-active-category'
-// import {ProductStatus} from '@constants/product-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { MainContent } from '@components/layout/main-content'
 
-import {Appbar} from '@components/appbar'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {Navbar} from '@components/navbar'
+import { styles } from './moderator-my-products-view.style'
 
-// import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+export const ModeratorMyProductsViewRaw = props => {
+  // const [viewModel] = useState(() => new ModeratorMyProductsViewModel({ history: props.history }));
+  const { classes: classNames } = props
 
-import {ModeratorMyProductsViewModel} from './moderator-my-products-view.model'
-import {styles} from './moderator-my-products-view.style'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
-
-// const attentionStatuses = [ProductStatus.BUYER_PICKED_PRODUCT, ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT]
-@observer
-export class ModeratorMyProductsViewRaw extends Component {
-  viewModel = new ModeratorMyProductsViewModel({history: this.props.history})
-
-  // componentDidMount() {
-  //   this.viewModel.loadData()
-  // }
-
-  render() {
-    const {
-      // requestStatus,
-      // getCurrentData,
-      // sortModel,
-      // filterModel,
-      // densityModel,
-      // columnsModel,
-
-      drawerOpen,
-      // curPage,
-      // rowsPerPage,
-      // onChangeCurPage,
-      // onChangeRowsPerPage,
-      onTriggerDrawerOpen,
-      // onClickTableRow,
-
-      // onSelectionModel,
-      // setDataGridState,
-      // onChangeSortingModel,
-      // onChangeFilterModel,
-    } = this.viewModel
-    const {classes: classNames} = this.props
-
-    // const getRowClassName = params =>
-    //   attentionStatuses.includes(params.row.status) && classNames.attentionRow
-
-    return (
-      <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
-        <Main>
-          <Appbar title={t(TranslationKey['My products'])} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <Typography className={classNames.inProcess}>{'В разработке...'}</Typography>
-              {/* <MemoDataGrid
+  return (
+    <React.Fragment>
+      <MainContent>
+        <Typography className={classNames.inProcess}>{'В разработке...'}</Typography>
+        {/* <MemoDataGrid
                 pagination
                 useResizeContainer
                 sx={{
@@ -85,7 +34,7 @@ export class ModeratorMyProductsViewRaw extends Component {
                 filterModel={filterModel}
                 page={curPage}
                 pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
+                pageSizeOptions={[15, 25, 50, 100]}
                 rows={getCurrentData()}
                 rowHeight={100}
                 components={{
@@ -94,7 +43,7 @@ export class ModeratorMyProductsViewRaw extends Component {
                 density={densityModel}
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => {
+                onRowSelectionModelChange={newSelection => {
                   onSelectionModel(newSelection[0])
                 }}
                 onSortModelChange={onChangeSortingModel}
@@ -104,12 +53,9 @@ export class ModeratorMyProductsViewRaw extends Component {
                 onRowDoubleClick={e => onClickTableRow(e.row)}
                 onFilterModelChange={model => onChangeFilterModel(model)}
               /> */}
-            </MainContent>
-          </Appbar>
-        </Main>
-      </React.Fragment>
-    )
-  }
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const ModeratorMyProductsView = withStyles(ModeratorMyProductsViewRaw, styles)
+export const ModeratorMyProductsView = withStyles(observer(ModeratorMyProductsViewRaw), styles)

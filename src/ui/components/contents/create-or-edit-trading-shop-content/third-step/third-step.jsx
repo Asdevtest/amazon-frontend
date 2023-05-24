@@ -1,19 +1,19 @@
-import {cx} from '@emotion/css'
-import {Typography, Paper, Checkbox} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography, Paper, Checkbox } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Field} from '@components/field/field'
-import {Input} from '@components/input'
+import { Field } from '@components/shared/field/field'
+import { Input } from '@components/shared/input'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './third-step.style'
+import { useClassNames } from './third-step.style'
 
-export const ThirdStep = ({formFields, setFormFields, renderBackNextBtns, makeEstimate, setMakeEstimate}) => {
-  const {classes: classNames} = useClassNames()
+export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeEstimate, setMakeEstimate }) => {
+  const { classes: classNames } = useClassNames()
 
   const [opportunities, setOpportunities] = useState('')
   const [risks, setRisks] = useState('')
@@ -23,7 +23,7 @@ export const ThirdStep = ({formFields, setFormFields, renderBackNextBtns, makeEs
   const [additionalInfo, setAdditionalInfo] = useState('')
 
   const removeAsset = fieldName => index => {
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
 
     newFormFields[fieldName] = formFields[fieldName].filter((asset, i) => i !== index)
 
@@ -31,7 +31,7 @@ export const ThirdStep = ({formFields, setFormFields, renderBackNextBtns, makeEs
   }
 
   const addAsset = fieldName => {
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
 
     switch (fieldName) {
       case 'opportunities':
@@ -69,9 +69,8 @@ export const ThirdStep = ({formFields, setFormFields, renderBackNextBtns, makeEs
       <div className={classNames.infosWrapper}>
         <Field
           multiline
-          inputProps={{maxLength: 100}}
+          inputProps={{ maxLength: 100 }}
           labelClasses={classNames.spanLabelSmall}
-          containerClasses={classNames.fieldContainer}
           label={t(TranslationKey.Opportunities)}
           inputComponent={
             <Paper className={classNames.assetsPaper}>
@@ -108,9 +107,8 @@ export const ThirdStep = ({formFields, setFormFields, renderBackNextBtns, makeEs
 
         <Field
           multiline
-          inputProps={{maxLength: 100}}
+          inputProps={{ maxLength: 100 }}
           labelClasses={classNames.spanLabelSmall}
-          containerClasses={classNames.fieldContainer}
           label={t(TranslationKey.Risks)}
           inputComponent={
             <Paper className={classNames.assetsPaper}>
@@ -147,9 +145,8 @@ export const ThirdStep = ({formFields, setFormFields, renderBackNextBtns, makeEs
 
         <Field
           multiline
-          inputProps={{maxLength: 100}}
+          inputProps={{ maxLength: 100 }}
           labelClasses={classNames.spanLabelSmall}
-          containerClasses={classNames.fieldContainer}
           label={t(TranslationKey['Work and skills required'])}
           inputComponent={
             <Paper className={classNames.assetsPaper}>
@@ -188,9 +185,8 @@ export const ThirdStep = ({formFields, setFormFields, renderBackNextBtns, makeEs
       <div className={cx(classNames.infosWrapper, classNames.infosWrapperMarginTop)}>
         <Field
           multiline
-          inputProps={{maxLength: 100}}
+          inputProps={{ maxLength: 100 }}
           labelClasses={classNames.spanLabelSmall}
-          containerClasses={classNames.fieldContainer}
           label={t(TranslationKey['Seller support includes'])}
           inputComponent={
             <Paper className={classNames.assetsPaper}>
@@ -227,9 +223,8 @@ export const ThirdStep = ({formFields, setFormFields, renderBackNextBtns, makeEs
 
         <Field
           multiline
-          inputProps={{maxLength: 100}}
+          inputProps={{ maxLength: 100 }}
           labelClasses={classNames.spanLabelSmall}
-          containerClasses={classNames.fieldContainer}
           label={t(TranslationKey['Reasons for sale'])}
           inputComponent={
             <Paper className={classNames.assetsPaper}>
@@ -266,9 +261,8 @@ export const ThirdStep = ({formFields, setFormFields, renderBackNextBtns, makeEs
 
         <Field
           multiline
-          inputProps={{maxLength: 100}}
+          inputProps={{ maxLength: 100 }}
           labelClasses={classNames.spanLabelSmall}
-          containerClasses={classNames.fieldContainer}
           label={t(TranslationKey['Additional Information'])}
           inputComponent={
             <Paper className={classNames.assetsPaper}>

@@ -1,23 +1,22 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {BatchStatus} from '@constants/batch-status'
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { BatchStatus } from '@constants/statuses/batch-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BatchesModel} from '@models/batches-model'
-import {BoxesModel} from '@models/boxes-model'
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { BatchesModel } from '@models/batches-model'
+import { BoxesModel } from '@models/boxes-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {batchesViewColumns} from '@components/table-columns/batches-columns'
+import { batchesViewColumns } from '@components/table/table-columns/batches-columns'
 
-import {warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {objectToUrlQs} from '@utils/text'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
+import { objectToUrlQs } from '@utils/text'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class WarehouseSentBatchesViewModel {
   history = undefined
@@ -37,7 +36,6 @@ export class WarehouseSentBatchesViewModel {
 
   curBatch = {}
   showConfirmModal = false
-  drawerOpen = false
   isWarning = false
   showBatchInfoModal = false
 
@@ -51,47 +49,30 @@ export class WarehouseSentBatchesViewModel {
   uploadedFiles = []
 
   status = BatchStatus.HAS_DISPATCHED
-  languageTag = undefined
 
   sortModel = []
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
   densityModel = 'compact'
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   rowHandlers = {
     onClickSaveTrackingNumber: (id, trackingNumber) => this.onClickSaveTrackingNumber(id, trackingNumber),
     onClickSaveArrivalDate: (id, date) => this.onClickSaveArrivalDate(id, date),
   }
 
-  columnsModel = batchesViewColumns(this.rowHandlers, this.status, this.languageTag)
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = batchesViewColumns(this.rowHandlers, this.status, this.languageTag).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
+  columnsModel = batchesViewColumns(this.rowHandlers, () => this.status)
 
   get userInfo() {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => {
-        this.languageTag = SettingsModel.languageTag
-        this.updateColumnsModel()
-      },
-    )
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.batches,
@@ -103,20 +84,13 @@ export class WarehouseSentBatchesViewModel {
     )
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
-  }
-
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_BATCHES)
   }
@@ -126,15 +100,10 @@ export class WarehouseSentBatchesViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = batchesViewColumns(this.rowHandlers, this.status, this.languageTag).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
@@ -143,14 +112,26 @@ export class WarehouseSentBatchesViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+    this.setDataGridState()
 
     // this.getBatchesPagMy()
   }
 
-  onChangeRowsPerPage(e) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.rowsPerPage = e
+      this.paginationModel = model
     })
+
+    this.setDataGridState()
+
+    this.getBatchesPagMy()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
 
     this.getBatchesPagMy()
   }
@@ -161,16 +142,12 @@ export class WarehouseSentBatchesViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.setDataGridState()
 
     this.getBatchesPagMy()
   }
@@ -226,7 +203,7 @@ export class WarehouseSentBatchesViewModel {
       })
 
       if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
 
       await BoxesModel.editAdditionalInfo(data._id, {
@@ -260,12 +237,6 @@ export class WarehouseSentBatchesViewModel {
     }
   }
 
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
   onChangeCurPage(e) {
     runInAction(() => {
       this.curPage = e
@@ -290,10 +261,10 @@ export class WarehouseSentBatchesViewModel {
 
       const filter = objectToUrlQs({
         or: [
-          {asin: {$contains: this.nameSearchValue}},
-          {title: {$contains: this.nameSearchValue}},
-          {humanFriendlyId: {$eq: this.nameSearchValue}},
-          {orderHumanFriendlyId: {$eq: this.nameSearchValue}},
+          { asin: { $contains: this.nameSearchValue } },
+          { title: { $contains: this.nameSearchValue } },
+          { humanFriendlyId: { $eq: this.nameSearchValue } },
+          { orderHumanFriendlyId: { $eq: this.nameSearchValue } },
         ].filter(
           el =>
             ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
@@ -306,8 +277,8 @@ export class WarehouseSentBatchesViewModel {
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.HAS_DISPATCHED,
         options: {
-          limit: this.rowsPerPage,
-          offset: this.curPage * this.rowsPerPage,
+          limit: this.paginationModel.pageSize,
+          offset: this.paginationModel.page * this.paginationModel.pageSize,
 
           sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
           sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
@@ -340,12 +311,12 @@ export class WarehouseSentBatchesViewModel {
   }
 
   async onClickSaveTrackingNumber(id, trackingNumber) {
-    await BatchesModel.changeBatch(id, {trackingNumber})
+    await BatchesModel.changeBatch(id, { trackingNumber })
     this.loadData()
   }
 
   async onClickSaveArrivalDate(id, date) {
-    await BatchesModel.changeBatch(id, {arrivalDate: date})
+    await BatchesModel.changeBatch(id, { arrivalDate: date })
     this.loadData()
   }
 

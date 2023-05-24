@@ -1,27 +1,27 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {BatchStatus} from '@constants/batch-status'
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { BatchStatus } from '@constants/statuses/batch-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BatchesModel} from '@models/batches-model'
-import {BoxesModel} from '@models/boxes-model'
-import {ClientModel} from '@models/client-model'
-import {GeneralModel} from '@models/general-model'
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { BatchesModel } from '@models/batches-model'
+import { BoxesModel } from '@models/boxes-model'
+import { ClientModel } from '@models/client-model'
+import { GeneralModel } from '@models/general-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {warehouseBoxesViewColumns} from '@components/table-columns/warehouse/warehouse-boxes-columns'
+import { warehouseBoxesViewColumns } from '@components/table/table-columns/warehouse/warehouse-boxes-columns'
 
-import {warehouseBatchesDataConverter, warehouseBoxesDataConverter} from '@utils/data-grid-data-converters'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {getTableByColumn, objectToUrlQs} from '@utils/text'
-import {t} from '@utils/translations'
-import {onSubmitPostFilesInData, onSubmitPostImages} from '@utils/upload-files'
+import { warehouseBatchesDataConverter, warehouseBoxesDataConverter } from '@utils/data-grid-data-converters'
+import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getTableByColumn, objectToUrlQs } from '@utils/text'
+import { t } from '@utils/translations'
+import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
 
 const updateBoxWhiteList = [
   'shippingLabel',
@@ -84,7 +84,6 @@ export class WarehouseMyWarehouseViewModel {
   curBoxToMove = undefined
   sourceBoxForBatch = undefined
 
-  drawerOpen = false
   selectedBoxes = []
 
   curOpenedTask = {}
@@ -133,22 +132,12 @@ export class WarehouseMyWarehouseViewModel {
 
   rowCount = 0
 
-  firstRowId = undefined
   sortModel = []
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
   densityModel = 'compact'
-  columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.firstRowId, this.userInfo)
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.firstRowId, this.userInfo).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
+  columnsModel = warehouseBoxesViewColumns(this.rowHandlers, () => this.userInfo)
 
   get userInfo() {
     return UserModel.userInfo
@@ -158,21 +147,11 @@ export class WarehouseMyWarehouseViewModel {
     return SettingsModel.destinationsFavourites
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.boxesMy,
@@ -188,15 +167,15 @@ export class WarehouseMyWarehouseViewModel {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      runInAction(() => {
-        this.boxesMy = warehouseBoxesDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient)
-      })
+  // async updateColumnsModel() {
+  //   if (await SettingsModel.languageTag) {
+  //     runInAction(() => {
+  //       this.boxesMy = warehouseBoxesDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient)
+  //     })
 
-      this.getDataGridState()
-    }
-  }
+  //     this.getDataGridState()
+  //   }
+  // }
 
   async updateUserInfo() {
     await UserModel.getUserInfo()
@@ -206,6 +185,24 @@ export class WarehouseMyWarehouseViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+    this.setDataGridState()
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+    this.getBoxesMy()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+    this.getBoxesMy()
   }
 
   onTriggerShowEditBoxModalR(box) {
@@ -215,18 +212,13 @@ export class WarehouseMyWarehouseViewModel {
     })
   }
 
-  setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
-    })
-
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
   }
@@ -236,26 +228,12 @@ export class WarehouseMyWarehouseViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.firstRowId, this.userInfo).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
-      this.curPage = 0
-    })
-
-    this.getBoxesMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -264,17 +242,12 @@ export class WarehouseMyWarehouseViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
     })
 
+    this.setDataGridState()
     this.getBoxesMy()
   }
 
@@ -312,9 +285,9 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickSavePrepId(item, value) {
+  async onClickSavePrepId(itemId, value) {
     try {
-      await BoxesModel.editAdditionalInfo(item._id, {
+      await BoxesModel.editAdditionalInfo(itemId, {
         prepId: value,
       })
 
@@ -331,7 +304,7 @@ export class WarehouseMyWarehouseViewModel {
       })
 
       if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
 
       await BoxesModel.editAdditionalInfo(data._id, {
@@ -394,7 +367,7 @@ export class WarehouseMyWarehouseViewModel {
       const uploadedBarcodes = []
 
       for (let i = 0; i < newBoxes.length; i++) {
-        const newBox = {...newBoxes[i]}
+        const newBox = { ...newBoxes[i] }
         const sourceBox = selectedBoxes[i]
 
         if (newBox.tmpShippingLabel?.length) {
@@ -476,7 +449,7 @@ export class WarehouseMyWarehouseViewModel {
           }
         })
 
-        await this.onClickSubmitEditBox({id: sourceBox._id, boxData: newBox, isMultipleEdit: true})
+        await this.onClickSubmitEditBox({ id: sourceBox._id, boxData: newBox, isMultipleEdit: true })
       }
 
       runInAction(() => {
@@ -496,7 +469,7 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickSubmitEditBox({id, boxData, imagesOfBox, dataToSubmitHsCode, isMultipleEdit}) {
+  async onClickSubmitEditBox({ id, boxData, imagesOfBox, dataToSubmitHsCode, isMultipleEdit }) {
     try {
       runInAction(() => {
         this.selectedBoxes = []
@@ -782,7 +755,7 @@ export class WarehouseMyWarehouseViewModel {
           })
 
           if (updatedBoxes[i].tmpShippingLabel.length) {
-            await onSubmitPostImages.call(this, {images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles'})
+            await onSubmitPostImages.call(this, { images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles' })
           }
 
           if (updatedBoxes[i]?.tmpImages?.length) {
@@ -881,7 +854,7 @@ export class WarehouseMyWarehouseViewModel {
       })
 
       if (boxBody.tmpShippingLabel.length) {
-        await onSubmitPostImages.call(this, {images: boxBody.tmpShippingLabel, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: boxBody.tmpShippingLabel, type: 'uploadedFiles' })
       }
 
       if (imagesOfBox?.length) {
@@ -986,7 +959,7 @@ export class WarehouseMyWarehouseViewModel {
     })
   }
 
-  async onClickSubmitGroupingBoxes({oldBoxes, newBoxes}) {
+  async onClickSubmitGroupingBoxes({ oldBoxes, newBoxes }) {
     try {
       await BoxesModel.regroupBoxes({
         boxIds: oldBoxes.map(el => el._id),
@@ -1079,9 +1052,9 @@ export class WarehouseMyWarehouseViewModel {
   async onSubmitEditBox(id, data) {
     try {
       if (data.tmpImages.length > 0) {
-        await onSubmitPostImages.call(this, {images: data.tmpImages, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: data.tmpImages, type: 'uploadedFiles' })
 
-        data = {...data, images: [...data.images, ...this.uploadedFiles]}
+        data = { ...data, images: [...data.images, ...this.uploadedFiles] }
       }
 
       const updateBoxData = {
@@ -1112,14 +1085,14 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onSubmitAddBatch({boxesIds, filesToAdd, batchFields}) {
+  async onSubmitAddBatch({ boxesIds, filesToAdd, batchFields }) {
     try {
       runInAction(() => {
         this.uploadedFiles = []
       })
 
       if (filesToAdd.length) {
-        await onSubmitPostImages.call(this, {images: filesToAdd, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
       }
 
       const batchId = await BatchesModel.createBatch({
@@ -1226,20 +1199,6 @@ export class WarehouseMyWarehouseViewModel {
     })
   }
 
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
-  onChangeCurPage = e => {
-    runInAction(() => {
-      this.curPage = e
-    })
-
-    this.getBoxesMy()
-  }
-
   onTriggerOpenModal(modalState) {
     runInAction(() => {
       this[modalState] = !this[modalState]
@@ -1270,14 +1229,14 @@ export class WarehouseMyWarehouseViewModel {
 
       // console.log('filter', filter)
 
-      console.log(this.getFilter())
+      // console.log(this.getFilter())
       const boxes = await StorekeeperModel.getBoxesMyPag({
         filters: this.getFilter(),
 
         // storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 
-        limit: this.rowsPerPage,
-        offset: this.curPage * this.rowsPerPage,
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
 
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
@@ -1376,7 +1335,7 @@ export class WarehouseMyWarehouseViewModel {
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
           ...this.columnMenuSettings,
-          [column]: {...this.columnMenuSettings[column], filterData: data},
+          [column]: { ...this.columnMenuSettings[column], filterData: data },
         }
       }
       // this.setFilterRequestStatus(loadingStatuses.success)
@@ -1426,13 +1385,13 @@ export class WarehouseMyWarehouseViewModel {
 
     const filter = objectToUrlQs({
       or: [
-        {asin: {$contains: this.nameSearchValue}},
-        {amazonTitle: {$contains: this.nameSearchValue}},
-        {skusByClient: {$contains: this.nameSearchValue}},
-        {item: {$eq: this.nameSearchValue}},
-        {id: {$eq: this.nameSearchValue}},
-        {humanFriendlyId: {$eq: this.nameSearchValue}},
-        {prepId: {$contains: this.nameSearchValue}},
+        { asin: { $contains: this.nameSearchValue } },
+        { amazonTitle: { $contains: this.nameSearchValue } },
+        { skusByClient: { $contains: this.nameSearchValue } },
+        { item: { $eq: this.nameSearchValue } },
+        { id: { $eq: this.nameSearchValue } },
+        { humanFriendlyId: { $eq: this.nameSearchValue } },
+        { prepId: { $contains: this.nameSearchValue } },
       ].filter(
         el =>
           ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
@@ -1442,43 +1401,43 @@ export class WarehouseMyWarehouseViewModel {
       ),
 
       ...(idFilter && {
-        id: {$eq: idFilter},
+        id: { $eq: idFilter },
       }),
 
       ...(itemFilter && {
-        item: {$eq: itemFilter},
+        item: { $eq: itemFilter },
       }),
 
       ...(amountFilter && {
-        amount: {$eq: amountFilter},
+        amount: { $eq: amountFilter },
       }),
 
       ...(humanFriendlyIdFilter && {
-        humanFriendlyId: {$eq: humanFriendlyIdFilter},
+        humanFriendlyId: { $eq: humanFriendlyIdFilter },
       }),
 
       ...(prepIdFilter && {
-        prepId: {$eq: prepIdFilter},
+        prepId: { $eq: prepIdFilter },
       }),
 
       ...(asinFilter && {
-        asin: {$eq: asinFilter},
+        asin: { $eq: asinFilter },
       }),
       ...(skusByClientFilter && {
-        skusByClient: {$eq: skusByClientFilter},
+        skusByClient: { $eq: skusByClientFilter },
       }),
       ...(amazonTitleFilter && {
-        amazonTitle: {$eq: amazonTitleFilter},
+        amazonTitle: { $eq: amazonTitleFilter },
       }),
 
       ...(destinationFilter && {
-        destinationId: {$eq: destinationFilter},
+        destinationId: { $eq: destinationFilter },
       }),
       ...(logicsTariffFilter && {
-        logicsTariffId: {$eq: logicsTariffFilter},
+        logicsTariffId: { $eq: logicsTariffFilter },
       }),
       ...(batchIdFilter && {
-        batchId: {$eq: batchIdFilter},
+        batchId: { $eq: batchIdFilter },
       }),
 
       // ...(orderIdsItemsFilter && {

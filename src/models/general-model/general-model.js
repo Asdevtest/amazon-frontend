@@ -1,4 +1,4 @@
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class GeneralModelStatic {
   getDataForColumn = async (table, column, endpoint) => {
@@ -12,7 +12,7 @@ class GeneralModelStatic {
   }
 
   createTag = async title => {
-    const response = await restApiService.generalApi.apiV1GeneralTagsPost({body: {title}})
+    const response = await restApiService.generalApi.apiV1GeneralTagsPost({ body: { title } })
     return response
   }
 }

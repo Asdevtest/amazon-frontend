@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -26,7 +26,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
     fontSize: 18,
   },
-  mainInfoWrapper: {},
   titleWrapper: {
     marginTop: 10,
   },
@@ -46,7 +45,6 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  labelValueDoubleBlockWrapper: {},
   labelValueDoubleBlockWrapperNotFirst: {
     marginLeft: 20,
   },

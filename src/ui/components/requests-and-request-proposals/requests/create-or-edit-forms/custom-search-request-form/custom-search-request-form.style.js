@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   button: {
@@ -30,27 +30,11 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '1.5',
   },
 
-  rangeField: {
-    width: '250px',
-  },
-  checkboxWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-  },
   deadlineError: {
     borderBottom: '1px solid red',
   },
   deadlineErrorText: {
     color: 'red',
-  },
-
-  chooseRequestTypeBtnsWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '500px',
-    height: '300px',
-    gap: '20px',
   },
 
   title: {

@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   button: {
@@ -7,6 +7,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   modalTitle: {
+    fontWeight: 600,
+    fontSize: 18,
+    lineHeight: '140%',
     color: theme.palette.text.general,
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
@@ -40,6 +43,12 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   labelField: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    color: theme.palette.text.second,
+
     [theme.breakpoints.down(768)]: {
       fontSize: '14px',
       lineHeight: '19px',

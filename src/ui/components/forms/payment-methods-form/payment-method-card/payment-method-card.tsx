@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Checkbox, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Checkbox, Typography } from '@mui/material'
 
-import React, {ChangeEvent, FC, useState} from 'react'
+import React, { ChangeEvent, FC, useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {Field} from '@components/field'
-import {UploadFilesInput} from '@components/upload-files-input'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { Field } from '@components/shared/field'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './payment-method-card.style'
+import { useClassNames } from './payment-method-card.style'
 
 type FieldName = 'paymentDetails' | 'paymentImages' | 'paymentMethod' | 'isCheckedPayment' | 'photosForLoad'
 
@@ -37,9 +37,9 @@ interface PaymentMethodCardProps {
 }
 
 export const PaymentMethodCard: FC<PaymentMethodCardProps> = props => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
-  const {payment, readOnly, onStateChange} = props
+  const { payment, readOnly, onStateChange } = props
 
   const initialState = {
     paymentDetails: 'paymentDetails' in payment ? payment?.paymentDetails : '',
@@ -62,7 +62,7 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = props => {
   const setFielData =
     (filedName: FieldName) =>
     (event: string | ChangeEvent<HTMLInputElement>): void => {
-      const newPaymentsFieldsState = {...paymentsFields}
+      const newPaymentsFieldsState = { ...paymentsFields }
 
       if (filedName === 'paymentDetails') {
         if (typeof event !== 'string') {
@@ -119,7 +119,9 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = props => {
       </div>
 
       <div
-        className={cx(classNames.cardManageWrapper, {[classNames.notActiceCard]: !paymentsFields?.paymentMethod?._id})}
+        className={cx(classNames.cardManageWrapper, {
+          [classNames.notActiceCard]: !paymentsFields?.paymentMethod?._id,
+        })}
       >
         <Field
           // @ts-ignore
@@ -127,7 +129,7 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = props => {
           disabled={readOnly}
           minRows={2}
           maxRows={2}
-          inputProps={{maxLength: 250}}
+          inputProps={{ maxLength: 250 }}
           inputClasses={classNames.commentInput}
           value={paymentsFields.paymentDetails}
           labelClasses={cx(classNames.paymentMethodTitle, classNames.label)}

@@ -1,1 +1,1 @@
-export {AuthView} from './auth-view'
+export { AuthView } from './auth-view'

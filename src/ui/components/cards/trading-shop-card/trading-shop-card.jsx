@@ -1,26 +1,26 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
-import {Grid, Typography} from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 
 import React from 'react'
 
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
-import {Field} from '@components/field'
+import { Button } from '@components/shared/buttons/button'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { Field } from '@components/shared/field'
 
-import {getYearDate} from '@utils/date-time'
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { getYearDate } from '@utils/date-time'
+import { toFixed, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './trading-shop-card.style'
+import { useClassNames } from './trading-shop-card.style'
 
-export const TradingShopCard = ({item, onClickViewMore}) => {
-  const {classes: classNames} = useClassNames()
+export const TradingShopCard = ({ item, onClickViewMore }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <Grid item className={classNames.mainWrapper}>
@@ -35,7 +35,7 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
 
             <div className={classNames.statusWrapper}>
               <Typography className={classNames.status}>{'Продается'}</Typography>
-              <FiberManualRecordRoundedIcon classes={{root: classNames.statusIcon}} fontSize="small" />
+              <FiberManualRecordRoundedIcon classes={{ root: classNames.statusIcon }} fontSize="small" />
             </div>
           </div>
 
