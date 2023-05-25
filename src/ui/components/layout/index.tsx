@@ -9,6 +9,8 @@ import { SettingsModel } from '@models/settings-model'
 import { Appbar } from '@components/layout/appbar'
 import { Main } from '@components/layout/main'
 import { Navbar } from '@components/layout/navbar'
+import { t } from '@utils/translations'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -49,7 +51,7 @@ export const Layout: FC<LayoutProps> = props => {
       <Main>
         <Appbar
           setDrawerOpen={() => setIsDrawerOpen(!isDrawerOpen)}
-          title={currentPageInfo.title}
+          title={t(TranslationKey[currentPageInfo.title as keyof typeof TranslationKey])}
           lastCrumbAdditionalText={SettingsModel.lastCrumbAdditionalText}
         >
           {props.children}
