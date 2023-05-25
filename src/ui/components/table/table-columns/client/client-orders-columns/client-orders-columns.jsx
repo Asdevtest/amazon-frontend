@@ -62,7 +62,7 @@ export const clientOrdersViewColumns = handlers => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    width: 400,
+    width: 290,
     renderCell: params => {
       const productMemo = useMemo(() => params.row.originalData.product, [])
 

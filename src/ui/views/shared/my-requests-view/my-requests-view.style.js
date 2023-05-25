@@ -90,6 +90,7 @@ export const styles = theme => ({
 
   waitingCheckedBacklighting: {
     background: theme.palette.background.green,
+    zIndex: -1,
   },
   yellowBorder: {
     background: theme.palette.boxShadow.yellow,
