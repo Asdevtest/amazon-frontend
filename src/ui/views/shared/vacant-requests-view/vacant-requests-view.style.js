@@ -40,7 +40,9 @@ export const styles = theme => ({
     flexDirection: 'row !important',
     display: 'flex !important',
     alignItems: 'center !important',
+    overflow: 'visible',
   },
+
   iconSeparator: {
     padding: '0 1px',
   },

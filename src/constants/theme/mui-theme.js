@@ -88,6 +88,7 @@ export const lightTheme = createTheme({
           flexDirection: 'row !important',
           display: 'flex !important',
           alignItems: 'center !important',
+          overflow: 'visible',
         },
         menuIconButton: {
           zIndex: 1000,
@@ -434,6 +435,7 @@ export const darkTheme = createTheme({
           flexDirection: 'row !important',
           display: 'flex !important',
           alignItems: 'center !important',
+          overflow: 'visible',
         },
         iconButtonContainer: {
           '.MuiIconButton-root': {

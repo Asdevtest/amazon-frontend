@@ -83,6 +83,7 @@ export const styles = theme => ({
   columnHeaderTitleContainer: {
     flexDirection: 'row !important',
     display: 'flex !important',
+    overflow: 'visible',
   },
   columnHeaderDraggableContainer: {
     flexDirection: 'row !important',

@@ -177,6 +177,7 @@ export const styles = theme => ({
     flexDirection: 'row !important',
     display: 'flex !important',
     alignItems: 'center !important',
+    overflow: 'visible',
   },
   menuIconButton: {
     zIndex: 1000,
