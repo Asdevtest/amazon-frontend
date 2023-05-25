@@ -173,13 +173,12 @@ export class OrdersModel {
 
   async onClickReorder(item, isPendingOrder) {
     try {
-      const storekeepers = await StorekeeperModel.getStorekeepers()
-
-      const destinations = await ClientModel.getDestinations()
-
-      const result = await UserModel.getPlatformSettings()
-
-      const order = await ClientModel.getOrderById(item._id)
+      const [storekeepers, destinations, result, order] = await Promise.all([
+        StorekeeperModel.getStorekeepers(),
+        ClientModel.getDestinations(),
+        UserModel.getPlatformSettings(),
+        ClientModel.getOrderById(item._id),
+      ])
 
       runInAction(() => {
         this.storekeepers = storekeepers

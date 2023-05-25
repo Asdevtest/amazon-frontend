@@ -24,8 +24,7 @@ export class UserSettingsModel {
 
   async loadData() {
     try {
-      await this.getUserSettingsMy()
-      await this.getUserSettingsAvailable()
+      await Promise.all([this.getUserSettingsMy(), this.getUserSettingsAvailable()])
     } catch (error) {
       console.log(error)
     }

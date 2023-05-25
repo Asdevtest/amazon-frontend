@@ -161,8 +161,9 @@ export class ClientExchangeViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      await this.getProductsVacant()
-      await this.getShops()
+
+      await Promise.all([this.getProductsVacant(), this.getShops()])
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -328,11 +329,11 @@ export class ClientExchangeViewModel {
 
   async openCreateOrder() {
     try {
-      const storekeepers = await StorekeeperModel.getStorekeepers()
-
-      const destinations = await ClientModel.getDestinations()
-
-      const result = await UserModel.getPlatformSettings()
+      const [storekeepers, destinations, result] = await Promise.all([
+        StorekeeperModel.getStorekeepers(),
+        ClientModel.getDestinations(),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.storekeepers = storekeepers

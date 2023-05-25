@@ -244,14 +244,15 @@ export class WarehouseCompletedViewModel {
 
   async setCurrentOpenedTask(item) {
     try {
-      const result = await StorekeeperModel.getTaskById(item._id)
-
-      const platformSettingsResult = await UserModel.getPlatformSettings()
+      const [task, platformSettings] = await Promise.all([
+        StorekeeperModel.getTaskById(item._id),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
-        this.volumeWeightCoefficient = platformSettingsResult.volumeWeightCoefficient
+        this.volumeWeightCoefficient = platformSettings.volumeWeightCoefficient
 
-        this.curOpenedTask = result
+        this.curOpenedTask = task
       })
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {

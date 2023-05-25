@@ -105,8 +105,7 @@ export class ListingModel {
 
       await this.getProductById()
 
-      await this.getBoxes()
-      await this.getPayments()
+      await Promise.all([this.getBoxes(), this.getPayments()])
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

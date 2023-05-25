@@ -92,8 +92,8 @@ export class UserBalanceModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      await this.getUserInfo(this.userId)
-      await this.getBalanceHistory(this.userId)
+
+      await Promise.all([this.getUserInfo(this.userId), this.getBalanceHistory(this.userId)])
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

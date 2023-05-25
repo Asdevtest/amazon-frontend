@@ -97,8 +97,7 @@ export class MyServicesViewModel {
 
   async loadData() {
     try {
-      await this.getUserInfo()
-      await this.getMyAnnouncementsData()
+      await Promise.all([this.getUserInfo(), this.getMyAnnouncementsData()])
     } catch (error) {
       console.log(error)
     }

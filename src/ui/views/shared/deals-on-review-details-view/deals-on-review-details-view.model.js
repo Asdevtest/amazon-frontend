@@ -46,8 +46,7 @@ export class VacantDealsDetailsViewModel {
 
   async loadData() {
     try {
-      await this.getDealsVacantCur()
-      await this.getCustomRequestById()
+      await Promise.all([this.getDealsVacantCur(), this.getCustomRequestById()])
     } catch (error) {
       console.log(error)
     }
