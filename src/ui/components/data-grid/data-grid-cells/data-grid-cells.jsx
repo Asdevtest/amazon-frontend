@@ -2136,7 +2136,7 @@ export const ClientTasksActionBtnsCell = React.memo(
                 <Button
                   danger
                   className={classNames.cancelTaskBtn}
-                  onClick={() => handlers.onClickCancelBtn(row.boxes[0]._id, row._id, 'merge')}
+                  onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'merge')}
                 >
                   {t(TranslationKey.Cancel)}
                 </Button>
@@ -2151,7 +2151,7 @@ export const ClientTasksActionBtnsCell = React.memo(
                 <Button
                   danger
                   className={classNames.cancelTaskBtn}
-                  onClick={() => handlers.onClickCancelBtn(row.boxes[0]._id, row._id, 'split')}
+                  onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'split')}
                 >
                   {t(TranslationKey.Cancel)}
                 </Button>
@@ -2169,7 +2169,7 @@ export const ClientTasksActionBtnsCell = React.memo(
                 <Button
                   danger
                   className={classNames.cancelTaskBtn}
-                  onClick={() => handlers.onClickCancelBtn(row.boxes[0]._id, row._id, 'edit')}
+                  onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'edit')}
                 >
                   {t(TranslationKey.Cancel)}
                 </Button>

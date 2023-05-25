@@ -163,7 +163,7 @@ export const WarehouseMyTasksViewRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.getCurrentData()}
-            getRowHeight={() => '147px'}
+            getRowHeight={() => 147}
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
