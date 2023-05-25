@@ -38,6 +38,13 @@ export const useClassNames = makeStyles()(theme => ({
   appVersion: {
     color: theme.palette.primary.main,
     marginLeft: 15,
+    display: 'inline-block',
+
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
   },
 
   paper: {

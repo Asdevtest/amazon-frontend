@@ -1952,7 +1952,7 @@ export enum TranslationKey {
   'Calculated shipping cost' = 'Calculated shipping cost',
   'Actual shipping cost' = 'Actual shipping cost',
   'See comments' = 'See comments',
-  // '' = '',
+  'Temporary session data will be reset' = 'Temporary session data will be reset',
   // '' = '',
   // '' = '',
   // '' = '',
