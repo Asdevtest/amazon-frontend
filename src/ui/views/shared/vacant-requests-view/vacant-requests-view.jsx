@@ -217,7 +217,7 @@ export const VacantRequestsViewRaw = props => {
               slots={{
                 toolbar: DataGridCustomToolbar,
                 columnMenuIcon: FilterAltOutlinedIcon,
-                columnMenu: DataGridCustomColumnMenuComponent,
+                // columnMenu: DataGridCustomColumnMenuComponent,
               }}
               slotProps={{
                 toolbar: {

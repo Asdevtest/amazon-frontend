@@ -258,12 +258,10 @@ export class MyRequestsViewModel {
 
   onHoverColumnField(field) {
     this.onHover = field
-    this.getDataGridState()
   }
 
   onLeaveColumnField() {
     this.onHover = null
-    this.getDataGridState()
   }
 
   onChangeFullFieldMenuItem(value, field) {

@@ -23,7 +23,7 @@ export const MemoDataGrid = observer(({ ...restProps }) => {
       restProps.rowSelectionModel,
       restProps.slotProps?.columnMenu,
       SettingsModel.uiTheme,
-      SettingsModel.languageTag,
+      restProps.propsToRerender?.onHover,
     ],
   )
 

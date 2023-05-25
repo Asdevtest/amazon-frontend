@@ -228,6 +228,7 @@ export const ClientInStockBoxesViewRaw = props => {
             disableVirtualization
             pagination
             checkboxSelection
+            propsToRerender={{ onHover: viewModel.onHover }}
             localeText={getLocalizationByLanguageTag()}
             isRowSelectable={params =>
               params.row.isDraft === false &&
