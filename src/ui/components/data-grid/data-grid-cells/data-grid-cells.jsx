@@ -1531,10 +1531,15 @@ export const MultilineTextAlignLeftHeaderCell = React.memo(
 
 export const MultilineTextHeaderCell = React.memo(
   withStyles(
-    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive }) => (
+    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component }) => (
       <Tooltip title={text}>
-        <div className={classNames.multilineTextHeaderWrapper}>
+        <div
+          className={cx(classNames.multilineTextHeaderWrapper, {
+            [classNames.multilineTextHeaderWrapperWithComponent]: component,
+          })}
+        >
           <Typography className={classNames.multilineHeaderText}>{text}</Typography>
+          {component}
           {withIcon || isShowIconOnHover || isFilterActive ? (
             <FilterAltOutlinedIcon
               className={cx(classNames.headerIcon, {
@@ -2836,27 +2841,15 @@ export const ShortBoxDimensions = React.memo(
           })}
         >{`${t(TranslationKey['Final weight'])}: ${toFixedWithKg(finalWeight, 2)}`}</Typography>
 
-        {!box.isDraft && finalWeight < 12 ? (
+        {!box.isDraft && finalWeight < 12 && (
           <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
-        ) : null}
+        )}
 
-        {box.amount > 1 ? (
+        {box.amount > 1 && (
           <Typography className={classNames.shortBoxDimensionsText}>{`${t(
             TranslationKey['Total final weight'],
           )}: ${toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient) * box.amount, 2)}`}</Typography>
-        ) : null}
-
-        {/* {checkIsStorekeeper(UserRoleCodeMap[curUser]) ? (
-          <Button
-            disabled={box.isDraft || box.status !== BoxStatus.IN_STOCK}
-            className={cx(classNames.shortBoxDimensionsButton, {
-              [classNames.editPaddingButton]: !box.isDraft && finalWeight < 12,
-            })}
-            onClick={() => handlers.setDimensions(box)}
-          >
-            {t(TranslationKey.Set)}
-          </Button>
-        ) : null} */}
+        )}
       </div>
     )
   }, styles),

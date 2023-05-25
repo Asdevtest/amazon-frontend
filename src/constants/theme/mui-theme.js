@@ -67,6 +67,10 @@ export const lightTheme = createTheme({
           boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)', // Старый вид
           // boxShadow: '0px 2px 8px 2px rgba(31, 31, 31, 0.6)',
           color: '#001029',
+
+          '.MuiDataGrid-columnHeaderTitleContainerContent': {
+            width: '100% !important',
+          },
         },
         // Убрать
         columnHeaders: {
@@ -352,6 +356,9 @@ export const darkTheme = createTheme({
           color: '#fff',
 
           // border: '1px solid rgba(81, 81, 81, 1) !important',
+          '.MuiDataGrid-columnHeaderTitleContainerContent': {
+            width: '100% !important',
+          },
         },
 
         columnSeparator: {

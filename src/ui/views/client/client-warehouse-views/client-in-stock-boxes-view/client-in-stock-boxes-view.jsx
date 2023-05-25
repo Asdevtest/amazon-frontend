@@ -41,12 +41,14 @@ import { t } from '@utils/translations'
 
 import { ClientInStockBoxesViewModel } from './client-in-stock-boxes-view.model'
 import { styles } from './client-in-stock-boxes-view.style'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 export const ClientInStockBoxesViewRaw = props => {
   const topHeaderBtnsWrapperRef = useRef()
   const boxesFiltersWrapperRef = useRef()
   const btnsWrapperRef = useRef()
-  const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history: props.history }))
+  const gridRef = useRef(null)
+  const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history: props.history, gridRef }))
   const [heightSum, setHeightSum] = useState(0)
   const { classes: classNames } = props
 
@@ -228,6 +230,7 @@ export const ClientInStockBoxesViewRaw = props => {
             disableVirtualization
             pagination
             checkboxSelection
+            apiRef={gridRef}
             localeText={getLocalizationByLanguageTag()}
             isRowSelectable={params =>
               params.row.isDraft === false &&

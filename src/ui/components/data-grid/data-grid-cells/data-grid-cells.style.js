@@ -774,6 +774,10 @@ export const styles = theme => ({
     justifyContent: 'center',
   },
 
+  multilineTextHeaderWrapperWithComponent: {
+    justifyContent: 'space-between',
+  },
+
   boxesAndQuantityWrapper: {
     width: '100%',
     display: 'flex',
@@ -789,7 +793,7 @@ export const styles = theme => ({
   },
 
   multilineHeaderText: {
-    width: '100%',
+    width: 'fit-content',
     textAlign: 'center',
     whiteSpace: 'normal',
 

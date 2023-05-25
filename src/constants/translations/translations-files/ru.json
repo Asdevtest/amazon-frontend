@@ -1953,5 +1953,7 @@
   "Stock cost": "Стоимость стока",
   "Calculated shipping cost": "Расчетная стоимость доставки",
   "Actual shipping cost": "Фактическая стоимость доставки",
-  "See comments": "Смотреть комментарии"
+  "See comments": "Смотреть комментарии",
+  "Weight less than": "Вес меньше",
+  "lb": "фунтов"
 }

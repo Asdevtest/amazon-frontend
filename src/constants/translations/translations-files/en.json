@@ -1949,5 +1949,7 @@
   "Stock cost": "Stock cost",
   "Calculated shipping cost": "Calculated shipping cost",
   "Actual shipping cost": "Actual shipping cost",
-  "See comments": "See comments"
+  "See comments": "See comments",
+  "Weight less than": "Weight less than",
+  "lb": "lb"
 }

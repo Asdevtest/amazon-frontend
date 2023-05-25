@@ -25,6 +25,7 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
+import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 
 const updateBoxWhiteList = [
   'amount',
@@ -86,6 +87,10 @@ export class ClientInStockBoxesViewModel {
   baseBoxesMy = []
 
   nameSearchValue = ''
+
+  unitsOption = unitsOfChangeOptions.EU
+
+  gridRef = undefined
 
   curBox = undefined
   showBoxViewModal = false
@@ -206,6 +211,8 @@ export class ClientInStockBoxesViewModel {
     onClickSetTariff: item => this.setChangeItem(item),
 
     onClickSavePrepId: (item, value) => this.onClickSavePrepId(item, value),
+
+    onChangeUnitsOption: option => this.onChangeUnitsOption(option),
   }
 
   setChangeItem(item) {
@@ -230,6 +237,7 @@ export class ClientInStockBoxesViewModel {
     () => SettingsModel.destinationsFavourites,
     () => this.columnMenuSettings,
     () => this.onHover,
+    () => this.unitsOption,
   )
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
@@ -262,7 +270,7 @@ export class ClientInStockBoxesViewModel {
       .some(el => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
   }
 
-  constructor({ history }) {
+  constructor({ history, gridRef }) {
     const url = new URL(window.location.href)
 
     runInAction(() => {
@@ -316,6 +324,23 @@ export class ClientInStockBoxesViewModel {
 
     this.setDataGridState()
     this.getBoxesMy()
+  }
+
+  onChangeUnitsOption(option) {
+    console.log('option', option)
+    runInAction(() => {
+      this.unitsOption = option
+
+      console.log('this.unitsOption', this.unitsOption)
+    })
+
+    this.updateColumnForse()
+  }
+
+  updateColumnForse() {
+    if (this.gridRef.current) {
+      this.gridRef.current.updateColumns(this.columnsModel)
+    }
   }
 
   onColumnVisibilityModelChange(model) {
