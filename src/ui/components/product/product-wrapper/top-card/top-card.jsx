@@ -412,6 +412,7 @@ export const TopCard = observer(
                               {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
                                 <div className={classNames.supplierButtonWrapper}>
                                   <Button
+                                    danger
                                     tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
                                     className={cx(classNames.iconBtn, classNames.iconBtnRemove)}
                                     onClick={() => onClickSupplierBtns('delete')}
@@ -444,6 +445,7 @@ export const TopCard = observer(
                           {showActionBtns ? (
                             <div className={classNames.supplierButtonWrapper}>
                               <Button
+                                success
                                 tooltipInfoContent={
                                   isSupplierAcceptRevokeActive
                                     ? t(TranslationKey['Remove the current supplier'])
