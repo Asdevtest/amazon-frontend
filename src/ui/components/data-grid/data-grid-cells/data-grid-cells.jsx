@@ -599,8 +599,6 @@ export const ChangeInputCell = React.memo(
       <div>
         <Input
           disabled={disabled}
-          // className={cx(classNames.changeInput, {[classNames.inputValueNoExists]: !value})}
-
           className={classNames.changeInput}
           classes={{ input: classNames.changeInput }}
           inputProps={{ maxLength: maxLength ? maxLength : 7 }}

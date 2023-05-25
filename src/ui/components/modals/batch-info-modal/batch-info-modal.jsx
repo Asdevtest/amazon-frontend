@@ -18,7 +18,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
 
-import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ChangeInputCell, UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { BoxViewForm } from '@components/forms/box-view-form'
 import { Button } from '@components/shared/buttons/button'
@@ -45,7 +45,16 @@ import { useClassNames } from './batch-info-modal.style'
 import { PhotoAndFilesCarouselMini } from '@components/shared/photo-and-files-carousel-mini'
 
 export const BatchInfoModal = observer(
-  ({ openModal, setOpenModal, batch, volumeWeightCoefficient, userInfo, onSubmitChangeBoxFields, onClickHsCode }) => {
+  ({
+    openModal,
+    setOpenModal,
+    batch,
+    volumeWeightCoefficient,
+    userInfo,
+    onSubmitChangeBoxFields,
+    onClickHsCode,
+    patchActualShippingCostBatch,
+  }) => {
     const { classes: classNames } = useClassNames()
 
     const [showBoxViewModal, setShowBoxViewModal] = useState(false)
@@ -53,8 +62,14 @@ export const BatchInfoModal = observer(
 
     const [nameSearchValue, setNameSearchValue] = useState('')
 
+    const [currentBatch, setCurrentBatch] = useState([])
+
+    useEffect(() => {
+      setCurrentBatch(batch)
+    }, [batch])
+
     const sourceBoxes =
-      batch?.boxes?.map(item => ({
+      currentBatch?.boxes?.map(item => ({
         ...item,
         orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
           .reduce((acc, cur) => (acc += cur.order?.id + ', '), '')
@@ -69,7 +84,7 @@ export const BatchInfoModal = observer(
 
     const isActualGreaterTheVolume = checkActualBatchWeightGreaterVolumeBatchWeight(
       sourceBoxes,
-      batch.volumeWeightDivide,
+      currentBatch.volumeWeightDivide,
     )
 
     useEffect(() => {
@@ -89,7 +104,7 @@ export const BatchInfoModal = observer(
       } else {
         setDataToRender(sourceBoxes)
       }
-    }, [nameSearchValue, batch])
+    }, [nameSearchValue, currentBatch])
 
     const [curBox, setCurBox] = useState({})
 
@@ -102,7 +117,7 @@ export const BatchInfoModal = observer(
 
     const uploadTemplateFile = async () => {
       setIsFileDownloading(true)
-      await OtherModel.getReportBatchByHumanFriendlyId(batch.humanFriendlyId)
+      await OtherModel.getReportBatchByHumanFriendlyId(currentBatch.humanFriendlyId)
       setIsFileDownloading(false)
     }
 
@@ -123,8 +138,8 @@ export const BatchInfoModal = observer(
                 <div className={classNames.userLinkWrapper}>
                   <UserLinkCell
                     blackText
-                    name={batch.storekeeper?.name}
-                    userId={batch.storekeeper?._id}
+                    name={currentBatch.storekeeper?.name}
+                    userId={currentBatch.storekeeper?._id}
                     customStyles={{ fontWeight: 400, fontSize: 14, lineHeight: '19px' }}
                   />
                 </div>
@@ -139,7 +154,7 @@ export const BatchInfoModal = observer(
               inputClasses={cx(classNames.infoField, classNames.batchTitleField)}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Batch title'])}
-              value={batch?.title}
+              value={currentBatch?.title}
               placeholder={t(TranslationKey.Missing)}
             />
 
@@ -150,7 +165,7 @@ export const BatchInfoModal = observer(
               inputClasses={cx(classNames.infoField, classNames.batchTitleField)}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Batch number'])}
-              value={batch?.humanFriendlyId}
+              value={currentBatch?.humanFriendlyId}
               placeholder={t(TranslationKey.Missing)}
             />
 
@@ -172,7 +187,7 @@ export const BatchInfoModal = observer(
               inputClasses={cx(classNames.infoField, classNames.destinationField)}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey.Destination)}
-              value={batch.boxes?.[0].destination?.name}
+              value={currentBatch.boxes?.[0].destination?.name}
               placeholder={t(TranslationKey.Missing)}
             />
 
@@ -184,8 +199,8 @@ export const BatchInfoModal = observer(
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Volume weight'])}
               value={toFixed(
-                batch.boxes?.reduce(
-                  (ac, cur) => (ac += calcVolumeWeightForBox(cur, batch.volumeWeightDivide) * cur.amount),
+                currentBatch.boxes?.reduce(
+                  (ac, cur) => (ac += calcVolumeWeightForBox(cur, currentBatch.volumeWeightDivide) * cur.amount),
                   0,
                 ),
                 4,
@@ -211,7 +226,7 @@ export const BatchInfoModal = observer(
               inputClasses={cx(classNames.infoField, classNames.volumeWeightField)}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Final weight'])}
-              value={toFixed(batch.finalWeight, 4)}
+              value={toFixed(currentBatch.finalWeight, 4)}
               placeholder={'0'}
             />
 
@@ -222,7 +237,7 @@ export const BatchInfoModal = observer(
               inputClasses={cx(classNames.infoField, classNames.methodField)}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['Method of batch weight calculation'])}
-              value={t(BatchWeightCalculationMethodTranslateKey(batch.calculationMethod))}
+              value={t(BatchWeightCalculationMethodTranslateKey(currentBatch.calculationMethod))}
             />
           </div>
 
@@ -235,7 +250,7 @@ export const BatchInfoModal = observer(
               inputClasses={cx(classNames.infoField, classNames.batchTitleField)}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['CLS (batch closing date)'])}
-              value={formatDateWithoutTime(batch.boxes?.[0].logicsTariff?.cls)}
+              value={formatDateWithoutTime(currentBatch.boxes?.[0].logicsTariff?.cls)}
               placeholder={t(TranslationKey['dd.mm.yyyy'])}
             />
 
@@ -246,7 +261,7 @@ export const BatchInfoModal = observer(
               inputClasses={cx(classNames.infoField, classNames.batchTitleField)}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['ETD (date of shipment)'])}
-              value={formatDateWithoutTime(batch.boxes?.[0].logicsTariff?.etd)}
+              value={formatDateWithoutTime(currentBatch.boxes?.[0].logicsTariff?.etd)}
               placeholder={t(TranslationKey['dd.mm.yyyy'])}
             />
 
@@ -257,7 +272,7 @@ export const BatchInfoModal = observer(
               inputClasses={cx(classNames.infoField, classNames.batchTitleField)}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey['ETA (arrival date)'])}
-              value={formatDateWithoutTime(batch.boxes?.[0].logicsTariff?.eta)}
+              value={formatDateWithoutTime(currentBatch.boxes?.[0].logicsTariff?.eta)}
               placeholder={t(TranslationKey['dd.mm.yyyy'])}
             />
 
@@ -270,7 +285,7 @@ export const BatchInfoModal = observer(
                 labelClasses={classNames.subFieldLabel}
                 label={t(TranslationKey['Total price'])}
                 value={toFixed(
-                  batch.boxes?.reduce((ac, cur) => (ac += calcPriceForBox(cur)), 0),
+                  currentBatch.boxes?.reduce((ac, cur) => (ac += calcPriceForBox(cur)), 0),
                   2,
                 )}
                 placeholder={'0'}
@@ -283,7 +298,7 @@ export const BatchInfoModal = observer(
                 inputClasses={cx(classNames.infoField, classNames.dividerField)}
                 label={t(TranslationKey.Divider)}
                 labelClasses={classNames.subFieldLabel}
-                value={batch.volumeWeightDivide}
+                value={currentBatch.volumeWeightDivide}
               />
             </div>
 
@@ -294,7 +309,7 @@ export const BatchInfoModal = observer(
               containerClasses={cx(classNames.sumField, classNames.shippinCostContainer)}
               inputClasses={cx(classNames.infoField, classNames.shippinCostContainer)}
               labelClasses={cx(classNames.subFieldLabel)}
-              value={batch.calculatedShippingCost}
+              value={currentBatch.calculatedShippingCost}
             />
 
             <Field
@@ -303,7 +318,14 @@ export const BatchInfoModal = observer(
               containerClasses={cx(classNames.sumField, classNames.shippinCostContainer)}
               inputClasses={cx(classNames.infoField, classNames.shippinCostContainer)}
               labelClasses={cx(classNames.subFieldLabel)}
-              defaultValue={batch.actualShippingCost}
+              inputComponent={
+                <ChangeInputCell
+                  disabled={!patchActualShippingCostBatch}
+                  rowId={currentBatch._id}
+                  text={currentBatch.actualShippingCost}
+                  onClickSubmit={!!patchActualShippingCostBatch && patchActualShippingCostBatch}
+                />
+              }
             />
             {/* </div> */}
 
@@ -324,7 +346,7 @@ export const BatchInfoModal = observer(
                 {t(TranslationKey['Quantity of boxes in batch']) + ':'}
               </Typography>
               <Typography className={classNames.boxCounterCount}>
-                {batch?.boxes?.reduce((ac, cur) => (ac += cur.amount), 0)}
+                {currentBatch?.boxes?.reduce((ac, cur) => (ac += cur.amount), 0)}
               </Typography>
             </div>
             {/* <div style={{flexGrow: 1}}> */}
@@ -360,8 +382,8 @@ export const BatchInfoModal = observer(
               }}
               getRowId={dataToRender => dataToRender._id}
               columns={batchInfoModalColumn(
-                batch.volumeWeightDivide,
-                batch.calculationMethod,
+                currentBatch.volumeWeightDivide,
+                currentBatch.calculationMethod,
                 isActualGreaterTheVolume,
               )}
               rows={toJS(dataToRender)}
@@ -376,7 +398,7 @@ export const BatchInfoModal = observer(
               <PhotoAndFilesCarouselMini
                 small
                 direction={window.innerWidth < 768 ? 'column' : 'row'}
-                files={batch.attachedDocuments}
+                files={currentBatch.attachedDocuments}
                 width="400px"
               />
             </div>
@@ -396,13 +418,13 @@ export const BatchInfoModal = observer(
 
           <Modal openModal={showBoxViewModal} setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}>
             <BoxViewForm
-              storekeeper={batch?.storekeeper}
+              storekeeper={currentBatch?.storekeeper}
               userInfo={userInfo}
               box={curBox}
-              batchHumanFriendlyId={batch.humanFriendlyId}
-              volumeWeightCoefficient={batch.volumeWeightDivide}
+              batchHumanFriendlyId={currentBatch.humanFriendlyId}
+              volumeWeightCoefficient={currentBatch.volumeWeightDivide}
               calcFinalWeightForBoxFunction={getBatchWeightCalculationMethodForBox(
-                batch.calculationMethod,
+                currentBatch.calculationMethod,
                 isActualGreaterTheVolume,
               )}
               setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}
@@ -417,7 +439,7 @@ export const BatchInfoModal = observer(
           <BigImagesModal
             openModal={showPhotosModal}
             setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            images={batch.attachedDocuments?.filter(el => checkIsImageLink(el)) || []}
+            images={currentBatch.attachedDocuments?.filter(el => checkIsImageLink(el)) || []}
           />
         </div>
         {isFileDownloading && <CircularProgressWithLabel />}

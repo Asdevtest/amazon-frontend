@@ -159,7 +159,7 @@ export const ClientSentBatchesViewRaw = props => {
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
-            onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData)}
+            onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
           />
         </div>
       </MainContent>
@@ -170,6 +170,7 @@ export const ClientSentBatchesViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
         batch={viewModel.curBatch}
         userInfo={viewModel.userInfo}
+        patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
         onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
         onClickHsCode={viewModel.onClickHsCode}
       />
