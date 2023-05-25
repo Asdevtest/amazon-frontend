@@ -68,10 +68,9 @@ export class CreateOrEditRequestViewModel {
 
   async loadData() {
     try {
-      await this.getCustomRequestCur()
+      await Promise.all([this.getCustomRequestCur(), this.getProductPermissionsData(), this.getPlatformSettingsData()])
+
       await this.getAnnouncementData()
-      await this.getProductPermissionsData()
-      await this.getPlatformSettingsData()
     } catch (error) {
       runInAction(() => {
         this.error = error

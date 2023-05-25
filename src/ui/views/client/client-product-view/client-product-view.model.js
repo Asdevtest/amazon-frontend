@@ -712,9 +712,7 @@ export class ClientProductViewModel {
           this.selectedSupplier = undefined
         })
       } else {
-        const result = await UserModel.getPlatformSettings()
-
-        await this.getStorekeepers()
+        const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getStorekeepers()])
 
         runInAction(() => {
           this.yuanToDollarRate = result.yuanToDollarRate

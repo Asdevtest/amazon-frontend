@@ -127,11 +127,9 @@ export class GroupPermissionsModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      await this.getGroupPermissions()
 
+      await Promise.all([this.getGroupPermissions(), this.getSinglePermissions()])
       // this.getDataGridState()
-
-      await this.getSinglePermissions()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

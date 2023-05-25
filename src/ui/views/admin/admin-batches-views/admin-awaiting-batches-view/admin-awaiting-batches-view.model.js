@@ -163,9 +163,10 @@ export class AdminAwaitingBatchesViewModel {
 
   async getBatches() {
     try {
-      const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
-
-      const result = await UserModel.getPlatformSettings()
+      const [batches, result] = await Promise.all([
+        BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient

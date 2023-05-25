@@ -243,6 +243,7 @@ export const ClientInventoryViewRaw = props => {
             disableVirtualization
             pagination
             checkboxSelection
+            propsToRerender={{ onHover: viewModel.onHover }}
             localeText={getLocalizationByLanguageTag()}
             classes={{
               row: classNames.row,
@@ -254,7 +255,7 @@ export const ClientInventoryViewRaw = props => {
               columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
               columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
               iconSeparator: classNames.iconSeparator,
-              // menuIconButton: classNames.menuIconButton,
+              menuIconButton: classNames.menuIconButton,
               iconButtonContainer: classNames.iconButtonContainer,
             }}
             sx={{
@@ -472,7 +473,6 @@ export const ClientInventoryViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}
       >
         <OrderProductModal
-          // volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           platformSettings={viewModel.platformSettings}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepers}

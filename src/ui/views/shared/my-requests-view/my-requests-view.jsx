@@ -115,6 +115,7 @@ export const MyRequestsViewRaw = props => {
           <MemoDataGrid
             disableVirtualization
             pagination
+            propsToRerender={{ onHover: viewModel.onHover }}
             localeText={getLocalizationByLanguageTag()}
             getCellClassName={getCellClassName}
             getRowClassName={getRowClassName}

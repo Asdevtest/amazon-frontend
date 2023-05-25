@@ -162,9 +162,7 @@ export class UserEditModel {
 
   async loadData() {
     try {
-      await this.getUserData()
-      await this.getGroupPermissions()
-      await this.getSinglePermissions()
+      await Promise.all([this.getUserData(), this.getGroupPermissions(), this.getSinglePermissions()])
     } catch (error) {
       console.log(error)
     }

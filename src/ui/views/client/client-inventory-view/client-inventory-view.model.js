@@ -378,12 +378,10 @@ export class ClientInventoryViewModel {
 
   onHoverColumnField(field) {
     this.onHover = field
-    this.getDataGridState()
   }
 
   onLeaveColumnField() {
     this.onHover = null
-    this.getDataGridState()
   }
 
   setDataGridState() {
@@ -542,9 +540,8 @@ export class ClientInventoryViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
 
-      await this.getShops()
+      await Promise.all([this.getShops(), this.getProductsMy()])
 
-      await this.getProductsMy()
       this.isModalOpen && this.onTriggerOpenModal('showSendOwnProductModal')
 
       this.setRequestStatus(loadingStatuses.success)
@@ -593,9 +590,12 @@ export class ClientInventoryViewModel {
   }
 
   async onClickContinueBtn() {
-    const storekeepers = await StorekeeperModel.getStorekeepers()
-    const destinations = await ClientModel.getDestinations()
-    const result = await UserModel.getPlatformSettings()
+    const [storekeepers, destinations, result] = await Promise.all([
+      StorekeeperModel.getStorekeepers(),
+      ClientModel.getDestinations(),
+      UserModel.getPlatformSettings(),
+    ])
+
     runInAction(() => {
       this.storekeepers = storekeepers
       this.destinations = destinations
@@ -1311,8 +1311,7 @@ export class ClientInventoryViewModel {
 
   async onClickAddSupplierButton() {
     try {
-      const result = await UserModel.getPlatformSettings()
-      await this.getSuppliersPaymentMethods()
+      const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getSuppliersPaymentMethods()])
 
       runInAction(() => {
         this.yuanToDollarRate = result.yuanToDollarRate
@@ -1569,8 +1568,7 @@ export class ClientInventoryViewModel {
           this.product = { asin: data.asin, lamazon: data.lamazon, fba: true, images: [] }
         })
 
-        await this.parseAmazon(data.asin)
-        await this.parseParseSellerCentral(data.asin)
+        await Promise.all([this.parseAmazon(data.asin), this.parseParseSellerCentral(data.asin)])
 
         const curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
           toJS(this.product),

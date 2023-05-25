@@ -34,8 +34,9 @@ export class ClientExchangePrivateLabelViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getProductsVacant()
-      await this.getShops()
+
+      await Promise.all([this.getProductsVacant(), this.getShops()])
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

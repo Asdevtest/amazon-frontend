@@ -1955,5 +1955,6 @@
   "Actual shipping cost": "Фактическая стоимость доставки",
   "See comments": "Смотреть комментарии",
   "Weight less than": "Вес меньше",
-  "lb": "фунтов"
+  "lb": "фунтов",
+  "Temporary session data will be reset": "Будут сброшены временные данные по сессии"
 }

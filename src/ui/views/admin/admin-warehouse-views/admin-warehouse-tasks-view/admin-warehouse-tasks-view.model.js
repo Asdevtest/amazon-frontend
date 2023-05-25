@@ -158,9 +158,10 @@ export class AdminWarehouseTasksViewModel {
 
   async setCurrentOpenedTask(item) {
     try {
-      const task = await StorekeeperModel.getTaskById(item._id)
-
-      const result = await UserModel.getPlatformSettings()
+      const [task, result] = await Promise.all([
+        StorekeeperModel.getTaskById(item._id),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient

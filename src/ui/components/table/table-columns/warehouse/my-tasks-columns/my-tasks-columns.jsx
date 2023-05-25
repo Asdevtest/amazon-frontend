@@ -39,7 +39,7 @@ export const warehouseMyTasksViewColumns = handlers => [
       return (
         <WarehouseMyTasksBtnsCell
           handlers={handlersMemo}
-          boxId={params.row.originalData.boxes[0]._id}
+          boxId={params.row.originalData.boxes[0]?._id}
           rowId={params.row.originalData._id}
           operationType={params.row.originalData.operationType}
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}

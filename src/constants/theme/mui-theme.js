@@ -92,6 +92,7 @@ export const lightTheme = createTheme({
           flexDirection: 'row !important',
           display: 'flex !important',
           alignItems: 'center !important',
+          overflow: 'visible',
         },
         menuIconButton: {
           zIndex: 1000,
@@ -441,6 +442,7 @@ export const darkTheme = createTheme({
           flexDirection: 'row !important',
           display: 'flex !important',
           alignItems: 'center !important',
+          overflow: 'visible',
         },
         iconButtonContainer: {
           '.MuiIconButton-root': {
@@ -719,8 +721,8 @@ export const darkTheme = createTheme({
       },
 
       button: {
-        disabledText: '#2E4760',
-        disabledBackground: '#8291A0',
+        disabledText: '#8291A0',
+        disabledBackground: '#2E4760',
         disabledSuccessText: '#41715A',
         disabledSuccessBackground: '#184831',
         disabledDangerText: '#E5FFEF',

@@ -1029,12 +1029,10 @@ export class ClientInStockBoxesViewModel {
 
   onHoverColumnField(field) {
     this.onHover = field
-    this.getDataGridState()
   }
 
   onLeaveColumnField() {
     this.onHover = null
-    this.getDataGridState()
   }
 
   async onClickGroupingBtn() {
@@ -1059,9 +1057,10 @@ export class ClientInStockBoxesViewModel {
         return
       }
 
-      const destinations = await ClientModel.getDestinations()
-
-      const result = await UserModel.getPlatformSettings()
+      const [, destinations, result] = await Promise.all([
+        ClientModel.getDestinations(),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.destinations = destinations
@@ -1982,9 +1981,10 @@ export class ClientInStockBoxesViewModel {
         this.selectedBoxes = this.selectedBoxes.filter(el => !boxesWithoutTariffOrDestinationIds.includes(el))
       })
 
-      const boxesDeliveryCosts = await BatchesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes))
-
-      const result = await UserModel.getPlatformSettings()
+      const [boxesDeliveryCosts, result] = await Promise.all([
+        BatchesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes)),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.boxesDeliveryCosts = boxesDeliveryCosts

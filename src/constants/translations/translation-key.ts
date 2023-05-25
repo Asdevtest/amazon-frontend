@@ -1954,6 +1954,8 @@ export enum TranslationKey {
   'See comments' = 'See comments',
   'Weight less than' = 'Weight less than',
   'lb' = 'lb',
+  'Temporary session data will be reset' = 'Temporary session data will be reset',
+  // '' = '',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -200,8 +200,7 @@ export class ProfileViewModel {
   async onSubmitUserInfoEdit(data) {
     try {
       if (data) {
-        await this.changeUserNameOrEmail(data)
-        await this.changeUserPassword(data)
+        await Promise.all([this.changeUserNameOrEmail(data), this.changeUserPassword(data)])
 
         if (!this.wrongPassword) {
           this.onTriggerOpenModal('showUserInfoModal')

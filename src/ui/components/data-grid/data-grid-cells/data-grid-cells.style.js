@@ -1179,11 +1179,15 @@ export const styles = theme => ({
     color: 'gray',
 
     // zIndex: -1000,
-    zIndex: -1000,
+    // zIndex: 100000000000,
 
     position: 'absolute',
-    right: -5,
+    // right: -5,
+    // right: -7,
+    right: -15,
     top: 15,
+
+    overflow: 'visible',
   },
 
   headerIconBlue: {
