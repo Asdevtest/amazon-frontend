@@ -277,8 +277,14 @@ class InlineResponse200 {
             if (data.hasOwnProperty('fbaFbmStockSum')) {
                 obj['fbaFbmStockSum'] = ApiClient.convertToType(data['fbaFbmStockSum'], 'Number');
             }
-            if (data.hasOwnProperty('ideaCount')) {
-                obj['ideaCount'] = ApiClient.convertToType(data['ideaCount'], 'Number');
+            if (data.hasOwnProperty('ideasOnCheck')) {
+                obj['ideasOnCheck'] = ApiClient.convertToType(data['ideasOnCheck'], 'Number');
+            }
+            if (data.hasOwnProperty('ideasVerified')) {
+                obj['ideasVerified'] = ApiClient.convertToType(data['ideasVerified'], 'Number');
+            }
+            if (data.hasOwnProperty('ideasClosed')) {
+                obj['ideasClosed'] = ApiClient.convertToType(data['ideasClosed'], 'Number');
             }
             if (data.hasOwnProperty('subUsers')) {
                 obj['subUsers'] = ApiClient.convertToType(data['subUsers'], [ApiV1AdminsGetProductsByStatusCreatedBy]);
@@ -735,9 +741,19 @@ InlineResponse200.prototype['sentToFbaSum'] = undefined;
 InlineResponse200.prototype['fbaFbmStockSum'] = undefined;
 
 /**
- * @member {Number} ideaCount
+ * @member {Number} ideasOnCheck
  */
-InlineResponse200.prototype['ideaCount'] = undefined;
+InlineResponse200.prototype['ideasOnCheck'] = undefined;
+
+/**
+ * @member {Number} ideasVerified
+ */
+InlineResponse200.prototype['ideasVerified'] = undefined;
+
+/**
+ * @member {Number} ideasClosed
+ */
+InlineResponse200.prototype['ideasClosed'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>} subUsers
