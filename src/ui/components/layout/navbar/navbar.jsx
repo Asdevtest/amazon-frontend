@@ -30,6 +30,7 @@ import { NavbarCategory } from './navbar-category'
 import { NavbarCollapse } from './navbar-collapse'
 import { NavbarModel } from './navbar.model'
 import { useClassNames } from './navbar.style'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
 
 export const Navbar = observer(
   ({ activeCategory, activeSubCategory, drawerOpen, setDrawerOpen, onChangeSubCategory }) => {
@@ -37,8 +38,16 @@ export const Navbar = observer(
 
     const viewModel = useRef(new NavbarModel())
 
-    const { showFeedbackModal, showWarningModal, onTriggerOpenModal, sendFeedbackAboutPlatform, userInfo } =
-      viewModel.current
+    const {
+      confirmModalSettings,
+      showFeedbackModal,
+      showWarningModal,
+      showConfirmModal,
+      onTriggerOpenModal,
+      sendFeedbackAboutPlatform,
+      onClickVersion,
+      userInfo,
+    } = viewModel.current
 
     const [showOverlayNavBar, setShowOverlayNavBar] = useState(false)
 
@@ -181,7 +190,10 @@ export const Navbar = observer(
             </div>
           ) : null}
 
-          <Typography className={cx(classNames.appVersion, { [classNames.smallAppVersion]: shortNavbar })}>
+          <Typography
+            className={cx(classNames.appVersion, { [classNames.smallAppVersion]: shortNavbar })}
+            onClick={onClickVersion}
+          >
             {appVersion}
           </Typography>
         </div>
@@ -208,23 +220,22 @@ export const Navbar = observer(
             onTriggerOpenModal('showWarningModal')
           }}
         />
+
+        <ConfirmationModal
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          isWarning={confirmModalSettings.isWarning}
+          title={confirmModalSettings.confirmTitle}
+          message={confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
       </div>
     )
     return (
       <div className={classNames.mainWrapper}>
-        {/* <Hidden mdDown>
-          <Drawer
-            open
-            classes={{
-              root: cx(classNames.root, {[classNames.hideNavbar]: shortNavbar}),
-              paper: cx(classNames.paper, classNames.positionStatic),
-            }}
-            variant="permanent"
-          >
-            {drawerContent}
-          </Drawer>
-        </Hidden> */}
-
         {!showOverlayNavBar && (
           <Drawer
             open={false}
@@ -256,16 +267,6 @@ export const Navbar = observer(
           </Drawer>
         )}
 
-        {/* <Hidden mdUp>
-          <Drawer
-            anchor="left"
-            classes={{root: classNames.root, paper: classNames.paper}}
-            open={drawerOpen}
-            onClose={setDrawerOpen}
-          >
-            {drawerContent}
-          </Drawer>
-        </Hidden> */}
         <div
           className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: shortNavbar })}
           onClick={() => setShortNavbar(!shortNavbar)}
