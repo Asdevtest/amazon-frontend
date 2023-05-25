@@ -152,6 +152,7 @@ export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen, las
 
   const onClickExit = () => {
     handleClose()
+    toast.dismiss()
     componentModel.current.onExitFromRole()
     history.push('/auth')
   }
