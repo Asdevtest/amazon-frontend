@@ -295,5 +295,5 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  return <GridColumnMenu hideMenu={hideMenu} currentColumn={currentColumn} {...other} />
+  return <GridColumnMenu /* hideMenu={hideMenu} currentColumn={currentColumn} */ {...props} />
 }
