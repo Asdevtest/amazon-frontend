@@ -751,7 +751,7 @@ export class BuyerMyOrdersViewModel {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
 
-      const [hsCode] = Promise.all([
+      const hsCode = Promise.all([
         ProductModel.getProductsHsCodeByGuid(orderData.product._id),
         this.getSuppliersPaymentMethods(),
       ])
