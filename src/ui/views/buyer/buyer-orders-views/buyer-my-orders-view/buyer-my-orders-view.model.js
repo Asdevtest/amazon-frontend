@@ -652,7 +652,7 @@ export class BuyerMyOrdersViewModel {
   async onClickHsCode(id) {
     this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
 
-    this.onTriggerOpenModal('showEditHSCodeModal')
+    // this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
   getCurrentData() {
@@ -751,13 +751,13 @@ export class BuyerMyOrdersViewModel {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
 
-      const hsCode = Promise.all([
+      await Promise.all([
         ProductModel.getProductsHsCodeByGuid(orderData.product._id),
+        this.onClickHsCode(orderData.product._id),
         this.getSuppliersPaymentMethods(),
       ])
 
       runInAction(() => {
-        this.hsCodeData = hsCode
         this.selectedOrder = orderData
 
         this.clearImagesForLoad()
