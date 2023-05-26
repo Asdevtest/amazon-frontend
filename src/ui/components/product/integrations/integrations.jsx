@@ -87,7 +87,7 @@ export const Integrations = observer(({ productId }) => {
           toolbar: DataGridCustomToolbar,
           columnMenuIcon: FilterAltOutlinedIcon,
         }}
-        slotsProps={{
+        slotProps={{
           toolbar: {
             columsBtnSettings: {
               columnsModel,

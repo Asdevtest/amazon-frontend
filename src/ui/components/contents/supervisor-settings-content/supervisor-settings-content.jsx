@@ -152,7 +152,7 @@ export const SupervisorSettingsContent = observer(() => {
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
-            slotsProps={{
+            slotProps={{
               toolbar: {
                 columsBtnSettings: {
                   columnsModel,
@@ -220,7 +220,7 @@ export const SupervisorSettingsContent = observer(() => {
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
-            slotsProps={{
+            slotProps={{
               toolbar: {
                 columsBtnSettings: {
                   columnsModel,
@@ -288,7 +288,7 @@ export const SupervisorSettingsContent = observer(() => {
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
-            slotsProps={{
+            slotProps={{
               toolbar: {
                 columsBtnSettings: {
                   columnsModel,
@@ -356,7 +356,7 @@ export const SupervisorSettingsContent = observer(() => {
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
             }}
-            slotsProps={{
+            slotProps={{
               toolbar: {
                 columsBtnSettings: {
                   columnsModel,
