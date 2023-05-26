@@ -97,6 +97,7 @@ const filtersFields = [
   'fbaFbmStockSum',
   'ideaCount',
   'stockCost',
+  'purchaseQuantity',
 ]
 
 const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
@@ -856,7 +857,6 @@ export class ClientInventoryViewModel {
     const boxAmountsFilter =
       exclusion !== 'boxAmounts' && this.columnMenuSettings.boxAmounts.currentFilterData.map(el => el._id).join(',')
     const sumStockFilter = exclusion !== 'sumStock' && this.columnMenuSettings.sumStock.currentFilterData.join(',')
-    // const purchaseQuantityFilter = this.columnMenuSettings.purchaseQuantity.currentFilterData.join(',')
     const amazonFilter = exclusion !== 'amazon' && this.columnMenuSettings.amazon.currentFilterData.join(',')
     const profitFilter = exclusion !== 'profit' && this.columnMenuSettings.profit.currentFilterData.join(',')
     const fbafeeFilter = exclusion !== 'fbafee' && this.columnMenuSettings.fbafee.currentFilterData.join(',')
@@ -871,6 +871,9 @@ export class ClientInventoryViewModel {
       exclusion !== 'sentToFbaSum' && this.columnMenuSettings.sentToFbaSum.currentFilterData.join(',')
 
     const stockCostFilter = exclusion !== 'stockCost' && this.columnMenuSettings.stockCost.currentFilterData.join(',')
+
+    const purchaseQuantityFilter =
+      exclusion !== 'purchaseQuantity' && this.columnMenuSettings.purchaseQuantity.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
       archive: { $eq: this.isArchive },
@@ -919,10 +922,6 @@ export class ClientInventoryViewModel {
         sumStock: { $eq: sumStockFilter },
       }),
 
-      // ...(purchaseQuantityFilter && {
-      //   purchaseQuantity: {$eq: purchaseQuantityFilter},
-      // }),
-
       ...(amazonFilter && {
         amazon: { $eq: amazonFilter },
       }),
@@ -959,6 +958,10 @@ export class ClientInventoryViewModel {
 
       ...(stockCostFilter && {
         stockCost: { $eq: stockCostFilter },
+      }),
+
+      ...(purchaseQuantityFilter && {
+        purchaseQuantity: { $eq: purchaseQuantityFilter },
       }),
     })
 

@@ -158,6 +158,7 @@ export const getTableByColumn = (column, hint) => {
       'fbaFbmStockSum',
       'ideaCount',
       'stockCost',
+      'purchaseQuantity',
     ].includes(column)
   ) {
     return 'products'
