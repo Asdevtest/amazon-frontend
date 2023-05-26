@@ -2,14 +2,12 @@
 import { cx } from '@emotion/css'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Tooltip, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-
-import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import {
   BatchWeightCalculationMethodTranslateKey,
   getBatchWeightCalculationMethodForBox,
@@ -33,10 +31,10 @@ import {
   calcVolumeWeightForBox,
   checkActualBatchWeightGreaterVolumeBatchWeight,
 } from '@utils/calculation'
-import { checkIsClient, checkIsImageLink } from '@utils/checks'
+import { checkIsImageLink } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { formatDateWithoutTime } from '@utils/date-time'
-import { toFixed, getFullTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount } from '@utils/text'
+import { getFullTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { BigImagesModal } from '../big-images-modal'
@@ -403,12 +401,10 @@ export const BatchInfoModal = observer(
               />
             </div>
             <div className={classNames.buttonsWrapper}>
-              {!checkIsClient(UserRoleCodeMap[userInfo?.role]) && (
-                <Button className={classNames.downloadButton} onClick={uploadTemplateFile}>
-                  {t(TranslationKey['Download the batch file'])}
-                  <FileDownloadIcon />
-                </Button>
-              )}
+              <Button className={classNames.downloadButton} onClick={uploadTemplateFile}>
+                {t(TranslationKey['Download the batch file'])}
+                <FileDownloadIcon />
+              </Button>
 
               <Button className={classNames.actionButton} onClick={setOpenModal}>
                 {t(TranslationKey.Close)}
