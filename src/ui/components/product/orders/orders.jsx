@@ -8,8 +8,6 @@ import { useHistory } from 'react-router-dom'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -48,7 +46,6 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
     showSuccessModal,
     showConfirmModal,
     onClickTableRow,
-    updateColumnsModel,
     onTriggerOpenModal,
     onConfirmSubmitOrderProductModal,
     onClickSaveBarcode,
@@ -59,10 +56,6 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
   useEffect(() => {
     model.current.loadData()
   }, [])
-
-  useEffect(() => {
-    updateColumnsModel()
-  }, [SettingsModel.languageTag])
 
   return (
     <div className={classNames.mainWrapper}>
@@ -83,7 +76,7 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
           columnMenuIcon: FilterAltOutlinedIcon,
           columnMenu: DataGridCustomColumnMenuComponent,
         }}
-        slotsProps={{
+        slotProps={{
           columnMenu: { orderStatusData },
           toolbar: {
             columsBtnSettings: {

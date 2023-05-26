@@ -564,7 +564,7 @@ export const HsCodeCell = React.memo(
 )
 
 export const ChangeInputCell = React.memo(
-  withStyles(({ classes: classNames, rowId, onClickSubmit, text, disabled, isInts, maxLength }) => {
+  withStyles(({ classes: classNames, rowId, onClickSubmit, text, disabled, isInts, maxLength, checkValue }) => {
     const sourceValue = text ? text : ''
 
     const [value, setValue] = useState(sourceValue)
@@ -595,6 +595,8 @@ export const ChangeInputCell = React.memo(
       }
     }, [value])
 
+    const valueChecked = checkValue ? checkValue(value) : true
+
     return (
       <div>
         <Input
@@ -607,7 +609,7 @@ export const ChangeInputCell = React.memo(
             <InputAdornment position="start">
               {isShow && sourceValue !== value ? (
                 <DoneIcon classes={{ root: classNames.doneIcon }} />
-              ) : sourceValue !== value ? (
+              ) : sourceValue !== value && valueChecked ? (
                 <div className={classNames.iconWrapper}>
                   <img
                     src={'/assets/icons/save-discet.svg'}
@@ -1950,10 +1952,16 @@ export const FourMonthesStockCell = React.memo(
     ({ classes: classNames, onClickSaveFourMonthsStock, rowId, fourMonthesStock, value }) => (
       <div className={classNames.fourMonthesStockWrapper}>
         <Typography className={classNames.fourMonthesStockLabel}>{`${t(
-          TranslationKey.Repurchase,
+          TranslationKey['To repurchase'],
         )}: ${value}`}</Typography>
 
-        <ChangeInputCell isInts rowId={rowId} text={fourMonthesStock} onClickSubmit={onClickSaveFourMonthsStock} />
+        <ChangeInputCell
+          isInts
+          rowId={rowId}
+          text={fourMonthesStock}
+          checkValue={value => value > 50}
+          onClickSubmit={onClickSaveFourMonthsStock}
+        />
       </div>
     ),
     styles,
@@ -2169,7 +2177,9 @@ export const ClientTasksActionBtnsCell = React.memo(
                 <Button
                   danger
                   className={classNames.cancelTaskBtn}
-                  onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'edit')}
+                  onClick={() => {
+                    handlers.onClickCancelBtn(row.boxes?.at(0)?._id || row.boxesBefore?.at(0)?._id, row._id, 'edit')
+                  }}
                 >
                   {t(TranslationKey.Cancel)}
                 </Button>

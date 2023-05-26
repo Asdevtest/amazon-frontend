@@ -1219,7 +1219,7 @@
   "Recommendation for additional purchases": "Рекомендация к дозакупке",
   "The number entered must not exceed the \" Stock sum\" field": "Введенное число не должно превышать поле \"Сумма стока\"",
   "Four months of stock": "Четыре месяца стока",
-  "Repurchase": "К дозакупке",
+  "Repurchase": "Дозакупка",
   "Delete a card": "Удалить карточку",
   "After confirmation, the card will be moved to the archive. Move?": "После подтверждения карточка будет перенесена в архив. Переместить?",
   "Set": "Установить",
@@ -1954,5 +1954,7 @@
   "Calculated shipping cost": "Расчетная стоимость доставки",
   "Actual shipping cost": "Фактическая стоимость доставки",
   "See comments": "Смотреть комментарии",
-  "Temporary session data will be reset": "Будут сброшены временные данные по сессии"
+  "Temporary session data will be reset": "Будут сброшены временные данные по сессии",
+  "To repurchase": "К дозакупке",
+  "Quantity of repurchase": "Количество дозакупки"
 }

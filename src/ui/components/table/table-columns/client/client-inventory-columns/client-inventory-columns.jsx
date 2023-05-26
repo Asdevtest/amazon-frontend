@@ -478,7 +478,7 @@ export const clientInventoryColumns = (
   },
 
   {
-    field: 'ideaCount',
+    field: 'ideasOnCheck',
     headerName: t(TranslationKey['Ideas to Check']),
     renderHeader: params => (
       <MultilineTextHeaderCell

@@ -126,16 +126,6 @@ export class ClientOrdersViewModel {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
 
-  // async updateColumnsModel() {
-  //   if (await SettingsModel.languageTag) {
-  //     this.getDataGridState()
-
-  //     runInAction(() => {
-  //       this.orders = clientOrdersDataConverter(this.baseNoConvertedOrders)
-  //     })
-  //   }
-  // }
-
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model

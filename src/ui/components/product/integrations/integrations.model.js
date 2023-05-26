@@ -71,7 +71,6 @@ export class IntegrationsModel {
 
       await Promise.all([this.getProductById(), this.getProductsWithSkuById()])
 
-      this.updateColumnsModel()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
