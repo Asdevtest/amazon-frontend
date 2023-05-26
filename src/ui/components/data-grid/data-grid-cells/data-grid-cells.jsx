@@ -2169,7 +2169,9 @@ export const ClientTasksActionBtnsCell = React.memo(
                 <Button
                   danger
                   className={classNames.cancelTaskBtn}
-                  onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'edit')}
+                  onClick={() => {
+                    handlers.onClickCancelBtn(row.boxes?.at(0)?._id || row.boxesBefore?.at(0)?._id, row._id, 'edit')
+                  }}
                 >
                   {t(TranslationKey.Cancel)}
                 </Button>
