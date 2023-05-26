@@ -76,7 +76,7 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
           columnMenuIcon: FilterAltOutlinedIcon,
           columnMenu: DataGridCustomColumnMenuComponent,
         }}
-        slotsProps={{
+        slotProps={{
           columnMenu: { orderStatusData },
           toolbar: {
             columsBtnSettings: {
