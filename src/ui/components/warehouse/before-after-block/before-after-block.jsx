@@ -507,7 +507,7 @@ const Box = observer(
 
                 {window.innerWidth < 1282 &&
                   box.items?.map((item, index) => (
-                    <>
+                    <React.Fragment key={index}>
                       <>
                         {window.innerWidth < 1282 && box.amount > 1 && (
                           <div className={classNames.countSuperBoxWrapper}>
@@ -534,7 +534,6 @@ const Box = observer(
                       </>
 
                       <div
-                        key={index}
                         className={cx(classNames.barCodeActionsWrapper, {
                           [classNames.successAccent]:
                             isNewBox &&
@@ -625,7 +624,7 @@ const Box = observer(
                             />
                           )}
                       </div>
-                    </>
+                    </React.Fragment>
                   ))}
 
                 {window.innerWidth < 1282 && (
@@ -1077,9 +1076,8 @@ export const BeforeAfterBlock = observer(
           <div className={classNames.newBoxesWrapper}>
             {incomingBoxes &&
               incomingBoxes.map((box, boxIndex) => (
-                <>
+                <React.Fragment key={boxIndex}>
                   <Box
-                    key={boxIndex}
                     isCurrentBox
                     readOnly={readOnly}
                     box={box}
@@ -1102,7 +1100,7 @@ export const BeforeAfterBlock = observer(
                     )}
                   </div>
                 )} */}
-                </>
+                </React.Fragment>
               ))}
           </div>
         </div>
