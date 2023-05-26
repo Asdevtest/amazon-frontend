@@ -308,16 +308,6 @@ export class BuyerMyOrdersViewModel {
     // this.getDataGridState()
   }
 
-  // async updateColumnsModel() {
-  //   if (await SettingsModel.languageTag) {
-  //     this.getDataGridState()
-
-  //     runInAction(() => {
-  //       this.ordersMy = buyerMyOrdersDataConverter(this.baseNoConvertedOrders)
-  //     })
-  //   }
-  // }
-
   setDataGridTablesKeys = pathname => {
     if (pathname) {
       switch (pathname) {
