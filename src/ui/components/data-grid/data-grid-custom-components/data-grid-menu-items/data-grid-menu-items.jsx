@@ -77,51 +77,106 @@ export const IsFormedMenuItem = React.memo(
 
 export const IsNeedPurchaseFilterMenuItem = React.memo(
   withStyles(
-    ({ classes: classNames, isNeedPurchaseFilterData }) => (
-      <div className={classNames.isFormedWrapper}>
-        <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey['Not need refills'])}</Typography>
+    ({
+      classes: classNames,
+      isNeedPurchaseFilterData,
+      onClose,
+      data,
+      filterRequestStatus,
+      onClickFilterBtn,
+      onChangeFullFieldMenuItem,
+      onClickAccept,
+    }) => {
+      const [currentOption, setCurrentOption] = useState('first')
 
-          <Checkbox
-            color="primary"
-            checked={
-              !isNeedPurchaseFilterData.isNeedPurchaseFilter || isNeedPurchaseFilterData.isNeedPurchaseFilter === null
-            }
-            onClick={() =>
-              isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(
-                isNeedPurchaseFilterData.isNeedPurchaseFilter !== null
-                  ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
-                    ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
-                    : null
-                  : true,
-              )
-            }
-          />
+      const handleCategory = e => {
+        setCurrentOption(e.target.value)
+      }
+
+      return (
+        <div className={classNames.shopsDataWrapper}>
+          <div>
+            <FormControl className={classNames.formControl}>
+              {/* <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel> */}
+              <RadioGroup row className={classNames.radioGroup} value={currentOption} onChange={handleCategory}>
+                <FormControlLabel
+                  className={classNames.radioOption}
+                  value="first"
+                  control={<Radio className={classNames.radioControl} />}
+                  label={t(TranslationKey.Repurchase)}
+                />
+                <FormControlLabel
+                  className={classNames.radioOption}
+                  value="second"
+                  control={<Radio className={classNames.radioControl} />}
+                  label={t(TranslationKey['Quantity of repurchase'])}
+                />
+              </RadioGroup>
+            </FormControl>
+          </div>
+
+          {currentOption === 'first' && (
+            <div className={classNames.isFormedWrapper}>
+              <div className={classNames.isFormedSubWrapper}>
+                <Typography>{t(TranslationKey['Not need refills'])}</Typography>
+
+                <Checkbox
+                  color="primary"
+                  checked={
+                    !isNeedPurchaseFilterData.isNeedPurchaseFilter ||
+                    isNeedPurchaseFilterData.isNeedPurchaseFilter === null
+                  }
+                  onClick={() =>
+                    isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(
+                      isNeedPurchaseFilterData.isNeedPurchaseFilter !== null
+                        ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
+                          ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
+                          : null
+                        : true,
+                    )
+                  }
+                />
+              </div>
+
+              <div className={classNames.isFormedSubWrapper}>
+                <Typography>{t(TranslationKey['Need refills'])}</Typography>
+
+                <Checkbox
+                  color="primary"
+                  checked={
+                    isNeedPurchaseFilterData.isNeedPurchaseFilter ||
+                    isNeedPurchaseFilterData.isNeedPurchaseFilter === null
+                  }
+                  onClick={() =>
+                    isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(
+                      isNeedPurchaseFilterData.isNeedPurchaseFilter !== null
+                        ? isNeedPurchaseFilterData.isNeedPurchaseFilter
+                          ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
+                          : null
+                        : false,
+                    )
+                  }
+                />
+              </div>
+
+              <Divider />
+            </div>
+          )}
+
+          {currentOption === 'second' && (
+            <NumberFieldMenuItem
+              data={data.purchaseQuantity}
+              field={'purchaseQuantity'}
+              filterRequestStatus={filterRequestStatus}
+              onClickFilterBtn={onClickFilterBtn}
+              onClose={onClose}
+              onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+              onClickAccept={onClickAccept}
+            />
+          )}
         </div>
-
-        <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey['Need refills'])}</Typography>
-
-          <Checkbox
-            color="primary"
-            checked={
-              isNeedPurchaseFilterData.isNeedPurchaseFilter || isNeedPurchaseFilterData.isNeedPurchaseFilter === null
-            }
-            onClick={() =>
-              isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(
-                isNeedPurchaseFilterData.isNeedPurchaseFilter !== null
-                  ? isNeedPurchaseFilterData.isNeedPurchaseFilter
-                    ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
-                    : null
-                  : false,
-              )
-            }
-          />
-        </div>
-
-        <Divider />
-      </div>
-    ),
+      )
+    },
     styles,
   ),
 )
