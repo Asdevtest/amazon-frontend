@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { FC, useEffect, useState } from 'react'
 
 import { useLocation } from 'react-router-dom'
@@ -9,8 +10,6 @@ import { SettingsModel } from '@models/settings-model'
 import { Appbar } from '@components/layout/appbar'
 import { Main } from '@components/layout/main'
 import { Navbar } from '@components/layout/navbar'
-import { t } from '@utils/translations'
-import { TranslationKey } from '@constants/translations/translation-key'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -51,9 +50,10 @@ export const Layout: FC<LayoutProps> = props => {
       <Main>
         <Appbar
           setDrawerOpen={() => setIsDrawerOpen(!isDrawerOpen)}
-          title={t(TranslationKey[currentPageInfo.title as keyof typeof TranslationKey])}
+          title={currentPageInfo.title}
           lastCrumbAdditionalText={SettingsModel.lastCrumbAdditionalText}
         >
+          {/* @ts-ignore */}
           {props.children}
         </Appbar>
       </Main>
