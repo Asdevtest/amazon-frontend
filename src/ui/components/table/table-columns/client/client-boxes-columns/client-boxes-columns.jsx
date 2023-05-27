@@ -375,7 +375,11 @@ export const clientBoxesViewColumns = (
       const rowMemo = useMemo(() => params.row.originalData, [])
 
       return params.row.originalData ? (
-        <ShortBoxDimensions box={rowMemo} volumeWeightCoefficient={params.row.volumeWeightCoefficient} />
+        <ShortBoxDimensions
+          box={rowMemo}
+          volumeWeightCoefficient={params.row.volumeWeightCoefficient}
+          unitsOption={getUnitsOption()}
+        />
       ) : (
         ''
       )

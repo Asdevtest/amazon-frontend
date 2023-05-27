@@ -41,14 +41,12 @@ import { t } from '@utils/translations'
 
 import { ClientInStockBoxesViewModel } from './client-in-stock-boxes-view.model'
 import { styles } from './client-in-stock-boxes-view.style'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 export const ClientInStockBoxesViewRaw = props => {
   const topHeaderBtnsWrapperRef = useRef()
   const boxesFiltersWrapperRef = useRef()
   const btnsWrapperRef = useRef()
-  const gridRef = useRef(null)
-  const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history: props.history, gridRef }))
+  const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history: props.history }))
   const [heightSum, setHeightSum] = useState(0)
   const { classes: classNames } = props
 
@@ -119,8 +117,6 @@ export const ClientInStockBoxesViewRaw = props => {
 
         <Button
           disabled={!viewModel.selectedBoxes.length || !viewModel.isChoosenOnlySendToBatchBoxes}
-          // className={classNames.returnButton}
-          // variant="contained"
           onClick={viewModel.onClickReturnBoxesToStockBtn}
         >
           {t(TranslationKey['Return to stock'])}
@@ -230,7 +226,7 @@ export const ClientInStockBoxesViewRaw = props => {
             disableVirtualization
             pagination
             checkboxSelection
-            propsToRerender={{ onHover: viewModel.onHover }}
+            propsToRerender={{ onHover: viewModel.onHover, unitsOption: viewModel.unitsOption }}
             localeText={getLocalizationByLanguageTag()}
             isRowSelectable={params =>
               params.row.isDraft === false &&

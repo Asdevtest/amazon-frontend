@@ -22,6 +22,7 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
+import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 
 const updateBoxWhiteList = [
   'shippingLabel',
@@ -84,6 +85,8 @@ export class WarehouseMyWarehouseViewModel {
   curBoxToMove = undefined
   sourceBoxForBatch = undefined
 
+  unitsOption = unitsOfChangeOptions.EU
+
   selectedBoxes = []
 
   curOpenedTask = {}
@@ -124,6 +127,7 @@ export class WarehouseMyWarehouseViewModel {
     setDimensions: item => this.setDimensions(item),
     onEditBox: item => this.onEditBox(item),
     onClickSavePrepId: (item, value) => this.onClickSavePrepId(item, value),
+    onChangeUnitsOption: option => this.onChangeUnitsOption(option),
   }
   uploadedImages = []
   uploadedFiles = []
@@ -137,7 +141,11 @@ export class WarehouseMyWarehouseViewModel {
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
   densityModel = 'compact'
-  columnsModel = warehouseBoxesViewColumns(this.rowHandlers, () => this.userInfo)
+  columnsModel = warehouseBoxesViewColumns(
+    this.rowHandlers,
+    () => this.userInfo,
+    () => this.unitsOption,
+  )
 
   get userInfo() {
     return UserModel.userInfo
@@ -1353,6 +1361,13 @@ export class WarehouseMyWarehouseViewModel {
         this.error = error
       })
     }
+  }
+
+  onChangeUnitsOption(option) {
+    runInAction(() => {
+      this.unitsOption = option
+    })
+    console.log('this.unitsOption', this.unitsOption)
   }
 
   onChangeFullFieldMenuItem(value, field) {

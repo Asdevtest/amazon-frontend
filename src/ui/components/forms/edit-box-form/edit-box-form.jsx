@@ -227,10 +227,6 @@ export const EditBoxForm = observer(
 
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
-    const handleChange = (event, newAlignment) => {
-      setSizeSetting(newAlignment)
-    }
-
     const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
     const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {

@@ -90,8 +90,6 @@ export class ClientInStockBoxesViewModel {
 
   unitsOption = unitsOfChangeOptions.EU
 
-  gridRef = undefined
-
   curBox = undefined
   showBoxViewModal = false
 
@@ -270,7 +268,7 @@ export class ClientInStockBoxesViewModel {
       .some(el => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
   }
 
-  constructor({ history, gridRef }) {
+  constructor({ history }) {
     const url = new URL(window.location.href)
 
     runInAction(() => {
@@ -327,20 +325,9 @@ export class ClientInStockBoxesViewModel {
   }
 
   onChangeUnitsOption(option) {
-    console.log('option', option)
     runInAction(() => {
       this.unitsOption = option
-
-      console.log('this.unitsOption', this.unitsOption)
     })
-
-    this.updateColumnForse()
-  }
-
-  updateColumnForse() {
-    if (this.gridRef.current) {
-      this.gridRef.current.updateColumns(this.columnsModel)
-    }
   }
 
   onColumnVisibilityModelChange(model) {
@@ -462,18 +449,12 @@ export class ClientInStockBoxesViewModel {
         referenceId: data.referenceId,
         fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
-        // trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
         trackNumberFile: [...data.trackNumberFile, ...this.uploadedFiles],
 
         prepId: data.prepId,
       })
 
-      // const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
-      // await ProductModel.editProductsHsCods(dataToSubmitHsCode)
-
       this.getBoxesMy()
-
-      // this.loadData()
 
       !inModal && this.onTriggerOpenModal('showBoxViewModal')
 
@@ -498,19 +479,6 @@ export class ClientInStockBoxesViewModel {
 
   onClickShippingLabel(item) {
     this.setSelectedBox(item)
-
-    // if (!item.fbaShipment) {
-    //   runInAction(() => {
-    //     this.warningInfoModalSettings = {
-    //       isWarning: true,
-    //       title: t(TranslationKey['Before you fill out the Shipping label, you need to fill out the FBA Shipment']),
-    //     }
-    //   })
-
-    //   this.onTriggerOpenModal('showWarningInfoModal')
-
-    //   this.onTriggerOpenModal('showSetChipValueModal')
-    // }
 
     this.onTriggerOpenModal('showSetShippingLabelModal')
   }
@@ -1684,8 +1652,6 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
-  // Новый методя для запроса
-
   setFilterRequestStatus(requestStatus) {
     runInAction(() => {
       this.columnMenuSettings = {
@@ -1727,22 +1693,14 @@ export class ClientInStockBoxesViewModel {
 
       const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
 
-      const data =
-        // column === 'storekeeperId'
-        //   ? this.storekeepersData
-        //   :
-        await GeneralModel.getDataForColumn(
-          getTableByColumn(column, 'boxes'),
-          column,
+      const data = await GeneralModel.getDataForColumn(
+        getTableByColumn(column, 'boxes'),
+        column,
 
-          // `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter(column)}${
-          //   shopFilter ? ';&' + 'shopIds=' + shopFilter : ''
-          // }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
-
-          `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter(column)}${
-            shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
-          }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
-        )
+        `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter(column)}${
+          shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
+        }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
+      )
 
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
@@ -1868,11 +1826,6 @@ export class ClientInStockBoxesViewModel {
         storekeeperId: { $eq: storekeeperIdFilter },
       }),
     })
-
-    // ...(statusFilter && {
-    //   status: {$eq: statusFilter},
-    // }),
-    // })
 
     return filter
   }
