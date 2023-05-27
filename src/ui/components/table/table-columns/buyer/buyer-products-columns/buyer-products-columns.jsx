@@ -124,7 +124,7 @@ export const buyerProductsViewColumns = handlers => [
   },
 
   {
-    field: 'ideaCount',
+    field: 'ideasOnCheck',
     headerName: t(TranslationKey['Ideas to Check']),
     renderHeader: () => (
       <MultilineTextHeaderCell

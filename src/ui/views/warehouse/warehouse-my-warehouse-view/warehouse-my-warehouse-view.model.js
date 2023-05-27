@@ -175,16 +175,6 @@ export class WarehouseMyWarehouseViewModel {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
 
-  // async updateColumnsModel() {
-  //   if (await SettingsModel.languageTag) {
-  //     runInAction(() => {
-  //       this.boxesMy = warehouseBoxesDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient)
-  //     })
-
-  //     this.getDataGridState()
-  //   }
-  // }
-
   async updateUserInfo() {
     await UserModel.getUserInfo()
   }

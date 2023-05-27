@@ -675,6 +675,7 @@ export const SelectFields = ({
               Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) && (
               <div className={classNames.imageFileInputWrapper}>
                 <UploadFilesInput
+                  fullWidth
                   images={photosToLoad}
                   setImages={setPhotosToLoad}
                   maxNumber={50 - Number(order.images?.length)}
