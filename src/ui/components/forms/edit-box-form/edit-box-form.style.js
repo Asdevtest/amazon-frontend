@@ -250,13 +250,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  productImageClass: {
-    width: 197,
-    height: 184,
-    objectFit: 'contain',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-  },
-
   boxImageClass: {
     width: 148,
     height: 151,
