@@ -237,14 +237,6 @@ export const BoxViewForm = observer(
                             <Typography className={classNames.rushOrder}>{t(TranslationKey['Rush order'])}</Typography>
                           </div>
                         ) : null}
-                        {/* {item.order.expressChinaDelivery ? (
-                          <div className={classNames.rushOrderWrapper}>
-                            <img className={classNames.rushOrderImg} src="/assets/icons/truck.svg" />
-                            <Typography className={classNames.rushOrder}>
-                              {t(TranslationKey['Express delivery'])}
-                            </Typography>
-                          </div>
-                        ) : null} */}
                         {item.order.priority !== '40' && !item.order.expressChinaDelivery ? (
                           <div className={classNames.rushOrderWrapper}>
                             <Typography className={classNames.rushOrder}>
