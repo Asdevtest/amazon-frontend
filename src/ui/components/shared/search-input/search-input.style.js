@@ -8,6 +8,16 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'relative',
   },
 
+  inputAdornmentRoot: {
+    height: '100%',
+    maxHeight: 'unset',
+    padding: '1px',
+  },
+
+  btnWrapperStyle: {
+    height: '100%',
+  },
+
   inputClass: {
     paddingLeft: '15px !important',
   },
@@ -28,17 +38,13 @@ export const useClassNames = makeStyles()(theme => ({
 
   searchWrapper: {
     display: 'flex',
-    gap: 5,
     alignItems: 'center',
     height: '100%',
-    flexGrow: 1,
   },
 
   submit: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    borderLeft: 'none',
-    height: 36,
-    padding: '6px',
-    flexGrow: 1,
+    height: '100%',
+    padding: '9px 20px 8px 20px',
+    borderRadius: 2,
   },
 }))
