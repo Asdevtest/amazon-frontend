@@ -102,6 +102,7 @@ export const WarehouseMyWarehouseViewRaw = props => {
             checkboxSelection
             pagination
             localeText={getLocalizationByLanguageTag()}
+            propsToRerender={{ unitsOption: viewModel.unitsOption }}
             classes={{
               row: classNames.row,
               root: classNames.root,
@@ -126,7 +127,6 @@ export const WarehouseMyWarehouseViewRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
-            // rowHeight={225}
             getRowHeight={() => 'auto'}
             slots={{
               toolbar: DataGridCustomToolbar,
@@ -156,8 +156,6 @@ export const WarehouseMyWarehouseViewRaw = props => {
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
-            // onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-
             onCellDoubleClick={params =>
               !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row.originalData)
             }

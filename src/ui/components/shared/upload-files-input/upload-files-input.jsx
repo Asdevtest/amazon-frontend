@@ -31,6 +31,7 @@ export const UploadFilesInput = observer(props => {
     images,
     setImages,
     maxNumber,
+    addFilesButtonTitle = '',
     acceptType = [''],
     withoutLinks = false,
     withoutTitle = false,
@@ -269,7 +270,7 @@ export const UploadFilesInput = observer(props => {
                   >
                     {minimized && (
                       <>
-                        {t(TranslationKey['Add photo'])}
+                        {addFilesButtonTitle || t(TranslationKey['Add photo'])}
                         <AddIcon className={classNames.icon} />
                       </>
                     )}

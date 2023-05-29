@@ -24,6 +24,7 @@ import { findTariffInStorekeepersData } from '@utils/checks'
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 export const clientBoxesViewColumns = (
   handlers,
@@ -32,6 +33,7 @@ export const clientBoxesViewColumns = (
   getDestinationsFavourites,
   getColumnMenuSettings,
   getOnHover,
+  getUnitsOption,
 ) => [
   {
     field: 'storekeeper',
@@ -362,6 +364,9 @@ export const clientBoxesViewColumns = (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Dimensions)}
         isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        component={
+          <CustomSwitcher condition={getUnitsOption()} changeConditionHandler={handlers.onChangeUnitsOption} />
+        }
         // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
@@ -370,7 +375,11 @@ export const clientBoxesViewColumns = (
       const rowMemo = useMemo(() => params.row.originalData, [])
 
       return params.row.originalData ? (
-        <ShortBoxDimensions box={rowMemo} volumeWeightCoefficient={params.row.volumeWeightCoefficient} />
+        <ShortBoxDimensions
+          box={rowMemo}
+          volumeWeightCoefficient={params.row.volumeWeightCoefficient}
+          unitsOption={getUnitsOption()}
+        />
       ) : (
         ''
       )

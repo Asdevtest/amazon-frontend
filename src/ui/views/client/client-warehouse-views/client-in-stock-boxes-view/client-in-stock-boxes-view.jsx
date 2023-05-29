@@ -117,8 +117,6 @@ export const ClientInStockBoxesViewRaw = props => {
 
         <Button
           disabled={!viewModel.selectedBoxes.length || !viewModel.isChoosenOnlySendToBatchBoxes}
-          // className={classNames.returnButton}
-          // variant="contained"
           onClick={viewModel.onClickReturnBoxesToStockBtn}
         >
           {t(TranslationKey['Return to stock'])}
@@ -228,7 +226,7 @@ export const ClientInStockBoxesViewRaw = props => {
             disableVirtualization
             pagination
             checkboxSelection
-            propsToRerender={{ onHover: viewModel.onHover }}
+            propsToRerender={{ onHover: viewModel.onHover, unitsOption: viewModel.unitsOption }}
             localeText={getLocalizationByLanguageTag()}
             isRowSelectable={params =>
               params.row.isDraft === false &&

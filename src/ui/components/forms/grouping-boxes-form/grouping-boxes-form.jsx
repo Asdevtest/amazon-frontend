@@ -9,7 +9,14 @@ import React, { useEffect, useState } from 'react'
 
 import { observer } from 'mobx-react'
 
-import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import {
+  getConversion,
+  getWeightSizesType,
+  inchesCoefficient,
+  poundsWeightCoefficient,
+  sizesType,
+  unitsOfChangeOptions,
+} from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
@@ -26,47 +33,59 @@ import { checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed } from
 import { t } from '@utils/translations'
 
 import { useClassNames } from './grouping-boxes-form.style'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
   const { classes: classNames } = useClassNames()
+
+  const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
+  const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
+  const totalWeightConversion = getConversion(sizeSetting, 12 / poundsWeightCoefficient, 12)
+  const weightSizesType = getWeightSizesType(sizeSetting)
 
   return (
     <div className={classNames.demensionsWrapper}>
       <Typography className={classNames.standartText}>
         {t(TranslationKey.Length) + ': '}
 
-        {toFixed(orderBox.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+        {toFixed(orderBox.lengthCmWarehouse / lengthConversion, 2)}
       </Typography>
       <Typography className={classNames.standartText}>
         {t(TranslationKey.Width) + ': '}
-        {toFixed(orderBox.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+        {toFixed(orderBox.widthCmWarehouse / lengthConversion, 2)}
       </Typography>
       <Typography className={classNames.standartText}>
         {t(TranslationKey.Height) + ': '}
-        {toFixed(orderBox.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+        {toFixed(orderBox.heightCmWarehouse / lengthConversion, 2)}
       </Typography>
 
       <Typography className={classNames.standartText}>
         {t(TranslationKey.Weight) + ': '}
-        {orderBox.weighGrossKgWarehouse || 0}
+        {toFixed(orderBox.weighGrossKgWarehouse / weightConversion, 2) || 0}
+        {' ' + weightSizesType}
       </Typography>
 
       <Typography className={classNames.standartText}>
         {t(TranslationKey['Volume weight']) + ': '}
-        {toFixed(orderBox.volumeWeightKgWarehouse, 4) || 0}
+        {toFixed(orderBox.volumeWeightKgWarehouse / weightConversion, 2) || 0}
+        {' ' + weightSizesType}
       </Typography>
 
       <Typography
         className={cx(classNames.standartText, {
-          [classNames.alertText]: orderBox.weightFinalAccountingKgWarehouse < 12,
+          [classNames.alertText]: orderBox.weightFinalAccountingKgWarehouse / weightConversion < totalWeightConversion,
         })}
       >
         {t(TranslationKey['Final weight']) + ': '}
-        {toFixed(orderBox.weightFinalAccountingKgWarehouse, 4) || 0}
+        {toFixed(orderBox.weightFinalAccountingKgWarehouse / weightConversion, 2) || 0}
+        {' ' + weightSizesType}
       </Typography>
 
-      {orderBox.weightFinalAccountingKgWarehouse < 12 ? (
-        <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
+      {orderBox.weightFinalAccountingKgWarehouse / weightConversion < totalWeightConversion ? (
+        <span className={classNames.alertText}>{`${t(TranslationKey['Weight less than'])} ${toFixed(
+          totalWeightConversion,
+          2,
+        )} ${weightSizesType}!`}</span>
       ) : null}
     </div>
   )
@@ -75,11 +94,7 @@ const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
 const Box = ({ isNewBox, destinations, box, onChangeField, onRemoveBox, index, basicBox, onClickBasicBoxRadio }) => {
   const { classes: classNames } = useClassNames()
 
-  const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
-
-  const handleChange = (event, newAlignment) => {
-    setSizeSetting(newAlignment)
-  }
+  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
   const [showFullCard, setShowFullCard] = useState(isNewBox ? false : true)
 
@@ -223,14 +238,10 @@ const Box = ({ isNewBox, destinations, box, onChangeField, onRemoveBox, index, b
               <div className={classNames.sizesTitleWrapper}>
                 <Typography className={classNames.label}>{t(TranslationKey.Dimensions)}</Typography>
 
-                <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-                  <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                    {'In'}
-                  </ToggleBtn>
-                  <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                    {'Cm'}
-                  </ToggleBtn>
-                </ToggleBtnGroup>
+                <CustomSwitcher
+                  condition={sizeSetting}
+                  changeConditionHandler={condition => setSizeSetting(condition)}
+                />
               </div>
 
               <WarehouseDemensions orderBox={box} sizeSetting={sizeSetting} />

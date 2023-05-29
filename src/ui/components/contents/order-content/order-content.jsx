@@ -128,7 +128,7 @@ export const OrderContent = ({
     updatedOrder.status !== OrderStatusByKey[OrderStatus.PENDING]
 
   const disabledSaveSubmit =
-    (!isValid(parseISO(formFields.deadline)) && isPast(formFields.deadline)) || !formFields.amount
+    (!isValid(parseISO(formFields.deadline)) && isPast(parseISO(formFields.deadline))) || !formFields.amount
 
   return (
     <Paper>
