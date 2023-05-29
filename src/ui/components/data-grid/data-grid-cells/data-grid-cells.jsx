@@ -2853,9 +2853,10 @@ export const ShortBoxDimensions = React.memo(
           2,
         )}`}</Typography>
 
-        <Typography className={classNames.shortBoxDimensionsText}>{`${t(
-          TranslationKey['Volume weight'],
-        )}: ${toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient) / weightConversion, 2)}`}</Typography>
+        <Typography className={classNames.shortBoxDimensionsText}>{`${t(TranslationKey['Volume weight'])}: ${toFixed(
+          calcVolumeWeightForBox(box, volumeWeightCoefficient) / weightConversion,
+          2,
+        )} ${weightSizesType}`}</Typography>
 
         <Typography
           className={cx(classNames.shortBoxDimensionsText, {
