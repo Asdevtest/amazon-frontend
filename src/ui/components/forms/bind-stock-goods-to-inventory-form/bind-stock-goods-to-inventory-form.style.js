@@ -60,6 +60,6 @@ export const useClassNames = makeStyles()(theme => ({
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
     color: theme.palette.primary.main,
 
-    borderBottom: '5px solid #0460DE',
+    borderBottom: `5px solid ${theme.palette.primary.main}`,
   },
 }))
