@@ -42,6 +42,12 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
   },
 
+  noSelectedChatIcon: {
+    width: '100px !important',
+    height: '92px !important',
+    color: theme.palette.primary.main,
+  },
+
   noChatTitle: {
     fontSize: 24,
     color: theme.palette.text.second,
