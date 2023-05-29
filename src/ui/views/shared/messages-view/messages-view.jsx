@@ -2,14 +2,13 @@
 import { cx } from '@emotion/css'
 import { Avatar, Typography, Link } from '@mui/material'
 
-import React, { Component, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { observer } from 'mobx-react'
 import { withStyles } from 'tss-react/mui'
 
 import { chatsType } from '@constants/keys/chats'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { navBarActiveCategory } from '@constants/navigation/navbar-active-category'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { MultipleChats } from '@components/chat/multiple-chats'
@@ -17,10 +16,7 @@ import { SearchResult } from '@components/chat/search-result'
 import { AddNewChatByEmailForm } from '@components/forms/add-new-chat-by-email-form'
 import { AddUsersToGroupChatForm } from '@components/forms/add-users-to-group-chat-form'
 import { EditGroupChatInfoForm } from '@components/forms/edit-group-chat-info-form'
-import { Appbar } from '@components/layout/appbar'
-import { Main } from '@components/layout/main'
 import { MainContent } from '@components/layout/main-content'
-import { Navbar } from '@components/layout/navbar'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'

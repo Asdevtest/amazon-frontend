@@ -3,21 +3,17 @@ import { cx } from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Alert, Typography } from '@mui/material'
 
-import React, { Component, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { observer } from 'mobx-react'
 import { withStyles } from 'tss-react/mui'
 
-import { navBarActiveCategory, navBarActiveSubCategory } from '@constants/navigation/navbar-active-category'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { Appbar } from '@components/layout/appbar'
-import { Main } from '@components/layout/main'
 import { MainContent } from '@components/layout/main-content'
-import { Navbar } from '@components/layout/navbar'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import { Button } from '@components/shared/buttons/button'
