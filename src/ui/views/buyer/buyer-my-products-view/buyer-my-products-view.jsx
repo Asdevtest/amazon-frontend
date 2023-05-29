@@ -42,11 +42,14 @@ export const BuyerMyProductsViewRaw = props => {
     viewModel.loadData()
   }, [])
 
+  const ideasSheldStyle = params =>
+    (!params.row.originalData.ideasOnCheck && !!params.row.originalData.ideasVerified && classNames.ideaRowGreen) ||
+    (!!params.row.originalData.ideasOnCheck && classNames.ideaRowYellow)
+
   const getRowClassName = params =>
-    cx(
-      { [classNames.attentionRow]: attentionStatuses.includes(params.row.statusForAttention) },
-      { [classNames.ideaRow]: !!params.row.originalData.ideaCount },
-    )
+    cx(ideasSheldStyle(params), {
+      [classNames.attentionRow]: attentionStatuses.includes(params.row.statusForAttention),
+    })
 
   return (
     <React.Fragment>
