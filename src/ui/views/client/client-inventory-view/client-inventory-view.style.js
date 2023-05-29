@@ -177,6 +177,7 @@ export const styles = theme => ({
     flexDirection: 'row !important',
     display: 'flex !important',
     alignItems: 'center !important',
+    overflow: 'visible',
   },
   menuIconButton: {
     zIndex: 1000,
@@ -214,13 +215,6 @@ export const styles = theme => ({
       top: 0,
       left: 0,
       marginRight: '-48px',
-    },
-  },
-
-  blueButton: {
-    '&:disabled': {
-      background: '#B3D1FB',
-      color: '#F9FCFF',
     },
   },
 })

@@ -31,7 +31,7 @@ import {
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
 
-export const clientOrdersViewColumns = (handlers, firstRowId) => [
+export const clientOrdersViewColumns = handlers => [
   {
     field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
@@ -62,7 +62,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    width: 400,
+    width: 290,
     renderCell: params => {
       const productMemo = useMemo(() => params.row.originalData.product, [])
 
@@ -128,7 +128,9 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
     width: 170,
-    renderCell: params => <DownloadAndCopyBtnsCell value={params.value} isFirstRow={firstRowId === params.row.id} />,
+    renderCell: params => (
+      <DownloadAndCopyBtnsCell value={params.value} isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id} />
+    ),
     sortable: false,
   },
 
@@ -252,7 +254,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
 
     width: 120,
     renderCell: params => <NormDateCell value={params.value} />,
-    type: 'date',
+    // type: 'date',
   },
 
   {
@@ -262,6 +264,6 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
 
     width: 140,
     renderCell: params => <NormDateCell value={params.value} />,
-    type: 'date',
+    // type: 'date',
   },
 ]

@@ -117,8 +117,6 @@ export const ClientInStockBoxesViewRaw = props => {
 
         <Button
           disabled={!viewModel.selectedBoxes.length || !viewModel.isChoosenOnlySendToBatchBoxes}
-          // className={classNames.returnButton}
-          // variant="contained"
           onClick={viewModel.onClickReturnBoxesToStockBtn}
         >
           {t(TranslationKey['Return to stock'])}
@@ -228,6 +226,7 @@ export const ClientInStockBoxesViewRaw = props => {
             disableVirtualization
             pagination
             checkboxSelection
+            propsToRerender={{ onHover: viewModel.onHover, unitsOption: viewModel.unitsOption }}
             localeText={getLocalizationByLanguageTag()}
             isRowSelectable={params =>
               params.row.isDraft === false &&
@@ -258,26 +257,27 @@ export const ClientInStockBoxesViewRaw = props => {
                 },
               },
             }}
-            headerHeight={65}
+            columnHeaderHeight={65}
             getRowClassName={getRowClassName}
-            selectionModel={viewModel.selectedBoxes}
+            rowSelectionModel={viewModel.selectedBoxes}
             sortingMode="server"
             paginationMode="server"
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
-            page={viewModel.curPage}
-            pageSize={viewModel.rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData || []}
             getRowHeight={() => 'auto'}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenu: DataGridCustomColumnMenuComponent,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
             }}
-            componentsProps={{
+            slotProps={{
               columnMenu: viewModel.columnMenuSettings,
+
               toolbar: {
                 resetFiltersBtnSettings: {
                   onClickResetFilters: viewModel.onClickResetFilters,
@@ -285,7 +285,8 @@ export const ClientInStockBoxesViewRaw = props => {
                 },
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
-                  changeColumnsModel: viewModel.changeColumnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                 },
               },
             }}
@@ -296,12 +297,11 @@ export const ClientInStockBoxesViewRaw = props => {
               viewModel.onHoverColumnField(params.field)
             }}
             onColumnHeaderLeave={viewModel.onLeaveColumnField}
-            onSelectionModelChange={viewModel.onSelectionModel}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
-            onPageSizeChange={viewModel.onChangeRowsPerPage}
-            onPageChange={viewModel.onChangeCurPage}
             onFilterModelChange={viewModel.onChangeFilterModel}
-            onStateChange={viewModel.setDataGridState}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
             // onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
             // onCellDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
             onCellDoubleClick={params =>

@@ -173,6 +173,6 @@ export const clientExchangeViewColumns = rowHandlers => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     minWidth: 120,
-    type: 'date',
+    // type: 'date',
   },
 ]

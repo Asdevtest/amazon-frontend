@@ -12,6 +12,7 @@ import { Input } from '@components/shared/input'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
+import { cx } from '@emotion/css'
 
 interface RestoreRequestModalProps {
   currentDate: string
@@ -47,9 +48,11 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
       <Field
         labelClasses={styles.label}
         label={t(TranslationKey['Enter the number of proposals'])}
+        error={requestCount <= currentRequestsCount && `${t(TranslationKey['At least'])} ${currentRequestsCount}`}
         inputComponent={
           <Input
             // type="number"
+            className={cx({ [styles.errorInput]: requestCount <= currentRequestsCount })}
             value={requestCount}
             slotProps={{
               input: {
@@ -77,7 +80,7 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={styles.controlButton} onClick={handleCloseModal}>
+        <Button variant="text" className={cx(styles.controlButton, styles.cancelButton)} onClick={handleCloseModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

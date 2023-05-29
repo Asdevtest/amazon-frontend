@@ -60,7 +60,7 @@ import { Input } from '@components/shared/input'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { ClockIcon } from '@components/shared/svg-icons'
+import { BoxArrow, ClockIcon, CubeIcon, EditIcon, EqualIcon, PlusIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
@@ -96,6 +96,12 @@ import {
 import { t } from '@utils/translations'
 
 import { styles } from './data-grid-cells.style'
+import {
+  getConversion,
+  getWeightSizesType,
+  inchesCoefficient,
+  poundsWeightCoefficient,
+} from '@constants/configs/sizes-settings'
 
 export const UserCell = React.memo(
   withStyles(
@@ -489,11 +495,11 @@ export const SupplierCell = React.memo(
   withStyles(
     ({ classes: classNames, supplierName, supplierLink }) => (
       <>
-        <Typography className={classNames.researcherCell}>{supplierName || '-'}</Typography>
+        {!supplierName && <Typography className={classNames.researcherCell}>-</Typography>}
 
-        {supplierLink && (
+        {supplierName && (
           <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(supplierLink)}>
-            <Typography className={classNames.noActiveLink}>{supplierLink}</Typography>
+            <Typography className={classNames.noActiveLink}>{supplierName}</Typography>
           </Link>
         )}
       </>
@@ -564,7 +570,7 @@ export const HsCodeCell = React.memo(
 )
 
 export const ChangeInputCell = React.memo(
-  withStyles(({ classes: classNames, rowId, onClickSubmit, text, disabled, isInts, maxLength }) => {
+  withStyles(({ classes: classNames, rowId, onClickSubmit, text, disabled, isInts, maxLength, checkValue }) => {
     const sourceValue = text ? text : ''
 
     const [value, setValue] = useState(sourceValue)
@@ -595,12 +601,12 @@ export const ChangeInputCell = React.memo(
       }
     }, [value])
 
+    const valueChecked = checkValue ? checkValue(value) : true
+
     return (
       <div>
         <Input
           disabled={disabled}
-          // className={cx(classNames.changeInput, {[classNames.inputValueNoExists]: !value})}
-
           className={classNames.changeInput}
           classes={{ input: classNames.changeInput }}
           inputProps={{ maxLength: maxLength ? maxLength : 7 }}
@@ -609,7 +615,7 @@ export const ChangeInputCell = React.memo(
             <InputAdornment position="start">
               {isShow && sourceValue !== value ? (
                 <DoneIcon classes={{ root: classNames.doneIcon }} />
-              ) : sourceValue !== value ? (
+              ) : sourceValue !== value && valueChecked ? (
                 <div className={classNames.iconWrapper}>
                   <img
                     src={'/assets/icons/save-discet.svg'}
@@ -1145,11 +1151,11 @@ export const WarehouseDestinationAndTariffCell = React.memo(
         ?.find(el => el._id === boxesMy?.storekeeper?._id)
         ?.tariffLogistics?.find(el => el?._id === boxesMy?.logicsTariff?._id)?.name
 
-      const curDestination = destinations.find(el => el._id === boxesMy?.destination?._id)
+      const curDestination = destinations?.find(el => el?._id === boxesMy?.destination?._id)
 
       const firstNumOfCode = curDestination?.zipCode[0]
 
-      const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+      const regionOfDeliveryName = zipCodeGroups?.find(el => el?.codes?.includes(Number(firstNumOfCode)))?.name
 
       const tariffRate = storekeepers
         ?.find(el => el?._id === boxesMy?.storekeeper?._id)
@@ -1164,14 +1170,14 @@ export const WarehouseDestinationAndTariffCell = React.memo(
               disabled={disabled}
               width={160}
               selectedItemName={
-                destinations.find(el => el._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
+                destinations.find(el => el?._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
               }
-              data={destinations.filter(el => el.storekeeper?._id !== boxesMy?.storekeeper._id)}
+              data={destinations.filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper._id)}
               searchFields={['name']}
               favourites={destinationsFavourites}
               onClickSetDestinationFavourite={setDestinationsFavouritesItem}
               onClickNotChosen={() => onSelectDestination(boxesMy?._id, { destinationId: null })}
-              onClickSelect={el => onSelectDestination(boxesMy?._id, { destinationId: el._id })}
+              onClickSelect={el => onSelectDestination(boxesMy?._id, { destinationId: el?._id })}
             />
           </div>
           <div className={classNames.tatiff}>
@@ -1238,7 +1244,7 @@ export const RenderFieldValueCell = React.memo(
 
 export const BatchTrackingCell = React.memo(
   withStyles(
-    ({ classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled, languageTag }) => (
+    ({ classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled }) => (
       <div className={classNames.batchTrackingWrapper}>
         <Field
           containerClasses={cx(classNames.batchTrackingContainer)}
@@ -1531,10 +1537,15 @@ export const MultilineTextAlignLeftHeaderCell = React.memo(
 
 export const MultilineTextHeaderCell = React.memo(
   withStyles(
-    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive }) => (
+    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component }) => (
       <Tooltip title={text}>
-        <div className={classNames.multilineTextHeaderWrapper}>
+        <div
+          className={cx(classNames.multilineTextHeaderWrapper, {
+            [classNames.multilineTextHeaderWrapperWithComponent]: component,
+          })}
+        >
           <Typography className={classNames.multilineHeaderText}>{text}</Typography>
+          {component}
           {withIcon || isShowIconOnHover || isFilterActive ? (
             <FilterAltOutlinedIcon
               className={cx(classNames.headerIcon, {
@@ -1718,11 +1729,11 @@ export const RequestStatusCell = React.memo(
 
 export const MultilineRequestStatusCell = React.memo(
   withStyles(({ classes: classNames, status, fontSize = '14px', languageTag }) => {
-    const [statusTranslate, setStatusTranslate] = useState(MyRequestStatusTranslate(status))
+    // const [statusTranslate, setStatusTranslate] = useState(MyRequestStatusTranslate(status))
 
-    useEffect(() => {
-      setStatusTranslate(MyRequestStatusTranslate(status))
-    }, [languageTag])
+    // useEffect(() => {
+    //   setStatusTranslate(MyRequestStatusTranslate(status))
+    // }, [languageTag])
 
     const colorByStatus = () => {
       if ([RequestStatus.DRAFT].includes(status)) {
@@ -1752,7 +1763,8 @@ export const MultilineRequestStatusCell = React.memo(
     return (
       <div className={classNames.multilineTextWrapper}>
         <Typography className={classNames.multilineStatusText} style={{ color: colorStatus, fontSize }}>
-          {statusTranslate}
+          {/* {statusTranslate} */}
+          {MyRequestStatusTranslate(status)}
         </Typography>
       </div>
     )
@@ -1815,7 +1827,7 @@ export const TaskDescriptionCell = React.memo(
               index !== task.boxesBefore.length - 1 ? (
                 <div key={index} className={classNames.renderBoxWrapper}>
                   {renderBox(box, index)}
-                  <img key={index + '+'} src="/assets/icons/+.svg" className={classNames.taskDescriptionIcon} />
+                  <PlusIcon className={classNames.taskDescriptionIcon} />
                 </div>
               ) : (
                 renderBox(box, index, task.boxesBefore.length === 1)
@@ -1824,14 +1836,14 @@ export const TaskDescriptionCell = React.memo(
           </div>
         )}
 
-        <img src="/assets/icons/equal.svg" className={classNames.taskDescriptionIcon} />
+        <EqualIcon className={classNames.taskDescriptionIcon} />
 
         <div className={classNames.sideWrapper}>
           {task.boxes?.map((box, index) =>
             index !== task.boxes.length - 1 ? (
               <div key={index} className={classNames.renderBoxWrapper}>
                 {renderBox(box, index)}
-                <img key={index + '+'} src="/assets/icons/+.svg" className={classNames.taskDescriptionIcon} />
+                <PlusIcon className={classNames.taskDescriptionIcon} />
               </div>
             ) : (
               renderBox(box, index, task.boxes.length === 1)
@@ -1849,20 +1861,20 @@ export const TaskDescriptionCell = React.memo(
       <div className={classNames.blockProductsImagesWrapper}>
         <div className={classNames.receiveOrEditWrapper}>
           <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} />
-          <img src="/assets/icons/box-arrow.svg" className={classNames.boxArrowSvg} />
+          <BoxArrow className={classNames.boxArrowSvg} />
 
           <div className={classNames.gridBoxesWrapper}>
             {task.boxesBefore.map((el, i) => (
               <div key={i} className={classNames.gridBoxWrapper}>
                 {el.amount > 1 && (
                   <div className={classNames.superboxWrapper}>
-                    <img src="/assets/icons/cube.svg" />
+                    <CubeIcon className={classNames.cubeIconSvg} />
                     <Typography className={classNames.imgNum}>{el.amount > 1 && ` x${el.amount}`}</Typography>
                   </div>
                 )}
-                <Grid container spacing={2} className={classNames.gridEditWrapper}>
+                <div className={classNames.gridEditWrapper}>
                   {el.items.map((product, productIndex) => renderProductImages(product, productIndex))}
-                </Grid>
+                </div>
               </div>
             ))}
           </div>
@@ -1874,20 +1886,20 @@ export const TaskDescriptionCell = React.memo(
       <div className={classNames.blockProductsImagesWrapper}>
         <div className={classNames.receiveOrEditWrapper}>
           <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} />
-          <img src="/assets/icons/box-edit.svg" className={classNames.boxEditSvg} />
+          <EditIcon className={classNames.boxEditSvg} />
 
           {task.boxesBefore[0]?.amount > 1 && (
             <div className={classNames.superboxWrapper}>
-              <img src="/assets/icons/cube.svg" />
+              <CubeIcon className={classNames.cubeIconSvg} />
               <Typography className={classNames.imgNum}>
                 {task.boxesBefore[0].amount > 1 && ` x${task.boxesBefore[0].amount}`}
               </Typography>
             </div>
           )}
 
-          <Grid container spacing={2} className={classNames.gridEditWrapper}>
+          <div className={classNames.gridEditWrapper}>
             {task.boxesBefore[0]?.items.map((product, productIndex) => renderProductImages(product, productIndex))}
-          </Grid>
+          </div>
         </div>
       </div>
     )
@@ -1951,10 +1963,16 @@ export const FourMonthesStockCell = React.memo(
     ({ classes: classNames, onClickSaveFourMonthsStock, rowId, fourMonthesStock, value }) => (
       <div className={classNames.fourMonthesStockWrapper}>
         <Typography className={classNames.fourMonthesStockLabel}>{`${t(
-          TranslationKey.Repurchase,
+          TranslationKey['To repurchase'],
         )}: ${value}`}</Typography>
 
-        <ChangeInputCell isInts rowId={rowId} text={fourMonthesStock} onClickSubmit={onClickSaveFourMonthsStock} />
+        <ChangeInputCell
+          isInts
+          rowId={rowId}
+          text={fourMonthesStock}
+          checkValue={value => value > 50}
+          onClickSubmit={onClickSaveFourMonthsStock}
+        />
       </div>
     ),
     styles,
@@ -2137,7 +2155,7 @@ export const ClientTasksActionBtnsCell = React.memo(
                 <Button
                   danger
                   className={classNames.cancelTaskBtn}
-                  onClick={() => handlers.onClickCancelBtn(row.boxes[0]._id, row._id, 'merge')}
+                  onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'merge')}
                 >
                   {t(TranslationKey.Cancel)}
                 </Button>
@@ -2152,7 +2170,7 @@ export const ClientTasksActionBtnsCell = React.memo(
                 <Button
                   danger
                   className={classNames.cancelTaskBtn}
-                  onClick={() => handlers.onClickCancelBtn(row.boxes[0]._id, row._id, 'split')}
+                  onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'split')}
                 >
                   {t(TranslationKey.Cancel)}
                 </Button>
@@ -2170,7 +2188,9 @@ export const ClientTasksActionBtnsCell = React.memo(
                 <Button
                   danger
                   className={classNames.cancelTaskBtn}
-                  onClick={() => handlers.onClickCancelBtn(row.boxes[0]._id, row._id, 'edit')}
+                  onClick={() => {
+                    handlers.onClickCancelBtn(row.boxes?.at(0)?._id || row.boxesBefore?.at(0)?._id, row._id, 'edit')
+                  }}
                 >
                   {t(TranslationKey.Cancel)}
                 </Button>
@@ -2810,52 +2830,57 @@ export const DownloadAndCopyBtnsCell = React.memo(
 )
 
 export const ShortBoxDimensions = React.memo(
-  withStyles(({ classes: classNames, box, volumeWeightCoefficient, curUser, handlers }) => {
+  withStyles(({ classes: classNames, box, volumeWeightCoefficient, curUser, handlers, unitsOption }) => {
     const finalWeight = calcFinalWeightForBox(box, volumeWeightCoefficient)
+
+    const lengthConversion = getConversion(unitsOption, inchesCoefficient)
+    const weightConversion = getConversion(unitsOption, poundsWeightCoefficient)
+    const totalWeightConversion = getConversion(unitsOption, 12 / poundsWeightCoefficient, 12)
+    const weightSizesType = getWeightSizesType(unitsOption)
 
     return (
       <div className={classNames.shortBoxDimensionsWrapper}>
-        <Typography className={classNames.shortBoxDimensionsText}>{`${toFixed(box.lengthCmWarehouse, 2)}x${toFixed(
-          box.widthCmWarehouse,
+        <Typography className={classNames.shortBoxDimensionsText}>{`${toFixed(
+          box.lengthCmWarehouse / lengthConversion,
           2,
-        )}x${toFixed(box.heightCmWarehouse, 2)}`}</Typography>
+        )}x${toFixed(box.widthCmWarehouse / lengthConversion, 2)}x${toFixed(
+          box.heightCmWarehouse / lengthConversion,
+          2,
+        )}`}</Typography>
 
-        <Typography className={classNames.shortBoxDimensionsText}>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(
-          box.weighGrossKgWarehouse,
+        <Typography className={classNames.shortBoxDimensionsText}>{`${t(TranslationKey.Weight)}: ${toFixed(
+          box.weighGrossKgWarehouse / weightConversion,
           2,
         )}`}</Typography>
 
         <Typography className={classNames.shortBoxDimensionsText}>{`${t(
           TranslationKey['Volume weight'],
-        )}: ${toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}`}</Typography>
+        )}: ${toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient) / weightConversion, 2)}`}</Typography>
 
         <Typography
           className={cx(classNames.shortBoxDimensionsText, {
-            [classNames.alertText]: !box.isDraft && finalWeight < 12,
+            [classNames.alertText]: !box.isDraft && finalWeight / weightConversion < totalWeightConversion,
           })}
-        >{`${t(TranslationKey['Final weight'])}: ${toFixedWithKg(finalWeight, 2)}`}</Typography>
+        >{`${t(TranslationKey['Final weight'])}: ${toFixed(
+          finalWeight / weightConversion,
+          2,
+        )} ${weightSizesType}!`}</Typography>
 
-        {!box.isDraft && finalWeight < 12 ? (
-          <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
-        ) : null}
+        {!box.isDraft && finalWeight / weightConversion < totalWeightConversion && (
+          <span className={classNames.alertText}>{`${t(TranslationKey['Weight less than'])} ${toFixed(
+            totalWeightConversion,
+            2,
+          )} ${weightSizesType}!`}</span>
+        )}
 
-        {box.amount > 1 ? (
+        {box.amount > 1 && (
           <Typography className={classNames.shortBoxDimensionsText}>{`${t(
             TranslationKey['Total final weight'],
-          )}: ${toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient) * box.amount, 2)}`}</Typography>
-        ) : null}
-
-        {/* {checkIsStorekeeper(UserRoleCodeMap[curUser]) ? (
-          <Button
-            disabled={box.isDraft || box.status !== BoxStatus.IN_STOCK}
-            className={cx(classNames.shortBoxDimensionsButton, {
-              [classNames.editPaddingButton]: !box.isDraft && finalWeight < 12,
-            })}
-            onClick={() => handlers.setDimensions(box)}
-          >
-            {t(TranslationKey.Set)}
-          </Button>
-        ) : null} */}
+          )}: ${toFixed(
+            (calcFinalWeightForBox(box, volumeWeightCoefficient) / weightConversion) * box.amount,
+            2,
+          )} ${weightSizesType}`}</Typography>
+        )}
       </div>
     )
   }, styles),

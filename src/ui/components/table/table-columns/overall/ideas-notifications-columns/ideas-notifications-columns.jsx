@@ -23,7 +23,7 @@ export const ideasNotificationsViewColumns = handlers => [
 
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 85,
-    type: 'date',
+    // type: 'date',
   },
 
   {

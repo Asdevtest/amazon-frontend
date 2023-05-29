@@ -19,7 +19,7 @@ import {
 
 import { t } from '@utils/translations'
 
-export const warehouseCanceledTasksViewColumns = (handlers, firstRowId) => [
+export const warehouseCanceledTasksViewColumns = handlers => [
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
@@ -31,7 +31,7 @@ export const warehouseCanceledTasksViewColumns = (handlers, firstRowId) => [
 
       return (
         <NormalActionBtnCell
-          isFirstRow={firstRowId === params.row.id}
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
           tooltipText={t(TranslationKey['Open the window with task information'])}
           bTnText={t(TranslationKey.View)}
           onClickOkBtn={setCurrentOpenedTask}
@@ -134,6 +134,6 @@ export const warehouseCanceledTasksViewColumns = (handlers, firstRowId) => [
 
     width: window.innerWidth < 1282 ? 95 : 150,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    type: 'date',
+    // type: 'date',
   },
 ]

@@ -81,45 +81,25 @@ class SettingsModelStatic {
       },
     })
 
-    const cach = await caches.keys()
-    // console.log('appVersion', appVersion)
-    // console.log('response.data.version', response.data.version)
-    //
-    // console.log('caches', caches)
-    // console.log('cach.keys()', cach)
-
-    // if (appVersion !== response.data.version) {
-
-    // console.log(
-    //   'compareVersions(response.data.version, appVersion)',
-    //   compareVersions(response.data.version, appVersion),
-    // )
-
     if (compareVersions(response.data.version, appVersion) > 0) {
       // console.log('!!!*** versions do not match')
 
-      // if (caches) {
-      //   caches.keys().then(names => {
-      //     for (const name of names) {
-      //       caches.delete(name)
-      //     }
-      //   })
-      // }
+      // Очистка локального хранилища
+      localStorage.clear()
 
-      if (cach) {
-        cach.forEach(names => {
+      // Очистка кэша
+      if (window.caches && window.caches.delete) {
+        caches.keys().then(names => {
           for (const name of names) {
             caches.delete(name)
           }
         })
+      } else {
+        // Для старых версий Edge используем следующий способ очистки кэша
+        window.location.reload(true)
       }
 
-      // console.log('!!!*** start reload window')
       window.location.reload()
-
-      // function redirectFunc() {
-      //   window.location.href = "https://www.w3docs.com/";
-      // }
     }
   }
 

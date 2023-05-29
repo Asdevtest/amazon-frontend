@@ -3,7 +3,7 @@ import { Chip, Typography } from '@mui/material'
 
 import React, { useState } from 'react'
 
-import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import { inchesCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -15,9 +15,6 @@ import { SettingsModel } from '@models/settings-model'
 import { WarehouseDemensions } from '@components/forms/edit-box-storekeeper-form/edit-box-storekeeper-form'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
-// import {PhotoCarousel} from '@components/shared/custom-carousel/custom-carousel'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
@@ -33,6 +30,7 @@ import { SetShippingLabelModal } from '../set-shipping-label-modal'
 import { BoxForMerge } from './box-for-merge'
 import { useClassNames } from './merge-boxes-modal.style'
 import { CopyValue } from '@components/shared/copy-value'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 export const MergeBoxesModal = ({
   userInfo,
@@ -190,24 +188,24 @@ export const MergeBoxesModal = ({
   )
 
   // Добавил
-  const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
-  const handleChange = (event, newAlignment) => {
-    setSizeSetting(newAlignment)
+  const handleChange = condition => {
+    setSizeSetting(condition)
 
-    if (newAlignment === sizesType.INCHES) {
+    if (condition === unitsOfChangeOptions.US) {
       setBoxBody({
         ...boxBody,
-        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse / inchesCoefficient, 4),
-        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse / inchesCoefficient, 4),
-        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse / inchesCoefficient, 4),
+        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse / inchesCoefficient, 2),
+        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse / inchesCoefficient, 2),
+        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse / inchesCoefficient, 2),
       })
     } else {
       setBoxBody({
         ...boxBody,
-        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse * inchesCoefficient, 4),
-        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse * inchesCoefficient, 4),
-        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse * inchesCoefficient, 4),
+        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse * inchesCoefficient, 2),
+        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse * inchesCoefficient, 2),
+        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse * inchesCoefficient, 2),
       })
     }
   }
@@ -382,20 +380,12 @@ export const MergeBoxesModal = ({
                         {t(TranslationKey.Dimensions)}
                       </Text>
 
-                      <ToggleBtnGroup
-                        exclusive
-                        size="small"
-                        color="primary"
-                        value={sizeSetting}
-                        onChange={handleChange}
-                      >
-                        <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                          {'In'}
-                        </ToggleBtn>
-                        <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                          {'Cm'}
-                        </ToggleBtn>
-                      </ToggleBtnGroup>
+                      <div className={classNames.customSwitcherWrapper}>
+                        <CustomSwitcher
+                          condition={sizeSetting}
+                          changeConditionHandler={condition => handleChange(condition)}
+                        />
+                      </div>
                     </div>
 
                     <WarehouseDemensions

@@ -1,20 +1,16 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import { Container, Divider, Typography, useTheme, useMediaQuery, Paper, TableRow, TableCell } from '@mui/material'
+import { Container, Divider, Paper, TableCell, TableRow, Typography, useMediaQuery, useTheme } from '@mui/material'
 
 import React, { useEffect, useState } from 'react'
 
 import { isPast, isValid, parseISO } from 'date-fns'
 
-import { OrderStatusByCode, OrderStatus, OrderStatusByKey, OrderStatusText } from '@constants/statuses/order-status'
+import { OrderStatus, OrderStatusByCode, OrderStatusByKey, OrderStatusText } from '@constants/statuses/order-status'
 import { CLIENT_WAREHOUSE_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { ClientModel } from '@models/client-model'
 import { SettingsModel } from '@models/settings-model'
-
-import { EditOrderSuppliersTable } from '@components/modals/edit-order-modal/edit-order-suppliers-table'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { TableSupplier } from '@components/product/table-supplier'
 import { Button } from '@components/shared/buttons/button'
@@ -27,7 +23,7 @@ import { WarehouseBodyRow } from '@components/table/table-rows/warehouse'
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { formatShortDateTime } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
-import { toFixed, toFixedWithDollarSign } from '@utils/text'
+import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { DeliveryParameters } from './delivery-parameters'
@@ -127,10 +123,12 @@ export const OrderContent = ({
     setShowSetBarcodeModal(!showSetBarcodeModal)
   }
 
-  const isCanChange = updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]
+  const isCanChange =
+    updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] &&
+    updatedOrder.status !== OrderStatusByKey[OrderStatus.PENDING]
 
   const disabledSaveSubmit =
-    (!isValid(parseISO(formFields.deadline)) && isPast(formFields.deadline)) || !formFields.amount
+    (!isValid(parseISO(formFields.deadline)) && isPast(parseISO(formFields.deadline))) || !formFields.amount
 
   return (
     <Paper>

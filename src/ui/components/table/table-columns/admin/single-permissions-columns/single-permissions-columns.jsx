@@ -12,7 +12,7 @@ import {
 
 import { t } from '@utils/translations'
 
-export const adminSinglePermissionsColumns = (handlers, firstRowId) => [
+export const adminSinglePermissionsColumns = handlers => [
   {
     field: 'key',
     headerName: t(TranslationKey.Key),
@@ -65,7 +65,7 @@ export const adminSinglePermissionsColumns = (handlers, firstRowId) => [
           tooltipSecondButton={t(TranslationKey.Remove)}
           handlers={handlersMemo}
           row={rowMemo}
-          isFirstRow={firstRowId === params.row.id}
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         />
       )
     },
@@ -81,6 +81,6 @@ export const adminSinglePermissionsColumns = (handlers, firstRowId) => [
 
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 110,
-    type: 'date',
+    // type: 'date',
   },
 ]

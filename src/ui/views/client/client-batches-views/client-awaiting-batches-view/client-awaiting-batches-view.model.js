@@ -16,7 +16,6 @@ import { UserModel } from '@models/user-model'
 import { clientBatchesViewColumns } from '@components/table/table-columns/client/client-batches-columns'
 
 import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -64,10 +63,11 @@ export class ClientAwaitingBatchesViewModel {
   rowCount = 0
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = clientBatchesViewColumns(this.rowHandlers, this.languageTag)
+  columnsModel = clientBatchesViewColumns()
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   get userInfo() {
     return UserModel.userInfo
@@ -80,14 +80,6 @@ export class ClientAwaitingBatchesViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => SettingsModel.languageTag,
-      () => {
-        this.languageTag = SettingsModel.languageTag
-        this.updateColumnsModel()
-      },
-    )
-
-    reaction(
       () => this.batches,
       () =>
         runInAction(() => {
@@ -96,66 +88,26 @@ export class ClientAwaitingBatchesViewModel {
     )
   }
 
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
-  }
-
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_AWAITING_BATCHES)
   }
-
-  // getDataGridState() {
-  //   const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_AWAITING_BATCHES]
-
-  //   if (state) {
-  //     runInAction(() => {
-  //       this.sortModel = state.sorting.sortModel
-  //       this.filterModel = state.filter.filterModel
-  //       this.rowsPerPage = state.pagination.pageSize
-
-  //       this.densityModel = state.density.value
-
-  //       this.columnsModel = clientBatchesViewColumns(this.rowHandlers).map(el => ({
-  //         ...el,
-  //         hide: state.columns?.lookup[el?.field]?.hide,
-  //       }))
-  //     })
-  //   }
-  // }
 
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_AWAITING_BATCHES]
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = clientBatchesViewColumns(this.rowHandlers, this.languageTag).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
@@ -164,7 +116,25 @@ export class ClientAwaitingBatchesViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+    this.setDataGridState()
 
+    this.getBatchesPagMy()
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+    this.getBatchesPagMy()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
     this.getBatchesPagMy()
   }
 
@@ -193,14 +163,6 @@ export class ClientAwaitingBatchesViewModel {
     this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
-    })
-
-    this.getBatchesPagMy()
-  }
-
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
@@ -212,6 +174,7 @@ export class ClientAwaitingBatchesViewModel {
       this.sortModel = sortModel
     })
 
+    this.setDataGridState()
     this.getBatchesPagMy()
   }
 
@@ -298,14 +261,6 @@ export class ClientAwaitingBatchesViewModel {
     }
   }
 
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
-
-    this.getBatchesPagMy()
-  }
-
   async getBatchesPagMy() {
     try {
       // const filter =
@@ -331,8 +286,8 @@ export class ClientAwaitingBatchesViewModel {
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.IS_BEING_COLLECTED,
         options: {
-          limit: this.rowsPerPage,
-          offset: this.curPage * this.rowsPerPage,
+          limit: this.paginationModel.pageSize,
+          offset: this.paginationModel.page * this.paginationModel.pageSize,
 
           sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
           sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
@@ -366,18 +321,22 @@ export class ClientAwaitingBatchesViewModel {
     this.getBatchesPagMy()
   }
 
-  async setCurrentOpenedBatch(row) {
+  async setCurrentOpenedBatch(id, notTriggerModal) {
     try {
-      runInAction(() => {
-        this.curBatch = row
-      })
+      const batch = await BatchesModel.getBatchesByGuid(id)
       const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.curBatch = batch
+      })
 
       runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
-      this.onTriggerOpenModal('showBatchInfoModal')
+      if (!notTriggerModal) {
+        this.onTriggerOpenModal('showBatchInfoModal')
+      }
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -429,9 +388,10 @@ export class ClientAwaitingBatchesViewModel {
         this.showCircularProgress = true
       })
 
-      const boxes = await BoxesModel.getBoxesReadyToBatchClient()
-
-      const result = await UserModel.getPlatformSettings()
+      const [boxes, result] = await Promise.all([
+        BoxesModel.getBoxesReadyToBatchClient(),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
@@ -449,6 +409,14 @@ export class ClientAwaitingBatchesViewModel {
         this.showCircularProgress = false
       })
     }
+  }
+
+  async patchActualShippingCostBatch(id, cost) {
+    await BatchesModel.changeBatch(id, {
+      actualShippingCost: cost,
+    })
+
+    this.setCurrentOpenedBatch(id, true)
   }
 
   async onSubmitAddOrEditBatch({ boxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields }) {

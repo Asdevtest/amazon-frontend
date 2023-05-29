@@ -29,7 +29,7 @@ export class SourceFilesViewModel {
   showWarningModal = false
   showConfirmModal = false
 
-  selectionModel = []
+  rowSelectionModel = []
 
   activeSubCategory = 0
 
@@ -44,13 +44,13 @@ export class SourceFilesViewModel {
     onChangeText: fileName => value => this.onChangeText(fileName)(value),
   }
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = sourceFilesColumns(this.rowHandlers, this.languageTag, this.editField)
+  columnsModel = sourceFilesColumns(this.rowHandlers, () => this.editField)
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
   openModal = null
 
   confirmModalSettings = {
@@ -60,18 +60,9 @@ export class SourceFilesViewModel {
     onClickSuccess: () => {},
   }
 
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
-
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
 
     reaction(
       () => this.sourceFiles,
@@ -83,36 +74,26 @@ export class SourceFilesViewModel {
     )
 
     reaction(
-      () => this.currentData,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
       () => this.nameSearchValue,
       () => {
         this.currentData = this.getCurrentData()
       },
     )
-
-    reaction(
-      () => this.editField,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
   }
 
   onChangeFilterModel(model) {
     this.filterModel = model
   }
 
-  getDataGridState() {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.columnsModel = sourceFilesColumns(this.rowHandlers, this.languageTag, this.editField)
+      this.paginationModel = model
+    })
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
     })
   }
 
@@ -130,22 +111,14 @@ export class SourceFilesViewModel {
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
+      this.rowSelectionModel = model
     })
-  }
-
-  onChangeCurPage = e => {
-    this.curPage = e
   }
 
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
     })
-  }
-
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
   }
 
   async loadData() {

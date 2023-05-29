@@ -112,7 +112,6 @@ export const MyServicesViewRaw = props => {
           </div>
         </div>
         <Box
-          container
           classes={{ root: classNames.dashboardCardWrapper }}
           display="grid"
           gridTemplateColumns={
@@ -120,7 +119,6 @@ export const MyServicesViewRaw = props => {
               ? 'repeat(auto-fill, minmax(calc(100% / 2), 1fr))'
               : 'repeat(auto-fill, minmax(calc(100% / 4), 1fr))'
           }
-          gridGap="20px"
         >
           {viewModel.currentData.map((service, serviceKey) =>
             viewModel.viewMode === tableViewMode.LIST ? (

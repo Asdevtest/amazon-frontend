@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -11,7 +11,6 @@ import { financesViewColumns } from '@components/table/table-columns/admin/finan
 
 import { financesDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 
 export class UserBalanceModel {
   history = undefined
@@ -27,10 +26,10 @@ export class UserBalanceModel {
 
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = financesViewColumns()
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   constructor({ history, userId }) {
     this.history = history
@@ -38,39 +37,36 @@ export class UserBalanceModel {
     this.userId = userId
 
     makeAutoObservable(this, undefined, { autoBind: true })
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
   }
 
   onChangeFilterModel(model) {
     this.filterModel = model
+
+    this.setDataGridState()
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_USER_FINANCES)
   }
@@ -78,17 +74,14 @@ export class UserBalanceModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_USER_FINANCES]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
-
-      this.densityModel = state.density.value
-      this.columnsModel = financesViewColumns().map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+    runInAction(() => {
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
+    })
   }
 
   setRequestStatus(requestStatus) {
@@ -99,8 +92,8 @@ export class UserBalanceModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      await this.getUserInfo(this.userId)
-      await this.getBalanceHistory(this.userId)
+
+      await Promise.all([this.getUserInfo(this.userId), this.getBalanceHistory(this.userId)])
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -114,19 +107,13 @@ export class UserBalanceModel {
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
-  }
-
-  onChangeCurPage = e => {
-    this.curPage = e
+    this.rowSelectionModel = model
   }
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
-  }
 
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    this.setDataGridState()
   }
 
   onTriggerReplenishModal() {

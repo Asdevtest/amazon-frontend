@@ -18,8 +18,9 @@ import {
 
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { t } from '@utils/translations'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 
-export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
+export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => [
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey['Box ID']),
@@ -163,7 +164,14 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
   {
     field: 'dimansions',
     headerName: t(TranslationKey.Dimensions),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dimensions)} />,
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Dimensions)}
+        component={
+          <CustomSwitcher condition={getUnitsOption()} changeConditionHandler={handlers.onChangeUnitsOption} />
+        }
+      />
+    ),
 
     renderCell: params => {
       const rowMemo = useMemo(() => params.row.originalData, [])
@@ -173,8 +181,9 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
           isShipping
           box={rowMemo}
           volumeWeightCoefficient={params.row.volumeWeightCoefficient}
-          curUser={user.role}
+          curUser={getUser()?.role}
           handlers={handlers}
+          unitsOption={getUnitsOption()}
         />
       )
     },
@@ -194,7 +203,13 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
       const handlersMemo = useMemo(() => handlers, [])
       const rowMemo = useMemo(() => params.row.originalData, [])
 
-      return <WarehouseBoxesBtnsCell row={rowMemo} handlers={handlersMemo} isFirstRow={firstRowId === params.row.id} />
+      return (
+        <WarehouseBoxesBtnsCell
+          row={rowMemo}
+          handlers={handlersMemo}
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+        />
+      )
     },
     filterable: false,
     sortable: false,

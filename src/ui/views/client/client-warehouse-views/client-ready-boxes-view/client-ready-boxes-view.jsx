@@ -157,36 +157,36 @@ export const ClientReadyBoxesViewRaw = props => {
             }}
             // isRowSelectable={params => params.row.isDraft === false}
             getRowClassName={getRowClassName}
-            selectionModel={viewModel.selectedBoxes}
+            rowSelectionModel={viewModel.selectedBoxes}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
-            page={viewModel.curPage}
-            pageSize={viewModel.rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData || []}
             // rowHeight={150}
             getRowHeight={() => 'auto'}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
             }}
-            componentsProps={{
+            slotProps={{
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
-                  changeColumnsModel: viewModel.changeColumnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                 },
               },
             }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onSelectionModelChange={viewModel.onSelectionModel}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
-            onPageSizeChange={viewModel.onChangeRowsPerPage}
-            onPageChange={viewModel.onChangeCurPage}
             onFilterModelChange={viewModel.onChangeFilterModel}
-            onStateChange={viewModel.setDataGridState}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
             onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
           />
         </div>

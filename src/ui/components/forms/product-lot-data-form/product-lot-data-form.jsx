@@ -156,7 +156,7 @@ export const ProductLotDataForm = observer(
                 : productLotDataFormColumns({ onClickShowBatchBtn })
             }
             rows={toJS(batches)}
-            headerHeight={64}
+            columnHeaderHeight={64}
             rowHeight={100}
           />
         </div>

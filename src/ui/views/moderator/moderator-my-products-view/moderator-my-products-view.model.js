@@ -38,18 +38,7 @@ export class ModeratorMyProductsViewModel {
       this.history = history
     })
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    // reaction(
-    //   () => SettingsModel.languageTag,
-    //   () => this.updateColumnsModel(),
-    // )
   }
-
-  // async updateColumnsModel() {
-  //   if (await SettingsModel.languageTag) {
-  //     this.getDataGridState()
-  //   }
-  // }
 
   // async onClickFeesCalculate(product) {
   //   try {
@@ -106,7 +95,7 @@ export class ModeratorMyProductsViewModel {
   // }
 
   // onSelectionModel(model) {
-  //   this.selectionModel = model
+  //   this.rowSelectionModel = model
   // }
 
   // getCurrentData() {

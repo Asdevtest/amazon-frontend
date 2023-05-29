@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { FC, useEffect, useState } from 'react'
 
 import { useLocation } from 'react-router-dom'
@@ -52,6 +53,7 @@ export const Layout: FC<LayoutProps> = props => {
           title={currentPageInfo.title}
           lastCrumbAdditionalText={SettingsModel.lastCrumbAdditionalText}
         >
+          {/* @ts-ignore */}
           {props.children}
         </Appbar>
       </Main>

@@ -22,6 +22,9 @@ export class AdminOrderViewModel {
   orderBoxes = []
   orderId = undefined
 
+  storekeepers = []
+  destinations = []
+
   order = undefined
 
   constructor({ history }) {
@@ -36,13 +39,16 @@ export class AdminOrderViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getOrderById()
-      await this.getBoxesOfOrder(this.order._id)
 
-      const storekeepers = await StorekeeperModel.getStorekeepers()
+      const [order, boxes, storekeepers, destinations] = await Promise.all([
+        this.getOrderById(),
+        this.getBoxesOfOrder(this.orderId),
+        StorekeeperModel.getStorekeepers(),
+        ClientModel.getDestinations(),
+      ])
 
       runInAction(() => {
-        // this.destinations = await ClientModel.getDestinations()
+        this.destinations = destinations
         this.storekeepers = storekeepers
       })
       this.setRequestStatus(loadingStatuses.success)
@@ -93,8 +99,8 @@ export class AdminOrderViewModel {
           this.selectedSupplier = undefined
         })
       } else {
-        const result = await UserModel.getPlatformSettings()
-        await this.getStorekeepers()
+        const [result, _] = await Promise.all([UserModel.getPlatformSettings(), this.getStorekeepers()])
+
         runInAction(() => {
           this.yuanToDollarRate = result.yuanToDollarRate
           this.volumeWeightCoefficient = result.volumeWeightCoefficient

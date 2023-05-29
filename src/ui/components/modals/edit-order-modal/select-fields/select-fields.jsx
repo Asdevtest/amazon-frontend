@@ -480,31 +480,29 @@ export const SelectFields = ({
 
           <Box display="flex" width="100%">
             <Box className={classNames.trackAndHsCodeAndComments}>
-              <div>
+              <div className={classNames.trackAndHsCodeAndCommentsSumWrapper}>
                 <div className={classNames.barCodeWrapper}>
                   <div className={classNames.barCodeLinkWrapper}>
-                    <div>
-                      <Field
-                        label={t(TranslationKey.BarCode)}
-                        labelClasses={classNames.label}
-                        inputComponent={
-                          orderFields.product.barCode ? (
-                            <div className={classNames.barCode}>
-                              <Link
-                                target="_blank"
-                                rel="noopener"
-                                href={checkAndMakeAbsoluteUrl(orderFields.product.barCode)}
-                              >
-                                <Typography className={classNames.link}>{t(TranslationKey.View)}</Typography>
-                              </Link>
-                              <CopyValue text={orderFields.product.barCode} />
-                            </div>
-                          ) : (
-                            <Typography className={classNames.barCodeText}>{t(TranslationKey.Missing)}</Typography>
-                          )
-                        }
-                      />
-                    </div>
+                    <Field
+                      label={t(TranslationKey.BarCode)}
+                      labelClasses={classNames.label}
+                      inputComponent={
+                        orderFields.product.barCode ? (
+                          <div className={classNames.barCode}>
+                            <Link
+                              target="_blank"
+                              rel="noopener"
+                              href={checkAndMakeAbsoluteUrl(orderFields.product.barCode)}
+                            >
+                              <Typography className={classNames.link}>{t(TranslationKey.View)}</Typography>
+                            </Link>
+                            <CopyValue text={orderFields.product.barCode} />
+                          </div>
+                        ) : (
+                          <Typography className={classNames.barCodeText}>{t(TranslationKey.Missing)}</Typography>
+                        )
+                      }
+                    />
                   </div>
 
                   <div className={classNames.researchWrapper}>
@@ -677,6 +675,7 @@ export const SelectFields = ({
               Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) && (
               <div className={classNames.imageFileInputWrapper}>
                 <UploadFilesInput
+                  fullWidth
                   images={photosToLoad}
                   setImages={setPhotosToLoad}
                   maxNumber={50 - Number(order.images?.length)}

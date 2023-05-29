@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -43,81 +43,62 @@ export class GroupPermissionsModel {
     onClickEditBtn: row => this.onClickEditBtn(row),
   }
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = adminGroupPermissionsColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = adminGroupPermissionsColumns(this.rowHandlers)
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
   }
 
   onChangeFilterModel(model) {
     this.filterModel = model
+
+    this.setDataGridState()
   }
 
-  setDataGridState(state) {
-    if (this.requestStatus && this.requestStatus !== loadingStatuses.isLoading) {
-      this.firstRowId = state?.sorting?.sortedRows[0]
-
-      const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-        'sorting',
-        'filter',
-        'pagination',
-        'density',
-        'columns',
-      ])
-
-      SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_GROUP_PERMISSIONS)
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_GROUP_PERMISSIONS)
   }
 
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_GROUP_PERMISSIONS]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
-
-      this.densityModel = state.density.value
-      this.columnsModel = adminGroupPermissionsColumns(this.rowHandlers, this.firstRowId).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+    runInAction(() => {
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
+    })
   }
 
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
   }
 
   setRequestStatus(requestStatus) {
@@ -130,14 +111,12 @@ export class GroupPermissionsModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
+
+    this.setDataGridState()
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
-  }
-
-  onChangeCurPage(e) {
-    this.curPage = e
+    this.rowSelectionModel = model
   }
 
   getCurrentData() {
@@ -148,11 +127,9 @@ export class GroupPermissionsModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      await this.getGroupPermissions()
 
+      await Promise.all([this.getGroupPermissions(), this.getSinglePermissions()])
       // this.getDataGridState()
-
-      await this.getSinglePermissions()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

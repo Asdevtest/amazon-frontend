@@ -165,7 +165,7 @@ export class ClientProductViewModel {
     runInAction(() => {
       this.history = history
 
-      this.productId = url.searchParams.get('product-id')
+      // this.productId = url.searchParams.get("product-id");
 
       this.showTab = url.searchParams.get('show-tab')
     })
@@ -181,13 +181,25 @@ export class ClientProductViewModel {
     )
   }
 
+  async updateProductId(productId) {
+    runInAction(() => {
+      this.productId = productId
+    })
+
+    try {
+      await this.getProductById()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   getCurrentData() {
     return toJS(this.product)
   }
 
   async loadData() {
     try {
-      await this.getProductById()
+      // await this.getProductById();
       await this.getShops()
     } catch (error) {
       console.log(error)
@@ -700,9 +712,7 @@ export class ClientProductViewModel {
           this.selectedSupplier = undefined
         })
       } else {
-        const result = await UserModel.getPlatformSettings()
-
-        await this.getStorekeepers()
+        const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getStorekeepers()])
 
         runInAction(() => {
           this.yuanToDollarRate = result.yuanToDollarRate

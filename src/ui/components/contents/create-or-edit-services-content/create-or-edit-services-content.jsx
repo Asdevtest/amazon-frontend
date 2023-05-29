@@ -32,7 +32,7 @@ export const CreateOrEditServiceContent = ({
 
   const isEdit = pathname?.includes('edit-service')
 
-  const whiteList = userInfo?.allowedSpec?.map(spec => String(spec)) || []
+  const whiteList = userInfo?.allowedSpec?.filter(spec => String(spec) !== '0').map(spec => String(spec)) || []
 
   const [images, setImages] = useState([])
 

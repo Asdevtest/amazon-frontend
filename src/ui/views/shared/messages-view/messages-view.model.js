@@ -238,7 +238,7 @@ export class MessagesViewModel {
           [],
         )
 
-        if (existedChatsUsers.includes(formFields.chosenUsers[0]._id)) {
+        if (existedChatsUsers.includes(formFields.chosenUsers[0]?._id)) {
           runInAction(() => {
             this.warningInfoModalSettings = {
               isWarning: false,
@@ -248,7 +248,7 @@ export class MessagesViewModel {
 
           this.onTriggerOpenModal('showWarningInfoModal')
         } else {
-          await ChatsModel.createSimpleChatByUserId(formFields.chosenUsers[0]._id)
+          await ChatsModel.createSimpleChatByUserId(formFields.chosenUsers[0]?._id)
         }
       } else {
         if (formFields.images.length) {

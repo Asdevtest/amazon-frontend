@@ -37,7 +37,7 @@ export class AdminProductViewModel {
   requestStatus = undefined
   actionStatus = undefined
 
-  inInventory = undefined
+  // inInventory = undefined
 
   productId = undefined
   product = undefined
@@ -71,17 +71,19 @@ export class AdminProductViewModel {
     return SettingsModel.languageTag
   }
 
-  constructor({ history, location }) {
+  constructor({ history /* , location */ }) {
+    const url = new URL(window.location.href)
+
     runInAction(() => {
       this.history = history
-      this.productId = history.location.search.slice(1)
+      this.productId = url.searchParams.get('product-id')
     })
 
-    if (location.state) {
-      runInAction(() => {
-        this.inInventory = location.state.inInventory
-      })
-    }
+    // if (location.state) {
+    //   runInAction(() => {
+    //     this.inInventory = location.state.inInventory
+    //   })
+    // }
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
@@ -181,9 +183,7 @@ export class AdminProductViewModel {
           this.selectedSupplier = undefined
         })
       } else {
-        const result = await UserModel.getPlatformSettings()
-
-        await this.getStorekeepers()
+        const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getStorekeepers()])
 
         runInAction(() => {
           this.yuanToDollarRate = result.yuanToDollarRate

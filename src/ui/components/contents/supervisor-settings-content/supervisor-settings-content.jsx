@@ -56,8 +56,6 @@ export const SupervisorSettingsContent = observer(() => {
     showFailedAsinsModal,
     asinsToEdit,
     failedData,
-    curPage,
-    rowsPerPage,
     filterModel,
     sortModel,
     densityModel,
@@ -66,19 +64,16 @@ export const SupervisorSettingsContent = observer(() => {
     confirmModalSettings,
     nameSearchValue,
     selectedRowIds,
+    showConfirmCloseAsinCheckerModal,
     getCurrentData,
-    onChangeCurPage,
     onTriggerOpenModal,
-    onChangeRowsPerPage,
     onChangeFilterModel,
     onChangeSortingModel,
-    setDataGridState,
     onSubmitAsins,
     onEditAsins,
     onChangeNameSearchValue,
     onSelectionModel,
     onClickRemoveSelectedBtn,
-    changeColumnsModel,
   } = gpModel.current
 
   useEffect(() => {
@@ -147,30 +142,32 @@ export const SupervisorSettingsContent = observer(() => {
             localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
-            page={curPage}
-            pageSize={rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            columnVisibilityModel={gpModel.current.columnVisibilityModel}
+            paginationModel={gpModel.current.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
             }}
-            componentsProps={{
+            slotProps={{
               toolbar: {
-                columsBtnSettings: { columnsModel, changeColumnsModel },
+                columsBtnSettings: {
+                  columnsModel,
+                  columnVisibilityModel: gpModel.current.columnVisibilityModel,
+                  onColumnVisibilityModelChange: gpModel.current.onColumnVisibilityModelChange,
+                },
               },
             }}
             density={densityModel}
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.isLoading}
             onSortModelChange={onChangeSortingModel}
-            onPageSizeChange={onChangeRowsPerPage}
-            onPageChange={onChangeCurPage}
-            onStateChange={setDataGridState}
-            onFilterModelChange={model => onChangeFilterModel(model)}
-            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onFilterModelChange={onChangeFilterModel}
+            onRowSelectionModelChange={onSelectionModel}
           />
         </div>
       </TabPanel>
@@ -213,30 +210,32 @@ export const SupervisorSettingsContent = observer(() => {
             localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
-            page={curPage}
-            pageSize={rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            columnVisibilityModel={gpModel.current.columnVisibilityModel}
+            paginationModel={gpModel.current.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
             }}
-            componentsProps={{
+            slotProps={{
               toolbar: {
-                columsBtnSettings: { columnsModel, changeColumnsModel },
+                columsBtnSettings: {
+                  columnsModel,
+                  columnVisibilityModel: gpModel.current.columnVisibilityModel,
+                  onColumnVisibilityModelChange: gpModel.current.onColumnVisibilityModelChange,
+                },
               },
             }}
             density={densityModel}
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.isLoading}
             onSortModelChange={onChangeSortingModel}
-            onPageSizeChange={onChangeRowsPerPage}
-            onPageChange={onChangeCurPage}
-            onStateChange={setDataGridState}
-            onFilterModelChange={model => onChangeFilterModel(model)}
-            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onFilterModelChange={onChangeFilterModel}
+            onRowSelectionModelChange={onSelectionModel}
           />
         </div>
       </TabPanel>
@@ -279,30 +278,32 @@ export const SupervisorSettingsContent = observer(() => {
             localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
-            page={curPage}
-            pageSize={rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            columnVisibilityModel={gpModel.current.columnVisibilityModel}
+            paginationModel={gpModel.current.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
             }}
-            componentsProps={{
+            slotProps={{
               toolbar: {
-                columsBtnSettings: { columnsModel, changeColumnsModel },
+                columsBtnSettings: {
+                  columnsModel,
+                  columnVisibilityModel: gpModel.current.columnVisibilityModel,
+                  onColumnVisibilityModelChange: gpModel.current.onColumnVisibilityModelChange,
+                },
               },
             }}
             density={densityModel}
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.isLoading}
             onSortModelChange={onChangeSortingModel}
-            onPageSizeChange={onChangeRowsPerPage}
-            onPageChange={onChangeCurPage}
-            onStateChange={setDataGridState}
-            onFilterModelChange={model => onChangeFilterModel(model)}
-            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onFilterModelChange={onChangeFilterModel}
+            onRowSelectionModelChange={onSelectionModel}
           />
         </div>
       </TabPanel>
@@ -345,39 +346,44 @@ export const SupervisorSettingsContent = observer(() => {
             localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
-            page={curPage}
-            pageSize={rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            columnVisibilityModel={gpModel.current.columnVisibilityModel}
+            paginationModel={gpModel.current.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
             }}
-            componentsProps={{
+            slotProps={{
               toolbar: {
-                columsBtnSettings: { columnsModel, changeColumnsModel },
+                columsBtnSettings: {
+                  columnsModel,
+                  columnVisibilityModel: gpModel.current.columnVisibilityModel,
+                  onColumnVisibilityModelChange: gpModel.current.onColumnVisibilityModelChange,
+                },
               },
             }}
             density={densityModel}
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.isLoading}
             onSortModelChange={onChangeSortingModel}
-            onPageSizeChange={onChangeRowsPerPage}
-            onPageChange={onChangeCurPage}
-            onStateChange={setDataGridState}
-            onFilterModelChange={model => onChangeFilterModel(model)}
-            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onFilterModelChange={onChangeFilterModel}
+            onRowSelectionModelChange={onSelectionModel}
           />
         </div>
       </TabPanel>
-      <Modal openModal={showAsinCheckerModal} setOpenModal={() => onTriggerOpenModal('showAsinCheckerModal')}>
+      <Modal
+        openModal={showAsinCheckerModal}
+        setOpenModal={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
+      >
         <AsinProxyCheckerForm
           user={user}
           strategy={tabIndex}
           onSubmit={onSubmitAsins}
-          onClose={() => onTriggerOpenModal('showAsinCheckerModal')}
+          onClose={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
         />
       </Modal>
       <Modal openModal={showEditAsinCheckerModal} setOpenModal={() => onTriggerOpenModal('showEditAsinCheckerModal')}>
@@ -388,6 +394,19 @@ export const SupervisorSettingsContent = observer(() => {
           onClose={() => onTriggerOpenModal('showEditAsinCheckerModal')}
         />
       </Modal>
+      <ConfirmationModal
+        openModal={showConfirmCloseAsinCheckerModal}
+        title={t(TranslationKey.Attention)}
+        message={t(TranslationKey['Window will be closed'])}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        setOpenModal={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
+        onClickSuccessBtn={() => {
+          onTriggerOpenModal('showConfirmCloseAsinCheckerModal')
+          onTriggerOpenModal('showAsinCheckerModal')
+        }}
+        onClickCancelBtn={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
+      />
       <ConfirmationModal
         isWarning={confirmModalSettings.isWarning}
         openModal={showConfirmModal}

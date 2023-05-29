@@ -8,7 +8,14 @@ import React, { useState } from 'react'
 
 import { observer } from 'mobx-react'
 
-import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import {
+  getConversion,
+  getWeightSizesType,
+  inchesCoefficient,
+  poundsWeightCoefficient,
+  sizesType,
+  unitsOfChangeOptions,
+} from '@constants/configs/sizes-settings'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -39,6 +46,8 @@ import { useClassNames } from './before-after-block.style'
 import { BoxItemCard } from './box-item-card'
 import { ShortBoxItemCard } from './short-box-item-card'
 import { CustomSlider } from '@components/shared/custom-slider'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { calcVolumeWeightForBox } from '@utils/calculation'
 
 const Box = observer(
   ({
@@ -59,7 +68,7 @@ const Box = observer(
   }) => {
     const { classes: classNames } = useClassNames()
 
-    const [showFullCard, setShowFullCard] = useState(true /* && newBoxes[0]._id === box._id ? true : false*/)
+    const [showFullCard, setShowFullCard] = useState(true /* && newBoxes[0]?._id === box._id ? true : false*/)
 
     const [showPhotosModal, setShowPhotosModal] = useState(false)
 
@@ -97,11 +106,12 @@ const Box = observer(
       setNewBoxes(updatedNewBoxes)
     }
 
-    const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+    const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
-    const handleChange = (event, newAlignment) => {
-      setSizeSetting(newAlignment)
-    }
+    const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
+    const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
+    const totalWeightConversion = getConversion(sizeSetting, 12 / poundsWeightCoefficient, 12)
+    const weightSizesType = getWeightSizesType(sizeSetting)
 
     const renderImageInfo = (img, imgName) => (
       <div className={classNames.tooltipWrapper}>
@@ -214,14 +224,10 @@ const Box = observer(
                 </Typography>
 
                 <div className={classNames.sizesSubWrapper}>
-                  <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-                    <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                      {'In'}
-                    </ToggleBtn>
-                    <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                      {'Cm'}
-                    </ToggleBtn>
-                  </ToggleBtnGroup>
+                  <CustomSwitcher
+                    condition={sizeSetting}
+                    changeConditionHandler={condition => setSizeSetting(condition)}
+                  />
                 </div>
 
                 {
@@ -231,92 +237,86 @@ const Box = observer(
                         {t(TranslationKey.Length) + ': '}
 
                         {isCurrentBox
-                          ? toFixed(
-                              box.lengthCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
-                              2,
-                            )
-                          : toFixed(
-                              box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
-                              2,
-                            )}
+                          ? toFixed(box.lengthCmSupplier / lengthConversion, 2)
+                          : toFixed(box.lengthCmWarehouse / lengthConversion, 2)}
                       </Typography>
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Width) + ': '}
                         {isCurrentBox
-                          ? toFixed(box.widthCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)
-                          : toFixed(
-                              box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
-                              2,
-                            )}
+                          ? toFixed(box.widthCmSupplier / lengthConversion, 2)
+                          : toFixed(box.widthCmWarehouse / lengthConversion, 2)}
                       </Typography>
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Height) + ': '}
                         {isCurrentBox
-                          ? toFixed(
-                              box.heightCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
-                              2,
-                            )
-                          : toFixed(
-                              box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
-                              2,
-                            )}
+                          ? toFixed(box.heightCmSupplier / lengthConversion, 2)
+                          : toFixed(box.heightCmWarehouse / lengthConversion, 2)}
                       </Typography>
 
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Weight) + ': '}
                         {isCurrentBox
-                          ? toFixedWithKg(box.weighGrossKgSupplier, 2)
-                          : toFixedWithKg(box.weighGrossKgWarehouse, 2)}
+                          ? toFixed(box.weighGrossKgSupplier / weightConversion, 2)
+                          : toFixed(box.weighGrossKgWarehouse / weightConversion, 2)}
+                        {' ' + weightSizesType}
                       </Typography>
 
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey['Volume weight']) + ': '}
                         {isCurrentBox
-                          ? toFixedWithKg(
+                          ? toFixed(
                               ((parseFloat(box.lengthCmSupplier) || 0) *
                                 (parseFloat(box.heightCmSupplier) || 0) *
                                 (parseFloat(box.widthCmSupplier) || 0)) /
-                                volumeWeightCoefficient,
+                                volumeWeightCoefficient /
+                                weightConversion,
                               2,
                             )
-                          : toFixedWithKg(
+                          : toFixed(
                               ((parseFloat(box.lengthCmWarehouse) || 0) *
                                 (parseFloat(box.heightCmWarehouse) || 0) *
                                 (parseFloat(box.widthCmWarehouse) || 0)) /
-                                volumeWeightCoefficient,
+                                volumeWeightCoefficient /
+                                weightConversion,
                               2,
                             )}
+                        {' ' + weightSizesType}
                       </Typography>
 
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey['Final weight']) + ': '}
                         {isCurrentBox
-                          ? toFixedWithKg(
+                          ? toFixed(
                               box.weighGrossKgSupplier >
                                 ((parseFloat(box.lengthCmSupplier) || 0) *
                                   (parseFloat(box.heightCmSupplier) || 0) *
                                   (parseFloat(box.widthCmSupplier) || 0)) /
-                                  volumeWeightCoefficient
+                                  volumeWeightCoefficient /
+                                  weightConversion
                                 ? box.weighGrossKgSupplier
                                 : ((parseFloat(box.lengthCmSupplier) || 0) *
                                     (parseFloat(box.heightCmSupplier) || 0) *
                                     (parseFloat(box.widthCmSupplier) || 0)) /
-                                    volumeWeightCoefficient,
+                                    volumeWeightCoefficient /
+                                    weightConversion,
                               2,
                             )
-                          : toFixedWithKg(
+                          : toFixed(
                               box.weighGrossKgWarehouse >
                                 ((parseFloat(box.lengthCmWarehouse) || 0) *
                                   (parseFloat(box.heightCmWarehouse) || 0) *
                                   (parseFloat(box.widthCmWarehouse) || 0)) /
-                                  volumeWeightCoefficient
+                                  volumeWeightCoefficient /
+                                  weightConversion
                                 ? box.weighGrossKgWarehouse
                                 : ((parseFloat(box.lengthCmWarehouse) || 0) *
                                     (parseFloat(box.heightCmWarehouse) || 0) *
                                     (parseFloat(box.widthCmWarehouse) || 0)) /
-                                    volumeWeightCoefficient,
+                                    volumeWeightCoefficient /
+                                    weightConversion,
                               2,
                             )}
+                        {' ' + weightSizesType}
                       </Typography>
                     </div>
                   ) : (
@@ -333,46 +333,52 @@ const Box = observer(
                     >
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Length) + ': '}
-                        {toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                        {toFixed(box.lengthCmWarehouse / lengthConversion, 2)}
                       </Typography>
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Width) + ': '}
-                        {toFixed(box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                        {toFixed(box.widthCmWarehouse / lengthConversion, 2)}
                       </Typography>
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Height) + ': '}
-                        {toFixed(box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                        {toFixed(box.heightCmWarehouse / lengthConversion, 2)}
                       </Typography>
 
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Weight) + ': '}
-                        {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
+                        {toFixed(box.weighGrossKgWarehouse / weightConversion, 2)}
+                        {' ' + weightSizesType}
                       </Typography>
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey['Volume weight']) + ': '}
-                        {toFixedWithKg(
+                        {toFixed(
                           ((parseFloat(box.lengthCmWarehouse) || 0) *
                             (parseFloat(box.heightCmWarehouse) || 0) *
                             (parseFloat(box.widthCmWarehouse) || 0)) /
-                            volumeWeightCoefficient,
+                            volumeWeightCoefficient /
+                            weightConversion,
                           2,
                         )}
+                        {' ' + weightSizesType}
                       </Typography>
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey['Final weight']) + ': '}
-                        {toFixedWithKg(
+                        {toFixed(
                           box.weighGrossKgWarehouse >
                             ((parseFloat(box.lengthCmWarehouse) || 0) *
                               (parseFloat(box.heightCmWarehouse) || 0) *
                               (parseFloat(box.widthCmWarehouse) || 0)) /
-                              volumeWeightCoefficient
+                              volumeWeightCoefficient /
+                              weightConversion
                             ? box.weighGrossKgWarehouse
                             : ((parseFloat(box.lengthCmWarehouse) || 0) *
                                 (parseFloat(box.heightCmWarehouse) || 0) *
                                 (parseFloat(box.widthCmWarehouse) || 0)) /
-                                volumeWeightCoefficient,
+                                volumeWeightCoefficient /
+                                weightConversion,
                           2,
                         )}
+                        {' ' + weightSizesType}
                       </Typography>
                     </div>
                   )
@@ -507,7 +513,7 @@ const Box = observer(
 
                 {window.innerWidth < 1282 &&
                   box.items?.map((item, index) => (
-                    <>
+                    <React.Fragment key={index}>
                       <>
                         {window.innerWidth < 1282 && box.amount > 1 && (
                           <div className={classNames.countSuperBoxWrapper}>
@@ -534,7 +540,6 @@ const Box = observer(
                       </>
 
                       <div
-                        key={index}
                         className={cx(classNames.barCodeActionsWrapper, {
                           [classNames.successAccent]:
                             isNewBox &&
@@ -625,7 +630,7 @@ const Box = observer(
                             />
                           )}
                       </div>
-                    </>
+                    </React.Fragment>
                   ))}
 
                 {window.innerWidth < 1282 && (
@@ -1077,9 +1082,8 @@ export const BeforeAfterBlock = observer(
           <div className={classNames.newBoxesWrapper}>
             {incomingBoxes &&
               incomingBoxes.map((box, boxIndex) => (
-                <>
+                <React.Fragment key={boxIndex}>
                   <Box
-                    key={boxIndex}
                     isCurrentBox
                     readOnly={readOnly}
                     box={box}
@@ -1102,7 +1106,7 @@ export const BeforeAfterBlock = observer(
                     )}
                   </div>
                 )} */}
-                </>
+                </React.Fragment>
               ))}
           </div>
         </div>

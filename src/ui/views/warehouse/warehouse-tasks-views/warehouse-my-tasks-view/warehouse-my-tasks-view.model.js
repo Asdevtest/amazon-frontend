@@ -1,5 +1,5 @@
 import { transformAndValidate } from 'class-transformer-validator'
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -67,13 +67,12 @@ export class WarehouseMyTasksViewModel {
     updateTaskComment: (taskId, priority, reason) => this.updateTaskComment(taskId, priority, reason),
   }
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
   densityModel = 'compact'
-  columnsModel = warehouseMyTasksViewColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = warehouseMyTasksViewColumns(this.rowHandlers)
 
   tmpDataForCancelTask = {}
 
@@ -91,35 +90,24 @@ export class WarehouseMyTasksViewModel {
     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
   }
 
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
     })
+    this.setDataGridState()
   }
 
-  setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
-    })
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.WAREHOUSE_MY_TASKS)
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_MY_TASKS)
   }
 
   getDataGridState() {
@@ -127,26 +115,28 @@ export class WarehouseMyTasksViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.curPage = state.pagination.page
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = warehouseMyTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
 
-  onChangeRowsPerPage(e) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.rowsPerPage = e
-      this.curPage = 0
+      this.paginationModel = model
     })
 
+    this.setDataGridState()
+    this.getTasksMy()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
     this.getTasksMy()
   }
 
@@ -161,6 +151,7 @@ export class WarehouseMyTasksViewModel {
       this.sortModel = sortModel
     })
 
+    this.setDataGridState()
     this.getTasksMy()
   }
 
@@ -169,15 +160,6 @@ export class WarehouseMyTasksViewModel {
       this.nameSearchValue = searchValue
     })
     this.getTasksMy()
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = warehouseMyTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
   }
 
   onSelectionModel(model) {
@@ -290,8 +272,8 @@ export class WarehouseMyTasksViewModel {
 
       const result = await StorekeeperModel.getLightTasksWithPag({
         status: mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS],
-        offset: this.curPage * this.rowsPerPage,
-        limit: this.rowsPerPage,
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
         filters: this.nameSearchValue ? filter : null,
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
@@ -327,8 +309,7 @@ export class WarehouseMyTasksViewModel {
     for (let i = 0; i < boxes.length; i++) {
       const box = boxes[i]
 
-      await this.updateBox(box._id, box)
-      await this.setBoxBarcodeAttached(box._id, box)
+      await Promise.all([this.updateBox(box._id, box), this.setBoxBarcodeAttached(box._id, box)])
     }
   }
 
@@ -512,14 +493,14 @@ export class WarehouseMyTasksViewModel {
           requestBoxes.push(newBox)
         }
 
-        await this.resolveTask(task._id, requestBoxes)
-
-        await this.updateBarcodeAndStatusInOrder(newBoxes[0].items[0].order._id, {
-          status: OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
-        })
+        await Promise.all([
+          this.resolveTask(task._id, requestBoxes),
+          this.updateBarcodeAndStatusInOrder(newBoxes[0].items[0].order._id, {
+            status: OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
+          }),
+        ])
       } else {
-        await this.onSubmitUpdateBoxes(newBoxes)
-        await this.resolveTask(task._id)
+        await Promise.all([this.onSubmitUpdateBoxes(newBoxes), this.resolveTask(task._id)])
       }
 
       if (photos.length > 0) {
@@ -535,9 +516,7 @@ export class WarehouseMyTasksViewModel {
 
       this.onTriggerEditTaskModal()
 
-      await UserModel.getUserInfo()
-
-      await this.getTasksMy()
+      await Promise.all([UserModel.getUserInfo(), this.getTasksMy()])
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
@@ -681,15 +660,16 @@ export class WarehouseMyTasksViewModel {
 
   async onClickResolveBtn(itemId) {
     try {
-      const result = await StorekeeperModel.getTaskById(itemId)
-
-      const platformSettingsResult = await UserModel.getPlatformSettings()
+      const [task, platformSettings] = await Promise.all([
+        StorekeeperModel.getTaskById(itemId),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
-        this.volumeWeightCoefficient = platformSettingsResult.volumeWeightCoefficient
+        this.volumeWeightCoefficient = platformSettings.volumeWeightCoefficient
       })
 
-      this.onSelectTask(result)
+      this.onSelectTask(task)
       this.onTriggerEditTaskModal()
     } catch (error) {
       console.log(error)

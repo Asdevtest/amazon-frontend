@@ -6,7 +6,14 @@ import { useState } from 'react'
 
 import { observer } from 'mobx-react'
 
-import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import {
+  getConversion,
+  getWeightSizesType,
+  inchesCoefficient,
+  poundsWeightCoefficient,
+  sizesType,
+  unitsOfChangeOptions,
+} from '@constants/configs/sizes-settings'
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { UiTheme } from '@constants/theme/themes'
@@ -37,9 +44,12 @@ import { t } from '@utils/translations'
 import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
 import { useClassNames } from './edit-box-storekeeper-form.style'
 import { CustomSlider } from '@components/shared/custom-slider'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoefficient, setFormField }) => {
   const { classes: classNames } = useClassNames()
+
+  const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
 
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
@@ -80,8 +90,8 @@ export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoeffic
           error={Number(orderBox.weighGrossKgWarehouse) === 0 && true}
           containerClasses={classNames.numberInputField}
           labelClasses={classNames.label}
-          label={t(TranslationKey.Weight) + ', ' + t(TranslationKey.Kg) + ': '}
-          value={orderBox.weighGrossKgWarehouse}
+          label={t(TranslationKey.Weight) + ': '}
+          value={toFixed(orderBox.weighGrossKgWarehouse / weightConversion, 2)}
           onChange={setFormField('weighGrossKgWarehouse')}
         />
       </div>
@@ -89,10 +99,10 @@ export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoeffic
         <Field
           disabled
           containerClasses={classNames.numberInputField}
-          label={t(TranslationKey['Volume weight']) + ', ' + t(TranslationKey.Kg) + ': '}
+          label={t(TranslationKey['Volume weight']) + ': '}
           labelClasses={classNames.label}
           value={toFixed(
-            (sizeSetting === sizesType.INCHES
+            (sizeSetting === unitsOfChangeOptions.EU
               ? orderBox.heightCmWarehouse *
                 inchesCoefficient *
                 orderBox.widthCmWarehouse *
@@ -108,11 +118,11 @@ export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoeffic
         <Field
           disabled
           containerClasses={classNames.numberInputField}
-          label={t(TranslationKey['Final weight']) + ', ' + t(TranslationKey.Kg) + ': '}
+          label={t(TranslationKey['Final weight']) + ': '}
           labelClasses={classNames.label}
           value={Math.max(
             toFixed(
-              (sizeSetting === sizesType.INCHES
+              ((sizeSetting === unitsOfChangeOptions.EU
                 ? orderBox.heightCmWarehouse *
                   inchesCoefficient *
                   orderBox.widthCmWarehouse *
@@ -121,9 +131,9 @@ export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoeffic
                   inchesCoefficient
                 : orderBox.heightCmWarehouse * orderBox.widthCmWarehouse * orderBox.lengthCmWarehouse) /
                 volumeWeightCoefficient,
+              orderBox.weighGrossKgWarehouse) / weightConversion,
               2,
             ),
-            orderBox.weighGrossKgWarehouse,
           )}
         />
       </div>
@@ -288,44 +298,36 @@ export const EditBoxStorekeeperForm = observer(
       setBoxFields(newFormFields)
     }
 
-    // const onClickBarcodeInventoryCheckbox = (productId, value) => {
-    //   const newFormFields = {...boxFields}
-    //   newFormFields.items = boxFields.items.map(item =>
-    //     item.product._id === productId ? {...item, changeBarCodInInventory: value} : item,
-    //   )
-    //   setBoxFields(newFormFields)
-    // }
+    const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
-    const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+    const handleChange = newCondition => {
+      setSizeSetting(newCondition)
 
-    const handleChange = (event, newAlignment) => {
-      setSizeSetting(newAlignment)
-
-      if (newAlignment === sizesType.INCHES) {
+      if (newCondition === unitsOfChangeOptions.US) {
         setBoxFields({
           ...boxFields,
-          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse / inchesCoefficient, 4),
-          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse / inchesCoefficient, 4),
-          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse / inchesCoefficient, 4),
+          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse / inchesCoefficient, 2),
+          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse / inchesCoefficient, 2),
+          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse / inchesCoefficient, 2),
         })
       } else {
         setBoxFields({
           ...boxFields,
-          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 4),
-          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 4),
-          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 4),
+          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 2),
+          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 2),
+          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 2),
         })
       }
     }
 
     const getBoxDataToSubmit = () => {
-      if (sizeSetting === sizesType.INCHES) {
+      if (sizeSetting === unitsOfChangeOptions.EU) {
         return {
           ...boxFields,
           destinationId: boxFields.destinationId || null,
-          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 4),
-          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 4),
-          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 4),
+          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 2),
+          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 2),
+          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 2),
         }
       } else {
         return { ...boxFields, destinationId: boxFields.destinationId || null }
@@ -851,14 +853,10 @@ export const EditBoxStorekeeperForm = observer(
                     {t(TranslationKey.Dimensions)}
                   </Text>
 
-                  <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-                    <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                      {'In'}
-                    </ToggleBtn>
-                    <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                      {'Cm'}
-                    </ToggleBtn>
-                  </ToggleBtnGroup>
+                  <CustomSwitcher
+                    condition={sizeSetting}
+                    changeConditionHandler={condition => handleChange(condition)}
+                  />
                 </div>
 
                 <WarehouseDemensions

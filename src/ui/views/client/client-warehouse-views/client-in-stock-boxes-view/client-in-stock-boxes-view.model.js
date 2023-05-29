@@ -25,6 +25,7 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
+import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 
 const updateBoxWhiteList = [
   'amount',
@@ -86,6 +87,8 @@ export class ClientInStockBoxesViewModel {
   baseBoxesMy = []
 
   nameSearchValue = ''
+
+  unitsOption = unitsOfChangeOptions.EU
 
   curBox = undefined
   showBoxViewModal = false
@@ -206,6 +209,8 @@ export class ClientInStockBoxesViewModel {
     onClickSetTariff: item => this.setChangeItem(item),
 
     onClickSavePrepId: (item, value) => this.onClickSavePrepId(item, value),
+
+    onChangeUnitsOption: option => this.onChangeUnitsOption(option),
   }
 
   setChangeItem(item) {
@@ -222,21 +227,18 @@ export class ClientInStockBoxesViewModel {
   sortModel = []
   filterModel = { items: [] }
 
-  curPage = 0
-  rowsPerPage = 15
-
-  curPageForTask = 0
-  rowsPerPageForTask = 15
-
   densityModel = 'compact'
   columnsModel = clientBoxesViewColumns(
     this.rowHandlers,
-    this.storekeepersData,
-    this.destinations,
-    SettingsModel.destinationsFavourites,
-    this.columnMenuSettings,
-    this.onHover,
+    () => this.storekeepersData,
+    () => this.destinations,
+    () => SettingsModel.destinationsFavourites,
+    () => this.columnMenuSettings,
+    () => this.onHover,
+    () => this.unitsOption,
   )
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   get userInfo() {
     return UserModel.userInfo
@@ -282,11 +284,6 @@ export class ClientInStockBoxesViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
       () => this.boxesMy,
       () => {
         runInAction(() => {
@@ -301,16 +298,6 @@ export class ClientInStockBoxesViewModel {
     )
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      runInAction(() => {
-        this.boxesMy = clientWarehouseDataConverter(this.baseBoxesMy, this.volumeWeightCoefficient, this.shopsData)
-      })
-
-      this.getDataGridState()
-    }
-  }
-
   async getDestinations() {
     this.destinations = await ClientModel.getDestinations()
   }
@@ -323,16 +310,41 @@ export class ClientInStockBoxesViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+      // this.paginationModel = { ...model, page: 0 }
+    })
+
+    this.setDataGridState()
+    this.getBoxesMy()
+  }
+
+  onChangeUnitsOption(option) {
+    runInAction(() => {
+      this.unitsOption = option
+    })
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+    this.getBoxesMy()
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
   }
@@ -342,39 +354,11 @@ export class ClientInStockBoxesViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = clientBoxesViewColumns(
-          this.rowHandlers,
-          this.storekeepersData,
-          this.destinations,
-          SettingsModel.destinationsFavourites,
-          this.columnMenuSettings,
-          this.onHover,
-        ).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
-    })
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = clientBoxesViewColumns(
-        this.rowHandlers,
-        this.storekeepersData,
-        this.destinations,
-        SettingsModel.destinationsFavourites,
-        this.columnMenuSettings,
-        this.onHover,
-      ).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
     })
   }
 
@@ -384,24 +368,6 @@ export class ClientInStockBoxesViewModel {
 
   setDestinationsFavouritesItem(item) {
     SettingsModel.setDestinationsFavouritesItem(item)
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
-      this.curPage = 0
-    })
-
-    this.getBoxesMy()
-  }
-
-  onChangeRowsPerPageForTask(e) {
-    runInAction(() => {
-      this.rowsPerPageForTask = e
-      this.curPageForTask = 0
-    })
-
-    this.getBoxesMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -415,7 +381,11 @@ export class ClientInStockBoxesViewModel {
       this.sortModel = sortModel
     })
 
-    this.getBoxesMy()
+    this.setDataGridState()
+    this.requestStatus = loadingStatuses.isLoading
+    this.getBoxesMy().then(() => {
+      this.requestStatus = loadingStatuses.success
+    })
   }
 
   onSelectionModel(model) {
@@ -479,18 +449,12 @@ export class ClientInStockBoxesViewModel {
         referenceId: data.referenceId,
         fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
-        // trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
         trackNumberFile: [...data.trackNumberFile, ...this.uploadedFiles],
 
         prepId: data.prepId,
       })
 
-      // const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
-      // await ProductModel.editProductsHsCods(dataToSubmitHsCode)
-
       this.getBoxesMy()
-
-      // this.loadData()
 
       !inModal && this.onTriggerOpenModal('showBoxViewModal')
 
@@ -515,19 +479,6 @@ export class ClientInStockBoxesViewModel {
 
   onClickShippingLabel(item) {
     this.setSelectedBox(item)
-
-    // if (!item.fbaShipment) {
-    //   runInAction(() => {
-    //     this.warningInfoModalSettings = {
-    //       isWarning: true,
-    //       title: t(TranslationKey['Before you fill out the Shipping label, you need to fill out the FBA Shipment']),
-    //     }
-    //   })
-
-    //   this.onTriggerOpenModal('showWarningInfoModal')
-
-    //   this.onTriggerOpenModal('showSetChipValueModal')
-    // }
 
     this.onTriggerOpenModal('showSetShippingLabelModal')
   }
@@ -738,6 +689,7 @@ export class ClientInStockBoxesViewModel {
       })
     }
   }
+
   onClickConfirmCreateSplitTasks(id, updatedBoxes, type, isMasterBox, comment, sourceBox) {
     this.onTriggerOpenModal('showConfirmModal')
 
@@ -751,6 +703,7 @@ export class ClientInStockBoxesViewModel {
       }
     })
   }
+
   onClickConfirmCreateChangeTasks(id, boxData, sourceData) {
     this.onTriggerOpenModal('showConfirmModal')
 
@@ -867,7 +820,11 @@ export class ClientInStockBoxesViewModel {
     runInAction(() => {
       this.curDestination = destination ? destination : undefined
     })
-    this.getBoxesMy()
+
+    this.requestStatus = loadingStatuses.isLoading
+    this.getBoxesMy().then(() => {
+      this.requestStatus = loadingStatuses.success
+    })
   }
 
   openModalAndClear() {
@@ -895,14 +852,14 @@ export class ClientInStockBoxesViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      await this.getStorekeepers()
-      await this.getDestinations()
 
-      await this.getClientDestinations()
-
-      await this.getShops()
-
-      await this.getBoxesMy()
+      await Promise.allSettled([
+        this.getStorekeepers(),
+        this.getDestinations(),
+        this.getClientDestinations(),
+        this.getShops(),
+        this.getBoxesMy(),
+      ])
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -942,27 +899,15 @@ export class ClientInStockBoxesViewModel {
     })
   }
 
-  onChangeCurPage = e => {
-    runInAction(() => {
-      this.curPage = e
-    })
-
-    this.getBoxesMy()
-  }
-
-  onChangeCurPageForTask = e => {
-    runInAction(() => {
-      this.curPageForTask = e
-    })
-
-    this.getBoxesMy()
-  }
-
   onSearchSubmit(searchValue) {
     runInAction(() => {
       this.nameSearchValue = searchValue
     })
-    this.getBoxesMy()
+
+    this.requestStatus = loadingStatuses.isLoading
+    this.getBoxesMy().then(() => {
+      this.requestStatus = loadingStatuses.success
+    })
   }
 
   async onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox) {
@@ -1052,12 +997,10 @@ export class ClientInStockBoxesViewModel {
 
   onHoverColumnField(field) {
     this.onHover = field
-    this.getDataGridState()
   }
 
   onLeaveColumnField() {
     this.onHover = null
-    this.getDataGridState()
   }
 
   async onClickGroupingBtn() {
@@ -1082,9 +1025,10 @@ export class ClientInStockBoxesViewModel {
         return
       }
 
-      const destinations = await ClientModel.getDestinations()
-
-      const result = await UserModel.getPlatformSettings()
+      const [, destinations, result] = await Promise.all([
+        ClientModel.getDestinations(),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.destinations = destinations
@@ -1708,8 +1652,6 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
-  // Новый методя для запроса
-
   setFilterRequestStatus(requestStatus) {
     runInAction(() => {
       this.columnMenuSettings = {
@@ -1751,22 +1693,14 @@ export class ClientInStockBoxesViewModel {
 
       const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
 
-      const data =
-        // column === 'storekeeperId'
-        //   ? this.storekeepersData
-        //   :
-        await GeneralModel.getDataForColumn(
-          getTableByColumn(column, 'boxes'),
-          column,
+      const data = await GeneralModel.getDataForColumn(
+        getTableByColumn(column, 'boxes'),
+        column,
 
-          // `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter(column)}${
-          //   shopFilter ? ';&' + 'shopIds=' + shopFilter : ''
-          // }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
-
-          `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter(column)}${
-            shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
-          }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
-        )
+        `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter(column)}${
+          shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
+        }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
+      )
 
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
@@ -1788,7 +1722,7 @@ export class ClientInStockBoxesViewModel {
 
   async getShops() {
     try {
-      const result = await ShopModel.getMyShops()
+      const result = await ShopModel.getMyShopNames()
       runInAction(() => {
         this.shopsData = result
       })
@@ -1893,11 +1827,6 @@ export class ClientInStockBoxesViewModel {
       }),
     })
 
-    // ...(statusFilter && {
-    //   status: {$eq: statusFilter},
-    // }),
-    // })
-
     return filter
   }
 
@@ -1922,8 +1851,8 @@ export class ClientInStockBoxesViewModel {
 
         isFormed: this.columnMenuSettings.isFormedData.isFormed,
 
-        limit: this.rowsPerPage,
-        offset: this.curPage * this.rowsPerPage,
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
 
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
@@ -2005,9 +1934,10 @@ export class ClientInStockBoxesViewModel {
         this.selectedBoxes = this.selectedBoxes.filter(el => !boxesWithoutTariffOrDestinationIds.includes(el))
       })
 
-      const boxesDeliveryCosts = await BatchesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes))
-
-      const result = await UserModel.getPlatformSettings()
+      const [boxesDeliveryCosts, result] = await Promise.all([
+        BatchesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes)),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.boxesDeliveryCosts = boxesDeliveryCosts

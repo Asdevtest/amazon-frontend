@@ -352,7 +352,7 @@
   "Set Shipping Label": "Set Shipping Label",
   "Set Barcode": "Set Barcode",
   "Box dimensions": "Box dimensions",
-  "Real weight": "Real weight, kg",
+  "Real weight": "Real weight",
   "Final weight, kg": "Final weight, kg",
   "Photos of the box taken at the warehouse:": "Photos of the box taken at the warehouse:",
   "Order comment": "Order comment",
@@ -1949,5 +1949,10 @@
   "Stock cost": "Stock cost",
   "Calculated shipping cost": "Calculated shipping cost",
   "Actual shipping cost": "Actual shipping cost",
-  "See comments": "See comments"
+  "See comments": "See comments",
+  "Weight less than": "Weight less than",
+  "lb": "lb",
+  "Temporary session data will be reset": "Temporary session data will be reset",
+  "To repurchase": "To repurchase",
+  "Quantity of repurchase": "Quantity of repurchase"
 }

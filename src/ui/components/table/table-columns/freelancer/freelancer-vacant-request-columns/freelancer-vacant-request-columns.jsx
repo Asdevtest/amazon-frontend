@@ -20,7 +20,7 @@ import {
 import { timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
+export const FreelancerVacantRequestColumns = handlers => [
   {
     field: 'title',
     headerName: t(TranslationKey['Request title']),
@@ -60,7 +60,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
     field: 'status',
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-    renderCell: params => <MultilineRequestStatusCell languageTag={languageTag} status={params.value} />,
+    renderCell: params => <MultilineRequestStatusCell status={params.value} />,
     width: 124,
   },
 
@@ -92,7 +92,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 87,
-    type: 'date',
+    // type: 'date',
   },
 
   {
@@ -164,7 +164,7 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
       />
     ),
     width: 140,
-    type: 'date',
+    // type: 'date',
   },
 
   {
@@ -189,6 +189,6 @@ export const FreelancerVacantRequestColumns = (handlers, languageTag) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 97,
-    type: 'date',
+    // type: 'date',
   },
 ]

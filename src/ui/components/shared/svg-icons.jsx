@@ -626,3 +626,64 @@ export const CrossInRectangleIcon = props => (
     <rect x="0.5" y="0.5" width="20" height="20" rx="3.5" stroke="white" fill="none" />
   </SvgIcon>
 )
+
+export const EditIcon = props => (
+  <SvgIcon {...props} width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M13.331 3.3412L18.8055 9.06437L6.85899 21.5536L0.948158 22.9796C0.888267 22.9936 0.829599 23 0.770931 23C0.290584 23 -0.0944267 22.5285 0.0204654 22.0084L1.3845 15.8304L13.331 3.3412ZM14.1953 2.43768L15.6189 0.949389C16.2227 0.316889 17.0159 0 17.808 0C18.6012 0 19.3932 0.316889 19.9982 0.949389L21.0934 2.09428C22.3022 3.358 22.3022 5.40756 21.0934 6.67256L19.6698 8.16084L14.1953 2.43768Z"
+      // fill="#006CFF"
+    />
+  </SvgIcon>
+)
+
+export const PlusIcon = props => (
+  <SvgIcon {...props} width="17" height="19" viewBox="0 0 17 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.53556 18.5V11.58H0V7.38H6.53556V0.5H10.5022V7.38H17V11.58H10.5022V18.5H6.53556Z" />
+  </SvgIcon>
+)
+
+export const BoxArrow = props => (
+  <SvgIcon {...props} width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.13178 11L0.805725 11L11.4578 -6.87839e-07L22.1099 11L16.7839 11L16.7839 22L6.13178 22L6.13178 11Z" />
+  </SvgIcon>
+)
+
+export const CubeIcon = props => (
+  <SvgIcon {...props} width="21" height="23" viewBox="0 0 21 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10.2387 11.135L0.306885 5.90771V17.25C0.306889 17.2976 0.319896 17.3443 0.344502 17.385C0.369108 17.4258 0.404378 17.459 0.446505 17.4812L10.2387 22.635V11.135Z" />
+    <path d="M10.5002 10.682L20.432 5.45471L10.6219 0.291526C10.5844 0.271788 10.5426 0.261475 10.5002 0.261475C10.4578 0.261475 10.416 0.271788 10.3784 0.291526L0.568359 5.45471L10.5002 10.682Z" />
+    <path d="M10.7615 11.1352V22.6352L20.5537 17.4814C20.5958 17.4592 20.631 17.426 20.6556 17.3852C20.6802 17.3445 20.6933 17.2978 20.6933 17.2502V5.90796L10.7615 11.1352Z" />
+  </SvgIcon>
+)
+
+export const EqualIcon = props => (
+  <SvgIcon {...props} width="17" height="11" viewBox="0 0 17 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 3.85V0H17V3.85H0ZM0 11V7.15H17V11H0Z" />
+  </SvgIcon>
+)
+
+export const NoSelectedChat = props => (
+  <SvgIcon {...props} width="100" height="93" viewBox="0 0 100 93" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_41_203605)">
+      <path d="M42.7749 4.27344H8.60346C6.25417 4.27344 4.35339 6.19558 4.35339 8.54487L4.33203 46.9877L12.8749 38.4449H42.7749C45.1242 38.4449 47.0463 36.5227 47.0463 34.1734V8.54487C47.0463 6.19558 45.1242 4.27344 42.7749 4.27344ZM12.8749 19.2234H38.5035V23.4949H12.8749V19.2234ZM29.9606 29.902H12.8749V25.6306H29.9606V29.902ZM38.5035 17.0877H12.8749V12.8163H38.5035V17.0877Z" />
+    </g>
+    <path d="M90.9612 42.6016H55.0374C52.5676 42.6016 50.5469 44.6223 50.5469 47.092V87.5063L59.5278 78.5254H90.9612C93.4309 78.5254 95.4516 76.5047 95.4516 74.0349V47.092C95.4516 44.6223 93.4309 42.6016 90.9612 42.6016ZM90.9612 74.0349H59.5278L55.0374 78.5254V47.092H90.9612V74.0349Z" />
+    <defs>
+      <linearGradient id="paint0_linear_41_203605" x1="25.6892" y1="4.27344" x2="25.6892" y2="46.9877">
+        <stop stop-color="#5BA0FE" />
+        <stop offset="0.0001" stop-color="#0164F4" />
+        <stop offset="1" stop-color="#0164F4" />
+      </linearGradient>
+      <linearGradient id="paint1_linear_41_203605" x1="72.9993" y1="42.6016" x2="72.9993" y2="87.5063">
+        <stop stop-color="#5BA0FE" />
+        <stop offset="0.0001" stop-color="#0164F4" />
+        <stop offset="1" stop-color="#0164F4" />
+      </linearGradient>
+      <clipPath id="clip0_41_203605">
+        <rect width="51.2571" height="51.2571" transform="translate(0.0546875)" />
+      </clipPath>
+    </defs>
+  </SvgIcon>
+)

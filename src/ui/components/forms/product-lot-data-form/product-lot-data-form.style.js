@@ -81,6 +81,7 @@ export const useClassNames = makeStyles()(theme => ({
   asin: {
     fontSize: 14,
     lineHeight: '19px',
+    color: theme.palette.primary.main,
   },
 
   tableWrapper: {

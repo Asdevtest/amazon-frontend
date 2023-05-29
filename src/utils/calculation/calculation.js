@@ -62,12 +62,6 @@ export const calcExchangeDollarsInYuansPrice = (price, rate) =>
 export const calcPriceForItem = (fullPrice, amount) => (parseFloat(fullPrice) || 0) / (parseFloat(amount) || 1)
 
 export const calcVolumeWeightForBox = (box, coefficient) => {
-  // if (box.lengthCmWarehouse || box.widthCmWarehouse || box.heightCmWarehouse) {
-  //   return roundSafely((box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient) || 0
-  // } else {
-  //   return roundSafely((box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient) || 0
-  // }
-
   if (box.lengthCmWarehouse || box.widthCmWarehouse || box.heightCmWarehouse) {
     return (box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient || 0
   } else {

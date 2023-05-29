@@ -116,7 +116,7 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.primary.main,
     borderRadius: '4px',
     '&:hover': {
-      backgroundColor: 'rgba(0, 123, 255, 1)',
+      backgroundColor: '#0056b2',
     },
   },
 
@@ -124,7 +124,7 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: 'rgba(224, 32, 32, 1)',
   },
   iconBtnAccept: {
-    backgroundColor: 'rgba(30, 220, 30, 1)',
+    backgroundColor: 'rgba(30, 220, 30, 1) !important',
   },
   iconBtnAcceptRevoke: {
     backgroundColor: 'rgba(224, 32, 32, 1)',

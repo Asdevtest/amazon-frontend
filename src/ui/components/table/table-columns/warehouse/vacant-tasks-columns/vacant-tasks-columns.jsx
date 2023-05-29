@@ -17,7 +17,7 @@ import {
 
 import { t } from '@utils/translations'
 
-export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
+export const warehouseVacantTasksViewColumns = handlers => [
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
@@ -30,7 +30,7 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
         <NormalActionBtnCell
           tooltipText={t(TranslationKey['Take the task to work'])}
           bTnText={t(TranslationKey['Get to work'])}
-          isFirstRow={firstRowId === params.row.id}
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
           onClickOkBtn={onClickPickupBtn}
         />
       )
@@ -166,6 +166,6 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
 
     width: window.innerWidth < 1282 ? 95 : 150,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    type: 'date',
+    // type: 'date',
   },
 ]

@@ -102,41 +102,39 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
               toolbarContainer: classNames.toolbarContainer,
               filterForm: classNames.filterForm,
             }}
-            selectionModel={viewModel.selectedBatches}
+            rowSelectionModel={viewModel.selectedBatches}
             sortingMode="server"
             paginationMode="server"
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
-            page={viewModel.curPage}
-            pageSize={viewModel.rowsPerPage}
-            rowsPerPageOptions={[15, 25, 50, 100]}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
             getRowHeight={() => 'auto'}
-            components={{
-              Toolbar: DataGridCustomToolbar,
-              ColumnMenuIcon: FilterAltOutlinedIcon,
-            }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            componentsProps={{
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            slotProps={{
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
-                  changeColumnsModel: viewModel.changeColumnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                 },
               },
             }}
             onSortModelChange={viewModel.onChangeSortingModel}
-            onPageSizeChange={viewModel.onChangeRowsPerPage}
-            onPageChange={viewModel.onChangeCurPage}
-            onStateChange={viewModel.setDataGridState}
-            onFilterModelChange={model => viewModel.onChangeFilterModel(model)}
-            onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData)}
-            onSelectionModelChange={newSelection => {
-              viewModel.onSelectionModel(newSelection)
-            }}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+            onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
           />
         </div>
       </MainContent>
@@ -182,6 +180,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
         batch={viewModel.curBatch}
         userInfo={viewModel.userInfo}
+        patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
         onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
         onClickHsCode={viewModel.onClickHsCode}
       />

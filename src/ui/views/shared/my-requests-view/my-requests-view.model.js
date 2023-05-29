@@ -66,11 +66,15 @@ export class MyRequestsViewModel {
   isRequestsAtWork = true
 
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
   densityModel = 'compact'
 
-  columnsModel = myRequestsViewColumns(this.languageTag, this.columnMenuSettings, this.onHover)
+  columnsModel = myRequestsViewColumns(
+    () => this.columnMenuSettings,
+    () => this.onHover,
+  )
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   columnMenuSettings = {
     // onClickFilterBtn: field => this.onClickFilterBtn(field),
@@ -129,11 +133,6 @@ export class MyRequestsViewModel {
     })
 
     reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
       () => this.isRequestsAtWork,
       () => {
         this.currentData = this.getCustomRequests()
@@ -155,25 +154,27 @@ export class MyRequestsViewModel {
     )
   }
 
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = myRequestsViewColumns(this.languageTag, this.columnMenuSettings, this.onHover).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
-  }
-
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
   }
 
   onClickChangeCatigory(value) {
@@ -183,8 +184,15 @@ export class MyRequestsViewModel {
     })
   }
 
-  setDataGridState(state) {
-    SettingsModel.setDataGridState(state, DataGridTablesKeys.OVERALL_CUSTOM_SEARCH_REQUESTS)
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.OVERALL_CUSTOM_SEARCH_REQUESTS)
   }
 
   getDataGridState() {
@@ -192,23 +200,11 @@ export class MyRequestsViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.curPage = state.pagination.page
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = myRequestsViewColumns(this.languageTag, this.columnMenuSettings, this.onHover).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
-    })
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
     })
   }
 
@@ -222,6 +218,8 @@ export class MyRequestsViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.setDataGridState()
   }
 
   getCurrentData() {
@@ -260,12 +258,10 @@ export class MyRequestsViewModel {
 
   onHoverColumnField(field) {
     this.onHover = field
-    this.getDataGridState()
   }
 
   onLeaveColumnField() {
     this.onHover = null
-    this.getDataGridState()
   }
 
   onChangeFullFieldMenuItem(value, field) {

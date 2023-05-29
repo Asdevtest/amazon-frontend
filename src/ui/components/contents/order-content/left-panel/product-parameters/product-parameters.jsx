@@ -4,11 +4,15 @@ import React, { useState } from 'react'
 
 import clsx from 'clsx'
 
-import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import {
+  getConversion,
+  getWeightSizesType,
+  inchesCoefficient,
+  poundsWeightCoefficient,
+  unitsOfChangeOptions,
+} from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
 
@@ -16,6 +20,7 @@ import { toFixed, checkAndMakeAbsoluteUrl, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './product-parameters.style'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 export const ProductParameters = ({
   order,
@@ -28,11 +33,11 @@ export const ProductParameters = ({
 }) => {
   const { classes: classNames } = useClassNames()
 
-  const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
-  const handleChange = (event, newAlignment) => {
-    setSizeSetting(newAlignment)
-  }
+  const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
+  const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
+  const weightSizesType = getWeightSizesType(sizeSetting)
 
   const OrderParameter = ({ label, value }) => (
     <Field
@@ -94,29 +99,25 @@ export const ProductParameters = ({
         labelClasses={classNames.fieldLabel}
         inputComponent={
           <div className={classNames.sizesWrapper}>
-            <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-              <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                {'In'}
-              </ToggleBtn>
-              <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                {'Cm'}
-              </ToggleBtn>
-            </ToggleBtnGroup>
+            <CustomSwitcher condition={sizeSetting} changeConditionHandler={condition => setSizeSetting(condition)} />
 
             <Typography className={classNames.text}>{`
             ${
               order.product.width && order.product.height && order.product.length
-                ? toFixed(order.product.width / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2) +
+                ? toFixed(order.product.width / lengthConversion, 2) +
                   ' x ' +
-                  toFixed(order.product.height / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2) +
+                  toFixed(order.product.height / lengthConversion, 2) +
                   ' x ' +
-                  toFixed(order.product.length / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)
-                : 'Нет данных'
+                  toFixed(order.product.length / lengthConversion, 2)
+                : t(TranslationKey['No data'])
             }`}</Typography>
           </div>
         }
       />
-      <OrderParameter label={t(TranslationKey['Weight, kg'])} value={toFixed(order.product.weight, 2)} />
+      <OrderParameter
+        label={t(TranslationKey.Weight)}
+        value={`${toFixed(order.product.weight / weightConversion, 2)} ${weightSizesType}`}
+      />
       <Field
         oneLine
         label={t(TranslationKey.BarCode)}

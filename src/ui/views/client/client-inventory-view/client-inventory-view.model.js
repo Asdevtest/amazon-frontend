@@ -97,6 +97,7 @@ const filtersFields = [
   'fbaFbmStockSum',
   'ideaCount',
   'stockCost',
+  'purchaseQuantity',
 ]
 
 const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
@@ -263,8 +264,6 @@ export class ClientInventoryViewModel {
   rowCount = 0
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = clientInventoryColumns(
     this.barCodeHandlers,
@@ -272,12 +271,11 @@ export class ClientInventoryViewModel {
     this.fourMonthesStockHandlers,
     this.stockUsHandlers,
     this.otherHandlers,
-    this.columnMenuSettings,
-    this.onHover,
-  ).map(el => ({
-    ...el,
-    hide: !!defaultHiddenFields.includes(el.field),
-  }))
+    () => this.columnMenuSettings,
+    () => this.onHover,
+  )
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   get userInfo() {
     return UserModel.userInfo
@@ -304,10 +302,6 @@ export class ClientInventoryViewModel {
     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
 
     reaction(
       () => this.productsMy,
@@ -316,16 +310,6 @@ export class ClientInventoryViewModel {
           this.currentData = this.getCurrentData()
         }),
     )
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-
-      runInAction(() => {
-        this.productsMy = clientInventoryDataConverter(this.baseNoConvertedProducts.rows, this.shopsData)
-      })
-    }
   }
 
   get destinationsFavourites() {
@@ -340,6 +324,25 @@ export class ClientInventoryViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+    this.getProductsMy()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+    this.getProductsMy()
   }
 
   onClickShowProduct(row) {
@@ -374,78 +377,36 @@ export class ClientInventoryViewModel {
     win.focus()
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
-
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_INVENTORY)
-  }
-
   onHoverColumnField(field) {
     this.onHover = field
-    this.getDataGridState()
   }
 
   onLeaveColumnField() {
     this.onHover = null
-    this.getDataGridState()
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_INVENTORY)
   }
 
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_INVENTORY]
 
-    if (state) {
-      runInAction(() => {
-        this.sortModel = [...state.sorting.sortModel]
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = clientInventoryColumns(
-          this.barCodeHandlers,
-          this.hsCodeHandlers,
-          this.fourMonthesStockHandlers,
-          this.stockUsHandlers,
-          this.otherHandlers,
-          this.columnMenuSettings,
-          this.onHover,
-        ).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
-      })
-    }
-  }
-
-  changeColumnsModel(newHideState) {
     runInAction(() => {
-      this.columnsModel = clientInventoryColumns(
-        this.barCodeHandlers,
-        this.hsCodeHandlers,
-        this.fourMonthesStockHandlers,
-        this.stockUsHandlers,
-        this.otherHandlers,
-        this.columnMenuSettings,
-        this.onHover,
-      ).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
     })
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
-      this.curPage = 0
-    })
-
-    this.getProductsMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -458,6 +419,7 @@ export class ClientInventoryViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+    this.setDataGridState()
 
     this.getProductsMy()
   }
@@ -579,9 +541,8 @@ export class ClientInventoryViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
 
-      await this.getShops()
+      await Promise.all([this.getShops(), this.getProductsMy()])
 
-      await this.getProductsMy()
       this.isModalOpen && this.onTriggerOpenModal('showSendOwnProductModal')
 
       this.setRequestStatus(loadingStatuses.success)
@@ -630,9 +591,12 @@ export class ClientInventoryViewModel {
   }
 
   async onClickContinueBtn() {
-    const storekeepers = await StorekeeperModel.getStorekeepers()
-    const destinations = await ClientModel.getDestinations()
-    const result = await UserModel.getPlatformSettings()
+    const [storekeepers, destinations, result] = await Promise.all([
+      StorekeeperModel.getStorekeepers(),
+      ClientModel.getDestinations(),
+      UserModel.getPlatformSettings(),
+    ])
+
     runInAction(() => {
       this.storekeepers = storekeepers
       this.destinations = destinations
@@ -893,7 +857,6 @@ export class ClientInventoryViewModel {
     const boxAmountsFilter =
       exclusion !== 'boxAmounts' && this.columnMenuSettings.boxAmounts.currentFilterData.map(el => el._id).join(',')
     const sumStockFilter = exclusion !== 'sumStock' && this.columnMenuSettings.sumStock.currentFilterData.join(',')
-    // const purchaseQuantityFilter = this.columnMenuSettings.purchaseQuantity.currentFilterData.join(',')
     const amazonFilter = exclusion !== 'amazon' && this.columnMenuSettings.amazon.currentFilterData.join(',')
     const profitFilter = exclusion !== 'profit' && this.columnMenuSettings.profit.currentFilterData.join(',')
     const fbafeeFilter = exclusion !== 'fbafee' && this.columnMenuSettings.fbafee.currentFilterData.join(',')
@@ -908,6 +871,9 @@ export class ClientInventoryViewModel {
       exclusion !== 'sentToFbaSum' && this.columnMenuSettings.sentToFbaSum.currentFilterData.join(',')
 
     const stockCostFilter = exclusion !== 'stockCost' && this.columnMenuSettings.stockCost.currentFilterData.join(',')
+
+    const purchaseQuantityFilter =
+      exclusion !== 'purchaseQuantity' && this.columnMenuSettings.purchaseQuantity.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
       archive: { $eq: this.isArchive },
@@ -956,10 +922,6 @@ export class ClientInventoryViewModel {
         sumStock: { $eq: sumStockFilter },
       }),
 
-      // ...(purchaseQuantityFilter && {
-      //   purchaseQuantity: {$eq: purchaseQuantityFilter},
-      // }),
-
       ...(amazonFilter && {
         amazon: { $eq: amazonFilter },
       }),
@@ -997,6 +959,10 @@ export class ClientInventoryViewModel {
       ...(stockCostFilter && {
         stockCost: { $eq: stockCostFilter },
       }),
+
+      ...(purchaseQuantityFilter && {
+        purchaseQuantity: { $eq: purchaseQuantityFilter },
+      }),
     })
 
     return filter
@@ -1021,8 +987,8 @@ export class ClientInventoryViewModel {
 
         purchaseQuantityAboveZero: this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter,
 
-        limit: this.rowsPerPage,
-        offset: this.curPage * this.rowsPerPage,
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
 
         sortField: this.sortModel.length ? this.sortModel[0].field : 'sumStock',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
@@ -1348,8 +1314,7 @@ export class ClientInventoryViewModel {
 
   async onClickAddSupplierButton() {
     try {
-      const result = await UserModel.getPlatformSettings()
-      await this.getSuppliersPaymentMethods()
+      const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getSuppliersPaymentMethods()])
 
       runInAction(() => {
         this.yuanToDollarRate = result.yuanToDollarRate
@@ -1606,8 +1571,7 @@ export class ClientInventoryViewModel {
           this.product = { asin: data.asin, lamazon: data.lamazon, fba: true, images: [] }
         })
 
-        await this.parseAmazon(data.asin)
-        await this.parseParseSellerCentral(data.asin)
+        await Promise.all([this.parseAmazon(data.asin), this.parseParseSellerCentral(data.asin)])
 
         const curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
           toJS(this.product),

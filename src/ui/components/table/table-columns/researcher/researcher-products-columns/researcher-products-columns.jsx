@@ -111,6 +111,6 @@ export const researcherProductsViewColumns = () => [
 
     minWidth: 150,
     renderCell: params => <NormDateCell value={params.value} />,
-    type: 'date',
+    // type: 'date',
   },
 ]

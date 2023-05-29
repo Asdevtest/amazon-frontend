@@ -83,17 +83,19 @@ export class ClientOrderViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      const destinations = await ClientModel.getDestinations()
-      const storekeepers = await StorekeeperModel.getStorekeepers()
+
+      const [destinations, storekeepers] = await Promise.all([
+        ClientModel.getDestinations(),
+        StorekeeperModel.getStorekeepers(),
+        this.getOrderById(),
+        this.getBoxesOfOrder(this.orderId),
+        this.getVolumeWeightCoefficient(),
+      ])
 
       runInAction(() => {
         this.destinations = destinations
         this.storekeepers = storekeepers
       })
-
-      await this.getOrderById()
-      await this.getBoxesOfOrder(this.orderId)
-      await this.getVolumeWeightCoefficient()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -119,8 +121,8 @@ export class ClientOrderViewModel {
           this.selectedSupplier = undefined
         })
       } else {
-        const result = await UserModel.getPlatformSettings()
-        await this.getStorekeepers()
+        const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getStorekeepers()])
+
         runInAction(() => {
           this.yuanToDollarRate = result.yuanToDollarRate
           this.platformSettings = result
@@ -148,11 +150,11 @@ export class ClientOrderViewModel {
 
   async onClickReorder() {
     try {
-      const storekeepers = await StorekeeperModel.getStorekeepers()
-
-      const destinations = await ClientModel.getDestinations()
-
-      const result = await UserModel.getPlatformSettings()
+      const [storekeepers, destinations, result] = await Promise.all([
+        StorekeeperModel.getStorekeepers(),
+        ClientModel.getDestinations(),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.isPendingOrdering = false
@@ -286,9 +288,10 @@ export class ClientOrderViewModel {
           'logicsTariffId',
         ])
 
-        await OrderModel.changeOrderData(orderObject._id, dataToRequest)
-
-        await ClientModel.updateOrderStatusToReadyToProcess(orderObject._id)
+        await Promise.all([
+          OrderModel.changeOrderData(orderObject._id, dataToRequest),
+          ClientModel.updateOrderStatusToReadyToProcess(orderObject._id),
+        ])
 
         // await this.createOrder(orderObject)
       }

@@ -44,14 +44,6 @@ export const UserBalance = observer(({ userId }) => {
     densityModel,
     columnsModel,
 
-    rowsPerPage,
-    curPage,
-    changeColumnsModel,
-    onChangeCurPage,
-    onChangeRowsPerPage,
-    onSelectionModel,
-
-    setDataGridState,
     onChangeSortingModel,
     onChangeFilterModel,
   } = model.current
@@ -94,31 +86,30 @@ export const UserBalance = observer(({ userId }) => {
           getRowClassName={getRowClassName}
           sortModel={sortModel}
           filterModel={filterModel}
-          page={curPage}
-          pageSize={rowsPerPage}
-          rowsPerPageOptions={[15, 25, 50, 100]}
+          columnVisibilityModel={model.current.columnVisibilityModel}
+          paginationModel={model.current.paginationModel}
+          pageSizeOptions={[15, 25, 50, 100]}
           rows={getCurrentData()}
           rowHeight={75}
-          components={{
-            Toolbar: DataGridCustomToolbar,
-            ColumnMenuIcon: FilterAltOutlinedIcon,
+          slots={{
+            toolbar: DataGridCustomToolbar,
+            columnMenuIcon: FilterAltOutlinedIcon,
+          }}
+          slotProps={{
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: model.current.columnsModel,
+                columnVisibilityModel: model.current.columnVisibilityModel,
+                onColumnVisibilityModelChange: model.current.onColumnVisibilityModelChange,
+              },
+            },
           }}
           density={densityModel}
           columns={columnsModel}
           loading={requestStatus === loadingStatuses.isLoading}
-          componentsProps={{
-            toolbar: {
-              columsBtnSettings: { columnsModel, changeColumnsModel },
-            },
-          }}
-          onSelectionModelChange={newSelection => {
-            onSelectionModel(newSelection[0])
-          }}
           onSortModelChange={onChangeSortingModel}
-          onPageSizeChange={onChangeRowsPerPage}
-          onPageChange={onChangeCurPage}
-          onStateChange={setDataGridState}
-          onFilterModelChange={model => onChangeFilterModel(model)}
+          onPaginationModelChange={model.current.onChangePaginationModelChange}
+          onFilterModelChange={onChangeFilterModel}
         />
       </div>
       <Modal openModal={showReplenishModal} setOpenModal={onTriggerReplenishModal}>

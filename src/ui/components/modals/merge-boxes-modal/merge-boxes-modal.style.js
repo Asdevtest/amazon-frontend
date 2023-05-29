@@ -219,4 +219,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: 5,
   },
+  customSwitcherWrapper: {
+    width: 'fit-content',
+  },
 }))

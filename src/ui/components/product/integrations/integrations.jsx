@@ -50,7 +50,6 @@ export const Integrations = observer(({ productId }) => {
     onClickBindInventoryGoodsToStockBtn,
     onSelectionModel,
     onUnlinkSkuSProduct,
-    changeColumnsModel,
   } = model.current
 
   return (
@@ -80,22 +79,27 @@ export const Integrations = observer(({ productId }) => {
         classes={{
           row: classNames.row,
         }}
-        rowsPerPageOptions={[15, 25, 50, 100]}
+        columnVisibilityModel={model.current.columnVisibilityModel}
+        pageSizeOptions={[15, 25, 50, 100]}
         rows={getCurrentData()}
         rowHeight={100}
-        components={{
-          Toolbar: DataGridCustomToolbar,
-          ColumnMenuIcon: FilterAltOutlinedIcon,
+        slots={{
+          toolbar: DataGridCustomToolbar,
+          columnMenuIcon: FilterAltOutlinedIcon,
         }}
-        componentsProps={{
+        slotProps={{
           toolbar: {
-            columsBtnSettings: { columnsModel, changeColumnsModel },
+            columsBtnSettings: {
+              columnsModel,
+              columnVisibilityModel: model.current.columnVisibilityModel,
+              onColumnVisibilityModelChange: model.current.onColumnVisibilityModelChange,
+            },
           },
         }}
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.isLoading}
-        selectionModel={selectedRowIds}
-        onSelectionModelChange={onSelectionModel}
+        rowSelectionModel={selectedRowIds}
+        onRowSelectionModelChange={onSelectionModel}
       />
 
       <Modal

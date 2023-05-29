@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -29,10 +29,11 @@ export class AdminWarehouseTasksViewModel {
 
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = adminTasksViewColumns(this.rowHandlers)
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   showTaskInfoModal = false
 
@@ -41,26 +42,6 @@ export class AdminWarehouseTasksViewModel {
       this.history = history
     })
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
   }
 
   async loadData() {
@@ -79,6 +60,23 @@ export class AdminWarehouseTasksViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
   }
 
   setDataGridState(state) {
@@ -121,11 +119,13 @@ export class AdminWarehouseTasksViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.setDataGridState()
   }
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
+      this.rowSelectionModel = model
     })
   }
 
@@ -158,9 +158,10 @@ export class AdminWarehouseTasksViewModel {
 
   async setCurrentOpenedTask(item) {
     try {
-      const task = await StorekeeperModel.getTaskById(item._id)
-
-      const result = await UserModel.getPlatformSettings()
+      const [task, result] = await Promise.all([
+        StorekeeperModel.getTaskById(item._id),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
@@ -177,18 +178,6 @@ export class AdminWarehouseTasksViewModel {
   onTriggerOpenModal(modal) {
     runInAction(() => {
       this[modal] = !this[modal]
-    })
-  }
-
-  onChangeCurPage = e => {
-    runInAction(() => {
-      this.curPage = e
-    })
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
     })
   }
 }

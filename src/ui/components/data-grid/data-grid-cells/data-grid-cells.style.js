@@ -255,7 +255,10 @@ export const styles = theme => ({
   },
 
   gridEditWrapper: {
-    maxWidth: 550,
+    // maxWidth: 550,
+    display: 'flex',
+    flexWrap: 'no-wrap',
+    gap: 16,
   },
 
   gridBoxesWrapper: {
@@ -291,7 +294,7 @@ export const styles = theme => ({
   imagesWrapper: {
     width: 'max-content',
 
-    border: '1px solid #006CFF',
+    border: `1px solid ${theme.palette.primary.main}`,
     borderRadius: 4,
     gap: '5px',
     padding: '3px',
@@ -353,6 +356,7 @@ export const styles = theme => ({
   },
 
   taskDescriptionIcon: {
+    color: theme.palette.primary.main,
     margin: '0 8px',
   },
 
@@ -770,6 +774,10 @@ export const styles = theme => ({
     justifyContent: 'center',
   },
 
+  multilineTextHeaderWrapperWithComponent: {
+    justifyContent: 'space-between',
+  },
+
   boxesAndQuantityWrapper: {
     width: '100%',
     display: 'flex',
@@ -785,7 +793,7 @@ export const styles = theme => ({
   },
 
   multilineHeaderText: {
-    width: '100%',
+    width: 'fit-content',
     textAlign: 'center',
     whiteSpace: 'normal',
 
@@ -1170,11 +1178,16 @@ export const styles = theme => ({
 
     color: 'gray',
 
-    zIndex: -1000,
+    // zIndex: -1000,
+    // zIndex: 100000000000,
 
     position: 'absolute',
-    right: -5,
+    // right: -5,
+    // right: -7,
+    right: -15,
     top: 15,
+
+    overflow: 'visible',
   },
 
   headerIconBlue: {
@@ -1484,12 +1497,21 @@ export const styles = theme => ({
     },
   },
   boxArrowSvg: {
+    color: theme.palette.primary.main,
+
     [theme.breakpoints.down(1282)]: {
       width: 22,
       height: 22,
     },
   },
+
+  cubeIconSvg: {
+    color: theme.palette.primary.main,
+  },
+
   boxEditSvg: {
+    color: theme.palette.primary.main,
+
     [theme.breakpoints.down(1282)]: {
       width: 22,
       height: 22,

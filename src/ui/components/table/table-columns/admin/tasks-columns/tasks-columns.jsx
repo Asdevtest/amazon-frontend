@@ -22,7 +22,7 @@ export const adminTasksViewColumns = handlers => [
 
     width: 110,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    type: 'date',
+    // type: 'date',
   },
 
   {

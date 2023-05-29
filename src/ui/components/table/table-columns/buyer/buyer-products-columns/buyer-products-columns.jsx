@@ -124,7 +124,7 @@ export const buyerProductsViewColumns = handlers => [
   },
 
   {
-    field: 'ideaCount',
+    field: 'ideasOnCheck',
     headerName: t(TranslationKey['Ideas to Check']),
     renderHeader: () => (
       <MultilineTextHeaderCell
@@ -146,7 +146,7 @@ export const buyerProductsViewColumns = handlers => [
 
     minWidth: 120,
     renderCell: params => <NormDateCell value={params.value} />,
-    type: 'date',
+    // type: 'date',
   },
 
   {
@@ -157,6 +157,6 @@ export const buyerProductsViewColumns = handlers => [
     minWidth: 150,
     flex: 1,
     renderCell: params => <NormDateCell value={params.value} />,
-    type: 'date',
+    // type: 'date',
   },
 ]

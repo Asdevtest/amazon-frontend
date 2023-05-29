@@ -11,7 +11,6 @@ import { supervisorProductsViewColumns } from '@components/table/table-columns/s
 
 import { supervisorProductsDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
 export class SupervisorProductsViewModel {
@@ -31,11 +30,12 @@ export class SupervisorProductsViewModel {
   sortModel = []
   startFilterModel = undefined
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = supervisorProductsViewColumns()
   showAsinCheckerModal = false
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   constructor({ history, location }) {
     runInAction(() => {
@@ -53,11 +53,6 @@ export class SupervisorProductsViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
       () => this.productsMy,
       () => {
         this.currentData = this.getCurrentData()
@@ -72,39 +67,36 @@ export class SupervisorProductsViewModel {
     )
   }
 
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = supervisorProductsViewColumns().map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-
-      runInAction(() => {
-        this.productsMy = this.baseProducts
-      })
-    }
-  }
-
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.SUPERVISOR_PRODUCTS)
   }
@@ -114,20 +106,17 @@ export class SupervisorProductsViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = this.startFilterModel
-          ? {
-              ...this.startFilterModel,
-              items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
-            }
-          : state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = supervisorProductsViewColumns().map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(
+          this.startFilterModel
+            ? {
+                ...this.startFilterModel,
+                items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
+              }
+            : state.filterModel,
+        )
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
@@ -135,12 +124,6 @@ export class SupervisorProductsViewModel {
   onChangeNameSearchValue(e) {
     runInAction(() => {
       this.nameSearchValue = e.target.value
-    })
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
     })
   }
 
@@ -247,11 +230,13 @@ export class SupervisorProductsViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.setDataGridState()
   }
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
+      this.rowSelectionModel = model
     })
   }
 
@@ -310,12 +295,6 @@ export class SupervisorProductsViewModel {
     )
 
     win.focus()
-  }
-
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
   }
 
   onTriggerOpenModal(modal) {

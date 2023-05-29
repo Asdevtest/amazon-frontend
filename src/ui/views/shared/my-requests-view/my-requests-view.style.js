@@ -83,6 +83,7 @@ export const styles = theme => ({
   columnHeaderTitleContainer: {
     flexDirection: 'row !important',
     display: 'flex !important',
+    overflow: 'visible',
   },
   columnHeaderDraggableContainer: {
     flexDirection: 'row !important',
@@ -90,6 +91,7 @@ export const styles = theme => ({
 
   waitingCheckedBacklighting: {
     background: theme.palette.background.green,
+    zIndex: -1,
   },
   yellowBorder: {
     background: theme.palette.boxShadow.yellow,

@@ -60,43 +60,18 @@ export class WarehouseVacantViewModel {
     updateTaskComment: (taskId, priority, reason) => this.updateTaskComment(taskId, priority, reason),
   }
 
-  firstRowId = undefined
   sortModel = []
   filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
   densityModel = 'compact'
-  columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers)
 
   constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
     makeAutoObservable(this, undefined, { autoBind: true })
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
   }
 
   onChangeFilterModel(model) {
@@ -104,20 +79,34 @@ export class WarehouseVacantViewModel {
       this.filterModel = model
     })
 
+    this.setDataGridState()
     this.getTasksVacant()
   }
 
-  setDataGridState(state) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
+      this.paginationModel = model
     })
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+
+    this.setDataGridState()
+    this.getTasksVacant()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+    this.getTasksVacant()
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_VACANT_TASKS)
   }
@@ -127,18 +116,10 @@ export class WarehouseVacantViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
-          ...el,
-          hide:
-            window.innerWidth < 1282
-              ? isStringInArray(adaptationHiddenFields, el?.field)
-              : state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
@@ -168,16 +149,6 @@ export class WarehouseVacantViewModel {
     })
   }
 
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
-
-      this.curPage = 0
-    })
-
-    this.getTasksVacant()
-  }
-
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
@@ -189,6 +160,7 @@ export class WarehouseVacantViewModel {
       this.sortModel = sortModel
     })
 
+    this.setDataGridState()
     this.getTasksVacant()
   }
 
@@ -273,14 +245,15 @@ export class WarehouseVacantViewModel {
 
   async setCurrentOpenedTask(item) {
     try {
-      const result = await StorekeeperModel.getTaskById(item._id)
-
-      const platformSettingsResult = await UserModel.getPlatformSettings()
+      const [task, platformSettings] = await Promise.all([
+        StorekeeperModel.getTaskById(item._id),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
-        this.volumeWeightCoefficient = platformSettingsResult.volumeWeightCoefficient
+        this.volumeWeightCoefficient = platformSettings.volumeWeightCoefficient
 
-        this.curOpenedTask = result
+        this.curOpenedTask = task
       })
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
@@ -289,16 +262,8 @@ export class WarehouseVacantViewModel {
   }
 
   goToMyTasks() {
-    this.history.push('/warehouse/tasks/my-tasks', { task: toJS(this.curTask) })
+    this.history.push('/warehouse/tasks/my-tasks', { task: toJS(this.curTask._id) })
     this.onTriggerOpenModal('showTwoVerticalChoicesModal')
-  }
-
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
-
-    this.getTasksVacant()
   }
 
   startEditTaskPriority(taskId, newPriority) {
@@ -358,8 +323,8 @@ export class WarehouseVacantViewModel {
 
       const result = await StorekeeperModel.getLightTasksVacantPag({
         status: mapTaskStatusEmumToKey[TaskStatus.NEW],
-        offset: this.curPage * this.rowsPerPage,
-        limit: this.rowsPerPage,
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
         filters: this.nameSearchValue ? filter : null,
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',

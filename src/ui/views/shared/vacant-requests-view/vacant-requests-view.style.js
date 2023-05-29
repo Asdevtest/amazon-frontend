@@ -40,7 +40,9 @@ export const styles = theme => ({
     flexDirection: 'row !important',
     display: 'flex !important',
     alignItems: 'center !important',
+    overflow: 'visible',
   },
+
   iconSeparator: {
     padding: '0 1px',
   },
@@ -146,5 +148,10 @@ export const styles = theme => ({
   redBorder: {
     background:
       'linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
+  },
+  loadingWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })

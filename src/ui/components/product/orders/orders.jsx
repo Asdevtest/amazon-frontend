@@ -8,8 +8,6 @@ import { useHistory } from 'react-router-dom'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -48,22 +46,16 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
     showSuccessModal,
     showConfirmModal,
     onClickTableRow,
-    updateColumnsModel,
     onTriggerOpenModal,
     onConfirmSubmitOrderProductModal,
     onClickSaveBarcode,
     onDoubleClickBarcode,
     setDataGridState,
-    changeColumnsModel,
   } = model.current
 
   useEffect(() => {
     model.current.loadData()
   }, [])
-
-  useEffect(() => {
-    updateColumnsModel()
-  }, [SettingsModel.languageTag])
 
   return (
     <div className={classNames.mainWrapper}>
@@ -75,18 +67,23 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
         classes={{
           row: classNames.row,
         }}
-        rowsPerPageOptions={[15, 25, 50, 100]}
+        columnVisibilityModel={model.current.columnVisibilityModel}
+        pageSizeOptions={[15, 25, 50, 100]}
         rows={getCurrentData()}
         rowHeight={100}
-        components={{
-          Toolbar: DataGridCustomToolbar,
-          ColumnMenuIcon: FilterAltOutlinedIcon,
-          ColumnMenu: DataGridCustomColumnMenuComponent,
+        slots={{
+          toolbar: DataGridCustomToolbar,
+          columnMenuIcon: FilterAltOutlinedIcon,
+          columnMenu: DataGridCustomColumnMenuComponent,
         }}
-        componentsProps={{
+        slotProps={{
           columnMenu: { orderStatusData },
           toolbar: {
-            columsBtnSettings: { columnsModel, changeColumnsModel },
+            columsBtnSettings: {
+              columnsModel,
+              columnVisibilityModel: model.current.columnVisibilityModel,
+              onColumnVisibilityModelChange: model.current.onColumnVisibilityModelChange,
+            },
           },
         }}
         columns={columnsModel}
