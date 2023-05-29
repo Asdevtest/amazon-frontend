@@ -289,9 +289,9 @@ export const FieldsAndSuppliers = observer(
                       input={<Input className={classNames.nativeSelect} />}
                       onChange={onChangeField('strategyStatus')}
                     >
-                      <MenuItem disabled value={null} className={classNames.strategyOption}>
-                        <em>{t(TranslationKey['not selected'])}</em>
-                      </MenuItem>
+                      {/* <MenuItem disabled value={null} className={classNames.strategyOption}> */}
+                      {/*   <em>{t(TranslationKey['not selected'])}</em> */}
+                      {/* </MenuItem> */}
                       {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
                         <MenuItem
                           key={statusIndex}
