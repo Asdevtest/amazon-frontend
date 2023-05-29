@@ -2,7 +2,7 @@
 import { cx } from '@emotion/css'
 import { Checkbox, Container, Divider, Grid, Link, Typography } from '@mui/material'
 
-import { React, useEffect, useState } from 'react'
+import { React, useState } from 'react'
 
 import { observer } from 'mobx-react'
 
@@ -738,15 +738,18 @@ export const AddOrEditSupplierModalContent = observer(
             </div>
           </div>
 
-          <SupplierPriceVariationSelector
-            currentVariations={tmpSupplier.priceVariations}
-            updateVariationList={newVariations => {
-              setTmpSupplier(prevState => ({
-                ...prevState,
-                priceVariations: newVariations,
-              }))
-            }}
-          />
+          {(!onlyRead || !!tmpSupplier.priceVariations.length) && (
+            <SupplierPriceVariationSelector
+              isEditMode={!onlyRead}
+              currentVariations={tmpSupplier.priceVariations}
+              updateVariationList={newVariations => {
+                setTmpSupplier(prevState => ({
+                  ...prevState,
+                  priceVariations: newVariations,
+                }))
+              }}
+            />
+          )}
 
           <div className={classNames.paymentsBlock}>
             <CustomSelectPaymentDetails

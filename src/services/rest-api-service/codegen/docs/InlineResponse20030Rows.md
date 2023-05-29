@@ -79,7 +79,9 @@ Name | Type | Description | Notes
 **reservedSum** | **Number** |  | [optional] 
 **sentToFbaSum** | **Number** |  | [optional] 
 **fbaFbmStockSum** | **Number** |  | [optional] 
-**ideaCount** | **Number** |  | [optional] 
+**ideasOnCheck** | **Number** |  | [optional] 
+**ideasVerified** | **Number** |  | [optional] 
+**ideasClosed** | **Number** |  | [optional] 
 **subUsers** | [**[ApiV1AdminsGetProductsByStatusCreatedBy]**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **redFlags** | [**[ApiV1AdminsGetProductsByStatusRedFlags]**](ApiV1AdminsGetProductsByStatusRedFlags.md) |  | [optional] 
 **tags** | [**[ApiV1AdminsGetProductsByStatusTags]**](ApiV1AdminsGetProductsByStatusTags.md) |  | [optional] 
@@ -88,5 +90,6 @@ Name | Type | Description | Notes
 **ideasCounter** | **Number** | Кол-во идей продукта в статусе 10 | [optional] 
 **sumStock** | **Number** | “sumStock”&#x3D;“boxAmounts” + ”inTransfer” + ”productsInWarehouse”(“reserved” + ”fbaFbmStock” + ”sentToFba”) + “amountInOrders“ + “stockUSA“ | [optional] 
 **purchaseQuantity** | **Number** | “purchaseQuantity”&#x3D;”fourMonthesStock” - “sumStock” - меньше нуля быть не может, если отрицательное значение выставляем 0 | [optional] 
+**stockCost** | **Number** | (amount/batchTotalCostInDollar) * sumStock | [optional] 
 
 

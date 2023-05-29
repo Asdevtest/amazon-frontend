@@ -278,8 +278,14 @@ class InlineResponse20030Rows {
             if (data.hasOwnProperty('fbaFbmStockSum')) {
                 obj['fbaFbmStockSum'] = ApiClient.convertToType(data['fbaFbmStockSum'], 'Number');
             }
-            if (data.hasOwnProperty('ideaCount')) {
-                obj['ideaCount'] = ApiClient.convertToType(data['ideaCount'], 'Number');
+            if (data.hasOwnProperty('ideasOnCheck')) {
+                obj['ideasOnCheck'] = ApiClient.convertToType(data['ideasOnCheck'], 'Number');
+            }
+            if (data.hasOwnProperty('ideasVerified')) {
+                obj['ideasVerified'] = ApiClient.convertToType(data['ideasVerified'], 'Number');
+            }
+            if (data.hasOwnProperty('ideasClosed')) {
+                obj['ideasClosed'] = ApiClient.convertToType(data['ideasClosed'], 'Number');
             }
             if (data.hasOwnProperty('subUsers')) {
                 obj['subUsers'] = ApiClient.convertToType(data['subUsers'], [ApiV1AdminsGetProductsByStatusCreatedBy]);
@@ -304,6 +310,9 @@ class InlineResponse20030Rows {
             }
             if (data.hasOwnProperty('purchaseQuantity')) {
                 obj['purchaseQuantity'] = ApiClient.convertToType(data['purchaseQuantity'], 'Number');
+            }
+            if (data.hasOwnProperty('stockCost')) {
+                obj['stockCost'] = ApiClient.convertToType(data['stockCost'], 'Number');
             }
         }
         return obj;
@@ -750,9 +759,19 @@ InlineResponse20030Rows.prototype['sentToFbaSum'] = undefined;
 InlineResponse20030Rows.prototype['fbaFbmStockSum'] = undefined;
 
 /**
- * @member {Number} ideaCount
+ * @member {Number} ideasOnCheck
  */
-InlineResponse20030Rows.prototype['ideaCount'] = undefined;
+InlineResponse20030Rows.prototype['ideasOnCheck'] = undefined;
+
+/**
+ * @member {Number} ideasVerified
+ */
+InlineResponse20030Rows.prototype['ideasVerified'] = undefined;
+
+/**
+ * @member {Number} ideasClosed
+ */
+InlineResponse20030Rows.prototype['ideasClosed'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>} subUsers
@@ -796,6 +815,12 @@ InlineResponse20030Rows.prototype['sumStock'] = undefined;
  * @member {Number} purchaseQuantity
  */
 InlineResponse20030Rows.prototype['purchaseQuantity'] = undefined;
+
+/**
+ * (amount/batchTotalCostInDollar) * sumStock
+ * @member {Number} stockCost
+ */
+InlineResponse20030Rows.prototype['stockCost'] = undefined;
 
 
 

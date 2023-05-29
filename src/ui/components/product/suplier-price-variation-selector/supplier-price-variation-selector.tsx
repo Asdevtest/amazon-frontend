@@ -5,6 +5,8 @@ import { Field } from '@components/shared/field'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { Input } from '@components/shared/input'
 import { cx } from '@emotion/css'
+import { t } from '@utils/translations'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 interface VariationType {
   quantity: number
@@ -14,6 +16,7 @@ interface VariationType {
 interface SupplierPriceVariationSelectorProps {
   currentVariations: VariationType[]
   updateVariationList: (newVariations: VariationType[]) => void
+  isEditMode: boolean
 }
 
 export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorProps> = props => {
@@ -39,56 +42,66 @@ export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorPr
 
   return (
     <div className={styles.body}>
-      <Typography className={styles.title}>Вариации цен:</Typography>
+      <Typography className={styles.title}>{t(TranslationKey['Price variations'])}:</Typography>
       <div className={styles.content}>
-        <div className={styles.creationBlock}>
-          <Field
-            containerClasses={styles.field}
-            inputClasses={styles.creationInput}
-            labelClasses={styles.label}
-            label={'Количество, ед'}
-            placeholder="00"
-            value={quantity}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
-                setQuantity(e.target.value)
-              }
-            }}
-          />
+        {props.isEditMode && (
+          <div className={styles.creationBlock}>
+            <Field
+              containerClasses={styles.field}
+              inputClasses={styles.creationInput}
+              labelClasses={styles.label}
+              label={`${t(TranslationKey.Quantity)}, ${t(TranslationKey.units)}`}
+              placeholder="00"
+              value={quantity}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+                  setQuantity(e.target.value)
+                }
+              }}
+            />
 
-          <Field
-            containerClasses={styles.field}
-            inputClasses={styles.creationInput}
-            labelClasses={styles.label}
-            label={'Стоимость,¥'}
-            placeholder="00"
-            value={price}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
-                setPrice(e.target.value)
-              }
-            }}
-          />
+            <Field
+              containerClasses={styles.field}
+              inputClasses={styles.creationInput}
+              labelClasses={styles.label}
+              label={`${t(TranslationKey.Cost)},¥`}
+              placeholder="00"
+              value={price}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+                  setPrice(e.target.value)
+                }
+              }}
+            />
 
-          <button className={cx(styles.addBtn, styles.controlButton)} onClick={handleAddVariation}>
-            <img src="/assets/icons/addTag.svg" alt="+" />
-          </button>
-        </div>
+            <button
+              className={cx(styles.addBtn, styles.controlButton)}
+              disabled={!price || !quantity || variationList.some(el => el.quantity === Number(quantity))}
+              onClick={handleAddVariation}
+            >
+              <img src="/assets/icons/addTag.svg" alt="+" />
+            </button>
+          </div>
+        )}
 
         {!!variationList.length && (
           <div className={styles.currentVariations}>
-            <Typography className={styles.label}>Вариации цен:</Typography>
+            <Typography className={styles.label}>
+              {`${t(TranslationKey.Quantity)}/${t(TranslationKey.Cost).toLowerCase()}`}:
+            </Typography>
 
             <div className={styles.currentVariationList}>
               {variationList.map((el, index) => (
                 <div key={index} className={styles.variationListItem}>
                   <Input readOnly value={`${el.quantity}/${el.price * el.quantity}`} />
-                  <button
-                    className={cx(styles.removeBtn, styles.controlButton)}
-                    onClick={() => handleRemoveVariation(index)}
-                  >
-                    <img src="/assets/icons/minus.svg" alt="-" />
-                  </button>
+                  {props.isEditMode && (
+                    <button
+                      className={cx(styles.removeBtn, styles.controlButton)}
+                      onClick={() => handleRemoveVariation(index)}
+                    >
+                      <img src="/assets/icons/minus.svg" alt="-" />
+                    </button>
+                  )}
                 </div>
               ))}
             </div>

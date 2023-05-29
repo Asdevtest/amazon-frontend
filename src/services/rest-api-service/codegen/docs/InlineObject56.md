@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**shippingLabel** | **String** | shippingLabel | 
+**userIds** | **[String]** |  | 
+**title** | **String** | Название группового чата | 
 
 

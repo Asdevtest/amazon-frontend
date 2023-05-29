@@ -27,6 +27,7 @@ import ApiV1AdminsOrdersDestinationStorekeeper from './model/ApiV1AdminsOrdersDe
 import ApiV1AdminsOrdersLogicsTariff from './model/ApiV1AdminsOrdersLogicsTariff';
 import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
 import ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest from './model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest';
+import ApiV1AdminsOrdersLogicsTariffDestinationVariations from './model/ApiV1AdminsOrdersLogicsTariffDestinationVariations';
 import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
 import ApiV1AdminsProductsVacCheckedby from './model/ApiV1AdminsProductsVacCheckedby';
 import ApiV1AdminsTasksLightBoxes from './model/ApiV1AdminsTasksLightBoxes';
@@ -262,21 +263,21 @@ import InlineResponse20026 from './model/InlineResponse20026';
 import InlineResponse20027 from './model/InlineResponse20027';
 import InlineResponse20028 from './model/InlineResponse20028';
 import InlineResponse20029 from './model/InlineResponse20029';
-import InlineResponse20029AllFiles from './model/InlineResponse20029AllFiles';
-import InlineResponse20029AllImages from './model/InlineResponse20029AllImages';
 import InlineResponse2002AllowedUrls from './model/InlineResponse2002AllowedUrls';
 import InlineResponse2002PermissionGroups from './model/InlineResponse2002PermissionGroups';
 import InlineResponse2002Permissions from './model/InlineResponse2002Permissions';
 import InlineResponse2002SubUsers from './model/InlineResponse2002SubUsers';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse20030 from './model/InlineResponse20030';
+import InlineResponse20030Rows from './model/InlineResponse20030Rows';
 import InlineResponse20031 from './model/InlineResponse20031';
 import InlineResponse20032 from './model/InlineResponse20032';
-import InlineResponse20032Rows from './model/InlineResponse20032Rows';
 import InlineResponse20033 from './model/InlineResponse20033';
 import InlineResponse20034 from './model/InlineResponse20034';
 import InlineResponse20035 from './model/InlineResponse20035';
 import InlineResponse20036 from './model/InlineResponse20036';
+import InlineResponse20036AllFiles from './model/InlineResponse20036AllFiles';
+import InlineResponse20036AllImages from './model/InlineResponse20036AllImages';
 import InlineResponse20037 from './model/InlineResponse20037';
 import InlineResponse20037Batch from './model/InlineResponse20037Batch';
 import InlineResponse20037Boxes from './model/InlineResponse20037Boxes';
@@ -310,9 +311,9 @@ import InlineResponse20049 from './model/InlineResponse20049';
 import InlineResponse2005 from './model/InlineResponse2005';
 import InlineResponse20050 from './model/InlineResponse20050';
 import InlineResponse20051 from './model/InlineResponse20051';
-import InlineResponse20051Failed from './model/InlineResponse20051Failed';
 import InlineResponse20052 from './model/InlineResponse20052';
 import InlineResponse20053 from './model/InlineResponse20053';
+import InlineResponse20053Failed from './model/InlineResponse20053Failed';
 import InlineResponse20054 from './model/InlineResponse20054';
 import InlineResponse20055 from './model/InlineResponse20055';
 import InlineResponse20056 from './model/InlineResponse20056';
@@ -544,6 +545,12 @@ export {
      * @property {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest}
      */
     ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest,
+
+    /**
+     * The ApiV1AdminsOrdersLogicsTariffDestinationVariations model constructor.
+     * @property {module:model/ApiV1AdminsOrdersLogicsTariffDestinationVariations}
+     */
+    ApiV1AdminsOrdersLogicsTariffDestinationVariations,
 
     /**
      * The ApiV1AdminsPaymentsCreatedBy model constructor.
@@ -1956,18 +1963,6 @@ export {
     InlineResponse20029,
 
     /**
-     * The InlineResponse20029AllFiles model constructor.
-     * @property {module:model/InlineResponse20029AllFiles}
-     */
-    InlineResponse20029AllFiles,
-
-    /**
-     * The InlineResponse20029AllImages model constructor.
-     * @property {module:model/InlineResponse20029AllImages}
-     */
-    InlineResponse20029AllImages,
-
-    /**
      * The InlineResponse2002AllowedUrls model constructor.
      * @property {module:model/InlineResponse2002AllowedUrls}
      */
@@ -2004,6 +1999,12 @@ export {
     InlineResponse20030,
 
     /**
+     * The InlineResponse20030Rows model constructor.
+     * @property {module:model/InlineResponse20030Rows}
+     */
+    InlineResponse20030Rows,
+
+    /**
      * The InlineResponse20031 model constructor.
      * @property {module:model/InlineResponse20031}
      */
@@ -2014,12 +2015,6 @@ export {
      * @property {module:model/InlineResponse20032}
      */
     InlineResponse20032,
-
-    /**
-     * The InlineResponse20032Rows model constructor.
-     * @property {module:model/InlineResponse20032Rows}
-     */
-    InlineResponse20032Rows,
 
     /**
      * The InlineResponse20033 model constructor.
@@ -2044,6 +2039,18 @@ export {
      * @property {module:model/InlineResponse20036}
      */
     InlineResponse20036,
+
+    /**
+     * The InlineResponse20036AllFiles model constructor.
+     * @property {module:model/InlineResponse20036AllFiles}
+     */
+    InlineResponse20036AllFiles,
+
+    /**
+     * The InlineResponse20036AllImages model constructor.
+     * @property {module:model/InlineResponse20036AllImages}
+     */
+    InlineResponse20036AllImages,
 
     /**
      * The InlineResponse20037 model constructor.
@@ -2244,12 +2251,6 @@ export {
     InlineResponse20051,
 
     /**
-     * The InlineResponse20051Failed model constructor.
-     * @property {module:model/InlineResponse20051Failed}
-     */
-    InlineResponse20051Failed,
-
-    /**
      * The InlineResponse20052 model constructor.
      * @property {module:model/InlineResponse20052}
      */
@@ -2260,6 +2261,12 @@ export {
      * @property {module:model/InlineResponse20053}
      */
     InlineResponse20053,
+
+    /**
+     * The InlineResponse20053Failed model constructor.
+     * @property {module:model/InlineResponse20053Failed}
+     */
+    InlineResponse20053Failed,
 
     /**
      * The InlineResponse20054 model constructor.
