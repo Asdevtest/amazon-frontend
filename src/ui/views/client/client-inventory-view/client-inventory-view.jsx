@@ -72,35 +72,6 @@ export const ClientInventoryViewRaw = props => {
       <MainContent>
         <div className={classNames.topHeaderBtnsWrapper}>
           <div className={classNames.shopsFiltersWrapper}>
-            {/* <WithSearchSelect
-                    checkbox
-                    notCloseOneClick
-                    currentShops={currentShops}
-                    selectedItemName={
-                      (!withProduct && !withoutProduct && !currentShops?.length && t(TranslationKey['All Products'])) ||
-                      (currentShops?.length && currentShops?.map(traiding-shop => traiding-shop.name).join(', '))
-                    }
-                    // Расскоментировать если нужно будет убрать из списка магазинов выбранные мазин
-                    data={shopsData.filter(traiding-shop => currentShop?.id !== traiding-shop._id)}
-                    searchFields={['name']}
-                    firstItems={
-                      <>
-                        {!(!withProduct && !withoutProduct && !currentShops[0]?._id) && (
-                          <Button
-                            disabled={!currentData}
-                            className={classNames.button}
-                            variant="text"
-                            color="primary"
-                            onClick={() => onClickShopBtn('ALL')}
-                          >
-                            {t(TranslationKey['Without stores'])}
-                          </Button>
-                        )}
-                      </>
-                    }
-                    onClickSelect={traiding-shop => onClickShopBtn(traiding-shop)}
-                  /> */}
-
             <SearchInput
               key={'client_inventory_search_input'}
               inputClasses={classNames.searchInput}

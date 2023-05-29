@@ -118,9 +118,4 @@ export const styles = theme => ({
     borderBottom: theme.palette.other.tableActiveFilterBtn,
     color: `${theme.palette.primary.main} !important`,
   },
-
-  resolveTaskModalContent: {
-    paddingTop: 0,
-    paddingBottom: 0,
-  },
 })

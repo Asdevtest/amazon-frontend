@@ -18,8 +18,9 @@ import {
 
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { t } from '@utils/translations'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 
-export const warehouseBoxesViewColumns = (handlers, getUser) => [
+export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => [
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey['Box ID']),
@@ -163,7 +164,14 @@ export const warehouseBoxesViewColumns = (handlers, getUser) => [
   {
     field: 'dimansions',
     headerName: t(TranslationKey.Dimensions),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dimensions)} />,
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Dimensions)}
+        component={
+          <CustomSwitcher condition={getUnitsOption()} changeConditionHandler={handlers.onChangeUnitsOption} />
+        }
+      />
+    ),
 
     renderCell: params => {
       const rowMemo = useMemo(() => params.row.originalData, [])
@@ -175,6 +183,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser) => [
           volumeWeightCoefficient={params.row.volumeWeightCoefficient}
           curUser={getUser()?.role}
           handlers={handlers}
+          unitsOption={getUnitsOption()}
         />
       )
     },

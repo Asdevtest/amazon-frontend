@@ -4,8 +4,7 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '1480px',
     display: 'flex',
-    height: '84vh',
-    padding: '50px 20px',
+    height: '100%',
     // backgroundColor: theme.palette.background.second,
 
     flexDirection: 'column',

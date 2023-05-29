@@ -6,7 +6,16 @@ import { React, useState } from 'react'
 
 import { observer } from 'mobx-react'
 
-import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import {
+  getConversion,
+  getWeightConversion,
+  getWeightSizesType,
+  getlengthConversion,
+  inchesCoefficient,
+  poundsWeightCoefficient,
+  sizesType,
+  unitsOfChangeOptions,
+} from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -37,6 +46,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './box-view-form.style'
 import { CustomSlider } from '@components/shared/custom-slider'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 export const BoxViewForm = observer(
   ({
@@ -61,13 +71,14 @@ export const BoxViewForm = observer(
 
     const isEdit = isClient || isStorekeeper || isBuyer
 
-    const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+    const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
+
+    const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
+    const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
+    const totalWeightConversion = getConversion(sizeSetting, 12 / poundsWeightCoefficient, 12)
+    const weightSizesType = getWeightSizesType(sizeSetting)
 
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
-
-    const handleChange = (event, newAlignment) => {
-      setSizeSetting(newAlignment)
-    }
 
     const [formFields, setFormFields] = useState({ ...box, tmpTrackNumberFile: [] })
 
@@ -330,54 +341,54 @@ export const BoxViewForm = observer(
                   <div className={classNames.sizesSubWrapper}>
                     <Typography className={classNames.label}>{t(TranslationKey.Dimensions) + ':'}</Typography>
 
-                    <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-                      <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                        {'In'}
-                      </ToggleBtn>
-                      <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                        {'Cm'}
-                      </ToggleBtn>
-                    </ToggleBtnGroup>
+                    <CustomSwitcher
+                      condition={sizeSetting}
+                      changeConditionHandler={condition => setSizeSetting(condition)}
+                    />
                   </div>
                   <Typography className={classNames.standartText}>
                     {t(TranslationKey.Length) + ': '}
-                    {toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                    {toFixed(box.lengthCmWarehouse / lengthConversion, 2)}
                   </Typography>
                   <Typography className={classNames.standartText}>
                     {t(TranslationKey.Width) + ': '}
-                    {toFixed(box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                    {toFixed(box.widthCmWarehouse / lengthConversion, 2)}
                   </Typography>
                   <Typography className={classNames.standartText}>
                     {t(TranslationKey.Height) + ': '}
-                    {toFixed(box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                    {toFixed(box.heightCmWarehouse / lengthConversion, 2)}
                   </Typography>
 
                   <Typography className={classNames.standartText}>
                     {t(TranslationKey.Weight) + ': '}
-                    {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
+                    {toFixed(box.weighGrossKgWarehouse / weightConversion, 2)}
                   </Typography>
                   <Typography className={classNames.standartText}>
                     {t(TranslationKey['Volume weight']) + ': '}
-                    {toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}
+                    {toFixed(calcVolumeWeightForBox(box, volumeWeightCoefficient) / weightConversion, 2)}
                   </Typography>
                   <Typography
                     className={cx(classNames.standartText, {
-                      [classNames.alertText]: finalWeightForBox < 12,
+                      [classNames.alertText]: finalWeightForBox / weightConversion < totalWeightConversion,
                     })}
                   >
                     {t(TranslationKey['Final weight']) + ': '}
-                    {toFixedWithKg(finalWeightForBox, 2)}
+                    {`${toFixed(finalWeightForBox / weightConversion, 2)} ${weightSizesType}!`}
                   </Typography>
 
-                  {finalWeightForBox < 12 ? (
+                  {finalWeightForBox / weightConversion < totalWeightConversion ? (
                     // eslint-disable-next-line react/jsx-indent
-                    <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
+                    <span className={classNames.alertText}>{`${t(TranslationKey['Weight less than'])} ${toFixed(
+                      totalWeightConversion,
+                      2,
+                    )} ${weightSizesType}!`}</span>
                   ) : null}
 
                   {box.amount > 1 ? (
                     <Typography className={classNames.standartText}>
                       {t(TranslationKey['Total final weight']) + ': '}
-                      {toFixedWithKg(finalWeightForBox * box.amount, 2)}
+                      {toFixed((finalWeightForBox / weightConversion) * box.amount, 2)}
+                      {' ' + weightSizesType}
                     </Typography>
                   ) : null}
                 </div>

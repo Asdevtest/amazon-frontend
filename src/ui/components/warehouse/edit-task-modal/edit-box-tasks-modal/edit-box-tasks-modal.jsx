@@ -2,12 +2,16 @@ import { Box, Container, Typography } from '@mui/material'
 
 import React, { useState } from 'react'
 
-import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import {
+  getConversion,
+  inchesCoefficient,
+  poundsWeightCoefficient,
+  sizesType,
+  unitsOfChangeOptions,
+} from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { Field } from '@components/shared/field'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -16,9 +20,13 @@ import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './edit-box-tasks-modal.style'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, sizeSetting }) => {
   const { classes: classNames } = useClassNames()
+
+  const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
+
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
       <div className={classNames.numberInputFieldsWrapper}>
@@ -29,7 +37,7 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, siz
           containerClasses={classNames.numberInputField}
           labelClasses={classNames.label}
           label={t(TranslationKey.Length) + ': '}
-          value={box.lengthCmWarehouse}
+          value={toFixed(box.lengthCmWarehouse, 2)}
           onChange={setNewBoxField('lengthCmWarehouse')}
         />
 
@@ -40,7 +48,7 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, siz
           className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey.Height) + ': '}
-          value={box.heightCmWarehouse}
+          value={toFixed(box.heightCmWarehouse, 2)}
           onChange={setNewBoxField('heightCmWarehouse')}
         />
 
@@ -48,10 +56,10 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, siz
           disabled
           className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
-          label={t(TranslationKey['Volume weight']) + ', ' + t(TranslationKey.Kg) + ': '}
+          label={t(TranslationKey['Volume weight']) + ': '}
           labelClasses={classNames.label}
           value={toFixed(
-            (sizeSetting === sizesType.INCHES
+            (sizeSetting === unitsOfChangeOptions.EU
               ? box.heightCmWarehouse *
                 inchesCoefficient *
                 box.widthCmWarehouse *
@@ -71,7 +79,7 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, siz
           containerClasses={classNames.numberInputField}
           labelClasses={classNames.label}
           label={t(TranslationKey.Width) + ': '}
-          value={box.widthCmWarehouse}
+          value={toFixed(box.widthCmWarehouse, 2)}
           onChange={setNewBoxField('widthCmWarehouse')}
         />
 
@@ -81,8 +89,8 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, siz
           className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
           labelClasses={classNames.label}
-          label={t(TranslationKey.Weight) + ', ' + t(TranslationKey.Kg) + ': '}
-          value={box.weighGrossKgWarehouse}
+          label={t(TranslationKey.Weight) + ': '}
+          value={toFixed(box.weighGrossKgWarehouse / weightConversion, 2)}
           onChange={setNewBoxField('weighGrossKgWarehouse')}
         />
 
@@ -90,11 +98,11 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, siz
           disabled
           className={classNames.numberInputField}
           containerClasses={classNames.numberInputField}
-          label={t(TranslationKey['Final weight']) + ', ' + t(TranslationKey.Kg) + ': '}
+          label={t(TranslationKey['Final weight']) + ': '}
           labelClasses={classNames.label}
           value={Math.max(
             toFixed(
-              (sizeSetting === sizesType.INCHES
+              ((sizeSetting === unitsOfChangeOptions.US
                 ? box.heightCmWarehouse *
                   inchesCoefficient *
                   box.widthCmWarehouse *
@@ -102,9 +110,9 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, siz
                   box.lengthCmWarehouse *
                   inchesCoefficient
                 : box.heightCmWarehouse * box.widthCmWarehouse * box.lengthCmWarehouse) / volumeWeightCoefficient,
+              box.weighGrossKgWarehouse) / weightConversion,
               2,
             ),
-            box.weighGrossKgWarehouse,
           )}
         />
       </div>
@@ -201,24 +209,24 @@ export const EditBoxTasksModal = ({
     }
   }
 
-  const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
-  const handleChange = (event, newAlignment) => {
-    setSizeSetting(newAlignment)
+  const handleChange = condition => {
+    setSizeSetting(condition)
 
-    if (newAlignment === sizesType.INCHES) {
+    if (condition === unitsOfChangeOptions.US) {
       setEditingBox({
         ...editingBox,
-        lengthCmWarehouse: toFixed(editingBox.lengthCmWarehouse / inchesCoefficient, 4),
-        widthCmWarehouse: toFixed(editingBox.widthCmWarehouse / inchesCoefficient, 4),
-        heightCmWarehouse: toFixed(editingBox.heightCmWarehouse / inchesCoefficient, 4),
+        lengthCmWarehouse: toFixed(editingBox.lengthCmWarehouse / inchesCoefficient, 2),
+        widthCmWarehouse: toFixed(editingBox.widthCmWarehouse / inchesCoefficient, 2),
+        heightCmWarehouse: toFixed(editingBox.heightCmWarehouse / inchesCoefficient, 2),
       })
     } else {
       setEditingBox({
         ...editingBox,
-        lengthCmWarehouse: toFixed(editingBox.lengthCmWarehouse * inchesCoefficient, 4),
-        widthCmWarehouse: toFixed(editingBox.widthCmWarehouse * inchesCoefficient, 4),
-        heightCmWarehouse: toFixed(editingBox.heightCmWarehouse * inchesCoefficient, 4),
+        lengthCmWarehouse: toFixed(editingBox.lengthCmWarehouse * inchesCoefficient, 2),
+        widthCmWarehouse: toFixed(editingBox.widthCmWarehouse * inchesCoefficient, 2),
+        heightCmWarehouse: toFixed(editingBox.heightCmWarehouse * inchesCoefficient, 2),
       })
     }
   }
@@ -234,15 +242,8 @@ export const EditBoxTasksModal = ({
       <div className={classNames.modalHeaderWrapper}>
         <Typography className={classNames.modalTitle}>{t(TranslationKey['Editing the box'])}</Typography>
 
-        <div>
-          <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-            <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-              {'In'}
-            </ToggleBtn>
-            <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-              {'Cm'}
-            </ToggleBtn>
-          </ToggleBtnGroup>
+        <div className={classNames.customSwitcherWrapper}>
+          <CustomSwitcher condition={sizeSetting} changeConditionHandler={condition => handleChange(condition)} />
         </div>
       </div>
 
