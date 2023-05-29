@@ -69,12 +69,16 @@ export const SearchInput: FC<SearchInputProps> = props => {
       placeholder={placeholder}
       classes={{ input: classNames.inputClass }}
       endAdornment={
-        <InputAdornment position={onSubmit ? 'end' : 'start'}>
+        <InputAdornment classes={{ root: classNames.inputAdornmentRoot }} position={onSubmit ? 'end' : 'start'}>
           {onSubmit ? (
             <div className={classNames.searchWrapper}>
               {internalValue ? <CloseRoundedIcon className={classNames.closeIcon} onClick={onClickCloseIcon} /> : null}
-              <Button className={classNames.submit} onClick={searchAndClearSpaces}>
-                {t(TranslationKey.search)}
+              <Button
+                className={classNames.submit}
+                btnWrapperStyle={classNames.btnWrapperStyle}
+                onClick={searchAndClearSpaces}
+              >
+                {t(TranslationKey.Search)}
               </Button>
             </div>
           ) : (
