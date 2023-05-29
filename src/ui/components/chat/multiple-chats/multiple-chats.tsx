@@ -21,6 +21,7 @@ import { Chat, RenderAdditionalButtonsParams } from '../chat'
 import { ChatMessageUniversalHandlers } from '../chat/chat-messages-list'
 import { ChatsList } from '../chats-list'
 import { useClassNames } from './multiple-chats.style'
+import { NoSelectedChat } from '@components/shared/svg-icons'
 
 export interface IFile {
   data_url: string
@@ -155,7 +156,7 @@ export const MultipleChats = observer(
                 />
               ) : (
                 <div className={classNames.noChatWrapper}>
-                  <img src="/assets/icons/no-chats.svg" />
+                  <NoSelectedChat className={classNames.noSelectedChatIcon} />
                   <Typography className={classNames.noChatTitle}>{t(TranslationKey['Choose chat'])}</Typography>
                   <Typography className={classNames.noChatSubTitle}>
                     {t(TranslationKey['Try selecting a dialogue or Find a concrete speaker'])}

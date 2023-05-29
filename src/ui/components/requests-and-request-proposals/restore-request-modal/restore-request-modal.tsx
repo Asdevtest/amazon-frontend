@@ -80,7 +80,7 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={styles.controlButton} onClick={handleCloseModal}>
+        <Button variant="text" className={cx(styles.controlButton, styles.cancelButton)} onClick={handleCloseModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

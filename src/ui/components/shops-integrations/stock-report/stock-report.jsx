@@ -56,7 +56,7 @@ export const StockReportRaw = props => {
                 <Button
                   disabled={!viewModel.currentShop?._id}
                   // tooltipInfoContent={t(TranslationKey['Filter for sorting by store'])}
-                  className={viewModel.className.button}
+                  className={className.button}
                   variant="text"
                   color="primary"
                   onClick={viewModel.onClickShopBtn}
