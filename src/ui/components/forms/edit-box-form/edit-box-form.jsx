@@ -331,11 +331,7 @@ export const EditBoxForm = observer(
                       <div key={index} className={classNames.productWrapper}>
                         <div className={classNames.leftProductColumn}>
                           <div className={classNames.photoWrapper}>
-                            <PhotoCarousel
-                              isAmazonPhoto
-                              files={item.product.images}
-                              imageClass={classNames.productImageClass}
-                            />
+                            <PhotoCarousel isAmazonPhoto files={item.product.images} />
                           </div>
 
                           <>
