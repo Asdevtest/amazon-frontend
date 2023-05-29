@@ -226,16 +226,16 @@ const WithSearchSelectRaw = observer(
                           })}
                         >
                           {searchFields?.map((fieldName, index) => (
-                            <>
+                            <React.Fragment key={index}>
                               {checkbox && (
                                 <Checkbox checked={currentShops?.some(shop => shop?._id === el?._id)} color="primary" />
                               )}
-                              <Tooltip key={index} followCursor title={getRowValue ? getRowValue(el) : el[fieldName]}>
+                              <Tooltip followCursor title={getRowValue ? getRowValue(el) : el[fieldName]}>
                                 <Typography className={classNames.fieldName}>
                                   {getRowValue ? getRowValue(el) : el[fieldName]}
                                 </Typography>
                               </Tooltip>
-                            </>
+                            </React.Fragment>
                           ))}
 
                           {isFlat && !searchFields?.length && (
