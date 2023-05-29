@@ -499,6 +499,7 @@ export const CreateOrEditRequestContent = ({
                     maxNumber={50}
                     // oneLineMaxHeight
                     maxHeight={160}
+                    addFilesButtonTitle={t(TranslationKey['Add file'])}
                   />
                   {/* {formFields.details.linksToMediaFiles?.length ? (
                     <PhotoAndFilesCarousel

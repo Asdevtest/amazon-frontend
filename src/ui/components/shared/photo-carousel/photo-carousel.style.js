@@ -26,8 +26,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   image: {
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    minWidth: 60,
-    height: 110,
+    minWidth: 30,
+    height: 80,
     objectFit: 'contain',
   },
 

@@ -96,6 +96,12 @@ import {
 import { t } from '@utils/translations'
 
 import { styles } from './data-grid-cells.style'
+import {
+  getConversion,
+  getWeightSizesType,
+  inchesCoefficient,
+  poundsWeightCoefficient,
+} from '@constants/configs/sizes-settings'
 
 export const UserCell = React.memo(
   withStyles(
@@ -1145,11 +1151,11 @@ export const WarehouseDestinationAndTariffCell = React.memo(
         ?.find(el => el._id === boxesMy?.storekeeper?._id)
         ?.tariffLogistics?.find(el => el?._id === boxesMy?.logicsTariff?._id)?.name
 
-      const curDestination = destinations.find(el => el._id === boxesMy?.destination?._id)
+      const curDestination = destinations?.find(el => el?._id === boxesMy?.destination?._id)
 
       const firstNumOfCode = curDestination?.zipCode[0]
 
-      const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+      const regionOfDeliveryName = zipCodeGroups?.find(el => el?.codes?.includes(Number(firstNumOfCode)))?.name
 
       const tariffRate = storekeepers
         ?.find(el => el?._id === boxesMy?.storekeeper?._id)
@@ -1164,14 +1170,14 @@ export const WarehouseDestinationAndTariffCell = React.memo(
               disabled={disabled}
               width={160}
               selectedItemName={
-                destinations.find(el => el._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
+                destinations.find(el => el?._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
               }
-              data={destinations.filter(el => el.storekeeper?._id !== boxesMy?.storekeeper._id)}
+              data={destinations.filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper._id)}
               searchFields={['name']}
               favourites={destinationsFavourites}
               onClickSetDestinationFavourite={setDestinationsFavouritesItem}
               onClickNotChosen={() => onSelectDestination(boxesMy?._id, { destinationId: null })}
-              onClickSelect={el => onSelectDestination(boxesMy?._id, { destinationId: el._id })}
+              onClickSelect={el => onSelectDestination(boxesMy?._id, { destinationId: el?._id })}
             />
           </div>
           <div className={classNames.tatiff}>
@@ -1531,10 +1537,15 @@ export const MultilineTextAlignLeftHeaderCell = React.memo(
 
 export const MultilineTextHeaderCell = React.memo(
   withStyles(
-    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive }) => (
+    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component }) => (
       <Tooltip title={text}>
-        <div className={classNames.multilineTextHeaderWrapper}>
+        <div
+          className={cx(classNames.multilineTextHeaderWrapper, {
+            [classNames.multilineTextHeaderWrapperWithComponent]: component,
+          })}
+        >
           <Typography className={classNames.multilineHeaderText}>{text}</Typography>
+          {component}
           {withIcon || isShowIconOnHover || isFilterActive ? (
             <FilterAltOutlinedIcon
               className={cx(classNames.headerIcon, {
@@ -2819,52 +2830,57 @@ export const DownloadAndCopyBtnsCell = React.memo(
 )
 
 export const ShortBoxDimensions = React.memo(
-  withStyles(({ classes: classNames, box, volumeWeightCoefficient, curUser, handlers }) => {
+  withStyles(({ classes: classNames, box, volumeWeightCoefficient, curUser, handlers, unitsOption }) => {
     const finalWeight = calcFinalWeightForBox(box, volumeWeightCoefficient)
+
+    const lengthConversion = getConversion(unitsOption, inchesCoefficient)
+    const weightConversion = getConversion(unitsOption, poundsWeightCoefficient)
+    const totalWeightConversion = getConversion(unitsOption, 12 / poundsWeightCoefficient, 12)
+    const weightSizesType = getWeightSizesType(unitsOption)
 
     return (
       <div className={classNames.shortBoxDimensionsWrapper}>
-        <Typography className={classNames.shortBoxDimensionsText}>{`${toFixed(box.lengthCmWarehouse, 2)}x${toFixed(
-          box.widthCmWarehouse,
+        <Typography className={classNames.shortBoxDimensionsText}>{`${toFixed(
+          box.lengthCmWarehouse / lengthConversion,
           2,
-        )}x${toFixed(box.heightCmWarehouse, 2)}`}</Typography>
+        )}x${toFixed(box.widthCmWarehouse / lengthConversion, 2)}x${toFixed(
+          box.heightCmWarehouse / lengthConversion,
+          2,
+        )}`}</Typography>
 
-        <Typography className={classNames.shortBoxDimensionsText}>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(
-          box.weighGrossKgWarehouse,
+        <Typography className={classNames.shortBoxDimensionsText}>{`${t(TranslationKey.Weight)}: ${toFixed(
+          box.weighGrossKgWarehouse / weightConversion,
           2,
         )}`}</Typography>
 
         <Typography className={classNames.shortBoxDimensionsText}>{`${t(
           TranslationKey['Volume weight'],
-        )}: ${toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}`}</Typography>
+        )}: ${toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient) / weightConversion, 2)}`}</Typography>
 
         <Typography
           className={cx(classNames.shortBoxDimensionsText, {
-            [classNames.alertText]: !box.isDraft && finalWeight < 12,
+            [classNames.alertText]: !box.isDraft && finalWeight / weightConversion < totalWeightConversion,
           })}
-        >{`${t(TranslationKey['Final weight'])}: ${toFixedWithKg(finalWeight, 2)}`}</Typography>
+        >{`${t(TranslationKey['Final weight'])}: ${toFixed(
+          finalWeight / weightConversion,
+          2,
+        )} ${weightSizesType}!`}</Typography>
 
-        {!box.isDraft && finalWeight < 12 ? (
-          <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
-        ) : null}
+        {!box.isDraft && finalWeight / weightConversion < totalWeightConversion && (
+          <span className={classNames.alertText}>{`${t(TranslationKey['Weight less than'])} ${toFixed(
+            totalWeightConversion,
+            2,
+          )} ${weightSizesType}!`}</span>
+        )}
 
-        {box.amount > 1 ? (
+        {box.amount > 1 && (
           <Typography className={classNames.shortBoxDimensionsText}>{`${t(
             TranslationKey['Total final weight'],
-          )}: ${toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient) * box.amount, 2)}`}</Typography>
-        ) : null}
-
-        {/* {checkIsStorekeeper(UserRoleCodeMap[curUser]) ? (
-          <Button
-            disabled={box.isDraft || box.status !== BoxStatus.IN_STOCK}
-            className={cx(classNames.shortBoxDimensionsButton, {
-              [classNames.editPaddingButton]: !box.isDraft && finalWeight < 12,
-            })}
-            onClick={() => handlers.setDimensions(box)}
-          >
-            {t(TranslationKey.Set)}
-          </Button>
-        ) : null} */}
+          )}: ${toFixed(
+            (calcFinalWeightForBox(box, volumeWeightCoefficient) / weightConversion) * box.amount,
+            2,
+          )} ${weightSizesType}`}</Typography>
+        )}
       </div>
     )
   }, styles),

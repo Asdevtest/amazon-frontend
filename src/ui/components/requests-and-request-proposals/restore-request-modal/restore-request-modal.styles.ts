@@ -33,6 +33,10 @@ export const useRestoreRequestModalStyles = makeStyles()(theme => ({
     maxWidth: 'unset',
   },
 
+  cancelButton: {
+    color: theme.palette.text.general,
+  },
+
   errorInput: {
     borderColor: theme.palette.text.red,
   },

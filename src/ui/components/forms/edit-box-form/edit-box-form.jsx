@@ -6,7 +6,14 @@ import { useState } from 'react'
 
 import { observer } from 'mobx-react'
 
-import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import {
+  getConversion,
+  inchesCoefficient,
+  sizesType,
+  unitsOfChangeOptions,
+  poundsWeightCoefficient,
+  getWeightSizesType,
+} from '@constants/configs/sizes-settings'
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { UiTheme } from '@constants/theme/themes'
@@ -37,47 +44,59 @@ import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-
 import { useClassNames } from './edit-box-form.style'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
   const { classes: classNames } = useClassNames()
+
+  const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
+  const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
+  const totalWeightConversion = getConversion(sizeSetting, 12 / poundsWeightCoefficient, 12)
+  const weightSizesType = getWeightSizesType(sizeSetting)
 
   return (
     <div className={classNames.demensionsWrapper}>
       <Typography className={classNames.standartText}>
         {t(TranslationKey.Length) + ': '}
 
-        {toFixed(orderBox.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+        {toFixed(orderBox.lengthCmWarehouse / lengthConversion, 2)}
       </Typography>
       <Typography className={classNames.standartText}>
         {t(TranslationKey.Width) + ': '}
-        {toFixed(orderBox.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+        {toFixed(orderBox.widthCmWarehouse / lengthConversion, 2)}
       </Typography>
       <Typography className={classNames.standartText}>
         {t(TranslationKey.Height) + ': '}
-        {toFixed(orderBox.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+        {toFixed(orderBox.heightCmWarehouse / lengthConversion, 2)}
       </Typography>
 
       <Typography className={classNames.standartText}>
         {t(TranslationKey.Weight) + ': '}
-        {orderBox.weighGrossKgWarehouse || 0}
+        {toFixed(orderBox.weighGrossKgWarehouse / weightConversion, 2)}
+        {' ' + weightSizesType}
       </Typography>
 
       <Typography className={classNames.standartText}>
         {t(TranslationKey['Volume weight']) + ': '}
-        {toFixed(orderBox.volumeWeightKgWarehouse, 4) || 0}
+        {toFixed(orderBox.volumeWeightKgWarehouse / weightConversion, 2) || 0}
+        {' ' + weightSizesType}
       </Typography>
 
       <Typography
         className={cx(classNames.standartText, {
-          [classNames.alertText]: orderBox.weightFinalAccountingKgWarehouse < 12,
+          [classNames.alertText]: orderBox.weightFinalAccountingKgWarehouse / weightConversion < totalWeightConversion,
         })}
       >
         {t(TranslationKey['Final weight']) + ': '}
-        {toFixed(orderBox.weightFinalAccountingKgWarehouse, 4) || 0}
+        {toFixed(orderBox.weightFinalAccountingKgWarehouse / weightConversion, 2) || 0}
+        {' ' + weightSizesType}
       </Typography>
 
-      {orderBox.weightFinalAccountingKgWarehouse < 12 ? (
-        <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
+      {orderBox.weightFinalAccountingKgWarehouse / weightConversion < totalWeightConversion ? (
+        <span className={classNames.alertText}>{`${t(TranslationKey['Weight less than'])} ${toFixed(
+          totalWeightConversion,
+          2,
+        )} ${weightSizesType}!`}</span>
       ) : null}
     </div>
   )
@@ -206,11 +225,7 @@ export const EditBoxForm = observer(
       setBoxFields(newFormFields)
     }
 
-    const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
-
-    const handleChange = (event, newAlignment) => {
-      setSizeSetting(newAlignment)
-    }
+    const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
     const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
@@ -316,11 +331,7 @@ export const EditBoxForm = observer(
                       <div key={index} className={classNames.productWrapper}>
                         <div className={classNames.leftProductColumn}>
                           <div className={classNames.photoWrapper}>
-                            <PhotoCarousel
-                              isAmazonPhoto
-                              files={item.product.images}
-                              imageClass={classNames.productImageClass}
-                            />
+                            <PhotoCarousel isAmazonPhoto files={item.product.images} />
                           </div>
 
                           <>
@@ -620,14 +631,10 @@ export const EditBoxForm = observer(
                     {t(TranslationKey.Dimensions)}
                   </Text>
 
-                  <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-                    <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                      {'In'}
-                    </ToggleBtn>
-                    <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                      {'Cm'}
-                    </ToggleBtn>
-                  </ToggleBtnGroup>
+                  <CustomSwitcher
+                    condition={sizeSetting}
+                    changeConditionHandler={condition => setSizeSetting(condition)}
+                  />
                 </div>
 
                 <WarehouseDemensions orderBox={boxFields} sizeSetting={sizeSetting} />

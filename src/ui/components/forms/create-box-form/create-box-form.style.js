@@ -125,4 +125,8 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.second,
   },
+
+  sizesSubWrapper: {
+    width: 'fit-content',
+  },
 }))

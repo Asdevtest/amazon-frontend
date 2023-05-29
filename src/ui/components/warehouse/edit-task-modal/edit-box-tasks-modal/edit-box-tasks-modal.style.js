@@ -169,4 +169,8 @@ export const useClassNames = makeStyles()(theme => ({
       justifyContent: 'space-between',
     },
   },
+
+  customSwitcherWrapper: {
+    width: 'fit-content',
+  },
 }))
