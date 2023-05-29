@@ -262,7 +262,7 @@ export class WarehouseVacantViewModel {
   }
 
   goToMyTasks() {
-    this.history.push('/warehouse/tasks/my-tasks', { task: toJS(this.curTask) })
+    this.history.push('/warehouse/tasks/my-tasks', { task: toJS(this.curTask._id) })
     this.onTriggerOpenModal('showTwoVerticalChoicesModal')
   }
 
