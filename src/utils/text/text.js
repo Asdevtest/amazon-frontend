@@ -159,6 +159,8 @@ export const getTableByColumn = (column, hint) => {
       'ideasOnCheck',
       'stockCost',
       'purchaseQuantity',
+      'ideasClosed',
+      'ideasVerified',
     ].includes(column)
   ) {
     return 'products'
