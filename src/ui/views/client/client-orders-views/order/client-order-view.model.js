@@ -72,9 +72,7 @@ export class ClientOrderViewModel {
   constructor({ history }) {
     runInAction(() => {
       this.history = history
-
       this.orderId = history.location.search.slice(1)
-      SettingsModel.changeLastCrumbAdditionalText(` № ${history.location.search.slice(1)}`)
     })
 
     makeAutoObservable(this, undefined, { autoBind: true })
@@ -292,8 +290,6 @@ export class ClientOrderViewModel {
           OrderModel.changeOrderData(orderObject._id, dataToRequest),
           ClientModel.updateOrderStatusToReadyToProcess(orderObject._id),
         ])
-
-        // await this.createOrder(orderObject)
       }
 
       if (!this.error) {
@@ -317,45 +313,13 @@ export class ClientOrderViewModel {
     }
   }
 
-  // async createOrder(orderObject) {
-  //   try {
-  //     const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
-  //       'barCode',
-  //       'tmpBarCode',
-  //       'tmpIsPendingOrder',
-  //     ])
-
-  //     if (orderObject.tmpIsPendingOrder) {
-  //       await ClientModel.createFormedOrder(requestData)
-  //     } else {
-  //       await ClientModel.createOrder(requestData)
-  //     }
-
-  //     await this.updateUserInfo()
-  //   } catch (error) {
-  //     console.log(error)
-
-  //     runInAction(() => {
-  //       this.warningInfoModalSettings = {
-  //         isWarning: true,
-  //         title: `${t(TranslationKey["You can't order"])} "${error.body.message}"`,
-  //       }
-  //     })
-
-  //     this.onTriggerOpenModal('showWarningInfoModal')
-  //     runInAction(() => {
-  //       this.error = error
-  //     })
-  //   }
-  // }
-
   async getOrderById() {
     try {
       const result = await ClientModel.getOrderById(this.orderId)
-
       runInAction(() => {
         this.order = result
       })
+      SettingsModel.changeLastCrumbAdditionalText(` № ${result.id}`)
     } catch (error) {
       console.log(error)
     }
@@ -432,7 +396,6 @@ export class ClientOrderViewModel {
         referenceId: data.referenceId,
         fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
-        // trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
         trackNumberFile: [...data.trackNumberFile, ...this.uploadedFiles],
 
         prepId: data.prepId,
