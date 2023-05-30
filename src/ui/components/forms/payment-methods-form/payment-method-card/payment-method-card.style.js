@@ -24,7 +24,11 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
   commentInput: {
-    height: 'auto',
+    height: '180px',
+
+    textarea: {
+      height: '100% !important',
+    },
   },
   label: {
     margin: '0 !important',
