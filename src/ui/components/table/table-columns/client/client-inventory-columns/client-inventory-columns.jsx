@@ -495,6 +495,40 @@ export const clientInventoryColumns = (
   },
 
   {
+    field: 'ideasClosed',
+    headerName: t(TranslationKey['Closed Ideas']),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Closed Ideas'])}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 100,
+    type: 'number',
+
+    columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
+  {
+    field: 'ideasVerified',
+    headerName: t(TranslationKey['Verified ideas']),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Verified ideas'])}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 120,
+    type: 'number',
+
+    columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
+  {
     field: 'commentSb',
     headerName: t(TranslationKey['Comment of SB']),
     renderHeader: params => (

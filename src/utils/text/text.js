@@ -156,9 +156,11 @@ export const getTableByColumn = (column, hint) => {
       'reservedSum',
       'sentToFbaSum',
       'fbaFbmStockSum',
-      'ideaCount',
+      'ideasOnCheck',
       'stockCost',
       'purchaseQuantity',
+      'ideasClosed',
+      'ideasVerified',
     ].includes(column)
   ) {
     return 'products'

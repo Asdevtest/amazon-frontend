@@ -6,8 +6,7 @@ import { React, useState } from 'react'
 
 import { observer } from 'mobx-react'
 
-import { inchesCoefficient, sizesType, poundsCoefficient } from '@constants/configs/sizes-settings'
-import { paymentsMethod, paymentsMethodByKey } from '@constants/keys/payments'
+import { inchesCoefficient, poundsCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -28,6 +27,7 @@ import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './add-or-edit-supplier-modal-content.style'
+import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
 
 export const AddOrEditSupplierModalContent = observer(
   ({
@@ -110,6 +110,8 @@ export const AddOrEditSupplierModalContent = observer(
         boxHeightCm: supplier?.boxProperties?.boxHeightCm || '',
         boxWeighGrossKg: supplier?.boxProperties?.boxWeighGrossKg || '',
       },
+
+      priceVariations: supplier?.priceVariations || [],
     })
 
     const calculateFieldsToSubmit = () => {
@@ -735,6 +737,19 @@ export const AddOrEditSupplierModalContent = observer(
               </Grid>
             </div>
           </div>
+
+          {(!onlyRead || !!tmpSupplier.priceVariations.length) && (
+            <SupplierPriceVariationSelector
+              isEditMode={!onlyRead}
+              currentVariations={tmpSupplier.priceVariations}
+              updateVariationList={newVariations => {
+                setTmpSupplier(prevState => ({
+                  ...prevState,
+                  priceVariations: newVariations,
+                }))
+              }}
+            />
+          )}
 
           <div className={classNames.paymentsBlock}>
             <CustomSelectPaymentDetails

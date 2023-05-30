@@ -139,6 +139,41 @@ export const buyerProductsViewColumns = handlers => [
 
     // columnKey: columnnsKeys.shared.QUANTITY,
   },
+
+  {
+    field: 'ideasClosed',
+    headerName: t(TranslationKey['Closed Ideas']),
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Closed Ideas'])}
+        // isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 100,
+    type: 'number',
+
+    // columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
+  {
+    field: 'ideasVerified',
+    headerName: t(TranslationKey['Verified ideas']),
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Verified ideas'])}
+        // isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 120,
+    type: 'number',
+
+    // columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),

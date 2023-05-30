@@ -65,7 +65,9 @@ export const ClientInventoryViewRaw = props => {
 
   const getCellClassName = params => clickableCells.includes(params.field) && classNames.clickableCell
 
-  const getRowClassName = params => !!params.row.originalData.ideaCount && classNames.ideaRow
+  const getRowClassName = params =>
+    (!params.row.originalData.ideasOnCheck && !!params.row.originalData.ideasVerified && classNames.ideaRowGreen) ||
+    (!!params.row.originalData.ideasOnCheck && classNames.ideaRowYellow)
 
   return (
     <React.Fragment>

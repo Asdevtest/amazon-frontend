@@ -337,6 +337,7 @@ export default class StorekeepersApi {
      * ## Получить всех сторкиперов(все склады).  если вызвал килен, то показывает сколко коробок у каждого сторкипера пока тут только данные о сторкипере, далее должно быть вся информация о складе, с тарифами  
      * @param {Object} opts Optional parameters
      * @param {String} opts.boxStatus Статус коробок,  которые нужно посчитать. (default to 'IN_STOCK')
+     * @param {Number} opts.tariffType Тип тарифа(10, 20)
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20068>} and HTTP response
      */
@@ -347,7 +348,8 @@ export default class StorekeepersApi {
       let pathParams = {
       };
       let queryParams = {
-        'boxStatus': opts['boxStatus']
+        'boxStatus': opts['boxStatus'],
+        'tariffType': opts['tariffType']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -371,6 +373,7 @@ export default class StorekeepersApi {
      * ## Получить всех сторкиперов(все склады).  если вызвал килен, то показывает сколко коробок у каждого сторкипера пока тут только данные о сторкипере, далее должно быть вся информация о складе, с тарифами  
      * @param {Object} opts Optional parameters
      * @param {String} opts.boxStatus Статус коробок,  которые нужно посчитать. (default to 'IN_STOCK')
+     * @param {Number} opts.tariffType Тип тарифа(10, 20)
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20068>}
      */
@@ -615,6 +618,7 @@ export default class StorekeepersApi {
      * ## Получить всех тарифами доставки сторкипером.   доступно сторкипером  
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.archive Заархивирован ли тариф
+     * @param {Number} opts.tariffType Тип тарифа(10, 20)
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsOrdersLogicsTariff>} and HTTP response
      */
@@ -625,7 +629,8 @@ export default class StorekeepersApi {
       let pathParams = {
       };
       let queryParams = {
-        'archive': opts['archive']
+        'archive': opts['archive'],
+        'tariffType': opts['tariffType']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -649,6 +654,7 @@ export default class StorekeepersApi {
      * ## Получить всех тарифами доставки сторкипером.   доступно сторкипером  
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.archive Заархивирован ли тариф
+     * @param {Number} opts.tariffType Тип тарифа(10, 20)
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsOrdersLogicsTariff>}
      */

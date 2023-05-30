@@ -41,6 +41,7 @@ export const NavbarCollapse = ({
   }
 
   const onClickCategory = subIndex => {
+    shortNavbar && handleClose()
     onChangeSubCategory && onChangeSubCategory(subIndex)
   }
 

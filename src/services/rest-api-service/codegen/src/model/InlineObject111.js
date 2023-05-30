@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
+import ApiV1AdminsOrdersLogicsTariffDestinationVariations from './ApiV1AdminsOrdersLogicsTariffDestinationVariations';
 
 /**
  * The InlineObject111 model module.
@@ -24,11 +25,10 @@ class InlineObject111 {
      * Constructs a new <code>InlineObject111</code>.
      * @alias module:model/InlineObject111
      * @param name {String} Название тарифа
-     * @param conditionsByRegion {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} 
      */
-    constructor(name, conditionsByRegion) { 
+    constructor(name) { 
         
-        InlineObject111.initialize(this, name, conditionsByRegion);
+        InlineObject111.initialize(this, name);
     }
 
     /**
@@ -36,9 +36,8 @@ class InlineObject111 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, conditionsByRegion) { 
+    static initialize(obj, name) { 
         obj['name'] = name;
-        obj['conditionsByRegion'] = conditionsByRegion;
     }
 
     /**
@@ -52,6 +51,9 @@ class InlineObject111 {
         if (data) {
             obj = obj || new InlineObject111();
 
+            if (data.hasOwnProperty('tariffType')) {
+                obj['tariffType'] = ApiClient.convertToType(data['tariffType'], 'Number');
+            }
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
@@ -79,12 +81,21 @@ class InlineObject111 {
             if (data.hasOwnProperty('conditionsByRegion')) {
                 obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
+            if (data.hasOwnProperty('destinationVariations')) {
+                obj['destinationVariations'] = ApiClient.convertToType(data['destinationVariations'], [ApiV1AdminsOrdersLogicsTariffDestinationVariations]);
+            }
         }
         return obj;
     }
 
 
 }
+
+/**
+ * Тип тарифа
+ * @member {Number} tariffType
+ */
+InlineObject111.prototype['tariffType'] = undefined;
 
 /**
  * Название тарифа
@@ -138,6 +149,11 @@ InlineObject111.prototype['archive'] = undefined;
  * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
  */
 InlineObject111.prototype['conditionsByRegion'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsOrdersLogicsTariffDestinationVariations>} destinationVariations
+ */
+InlineObject111.prototype['destinationVariations'] = undefined;
 
 
 

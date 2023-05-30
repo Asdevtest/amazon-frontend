@@ -37,10 +37,24 @@ export const styles = theme => ({
     height: '52px',
   },
 
-  ideaRow: {
+  ideaRowGreen: {
     '&:before': {
       content: '""',
-      backgroundImage: theme.palette.other.ideaProductSheld,
+      backgroundImage: theme.palette.other.ideaProductSheldGreen,
+
+      width: 48,
+      height: 21,
+      posotion: 'absolute',
+      top: 0,
+      left: 0,
+      marginRight: '-48px',
+    },
+  },
+
+  ideaRowYellow: {
+    '&:before': {
+      content: '""',
+      backgroundImage: theme.palette.other.ideaProductSheldYellow,
 
       width: 48,
       height: 21,
