@@ -339,6 +339,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.StorekeepersApi();
 let opts = {
   'boxStatus': "'IN_STOCK'", // String | Статус коробок,  которые нужно посчитать.
+  'tariffType': 56, // Number | Тип тарифа(10, 20)
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1StorekeepersGet(opts).then((data) => {
@@ -355,6 +356,7 @@ apiInstance.apiV1StorekeepersGet(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **boxStatus** | **String**| Статус коробок,  которые нужно посчитать. | [optional] [default to &#39;IN_STOCK&#39;]
+ **tariffType** | **Number**| Тип тарифа(10, 20) | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -621,6 +623,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.StorekeepersApi();
 let opts = {
   'archive': true, // Boolean | Заархивирован ли тариф
+  'tariffType': 56, // Number | Тип тарифа(10, 20)
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1StorekeepersTariffLogisticsMyGet(opts).then((data) => {
@@ -637,6 +640,7 @@ apiInstance.apiV1StorekeepersTariffLogisticsMyGet(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **archive** | **Boolean**| Заархивирован ли тариф | [optional] 
+ **tariffType** | **Number**| Тип тарифа(10, 20) | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
+import ApiV1AdminsOrdersLogicsTariffDestinationVariations from './ApiV1AdminsOrdersLogicsTariffDestinationVariations';
 
 /**
  * The InlineObject112 model module.
@@ -75,6 +76,9 @@ class InlineObject112 {
             if (data.hasOwnProperty('conditionsByRegion')) {
                 obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
+            if (data.hasOwnProperty('destinationVariations')) {
+                obj['destinationVariations'] = ApiClient.convertToType(data['destinationVariations'], [ApiV1AdminsOrdersLogicsTariffDestinationVariations]);
+            }
         }
         return obj;
     }
@@ -134,6 +138,11 @@ InlineObject112.prototype['archive'] = undefined;
  * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
  */
 InlineObject112.prototype['conditionsByRegion'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsOrdersLogicsTariffDestinationVariations>} destinationVariations
+ */
+InlineObject112.prototype['destinationVariations'] = undefined;
 
 
 

@@ -22,11 +22,10 @@ class InlineObject17 {
     /**
      * Constructs a new <code>InlineObject17</code>.
      * @alias module:model/InlineObject17
-     * @param attachedDocuments {Array.<String>} 
      */
-    constructor(attachedDocuments) { 
+    constructor() { 
         
-        InlineObject17.initialize(this, attachedDocuments);
+        InlineObject17.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject17 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, attachedDocuments) { 
-        obj['attachedDocuments'] = attachedDocuments;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,17 @@ class InlineObject17 {
         if (data) {
             obj = obj || new InlineObject17();
 
-            if (data.hasOwnProperty('attachedDocuments')) {
-                obj['attachedDocuments'] = ApiClient.convertToType(data['attachedDocuments'], ['String']);
+            if (data.hasOwnProperty('type')) {
+                obj['type'] = ApiClient.convertToType(data['type'], 'Number');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
         }
         return obj;
@@ -60,9 +67,24 @@ class InlineObject17 {
 }
 
 /**
- * @member {Array.<String>} attachedDocuments
+ * @member {Number} type
  */
-InlineObject17.prototype['attachedDocuments'] = undefined;
+InlineObject17.prototype['type'] = undefined;
+
+/**
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject17.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * @member {String} title
+ */
+InlineObject17.prototype['title'] = undefined;
+
+/**
+ * @member {String} description
+ */
+InlineObject17.prototype['description'] = undefined;
 
 
 
