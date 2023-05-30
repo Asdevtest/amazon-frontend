@@ -95,9 +95,11 @@ const filtersFields = [
   'reservedSum',
   'sentToFbaSum',
   'fbaFbmStockSum',
-  'ideaCount',
+  'ideasOnCheck',
   'stockCost',
   'purchaseQuantity',
+  'ideasClosed',
+  'ideasVerified',
 ]
 
 const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
@@ -861,7 +863,8 @@ export class ClientInventoryViewModel {
     const profitFilter = exclusion !== 'profit' && this.columnMenuSettings.profit.currentFilterData.join(',')
     const fbafeeFilter = exclusion !== 'fbafee' && this.columnMenuSettings.fbafee.currentFilterData.join(',')
     const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
-    const ideaCountFilter = exclusion !== 'ideaCount' && this.columnMenuSettings.ideaCount.currentFilterData.join(',')
+    const ideaCountFilter =
+      exclusion !== 'ideasOnCheck' && this.columnMenuSettings.ideasOnCheck.currentFilterData.join(',')
 
     const fbaFbmStockSumFilter =
       exclusion !== 'fbaFbmStockSum' && this.columnMenuSettings.fbaFbmStockSum.currentFilterData.join(',')
@@ -874,6 +877,11 @@ export class ClientInventoryViewModel {
 
     const purchaseQuantityFilter =
       exclusion !== 'purchaseQuantity' && this.columnMenuSettings.purchaseQuantity.currentFilterData.join(',')
+
+    const ideasClosedFilter =
+      exclusion !== 'ideasClosed' && this.columnMenuSettings.ideasClosed.currentFilterData.join(',')
+    const ideasVerifiedFilter =
+      exclusion !== 'ideasVerified' && this.columnMenuSettings.ideasVerified.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
       archive: { $eq: this.isArchive },
@@ -947,7 +955,7 @@ export class ClientInventoryViewModel {
       }),
 
       ...(ideaCountFilter && {
-        ideaCount: { $eq: ideaCountFilter },
+        ideasOnCheck: { $eq: ideaCountFilter },
       }),
 
       // barCode: {$notnull: true},
@@ -962,6 +970,14 @@ export class ClientInventoryViewModel {
 
       ...(purchaseQuantityFilter && {
         purchaseQuantity: { $eq: purchaseQuantityFilter },
+      }),
+
+      ...(ideasClosedFilter && {
+        ideasClosed: { $eq: ideasClosedFilter },
+      }),
+
+      ...(ideasVerifiedFilter && {
+        ideasVerified: { $eq: ideasVerifiedFilter },
       }),
     })
 

@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID в базе данных | [optional] 
-**name** | **String** | Имя пользователя. | [optional] 
+**products** | [**InlineResponse20035Products**](InlineResponse20035Products.md) |  | [optional] 
+**checking** | [**InlineResponse20035Checking**](InlineResponse20035Checking.md) |  | [optional] 
+**finances** | [**InlineResponse20031Finances**](InlineResponse20031Finances.md) |  | [optional] 
 
 

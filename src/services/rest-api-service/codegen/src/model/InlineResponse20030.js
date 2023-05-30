@@ -12,7 +12,12 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20030Rows from './InlineResponse20030Rows';
+import InlineResponse20030Batch from './InlineResponse20030Batch';
+import InlineResponse20030Boxes from './InlineResponse20030Boxes';
+import InlineResponse20030Orders from './InlineResponse20030Orders';
+import InlineResponse20030Products from './InlineResponse20030Products';
+import InlineResponse20030Requests from './InlineResponse20030Requests';
+import InlineResponse20030Shops from './InlineResponse20030Shops';
 
 /**
  * The InlineResponse20030 model module.
@@ -22,7 +27,6 @@ import InlineResponse20030Rows from './InlineResponse20030Rows';
 class InlineResponse20030 {
     /**
      * Constructs a new <code>InlineResponse20030</code>.
-     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20030
      */
     constructor() { 
@@ -49,11 +53,23 @@ class InlineResponse20030 {
         if (data) {
             obj = obj || new InlineResponse20030();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('orders')) {
+                obj['orders'] = InlineResponse20030Orders.constructFromObject(data['orders']);
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20030Rows]);
+            if (data.hasOwnProperty('shops')) {
+                obj['shops'] = InlineResponse20030Shops.constructFromObject(data['shops']);
+            }
+            if (data.hasOwnProperty('requests')) {
+                obj['requests'] = InlineResponse20030Requests.constructFromObject(data['requests']);
+            }
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20030Products.constructFromObject(data['products']);
+            }
+            if (data.hasOwnProperty('batch')) {
+                obj['batch'] = InlineResponse20030Batch.constructFromObject(data['batch']);
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = InlineResponse20030Boxes.constructFromObject(data['boxes']);
             }
         }
         return obj;
@@ -63,16 +79,34 @@ class InlineResponse20030 {
 }
 
 /**
- * Всего кол-во записей в результате запроса
- * @member {Number} count
+ * @member {module:model/InlineResponse20030Orders} orders
  */
-InlineResponse20030.prototype['count'] = undefined;
+InlineResponse20030.prototype['orders'] = undefined;
 
 /**
- * Массив коробок c пагинацией(заданная страничка).
- * @member {Array.<module:model/InlineResponse20030Rows>} rows
+ * @member {module:model/InlineResponse20030Shops} shops
  */
-InlineResponse20030.prototype['rows'] = undefined;
+InlineResponse20030.prototype['shops'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20030Requests} requests
+ */
+InlineResponse20030.prototype['requests'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20030Products} products
+ */
+InlineResponse20030.prototype['products'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20030Batch} batch
+ */
+InlineResponse20030.prototype['batch'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20030Boxes} boxes
+ */
+InlineResponse20030.prototype['boxes'] = undefined;
 
 
 

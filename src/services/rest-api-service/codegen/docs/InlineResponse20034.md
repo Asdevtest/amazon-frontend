@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**priceForClient** | **Number** |  | [optional] 
+**finances** | [**InlineResponse20031Finances**](InlineResponse20031Finances.md) |  | [optional] 
 
 

@@ -58,6 +58,8 @@ export const DataGridCustomColumnMenuComponent = props => {
 
   const currentColumn = colDef
 
+  // console.log('currentColumn', currentColumn)
+
   if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_IN_STOCK_IS_FORMED) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>

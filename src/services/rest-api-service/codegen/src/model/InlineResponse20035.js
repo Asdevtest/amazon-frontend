@@ -12,6 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20031Finances from './InlineResponse20031Finances';
+import InlineResponse20035Checking from './InlineResponse20035Checking';
+import InlineResponse20035Products from './InlineResponse20035Products';
 
 /**
  * The InlineResponse20035 model module.
@@ -47,11 +50,14 @@ class InlineResponse20035 {
         if (data) {
             obj = obj || new InlineResponse20035();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20035Products.constructFromObject(data['products']);
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('checking')) {
+                obj['checking'] = InlineResponse20035Checking.constructFromObject(data['checking']);
+            }
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20031Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -61,16 +67,19 @@ class InlineResponse20035 {
 }
 
 /**
- * GUID в базе данных
- * @member {String} _id
+ * @member {module:model/InlineResponse20035Products} products
  */
-InlineResponse20035.prototype['_id'] = undefined;
+InlineResponse20035.prototype['products'] = undefined;
 
 /**
- * Имя пользователя.
- * @member {String} name
+ * @member {module:model/InlineResponse20035Checking} checking
  */
-InlineResponse20035.prototype['name'] = undefined;
+InlineResponse20035.prototype['checking'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20031Finances} finances
+ */
+InlineResponse20035.prototype['finances'] = undefined;
 
 
 

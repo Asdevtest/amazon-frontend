@@ -486,7 +486,7 @@ export const ClientOrderAllStatusesMenuItem = React.memo(
       <div className={classNames.orderStatusDataWrapper}>
         <div className={classNames.orderStatusDataBody}>
           <div className={classNames.orderStatus} onClick={() => onClickOrderStatusData('ALL')}>
-            <Checkbox color="primary" checked={!chosenStatus.length} />
+            <Checkbox color="primary" checked={!chosenStatus?.length} />
             <div className={classNames.orderStatusName}>{t(TranslationKey.All)}</div>
           </div>
           {orderStatusDataBase.map((item, itemIndex) => (

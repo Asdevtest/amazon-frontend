@@ -66,7 +66,6 @@ export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen, las
   } = componentModel.current
 
   useEffect(() => {
-    // console.log('====>', snackNotifications)
     if (
       snackNotifications[snackNoticeKey.SIMPLE_MESSAGE] &&
       !location.pathname.includes('/messages') &&
@@ -126,14 +125,6 @@ export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen, las
 
   const savedLastCrumbAdditionalText = localStorage.getItem('last')
 
-  // const renderNavbarButton = (
-  //   <Hidden lgUp>
-  //     <IconButton onClick={setDrawerOpen}>
-  //       <MenuIcon classes={{root: classNames.menuIcon}} />
-  //     </IconButton>
-  //   </Hidden>
-  // )
-
   useEffect(() => {
     if (location.pathname !== '/profile') {
       SettingsModel.setBreadcrumbsForProfile(location.pathname)
@@ -178,8 +169,6 @@ export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen, las
       <div className={classNames.mainWrapper}>
         <Paper className={classNames.appbar}>
           <div className={classNames.toolbar}>
-            {/* {renderNavbarButton} */}
-
             <div className={classNames.titleWrapper}>
               <Typography className={classNames.title}>{title}</Typography>
               <div className={classNames.tooltipWrapper} onClick={componentModel.current.onTriggerShowHints}>
@@ -295,23 +284,6 @@ export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen, las
               <MenuItem className={classNames.mobileAllowedRolesWrapper}>
                 <Typography className={classNames.mobileUserroleTitle}>{t(TranslationKey['your role:'])}</Typography>
                 <div>
-                  {/* {!componentModel.current.masterUser ? ( */}
-                  {/* <div className={classNames.allowedRolesWrapper}>
-                {allowedRolesWithoutCandidate?.map((roleCode: number) => (
-                  <Button
-                    key={roleCode}
-                    variant={'text'}
-                    className={cx(classNames.allowedRolesItem, {
-                      [classNames.сurrentAllowedRolesItem]: roleCode === componentModel.current.role,
-                    })}
-                    onClick={() => onChangeUserInfo(roleCode)}
-                  >
-                    {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
-                  </Button>
-                ))}
-              </div> */}
-                  {/* ) : null} */}
-
                   {allowedRolesWithoutCandidate?.length > 1 ? (
                     <div className={classNames.allowedRolesWrapper}>
                       {allowedRolesWithoutCandidate?.map((roleCode: number) => (

@@ -321,6 +321,9 @@ export const lightTheme = createTheme({
     other: {
       tableActiveFilterBtn: '5px solid #0460DE',
       ideaProductSheld: 'url(/assets/icons/idea-trgl.svg)',
+
+      ideaProductSheldGreen: 'url(/assets/icons/green-sheld.svg)',
+      ideaProductSheldYellow: 'url(/assets/icons/yellow-sheld.svg)',
     },
   },
 })
