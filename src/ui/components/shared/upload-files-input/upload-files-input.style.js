@@ -87,11 +87,13 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     borderRadius: '4px',
     color: theme.palette.text.second,
+    background: 'none',
     '&:hover': {
       opacity: '0.7',
     },
     '&:disabled': {
-      background: 'none',
+      cursor: 'auto',
+      borderColor: theme.palette.text.second,
     },
   },
 
@@ -115,11 +117,13 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     borderRadius: '4px',
     color: theme.palette.text.second,
+    background: 'none',
     '&:hover': {
       opacity: '0.7',
     },
     '&:disabled': {
-      background: 'none',
+      cursor: 'auto',
+      borderColor: theme.palette.text.second,
     },
   },
 
