@@ -501,7 +501,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.cancelTask(this.toCancelData.taskId, { clientComment: comment })
 
-      await this.getBoxesMy()
+      await this.getTasksMy()
     } catch (error) {
       console.log(error)
       runInAction(() => {

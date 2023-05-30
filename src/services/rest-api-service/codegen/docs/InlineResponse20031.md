@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+<<<<<<< HEAD
 **_id** | **String** | GUID продукта в базе данных | [optional] 
 **asin** | **String** | ASIN продукта | [optional] 
 **skusByClient** | **[String]** |  | [optional] 
@@ -88,5 +89,11 @@ Name | Type | Description | Notes
 **checkedby** | [**ApiV1AdminsProductsVacCheckedby**](ApiV1AdminsProductsVacCheckedby.md) |  | [optional] 
 **productsInWarehouse** | **[Object]** |  | [optional] 
 **ideasCounter** | **Number** | Кол-во идей продукта в статусе 10 | [optional] 
+=======
+**products** | [**InlineResponse20031Products**](InlineResponse20031Products.md) |  | [optional] 
+**orders** | [**InlineResponse20031Orders**](InlineResponse20031Orders.md) |  | [optional] 
+**pendingOrders** | [**InlineResponse20031PendingOrders**](InlineResponse20031PendingOrders.md) |  | [optional] 
+**finances** | [**InlineResponse20031Finances**](InlineResponse20031Finances.md) |  | [optional] 
+>>>>>>> dev
 
 

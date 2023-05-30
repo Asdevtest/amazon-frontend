@@ -53,11 +53,11 @@ class InlineResponse20031 {
         if (data) {
             obj = obj || new InlineResponse20031();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20031Products.constructFromObject(data['products']);
             }
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            if (data.hasOwnProperty('orders')) {
+                obj['orders'] = InlineResponse20031Orders.constructFromObject(data['orders']);
             }
             if (data.hasOwnProperty('skusByClient')) {
                 obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
@@ -313,16 +313,14 @@ class InlineResponse20031 {
 }
 
 /**
- * GUID продукта в базе данных
- * @member {String} _id
+ * @member {module:model/InlineResponse20031Products} products
  */
-InlineResponse20031.prototype['_id'] = undefined;
+InlineResponse20031.prototype['products'] = undefined;
 
 /**
- * ASIN продукта
- * @member {String} asin
+ * @member {module:model/InlineResponse20031Orders} orders
  */
-InlineResponse20031.prototype['asin'] = undefined;
+InlineResponse20031.prototype['orders'] = undefined;
 
 /**
  * @member {Array.<String>} skusByClient
@@ -476,8 +474,7 @@ InlineResponse20031.prototype['amazonDescription'] = undefined;
 InlineResponse20031.prototype['amazonDetail'] = undefined;
 
 /**
- * Заголовок на товар с сайта амазон.
- * @member {String} amazonTitle
+ * @member {module:model/InlineResponse20031Finances} finances
  */
 InlineResponse20031.prototype['amazonTitle'] = undefined;
 

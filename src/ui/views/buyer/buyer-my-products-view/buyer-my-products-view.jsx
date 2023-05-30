@@ -42,11 +42,14 @@ export const BuyerMyProductsViewRaw = props => {
     viewModel.loadData()
   }, [])
 
+  const ideasSheldStyle = params =>
+    (!params.row.originalData.ideasOnCheck && !!params.row.originalData.ideasVerified && classNames.ideaRowGreen) ||
+    (!!params.row.originalData.ideasOnCheck && classNames.ideaRowYellow)
+
   const getRowClassName = params =>
-    cx(
-      { [classNames.attentionRow]: attentionStatuses.includes(params.row.statusForAttention) },
-      { [classNames.ideaRow]: !!params.row.originalData.ideaCount },
-    )
+    cx(ideasSheldStyle(params), {
+      [classNames.attentionRow]: attentionStatuses.includes(params.row.statusForAttention),
+    })
 
   return (
     <React.Fragment>
@@ -58,51 +61,53 @@ export const BuyerMyProductsViewRaw = props => {
           />
         </div>
 
-        <MemoDataGrid
-          disableVirtualization
-          pagination
-          useResizeContainer
-          localeText={getLocalizationByLanguageTag()}
-          classes={{
-            row: classNames.row,
-            root: classNames.root,
-            footerContainer: classNames.footerContainer,
-            footerCell: classNames.footerCell,
-            toolbarContainer: classNames.toolbarContainer,
-          }}
-          getRowClassName={getRowClassName}
-          sortingMode="server"
-          paginationMode="server"
-          rowCount={viewModel.rowCount}
-          sortModel={viewModel.sortModel}
-          filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          pageSizeOptions={[15, 25, 50, 100]}
-          rows={viewModel.currentData}
-          rowHeight={160}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
-          slots={{
-            toolbar: DataGridCustomToolbar,
-            columnMenuIcon: FilterAltOutlinedIcon,
-          }}
-          slotProps={{
-            toolbar: {
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+        <div className={classNames.dataGridWrapper}>
+          <MemoDataGrid
+            disableVirtualization
+            pagination
+            useResizeContainer
+            localeText={getLocalizationByLanguageTag()}
+            classes={{
+              row: classNames.row,
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+            }}
+            getRowClassName={getRowClassName}
+            sortingMode="server"
+            paginationMode="server"
+            rowCount={viewModel.rowCount}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
+            rows={viewModel.currentData}
+            rowHeight={160}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            slotProps={{
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                },
               },
-            },
-          }}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
-          onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-        />
+            }}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+          />
+        </div>
       </MainContent>
     </React.Fragment>
   )

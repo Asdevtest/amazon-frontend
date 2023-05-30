@@ -43,7 +43,7 @@ interface NavbarDrawerContentProps {
   userInfo: any
   activeCategory: string
   viewModel: NavbarModel
-  onChangeSubCategory: any
+  onChangeSubCategory?: () => void
   onClickVersion: NavbarModel['onClickVersion']
   onTriggerOpenModal: (arg: string) => void
   activeSubCategory: string

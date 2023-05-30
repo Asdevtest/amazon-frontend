@@ -1025,10 +1025,7 @@ export class ClientInStockBoxesViewModel {
         return
       }
 
-      const [, destinations, result] = await Promise.all([
-        ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
-      ])
+      const [destinations, result] = await Promise.all([ClientModel.getDestinations(), UserModel.getPlatformSettings()])
 
       runInAction(() => {
         this.destinations = destinations

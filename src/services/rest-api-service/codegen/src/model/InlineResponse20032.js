@@ -22,7 +22,6 @@ import InlineResponse2001 from './InlineResponse2001';
 class InlineResponse20032 {
     /**
      * Constructs a new <code>InlineResponse20032</code>.
-     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20032
      */
     constructor() { 
@@ -49,8 +48,8 @@ class InlineResponse20032 {
         if (data) {
             obj = obj || new InlineResponse20032();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('tasks')) {
+                obj['tasks'] = InlineResponse20032Tasks.constructFromObject(data['tasks']);
             }
             if (data.hasOwnProperty('rows')) {
                 obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse2001]);
@@ -63,16 +62,20 @@ class InlineResponse20032 {
 }
 
 /**
- * Всего кол-во записей в результате запроса
- * @member {Number} count
+ * @member {module:model/InlineResponse20032Tasks} tasks
  */
-InlineResponse20032.prototype['count'] = undefined;
+InlineResponse20032.prototype['tasks'] = undefined;
 
 /**
  * Массив заказов c пагинацией(заданная страничка).
  * @member {Array.<module:model/InlineResponse2001>} rows
  */
-InlineResponse20032.prototype['rows'] = undefined;
+InlineResponse20032.prototype['boxes'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20032Batches} batches
+ */
+InlineResponse20032.prototype['batches'] = undefined;
 
 
 

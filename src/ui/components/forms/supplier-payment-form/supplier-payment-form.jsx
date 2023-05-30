@@ -35,7 +35,7 @@ export const SupplierPaymentForm = ({
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Add payment to supplier'])}</Typography>
 
       <div className={classNames.imageFileInputWrapper}>
-        <UploadFilesInput images={files} setImages={setFiles} maxNumber={50 - item?.paymentDetails.length} />
+        <UploadFilesInput fullWidth images={files} setImages={setFiles} maxNumber={50 - item?.paymentDetails.length} />
       </div>
       {!!item?.paymentDetails.length && (
         <PhotoAndFilesCarousel

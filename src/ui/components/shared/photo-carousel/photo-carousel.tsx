@@ -27,7 +27,7 @@ interface PhotoCarouselProps {
   view: string
   alignButtons: string
   small: boolean
-  imageClass: ClassNamesArg
+  imageClass: string
 }
 
 export const PhotoCarousel: FC<PhotoCarouselProps> = props => {
@@ -57,7 +57,10 @@ export const PhotoCarousel: FC<PhotoCarouselProps> = props => {
                 alt={'!'}
                 src={photo?.data_url || photo}
                 // @ts-ignore
-                classes={{ img: small ? classNames.smallImage : imageClass ? imageClass : classNames.image }}
+                classes={{
+                  img: small ? classNames.smallImage : imageClass ? imageClass : classNames.image,
+                  root: classNames.root,
+                }}
                 onClick={() => {
                   setShowPhotosModal(!showPhotosModal)
 

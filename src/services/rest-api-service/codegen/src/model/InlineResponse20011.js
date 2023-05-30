@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20010 from './InlineResponse20010';
 
 /**
  * The InlineResponse20011 model module.
@@ -22,7 +21,6 @@ import InlineResponse20010 from './InlineResponse20010';
 class InlineResponse20011 {
     /**
      * Constructs a new <code>InlineResponse20011</code>.
-     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20011
      */
     constructor() { 
@@ -49,11 +47,23 @@ class InlineResponse20011 {
         if (data) {
             obj = obj || new InlineResponse20011();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20010]);
+            if (data.hasOwnProperty('cubicMeters')) {
+                obj['cubicMeters'] = ApiClient.convertToType(data['cubicMeters'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryCost')) {
+                obj['deliveryCost'] = ApiClient.convertToType(data['deliveryCost'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
+                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('weightFinalAccountingKgWarehouse')) {
+                obj['weightFinalAccountingKgWarehouse'] = ApiClient.convertToType(data['weightFinalAccountingKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryRate')) {
+                obj['deliveryRate'] = ApiClient.convertToType(data['deliveryRate'], 'Number');
             }
         }
         return obj;
@@ -63,16 +73,40 @@ class InlineResponse20011 {
 }
 
 /**
- * Всего кол-во записей в результате запроса
- * @member {Number} count
+ * The unique identifier of the box.
+ * @member {String} guid
  */
-InlineResponse20011.prototype['count'] = undefined;
+InlineResponse20011.prototype['guid'] = undefined;
 
 /**
- * Массив батчей c пагинацией(заданная страничка).
- * @member {Array.<module:model/InlineResponse20010>} rows
+ * Объем в м ^ 3
+ * @member {Number} cubicMeters
  */
-InlineResponse20011.prototype['rows'] = undefined;
+InlineResponse20011.prototype['cubicMeters'] = undefined;
+
+/**
+ * The delivery cost of the box.
+ * @member {Number} deliveryCost
+ */
+InlineResponse20011.prototype['deliveryCost'] = undefined;
+
+/**
+ * The volume weight of the box in kg.
+ * @member {Number} volumeWeightKgWarehouse
+ */
+InlineResponse20011.prototype['volumeWeightKgWarehouse'] = undefined;
+
+/**
+ * The weight of the box in kg.
+ * @member {Number} weightFinalAccountingKgWarehouse
+ */
+InlineResponse20011.prototype['weightFinalAccountingKgWarehouse'] = undefined;
+
+/**
+ * The delivery rate of the box. $/kg
+ * @member {Number} deliveryRate
+ */
+InlineResponse20011.prototype['deliveryRate'] = undefined;
 
 
 
