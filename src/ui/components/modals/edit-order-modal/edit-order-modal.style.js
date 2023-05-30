@@ -28,13 +28,9 @@ export const useClassNames = makeStyles()(theme => ({
   iconBtn: {
     maxHeight: '40px',
     maxWidth: '40px',
-    color: 'white',
-    backgroundColor: 'rgba(0, 123, 255, 1)',
     borderRadius: '4px',
 
-    '&:hover': {
-      backgroundColor: 'rgba(0, 123, 255, 1)',
-    },
+    '&:hover': {},
   },
 
   InfoWrapper: {
