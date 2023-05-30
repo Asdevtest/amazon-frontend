@@ -12,7 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse2001 from './InlineResponse2001';
+import InlineResponse20032Batches from './InlineResponse20032Batches';
+import InlineResponse20032Boxes from './InlineResponse20032Boxes';
+import InlineResponse20032Tasks from './InlineResponse20032Tasks';
 
 /**
  * The InlineResponse20032 model module.
@@ -51,8 +53,11 @@ class InlineResponse20032 {
             if (data.hasOwnProperty('tasks')) {
                 obj['tasks'] = InlineResponse20032Tasks.constructFromObject(data['tasks']);
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse2001]);
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = InlineResponse20032Boxes.constructFromObject(data['boxes']);
+            }
+            if (data.hasOwnProperty('batches')) {
+                obj['batches'] = InlineResponse20032Batches.constructFromObject(data['batches']);
             }
         }
         return obj;
@@ -67,8 +72,7 @@ class InlineResponse20032 {
 InlineResponse20032.prototype['tasks'] = undefined;
 
 /**
- * Массив заказов c пагинацией(заданная страничка).
- * @member {Array.<module:model/InlineResponse2001>} rows
+ * @member {module:model/InlineResponse20032Boxes} boxes
  */
 InlineResponse20032.prototype['boxes'] = undefined;
 
