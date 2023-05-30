@@ -584,9 +584,11 @@ export const ChangeInputCell = React.memo(
 
     const [isShow, setShow] = useState(false)
 
+    const valueChecked = checkValue ? checkValue(value) : true
+
     useEffect(() => {
       const listener = event => {
-        if (isMyInputFocused && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
+        if (valueChecked && isMyInputFocused && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
           event.preventDefault()
           setShow(true)
           setTimeout(() => {
@@ -601,13 +603,12 @@ export const ChangeInputCell = React.memo(
       }
     }, [value])
 
-    const valueChecked = checkValue ? checkValue(value) : true
-
     return (
       <div>
         <Input
           disabled={disabled}
-          className={classNames.changeInput}
+          // className={classNames.changeInput}
+          className={cx(classNames.changeInput, { [classNames.errorInputActive]: !valueChecked && value !== '' })}
           classes={{ input: classNames.changeInput }}
           inputProps={{ maxLength: maxLength ? maxLength : 7 }}
           value={value}
