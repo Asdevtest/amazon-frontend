@@ -98,6 +98,8 @@ const filtersFields = [
   'ideasOnCheck',
   'stockCost',
   'purchaseQuantity',
+  'ideasClosed',
+  'ideasVerified',
 ]
 
 const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
@@ -876,6 +878,11 @@ export class ClientInventoryViewModel {
     const purchaseQuantityFilter =
       exclusion !== 'purchaseQuantity' && this.columnMenuSettings.purchaseQuantity.currentFilterData.join(',')
 
+    const ideasClosedFilter =
+      exclusion !== 'ideasClosed' && this.columnMenuSettings.ideasClosed.currentFilterData.join(',')
+    const ideasVerifiedFilter =
+      exclusion !== 'ideasVerified' && this.columnMenuSettings.ideasVerified.currentFilterData.join(',')
+
     const filter = objectToUrlQs({
       archive: { $eq: this.isArchive },
       or: [
@@ -963,6 +970,14 @@ export class ClientInventoryViewModel {
 
       ...(purchaseQuantityFilter && {
         purchaseQuantity: { $eq: purchaseQuantityFilter },
+      }),
+
+      ...(ideasClosedFilter && {
+        ideasClosed: { $eq: ideasClosedFilter },
+      }),
+
+      ...(ideasVerifiedFilter && {
+        ideasVerified: { $eq: ideasVerifiedFilter },
       }),
     })
 

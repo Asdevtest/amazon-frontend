@@ -77,7 +77,7 @@ export const BuyerPendingOrdersViewRaw = props => {
               columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
-              columnMenu: { orderStatusData: viewModel.orderStatusDataBase },
+              columnMenu: { orderStatusData: viewModel.orderStatusData },
 
               toolbar: {
                 columsBtnSettings: {
