@@ -102,6 +102,7 @@ import {
   inchesCoefficient,
   poundsWeightCoefficient,
 } from '@constants/configs/sizes-settings'
+import { getBatchWeightCalculationMethodForBox } from '@constants/statuses/batch-weight-calculations-method'
 
 export const UserCell = React.memo(
   withStyles(
@@ -1987,6 +1988,91 @@ export const CommentUsersCell = React.memo(
         <ChangeInputCommentCell id={id} text={comment} onClickSubmit={handler} />
       </div>
     ),
+    styles,
+  ),
+)
+
+export const ActualCostWithDelivery = React.memo(
+  withStyles(
+    ({
+      classes: classNames,
+      actualShippingCost,
+      rowMemo,
+      calculationMethod,
+      isActualGreaterTheVolume,
+      volumeWeightCoefficient,
+      finalWeight,
+    }) => {
+      const batchWeight = toFixed(
+        getBatchWeightCalculationMethodForBox(calculationMethod, isActualGreaterTheVolume)(
+          rowMemo,
+          volumeWeightCoefficient,
+        ) * rowMemo.amount,
+        2,
+      )
+      const shippingCost = (batchWeight / finalWeight) * actualShippingCost
+
+      const getTotalCost = item => {
+        const itemsQuantity = item.amount * rowMemo.amount
+        const singleProductPrice = item.order.totalPrice / item.amount
+
+        return itemsQuantity * singleProductPrice + shippingCost
+      }
+
+      return (
+        <div className={classNames.pricesWrapper}>
+          {rowMemo.items.map((el, i) => (
+            <Typography key={i} className={classNames.multilineText}>
+              {toFixedWithDollarSign(getTotalCost(el), 2)}
+            </Typography>
+          ))}
+        </div>
+      )
+    },
+    styles,
+  ),
+)
+
+export const ActualCostWithDeliveryPerUnit = React.memo(
+  withStyles(
+    ({
+      classes: classNames,
+      actualShippingCost,
+      rowMemo,
+      calculationMethod,
+      isActualGreaterTheVolume,
+      volumeWeightCoefficient,
+      finalWeight,
+    }) => {
+      const getTotalCost = item => {
+        const itemsQuantity = item.amount * rowMemo.amount
+        const singleProductPrice = item.order.totalPrice / item.amount
+        const boxProperties = item.order.orderSupplier.boxProperties
+
+        const batchWeight = toFixed(
+          (boxProperties?.boxHeightCm * boxProperties?.boxLengthCm * boxProperties?.boxWidthCm) /
+            volumeWeightCoefficient,
+          2,
+        )
+        const shippingCost = (batchWeight / finalWeight) * actualShippingCost
+
+        console.log(`batchWeight: ${batchWeight}`, `finalWeight: ${finalWeight}`)
+
+        return itemsQuantity * singleProductPrice + shippingCost
+      }
+
+      console.log(rowMemo)
+
+      return (
+        <div className={classNames.pricesWrapper}>
+          {rowMemo.items.map((el, i) => (
+            <Typography key={i} className={classNames.multilineText}>
+              {toFixedWithDollarSign(getTotalCost(el), 2)}
+            </Typography>
+          ))}
+        </div>
+      )
+    },
     styles,
   ),
 )
