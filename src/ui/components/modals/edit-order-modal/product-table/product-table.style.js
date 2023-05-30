@@ -39,15 +39,15 @@ export const useClassNames = makeStyles()(theme => ({
 
   amazonTitle: {
     display: '-webkit-box',
-    WebkitLineClamp: 3,
+    WebkitLineClamp: 1,
     WebkitBoxOrient: 'vertical',
-    height: 65,
+    height: '1.1em',
     whiteSpace: 'normal',
 
     overflow: 'hidden',
     textOverflow: 'ellipsis',
 
-    width: '350px',
+    width: '190px',
     marginBottom: 10,
   },
 
