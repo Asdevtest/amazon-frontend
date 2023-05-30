@@ -175,6 +175,9 @@ export const buyerProductsDataConverter = data =>
     updatedAt: item.updatedAt,
 
     ideasOnCheck: item.ideasOnCheck,
+    ideasVerified: item.ideasVerified,
+    ideasClosed: item.ideasClosed,
+
     amazon: item.amazon,
     profit: item.profit,
     bsr: item.bsr,
@@ -277,8 +280,6 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     bsr: item.bsr,
     fbafee: item.fbafee,
 
-    ideasOnCheck: item.ideasOnCheck,
-
     id: item._id,
     _id: item._id,
     asin: item.asin,
@@ -298,6 +299,10 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     fourMonthesStock: item.fourMonthesStock,
     clientComment: item.clientComment,
     stockUSA: item.stockUSA,
+
+    ideasOnCheck: item.ideasOnCheck,
+    ideasVerified: item.ideasVerified,
+    ideasClosed: item.ideasClosed,
 
     shopIds: shopsData?.find(el => el._id === item.shopIds?.[0])?.name || '',
   }))

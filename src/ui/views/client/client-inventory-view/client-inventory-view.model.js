@@ -95,7 +95,7 @@ const filtersFields = [
   'reservedSum',
   'sentToFbaSum',
   'fbaFbmStockSum',
-  'ideaCount',
+  'ideasOnCheck',
   'stockCost',
   'purchaseQuantity',
 ]
@@ -861,7 +861,8 @@ export class ClientInventoryViewModel {
     const profitFilter = exclusion !== 'profit' && this.columnMenuSettings.profit.currentFilterData.join(',')
     const fbafeeFilter = exclusion !== 'fbafee' && this.columnMenuSettings.fbafee.currentFilterData.join(',')
     const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
-    const ideaCountFilter = exclusion !== 'ideaCount' && this.columnMenuSettings.ideaCount.currentFilterData.join(',')
+    const ideaCountFilter =
+      exclusion !== 'ideasOnCheck' && this.columnMenuSettings.ideasOnCheck.currentFilterData.join(',')
 
     const fbaFbmStockSumFilter =
       exclusion !== 'fbaFbmStockSum' && this.columnMenuSettings.fbaFbmStockSum.currentFilterData.join(',')
@@ -947,7 +948,7 @@ export class ClientInventoryViewModel {
       }),
 
       ...(ideaCountFilter && {
-        ideaCount: { $eq: ideaCountFilter },
+        ideasOnCheck: { $eq: ideaCountFilter },
       }),
 
       // barCode: {$notnull: true},
