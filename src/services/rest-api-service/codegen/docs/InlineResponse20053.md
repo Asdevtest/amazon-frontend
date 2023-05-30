@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**productId** | **String** |  | [optional] 
-**shopIds** | **[String]** | Массив магазинов | [optional] 
+**failed** | [**[InlineResponse20053Failed]**](InlineResponse20053Failed.md) |  | [optional] 
 
 

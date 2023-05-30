@@ -1957,6 +1957,7 @@ export enum TranslationKey {
   'Temporary session data will be reset' = 'Temporary session data will be reset',
   'To repurchase' = 'To repurchase',
   'Quantity of repurchase' = 'Quantity of repurchase',
+  'Price variations' = 'Price variations',
   'Verified ideas' = 'Verified ideas',
   'Closed Ideas' = 'Closed Ideas',
   // '' = '',

@@ -12,10 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1AdminsGetProductsByStatusRedFlags from './ApiV1AdminsGetProductsByStatusRedFlags';
-import ApiV1AdminsGetProductsByStatusSuppliers from './ApiV1AdminsGetProductsByStatusSuppliers';
-import ApiV1AdminsGetProductsByStatusTags from './ApiV1AdminsGetProductsByStatusTags';
+import InlineResponse20036AllFiles from './InlineResponse20036AllFiles';
+import InlineResponse20036AllImages from './InlineResponse20036AllImages';
 
 /**
  * The InlineResponse20036 model module.
@@ -51,38 +49,11 @@ class InlineResponse20036 {
         if (data) {
             obj = obj || new InlineResponse20036();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('allImages')) {
+                obj['allImages'] = ApiClient.convertToType(data['allImages'], [InlineResponse20036AllImages]);
             }
-            if (data.hasOwnProperty('category')) {
-                obj['category'] = ApiClient.convertToType(data['category'], 'String');
-            }
-            if (data.hasOwnProperty('bsr')) {
-                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
-            }
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
-            }
-            if (data.hasOwnProperty('skusByClient')) {
-                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
-            }
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
-            }
-            if (data.hasOwnProperty('weight')) {
-                obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaamount')) {
-                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            if (data.hasOwnProperty('allFiles')) {
+                obj['allFiles'] = ApiClient.convertToType(data['allFiles'], [InlineResponse20036AllFiles]);
             }
             if (data.hasOwnProperty('currentSupplier')) {
                 obj['currentSupplier'] = ApiV1AdminsGetProductsByStatusSuppliers.constructFromObject(data['currentSupplier']);
@@ -143,69 +114,14 @@ class InlineResponse20036 {
 }
 
 /**
- * GUID продукта в базе данных
- * @member {String} _id
+ * @member {Array.<module:model/InlineResponse20036AllImages>} allImages
  */
-InlineResponse20036.prototype['_id'] = undefined;
+InlineResponse20036.prototype['allImages'] = undefined;
 
 /**
- * Категория
- * @member {String} category
+ * @member {Array.<module:model/InlineResponse20036AllFiles>} allFiles
  */
-InlineResponse20036.prototype['category'] = undefined;
-
-/**
- * 
- * @member {Number} bsr
- */
-InlineResponse20036.prototype['bsr'] = undefined;
-
-/**
- * ASIN продукта
- * @member {String} asin
- */
-InlineResponse20036.prototype['asin'] = undefined;
-
-/**
- * @member {Array.<String>} skusByClient
- */
-InlineResponse20036.prototype['skusByClient'] = undefined;
-
-/**
- * 
- * @member {Number} amazon
- */
-InlineResponse20036.prototype['amazon'] = undefined;
-
-/**
- * Вес
- * @member {Number} weight
- */
-InlineResponse20036.prototype['weight'] = undefined;
-
-/**
- *  Общая сумма с фба.
- * @member {Number} fbaamount
- */
-InlineResponse20036.prototype['fbaamount'] = undefined;
-
-/**
- * Код текущего статуса
- * @member {Number} status
- */
-InlineResponse20036.prototype['status'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineResponse20036.prototype['images'] = undefined;
-
-/**
- * Цена для клиента
- * @member {Number} priceForClient
- */
-InlineResponse20036.prototype['priceForClient'] = undefined;
+InlineResponse20036.prototype['allFiles'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsGetProductsByStatusSuppliers} currentSupplier

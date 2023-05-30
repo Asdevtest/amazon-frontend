@@ -21,14 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject55 {
     /**
      * Constructs a new <code>InlineObject55</code>.
-     * Схема подтверждения возрата коробок на склад
+     * Схема редактирования в первый раз shippingLabel коробки
      * @alias module:model/InlineObject55
-     * @param boxId {String} GUID коробки, который планируем изменить
-     * @param logicsTariffId {String} GUID тарифа, на которую планируем изменить
+     * @param shippingLabel {String} shippingLabel
      */
-    constructor(boxId, logicsTariffId) { 
+    constructor(shippingLabel) { 
         
-        InlineObject55.initialize(this, boxId, logicsTariffId);
+        InlineObject55.initialize(this, shippingLabel);
     }
 
     /**
@@ -36,9 +35,8 @@ class InlineObject55 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxId, logicsTariffId) { 
-        obj['boxId'] = boxId;
-        obj['logicsTariffId'] = logicsTariffId;
+    static initialize(obj, shippingLabel) { 
+        obj['shippingLabel'] = shippingLabel;
     }
 
     /**
@@ -52,11 +50,8 @@ class InlineObject55 {
         if (data) {
             obj = obj || new InlineObject55();
 
-            if (data.hasOwnProperty('boxId')) {
-                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
-            }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
         }
         return obj;
@@ -66,16 +61,10 @@ class InlineObject55 {
 }
 
 /**
- * GUID коробки, который планируем изменить
- * @member {String} boxId
+ * shippingLabel
+ * @member {String} shippingLabel
  */
-InlineObject55.prototype['boxId'] = undefined;
-
-/**
- * GUID тарифа, на которую планируем изменить
- * @member {String} logicsTariffId
- */
-InlineObject55.prototype['logicsTariffId'] = undefined;
+InlineObject55.prototype['shippingLabel'] = undefined;
 
 
 

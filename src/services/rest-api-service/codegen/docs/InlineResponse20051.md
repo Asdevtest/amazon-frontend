@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**failed** | [**[InlineResponse20051Failed]**](InlineResponse20051Failed.md) |  | [optional] 
+**userId** | **String** |  | [optional] 
+**productId** | **String** |  | [optional] 
 
 
