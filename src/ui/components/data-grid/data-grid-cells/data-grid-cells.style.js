@@ -1687,4 +1687,8 @@ export const styles = theme => ({
     display: 'flex',
     gap: 15,
   },
+
+  errorInputActive: {
+    border: '1px solid red',
+  },
 })
