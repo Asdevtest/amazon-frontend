@@ -113,11 +113,8 @@ export const useClassNames = makeStyles()(theme => ({
     maxHeight: '40px',
     maxWidth: '40px',
     color: 'white',
-    backgroundColor: theme.palette.primary.main,
+    // backgroundColor: theme.palette.primary.main,
     borderRadius: '4px',
-    '&:hover': {
-      backgroundColor: '#0056b2',
-    },
   },
 
   iconBtnRemove: {
