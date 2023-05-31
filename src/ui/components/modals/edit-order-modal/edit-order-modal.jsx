@@ -51,6 +51,7 @@ import {
   clearEverythingExceptNumbers,
   getShortenStringIfLongerThanCount,
   timeToDeadlineInHoursAndMins,
+  toFixed,
 } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -205,6 +206,7 @@ export const EditOrderModal = observer(
       buyerComment: order?.buyerComment || '',
       deliveryCostToTheWarehouse:
         order?.deliveryCostToTheWarehouse ||
+        (order?.priceInYuan !== 0 && Number(order?.deliveryCostToTheWarehouse) === 0 && '0') ||
         (order.orderSupplier.batchDeliveryCostInDollar / order.orderSupplier.amount) * order.amount ||
         0,
       priceBatchDeliveryInYuan:
@@ -212,7 +214,7 @@ export const EditOrderModal = observer(
         // (order.orderSupplier.batchDeliveryCostInYuan / order.orderSupplier.amount) * order.amount ||
         // 0,
         order?.priceBatchDeliveryInYuan ||
-        (Number(order?.priceBatchDeliveryInYuan) === 0 && '0') ||
+        (order?.priceInYuan !== 0 && Number(order?.priceBatchDeliveryInYuan) === 0 && '0') ||
         (order.orderSupplier.batchDeliveryCostInYuan / order.orderSupplier.amount) * order.amount ||
         0,
       trackId: '',
@@ -307,7 +309,7 @@ export const EditOrderModal = observer(
           onSubmitSaveOrder(getDataForSaveOrder())
           onClickUpdataSupplierData(dataForUpdateSupData)
         } else {
-          if (costInYuan !== orderFields?.orderSupplier.priceInYuan) {
+          if (toFixed(costInYuan, 2) !== toFixed(orderFields?.orderSupplier.priceInYuan, 2)) {
             onClickSaveWithoutUpdateSupData(getDataForSaveOrder(), orderFields)
           } else {
             onSubmitSaveOrder(getDataForSaveOrder())
@@ -363,7 +365,7 @@ export const EditOrderModal = observer(
         newOrderFieldsState[filedName] = e.target.value
       } else if (filedName === 'priceBatchDeliveryInYuan') {
         newOrderFieldsState.priceBatchDeliveryInYuan = e.target.value || 0
-        newOrderFieldsState.deliveryCostToTheWarehouse = Number(e.target.value) / orderFields.yuanToDollarRate
+        newOrderFieldsState.deliveryCostToTheWarehouse = Number(e.target.value) / orderFields.yuanToDollarRate || 0
       } else if (filedName === 'status') {
         newOrderFieldsState[filedName] = e.target.value
         setTmpNewOrderFieldsState(newOrderFieldsState)

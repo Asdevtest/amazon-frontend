@@ -825,3 +825,15 @@ src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
 test/model/ApiV1AdminsOrdersLogicsTariffDestinationVariations.spec.js
+test/model/InlineResponse20030Batch.spec.js
+test/model/InlineResponse20030Boxes.spec.js
+test/model/InlineResponse20030Orders.spec.js
+test/model/InlineResponse20030Products.spec.js
+test/model/InlineResponse20030Requests.spec.js
+test/model/InlineResponse20030Shops.spec.js
+test/model/InlineResponse20031Finances.spec.js
+test/model/InlineResponse20031PendingOrders.spec.js
+test/model/InlineResponse20032Batches.spec.js
+test/model/InlineResponse20032Tasks.spec.js
+test/model/InlineResponse20035Checking.spec.js
+test/model/InlineResponse20038Rows.spec.js

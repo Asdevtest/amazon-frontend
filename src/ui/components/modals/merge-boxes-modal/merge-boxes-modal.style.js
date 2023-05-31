@@ -215,6 +215,10 @@ export const useClassNames = makeStyles()(theme => ({
     objectFit: 'contain',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
+  asinTextWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
   customSwitcherWrapper: {
     width: 'fit-content',
   },
