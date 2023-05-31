@@ -236,4 +236,8 @@ export const useClassNames = makeStyles()(theme => ({
   storekeeperBtnDefault: {
     color: theme.palette.text.general,
   },
+  asinTextWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
 }))

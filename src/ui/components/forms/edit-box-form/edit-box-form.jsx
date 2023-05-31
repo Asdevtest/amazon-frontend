@@ -44,6 +44,7 @@ import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-
 import { useClassNames } from './edit-box-form.style'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { CopyValue } from '@components/shared/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
@@ -447,7 +448,10 @@ export const EditBoxForm = observer(
                             labelClasses={classNames.standartLabel}
                             label={`${t(TranslationKey.ASIN)}:`}
                             inputComponent={
-                              <Typography className={classNames.asinText}>{item.product.asin}</Typography>
+                              <div className={classNames.asinTextWrapper}>
+                                <Typography className={classNames.asinText}>{item.product.asin}</Typography>{' '}
+                                {item.product.asin && <CopyValue text={item.product.asin} />}
+                              </div>
                             }
                           />
 
