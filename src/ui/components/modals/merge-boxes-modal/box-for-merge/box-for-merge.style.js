@@ -107,4 +107,9 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     gap: '20px',
   },
+
+  asinTextWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
 }))

@@ -278,4 +278,9 @@ export const useClassNames = makeStyles()(theme => ({
   containerTitleField: {
     marginBottom: '5px !important',
   },
+
+  asinTextWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
 }))

@@ -55,6 +55,10 @@ export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorPr
               value={quantity}
               onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+                  if (Number(e.target.value) > 10_000) {
+                    setQuantity(String(10_000))
+                    return
+                  }
                   setQuantity(e.target.value)
                 }
               }}
@@ -69,6 +73,10 @@ export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorPr
               value={price}
               onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+                  if (Number(e.target.value) > 1_000) {
+                    setPrice(String(1_000))
+                    return
+                  }
                   setPrice(e.target.value)
                 }
               }}
@@ -93,7 +101,7 @@ export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorPr
             <div className={styles.currentVariationList}>
               {variationList.map((el, index) => (
                 <div key={index} className={styles.variationListItem}>
-                  <Input readOnly value={`${el.quantity}/${el.price * el.quantity}`} />
+                  <Input readOnly disabled value={`${el.quantity}/${el.price}`} />
                   {props.isEditMode && (
                     <button
                       className={cx(styles.removeBtn, styles.controlButton)}
