@@ -1960,6 +1960,7 @@ export enum TranslationKey {
   'Price variations' = 'Price variations',
   'Verified ideas' = 'Verified ideas',
   'Closed Ideas' = 'Closed Ideas',
+  'Partially paid' = 'Partially paid',
   // '' = '',
   // '' = '',
   // '' = '',

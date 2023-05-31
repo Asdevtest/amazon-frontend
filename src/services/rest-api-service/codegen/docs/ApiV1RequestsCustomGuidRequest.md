@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**priority** | **Number** | Приоритет заявки | [optional] 
 **title** | **String** | Title заявки. | [optional] 
 **withoutConfirmation** | **Boolean** | Если у заявки стоит withoutConfirmation: true - статус предложения автоматически становится OFFER_CONDITIONS_ACCEPTED при pickup&#39;е | [optional] 
 **price** | **Number** | Цена за каждое предложение. | [optional] 

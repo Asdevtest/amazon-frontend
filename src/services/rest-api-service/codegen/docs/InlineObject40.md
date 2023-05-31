@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | [optional] 
 **trackingNumberChina** | **String** | Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ. | [optional] 
 **orderSupplierId** | **String** | GUID поставщика, для данного заказа. | [optional] 
+**partialPaymentAmountRmb** | **Number** | Cумма частичной оплаты | [optional] 
 **amount** | **Number** | Кол-во в заказе | [optional] 
 
 

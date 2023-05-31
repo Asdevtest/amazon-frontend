@@ -291,6 +291,7 @@ export class ClientOrdersViewModel {
             OrderStatus.IN_STOCK,
             OrderStatus.CANCELED_BY_BUYER,
             OrderStatus.CANCELED_BY_CLIENT,
+            OrderStatus.PARTIALLY_PAID,
           ]
         case routsPathes.CLIENT_PENDING_ORDERS:
           return [OrderStatus.FORMED, OrderStatus.PENDING, OrderStatus.READY_FOR_BUYOUT]

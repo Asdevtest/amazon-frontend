@@ -547,12 +547,12 @@ export const SelectFields = ({
 
         <Box my={3} className={classNames.formItem} alignItems="flex-end">
           <Field
-            label={'HS Code'}
+            label={t(TranslationKey.Paid) + ', Ұ'}
             labelClasses={classNames.label}
             inputClasses={classNames.input}
-            inputProps={{ maxLength: 255 }}
-            value={hsCode.hsCode}
-            onChange={onChangeHsField('hsCode')}
+            inputProps={{ maxLength: 10 }}
+            value={orderFields.partialPaymentAmountRmb}
+            onChange={setOrderField('partialPaymentAmountRmb')}
           />
 
           {!isPendingOrder && (
@@ -648,6 +648,40 @@ export const SelectFields = ({
           />
         </Box>
 
+        <Box my={3} className={classNames.formItem}>
+          <Field
+            label={'HS Code'}
+            labelClasses={classNames.label}
+            inputClasses={classNames.input}
+            inputProps={{ maxLength: 255 }}
+            value={hsCode.hsCode}
+            onChange={onChangeHsField('hsCode')}
+          />
+
+          {order.product.subUsers?.length ? (
+            <div className={classNames.subUsersWrapper}>
+              <div className={classNames.subUsersTitleWrapper}>
+                <Typography className={classNames.subUsersTitle}>{t(TranslationKey['Product available'])}</Typography>
+              </div>
+              <div className={classNames.subUsersBodyWrapper}>
+                <div className={classNames.subUsersBody}>
+                  {order.product.subUsers?.map((subUser, index) => (
+                    <div key={index} className={classNames.subUserBodyWrapper}>
+                      <UserLinkCell
+                        withAvatar
+                        name={subUser?.name}
+                        userId={subUser?._id}
+                        customStyles={{ fontWeight: 600, marginLeft: 5 }}
+                        maxNameWidth={100}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : null}
+        </Box>
+
         <div className={classNames.researchPaymentDateWrapper}>
           {orderFields.status >= 20 ? (
             <div>
@@ -692,29 +726,6 @@ export const SelectFields = ({
             onChangeImagesForLoad={onChangeImagesForLoad}
           />
         </div>
-
-        {order.product.subUsers?.length ? (
-          <div className={classNames.subUsersWrapper}>
-            <div className={classNames.subUsersTitleWrapper}>
-              <Typography className={classNames.subUsersTitle}>{t(TranslationKey['Product available'])}</Typography>
-            </div>
-            <div className={classNames.subUsersBodyWrapper}>
-              <div className={classNames.subUsersBody}>
-                {order.product.subUsers?.map((subUser, index) => (
-                  <div key={index} className={classNames.subUserBodyWrapper}>
-                    <UserLinkCell
-                      withAvatar
-                      name={subUser?.name}
-                      userId={subUser?._id}
-                      customStyles={{ fontWeight: 600, marginLeft: 5 }}
-                      maxNameWidth={100}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        ) : null}
       </Grid>
 
       {showProgress && (

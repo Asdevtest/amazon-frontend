@@ -118,6 +118,11 @@ class BuyerModelStatic {
     return response
   }
 
+  orderPartiallyPaid = async id => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersPartiallyPaidGuidPatch(id)
+    return response
+  }
+
   orderTrackNumberIssued = async id => {
     const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidTrackNumberIssuedPatch(id)
     return response

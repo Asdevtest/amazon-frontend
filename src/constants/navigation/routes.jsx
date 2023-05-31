@@ -842,6 +842,22 @@ export const privateRoutesConfigs = [
     },
   },
   {
+    routePath: '/buyer/partially-paid-orders',
+    component: BuyerMyOrdersView,
+    exact: false,
+    permission: [UserRole.BUYER],
+    // permissionKey: permissionsKeys.buyer.SHOW_ORDERS_READY_FOR_PAYMENT_BUYER,
+    permissionKey: permissionsKeys.buyer.SHOW_ORDERS_PARTIALLY_PAID_BUYER,
+
+    crumbNameKey: TranslationKey['Partially paid'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_PARTIALLY_PAID,
+      title: `${t(TranslationKey['My orders'])} - ${t(TranslationKey['Partially paid'])}`,
+    },
+  },
+  {
     routePath: '/buyer/need-track-number-orders',
     component: BuyerMyOrdersView,
     exact: false,
