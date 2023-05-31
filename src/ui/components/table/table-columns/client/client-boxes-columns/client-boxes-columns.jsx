@@ -25,6 +25,7 @@ import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 
 export const clientBoxesViewColumns = (
   handlers,
@@ -365,7 +366,14 @@ export const clientBoxesViewColumns = (
         text={t(TranslationKey.Dimensions)}
         isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
         component={
-          <CustomSwitcher condition={getUnitsOption()} changeConditionHandler={handlers.onChangeUnitsOption} />
+          <CustomSwitcher
+            condition={getUnitsOption()}
+            nameFirstArg={unitsOfChangeOptions.EU}
+            nameSecondArg={unitsOfChangeOptions.US}
+            firstArgValue={unitsOfChangeOptions.EU}
+            secondArgValue={unitsOfChangeOptions.US}
+            changeConditionHandler={handlers.onChangeUnitsOption}
+          />
         }
         // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />

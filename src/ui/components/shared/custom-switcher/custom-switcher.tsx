@@ -3,39 +3,42 @@ import React, { FC } from 'react'
 import { useClassNames } from './custom-switcher.style'
 import { Button } from '@components/shared/buttons/button'
 import { cx } from '@emotion/css'
-import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 
 interface CustomSwitcherProps {
   condition: string
+  nameFirstArg: string
+  nameSecondArg: string
+  firstArgValue: string
+  secondArgValue: string
   changeConditionHandler: (condition: string) => void
 }
 
 export const CustomSwitcher: FC<CustomSwitcherProps> = props => {
   const { classes: classNames } = useClassNames()
 
-  const { condition = unitsOfChangeOptions.EU, changeConditionHandler } = props
+  const { condition, nameFirstArg, nameSecondArg, firstArgValue, secondArgValue, changeConditionHandler } = props
 
   return (
     <div className={classNames.switcherWrapper}>
       <Button
-        className={cx(classNames.switcherOption, { [classNames.activeOption]: condition === unitsOfChangeOptions.EU })}
+        className={cx(classNames.switcherOption, { [classNames.activeOption]: condition === firstArgValue })}
         onClick={() => {
-          if (condition !== unitsOfChangeOptions.EU) {
-            changeConditionHandler(unitsOfChangeOptions.EU)
+          if (condition !== firstArgValue) {
+            changeConditionHandler(firstArgValue)
           }
         }}
       >
-        {'EU'}
+        {nameFirstArg}
       </Button>
       <Button
-        className={cx(classNames.switcherOption, { [classNames.activeOption]: condition === unitsOfChangeOptions.US })}
+        className={cx(classNames.switcherOption, { [classNames.activeOption]: condition === secondArgValue })}
         onClick={() => {
-          if (condition !== unitsOfChangeOptions.US) {
-            changeConditionHandler(unitsOfChangeOptions.US)
+          if (condition !== secondArgValue) {
+            changeConditionHandler(secondArgValue)
           }
         }}
       >
-        {'US'}
+        {nameSecondArg}
       </Button>
     </div>
   )

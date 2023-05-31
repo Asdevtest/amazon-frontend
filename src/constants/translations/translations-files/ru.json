@@ -1961,5 +1961,10 @@
   "Quantity of repurchase": "Количество дозакупки",
   "Price variations": "Price variations",
   "Verified ideas": "Проверенные идеи",
-  "Closed Ideas": "Закрытые идеи"
+  "Closed Ideas": "Закрытые идеи",
+  "Weight-based logistics tariffs": "Тарифы на логистику с учетом веса",
+  "Amount of days": "Количество дней",
+  "Add data from tariff": "Добавить данные из тарифа",
+  "Minimum weight": "Минимальный вес",
+  "Price per kg": "Цена за кг"
 }

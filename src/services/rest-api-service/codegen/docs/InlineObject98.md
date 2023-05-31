@@ -4,6 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**reason** | **String** | Причины закрытия приема предложений. | [optional] 
+**requestId** | **String** | Guid заявки | [optional] 
+**proposalId** | **String** | Guid предложения | [optional] 
+**commentByClient** | **String** | комментарий клиента | [optional] 
+**commentByPerformer** | **String** | комментарий исполнителя | [optional] 
+**fileLink** | **String** | Ссылка на файл | 
 
 

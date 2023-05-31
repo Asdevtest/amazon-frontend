@@ -99,7 +99,14 @@ export const ProductParameters = ({
         labelClasses={classNames.fieldLabel}
         inputComponent={
           <div className={classNames.sizesWrapper}>
-            <CustomSwitcher condition={sizeSetting} changeConditionHandler={condition => setSizeSetting(condition)} />
+            <CustomSwitcher
+              condition={sizeSetting}
+              nameFirstArg={unitsOfChangeOptions.EU}
+              nameSecondArg={unitsOfChangeOptions.US}
+              firstArgValue={unitsOfChangeOptions.EU}
+              secondArgValue={unitsOfChangeOptions.US}
+              changeConditionHandler={condition => setSizeSetting(condition)}
+            />
 
             <Typography className={classNames.text}>{`
             ${
