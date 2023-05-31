@@ -2,7 +2,7 @@
 import { cx } from '@emotion/css'
 import { Checkbox, Divider, Grid, Link, Typography, Tooltip } from '@mui/material'
 
-import { React, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 import { observer } from 'mobx-react'
 
@@ -65,22 +65,17 @@ export const BoxViewForm = observer(
     const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
     const [showPhotosModal, setShowPhotosModal] = useState(false)
 
-    const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
-    const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
-    const isBuyer = checkIsBuyer(UserRoleCodeMap[userInfo?.role])
-
-    const isEdit = isClient || isStorekeeper || isBuyer
-
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
-
-    const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
-    const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
-    const totalWeightConversion = getConversion(sizeSetting, 12 / poundsWeightCoefficient, 12)
-    const weightSizesType = getWeightSizesType(sizeSetting)
 
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
 
-    const [formFields, setFormFields] = useState({ ...box, tmpTrackNumberFile: [] })
+    const sourceFormFields = {
+      ...box,
+      prepId: box.prepId || '',
+      tmpTrackNumberFile: [],
+    }
+
+    const [formFields, setFormFields] = useState(sourceFormFields)
 
     const onChangeField = fieldName => event => {
       const newFormFields = { ...formFields }
@@ -103,6 +98,15 @@ export const BoxViewForm = observer(
     const finalWeightForBox = calcFinalWeightForBoxFunction
       ? calcFinalWeightForBoxFunction(box, volumeWeightCoefficient)
       : calcFinalWeightForBox(box, volumeWeightCoefficient)
+
+    const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
+    const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
+    const isBuyer = checkIsBuyer(UserRoleCodeMap[userInfo?.role])
+    const isEdit = isClient || isStorekeeper || isBuyer
+    const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
+    const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
+    const totalWeightConversion = getConversion(sizeSetting, 12 / poundsWeightCoefficient, 12)
+    const weightSizesType = getWeightSizesType(sizeSetting)
 
     return (
       <div className={classNames.formContainer}>
@@ -192,130 +196,12 @@ export const BoxViewForm = observer(
             </Grid>
 
             <div className={classNames.productsWrapper}>
-              <CustomSlider alignButtons="end">
-                {formFields.items.map((item, index) => (
-                  <div key={index} className={classNames.productWrapper}>
-                    <div className={classNames.leftColumn}>
-                      <div className={classNames.photoWrapper}>
-                        <PhotoCarousel isAmazonPhoto files={item.product.images} />
-                      </div>
-                      <Tooltip placement={'right-start'} title={item.product.amazonTitle}>
-                        <Typography className={classNames.amazonTitle}>
-                          {getShortenStringIfLongerThanCount(item.product.amazonTitle, 100)}
-                        </Typography>
-                      </Tooltip>
-
-                      <div className={classNames.copyAsin}>
-                        <div className={classNames.asinWrapper}>
-                          <Typography>{t(TranslationKey.ASIN)}</Typography>
-                          {item.product.asin ? (
-                            <a
-                              target="_blank"
-                              rel="noreferrer"
-                              href={`https://www.amazon.com/dp/${item.product.asin}`}
-                              className={classNames.normalizeLink}
-                            >
-                              <span className={classNames.linkSpan}>{shortAsin(item.product.asin)}</span>
-                            </a>
-                          ) : (
-                            <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
-                          )}
-                        </div>
-                        {item.product.asin ? <CopyValue text={item.product.asin} /> : null}
-                      </div>
-                    </div>
-
-                    <div className={classNames.rightColumn}>
-                      <Field
-                        labelClasses={classNames.label}
-                        label={t(TranslationKey['HS code'])}
-                        inputProps={{ maxLength: 255 }}
-                        value={item.product.hsCode}
-                        placeholder={t(TranslationKey['Not available'])}
-                        inputComponent={
-                          <Button className={classNames.hsCodeBtn} onClick={() => onClickHsCode(item.product._id)}>
-                            {t(TranslationKey['HS code'])}
-                          </Button>
-                        }
-                        onChange={onChangeHsCode(index)}
-                      />
-
-                      <div className={classNames.priorityWrapper}>
-                        <Typography className={classNames.label}>{`${t(TranslationKey.Priority)}:`}</Typography>
-                        {item.order.priority === '40' ? (
-                          <div className={classNames.rushOrderWrapper}>
-                            <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" />
-                            <Typography className={classNames.rushOrder}>{t(TranslationKey['Rush order'])}</Typography>
-                          </div>
-                        ) : null}
-                        {item.order.priority !== '40' && !item.order.expressChinaDelivery ? (
-                          <div className={classNames.rushOrderWrapper}>
-                            <Typography className={classNames.rushOrder}>
-                              {t(TranslationKey['Medium priority'])}
-                            </Typography>
-                          </div>
-                        ) : null}
-                      </div>
-
-                      <Field
-                        label={t(TranslationKey.BarCode)}
-                        labelClasses={classNames.label}
-                        inputComponent={
-                          item.barCode ? (
-                            <div className={classNames.barCode}>
-                              <Typography className={classNames.linkWrapper}>
-                                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
-                                  {t(TranslationKey.View)}
-                                </Link>
-                              </Typography>
-
-                              <CopyValue text={item.barCode} />
-                            </div>
-                          ) : (
-                            <Typography className={classNames.linkField}>
-                              {t(TranslationKey['Not available'])}
-                            </Typography>
-                          )
-                        }
-                      />
-
-                      {item.isBarCodeAlreadyAttachedByTheSupplier ? (
-                        <Field
-                          oneLine
-                          containerClasses={classNames.checkboxContainer}
-                          labelClasses={classNames.label}
-                          label={t(TranslationKey['BarCode is glued by supplier'])}
-                          inputComponent={<Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />}
-                        />
-                      ) : (
-                        <Field
-                          oneLine
-                          containerClasses={classNames.checkboxContainer}
-                          labelClasses={classNames.label}
-                          label={t(TranslationKey['BarCode is glued by storekeeper'])}
-                          inputComponent={<Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />}
-                        />
-                      )}
-                      <Field
-                        disabled
-                        containerClasses={classNames.countContainer}
-                        labelClasses={classNames.label}
-                        label={t(TranslationKey.Quantity)}
-                        value={(box.amount > 1 ? `${item.amount} * ${box.amount}` : item.amount) || 0}
-                        placeholder={t(TranslationKey['Not available'])}
-                      />
-
-                      <Field
-                        disabled
-                        containerClasses={classNames.countContainer}
-                        labelClasses={classNames.label}
-                        label={t(TranslationKey['Order number/Item'])}
-                        value={`${item.order?.id} / ${item.order?.item ? item.order?.item : '-'}`}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </CustomSlider>
+              <Content
+                items={formFields.items}
+                box={box}
+                onClickHsCode={onClickHsCode}
+                onChangeHsCode={onChangeHsCode}
+              />
             </div>
           </div>
 
@@ -626,5 +512,140 @@ export const BoxViewForm = observer(
         />
       </div>
     )
+  },
+)
+
+const Content = React.memo(
+  ({ items, box, onClickHsCode, onChangeHsCode }) => {
+    const { classes: classNames } = useClassNames()
+
+    return (
+      <CustomSlider alignButtons="end">
+        {items.map((item, index) => (
+          <div key={index} className={classNames.productWrapper}>
+            <div className={classNames.leftColumn}>
+              <div className={classNames.photoWrapper}>
+                <PhotoCarousel isAmazonPhoto files={item.product.images} />
+              </div>
+              <Tooltip placement={'right-start'} title={item.product.amazonTitle}>
+                <Typography className={classNames.amazonTitle}>
+                  {getShortenStringIfLongerThanCount(item.product.amazonTitle, 100)}
+                </Typography>
+              </Tooltip>
+
+              <div className={classNames.copyAsin}>
+                <div className={classNames.asinWrapper}>
+                  <Typography>{t(TranslationKey.ASIN)}</Typography>
+                  {item.product.asin ? (
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      href={`https://www.amazon.com/dp/${item.product.asin}`}
+                      className={classNames.normalizeLink}
+                    >
+                      <span className={classNames.linkSpan}>{shortAsin(item.product.asin)}</span>
+                    </a>
+                  ) : (
+                    <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
+                  )}
+                </div>
+                {item.product.asin ? <CopyValue text={item.product.asin} /> : null}
+              </div>
+            </div>
+
+            <div className={classNames.rightColumn}>
+              <Field
+                labelClasses={classNames.label}
+                label={t(TranslationKey['HS code'])}
+                inputProps={{ maxLength: 255 }}
+                value={item.product.hsCode}
+                placeholder={t(TranslationKey['Not available'])}
+                inputComponent={
+                  <Button className={classNames.hsCodeBtn} onClick={() => onClickHsCode(item.product._id)}>
+                    {t(TranslationKey['HS code'])}
+                  </Button>
+                }
+                onChange={onChangeHsCode(index)}
+              />
+
+              <div className={classNames.priorityWrapper}>
+                <Typography className={classNames.label}>{`${t(TranslationKey.Priority)}:`}</Typography>
+                {item.order.priority === '40' ? (
+                  <div className={classNames.rushOrderWrapper}>
+                    <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" />
+                    <Typography className={classNames.rushOrder}>{t(TranslationKey['Rush order'])}</Typography>
+                  </div>
+                ) : null}
+                {item.order.priority !== '40' && !item.order.expressChinaDelivery ? (
+                  <div className={classNames.rushOrderWrapper}>
+                    <Typography className={classNames.rushOrder}>{t(TranslationKey['Medium priority'])}</Typography>
+                  </div>
+                ) : null}
+              </div>
+
+              <Field
+                label={t(TranslationKey.BarCode)}
+                labelClasses={classNames.label}
+                inputComponent={
+                  item.barCode ? (
+                    <div className={classNames.barCode}>
+                      <Typography className={classNames.linkWrapper}>
+                        <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
+                          {t(TranslationKey.View)}
+                        </Link>
+                      </Typography>
+
+                      <CopyValue text={item.barCode} />
+                    </div>
+                  ) : (
+                    <Typography className={classNames.linkField}>{t(TranslationKey['Not available'])}</Typography>
+                  )
+                }
+              />
+
+              {item.isBarCodeAlreadyAttachedByTheSupplier ? (
+                <Field
+                  oneLine
+                  containerClasses={classNames.checkboxContainer}
+                  labelClasses={classNames.label}
+                  label={t(TranslationKey['BarCode is glued by supplier'])}
+                  inputComponent={<Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />}
+                />
+              ) : (
+                <Field
+                  oneLine
+                  containerClasses={classNames.checkboxContainer}
+                  labelClasses={classNames.label}
+                  label={t(TranslationKey['BarCode is glued by storekeeper'])}
+                  inputComponent={<Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />}
+                />
+              )}
+              <Field
+                disabled
+                containerClasses={classNames.countContainer}
+                labelClasses={classNames.label}
+                label={t(TranslationKey.Quantity)}
+                value={(box.amount > 1 ? `${item.amount} * ${box.amount}` : item.amount) || 0}
+                placeholder={t(TranslationKey['Not available'])}
+              />
+
+              <Field
+                disabled
+                containerClasses={classNames.countContainer}
+                labelClasses={classNames.label}
+                label={t(TranslationKey['Order number/Item'])}
+                value={`${item.order?.id} / ${item.order?.item ? item.order?.item : '-'}`}
+              />
+            </div>
+          </div>
+        ))}
+      </CustomSlider>
+    )
+  },
+  (prevProps, nextProps) => {
+    if (prevProps.items === nextProps.items && prevProps.box === nextProps.box) {
+      return true
+    }
+    return false
   },
 )
