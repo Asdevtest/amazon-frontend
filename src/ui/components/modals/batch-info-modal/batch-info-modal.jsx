@@ -64,7 +64,6 @@ export const BatchInfoModal = observer(
 
     useEffect(() => {
       setCurrentBatch(batch)
-      console.log('============>>>', batch)
     }, [batch])
 
     const sourceBoxes =
@@ -384,7 +383,7 @@ export const BatchInfoModal = observer(
                 currentBatch.volumeWeightDivide,
                 currentBatch.calculationMethod,
                 isActualGreaterTheVolume,
-                currentBatch.actualShippingCost,
+                currentBatch.actualShippingCost || currentBatch.calculatedShippingCost,
                 currentBatch.finalWeight,
               )}
               rows={toJS(dataToRender)}

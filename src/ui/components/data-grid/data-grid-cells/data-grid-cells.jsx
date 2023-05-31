@@ -2003,16 +2003,27 @@ export const ActualCostWithDelivery = React.memo(
       volumeWeightCoefficient,
       finalWeight,
     }) => {
-      const batchWeight = toFixed(
-        getBatchWeightCalculationMethodForBox(calculationMethod, isActualGreaterTheVolume)(
-          rowMemo,
-          volumeWeightCoefficient,
-        ) * rowMemo.amount,
-        2,
-      )
-      const shippingCost = (batchWeight / finalWeight) * actualShippingCost
-
       const getTotalCost = item => {
+        let batchWeight = 0
+        if (rowMemo.items.length <= 1) {
+          batchWeight = toFixed(
+            getBatchWeightCalculationMethodForBox(calculationMethod, isActualGreaterTheVolume)(
+              rowMemo,
+              volumeWeightCoefficient,
+            ) * rowMemo.amount,
+            2,
+          )
+        } else {
+          const boxProperties = item.order.orderSupplier.boxProperties
+
+          batchWeight = toFixed(
+            (boxProperties?.boxHeightCm * boxProperties?.boxLengthCm * boxProperties?.boxWidthCm) /
+              volumeWeightCoefficient,
+            2,
+          )
+        }
+
+        const shippingCost = (batchWeight / finalWeight) * actualShippingCost
         const itemsQuantity = item.amount * rowMemo.amount
         const singleProductPrice = item.order.totalPrice / item.amount
 
@@ -2023,7 +2034,7 @@ export const ActualCostWithDelivery = React.memo(
         <div className={classNames.pricesWrapper}>
           {rowMemo.items.map((el, i) => (
             <Typography key={i} className={classNames.multilineText}>
-              {toFixedWithDollarSign(getTotalCost(el), 2)}
+              {toFixedWithDollarSign(getTotalCost(el), 2) || '-'}
             </Typography>
           ))}
         </div>
@@ -2045,29 +2056,39 @@ export const ActualCostWithDeliveryPerUnit = React.memo(
       finalWeight,
     }) => {
       const getTotalCost = item => {
+        let batchWeight = 0
+
+        if (rowMemo.items.length <= 1) {
+          batchWeight = toFixed(
+            getBatchWeightCalculationMethodForBox(calculationMethod, isActualGreaterTheVolume)(
+              rowMemo,
+              volumeWeightCoefficient,
+            ) * rowMemo.amount,
+            2,
+          )
+        } else {
+          const boxProperties = item.order.orderSupplier.boxProperties
+
+          batchWeight = toFixed(
+            (boxProperties?.boxHeightCm * boxProperties?.boxLengthCm * boxProperties?.boxWidthCm) /
+              volumeWeightCoefficient,
+            2,
+          )
+        }
+
         const itemsQuantity = item.amount * rowMemo.amount
         const singleProductPrice = item.order.totalPrice / item.amount
-        const boxProperties = item.order.orderSupplier.boxProperties
-
-        const batchWeight = toFixed(
-          (boxProperties?.boxHeightCm * boxProperties?.boxLengthCm * boxProperties?.boxWidthCm) /
-            volumeWeightCoefficient,
-          2,
-        )
         const shippingCost = (batchWeight / finalWeight) * actualShippingCost
+        const fullBatchPrice = itemsQuantity * singleProductPrice + shippingCost
 
-        console.log(`batchWeight: ${batchWeight}`, `finalWeight: ${finalWeight}`)
-
-        return itemsQuantity * singleProductPrice + shippingCost
+        return fullBatchPrice / itemsQuantity
       }
-
-      console.log(rowMemo)
 
       return (
         <div className={classNames.pricesWrapper}>
           {rowMemo.items.map((el, i) => (
             <Typography key={i} className={classNames.multilineText}>
-              {toFixedWithDollarSign(getTotalCost(el), 2)}
+              {toFixedWithDollarSign(getTotalCost(el), 2) || '-'}
             </Typography>
           ))}
         </div>
