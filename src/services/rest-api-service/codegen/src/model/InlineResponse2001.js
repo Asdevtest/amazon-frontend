@@ -95,6 +95,9 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('paymentDateToSupplier')) {
                 obj['paymentDateToSupplier'] = ApiClient.convertToType(data['paymentDateToSupplier'], 'String');
             }
+            if (data.hasOwnProperty('partialPaymentAmountRmb')) {
+                obj['partialPaymentAmountRmb'] = ApiClient.convertToType(data['partialPaymentAmountRmb'], 'Number');
+            }
             if (data.hasOwnProperty('yuanToDollarRate')) {
                 obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
             }
@@ -240,6 +243,12 @@ InlineResponse2001.prototype['paidAt'] = undefined;
  * @member {String} paymentDateToSupplier
  */
 InlineResponse2001.prototype['paymentDateToSupplier'] = undefined;
+
+/**
+ * Сумма частичной оплаты
+ * @member {Number} partialPaymentAmountRmb
+ */
+InlineResponse2001.prototype['partialPaymentAmountRmb'] = undefined;
 
 /**
  * Курс юань доллар.

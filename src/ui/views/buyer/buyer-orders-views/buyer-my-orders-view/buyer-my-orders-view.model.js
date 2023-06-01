@@ -49,6 +49,7 @@ const updateOrderKeys = [
   'item',
   'priceInYuan',
   'priceBatchDeliveryInYuan',
+  'partialPaymentAmountRmb',
 ]
 
 const filtersFields = ['payments']
@@ -131,7 +132,7 @@ export class BuyerMyOrdersViewModel {
   startFilterModel = undefined
   filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = BuyerReadyForPaymentColumns(this.rowHandlers, () => this.columnMenuSettings)
+  columnsModel = BuyerReadyForPaymentColumns(this.rowHandlers, () => this.columnMenuSettings, false)
 
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
@@ -167,6 +168,7 @@ export class BuyerMyOrdersViewModel {
   }
 
   // НЕ было до создания фильтрации по статусам
+
   get orderStatusData() {
     return {
       orderStatusDataBase: this.orderStatusDataBase,
@@ -183,6 +185,10 @@ export class BuyerMyOrdersViewModel {
     runInAction(() => {
       this.history = history
     })
+    // this.isShowPartialPayment = routsPathes.BUYER_MY_ORDERS_PARTIALLY_PAID === history.location.pathname;
+    if (routsPathes.BUYER_MY_ORDERS_PARTIALLY_PAID === history.location.pathname) {
+      this.columnsModel = BuyerReadyForPaymentColumns(this.rowHandlers, () => this.columnMenuSettings, true)
+    }
 
     if (location.state?.orderId) {
       this.onClickOrder(location.state.orderId)
@@ -342,6 +348,8 @@ export class BuyerMyOrdersViewModel {
           return [OrderStatus.VERIFY_RECEIPT]
         case routsPathes.BUYER_MY_ORDERS_READY_FOR_PAYMENT:
           return [OrderStatus.READY_FOR_PAYMENT]
+        case routsPathes.BUYER_MY_ORDERS_PARTIALLY_PAID:
+          return [OrderStatus.PARTIALLY_PAID]
         case routsPathes.BUYER_MY_ORDERS_CLOSED_AND_CANCELED:
           return [OrderStatus.IN_STOCK, OrderStatus.CANCELED_BY_BUYER, OrderStatus.CANCELED_BY_CLIENT]
 
@@ -356,6 +364,7 @@ export class BuyerMyOrdersViewModel {
             OrderStatus.CANCELED_BY_BUYER,
             OrderStatus.CANCELED_BY_CLIENT,
             OrderStatus.READY_FOR_PAYMENT,
+            OrderStatus.PARTIALLY_PAID,
           ]
         default:
           return [OrderStatus.AT_PROCESS, OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
@@ -856,7 +865,6 @@ export class BuyerMyOrdersViewModel {
   }) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-
       const isMismatchOrderPrice = parseFloat(orderFields.totalPriceChanged) - parseFloat(orderFields.totalPrice) > 0
 
       if (isMismatchOrderPrice && toFixed(orderFields.totalPriceChanged, 2) !== toFixed(orderFields.totalPrice, 2)) {
@@ -986,6 +994,10 @@ export class BuyerMyOrdersViewModel {
         }
 
         await BuyerModel.orderReadyForPayment(order._id, { orderPayments: validOrderPayments })
+      }
+
+      if (orderFields.status === `${OrderStatusByKey[OrderStatus.PARTIALLY_PAID]}`) {
+        await BuyerModel.orderPartiallyPaid(order._id)
       }
 
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {

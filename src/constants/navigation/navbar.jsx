@@ -599,6 +599,14 @@ export const navbarConfig = () => ({
             user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_ORDERS_READY_FOR_PAYMENT_BUYER),
         },
         {
+          subtitle: t(TranslationKey['Partially paid']),
+          subRoute: '/buyer/partially-paid-orders',
+          key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_PARTIALLY_PAID,
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_ORDERS_PARTIALLY_PAID_BUYER),
+        },
+        {
           subtitle: t(TranslationKey['Need track number']),
           subRoute: '/buyer/need-track-number-orders',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NEED_TRACK_NUMBER,

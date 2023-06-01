@@ -245,7 +245,7 @@ export const useClassNames = makeStyles()(theme => ({
   subUsersWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    width: 270,
+    width: 229,
   },
   subUsersTitleWrapper: {
     marginBottom: 10,
@@ -259,7 +259,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   subUsersBodyWrapper: {
-    width: 270,
+    width: 229,
     maxHeight: 175,
     overflowY: 'auto',
     backgroundColor: theme.palette.background.general,
