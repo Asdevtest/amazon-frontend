@@ -1961,6 +1961,7 @@ export enum TranslationKey {
   'Verified ideas' = 'Verified ideas',
   'Closed Ideas' = 'Closed Ideas',
   'Partially paid' = 'Partially paid',
+  'Paid for' = 'Paid for',
   // '' = '',
   // '' = '',
   // '' = '',
