@@ -35,6 +35,7 @@ export interface SendMessageRequestParams {
   images?: string[]
 
   is_draft?: boolean
+  replyMessageId?: string | null
 }
 
 export interface AddUsersToGroupChatParams {

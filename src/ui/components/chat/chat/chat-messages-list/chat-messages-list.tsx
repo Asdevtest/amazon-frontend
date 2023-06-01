@@ -40,11 +40,28 @@ interface Props {
   toScrollMesId?: string | undefined
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
+  messageToScroll: ChatMessageContract | null
+  setMessageToReply: (mes: ChatMessageContract | null) => void
 }
 
 export const ChatMessagesList: FC<Props> = observer(
-  ({ messages, userId, handlers, toScrollMesId, messagesFound, searchPhrase, isGroupChat }) => {
+  ({
+    messages,
+    userId,
+    handlers,
+    toScrollMesId,
+    messagesFound,
+    searchPhrase,
+    isGroupChat,
+    messageToScroll,
+    setMessageToReply,
+  }) => {
     const { classes: classNames } = useClassNames()
+
+    const [choosenMessageState, setChoosenMessageState] = useState<{
+      message: ChatMessageContract | null
+      isIncomming: boolean
+    }>({ message: null, isIncomming: false })
 
     const messagesFoundIds = messagesFound?.map(el => el._id) || []
 
@@ -61,10 +78,22 @@ export const ChatMessagesList: FC<Props> = observer(
     })
 
     useEffect(() => {
-      if (firstUnReadMessageId) {
-        setTimeout(() => scrollToElementClickHandler(firstUnReadMessageId), 0)
+      if (!firstUnReadMessageId) {
+        return
       }
+
+      setTimeout(() => scrollToElementClickHandler(firstUnReadMessageId), 0)
     }, [])
+
+    useEffect(() => {
+      if (!messageToScroll) {
+        return
+      }
+
+      // setTimeout(() => scrollToElementClickHandler(messageToScroll._id), 0)
+
+      scrollToElementClickHandler(messageToScroll._id)
+    }, [messageToScroll])
 
     useEffect(() => {
       if (toScrollMesId) {
@@ -86,12 +115,22 @@ export const ChatMessagesList: FC<Props> = observer(
 
     const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null)
 
-    const handleClick = (event: { currentTarget: HTMLDivElement }, messageItem: ChatMessageContract) => {
-      console.log('messageItem', messageItem)
+    const handleClick = (
+      event: { currentTarget: HTMLDivElement },
+      messageItem: ChatMessageContract,
+      isIncomming: boolean,
+    ) => {
+      // console.log('messageItem', messageItem)
+      setChoosenMessageState({ message: messageItem, isIncomming })
       setAnchorEl(event.currentTarget)
     }
 
     const handleClose = () => {
+      setAnchorEl(null)
+    }
+
+    const onClickReply = () => {
+      setMessageToReply(choosenMessageState.message)
       setAnchorEl(null)
     }
 
@@ -168,7 +207,7 @@ export const ChatMessagesList: FC<Props> = observer(
                       >
                         <div
                           className={classNames.messageInnerContentWrapper}
-                          onClick={e => handleClick(e, messageItem)}
+                          onClick={e => handleClick(e, messageItem, isIncomming)}
                         >
                           <ChatMessageByType
                             isIncomming={isIncomming}
@@ -205,10 +244,12 @@ export const ChatMessagesList: FC<Props> = observer(
           }}
           onClose={handleClose}
         >
-          <MenuItem className={classNames.menuWrapper} /* onClick={onClickProfile} */>
+          {/* {choosenMessageState.isIncomming && ( */}
+          <MenuItem className={classNames.menuWrapper} onClick={onClickReply}>
             <ReplyOutlinedIcon className={classNames.icon} />
             {t(TranslationKey.Reply)}
           </MenuItem>
+          {/* )} */}
         </Menu>
       </div>
     )

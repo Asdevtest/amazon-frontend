@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
 import { Typography } from '@mui/material'
 
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import he from 'he'
 import { observer } from 'mobx-react'
@@ -88,10 +88,19 @@ const imagesRegex =
 export const ChatMessageBasicText: FC<Props> = observer(
   ({ message, isIncomming, unReadMessage, isFound, searchPhrase, showName }) => {
     const { classes: classNames } = useClassNames()
-    const [photoFiles] = useState(() => message.files.filter(url => imagesRegex.test(url)))
-    const [anotherFiles] = useState(() => message.files.filter(url => !imagesRegex.test(url)))
+    const [photoFiles, setPhotoFiles] = useState(() => message.files.filter(url => imagesRegex.test(url)))
+    const [anotherFiles, setAnotherFiles] = useState(() => message.files.filter(url => !imagesRegex.test(url)))
+
+    useEffect(() => {
+      setPhotoFiles(message.files.filter(url => imagesRegex.test(url)))
+      setAnotherFiles(message.files.filter(url => !imagesRegex.test(url)))
+    }, [message])
 
     // console.log('message', message)
+
+    // console.log('photoFiles', photoFiles)
+
+    // console.log('anotherFiles', anotherFiles)
 
     // console.log('message.text', message.text, he.decode(message.text))
 

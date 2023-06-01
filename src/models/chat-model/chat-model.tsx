@@ -25,6 +25,7 @@ import { checkIsChatMessageRemoveUsersFromGroupChatContract } from '@utils/ts-ch
 
 import { ChatContract, SendMessageRequestParamsContract } from './contracts'
 import { ChatMessageContract, TChatMessageDataUniversal } from './contracts/chat-message.contract'
+import { filterNullValues } from '@utils/object'
 
 const websocketChatServiceIsNotInitializedError = new Error('websocketChatService is not  onotialized')
 const noTokenProvidedError = new Error('no access token in user model, login before useing websocket')
@@ -104,7 +105,7 @@ class ChatModelStatic {
       // console.log('crmItemId, crmItemType ', crmItemId, crmItemType)
       // console.log('getChats')
       const getChatsResult = await this.websocketChatService.getChats(crmItemId, crmItemType)
-      // console.log('getChatsResult ', getChatsResult)
+      console.log('getChatsResult ', getChatsResult)
       runInAction(() => {
         this.chats = plainToInstance(ChatContract, getChatsResult).map((chat: ChatContract) => ({
           ...chat,
@@ -139,7 +140,7 @@ class ChatModelStatic {
         }))
       })
 
-      // console.log('getSimpleChatsResult', getSimpleChatsResult)
+      console.log('getSimpleChatsResult', getSimpleChatsResult)
     } catch (error) {
       console.warn(error)
     }

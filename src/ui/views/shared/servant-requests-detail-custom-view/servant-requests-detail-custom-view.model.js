@@ -142,12 +142,13 @@ export class RequestDetailCustomViewModel {
     this.onTriggerOpenModal('showRequestDesignerResultClientModal')
   }
 
-  async onSubmitMessage(message, files, chatIdId) {
+  async onSubmitMessage(message, files, chatIdId, replyMessageId) {
     try {
       await ChatModel.sendMessage({
         chatId: chatIdId,
         text: message,
         files: files?.map(item => item?.file),
+        ...(replyMessageId && { replyMessageId }),
       })
     } catch (error) {
       console.warn('onSubmitMessage error ', error)
