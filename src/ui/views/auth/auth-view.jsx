@@ -58,10 +58,10 @@ export const AuthViewRaw = props => {
               ((viewModel.error.body?.statusCode === 404 && t(TranslationKey['User not found'])) ||
                 (viewModel.error.body?.message === 'User blocked by administrator' &&
                   t(TranslationKey['User blocked by administrator'])) ||
+                (viewModel.error?.message === 'The user is waiting for confirmation by the Administrator' &&
+                  t(TranslationKey['The user is waiting for confirmation by the Administrator'])) ||
                 (viewModel.error.body?.statusCode === 403 && t(TranslationKey['Incorrect email or password'])) ||
-                /* t(TranslationKey['The user is waiting for confirmation by the Administrator'])*/ t(
-                  TranslationKey.Error,
-                ))}
+                t(TranslationKey.Error))}
           </Typography>
         )}
       </AuthFormWrapper>
