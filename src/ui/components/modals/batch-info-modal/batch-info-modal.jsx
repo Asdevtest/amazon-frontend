@@ -383,6 +383,8 @@ export const BatchInfoModal = observer(
                 currentBatch.volumeWeightDivide,
                 currentBatch.calculationMethod,
                 isActualGreaterTheVolume,
+                currentBatch.actualShippingCost || currentBatch.calculatedShippingCost,
+                currentBatch.finalWeight,
               )}
               rows={toJS(dataToRender)}
               getRowHeight={() => 'auto'}

@@ -1,4 +1,4 @@
-import { Table, TableCell, TableContainer, TableRow, TableHead, TableBody, Typography, Link } from '@mui/material'
+import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 
 import React from 'react'
 
@@ -9,10 +9,11 @@ import { Field } from '@components/shared/field'
 
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { checkAndMakeAbsoluteUrl, toFixed, toFixedWithDollarSign } from '@utils/text'
+import { checkAndMakeAbsoluteUrl, shortAsin, toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './product-table.style'
+import { CopyValue } from '@components/shared/copy-value'
 
 export const ProductTable = ({ modalHeadCells, order, orderFields, setOrderField, checkIsPlanningPrice }) => {
   const { classes: classNames } = useClassNames()
@@ -39,7 +40,20 @@ export const ProductTable = ({ modalHeadCells, order, orderFields, setOrderField
             </TableCell>
             <TableCell>
               <Typography className={classNames.amazonTitle}>{order.product.amazonTitle}</Typography>
-              <Typography>{`ASIN: ${order.product.asin}`}</Typography>
+              <Typography sx={{ display: 'flex', gap: '2px' }}>
+                <div>
+                  ASIN:{' '}
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href={`https://www.amazon.com/dp/${order.product.asin}`}
+                    onClick={e => e.stopPropagation()}
+                  >
+                    <span>{shortAsin(order.product.asin)}</span>
+                  </a>
+                </div>
+                <CopyValue text={order.product.asin} />
+              </Typography>
             </TableCell>
             <TableCell>
               {order.orderSupplier ? toFixed(order.orderSupplier.price, 2) : `${t(TranslationKey['Not available'])}`}
