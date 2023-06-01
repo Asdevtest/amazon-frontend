@@ -298,6 +298,9 @@ export const Chat: FC<Props> = observer(
             </div>
           ) : null}
         </div>
+
+        <div style={{ height: 50, background: 'green' }}></div>
+
         <div className={classNames.bottomPartWrapper}>
           {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}
 
