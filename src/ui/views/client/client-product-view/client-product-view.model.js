@@ -637,8 +637,9 @@ export class ClientProductViewModel {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
         await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
+        const newSupplier = await SupplierModel.getSupplier(createSupplierResult.guid)
         runInAction(() => {
-          this.product.suppliers.push(createSupplierResult.guid)
+          this.product.suppliers.push(newSupplier)
         })
       }
 
