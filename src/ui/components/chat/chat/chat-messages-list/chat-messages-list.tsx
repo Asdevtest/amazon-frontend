@@ -1,7 +1,9 @@
 import { cx } from '@emotion/css'
-import { Avatar, Typography, Link } from '@mui/material'
+import { Avatar, Typography, Link, Menu, MenuItem } from '@mui/material'
 
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
+
+import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined'
 
 import { observer } from 'mobx-react'
 import ScrollView from 'react-inverted-scrollview'
@@ -13,42 +15,16 @@ import { SettingsModel } from '@models/settings-model'
 
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
-import {
-  checkIsChatMessageAddUsersToGroupChatContract,
-  checkIsChatMessageBloggerProposalResultEditedContract,
-  checkIsChatMessageCreateNewBloggerProposalContract,
-  checkIsChatMessageCreateNewDesignerProposalContract,
-  checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract,
-  checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract,
-  checkIsChatMessageDataProposalResultEditedContract,
-  checkIsChatMessageDataProposalStatusChangedContract,
-  checkIsChatMessageDesignerProposalResultEditedContract,
-  checkIsChatMessagePatchInfoGroupChatContract,
-  checkIsChatMessageRemoveUsersFromGroupChatContract,
-} from '@utils/ts-checks'
 
 import { useClassNames } from './chat-messages-list.style'
-import { ChatMessageAddUsersToGroupChat } from './chat-messages/chat-message-add-users-to-group-chat'
-import { ChatMessageBasicText } from './chat-messages/chat-message-basic-text'
-import { ChatMessageBloggerProposalEditedResult } from './chat-messages/chat-message-blogger-proposal-edited-result'
-import { ChatMessageCreateNewBloggerProposal } from './chat-messages/chat-message-create-new-blogger-proposal'
-import { ChatMessageCreateNewDesignerProposal } from './chat-messages/chat-message-create-new-designer-proposal'
-import {
-  ChatMessageDesignerProposalEditedResult,
-  ChatMessageRequestProposalDesignerResultEditedHandlers,
-} from './chat-messages/chat-message-designer-proposal-edited-result'
-import { ChatMessagePatchInfoGroupChat } from './chat-messages/chat-message-patch-info-group-chat'
-import { ChatMessageProposal, ChatMessageProposalHandlers } from './chat-messages/chat-message-proposal'
-import {
-  ChatMessageProposalStatusChanged,
-  ChatMessageRequestProposalStatusChangedHandlers,
-} from './chat-messages/chat-message-proposal-status-changed'
-import { ChatMessageRemoveUsersFromGroupChat } from './chat-messages/chat-message-remove-users-from-group-chat'
-import { ChatMessageRequest } from './chat-messages/chat-message-request'
-import {
-  ChatMessageRequestProposalResultEdited,
-  ChatMessageRequestProposalResultEditedHandlers,
-} from './chat-messages/chat-message-request-proposal-result-edited'
+import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './chat-messages/chat-message-designer-proposal-edited-result'
+import { ChatMessageProposalHandlers } from './chat-messages/chat-message-proposal'
+import { ChatMessageRequestProposalStatusChangedHandlers } from './chat-messages/chat-message-proposal-status-changed'
+import { ChatMessageRequestProposalResultEditedHandlers } from './chat-messages/chat-message-request-proposal-result-edited'
+import { ChatMessageByType } from './chat-message-by-type'
+import { t } from '@utils/translations'
+import { TranslationKey } from '@constants/translations/translation-key'
+import { Divider } from '@material-ui/core'
 
 export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers &
   ChatMessageRequestProposalResultEditedHandlers &
@@ -63,11 +39,28 @@ interface Props {
   toScrollMesId?: string | undefined
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
+  messageToScroll: ChatMessageContract | null
+  setMessageToReply: (mes: ChatMessageContract | null) => void
 }
 
 export const ChatMessagesList: FC<Props> = observer(
-  ({ messages, userId, handlers, toScrollMesId, messagesFound, searchPhrase, isGroupChat }) => {
+  ({
+    messages,
+    userId,
+    handlers,
+    toScrollMesId,
+    messagesFound,
+    searchPhrase,
+    isGroupChat,
+    messageToScroll,
+    setMessageToReply,
+  }) => {
     const { classes: classNames } = useClassNames()
+
+    const [choosenMessageState, setChoosenMessageState] = useState<{
+      message: ChatMessageContract | null
+      isIncomming: boolean
+    }>({ message: null, isIncomming: false })
 
     const messagesFoundIds = messagesFound?.map(el => el._id) || []
 
@@ -84,10 +77,22 @@ export const ChatMessagesList: FC<Props> = observer(
     })
 
     useEffect(() => {
-      if (firstUnReadMessageId) {
-        setTimeout(() => scrollToElementClickHandler(firstUnReadMessageId), 0)
+      if (!firstUnReadMessageId) {
+        return
       }
+
+      setTimeout(() => scrollToElementClickHandler(firstUnReadMessageId), 0)
     }, [])
+
+    useEffect(() => {
+      if (!messageToScroll) {
+        return
+      }
+
+      // setTimeout(() => scrollToElementClickHandler(messageToScroll._id), 0)
+
+      scrollToElementClickHandler(messageToScroll._id)
+    }, [messageToScroll])
 
     useEffect(() => {
       if (toScrollMesId) {
@@ -107,105 +112,25 @@ export const ChatMessagesList: FC<Props> = observer(
       }
     }, [messages])
 
-    const renderMessageByType = (
-      isIncomming: boolean,
+    const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null)
+
+    const handleClick = (
+      event: { currentTarget: HTMLDivElement },
       messageItem: ChatMessageContract,
-      unReadMessage: boolean,
-      showName: boolean,
-      isLastMessage: boolean,
+      isIncomming: boolean,
     ) => {
-      if (checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract(messageItem)) {
-        return <ChatMessageRequest message={messageItem} />
-      } else if (handlers && checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract(messageItem)) {
-        return (
-          <ChatMessageProposal
-            message={messageItem}
-            handlers={{
-              onClickProposalAccept: handlers.onClickProposalAccept,
-              onClickProposalRegect: handlers.onClickProposalRegect,
-            }}
-          />
-        )
-      } else if (handlers && checkIsChatMessageDataProposalStatusChangedContract(messageItem)) {
-        return (
-          <ChatMessageProposalStatusChanged
-            isLastMessage={isLastMessage}
-            message={messageItem}
-            handlers={{
-              onClickProposalResultAccept: handlers.onClickProposalResultAccept,
-              onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
-              onClickReworkProposal: handlers.onClickReworkProposal,
-            }}
-          />
-        )
-      } else if (handlers && checkIsChatMessageDataProposalResultEditedContract(messageItem)) {
-        return (
-          <ChatMessageRequestProposalResultEdited
-            isLastMessage={isLastMessage}
-            message={messageItem}
-            handlers={{
-              onClickProposalResultAccept: handlers.onClickProposalResultAccept,
-              onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
-            }}
-          />
-        )
-      } else if (handlers && checkIsChatMessageCreateNewBloggerProposalContract(messageItem)) {
-        return (
-          <ChatMessageCreateNewBloggerProposal
-            message={messageItem}
-            handlers={{
-              onClickProposalAccept: handlers.onClickProposalAccept,
-              onClickProposalRegect: handlers.onClickProposalRegect,
-            }}
-          />
-        )
-      } else if (handlers && checkIsChatMessageCreateNewDesignerProposalContract(messageItem)) {
-        return (
-          <ChatMessageCreateNewDesignerProposal
-            message={messageItem}
-            handlers={{
-              onClickProposalAccept: handlers.onClickProposalAccept,
-              onClickProposalRegect: handlers.onClickProposalRegect,
-            }}
-          />
-        )
-      } else if (handlers && checkIsChatMessageBloggerProposalResultEditedContract(messageItem)) {
-        return (
-          <ChatMessageBloggerProposalEditedResult
-            message={messageItem}
-            handlers={{
-              onClickProposalResultAccept: handlers.onClickProposalResultAccept,
-              onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
-            }}
-          />
-        )
-      } else if (handlers && checkIsChatMessageDesignerProposalResultEditedContract(messageItem)) {
-        return (
-          <ChatMessageDesignerProposalEditedResult
-            message={messageItem}
-            handlers={{
-              onClickOpenRequest: handlers.onClickOpenRequest,
-            }}
-          />
-        )
-      } else if (checkIsChatMessageAddUsersToGroupChatContract(messageItem)) {
-        return <ChatMessageAddUsersToGroupChat message={messageItem} />
-      } else if (checkIsChatMessageRemoveUsersFromGroupChatContract(messageItem)) {
-        return <ChatMessageRemoveUsersFromGroupChat message={messageItem} />
-      } else if (checkIsChatMessagePatchInfoGroupChatContract(messageItem)) {
-        return <ChatMessagePatchInfoGroupChat message={messageItem} />
-      } else {
-        return (
-          <ChatMessageBasicText
-            showName={showName}
-            isIncomming={isIncomming}
-            message={messageItem}
-            unReadMessage={unReadMessage}
-            isFound={messagesFoundIds.includes(messageItem?._id)}
-            searchPhrase={searchPhrase}
-          />
-        )
-      }
+      // console.log('messageItem', messageItem)
+      setChoosenMessageState({ message: messageItem, isIncomming })
+      setAnchorEl(event.currentTarget)
+    }
+
+    const handleClose = () => {
+      setAnchorEl(null)
+    }
+
+    const onClickReply = () => {
+      setMessageToReply(choosenMessageState.message)
+      setAnchorEl(null)
     }
 
     return (
@@ -227,6 +152,12 @@ export const ChatMessagesList: FC<Props> = observer(
                 const unReadMessage = !messageItem.isRead
 
                 const showName = isGroupChat && isBeforeMessageAnotherAuthor && !isNotPersonal && isIncomming
+
+                const isReply = messageItem?.replyMessageId
+
+                const repleyMessage = messages.find(
+                  el => typeof messageItem?.replyMessageId === 'string' && el._id === messageItem?.replyMessageId,
+                )
 
                 return (
                   <div
@@ -279,8 +210,38 @@ export const ChatMessagesList: FC<Props> = observer(
                             isNextMessageSameAuthor && isIncomming,
                         })}
                       >
-                        <div className={classNames.messageInnerContentWrapper}>
-                          {renderMessageByType(isIncomming, messageItem, unReadMessage, showName, isLastMessage)}
+                        <div
+                          className={classNames.messageInnerContentWrapper}
+                          onClick={e => handleClick(e, messageItem, isIncomming)}
+                        >
+                          {isReply && repleyMessage && (
+                            <div
+                              className={classNames.repleyWrapper}
+                              onClick={e => {
+                                e.stopPropagation()
+                                scrollToElementClickHandler(repleyMessage._id)
+                              }}
+                            >
+                              <div className={classNames.repleyDivider} />
+                              <ChatMessageByType
+                                showName
+                                isIncomming={isIncomming}
+                                messageItem={repleyMessage}
+                                unReadMessage={false}
+                                isLastMessage={false}
+                              />
+                            </div>
+                          )}
+                          <ChatMessageByType
+                            isIncomming={isIncomming}
+                            messageItem={messageItem}
+                            unReadMessage={unReadMessage}
+                            showName={showName}
+                            isLastMessage={isLastMessage}
+                            handlers={handlers}
+                            messagesFoundIds={messagesFoundIds}
+                            searchPhrase={searchPhrase}
+                          />
                         </div>
                       </div>
                     </div>
@@ -289,6 +250,30 @@ export const ChatMessagesList: FC<Props> = observer(
               })
             : undefined}
         </ScrollView>
+
+        <Menu
+          keepMounted
+          anchorEl={anchorEl}
+          autoFocus={false}
+          open={Boolean(anchorEl)}
+          classes={{ paper: classNames.menu, list: classNames.list }}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          onClose={handleClose}
+        >
+          {/* {choosenMessageState.isIncomming && ( */}
+          <MenuItem className={classNames.menuWrapper} onClick={onClickReply}>
+            <ReplyOutlinedIcon className={classNames.icon} />
+            {t(TranslationKey.Reply)}
+          </MenuItem>
+          {/* )} */}
+        </Menu>
       </div>
     )
   },

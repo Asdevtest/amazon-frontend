@@ -4,7 +4,10 @@ import { cx } from '@emotion/css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
+
+import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined'
 import { InputAdornment, Typography, ClickAwayListener, Avatar } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
@@ -33,6 +36,7 @@ import { CurrentOpponent, IFile } from '../multiple-chats'
 import { ChatFilesInput } from './chat-files-input'
 import { ChatMessagesList, ChatMessageUniversalHandlers } from './chat-messages-list'
 import { useClassNames } from './chat.style'
+import { ChatMessageByType } from './chat-messages-list/chat-message-by-type'
 
 export interface RenderAdditionalButtonsParams {
   message: string
@@ -64,7 +68,7 @@ interface Props {
   searchPhrase?: string
 
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
-  onSubmitMessage: (message: string, files: IFile[]) => void
+  onSubmitMessage: (message: string, files: IFile[], replyMessageId: string | null) => void
   updateData: () => void
   onTypingMessage: (chatId: string) => void
   onClickBackButton: () => void
@@ -99,6 +103,9 @@ export const Chat: FC<Props> = observer(
     const [showGroupSettings, setShowGroupSettings] = useState(false)
 
     const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
+
+    const [messageToReply, setMessageToReply] = useState<null | ChatMessageContract>(null)
+    const [messageToScroll, setMessageToScroll] = useState<null | ChatMessageContract>(null)
 
     // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
 
@@ -148,7 +155,8 @@ export const Chat: FC<Props> = observer(
     }
 
     const onSubmitMessageInternal = () => {
-      onSubmitMessage(message, files)
+      onSubmitMessage(message, files, messageToReply ? messageToReply._id : null)
+      setMessageToReply(null)
       resetAllInputs()
     }
 
@@ -205,6 +213,8 @@ export const Chat: FC<Props> = observer(
 
     const userContainedInChat = chat.users.some(el => el._id === userId)
 
+    // console.log('messageToReply', messageToReply)
+
     return (
       <div className={classNames.root}>
         <div className={classNames.opponentWrapper}>
@@ -223,6 +233,8 @@ export const Chat: FC<Props> = observer(
             toScrollMesId={toScrollMesId}
             messagesFound={messagesFound}
             searchPhrase={searchPhrase}
+            messageToScroll={messageToScroll}
+            setMessageToReply={setMessageToReply}
           />
 
           {isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0 ? (
@@ -298,6 +310,35 @@ export const Chat: FC<Props> = observer(
             </div>
           ) : null}
         </div>
+
+        {messageToReply && (
+          <div
+            className={classNames.messageToReplyWrapper}
+            onClick={() => {
+              setMessageToScroll(messageToReply)
+              setTimeout(() => setMessageToScroll(null), 1000)
+            }}
+          >
+            <ReplyOutlinedIcon className={classNames.messageToReplyIcon} />
+            <div className={classNames.messageToReplySubWrapper}>
+              <ChatMessageByType
+                isIncomming
+                showName
+                messageItem={messageToReply}
+                unReadMessage={false}
+                isLastMessage={false}
+              />
+            </div>
+            <CloseOutlinedIcon
+              className={classNames.messageToReplyCloseIcon}
+              onClick={e => {
+                e.stopPropagation()
+                setMessageToReply(null)
+              }}
+            />
+          </div>
+        )}
+
         <div className={classNames.bottomPartWrapper}>
           {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}
 

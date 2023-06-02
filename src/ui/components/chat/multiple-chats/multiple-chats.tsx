@@ -56,7 +56,7 @@ interface Props {
 
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   updateData: () => void
-  onSubmitMessage: (message: string, files: IFile[], chat: string) => void
+  onSubmitMessage: (message: string, files: IFile[], chat: string, replyMessageId: string | null) => void
   onClickChat: (chat: ChatContract) => void
   onTypingMessage: (chatId: string) => void
   onClickBackButton: () => void
@@ -144,9 +144,9 @@ export const MultipleChats = observer(
                   searchPhrase={searchPhrase}
                   renderAdditionalButtons={renderAdditionalButtons}
                   updateData={updateData}
-                  onSubmitMessage={(message: string, files: IFile[]) =>
+                  onSubmitMessage={(message: string, files: IFile[], replyMessageId: string | null) =>
                     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                    onSubmitMessage(message, files, chatSelectedId!)
+                    onSubmitMessage(message, files, chatSelectedId!, replyMessageId)
                   }
                   onTypingMessage={onTypingMessage}
                   onClickBackButton={onClickBackButton}
@@ -177,9 +177,9 @@ export const MultipleChats = observer(
                   chatMessageHandlers={chatMessageHandlers}
                   renderAdditionalButtons={renderAdditionalButtons}
                   updateData={updateData}
-                  onSubmitMessage={(message: string, files: IFile[]) =>
+                  onSubmitMessage={(message: string, files: IFile[], replyMessageId: string | null) =>
                     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                    onSubmitMessage(message, files, chatSelectedId!)
+                    onSubmitMessage(message, files, chatSelectedId!, replyMessageId)
                   }
                   onTypingMessage={onTypingMessage}
                   onClickBackButton={onClickBackButton}

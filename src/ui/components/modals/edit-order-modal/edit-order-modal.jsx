@@ -230,6 +230,7 @@ export const EditOrderModal = observer(
       paymentDetails: order.paymentDetails || [],
       payments: order.payments || [],
       orderSupplier: order?.orderSupplier || {},
+      partialPaymentAmountRmb: order?.partialPaymentAmountRmb || 0,
     }
 
     const [orderFields, setOrderFields] = useState(initialState)
@@ -299,6 +300,7 @@ export const EditOrderModal = observer(
           batchDeliveryCostInYuan: orderFields.priceBatchDeliveryInYuan || 0,
           batchDeliveryCostInDollar: orderFields.deliveryCostToTheWarehouse || 0,
           batchTotalCostInDollar: orderFields.totalPriceChanged || 0,
+          partialPaymentAmountRmb: orderFields.partialPaymentAmountRmb || 0,
         },
       }
 
@@ -463,6 +465,7 @@ export const EditOrderModal = observer(
       `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}`,
       `${OrderStatusByKey[OrderStatus.AT_PROCESS]}`,
       `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}`,
+      `${OrderStatusByKey[OrderStatus.PARTIALLY_PAID]}`,
       `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
       `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
       `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
@@ -630,6 +633,7 @@ export const EditOrderModal = observer(
                           `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}` ||
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PARTIALLY_PAID]}` ||
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
@@ -656,6 +660,7 @@ export const EditOrderModal = observer(
                                 `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
                                 `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
                                 `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}` ||
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PARTIALLY_PAID]}` ||
                                 `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
                               [classNames.green]:
@@ -676,14 +681,16 @@ export const EditOrderModal = observer(
                   {Object.keys({
                     ...getObjectFilteredByKeyArrayWhiteList(
                       OrderStatusByCode,
-                      allowOrderStatuses
-                        .filter(
-                          el =>
-                            el >= order.status ||
-                            (el === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
-                              order.status < `${OrderStatusByKey[OrderStatus.IN_STOCK]}`),
+                      allowOrderStatuses.filter(el => {
+                        return (
+                          el >= order.status ||
+                          (el === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
+                            order.status < `${OrderStatusByKey[OrderStatus.IN_STOCK]}`) ||
+                          (el === OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT].toString() &&
+                            order.status === OrderStatusByKey[OrderStatus.PARTIALLY_PAID])
                         )
-                        .filter(el => (isPendingOrder ? el <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] : true)),
+                      }),
+                      // .filter(el => (isPendingOrder ? el <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] : true))
                     ),
                   }).map((statusCode, statusIndex) => (
                     <MenuItem
@@ -698,6 +705,7 @@ export const EditOrderModal = observer(
                             statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` ||
                             statusCode === `${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}` ||
                             statusCode === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}` ||
+                            statusCode === `${OrderStatusByKey[OrderStatus.PARTIALLY_PAID]}` ||
                             statusCode === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
                           [classNames.green]:
@@ -717,7 +725,10 @@ export const EditOrderModal = observer(
                         (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
                           order.status === OrderStatusByKey[OrderStatus.IN_STOCK]) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}` &&
-                          order.status !== OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
+                          ![
+                            OrderStatusByKey[OrderStatus.AT_PROCESS],
+                            OrderStatusByKey[OrderStatus.PARTIALLY_PAID],
+                          ].includes(order.status)) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
                           order.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` &&
@@ -727,7 +738,9 @@ export const EditOrderModal = observer(
                         (statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}` &&
                           order.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
-                          order.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED])
+                          order.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) ||
+                        (statusCode === `${OrderStatusByKey[OrderStatus.PARTIALLY_PAID]}` &&
+                          order.status !== OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])
                       }
                     >
                       {OrderStatusTranslate(getOrderStatusOptionByCode(statusCode).key)}
@@ -852,6 +865,7 @@ export const EditOrderModal = observer(
 
                     <div className={classNames.supplierButtonWrapper}>
                       <Button
+                        danger
                         disabled={checkIsPlanningPrice && !isPendingOrder}
                         className={cx(classNames.iconBtn, classNames.iconBtnAccept, {
                           [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
