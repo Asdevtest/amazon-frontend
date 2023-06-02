@@ -17,4 +17,7 @@ export class SendMessageRequestParamsContract {
   @IsOptional()
   @IsBoolean()
   public is_draft?: boolean
+
+  @IsOptional()
+  public replyMessageId?: string | null
 }
