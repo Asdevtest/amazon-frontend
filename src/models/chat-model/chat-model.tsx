@@ -25,7 +25,6 @@ import { checkIsChatMessageRemoveUsersFromGroupChatContract } from '@utils/ts-ch
 
 import { ChatContract, SendMessageRequestParamsContract } from './contracts'
 import { ChatMessageContract, TChatMessageDataUniversal } from './contracts/chat-message.contract'
-import { filterNullValues } from '@utils/object'
 
 const websocketChatServiceIsNotInitializedError = new Error('websocketChatService is not  onotialized')
 const noTokenProvidedError = new Error('no access token in user model, login before useing websocket')

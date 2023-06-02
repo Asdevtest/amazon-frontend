@@ -156,6 +156,7 @@ export const Chat: FC<Props> = observer(
 
     const onSubmitMessageInternal = () => {
       onSubmitMessage(message, files, messageToReply ? messageToReply._id : null)
+      setMessageToReply(null)
       resetAllInputs()
     }
 

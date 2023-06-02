@@ -1,5 +1,5 @@
 import { cx } from '@emotion/css'
-import { Avatar, Typography, Link } from '@mui/material'
+import { Avatar, Typography, Link, Menu, MenuItem } from '@mui/material'
 
 import React, { FC, useEffect, useState } from 'react'
 
@@ -8,8 +8,6 @@ import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined'
 import { observer } from 'mobx-react'
 import ScrollView from 'react-inverted-scrollview'
 import { useScrollToElement } from 'react-use-scroll-to-element-hook'
-
-import { Menu, MenuItem } from '@mui/material'
 
 import { ChatModel } from '@models/chat-model'
 import { ChatMessageContract, ChatMessageType } from '@models/chat-model/contracts/chat-message.contract'
@@ -26,6 +24,7 @@ import { ChatMessageRequestProposalResultEditedHandlers } from './chat-messages/
 import { ChatMessageByType } from './chat-message-by-type'
 import { t } from '@utils/translations'
 import { TranslationKey } from '@constants/translations/translation-key'
+import { Divider } from '@material-ui/core'
 
 export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers &
   ChatMessageRequestProposalResultEditedHandlers &
@@ -154,6 +153,12 @@ export const ChatMessagesList: FC<Props> = observer(
 
                 const showName = isGroupChat && isBeforeMessageAnotherAuthor && !isNotPersonal && isIncomming
 
+                const isReply = messageItem?.replyMessageId
+
+                const repleyMessage = messages.find(
+                  el => typeof messageItem?.replyMessageId === 'string' && el._id === messageItem?.replyMessageId,
+                )
+
                 return (
                   <div
                     key={`chatMessage_${messageItem._id}`}
@@ -209,6 +214,24 @@ export const ChatMessagesList: FC<Props> = observer(
                           className={classNames.messageInnerContentWrapper}
                           onClick={e => handleClick(e, messageItem, isIncomming)}
                         >
+                          {isReply && repleyMessage && (
+                            <div
+                              className={classNames.repleyWrapper}
+                              onClick={e => {
+                                e.stopPropagation()
+                                scrollToElementClickHandler(repleyMessage._id)
+                              }}
+                            >
+                              <div className={classNames.repleyDivider} />
+                              <ChatMessageByType
+                                showName
+                                isIncomming={isIncomming}
+                                messageItem={repleyMessage}
+                                unReadMessage={false}
+                                isLastMessage={false}
+                              />
+                            </div>
+                          )}
                           <ChatMessageByType
                             isIncomming={isIncomming}
                             messageItem={messageItem}

@@ -156,4 +156,17 @@ export const useClassNames = makeStyles()(theme => ({
   list: {
     padding: 0,
   },
+
+  repleyWrapper: {
+    display: 'flex',
+    opacity: '0.7',
+    transform: 'scale(0.97)',
+    cursor: 'pointer',
+  },
+
+  repleyDivider: {
+    margin: '8px 10px 16px',
+    borderRight: `7px solid ${theme.palette.input.customBorder}`,
+    backgroundColor: '#E0E0E0',
+  },
 }))
