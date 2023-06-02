@@ -119,8 +119,8 @@ export const NavbarCollapse = ({
       case '/buyer/ready-for-payment-orders':
         return <ListItemIcon>{<div className={classNames.badge}>{userInfo.readyForPayment}</div>}</ListItemIcon>
 
-      // case '/buyer/partially-paid-orders':
-      //   return <ListItemIcon>{<div className={classNames.badge}>{userInfo.readyForPayment}</div>}</ListItemIcon>
+      case '/buyer/partially-paid-orders':
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.partiallyPaid}</div>}</ListItemIcon>
 
       case '/buyer/all-orders':
         return (

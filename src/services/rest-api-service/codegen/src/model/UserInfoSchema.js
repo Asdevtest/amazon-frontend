@@ -153,6 +153,9 @@ class UserInfoSchema {
             if (data.hasOwnProperty('readyForPayment')) {
                 obj['readyForPayment'] = ApiClient.convertToType(data['readyForPayment'], 'Number');
             }
+            if (data.hasOwnProperty('partiallyPaid')) {
+                obj['partiallyPaid'] = ApiClient.convertToType(data['partiallyPaid'], 'Number');
+            }
             if (data.hasOwnProperty('needTrackNumber')) {
                 obj['needTrackNumber'] = ApiClient.convertToType(data['needTrackNumber'], 'Number');
             }
@@ -396,6 +399,12 @@ UserInfoSchema.prototype['notPaid'] = undefined;
  * @member {Number} readyForPayment
  */
 UserInfoSchema.prototype['readyForPayment'] = undefined;
+
+/**
+ * Количество заказов 16 статусы
+ * @member {Number} partiallyPaid
+ */
+UserInfoSchema.prototype['partiallyPaid'] = undefined;
 
 /**
  * Количество заказов 20 статус

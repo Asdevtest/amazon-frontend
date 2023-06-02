@@ -547,7 +547,7 @@ export const SelectFields = ({
 
         <Box my={3} className={classNames.formItem} alignItems="flex-end">
           <Field
-            label={t(TranslationKey.Paid) + ', Ұ'}
+            label={t(TranslationKey['Paid for']) + ', Ұ'}
             labelClasses={classNames.label}
             inputClasses={classNames.input}
             inputProps={{ maxLength: 10 }}
