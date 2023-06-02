@@ -55,7 +55,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   regionFieldInput: {
-    width: '70px !important',
+    width: '80px !important',
     height: 40,
   },
 
@@ -144,7 +144,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   rateFieldInput: {
-    width: 40,
+    width: 50,
   },
 
   rateFieldContainer: {
@@ -245,6 +245,10 @@ export const useClassNames = makeStyles()(theme => ({
     height: 40,
   },
 
+  error: {
+    borderColor: 'red',
+  },
+
   weightContainer: {
     width: 'fit-content !important',
     margin: '0 !important',
@@ -285,5 +289,10 @@ export const useClassNames = makeStyles()(theme => ({
   cancelBtn: {
     color: theme.palette.text.general,
     padding: '0 35px',
+  },
+
+  controlOptionsButtons: {
+    display: 'flex',
+    gap: 10,
   },
 }))

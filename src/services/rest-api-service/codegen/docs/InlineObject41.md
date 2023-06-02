@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **images** | **[String]** | Массив картинок. | [optional] 
 **storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
 **priority** | **String** | Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно | [optional] 
+**reason** | **String** | Причина приоритета | [optional] 
 
 
 

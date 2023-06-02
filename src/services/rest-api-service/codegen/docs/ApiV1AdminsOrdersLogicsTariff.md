@@ -18,5 +18,6 @@ Name | Type | Description | Notes
 **_id** | **String** |  | [optional] 
 **storekeeperId** | **String** |  | [optional] 
 **updatedAt** | **Date** |  | [optional] 
+**createdAt** | **Date** |  | [optional] 
 
 

@@ -11,7 +11,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
-import { AddOrEditLogisticTariffForm } from '@components/forms/add-or-edit-logistic-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
@@ -36,7 +35,6 @@ export const WeightBasedLogisticsTariffs = observer(() => {
     yuanToDollarRate,
     tariffToEdit,
     requestStatus,
-    getCurrentData,
     sortModel,
     filterModel,
     densityModel,
@@ -49,9 +47,9 @@ export const WeightBasedLogisticsTariffs = observer(() => {
     showAddOrEditDestinationModal,
     confirmModalSettings,
     showConfirmModal,
+    currentData,
     onTriggerOpenModal,
     onClickAddBtn,
-    onClickCancelBtn,
     logisticsTariffs,
 
     onChangeSortingModel,
@@ -115,6 +113,7 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         disableVirtualization
         pagination
         useResizeContainer
+        propsToRerender={{ isArchive }}
         classes={{
           root: classNames.root,
           footerContainer: classNames.footerContainer,
@@ -128,7 +127,7 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         columnVisibilityModel={columnVisibilityModel}
         paginationModel={paginationModel}
         pageSizeOptions={[15, 25, 50, 100]}
-        rows={getCurrentData()}
+        rows={currentData}
         getRowHeight={() => 'auto'}
         slots={{
           toolbar: DataGridCustomToolbar,
@@ -172,6 +171,9 @@ export const WeightBasedLogisticsTariffs = observer(() => {
           tariffToEdit={tariffToEdit}
           logisticsTariffsData={logisticsTariffs}
           destinationData={destinationData}
+          onCreateSubmit={onSubmitCreateTariff}
+          onEditSubmit={onSubmitEditTariff}
+          onClickClose={() => onTriggerOpenModal('showAddOrEditLogisticTariffModal')}
         />
       </Modal>
       <ConfirmationModal

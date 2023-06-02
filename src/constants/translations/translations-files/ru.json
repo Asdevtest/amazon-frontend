@@ -1966,5 +1966,6 @@
   "Amount of days": "Количество дней",
   "Add data from tariff": "Добавить данные из тарифа",
   "Minimum weight": "Минимальный вес",
-  "Price per kg": "Цена за кг"
+  "Price per kg": "Цена за кг",
+  "The intersections of the weights are found": "Найдены пересечения весов"
 }

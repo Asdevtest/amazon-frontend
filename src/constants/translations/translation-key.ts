@@ -1965,7 +1965,7 @@ export enum TranslationKey {
   'Add data from tariff' = 'Add data from tariff',
   'Minimum weight' = 'Minimum weight',
   'Price per kg' = 'Price per kg',
-  // '' = '',
+  'The intersections of the weights are found' = 'The intersections of the weights are found',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -9,7 +9,7 @@ import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
-import { logisticsTariffsColumns } from '@components/table/table-columns/warehouse/logistics-tariffs-columns'
+import { WeightBasedLogisticsTariffsColumns } from '@components/table/table-columns/warehouse/weight-based-logistics-tariffs'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
@@ -23,6 +23,8 @@ export class LogisticsTariffsModel {
   isArchive = false
   yuanToDollarRate = undefined
   storekeeperDestination = undefined
+
+  currentData = []
 
   logisticsTariffs = []
   tariffToEdit = undefined
@@ -47,7 +49,11 @@ export class LogisticsTariffsModel {
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = logisticsTariffsColumns(this.rowHandlers, this.isArchive)
+  columnsModel = WeightBasedLogisticsTariffsColumns(
+    this.rowHandlers,
+    () => this.isArchive,
+    () => this.destinationData,
+  )
 
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
@@ -63,8 +69,15 @@ export class LogisticsTariffsModel {
     reaction(
       () => this.isArchive,
       () => {
-        this.updateColumns()
         this.loadData()
+      },
+    )
+
+    reaction(
+      () => this.logisticsTariffs,
+      () => {
+        console.log('render')
+        this.currentData = this.getCurrentData()
       },
     )
   }
@@ -124,12 +137,6 @@ export class LogisticsTariffsModel {
       this.columnVisibilityModel = model
     })
     this.setDataGridState()
-  }
-
-  updateColumns() {
-    runInAction(() => {
-      this.columnsModel = logisticsTariffsColumns(this.rowHandlers, this.isArchive)
-    })
   }
 
   setDataGridState() {
@@ -262,10 +269,33 @@ export class LogisticsTariffsModel {
 
   async onSubmitCreateTariff(data) {
     try {
-      await StorekeeperModel.createLogisticTariff(data)
+      await StorekeeperModel.createLogisticTariff({
+        tariffType: data.tariffType,
+        name: data.name,
+        description: data.description,
+        deliveryTimeInDay: data.deliveryTimeInDay,
+        cls: data.cls,
+        etd: data.etd,
+        eta: data.eta,
+        minWeightInKg: Math.min(data.destinationVariations.map(item => Number(item.minWeight))) || 1,
+        archive: data.archive,
+        conditionsByRegion: {
+          west: {
+            rate: null,
+          },
+          central: {
+            rate: null,
+          },
+          east: {
+            rate: null,
+          },
+          yuanToDollarRate: data.yuanToDollarRate,
+        },
+        destinationVariations: data.destinationVariations,
+      })
 
-      this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
       this.loadData()
+      this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
     } catch (error) {
       console.log(error)
       this.error = error
@@ -274,11 +304,32 @@ export class LogisticsTariffsModel {
 
   async onSubmitEditTariff(tariffId, data) {
     try {
-      await StorekeeperModel.editLogisticTariff(tariffId, data)
-
-      this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
+      await StorekeeperModel.editLogisticTariff(tariffId, {
+        name: data.name,
+        description: data.description,
+        deliveryTimeInDay: data.deliveryTimeInDay,
+        cls: data.cls,
+        etd: data.etd,
+        eta: data.eta,
+        minWeightInKg: Math.min(data.destinationVariations.map(item => Number(item.minWeight))) || 1,
+        archive: data.archive,
+        conditionsByRegion: {
+          west: {
+            rate: null,
+          },
+          central: {
+            rate: null,
+          },
+          east: {
+            rate: null,
+          },
+          yuanToDollarRate: data.yuanToDollarRate,
+        },
+        destinationVariations: data.destinationVariations,
+      })
 
       this.loadData()
+      this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
     } catch (error) {
       console.log(error)
       this.error = error
@@ -329,7 +380,8 @@ export class LogisticsTariffsModel {
 
   async removeTariff() {
     try {
-      await StorekeeperModel.removeLogisticTariff(this.tariffIdToRemove)
+      // await StorekeeperModel.removeLogisticTariff(this.tariffIdToRemove)
+      console.log('this.tariffIdToRemove', this.tariffIdToRemove)
 
       this.onTriggerOpenModal('showConfirmModal')
 

@@ -62,6 +62,8 @@ export const ClientInStockBoxesViewRaw = props => {
     )
   }, [viewModel.storekeepersData, viewModel.clientDestinations])
 
+  console.log('viewModel.destinations', viewModel.destinations)
+
   const getRowClassName = params =>
     (params.row.isDraft === true ||
       params.row.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE ||
@@ -213,10 +215,7 @@ export const ClientInStockBoxesViewRaw = props => {
 
         <div ref={btnsWrapperRef} className={classNames.btnsWrapper}>
           <div className={classNames.leftBtnsWrapper}>{renderButtons()}</div>
-          <Button
-            disabled={!viewModel.storekeepersData}
-            onClick={() => viewModel.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
-          >
+          <Button disabled={!viewModel.storekeepersData} onClick={() => viewModel.onClickCurrentTariffsBtn()}>
             {t(TranslationKey['Current tariffs'])}
           </Button>
         </div>
@@ -482,6 +481,7 @@ export const ClientInStockBoxesViewRaw = props => {
         <SelectStorekeeperAndTariffForm
           inNotifications={!viewModel.changeItem}
           total={!viewModel.changeItem}
+          destinationsData={viewModel.destinations}
           storekeepers={
             viewModel.changeItem
               ? viewModel.storekeepersData.filter(el => el._id === viewModel.changeItem?.storekeeper._id)

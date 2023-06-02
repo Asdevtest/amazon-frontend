@@ -153,6 +153,9 @@ class UserInfoSchema {
             if (data.hasOwnProperty('readyForPayment')) {
                 obj['readyForPayment'] = ApiClient.convertToType(data['readyForPayment'], 'Number');
             }
+            if (data.hasOwnProperty('partiallyPaid')) {
+                obj['partiallyPaid'] = ApiClient.convertToType(data['partiallyPaid'], 'Number');
+            }
             if (data.hasOwnProperty('needTrackNumber')) {
                 obj['needTrackNumber'] = ApiClient.convertToType(data['needTrackNumber'], 'Number');
             }
@@ -167,6 +170,36 @@ class UserInfoSchema {
             }
             if (data.hasOwnProperty('allOrders')) {
                 obj['allOrders'] = ApiClient.convertToType(data['allOrders'], 'Number');
+            }
+            if (data.hasOwnProperty('allProducts')) {
+                obj['allProducts'] = ApiClient.convertToType(data['allProducts'], 'Number');
+            }
+            if (data.hasOwnProperty('rejectedBySupervisor')) {
+                obj['rejectedBySupervisor'] = ApiClient.convertToType(data['rejectedBySupervisor'], 'Number');
+            }
+            if (data.hasOwnProperty('onCheckWithSupervisor')) {
+                obj['onCheckWithSupervisor'] = ApiClient.convertToType(data['onCheckWithSupervisor'], 'Number');
+            }
+            if (data.hasOwnProperty('atTheBuyerInWork')) {
+                obj['atTheBuyerInWork'] = ApiClient.convertToType(data['atTheBuyerInWork'], 'Number');
+            }
+            if (data.hasOwnProperty('searchComplete')) {
+                obj['searchComplete'] = ApiClient.convertToType(data['searchComplete'], 'Number');
+            }
+            if (data.hasOwnProperty('supplierWasNotFound')) {
+                obj['supplierWasNotFound'] = ApiClient.convertToType(data['supplierWasNotFound'], 'Number');
+            }
+            if (data.hasOwnProperty('supplierPriceDoesNotFit')) {
+                obj['supplierPriceDoesNotFit'] = ApiClient.convertToType(data['supplierPriceDoesNotFit'], 'Number');
+            }
+            if (data.hasOwnProperty('paidByTheClient')) {
+                obj['paidByTheClient'] = ApiClient.convertToType(data['paidByTheClient'], 'Number');
+            }
+            if (data.hasOwnProperty('productIsAppropriate')) {
+                obj['productIsAppropriate'] = ApiClient.convertToType(data['productIsAppropriate'], 'Number');
+            }
+            if (data.hasOwnProperty('buyerFoundSupplier')) {
+                obj['buyerFoundSupplier'] = ApiClient.convertToType(data['buyerFoundSupplier'], 'Number');
             }
         }
         return obj;
@@ -368,6 +401,12 @@ UserInfoSchema.prototype['notPaid'] = undefined;
 UserInfoSchema.prototype['readyForPayment'] = undefined;
 
 /**
+ * Количество заказов 16 статусы
+ * @member {Number} partiallyPaid
+ */
+UserInfoSchema.prototype['partiallyPaid'] = undefined;
+
+/**
  * Количество заказов 20 статус
  * @member {Number} needTrackNumber
  */
@@ -396,6 +435,66 @@ UserInfoSchema.prototype['closedAndCanceled'] = undefined;
  * @member {Number} allOrders
  */
 UserInfoSchema.prototype['allOrders'] = undefined;
+
+/**
+ * Количество продуктов супервизора во всех статусах
+ * @member {Number} allProducts
+ */
+UserInfoSchema.prototype['allProducts'] = undefined;
+
+/**
+ * Количество продуктов супервизора в 20 статусе
+ * @member {Number} rejectedBySupervisor
+ */
+UserInfoSchema.prototype['rejectedBySupervisor'] = undefined;
+
+/**
+ * Количество продуктов супервизора в 5 и 205 статусах
+ * @member {Number} onCheckWithSupervisor
+ */
+UserInfoSchema.prototype['onCheckWithSupervisor'] = undefined;
+
+/**
+ * Количество продуктов супервизора в 230, 30, 235, 35 статусах
+ * @member {Number} atTheBuyerInWork
+ */
+UserInfoSchema.prototype['atTheBuyerInWork'] = undefined;
+
+/**
+ * Количество продуктов супервизора в 70, 270 статусах
+ * @member {Number} searchComplete
+ */
+UserInfoSchema.prototype['searchComplete'] = undefined;
+
+/**
+ * Количество продуктов супервизора в 50, 250, 80, 280 статусах
+ * @member {Number} supplierWasNotFound
+ */
+UserInfoSchema.prototype['supplierWasNotFound'] = undefined;
+
+/**
+ * Количество продуктов супервизора в 60, 260, 90, 290 статусах
+ * @member {Number} supplierPriceDoesNotFit
+ */
+UserInfoSchema.prototype['supplierPriceDoesNotFit'] = undefined;
+
+/**
+ * Количество продуктов супервизора в 275, 75 статусах
+ * @member {Number} paidByTheClient
+ */
+UserInfoSchema.prototype['paidByTheClient'] = undefined;
+
+/**
+ * Количество продуктов супервизора в 15 статусе
+ * @member {Number} productIsAppropriate
+ */
+UserInfoSchema.prototype['productIsAppropriate'] = undefined;
+
+/**
+ * Количество продуктов супервизора в 240, 40 статусах
+ * @member {Number} buyerFoundSupplier
+ */
+UserInfoSchema.prototype['buyerFoundSupplier'] = undefined;
 
 
 

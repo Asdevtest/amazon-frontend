@@ -86,6 +86,9 @@ class InlineObject40 {
             if (data.hasOwnProperty('orderSupplierId')) {
                 obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
             }
+            if (data.hasOwnProperty('partialPaymentAmountRmb')) {
+                obj['partialPaymentAmountRmb'] = ApiClient.convertToType(data['partialPaymentAmountRmb'], 'Number');
+            }
             if (data.hasOwnProperty('amount')) {
                 obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
@@ -171,6 +174,12 @@ InlineObject40.prototype['trackingNumberChina'] = undefined;
  * @member {String} orderSupplierId
  */
 InlineObject40.prototype['orderSupplierId'] = undefined;
+
+/**
+ * Cумма частичной оплаты
+ * @member {Number} partialPaymentAmountRmb
+ */
+InlineObject40.prototype['partialPaymentAmountRmb'] = undefined;
 
 /**
  * Кол-во в заказе
