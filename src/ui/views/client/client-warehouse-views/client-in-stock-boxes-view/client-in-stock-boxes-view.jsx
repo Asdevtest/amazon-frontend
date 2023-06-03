@@ -62,8 +62,6 @@ export const ClientInStockBoxesViewRaw = props => {
     )
   }, [viewModel.storekeepersData, viewModel.clientDestinations])
 
-  console.log('viewModel.destinations', viewModel.destinations)
-
   const getRowClassName = params =>
     (params.row.isDraft === true ||
       params.row.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE ||
