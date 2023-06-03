@@ -12,6 +12,7 @@
       "@utils/*": ["./src/utils/*"],
       "@typings/*": ["./src/typings/*"],
       "@contexts/*": ["./src/contexts/*"],
+      "@types/*": ["./src/types/*"]
     }
   }
 }

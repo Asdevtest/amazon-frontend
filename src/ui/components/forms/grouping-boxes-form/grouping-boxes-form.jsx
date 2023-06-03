@@ -240,6 +240,10 @@ const Box = ({ isNewBox, destinations, box, onChangeField, onRemoveBox, index, b
 
                 <CustomSwitcher
                   condition={sizeSetting}
+                  nameFirstArg={unitsOfChangeOptions.EU}
+                  nameSecondArg={unitsOfChangeOptions.US}
+                  firstArgValue={unitsOfChangeOptions.EU}
+                  secondArgValue={unitsOfChangeOptions.US}
                   changeConditionHandler={condition => setSizeSetting(condition)}
                 />
               </div>

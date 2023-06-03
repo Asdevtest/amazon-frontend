@@ -92,3 +92,5 @@ export const checkIsStringFilesSame = (str1, str2) => {
 }
 
 export const isStringInArray = (str, arr) => arr.includes(str)
+
+export const checkDateByDeadline = date => (date !== null ? date < new Date() : false)

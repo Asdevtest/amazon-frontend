@@ -24,7 +24,7 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 4,
     color: theme.palette.text.general,
     background: 'none',
-    minWidth: 'unset !important',
+    minWidth: '24px !important',
 
     '&:hover': {
       color: theme.palette.text.negativeMain,

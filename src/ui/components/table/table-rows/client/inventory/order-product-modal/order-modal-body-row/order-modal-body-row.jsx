@@ -342,6 +342,7 @@ export const OrderModalBodyRow = ({
             storekeepers={storekeepers}
             curStorekeeperId={item.storekeeperId}
             curTariffId={item.logicsTariffId}
+            destinationsData={destinations}
             onSubmit={onSubmitSelectStorekeeperAndTariff}
           />
         </Modal>

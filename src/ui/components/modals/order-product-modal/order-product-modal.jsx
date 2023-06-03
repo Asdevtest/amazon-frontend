@@ -205,38 +205,6 @@ export const OrderProductModal = ({
     setTimeout(() => setSubmitIsClicked(false), 3000)
   }
 
-  // const onClickSubmit = () => {
-  //   const ordersData = orderState.map((el, i) => {
-  //     console.log('el', el)
-  //     console.log('productsForRender[i]', productsForRender[i])
-  //     getObjectFilteredByKeyArrayBlackList(
-  //       {
-  //         ...el,
-  //         destinationId: el.destinationId ? el.destinationId : null,
-  //         // totalPrice: toFixed(calcProductsPriceWithDelivery(productsForRender[i], el), 2),
-
-  //         totalPrice:
-  //           productsForRender[i].currentSupplier.price +
-  //           (productsForRender[i].currentSupplier.batchDeliveryCostInDollar /
-  //             productsForRender[i].currentSupplier.amount) *
-  //             el?.amount,
-
-  //         needsResearch: isResearchSupplier,
-  //         tmpIsPendingOrder: isPendingOrder,
-  //       },
-  //       el.deadline ? [] : ['deadline'],
-  //     )
-  //   })
-
-  //   onSubmit({
-  //     ordersDataState: ordersData,
-  //     totalOrdersCost,
-  //   })
-  //   setSubmitIsClicked(true)
-
-  //   setTimeout(() => setSubmitIsClicked(false), 3000)
-  // }
-
   const storekeeperEqualsDestination = orderState.some(
     order => order.storekeeperId === destinations.find(el => el._id === order.destinationId)?.storekeeper?._id,
   )

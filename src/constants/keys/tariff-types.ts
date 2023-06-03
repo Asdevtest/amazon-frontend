@@ -1,0 +1,4 @@
+export const tariffTypes = {
+  WITHOUT_WEIGHT_LOGISTICS_TARIFF: 10,
+  WEIGHT_BASED_LOGISTICS_TARIFF: 20,
+}

@@ -42,6 +42,10 @@ const WithSearchSelectRaw = observer(
     currentShops,
     searchOnlyFields,
     asinSelect,
+    fieldNameStyles,
+    buttonStyles,
+    customItemsWrapper,
+    fieldNamesWrapperStyles,
     customSubMainWrapper,
     customSearchInput,
     grayBorder,
@@ -170,11 +174,11 @@ const WithSearchSelectRaw = observer(
                   <SearchInput
                     inputClasses={cx(classNames.searchInput, customSearchInput)}
                     value={nameSearchValue}
-                    placeholder={placeholder ? placeholder : t(TranslationKey.search)}
+                    placeholder={placeholder ? placeholder : t(TranslationKey.Search)}
                     onChange={e => setNameSearchValue(e.target.value)}
                   />
                 ) : null}
-                <div className={classNames.itemsWrapper}>
+                <div className={cx(classNames.itemsWrapper, customItemsWrapper)}>
                   {onClickNotChosen && (
                     <Tooltip followCursor title={t(TranslationKey['Not chosen'])}>
                       <Button
@@ -209,7 +213,7 @@ const WithSearchSelectRaw = observer(
                     ) : (
                       <Button
                         key={index}
-                        className={classNames.button}
+                        className={cx(classNames.button, buttonStyles)}
                         style={changeColorById && { color: changeColorById(el._id) }}
                         variant="text"
                         onClick={e => {
@@ -221,7 +225,7 @@ const WithSearchSelectRaw = observer(
                         }}
                       >
                         <div
-                          className={cx(classNames.fieldNamesWrapper, {
+                          className={cx(classNames.fieldNamesWrapper, fieldNamesWrapperStyles, {
                             [classNames.fieldNamesWrapperWithCheckbox]: checkbox,
                           })}
                         >
@@ -231,7 +235,7 @@ const WithSearchSelectRaw = observer(
                                 <Checkbox checked={currentShops?.some(shop => shop?._id === el?._id)} color="primary" />
                               )}
                               <Tooltip followCursor title={getRowValue ? getRowValue(el) : el[fieldName]}>
-                                <Typography className={classNames.fieldName}>
+                                <Typography className={cx(classNames.fieldName, fieldNameStyles)}>
                                   {getRowValue ? getRowValue(el) : el[fieldName]}
                                 </Typography>
                               </Tooltip>

@@ -19,6 +19,7 @@ import {
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { t } from '@utils/translations'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 
 export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => [
   {
@@ -168,7 +169,14 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
       <MultilineTextHeaderCell
         text={t(TranslationKey.Dimensions)}
         component={
-          <CustomSwitcher condition={getUnitsOption()} changeConditionHandler={handlers.onChangeUnitsOption} />
+          <CustomSwitcher
+            condition={getUnitsOption()}
+            nameFirstArg={unitsOfChangeOptions.EU}
+            nameSecondArg={unitsOfChangeOptions.US}
+            firstArgValue={unitsOfChangeOptions.EU}
+            secondArgValue={unitsOfChangeOptions.US}
+            changeConditionHandler={handlers.onChangeUnitsOption}
+          />
         }
       />
     ),
