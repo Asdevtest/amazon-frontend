@@ -62,7 +62,7 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
     width: 161,
     filterable: false,
 
-    columnKey: columnnsKeys.shared.MY_REQUESTS_ORDERS_STATUS,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -96,7 +96,7 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
       <MultilineTextCell leftAlign text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value])} />
     ),
     width: 146,
-    columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {

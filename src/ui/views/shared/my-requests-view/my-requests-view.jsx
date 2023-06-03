@@ -111,6 +111,8 @@ export const MyRequestsViewRaw = props => {
           <MemoDataGrid
             disableVirtualization
             pagination
+            sortingMode="server"
+            paginationMode="server"
             propsToRerender={{ onHover: viewModel.onHover }}
             localeText={getLocalizationByLanguageTag()}
             getCellClassName={getCellClassName}
@@ -131,12 +133,13 @@ export const MyRequestsViewRaw = props => {
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
-            rows={viewModel.currentData}
+            rows={viewModel.searchRequests}
+            rowCount={viewModel.rowCount}
             rowHeight={100}
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
-              cColumnMenu: DataGridCustomColumnMenuComponent,
+              columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
               columnMenu: viewModel.columnMenuSettings,
