@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse20062 {
     /**
      * Constructs a new <code>InlineResponse20062</code>.
-     * Успешный ответ.
      * @alias module:model/InlineResponse20062
      */
     constructor() { 
@@ -48,11 +47,11 @@ class InlineResponse20062 {
         if (data) {
             obj = obj || new InlineResponse20062();
 
-            if (data.hasOwnProperty('isExist')) {
-                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
             }
         }
         return obj;
@@ -62,16 +61,16 @@ class InlineResponse20062 {
 }
 
 /**
- * Флаг, показывает есть ли такой ASIN в базе или нет
- * @member {Boolean} isExist
+ * Гуид заявки
+ * @member {String} _id
  */
-InlineResponse20062.prototype['isExist'] = undefined;
+InlineResponse20062.prototype['_id'] = undefined;
 
 /**
- * Причина из таблицы с асинами
- * @member {String} reason
+ * удобный ключ заявки
+ * @member {Number} humanFriendlyId
  */
-InlineResponse20062.prototype['reason'] = undefined;
+InlineResponse20062.prototype['humanFriendlyId'] = undefined;
 
 
 
