@@ -241,7 +241,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   weightInput: {
-    width: 70,
+    width: 80,
     height: 40,
   },
 

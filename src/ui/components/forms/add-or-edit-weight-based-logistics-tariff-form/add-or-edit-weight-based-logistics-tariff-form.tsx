@@ -160,12 +160,12 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         if (fieldName === 'pricePerKgUsd') {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }
           updatedDestinationVariation[fieldName] = Number(value)
-          updatedDestinationVariation.pricePerKgRmb = Number(value) * formFields.yuanToDollarRate
+          updatedDestinationVariation.pricePerKgRmb = Number(value) * Number(formFields.yuanToDollarRate)
           newDestinationVariations[index] = updatedDestinationVariation
         } else if (fieldName === 'pricePerKgRmb') {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }
           updatedDestinationVariation[fieldName] = Number(value)
-          updatedDestinationVariation.pricePerKgUsd = Number(value) / formFields.yuanToDollarRate
+          updatedDestinationVariation.pricePerKgUsd = Number(value) / Number(formFields.yuanToDollarRate)
           newDestinationVariations[index] = updatedDestinationVariation
         } else {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }
@@ -282,7 +282,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
               inputClasses={classNames.fieldInput}
               labelClasses={classNames.fieldLabel}
               // @ts-ignore
-              inputProps={{ maxLength: 50 }}
+              inputProps={{ maxLength: 10 }}
               containerClasses={classNames.fieldContainer}
               value={formFields.deliveryTimeInDay}
               placeholder={t(TranslationKey['Amount of days'])}
@@ -547,7 +547,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
                     <Input
                       placeholder={'0.00'}
                       value={toFixed(variant.minWeight, 2) || ''}
-                      inputProps={{ maxLength: 10 }}
+                      inputProps={{ maxLength: 7 }}
                       className={cx(classNames.weightInput, {
                         [classNames.error]: !!variant.minWeight && Number(variant.minWeight) < 1,
                       })}
@@ -564,7 +564,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
                     <Input
                       placeholder={'0.00'}
                       value={toFixed(variant.maxWeight, 2) || ''}
-                      inputProps={{ maxLength: 10 }}
+                      inputProps={{ maxLength: 7 }}
                       className={cx(classNames.weightInput, {
                         [classNames.error]:
                           !!variant.minWeight &&
@@ -598,13 +598,10 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
                           ? toFixed(variant.pricePerKgRmb, 2)
                           : ''
                       }
-                      inputProps={{ maxLength: 10 }}
+                      inputProps={{ maxLength: 7 }}
                       className={classNames.regionFieldInput}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        if (
-                          checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) &&
-                          Number(e.target.value) <= 10000
-                        ) {
+                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
                           onChangeDestinationVariations(
                             currentCurrency === currencyTypes.DOLLAR ? 'pricePerKgUsd' : 'pricePerKgRmb',
                           )(variantIndex)(e.target.value)
