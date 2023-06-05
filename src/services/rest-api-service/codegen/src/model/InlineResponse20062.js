@@ -47,8 +47,8 @@ class InlineResponse20062 {
         if (data) {
             obj = obj || new InlineResponse20062();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('isExist')) {
+                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
             }
             if (data.hasOwnProperty('humanFriendlyId')) {
                 obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
@@ -64,7 +64,7 @@ class InlineResponse20062 {
  * Гуид заявки
  * @member {String} _id
  */
-InlineResponse20062.prototype['_id'] = undefined;
+InlineResponse20062.prototype['isExist'] = undefined;
 
 /**
  * удобный ключ заявки

@@ -50,8 +50,8 @@ class InlineResponse20060 {
         if (data) {
             obj = obj || new InlineResponse20060();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
             if (data.hasOwnProperty('owner')) {
                 obj['owner'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['owner']);
@@ -136,7 +136,7 @@ class InlineResponse20060 {
  * GUID магазина на продажу.
  * @member {String} _id
  */
-InlineResponse20060.prototype['_id'] = undefined;
+InlineResponse20060.prototype['count'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} owner

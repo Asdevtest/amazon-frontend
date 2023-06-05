@@ -76,6 +76,9 @@ class InlineResponse20013 {
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
+            }
         }
         return obj;
     }
@@ -130,6 +133,11 @@ InlineResponse20013.prototype['createdAt'] = undefined;
  * @member {Date} updatedAt
  */
 InlineResponse20013.prototype['updatedAt'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
+ */
+InlineResponse20013.prototype['storekeeper'] = undefined;
 
 
 
