@@ -1501,10 +1501,17 @@ export class ClientInStockBoxesViewModel {
 
   async onClickSubmitGroupingBoxes({ oldBoxes, newBoxes }) {
     try {
-      await BoxesModel.regroupBoxes({
+      const createdBoxes = await BoxesModel.regroupBoxes({
         boxIds: oldBoxes.map(el => el._id),
         newAmounts: newBoxes.map(el => Number(el.amount)).filter(num => num >= 1),
       })
+
+      const patchPrepIds = createdBoxes.map((el, index) => ({
+        boxId: el,
+        prepId: newBoxes[index].prepId || '',
+      }))
+
+      await BoxesModel.updatePrepId(patchPrepIds)
 
       runInAction(() => {
         this.selectedBoxes = []

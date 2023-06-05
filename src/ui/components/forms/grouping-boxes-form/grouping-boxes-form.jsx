@@ -14,14 +14,11 @@ import {
   getWeightSizesType,
   inchesCoefficient,
   poundsWeightCoefficient,
-  sizesType,
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field'
 
@@ -34,6 +31,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './grouping-boxes-form.style'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { Input } from '@components/shared/input'
 
 const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
   const { classes: classNames } = useClassNames()
@@ -318,6 +316,12 @@ const Box = ({ isNewBox, destinations, box, onChangeField, onRemoveBox, index, b
           <IconButton classes={{ root: classNames.icon }} onClick={() => onRemoveBox(isNewBox ? index : box._id)}>
             <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
           </IconButton>
+          {isNewBox && (
+            <div className={classNames.prepId}>
+              <Typography>Prep ID</Typography>
+              <Input value={box.prepId || ''} onChange={e => onChangeField(e, 'prepId', index)} />
+            </div>
+          )}
           <div className={classNames.incomingBtnWrapper}>
             <div className={classNames.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
               <Typography className={classNames.tablePanelViewText}>
@@ -336,6 +340,7 @@ const Box = ({ isNewBox, destinations, box, onChangeField, onRemoveBox, index, b
 export const GroupingBoxesForm = observer(
   ({ destinations, storekeepers, onSubmit, onCloseModal, volumeWeightCoefficient, selectedBoxes }) => {
     const { classes: classNames } = useClassNames()
+    const [newPrepIds, setNewPrepIds] = useState()
     const sourceOldBoxes = selectedBoxes.map(el => ({
       ...el,
       destinationId: el.destination?._id || null,
@@ -433,14 +438,22 @@ export const GroupingBoxesForm = observer(
 
     const onChangeField = (e, field, index) => {
       const targetBox = newBoxes.filter((newBox, i) => i === index)[0]
+      let updatedTargetBox = {}
 
-      if (!checkIsPositiveNum(e.target.value)) {
+      if (field === 'prepId') {
+        updatedTargetBox = {
+          ...targetBox,
+          [field]: e.target.value ? e.target.value : '',
+        }
+      } else if (!checkIsPositiveNum(e.target.value)) {
         return
       }
 
-      const updatedTargetBox = {
-        ...targetBox,
-        [field]: e.target.value ? parseInt(e.target.value) : 0,
+      if (checkIsPositiveNum(e.target.value)) {
+        updatedTargetBox = {
+          ...targetBox,
+          [field]: e.target.value ? parseInt(e.target.value) : 0,
+        }
       }
 
       const updatedNewBoxes = newBoxes.map((newBox, i) => (i === index ? updatedTargetBox : newBox))
