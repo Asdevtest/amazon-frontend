@@ -946,6 +946,10 @@ export class BuyerMyOrdersViewModel {
       //   await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
       // }
 
+      if (orderFields.status === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}`) {
+        await BuyerModel.setOrdersAtProcess(order._id)
+      }
+
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`) {
         await BuyerModel.orderPayToSupplier(order._id)
       }

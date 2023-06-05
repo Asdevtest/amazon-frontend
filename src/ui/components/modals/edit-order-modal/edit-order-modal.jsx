@@ -687,7 +687,9 @@ export const EditOrderModal = observer(
                           (el === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
                             order.status < `${OrderStatusByKey[OrderStatus.IN_STOCK]}`) ||
                           (el === OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT].toString() &&
-                            order.status === OrderStatusByKey[OrderStatus.PARTIALLY_PAID])
+                            order.status === OrderStatusByKey[OrderStatus.PARTIALLY_PAID]) ||
+                          (el === OrderStatusByKey[OrderStatus.AT_PROCESS].toString() &&
+                            order.status === OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])
                         )
                       }),
                       // .filter(el => (isPendingOrder ? el <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] : true))
