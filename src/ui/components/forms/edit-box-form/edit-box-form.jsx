@@ -637,6 +637,10 @@ export const EditBoxForm = observer(
 
                   <CustomSwitcher
                     condition={sizeSetting}
+                    nameFirstArg={unitsOfChangeOptions.EU}
+                    nameSecondArg={unitsOfChangeOptions.US}
+                    firstArgValue={unitsOfChangeOptions.EU}
+                    secondArgValue={unitsOfChangeOptions.US}
                     changeConditionHandler={condition => setSizeSetting(condition)}
                   />
                 </div>

@@ -243,7 +243,14 @@ export const EditBoxTasksModal = ({
         <Typography className={classNames.modalTitle}>{t(TranslationKey['Editing the box'])}</Typography>
 
         <div className={classNames.customSwitcherWrapper}>
-          <CustomSwitcher condition={sizeSetting} changeConditionHandler={condition => handleChange(condition)} />
+          <CustomSwitcher
+            condition={sizeSetting}
+            nameFirstArg={unitsOfChangeOptions.EU}
+            nameSecondArg={unitsOfChangeOptions.US}
+            firstArgValue={unitsOfChangeOptions.EU}
+            secondArgValue={unitsOfChangeOptions.US}
+            changeConditionHandler={condition => handleChange(condition)}
+          />
         </div>
       </div>
 

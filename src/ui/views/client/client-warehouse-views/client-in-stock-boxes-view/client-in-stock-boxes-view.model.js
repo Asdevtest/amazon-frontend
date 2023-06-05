@@ -418,7 +418,7 @@ export class ClientInStockBoxesViewModel {
 
   async getStorekeepers() {
     try {
-      const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK)
+      const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK, 20)
 
       runInAction(() => {
         this.storekeepersData = result
@@ -1592,6 +1592,9 @@ export class ClientInStockBoxesViewModel {
 
   async onClickCurrentTariffsBtn() {
     await this.getStorekeepers()
+    await ClientModel.getDestinations()
+
+    console.log('this.destinations', this.destinations)
 
     this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
   }

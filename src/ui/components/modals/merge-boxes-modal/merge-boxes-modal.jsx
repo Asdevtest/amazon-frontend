@@ -383,6 +383,10 @@ export const MergeBoxesModal = ({
                       <div className={classNames.customSwitcherWrapper}>
                         <CustomSwitcher
                           condition={sizeSetting}
+                          nameFirstArg={unitsOfChangeOptions.EU}
+                          nameSecondArg={unitsOfChangeOptions.US}
+                          firstArgValue={unitsOfChangeOptions.EU}
+                          secondArgValue={unitsOfChangeOptions.US}
                           changeConditionHandler={condition => handleChange(condition)}
                         />
                       </div>

@@ -14,7 +14,6 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './photo-carousel.style'
 import { CustomSlider } from '../custom-slider'
-import { ClassNamesArg } from '@emotion/css'
 
 interface FilesInterface {
   file: { name: Array<string> }

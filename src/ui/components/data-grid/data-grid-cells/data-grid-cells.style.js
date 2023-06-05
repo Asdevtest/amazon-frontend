@@ -1097,6 +1097,7 @@ export const styles = theme => ({
   editOrRemoveIconBtnsCell: {
     width: '100%',
     display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
     gap: '40px',
     padding: '15px 0',
