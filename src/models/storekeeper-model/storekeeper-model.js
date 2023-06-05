@@ -88,8 +88,8 @@ class StorekeeperModelStatic {
     return response
   }
 
-  getStorekeepers = async boxStatus => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersGet({ boxStatus })
+  getStorekeepers = async (boxStatus, tariffType) => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersGet({ boxStatus, tariffType })
     return response
   }
 

@@ -353,4 +353,38 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
     marginLeft: 5,
   },
+
+  messageToReplyWrapper: {
+    wordBreak: 'break-word',
+    whiteSpace: 'normal',
+    position: 'relative',
+    overflowY: 'auto',
+    maxHeight: 300,
+    display: 'flex',
+    // flexGrow: 1,
+    // alignItems: 'flex-end',
+
+    cursor: 'pointer',
+  },
+
+  messageToReplyIcon: {
+    position: 'sticky',
+    top: 20,
+    margin: '0px 5px',
+  },
+
+  messageToReplyCloseIcon: {
+    position: 'sticky',
+    top: 20,
+    marginLeft: 'auto',
+    marginRight: 10,
+
+    cursor: 'pointer',
+    transition: '.3s ease',
+    '&: hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+
+  messageToReplySubWrapper: {},
 }))

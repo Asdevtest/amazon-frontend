@@ -53,3 +53,15 @@ export const getNewObjectWithDefaultValue = (target, defaultValue) =>
     acc[cur] = defaultValue
     return acc
   }, {})
+
+export const filterNullValues = obj => {
+  const result = {}
+
+  Object.keys(obj).forEach(key => {
+    if (obj[key] !== null) {
+      result[key] = obj[key]
+    }
+  })
+
+  return result
+}

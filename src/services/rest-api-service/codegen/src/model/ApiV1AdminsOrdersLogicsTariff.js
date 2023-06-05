@@ -93,6 +93,9 @@ class ApiV1AdminsOrdersLogicsTariff {
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
         }
         return obj;
     }
@@ -178,6 +181,11 @@ ApiV1AdminsOrdersLogicsTariff.prototype['storekeeperId'] = undefined;
  * @member {Date} updatedAt
  */
 ApiV1AdminsOrdersLogicsTariff.prototype['updatedAt'] = undefined;
+
+/**
+ * @member {Date} createdAt
+ */
+ApiV1AdminsOrdersLogicsTariff.prototype['createdAt'] = undefined;
 
 
 

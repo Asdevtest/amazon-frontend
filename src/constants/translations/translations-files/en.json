@@ -1958,7 +1958,14 @@
   "Price variations": "Price variations",
   "Verified ideas": "Verified ideas",
   "Closed Ideas": "Closed Ideas",
+  "Weight-based logistics tariffs": "Weight-based logistics tariffs",
+  "Amount of days": "Amount of days",
+  "Add data from tariff": "Add data from tariff",
+  "Minimum weight": "Minimum weight",
+  "Price per kg": "Price per kg",
+  "The intersections of the weights are found": "The intersections of the weights are found",
   "Partially paid": "Partially paid",
   "The actual cost of the box with delivery": "The actual cost of the box with delivery",
-  "Actual cost with delivery per unit": "Actual cost with delivery per unit."
+  "Actual cost with delivery per unit": "Actual cost with delivery per unit.",
+  "Paid for": "Paid"
 }

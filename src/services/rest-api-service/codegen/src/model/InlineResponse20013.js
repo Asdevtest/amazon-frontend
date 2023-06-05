@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1BatchesByProductGuidBoxes from './ApiV1BatchesByProductGuidBoxes';
 
 /**
@@ -66,6 +67,9 @@ class InlineResponse20013 {
             if (data.hasOwnProperty('amountInBatch')) {
                 obj['amountInBatch'] = ApiClient.convertToType(data['amountInBatch'], 'Number');
             }
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
+            }
         }
         return obj;
     }
@@ -107,6 +111,11 @@ InlineResponse20013.prototype['boxes'] = undefined;
  * @member {Number} amountInBatch
  */
 InlineResponse20013.prototype['amountInBatch'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
+ */
+InlineResponse20013.prototype['storekeeper'] = undefined;
 
 
 

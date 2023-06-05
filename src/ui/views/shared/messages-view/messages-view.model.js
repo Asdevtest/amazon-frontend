@@ -302,12 +302,14 @@ export class MessagesViewModel {
     })
   }
 
-  async onSubmitMessage(message, files, chatId) {
+  async onSubmitMessage(message, files, chatId, replyMessageId) {
     try {
       await ChatModel.sendMessage({
         chatId,
         text: message,
         files: files?.map(item => item?.file),
+
+        ...(replyMessageId && { replyMessageId }),
       })
     } catch (error) {
       console.warn('onSubmitMessage error ', error)

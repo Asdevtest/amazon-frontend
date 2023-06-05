@@ -24,7 +24,7 @@ interface Props {
   labelClasses?: ClassNamesArg | undefined
   inputClasses?: ClassNamesArg | undefined
   inputComponent?: React.ComponentType | ReactElement
-  error?: string
+  error?: string | boolean
   successText?: string
   oneLine?: boolean
   withIcon?: boolean
@@ -121,7 +121,7 @@ export const Field: FC<Props> = observer(
                 {...restProps}
               />
             ))}
-          {error && <Typography className={classNames.errorText}>{error}</Typography>}
+          {error && typeof error === 'string' && <Typography className={classNames.errorText}>{error}</Typography>}
           {successText && <Typography className={classNames.successText}>{successText}</Typography>}
         </>
       </div>

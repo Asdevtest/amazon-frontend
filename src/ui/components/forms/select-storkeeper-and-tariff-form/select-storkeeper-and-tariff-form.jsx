@@ -23,6 +23,8 @@ import { t } from '@utils/translations'
 import { logisticsTariffsColumns, warehouseTariffsColumns } from './select-storkeeper-and-tariff-form-columns'
 import { useClassNames } from './select-storkeeper-and-tariff-form.style'
 import { TotalTariffsColumns } from './total-storkeeper-and-tariff-form-columns'
+import { TotalStorkeeperAndWeightBasedTariffFormColumns } from './total-storkeeper-and-weight-based-tariff-form-columns'
+import { WeightBasedTariffFormColumns } from './weight-based-tariff-form-columns'
 
 const TabPanel = ({ children, value, index, ...other }) => (
   <div
@@ -37,10 +39,12 @@ const TabPanel = ({ children, value, index, ...other }) => (
 )
 
 export const SelectStorekeeperAndTariffForm = observer(
-  ({ storekeepers, curStorekeeperId, curTariffId, onSubmit, inNotifications, total }) => {
+  ({ storekeepers, curStorekeeperId, curTariffId, onSubmit, inNotifications, total, destinationsData }) => {
     const { classes: classNames } = useClassNames()
 
     const [tabIndex, setTabIndex] = React.useState(0)
+
+    console.log('destinationsData', destinationsData)
 
     const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -108,10 +112,50 @@ export const SelectStorekeeperAndTariffForm = observer(
           value={tabIndex}
           onChange={(e, index) => setTabIndex(index)}
         >
+          <ITab label={t(TranslationKey['Weight-based logistics tariffs'])} />
           <ITab label={t(TranslationKey['Logistics tariffs'])} />
           <ITab label={t(TranslationKey['Tariffs of warehouse services'])} />
         </Tabs>
         <TabPanel value={tabIndex} index={0}>
+          <div className={classNames.tableWrapper}>
+            <MemoDataGrid
+              hideFooter
+              // sx={{
+              //   border: 0,
+              //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+              //   backgroundColor: theme.palette.background.general,
+              // }}
+              getRowClassName={getRowClassName}
+              rows={
+                curStorekeeper?.tariffLogistics?.length
+                  ? filterByNameSearch(
+                      addIdDataConverter(curStorekeeper.tariffLogistics).filter(item => item.tariffType === 20),
+                    )
+                  : []
+              }
+              columns={
+                total
+                  ? TotalStorkeeperAndWeightBasedTariffFormColumns(destinationsData)
+                  : WeightBasedTariffFormColumns(onClickSelectTariff, destinationsData)
+              }
+              getRowHeight={() => 'auto'}
+            />
+          </div>
+          {!inNotifications ? (
+            <div className={classNames.clearBtnWrapper}>
+              <Button
+                disableElevation
+                color="primary"
+                variant={'outlined'}
+                className={classNames.resetBtn}
+                onClick={() => onSubmit(null, null)}
+              >
+                {t(TranslationKey.reset)}
+              </Button>
+            </div>
+          ) : null}
+        </TabPanel>
+        <TabPanel value={tabIndex} index={1}>
           <div className={classNames.tableWrapper}>
             <MemoDataGrid
               hideFooter
@@ -144,7 +188,7 @@ export const SelectStorekeeperAndTariffForm = observer(
             </div>
           ) : null}
         </TabPanel>
-        <TabPanel value={tabIndex} index={1}>
+        <TabPanel value={tabIndex} index={2}>
           <div className={classNames.tableWrapper}>
             <MemoDataGrid
               hideFooter

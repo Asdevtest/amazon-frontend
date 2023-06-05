@@ -15,6 +15,7 @@ import { t } from '@utils/translations'
 import { LogisticsTariffs } from './logistics-tariffs'
 import { useClassNames } from './warehouse-management.style'
 import { WarehouseTariffs } from './warehouse-tariffs'
+import { WeightBasedLogisticsTariffs } from './weight-based-logistics-tariffs'
 
 const TabPanel = ({ children, value, index, ...other }) => (
   <div
@@ -50,6 +51,10 @@ export const WarehouseManagement = observer(() => {
       >
         <ITab
           tooltipInfoContent={t(TranslationKey['Rates for shipping boxes to Amazon warehouses'])}
+          label={t(TranslationKey['Weight-based logistics tariffs'])}
+        />
+        <ITab
+          tooltipInfoContent={t(TranslationKey['Rates for shipping boxes to Amazon warehouses'])}
           label={t(TranslationKey['Logistics tariffs'])}
         />
         <ITab
@@ -58,9 +63,14 @@ export const WarehouseManagement = observer(() => {
         />
       </Tabs>
       <TabPanel value={tabIndex} index={0}>
+        <WeightBasedLogisticsTariffs />
+      </TabPanel>
+
+      <TabPanel value={tabIndex} index={1}>
         <LogisticsTariffs />
       </TabPanel>
-      <TabPanel value={tabIndex} index={1}>
+
+      <TabPanel value={tabIndex} index={2}>
         <WarehouseTariffs />
       </TabPanel>
     </React.Fragment>

@@ -95,4 +95,78 @@ export const useClassNames = makeStyles()(theme => ({
 
     padding: 10,
   },
+
+  icon: {
+    marginRight: '13px',
+    color: theme.palette.primary.main,
+    height: 25,
+    width: 25,
+  },
+
+  menuWrapper: {
+    display: 'flex',
+    justifyContent: 'start',
+    width: '170px',
+    padding: '13px 0 13px 33px',
+    fontSize: 18,
+    lineHeight: '140%',
+    fontWeight: 400,
+    color: theme.palette.text.general,
+    backgroundColor: theme.palette.background.general,
+
+    '&:hover': {
+      // backgroundColor: '#CCE2FF',
+      backgroundColor: theme.palette.background.second,
+    },
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+
+      justifyContent: 'start',
+      width: '161px',
+      padding: '13px 0 13px 10px',
+      fontSize: 16,
+      lineHeight: '22px',
+      fontWeight: 400,
+      color: theme.palette.text.general,
+      backgroundColor: theme.palette.background.general,
+
+      '&:hover': {
+        // backgroundColor: '#CCE2FF',
+        backgroundColor: theme.palette.background.second,
+      },
+    },
+  },
+
+  menu: {
+    width: '170px',
+    marginTop: '0',
+    // marginLeft: '85px',
+    display: 'flex',
+
+    color: 'red',
+
+    [theme.breakpoints.down(768)]: {
+      width: '161px',
+      marginTop: -56,
+      marginLeft: '16px',
+      display: 'flex',
+    },
+  },
+
+  list: {
+    padding: 0,
+  },
+
+  repleyWrapper: {
+    display: 'flex',
+    opacity: '0.7',
+    transform: 'scale(0.97)',
+    cursor: 'pointer',
+  },
+
+  repleyDivider: {
+    margin: '8px 10px 16px',
+    borderRight: `7px solid ${theme.palette.input.customBorder}`,
+    backgroundColor: '#E0E0E0',
+  },
 }))

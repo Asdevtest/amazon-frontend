@@ -37,6 +37,7 @@ Name | Type | Description | Notes
 **pendingOrdersByDeadline** | **Number** | Количество заказов 2, 3 статусы у которых до дедлайна меньше суток | [optional] 
 **notPaid** | **Number** | Количество заказов 15, 19 статусы | [optional] 
 **readyForPayment** | **Number** | Количество заказов 16 статусы | [optional] 
+**partiallyPaid** | **Number** | Количество заказов 16 статусы | [optional] 
 **needTrackNumber** | **Number** | Количество заказов 20 статус | [optional] 
 **inbound** | **Number** | Количество заказов 25 статус | [optional] 
 **confirmationRequired** | **Number** | Количество заказов 27 статус | [optional] 

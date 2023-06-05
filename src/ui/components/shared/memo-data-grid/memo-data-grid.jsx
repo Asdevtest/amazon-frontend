@@ -25,6 +25,8 @@ export const MemoDataGrid = observer(({ ...restProps }) => {
       SettingsModel.uiTheme,
       restProps.propsToRerender?.onHover,
       restProps.propsToRerender?.unitsOption,
+      restProps.propsToRerender?.isArchive,
+      restProps.propsToRerender?.currentData,
     ],
   )
 

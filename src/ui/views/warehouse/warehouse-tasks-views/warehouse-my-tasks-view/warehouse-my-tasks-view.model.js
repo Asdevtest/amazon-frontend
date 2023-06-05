@@ -408,23 +408,11 @@ export class WarehouseMyTasksViewModel {
             widthCmWarehouse: Number(newBoxes[i].widthCmWarehouse),
             heightCmWarehouse: Number(newBoxes[i].heightCmWarehouse),
             weighGrossKgWarehouse: Number(newBoxes[i].weighGrossKgWarehouse),
-
-            // deliveryLength: Number(newBoxes[i].deliveryLength),
-            // deliveryWidth: Number(newBoxes[i].deliveryWidth),
-            // deliveryHeight: Number(newBoxes[i].deliveryHeight),
-            // deliveryMass: Number(newBoxes[i].deliveryMass),
           },
           ['tmpImages'],
         )
 
         await transformAndValidate(BoxesWarehouseUpdateBoxInTaskContract, box)
-
-        // await transformAndValidate(
-        //   operationType === TaskOperationType.RECEIVE
-        //     ? BoxesWarehouseUpdateBoxInReceiveTaskContract
-        //     : BoxesWarehouseUpdateBoxInTaskSplitMergeEditContract,
-        //   box,
-        // )
       }
 
       if (operationType === TaskOperationType.RECEIVE) {
@@ -443,17 +431,6 @@ export class WarehouseMyTasksViewModel {
           const newBox = getObjectFilteredByKeyArrayWhiteList(
             {
               ...box,
-              // items: [
-              //   {
-              //     amount: box.items[0].amount,
-              //     orderId: box.items[0].order._id,
-              //     productId: box.items[0].product._id,
-              //     barCode: box.items[0].barCode,
-              //     isBarCodeAlreadyAttachedByTheSupplier: box.items[0].isBarCodeAlreadyAttachedByTheSupplier,
-              //     isBarCodeAttachedByTheStorekeeper: box.items[0].isBarCodeAttachedByTheStorekeeper,
-              //   },
-              // ],
-
               items: box.items.map(el => ({
                 amount: el.amount,
                 orderId: el.order._id,
@@ -494,13 +471,20 @@ export class WarehouseMyTasksViewModel {
         }
 
         await Promise.all([
-          this.resolveTask(task._id, requestBoxes),
-          this.updateBarcodeAndStatusInOrder(newBoxes[0].items[0].order._id, {
+          await this.updateBarcodeAndStatusInOrder(newBoxes[0].items[0].order._id, {
             status: OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
           }),
+          await this.resolveTask(task._id, requestBoxes),
         ])
+
+        // await this.updateBarcodeAndStatusInOrder(newBoxes[0].items[0].order._id, {
+        //   status: OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
+        // })
+        // await this.resolveTask(task._id, requestBoxes)
       } else {
-        await Promise.all([this.onSubmitUpdateBoxes(newBoxes), this.resolveTask(task._id)])
+        // await Promise.all([await this.onSubmitUpdateBoxes(newBoxes), await this.resolveTask(task._id)])
+        await this.onSubmitUpdateBoxes(newBoxes)
+        await this.resolveTask(task._id)
       }
 
       if (photos.length > 0) {

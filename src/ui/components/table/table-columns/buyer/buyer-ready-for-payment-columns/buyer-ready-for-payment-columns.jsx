@@ -103,7 +103,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
 
-      width: 90,
+      width: 100,
       type: 'number',
       sortable: false,
     },
@@ -317,16 +317,14 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
   if (isShowPartialPayment) {
     arr.splice(8, 0, {
       field: 'partialPaymentAmountRmb',
-      headerName: t(TranslationKey.Paid) + ', Ұ',
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Paid) + ', Ұ'} />,
+      headerName: t(TranslationKey['Paid for']) + ', Ұ',
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Paid for']) + ', Ұ'} />,
 
       renderCell: params => <MultilineTextCell text={toFixed(params.row.originalData.partialPaymentAmountRmb, 2)} />,
       type: 'number',
-      width: 90,
+      width: 110,
     })
   }
 
-  {
-    return arr
-  }
+  return arr
 }
