@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## apiV1ResearchersCheckProductsAsinStrategyGet
 
-> InlineResponse20061 apiV1ResearchersCheckProductsAsinStrategyGet(asin, strategy, opts)
+> InlineResponse20062 apiV1ResearchersCheckProductsAsinStrategyGet(asin, strategy, opts)
 
 Проверить продукт по ID существует ли он в базе.
 
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20061**](InlineResponse20061.md)
+[**InlineResponse20062**](InlineResponse20062.md)
 
 ### Authorization
 

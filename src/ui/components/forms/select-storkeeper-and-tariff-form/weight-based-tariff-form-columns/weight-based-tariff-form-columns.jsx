@@ -13,7 +13,7 @@ import {
 import { t } from '@utils/translations'
 import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
 
-export const WeightBasedTariffFormColumns = (handlers, destinationsData) => [
+export const WeightBasedTariffFormColumns = (onClickSelectTariff, destinationsData) => [
   {
     field: 'name',
     headerName: t(TranslationKey.Title),
@@ -120,7 +120,7 @@ export const WeightBasedTariffFormColumns = (handlers, destinationsData) => [
     renderCell: params => (
       <NormalActionBtnCell
         bTnText={t(TranslationKey['Select Tariff'])}
-        onClickOkBtn={() => handlers.onClickSelectTariff(params.row._id)}
+        onClickOkBtn={() => onClickSelectTariff(params.row._id)}
       />
     ),
     filterable: false,

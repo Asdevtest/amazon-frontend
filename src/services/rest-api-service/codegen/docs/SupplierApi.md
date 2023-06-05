@@ -233,7 +233,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersPaymentMethodsGet
 
-> [InlineResponse20071] apiV1SuppliersPaymentMethodsGet(opts)
+> [InlineResponse20072] apiV1SuppliersPaymentMethodsGet(opts)
 
 # Получить все доступные методы оплаты для поставщика
 
@@ -271,7 +271,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20071]**](InlineResponse20071.md)
+[**[InlineResponse20072]**](InlineResponse20072.md)
 
 ### Authorization
 

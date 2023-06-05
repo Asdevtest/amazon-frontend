@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## apiV1ShopsGet
 
-> [InlineResponse20064] apiV1ShopsGet(opts)
+> [InlineResponse20065] apiV1ShopsGet(opts)
 
 # Получить все магазины пользователя.
 
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20064]**](InlineResponse20064.md)
+[**[InlineResponse20065]**](InlineResponse20065.md)
 
 ### Authorization
 
@@ -176,7 +176,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ShopsNamesGet
 
-> [InlineResponse20065] apiV1ShopsNamesGet(opts)
+> [InlineResponse20066] apiV1ShopsNamesGet(opts)
 
 # Получить все названия магазинов пользователя.
 
@@ -214,7 +214,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20065]**](InlineResponse20065.md)
+[**[InlineResponse20066]**](InlineResponse20066.md)
 
 ### Authorization
 
