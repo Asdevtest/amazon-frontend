@@ -230,6 +230,9 @@ class InlineResponse20033 {
             if (data.hasOwnProperty('amountInOrders')) {
                 obj['amountInOrders'] = ApiClient.convertToType(data['amountInOrders'], 'Number');
             }
+            if (data.hasOwnProperty('amountInPendingOrders')) {
+                obj['amountInPendingOrders'] = ApiClient.convertToType(data['amountInPendingOrders'], 'Number');
+            }
             if (data.hasOwnProperty('boxAmounts')) {
                 obj['boxAmounts'] = ApiClient.convertToType(data['boxAmounts'], [ApiV1AdminsGetProductsByStatusBoxAmounts]);
             }
@@ -657,6 +660,12 @@ InlineResponse20033.prototype['needCheckBySupervisor'] = undefined;
  * @member {Number} amountInOrders
  */
 InlineResponse20033.prototype['amountInOrders'] = undefined;
+
+/**
+ * Сколько такого продукта находится в заказах в статусах 0, 2, 3.
+ * @member {Number} amountInPendingOrders
+ */
+InlineResponse20033.prototype['amountInPendingOrders'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusBoxAmounts>} boxAmounts

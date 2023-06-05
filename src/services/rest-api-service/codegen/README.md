@@ -376,6 +376,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.RequestsApi* | [**apiV1RequestsCustomGuidPatch**](docs/RequestsApi.md#apiV1RequestsCustomGuidPatch) | **PATCH** /api/v1/requests/custom/{guid} | #  Изменить заявку.
 *TestSwagger.RequestsApi* | [**apiV1RequestsCustomPost**](docs/RequestsApi.md#apiV1RequestsCustomPost) | **POST** /api/v1/requests/custom/ | # Создать универсальную заявку.
 *TestSwagger.RequestsApi* | [**apiV1RequestsGet**](docs/RequestsApi.md#apiV1RequestsGet) | **GET** /api/v1/requests/ | Получить список заявок
+*TestSwagger.RequestsApi* | [**apiV1RequestsGetExistingRequestsTypeTaskGuidGet**](docs/RequestsApi.md#apiV1RequestsGetExistingRequestsTypeTaskGuidGet) | **GET** /api/v1/requests/get_existing_requests/{typeTask}/{guid} | Получить заявки с определенным продуктом и типом задания
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidAbortPatch**](docs/RequestsApi.md#apiV1RequestsGuidAbortPatch) | **PATCH** /api/v1/requests/{guid}/abort | # Прервать прием предложений.
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidCancelByCreatorPatch**](docs/RequestsApi.md#apiV1RequestsGuidCancelByCreatorPatch) | **PATCH** /api/v1/requests/{guid}/cancel_by_creator | # Отменить заявку создателем
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidDelete**](docs/RequestsApi.md#apiV1RequestsGuidDelete) | **DELETE** /api/v1/requests/{guid} | # (возможно данные метод не нужен) Удалить заявку по его GUID.
@@ -778,15 +779,15 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20057](docs/InlineResponse20057.md)
  - [TestSwagger.InlineResponse20058](docs/InlineResponse20058.md)
  - [TestSwagger.InlineResponse20059](docs/InlineResponse20059.md)
- - [TestSwagger.InlineResponse20059CountProposalsByStatuses](docs/InlineResponse20059CountProposalsByStatuses.md)
- - [TestSwagger.InlineResponse20059Media](docs/InlineResponse20059Media.md)
- - [TestSwagger.InlineResponse20059Product](docs/InlineResponse20059Product.md)
- - [TestSwagger.InlineResponse20059Rows](docs/InlineResponse20059Rows.md)
  - [TestSwagger.InlineResponse2006](docs/InlineResponse2006.md)
  - [TestSwagger.InlineResponse20060](docs/InlineResponse20060.md)
  - [TestSwagger.InlineResponse20061](docs/InlineResponse20061.md)
  - [TestSwagger.InlineResponse20062](docs/InlineResponse20062.md)
  - [TestSwagger.InlineResponse20063](docs/InlineResponse20063.md)
+ - [TestSwagger.InlineResponse20063CountProposalsByStatuses](docs/InlineResponse20063CountProposalsByStatuses.md)
+ - [TestSwagger.InlineResponse20063Media](docs/InlineResponse20063Media.md)
+ - [TestSwagger.InlineResponse20063Product](docs/InlineResponse20063Product.md)
+ - [TestSwagger.InlineResponse20063Rows](docs/InlineResponse20063Rows.md)
  - [TestSwagger.InlineResponse20064](docs/InlineResponse20064.md)
  - [TestSwagger.InlineResponse20065](docs/InlineResponse20065.md)
  - [TestSwagger.InlineResponse20066](docs/InlineResponse20066.md)
@@ -802,7 +803,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20075](docs/InlineResponse20075.md)
  - [TestSwagger.InlineResponse20076](docs/InlineResponse20076.md)
  - [TestSwagger.InlineResponse20077](docs/InlineResponse20077.md)
- - [TestSwagger.InlineResponse20077Details](docs/InlineResponse20077Details.md)
+ - [TestSwagger.InlineResponse20078](docs/InlineResponse20078.md)
+ - [TestSwagger.InlineResponse20078Details](docs/InlineResponse20078Details.md)
  - [TestSwagger.InlineResponse2008](docs/InlineResponse2008.md)
  - [TestSwagger.InlineResponse2009](docs/InlineResponse2009.md)
  - [TestSwagger.InlineResponse201](docs/InlineResponse201.md)

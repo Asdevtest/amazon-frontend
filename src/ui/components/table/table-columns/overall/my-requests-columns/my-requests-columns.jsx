@@ -23,13 +23,15 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
       <MultilineTextHeaderCell
         text={t(TranslationKey.Updated)}
         isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 117,
     // type: 'date',
+
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -39,12 +41,15 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
       <MultilineTextHeaderCell
         text={t(TranslationKey.ID)}
         isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 62,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -62,7 +67,7 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
     width: 161,
     filterable: false,
 
-    columnKey: columnnsKeys.shared.STRING,
+    columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
   },
 
   {
@@ -72,6 +77,7 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
       <MultilineTextHeaderCell
         text={t(TranslationKey.Title)}
         isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 
@@ -79,6 +85,8 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
       <MultilineTextCell withTooltip leftAlign threeLines={params.value.length > 50} text={params.value} />
     ),
     width: 228,
+
+    // columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -96,7 +104,7 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
       <MultilineTextCell leftAlign text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value])} />
     ),
     width: 146,
-    columnKey: columnnsKeys.shared.STRING,
+    // columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE,
   },
 
   {
@@ -106,11 +114,14 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
       <MultilineTextHeaderCell
         text={t(TranslationKey.ASIN)}
         isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 
     renderCell: params => <AsinCell asin={params.row.originalData.asin} />,
     width: 123,
+
+    // columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -120,12 +131,15 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
       <MultilineTextHeaderCell
         text={t(TranslationKey.Cost)}
         isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
     width: 115,
+
+    // columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {

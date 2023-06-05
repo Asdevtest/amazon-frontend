@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse20064 {
     /**
      * Constructs a new <code>InlineResponse20064</code>.
-     * Схема магазина.
      * @alias module:model/InlineResponse20064
      */
     constructor() { 
@@ -51,23 +50,20 @@ class InlineResponse20064 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
-                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
-                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            if (data.hasOwnProperty('commentByClient')) {
+                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
             }
-            if (data.hasOwnProperty('ownerId')) {
-                obj['ownerId'] = ApiClient.convertToType(data['ownerId'], 'String');
+            if (data.hasOwnProperty('commentByPerformer')) {
+                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
             }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
-            }
-            if (data.hasOwnProperty('lastModifiedById')) {
-                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
+            if (data.hasOwnProperty('fileLink')) {
+                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -83,55 +79,49 @@ class InlineResponse20064 {
 }
 
 /**
- * ID магазина.
+ * GUID в базе данных
  * @member {String} _id
  */
 InlineResponse20064.prototype['_id'] = undefined;
 
 /**
- * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
- * @member {String} name
+ * Guid заявки к которой относится данное media.
+ * @member {String} requestId
  */
-InlineResponse20064.prototype['name'] = undefined;
+InlineResponse20064.prototype['requestId'] = undefined;
 
 /**
- * URL для скачивания ежедневных отчетов SellerBoard.
- * @member {String} sellerBoardWarehouseReportUrlDaily
+ * Guid предложения к которой относится данное media.
+ * @member {String} proposalId
  */
-InlineResponse20064.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+InlineResponse20064.prototype['proposalId'] = undefined;
 
 /**
- * URL для скачивания отчетов SellerBoard за последний месяц.
- * @member {String} sellerBoardWarehouseReportUrlMonthly
+ * комментарий клиента
+ * @member {String} commentByClient
  */
-InlineResponse20064.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+InlineResponse20064.prototype['commentByClient'] = undefined;
 
 /**
- * GUID, владелеца.
- * @member {String} ownerId
+ * комментарий исполнителя
+ * @member {String} commentByPerformer
  */
-InlineResponse20064.prototype['ownerId'] = undefined;
+InlineResponse20064.prototype['commentByPerformer'] = undefined;
 
 /**
- * GUID любого, кто последний создал.
- * @member {String} createdById
+ * Ссылка на файл
+ * @member {String} fileLink
  */
-InlineResponse20064.prototype['createdById'] = undefined;
+InlineResponse20064.prototype['fileLink'] = undefined;
 
 /**
- * GUID любого, кто последний редактировал.
- * @member {String} lastModifiedById
- */
-InlineResponse20064.prototype['lastModifiedById'] = undefined;
-
-/**
- * Дата создания
+ * Дата создания.
  * @member {Date} createdAt
  */
 InlineResponse20064.prototype['createdAt'] = undefined;
 
 /**
- * Дата изменения
+ * Дата обновления.
  * @member {Date} updatedAt
  */
 InlineResponse20064.prototype['updatedAt'] = undefined;

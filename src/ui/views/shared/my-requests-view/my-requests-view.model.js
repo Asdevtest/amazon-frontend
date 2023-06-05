@@ -23,13 +23,19 @@ const allowStatuses = [RequestStatus.DRAFT, RequestStatus.PUBLISHED, RequestStat
 // const filtersFields = ['status', 'typeTask']
 
 const filtersFields = [
-  'asin',
-  'amazonTitle',
-  'skusByClient',
-  'orderHumanFriendlyId',
-  'trackNumberText',
-  'orderItem',
   'humanFriendlyId',
+  'updatedAt',
+  'status',
+  // 'typeTask',
+  // 'title',
+  // 'asin',
+  // 'price',
+  // 'timeoutAt',
+  // 'allProposals',
+  // 'verifyingProposals',
+  // 'atWorkProposals',
+  // 'waitedProposals',
+  // 'acceptedProposals',
 ]
 
 export class MyRequestsViewModel {
@@ -453,12 +459,8 @@ export class MyRequestsViewModel {
 
   async getCustomRequests() {
     try {
-      console.log(this.getFilter())
       const result = await RequestModel.getRequests(RequestSubType.MY, {
-        // filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
-
-        typeTask: this.columnMenuSettings.typeTask,
-        productId: this.columnMenuSettings.productId,
+        filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
 
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
@@ -466,14 +468,6 @@ export class MyRequestsViewModel {
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
-
-      // const filteredResult = result.filter(request => {
-      //   if (this.isRequestsAtWork) {
-      //     return allowStatuses.some(status => request.status === status);
-      //   } else {
-      //     return allowStatuses.every(status => request.status !== status);
-      //   }
-      // });
 
       runInAction(() => {
         this.searchRequests = myRequestsDataConverter(result.rows)
@@ -488,63 +482,87 @@ export class MyRequestsViewModel {
   }
 
   getFilter(exclusion) {
-    const orderHumanFriendlyIdFilter =
-      exclusion !== 'orderHumanFriendlyId' && this.columnMenuSettings.orderHumanFriendlyId.currentFilterData.join(',')
-
     const humanFriendlyIdFilter =
       exclusion !== 'humanFriendlyId' && this.columnMenuSettings.humanFriendlyId.currentFilterData.join(',')
+    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
+    const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
+    // const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
 
-    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
+    // const typeTaskFilter = exclusion !== 'typeTask' && this.columnMenuSettings.typeTask.currentFilterData.join(',')
+    // const titleFilter = exclusion !== 'title' && this.columnMenuSettings.title.currentFilterData.join(',')
 
-    const skusByClientFilter =
-      exclusion !== 'skusByClient' && this.columnMenuSettings.skusByClient.currentFilterData.join(',')
-
-    const trackNumberTextFilter =
-      exclusion !== 'trackNumberText' && this.columnMenuSettings.trackNumberText.currentFilterData.join(',')
-
-    const orderItemFilter = exclusion !== 'orderItem' && this.columnMenuSettings.orderItem.currentFilterData.join(',')
+    // const priceFilter = exclusion !== 'price' && this.columnMenuSettings.price.currentFilterData.join(',')
+    // const timeoutAtFilter = exclusion !== 'timeoutAt' && this.columnMenuSettings.timeoutAt.currentFilterData.join(',')
+    // const allProposalsFilter =
+    //   exclusion !== 'allProposals' && this.columnMenuSettings.allProposals.currentFilterData.join(',')
+    // const verifyingProposalsFilter =
+    //   exclusion !== 'verifyingProposals' && this.columnMenuSettings.verifyingProposals.currentFilterData.join(',')
+    // const atWorkProposalsFilter =
+    //   exclusion !== 'atWorkProposals' && this.columnMenuSettings.atWorkProposals.currentFilterData.join(',')
+    // const waitedProposalsFilter =
+    //   exclusion !== 'waitedProposals' && this.columnMenuSettings.waitedProposals.currentFilterData.join(',')
+    // const acceptedProposalsFilter =
+    //   exclusion !== 'acceptedProposals' && this.columnMenuSettings.acceptedProposals.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
-      or: [
-        { asin: { $contains: this.nameSearchValue } },
-        // { amazonTitle: { $contains: this.nameSearchValue } },
-        // { skusByClient: { $contains: this.nameSearchValue } },
-        // { id: { $eq: this.nameSearchValue } },
-        // { humanFriendlyId: { $eq: this.nameSearchValue } },
-        // { orderHumanFriendlyId: { $eq: this.nameSearchValue } },
-        // { trackNumberText: { $eq: this.nameSearchValue } },
-        // { orderItem: { $eq: this.nameSearchValue } }
-      ].filter(
-        el =>
-          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-            !el.id &&
-            !el.humanFriendlyId) ||
-          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
-      ),
+      // or: [
+      //   { humanFriendlyId: { $eq: this.nameSearchValue } },
+      //   // { asin: { $contains: this.nameSearchValue } },
+      //   // { amazonTitle: { $contains: this.nameSearchValue } },
+      //   // { skusByClient: { $contains: this.nameSearchValue } },
+      //   // { id: { $eq: this.nameSearchValue } },
+      //   // { orderHumanFriendlyId: { $eq: this.nameSearchValue } },
+      //   // { trackNumberText: { $eq: this.nameSearchValue } },
+      //   // { orderItem: { $eq: this.nameSearchValue } },
+      // ].filter(
+      //   el =>
+      //     ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
+      //       !el.id &&
+      //       !el.humanFriendlyId) ||
+      //     !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+      // ),
 
-      // ...(orderHumanFriendlyIdFilter && {
-      //   orderHumanFriendlyId: { $eq: orderHumanFriendlyIdFilter },
+      ...(humanFriendlyIdFilter && {
+        humanFriendlyId: { $eq: humanFriendlyIdFilter },
+      }),
+      ...(updatedAtFilter && {
+        updatedAt: { $eq: updatedAtFilter },
+      }),
+      ...(statusFilter && {
+        status: { $eq: statusFilter },
+      }),
+
+      // ...(typeTaskFilter && {
+      //   typeTask: { $eq: typeTaskFilter },
       // }),
+      // // ...(titleFilter && {
+      // //   title: { $eq: titleFilter },
+      // // }),
 
-      // ...(humanFriendlyIdFilter && {
-      //   humanFriendlyId: { $eq: humanFriendlyIdFilter }
+      // ...(asinFilter && {
+      //   asin: { $eq: asinFilter },
       // }),
-      //
-      ...(asinFilter && {
-        asin: { $eq: asinFilter },
-      }),
-      //
-      ...(skusByClientFilter && {
-        skusByClient: { $eq: skusByClientFilter },
-      }),
-
-      ...(trackNumberTextFilter && {
-        trackNumberText: { $eq: trackNumberTextFilter },
-      }),
-
-      ...(orderItemFilter && {
-        orderItem: { $eq: orderItemFilter },
-      }),
+      // ...(priceFilter && {
+      //   price: { $eq: priceFilter },
+      // }),
+      // ...(timeoutAtFilter && {
+      //   timeoutAt: { $eq: timeoutAtFilter },
+      // }),
+      // ...(allProposalsFilter && {
+      //   allProposals: { $eq: allProposalsFilter },
+      // }),
+      // ...(verifyingProposalsFilter && {
+      //   verifyingProposals: { $eq: verifyingProposalsFilter },
+      // }),
+      // ...(atWorkProposalsFilter && {
+      //   atWorkProposals: { $eq: atWorkProposalsFilter },
+      // }),
+      // ...(waitedProposalsFilter && {
+      //   waitedProposals: { $eq: waitedProposalsFilter },
+      // }),
+      // ...(acceptedProposalsFilter && {
+      //   acceptedProposals: { $eq: acceptedProposalsFilter },
+      // }),
     })
 
     return filter
@@ -557,8 +575,7 @@ export class MyRequestsViewModel {
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'requests'),
         column,
-
-        `requests?king=${RequestSubType.MY}&filters=${this.getFilter(column)}`,
+        `requests?kind=${RequestSubType.MY}&filters=${this.getFilter(column)}`,
       )
 
       if (this.columnMenuSettings[column]) {
@@ -593,10 +610,6 @@ export class MyRequestsViewModel {
   }
 
   onClickTableRow(item) {
-    // this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request`, {
-    //   request: toJS(item),
-    // })
-
     const win = window.open(
       `${window.location.origin}/${
         UserRoleCodeMapForRoutes[this.userInfo.role]

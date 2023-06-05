@@ -152,15 +152,32 @@ export class VacantRequestsViewModel {
   async getRequestsVacant() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.VACANT, {
+
+      // const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.VACANT, {
+      //   typeTask:
+      //     Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
+      //       ? this.userInfo?.allowedSpec?.map(spec => Number(spec)).join(', ')
+      //       : this.selectedTaskType,
+      // })
+
+      const result = await RequestModel.getRequests(RequestSubType.VACANT, {
+        // filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
+
         typeTask:
           Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
-            ? this.userInfo?.allowedSpec?.map(spec => Number(spec)).join(', ')
+            ? undefined
             : this.selectedTaskType,
+        // productId: this.columnMenuSettings.productId,
+
+        // limit: this.paginationModel.pageSize,
+        // offset: this.paginationModel.page * this.paginationModel.pageSize,
+
+        // sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        // sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
 
       runInAction(() => {
-        this.requests = addIdDataConverter(result)
+        this.requests = addIdDataConverter(result.rows)
         this.rowCount = result.length
       })
 

@@ -12,6 +12,7 @@ import { checkIsAbsoluteUrl } from '@utils/checks'
 
 import { getDistanceBetweenDatesInSeconds } from '../date-time'
 import { t } from '../translations'
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 
 export const getShortenStringIfLongerThanCount = (str, count, showEnd) =>
   str?.length > count ? `${str.slice(0, count)}...${showEnd ? str.slice(str.length - 3) : ''}` : str
@@ -134,7 +135,11 @@ export const getTableByColumn = (column, hint) => {
   if (
     ['humanFriendlyId', 'amount', 'destination', 'logicsTariff', 'prepId', 'storekeeper', 'batchId'].includes(column)
   ) {
-    return 'boxes'
+    if (hint === 'requests') {
+      return 'requests'
+    } else {
+      return 'boxes'
+    }
   } else if (['id', 'item'].includes(column)) {
     return 'orders'
   } else if (
@@ -163,23 +168,33 @@ export const getTableByColumn = (column, hint) => {
       'ideasVerified',
     ].includes(column)
   ) {
-    return 'products'
+    if (hint === 'requests') {
+      return 'requests'
+    } else {
+      return 'products'
+    }
   } else if (['status', 'updatedAt', 'createdAt'].includes(column)) {
     if (hint === 'boxes') {
       return 'boxes'
     } else if (hint === 'products') {
       return 'products'
     }
+    if (hint === 'requests') {
+      return 'requests'
+    }
+  } else if (['amount', 'title', 'typeTask'].includes(column)) {
+    return 'requests'
   }
 }
 
 export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
   switch (columnKey) {
     case columnnsKeys.client.INVENTORY_STRATEGY_STATUS:
-      // return mapProductStrategyStatusEnum[status]?.replace(/_/g, ' ')
       return humanFriendlyStategyStatus(mapProductStrategyStatusEnum[status])
     case columnnsKeys.client.INVENTORY_STATUS:
       return t(productStatusTranslateKey(ProductStatusByCode[status]))
+    case columnnsKeys.client.FREELANCE_MY_REQUESTS:
+      return MyRequestStatusTranslate(status)
     default:
       return status
   }

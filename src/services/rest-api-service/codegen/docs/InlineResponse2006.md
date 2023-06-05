@@ -63,6 +63,7 @@ Name | Type | Description | Notes
 **strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
 **needCheckBySupervisor** | **Boolean** | Признак needCheckBySupervisor | [optional] 
 **amountInOrders** | **Number** | Сколько такого продукта находится в заказах. | [optional] 
+**amountInPendingOrders** | **Number** | Сколько такого продукта находится в заказах в статусах 0, 2, 3. | [optional] 
 **boxAmounts** | [**[ApiV1AdminsGetProductsByStatusBoxAmounts]**](ApiV1AdminsGetProductsByStatusBoxAmounts.md) |  | [optional] 
 **archive** | **Boolean** | Флаг указывает что продукт в архиве. | [optional] 
 **hsCode** | **String** | hsCode продукта. | [optional] 

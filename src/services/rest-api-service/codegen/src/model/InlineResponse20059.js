@@ -12,7 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20059Rows from './InlineResponse20059Rows';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
 
 /**
  * The InlineResponse20059 model module.
@@ -22,6 +23,7 @@ import InlineResponse20059Rows from './InlineResponse20059Rows';
 class InlineResponse20059 {
     /**
      * Constructs a new <code>InlineResponse20059</code>.
+     * Схема получение лайт версии продажи магазина
      * @alias module:model/InlineResponse20059
      */
     constructor() { 
@@ -48,11 +50,35 @@ class InlineResponse20059 {
         if (data) {
             obj = obj || new InlineResponse20059();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20059Rows]);
+            if (data.hasOwnProperty('owner')) {
+                obj['owner'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['owner']);
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            }
+            if (data.hasOwnProperty('files')) {
+                obj['files'] = ApiClient.convertToType(data['files'], ['String']);
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('monthlyMultiplier')) {
+                obj['monthlyMultiplier'] = ApiClient.convertToType(data['monthlyMultiplier'], 'Number');
+            }
+            if (data.hasOwnProperty('statistics')) {
+                obj['statistics'] = ApiV1ShopSellStatistics.constructFromObject(data['statistics']);
+            }
+            if (data.hasOwnProperty('businessStartDate')) {
+                obj['businessStartDate'] = ApiClient.convertToType(data['businessStartDate'], 'Date');
+            }
+            if (data.hasOwnProperty('shopDetails')) {
+                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
             }
         }
         return obj;
@@ -62,15 +88,62 @@ class InlineResponse20059 {
 }
 
 /**
- * @member {Number} count
+ * GUID магазина на продажу.
+ * @member {String} _id
  */
-InlineResponse20059.prototype['count'] = undefined;
+InlineResponse20059.prototype['_id'] = undefined;
 
 /**
- * Массив заявок.
- * @member {Array.<module:model/InlineResponse20059Rows>} rows
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} owner
  */
-InlineResponse20059.prototype['rows'] = undefined;
+InlineResponse20059.prototype['owner'] = undefined;
+
+/**
+ * Имя магазина для продажи
+ * @member {String} title
+ */
+InlineResponse20059.prototype['title'] = undefined;
+
+/**
+ * Статус магазина для продажи
+ * @member {String} status
+ */
+InlineResponse20059.prototype['status'] = undefined;
+
+/**
+ * Файлы, которые привязаны к магазину
+ * @member {Array.<String>} files
+ */
+InlineResponse20059.prototype['files'] = undefined;
+
+/**
+ * Стоимость магазина
+ * @member {Number} price
+ */
+InlineResponse20059.prototype['price'] = undefined;
+
+/**
+ * Ежемесячный множитель
+ * @member {Number} monthlyMultiplier
+ */
+InlineResponse20059.prototype['monthlyMultiplier'] = undefined;
+
+/**
+ * @member {module:model/ApiV1ShopSellStatistics} statistics
+ */
+InlineResponse20059.prototype['statistics'] = undefined;
+
+/**
+ * Дата создания бизнеса
+ * @member {Date} businessStartDate
+ */
+InlineResponse20059.prototype['businessStartDate'] = undefined;
+
+/**
+ * Детали магазина
+ * @member {String} shopDetails
+ */
+InlineResponse20059.prototype['shopDetails'] = undefined;
 
 
 
