@@ -199,7 +199,8 @@ export const useClassNames = makeStyles()(theme => ({
   productWrapper: {
     padding: '10px 20px 0',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
+    width: '100%',
   },
 
   amazonTitle: {
