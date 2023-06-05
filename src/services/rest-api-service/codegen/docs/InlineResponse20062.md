@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**isExist** | **Boolean** | Флаг, показывает есть ли такой ASIN в базе или нет | [optional] 
-**reason** | **String** | Причина из таблицы с асинами | [optional] 
+**_id** | **String** | Гуид заявки | [optional] 
+**humanFriendlyId** | **Number** | удобный ключ заявки | [optional] 
 
 

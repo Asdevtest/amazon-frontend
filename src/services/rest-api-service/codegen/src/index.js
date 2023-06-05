@@ -320,13 +320,13 @@ import InlineResponse20058 from './model/InlineResponse20058';
 import InlineResponse20059 from './model/InlineResponse20059';
 import InlineResponse2006 from './model/InlineResponse2006';
 import InlineResponse20060 from './model/InlineResponse20060';
-import InlineResponse20060CountProposalsByStatuses from './model/InlineResponse20060CountProposalsByStatuses';
-import InlineResponse20060Media from './model/InlineResponse20060Media';
-import InlineResponse20060Product from './model/InlineResponse20060Product';
-import InlineResponse20060Rows from './model/InlineResponse20060Rows';
 import InlineResponse20061 from './model/InlineResponse20061';
 import InlineResponse20062 from './model/InlineResponse20062';
 import InlineResponse20063 from './model/InlineResponse20063';
+import InlineResponse20063CountProposalsByStatuses from './model/InlineResponse20063CountProposalsByStatuses';
+import InlineResponse20063Media from './model/InlineResponse20063Media';
+import InlineResponse20063Product from './model/InlineResponse20063Product';
+import InlineResponse20063Rows from './model/InlineResponse20063Rows';
 import InlineResponse20064 from './model/InlineResponse20064';
 import InlineResponse20065 from './model/InlineResponse20065';
 import InlineResponse20066 from './model/InlineResponse20066';
@@ -2308,30 +2308,6 @@ export {
     InlineResponse20060,
 
     /**
-     * The InlineResponse20060CountProposalsByStatuses model constructor.
-     * @property {module:model/InlineResponse20060CountProposalsByStatuses}
-     */
-    InlineResponse20060CountProposalsByStatuses,
-
-    /**
-     * The InlineResponse20060Media model constructor.
-     * @property {module:model/InlineResponse20060Media}
-     */
-    InlineResponse20060Media,
-
-    /**
-     * The InlineResponse20060Product model constructor.
-     * @property {module:model/InlineResponse20060Product}
-     */
-    InlineResponse20060Product,
-
-    /**
-     * The InlineResponse20060Rows model constructor.
-     * @property {module:model/InlineResponse20060Rows}
-     */
-    InlineResponse20060Rows,
-
-    /**
      * The InlineResponse20061 model constructor.
      * @property {module:model/InlineResponse20061}
      */
@@ -2348,6 +2324,30 @@ export {
      * @property {module:model/InlineResponse20063}
      */
     InlineResponse20063,
+
+    /**
+     * The InlineResponse20063CountProposalsByStatuses model constructor.
+     * @property {module:model/InlineResponse20063CountProposalsByStatuses}
+     */
+    InlineResponse20063CountProposalsByStatuses,
+
+    /**
+     * The InlineResponse20063Media model constructor.
+     * @property {module:model/InlineResponse20063Media}
+     */
+    InlineResponse20063Media,
+
+    /**
+     * The InlineResponse20063Product model constructor.
+     * @property {module:model/InlineResponse20063Product}
+     */
+    InlineResponse20063Product,
+
+    /**
+     * The InlineResponse20063Rows model constructor.
+     * @property {module:model/InlineResponse20063Rows}
+     */
+    InlineResponse20063Rows,
 
     /**
      * The InlineResponse20064 model constructor.

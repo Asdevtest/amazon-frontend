@@ -4,11 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | The unique identifier of the box. | [optional] 
-**cubicMeters** | **Number** | Объем в м ^ 3 | [optional] 
-**deliveryCost** | **Number** | The delivery cost of the box. | [optional] 
-**volumeWeightKgWarehouse** | **Number** | The volume weight of the box in kg. | [optional] 
-**weightFinalAccountingKgWarehouse** | **Number** | The weight of the box in kg. | [optional] 
-**deliveryRate** | **Number** | The delivery rate of the box. $/kg | [optional] 
+**_id** | **String** | GUID партии. | [optional] 
+**humanFriendlyId** | **Number** | Человекочитаемый id партии. | [optional] 
+**title** | **String** | Название партии | [optional] 
+**archive** | **Boolean** | Заархивирована ли партия | [optional] 
+**boxes** | [**[ApiV1BatchesByProductGuidBoxes]**](ApiV1BatchesByProductGuidBoxes.md) |  | [optional] 
+**amountInBatch** | **Number** | Общее кол-во продуктов | [optional] 
+**storekeeper** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 
 
