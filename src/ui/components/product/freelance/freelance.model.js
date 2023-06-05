@@ -47,6 +47,9 @@ export class FreelanceModel {
   searchRequests = []
   openModal = null
 
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
+
   get userInfo() {
     return UserModel.userInfo
   }
@@ -124,7 +127,7 @@ export class FreelanceModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       await this.getCustomRequests()
-      this.getDataGridState()
+      // this.getDataGridState()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -141,16 +144,38 @@ export class FreelanceModel {
 
   async getCustomRequests() {
     try {
-      const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.MY, {
-        productId: this.productId,
+      // const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.MY, {
+      //   productId: this.productId,
+      //   typeTask:
+      //     Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
+      //       ? this.userInfo?.allowedSpec?.map(spec => Number(spec)).join(', ')
+      //       : this.selectedTaskType,
+      // })
+
+      const result = await RequestModel.getRequests(RequestSubType.MY, {
+        // filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
+
         typeTask:
-          Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
-            ? this.userInfo?.allowedSpec?.map(spec => Number(spec)).join(', ')
+          String(this.selectedTaskType) === String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
+            ? undefined
             : this.selectedTaskType,
+
+        productId: this.productId,
+
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
+
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
 
+      console.log('result', result)
+
       runInAction(() => {
-        this.searchRequests = myRequestsDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+        this.searchRequests = myRequestsDataConverter(result.rows)
+        // .sort(
+        //   sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
+        // )
       })
     } catch (error) {
       console.log(error)

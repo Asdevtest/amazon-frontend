@@ -784,6 +784,8 @@ export class ClientInventoryViewModel {
         }`,
       )
 
+      console.log('data', data)
+
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
           ...this.columnMenuSettings,
@@ -957,8 +959,6 @@ export class ClientInventoryViewModel {
       ...(ideaCountFilter && {
         ideasOnCheck: { $eq: ideaCountFilter },
       }),
-
-      // barCode: {$notnull: true},
 
       ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
         barCode: { [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true },

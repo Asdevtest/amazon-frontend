@@ -401,6 +401,9 @@ export const FreelanceRequestType = React.memo(
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
 
+    console.log('itemsForRender', itemsForRender)
+    console.log('choosenItems', choosenItems)
+
     useEffect(() => {
       if (nameSearchValue) {
         const filter = filterData?.filter(item =>
@@ -441,7 +444,7 @@ export const FreelanceRequestType = React.memo(
                           <Checkbox
                             color="primary"
                             checked={choosenItems.some(item => item === el)}
-                            onClick={() => onClickItem(el)}
+                            onClick={() => onClickItem(freelanceRequestType[el])}
                           />
                           <div className={classNames.shopName}>
                             {freelanceRequestTypeTranslate(el) || t(TranslationKey.Empty)}
