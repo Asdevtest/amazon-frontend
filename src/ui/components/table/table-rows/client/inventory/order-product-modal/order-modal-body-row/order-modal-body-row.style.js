@@ -155,4 +155,16 @@ export const useClassNames = makeStyles()(theme => ({
   errorSpaceInputCell: {
     marginTop: 18,
   },
+
+  priceVariationsCell: {
+    minWidth: 130,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    margin: 'auto',
+    color: theme.palette.text.general,
+    fontSize: '12px',
+  },
 }))

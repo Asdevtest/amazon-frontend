@@ -1970,6 +1970,7 @@ export enum TranslationKey {
   'The actual cost of the box with delivery' = 'The actual cost of the box with delivery',
   'Actual cost with delivery per unit' = 'Actual cost with delivery per unit',
   'Paid for' = 'Paid for',
+  'Per' = 'Per',
   // '' = '',
   // '' = '',
   // '' = '',
