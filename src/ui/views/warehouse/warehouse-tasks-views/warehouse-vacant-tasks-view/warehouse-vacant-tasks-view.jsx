@@ -1,5 +1,4 @@
 import { cx } from '@emotion/css'
-import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Alert } from '@mui/material'
 
@@ -75,7 +74,7 @@ export const WarehouseVacantTasksViewRaw = props => {
             onClick={viewModel.onClickReportBtn}
           >
             {t(TranslationKey['Download task file'])}
-            <FileDownloadIcon />
+            <img src="/assets/icons/download.svg" alt="download task file" />
           </Button>
         </div>
 
