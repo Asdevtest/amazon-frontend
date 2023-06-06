@@ -113,17 +113,14 @@ export const productMyRequestsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     // width: 330,
-    renderCell: params => {
-      const handlersMemo = useMemo(() => handlers, [])
+    renderCell: params => (
+      <ProductMyRequestsBtnsCell
+        rowId={params.row.originalData._id}
+        row={params.row.originalData}
+        handlers={handlers}
+      />
+    ),
 
-      return (
-        <ProductMyRequestsBtnsCell
-          rowId={params.row.originalData._id}
-          row={params.row.originalData}
-          handlers={handlersMemo}
-        />
-      )
-    },
     filterable: false,
     sortable: false,
     flex: 1,
