@@ -9,6 +9,8 @@ export const styles = theme => ({
     wordBreak: 'break-word',
     overflowY: 'auto',
     overflowX: 'hidden',
+
+    width: 'fit-content',
   },
 
   destinationVariationsWrapper: {
@@ -39,7 +41,7 @@ export const styles = theme => ({
   destinationWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'start',
+    alignItems: 'center',
   },
 
   destinationVariation: {
@@ -49,7 +51,7 @@ export const styles = theme => ({
   },
 
   weightWrapper: {
-    width: 91,
+    width: 170,
   },
 
   rateWrapper: {
