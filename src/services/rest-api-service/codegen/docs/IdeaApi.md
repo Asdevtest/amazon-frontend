@@ -514,7 +514,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasGuidPatch
 
-> [InlineObject63] apiV1IdeasGuidPatch(guid, opts)
+> String apiV1IdeasGuidPatch(guid, opts)
 
 Редактировать идею
 
@@ -556,7 +556,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineObject63]**](InlineObject63.md)
+**String**
 
 ### Authorization
 

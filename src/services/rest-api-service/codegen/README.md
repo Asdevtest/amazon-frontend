@@ -388,6 +388,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.RequestsApi* | [**apiV1RequestsMediaGuidPatch**](docs/RequestsApi.md#apiV1RequestsMediaGuidPatch) | **PATCH** /api/v1/requests/media/{guid} | #  Изменить медиа.
 *TestSwagger.RequestsApi* | [**apiV1RequestsMediaManyPatch**](docs/RequestsApi.md#apiV1RequestsMediaManyPatch) | **PATCH** /api/v1/requests/media/many | #  Изменить медиа.
 *TestSwagger.RequestsApi* | [**apiV1RequestsMediaPost**](docs/RequestsApi.md#apiV1RequestsMediaPost) | **POST** /api/v1/requests/media | #  Создать медиа.
+*TestSwagger.RequestsApi* | [**apiV1RequestsUploadedToListingPatch**](docs/RequestsApi.md#apiV1RequestsUploadedToListingPatch) | **PATCH** /api/v1/requests/uploaded_to_listing | # Изменить uploadedToListing
 *TestSwagger.ResearcherApi* | [**apiV1ResearchersCheckProductsAsinStrategyGet**](docs/ResearcherApi.md#apiV1ResearchersCheckProductsAsinStrategyGet) | **GET** /api/v1/researchers/check_products/{asin}/{strategy} | Проверить продукт по ID существует ли он в базе.
 *TestSwagger.ResearcherApi* | [**apiV1ResearchersProductsGet**](docs/ResearcherApi.md#apiV1ResearchersProductsGet) | **GET** /api/v1/researchers/products | Получить список товаров созданных данным пользователем.
 *TestSwagger.ResearcherApi* | [**apiV1ResearchersProductsGuidDelete**](docs/ResearcherApi.md#apiV1ResearchersProductsGuidDelete) | **DELETE** /api/v1/researchers/products/{guid} | Удалить продукт.
@@ -602,6 +603,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject129](docs/InlineObject129.md)
  - [TestSwagger.InlineObject13](docs/InlineObject13.md)
  - [TestSwagger.InlineObject130](docs/InlineObject130.md)
+ - [TestSwagger.InlineObject131](docs/InlineObject131.md)
  - [TestSwagger.InlineObject14](docs/InlineObject14.md)
  - [TestSwagger.InlineObject15](docs/InlineObject15.md)
  - [TestSwagger.InlineObject16](docs/InlineObject16.md)
@@ -781,13 +783,13 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20059](docs/InlineResponse20059.md)
  - [TestSwagger.InlineResponse2006](docs/InlineResponse2006.md)
  - [TestSwagger.InlineResponse20060](docs/InlineResponse20060.md)
+ - [TestSwagger.InlineResponse20060CountProposalsByStatuses](docs/InlineResponse20060CountProposalsByStatuses.md)
+ - [TestSwagger.InlineResponse20060Media](docs/InlineResponse20060Media.md)
+ - [TestSwagger.InlineResponse20060Product](docs/InlineResponse20060Product.md)
+ - [TestSwagger.InlineResponse20060Rows](docs/InlineResponse20060Rows.md)
  - [TestSwagger.InlineResponse20061](docs/InlineResponse20061.md)
  - [TestSwagger.InlineResponse20062](docs/InlineResponse20062.md)
  - [TestSwagger.InlineResponse20063](docs/InlineResponse20063.md)
- - [TestSwagger.InlineResponse20063CountProposalsByStatuses](docs/InlineResponse20063CountProposalsByStatuses.md)
- - [TestSwagger.InlineResponse20063Media](docs/InlineResponse20063Media.md)
- - [TestSwagger.InlineResponse20063Product](docs/InlineResponse20063Product.md)
- - [TestSwagger.InlineResponse20063Rows](docs/InlineResponse20063Rows.md)
  - [TestSwagger.InlineResponse20064](docs/InlineResponse20064.md)
  - [TestSwagger.InlineResponse20065](docs/InlineResponse20065.md)
  - [TestSwagger.InlineResponse20066](docs/InlineResponse20066.md)

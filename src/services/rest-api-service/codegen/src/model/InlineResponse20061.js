@@ -47,29 +47,29 @@ class InlineResponse20061 {
         if (data) {
             obj = obj || new InlineResponse20061();
 
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
-                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
-            if (data.hasOwnProperty('platformMargin')) {
-                obj['platformMargin'] = ApiClient.convertToType(data['platformMargin'], 'Number');
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
             }
-            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
-                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
+            if (data.hasOwnProperty('commentByClient')) {
+                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
             }
-            if (data.hasOwnProperty('supervisorFee')) {
-                obj['supervisorFee'] = ApiClient.convertToType(data['supervisorFee'], 'Number');
+            if (data.hasOwnProperty('commentByPerformer')) {
+                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
             }
-            if (data.hasOwnProperty('unitCost')) {
-                obj['unitCost'] = ApiClient.convertToType(data['unitCost'], 'Number');
+            if (data.hasOwnProperty('fileLink')) {
+                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
             }
-            if (data.hasOwnProperty('maxAmountOfProposals')) {
-                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
-            if (data.hasOwnProperty('totalCost')) {
-                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -79,52 +79,52 @@ class InlineResponse20061 {
 }
 
 /**
- * Цена за каждое предложение.
- * @member {Number} price
+ * GUID в базе данных
+ * @member {String} _id
  */
-InlineResponse20061.prototype['price'] = undefined;
+InlineResponse20061.prototype['_id'] = undefined;
 
 /**
- * Процент с каждого предложения, маржа платформы, в процентах.
- * @member {Number} requestPlatformMarginInPercent
+ * Guid заявки к которой относится данное media.
+ * @member {String} requestId
  */
-InlineResponse20061.prototype['requestPlatformMarginInPercent'] = undefined;
+InlineResponse20061.prototype['requestId'] = undefined;
 
 /**
- * Услуги платформы.
- * @member {Number} platformMargin
+ * Guid предложения к которой относится данное media.
+ * @member {String} proposalId
  */
-InlineResponse20061.prototype['platformMargin'] = undefined;
+InlineResponse20061.prototype['proposalId'] = undefined;
 
 /**
- * Процент с каждого предложения для супервайзера, в процентах.
- * @member {Number} requestSupervisorFeeInPercent
+ * комментарий клиента
+ * @member {String} commentByClient
  */
-InlineResponse20061.prototype['requestSupervisorFeeInPercent'] = undefined;
+InlineResponse20061.prototype['commentByClient'] = undefined;
 
 /**
- * Услуги супервайзера.
- * @member {Number} supervisorFee
+ * комментарий исполнителя
+ * @member {String} commentByPerformer
  */
-InlineResponse20061.prototype['supervisorFee'] = undefined;
+InlineResponse20061.prototype['commentByPerformer'] = undefined;
 
 /**
- * Сумма.
- * @member {Number} unitCost
+ * Ссылка на файл
+ * @member {String} fileLink
  */
-InlineResponse20061.prototype['unitCost'] = undefined;
+InlineResponse20061.prototype['fileLink'] = undefined;
 
 /**
- * Количество предложений, не менее.
- * @member {Number} maxAmountOfProposals
+ * Дата создания.
+ * @member {Date} createdAt
  */
-InlineResponse20061.prototype['maxAmountOfProposals'] = undefined;
+InlineResponse20061.prototype['createdAt'] = undefined;
 
 /**
- * Итого.
- * @member {Number} totalCost
+ * Дата обновления.
+ * @member {Date} updatedAt
  */
-InlineResponse20061.prototype['totalCost'] = undefined;
+InlineResponse20061.prototype['updatedAt'] = undefined;
 
 
 
