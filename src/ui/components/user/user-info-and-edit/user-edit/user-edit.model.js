@@ -139,7 +139,7 @@ export class UserEditModel {
       const result = await PermissionsModel.getGroupPermissions()
 
       runInAction(() => {
-        this.groupPermissions = result.sort((a, b) => a.role - b.role)
+        this.groupPermissions = result?.sort((a, b) => a.role - b.role) || []
       })
     } catch (error) {
       this.groupPermissions = []
@@ -152,7 +152,7 @@ export class UserEditModel {
       const result = await PermissionsModel.getSinglePermissions()
 
       runInAction(() => {
-        this.singlePermissions = result.sort((a, b) => a.role - b.role)
+        this.singlePermissions = result?.sort((a, b) => a.role - b.role) || []
       })
     } catch (error) {
       this.singlePermissions = []

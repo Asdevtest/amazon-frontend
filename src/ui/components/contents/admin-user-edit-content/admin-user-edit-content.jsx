@@ -83,10 +83,10 @@ export const AdminUserEditContent = observer(
     const [clearSelect, setClearSelect] = useState(false)
 
     const [permissionsToSelect, setPermissionsToSelect] = useState([
-      ...singlePermissions.filter(item => item.role === formFields.role),
+      ...((!!singlePermissions && singlePermissions?.filter(item => item?.role === formFields?.role)) || []),
     ])
     const [permissionGroupsToSelect, setPermissionGroupsToSelect] = useState([
-      ...groupPermissions.filter(item => item.role === formFields.role),
+      ...((!!groupPermissions && groupPermissions?.filter(item => item?.role === formFields?.role)) || []),
     ])
 
     useEffect(() => {
@@ -181,14 +181,14 @@ export const AdminUserEditContent = observer(
       onSubmit(other, editUserFormFields, { oldPassword, password, confirmPassword })
     }
 
-    const selectedPermissions = singlePermissions.filter(per => formFields.permissions.includes(per._id))
-    const selectedGroupPermissions = groupPermissions.filter(perGroup =>
-      formFields.permissionGroups.includes(perGroup._id),
+    const selectedPermissions = singlePermissions?.filter(per => formFields?.permissions?.includes(per?._id))
+    const selectedGroupPermissions = groupPermissions?.filter(perGroup =>
+      formFields?.permissionGroups?.includes(perGroup?._id),
     )
 
     const isWrongPermissionsSelect =
-      selectedPermissions.find(per => per.role !== Number(formFields.role)) ||
-      selectedGroupPermissions.find(perGroup => perGroup.role !== Number(formFields.role))
+      selectedPermissions?.find(per => per?.role !== Number(formFields?.role)) ||
+      selectedGroupPermissions?.find(perGroup => perGroup?.role !== Number(formFields?.role))
 
     const disabledSubmitButton =
       !emailIsValid ||
@@ -199,7 +199,6 @@ export const AdminUserEditContent = observer(
       (JSON.stringify(changedAllowedRoles) === JSON.stringify(selectedAllowedRoles) &&
         JSON.stringify(sourceFormFields) === JSON.stringify(formFields))
 
-    // Новое
     const [visibilityPass, setVisibilityPass] = useState(false)
     const [visibilityOldPass, setVisibilityOldPass] = useState(false)
     const [errorOneNumber, setErrorOneNumber] = useState(false)
