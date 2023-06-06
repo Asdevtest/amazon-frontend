@@ -141,8 +141,14 @@ class UserInfoSchema {
             if (data.hasOwnProperty('freeOrders')) {
                 obj['freeOrders'] = ApiClient.convertToType(data['freeOrders'], 'Number');
             }
+            if (data.hasOwnProperty('orders')) {
+                obj['orders'] = ApiClient.convertToType(data['orders'], 'Number');
+            }
             if (data.hasOwnProperty('pendingOrders')) {
                 obj['pendingOrders'] = ApiClient.convertToType(data['pendingOrders'], 'Number');
+            }
+            if (data.hasOwnProperty('allOrders')) {
+                obj['allOrders'] = ApiClient.convertToType(data['allOrders'], 'Number');
             }
             if (data.hasOwnProperty('pendingOrdersByDeadline')) {
                 obj['pendingOrdersByDeadline'] = ApiClient.convertToType(data['pendingOrdersByDeadline'], 'Number');
@@ -167,9 +173,6 @@ class UserInfoSchema {
             }
             if (data.hasOwnProperty('closedAndCanceled')) {
                 obj['closedAndCanceled'] = ApiClient.convertToType(data['closedAndCanceled'], 'Number');
-            }
-            if (data.hasOwnProperty('allOrders')) {
-                obj['allOrders'] = ApiClient.convertToType(data['allOrders'], 'Number');
             }
             if (data.hasOwnProperty('allProducts')) {
                 obj['allProducts'] = ApiClient.convertToType(data['allProducts'], 'Number');
@@ -378,9 +381,21 @@ UserInfoSchema.prototype['freeOrders'] = undefined;
 
 /**
  * Количество заказов 2, 3 статусы
+ * @member {Number} orders
+ */
+UserInfoSchema.prototype['orders'] = undefined;
+
+/**
+ * Количество заказов 2, 3 статусы
  * @member {Number} pendingOrders
  */
 UserInfoSchema.prototype['pendingOrders'] = undefined;
+
+/**
+ * Количество заказов 15, 20, 25, 27, 19, 30, 35, 40 статусы
+ * @member {Number} allOrders
+ */
+UserInfoSchema.prototype['allOrders'] = undefined;
 
 /**
  * Количество заказов 2, 3 статусы у которых до дедлайна меньше суток
@@ -429,12 +444,6 @@ UserInfoSchema.prototype['confirmationRequired'] = undefined;
  * @member {Number} closedAndCanceled
  */
 UserInfoSchema.prototype['closedAndCanceled'] = undefined;
-
-/**
- * Количество заказов 15, 20, 25, 27, 19, 30, 35, 40 статусы
- * @member {Number} allOrders
- */
-UserInfoSchema.prototype['allOrders'] = undefined;
 
 /**
  * Количество продуктов супервизора во всех статусах
