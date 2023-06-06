@@ -237,10 +237,16 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   selectorsWrapper: {
-    width: 130,
+    // width: 130,
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    // justifyContent: 'space-around',
+    padding: '0 16px',
+    gap: 24,
+  },
+
+  notificationHandler: {
+    cursor: 'pointer',
   },
 
   breadCrumbsWrapper: {
