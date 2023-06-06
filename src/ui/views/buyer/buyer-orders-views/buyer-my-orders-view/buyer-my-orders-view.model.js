@@ -683,11 +683,8 @@ export class BuyerMyOrdersViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       await this.setColumnsModel()
-
       this.getDataGridState()
-
       await this.getOrdersMy()
-
       this.getPlatformSettings()
       this.getBuyersOrdersPaymentByStatus()
 
