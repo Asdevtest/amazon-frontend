@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1ShopSellStatistics1 from './ApiV1ShopSellStatistics1';
 
 /**
  * The InlineObject95 model module.
@@ -21,6 +22,7 @@ import ApiClient from '../ApiClient';
 class InlineObject95 {
     /**
      * Constructs a new <code>InlineObject95</code>.
+     * Схема продажи магазина
      * @alias module:model/InlineObject95
      * @param timeoutAt {Date} Время закрытия заявки.
      */

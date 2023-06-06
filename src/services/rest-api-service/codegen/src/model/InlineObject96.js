@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1ShopSellStatistics1 from './ApiV1ShopSellStatistics1';
 
 /**
  * The InlineObject96 model module.
@@ -21,6 +22,7 @@ import ApiClient from '../ApiClient';
 class InlineObject96 {
     /**
      * Constructs a new <code>InlineObject96</code>.
+     * Схема продажи магазина
      * @alias module:model/InlineObject96
      */
     constructor() { 
