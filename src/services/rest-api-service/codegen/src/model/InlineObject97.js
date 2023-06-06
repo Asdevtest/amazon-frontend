@@ -22,11 +22,10 @@ class InlineObject97 {
     /**
      * Constructs a new <code>InlineObject97</code>.
      * @alias module:model/InlineObject97
-     * @param totalCost {Number} Для подтверждения нужно вернуть totalCost из калькулятора.
      */
-    constructor(totalCost) { 
+    constructor() { 
         
-        InlineObject97.initialize(this, totalCost);
+        InlineObject97.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject97 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, totalCost) { 
-        obj['totalCost'] = totalCost;
+    static initialize(obj) { 
     }
 
     /**
