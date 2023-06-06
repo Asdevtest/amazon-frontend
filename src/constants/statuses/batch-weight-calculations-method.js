@@ -7,6 +7,7 @@ import { objectFlip } from '@utils/object'
 import { t } from '@utils/translations'
 
 import { TranslationKey } from '../translations/translation-key'
+import { toFixed } from '@utils/text'
 
 export const BatchWeightCalculationMethod = {
   BY_MORE_WEIGHT: 'BY_MORE_WEIGHT',
@@ -88,3 +89,41 @@ export const getBatchWeightCalculationMethodsData = () => [
     finalWeightCalculationMethodForBox: calcVolumeWeightForBox,
   },
 ]
+
+export const getBatchParameters = (
+  rowMemo,
+  item,
+  volumeWeightCoefficient,
+  finalWeight,
+  calculationMethod,
+  isActualGreaterTheVolume,
+  actualShippingCost,
+) => {
+  let batchWeight = 0
+  if (rowMemo.items.length <= 1) {
+    batchWeight = toFixed(
+      getBatchWeightCalculationMethodForBox(calculationMethod, isActualGreaterTheVolume)(
+        rowMemo,
+        volumeWeightCoefficient,
+      ) * rowMemo.amount,
+      2,
+    )
+  } else {
+    const boxProperties = item.order.orderSupplier.boxProperties
+
+    batchWeight = toFixed(
+      (boxProperties?.boxHeightCm * boxProperties?.boxLengthCm * boxProperties?.boxWidthCm) / volumeWeightCoefficient,
+      2,
+    )
+  }
+
+  const shippingCost = (batchWeight / finalWeight) * actualShippingCost
+  const itemsQuantity = item.amount * rowMemo.amount
+  const singleProductPrice = item.order.totalPrice / item.order.amount
+
+  return {
+    shippingCost,
+    itemsQuantity,
+    singleProductPrice,
+  }
+}
