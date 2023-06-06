@@ -103,6 +103,7 @@ import {
   poundsWeightCoefficient,
 } from '@constants/configs/sizes-settings'
 import { getBatchWeightCalculationMethodForBox } from '@constants/statuses/batch-weight-calculations-method'
+import { PrioritySelect } from '@components/shared/priority-select/priority-select'
 
 export const UserCell = React.memo(
   withStyles(
@@ -1097,39 +1098,10 @@ export const TaskPriorityCell =
   /* React.memo( */
   withStyles(
     ({ classes: classNames, curPriority, onChangePriority, taskId }) => (
-      <Select
-        value={curPriority}
-        className={classNames.nativeSelect}
-        input={<Input className={classNames.nativeSelect} />}
-        classes={{
-          select: cx({
-            [classNames.colorYellow]: curPriority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.STANDART],
-            [classNames.colorGreen]: curPriority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.LONG],
-            [classNames.colorRed]: [
-              mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.URGENT],
-              mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC],
-            ].includes(curPriority),
-          }),
-        }}
-        onChange={e => onChangePriority(taskId, e.target.value)}
-      >
-        {Object.keys(mapTaskPriorityStatusEnum)
-          .filter(el => el !== curPriority)
-          .map((statusCode, statusIndex) => (
-            <MenuItem
-              key={statusIndex}
-              value={statusCode}
-              style={{ color: colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[statusCode]) }}
-              className={classNames.menuItem}
-            >
-              {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[statusCode])}
-
-              {TaskPriorityStatus.URGENT === mapTaskPriorityStatusEnum[statusCode] && (
-                <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" alt="Fire" />
-              )}
-            </MenuItem>
-          ))}
-      </Select>
+      <PrioritySelect
+        setCurrentPriority={priority => onChangePriority(taskId, priority)}
+        currentPriority={curPriority}
+      />
     ),
     styles,
   )
