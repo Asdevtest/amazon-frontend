@@ -50,6 +50,10 @@ export const BoxesUpdatesNotification: FC<BoxesUpdatesNotificationProps> = props
     history.push(`/client/warehouse/in-stock?search-text=${boxId}`)
   }
 
+  const goToOrder = (id: string) => {
+    history.push(`/client/my-orders/orders/order?orderId=${id}`)
+  }
+
   const goToProduct = (id: string) => {
     history.push(`/client/inventory/product?product-id=${id}`)
   }
@@ -83,7 +87,7 @@ export const BoxesUpdatesNotification: FC<BoxesUpdatesNotificationProps> = props
                   </div>
                   <div>
                     <p>
-                      Order id: <Link onClick={() => goToProduct(el.items[0].productId)}>{el.items[0].order.id}</Link>
+                      Order id: <Link onClick={() => goToOrder(el.items[0].order._id)}>{el.items[0].order.id}</Link>
                     </p>
                   </div>
                 </div>
