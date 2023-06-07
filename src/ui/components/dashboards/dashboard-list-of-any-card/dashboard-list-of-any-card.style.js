@@ -27,7 +27,7 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '30px',
   },
   cardListTitle: {
-    fontSize: '20px',
+    fontSize: '18px',
     lineHeight: '27px',
     color: theme.palette.text.general,
     fontWeight: 600,
