@@ -37,6 +37,17 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
   },
 
+  heightFieldAuto: {
+    height: '86px',
+    padding: 0,
+  },
+
+  commentLabel: {
+    marginBottom: 5,
+    fontSize: 14,
+    color: theme.palette.text.second,
+  },
+
   containerField: {
     width: 'min-content',
   },

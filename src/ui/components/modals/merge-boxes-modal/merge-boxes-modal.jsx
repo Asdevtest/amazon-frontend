@@ -31,6 +31,8 @@ import { BoxForMerge } from './box-for-merge'
 import { useClassNames } from './merge-boxes-modal.style'
 import { CopyValue } from '@components/shared/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { PriorityForm } from '@components/shared/priority-form/priority-form'
+import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
 
 export const MergeBoxesModal = ({
   userInfo,
@@ -49,6 +51,9 @@ export const MergeBoxesModal = ({
 
   // Добавил
   const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
+
+  const [priority, setPriority] = useState()
+  const [priorityReason, setPriorityReason] = useState()
 
   const [boxBody, setBoxBody] = useState({
     shippingLabel: null,
@@ -95,7 +100,7 @@ export const MergeBoxesModal = ({
   const [comment, setComment] = useState('')
   const onSubmitBoxesModal = () => {
     // Передаются файлы imagesOfBox
-    onSubmit({ ...boxBody, destinationId: boxBody.destinationId || null }, comment)
+    onSubmit({ ...boxBody, destinationId: boxBody.destinationId || null }, comment, priority, priorityReason)
     // setBoxBody({shippingLabel: '', destinationId: null, logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
     // setComment('')
   }
@@ -143,7 +148,8 @@ export const MergeBoxesModal = ({
     isDifferentStorekeepers ||
     ((boxBody.shippingLabel || boxBody.tmpShippingLabel?.length) &&
       !boxBody.fbaShipment &&
-      !destinations.find(el => el._id === boxBody.destinationId)?.storekeeper)
+      !destinations.find(el => el._id === boxBody.destinationId)?.storekeeper) ||
+    (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason.length)
 
   const disabledSubmitStorekeeper =
     disabledSubmit ||
@@ -420,17 +426,26 @@ export const MergeBoxesModal = ({
 
         {/* Рендерится не у сторкипера  */}
         {!isStorekeeper && (
-          <Field
-            multiline
-            className={classNames.heightFieldAuto}
-            minRows={18}
-            maxRows={18}
-            inputProps={{ maxLength: 2000 }}
-            label={t(TranslationKey['Client comment on the task'])}
-            placeholder={t(TranslationKey['Client comment on the task'])}
-            value={comment}
-            onChange={e => setComment(e.target.value)}
-          />
+          <div>
+            <PriorityForm
+              setCurrentPriority={setPriority}
+              setComment={setPriorityReason}
+              currentPriority={priority}
+              comment={priorityReason}
+            />
+            <Field
+              multiline
+              labelClasses={classNames.commentLabel}
+              className={classNames.heightFieldAuto}
+              minRows={3}
+              maxRows={3}
+              inputProps={{ maxLength: 2000 }}
+              label={t(TranslationKey['Client comment on the task'])}
+              placeholder={t(TranslationKey['Client comment on the task'])}
+              value={comment}
+              onChange={e => setComment(e.target.value)}
+            />
+          </div>
         )}
       </div>
       <div className={cx(classNames.modalFooter, { [classNames.modalAlternateFooter]: !isDifferentStorekeepers })}>

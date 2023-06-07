@@ -34,9 +34,9 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
 
   useEffect(() => {
     setClides(
-      children.map(child => (
+      children.map((child, indexChild) => (
         <div
-          key={nanoid()}
+          key={indexChild}
           style={{
             height: '100%',
             display: 'flex',

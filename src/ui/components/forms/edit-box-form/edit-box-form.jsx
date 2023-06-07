@@ -1,18 +1,17 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Checkbox, Chip, Divider, NativeSelect, TableCell, TableRow, Typography } from '@mui/material'
+import { Checkbox, Chip, Divider, Typography } from '@mui/material'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import { observer } from 'mobx-react'
 
 import {
   getConversion,
-  inchesCoefficient,
-  sizesType,
-  unitsOfChangeOptions,
-  poundsWeightCoefficient,
   getWeightSizesType,
+  inchesCoefficient,
+  poundsWeightCoefficient,
+  unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -25,14 +24,11 @@ import { BigImagesModal } from '@components/modals/big-images-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { Table } from '@components/shared/table'
 import { Text } from '@components/shared/text'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
@@ -46,6 +42,8 @@ import { CustomSlider } from '@components/shared/custom-slider'
 import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { CopyValue } from '@components/shared/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { PriorityForm } from '@components/shared/priority-form/priority-form'
+import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
 
 const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
   const { classes: classNames } = useClassNames()
@@ -116,7 +114,8 @@ export const EditBoxForm = observer(
     setDestinationsFavouritesItem,
   }) => {
     const { classes: classNames } = useClassNames()
-
+    const [priority, setPriority] = useState()
+    const [priorityReason, setPriorityReason] = useState()
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
     const [showPhotosModal, setShowPhotosModal] = useState(false)
 
@@ -243,7 +242,8 @@ export const EditBoxForm = observer(
       boxFields.logicsTariffId === '' ||
       ((boxFields.shippingLabel || boxFields.tmpShippingLabel.length) &&
         !boxFields.fbaShipment &&
-        !destinations.find(el => el._id === boxFields.destinationId)?.storekeeper)
+        !destinations.find(el => el._id === boxFields.destinationId)?.storekeeper) ||
+      (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason.length)
     // !boxFields.destination?.storekeeperId)
 
     const curDestination = destinations.find(el => el._id === boxFields.destinationId)
@@ -682,17 +682,27 @@ export const EditBoxForm = observer(
             }
           />
 
-          <Field
-            multiline
-            className={classNames.multiline}
-            minRows={25}
-            maxRows={25}
-            inputProps={{ maxLength: 1000 }}
-            tooltipAttentionContent={t(TranslationKey['A task will be created for the prep center'])}
-            label={t(TranslationKey['Write a comment on the task'])}
-            placeholder={t(TranslationKey['Client comment on the task'])}
-            onChange={setFormField('clientTaskComment')}
-          />
+          <div>
+            <PriorityForm
+              setCurrentPriority={setPriority}
+              setComment={setPriorityReason}
+              currentPriority={priority}
+              comment={priorityReason}
+            />
+
+            <Field
+              multiline
+              className={classNames.heightFieldAuto}
+              minRows={3}
+              maxRows={3}
+              inputProps={{ maxLength: 1000 }}
+              labelClasses={classNames.commentLabel}
+              tooltipAttentionContent={t(TranslationKey['A task will be created for the prep center'])}
+              label={t(TranslationKey['Write a comment on the task'])}
+              placeholder={t(TranslationKey['Client comment on the task'])}
+              onChange={setFormField('clientTaskComment')}
+            />
+          </div>
         </div>
 
         <div className={classNames.buttonsWrapper}>
@@ -701,7 +711,16 @@ export const EditBoxForm = observer(
             tooltipInfoContent={t(TranslationKey['Save changes to the box'])}
             className={classNames.button}
             onClick={() => {
-              onSubmit(formItem?._id, { ...boxFields, destinationId: boxFields.destinationId || null }, formItem)
+              onSubmit(
+                formItem?._id,
+                {
+                  ...boxFields,
+                  destinationId: boxFields.destinationId || null,
+                },
+                formItem,
+                priority,
+                priorityReason,
+              )
             }}
           >
             {t(TranslationKey.Save)}
