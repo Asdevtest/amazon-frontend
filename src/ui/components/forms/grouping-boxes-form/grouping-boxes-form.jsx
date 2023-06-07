@@ -318,9 +318,12 @@ const Box = ({ isNewBox, destinations, box, onChangeField, onRemoveBox, index, b
                   label={'Prep ID'}
                   value={box.fbaShipment}
                   inputComponent={
-                    <Typography className={classNames.standartText}>
-                      {box.prepId || t(TranslationKey.Missing)}
-                    </Typography>
+                    <div className={classNames.prepIdWrapper}>
+                      <Typography className={classNames.standartText}>
+                        {box.prepId || t(TranslationKey.Missing)}
+                      </Typography>
+                      {box.prepId && <CopyValue text={box.prepId} />}
+                    </div>
                   }
                 />
               )}

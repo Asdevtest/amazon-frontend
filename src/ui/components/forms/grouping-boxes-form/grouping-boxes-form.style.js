@@ -349,4 +349,15 @@ export const useClassNames = makeStyles()(theme => ({
       maxWidth: 148,
     },
   },
+
+  prepIdWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+    width: 'fit-content',
+
+    '.MuiTypography-root': {
+      width: 'fit-content',
+    },
+  },
 }))
