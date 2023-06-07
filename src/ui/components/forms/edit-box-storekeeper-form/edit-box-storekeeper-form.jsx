@@ -91,7 +91,7 @@ export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoeffic
           containerClasses={classNames.numberInputField}
           labelClasses={classNames.label}
           label={t(TranslationKey.Weight) + ': '}
-          value={toFixed(orderBox.weighGrossKgWarehouse / weightConversion, 2)}
+          value={toFixed(orderBox.weighGrossKgWarehouse, 2)}
           onChange={setFormField('weighGrossKgWarehouse')}
         />
       </div>
@@ -309,6 +309,7 @@ export const EditBoxStorekeeperForm = observer(
           lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse / inchesCoefficient, 2),
           widthCmWarehouse: toFixed(boxFields.widthCmWarehouse / inchesCoefficient, 2),
           heightCmWarehouse: toFixed(boxFields.heightCmWarehouse / inchesCoefficient, 2),
+          weighGrossKgWarehouse: toFixed(boxFields.heightCmWarehouse / poundsWeightCoefficient, 2),
         })
       } else {
         setBoxFields({
@@ -316,6 +317,7 @@ export const EditBoxStorekeeperForm = observer(
           lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 2),
           widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 2),
           heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 2),
+          weighGrossKgWarehouse: toFixed(boxFields.heightCmWarehouse * poundsWeightCoefficient, 2),
         })
       }
     }

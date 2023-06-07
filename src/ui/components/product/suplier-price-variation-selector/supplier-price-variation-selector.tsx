@@ -94,14 +94,29 @@ export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorPr
 
         {!!variationList.length && (
           <div className={styles.currentVariations}>
-            <Typography className={styles.label}>
-              {`${t(TranslationKey.Quantity)}/${t(TranslationKey.Cost).toLowerCase()}`}:
-            </Typography>
+            {/* <Typography className={styles.label}>*/}
+            {/*  {`${t(TranslationKey.Quantity)}/${t(TranslationKey.Cost).toLowerCase()}`}:*/}
+            {/* </Typography>*/}
 
             <div className={styles.currentVariationList}>
               {variationList.map((el, index) => (
                 <div key={index} className={styles.variationListItem}>
-                  <Input readOnly disabled value={`${el.quantity}/${el.price}`} />
+                  <Field
+                    disabled
+                    labelClasses={styles.label}
+                    containerClasses={styles.field}
+                    label={t(TranslationKey.Quantity)}
+                    value={el.quantity}
+                  />
+                  <Field
+                    disabled
+                    labelClasses={styles.label}
+                    containerClasses={styles.field}
+                    label={`${t(TranslationKey.Cost)},¥`}
+                    value={el.price}
+                  />
+                  {/* <Input readOnly disabled value={el.quantity} />*/}
+                  {/* <Input readOnly disabled value={`${el.quantity}/${el.price}`} />*/}
                   {props.isEditMode && (
                     <button
                       className={cx(styles.removeBtn, styles.controlButton)}

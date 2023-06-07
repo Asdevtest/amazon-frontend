@@ -75,10 +75,14 @@ export const BuyerMyOrdersViewRaw = props => {
       <MainContent>
         <div
           className={cx(classNames.headerWrapper, {
-            [classNames.headerWrapperCenter]: !viewModel.paymentAmount?.totalPriceInYuan,
+            [classNames.headerWrapperCenter]:
+              !viewModel.paymentAmount?.totalPriceInYuan && !viewModel.paymentAmount?.totalPriceInUSD,
           })}
         >
-          {viewModel.paymentAmount?.totalPriceInYuan > 0 && <div className={classNames.totalPriceWrapper} />}
+          {(viewModel.paymentAmount?.totalPriceInYuan ||
+            (isNoPaidedOrders && viewModel.paymentAmount?.totalPriceInUSD)) > 0 && (
+            <div className={classNames.totalPriceWrapper} />
+          )}
 
           <SearchInput
             inputClasses={classNames.searchInput}
@@ -86,7 +90,8 @@ export const BuyerMyOrdersViewRaw = props => {
             onSubmit={viewModel.onSearchSubmit}
           />
 
-          {viewModel.paymentAmount?.totalPriceInYuan > 0 && (
+          {(viewModel.paymentAmount?.totalPriceInYuan ||
+            (isNoPaidedOrders && viewModel.paymentAmount?.totalPriceInUSD)) > 0 && (
             <div className={classNames.totalPriceWrapper}>
               <Typography className={classNames.totalPriceText}>
                 {isNoPaidedOrders ? t(TranslationKey.Sum) + ':' : t(TranslationKey['Payment to all suppliers']) + ':'}
@@ -95,7 +100,7 @@ export const BuyerMyOrdersViewRaw = props => {
                 <Typography className={cx(classNames.totalPriceText, classNames.totalPrice)}>
                   {`${toFixedWithYuanSign(
                     isNoPaidedOrders
-                      ? viewModel.paymentAmount?.totalPriceInUSD * viewModel.yuanToDollarRate
+                      ? Number(viewModel.paymentAmount?.totalPriceInUSD) * Number(viewModel.yuanToDollarRate)
                       : viewModel.paymentAmount?.totalPriceInYuan,
                     2,
                   )} ${t(TranslationKey.Or).toLocaleLowerCase()} ${toFixedWithDollarSign(

@@ -1959,7 +1959,7 @@
   "Temporary session data will be reset": "Будут сброшены временные данные по сессии",
   "To repurchase": "К дозакупке",
   "Quantity of repurchase": "Количество дозакупки",
-  "Price variations": "Price variations",
+  "Price variations": "Вариации стоимости",
   "Verified ideas": "Проверенные идеи",
   "Closed Ideas": "Закрытые идеи",
   "Weight-based logistics tariffs": "Тарифы на логистику с учетом веса",
@@ -1971,5 +1971,8 @@
   "Partially paid": "Чистично оплачено",
   "The actual cost of the box with delivery": "Фактическая стоимость коробки с доставкой",
   "Actual cost with delivery per unit": "Фактическая стоимость с доставкой за ед.",
-  "Paid for": "Оплачено"
+  "Paid for": "Оплачено",
+  "Per": "За",
+  "Calculated price": "Расчётная цена",
+  "Comments on priority": "Комментарии к приоритету"
 }

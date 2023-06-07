@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { RequestSubType, RequestType } from '@constants/requests/request-type'
+import { RequestSubType } from '@constants/requests/request-type'
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
@@ -16,7 +16,6 @@ import { UserModel } from '@models/user-model'
 import { productMyRequestsViewColumns } from '@components/table/table-columns/overall/product-my-requests-columns'
 
 import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 
 export class FreelanceModel {
   history = undefined
@@ -203,7 +202,7 @@ export class FreelanceModel {
 
   async onClickOpenResult(item) {
     try {
-      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(item._id)
+      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(item)
 
       const proposal = result.find(el => el.proposal.status)
 

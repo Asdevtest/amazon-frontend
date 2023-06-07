@@ -637,12 +637,10 @@ export class ClientProductViewModel {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
         await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
-        runInAction(() => {
-          this.product.suppliers.push(createSupplierResult.guid)
-        })
+        await this.getProductById(this.productId)
       }
 
-      this.onSaveForceProductData()
+      await this.onSaveForceProductData()
 
       this.setRequestStatus(loadingStatuses.success)
       this.onTriggerAddOrEditSupplierModal()

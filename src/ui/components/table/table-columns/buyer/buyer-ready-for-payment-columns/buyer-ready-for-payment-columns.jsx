@@ -128,17 +128,12 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
         />
       ),
       renderCell: params => {
-        const onClickPaymentMethodCell = useCallback(
-          () => rowHandlers.onClickPaymentMethodCell(params?.row?.originalData),
-          [],
-        )
-
         return (
           <StringListCell
             sourceString={params?.value?.map(method => method?.paymentMethod?.title)}
             maxItemsDisplay={3}
             maxLettersInItem={15}
-            onClickCell={onClickPaymentMethodCell}
+            onClickCell={() => rowHandlers.onClickPaymentMethodCell(params?.row?.originalData)}
           />
         )
       },

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// import NotificationsIcon from '@material-ui/icons/Notifications'
+import NotificationsIcon from '@mui/icons-material/Notifications'
+import NotificationsOffIcon from '@mui/icons-material/NotificationsOff'
 import { cx } from '@emotion/css'
 import Brightness3RoundedIcon from '@mui/icons-material/Brightness3Rounded'
 import PersonIcon from '@mui/icons-material/Person'
@@ -20,7 +21,6 @@ import { snackNoticeKey } from '@constants/keys/snack-notifications'
 import { mapUserRoleEnumToKey, UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
-
 import { SettingsModel } from '@models/settings-model'
 
 import { BreadCrumbsLine } from '@components/layout/bread-crumbs-line'
@@ -55,6 +55,7 @@ export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen, las
   const location = useLocation()
   const { classes: classNames } = useClassNames()
   const componentModel = useRef(new AppbarModel({ history }))
+  const [isEnabledNotifications, setIsEnabledNotifications] = useState(true)
 
   const {
     role,
@@ -82,38 +83,43 @@ export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen, las
       markNotificationAsReaded(snackNoticeKey.SIMPLE_MESSAGE)
     }
 
-    if (snackNotifications[snackNoticeKey.ORDER_DEADLINE]) {
-      toast(<OrderDeadlineNotification noticeItem={snackNotifications[snackNoticeKey.ORDER_DEADLINE]} />, {
-        autoClose: 5000,
-      })
-      markNotificationAsReaded(snackNoticeKey.ORDER_DEADLINE)
-    }
-
-    if (snackNotifications[snackNoticeKey.IDEAS]) {
-      toast(<IdeaNotification role={role} noticeItem={snackNotifications[snackNoticeKey.IDEAS]} />, {
-        autoClose: 5000,
-      })
-      markNotificationAsReaded(snackNoticeKey.IDEAS)
-    }
-
-    if (snackNotifications[snackNoticeKey.ORDERS_UPDATES]) {
-      toast(
-        <OrdersUpdatesNotification noticeItem={snackNotifications[snackNoticeKey.ORDERS_UPDATES]} history={history} />,
-        {
+    if (isEnabledNotifications) {
+      if (snackNotifications[snackNoticeKey.ORDER_DEADLINE]) {
+        toast(<OrderDeadlineNotification noticeItem={snackNotifications[snackNoticeKey.ORDER_DEADLINE]} />, {
           autoClose: 5000,
-        },
-      )
-      markNotificationAsReaded(snackNoticeKey.ORDERS_UPDATES)
-    }
+        })
+        markNotificationAsReaded(snackNoticeKey.ORDER_DEADLINE)
+      }
 
-    if (snackNotifications[snackNoticeKey.BOXES_UPDATES]) {
-      toast(
-        <BoxesUpdatesNotification noticeItem={snackNotifications[snackNoticeKey.BOXES_UPDATES]} history={history} />,
-        {
+      if (snackNotifications[snackNoticeKey.IDEAS]) {
+        toast(<IdeaNotification role={role} noticeItem={snackNotifications[snackNoticeKey.IDEAS]} />, {
           autoClose: 5000,
-        },
-      )
-      markNotificationAsReaded(snackNoticeKey.BOXES_UPDATES)
+        })
+        markNotificationAsReaded(snackNoticeKey.IDEAS)
+      }
+
+      if (snackNotifications[snackNoticeKey.ORDERS_UPDATES]) {
+        toast(
+          <OrdersUpdatesNotification
+            noticeItem={snackNotifications[snackNoticeKey.ORDERS_UPDATES]}
+            history={history}
+          />,
+          {
+            autoClose: 5000,
+          },
+        )
+        markNotificationAsReaded(snackNoticeKey.ORDERS_UPDATES)
+      }
+
+      if (snackNotifications[snackNoticeKey.BOXES_UPDATES]) {
+        toast(
+          <BoxesUpdatesNotification noticeItem={snackNotifications[snackNoticeKey.BOXES_UPDATES]} history={history} />,
+          {
+            autoClose: 5000,
+          },
+        )
+        markNotificationAsReaded(snackNoticeKey.BOXES_UPDATES)
+      }
     }
   }, [snackNotifications])
 
@@ -163,6 +169,22 @@ export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen, las
   const allowedRolesWithoutCandidate = componentModel.current.allowedRoles?.filter(
     (el: number) => el !== (mapUserRoleEnumToKey as { [key: string]: number })[UserRole.CANDIDATE],
   )
+
+  const handleNotifications = () => {
+    if (isEnabledNotifications) {
+      setIsEnabledNotifications(false)
+      localStorage.setItem('isEnabledNotifications', 'false')
+    } else {
+      setIsEnabledNotifications(true)
+      localStorage.setItem('isEnabledNotifications', 'true')
+    }
+  }
+
+  useEffect(() => {
+    if (localStorage.getItem('isEnabledNotifications') === 'false') {
+      setIsEnabledNotifications(false)
+    }
+  }, [])
 
   return (
     <React.Fragment>
@@ -217,6 +239,11 @@ export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen, las
             <Divider orientation="vertical" className={classNames.hideOnModile} />
 
             <div className={classNames.selectorsWrapper}>
+              {isEnabledNotifications ? (
+                <NotificationsIcon className={classNames.notificationHandler} onClick={handleNotifications} />
+              ) : (
+                <NotificationsOffIcon className={classNames.notificationHandler} onClick={handleNotifications} />
+              )}
               <LanguageSelector />
 
               {SettingsModel.uiTheme === UiTheme.light ? (

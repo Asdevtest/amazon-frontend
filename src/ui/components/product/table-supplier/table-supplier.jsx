@@ -38,6 +38,7 @@ export const TableSupplier = observer(({ isClient, product, productBaseData, sel
         <TableCell className={classNames.alignCenter}>{t(TranslationKey['Batch price'])}</TableCell>
 
         <TableCell className={classNames.alignCenter}>{t(TranslationKey['Production time'])}</TableCell>
+        <TableCell className={classNames.alignCenter}>{t(TranslationKey['Price variations'])}</TableCell>
 
         <TableCell className={classNames.alignCenter}>{t(TranslationKey.Comment)}</TableCell>
         <TableCell className={classNames.alignCenter}>{t(TranslationKey.Files)}</TableCell>
@@ -115,6 +116,16 @@ export const TableSupplier = observer(({ isClient, product, productBaseData, sel
                 </TableCell>
 
                 <TableCell className={classNames.alignCenter}>{supplier.productionTerm}</TableCell>
+                <TableCell className={cx(classNames.alignCenter)}>
+                  <div className={classNames.priceVariationsCell}>
+                    {supplier?.priceVariations?.map((el, index) => (
+                      <div key={index}>
+                        {el.quantity} {t(TranslationKey['pcs.'])}. / {toFixedWithDollarSign(el.price, 2)}{' '}
+                        {t(TranslationKey.Per).toLowerCase()} {t(TranslationKey['pcs.'])}
+                      </div>
+                    ))}
+                  </div>
+                </TableCell>
 
                 <TableCell className={cx(classNames.alignCenter, classNames.commentCell)}>{supplier.comment}</TableCell>
 

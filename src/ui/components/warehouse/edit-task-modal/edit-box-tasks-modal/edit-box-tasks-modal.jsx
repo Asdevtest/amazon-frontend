@@ -6,7 +6,6 @@ import {
   getConversion,
   inchesCoefficient,
   poundsWeightCoefficient,
-  sizesType,
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -21,11 +20,10 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './edit-box-tasks-modal.style'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 
-const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, sizeSetting }) => {
+const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, sizeSetting, weightConversion }) => {
   const { classes: classNames } = useClassNames()
-
-  const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
 
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
@@ -59,13 +57,10 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, siz
           label={t(TranslationKey['Volume weight']) + ': '}
           labelClasses={classNames.label}
           value={toFixed(
-            (sizeSetting === unitsOfChangeOptions.EU
-              ? box.heightCmWarehouse *
-                inchesCoefficient *
-                box.widthCmWarehouse *
-                inchesCoefficient *
-                box.lengthCmWarehouse *
-                inchesCoefficient
+            (sizeSetting === unitsOfChangeOptions.US
+              ? (box.heightCmWarehouse / inchesCoefficient) *
+                (box.widthCmWarehouse / inchesCoefficient) *
+                (box.lengthCmWarehouse / inchesCoefficient)
               : box.heightCmWarehouse * box.widthCmWarehouse * box.lengthCmWarehouse) / volumeWeightCoefficient,
             2,
           )}
@@ -90,8 +85,12 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, siz
           containerClasses={classNames.numberInputField}
           labelClasses={classNames.label}
           label={t(TranslationKey.Weight) + ': '}
-          value={toFixed(box.weighGrossKgWarehouse / weightConversion, 2)}
-          onChange={setNewBoxField('weighGrossKgWarehouse')}
+          value={toFixed(box.weighGrossKgWarehouse, 2)}
+          onChange={e => {
+            if (e.target.value === '' || checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+              setNewBoxField('weighGrossKgWarehouse')(e)
+            }
+          }}
         />
 
         <Field
@@ -103,14 +102,11 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, siz
           value={Math.max(
             toFixed(
               ((sizeSetting === unitsOfChangeOptions.US
-                ? box.heightCmWarehouse *
-                  inchesCoefficient *
-                  box.widthCmWarehouse *
-                  inchesCoefficient *
-                  box.lengthCmWarehouse *
-                  inchesCoefficient
+                ? (box.heightCmWarehouse / inchesCoefficient) *
+                  (box.widthCmWarehouse / inchesCoefficient) *
+                  (box.lengthCmWarehouse / inchesCoefficient)
                 : box.heightCmWarehouse * box.widthCmWarehouse * box.lengthCmWarehouse) / volumeWeightCoefficient,
-              box.weighGrossKgWarehouse) / weightConversion,
+              box.weighGrossKgWarehouse),
               2,
             ),
           )}
@@ -164,19 +160,29 @@ export const EditBoxTasksModal = ({
         ...editingBox,
 
         lengthCmWarehouse:
-          (sizeSetting === sizesType.INCHES
-            ? Math.round(editingBox.lengthCmWarehouse * inchesCoefficient * 100) / 100
+          (sizeSetting === unitsOfChangeOptions.US
+            ? Math.round((editingBox.lengthCmWarehouse / inchesCoefficient) * 100) / 100
             : editingBox.lengthCmWarehouse) || 0,
 
         widthCmWarehouse:
-          (sizeSetting === sizesType.INCHES
-            ? Math.round(editingBox.widthCmWarehouse * inchesCoefficient * 100) / 100
+          (sizeSetting === unitsOfChangeOptions.US
+            ? Math.round((editingBox.widthCmWarehouse / inchesCoefficient) * 100) / 100
             : editingBox.widthCmWarehouse) || 0,
 
         heightCmWarehouse:
-          (sizeSetting === sizesType.INCHES
-            ? Math.round(editingBox.heightCmWarehouse * inchesCoefficient * 100) / 100
+          (sizeSetting === unitsOfChangeOptions.US
+            ? Math.round((editingBox.heightCmWarehouse / inchesCoefficient) * 100) / 100
             : editingBox.heightCmWarehouse) || 0,
+
+        weighGrossKgWarehouse:
+          (sizeSetting === unitsOfChangeOptions.US
+            ? Math.round(editingBox?.weighGrossKgWarehouse * poundsWeightCoefficient * 100) / 100
+            : parseFloat(editingBox?.weighGrossKgWarehouse)) || 0,
+
+        volumeWeightKgWarehouse:
+          (sizeSetting === unitsOfChangeOptions.US
+            ? Math.round(editingBox?.volumeWeightKgWarehouse * poundsWeightCoefficient * 100) / 100
+            : parseFloat(editingBox?.volumeWeightKgWarehouse)) || 0,
       }
 
       storekeeperWarehouseSubmit(box._id, lastStepEditBox)
@@ -185,31 +191,44 @@ export const EditBoxTasksModal = ({
         ...editingBox,
 
         lengthCmWarehouse:
-          (sizeSetting === sizesType.INCHES
-            ? Math.round(editingBox.lengthCmWarehouse * inchesCoefficient * 100) / 100
+          (sizeSetting === unitsOfChangeOptions.US
+            ? Math.round((editingBox.lengthCmWarehouse / inchesCoefficient) * 100) / 100
             : editingBox.lengthCmWarehouse) || 0,
 
         widthCmWarehouse:
-          (sizeSetting === sizesType.INCHES
-            ? Math.round(editingBox.widthCmWarehouse * inchesCoefficient * 100) / 100
+          (sizeSetting === unitsOfChangeOptions.US
+            ? Math.round((editingBox.widthCmWarehouse / inchesCoefficient) * 100) / 100
             : editingBox.widthCmWarehouse) || 0,
 
         heightCmWarehouse:
-          (sizeSetting === sizesType.INCHES
-            ? Math.round(editingBox.heightCmWarehouse * inchesCoefficient * 100) / 100
+          (sizeSetting === unitsOfChangeOptions.US
+            ? Math.round((editingBox.heightCmWarehouse / inchesCoefficient) * 100) / 100
             : editingBox.heightCmWarehouse) || 0,
 
-        weighGrossKgWarehouse: parseFloat(editingBox?.weighGrossKgWarehouse) || '',
-        volumeWeightKgWarehouse: parseFloat(editingBox?.volumeWeightKgWarehouse) || '',
+        // weighGrossKgWarehouse: parseFloat(editingBox?.weighGrossKgWarehouse) || '',
+        // volumeWeightKgWarehouse: parseFloat(editingBox?.volumeWeightKgWarehouse) || '',
+
+        weighGrossKgWarehouse:
+          (sizeSetting === unitsOfChangeOptions.US
+            ? Math.round(editingBox?.weighGrossKgWarehouse * poundsWeightCoefficient * 100) / 100
+            : parseFloat(editingBox?.weighGrossKgWarehouse)) || 0,
+
+        volumeWeightKgWarehouse:
+          (sizeSetting === unitsOfChangeOptions.US
+            ? Math.round(editingBox?.volumeWeightKgWarehouse * poundsWeightCoefficient * 100) / 100
+            : parseFloat(editingBox?.volumeWeightKgWarehouse)) || 0,
       }
 
       const updatedNewBoxes = newBoxes.map(oldBox => (oldBox._id === lastStepEditBox._id ? lastStepEditBox : oldBox))
+
       setNewBoxes([...updatedNewBoxes])
       setEditModal()
     }
   }
 
   const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
+
+  const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
 
   const handleChange = condition => {
     setSizeSetting(condition)
@@ -220,6 +239,7 @@ export const EditBoxTasksModal = ({
         lengthCmWarehouse: toFixed(editingBox.lengthCmWarehouse / inchesCoefficient, 2),
         widthCmWarehouse: toFixed(editingBox.widthCmWarehouse / inchesCoefficient, 2),
         heightCmWarehouse: toFixed(editingBox.heightCmWarehouse / inchesCoefficient, 2),
+        weighGrossKgWarehouse: toFixed(editingBox.weighGrossKgWarehouse / poundsWeightCoefficient, 2),
       })
     } else {
       setEditingBox({
@@ -227,6 +247,7 @@ export const EditBoxTasksModal = ({
         lengthCmWarehouse: toFixed(editingBox.lengthCmWarehouse * inchesCoefficient, 2),
         widthCmWarehouse: toFixed(editingBox.widthCmWarehouse * inchesCoefficient, 2),
         heightCmWarehouse: toFixed(editingBox.heightCmWarehouse * inchesCoefficient, 2),
+        weighGrossKgWarehouse: toFixed(editingBox.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
       })
     }
   }
@@ -255,6 +276,7 @@ export const EditBoxTasksModal = ({
       </div>
 
       <AttributesEditBlock
+        weightConversion={weightConversion}
         box={editingBox}
         operationType={operationType}
         setNewBoxField={setNewBoxField}

@@ -82,6 +82,16 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: 250,
   },
 
+  priceVariationsCell: {
+    minWidth: 200,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    margin: 'auto',
+  },
+
   filesWrapper: {
     height: 'auto',
     display: 'flex',

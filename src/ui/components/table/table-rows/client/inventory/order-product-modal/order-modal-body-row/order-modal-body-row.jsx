@@ -22,7 +22,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { calcProductsMaxAmountByPriceLimit, calcProductsPriceWithDelivery } from '@utils/calculation'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { toFixed, trimBarcode } from '@utils/text'
+import { toFixed, toFixedWithDollarSign, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './order-modal-body-row.style'
@@ -141,6 +141,7 @@ export const OrderModalBodyRow = ({
     }
   }, [orderState.amount])
 
+  console.log(item)
   return (
     <React.Fragment>
       <TableRow
@@ -241,6 +242,17 @@ export const OrderModalBodyRow = ({
               {t(TranslationKey['At least'])} {platformSettings.orderAmountLimit}$
             </Typography>
           )}
+        </TableCell>
+
+        <TableCell className={classNames.cell}>
+          <div className={classNames.priceVariationsCell}>
+            {item.currentSupplier?.priceVariations?.map((el, index) => (
+              <div key={index}>
+                {el.quantity} {t(TranslationKey['pcs.'])}. / {toFixedWithDollarSign(el.price, 2)}{' '}
+                {t(TranslationKey.Per).toLowerCase()} {t(TranslationKey['pcs.'])}
+              </div>
+            ))}
+          </div>
         </TableCell>
 
         <TableCell className={classNames.cell}>

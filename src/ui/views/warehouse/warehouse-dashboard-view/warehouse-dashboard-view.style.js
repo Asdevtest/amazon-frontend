@@ -32,13 +32,14 @@ export const styles = theme => ({
   },
 
   addressMainWrapper: {
-    marginTop: 20,
+    marginTop: 10,
   },
 
   addressSubWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: 10,
+    marginBottom: 10,
 
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',

@@ -275,6 +275,11 @@ export const OrderProductModal = ({
                   {t(TranslationKey.Total) + ' $'}
                 </Button>
               </TableCell>
+              <TableCell className={classNames.totalCell}>
+                <Button disabled className={classNames.totalCellBtn}>
+                  {t(TranslationKey['Price variations'])}
+                </Button>
+              </TableCell>
               <TableCell className={classNames.barCodeCell}>
                 <Button
                   disabled

@@ -7,7 +7,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   cardWrapper: {
     width: '100%',
-    height: 147,
     borderRadius: 8,
 
     background: theme.palette.background.general,
@@ -76,7 +75,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   standartText: {
     color: theme.palette.text.general,
-    width: '90%',
+    width: '91%',
   },
 
   cancelBtn: {

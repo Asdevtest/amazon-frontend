@@ -22,10 +22,11 @@ class InlineObject99 {
     /**
      * Constructs a new <code>InlineObject99</code>.
      * @alias module:model/InlineObject99
+     * @param fileLink {String} Ссылка на файл
      */
-    constructor() { 
+    constructor(fileLink) { 
         
-        InlineObject99.initialize(this);
+        InlineObject99.initialize(this, fileLink);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject99 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, fileLink) { 
+        obj['fileLink'] = fileLink;
     }
 
     /**
@@ -47,20 +49,20 @@ class InlineObject99 {
         if (data) {
             obj = obj || new InlineObject99();
 
-            if (data.hasOwnProperty('execution_time')) {
-                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('commentByClient')) {
+                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('commentByPerformer')) {
+                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('fileLink')) {
+                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
             }
         }
         return obj;
@@ -70,34 +72,34 @@ class InlineObject99 {
 }
 
 /**
- * Время на выполнение, в минутах.
- * @member {Number} execution_time
+ * Guid заявки
+ * @member {String} requestId
  */
-InlineObject99.prototype['execution_time'] = undefined;
+InlineObject99.prototype['requestId'] = undefined;
 
 /**
- * Цена предложения.
- * @member {Number} price
+ * Guid предложения
+ * @member {String} proposalId
  */
-InlineObject99.prototype['price'] = undefined;
+InlineObject99.prototype['proposalId'] = undefined;
 
 /**
- * Комментарий к предложению.
- * @member {String} comment
+ * комментарий клиента
+ * @member {String} commentByClient
  */
-InlineObject99.prototype['comment'] = undefined;
+InlineObject99.prototype['commentByClient'] = undefined;
 
 /**
- * Ссылки на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
+ * комментарий исполнителя
+ * @member {String} commentByPerformer
  */
-InlineObject99.prototype['linksToMediaFiles'] = undefined;
+InlineObject99.prototype['commentByPerformer'] = undefined;
 
 /**
- * Название предложения
- * @member {String} title
+ * Ссылка на файл
+ * @member {String} fileLink
  */
-InlineObject99.prototype['title'] = undefined;
+InlineObject99.prototype['fileLink'] = undefined;
 
 
 

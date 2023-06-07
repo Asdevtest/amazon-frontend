@@ -793,6 +793,9 @@ export const darkTheme = createTheme({
       other: {
         tableActiveFilterBtn: '5px solid #4CA1DE',
         ideaProductSheld: 'url(/assets/icons/idea-trgl-dark-theme.svg)',
+
+        ideaProductSheldGreen: 'url(/assets/icons/green-sheld.svg)',
+        ideaProductSheldYellow: 'url(/assets/icons/yellow-sheld.svg)',
       },
     },
   },
