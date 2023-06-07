@@ -63,7 +63,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: theme.palette.text.negativeMain,
+    color: '#fff',
     fontSize: '12px',
     fontWeight: '400',
     lineHeight: '14px',
