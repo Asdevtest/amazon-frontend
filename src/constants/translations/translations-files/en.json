@@ -1968,5 +1968,7 @@
   "The actual cost of the box with delivery": "The actual cost of the box with delivery",
   "Actual cost with delivery per unit": "Actual cost with delivery per unit.",
   "Paid for": "Paid",
-  "Per": "Per"
+  "Per": "Per",
+  "Calculated price": "Calculated price",
+  "Comments on priority": "Comments on priority"
 }

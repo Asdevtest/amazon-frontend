@@ -81,6 +81,18 @@ export class ClientOrderViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
+  async updateOrderId(orderId) {
+    runInAction(() => {
+      this.orderId = orderId
+    })
+
+    try {
+      await Promise.all([this.getOrderById(), this.getBoxesOfOrder(this.orderId)])
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -88,8 +100,6 @@ export class ClientOrderViewModel {
       const [destinations, storekeepers] = await Promise.all([
         ClientModel.getDestinations(),
         StorekeeperModel.getStorekeepers(),
-        this.getOrderById(),
-        this.getBoxesOfOrder(this.orderId),
         this.getVolumeWeightCoefficient(),
       ])
 

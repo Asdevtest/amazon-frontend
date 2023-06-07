@@ -532,7 +532,7 @@ export class ClientOrdersViewModel {
   }
 
   onClickPandingOrder(id) {
-    const win = window.open(`${window.location.origin}/client/my-orders/pending-orders/order?${id}`, '_blank')
+    const win = window.open(`${window.location.origin}/client/my-orders/pending-orders/order?orderId=${id}`, '_blank')
     win.focus()
   }
 
@@ -684,7 +684,6 @@ export class ClientOrdersViewModel {
   }
 
   onClickTableRow(order) {
-    console.log('order', order)
     const win = window.open(
       `/client/my-orders/orders/order?order-id=${order.originalData._id}&order-human-friendly-id=${order.originalData.id}`,
       '_blank',
