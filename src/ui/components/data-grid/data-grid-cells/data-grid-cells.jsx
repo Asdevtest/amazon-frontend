@@ -102,7 +102,7 @@ import {
   inchesCoefficient,
   poundsWeightCoefficient,
 } from '@constants/configs/sizes-settings'
-import { getBatchWeightCalculationMethodForBox } from '@constants/statuses/batch-weight-calculations-method'
+import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
 import { PrioritySelect } from '@components/shared/priority-select/priority-select'
 
 export const UserCell = React.memo(
@@ -1976,29 +1976,15 @@ export const ActualCostWithDelivery = React.memo(
       finalWeight,
     }) => {
       const getTotalCost = item => {
-        let batchWeight = 0
-        if (rowMemo.items.length <= 1) {
-          batchWeight = toFixed(
-            getBatchWeightCalculationMethodForBox(calculationMethod, isActualGreaterTheVolume)(
-              rowMemo,
-              volumeWeightCoefficient,
-            ) * rowMemo.amount,
-            2,
-          )
-        } else {
-          const boxProperties = item.order.orderSupplier.boxProperties
-
-          batchWeight = toFixed(
-            (boxProperties?.boxHeightCm * boxProperties?.boxLengthCm * boxProperties?.boxWidthCm) /
-              volumeWeightCoefficient,
-            2,
-          )
-        }
-
-        const shippingCost = (batchWeight / finalWeight) * actualShippingCost
-        const itemsQuantity = item.amount * rowMemo.amount
-        const singleProductPrice = item.order.totalPrice / item.amount
-
+        const { shippingCost, itemsQuantity, singleProductPrice } = getBatchParameters(
+          rowMemo,
+          item,
+          volumeWeightCoefficient,
+          finalWeight,
+          calculationMethod,
+          isActualGreaterTheVolume,
+          actualShippingCost,
+        )
         return itemsQuantity * singleProductPrice + shippingCost
       }
 
@@ -2028,29 +2014,16 @@ export const ActualCostWithDeliveryPerUnit = React.memo(
       finalWeight,
     }) => {
       const getTotalCost = item => {
-        let batchWeight = 0
+        const { shippingCost, itemsQuantity, singleProductPrice } = getBatchParameters(
+          rowMemo,
+          item,
+          volumeWeightCoefficient,
+          finalWeight,
+          calculationMethod,
+          isActualGreaterTheVolume,
+          actualShippingCost,
+        )
 
-        if (rowMemo.items.length <= 1) {
-          batchWeight = toFixed(
-            getBatchWeightCalculationMethodForBox(calculationMethod, isActualGreaterTheVolume)(
-              rowMemo,
-              volumeWeightCoefficient,
-            ) * rowMemo.amount,
-            2,
-          )
-        } else {
-          const boxProperties = item.order.orderSupplier.boxProperties
-
-          batchWeight = toFixed(
-            (boxProperties?.boxHeightCm * boxProperties?.boxLengthCm * boxProperties?.boxWidthCm) /
-              volumeWeightCoefficient,
-            2,
-          )
-        }
-
-        const itemsQuantity = item.amount * rowMemo.amount
-        const singleProductPrice = item.order.totalPrice / item.amount
-        const shippingCost = (batchWeight / finalWeight) * actualShippingCost
         const fullBatchPrice = itemsQuantity * singleProductPrice + shippingCost
 
         return fullBatchPrice / itemsQuantity
