@@ -1,5 +1,4 @@
 import { cx } from '@emotion/css'
-import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Alert } from '@mui/material'
 
@@ -32,6 +31,7 @@ import { t } from '@utils/translations'
 import { WarehouseVacantViewModel } from './warehouse-vacant-tasks-view.model'
 import { styles } from './warehouse-vacant-tasks-view.style'
 import { Button } from '@components/shared/buttons/button'
+import { DownloadIcon } from '@components/shared/svg-icons'
 
 export const WarehouseVacantTasksViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseVacantViewModel({ history: props.history }))
@@ -43,6 +43,12 @@ export const WarehouseVacantTasksViewRaw = props => {
 
   const getRowClassName = params =>
     params.row.originalData.operationType === TaskOperationType.RECEIVE && params.row.barcode && classNames.successRow
+
+  const isDisableDowloadButton =
+    !viewModel.selectedTasks.length ||
+    viewModel.selectedTasks.length > 1 ||
+    viewModel.getCurrentData().filter(el => viewModel.selectedTasks.includes(el.id))[0]?.originalData.operationType !==
+      TaskOperationType.RECEIVE
 
   return (
     <React.Fragment>
@@ -65,17 +71,14 @@ export const WarehouseVacantTasksViewRaw = props => {
           )}
 
           <Button
-            disabled={
-              !viewModel.selectedTasks.length ||
-              viewModel.selectedTasks.length > 1 ||
-              viewModel.getCurrentData().filter(el => viewModel.selectedTasks.includes(el.id))[0]?.originalData
-                .operationType !== TaskOperationType.RECEIVE
-            }
+            disabled={isDisableDowloadButton}
             className={classNames.pickupOrdersButton}
             onClick={viewModel.onClickReportBtn}
           >
             {t(TranslationKey['Download task file'])}
-            <FileDownloadIcon />
+            <DownloadIcon
+              className={cx(classNames.downloadIcon, { [classNames.disabledDownloadIcon]: isDisableDowloadButton })}
+            />
           </Button>
         </div>
 
