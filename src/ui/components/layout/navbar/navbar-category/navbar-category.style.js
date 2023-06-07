@@ -94,4 +94,8 @@ export const styles = theme => ({
       backgroundColor: 'inherit',
     },
   },
+
+  bigBadgePadding: {
+    paddingRight: '20px',
+  },
 })
