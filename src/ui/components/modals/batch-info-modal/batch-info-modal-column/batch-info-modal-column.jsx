@@ -122,7 +122,7 @@ export const batchInfoModalColumn = (
 
   {
     field: 'finalPrice',
-    headerName: <MultilineTextHeaderCell text={t(TranslationKey['Final price'])} />,
+    headerName: <MultilineTextHeaderCell text={t(TranslationKey['Calculated price'])} />,
     renderCell: params => (
       <FinalPricePerUnitCell
         box={params.row}

@@ -1,5 +1,4 @@
-import { cx } from '@emotion/css'
-import { MenuItem, Select, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import React, { FC, useState } from 'react'
 
@@ -18,6 +17,7 @@ import { Input } from '@components/shared/input'
 import { useEditTaskPriorityModalStyles } from '@components/warehouse/edit-task-priority-modal/edit-task-priority-modal.styles'
 
 import { t } from '@utils/translations'
+import { PrioritySelect } from '@components/shared/priority-select/priority-select'
 
 interface EditTaskPriorityModalProps {
   data: {
@@ -52,48 +52,7 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
         </Typography>
 
         {withSelect && (
-          <Select
-            value={String(curPriority)}
-            className={styles.nativeSelect}
-            input={<Input className={styles.nativeSelect} />}
-            classes={{
-              select: cx({
-                [styles.colorYellow]:
-                  curPriority ===
-                  (mapTaskPriorityStatusEnumToKey as { [key: string]: number })[TaskPriorityStatus.STANDART],
-                [styles.colorGreen]:
-                  curPriority ===
-                  (mapTaskPriorityStatusEnumToKey as { [key: string]: number })[TaskPriorityStatus.LONG],
-                [styles.colorRed]: [
-                  (mapTaskPriorityStatusEnumToKey as { [key: string]: number })[TaskPriorityStatus.URGENT],
-                  (mapTaskPriorityStatusEnumToKey as { [key: string]: number })[TaskPriorityStatus.PROBLEMATIC],
-                ].includes(curPriority),
-              }),
-            }}
-            onChange={e => setCurPriority(Number(e.target.value))}
-          >
-            {Object.keys(mapTaskPriorityStatusEnum)
-              // .filter(el => el !== String(curPriority))
-              .map((statusCode, statusIndex) => (
-                <MenuItem
-                  key={statusIndex}
-                  value={statusCode}
-                  style={{
-                    color: colorByTaskPriorityStatus(
-                      (mapTaskPriorityStatusEnum as { [key: string]: string })[statusCode],
-                    ),
-                  }}
-                  className={styles.menuItem}
-                >
-                  {taskPriorityStatusTranslate((mapTaskPriorityStatusEnum as { [key: string]: string })[statusCode])}
-
-                  {TaskPriorityStatus.URGENT ===
-                    (mapTaskPriorityStatusEnum as { [key: string]: string })[statusCode] && (
-                    <img className={styles.rushOrderImg} src="/assets/icons/fire.svg" alt="Fire" />
-                  )}
-                </MenuItem>
-              ))}
-          </Select>
+          <PrioritySelect setCurrentPriority={priority => setCurPriority(priority)} currentPriority={curPriority} />
         )}
       </div>
       {/* <Typography className={styles.title}>

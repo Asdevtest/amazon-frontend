@@ -22,8 +22,10 @@ import { t } from '@utils/translations'
 
 import { ClientOrderViewModel } from './client-order-view.model'
 import { styles } from './client-order-view.style'
+import { useLocation } from 'react-router-dom'
 
 export const ClientOrderViewRaw = props => {
+  const { search } = useLocation()
   const [viewModel] = useState(
     () =>
       new ClientOrderViewModel({
@@ -39,6 +41,16 @@ export const ClientOrderViewRaw = props => {
       SettingsModel.changeLastCrumbAdditionalText('')
     }
   }, [])
+
+  useEffect(() => {
+    console.log(search)
+    const queries = new URLSearchParams(search)
+    const orderId = queries.get('orderId')
+
+    if (orderId) {
+      viewModel.updateOrderId(orderId)
+    }
+  }, [search])
 
   const goBack = () => {
     viewModel.history.goBack()
