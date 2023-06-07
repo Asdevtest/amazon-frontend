@@ -44,6 +44,13 @@ export const styles = theme => ({
     marginBottom: 20,
   },
 
+  headerContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 40,
+    flexWrap: 'wrap',
+  },
+
   footerContainer: {
     position: 'absolute',
     top: 0,
