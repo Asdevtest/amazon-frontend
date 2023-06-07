@@ -74,6 +74,7 @@ const filtersFields = [
   'prepId',
   'status',
   'storekeeper',
+  'sub',
 ]
 
 export class ClientInStockBoxesViewModel {

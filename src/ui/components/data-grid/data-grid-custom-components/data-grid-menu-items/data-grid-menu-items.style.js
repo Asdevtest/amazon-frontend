@@ -2,6 +2,9 @@
 export const styles = theme => ({
   isFormedWrapper: {
     padding: '10px 20px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
   },
 
   isFormedSubWrapper: {
