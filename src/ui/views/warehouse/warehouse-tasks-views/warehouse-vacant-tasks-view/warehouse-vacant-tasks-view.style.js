@@ -154,10 +154,9 @@ export const styles = theme => ({
   },
 
   button: {
-    padding: '0 15px',
-    height: 'auto',
+    padding: '0 15px 5px',
+    height: 40,
     whiteSpace: 'nowrap',
-    marginBottom: 5,
     color: theme.palette.primary.main,
     display: 'flex',
     alignItems: 'center !important',
@@ -171,15 +170,13 @@ export const styles = theme => ({
   },
 
   boxesFiltersWrapper: {
-    marginTop: '5px',
-    marginBottom: '10px',
     display: 'flex',
     gap: '10px',
     flexWrap: 'wrap',
   },
 
   selectedBoxesBtn: {
-    marginBottom: 0,
+    paddingBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
     borderBottom: theme.palette.other.tableActiveFilterBtn,
     color: `${theme.palette.primary.main} !important`,
