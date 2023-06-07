@@ -24,9 +24,9 @@ export const clientBatchesViewColumns = rowHandlers => [
     headerName: t(TranslationKey.Product),
     width: 540,
     renderCell: params => {
-      const boxesMemo = useMemo(() => params.row.originalData.boxes, [])
+      // const boxesMemo = useMemo(() => params.row.originalData.boxes, [])
 
-      return <BatchBoxesCell boxes={boxesMemo} />
+      return <BatchBoxesCell boxes={params.row.originalData.boxes} />
     },
     filterable: false,
     sortable: false,

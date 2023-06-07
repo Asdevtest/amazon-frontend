@@ -72,10 +72,22 @@ export class ClientOrderViewModel {
   constructor({ history }) {
     runInAction(() => {
       this.history = history
-      this.orderId = history.location.search.slice(1)
+      // this.orderId = history.location.search.slice(1);
     })
 
     makeAutoObservable(this, undefined, { autoBind: true })
+  }
+
+  async updateOrderId(orderId) {
+    runInAction(() => {
+      this.orderId = orderId
+    })
+
+    try {
+      await Promise.all([this.getOrderById(), this.getBoxesOfOrder(this.orderId)])
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async loadData() {
@@ -85,8 +97,6 @@ export class ClientOrderViewModel {
       const [destinations, storekeepers] = await Promise.all([
         ClientModel.getDestinations(),
         StorekeeperModel.getStorekeepers(),
-        this.getOrderById(),
-        this.getBoxesOfOrder(this.orderId),
         this.getVolumeWeightCoefficient(),
       ])
 

@@ -2,10 +2,14 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   heightFieldAuto: {
-    height: '420px',
-    width: '330px',
-
+    height: '86px',
     padding: 0,
+  },
+
+  commentLabel: {
+    marginBottom: 5,
+    fontSize: 14,
+    color: theme.palette.text.second,
   },
 
   modalTitleWrapper: {

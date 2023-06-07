@@ -1972,6 +1972,7 @@ export enum TranslationKey {
   'Paid for' = 'Paid for',
   'Per' = 'Per',
   'Calculated price' = 'Calculated price',
+  'Comments on priority' = 'Comments on priority',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -532,7 +532,7 @@ export class ClientOrdersViewModel {
   }
 
   onClickPandingOrder(id) {
-    const win = window.open(`${window.location.origin}/client/my-orders/pending-orders/order?${id}`, '_blank')
+    const win = window.open(`${window.location.origin}/client/my-orders/pending-orders/order?orderId=${id}`, '_blank')
     win.focus()
   }
 
@@ -688,7 +688,7 @@ export class ClientOrdersViewModel {
       // pathname: '/client/my-orders/orders/order',
       pathname: `${this.history.location.pathname}/order`,
 
-      search: order.originalData._id,
+      search: `orderId=${order.originalData._id}`,
     })
   }
 
