@@ -684,12 +684,12 @@ export class ClientOrdersViewModel {
   }
 
   onClickTableRow(order) {
-    this.history.push({
-      // pathname: '/client/my-orders/orders/order',
-      pathname: `${this.history.location.pathname}/order`,
+    const win = window.open(
+      `/client/my-orders/orders/order?order-id=${order.originalData._id}&order-human-friendly-id=${order.originalData.id}`,
+      '_blank',
+    )
 
-      search: `orderId=${order.originalData._id}`,
-    })
+    win.focus()
   }
 
   onTriggerOpenModal(modalState) {

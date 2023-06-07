@@ -70,11 +70,14 @@ export class ClientOrderViewModel {
   }
 
   constructor({ history }) {
+    const url = new URL(window.location.href)
+
     runInAction(() => {
       this.history = history
-      // this.orderId = history.location.search.slice(1);
+      this.orderId = url.searchParams.get('order-id')
+      SettingsModel.changeLastCrumbAdditionalText(` № ${url.searchParams.get('order-human-friendly-id')}`)
+      // this.orderId = history.location.search.slice(1)
     })
-
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -329,7 +332,7 @@ export class ClientOrderViewModel {
       runInAction(() => {
         this.order = result
       })
-      SettingsModel.changeLastCrumbAdditionalText(` № ${result.id}`)
+      // SettingsModel.changeLastCrumbAdditionalText(` № ${result.id}`)
     } catch (error) {
       console.log(error)
     }
