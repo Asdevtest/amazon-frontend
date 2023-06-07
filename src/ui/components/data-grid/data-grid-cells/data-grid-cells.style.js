@@ -1,3 +1,5 @@
+import { OrderIdAndAmountCountCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+
 export const styles = theme => ({
   img: {
     height: '64px',
@@ -1691,5 +1693,25 @@ export const styles = theme => ({
 
   errorInputActive: {
     border: '1px solid red',
+  },
+
+  orderIdAndAmountCount: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  amountWithClocks: {
+    display: 'flex',
+    gap: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    svg: {
+      fontSize: '16px',
+      color: '#0E5CB9',
+    },
   },
 })

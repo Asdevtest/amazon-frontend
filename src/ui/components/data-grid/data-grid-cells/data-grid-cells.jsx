@@ -8,6 +8,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined'
 import PrintIcon from '@mui/icons-material/Print'
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined'
+import WatchLaterSharpIcon from '@mui/icons-material/WatchLaterSharp'
 import {
   Avatar,
   Box,
@@ -2966,6 +2967,26 @@ export const TagsCell = React.memo(
             </>
           }
         />
+      </div>
+    ),
+    styles,
+  ),
+)
+
+export const OrderIdAndAmountCountCell = React.memo(
+  withStyles(
+    ({ classes: classNames, orderId, amount, onClickOrderId }) => (
+      <div className={classNames.orderIdAndAmountCount}>
+        <MultilineTextCell text={orderId} onClickText={onClickOrderId} />
+        {amount >= 1 && (
+          <MultilineTextCell
+            text={
+              <div className={classNames.amountWithClocks}>
+                {amount} <WatchLaterSharpIcon />
+              </div>
+            }
+          />
+        )}
       </div>
     ),
     styles,
