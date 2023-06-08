@@ -1145,12 +1145,15 @@ export const styles = theme => ({
   notificationBtnsWrapper: {
     display: 'flex',
     width: '100%',
-    justifyContent: 'space-between',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '20px',
   },
 
   notificationBtn: {
     width: '140px',
-    height: '40px',
+    height: '30px',
+    padding: '0 12px',
   },
 
   productMyRequestsBtnsWrapper: {
