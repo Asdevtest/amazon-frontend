@@ -213,7 +213,7 @@ export const ClientWarehouseTasksViewRaw = props => {
         <div className={classNames.tasksWrapper}>
           <MemoDataGrid
             // disableVirtualization
-            key={SettingsModel.languageTag}
+            // key={SettingsModel.languageTag}
             pagination
             classes={{
               root: classNames.root,

@@ -83,41 +83,43 @@ export const WarehouseVacantTasksViewRaw = props => {
         </div>
 
         <div className={classNames.headerWrapper}>
-          {window.innerWidth > 1281 && (
-            <Button
-              disabled={!viewModel.selectedTasks.length}
-              className={classNames.pickupOrdersButton}
-              onClick={viewModel.onClickPickupManyTasksBtn}
-            >
-              {t(TranslationKey['Take on the work of the selected'])}
-            </Button>
-          )}
+          <div className={classNames.headerContainer}>
+            {window.innerWidth > 1281 && (
+              <Button
+                disabled={!viewModel.selectedTasks.length}
+                className={classNames.pickupOrdersButton}
+                onClick={viewModel.onClickPickupManyTasksBtn}
+              >
+                {t(TranslationKey['Take on the work of the selected'])}
+              </Button>
+            )}
 
-          <div className={classNames.boxesFiltersWrapper}>
-            <Button
-              disabled={viewModel.curTaskType === null}
-              className={cx(classNames.button, { [classNames.selectedBoxesBtn]: viewModel.curTaskType === null })}
-              variant="text"
-              onClick={() => viewModel.onClickOperationTypeBtn(null)}
-            >
-              {t(TranslationKey['All tasks'])}
-            </Button>
+            <div className={classNames.boxesFiltersWrapper}>
+              <Button
+                disabled={viewModel.curTaskType === null}
+                className={cx(classNames.button, { [classNames.selectedBoxesBtn]: viewModel.curTaskType === null })}
+                variant="text"
+                onClick={() => viewModel.onClickOperationTypeBtn(null)}
+              >
+                {t(TranslationKey['All tasks'])}
+              </Button>
 
-            {Object.keys(mapTaskOperationTypeKeyToEnum)
-              .filter(el => el !== TaskOperationType.EDIT_BY_STOREKEEPER)
-              .map(type => (
-                <Button
-                  key={type}
-                  disabled={viewModel.curTaskType === type}
-                  className={cx(classNames.button, {
-                    [classNames.selectedBoxesBtn]: viewModel.curTaskType === type,
-                  })}
-                  variant="text"
-                  onClick={() => viewModel.onClickOperationTypeBtn(type)}
-                >
-                  {taskOperationTypeTranslate(type)}
-                </Button>
-              ))}
+              {Object.keys(mapTaskOperationTypeKeyToEnum)
+                .filter(el => el !== TaskOperationType.EDIT_BY_STOREKEEPER)
+                .map(type => (
+                  <Button
+                    key={type}
+                    disabled={viewModel.curTaskType === type}
+                    className={cx(classNames.button, {
+                      [classNames.selectedBoxesBtn]: viewModel.curTaskType === type,
+                    })}
+                    variant="text"
+                    onClick={() => viewModel.onClickOperationTypeBtn(type)}
+                  >
+                    {taskOperationTypeTranslate(type)}
+                  </Button>
+                ))}
+            </div>
           </div>
 
           <SearchInput

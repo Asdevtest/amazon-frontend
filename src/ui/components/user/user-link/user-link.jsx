@@ -19,7 +19,7 @@ export const UserLink = observer(
 
     return (
       <>
-        {name ? (
+        {name || userId ? (
           <Link
             target="_blank"
             href={
@@ -39,14 +39,16 @@ export const UserLink = observer(
               />
             ) : null}
 
-            <Typography
-              className={cx(classNames.linkText, customClassNames, {
-                [classNames.blackLinkText]: blackText,
-              })}
-              style={customStyles || (maxNameWidth && { maxWidth: maxNameWidth })}
-            >
-              {name}
-            </Typography>
+            {name && (
+              <Typography
+                className={cx(classNames.linkText, customClassNames, {
+                  [classNames.blackLinkText]: blackText,
+                })}
+                style={customStyles || (maxNameWidth && { maxWidth: maxNameWidth })}
+              >
+                {name}
+              </Typography>
+            )}
           </Link>
         ) : (
           <Typography>{'-'}</Typography>

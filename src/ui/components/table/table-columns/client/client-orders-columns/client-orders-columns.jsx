@@ -37,7 +37,7 @@ export const clientOrdersViewColumns = handlers => [
     headerName: t(TranslationKey.ID) + ' / item',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
     renderCell: params => <MultilineTextCell text={params.row.idItem} />,
-    width: 60,
+    width: 100,
     type: 'number',
   },
 

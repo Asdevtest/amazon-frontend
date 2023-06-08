@@ -685,7 +685,7 @@ export class ClientOrdersViewModel {
 
   onClickTableRow(order) {
     const win = window.open(
-      `/client/my-orders/orders/order?order-id=${order.originalData._id}&order-human-friendly-id=${order.originalData.id}`,
+      `/client/my-orders/orders/order?orderId=${order.originalData._id}&order-human-friendly-id=${order.originalData.id}`,
       '_blank',
     )
 

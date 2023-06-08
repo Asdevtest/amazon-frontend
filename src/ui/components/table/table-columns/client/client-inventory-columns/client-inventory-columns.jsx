@@ -6,20 +6,20 @@ import { colorByProductStatus, ProductStatusByCode } from '@constants/product/pr
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ToFixedCell,
   BarcodeCell,
-  ShortDateCell,
-  MultilineStatusCell, // ActiveBarcodeCell,
-  // NoActiveBarcodeCell,
-  HsCodeCell,
-  MultilineTextHeaderCell,
-  MultilineTextCell,
-  FourMonthesStockCell,
-  MultilineTextAlignLeftCell,
   ChangeInputCell,
-  InStockCell,
   CommentOfSbCell,
+  FourMonthesStockCell,
+  HsCodeCell,
+  InStockCell,
+  MultilineStatusCell,
+  MultilineTextAlignLeftCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  OrderIdAndAmountCountCell,
   ProductAsinCell,
+  ShortDateCell,
+  ToFixedCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { toFixed } from '@utils/text'
@@ -166,13 +166,20 @@ export const clientInventoryColumns = (
     ),
 
     renderCell: params => {
+      const rowMemo = useMemo(() => params.row.originalData, [])
       const onClickTextMemo = useCallback(e => {
         e.stopPropagation()
 
         otherHandlers.onClickOrderCell(params.row.originalData._id)
       }, [])
 
-      return <MultilineTextCell text={params.value} onClickText={onClickTextMemo} />
+      return (
+        <OrderIdAndAmountCountCell
+          orderId={params.value}
+          amount={rowMemo.amountInPendingOrders}
+          onClickOrderId={onClickTextMemo}
+        />
+      )
     },
     type: 'number',
     width: 90,

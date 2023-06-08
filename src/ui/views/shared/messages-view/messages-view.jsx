@@ -29,6 +29,7 @@ import { t } from '@utils/translations'
 
 import { MessagesViewModel } from './messages-view.model'
 import { styles } from './messages-view.style'
+import { SoundOffIcon, SoundOnIcon } from '@components/shared/svg-icons'
 
 export const MessagesViewRaw = props => {
   const [viewModel] = useState(() => new MessagesViewModel({ history: props.history, location: props.location }))
@@ -125,7 +126,7 @@ export const MessagesViewRaw = props => {
                 </Typography>
               )}
 
-              <img src={viewModel.noticeOfSimpleChats ? '/assets/icons/sound-on.svg' : '/assets/icons/sound-off.svg'} />
+              {viewModel.noticeOfSimpleChats ? <SoundOnIcon /> : <SoundOffIcon />}
             </div>
 
             <Button

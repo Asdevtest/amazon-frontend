@@ -30,7 +30,7 @@ export const clientTasksViewColumns = handlers => [
 
     renderCell: params => {
       const handlersMemo = useMemo(() => handlers, [])
-      const rowMemo = useMemo(() => params.row.originalData, [])
+      const rowMemo = useMemo(() => params.row.originalData, [params.row.originalData.status])
 
       return <ClientTasksActionBtnsCell handlers={handlersMemo} row={rowMemo} />
     },

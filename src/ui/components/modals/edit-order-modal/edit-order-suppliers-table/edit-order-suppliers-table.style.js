@@ -138,4 +138,16 @@ export const useClassNames = makeStyles()(theme => ({
   primary: {
     color: theme.palette.background.yellow,
   },
+
+  priceVariationsCell: {
+    minWidth: 130,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    margin: 'auto',
+    color: theme.palette.text.general,
+    fontSize: '12px',
+  },
 }))
