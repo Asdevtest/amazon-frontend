@@ -81,7 +81,7 @@ export const Freelance = observer(({ productId }) => {
           placeholder={t(TranslationKey['Search by Title, ID'])}
           inputClasses={classNames.searchInput}
           value={nameSearchValue}
-          onChange={onSearchSubmit}
+          onSubmit={onSearchSubmit}
         />
       </div>
       <div className={classNames.mainWrapper}>
