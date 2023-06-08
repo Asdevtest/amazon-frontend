@@ -149,7 +149,7 @@ export const MergeBoxesModal = ({
     ((boxBody.shippingLabel || boxBody.tmpShippingLabel?.length) &&
       !boxBody.fbaShipment &&
       !destinations.find(el => el._id === boxBody.destinationId)?.storekeeper) ||
-    (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason.length)
+    (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason?.length)
 
   const disabledSubmitStorekeeper =
     disabledSubmit ||

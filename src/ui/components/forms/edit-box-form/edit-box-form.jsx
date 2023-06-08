@@ -243,7 +243,7 @@ export const EditBoxForm = observer(
       ((boxFields.shippingLabel || boxFields.tmpShippingLabel.length) &&
         !boxFields.fbaShipment &&
         !destinations.find(el => el._id === boxFields.destinationId)?.storekeeper) ||
-      (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason.length)
+      (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason?.length)
     // !boxFields.destination?.storekeeperId)
 
     const curDestination = destinations.find(el => el._id === boxFields.destinationId)
