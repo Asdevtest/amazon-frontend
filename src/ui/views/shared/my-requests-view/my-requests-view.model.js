@@ -2,10 +2,9 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { MyRequestStatus } from '@constants/requests/request-proposal-status'
 import { RequestStatus } from '@constants/requests/request-status'
 import { RequestSubType } from '@constants/requests/request-type'
-import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { RequestModel } from '@models/request-model'
@@ -17,7 +16,6 @@ import { myRequestsViewColumns } from '@components/table/table-columns/overall/m
 import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { GeneralModel } from '@models/general-model'
-import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 
 const allowStatuses = [RequestStatus.DRAFT, RequestStatus.PUBLISHED, RequestStatus.IN_PROCESS]
 
@@ -139,6 +137,15 @@ export class MyRequestsViewModel {
         delete state?.showAcceptMessage
         history.replace({ ...history?.location, state })
       }
+
+      if (this.isRequestsAtWork) {
+        this.onChangeFullFieldMenuItem(allowStatuses, 'status')
+      } else {
+        this.onChangeFullFieldMenuItem(
+          Object.values(RequestStatus).filter(el => !allowStatuses.includes(el)),
+          'status',
+        )
+      }
     })
 
     makeAutoObservable(this, undefined, { autoBind: true })
@@ -152,19 +159,19 @@ export class MyRequestsViewModel {
       }
     })
 
-    // reaction(
-    //   () => this.isRequestsAtWork,
-    //   () => {
-    //     if (this.isRequestsAtWork) {
-    //       this.onChangeFullFieldMenuItem(allowStatuses, 'status')
-    //     } else {
-    //       this.onChangeFullFieldMenuItem(
-    //         Object.values(RequestStatus).filter(el => !allowStatuses.includes(el)),
-    //         'status',
-    //       )
-    //     }
-    //   },
-    // )
+    reaction(
+      () => this.isRequestsAtWork,
+      () => {
+        if (this.isRequestsAtWork) {
+          this.onChangeFullFieldMenuItem(allowStatuses, 'status')
+        } else {
+          this.onChangeFullFieldMenuItem(
+            Object.values(RequestStatus).filter(el => !allowStatuses.includes(el)),
+            'status',
+          )
+        }
+      },
+    )
 
     reaction(
       () => this.isRequestsAtWork,

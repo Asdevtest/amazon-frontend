@@ -264,28 +264,17 @@ export class VacantRequestsViewModel {
       exclusion !== 'withoutConfirmation' && this.columnMenuSettings.withoutConfirmation.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
-      // or: [
-      //   { humanFriendlyId: { $eq: this.nameSearchValue } },
-      //   // { asin: { $contains: this.nameSearchValue } },
-      //   // { amazonTitle: { $contains: this.nameSearchValue } },
-      //   // { skusByClient: { $contains: this.nameSearchValue } },
-      //   // { id: { $eq: this.nameSearchValue } },
-      //   // { orderHumanFriendlyId: { $eq: this.nameSearchValue } },
-      //   // { trackNumberText: { $eq: this.nameSearchValue } },
-      //   // { orderItem: { $eq: this.nameSearchValue } },
-      // ].filter(
-      //   el =>
-      //     ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-      //       !el.id &&
-      //       !el.humanFriendlyId) ||
-      //     !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
-      // ),
-
-      // or: [
-      //   { asin: { $contains: this.nameSearchValue } },
-      //   { amazonTitle: { $contains: this.nameSearchValue } },
-      //   { skusByClient: { $contains: this.nameSearchValue } },
-      // ],
+      or: [
+        { asin: { $contains: this.nameSearchValue } },
+        { title: { $contains: this.nameSearchValue } },
+        { humanFriendlyId: { $eq: this.nameSearchValue } },
+      ].filter(
+        el =>
+          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
+            !el.id &&
+            !el.humanFriendlyId) ||
+          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+      ),
 
       ...(asinFilter && {
         asin: { $eq: asinFilter },
@@ -378,6 +367,13 @@ export class VacantRequestsViewModel {
         },
       }
     })
+  }
+
+  onSearchSubmit(searchValue) {
+    runInAction(() => {
+      this.nameSearchValue = searchValue
+    })
+    this.getRequestsVacant()
   }
 
   onLeaveColumnField() {
