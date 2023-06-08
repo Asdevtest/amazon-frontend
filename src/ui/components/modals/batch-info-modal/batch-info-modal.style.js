@@ -6,8 +6,9 @@ export const useClassNames = makeStyles()(theme => ({
     // marginBottom: theme.spacing(2.5),
     display: 'flex',
     flexDirection: 'column',
-    height: 728,
-    width: 1578,
+    height: 801,
+    width: 1503,
+    gap: 20,
 
     [theme.breakpoints.down(768)]: {
       width: '280px',
@@ -132,7 +133,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   storekeeperField: {
     maxWidth: '270px',
-    margin: '0',
+    margin: 0,
+    padding: 0,
     display: 'flex !important',
     justifyContent: 'flex-end !important',
   },
@@ -153,7 +155,6 @@ export const useClassNames = makeStyles()(theme => ({
     border: `1px solid ${theme.palette.primary.main}`,
     width: 266,
     height: 40,
-    marginBottom: 10,
 
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -211,7 +212,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   tableWrapper: {
-    height: 502,
+    height: 590,
     overflowY: 'auto',
     width: '100%',
     borderBottom: '1px solid white',
@@ -232,28 +233,32 @@ export const useClassNames = makeStyles()(theme => ({
     '-webkit-text-fill-color': `${theme.palette.text.second} !important`,
   },
   batchTitleField: {
-    width: '130px !important',
+    width: '157px !important',
+    margin: 0,
   },
   destinationField: {
     width: '215px !important',
+    margin: 0,
   },
   volumeWeightField: {
-    width: '116px !important',
+    width: '186px !important',
+    margin: 0,
   },
   methodField: {
     width: '266px !important',
+    margin: 0,
   },
   dividerField: {
     width: '100px !important',
+    margin: 0,
   },
   filesAndButtonWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-
-    marginTop: 20,
   },
   shippinCostContainer: {
-    width: '116px !important',
+    width: '186px !important',
+    margin: 0,
   },
 
   closeFieldsWrapper: {
