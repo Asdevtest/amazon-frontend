@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **priceInYuan** | **Number** | Цена в юанях | [optional] 
 **partialPaymentAmountRmb** | **Number** | Сумма частичной оплаты | [optional] 
 **paymentDetailsAttached** | **Boolean** | Есть ли реквизиты в ордере | [optional] 
+**partiallyPaid** | **Number** | Cумма частичной оплаты | [optional] 
 **payments** | [**[ApiV1BuyersOrdersMyPayments]**](ApiV1BuyersOrdersMyPayments.md) |  | [optional] 
 **orderSupplier** | [**ApiV1BuyersOrdersMyOrderSupplier**](ApiV1BuyersOrdersMyOrderSupplier.md) |  | [optional] 
 **priority** | **String** | Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно | [optional] 
