@@ -53,6 +53,9 @@ class InlineResponse20024 {
             if (data.hasOwnProperty('totalPriceInUSD')) {
                 obj['totalPriceInUSD'] = ApiClient.convertToType(data['totalPriceInUSD'], 'Number');
             }
+            if (data.hasOwnProperty('partialPaymentAmountRmb')) {
+                obj['partialPaymentAmountRmb'] = ApiClient.convertToType(data['partialPaymentAmountRmb'], 'Number');
+            }
         }
         return obj;
     }
@@ -71,6 +74,12 @@ InlineResponse20024.prototype['totalPriceInYuan'] = undefined;
  * @member {Number} totalPriceInUSD
  */
 InlineResponse20024.prototype['totalPriceInUSD'] = undefined;
+
+/**
+ * Total partialPaymentAmountRmb
+ * @member {Number} partialPaymentAmountRmb
+ */
+InlineResponse20024.prototype['partialPaymentAmountRmb'] = undefined;
 
 
 

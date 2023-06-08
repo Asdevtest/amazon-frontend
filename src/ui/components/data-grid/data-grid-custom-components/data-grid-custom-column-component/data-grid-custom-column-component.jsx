@@ -25,6 +25,10 @@ import {
   BoxestatusMenuItem,
   MyRequestsStatusMenuItem,
   FreelanceRequestType,
+  BooleanFieldMenuItem,
+  ClientFreelancePriorityMenuItem,
+  CreatedByMenuItem,
+  FreelancerToWorkConfirmationMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
 
 export const DataGridCustomColumnMenuComponent = props => {
@@ -61,7 +65,17 @@ export const DataGridCustomColumnMenuComponent = props => {
   if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_IN_STOCK_IS_FORMED) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
-        <IsFormedMenuItem isFormedData={isFormedData} />
+        <IsFormedMenuItem
+          isFormedData={isFormedData}
+          data={props.sub}
+          field={'sub'}
+          filterRequestStatus={filterRequestStatus}
+          columnKey={currentColumn.columnKey}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
         {/* {renderStandartItems()} пример*/}
       </GridColumnMenuContainer>
     )
@@ -104,6 +118,57 @@ export const DataGridCustomColumnMenuComponent = props => {
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <MyRequestsStatusMenuItem
           data={props[currentColumn.field]}
+          field={currentColumn.field}
+          filterRequestStatus={filterRequestStatus}
+          columnKey={currentColumn.columnKey}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if (currentColumn.columnKey === columnnsKeys.shared.D) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <FreelancerToWorkConfirmationMenuItem
+          data={props[currentColumn.field]}
+          field={currentColumn.field}
+          filterRequestStatus={filterRequestStatus}
+          columnKey={currentColumn.columnKey}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if (currentColumn.columnKey === columnnsKeys.shared.S) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <ClientFreelancePriorityMenuItem
+          data={props[currentColumn.field]}
+          field={currentColumn.field}
+          filterRequestStatus={filterRequestStatus}
+          columnKey={currentColumn.columnKey}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if (currentColumn.columnKey === columnnsKeys.shared.A) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <CreatedByMenuItem
+          data={props}
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}
           columnKey={currentColumn.columnKey}
@@ -171,6 +236,7 @@ export const DataGridCustomColumnMenuComponent = props => {
       columnnsKeys.client.INVENTORY_STATUS,
       columnnsKeys.client.FREELANCE_MY_REQUESTS,
       columnnsKeys.shared.STRING,
+      columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
     ].includes(currentColumn.columnKey)
   ) {
     return (

@@ -19,6 +19,8 @@ Name | Type | Description | Notes
 **paidAt** | **Date** |  | [optional] 
 **paymentDateToSupplier** | **String** | Дата оплаты поставщтку | [optional] 
 **partialPaymentAmountRmb** | **Number** | Сумма частичной оплаты | [optional] 
+**partiallyPaid** | **Number** | Cумма частичной оплаты | [optional] 
+**partialPayment** | **Boolean** | Оплачивается ли заказ частично | [optional] 
 **yuanToDollarRate** | **Number** | Курс юань доллар. | [optional] 
 **deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | [optional] 
 **productId** | **String** | GUID продукта | [optional] 

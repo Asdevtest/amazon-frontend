@@ -57,7 +57,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: '#c4c4c4',
   },
   cardListTitle: {
-    fontSize: '20px',
+    fontSize: '18px',
     lineHeight: '27px',
     color: theme.palette.text.general,
     fontWeight: 600,

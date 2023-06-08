@@ -44,4 +44,20 @@ export const useClassNames = makeStyles()(theme => ({
     border: `1px solid ${theme.palette.primary.main}`,
     width: '400px',
   },
+
+  footerContainer: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    borderTop: 'none !important',
+  },
+
+  footerCell: {
+    padding: 0,
+    margin: 0,
+  },
+
+  toolbarContainer: {
+    height: '52px',
+  },
 }))

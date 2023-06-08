@@ -43,7 +43,7 @@ import { useClassNames } from './appbar.style'
 
 interface Props {
   avatarSrc: string
-  title: string
+  title: () => string
   curUserRole: string
   setDrawerOpen: () => void
   lastCrumbAdditionalText?: string
@@ -192,7 +192,9 @@ export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen, las
         <Paper className={classNames.appbar}>
           <div className={classNames.toolbar}>
             <div className={classNames.titleWrapper}>
-              <Typography className={classNames.title}>{title}</Typography>
+              <Typography key={SettingsModel.languageTag} className={classNames.title}>
+                {title()}
+              </Typography>
               <div className={classNames.tooltipWrapper} onClick={componentModel.current.onTriggerShowHints}>
                 {componentModel.current.showHints ? (
                   <HintsOn

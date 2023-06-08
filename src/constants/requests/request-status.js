@@ -39,7 +39,7 @@ export const colorByRequestStatus = status => {
     ].includes(status)
   ) {
     return '#FF1616'
-  } else if ([RequestStatus.IN_PROCESS].includes(status)) {
+  } else if ([RequestStatus.IN_PROCESS, RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIVED].includes(status)) {
     return '#00B746'
   } else if ([RequestStatus.PUBLISHED, RequestStatus.TO_CORRECT_BY_ADMIN].includes(status)) {
     return '#F3AF00'

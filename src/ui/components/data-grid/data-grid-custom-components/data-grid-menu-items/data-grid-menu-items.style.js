@@ -2,6 +2,9 @@
 export const styles = theme => ({
   isFormedWrapper: {
     padding: '10px 20px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
   },
 
   isFormedSubWrapper: {
@@ -18,6 +21,12 @@ export const styles = theme => ({
     width: 300,
     // maxHeight: 500,
     padding: '10px 0',
+    gap: 20,
+  },
+
+  shopsDataWrapperBlocked: {
+    display: 'flex',
+    flexDirection: 'column',
     gap: 20,
   },
 

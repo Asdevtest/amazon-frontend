@@ -95,11 +95,10 @@ export const NavbarCollapse = ({
         )
 
       case '/client/my-orders/pending-orders':
-        return (
-          <ListItemIcon>
-            {<div className={classNames.redBadge}>{currentViewModel.userInfo.purchaseOrderRequired?.length}</div>}
-          </ListItemIcon>
-        )
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.pendingOrders}</div>}</ListItemIcon>
+
+      case '/client/my-orders/orders':
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.orders}</div>}</ListItemIcon>
 
       case '/buyer/not-paid-orders':
         return <ListItemIcon>{<div className={classNames.badge}>{userInfo.notPaid}</div>}</ListItemIcon>

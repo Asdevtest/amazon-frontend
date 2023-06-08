@@ -290,6 +290,8 @@ export const useClassNames = makeStyles()(theme => ({
   subImageObjInput: {
     height: '55px !important',
     overflowY: 'auto !important',
+    paddingLeft: 0,
+    marginLeft: '-5px',
   },
 
   inputIndex: {

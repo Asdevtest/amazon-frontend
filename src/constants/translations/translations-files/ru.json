@@ -1968,11 +1968,17 @@
   "Minimum weight": "Минимальный вес",
   "Price per kg": "Цена за кг",
   "The intersections of the weights are found": "Найдены пересечения весов",
-  "Partially paid": "Чистично оплачено",
+  "Partially paid": "Частично оплачено",
   "The actual cost of the box with delivery": "Фактическая стоимость коробки с доставкой",
   "Actual cost with delivery per unit": "Фактическая стоимость с доставкой за ед.",
   "Paid for": "Оплачено",
   "Per": "За",
   "Calculated price": "Расчётная цена",
-  "Comments on priority": "Комментарии к приоритету"
+  "Comments on priority": "Комментарии к приоритету",
+  "Access to product": "Доступ к товару",
+  "Urgent request": "Срочная заявка",
+  "Without Priority": "Без приоритета",
+  "there are already requests of the type": "уже существуют заявки по типу",
+  "With the product": "С продуктом",
+  "Set urgent priority": "Установить срочный приоритет"
 }

@@ -308,6 +308,25 @@ const Box = ({ isNewBox, destinations, box, onChangeField, onRemoveBox, index, b
                   </>
                 }
               />
+
+              {!isNewBox && (
+                <Field
+                  inputProps={{ maxLength: 255 }}
+                  containerClasses={classNames.field}
+                  labelClasses={classNames.label}
+                  className={classNames.fieldInput}
+                  label={'Prep ID'}
+                  value={box.fbaShipment}
+                  inputComponent={
+                    <div className={classNames.prepIdWrapper}>
+                      <Typography className={classNames.standartText}>
+                        {box.prepId || t(TranslationKey.Missing)}
+                      </Typography>
+                      {box.prepId && <CopyValue text={box.prepId} />}
+                    </div>
+                  }
+                />
+              )}
             </div>
           </div>
         ) : null}

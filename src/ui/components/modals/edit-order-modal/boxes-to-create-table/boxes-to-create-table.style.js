@@ -111,7 +111,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   deleteBtnWrapper: {
     width: '40px',
-    height: '40px',
+    height: '30px',
     marginLeft: '10px',
     backgroundColor: 'inherit',
     margin: 0,

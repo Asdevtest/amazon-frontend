@@ -278,6 +278,7 @@ export const lightTheme = createTheme({
       chatIncomeMessage: '#EBEBEB',
       chatMyMessage: '#CCE2FF',
 
+      searchSelectHover: '#F4F4F4',
       tableCurRow: '#baffba',
       red: '#FFC7C7',
       green: '#D9FAE5',
@@ -741,6 +742,7 @@ export const darkTheme = createTheme({
         general: '#2B2B34',
         second: '#21212B',
 
+        searchSelectHover: '#25252D',
         chatIncomeMessage: '#36363F',
         chatMyMessage: '#384C68',
         darkBlue: '#4CA1DE',

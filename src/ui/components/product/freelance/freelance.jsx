@@ -24,6 +24,7 @@ import { FreelanceModel } from './freelance.model'
 import { useClassNames } from './freelance.style'
 import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 
 export const Freelance = observer(({ productId }) => {
   const { classes: classNames } = useClassNames()
@@ -46,9 +47,15 @@ export const Freelance = observer(({ productId }) => {
     getCurrentData,
     densityModel,
     columnsModel,
-    onChangeNameSearchValue,
+    onSearchSubmit,
     onClickTaskType,
     onTriggerOpenModal,
+
+    columnMenuSettings,
+    onClickResetFilters,
+    columnVisibilityModel,
+    onColumnVisibilityModelChange,
+    onHover,
   } = freelanceModel.current
 
   return (
@@ -74,7 +81,7 @@ export const Freelance = observer(({ productId }) => {
           placeholder={t(TranslationKey['Search by Title, ID'])}
           inputClasses={classNames.searchInput}
           value={nameSearchValue}
-          onChange={onChangeNameSearchValue}
+          onSubmit={onSearchSubmit}
         />
       </div>
       <div className={classNames.mainWrapper}>
@@ -82,6 +89,7 @@ export const Freelance = observer(({ productId }) => {
           disableVirtualization
           pagination
           localeText={getLocalizationByLanguageTag()}
+          propsToRerender={{ onHover }}
           classes={{
             row: classNames.row,
             root: classNames.root,
@@ -95,6 +103,26 @@ export const Freelance = observer(({ productId }) => {
           pageSizeOptions={[15, 25, 50, 100]}
           rows={getCurrentData()}
           rowHeight={100}
+          slots={{
+            toolbar: DataGridCustomToolbar,
+            columnMenuIcon: FilterAltOutlinedIcon,
+            columnMenu: DataGridCustomColumnMenuComponent,
+          }}
+          slotProps={{
+            columnMenu: columnMenuSettings,
+
+            toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters,
+                isSomeFilterOn: onClickResetFilters,
+              },
+              columsBtnSettings: {
+                columnsModel,
+                columnVisibilityModel,
+                onColumnVisibilityModelChange,
+              },
+            },
+          }}
           components={{
             Toolbar: DataGridCustomToolbar,
             ColumnMenuIcon: FilterAltOutlinedIcon,

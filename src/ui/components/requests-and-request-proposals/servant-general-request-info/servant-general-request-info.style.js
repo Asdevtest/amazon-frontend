@@ -54,7 +54,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   actionBtn: {
     width: '244px',
-    height: '40px',
+    height: '30px',
   },
 
   personInfoWrapper: {

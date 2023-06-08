@@ -83,6 +83,9 @@ class InlineResponse20025 {
             if (data.hasOwnProperty('paymentDetailsAttached')) {
                 obj['paymentDetailsAttached'] = ApiClient.convertToType(data['paymentDetailsAttached'], 'Boolean');
             }
+            if (data.hasOwnProperty('partiallyPaid')) {
+                obj['partiallyPaid'] = ApiClient.convertToType(data['partiallyPaid'], 'Number');
+            }
             if (data.hasOwnProperty('payments')) {
                 obj['payments'] = ApiClient.convertToType(data['payments'], [ApiV1BuyersOrdersMyPayments]);
             }
@@ -192,6 +195,12 @@ InlineResponse20025.prototype['partialPaymentAmountRmb'] = undefined;
  * @member {Boolean} paymentDetailsAttached
  */
 InlineResponse20025.prototype['paymentDetailsAttached'] = undefined;
+
+/**
+ * Cумма частичной оплаты
+ * @member {Number} partiallyPaid
+ */
+InlineResponse20025.prototype['partiallyPaid'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1BuyersOrdersMyPayments>} payments

@@ -16,6 +16,23 @@ import { UserModel } from '@models/user-model'
 import { productMyRequestsViewColumns } from '@components/table/table-columns/overall/product-my-requests-columns'
 
 import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
+import { getTableByColumn, objectToUrlQs } from '@utils/text'
+import { GeneralModel } from '@models/general-model'
+
+const filtersFields = [
+  'humanFriendlyId',
+  'updatedAt',
+  'status',
+  'title',
+  'typeTask',
+  'price',
+  'timeoutAt',
+  'asin',
+  'skusByClient',
+  'amazonTitle',
+  'createdBy',
+  'subUsers',
+]
 
 export class FreelanceModel {
   history = undefined
@@ -53,6 +70,35 @@ export class FreelanceModel {
     return UserModel.userInfo
   }
 
+  columnMenuSettings = {
+    onClickFilterBtn: field => this.onClickFilterBtn(field),
+    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
+    onClickAccept: withoutUpdate => {
+      this.onLeaveColumnField()
+
+      if (withoutUpdate) {
+        this.getCurrentData()
+      } else {
+        this.getCustomRequests()
+        // this.getDataGridState()
+      }
+    },
+
+    filterRequestStatus: undefined,
+
+    ...filtersFields.reduce(
+      (ac, cur) =>
+        (ac = {
+          ...ac,
+          [cur]: {
+            filterData: [],
+            currentFilterData: [],
+          },
+        }),
+      {},
+    ),
+  }
+
   handlers = {
     onClickOpenRequest: item => this.onClickOpenRequest(item),
     onClickOpenResult: item => this.onClickOpenResult(item),
@@ -63,7 +109,11 @@ export class FreelanceModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = productMyRequestsViewColumns(this.handlers)
+  columnsModel = productMyRequestsViewColumns(
+    this.handlers,
+    () => this.columnMenuSettings,
+    () => this.onHover,
+  )
   constructor({ history, productId }) {
     this.history = history
 
@@ -97,16 +147,11 @@ export class FreelanceModel {
     })
   }
 
-  onChangeSortingModel(sortModel) {
+  onSearchSubmit(searchValue) {
     runInAction(() => {
-      this.sortModel = sortModel
+      this.nameSearchValue = searchValue
     })
-  }
-
-  onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.getCustomRequests()
   }
 
   getCurrentData() {
@@ -143,21 +188,8 @@ export class FreelanceModel {
 
   async getCustomRequests() {
     try {
-      // const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.MY, {
-      //   productId: this.productId,
-      //   typeTask:
-      //     Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
-      //       ? this.userInfo?.allowedSpec?.map(spec => Number(spec)).join(', ')
-      //       : this.selectedTaskType,
-      // })
-
       const result = await RequestModel.getRequests(RequestSubType.MY, {
-        // filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
-
-        typeTask:
-          String(this.selectedTaskType) === String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
-            ? undefined
-            : this.selectedTaskType,
+        filters: this.getFilter(),
 
         productId: this.productId,
 
@@ -167,8 +199,6 @@ export class FreelanceModel {
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
-
-      console.log('result', result)
 
       runInAction(() => {
         this.searchRequests = myRequestsDataConverter(result.rows)
@@ -185,6 +215,130 @@ export class FreelanceModel {
     }
   }
 
+  getFilter(exclusion) {
+    const humanFriendlyIdFilter =
+      exclusion !== 'humanFriendlyId' && this.columnMenuSettings.humanFriendlyId.currentFilterData.join(',')
+    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
+    const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
+    const titleFilter = exclusion !== 'title' && this.columnMenuSettings.title.currentFilterData.join(',')
+    const typeTaskFilter = exclusion !== 'typeTask' && this.columnMenuSettings.typeTask.currentFilterData.join(',')
+    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
+    const priceFilter = exclusion !== 'price' && this.columnMenuSettings.price.currentFilterData.join(',')
+    const timeoutAtFilter = exclusion !== 'timeoutAt' && this.columnMenuSettings.timeoutAt.currentFilterData.join(',')
+    const subUsersFilter =
+      exclusion !== 'subUsers' && this.columnMenuSettings?.subUsers?.currentFilterData?.map(item => item._id)?.join(',')
+
+    const skusByClientFilter =
+      exclusion !== 'skusByClient' &&
+      this.columnMenuSettings.skusByClient.currentFilterData /* .map(el => `"${el}"`) */
+        .join(',')
+    const amazonTitleFilter =
+      exclusion !== 'amazonTitle' &&
+      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
+
+    const createdByFilter = exclusion !== 'createdBy' && this.columnMenuSettings.createdBy.currentFilterData.join(',')
+
+    const filter = objectToUrlQs({
+      or: [{ title: { $contains: this.nameSearchValue } }, { humanFriendlyId: { $eq: this.nameSearchValue } }].filter(
+        el =>
+          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
+            !el.id &&
+            !el.humanFriendlyId) ||
+          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+      ),
+
+      ...(asinFilter && {
+        asin: { $eq: asinFilter },
+      }),
+      ...(skusByClientFilter && {
+        skusByClient: { $eq: skusByClientFilter },
+      }),
+      ...(amazonTitleFilter && {
+        amazonTitle: { $eq: amazonTitleFilter },
+      }),
+
+      ...(humanFriendlyIdFilter && {
+        humanFriendlyId: { $eq: humanFriendlyIdFilter },
+      }),
+      ...(updatedAtFilter && {
+        updatedAt: { $eq: updatedAtFilter },
+      }),
+      ...(statusFilter && {
+        status: { $eq: statusFilter },
+      }),
+      ...(titleFilter && {
+        title: { $eq: titleFilter },
+      }),
+      ...(typeTaskFilter && {
+        typeTask: { $eq: typeTaskFilter },
+      }),
+      ...(priceFilter && {
+        price: { $eq: priceFilter },
+      }),
+      ...(timeoutAtFilter && {
+        timeoutAt: { $eq: timeoutAtFilter },
+      }),
+      ...(createdByFilter && {
+        createdBy: { $eq: createdByFilter },
+      }),
+      ...(subUsersFilter && {
+        subUsers: { $eq: subUsersFilter },
+      }),
+    })
+
+    return filter
+  }
+
+  async onClickFilterBtn(column) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      const data = await GeneralModel.getDataForColumn(
+        getTableByColumn(column, 'requests'),
+        column,
+        `requests?kind=${RequestSubType.MY}&productId=${this.productId}&filters=${this.getFilter(column)}`,
+      )
+
+      if (this.columnMenuSettings[column]) {
+        this.columnMenuSettings = {
+          ...this.columnMenuSettings,
+          [column]: { ...this.columnMenuSettings[column], filterData: data },
+        }
+      }
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+  }
+
+  onChangeFullFieldMenuItem(value, field) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        [field]: {
+          ...this.columnMenuSettings[field],
+          currentFilterData: value,
+        },
+      }
+    })
+  }
+
+  onLeaveColumnField() {
+    this.onHover = null
+  }
   onClickOpenRequest(itemId) {
     // this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request`, {
     //   request: toJS(item),

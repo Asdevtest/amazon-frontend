@@ -25,7 +25,7 @@ export const adminOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 75,
+    width: 100,
   },
   {
     field: 'priorityAndChinaDelivery',

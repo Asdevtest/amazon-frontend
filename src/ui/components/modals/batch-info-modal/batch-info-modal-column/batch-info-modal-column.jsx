@@ -51,7 +51,7 @@ export const batchInfoModalColumn = (
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
 
     renderCell: params => params.value && <OrdersIdsItemsCell value={params.value} />,
-    width: 140,
+    width: 160,
     sortable: false,
   },
 
