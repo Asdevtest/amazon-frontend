@@ -48,7 +48,7 @@ export const ClientDashboardViewRaw = props => {
 
               <div className={classes.buttonWrapper}>
                 <Button
-                  tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
+                  tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
                   className={classes.button}
                   onClick={viewModel.onClickWithdrawMoney}
                 >
@@ -56,7 +56,7 @@ export const ClientDashboardViewRaw = props => {
                   <img src="/assets/icons/white-plus.svg" className={classes.icon} />
                 </Button>
                 <Button
-                  tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
+                  tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
                   className={cx(classes.button, classes.withdrawBtn)}
                   variant="text"
                   onClick={viewModel.onClickAddMoney}
