@@ -13,6 +13,7 @@ import { checkIsAbsoluteUrl } from '@utils/checks'
 import { getDistanceBetweenDatesInSeconds } from '../date-time'
 import { t } from '../translations'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 
 export const getShortenStringIfLongerThanCount = (str, count, showEnd) =>
   str?.length > count ? `${str.slice(0, count)}...${showEnd ? str.slice(str.length - 3) : ''}` : str
@@ -168,11 +169,11 @@ export const getTableByColumn = (column, hint) => {
       'ideasVerified',
     ].includes(column)
   ) {
-    if (hint === 'requests') {
-      return 'requests'
-    } else {
-      return 'products'
-    }
+    // if (hint === 'requests') {
+    //   return 'requests'
+    // } else {
+    return 'products'
+    // }
   } else if (['status', 'updatedAt', 'createdAt'].includes(column)) {
     if (hint === 'boxes') {
       return 'boxes'
@@ -182,7 +183,19 @@ export const getTableByColumn = (column, hint) => {
     if (hint === 'requests') {
       return 'requests'
     }
-  } else if (['amount', 'title', 'typeTask'].includes(column)) {
+  } else if (
+    [
+      'title',
+      'typeTask',
+      'price',
+      'timeoutAt',
+      'createdBy',
+      'subUsers',
+      'priority',
+      'priceAmazon',
+      'withoutConfirmation',
+    ].includes(column)
+  ) {
     return 'requests'
   }
 }
@@ -195,6 +208,8 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
       return t(productStatusTranslateKey(ProductStatusByCode[status]))
     case columnnsKeys.client.FREELANCE_MY_REQUESTS:
       return MyRequestStatusTranslate(status)
+    case columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY:
+      return freelanceRequestTypeTranslate(freelanceRequestTypeByCode[status])
     default:
       return status
   }

@@ -60,7 +60,7 @@ export const styles = theme => ({
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(1.01)',
-      backgroundColor: '#F4F4F4',
+      backgroundColor: theme.palette.background.searchSelectHover,
     },
   },
 

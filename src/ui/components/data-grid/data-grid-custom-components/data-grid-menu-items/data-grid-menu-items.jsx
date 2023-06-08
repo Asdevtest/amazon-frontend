@@ -471,9 +471,6 @@ export const FreelanceRequestType = React.memo(
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
 
-    console.log('itemsForRender', itemsForRender)
-    console.log('choosenItems', choosenItems)
-
     useEffect(() => {
       if (nameSearchValue) {
         const filter = filterData?.filter(item =>
@@ -572,6 +569,135 @@ export const ClientOrderAllStatusesMenuItem = React.memo(
       </div>
     )
   }, styles),
+)
+
+export const CreatedByMenuItem = React.memo(
+  withStyles(
+    ({
+      classes: classNames,
+      onClose,
+      data,
+      field,
+      filterRequestStatus,
+      columnKey,
+      onChangeFullFieldMenuItem,
+      onClickAccept,
+      onClickFilterBtn,
+    }) => {
+      useEffect(() => {
+        onClickFilterBtn('createdBy')
+        onClickFilterBtn('subUsers')
+      }, [])
+
+      const filterData = [...data.createdBy.filterData, ...data.subUsers.filterData] || []
+      const currentFilterData = [...data.createdBy.currentFilterData, ...data.subUsers.currentFilterData] || []
+
+      const [choosenItems, setChoosenItems] = useState(currentFilterData)
+
+      const onClickItem = obj => {
+        if (choosenItems.some(item => item._id === obj._id)) {
+          setChoosenItems(choosenItems.slice().filter(item => item._id !== obj._id))
+        } else {
+          setChoosenItems([...choosenItems, obj])
+        }
+      }
+
+      const [itemsForRender, setItemsForRender] = useState(filterData || [])
+
+      console.log('itemsForRender', itemsForRender)
+      const [nameSearchValue, setNameSearchValue] = useState('')
+
+      useEffect(() => {
+        setItemsForRender(
+          filterData
+            .filter(el => el)
+            .sort(
+              (a, b) =>
+                currentFilterData.length &&
+                Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
+            ),
+        )
+      }, [data.createdBy.filterData, data.subUsers.filterData])
+
+      useEffect(() => {
+        if (nameSearchValue) {
+          const filter = filterData?.filter(item => String(item).toLowerCase().includes(nameSearchValue.toLowerCase()))
+          setItemsForRender(filter)
+        } else {
+          setItemsForRender(filterData)
+        }
+      }, [nameSearchValue])
+
+      return (
+        <div className={classNames.shopsDataWrapper}>
+          <div className={classNames.searchInputWrapper}>
+            <SearchInput
+              key={'client_warehouse_search_input'}
+              inputClasses={classNames.searchInput}
+              placeholder={t(TranslationKey.Search)}
+              onChange={e => {
+                setNameSearchValue(e.target.value)
+              }}
+            />
+          </div>
+          <div className={classNames.shopsWrapper}>
+            <div className={classNames.shopsBody}>
+              {filterRequestStatus === loadingStatuses.isLoading ? (
+                <CircularProgress />
+              ) : (
+                <>
+                  {itemsForRender.length ? (
+                    <>
+                      <DataGridSelectAllFilters
+                        choosenItems={choosenItems}
+                        itemsForRender={itemsForRender}
+                        setChoosenItems={setChoosenItems}
+                      />
+                      {itemsForRender.map(obj => (
+                        <div key={obj._id} className={classNames.shop}>
+                          <Checkbox
+                            color="primary"
+                            checked={choosenItems.some(item => item._id === obj._id)}
+                            onClick={() => onClickItem(obj)}
+                          />
+                          <div className={classNames.shopName}>{obj.name || t(TranslationKey.Empty)}</div>
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+
+          <div className={classNames.buttonsWrapper}>
+            <Button
+              variant="contained"
+              onClick={e => {
+                onClose(e)
+                if (choosenItems.some(item => data.createdBy.filterData.some(obj => obj._id === item._id))) {
+                  onChangeFullFieldMenuItem(choosenItems, 'createdBy')
+                }
+                if (choosenItems.some(item => data.subUsers.filterData.some(obj => obj._id === item._id))) {
+                  onChangeFullFieldMenuItem(choosenItems, 'subUsers')
+                }
+
+                onClickAccept()
+              }}
+            >
+              {t(TranslationKey.Accept)}
+            </Button>
+            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Cancel)}
+            </Button>
+          </div>
+        </div>
+      )
+    },
+    styles,
+  ),
 )
 
 export const ObJectFieldMenuItem = React.memo(
@@ -876,6 +1002,170 @@ export const NormalFieldMenuItem = React.memo(
                   )}
                 </>
               )}
+            </div>
+          </div>
+
+          <div className={classNames.buttonsWrapper}>
+            <Button
+              variant="contained"
+              onClick={e => {
+                onClose(e)
+                onChangeFullFieldMenuItem(choosenItems, field)
+
+                onClickAccept()
+              }}
+            >
+              {t(TranslationKey.Accept)}
+            </Button>
+            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Cancel)}
+            </Button>
+          </div>
+        </div>
+      )
+    },
+    styles,
+  ),
+)
+
+export const ClientFreelancePriorityMenuItem = React.memo(
+  withStyles(
+    ({
+      classes: classNames,
+      onClose,
+      data,
+      field,
+      filterRequestStatus,
+      columnKey,
+      onChangeFullFieldMenuItem,
+      onClickAccept,
+      onClickFilterBtn,
+    }) => {
+      useEffect(() => {
+        onClickFilterBtn(field)
+      }, [])
+
+      const { filterData, currentFilterData } = data
+
+      const [choosenItems, setChoosenItems] = useState(filterData)
+
+      const onClickItem = array => {
+        if (choosenItems.some(item => array.includes(item))) {
+          setChoosenItems(choosenItems.slice().filter(item => !array.includes(item)))
+        } else {
+          setChoosenItems([...choosenItems, ...array])
+        }
+      }
+
+      useEffect(() => {
+        setChoosenItems(filterData)
+      }, [filterData])
+
+      return (
+        <div className={classNames.shopsDataWrapper}>
+          <div className={classNames.shopsWrapper}>
+            <div className={classNames.shopsBody}>
+              <div className={classNames.shop}>
+                <Checkbox
+                  color="primary"
+                  checked={choosenItems.some(item => Number(item) === 40)}
+                  onClick={() => onClickItem([40])}
+                />
+                <div className={classNames.shopName}>
+                  {t(TranslationKey['Urgent request'])} <img src="/assets/icons/fire.svg" />
+                </div>
+              </div>
+
+              <div className={classNames.shop}>
+                <Checkbox
+                  color="primary"
+                  checked={choosenItems.some(item => Number(item) === 20 || Number(item) === 30)}
+                  onClick={() => {
+                    onClickItem([20, 30])
+                  }}
+                />
+                <div className={classNames.shopName}>{t(TranslationKey['Without Priority'])}</div>
+              </div>
+            </div>
+          </div>
+
+          <div className={classNames.buttonsWrapper}>
+            <Button
+              variant="contained"
+              onClick={e => {
+                onClose(e)
+                onChangeFullFieldMenuItem(choosenItems, field)
+
+                onClickAccept()
+              }}
+            >
+              {t(TranslationKey.Accept)}
+            </Button>
+            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Cancel)}
+            </Button>
+          </div>
+        </div>
+      )
+    },
+    styles,
+  ),
+)
+
+export const FreelancerToWorkConfirmationMenuItem = React.memo(
+  withStyles(
+    ({
+      classes: classNames,
+      onClose,
+      data,
+      field,
+      filterRequestStatus,
+      columnKey,
+      onChangeFullFieldMenuItem,
+      onClickAccept,
+      onClickFilterBtn,
+    }) => {
+      useEffect(() => {
+        onClickFilterBtn(field)
+      }, [])
+
+      const { filterData, currentFilterData } = data
+
+      const [choosenItems, setChoosenItems] = useState(filterData)
+
+      const onClickItem = value => {
+        if (choosenItems.some(item => item === value)) {
+          setChoosenItems(choosenItems.slice().filter(item => !item === value))
+        } else {
+          setChoosenItems([...choosenItems, value])
+        }
+      }
+
+      useEffect(() => {
+        setChoosenItems(filterData)
+      }, [filterData])
+
+      return (
+        <div className={classNames.shopsDataWrapper}>
+          <div className={classNames.shopsWrapper}>
+            <div className={classNames.shopsBody}>
+              <div className={classNames.shop}>
+                <Checkbox
+                  color="primary"
+                  checked={choosenItems.some(item => item === true)}
+                  onClick={() => onClickItem(true)}
+                />
+                <div className={classNames.shopName}>{t(TranslationKey.Yes)}</div>
+              </div>
+
+              <div className={classNames.shop}>
+                <Checkbox
+                  color="primary"
+                  checked={choosenItems.some(item => item === false)}
+                  onClick={() => onClickItem(false)}
+                />
+                <div className={classNames.shopName}>{t(TranslationKey.No)}</div>
+              </div>
             </div>
           </div>
 
@@ -1535,6 +1825,8 @@ export const NumberFieldMenuItem = React.memo(
           setChoosenItems([...choosenItems, str])
         }
       }
+
+      console.log('choosenItems', choosenItems)
 
       useEffect(() => {
         setChoosenItems(currentFilterData)

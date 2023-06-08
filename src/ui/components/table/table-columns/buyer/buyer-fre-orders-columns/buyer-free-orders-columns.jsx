@@ -25,7 +25,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-    width: 60,
+    width: 100,
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
   },

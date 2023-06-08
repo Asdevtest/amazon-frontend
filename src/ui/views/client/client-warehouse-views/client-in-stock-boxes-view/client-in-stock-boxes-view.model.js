@@ -691,7 +691,7 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
-  onClickConfirmCreateSplitTasks(id, updatedBoxes, type, isMasterBox, comment, sourceBox) {
+  onClickConfirmCreateSplitTasks(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason) {
     this.onTriggerOpenModal('showConfirmModal')
 
     runInAction(() => {
@@ -700,12 +700,13 @@ export class ClientInStockBoxesViewModel {
         confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
           sourceBox?.storekeeper?.name
         } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox?.humanFriendlyId}`,
-        onClickConfirm: () => this.onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox),
+        onClickConfirm: () =>
+          this.onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason),
       }
     })
   }
 
-  onClickConfirmCreateChangeTasks(id, boxData, sourceData) {
+  onClickConfirmCreateChangeTasks(id, boxData, sourceData, priority, priorityReason) {
     this.onTriggerOpenModal('showConfirmModal')
 
     runInAction(() => {
@@ -720,12 +721,12 @@ export class ClientInStockBoxesViewModel {
             : `${t(TranslationKey['The task for the warehouse will be formed'])} ${boxData?.storekeeper?.name} ${t(
                 TranslationKey['to change the Box'],
               )} № ${boxData?.humanFriendlyId}`,
-        onClickConfirm: () => this.onEditBoxSubmit(id, boxData, sourceData),
+        onClickConfirm: () => this.onEditBoxSubmit(id, boxData, sourceData, undefined, priority, priorityReason),
       }
     })
   }
 
-  onClickConfirmCreateMergeTasks(boxBody, comment) {
+  onClickConfirmCreateMergeTasks(boxBody, comment, priority, priorityReason) {
     this.onTriggerOpenModal('showConfirmModal')
 
     runInAction(() => {
@@ -734,7 +735,7 @@ export class ClientInStockBoxesViewModel {
         confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
           this.storekeepersData.find(el => el._id === boxBody.storekeeperId)?.name
         } ${t(TranslationKey['to merge boxes'])}`,
-        onClickConfirm: () => this.onClickMerge(boxBody, comment),
+        onClickConfirm: () => this.onClickMerge(boxBody, comment, priority, priorityReason),
       }
     })
   }
@@ -911,7 +912,7 @@ export class ClientInStockBoxesViewModel {
     })
   }
 
-  async onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox) {
+  async onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       runInAction(() => {
@@ -962,7 +963,14 @@ export class ClientInStockBoxesViewModel {
 
         const splitBoxesResult = await this.splitBoxes(id, resBoxes)
 
-        await this.postTask({ idsData: splitBoxesResult, idsBeforeData: [id], type, clientComment: comment })
+        await this.postTask({
+          idsData: splitBoxesResult,
+          idsBeforeData: [id],
+          type,
+          clientComment: comment,
+          priority,
+          reason,
+        })
         this.setRequestStatus(loadingStatuses.success)
 
         if (splitBoxesResult) {
@@ -1277,7 +1285,7 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
-  async onEditBoxSubmit(id, boxData, sourceData, isMultipleEdit) {
+  async onEditBoxSubmit(id, boxData, sourceData, isMultipleEdit, priority, priorityReason) {
     try {
       !isMultipleEdit && this.setRequestStatus(loadingStatuses.isLoading)
       runInAction(() => {
@@ -1393,6 +1401,8 @@ export class ClientInStockBoxesViewModel {
           idsBeforeData: [id],
           type: TaskOperationType.EDIT,
           clientComment: boxData.clientTaskComment,
+          priority,
+          reason: priorityReason,
         })
 
         runInAction(() => {
@@ -1433,7 +1443,7 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
-  async onClickMerge(boxBody, comment) {
+  async onClickMerge(boxBody, comment, priority, priorityReason) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -1480,6 +1490,8 @@ export class ClientInStockBoxesViewModel {
         idsBeforeData: [...selectedIds],
         type: operationTypes.MERGE,
         clientComment: comment,
+        priority,
+        reason: priorityReason,
       })
 
       this.setRequestStatus(loadingStatuses.success)
@@ -1566,7 +1578,7 @@ export class ClientInStockBoxesViewModel {
     }
   }
 
-  async postTask({ idsData, idsBeforeData, type, clientComment }) {
+  async postTask({ idsData, idsBeforeData, type, clientComment, priority, reason }) {
     try {
       const res = await ClientModel.createTask({
         taskId: 0,
@@ -1574,6 +1586,8 @@ export class ClientInStockBoxesViewModel {
         boxesBefore: [...idsBeforeData],
         operationType: type,
         clientComment: clientComment || '',
+        priority,
+        reason,
       })
 
       runInAction(() => {
@@ -1583,7 +1597,7 @@ export class ClientInStockBoxesViewModel {
         }
       })
 
-      this.onTriggerOpenModal('showEditPriorityData')
+      // this.onTriggerOpenModal('showEditPriorityData')
     } catch (error) {
       console.log(error)
       runInAction(() => {

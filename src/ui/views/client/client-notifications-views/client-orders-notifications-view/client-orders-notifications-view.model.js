@@ -194,7 +194,7 @@ export class ClientOrdersNotificationsViewModel {
   onClickTableRow(order) {
     this.history.push({
       pathname: '/client/my-orders/orders/order',
-      search: order.originalData._id,
+      search: `orderId=${order.originalData._id}`,
     })
   }
 

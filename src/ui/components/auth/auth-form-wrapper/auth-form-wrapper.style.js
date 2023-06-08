@@ -33,7 +33,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   title: {
     color: theme.palette.primary.main,
-    fontSize: '32px',
+    fontSize: '18px',
     fontWeight: '600',
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
@@ -46,6 +46,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
   redirect: {
     margin: '0 30px',
+    fontSize: '14px',
+    lineHeight: '19px',
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
 
@@ -56,8 +58,6 @@ export const useClassNames = makeStyles()(theme => ({
       fontWeight: '500',
     },
     [theme.breakpoints.down(768)]: {
-      fontSize: '14px',
-      lineHeight: '19px',
       margin: '0 10px',
     },
   },

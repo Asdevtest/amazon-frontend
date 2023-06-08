@@ -32,6 +32,8 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './reditstribute-box-modal.style'
+import { PriorityForm } from '@components/shared/priority-form/priority-form'
+import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
 
 const Box = ({
   destinations,
@@ -406,6 +408,8 @@ export const RedistributeBox = observer(
       storekeeperId: selectedBox.storekeeper?._id || '',
       logicsTariffId: selectedBox.logicsTariff?._id || '',
     })
+    const [priority, setPriority] = useState()
+    const [priorityReason, setPriorityReason] = useState()
 
     const [showNewBoxAttention, setShowNewBoxAttention] = useState(true)
 
@@ -492,6 +496,8 @@ export const RedistributeBox = observer(
         isMasterBox,
         comment,
         selectedBox,
+        priority,
+        priorityReason,
       )
     }
 
@@ -522,7 +528,8 @@ export const RedistributeBox = observer(
             !destinations.find(e => e._id === el.destinationId)?.storekeeper) ||
           // Добавил новое условие для блокировки, убрать чтобы вернуться в предыдущему виду
           newBoxes.some(item => item.items.every(el => el.amount === 0)),
-      )
+      ) ||
+      (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason.length)
 
     return (
       <div>
@@ -569,17 +576,27 @@ export const RedistributeBox = observer(
             onRemoveBox={onRemoveBox}
           />
 
-          <Field
-            multiline
-            inputProps={{ maxLength: 255 }}
-            className={classNames.heightFieldAuto}
-            minRows={18}
-            maxRows={18}
-            label={t(TranslationKey['Client comment on the task'])}
-            placeholder={t(TranslationKey['Client comment on the task'])}
-            value={comment}
-            onChange={e => setComment(e.target.value)}
-          />
+          <div>
+            <PriorityForm
+              setCurrentPriority={setPriority}
+              setComment={setPriorityReason}
+              currentPriority={priority}
+              comment={priorityReason}
+            />
+
+            <Field
+              multiline
+              inputProps={{ maxLength: 255 }}
+              className={classNames.heightFieldAuto}
+              labelClasses={classNames.commentLabel}
+              minRows={3}
+              maxRows={3}
+              label={t(TranslationKey['Client comment on the task'])}
+              placeholder={t(TranslationKey['Client comment on the task'])}
+              value={comment}
+              onChange={e => setComment(e.target.value)}
+            />
+          </div>
         </div>
 
         <div className={classNames.buttonsWrapper}>

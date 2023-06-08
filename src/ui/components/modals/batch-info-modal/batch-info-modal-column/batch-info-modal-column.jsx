@@ -51,7 +51,7 @@ export const batchInfoModalColumn = (
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
 
     renderCell: params => params.value && <OrdersIdsItemsCell value={params.value} />,
-    width: 140,
+    width: 160,
     sortable: false,
   },
 
@@ -122,7 +122,7 @@ export const batchInfoModalColumn = (
 
   {
     field: 'finalPrice',
-    headerName: <MultilineTextHeaderCell text={t(TranslationKey['Final price'])} />,
+    headerName: <MultilineTextHeaderCell text={t(TranslationKey['Calculated price'])} />,
     renderCell: params => (
       <FinalPricePerUnitCell
         box={params.row}

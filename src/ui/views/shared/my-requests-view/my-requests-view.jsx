@@ -70,7 +70,7 @@ export const MyRequestsViewRaw = props => {
               TranslationKey.ID,
             )}`}
             value={viewModel.nameSearchValue}
-            onChange={viewModel.onChangeNameSearchValue}
+            onSubmit={viewModel.onSearchSubmit}
           />
 
           <Button
@@ -134,8 +134,8 @@ export const MyRequestsViewRaw = props => {
             paginationModel={viewModel.paginationModel}
             pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.searchRequests}
-            rowCount={viewModel.rowCount}
-            rowHeight={100}
+            // rowCount={viewModel.rowCount}
+            rowHeight={130}
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,

@@ -198,13 +198,13 @@ export const useClassNames = makeStyles()(theme => ({
   hideAndShowIconWrapper: {
     position: 'absolute',
     top: 20,
-    right: 20,
+    right: 30,
     zIndex: 1200,
-    width: '40px',
-    height: '40px',
+    width: 40,
+    height: 40,
     // backgroundColor: '#d1d1d1a8', // старый цвет
-    backgroundColor: '#FFFFFF',
-    boxShadow: '0px 2px 40px 2px rgba(0, 0, 0, 0.1)',
+    backgroundColor: theme.palette.background.general,
+    boxShadow: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

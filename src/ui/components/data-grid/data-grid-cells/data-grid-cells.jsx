@@ -8,6 +8,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined'
 import PrintIcon from '@mui/icons-material/Print'
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined'
+import WatchLaterSharpIcon from '@mui/icons-material/WatchLaterSharp'
 import {
   Avatar,
   Box,
@@ -102,7 +103,8 @@ import {
   inchesCoefficient,
   poundsWeightCoefficient,
 } from '@constants/configs/sizes-settings'
-import { getBatchWeightCalculationMethodForBox } from '@constants/statuses/batch-weight-calculations-method'
+import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
+import { PrioritySelect } from '@components/shared/priority-select/priority-select'
 
 export const UserCell = React.memo(
   withStyles(
@@ -524,6 +526,20 @@ export const UserLinkCell = React.memo(
     ),
     styles,
   ),
+)
+
+export const ManyUserLinkCell = React.memo(
+  withStyles(({ classes: classNames, usersData }) => {
+    return (
+      <div className={classNames.manyUserLinkWrapper}>
+        {usersData?.map(user => (
+          <Tooltip key={user?._id} title={user?.name}>
+            <UserLink blackText withAvatar userId={user?._id} customStyles={{ fontWeight: 400, fontSize: 14 }} />
+          </Tooltip>
+        ))}
+      </div>
+    )
+  }, styles),
 )
 
 export const BarcodeCell = React.memo(
@@ -1097,39 +1113,10 @@ export const TaskPriorityCell =
   /* React.memo( */
   withStyles(
     ({ classes: classNames, curPriority, onChangePriority, taskId }) => (
-      <Select
-        value={curPriority}
-        className={classNames.nativeSelect}
-        input={<Input className={classNames.nativeSelect} />}
-        classes={{
-          select: cx({
-            [classNames.colorYellow]: curPriority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.STANDART],
-            [classNames.colorGreen]: curPriority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.LONG],
-            [classNames.colorRed]: [
-              mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.URGENT],
-              mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC],
-            ].includes(curPriority),
-          }),
-        }}
-        onChange={e => onChangePriority(taskId, e.target.value)}
-      >
-        {Object.keys(mapTaskPriorityStatusEnum)
-          .filter(el => el !== curPriority)
-          .map((statusCode, statusIndex) => (
-            <MenuItem
-              key={statusIndex}
-              value={statusCode}
-              style={{ color: colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[statusCode]) }}
-              className={classNames.menuItem}
-            >
-              {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[statusCode])}
-
-              {TaskPriorityStatus.URGENT === mapTaskPriorityStatusEnum[statusCode] && (
-                <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" alt="Fire" />
-              )}
-            </MenuItem>
-          ))}
-      </Select>
+      <PrioritySelect
+        setCurrentPriority={priority => onChangePriority(taskId, priority)}
+        currentPriority={curPriority}
+      />
     ),
     styles,
   )
@@ -2004,29 +1991,15 @@ export const ActualCostWithDelivery = React.memo(
       finalWeight,
     }) => {
       const getTotalCost = item => {
-        let batchWeight = 0
-        if (rowMemo.items.length <= 1) {
-          batchWeight = toFixed(
-            getBatchWeightCalculationMethodForBox(calculationMethod, isActualGreaterTheVolume)(
-              rowMemo,
-              volumeWeightCoefficient,
-            ) * rowMemo.amount,
-            2,
-          )
-        } else {
-          const boxProperties = item.order.orderSupplier.boxProperties
-
-          batchWeight = toFixed(
-            (boxProperties?.boxHeightCm * boxProperties?.boxLengthCm * boxProperties?.boxWidthCm) /
-              volumeWeightCoefficient,
-            2,
-          )
-        }
-
-        const shippingCost = (batchWeight / finalWeight) * actualShippingCost
-        const itemsQuantity = item.amount * rowMemo.amount
-        const singleProductPrice = item.order.totalPrice / item.amount
-
+        const { shippingCost, itemsQuantity, singleProductPrice } = getBatchParameters(
+          rowMemo,
+          item,
+          volumeWeightCoefficient,
+          finalWeight,
+          calculationMethod,
+          isActualGreaterTheVolume,
+          actualShippingCost,
+        )
         return itemsQuantity * singleProductPrice + shippingCost
       }
 
@@ -2056,29 +2029,16 @@ export const ActualCostWithDeliveryPerUnit = React.memo(
       finalWeight,
     }) => {
       const getTotalCost = item => {
-        let batchWeight = 0
+        const { shippingCost, itemsQuantity, singleProductPrice } = getBatchParameters(
+          rowMemo,
+          item,
+          volumeWeightCoefficient,
+          finalWeight,
+          calculationMethod,
+          isActualGreaterTheVolume,
+          actualShippingCost,
+        )
 
-        if (rowMemo.items.length <= 1) {
-          batchWeight = toFixed(
-            getBatchWeightCalculationMethodForBox(calculationMethod, isActualGreaterTheVolume)(
-              rowMemo,
-              volumeWeightCoefficient,
-            ) * rowMemo.amount,
-            2,
-          )
-        } else {
-          const boxProperties = item.order.orderSupplier.boxProperties
-
-          batchWeight = toFixed(
-            (boxProperties?.boxHeightCm * boxProperties?.boxLengthCm * boxProperties?.boxWidthCm) /
-              volumeWeightCoefficient,
-            2,
-          )
-        }
-
-        const itemsQuantity = item.amount * rowMemo.amount
-        const singleProductPrice = item.order.totalPrice / item.amount
-        const shippingCost = (batchWeight / finalWeight) * actualShippingCost
         const fullBatchPrice = itemsQuantity * singleProductPrice + shippingCost
 
         return fullBatchPrice / itemsQuantity
@@ -3021,6 +2981,26 @@ export const TagsCell = React.memo(
             </>
           }
         />
+      </div>
+    ),
+    styles,
+  ),
+)
+
+export const OrderIdAndAmountCountCell = React.memo(
+  withStyles(
+    ({ classes: classNames, orderId, amount, onClickOrderId }) => (
+      <div className={classNames.orderIdAndAmountCount}>
+        <MultilineTextCell text={orderId} onClickText={onClickOrderId} />
+        {amount >= 1 && (
+          <MultilineTextCell
+            text={
+              <div className={classNames.amountWithClocks}>
+                {amount} <WatchLaterSharpIcon />
+              </div>
+            }
+          />
+        )}
       </div>
     ),
     styles,
