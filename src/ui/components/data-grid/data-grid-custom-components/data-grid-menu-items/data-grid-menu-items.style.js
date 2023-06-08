@@ -24,6 +24,12 @@ export const styles = theme => ({
     gap: 20,
   },
 
+  shopsDataWrapperBlocked: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+  },
+
   searchInputWrapper: {
     width: 255,
     height: 30,

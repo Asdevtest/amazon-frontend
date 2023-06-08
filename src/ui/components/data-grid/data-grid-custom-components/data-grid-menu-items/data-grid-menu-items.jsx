@@ -125,7 +125,7 @@ export const IsFormedMenuItem = React.memo(
 
           {currentOption === 'second' && (
             <>
-              <NormalFieldMenuItem
+              <ObJectFieldMenuItem
                 asBlock
                 data={data}
                 field={field}
@@ -712,6 +712,7 @@ export const ObJectFieldMenuItem = React.memo(
       onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
+      asBlock,
     }) => {
       const { filterData, currentFilterData } = data
 
@@ -758,7 +759,7 @@ export const ObJectFieldMenuItem = React.memo(
       }, [nameSearchValue])
 
       return (
-        <div className={classNames.shopsDataWrapper}>
+        <div className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}>
           <div className={classNames.searchInputWrapper}>
             <SearchInput
               key={'client_warehouse_search_input'}
@@ -789,16 +790,19 @@ export const ObJectFieldMenuItem = React.memo(
                         //     Number(choosenItems?.some(item => item._id === b._id)) -
                         //     Number(choosenItems?.some(item => item._id === a._id)),
                         // )
-                        .map(obj => (
-                          <div key={obj._id} className={classNames.shop}>
-                            <Checkbox
-                              color="primary"
-                              checked={choosenItems.some(item => item._id === obj._id)}
-                              onClick={() => onClickItem(obj)}
-                            />
-                            <div className={classNames.shopName}>{obj.name || t(TranslationKey.Empty)}</div>
-                          </div>
-                        ))}
+                        .map(
+                          obj =>
+                            obj && (
+                              <div key={obj._id} className={classNames.shop}>
+                                <Checkbox
+                                  color="primary"
+                                  checked={choosenItems.some(item => item._id === obj._id)}
+                                  onClick={() => onClickItem(obj)}
+                                />
+                                <div className={classNames.shopName}>{obj.name || t(TranslationKey.Empty)}</div>
+                              </div>
+                            ),
+                        )}
                     </>
                   ) : (
                     <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
@@ -960,7 +964,7 @@ export const NormalFieldMenuItem = React.memo(
       }, [nameSearchValue])
 
       return (
-        <div className={cx({ [classNames.shopsDataWrapper]: !asBlock })}>
+        <div className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}>
           <div className={classNames.searchInputWrapper}>
             <SearchInput
               key={'client_warehouse_search_input'}

@@ -3007,6 +3007,22 @@ export const OrderIdAndAmountCountCell = React.memo(
   ),
 )
 
+export const FormedCell = React.memo(
+  withStyles(
+    ({ classes: classNames, sub, onChangeIsFormedInBox, params }) => (
+      <div className={classNames.formedCell}>
+        <CheckboxCell
+          disabled={params.row.originalData.isDraft || params.row.status !== BoxStatus.IN_STOCK}
+          checked={params.value}
+          onClick={onChangeIsFormedInBox}
+        />
+        {sub && <MultilineTextCell text={sub.name} />}
+      </div>
+    ),
+    styles,
+  ),
+)
+
 // export const ShortBoxDimensions = React.memo( withStyles(
 //   ({classes: classNames, box, volumeWeightCoefficient, curUser, handlers}) => {
 //     const dimensionsConfig = {
