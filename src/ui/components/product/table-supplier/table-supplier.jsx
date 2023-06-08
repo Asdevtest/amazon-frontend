@@ -2,7 +2,7 @@
 import { cx } from '@emotion/css'
 import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { observer } from 'mobx-react'
 
@@ -20,9 +20,15 @@ import { checkAndMakeAbsoluteUrl, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './table-supplier.style'
+import { UserModel } from '@models/user-model'
 
 export const TableSupplier = observer(({ isClient, product, productBaseData, selectedSupplier, onClickSupplier }) => {
   const { classes: classNames } = useClassNames()
+  const [platformSettings, setPlatformSettings] = useState()
+
+  useEffect(() => {
+    UserModel.getPlatformSettings().then(data => setPlatformSettings(data))
+  }, [])
 
   const renderHeader = () => (
     <TableHead className={classNames.tableHead}>
@@ -117,14 +123,17 @@ export const TableSupplier = observer(({ isClient, product, productBaseData, sel
 
                 <TableCell className={classNames.alignCenter}>{supplier.productionTerm}</TableCell>
                 <TableCell className={cx(classNames.alignCenter)}>
-                  <div className={classNames.priceVariationsCell}>
-                    {supplier?.priceVariations?.map((el, index) => (
-                      <div key={index}>
-                        {el.quantity} {t(TranslationKey['pcs.'])}. / {toFixedWithDollarSign(el.price, 2)}{' '}
-                        {t(TranslationKey.Per).toLowerCase()} {t(TranslationKey['pcs.'])}
-                      </div>
-                    ))}
-                  </div>
+                  {platformSettings && (
+                    <div className={classNames.priceVariationsCell}>
+                      {supplier?.priceVariations?.map((el, index) => (
+                        <div key={index}>
+                          {el.quantity} {t(TranslationKey['pcs.'])}. /{' '}
+                          {toFixedWithDollarSign(el.price / platformSettings?.yuanToDollarRate, 2)}{' '}
+                          {t(TranslationKey.Per).toLowerCase()} {t(TranslationKey['pcs.'])}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </TableCell>
 
                 <TableCell className={cx(classNames.alignCenter, classNames.commentCell)}>{supplier.comment}</TableCell>

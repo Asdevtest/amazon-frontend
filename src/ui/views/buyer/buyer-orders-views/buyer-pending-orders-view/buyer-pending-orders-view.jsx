@@ -107,6 +107,7 @@ export const BuyerPendingOrdersViewRaw = props => {
       >
         <EditOrderModal
           isPendingOrder
+          platformSettings={viewModel.platformSettings}
           paymentMethods={viewModel.paymentMethods}
           imagesForLoad={viewModel.imagesForLoad}
           hsCodeData={viewModel.hsCodeData}
