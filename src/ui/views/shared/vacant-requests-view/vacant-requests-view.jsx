@@ -72,6 +72,8 @@ export const VacantRequestsViewRaw = props => {
     }
   }
 
+  const dataToRender = getSortedData(viewModel.sortMode)
+
   const getRowClassName = params => {
     if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 86400) {
       return classNames.redBorder
@@ -156,7 +158,7 @@ export const VacantRequestsViewRaw = props => {
           <div className={classNames.loadingWrapper}>
             <CircularProgressWithLabel />
           </div>
-        ) : getSortedData(viewModel.sortMode)?.length && viewModel.viewMode !== tableViewMode.TABLE ? (
+        ) : dataToRender?.length && viewModel.viewMode !== tableViewMode.TABLE ? (
           <Box
             container
             classes={{ root: classNames.dashboardCardWrapper }}
@@ -170,7 +172,7 @@ export const VacantRequestsViewRaw = props => {
             }
             gap={'35px'}
           >
-            {getSortedData(viewModel.sortMode)?.map((item, index) =>
+            {dataToRender?.map((item, index) =>
               viewModel.viewMode === tableViewMode.LIST ? (
                 <VacantRequestListCard
                   key={item._id}
@@ -188,7 +190,7 @@ export const VacantRequestsViewRaw = props => {
               ),
             )}
           </Box>
-        ) : getSortedData(viewModel.sortMode)?.length && viewModel.viewMode === tableViewMode.TABLE ? (
+        ) : dataToRender?.length && viewModel.viewMode === tableViewMode.TABLE ? (
           <div className={classNames.dataGridWrapper}>
             <MemoDataGrid
               disableVirtualization
@@ -212,7 +214,7 @@ export const VacantRequestsViewRaw = props => {
               columnVisibilityModel={viewModel.columnVisibilityModel}
               paginationModel={viewModel.paginationModel}
               pageSizeOptions={[15, 25, 50, 100]}
-              rows={getSortedData(viewModel.sortMode)}
+              rows={dataToRender}
               rowHeight={75}
               slots={{
                 toolbar: DataGridCustomToolbar,
@@ -220,7 +222,13 @@ export const VacantRequestsViewRaw = props => {
                 columnMenu: DataGridCustomColumnMenuComponent,
               }}
               slotProps={{
+                columnMenu: viewModel.columnMenuSettings,
+
                 toolbar: {
+                  resetFiltersBtnSettings: {
+                    onClickResetFilters: viewModel.onClickResetFilters,
+                    isSomeFilterOn: viewModel.onClickResetFilters,
+                  },
                   columsBtnSettings: {
                     columnsModel: viewModel.columnsModel,
                     columnVisibilityModel: viewModel.columnVisibilityModel,

@@ -527,6 +527,20 @@ export const UserLinkCell = React.memo(
   ),
 )
 
+export const ManyUserLinkCell = React.memo(
+  withStyles(({ classes: classNames, usersData }) => {
+    return (
+      <div className={classNames.manyUserLinkWrapper}>
+        {usersData?.map(user => (
+          <Tooltip key={user?._id} title={user?.name}>
+            <UserLink blackText withAvatar userId={user?._id} customStyles={{ fontWeight: 400, fontSize: 14 }} />
+          </Tooltip>
+        ))}
+      </div>
+    )
+  }, styles),
+)
+
 export const BarcodeCell = React.memo(
   withStyles(
     ({ classes: classNames, product, handlers }) => (

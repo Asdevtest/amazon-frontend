@@ -984,6 +984,13 @@ export const styles = theme => ({
     alignItems: 'center',
   },
 
+  manyUserLinkWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   userLinkWrapper: {
     width: '100%',
     display: 'flex',
