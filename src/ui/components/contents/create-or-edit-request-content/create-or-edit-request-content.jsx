@@ -51,6 +51,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './create-or-edit-request-content.style'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
+import { CheckRequestByTypeExists } from '@components/forms/check-request-by-type-exists'
 
 const stepVariant = {
   STEP_ONE: 'STEP_ONE',
@@ -67,6 +68,8 @@ export const CreateOrEditRequestContent = ({
   showProgress,
   progressValue,
   mainContentRef,
+  checkRequestByTypeExists,
+  onClickExistingRequest,
   onClickChoosePerformer,
   onClickThumbnail,
   onCreateSubmit,
@@ -80,6 +83,7 @@ export const CreateOrEditRequestContent = ({
 
   const [showScrollUp, setShowScrollUp] = useState(false)
   const [showScrollDown, setShowScrollDown] = useState(false)
+  const [showCheckRequestByTypeExists, setShowCheckRequestByTypeExists] = useState(false)
 
   const [openModal, setOpenModal] = useState(false)
 
@@ -193,6 +197,8 @@ export const CreateOrEditRequestContent = ({
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
 
+  const [requestIds, setRequestIds] = useState([])
+
   const [announcement, setAnnouncement] = useState(choosenAnnouncements || undefined)
 
   useEffect(() => {
@@ -289,7 +295,8 @@ export const CreateOrEditRequestContent = ({
 
   const isDeadlineError = formFields.request.timeoutAt < new Date()
 
-  const onSuccessSubmit = ({ withPublish }) => {
+  const [withPublish, setWithPublish] = useState({ withPublish: false })
+  const onSuccessSubmit = withPublish => {
     if (isDeadlineError) {
       setDeadlineError(!deadlineError)
     } else {
@@ -298,6 +305,17 @@ export const CreateOrEditRequestContent = ({
       } else {
         onCreateSubmit(formFields, images, withPublish, announcement)
       }
+    }
+  }
+
+  const onClickCreate = async ({ withPublish }) => {
+    await setWithPublish(withPublish)
+    const result = await checkRequestByTypeExists(formFields.request.typeTask, formFields.request.productId)
+    if (result.length) {
+      setRequestIds(result)
+      setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)
+    } else {
+      onSuccessSubmit(withPublish)
     }
   }
 
@@ -1219,7 +1237,7 @@ export const CreateOrEditRequestContent = ({
                   }
                   disabled={disableSubmit}
                   className={classNames.successBtn}
-                  onClick={onSuccessSubmit}
+                  onClick={() => onClickCreate({ withPublish: false })}
                 >
                   {curStep === stepVariant.STEP_TWO ? (
                     t(TranslationKey['Create a request'])
@@ -1241,7 +1259,7 @@ export const CreateOrEditRequestContent = ({
                     success
                     disabled={disableSubmit}
                     className={classNames.successBtn}
-                    onClick={() => onSuccessSubmit({ withPublish: true })}
+                    onClick={() => onClickCreate({ withPublish: true })}
                   >
                     {t(TranslationKey['Create and publish a request'])}
                   </Button>
@@ -1275,6 +1293,21 @@ export const CreateOrEditRequestContent = ({
           onClickChooseBtn={setAnnouncement}
           onClickResetPerformerBtn={() => setAnnouncement('')}
           onClickCloseBtn={() => setOpenModal(!openModal)}
+        />
+      </Modal>
+
+      <Modal
+        openModal={showCheckRequestByTypeExists}
+        setOpenModal={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
+        dialogContextClassName={classNames.dialogContextClassName}
+      >
+        <CheckRequestByTypeExists
+          requestsData={requestIds}
+          asin={formFields.request.asin}
+          type={formFields.request.typeTask}
+          onClickRequest={onClickExistingRequest}
+          onClickContinue={() => onCreateSubmit(formFields, images, withPublish, announcement)}
+          onClickCancel={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
         />
       </Modal>
     </div>
