@@ -109,7 +109,7 @@ export const VacantRequestsViewRaw = props => {
             placeholder={t(TranslationKey['Search by Title, ASIN, ID'])}
             inputClasses={classNames.searchInput}
             value={viewModel.nameSearchValue}
-            onChange={viewModel.onChangeNameSearchValue}
+            onSubmit={viewModel.onSearchSubmit}
           />
 
           <div className={classNames.tablePanelSubWrapper}>

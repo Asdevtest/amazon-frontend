@@ -128,13 +128,13 @@ export const MyRequestsViewRaw = props => {
               columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
               columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
             }}
-            sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
+            rowCount={viewModel.rowCount}
+            sortModel={viewModel.sortModel}
             rows={viewModel.searchRequests}
-            // rowCount={viewModel.rowCount}
+            pageSizeOptions={[15, 25, 50, 100]}
             rowHeight={130}
             slots={{
               toolbar: DataGridCustomToolbar,

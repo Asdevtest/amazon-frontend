@@ -160,6 +160,11 @@ class RequestModelStatic {
     })
     return response
   }
+
+  getExistingRequestsTypeRequests = async (typeTask, id) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsGetExistingRequestsTypeTaskGuidGet(id, typeTask)
+    return response
+  }
 }
 
 export const RequestModel = new RequestModelStatic()
