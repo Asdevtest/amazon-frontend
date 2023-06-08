@@ -18,14 +18,14 @@ interface LayoutProps {
 interface CurrentPageInfo {
   activeCategory: string
   activeSubCategory: string
-  title: string
+  title: () => void
 }
 
 export const Layout: FC<LayoutProps> = props => {
   const [currentPageInfo, setCurrentPageInfo] = useState<CurrentPageInfo>({
     activeCategory: '',
     activeSubCategory: '',
-    title: '',
+    title: () => 'Title',
   })
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(true)
   const location = useLocation()
