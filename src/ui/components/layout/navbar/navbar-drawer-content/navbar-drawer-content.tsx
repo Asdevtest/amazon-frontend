@@ -119,9 +119,7 @@ export const NavbarDrawerContent = observer((props: NavbarDrawerContentProps) =>
                         userInfo.needUpdateTariff?.boxes +
                         userInfo.updatesOnIdeas) ||
                     (category.route?.includes('/buyer/notifications') && userInfo.updatesOnIdeas) ||
-                    (category.route?.includes('/client/my-orders/orders') &&
-                      userInfo.purchaseOrderRequired?.length &&
-                      userInfo.purchaseOrderRequired.length) ||
+                    (category.route?.includes('/client/my-orders/orders') && userInfo.allOrders) ||
                     (category.route?.includes('/warehouse/tasks') &&
                       userInfo.tasksAtProcessAll + userInfo.tasksNewAll) ||
                     (category.route?.includes('/buyer/free-orders') && userInfo.freeOrders) ||

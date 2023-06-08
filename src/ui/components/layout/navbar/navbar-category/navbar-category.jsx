@@ -40,7 +40,11 @@ const NavBarCategoryRaw = observer(({ badge, classes: classNames, isSelected, us
       case '/buyer/pending-orders':
         return <div className={cx(classNames.bigBadge, classNames.redBadge)}>{userInfo.pendingOrdersByDeadline}</div>
       case '/client/my-orders/orders':
-        return <div className={cx(classNames.bigBadge, classNames.redBadge)}>{userInfo.allOrders}</div>
+        return (
+          <div className={cx(classNames.bigBadge, classNames.redBadge)}>
+            {userInfo.purchaseOrderRequired?.length ? userInfo.purchaseOrderRequired.length : 0}
+          </div>
+        )
     }
   }
 
