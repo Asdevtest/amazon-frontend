@@ -1019,15 +1019,15 @@ export const styles = theme => ({
 
   actionBtn: {
     display: 'flex',
-    width: '175px',
-    height: '40px',
+    width: 175,
+    height: 30,
+    padding: '0 12px',
 
     [theme.breakpoints.down(1282)]: {
       width: 128,
-      height: 30,
       fontWeight: 400,
       fontSize: 13,
-      lineHeight: '18px',
+      lineHeight: 18,
     },
   },
 
