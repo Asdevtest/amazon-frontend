@@ -517,17 +517,17 @@ export class MyRequestsViewModel {
     const priorityFilter = exclusion !== 'priority' && this.columnMenuSettings.priority.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
-      // or: [
-      //   { asin: { $contains: this.nameSearchValue } },
-      //   { title: { $contains: this.nameSearchValue } },
-      //   { humanFriendlyId: { $eq: this.nameSearchValue } },
-      // ].filter(
-      //   el =>
-      //     ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-      //       !el.id &&
-      //       !el.humanFriendlyId) ||
-      //     !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
-      // ),
+      or: [
+        { asin: { $contains: this.nameSearchValue } },
+        { title: { $contains: this.nameSearchValue } },
+        { humanFriendlyId: { $eq: this.nameSearchValue } },
+      ].filter(
+        el =>
+          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
+            !el.id &&
+            !el.humanFriendlyId) ||
+          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+      ),
 
       ...(asinFilter && {
         asin: { $eq: asinFilter },

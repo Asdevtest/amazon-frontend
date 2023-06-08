@@ -589,4 +589,9 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     marginLeft: -10,
   },
+
+  dialogContextClassName: {
+    boxSizing: 'border-box',
+    padding: '30px 26px 30px 44px',
+  },
 }))

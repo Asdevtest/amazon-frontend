@@ -11,6 +11,7 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 
 export class CreateOrEditRequestViewModel {
   history = undefined
@@ -40,6 +41,8 @@ export class CreateOrEditRequestViewModel {
   readyImages = []
   progressValue = 0
   showProgress = false
+
+  showCheckRequestByTypeExists = false
 
   confirmModalSettings = {
     isWarning: false,
@@ -283,6 +286,18 @@ export class CreateOrEditRequestViewModel {
     if (id) {
       this.choosenAnnouncements = await AnnouncementsModel.getAnnouncementsByGuid(id)
     }
+  }
+
+  async checkRequestByTypeExists(typeTask, id) {
+    const result = await RequestModel.getExistingRequestsTypeRequests(typeTask, id)
+
+    return result
+  }
+
+  onClickExistingRequest(item) {
+    const win = window.open(`/client/freelance/my-requests/custom-request?request-id=${item._id}`, '_blank')
+
+    win.focus()
   }
 
   onTriggerOpenModal(modalState) {
