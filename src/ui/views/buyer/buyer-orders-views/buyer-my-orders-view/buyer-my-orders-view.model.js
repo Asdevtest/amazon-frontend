@@ -877,6 +877,7 @@ export class BuyerMyOrdersViewModel {
 
       orderFields = {
         ...orderFields,
+        partialPaymentAmountRmb: Number(orderFields.partialPaymentAmountRmb) || 0,
         images: this.readyImages,
       }
       // }
