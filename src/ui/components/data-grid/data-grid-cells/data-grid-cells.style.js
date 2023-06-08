@@ -1723,7 +1723,9 @@ export const styles = theme => ({
       color: '#0E5CB9',
     },
   },
-
+  printIcon: {
+    color: theme.palette.background.darkBlue,
+  },
   formedCell: {
     display: 'flex',
     alignItems: 'center',

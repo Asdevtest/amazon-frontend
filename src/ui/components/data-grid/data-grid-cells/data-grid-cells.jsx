@@ -976,7 +976,11 @@ export const DownloadAndPrintFilesCell = React.memo(
                       printFile(el)
                     }}
                   >
-                    <PrintIcon color="inherit" />
+                    <PrintIcon
+                      classes={{
+                        root: styles.printIcon,
+                      }}
+                    />
                   </IconButton>
                 </Box>
               )}
@@ -1000,7 +1004,11 @@ export const DownloadAndPrintFilesCell = React.memo(
           controls={() => (
             <>
               <Button onClick={() => handlePrint()}>
-                <PrintIcon color="inherit" />
+                <PrintIcon
+                  classes={{
+                    root: styles.printIcon,
+                  }}
+                />
               </Button>
             </>
           )}
