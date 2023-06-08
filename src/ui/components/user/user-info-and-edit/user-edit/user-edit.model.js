@@ -113,7 +113,10 @@ export class UserEditModel {
         this.availableSubUsers = !!(await AdministratorModel.getUsersById(this.userData._id)).subUsers.length
       }
 
-      if (this.checkValidationNameOrEmail.nameIsUnique || this.checkValidationNameOrEmail.emailIsUnique) {
+      if (
+        this.checkValidationNameOrEmail.nameIsUnique === false ||
+        this.checkValidationNameOrEmail.emailIsUnique === false
+      ) {
         return
       } else if (this.availableSubUsers) {
         this.onTriggerOpenModal('showConfirmModal')
