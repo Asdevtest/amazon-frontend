@@ -1724,4 +1724,12 @@ export const styles = theme => ({
       color: '#0E5CB9',
     },
   },
+
+  formedCell: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    gap: 5,
+  },
 })
