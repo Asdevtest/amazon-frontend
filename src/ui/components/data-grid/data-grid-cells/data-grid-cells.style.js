@@ -378,10 +378,9 @@ export const styles = theme => ({
   },
 
   rowCancelBtn: {
-    height: '40px',
+    height: 30,
     padding: '0 25px',
     [theme.breakpoints.down(1282)]: {
-      height: 30,
       width: 90,
     },
   },
@@ -1724,8 +1723,14 @@ export const styles = theme => ({
       color: '#0E5CB9',
     },
   },
-
   printIcon: {
     color: theme.palette.background.darkBlue,
+  },
+  formedCell: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    gap: 5,
   },
 })

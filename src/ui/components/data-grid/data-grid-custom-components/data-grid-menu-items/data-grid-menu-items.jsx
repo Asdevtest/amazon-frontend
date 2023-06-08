@@ -35,42 +35,112 @@ import { getStatusByColumnKeyAndStatusKey, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { styles } from './data-grid-menu-items.style'
+import { cx } from '@emotion/css'
 
 export const IsFormedMenuItem = React.memo(
   withStyles(
-    ({ classes: classNames, isFormedData }) => (
-      <div className={classNames.isFormedWrapper}>
-        <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey['Not formed'])}</Typography>
+    ({
+      classes: classNames,
+      isFormedData,
+      onClose,
+      data,
+      field,
+      filterRequestStatus,
+      columnKey,
+      onChangeFullFieldMenuItem,
+      onClickAccept,
+      onClickFilterBtn,
+    }) => {
+      const [currentOption, setCurrentOption] = useState('first')
 
-          <Checkbox
-            color="primary"
-            checked={!isFormedData.isFormed || isFormedData.isFormed === null}
-            onClick={() =>
-              isFormedData.onChangeIsFormed(
-                isFormedData.isFormed !== null ? (!isFormedData.isFormed ? !isFormedData.isFormed : null) : true,
-              )
-            }
-          />
+      const handleCategory = e => {
+        if (e.target.value === 'second') {
+          onClickFilterBtn(field)
+        }
+        setCurrentOption(e.target.value)
+      }
+
+      return (
+        <div className={classNames.isFormedWrapper}>
+          <div>
+            <FormControl className={classNames.formControl}>
+              <RadioGroup row className={classNames.radioGroup} value={currentOption} onChange={handleCategory}>
+                <FormControlLabel
+                  className={classNames.radioOption}
+                  value="first"
+                  control={<Radio className={classNames.radioControl} />}
+                  label={t(TranslationKey.Formed)}
+                />
+                <FormControlLabel
+                  className={classNames.radioOption}
+                  value="second"
+                  control={<Radio className={classNames.radioControl} />}
+                  label={t(TranslationKey.Responsible)}
+                />
+              </RadioGroup>
+            </FormControl>
+          </div>
+
+          {currentOption === 'first' && (
+            <div className={classNames.shopsWrapper}>
+              <div className={classNames.shopsBody}>
+                <div className={classNames.shop}>
+                  <Checkbox
+                    color="primary"
+                    checked={isFormedData.isFormed || isFormedData.isFormed === null}
+                    onClick={() =>
+                      isFormedData.onChangeIsFormed(
+                        isFormedData.isFormed !== null
+                          ? isFormedData.isFormed
+                            ? !isFormedData.isFormed
+                            : null
+                          : false,
+                      )
+                    }
+                  />
+
+                  <Typography>{t(TranslationKey.Formed)}</Typography>
+                </div>
+
+                <div className={classNames.shop}>
+                  <Checkbox
+                    color="primary"
+                    checked={!isFormedData.isFormed || isFormedData.isFormed === null}
+                    onClick={() =>
+                      isFormedData.onChangeIsFormed(
+                        isFormedData.isFormed !== null
+                          ? !isFormedData.isFormed
+                            ? !isFormedData.isFormed
+                            : null
+                          : true,
+                      )
+                    }
+                  />
+
+                  <Typography>{t(TranslationKey['Not formed'])}</Typography>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {currentOption === 'second' && (
+            <>
+              <ObJectFieldMenuItem
+                asBlock
+                data={data}
+                field={field}
+                filterRequestStatus={filterRequestStatus}
+                columnKey={columnKey}
+                onClickFilterBtn={onClickFilterBtn}
+                onClose={onClose}
+                onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+                onClickAccept={onClickAccept}
+              />
+            </>
+          )}
         </div>
-
-        <div className={classNames.isFormedSubWrapper}>
-          <Typography>{t(TranslationKey.Formed)}</Typography>
-
-          <Checkbox
-            color="primary"
-            checked={isFormedData.isFormed || isFormedData.isFormed === null}
-            onClick={() =>
-              isFormedData.onChangeIsFormed(
-                isFormedData.isFormed !== null ? (isFormedData.isFormed ? !isFormedData.isFormed : null) : false,
-              )
-            }
-          />
-        </div>
-
-        <Divider />
-      </div>
-    ),
+      )
+    },
     styles,
   ),
 )
@@ -642,6 +712,7 @@ export const ObJectFieldMenuItem = React.memo(
       onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
+      asBlock,
     }) => {
       const { filterData, currentFilterData } = data
 
@@ -688,7 +759,7 @@ export const ObJectFieldMenuItem = React.memo(
       }, [nameSearchValue])
 
       return (
-        <div className={classNames.shopsDataWrapper}>
+        <div className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}>
           <div className={classNames.searchInputWrapper}>
             <SearchInput
               key={'client_warehouse_search_input'}
@@ -719,16 +790,19 @@ export const ObJectFieldMenuItem = React.memo(
                         //     Number(choosenItems?.some(item => item._id === b._id)) -
                         //     Number(choosenItems?.some(item => item._id === a._id)),
                         // )
-                        .map(obj => (
-                          <div key={obj._id} className={classNames.shop}>
-                            <Checkbox
-                              color="primary"
-                              checked={choosenItems.some(item => item._id === obj._id)}
-                              onClick={() => onClickItem(obj)}
-                            />
-                            <div className={classNames.shopName}>{obj.name || t(TranslationKey.Empty)}</div>
-                          </div>
-                        ))}
+                        .map(
+                          obj =>
+                            obj && (
+                              <div key={obj._id} className={classNames.shop}>
+                                <Checkbox
+                                  color="primary"
+                                  checked={choosenItems.some(item => item._id === obj._id)}
+                                  onClick={() => onClickItem(obj)}
+                                />
+                                <div className={classNames.shopName}>{obj.name || t(TranslationKey.Empty)}</div>
+                              </div>
+                            ),
+                        )}
                     </>
                   ) : (
                     <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
@@ -844,6 +918,7 @@ export const NormalFieldMenuItem = React.memo(
       onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
+      asBlock = false,
     }) => {
       useEffect(() => {
         onClickFilterBtn(field)
@@ -889,7 +964,7 @@ export const NormalFieldMenuItem = React.memo(
       }, [nameSearchValue])
 
       return (
-        <div className={classNames.shopsDataWrapper}>
+        <div className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}>
           <div className={classNames.searchInputWrapper}>
             <SearchInput
               key={'client_warehouse_search_input'}

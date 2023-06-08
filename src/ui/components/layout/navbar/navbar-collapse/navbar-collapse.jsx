@@ -98,7 +98,6 @@ export const NavbarCollapse = ({
         return <ListItemIcon>{<div className={classNames.badge}>{userInfo.pendingOrders}</div>}</ListItemIcon>
 
       case '/client/my-orders/orders':
-        console.log(userInfo)
         return <ListItemIcon>{<div className={classNames.badge}>{userInfo.orders}</div>}</ListItemIcon>
 
       case '/buyer/not-paid-orders':

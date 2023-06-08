@@ -79,7 +79,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
     gap: '54px',
     height: '145px',
-    marginRight: '250px',
+    marginRight: '245px',
     [theme.breakpoints.down(768)]: {
       width: '100%',
       alignItems: 'start',
@@ -92,5 +92,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    textAlign: 'center',
   },
 }))

@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 
 /**
  * The ApiV1BoxesClientsLightProduct model module.
@@ -79,6 +80,9 @@ class ApiV1BoxesClientsLightProduct {
             }
             if (data.hasOwnProperty('hsCode')) {
                 obj['hsCode'] = ApiClient.convertToType(data['hsCode'], 'String');
+            }
+            if (data.hasOwnProperty('subUsers')) {
+                obj['subUsers'] = ApiClient.convertToType(data['subUsers'], [ApiV1AdminsGetProductsByStatusCreatedBy]);
             }
         }
         return obj;
@@ -151,6 +155,11 @@ ApiV1BoxesClientsLightProduct.prototype['barCode'] = undefined;
  * @member {String} hsCode
  */
 ApiV1BoxesClientsLightProduct.prototype['hsCode'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>} subUsers
+ */
+ApiV1BoxesClientsLightProduct.prototype['subUsers'] = undefined;
 
 
 

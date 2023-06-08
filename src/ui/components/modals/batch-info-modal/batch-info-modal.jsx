@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Typography } from '@mui/material'
 
@@ -41,6 +40,7 @@ import { BigImagesModal } from '../big-images-modal'
 import { batchInfoModalColumn } from './batch-info-modal-column'
 import { useClassNames } from './batch-info-modal.style'
 import { PhotoAndFilesCarouselMini } from '@components/shared/photo-and-files-carousel-mini'
+import { DownloadIcon } from '@components/shared/svg-icons'
 
 export const BatchInfoModal = observer(
   ({
@@ -405,7 +405,7 @@ export const BatchInfoModal = observer(
             <div className={classNames.buttonsWrapper}>
               <Button className={classNames.downloadButton} onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download the batch file'])}
-                <FileDownloadIcon />
+                <DownloadIcon />
               </Button>
 
               <Button className={classNames.actionButton} onClick={setOpenModal}>

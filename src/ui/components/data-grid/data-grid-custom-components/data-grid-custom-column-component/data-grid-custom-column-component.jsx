@@ -65,7 +65,17 @@ export const DataGridCustomColumnMenuComponent = props => {
   if (currentColumn.columnKey === columnnsKeys.client.WAREHOUSE_IN_STOCK_IS_FORMED) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
-        <IsFormedMenuItem isFormedData={isFormedData} />
+        <IsFormedMenuItem
+          isFormedData={isFormedData}
+          data={props.sub}
+          field={'sub'}
+          filterRequestStatus={filterRequestStatus}
+          columnKey={currentColumn.columnKey}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
         {/* {renderStandartItems()} пример*/}
       </GridColumnMenuContainer>
     )

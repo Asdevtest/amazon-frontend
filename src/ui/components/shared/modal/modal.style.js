@@ -2,12 +2,12 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(() => ({
   dialogPadding: {
-    padding: '40px 30px',
+    padding: '30px',
     height: '100%',
   },
 
   warningDialogPadding: {
-    padding: '40px 30px',
+    padding: '30px',
     '&:first-of-type': {
       padding: '0',
     },

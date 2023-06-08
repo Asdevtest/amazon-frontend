@@ -529,7 +529,7 @@ export const RedistributeBox = observer(
           // Добавил новое условие для блокировки, убрать чтобы вернуться в предыдущему виду
           newBoxes.some(item => item.items.every(el => el.amount === 0)),
       ) ||
-      (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason.length)
+      (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason?.length)
 
     return (
       <div>
