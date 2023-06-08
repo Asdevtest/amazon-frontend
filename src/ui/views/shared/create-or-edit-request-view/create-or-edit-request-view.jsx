@@ -12,8 +12,6 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { t } from '@utils/translations'
 
 import { CreateOrEditRequestViewModel } from './create-or-edit-request-view.model'
-import { Modal } from '@components/shared/modal'
-import { CheckRequestByTypeExists } from '@components/forms/check-request-by-type-exists'
 
 export const CreateOrEditRequestView = observer(props => {
   const mainContentRef = useRef()

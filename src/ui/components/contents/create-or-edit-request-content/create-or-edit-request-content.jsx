@@ -181,6 +181,7 @@ export const CreateOrEditRequestContent = ({
       announcementId: requestToEdit?.request?.announcementId || undefined,
       productId: requestToEdit?.request?.productId || undefined,
       withoutConfirmation: requestToEdit?.request?.withoutConfirmation || false,
+      priority: requestToEdit?.request.priority || 20,
 
       discountedPrice: requestToEdit
         ? toFixed(
@@ -706,45 +707,73 @@ export const CreateOrEditRequestContent = ({
                     </div>
                   </div>
 
-                  <div className={classNames.performerAndButtonWrapper}>
-                    <div className={classNames.performerAndButtonSubWrapper}>
-                      {announcement?._id && (
-                        <div className={classNames.performerWrapper}>
-                          <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
-                          <div className={classNames.userInfo}>
-                            <Avatar
-                              src={getUserAvatarSrc(announcement?.createdBy?._id)}
-                              className={classNames.cardImg}
-                            />
-
-                            <div className={classNames.nameWrapper}>
-                              <UserLink
-                                blackText
-                                name={announcement?.createdBy?.name}
-                                userId={announcement?.createdBy?._id}
+                  <div
+                    className={cx(classNames.checkboxAndButtonWrapper, classNames.checkboxAndButtonWrapperMarginTop)}
+                  >
+                    <div className={classNames.performerAndButtonWrapper}>
+                      <div className={classNames.performerAndButtonSubWrapper}>
+                        {announcement?._id && (
+                          <div className={classNames.performerWrapper}>
+                            <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
+                            <div className={classNames.userInfo}>
+                              <Avatar
+                                src={getUserAvatarSrc(announcement?.createdBy?._id)}
+                                className={classNames.cardImg}
                               />
-                              <Rating disabled value={5} size="small" classes={classNames.rating} />
+
+                              <div className={classNames.nameWrapper}>
+                                <UserLink
+                                  blackText
+                                  name={announcement?.createdBy?.name}
+                                  userId={announcement?.createdBy?._id}
+                                />
+                                <Rating disabled value={5} size="small" classes={classNames.rating} />
+                              </div>
                             </div>
                           </div>
+                        )}
+                        <Button
+                          disabled={!formFields?.request?.typeTask}
+                          variant={'contained'}
+                          className={classNames.changePerformerBtn}
+                          onClick={async () => {
+                            await onClickChoosePerformer(formFields.request.typeTask)
+                            setOpenModal(true)
+                          }}
+                        >
+                          {announcement
+                            ? t(TranslationKey['Change performer'])
+                            : t(TranslationKey['Select a Performer'])}
+                        </Button>
+                      </div>
+                      {announcement?.title && (
+                        <div className={classNames.performerDescriptionWrapper}>
+                          <Typography className={classNames.performerDescriptionText}>{announcement?.title}</Typography>
                         </div>
                       )}
-                      <Button
-                        disabled={!formFields?.request?.typeTask}
-                        variant={'contained'}
-                        className={classNames.changePerformerBtn}
-                        onClick={async () => {
-                          await onClickChoosePerformer(formFields.request.typeTask)
-                          setOpenModal(true)
+                    </div>
+
+                    <div className={cx(classNames.checkboxProposalWrapper)}>
+                      <div
+                        className={classNames.checkboxWrapper}
+                        onClick={() => {
+                          if (formFields.request.priority === 20) {
+                            onChangeField('request')('priority')({ target: { value: 30 } })
+                          } else {
+                            onChangeField('request')('priority')({ target: { value: 20 } })
+                          }
                         }}
                       >
-                        {announcement ? t(TranslationKey['Change performer']) : t(TranslationKey['Select a Performer'])}
-                      </Button>
-                    </div>
-                    {announcement?.title && (
-                      <div className={classNames.performerDescriptionWrapper}>
-                        <Typography className={classNames.performerDescriptionText}>{announcement?.title}</Typography>
+                        <Checkbox color="primary" checked={formFields.request.priority === 30} />
+                        <Text
+                          className={classNames.priorityText}
+                          tooltipPosition={'corner'} /* tooltipInfoContent={t(TranslationKey['Set urgent priority'])} */
+                        >
+                          {t(TranslationKey['Set urgent priority'])}
+                          <img src="/assets/icons/fire.svg" />
+                        </Text>
                       </div>
-                    )}
+                    </div>
                   </div>
                 </div>
                 {/* {requestToEdit ? (

@@ -283,9 +283,15 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'flex-start',
     // gap: '30px',
     // alignItems: 'center',
   },
+
+  checkboxAndButtonWrapperMarginTop: {
+    marginTop: 25,
+  },
+
   checkboxProposalWrapper: {
     width: '375px !important',
   },
@@ -492,8 +498,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: 378,
 
     gap: 20,
-
-    marginTop: 25,
   },
   userInfo: {
     display: 'flex',
@@ -593,5 +597,10 @@ export const useClassNames = makeStyles()(theme => ({
   dialogContextClassName: {
     boxSizing: 'border-box',
     padding: '30px 26px 30px 44px',
+  },
+
+  priorityText: {
+    display: 'flex',
+    gap: 15,
   },
 }))
