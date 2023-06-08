@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 
 import { colorByProductStatus, ProductStatusByCode } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -10,10 +10,13 @@ import {
   NormDateCell,
   MultilineTextCell,
   MultilineStatusCell,
+  TagsCell,
+  RedFlagsCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
 export const buyerProductsViewColumns = handlers => [
   {
@@ -172,6 +175,34 @@ export const buyerProductsViewColumns = handlers => [
     type: 'number',
 
     // columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
+  {
+    field: 'tags',
+    headerName: t(TranslationKey.Tags),
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
+    renderCell: params => {
+      const tagsMemo = useMemo(() => params.row.originalData.tags, [])
+
+      return <TagsCell tags={tagsMemo} />
+    },
+    width: 160,
+
+    columnKey: columnnsKeys.shared.OBJECT,
+  },
+
+  {
+    field: 'redFlags',
+    headerName: t(TranslationKey['Red flags']),
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
+    renderCell: params => {
+      const redFlagsMemo = useMemo(() => params.row.originalData.redFlags, [])
+
+      return <RedFlagsCell flags={redFlagsMemo} />
+    },
+    width: 130,
+
+    columnKey: columnnsKeys.shared.RED_FLAGS,
   },
 
   {

@@ -39,5 +39,6 @@ export const columnnsKeys = {
     OBJECT: 'OBJECT',
     MY_REQUESTS_ORDERS_STATUS: 'MY_REQUESTS_ORDERS_STATUS',
     PAYMENTS: 'PAYMENTS',
+    RED_FLAGS: 'RED_FLAGS',
   },
 }
