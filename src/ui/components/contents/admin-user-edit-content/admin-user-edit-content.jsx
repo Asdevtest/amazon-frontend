@@ -345,7 +345,7 @@ export const AdminUserEditContent = observer(
               <Field
                 inputProps={{ maxLength: 50 }}
                 label={t(TranslationKey.Name)}
-                error={checkValidationNameOrEmail.nameIsUnique && 'Пользователь с таким именем уже существует'}
+                error={!checkValidationNameOrEmail.nameIsUnique && 'Пользователь с таким именем уже существует'}
                 value={formFields.name}
                 onChange={onChangeFormField('name')}
               />
@@ -353,7 +353,7 @@ export const AdminUserEditContent = observer(
                 inputProps={{ maxLength: 50 }}
                 label={t(TranslationKey.Email)}
                 error={
-                  (checkValidationNameOrEmail.emailIsUnique && 'Пользователь с таким email уже существует') ||
+                  (!checkValidationNameOrEmail.emailIsUnique && 'Пользователь с таким email уже существует') ||
                   (!emailIsValid && t(TranslationKey['Invalid email!']))
                 }
                 value={formFields.email}
