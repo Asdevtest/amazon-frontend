@@ -33,7 +33,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       headerName: t(TranslationKey.ID) + ' / item',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
 
-      width: 60,
+      width: 100,
       renderCell: params => <MultilineTextCell text={params.value} />,
     },
 
