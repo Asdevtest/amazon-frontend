@@ -248,7 +248,8 @@ export const OrderModalBodyRow = ({
           <div className={classNames.priceVariationsCell}>
             {item.currentSupplier?.priceVariations?.map((el, index) => (
               <div key={index}>
-                {el.quantity} {t(TranslationKey['pcs.'])}. / {toFixedWithDollarSign(el.price, 2)}{' '}
+                {el.quantity} {t(TranslationKey['pcs.'])}. /{' '}
+                {toFixedWithDollarSign(el.price / platformSettings.yuanToDollarRate, 2)}{' '}
                 {t(TranslationKey.Per).toLowerCase()} {t(TranslationKey['pcs.'])}
               </div>
             ))}

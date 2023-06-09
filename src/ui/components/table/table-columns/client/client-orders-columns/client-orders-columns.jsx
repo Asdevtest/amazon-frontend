@@ -173,7 +173,7 @@ export const clientOrdersViewColumns = handlers => [
     headerName: t(TranslationKey['Production time']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.row.originalData.orderSupplier.productionTerm} />,
+    renderCell: params => <MultilineTextCell text={params.row.originalData?.orderSupplier?.productionTerm} />,
     width: 120,
     sortable: false,
   },

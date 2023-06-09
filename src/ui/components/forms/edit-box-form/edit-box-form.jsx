@@ -767,6 +767,7 @@ export const EditBoxForm = observer(
             storekeepers={storekeepers.filter(el => el._id === formItem?.storekeeper._id)}
             curStorekeeperId={boxFields.storekeeperId}
             curTariffId={boxFields.logicsTariffId}
+            destinationsData={destinations}
             onSubmit={onSubmitSelectStorekeeperAndTariff}
           />
         </Modal>

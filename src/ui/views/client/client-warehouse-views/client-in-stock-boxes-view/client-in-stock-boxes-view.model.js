@@ -419,7 +419,7 @@ export class ClientInStockBoxesViewModel {
 
   async getStorekeepers() {
     try {
-      const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK, 20)
+      const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK)
 
       runInAction(() => {
         this.storekeepersData = result

@@ -144,7 +144,7 @@ export const AddOrEditSupplierModalContent = observer(
           boxWeighGrossKg: tmpSupplier.boxProperties.boxWeighGrossKg || 0,
         },
 
-        productionTerm: tmpSupplier.productionTerm ? tmpSupplier.productionTerm : 0,
+        productionTerm: tmpSupplier?.productionTerm ? tmpSupplier?.productionTerm : 0,
       }
 
       if (
@@ -543,7 +543,7 @@ export const AddOrEditSupplierModalContent = observer(
               label={t(TranslationKey['Production time'])}
               containerClasses={classNames.middleContainer}
               labelClasses={classNames.normalLabel}
-              value={tmpSupplier.productionTerm}
+              value={tmpSupplier?.productionTerm}
               onChange={onChangeField('productionTerm')}
             />
           </div>

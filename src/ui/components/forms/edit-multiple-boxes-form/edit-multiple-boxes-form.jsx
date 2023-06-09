@@ -441,6 +441,7 @@ const Box = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
+          destinationsData={destinations}
           storekeepers={storekeepers.filter(el => el._id === box?.storekeeper._id)}
           curStorekeeperId={box.storekeeperId}
           curTariffId={box.logicsTariffId}
@@ -1093,6 +1094,7 @@ export const EditMultipleBoxesForm = observer(
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
         >
           <SelectStorekeeperAndTariffForm
+            destinationsData={destinations}
             storekeepers={storekeepers.filter(el => el._id === sharedFields?.storekeeperId)}
             curStorekeeperId={sharedFields.storekeeperId}
             curTariffId={sharedFields.logicsTariffId}

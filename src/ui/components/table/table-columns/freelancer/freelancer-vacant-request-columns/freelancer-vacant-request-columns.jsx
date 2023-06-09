@@ -119,8 +119,6 @@ export const FreelancerVacantRequestColumns = handlers => [
       <MultilineTextCell withLineBreaks text={timeToDeadlineInDaysAndHours({ date: params.row.timeoutAt })} />
     ),
     width: 91,
-
-    columnKey: columnnsKeys.shared.DATE,
   },
 
   {

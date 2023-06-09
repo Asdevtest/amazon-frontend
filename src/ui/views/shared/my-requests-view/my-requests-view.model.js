@@ -138,14 +138,7 @@ export class MyRequestsViewModel {
         history.replace({ ...history?.location, state })
       }
 
-      if (this.isRequestsAtWork) {
-        this.onChangeFullFieldMenuItem(allowStatuses, 'status')
-      } else {
-        this.onChangeFullFieldMenuItem(
-          Object.values(RequestStatus).filter(el => !allowStatuses.includes(el)),
-          'status',
-        )
-      }
+      this.setDefaultStatuses()
     })
 
     makeAutoObservable(this, undefined, { autoBind: true })
@@ -162,14 +155,7 @@ export class MyRequestsViewModel {
     reaction(
       () => this.isRequestsAtWork,
       () => {
-        if (this.isRequestsAtWork) {
-          this.onChangeFullFieldMenuItem(allowStatuses, 'status')
-        } else {
-          this.onChangeFullFieldMenuItem(
-            Object.values(RequestStatus).filter(el => !allowStatuses.includes(el)),
-            'status',
-          )
-        }
+        this.setDefaultStatuses()
       },
     )
 
@@ -335,8 +321,21 @@ export class MyRequestsViewModel {
       }
     })
 
+    this.setDefaultStatuses()
+
     this.getCustomRequests()
     this.getDataGridState()
+  }
+
+  async setDefaultStatuses() {
+    if (this.isRequestsAtWork) {
+      this.onChangeFullFieldMenuItem(allowStatuses, 'status')
+    } else {
+      this.onChangeFullFieldMenuItem(
+        Object.values(RequestStatus).filter(el => !allowStatuses.includes(el)),
+        'status',
+      )
+    }
   }
 
   async loadData() {
@@ -447,31 +446,6 @@ export class MyRequestsViewModel {
       })
     }
   }
-
-  // async getCustomRequests() {
-  //   try {
-  //     const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.MY)
-  //
-  //     const filteredResult = result.filter(request => {
-  //       if (this.isRequestsAtWork) {
-  //         return allowStatuses.some(status => request.status === status)
-  //       } else {
-  //         return allowStatuses.every(status => request.status !== status)
-  //       }
-  //     })
-  //
-  //     runInAction(() => {
-  //       this.searchRequests = myRequestsDataConverter(filteredResult).sort(
-  //         sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
-  //       )
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //     runInAction(() => {
-  //       this.error = error
-  //     })
-  //   }
-  // }
 
   async getCustomRequests() {
     try {

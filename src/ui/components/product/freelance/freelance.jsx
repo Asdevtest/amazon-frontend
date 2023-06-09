@@ -44,18 +44,18 @@ export const Freelance = observer(({ productId }) => {
     requestStatus,
     showRequestDesignerResultClientModal,
     showRequestStandartResultModal,
-    getCurrentData,
     densityModel,
     columnsModel,
+    onHover,
+    isSomeFilterOn,
+    columnMenuSettings,
+    columnVisibilityModel,
+    getCurrentData,
     onSearchSubmit,
     onClickTaskType,
     onTriggerOpenModal,
-
-    columnMenuSettings,
     onClickResetFilters,
-    columnVisibilityModel,
     onColumnVisibilityModelChange,
-    onHover,
   } = freelanceModel.current
 
   return (
@@ -114,7 +114,7 @@ export const Freelance = observer(({ productId }) => {
             toolbar: {
               resetFiltersBtnSettings: {
                 onClickResetFilters,
-                isSomeFilterOn: onClickResetFilters,
+                isSomeFilterOn,
               },
               columsBtnSettings: {
                 columnsModel,
