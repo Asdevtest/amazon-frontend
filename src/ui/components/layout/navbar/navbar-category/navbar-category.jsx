@@ -98,7 +98,9 @@ const NavBarCategoryRaw = observer(({ badge, classes: classNames, isSelected, us
         )}
         {/* {subRoutes?.[0] || category.route} */}
         {!shortNavbar && (
-          <div className={classNames.bigBadgePadding}>{getBigBadge(subRoutes?.[0] || category.route)}</div>
+          <div className={cx({ [classNames.bigBadgePadding]: category.title })}>
+            {getBigBadge(subRoutes?.[0] || category.route)}
+          </div>
         )}
       </MuiListItem>
     </Button>
