@@ -135,7 +135,7 @@ export const MyRequestStatusTranslate = s => {
     case MyRequestStatus.FORBID_NEW_PROPOSALS:
       return t(TranslationKey['Forbid new proposals'])
     case MyRequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED:
-      return t(TranslationKey.Completed)
+      return t(TranslationKey.Finished)
     case MyRequestStatus.CANCELED_BY_CREATOR:
       return t(TranslationKey['Cancel by Creator'])
     case MyRequestStatus.VERIFYING_BY_ADMIN:
