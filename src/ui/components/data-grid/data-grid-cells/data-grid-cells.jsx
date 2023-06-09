@@ -3029,7 +3029,7 @@ export const FormedCell = React.memo(
           checked={params.value}
           onClick={onChangeIsFormedInBox}
         />
-        {sub && <MultilineTextCell text={sub.name} />}
+        {sub?.name && <MultilineTextCell text={sub.name} />}
       </div>
     ),
     styles,
