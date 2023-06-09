@@ -66,8 +66,14 @@ export class FreelanceModel {
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
+  onHover = null
+
   get userInfo() {
     return UserModel.userInfo
+  }
+
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
   columnMenuSettings = {
@@ -193,6 +199,11 @@ export class FreelanceModel {
 
         productId: this.productId,
 
+        typeTask:
+          Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
+            ? undefined
+            : this.selectedTaskType,
+
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
 
@@ -315,6 +326,28 @@ export class FreelanceModel {
         this.error = error
       })
     }
+  }
+
+  onClickResetFilters() {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+
+        ...filtersFields.reduce(
+          (ac, cur) =>
+            (ac = {
+              ...ac,
+              [cur]: {
+                filterData: [],
+                currentFilterData: [],
+              },
+            }),
+          {},
+        ),
+      }
+    })
+
+    this.getCustomRequests()
   }
 
   onColumnVisibilityModelChange(model) {

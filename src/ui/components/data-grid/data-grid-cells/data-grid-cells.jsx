@@ -533,9 +533,15 @@ export const ManyUserLinkCell = React.memo(
     return (
       <div className={classNames.manyUserLinkWrapper}>
         {usersData?.map(user => (
-          <Tooltip key={user?._id} title={user?.name}>
-            <UserLink blackText withAvatar userId={user?._id} customStyles={{ fontWeight: 400, fontSize: 14 }} />
-          </Tooltip>
+          <UserLink
+            key={user?._id}
+            notShowName
+            blackText
+            withAvatar
+            name={user?.name}
+            userId={user?._id}
+            customStyles={{ fontWeight: 400, fontSize: 14 }}
+          />
         ))}
       </div>
     )
@@ -1560,7 +1566,7 @@ export const MultilineTextHeaderCell = React.memo(
 export const IconHeaderCell = React.memo(withStyles(({ classes: classNames, url }) => <img src={url} />, styles))
 
 export const PriorityAndChinaDeliverCell = React.memo(
-  withStyles(({ classes: classNames, priority, chinaDelivery, status }) => {
+  withStyles(({ classes: classNames, priority, chinaDelivery, status, isRequest }) => {
     const isPendingOrder = Number(status) <= Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
 
     return (
@@ -1568,7 +1574,7 @@ export const PriorityAndChinaDeliverCell = React.memo(
         {isPendingOrder ? <ClockIcon className={classNames.clockIcon} /> : null}
 
         <div>
-          {priority === '40' ? (
+          {priority === '40' || (isRequest && Number(priority) === 30) ? (
             <div className={classNames.priority}>
               <img src="/assets/icons/fire.svg" />
             </div>
