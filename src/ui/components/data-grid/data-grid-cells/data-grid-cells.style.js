@@ -678,7 +678,7 @@ export const styles = theme => ({
     textAlign: 'center',
     whiteSpace: 'normal',
     textOverflow: 'ellipsis',
-
+    wordBreak: 'break-all',
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',
