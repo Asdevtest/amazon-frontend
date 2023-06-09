@@ -1,5 +1,5 @@
 import { cx } from '@emotion/css'
-import { Link, Typography, Avatar } from '@mui/material'
+import { Link, Typography, Avatar, Tooltip } from '@mui/material'
 
 import React from 'react'
 
@@ -12,7 +12,7 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { useClassNames } from './user-link.style'
 
 export const UserLink = observer(
-  ({ name, userId, blackText, withAvatar, maxNameWidth, customStyles, customClassNames }) => {
+  ({ name, userId, blackText, withAvatar, notShowName = false, maxNameWidth, customStyles, customClassNames }) => {
     const { classes: classNames } = useClassNames()
 
     const curUserId = UserModel.userId
@@ -32,14 +32,16 @@ export const UserLink = observer(
             onClick={e => e.stopPropagation()}
           >
             {withAvatar ? (
-              <Avatar
-                src={getUserAvatarSrc(userId)}
-                className={classNames.avatarWrapper}
-                sx={{ width: 28, height: 28 }}
-              />
+              <Tooltip title={name}>
+                <Avatar
+                  src={getUserAvatarSrc(userId)}
+                  className={classNames.avatarWrapper}
+                  sx={{ width: 28, height: 28 }}
+                />
+              </Tooltip>
             ) : null}
 
-            {name && (
+            {name && !notShowName && (
               <Typography
                 className={cx(classNames.linkText, customClassNames, {
                   [classNames.blackLinkText]: blackText,

@@ -71,6 +71,10 @@ export class VacantRequestsViewModel {
     return SettingsModel.languageTag || {}
   }
 
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
@@ -354,7 +358,6 @@ export class VacantRequestsViewModel {
     runInAction(() => {
       this.columnVisibilityModel = model
     })
-    this.setDataGridState()
   }
 
   onChangeFullFieldMenuItem(value, field) {
@@ -378,6 +381,28 @@ export class VacantRequestsViewModel {
 
   onLeaveColumnField() {
     this.onHover = null
+  }
+
+  onClickResetFilters() {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+
+        ...filtersFields.reduce(
+          (ac, cur) =>
+            (ac = {
+              ...ac,
+              [cur]: {
+                filterData: [],
+                currentFilterData: [],
+              },
+            }),
+          {},
+        ),
+      }
+    })
+
+    this.getRequestsVacant()
   }
 
   async onClickViewMore(id) {

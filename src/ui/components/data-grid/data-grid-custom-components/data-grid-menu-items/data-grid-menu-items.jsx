@@ -1051,7 +1051,7 @@ export const ClientFreelancePriorityMenuItem = React.memo(
 
       const { filterData, currentFilterData } = data
 
-      const [choosenItems, setChoosenItems] = useState(filterData)
+      const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
       const onClickItem = array => {
         if (choosenItems.some(item => array.includes(item))) {
@@ -1062,8 +1062,8 @@ export const ClientFreelancePriorityMenuItem = React.memo(
       }
 
       useEffect(() => {
-        setChoosenItems(filterData)
-      }, [filterData])
+        setChoosenItems(currentFilterData)
+      }, [currentFilterData])
 
       return (
         <div className={classNames.shopsDataWrapper}>
@@ -1072,8 +1072,8 @@ export const ClientFreelancePriorityMenuItem = React.memo(
               <div className={classNames.shop}>
                 <Checkbox
                   color="primary"
-                  checked={choosenItems.some(item => Number(item) === 40)}
-                  onClick={() => onClickItem([40])}
+                  checked={choosenItems.some(item => Number(item) === 30)}
+                  onClick={() => onClickItem([30])}
                 />
                 <div className={classNames.shopName}>
                   {t(TranslationKey['Urgent request'])} <img src="/assets/icons/fire.svg" />
@@ -1083,9 +1083,9 @@ export const ClientFreelancePriorityMenuItem = React.memo(
               <div className={classNames.shop}>
                 <Checkbox
                   color="primary"
-                  checked={choosenItems.some(item => Number(item) === 20 || Number(item) === 30)}
+                  checked={choosenItems.some(item => Number(item) === 10 || Number(item) === 20)}
                   onClick={() => {
-                    onClickItem([20, 30])
+                    onClickItem([10, 20])
                   }}
                 />
                 <div className={classNames.shopName}>{t(TranslationKey['Without Priority'])}</div>

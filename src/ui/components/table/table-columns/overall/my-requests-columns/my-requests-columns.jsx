@@ -5,8 +5,6 @@ import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@cons
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  AsinCell,
-  IconHeaderCell,
   ManyUserLinkCell,
   MultilineRequestStatusCell,
   MultilineTextCell,
@@ -50,6 +48,7 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
     width: 60,
     renderCell: params => (
       <PriorityAndChinaDeliverCell
+        isRequest
         priority={params.row.originalData.priority}
         chinaDelivery={params.row.originalData.expressChinaDelivery}
         status={params.row.originalData.status}

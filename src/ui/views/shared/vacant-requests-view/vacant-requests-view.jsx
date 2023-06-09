@@ -142,15 +142,17 @@ export const VacantRequestsViewRaw = props => {
               </ToggleBtnGroupFreelance>
             </div>
 
-            <div className={classNames.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
-              <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
+            {viewModel.viewMode !== tableViewMode.TABLE && (
+              <div className={classNames.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
+                <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
 
-              {viewModel.sortMode === tableSortMode.DESK ? (
-                <ArrowDropDownIcon color="primary" />
-              ) : (
-                <ArrowDropUpIcon color="primary" />
-              )}
-            </div>
+                {viewModel.sortMode === tableSortMode.DESK ? (
+                  <ArrowDropDownIcon color="primary" />
+                ) : (
+                  <ArrowDropUpIcon color="primary" />
+                )}
+              </div>
+            )}
           </div>
         </div>
 
@@ -158,7 +160,7 @@ export const VacantRequestsViewRaw = props => {
           <div className={classNames.loadingWrapper}>
             <CircularProgressWithLabel />
           </div>
-        ) : dataToRender?.length && viewModel.viewMode !== tableViewMode.TABLE ? (
+        ) : viewModel.currentData?.length && viewModel.viewMode !== tableViewMode.TABLE ? (
           <Box
             container
             classes={{ root: classNames.dashboardCardWrapper }}
@@ -190,7 +192,7 @@ export const VacantRequestsViewRaw = props => {
               ),
             )}
           </Box>
-        ) : dataToRender?.length && viewModel.viewMode === tableViewMode.TABLE ? (
+        ) : viewModel.currentData?.length && viewModel.viewMode === tableViewMode.TABLE ? (
           <div className={classNames.dataGridWrapper}>
             <MemoDataGrid
               disableVirtualization
@@ -214,7 +216,7 @@ export const VacantRequestsViewRaw = props => {
               columnVisibilityModel={viewModel.columnVisibilityModel}
               paginationModel={viewModel.paginationModel}
               pageSizeOptions={[15, 25, 50, 100]}
-              rows={dataToRender}
+              rows={viewModel.currentData}
               rowHeight={75}
               slots={{
                 toolbar: DataGridCustomToolbar,
