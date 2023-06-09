@@ -13,6 +13,7 @@ import { logisticsTariffsColumns } from '@components/table/table-columns/warehou
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
+import { tariffTypes } from '@constants/keys/tariff-types'
 
 export class LogisticsTariffsModel {
   history = undefined
@@ -230,7 +231,10 @@ export class LogisticsTariffsModel {
 
   async getLogisticsTariffs() {
     try {
-      const result = await StorekeeperModel.getLogisticsTariffs({ archive: this.isArchive })
+      const result = await StorekeeperModel.getLogisticsTariffs({
+        tariffType: tariffTypes.WITHOUT_WEIGHT_LOGISTICS_TARIFF,
+        archive: this.isArchive,
+      })
 
       runInAction(() => {
         this.logisticsTariffs = addIdDataConverter(result)
