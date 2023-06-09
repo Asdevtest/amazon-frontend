@@ -44,8 +44,6 @@ export const SelectStorekeeperAndTariffForm = observer(
 
     const [tabIndex, setTabIndex] = React.useState(0)
 
-    console.log('destinationsData', destinationsData)
-
     const [nameSearchValue, setNameSearchValue] = useState('')
 
     const filterByNameSearch = data => {
