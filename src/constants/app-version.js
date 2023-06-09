@@ -1,1 +1,1 @@
-export const appVersion = 'v3.0.1830' // КАЖДЫЙ РАЗ ОБНОВЛЯЙ И В manifest.json
+export const appVersion = 'v3.0.1860' // КАЖДЫЙ РАЗ ОБНОВЛЯЙ И В manifest.json
