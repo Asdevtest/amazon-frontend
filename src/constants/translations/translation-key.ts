@@ -1979,7 +1979,7 @@ export enum TranslationKey {
   'there are already requests of the type' = 'there are already requests of the type',
   'With the product' = 'With the product',
   'Set urgent priority' = 'Set urgent priority',
-  // '' = '',
+  'Finished' = 'Finished',
   // '' = '',
   // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
