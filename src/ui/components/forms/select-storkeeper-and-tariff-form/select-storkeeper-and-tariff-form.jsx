@@ -60,6 +60,9 @@ export const SelectStorekeeperAndTariffForm = observer(
         : storekeepers.slice().sort((a, b) => a.name?.localeCompare(b?.name))[0],
     )
 
+    console.log('storekeepers', storekeepers)
+    console.log('curStorekeeper', curStorekeeper)
+
     const onClickSelectTariff = tariffId => {
       onSubmit(curStorekeeper._id, tariffId)
     }
@@ -165,7 +168,9 @@ export const SelectStorekeeperAndTariffForm = observer(
               getRowClassName={getRowClassName}
               rows={
                 curStorekeeper?.tariffLogistics?.length
-                  ? filterByNameSearch(addIdDataConverter(curStorekeeper.tariffLogistics))
+                  ? filterByNameSearch(
+                      addIdDataConverter(curStorekeeper.tariffLogistics).filter(item => item.tariffType !== 20),
+                    )
                   : []
               }
               columns={total ? TotalTariffsColumns() : logisticsTariffsColumns({ onClickSelectTariff })}

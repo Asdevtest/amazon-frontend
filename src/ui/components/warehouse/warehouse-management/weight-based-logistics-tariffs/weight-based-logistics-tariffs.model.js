@@ -76,7 +76,6 @@ export class LogisticsTariffsModel {
     reaction(
       () => this.logisticsTariffs,
       () => {
-        console.log('render')
         this.currentData = this.getCurrentData()
       },
     )
