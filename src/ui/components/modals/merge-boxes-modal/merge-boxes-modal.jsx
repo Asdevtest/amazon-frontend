@@ -83,14 +83,21 @@ export const MergeBoxesModal = ({
   // Добавил
   const setFormField = fieldName => e => {
     const newFormFields = { ...boxBody }
+    const currentValue = e.target.value
 
     if (['weighGrossKgWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'lengthCmWarehouse'].includes(fieldName)) {
-      if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+      if (isNaN(currentValue) || Number(currentValue) < 0) {
         return
       }
     }
 
-    newFormFields[fieldName] = e.target.value
+    const decimalPointIndex = currentValue.indexOf('.')
+
+    if (fieldName === 'weighGrossKgWarehouse') {
+      newFormFields[fieldName] = decimalPointIndex !== -1 ? currentValue.slice(0, decimalPointIndex + 3) : currentValue
+    } else {
+      newFormFields[fieldName] = currentValue
+    }
 
     setBoxBody(newFormFields)
   }
