@@ -128,7 +128,7 @@ export const EditOrderSuppliersTable = observer(
                       {toFixedWithDollarSign(supplier.batchTotalCostInDollar, 2)}
                     </Typography>
                   </TableCell>
-                  <TableCell className={classNames.alignCenter}>{supplier.productionTerm}</TableCell>
+                  <TableCell className={classNames.alignCenter}>{supplier?.productionTerm}</TableCell>
 
                   <TableCell className={classNames.alignCenter}>
                     <div className={classNames.priceVariationsCell}>
