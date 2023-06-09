@@ -71,6 +71,7 @@ const confirmModalModes = {
 
 export const EditOrderModal = observer(
   ({
+    platformSettings,
     paymentMethods,
     imagesForLoad,
     yuanToDollarRate,
@@ -923,6 +924,7 @@ export const EditOrderModal = observer(
           ) : null}
 
           <EditOrderSuppliersTable
+            platformSettings={platformSettings}
             productBaseData={order}
             orderFields={orderFields}
             isPendingOrder={isPendingOrder}

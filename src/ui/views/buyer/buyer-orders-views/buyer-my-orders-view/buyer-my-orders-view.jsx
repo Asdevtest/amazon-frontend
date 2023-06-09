@@ -180,6 +180,7 @@ export const BuyerMyOrdersViewRaw = props => {
         dialogContextClassName={classNames.dialogContextClassName}
       >
         <EditOrderModal
+          platformSettings={viewModel.platformSettings}
           paymentMethods={viewModel.paymentMethods}
           imagesForLoad={viewModel.imagesForLoad}
           hsCodeData={viewModel.hsCodeData}
