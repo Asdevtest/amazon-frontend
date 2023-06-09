@@ -37,6 +37,8 @@ export const buyerProductsViewColumns = handlers => [
       )
     },
     width: 350,
+
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
@@ -51,6 +53,8 @@ export const buyerProductsViewColumns = handlers => [
         color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
       />
     ),
+
+    columnKey: columnnsKeys.client.INVENTORY_STATUS,
   },
 
   {
@@ -60,6 +64,8 @@ export const buyerProductsViewColumns = handlers => [
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
     width: 120,
+
+    columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
   },
 
   {
@@ -94,6 +100,8 @@ export const buyerProductsViewColumns = handlers => [
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
     minWidth: 90,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -104,6 +112,8 @@ export const buyerProductsViewColumns = handlers => [
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
     width: 90,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -140,7 +150,7 @@ export const buyerProductsViewColumns = handlers => [
     width: 100,
     type: 'number',
 
-    // columnKey: columnnsKeys.shared.QUANTITY,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -157,7 +167,7 @@ export const buyerProductsViewColumns = handlers => [
     width: 100,
     type: 'number',
 
-    // columnKey: columnnsKeys.shared.QUANTITY,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -174,7 +184,7 @@ export const buyerProductsViewColumns = handlers => [
     width: 120,
     type: 'number',
 
-    // columnKey: columnnsKeys.shared.QUANTITY,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -213,6 +223,8 @@ export const buyerProductsViewColumns = handlers => [
     minWidth: 120,
     renderCell: params => <NormDateCell value={params.value} />,
     // type: 'date',
+
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -224,5 +236,7 @@ export const buyerProductsViewColumns = handlers => [
     flex: 1,
     renderCell: params => <NormDateCell value={params.value} />,
     // type: 'date',
+
+    columnKey: columnnsKeys.shared.DATE,
   },
 ]
