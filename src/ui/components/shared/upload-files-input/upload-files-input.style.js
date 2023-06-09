@@ -252,6 +252,7 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: '4px',
     height: '40px',
     width: '172px',
+    color: '#fff',
   },
 
   errorText: {
