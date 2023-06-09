@@ -714,6 +714,7 @@ export const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'start',
     flexWrap: 'no-wrap',
+    wordBreak: 'break-all',
   },
 
   commentOfSbWrapper: {
