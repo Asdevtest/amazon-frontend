@@ -5,11 +5,14 @@ import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@cons
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  AsinCell,
+  ManyUserLinkCell,
   MultilineRequestStatusCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
+  PriorityAndChinaDeliverCell,
+  ProductAsinCell,
   ShortDateCell,
+  UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -29,9 +32,62 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
 
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 117,
-    // type: 'date',
-
     columnKey: columnnsKeys.shared.DATE,
+  },
+
+  {
+    field: 'priority',
+    headerName: t(TranslationKey['Priority and Express Delivery']),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        component={<img src="/assets/icons/bookmark.svg" />}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+    width: 60,
+    renderCell: params => (
+      <PriorityAndChinaDeliverCell
+        isRequest
+        priority={params.row.originalData.priority}
+        chinaDelivery={params.row.originalData.expressChinaDelivery}
+        status={params.row.originalData.status}
+      />
+    ),
+
+    columnKey: columnnsKeys.shared.S,
+  },
+
+  {
+    field: 'product',
+    headerName: t(TranslationKey.Product),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Product)}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={
+          getColumnMenuSettings()?.asin?.currentFilterData?.length ||
+          getColumnMenuSettings()?.skusByClient?.currentFilterData?.length ||
+          getColumnMenuSettings()?.amazonTitle?.currentFilterData?.length
+        }
+      />
+    ),
+
+    renderCell: params => {
+      const product = params.row.originalData.product
+
+      return (
+        <ProductAsinCell
+          image={product?.images?.slice()[0]}
+          amazonTitle={product?.amazonTitle}
+          asin={product?.asin}
+          skusByClient={product?.skusByClient?.slice()[0]}
+        />
+      )
+    },
+    width: 300,
+
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
@@ -71,6 +127,50 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
   },
 
   {
+    field: 'createdBy',
+    headerName: t(TranslationKey['Created by']),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+        text={t(TranslationKey['Created by'])}
+      />
+    ),
+
+    renderCell: params => (
+      <UserLinkCell
+        blackText
+        name={
+          params.row.originalData?.sub ? params.row.originalData?.sub?.name : params.row.originalData?.createdBy?.name
+        }
+        userId={
+          params.row.originalData?.sub ? params.row.originalData?.sub?._id : params.row.originalData?.createdBy?._id
+        }
+      />
+    ),
+    width: 110,
+
+    columnKey: columnnsKeys.shared.A,
+  },
+
+  {
+    field: 'subUsers',
+    headerName: t(TranslationKey['Access to product']),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+        text={t(TranslationKey['Access to product'])}
+      />
+    ),
+
+    renderCell: params => <ManyUserLinkCell usersData={params.row.originalData?.product?.subUsers} />,
+    width: 187,
+
+    columnKey: columnnsKeys.shared.OBJECT,
+  },
+
+  {
     field: 'title',
     headerName: t(TranslationKey.Title),
     renderHeader: params => (
@@ -86,7 +186,7 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
     ),
     width: 228,
 
-    // columnKey: columnnsKeys.shared.STRING,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -104,24 +204,7 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
       <MultilineTextCell leftAlign text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value])} />
     ),
     width: 146,
-    // columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE,
-  },
-
-  {
-    field: 'asin',
-    headerName: t(TranslationKey.ASIN),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.ASIN)}
-        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
-
-    renderCell: params => <AsinCell asin={params.row.originalData.asin} />,
-    width: 123,
-
-    // columnKey: columnnsKeys.shared.STRING,
+    columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
   },
 
   {
@@ -136,10 +219,8 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
     ),
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    type: 'number',
     width: 115,
-
-    // columnKey: columnnsKeys.shared.QUANTITY,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -155,74 +236,6 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 115,
     // type: 'date',
-  },
-
-  {
-    field: 'allProposals',
-    headerName: t(TranslationKey['Total proposals']),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey['Total proposals'])}
-        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-      />
-    ), // ПРИМЕР МНОГОСТРОЧНОГО ХЕДЕРА
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 115,
-  },
-
-  {
-    field: 'verifyingProposals',
-    headerName: t(TranslationKey['Waiting selection']),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey['Waiting selection'])}
-        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-      />
-    ),
-
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 85,
-  },
-
-  {
-    field: 'atWorkProposals',
-    headerName: t(TranslationKey['In the work']),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey['In the work'])}
-        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-      />
-    ),
-
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 80,
-  },
-
-  {
-    field: 'waitedProposals',
-    headerName: t(TranslationKey['Waiting check']),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey['Waiting check'])}
-        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-      />
-    ),
-
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 85,
-  },
-
-  {
-    field: 'acceptedProposals',
-    headerName: t(TranslationKey.Accepted),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Accepted)}
-        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-      />
-    ),
-
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 85,
+    columnKey: columnnsKeys.shared.DATE,
   },
 ]

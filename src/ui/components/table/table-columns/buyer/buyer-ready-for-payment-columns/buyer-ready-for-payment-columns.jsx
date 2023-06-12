@@ -33,7 +33,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       headerName: t(TranslationKey.ID) + ' / item',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
 
-      width: 60,
+      width: 100,
       renderCell: params => <MultilineTextCell text={params.value} />,
     },
 
@@ -187,7 +187,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       headerName: t(TranslationKey['Production time']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
-      renderCell: params => <MultilineTextCell text={params.row.originalData.orderSupplier.productionTerm} />,
+      renderCell: params => <MultilineTextCell text={params.row.originalData.orderSupplier?.productionTerm} />,
       width: 120,
       sortable: false,
     },
@@ -221,9 +221,9 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
           withLineBreaks
           color={
             Math.abs(getDistanceBetweenDatesInSeconds(params.row.originalData.paymentDateToSupplier)) >
-              convertDaysToSeconds(params.row.originalData.orderSupplier.productionTerm) &&
+              convertDaysToSeconds(params.row.originalData.orderSupplier?.productionTerm) &&
             params.row.originalData.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] &&
-            !!params.row.originalData.orderSupplier.productionTerm
+            !!params.row.originalData.orderSupplier?.productionTerm
               ? '#FF1616'
               : null
           }

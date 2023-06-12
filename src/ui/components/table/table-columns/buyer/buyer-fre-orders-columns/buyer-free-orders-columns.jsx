@@ -25,7 +25,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-    width: 60,
+    width: 100,
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
   },
@@ -117,7 +117,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey['Production time']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.row.originalData.orderSupplier.productionTerm} />,
+    renderCell: params => <MultilineTextCell text={params.row?.originalData?.orderSupplier?.productionTerm} />,
     width: 120,
     sortable: false,
   },

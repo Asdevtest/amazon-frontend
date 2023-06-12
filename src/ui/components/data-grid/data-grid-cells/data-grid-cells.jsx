@@ -8,6 +8,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined'
 import PrintIcon from '@mui/icons-material/Print'
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined'
+import WatchLaterSharpIcon from '@mui/icons-material/WatchLaterSharp'
 import {
   Avatar,
   Box,
@@ -527,6 +528,26 @@ export const UserLinkCell = React.memo(
   ),
 )
 
+export const ManyUserLinkCell = React.memo(
+  withStyles(({ classes: classNames, usersData }) => {
+    return (
+      <div className={classNames.manyUserLinkWrapper}>
+        {usersData?.map(user => (
+          <UserLink
+            key={user?._id}
+            notShowName
+            blackText
+            withAvatar
+            name={user?.name}
+            userId={user?._id}
+            customStyles={{ fontWeight: 400, fontSize: 14 }}
+          />
+        ))}
+      </div>
+    )
+  }, styles),
+)
+
 export const BarcodeCell = React.memo(
   withStyles(
     ({ classes: classNames, product, handlers }) => (
@@ -961,7 +982,11 @@ export const DownloadAndPrintFilesCell = React.memo(
                       printFile(el)
                     }}
                   >
-                    <PrintIcon color="inherit" />
+                    <PrintIcon
+                      classes={{
+                        root: styles.printIcon,
+                      }}
+                    />
                   </IconButton>
                 </Box>
               )}
@@ -985,7 +1010,11 @@ export const DownloadAndPrintFilesCell = React.memo(
           controls={() => (
             <>
               <Button onClick={() => handlePrint()}>
-                <PrintIcon color="inherit" />
+                <PrintIcon
+                  classes={{
+                    root: styles.printIcon,
+                  }}
+                />
               </Button>
             </>
           )}
@@ -1537,7 +1566,7 @@ export const MultilineTextHeaderCell = React.memo(
 export const IconHeaderCell = React.memo(withStyles(({ classes: classNames, url }) => <img src={url} />, styles))
 
 export const PriorityAndChinaDeliverCell = React.memo(
-  withStyles(({ classes: classNames, priority, chinaDelivery, status }) => {
+  withStyles(({ classes: classNames, priority, chinaDelivery, status, isRequest }) => {
     const isPendingOrder = Number(status) <= Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
 
     return (
@@ -1545,7 +1574,7 @@ export const PriorityAndChinaDeliverCell = React.memo(
         {isPendingOrder ? <ClockIcon className={classNames.clockIcon} /> : null}
 
         <div>
-          {priority === '40' ? (
+          {priority === '40' || (isRequest && Number(priority) === 30) ? (
             <div className={classNames.priority}>
               <img src="/assets/icons/fire.svg" />
             </div>
@@ -1717,11 +1746,10 @@ export const MultilineRequestStatusCell = React.memo(
           RequestStatus.CANCELED_BY_CREATOR,
           RequestStatus.FORBID_NEW_PROPOSALS,
           RequestStatus.CANCELED_BY_ADMIN,
-          RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED,
         ].includes(status)
       ) {
         return '#FF1616'
-      } else if ([RequestStatus.IN_PROCESS].includes(status)) {
+      } else if ([RequestStatus.IN_PROCESS, RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED].includes(status)) {
         return '#00B746'
       } else if ([RequestStatus.PUBLISHED, RequestStatus.TO_CORRECT_BY_ADMIN].includes(status)) {
         return '#F3AF00'
@@ -2966,6 +2994,42 @@ export const TagsCell = React.memo(
             </>
           }
         />
+      </div>
+    ),
+    styles,
+  ),
+)
+
+export const OrderIdAndAmountCountCell = React.memo(
+  withStyles(
+    ({ classes: classNames, orderId, amount, onClickOrderId }) => (
+      <div className={classNames.orderIdAndAmountCount}>
+        <MultilineTextCell text={orderId} onClickText={onClickOrderId} />
+        {amount >= 1 && (
+          <MultilineTextCell
+            text={
+              <div className={classNames.amountWithClocks}>
+                <WatchLaterSharpIcon /> {amount}
+              </div>
+            }
+          />
+        )}
+      </div>
+    ),
+    styles,
+  ),
+)
+
+export const FormedCell = React.memo(
+  withStyles(
+    ({ classes: classNames, sub, onChangeIsFormedInBox, params }) => (
+      <div className={classNames.formedCell}>
+        <CheckboxCell
+          disabled={params.row.originalData.isDraft || params.row.status !== BoxStatus.IN_STOCK}
+          checked={params.value}
+          onClick={onChangeIsFormedInBox}
+        />
+        {sub?.name && <MultilineTextCell text={sub.name} />}
       </div>
     ),
     styles,

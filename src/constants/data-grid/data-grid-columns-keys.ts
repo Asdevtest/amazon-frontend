@@ -11,6 +11,7 @@ export const columnnsKeys = {
     ORDERS_STATUS: 'ORDERS_STATUS',
 
     FREELANCE_REQUEST_TYPE: 'FREELANCE_REQUEST_TYPE',
+    FREELANCE_REQUEST_TYPE_MY: 'FREELANCE_REQUEST_TYPE_MY',
     FREELANCE_MY_REQUESTS: 'FREELANCE_MY_REQUESTS',
 
     WAREHOUSE_IN_STOCK_PRODUCT: 'WAREHOUSE_IN_STOCK_PRODUCT',
@@ -27,6 +28,9 @@ export const columnnsKeys = {
   },
   researcher: {},
   shared: {
+    A: 'A',
+    S: 'S',
+    D: 'D',
     DATE: 'DATE',
     QUANTITY: 'QUANTITY',
     STRING: 'STRING',
@@ -35,5 +39,6 @@ export const columnnsKeys = {
     OBJECT: 'OBJECT',
     MY_REQUESTS_ORDERS_STATUS: 'MY_REQUESTS_ORDERS_STATUS',
     PAYMENTS: 'PAYMENTS',
+    RED_FLAGS: 'RED_FLAGS',
   },
 }

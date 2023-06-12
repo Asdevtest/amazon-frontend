@@ -19,6 +19,7 @@ import {
 
 import { timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
 export const FreelancerVacantRequestColumns = handlers => [
   {
@@ -27,6 +28,8 @@ export const FreelancerVacantRequestColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 159,
+
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -35,6 +38,8 @@ export const FreelancerVacantRequestColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 50,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -54,6 +59,8 @@ export const FreelancerVacantRequestColumns = handlers => [
     type: 'number',
     width: 96,
     sortable: false,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -62,6 +69,8 @@ export const FreelancerVacantRequestColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
     renderCell: params => <MultilineRequestStatusCell status={params.value} />,
     width: 124,
+
+    columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
   },
 
   {
@@ -75,6 +84,8 @@ export const FreelancerVacantRequestColumns = handlers => [
     type: 'number',
     width: 96,
     sortable: false,
+
+    columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
   },
 
   {
@@ -84,6 +95,8 @@ export const FreelancerVacantRequestColumns = handlers => [
 
     renderCell: params => <AsinCell asin={params.row.asin} />,
     width: 128,
+
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
@@ -93,6 +106,8 @@ export const FreelancerVacantRequestColumns = handlers => [
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 87,
     // type: 'date',
+
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -116,7 +131,7 @@ export const FreelancerVacantRequestColumns = handlers => [
   },
 
   {
-    field: 'productPrice',
+    field: 'priceAmazon',
     headerName: t(TranslationKey['Product price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Product price'])} />,
 
@@ -124,6 +139,8 @@ export const FreelancerVacantRequestColumns = handlers => [
       <VacantRequestPriceCell price={params.row.priceAmazon} cashBackInPercent={params.row.cashBackInPercent} />
     ),
     width: 127,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -165,6 +182,8 @@ export const FreelancerVacantRequestColumns = handlers => [
     ),
     width: 140,
     // type: 'date',
+
+    columnKey: columnnsKeys.shared.D,
   },
 
   {
@@ -190,5 +209,6 @@ export const FreelancerVacantRequestColumns = handlers => [
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 97,
     // type: 'date',
+    columnKey: columnnsKeys.shared.DATE,
   },
 ]

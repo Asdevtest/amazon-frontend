@@ -95,11 +95,10 @@ export const NavbarCollapse = ({
         )
 
       case '/client/my-orders/pending-orders':
-        return (
-          <ListItemIcon>
-            {<div className={classNames.redBadge}>{currentViewModel.userInfo.purchaseOrderRequired?.length}</div>}
-          </ListItemIcon>
-        )
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.pendingOrders}</div>}</ListItemIcon>
+
+      case '/client/my-orders/orders':
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.orders}</div>}</ListItemIcon>
 
       case '/buyer/not-paid-orders':
         return <ListItemIcon>{<div className={classNames.badge}>{userInfo.notPaid}</div>}</ListItemIcon>
@@ -154,6 +153,17 @@ export const NavbarCollapse = ({
     }
   }
 
+  const getBigBadge = route => {
+    switch (route) {
+      case '/client/my-orders/pending-orders':
+        return (
+          <div className={cx(classNames.bigBadge, classNames.redBadge)}>
+            {userInfo.purchaseOrderRequired?.length ? userInfo.purchaseOrderRequired.length : 0}
+          </div>
+        )
+    }
+  }
+
   const renderSubCategory = (subIndex, subCategory) => {
     const highPriorityNotificationCount =
       showHighPriorityNotification && getNotificationCountBySubRoute(subCategory.subRoute)
@@ -182,6 +192,7 @@ export const NavbarCollapse = ({
             primary={subCategory.subtitle}
           />
           {!!highPriorityNotificationCount && <HighPriorityValue value={highPriorityNotificationCount} />}
+          {!shortNavbar && getBigBadge(subCategory.subRoute)}
         </NavbarSubCategory>
       </Button>
     )

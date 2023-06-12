@@ -70,7 +70,7 @@ export const MyRequestsViewRaw = props => {
               TranslationKey.ID,
             )}`}
             value={viewModel.nameSearchValue}
-            onChange={viewModel.onChangeNameSearchValue}
+            onSubmit={viewModel.onSearchSubmit}
           />
 
           <Button
@@ -128,14 +128,14 @@ export const MyRequestsViewRaw = props => {
               columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
               columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
             }}
-            sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
-            rows={viewModel.searchRequests}
             rowCount={viewModel.rowCount}
-            rowHeight={100}
+            sortModel={viewModel.sortModel}
+            rows={viewModel.searchRequests}
+            pageSizeOptions={[15, 25, 50, 100]}
+            rowHeight={130}
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
@@ -147,7 +147,7 @@ export const MyRequestsViewRaw = props => {
               toolbar: {
                 resetFiltersBtnSettings: {
                   onClickResetFilters: viewModel.onClickResetFilters,
-                  isSomeFilterOn: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
                 },
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,

@@ -1,5 +1,5 @@
 import { cx } from '@emotion/css'
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Link } from '@mui/material'
+import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 
 import React from 'react'
 
@@ -14,7 +14,7 @@ import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carous
 import { NewSupplier } from '@components/shared/svg-icons'
 
 import { formatNormDateTime } from '@utils/date-time'
-import { toFixedWithDollarSign, checkAndMakeAbsoluteUrl } from '@utils/text'
+import { checkAndMakeAbsoluteUrl, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './edit-order-suppliers-table.style'
@@ -28,6 +28,7 @@ export const EditOrderSuppliersTable = observer(
     isPendingOrder,
     productBaseData,
     orderFields,
+    platformSettings,
   }) => {
     const { classes: classNames } = useClassNames()
 
@@ -47,6 +48,7 @@ export const EditOrderSuppliersTable = observer(
               <TableCell className={classNames.alignCenter}>{t(TranslationKey['Batch price'])}</TableCell>
 
               <TableCell className={classNames.alignCenter}>{t(TranslationKey['Production time'])}</TableCell>
+              <TableCell className={classNames.alignCenter}>{t(TranslationKey['Price variations'])}</TableCell>
 
               <TableCell className={classNames.alignCenter}>{t(TranslationKey.Comment)}</TableCell>
               <TableCell className={classNames.alignCenter}>{t(TranslationKey.Files)}</TableCell>
@@ -126,7 +128,20 @@ export const EditOrderSuppliersTable = observer(
                       {toFixedWithDollarSign(supplier.batchTotalCostInDollar, 2)}
                     </Typography>
                   </TableCell>
-                  <TableCell className={classNames.alignCenter}>{supplier.productionTerm}</TableCell>
+                  <TableCell className={classNames.alignCenter}>{supplier?.productionTerm}</TableCell>
+
+                  <TableCell className={classNames.alignCenter}>
+                    <div className={classNames.priceVariationsCell}>
+                      {supplier?.priceVariations?.map((el, index) => (
+                        <div key={index}>
+                          {el.quantity} {t(TranslationKey['pcs.'])}. /{' '}
+                          {toFixedWithDollarSign(el.price / platformSettings.yuanToDollarRate, 2)}{' '}
+                          {t(TranslationKey.Per).toLowerCase()} {t(TranslationKey['pcs.'])}
+                        </div>
+                      ))}
+                    </div>
+                  </TableCell>
+
                   <TableCell className={classNames.alignCenter}>
                     <Typography className={classNames.textCell}>{supplier.comment}</Typography>
                   </TableCell>

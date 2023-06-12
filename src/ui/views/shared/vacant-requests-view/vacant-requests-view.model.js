@@ -15,6 +15,25 @@ import { FreelancerVacantRequestColumns } from '@components/table/table-columns/
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { GeneralModel } from '@models/general-model'
+import { getTableByColumn, objectToUrlQs } from '@utils/text'
+
+const filtersFields = [
+  'humanFriendlyId',
+  'updatedAt',
+  'status',
+  'title',
+  'typeTask',
+  'price',
+  'timeoutAt',
+  'asin',
+  'skusByClient',
+  'amazonTitle',
+  'createdBy',
+  'subUsers',
+  'priceAmazon',
+  'withoutConfirmation',
+]
 
 export class VacantRequestsViewModel {
   history = undefined
@@ -52,9 +71,47 @@ export class VacantRequestsViewModel {
     return SettingsModel.languageTag || {}
   }
 
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
+  columnMenuSettings = {
+    onClickFilterBtn: field => this.onClickFilterBtn(field),
+    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
+    onClickAccept: withoutUpdate => {
+      this.onLeaveColumnField()
+
+      if (withoutUpdate) {
+        this.getCurrentData()
+      } else {
+        this.getRequestsVacant()
+        // this.getDataGridState()
+      }
+    },
+
+    filterRequestStatus: undefined,
+
+    ...filtersFields.reduce(
+      (ac, cur) =>
+        (ac = {
+          ...ac,
+          [cur]: {
+            filterData: [],
+            currentFilterData: [],
+          },
+        }),
+      {},
+    ),
+  }
+
   handlers = { onClickViewMore: id => this.onClickViewMore(id) }
 
-  columnsModel = FreelancerVacantRequestColumns(this.handlers, this.languageTag)
+  columnsModel = FreelancerVacantRequestColumns(
+    this.handlers,
+    this.languageTag,
+    () => this.columnMenuSettings,
+    () => this.onHover,
+  )
 
   constructor({ history }) {
     runInAction(() => {
@@ -153,27 +210,16 @@ export class VacantRequestsViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      // const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.VACANT, {
-      //   typeTask:
-      //     Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
-      //       ? this.userInfo?.allowedSpec?.map(spec => Number(spec)).join(', ')
-      //       : this.selectedTaskType,
-      // })
-
       const result = await RequestModel.getRequests(RequestSubType.VACANT, {
-        // filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
-
+        filters: this.getFilter(),
         typeTask:
           Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
             ? undefined
             : this.selectedTaskType,
-        // productId: this.columnMenuSettings.productId,
-
-        // limit: this.paginationModel.pageSize,
-        // offset: this.paginationModel.page * this.paginationModel.pageSize,
-
-        // sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
-        // sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
 
       runInAction(() => {
@@ -190,6 +236,173 @@ export class VacantRequestsViewModel {
         this.requests = []
       })
     }
+  }
+
+  getFilter(exclusion) {
+    const humanFriendlyIdFilter =
+      exclusion !== 'humanFriendlyId' && this.columnMenuSettings.humanFriendlyId.currentFilterData.join(',')
+    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
+    const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
+    const titleFilter = exclusion !== 'title' && this.columnMenuSettings.title.currentFilterData.join(',')
+    const typeTaskFilter = exclusion !== 'typeTask' && this.columnMenuSettings.typeTask.currentFilterData.join(',')
+    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
+    const priceFilter = exclusion !== 'price' && this.columnMenuSettings.price.currentFilterData.join(',')
+    const timeoutAtFilter = exclusion !== 'timeoutAt' && this.columnMenuSettings.timeoutAt.currentFilterData.join(',')
+    const subUsersFilter =
+      exclusion !== 'subUsers' && this.columnMenuSettings?.subUsers?.currentFilterData?.map(item => item._id)?.join(',')
+
+    const skusByClientFilter =
+      exclusion !== 'skusByClient' &&
+      this.columnMenuSettings.skusByClient.currentFilterData /* .map(el => `"${el}"`) */
+        .join(',')
+    const amazonTitleFilter =
+      exclusion !== 'amazonTitle' &&
+      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
+
+    const createdByFilter = exclusion !== 'createdBy' && this.columnMenuSettings.createdBy.currentFilterData.join(',')
+
+    const priceAmazonFilter =
+      exclusion !== 'priceAmazon' && this.columnMenuSettings.priceAmazon.currentFilterData.join(',')
+
+    const withoutConfirmationFilter =
+      exclusion !== 'withoutConfirmation' && this.columnMenuSettings.withoutConfirmation.currentFilterData.join(',')
+
+    const filter = objectToUrlQs({
+      or: [
+        { asin: { $contains: this.nameSearchValue } },
+        { title: { $contains: this.nameSearchValue } },
+        { humanFriendlyId: { $eq: this.nameSearchValue } },
+      ].filter(
+        el =>
+          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
+            !el.id &&
+            !el.humanFriendlyId) ||
+          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+      ),
+
+      ...(asinFilter && {
+        asin: { $eq: asinFilter },
+      }),
+      ...(skusByClientFilter && {
+        skusByClient: { $eq: skusByClientFilter },
+      }),
+      ...(amazonTitleFilter && {
+        amazonTitle: { $eq: amazonTitleFilter },
+      }),
+
+      ...(humanFriendlyIdFilter && {
+        humanFriendlyId: { $eq: humanFriendlyIdFilter },
+      }),
+      ...(updatedAtFilter && {
+        updatedAt: { $eq: updatedAtFilter },
+      }),
+      ...(statusFilter && {
+        status: { $eq: statusFilter },
+      }),
+      ...(titleFilter && {
+        title: { $contains: titleFilter },
+      }),
+      ...(typeTaskFilter && {
+        typeTask: { $eq: typeTaskFilter },
+      }),
+      ...(priceFilter && {
+        price: { $eq: priceFilter },
+      }),
+      ...(timeoutAtFilter && {
+        timeoutAt: { $eq: timeoutAtFilter },
+      }),
+      ...(createdByFilter && {
+        createdBy: { $eq: createdByFilter },
+      }),
+      ...(subUsersFilter && {
+        subUsers: { $eq: subUsersFilter },
+      }),
+      ...(priceAmazonFilter && {
+        priceAmazon: { $eq: priceAmazonFilter },
+      }),
+      ...(withoutConfirmationFilter && {
+        withoutConfirmation: { $eq: withoutConfirmationFilter },
+      }),
+    })
+
+    return filter
+  }
+
+  async onClickFilterBtn(column) {
+    try {
+      const data = await GeneralModel.getDataForColumn(
+        getTableByColumn(column, 'requests'),
+        column,
+        `requests?kind=${RequestSubType.VACANT}&filters=${this.getFilter(column)}`,
+      )
+
+      if (this.columnMenuSettings[column]) {
+        this.columnMenuSettings = {
+          ...this.columnMenuSettings,
+          [column]: { ...this.columnMenuSettings[column], filterData: data },
+        }
+      }
+
+      // this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+  }
+
+  onChangeFullFieldMenuItem(value, field) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        [field]: {
+          ...this.columnMenuSettings[field],
+          currentFilterData: value,
+        },
+      }
+    })
+  }
+
+  onSearchSubmit(searchValue) {
+    runInAction(() => {
+      this.nameSearchValue = searchValue
+    })
+    this.getRequestsVacant()
+  }
+
+  onLeaveColumnField() {
+    this.onHover = null
+  }
+
+  onClickResetFilters() {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+
+        ...filtersFields.reduce(
+          (ac, cur) =>
+            (ac = {
+              ...ac,
+              [cur]: {
+                filterData: [],
+                currentFilterData: [],
+              },
+            }),
+          {},
+        ),
+      }
+    })
+
+    this.getRequestsVacant()
   }
 
   async onClickViewMore(id) {
@@ -233,11 +446,6 @@ export class VacantRequestsViewModel {
     })
   }
 
-  onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
-  }
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel

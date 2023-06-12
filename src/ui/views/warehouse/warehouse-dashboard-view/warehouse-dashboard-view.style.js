@@ -27,12 +27,8 @@ export const styles = theme => ({
   },
   userInfoLeftWrapper: {
     display: 'flex',
-    gap: '25px',
+    gap: '30px',
     alignItems: 'center',
-  },
-
-  addressMainWrapper: {
-    marginTop: 10,
   },
 
   addressSubWrapper: {

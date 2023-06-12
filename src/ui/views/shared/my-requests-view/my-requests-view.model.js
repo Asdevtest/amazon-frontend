@@ -2,10 +2,9 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { MyRequestStatus } from '@constants/requests/request-proposal-status'
 import { RequestStatus } from '@constants/requests/request-status'
 import { RequestSubType } from '@constants/requests/request-type'
-import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { RequestModel } from '@models/request-model'
@@ -26,16 +25,17 @@ const filtersFields = [
   'humanFriendlyId',
   'updatedAt',
   'status',
-  // 'typeTask',
-  // 'title',
-  // 'asin',
-  // 'price',
-  // 'timeoutAt',
-  // 'allProposals',
-  // 'verifyingProposals',
-  // 'atWorkProposals',
-  // 'waitedProposals',
-  // 'acceptedProposals',
+  'title',
+  'typeTask',
+  'price',
+  'timeoutAt',
+  'asin',
+  'skusByClient',
+  'amazonTitle',
+  'createdBy',
+  'sub',
+  'subUsers',
+  'priority',
 ]
 
 export class MyRequestsViewModel {
@@ -137,6 +137,8 @@ export class MyRequestsViewModel {
         delete state?.showAcceptMessage
         history.replace({ ...history?.location, state })
       }
+
+      this.setDefaultStatuses()
     })
 
     makeAutoObservable(this, undefined, { autoBind: true })
@@ -153,19 +155,19 @@ export class MyRequestsViewModel {
     reaction(
       () => this.isRequestsAtWork,
       () => {
+        this.setDefaultStatuses()
+      },
+    )
+
+    reaction(
+      () => this.isRequestsAtWork,
+      () => {
         this.currentData = this.getCustomRequests()
       },
     )
 
     reaction(
       () => this.searchRequests,
-      () => {
-        this.currentData = this.getCurrentData()
-      },
-    )
-
-    reaction(
-      () => this.nameSearchValue,
       () => {
         this.currentData = this.getCurrentData()
       },
@@ -319,8 +321,21 @@ export class MyRequestsViewModel {
       }
     })
 
+    this.setDefaultStatuses()
+
     this.getCustomRequests()
     this.getDataGridState()
+  }
+
+  async setDefaultStatuses() {
+    if (this.isRequestsAtWork) {
+      this.onChangeFullFieldMenuItem(allowStatuses, 'status')
+    } else {
+      this.onChangeFullFieldMenuItem(
+        Object.values(RequestStatus).filter(el => !allowStatuses.includes(el)),
+        'status',
+      )
+    }
   }
 
   async loadData() {
@@ -328,8 +343,7 @@ export class MyRequestsViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       await this.getCustomRequests()
-      this.onChangeFullFieldMenuItem(Object.keys(MyRequestStatus), 'status')
-      this.onChangeFullFieldMenuItem(Object.values(freelanceRequestType), 'typeTask')
+
       this.getDataGridState()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -392,10 +406,11 @@ export class MyRequestsViewModel {
     }
   }
 
-  onChangeNameSearchValue(e) {
+  onSearchSubmit(searchValue) {
     runInAction(() => {
-      this.nameSearchValue = e.target.value
+      this.nameSearchValue = searchValue
     })
+    this.getCustomRequests()
   }
 
   async createCustomSearchRequest(data) {
@@ -432,31 +447,6 @@ export class MyRequestsViewModel {
     }
   }
 
-  // async getCustomRequests() {
-  //   try {
-  //     const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.MY)
-  //
-  //     const filteredResult = result.filter(request => {
-  //       if (this.isRequestsAtWork) {
-  //         return allowStatuses.some(status => request.status === status)
-  //       } else {
-  //         return allowStatuses.every(status => request.status !== status)
-  //       }
-  //     })
-  //
-  //     runInAction(() => {
-  //       this.searchRequests = myRequestsDataConverter(filteredResult).sort(
-  //         sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
-  //       )
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //     runInAction(() => {
-  //       this.error = error
-  //     })
-  //   }
-  // }
-
   async getCustomRequests() {
     try {
       const result = await RequestModel.getRequests(RequestSubType.MY, {
@@ -486,41 +476,49 @@ export class MyRequestsViewModel {
       exclusion !== 'humanFriendlyId' && this.columnMenuSettings.humanFriendlyId.currentFilterData.join(',')
     const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
     const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
-    // const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
+    const titleFilter = exclusion !== 'title' && this.columnMenuSettings.title.currentFilterData.join(',')
+    const typeTaskFilter = exclusion !== 'typeTask' && this.columnMenuSettings.typeTask.currentFilterData.join(',')
+    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
+    const priceFilter = exclusion !== 'price' && this.columnMenuSettings.price.currentFilterData.join(',')
+    const timeoutAtFilter = exclusion !== 'timeoutAt' && this.columnMenuSettings.timeoutAt.currentFilterData.join(',')
+    const subUsersFilter =
+      exclusion !== 'subUsers' && this.columnMenuSettings?.subUsers?.currentFilterData?.map(item => item._id)?.join(',')
+    const subFilter = exclusion !== 'sub' && this.columnMenuSettings.sub.currentFilterData.join(',')
 
-    // const typeTaskFilter = exclusion !== 'typeTask' && this.columnMenuSettings.typeTask.currentFilterData.join(',')
-    // const titleFilter = exclusion !== 'title' && this.columnMenuSettings.title.currentFilterData.join(',')
+    const skusByClientFilter =
+      exclusion !== 'skusByClient' &&
+      this.columnMenuSettings.skusByClient.currentFilterData /* .map(el => `"${el}"`) */
+        .join(',')
+    const amazonTitleFilter =
+      exclusion !== 'amazonTitle' &&
+      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
 
-    // const priceFilter = exclusion !== 'price' && this.columnMenuSettings.price.currentFilterData.join(',')
-    // const timeoutAtFilter = exclusion !== 'timeoutAt' && this.columnMenuSettings.timeoutAt.currentFilterData.join(',')
-    // const allProposalsFilter =
-    //   exclusion !== 'allProposals' && this.columnMenuSettings.allProposals.currentFilterData.join(',')
-    // const verifyingProposalsFilter =
-    //   exclusion !== 'verifyingProposals' && this.columnMenuSettings.verifyingProposals.currentFilterData.join(',')
-    // const atWorkProposalsFilter =
-    //   exclusion !== 'atWorkProposals' && this.columnMenuSettings.atWorkProposals.currentFilterData.join(',')
-    // const waitedProposalsFilter =
-    //   exclusion !== 'waitedProposals' && this.columnMenuSettings.waitedProposals.currentFilterData.join(',')
-    // const acceptedProposalsFilter =
-    //   exclusion !== 'acceptedProposals' && this.columnMenuSettings.acceptedProposals.currentFilterData.join(',')
+    const createdByFilter = exclusion !== 'createdBy' && this.columnMenuSettings.createdBy.currentFilterData.join(',')
+
+    const priorityFilter = exclusion !== 'priority' && this.columnMenuSettings.priority.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
-      // or: [
-      //   { humanFriendlyId: { $eq: this.nameSearchValue } },
-      //   // { asin: { $contains: this.nameSearchValue } },
-      //   // { amazonTitle: { $contains: this.nameSearchValue } },
-      //   // { skusByClient: { $contains: this.nameSearchValue } },
-      //   // { id: { $eq: this.nameSearchValue } },
-      //   // { orderHumanFriendlyId: { $eq: this.nameSearchValue } },
-      //   // { trackNumberText: { $eq: this.nameSearchValue } },
-      //   // { orderItem: { $eq: this.nameSearchValue } },
-      // ].filter(
-      //   el =>
-      //     ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-      //       !el.id &&
-      //       !el.humanFriendlyId) ||
-      //     !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
-      // ),
+      or: [
+        { asin: { $contains: this.nameSearchValue } },
+        { title: { $contains: this.nameSearchValue } },
+        { humanFriendlyId: { $eq: this.nameSearchValue } },
+      ].filter(
+        el =>
+          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
+            !el.id &&
+            !el.humanFriendlyId) ||
+          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+      ),
+
+      ...(asinFilter && {
+        asin: { $eq: asinFilter },
+      }),
+      ...(skusByClientFilter && {
+        skusByClient: { $eq: skusByClientFilter },
+      }),
+      ...(amazonTitleFilter && {
+        amazonTitle: { $eq: amazonTitleFilter },
+      }),
 
       ...(humanFriendlyIdFilter && {
         humanFriendlyId: { $eq: humanFriendlyIdFilter },
@@ -531,38 +529,30 @@ export class MyRequestsViewModel {
       ...(statusFilter && {
         status: { $eq: statusFilter },
       }),
-
-      // ...(typeTaskFilter && {
-      //   typeTask: { $eq: typeTaskFilter },
-      // }),
-      // // ...(titleFilter && {
-      // //   title: { $eq: titleFilter },
-      // // }),
-
-      // ...(asinFilter && {
-      //   asin: { $eq: asinFilter },
-      // }),
-      // ...(priceFilter && {
-      //   price: { $eq: priceFilter },
-      // }),
-      // ...(timeoutAtFilter && {
-      //   timeoutAt: { $eq: timeoutAtFilter },
-      // }),
-      // ...(allProposalsFilter && {
-      //   allProposals: { $eq: allProposalsFilter },
-      // }),
-      // ...(verifyingProposalsFilter && {
-      //   verifyingProposals: { $eq: verifyingProposalsFilter },
-      // }),
-      // ...(atWorkProposalsFilter && {
-      //   atWorkProposals: { $eq: atWorkProposalsFilter },
-      // }),
-      // ...(waitedProposalsFilter && {
-      //   waitedProposals: { $eq: waitedProposalsFilter },
-      // }),
-      // ...(acceptedProposalsFilter && {
-      //   acceptedProposals: { $eq: acceptedProposalsFilter },
-      // }),
+      ...(titleFilter && {
+        title: { $eq: titleFilter },
+      }),
+      ...(typeTaskFilter && {
+        typeTask: { $eq: typeTaskFilter },
+      }),
+      ...(priceFilter && {
+        price: { $eq: priceFilter },
+      }),
+      ...(timeoutAtFilter && {
+        timeoutAt: { $eq: timeoutAtFilter },
+      }),
+      ...(createdByFilter && {
+        createdBy: { $eq: createdByFilter },
+      }),
+      ...(subUsersFilter && {
+        subUsers: { $eq: subUsersFilter },
+      }),
+      ...(subFilter && {
+        sub: { $eq: subFilter },
+      }),
+      ...(priorityFilter && {
+        priority: { $eq: priorityFilter },
+      }),
     })
 
     return filter

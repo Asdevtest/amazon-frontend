@@ -614,7 +614,7 @@ export const overallRoutesConfigs = [
     navigationInfo: {
       activeCategory: '',
       activeSubCategory: '',
-      title: t(TranslationKey.Profile),
+      title: () => t(TranslationKey.Profile),
     },
   },
 
@@ -627,7 +627,7 @@ export const overallRoutesConfigs = [
     navigationInfo: {
       activeCategory: '',
       activeSubCategory: '',
-      title: t(TranslationKey.User),
+      title: () => t(TranslationKey.User),
     },
   },
 ]
@@ -643,7 +643,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_DASHBOARD,
       activeSubCategory: '',
-      title: t(TranslationKey.Dashboard),
+      title: () => t(TranslationKey.Dashboard),
     },
   },
 
@@ -659,7 +659,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_NEW_PRODUCTS,
       activeSubCategory: 0,
-      title: `${t(TranslationKey['Supplier search'])} - ${t(TranslationKey['From the Supervisor'])}`,
+      title: () => `${t(TranslationKey['Supplier search'])} - ${t(TranslationKey['From the Supervisor'])}`,
     },
   },
 
@@ -674,7 +674,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_NEW_PRODUCTS,
       activeSubCategory: 1,
-      title: `${t(TranslationKey['Supplier search'])} - ${t(TranslationKey['From the Client'])}`,
+      title: () => `${t(TranslationKey['Supplier search'])} - ${t(TranslationKey['From the Client'])}`,
     },
   },
 
@@ -689,7 +689,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_NEW_PRODUCTS,
       activeSubCategory: 2,
-      title: `${t(TranslationKey['Supplier search'])} - ${t(TranslationKey['for the idea'])}`,
+      title: () => `${t(TranslationKey['Supplier search'])} - ${t(TranslationKey['for the idea'])}`,
     },
   },
 
@@ -705,7 +705,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
       activeSubCategory: '',
-      title: t(TranslationKey.Users),
+      title: () => t(TranslationKey.Users),
     },
   },
 
@@ -719,7 +719,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
       activeSubCategory: 0,
-      title: t(TranslationKey['My users']),
+      title: () => t(TranslationKey['My users']),
     },
   },
   {
@@ -732,7 +732,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       activeSubCategory: '',
-      title: t(TranslationKey.Product),
+      title: () => t(TranslationKey.Product),
     },
   },
 
@@ -746,7 +746,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       activeSubCategory: '',
-      title: t(TranslationKey.Product),
+      title: () => t(TranslationKey.Product),
     },
   },
 
@@ -760,7 +760,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       activeSubCategory: '',
-      title: t(TranslationKey.Product),
+      title: () => t(TranslationKey.Product),
     },
   },
 
@@ -776,7 +776,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       activeSubCategory: '',
-      title: t(TranslationKey['My products']),
+      title: () => t(TranslationKey['My products']),
     },
   },
 
@@ -792,7 +792,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_PENDING_ORDERS,
       activeSubCategory: '',
-      title: t(TranslationKey['Pending orders']),
+      title: () => t(TranslationKey['Pending orders']),
     },
   },
 
@@ -808,7 +808,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_ALL_ORDERS,
-      title: `${t(TranslationKey['My orders'])} - ${t(TranslationKey['All orders'])}`,
+      title: () => `${t(TranslationKey['My orders'])} - ${t(TranslationKey['All orders'])}`,
     },
   },
   {
@@ -823,7 +823,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NOT_PAID,
-      title: `${t(TranslationKey['My orders'])} - ${t(TranslationKey['Not paid'])}`,
+      title: () => `${t(TranslationKey['My orders'])} - ${t(TranslationKey['Not paid'])}`,
     },
   },
   {
@@ -838,7 +838,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_READY_FOR_PAYMENT,
-      title: `${t(TranslationKey['My orders'])} - ${t(TranslationKey['Ready for payment'])}`,
+      title: () => `${t(TranslationKey['My orders'])} - ${t(TranslationKey['Ready for payment'])}`,
     },
   },
   {
@@ -854,7 +854,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_PARTIALLY_PAID,
-      title: `${t(TranslationKey['My orders'])} - ${t(TranslationKey['Partially paid'])}`,
+      title: () => `${t(TranslationKey['My orders'])} - ${t(TranslationKey['Partially paid'])}`,
     },
   },
   {
@@ -869,7 +869,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NEED_TRACK_NUMBER,
-      title: `${t(TranslationKey['My orders'])} - ${t(TranslationKey['Need track number'])}`,
+      title: () => `${t(TranslationKey['My orders'])} - ${t(TranslationKey['Need track number'])}`,
     },
   },
   {
@@ -884,7 +884,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_INBOUND,
-      title: `${t(TranslationKey['My orders'])} - ${t(TranslationKey.Inbound)}`,
+      title: () => `${t(TranslationKey['My orders'])} - ${t(TranslationKey.Inbound)}`,
     },
   },
   {
@@ -899,7 +899,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CONFIRMATION_REQUIRED,
-      title: `${t(TranslationKey['My orders'])} - ${t(TranslationKey['Confirmation required'])}`,
+      title: () => `${t(TranslationKey['My orders'])} - ${t(TranslationKey['Confirmation required'])}`,
     },
   },
   {
@@ -914,7 +914,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CLOSED_AND_CANCELED,
-      title: `${t(TranslationKey['My orders'])} - ${t(TranslationKey['Closed and canceled'])}`,
+      title: () => `${t(TranslationKey['My orders'])} - ${t(TranslationKey['Closed and canceled'])}`,
     },
   },
 
@@ -929,7 +929,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FREE_ORDERS,
       activeSubCategory: '',
-      title: t(TranslationKey['Free Orders']),
+      title: () => t(TranslationKey['Free Orders']),
     },
   },
 
@@ -945,7 +945,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FINANCES,
       activeSubCategory: '',
-      title: t(TranslationKey.Finances),
+      title: () => t(TranslationKey.Finances),
     },
   },
 
@@ -962,7 +962,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
       activeSubCategory: '',
-      title: t(TranslationKey.Messages),
+      title: () => t(TranslationKey.Messages),
     },
   },
 
@@ -978,7 +978,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: '',
-      title: t(TranslationKey.Notifications),
+      title: () => t(TranslationKey.Notifications),
     },
   },
 
@@ -995,7 +995,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: 0,
-      title: t(TranslationKey['Notifications on ideas']),
+      title: () => t(TranslationKey['Notifications on ideas']),
     },
   },
 
@@ -1011,7 +1011,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_DASHBOARD,
       activeSubCategory: '',
-      title: t(TranslationKey.Dashboard),
+      title: () => t(TranslationKey.Dashboard),
     },
   },
   {
@@ -1026,7 +1026,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       activeSubCategory: '',
-      title: t(TranslationKey['My products']),
+      title: () => t(TranslationKey['My products']),
     },
   },
 
@@ -1041,7 +1041,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       activeSubCategory: '',
-      title: t(TranslationKey.Product),
+      title: () => t(TranslationKey.Product),
     },
   },
 
@@ -1057,7 +1057,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
       activeSubCategory: '',
-      title: t(TranslationKey.Users),
+      title: () => t(TranslationKey.Users),
     },
   },
 
@@ -1071,7 +1071,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
       activeSubCategory: 0,
-      title: t(TranslationKey.Users),
+      title: () => t(TranslationKey.Users),
     },
   },
 
@@ -1087,7 +1087,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FINANCES,
       activeSubCategory: '',
-      title: t(TranslationKey.Finances),
+      title: () => t(TranslationKey.Finances),
     },
   },
 
@@ -1103,7 +1103,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
       activeSubCategory: '',
-      title: t(TranslationKey.Messages),
+      title: () => t(TranslationKey.Messages),
     },
   },
 
@@ -1119,7 +1119,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_DASHBOARD,
       activeSubCategory: '',
-      title: t(TranslationKey.Dashboard),
+      title: () => t(TranslationKey.Dashboard),
     },
   },
 
@@ -1137,7 +1137,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: '',
-      title: t(TranslationKey.Freelance),
+      title: () => t(TranslationKey.Freelance),
     },
   },
 
@@ -1153,7 +1153,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
-      title: t(TranslationKey['My requests']),
+      title: () => t(TranslationKey['My requests']),
     },
   },
 
@@ -1170,7 +1170,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
-      title: t(TranslationKey['My proposals']),
+      title: () => t(TranslationKey['My proposals']),
     },
   },
 
@@ -1187,7 +1187,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_SERVICE_EXCHANGE,
-      title: t(TranslationKey['My proposals']),
+      title: () => t(TranslationKey['My proposals']),
     },
   },
 
@@ -1203,7 +1203,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
       activeSubCategory: '',
-      title: t(TranslationKey['Trading stores']),
+      title: () => t(TranslationKey['Trading stores']),
     },
   },
 
@@ -1220,7 +1220,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BUY_SHOPS,
-      title: t(TranslationKey['Buy store']),
+      title: () => t(TranslationKey['Buy store']),
     },
   },
 
@@ -1237,7 +1237,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS,
-      title: t(TranslationKey['Sell the store']),
+      title: () => t(TranslationKey['Sell the store']),
     },
   },
 
@@ -1254,7 +1254,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS,
-      title: t(TranslationKey['Sell the store']),
+      title: () => t(TranslationKey['Sell the store']),
     },
   },
 
@@ -1271,7 +1271,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS,
-      title: t(TranslationKey['Sell the store']),
+      title: () => t(TranslationKey['Sell the store']),
     },
   },
 
@@ -1288,7 +1288,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS,
-      title: t(TranslationKey.Shop),
+      title: () => t(TranslationKey.Shop),
     },
   },
 
@@ -1305,7 +1305,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BUY_SHOPS,
-      title: t(TranslationKey.Shop),
+      title: () => t(TranslationKey.Shop),
     },
   },
 
@@ -1322,7 +1322,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
-      title: t(TranslationKey['My request']),
+      title: () => t(TranslationKey['My request']),
     },
   },
 
@@ -1339,7 +1339,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
-      title: t(TranslationKey['Create a request']),
+      title: () => t(TranslationKey['Create a request']),
     },
   },
 
@@ -1356,7 +1356,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
-      title: t(TranslationKey['Create a request']),
+      title: () => t(TranslationKey['Create a request']),
     },
   },
 
@@ -1373,7 +1373,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
-      title: t(TranslationKey['Vacant requests']),
+      title: () => t(TranslationKey['Vacant requests']),
     },
   },
 
@@ -1390,7 +1390,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
-      title: t(TranslationKey.Request),
+      title: () => t(TranslationKey.Request),
     },
   },
 
@@ -1407,7 +1407,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
-      title: t(TranslationKey.Request),
+      title: () => t(TranslationKey.Request),
     },
   },
 
@@ -1424,7 +1424,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
-      title: t(TranslationKey['Proposal Edition']),
+      title: () => t(TranslationKey['Proposal Edition']),
     },
   },
 
@@ -1441,7 +1441,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
-      title: t(TranslationKey['Proposal Creation']),
+      title: () => t(TranslationKey['Proposal Creation']),
     },
   },
 
@@ -1459,7 +1459,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
       activeSubCategory: '',
-      title: t(TranslationKey.Inventory),
+      title: () => t(TranslationKey.Inventory),
     },
   },
 
@@ -1475,7 +1475,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
       activeSubCategory: '',
-      title: t(TranslationKey.Inventory),
+      title: () => t(TranslationKey.Inventory),
     },
   },
 
@@ -1492,7 +1492,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
       activeSubCategory: '',
-      title: t(TranslationKey.Product),
+      title: () => t(TranslationKey.Product),
     },
   },
 
@@ -1509,7 +1509,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
       activeSubCategory: '',
-      title: t(TranslationKey.Freelance),
+      title: () => t(TranslationKey.Freelance),
     },
   },
 
@@ -1526,7 +1526,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
       activeSubCategory: 0,
-      title: t(TranslationKey['Deal exchange']),
+      title: () => t(TranslationKey['Deal exchange']),
     },
   },
   {
@@ -1542,7 +1542,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
       activeSubCategory: 1,
-      title: t(TranslationKey['Private Label']),
+      title: () => t(TranslationKey['Private Label']),
     },
   },
 
@@ -1558,7 +1558,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
       activeSubCategory: '',
-      title: t(TranslationKey.Batches),
+      title: () => t(TranslationKey.Batches),
     },
   },
 
@@ -1574,7 +1574,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH,
-      title: t(TranslationKey['Boxes ready to send']),
+      title: () => t(TranslationKey['Boxes ready to send']),
     },
   },
 
@@ -1590,7 +1590,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_TASKS,
-      title: t(TranslationKey.Tasks),
+      title: () => t(TranslationKey.Tasks),
     },
   },
 
@@ -1606,7 +1606,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_AWAITING_BATCH,
-      title: t(TranslationKey['Awaiting send']),
+      title: () => t(TranslationKey['Awaiting send']),
     },
   },
 
@@ -1622,7 +1622,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BATCHES,
-      title: t(TranslationKey['Sent boxes']),
+      title: () => t(TranslationKey['Sent boxes']),
     },
   },
 
@@ -1638,7 +1638,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BATCHES,
-      title: t(TranslationKey['Sent boxes']),
+      title: () => t(TranslationKey['Sent boxes']),
     },
   },
 
@@ -1654,7 +1654,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_SHOPS,
       activeSubCategory: '',
-      title: t(TranslationKey.Shops),
+      title: () => t(TranslationKey.Shops),
     },
   },
 
@@ -1670,7 +1670,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
       activeSubCategory: '',
-      title: t(TranslationKey.Warehouse),
+      title: () => t(TranslationKey.Warehouse),
     },
   },
 
@@ -1687,7 +1687,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES,
-      title: t(TranslationKey['Boxes in stock']),
+      title: () => t(TranslationKey['Boxes in stock']),
     },
   },
 
@@ -1703,7 +1703,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MY_ORDERS,
       activeSubCategory: '',
-      title: t(TranslationKey['My orders']),
+      title: () => t(TranslationKey['My orders']),
     },
   },
 
@@ -1719,7 +1719,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MY_ORDERS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS,
-      title: t(TranslationKey.Orders),
+      title: () => t(TranslationKey.Orders),
     },
   },
 
@@ -1735,7 +1735,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MY_ORDERS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_PENDING_ORDERS,
-      title: t(TranslationKey['Pending orders']),
+      title: () => t(TranslationKey['Pending orders']),
     },
   },
 
@@ -1750,7 +1750,7 @@ export const privateRoutesConfigs = [
   //   navigationInfo: {
   //     activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
   //     activeSubCategory: "",
-  //     title: t(TranslationKey.Profile)
+  //     title: () =>  t(TranslationKey.Profile)
   //   }
   // },
 
@@ -1766,7 +1766,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MY_ORDERS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS,
-      title: t(TranslationKey.Order),
+      title: () => t(TranslationKey.Order),
     },
   },
 
@@ -1782,7 +1782,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MY_ORDERS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_PENDING_ORDERS,
-      title: t(TranslationKey.Order),
+      title: () => t(TranslationKey.Order),
     },
   },
 
@@ -1798,7 +1798,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
       activeSubCategory: '',
-      title: t(TranslationKey.Users),
+      title: () => t(TranslationKey.Users),
     },
   },
 
@@ -1815,7 +1815,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
       activeSubCategory: 0,
-      title: t(TranslationKey.Users),
+      title: () => t(TranslationKey.Users),
     },
   },
 
@@ -1831,7 +1831,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: '',
-      title: t(TranslationKey.Notifications),
+      title: () => t(TranslationKey.Notifications),
     },
   },
   {
@@ -1847,7 +1847,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: 0,
-      title: t(TranslationKey['Order notifications']),
+      title: () => t(TranslationKey['Order notifications']),
     },
   },
 
@@ -1864,7 +1864,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: 1,
-      title: t(TranslationKey['Box notifications']),
+      title: () => t(TranslationKey['Box notifications']),
     },
   },
 
@@ -1881,7 +1881,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: 3,
-      title: t(TranslationKey['Notifications on ideas']),
+      title: () => t(TranslationKey['Notifications on ideas']),
     },
   },
 
@@ -1898,7 +1898,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: 2,
-      title: t(TranslationKey['Notifications on box rates']),
+      title: () => t(TranslationKey['Notifications on box rates']),
     },
   },
 
@@ -1914,7 +1914,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FINANCES,
       activeSubCategory: '',
-      title: t(TranslationKey.Finances),
+      title: () => t(TranslationKey.Finances),
     },
   },
 
@@ -1930,7 +1930,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
       activeSubCategory: '',
-      title: t(TranslationKey.Messages),
+      title: () => t(TranslationKey.Messages),
     },
   },
 
@@ -1946,7 +1946,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_DASHBOARD,
       activeSubCategory: '',
-      title: t(TranslationKey.Dashboard),
+      title: () => t(TranslationKey.Dashboard),
     },
   },
 
@@ -1961,7 +1961,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_DEALS,
       activeSubCategory: '',
-      title: t(TranslationKey.Freelance),
+      title: () => t(TranslationKey.Freelance),
     },
   },
 
@@ -1975,7 +1975,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_DEALS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS,
-      title: t(TranslationKey['Vacant deals']),
+      title: () => t(TranslationKey['Vacant deals']),
     },
   },
 
@@ -1989,7 +1989,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_DEALS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_DEALS_ON_REVIEW,
-      title: t(TranslationKey['Deals on review']),
+      title: () => t(TranslationKey['Deals on review']),
     },
   },
 
@@ -2003,7 +2003,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_DEALS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS,
-      title: t(TranslationKey['Vacant deals']),
+      title: () => t(TranslationKey['Vacant deals']),
     },
   },
 
@@ -2017,7 +2017,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_DEALS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_DEALS_ON_REVIEW,
-      title: t(TranslationKey['Vacant deals']),
+      title: () => t(TranslationKey['Vacant deals']),
     },
   },
 
@@ -2033,7 +2033,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       activeSubCategory: '',
-      title: t(TranslationKey['My products']),
+      title: () => t(TranslationKey['My products']),
     },
   },
 
@@ -2047,7 +2047,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       activeSubCategory: '',
-      title: t(TranslationKey.Product),
+      title: () => t(TranslationKey.Product),
     },
   },
 
@@ -2062,7 +2062,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
       activeSubCategory: 0,
-      title: t(TranslationKey.Product),
+      title: () => t(TranslationKey.Product),
     },
   },
 
@@ -2077,7 +2077,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
       activeSubCategory: 1,
-      title: t(TranslationKey.Product),
+      title: () => t(TranslationKey.Product),
     },
   },
   {
@@ -2092,7 +2092,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
       activeSubCategory: 0,
-      title: `${t(TranslationKey['Ready to check'])} - ${t(TranslationKey['From the Researcher'])}`,
+      title: () => `${t(TranslationKey['Ready to check'])} - ${t(TranslationKey['From the Researcher'])}`,
     },
   },
 
@@ -2109,7 +2109,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
       activeSubCategory: 1,
-      title: `${t(TranslationKey['Ready to check'])} - ${t(TranslationKey['From the Client'])}`,
+      title: () => `${t(TranslationKey['Ready to check'])} - ${t(TranslationKey['From the Client'])}`,
     },
   },
 
@@ -2123,7 +2123,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
       activeSubCategory: 2,
-      title: `${t(TranslationKey['Ready to check'])} - ${t(TranslationKey['From the Client'])}`,
+      title: () => `${t(TranslationKey['Ready to check'])} - ${t(TranslationKey['From the Client'])}`,
     },
   },
 
@@ -2139,7 +2139,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
       activeSubCategory: '',
-      title: t(TranslationKey.Users),
+      title: () => t(TranslationKey.Users),
     },
   },
 
@@ -2153,7 +2153,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
       activeSubCategory: 0,
-      title: t(TranslationKey.Users),
+      title: () => t(TranslationKey.Users),
     },
   },
   {
@@ -2168,7 +2168,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FINANCES,
       activeSubCategory: '',
-      title: t(TranslationKey.Finances),
+      title: () => t(TranslationKey.Finances),
     },
   },
 
@@ -2184,7 +2184,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
       activeSubCategory: '',
-      title: t(TranslationKey.Messages),
+      title: () => t(TranslationKey.Messages),
     },
   },
 
@@ -2200,7 +2200,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
       activeSubCategory: '',
-      title: t(TranslationKey.Settings),
+      title: () => t(TranslationKey.Settings),
     },
   },
 
@@ -2216,7 +2216,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_DASHBOARD,
       activeSubCategory: '',
-      title: t(TranslationKey.Dashboard),
+      title: () => t(TranslationKey.Dashboard),
     },
   },
 
@@ -2232,7 +2232,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_TASKS,
       activeSubCategory: '',
-      title: t(TranslationKey.Tasks),
+      title: () => t(TranslationKey.Tasks),
     },
   },
 
@@ -2246,7 +2246,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_TASKS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_VAC_TASKS,
-      title: t(TranslationKey['New tasks']),
+      title: () => t(TranslationKey['New tasks']),
     },
   },
   {
@@ -2259,7 +2259,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_TASKS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MY_TASKS,
-      title: t(TranslationKey['My tasks']),
+      title: () => t(TranslationKey['My tasks']),
     },
   },
 
@@ -2273,7 +2273,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_TASKS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_COMPLETED_TASKS,
-      title: t(TranslationKey['Completed tasks']),
+      title: () => t(TranslationKey['Completed tasks']),
     },
   },
 
@@ -2287,7 +2287,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_TASKS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_CANCELED_TASKS,
-      title: t(TranslationKey['Canceled tasks']),
+      title: () => t(TranslationKey['Canceled tasks']),
     },
   },
 
@@ -2303,7 +2303,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
       activeSubCategory: '',
-      title: t(TranslationKey.Batches),
+      title: () => t(TranslationKey.Batches),
     },
   },
 
@@ -2317,7 +2317,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_AWAITING_BATCHES,
-      title: t(TranslationKey['Awaiting send']),
+      title: () => t(TranslationKey['Awaiting send']),
     },
   },
 
@@ -2331,7 +2331,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BATCHES,
-      title: t(TranslationKey.Sent),
+      title: () => t(TranslationKey.Sent),
     },
   },
   {
@@ -2346,7 +2346,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
       activeSubCategory: '',
-      title: t(TranslationKey['My warehouse']),
+      title: () => t(TranslationKey['My warehouse']),
     },
   },
 
@@ -2362,7 +2362,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MANAGEMENT,
       activeSubCategory: '',
-      title: t(TranslationKey['Warehouse management']),
+      title: () => t(TranslationKey['Warehouse management']),
     },
   },
 
@@ -2378,7 +2378,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
       activeSubCategory: '',
-      title: t(TranslationKey.Users),
+      title: () => t(TranslationKey.Users),
     },
   },
 
@@ -2392,7 +2392,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
       activeSubCategory: 0,
-      title: t(TranslationKey['My users']),
+      title: () => t(TranslationKey['My users']),
     },
   },
 
@@ -2408,7 +2408,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FINANCES,
       activeSubCategory: '',
-      title: t(TranslationKey.Finances),
+      title: () => t(TranslationKey.Finances),
     },
   },
 
@@ -2424,7 +2424,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
       activeSubCategory: '',
-      title: t(TranslationKey.Messages),
+      title: () => t(TranslationKey.Messages),
     },
   },
 
@@ -2438,7 +2438,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_DASHBOARD,
       activeSubCategory: '',
-      title: t(TranslationKey.Dashboard),
+      title: () => t(TranslationKey.Dashboard),
     },
   },
   {
@@ -2451,7 +2451,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
       activeSubCategory: '',
-      title: t(TranslationKey['Commodity exchange']),
+      title: () => t(TranslationKey['Commodity exchange']),
     },
   },
   {
@@ -2464,7 +2464,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
       activeSubCategory: '',
-      title: t(TranslationKey.Inventory),
+      title: () => t(TranslationKey.Inventory),
     },
   },
   {
@@ -2477,7 +2477,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS,
       activeSubCategory: '',
-      title: t(TranslationKey.Order),
+      title: () => t(TranslationKey.Order),
     },
   },
   {
@@ -2490,7 +2490,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_PERMISSIONS,
       activeSubCategory: '',
-      title: t(TranslationKey['User permissions']),
+      title: () => t(TranslationKey['User permissions']),
     },
   },
   {
@@ -2503,7 +2503,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS,
       activeSubCategory: '',
-      title: t(TranslationKey.Orders),
+      title: () => t(TranslationKey.Orders),
     },
   },
   {
@@ -2516,7 +2516,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
       activeSubCategory: '',
-      title: t(TranslationKey.Product),
+      title: () => t(TranslationKey.Product),
     },
   },
 
@@ -2530,7 +2530,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
       activeSubCategory: '',
-      title: t(TranslationKey.Product),
+      title: () => t(TranslationKey.Product),
     },
   },
 
@@ -2544,7 +2544,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
       activeSubCategory: '',
-      title: t(TranslationKey.Warehouse),
+      title: () => t(TranslationKey.Warehouse),
     },
   },
   {
@@ -2557,7 +2557,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
       activeSubCategory: 0,
-      title: t(TranslationKey.Tasks),
+      title: () => t(TranslationKey.Tasks),
     },
   },
   {
@@ -2570,7 +2570,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
       activeSubCategory: 1,
-      title: t(TranslationKey.Boxes),
+      title: () => t(TranslationKey.Boxes),
     },
   },
 
@@ -2584,7 +2584,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_WAREHOUSE,
       activeSubCategory: 2,
-      title: t(TranslationKey.Destinations),
+      title: () => t(TranslationKey.Destinations),
     },
   },
 
@@ -2598,7 +2598,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
       activeSubCategory: '',
-      title: t(TranslationKey.Batches),
+      title: () => t(TranslationKey.Batches),
     },
   },
 
@@ -2612,7 +2612,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
       activeSubCategory: 0,
-      title: t(TranslationKey['Awaiting send']),
+      title: () => t(TranslationKey['Awaiting send']),
     },
   },
 
@@ -2626,7 +2626,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_BATCHES,
       activeSubCategory: 1,
-      title: t(TranslationKey.Sent),
+      title: () => t(TranslationKey.Sent),
     },
   },
 
@@ -2640,7 +2640,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FINANCES,
       activeSubCategory: '',
-      title: t(TranslationKey.Finances),
+      title: () => t(TranslationKey.Finances),
     },
   },
   {
@@ -2653,7 +2653,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
       activeSubCategory: '',
-      title: t(TranslationKey.Users),
+      title: () => t(TranslationKey.Users),
     },
   },
 
@@ -2667,7 +2667,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
       activeSubCategory: '',
-      title: t(TranslationKey.User),
+      title: () => t(TranslationKey.User),
     },
   },
 
@@ -2681,7 +2681,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
       activeSubCategory: '',
-      title: t(TranslationKey.Settings),
+      title: () => t(TranslationKey.Settings),
     },
   },
 
@@ -2695,7 +2695,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
       activeSubCategory: '',
-      title: t(TranslationKey.Settings),
+      title: () => t(TranslationKey.Settings),
     },
   },
 
@@ -2709,7 +2709,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
       activeSubCategory: '',
-      title: t(TranslationKey.Feedback),
+      title: () => t(TranslationKey.Feedback),
     },
   },
 
@@ -2723,7 +2723,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
       activeSubCategory: '',
-      title: t(TranslationKey.Messages),
+      title: () => t(TranslationKey.Messages),
     },
   },
 
@@ -2738,7 +2738,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_DASHBOARD,
       activeSubCategory: '',
-      title: t(TranslationKey.Dashboard),
+      title: () => t(TranslationKey.Dashboard),
     },
   },
 
@@ -2752,7 +2752,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
       activeSubCategory: '',
-      title: t(TranslationKey.Users),
+      title: () => t(TranslationKey.Users),
     },
   },
 
@@ -2766,7 +2766,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
       activeSubCategory: 0,
-      title: t(TranslationKey['My users']),
+      title: () => t(TranslationKey['My users']),
     },
   },
 
@@ -2780,7 +2780,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FINANCES,
       activeSubCategory: '',
-      title: t(TranslationKey.Finances),
+      title: () => t(TranslationKey.Finances),
     },
   },
 
@@ -2796,7 +2796,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: '',
-      title: t(TranslationKey.Freelance),
+      title: () => t(TranslationKey.Freelance),
     },
   },
 
@@ -2810,7 +2810,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
-      title: t(TranslationKey['My proposals']),
+      title: () => t(TranslationKey['My proposals']),
     },
   },
 
@@ -2824,7 +2824,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
-      title: t(TranslationKey['Vacant requests']),
+      title: () => t(TranslationKey['Vacant requests']),
     },
   },
 
@@ -2838,7 +2838,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
-      title: t(TranslationKey.Request),
+      title: () => t(TranslationKey.Request),
     },
   },
 
@@ -2852,7 +2852,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_SOURCE_FILES,
-      title: t(TranslationKey['Vacant requests']),
+      title: () => t(TranslationKey['Vacant requests']),
     },
   },
 
@@ -2866,7 +2866,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
-      title: t(TranslationKey.Request),
+      title: () => t(TranslationKey.Request),
     },
   },
 
@@ -2880,7 +2880,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
-      title: t(TranslationKey['Proposal Edition']),
+      title: () => t(TranslationKey['Proposal Edition']),
     },
   },
 
@@ -2894,7 +2894,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
-      title: t(TranslationKey['Proposal Creation']),
+      title: () => t(TranslationKey['Proposal Creation']),
     },
   },
 
@@ -2908,7 +2908,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
       activeSubCategory: '',
-      title: t(TranslationKey.Messages),
+      title: () => t(TranslationKey.Messages),
     },
   },
 
@@ -2922,7 +2922,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES,
-      title: t(TranslationKey['My services']),
+      title: () => t(TranslationKey['My services']),
     },
   },
 
@@ -2936,7 +2936,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES,
-      title: t(TranslationKey['Create service']),
+      title: () => t(TranslationKey['Create service']),
     },
   },
 
@@ -2950,7 +2950,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES,
-      title: t(TranslationKey['Service details']),
+      title: () => t(TranslationKey['Service details']),
     },
   },
 
@@ -2964,7 +2964,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES,
-      title: t(TranslationKey['Edit service']),
+      title: () => t(TranslationKey['Edit service']),
     },
   },
 
@@ -2978,7 +2978,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES,
-      title: t(TranslationKey.Request),
+      title: () => t(TranslationKey.Request),
     },
   },
 
@@ -2992,7 +2992,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
-      title: t(TranslationKey['Proposal Creation']),
+      title: () => t(TranslationKey['Proposal Creation']),
     },
   },
 
@@ -3006,7 +3006,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_DASHBOARD,
       activeSubCategory: '',
-      title: t(TranslationKey.Dashboard),
+      title: () => t(TranslationKey.Dashboard),
     },
   },
 
@@ -3020,7 +3020,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_APPEALS,
       activeSubCategory: '',
-      title: t(TranslationKey.Appeals),
+      title: () => t(TranslationKey.Appeals),
     },
   },
 
@@ -3034,7 +3034,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_APPEALS,
       activeSubCategory: '',
-      title: t(TranslationKey.Appeals),
+      title: () => t(TranslationKey.Appeals),
     },
   },
 
@@ -3048,7 +3048,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       activeSubCategory: '',
-      title: t(TranslationKey['My products']),
+      title: () => t(TranslationKey['My products']),
     },
   },
 
@@ -3062,7 +3062,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
       activeSubCategory: '',
-      title: t(TranslationKey.Users),
+      title: () => t(TranslationKey.Users),
     },
   },
 
@@ -3076,7 +3076,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_USERS,
       activeSubCategory: 0,
-      title: t(TranslationKey['My users']),
+      title: () => t(TranslationKey['My users']),
     },
   },
 
@@ -3090,7 +3090,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
       activeSubCategory: '',
-      title: t(TranslationKey.Settings),
+      title: () => t(TranslationKey.Settings),
     },
   },
 
@@ -3104,7 +3104,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
       activeSubCategory: '',
-      title: t(TranslationKey.Messages),
+      title: () => t(TranslationKey.Messages),
     },
   },
 

@@ -9,8 +9,6 @@ import { observer } from 'mobx-react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Text } from '@components/shared/text'
@@ -24,21 +22,19 @@ import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './add-or-edit-logistic-tariff-form.style'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/keys/currency'
 
 export const AddOrEditLogisticTariffForm = observer(
   ({ onCloseModal, onCreateSubmit, onEditSubmit, tariffToEdit, sourceYuanToDollarRate }) => {
     const { classes: classNames } = useClassNames()
 
-    const rateSettings = {
-      IN_DOLLAR: 'IN_DOLLAR',
-      IN_YAN: 'IN_YAN',
-    }
-    const [currencyType, setCurrencyType] = useState(rateSettings.IN_YAN)
+    const [currencyType, setCurrencyType] = useState(currencyTypes.YUAN)
 
     const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
-    const handleChange = (event, newAlignment) => {
-      setCurrencyType(newAlignment)
+    const handleChange = newCurrency => {
+      setCurrencyType(newCurrency)
     }
 
     const regExp = /^[0-9]*[.,][0-9][1-9]+$/
@@ -92,7 +88,7 @@ export const AddOrEditLogisticTariffForm = observer(
     useEffect(() => {
       const newFormFields = { ...formFields }
 
-      if (currencyType === rateSettings.IN_YAN) {
+      if (currencyType === currencyTypes.YUAN) {
         newFormFields.conditionsByRegion.west.rate = toFixed(
           roundHalf(
             Math.round(formFields.conditionsByRegion.west.rate * formFields.conditionsByRegion.yuanToDollarRate * 100) /
@@ -140,7 +136,7 @@ export const AddOrEditLogisticTariffForm = observer(
         conditionsByRegion: {
           west: {
             rate:
-              currencyType === rateSettings.IN_YAN
+              currencyType === currencyTypes.YUAN
                 ? Math.round(
                     (formFields.conditionsByRegion.west.rate / formFields.conditionsByRegion.yuanToDollarRate) * 100,
                   ) / 100
@@ -148,7 +144,7 @@ export const AddOrEditLogisticTariffForm = observer(
           },
           central: {
             rate:
-              currencyType === rateSettings.IN_YAN
+              currencyType === currencyTypes.YUAN
                 ? Math.round(
                     (formFields.conditionsByRegion.central.rate / formFields.conditionsByRegion.yuanToDollarRate) * 100,
                   ) / 100
@@ -156,7 +152,7 @@ export const AddOrEditLogisticTariffForm = observer(
           },
           east: {
             rate:
-              currencyType === rateSettings.IN_YAN
+              currencyType === currencyTypes.YUAN
                 ? Math.round(
                     (formFields.conditionsByRegion.east.rate / formFields.conditionsByRegion.yuanToDollarRate) * 100,
                   ) / 100
@@ -257,14 +253,14 @@ export const AddOrEditLogisticTariffForm = observer(
                   {t(TranslationKey.Rates)}
                 </Text>
 
-                <ToggleBtnGroup exclusive size="small" color="primary" value={currencyType} onChange={handleChange}>
-                  <ToggleBtn disabled={currencyType === rateSettings.IN_DOLLAR} value={rateSettings.IN_DOLLAR}>
-                    {'$'}
-                  </ToggleBtn>
-                  <ToggleBtn disabled={currencyType === rateSettings.IN_YAN} value={rateSettings.IN_YAN}>
-                    {'¥'}
-                  </ToggleBtn>
-                </ToggleBtnGroup>
+                <CustomSwitcher
+                  condition={currencyType}
+                  nameFirstArg={currencyTypesToHumanFriendlyValue(currencyTypes.DOLLAR) || ''}
+                  nameSecondArg={currencyTypesToHumanFriendlyValue(currencyTypes.YUAN) || ''}
+                  firstArgValue={currencyTypes.DOLLAR}
+                  secondArgValue={currencyTypes.YUAN}
+                  changeConditionHandler={handleChange}
+                />
               </div>
 
               <div className={classNames.courseWrapper}>
@@ -296,7 +292,7 @@ export const AddOrEditLogisticTariffForm = observer(
             <div className={classNames.blockWrapper}>
               <div className={classNames.blockItem}>
                 <Field
-                  label={`US West Coast ${currencyType === rateSettings.IN_DOLLAR ? '$' : '¥'}`}
+                  label={`US West Coast ${currencyTypesToHumanFriendlyValue(currencyType)}`}
                   error={Number(formFields.conditionsByRegion.west.rate) <= 0}
                   inputProps={{ maxLength: 10 }}
                   labelClasses={classNames.fieldLabel}
@@ -314,7 +310,7 @@ export const AddOrEditLogisticTariffForm = observer(
 
               <div className={classNames.blockItem}>
                 <Field
-                  label={`US Central ${currencyType === rateSettings.IN_DOLLAR ? '$' : '¥'}`}
+                  label={`US Central ${currencyTypesToHumanFriendlyValue(currencyType)}`}
                   error={Number(formFields.conditionsByRegion.central.rate) <= 0}
                   inputProps={{ maxLength: 10 }}
                   labelClasses={classNames.fieldLabel}
@@ -332,7 +328,7 @@ export const AddOrEditLogisticTariffForm = observer(
 
               <div className={classNames.blockItem}>
                 <Field
-                  label={`US East Coast ${currencyType === rateSettings.IN_DOLLAR ? '$' : '¥'}`}
+                  label={`US East Coast ${currencyTypesToHumanFriendlyValue(currencyType)}`}
                   error={Number(formFields.conditionsByRegion.east.rate) <= 0}
                   inputProps={{ maxLength: 10 }}
                   labelClasses={classNames.fieldLabel}

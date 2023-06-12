@@ -37,7 +37,7 @@ export const clientOrdersViewColumns = handlers => [
     headerName: t(TranslationKey.ID) + ' / item',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
     renderCell: params => <MultilineTextCell text={params.row.idItem} />,
-    width: 60,
+    width: 100,
     type: 'number',
   },
 
@@ -173,7 +173,7 @@ export const clientOrdersViewColumns = handlers => [
     headerName: t(TranslationKey['Production time']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.row.originalData.orderSupplier.productionTerm} />,
+    renderCell: params => <MultilineTextCell text={params.row.originalData?.orderSupplier?.productionTerm} />,
     width: 120,
     sortable: false,
   },

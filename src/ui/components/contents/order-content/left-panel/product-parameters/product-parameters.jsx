@@ -90,7 +90,7 @@ export const ProductParameters = ({
       <OrderParameter label={t(TranslationKey['Production time'])} value={order.orderSupplier?.productionTerm} />
       <OrderParameter
         label={t(TranslationKey['Maximum delivery price per unit'])}
-        value={toFixed(order.orderSupplier.batchDeliveryCostInDollar / order.orderSupplier.amount, 2)}
+        value={toFixed(order.orderSupplier?.batchDeliveryCostInDollar / order.orderSupplier?.amount, 2)}
       />
       <Field
         oneLine

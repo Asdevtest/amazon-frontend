@@ -84,6 +84,7 @@ export class BuyerMyOrdersViewModel {
   paymentAmount = undefined
 
   volumeWeightCoefficient = undefined
+  platformSettings = undefined
 
   nameSearchValue = ''
 
@@ -737,6 +738,7 @@ export class BuyerMyOrdersViewModel {
       runInAction(() => {
         this.yuanToDollarRate = result.yuanToDollarRate
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.platformSettings = result
       })
     } catch (error) {
       console.log(error)
@@ -877,6 +879,7 @@ export class BuyerMyOrdersViewModel {
 
       orderFields = {
         ...orderFields,
+        partialPaymentAmountRmb: Number(orderFields.partialPaymentAmountRmb) || 0,
         images: this.readyImages,
       }
       // }

@@ -20,6 +20,7 @@ import { t } from '@utils/translations'
 
 import { BuyerMyProductsViewModel } from './buyer-my-products-view.model'
 import { styles } from './buyer-my-products-view.style'
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 
 const attentionStatuses = [
   ProductStatus.TO_BUYER_FOR_RESEARCH,
@@ -91,8 +92,10 @@ export const BuyerMyProductsViewRaw = props => {
             slots={{
               toolbar: DataGridCustomToolbar,
               columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
             }}
             slotProps={{
+              columnMenu: viewModel.columnMenuSettings,
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,

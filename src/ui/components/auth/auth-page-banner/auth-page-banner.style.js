@@ -33,9 +33,10 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
   },
   title: {
-    fontSize: '44px',
-    fontWeight: 'bold',
+    fontSize: '50px',
+    fontWeight: 700,
     textAlign: 'center',
+    lineHeight: '110%',
     [theme.breakpoints.down(768)]: {
       fontSize: '18px',
       color: theme.palette.text.general,
@@ -43,8 +44,8 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   subtitle: {
-    fontSize: '20px',
-    fontWeight: 700,
+    fontSize: '24px',
+    fontWeight: 600,
     [theme.breakpoints.down(768)]: {
       fontSize: '12px',
       color: theme.palette.text.second,

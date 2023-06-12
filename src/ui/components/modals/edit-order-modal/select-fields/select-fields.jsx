@@ -552,7 +552,11 @@ export const SelectFields = ({
             inputClasses={classNames.input}
             inputProps={{ maxLength: 10 }}
             value={orderFields.partialPaymentAmountRmb}
-            onChange={setOrderField('partialPaymentAmountRmb')}
+            onChange={event => {
+              if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value)) {
+                setOrderField('partialPaymentAmountRmb')(event)
+              }
+            }}
           />
 
           {!isPendingOrder && (

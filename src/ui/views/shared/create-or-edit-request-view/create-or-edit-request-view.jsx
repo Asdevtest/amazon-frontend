@@ -40,6 +40,8 @@ export const CreateOrEditRequestView = observer(props => {
           showProgress={viewModel.showProgress}
           requestToEdit={viewModel.requestToEdit}
           history={props.history}
+          checkRequestByTypeExists={viewModel.checkRequestByTypeExists}
+          onClickExistingRequest={viewModel.onClickExistingRequest}
           onCreateSubmit={viewModel.onSubmitCreateRequest}
           onEditSubmit={viewModel.onSubmitEditRequest}
           onClickChoosePerformer={viewModel.onClickChoosePerformer}

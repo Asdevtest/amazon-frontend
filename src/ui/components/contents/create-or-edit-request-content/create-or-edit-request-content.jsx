@@ -51,6 +51,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './create-or-edit-request-content.style'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
+import { CheckRequestByTypeExists } from '@components/forms/check-request-by-type-exists'
 
 const stepVariant = {
   STEP_ONE: 'STEP_ONE',
@@ -67,6 +68,8 @@ export const CreateOrEditRequestContent = ({
   showProgress,
   progressValue,
   mainContentRef,
+  checkRequestByTypeExists,
+  onClickExistingRequest,
   onClickChoosePerformer,
   onClickThumbnail,
   onCreateSubmit,
@@ -80,6 +83,7 @@ export const CreateOrEditRequestContent = ({
 
   const [showScrollUp, setShowScrollUp] = useState(false)
   const [showScrollDown, setShowScrollDown] = useState(false)
+  const [showCheckRequestByTypeExists, setShowCheckRequestByTypeExists] = useState(false)
 
   const [openModal, setOpenModal] = useState(false)
 
@@ -177,6 +181,7 @@ export const CreateOrEditRequestContent = ({
       announcementId: requestToEdit?.request?.announcementId || undefined,
       productId: requestToEdit?.request?.productId || undefined,
       withoutConfirmation: requestToEdit?.request?.withoutConfirmation || false,
+      priority: requestToEdit?.request.priority || 20,
 
       discountedPrice: requestToEdit
         ? toFixed(
@@ -192,6 +197,8 @@ export const CreateOrEditRequestContent = ({
   })
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
+
+  const [requestIds, setRequestIds] = useState([])
 
   const [announcement, setAnnouncement] = useState(choosenAnnouncements || undefined)
 
@@ -289,7 +296,8 @@ export const CreateOrEditRequestContent = ({
 
   const isDeadlineError = formFields.request.timeoutAt < new Date()
 
-  const onSuccessSubmit = ({ withPublish }) => {
+  const [withPublish, setWithPublish] = useState({ withPublish: false })
+  const onSuccessSubmit = withPublish => {
     if (isDeadlineError) {
       setDeadlineError(!deadlineError)
     } else {
@@ -298,6 +306,17 @@ export const CreateOrEditRequestContent = ({
       } else {
         onCreateSubmit(formFields, images, withPublish, announcement)
       }
+    }
+  }
+
+  const onClickCreate = async ({ withPublish }) => {
+    await setWithPublish(withPublish)
+    const result = await checkRequestByTypeExists(formFields.request.typeTask, formFields.request.productId)
+    if (result.length) {
+      setRequestIds(result)
+      setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)
+    } else {
+      onSuccessSubmit(withPublish)
     }
   }
 
@@ -688,45 +707,73 @@ export const CreateOrEditRequestContent = ({
                     </div>
                   </div>
 
-                  <div className={classNames.performerAndButtonWrapper}>
-                    <div className={classNames.performerAndButtonSubWrapper}>
-                      {announcement?._id && (
-                        <div className={classNames.performerWrapper}>
-                          <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
-                          <div className={classNames.userInfo}>
-                            <Avatar
-                              src={getUserAvatarSrc(announcement?.createdBy?._id)}
-                              className={classNames.cardImg}
-                            />
-
-                            <div className={classNames.nameWrapper}>
-                              <UserLink
-                                blackText
-                                name={announcement?.createdBy?.name}
-                                userId={announcement?.createdBy?._id}
+                  <div
+                    className={cx(classNames.checkboxAndButtonWrapper, classNames.checkboxAndButtonWrapperMarginTop)}
+                  >
+                    <div className={classNames.performerAndButtonWrapper}>
+                      <div className={classNames.performerAndButtonSubWrapper}>
+                        {announcement?._id && (
+                          <div className={classNames.performerWrapper}>
+                            <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
+                            <div className={classNames.userInfo}>
+                              <Avatar
+                                src={getUserAvatarSrc(announcement?.createdBy?._id)}
+                                className={classNames.cardImg}
                               />
-                              <Rating disabled value={5} size="small" classes={classNames.rating} />
+
+                              <div className={classNames.nameWrapper}>
+                                <UserLink
+                                  blackText
+                                  name={announcement?.createdBy?.name}
+                                  userId={announcement?.createdBy?._id}
+                                />
+                                <Rating disabled value={5} size="small" classes={classNames.rating} />
+                              </div>
                             </div>
                           </div>
+                        )}
+                        <Button
+                          disabled={!formFields?.request?.typeTask}
+                          variant={'contained'}
+                          className={classNames.changePerformerBtn}
+                          onClick={async () => {
+                            await onClickChoosePerformer(formFields.request.typeTask)
+                            setOpenModal(true)
+                          }}
+                        >
+                          {announcement
+                            ? t(TranslationKey['Change performer'])
+                            : t(TranslationKey['Select a Performer'])}
+                        </Button>
+                      </div>
+                      {announcement?.title && (
+                        <div className={classNames.performerDescriptionWrapper}>
+                          <Typography className={classNames.performerDescriptionText}>{announcement?.title}</Typography>
                         </div>
                       )}
-                      <Button
-                        disabled={!formFields?.request?.typeTask}
-                        variant={'contained'}
-                        className={classNames.changePerformerBtn}
-                        onClick={async () => {
-                          await onClickChoosePerformer(formFields.request.typeTask)
-                          setOpenModal(true)
+                    </div>
+
+                    <div className={cx(classNames.checkboxProposalWrapper)}>
+                      <div
+                        className={classNames.checkboxWrapper}
+                        onClick={() => {
+                          if (formFields.request.priority === 20) {
+                            onChangeField('request')('priority')({ target: { value: 30 } })
+                          } else {
+                            onChangeField('request')('priority')({ target: { value: 20 } })
+                          }
                         }}
                       >
-                        {announcement ? t(TranslationKey['Change performer']) : t(TranslationKey['Select a Performer'])}
-                      </Button>
-                    </div>
-                    {announcement?.title && (
-                      <div className={classNames.performerDescriptionWrapper}>
-                        <Typography className={classNames.performerDescriptionText}>{announcement?.title}</Typography>
+                        <Checkbox color="primary" checked={formFields.request.priority === 30} />
+                        <Text
+                          className={classNames.priorityText}
+                          tooltipPosition={'corner'} /* tooltipInfoContent={t(TranslationKey['Set urgent priority'])} */
+                        >
+                          {t(TranslationKey['Set urgent priority'])}
+                          <img src="/assets/icons/fire.svg" />
+                        </Text>
                       </div>
-                    )}
+                    </div>
                   </div>
                 </div>
                 {/* {requestToEdit ? (
@@ -1219,7 +1266,7 @@ export const CreateOrEditRequestContent = ({
                   }
                   disabled={disableSubmit}
                   className={classNames.successBtn}
-                  onClick={onSuccessSubmit}
+                  onClick={() => onClickCreate({ withPublish: false })}
                 >
                   {curStep === stepVariant.STEP_TWO ? (
                     t(TranslationKey['Create a request'])
@@ -1241,7 +1288,7 @@ export const CreateOrEditRequestContent = ({
                     success
                     disabled={disableSubmit}
                     className={classNames.successBtn}
-                    onClick={() => onSuccessSubmit({ withPublish: true })}
+                    onClick={() => onClickCreate({ withPublish: true })}
                   >
                     {t(TranslationKey['Create and publish a request'])}
                   </Button>
@@ -1275,6 +1322,21 @@ export const CreateOrEditRequestContent = ({
           onClickChooseBtn={setAnnouncement}
           onClickResetPerformerBtn={() => setAnnouncement('')}
           onClickCloseBtn={() => setOpenModal(!openModal)}
+        />
+      </Modal>
+
+      <Modal
+        openModal={showCheckRequestByTypeExists}
+        setOpenModal={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
+        dialogContextClassName={classNames.dialogContextClassName}
+      >
+        <CheckRequestByTypeExists
+          requestsData={requestIds}
+          asin={formFields.request.asin}
+          type={formFields.request.typeTask}
+          onClickRequest={onClickExistingRequest}
+          onClickContinue={() => onCreateSubmit(formFields, images, withPublish, announcement)}
+          onClickCancel={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
         />
       </Modal>
     </div>

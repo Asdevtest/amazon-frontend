@@ -1,3 +1,5 @@
+import { OrderIdAndAmountCountCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+
 export const styles = theme => ({
   img: {
     height: '64px',
@@ -376,10 +378,9 @@ export const styles = theme => ({
   },
 
   rowCancelBtn: {
-    height: '40px',
+    height: 30,
     padding: '0 25px',
     [theme.breakpoints.down(1282)]: {
-      height: 30,
       width: 90,
     },
   },
@@ -677,7 +678,7 @@ export const styles = theme => ({
     textAlign: 'center',
     whiteSpace: 'normal',
     textOverflow: 'ellipsis',
-
+    wordBreak: 'break-all',
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',
@@ -713,6 +714,7 @@ export const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'start',
     flexWrap: 'no-wrap',
+    wordBreak: 'break-all',
   },
 
   commentOfSbWrapper: {
@@ -984,6 +986,13 @@ export const styles = theme => ({
     alignItems: 'center',
   },
 
+  manyUserLinkWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   userLinkWrapper: {
     width: '100%',
     display: 'flex',
@@ -1017,15 +1026,15 @@ export const styles = theme => ({
 
   actionBtn: {
     display: 'flex',
-    width: '175px',
-    height: '40px',
+    width: 175,
+    height: 30,
+    padding: '0 12px',
 
     [theme.breakpoints.down(1282)]: {
       width: 128,
-      height: 30,
       fontWeight: 400,
       fontSize: 13,
-      lineHeight: '18px',
+      lineHeight: 18,
     },
   },
 
@@ -1143,12 +1152,15 @@ export const styles = theme => ({
   notificationBtnsWrapper: {
     display: 'flex',
     width: '100%',
-    justifyContent: 'space-between',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '20px',
   },
 
   notificationBtn: {
     width: '140px',
-    height: '40px',
+    height: '30px',
+    padding: '0 12px',
   },
 
   productMyRequestsBtnsWrapper: {
@@ -1691,5 +1703,45 @@ export const styles = theme => ({
 
   errorInputActive: {
     border: '1px solid red',
+  },
+
+  orderIdAndAmountCount: {
+    width: 'fit-content',
+    margin: '0 auto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+
+    p: {
+      textAlign: 'right',
+      width: 'fit-content',
+    },
+    div: {
+      width: 'fit-content',
+    },
+  },
+
+  amountWithClocks: {
+    display: 'flex',
+    gap: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    svg: {
+      fontSize: '16px',
+      color: theme.palette.primary.main,
+      stroke: '#fff',
+    },
+  },
+  printIcon: {
+    color: theme.palette.background.darkBlue,
+  },
+  formedCell: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    gap: 5,
   },
 })

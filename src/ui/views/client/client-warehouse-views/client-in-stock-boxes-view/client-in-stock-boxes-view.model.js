@@ -74,6 +74,7 @@ const filtersFields = [
   'prepId',
   'status',
   'storekeeper',
+  'sub',
 ]
 
 export class ClientInStockBoxesViewModel {
@@ -418,7 +419,7 @@ export class ClientInStockBoxesViewModel {
 
   async getStorekeepers() {
     try {
-      const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK, 20)
+      const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK)
 
       runInAction(() => {
         this.storekeepersData = result
@@ -1778,6 +1779,7 @@ export class ClientInStockBoxesViewModel {
 
     const amountFilter = exclusion !== 'amount' && this.columnMenuSettings.amount.currentFilterData.join(',')
     const prepIdFilter = exclusion !== 'prepId' && this.columnMenuSettings.prepId.currentFilterData.join(',')
+    const subFilter = exclusion !== 'sub' && this.columnMenuSettings.sub.currentFilterData.map(el => el._id).join(',')
 
     const storekeeperIdFilter =
       exclusion !== 'storekeeper' && this.columnMenuSettings.storekeeper.currentFilterData.map(el => el._id).join(',')
@@ -1792,6 +1794,7 @@ export class ClientInStockBoxesViewModel {
         { productId: { $eq: this.nameSearchValue } },
         { humanFriendlyId: { $eq: this.nameSearchValue } },
         { prepId: { $contains: this.nameSearchValue } },
+        // { sub: { $contains: this.nameSearchValue } },
       ].filter(
         el =>
           ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
@@ -1845,6 +1848,10 @@ export class ClientInStockBoxesViewModel {
 
       ...(storekeeperIdFilter && {
         storekeeperId: { $eq: storekeeperIdFilter },
+      }),
+
+      ...(subFilter && {
+        sub: { $eq: subFilter },
       }),
     })
 

@@ -335,6 +335,7 @@ const Box = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
+          destinationsData={destinations}
           storekeepers={storekeepers.filter(el => el?._id === box?.storekeeper?._id)}
           curStorekeeperId={box?.storekeeperId}
           curTariffId={box?.logicsTariffId}
@@ -529,7 +530,7 @@ export const RedistributeBox = observer(
           // Добавил новое условие для блокировки, убрать чтобы вернуться в предыдущему виду
           newBoxes.some(item => item.items.every(el => el.amount === 0)),
       ) ||
-      (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason.length)
+      (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason?.length)
 
     return (
       <div>

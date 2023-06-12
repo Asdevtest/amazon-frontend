@@ -21,7 +21,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import { checkIsStorekeeper } from '@utils/checks'
+import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, checkIsStorekeeper } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -80,17 +80,17 @@ export const MergeBoxesModal = ({
     images: [],
   })
 
-  // Добавил
   const setFormField = fieldName => e => {
     const newFormFields = { ...boxBody }
+    const currentValue = e.target.value
 
     if (['weighGrossKgWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'lengthCmWarehouse'].includes(fieldName)) {
-      if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+      if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(currentValue)) {
         return
       }
     }
 
-    newFormFields[fieldName] = e.target.value
+    newFormFields[fieldName] = currentValue
 
     setBoxBody(newFormFields)
   }
@@ -149,7 +149,7 @@ export const MergeBoxesModal = ({
     ((boxBody.shippingLabel || boxBody.tmpShippingLabel?.length) &&
       !boxBody.fbaShipment &&
       !destinations.find(el => el._id === boxBody.destinationId)?.storekeeper) ||
-    (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason.length)
+    (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason?.length)
 
   const disabledSubmitStorekeeper =
     disabledSubmit ||
@@ -496,6 +496,7 @@ export const MergeBoxesModal = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
+          destinationsData={destinations}
           storekeepers={storekeepers?.filter(el => el._id === selectedBoxes[0]?.storekeeper._id)}
           curStorekeeperId={boxBody.storekeeperId}
           curTariffId={boxBody.logicsTariffId}

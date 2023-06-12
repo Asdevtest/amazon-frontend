@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import React, { useMemo, useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { BoxStatus, boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
@@ -8,16 +8,17 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ChangeChipCell,
+  ChangeInputCell,
+  CheckboxCell,
+  FormedCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
-  MultilineTextCell,
-  ShortBoxDimensions,
   OrdersIdsItemsCell,
-  CheckboxCell,
+  ShortBoxDimensions,
   WarehouseDestinationAndTariffCell,
-  ChangeInputCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { findTariffInStorekeepersData } from '@utils/checks'
@@ -26,6 +27,7 @@ import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text
 import { t } from '@utils/translations'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
+import { Box, Typography } from '@mui/material'
 
 export const clientBoxesViewColumns = (
   handlers,
@@ -126,7 +128,7 @@ export const clientBoxesViewColumns = (
     ),
 
     renderCell: params => params.value && <OrdersIdsItemsCell value={params.value} />,
-    width: 140,
+    width: 160,
     sortable: false,
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
   },
@@ -193,13 +195,13 @@ export const clientBoxesViewColumns = (
 
     renderCell: params => {
       const onChangeIsFormedInBox = useCallback(() => handlers.onChangeIsFormedInBox(params.row.originalData), [])
+      const sub = useMemo(
+        () => params.row.originalData?.sub,
+        [params.row.originalData?.sub, params.row.originalData?.isFormed],
+      )
 
       return params.row.originalData ? (
-        <CheckboxCell
-          disabled={params.row.originalData.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-          checked={params.value}
-          onClick={onChangeIsFormedInBox}
-        />
+        <FormedCell sub={sub} params={params} onChangeIsFormedInBox={onChangeIsFormedInBox} />
       ) : (
         ''
       )
