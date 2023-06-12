@@ -29,7 +29,9 @@ import {
   ClientFreelancePriorityMenuItem,
   CreatedByMenuItem,
   FreelancerToWorkConfirmationMenuItem,
+  RedFlagsCellMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
+import { RedFlagsCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 export const DataGridCustomColumnMenuComponent = props => {
   const {
@@ -203,6 +205,22 @@ export const DataGridCustomColumnMenuComponent = props => {
           addNullObj={[columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS, columnnsKeys.client.INVENTORY_SHOPS].includes(
             currentColumn.columnKey,
           )}
+          data={props[currentColumn.field]}
+          field={currentColumn.field}
+          filterRequestStatus={filterRequestStatus}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if (currentColumn.columnKey === columnnsKeys.shared.RED_FLAGS) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <RedFlagsCellMenuItem
           data={props[currentColumn.field]}
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}

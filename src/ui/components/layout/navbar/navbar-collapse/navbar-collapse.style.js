@@ -70,6 +70,20 @@ export const useClassNames = makeStyles()(theme => ({
     '&:hover': { backgroundColor: '#0000ff0a' },
   },
 
+  bigBadge: {
+    width: 'fit-content',
+    padding: '1px 6px',
+    background: theme.palette.primary.main,
+    borderRadius: '22px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+    fontSize: '14px',
+    fontWeight: '400',
+    lineHeight: '14px',
+  },
+
   subCategory: {
     padding: '0 20px 0 0',
     width: '100%',
