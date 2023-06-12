@@ -19,6 +19,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     padding: '0 4px',
     height: 24,
+    borderRadius: 4,
     color: '#fff',
     background: 'none',
     minWidth: '24px !important',
