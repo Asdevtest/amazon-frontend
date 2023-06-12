@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -52,18 +52,14 @@ export const buyerFreeOrdersViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 200,
-    renderCell: params => {
-      const onClickTableRowBtn = useCallback(() => handlers.onClickTableRowBtn(params.row), [])
-
-      return (
-        <NormalActionBtnCell
-          tooltipText={t(TranslationKey['To assign the order to Byer'])}
-          bTnText={t(TranslationKey['Get to work'])}
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-          onClickOkBtn={onClickTableRowBtn}
-        />
-      )
-    },
+    renderCell: params => (
+      <NormalActionBtnCell
+        tooltipText={t(TranslationKey['To assign the order to Byer'])}
+        bTnText={t(TranslationKey['Get to work'])}
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+        onClickOkBtn={handlers.onClickTableRowBtn(params.row)}
+      />
+    ),
     filterable: false,
     sortable: false,
   },
@@ -74,11 +70,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
     width: 400,
-    renderCell: params => {
-      const productMemo = useMemo(() => params.row.originalData.product, [])
-
-      return <OrderCell product={productMemo} />
-    },
+    renderCell: params => <OrderCell product={params.row.originalData.product} />,
   },
 
   {
