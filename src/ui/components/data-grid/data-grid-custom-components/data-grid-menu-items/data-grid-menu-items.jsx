@@ -65,7 +65,12 @@ export const IsFormedMenuItem = React.memo(
         <div className={classNames.isFormedWrapper}>
           <div>
             <FormControl className={classNames.formControl}>
-              <RadioGroup row className={classNames.radioGroup} value={currentOption} onChange={handleCategory}>
+              <RadioGroup
+                row
+                className={cx(classNames.radioGroup, classNames.formedRadioGroup)}
+                value={currentOption}
+                onChange={handleCategory}
+              >
                 <FormControlLabel
                   className={classNames.radioOption}
                   value="first"
