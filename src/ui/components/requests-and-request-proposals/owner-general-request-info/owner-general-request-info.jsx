@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Avatar, Paper, Rating, Typography } from '@mui/material'
+import { Avatar, Checkbox, Paper, Rating, Typography } from '@mui/material'
 
 import React, { useState } from 'react'
 
@@ -301,6 +301,21 @@ export const OwnerGeneralRequestInfo = ({
       {request && request?.request.status === RequestStatus.DRAFT && (
         <div className={classNames.btnsBlockWrapper}>
           <div className={classNames.btnsWrapper}>
+            {/* <Button
+              danger
+              // tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
+              // className={}
+              // onClick={onClickCancelBtn}
+            >
+              <Checkbox
+                color="primary"
+                // checked={selectedAllowedRoles.includes(Number(role)) || Number(role) === Number(formFields.role)}
+              />
+              <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
+                {t(TranslationKey[''])}
+              </Typography>
+            </Button> */}
+
             <div className={classNames.btnsRow}>
               <Button
                 danger

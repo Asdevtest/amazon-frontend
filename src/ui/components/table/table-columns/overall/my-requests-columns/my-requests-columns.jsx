@@ -237,6 +237,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
 
     renderCell: params => (
       <CheckboxCell
+        disabled
         checked={params.value}
         onClick={() => rowHandlers.onToggleUploadedToListing(params.row.originalData._id, params.value)}
       />
