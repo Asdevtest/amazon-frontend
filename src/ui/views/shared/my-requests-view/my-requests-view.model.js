@@ -87,7 +87,13 @@ export class MyRequestsViewModel {
   filterModel = { items: [] }
   densityModel = 'compact'
 
+  rowHandlers = {
+    onToggleUploadedToListing: (id, uploadedToListingState) =>
+      this.onToggleUploadedToListing(id, uploadedToListingState),
+  }
+
   columnsModel = myRequestsViewColumns(
+    this.rowHandlers,
     () => this.columnMenuSettings,
     () => this.onHover,
   )
@@ -579,6 +585,27 @@ export class MyRequestsViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
 
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async onToggleUploadedToListing(id, uploadedToListingState) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      await RequestModel.patchRequestsUploadedToListing({
+        requestIds: [id],
+        uploadedToListing: !uploadedToListingState,
+      })
+
+      await this.loadData()
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       runInAction(() => {
         this.error = error

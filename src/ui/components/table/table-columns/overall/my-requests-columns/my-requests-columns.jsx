@@ -5,6 +5,7 @@ import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@cons
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  CheckboxCell,
   ManyUserLinkCell,
   MultilineRequestStatusCell,
   MultilineTextCell,
@@ -18,7 +19,7 @@ import {
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
+export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
@@ -221,6 +222,27 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 115,
     columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
+  {
+    field: 'uploadedToListing',
+    headerName: t(TranslationKey['Uploaded by on listing']),
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Uploaded by on listing'])}
+        // isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+
+    renderCell: params => (
+      <CheckboxCell
+        checked={params.value}
+        onClick={() => rowHandlers.onToggleUploadedToListing(params.row.originalData._id, params.value)}
+      />
+    ),
+    width: 115,
+    // columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
