@@ -27,6 +27,7 @@ Name | Type | Description | Notes
 **images** | **[String]** | Массив ссылок на фотографии. | [optional] 
 **destinationId** | **String** | destination GUID  | [optional] 
 **logicsTariffId** | **String** |  logicsTariff GUID | [optional] 
+**variationTariffId** | **String** | Гуид вариации | [optional] 
 **prepId** | **String** | Значение информационного ключа | [optional] 
 
 

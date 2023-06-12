@@ -1981,6 +1981,7 @@ export enum TranslationKey {
   'Set urgent priority' = 'Set urgent priority',
   'Finished' = 'Finished',
   'Responsible' = 'Responsible',
+  'Partial payment' = 'Partial payment',
   // '' = '',
   // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР

@@ -68,6 +68,9 @@ class InlineObject29 {
             if (data.hasOwnProperty('storekeeperComment')) {
                 obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
+            if (data.hasOwnProperty('variationTariffId')) {
+                obj['variationTariffId'] = ApiClient.convertToType(data['variationTariffId'], 'String');
+            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
@@ -114,6 +117,12 @@ InlineObject29.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
  * @member {String} storekeeperComment
  */
 InlineObject29.prototype['storekeeperComment'] = undefined;
+
+/**
+ * Гуид вариации
+ * @member {String} variationTariffId
+ */
+InlineObject29.prototype['variationTariffId'] = undefined;
 
 /**
  * Массив ссылок на фотографии.
