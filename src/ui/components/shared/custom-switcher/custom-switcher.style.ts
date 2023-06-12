@@ -20,20 +20,17 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 4px',
     height: 24,
     borderRadius: 4,
-    color: '#fff',
+    color: theme.palette.text.general,
     background: 'none',
     minWidth: '24px !important',
-  },
 
-  left: {
-    borderRadius: '4px 0 0 4px',
-  },
-
-  right: {
-    borderRadius: '0 4px 4px 0',
+    '&:hover': {
+      color: '#fff',
+    },
   },
 
   activeOption: {
     background: theme.palette.primary.main,
+    color: '#fff',
   },
 }))
