@@ -173,4 +173,10 @@ export const styles = theme => ({
     height: 30,
     textAlign: 'center',
   },
+
+  redFlagsCell: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 15,
+  },
 })
