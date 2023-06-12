@@ -1980,6 +1980,7 @@ export enum TranslationKey {
   'With the product' = 'With the product',
   'Set urgent priority' = 'Set urgent priority',
   'Finished' = 'Finished',
+  'Responsible' = 'Responsible',
   // '' = '',
   // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР

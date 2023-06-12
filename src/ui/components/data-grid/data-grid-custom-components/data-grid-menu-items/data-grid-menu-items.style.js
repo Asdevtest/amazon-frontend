@@ -174,6 +174,12 @@ export const styles = theme => ({
     textAlign: 'center',
   },
 
+  formedRadioGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+  },
+
   redFlagsCell: {
     display: 'flex',
     alignItems: 'center',
