@@ -32,6 +32,7 @@ import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
 import ApiV1AdminsProductsVacCheckedby from './model/ApiV1AdminsProductsVacCheckedby';
 import ApiV1AdminsTasksLightBoxes from './model/ApiV1AdminsTasksLightBoxes';
 import ApiV1AdminsTasksLightStorekeeper from './model/ApiV1AdminsTasksLightStorekeeper';
+import ApiV1AdminsTasksLightVariationTariff from './model/ApiV1AdminsTasksLightVariationTariff';
 import ApiV1AnnouncementsMyRequests from './model/ApiV1AnnouncementsMyRequests';
 import ApiV1BatchesBatch from './model/ApiV1BatchesBatch';
 import ApiV1BatchesBoxes from './model/ApiV1BatchesBoxes';
@@ -50,6 +51,7 @@ import ApiV1BoxesClientsLightOrder from './model/ApiV1BoxesClientsLightOrder';
 import ApiV1BoxesClientsLightProduct from './model/ApiV1BoxesClientsLightProduct';
 import ApiV1BoxesItems from './model/ApiV1BoxesItems';
 import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody';
+import ApiV1BoxesSplitBoxBody from './model/ApiV1BoxesSplitBoxBody';
 import ApiV1BoxesSplitBoxItems from './model/ApiV1BoxesSplitBoxItems';
 import ApiV1BoxesSplitNewBoxesParams from './model/ApiV1BoxesSplitNewBoxesParams';
 import ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges from './model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges';
@@ -94,6 +96,7 @@ import ApiV1RequestsCustomRequestLinksToMediaFiles from './model/ApiV1RequestsCu
 import ApiV1ShopSellStatistics from './model/ApiV1ShopSellStatistics';
 import ApiV1ShopSellStatistics1 from './model/ApiV1ShopSellStatistics1';
 import ApiV1StorekeepersBoxesGuidItems from './model/ApiV1StorekeepersBoxesGuidItems';
+import ApiV1StorekeepersTariffLogisticsDestinationVariations from './model/ApiV1StorekeepersTariffLogisticsDestinationVariations';
 import ApiV1StorekeepersTariffWarehouses from './model/ApiV1StorekeepersTariffWarehouses';
 import ApiV1SuppliersBoxProperties from './model/ApiV1SuppliersBoxProperties';
 import ApiV1SuppliersPaymentMethods from './model/ApiV1SuppliersPaymentMethods';
@@ -581,6 +584,12 @@ export {
     ApiV1AdminsTasksLightStorekeeper,
 
     /**
+     * The ApiV1AdminsTasksLightVariationTariff model constructor.
+     * @property {module:model/ApiV1AdminsTasksLightVariationTariff}
+     */
+    ApiV1AdminsTasksLightVariationTariff,
+
+    /**
      * The ApiV1AnnouncementsMyRequests model constructor.
      * @property {module:model/ApiV1AnnouncementsMyRequests}
      */
@@ -687,6 +696,12 @@ export {
      * @property {module:model/ApiV1BoxesMergeBoxBody}
      */
     ApiV1BoxesMergeBoxBody,
+
+    /**
+     * The ApiV1BoxesSplitBoxBody model constructor.
+     * @property {module:model/ApiV1BoxesSplitBoxBody}
+     */
+    ApiV1BoxesSplitBoxBody,
 
     /**
      * The ApiV1BoxesSplitBoxItems model constructor.
@@ -951,6 +966,12 @@ export {
      * @property {module:model/ApiV1StorekeepersBoxesGuidItems}
      */
     ApiV1StorekeepersBoxesGuidItems,
+
+    /**
+     * The ApiV1StorekeepersTariffLogisticsDestinationVariations model constructor.
+     * @property {module:model/ApiV1StorekeepersTariffLogisticsDestinationVariations}
+     */
+    ApiV1StorekeepersTariffLogisticsDestinationVariations,
 
     /**
      * The ApiV1StorekeepersTariffWarehouses model constructor.

@@ -14,6 +14,6 @@ Name | Type | Description | Notes
 **minWeightInKg** | **Number** | Минимальный вес, в кг | [optional] 
 **archive** | **Boolean** | Заархивирован ли тариф | [optional] 
 **conditionsByRegion** | [**ApiV1AdminsOrdersLogicsTariffConditionsByRegion**](ApiV1AdminsOrdersLogicsTariffConditionsByRegion.md) |  | [optional] 
-**destinationVariations** | [**[ApiV1AdminsOrdersLogicsTariffDestinationVariations]**](ApiV1AdminsOrdersLogicsTariffDestinationVariations.md) |  | [optional] 
+**destinationVariations** | [**[ApiV1StorekeepersTariffLogisticsDestinationVariations]**](ApiV1StorekeepersTariffLogisticsDestinationVariations.md) |  | [optional] 
 
 

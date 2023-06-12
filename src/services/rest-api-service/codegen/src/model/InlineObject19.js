@@ -120,6 +120,9 @@ class InlineObject19 {
             if (data.hasOwnProperty('logicsTariffId')) {
                 obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
+            if (data.hasOwnProperty('variationTariffId')) {
+                obj['variationTariffId'] = ApiClient.convertToType(data['variationTariffId'], 'String');
+            }
             if (data.hasOwnProperty('prepId')) {
                 obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
             }
@@ -266,6 +269,12 @@ InlineObject19.prototype['destinationId'] = undefined;
  * @member {String} logicsTariffId
  */
 InlineObject19.prototype['logicsTariffId'] = undefined;
+
+/**
+ * Гуид вариации
+ * @member {String} variationTariffId
+ */
+InlineObject19.prototype['variationTariffId'] = undefined;
 
 /**
  * Значение информационного ключа
