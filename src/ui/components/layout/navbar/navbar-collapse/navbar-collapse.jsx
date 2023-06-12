@@ -153,6 +153,17 @@ export const NavbarCollapse = ({
     }
   }
 
+  const getBigBadge = route => {
+    switch (route) {
+      case '/client/my-orders/pending-orders':
+        return (
+          <div className={cx(classNames.bigBadge, classNames.redBadge)}>
+            {userInfo.purchaseOrderRequired?.length ? userInfo.purchaseOrderRequired.length : 0}
+          </div>
+        )
+    }
+  }
+
   const renderSubCategory = (subIndex, subCategory) => {
     const highPriorityNotificationCount =
       showHighPriorityNotification && getNotificationCountBySubRoute(subCategory.subRoute)
@@ -181,6 +192,7 @@ export const NavbarCollapse = ({
             primary={subCategory.subtitle}
           />
           {!!highPriorityNotificationCount && <HighPriorityValue value={highPriorityNotificationCount} />}
+          {!shortNavbar && getBigBadge(subCategory.subRoute)}
         </NavbarSubCategory>
       </Button>
     )

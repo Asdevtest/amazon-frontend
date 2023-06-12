@@ -179,4 +179,10 @@ export const styles = theme => ({
     flexDirection: 'column',
     gap: 10,
   },
+
+  redFlagsCell: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 15,
+  },
 })

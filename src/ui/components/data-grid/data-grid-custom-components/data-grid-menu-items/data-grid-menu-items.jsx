@@ -36,6 +36,7 @@ import { t } from '@utils/translations'
 
 import { styles } from './data-grid-menu-items.style'
 import { cx } from '@emotion/css'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
 export const IsFormedMenuItem = React.memo(
   withStyles(
@@ -717,6 +718,7 @@ export const ObJectFieldMenuItem = React.memo(
       onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
+      rowContent,
       asBlock,
     }) => {
       const { filterData, currentFilterData } = data
@@ -756,7 +758,9 @@ export const ObJectFieldMenuItem = React.memo(
 
       useEffect(() => {
         if (nameSearchValue) {
-          const filter = filterData?.filter(obj => obj.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
+          const filter = filterData?.filter(obj =>
+            (obj.title || obj.name).toLowerCase().includes(nameSearchValue.toLowerCase()),
+          )
           setItemsForRender(filter)
         } else {
           setItemsForRender(filterData)
@@ -804,7 +808,13 @@ export const ObJectFieldMenuItem = React.memo(
                                   checked={choosenItems.some(item => item._id === obj._id)}
                                   onClick={() => onClickItem(obj)}
                                 />
-                                <div className={classNames.shopName}>{obj.name || t(TranslationKey.Empty)}</div>
+                                {rowContent ? (
+                                  rowContent(obj)
+                                ) : (
+                                  <div className={classNames.shopName}>
+                                    {obj.title || obj.name || t(TranslationKey.Empty)}
+                                  </div>
+                                )}
                               </div>
                             ),
                         )}
@@ -2151,4 +2161,38 @@ export const InStockMenuItem = React.memo(
     },
     styles,
   ),
+)
+
+export const RedFlagsCellMenuItem = React.memo(
+  withStyles(props => {
+    const {
+      classes: classNames,
+      onClose,
+      data,
+      field,
+      filterRequestStatus,
+      onChangeFullFieldMenuItem,
+      onClickAccept,
+      onClickFilterBtn,
+    } = props
+
+    return (
+      <ObJectFieldMenuItem
+        data={data}
+        field={field}
+        filterRequestStatus={filterRequestStatus}
+        columnKey={columnnsKeys}
+        rowContent={obj => (
+          <div className={classNames.redFlagsCell}>
+            <img src={`/assets/icons/redflags/${obj.title}.svg`} alt={obj.title} />
+            <div className={classNames.shopName}>{obj.title || t(TranslationKey.Empty)}</div>
+          </div>
+        )}
+        onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+        onClickAccept={onClickAccept}
+        onClickFilterBtn={onClickFilterBtn}
+        onClose={onClose}
+      />
+    )
+  }, styles),
 )

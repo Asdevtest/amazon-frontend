@@ -3009,7 +3009,7 @@ export const OrderIdAndAmountCountCell = React.memo(
           <MultilineTextCell
             text={
               <div className={classNames.amountWithClocks}>
-                {amount} <WatchLaterSharpIcon />
+                <WatchLaterSharpIcon /> {amount}
               </div>
             }
           />

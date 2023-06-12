@@ -81,6 +81,10 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  moveBox: {
+    color: '#fff',
+  },
+
   titleWrapper: {
     display: 'flex',
     justifyContent: 'space-between',

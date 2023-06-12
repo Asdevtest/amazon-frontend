@@ -176,7 +176,7 @@ export const getTableByColumn = (column, hint) => {
     // } else {
     return 'products'
     // }
-  } else if (['status', 'updatedAt', 'createdAt'].includes(column)) {
+  } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags'].includes(column)) {
     if (hint === 'boxes') {
       return 'boxes'
     } else if (hint === 'products') {

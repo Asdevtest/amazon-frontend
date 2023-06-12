@@ -393,7 +393,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         </div>
 
         <div className={classNames.shippingDateWrapper}>
-          <Typography className={classNames.modalTitle}>{'Shipping date'}</Typography>
+          <Typography className={classNames.modalTitle}>{t(TranslationKey['Shipping dates'])}</Typography>
 
           <div className={classNames.dateBlockWrapper}>
             <Field
