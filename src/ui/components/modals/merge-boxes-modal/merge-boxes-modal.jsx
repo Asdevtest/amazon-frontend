@@ -21,7 +21,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import { checkIsStorekeeper } from '@utils/checks'
+import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, checkIsStorekeeper } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -80,24 +80,17 @@ export const MergeBoxesModal = ({
     images: [],
   })
 
-  // Добавил
   const setFormField = fieldName => e => {
     const newFormFields = { ...boxBody }
     const currentValue = e.target.value
 
     if (['weighGrossKgWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'lengthCmWarehouse'].includes(fieldName)) {
-      if (isNaN(currentValue) || Number(currentValue) < 0) {
+      if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(currentValue)) {
         return
       }
     }
 
-    const decimalPointIndex = currentValue.indexOf('.')
-
-    if (fieldName === 'weighGrossKgWarehouse') {
-      newFormFields[fieldName] = decimalPointIndex !== -1 ? currentValue.slice(0, decimalPointIndex + 3) : currentValue
-    } else {
-      newFormFields[fieldName] = currentValue
-    }
+    newFormFields[fieldName] = currentValue
 
     setBoxBody(newFormFields)
   }
