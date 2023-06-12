@@ -241,7 +241,6 @@ export const UploadFilesInput = observer(props => {
                             disabled={linkInput === '' || images?.length >= maxNumber}
                             className={classNames.loadBtn}
                             variant="contained"
-                            color="primary"
                             onClick={() => onClickLoadBtn()}
                           >
                             {t(TranslationKey.Load)}

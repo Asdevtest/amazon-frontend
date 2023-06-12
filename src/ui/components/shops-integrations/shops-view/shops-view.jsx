@@ -44,7 +44,7 @@ export const ShopsViewRaw = props => {
 
   return (
     <React.Fragment>
-      <div>
+      <div className={className.shopWrapper}>
         <Box className={className.buttonBox}>
           <Button
             tooltipInfoContent={t(TranslationKey['Open the window to add a store'])}

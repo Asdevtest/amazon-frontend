@@ -678,7 +678,7 @@ export const styles = theme => ({
     textAlign: 'center',
     whiteSpace: 'normal',
     textOverflow: 'ellipsis',
-
+    wordBreak: 'break-all',
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',
@@ -1706,11 +1706,20 @@ export const styles = theme => ({
   },
 
   orderIdAndAmountCount: {
-    width: '100%',
+    width: 'fit-content',
+    margin: '0 auto',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+
+    p: {
+      textAlign: 'right',
+      width: 'fit-content',
+    },
+    div: {
+      width: 'fit-content',
+    },
   },
 
   amountWithClocks: {
@@ -1721,7 +1730,8 @@ export const styles = theme => ({
 
     svg: {
       fontSize: '16px',
-      color: '#0E5CB9',
+      color: theme.palette.primary.main,
+      stroke: '#fff',
     },
   },
   printIcon: {

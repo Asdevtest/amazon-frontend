@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material'
-
+import { cx } from '@emotion/css'
 import React, { useState } from 'react'
 
 import { toJS } from 'mobx'
@@ -80,9 +80,8 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
             <div className={classNames.btnsSubWrapper}>
               <Button
                 disabled={!selectedBatch}
-                color="primary"
                 variant="contained"
-                className={classNames.cancelBtn}
+                className={cx(classNames.cancelBtn, classNames.moveBox)}
                 onClick={() => onSubmit(box, selectedBatch)}
               >
                 {box.batchId ? t(TranslationKey['Move box']) : t(TranslationKey.Add)}

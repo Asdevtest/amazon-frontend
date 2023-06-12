@@ -195,7 +195,10 @@ export const clientBoxesViewColumns = (
 
     renderCell: params => {
       const onChangeIsFormedInBox = useCallback(() => handlers.onChangeIsFormedInBox(params.row.originalData), [])
-      const sub = useMemo(() => params.row.originalData?.sub, [])
+      const sub = useMemo(
+        () => params.row.originalData?.sub,
+        [params.row.originalData?.sub, params.row.originalData?.isFormed],
+      )
 
       return params.row.originalData ? (
         <FormedCell sub={sub} params={params} onChangeIsFormedInBox={onChangeIsFormedInBox} />

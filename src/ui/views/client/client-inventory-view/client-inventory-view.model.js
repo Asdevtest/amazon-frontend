@@ -100,6 +100,8 @@ const filtersFields = [
   'purchaseQuantity',
   'ideasClosed',
   'ideasVerified',
+  'tags',
+  'redFlags',
 ]
 
 const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
@@ -885,6 +887,12 @@ export class ClientInventoryViewModel {
     const ideasVerifiedFilter =
       exclusion !== 'ideasVerified' && this.columnMenuSettings.ideasVerified.currentFilterData.join(',')
 
+    const tagsFilter =
+      exclusion !== 'tags' && this.columnMenuSettings.tags.currentFilterData.map(el => el._id).join(',')
+
+    const redFlagsFilter =
+      exclusion !== 'redFlags' && this.columnMenuSettings.redFlags.currentFilterData.map(el => el._id).join(',')
+
     const filter = objectToUrlQs({
       archive: { $eq: this.isArchive },
       or: [
@@ -978,6 +986,14 @@ export class ClientInventoryViewModel {
 
       ...(ideasVerifiedFilter && {
         ideasVerified: { $eq: ideasVerifiedFilter },
+      }),
+
+      ...(tagsFilter && {
+        tags: { $eq: tagsFilter },
+      }),
+
+      ...(redFlagsFilter && {
+        redFlags: { $eq: redFlagsFilter },
       }),
     })
 

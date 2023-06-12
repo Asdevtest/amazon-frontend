@@ -18,7 +18,9 @@ import {
   MultilineTextHeaderCell,
   OrderIdAndAmountCountCell,
   ProductAsinCell,
+  RedFlagsCell,
   ShortDateCell,
+  TagsCell,
   ToFixedCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
@@ -301,6 +303,34 @@ export const clientInventoryColumns = (
     type: 'number',
 
     columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
+  {
+    field: 'tags',
+    headerName: t(TranslationKey.Tags),
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
+    renderCell: params => {
+      const tagsMemo = useMemo(() => params.row.originalData.tags, [])
+
+      return <TagsCell tags={tagsMemo} />
+    },
+    width: 160,
+
+    columnKey: columnnsKeys.shared.OBJECT,
+  },
+
+  {
+    field: 'redFlags',
+    headerName: t(TranslationKey['Red flags']),
+    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
+    renderCell: params => {
+      const redFlagsMemo = useMemo(() => params.row.originalData.redFlags, [])
+
+      return <RedFlagsCell flags={redFlagsMemo} />
+    },
+    width: 130,
+
+    columnKey: columnnsKeys.shared.RED_FLAGS,
   },
 
   {
