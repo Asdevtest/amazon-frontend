@@ -21,7 +21,9 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = props => {
   return (
     <div className={classNames.switcherWrapper}>
       <Button
-        className={cx(classNames.switcherOption, { [classNames.activeOption]: condition === firstArgValue })}
+        className={cx(classNames.switcherOption, classNames.left, {
+          [classNames.activeOption]: condition === firstArgValue,
+        })}
         onClick={() => {
           if (condition !== firstArgValue) {
             changeConditionHandler(firstArgValue)
@@ -31,7 +33,9 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = props => {
         {nameFirstArg}
       </Button>
       <Button
-        className={cx(classNames.switcherOption, { [classNames.activeOption]: condition === secondArgValue })}
+        className={cx(classNames.switcherOption, classNames.right, {
+          [classNames.activeOption]: condition === secondArgValue,
+        })}
         onClick={() => {
           if (condition !== secondArgValue) {
             changeConditionHandler(secondArgValue)
