@@ -345,7 +345,7 @@ export const depersonalizedPickDataConverter = data =>
     updatedAt: item.updatedAt,
   }))
 
-export const clientOrdersDataConverter = data =>
+export const clientOrdersDataConverter = (data, shopsData) =>
   data.map(item => ({
     originalData: item,
     id: item._id,
@@ -370,6 +370,8 @@ export const clientOrdersDataConverter = data =>
     needsResearch: item.needsResearch,
     buyerComment: item.buyerComment,
     clientComment: item.clientComment,
+    shopIds: shopsData?.find(el => el._id === item.product.shopIds?.[0])?.name || '',
+    // shopIds: item.product.shopIds?.[0],
   }))
 
 export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shopsData) =>

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useCallback } from 'react'
+import React from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -96,18 +96,14 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     //     onChangeText={rowHandlers.onChangeText}
     //   />
     // ),
-    renderCell: params => {
-      const onClickSubmit = useCallback(rowHandlers.onChangeText, [])
-
-      return (
-        <ChangeInputCommentCell
-          rowsCount={2}
-          text={params.row.originalData.reason}
-          id={params.row.originalData._id}
-          onClickSubmit={onClickSubmit}
-        />
-      )
-    },
+    renderCell: params => (
+      <ChangeInputCommentCell
+        rowsCount={2}
+        text={params.row.originalData.reason}
+        id={params.row.originalData._id}
+        onClickSubmit={rowHandlers.onChangeText}
+      />
+    ),
   },
 
   {

@@ -386,11 +386,10 @@ export const styles = theme => ({
   },
 
   warehouseMyTasksSuccessBtn: {
-    height: '40px',
-    width: '166px',
+    height: 30,
+    width: 166,
 
     [theme.breakpoints.down(1282)]: {
-      height: 30,
       width: 90,
     },
   },
@@ -678,7 +677,6 @@ export const styles = theme => ({
     textAlign: 'center',
     whiteSpace: 'normal',
     textOverflow: 'ellipsis',
-    wordBreak: 'break-all',
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',
@@ -861,7 +859,8 @@ export const styles = theme => ({
   },
 
   warehouseBoxesBtn: {
-    width: '210px',
+    width: 210,
+    height: 30,
   },
 
   shopsReportBtnsWrapper: {
@@ -1262,24 +1261,23 @@ export const styles = theme => ({
     },
 
     warehouseMyTasksSuccessBtn: {
-      width: '114px',
-      height: '36px',
+      width: 114,
+      height: 30,
     },
 
     warehouseMyTasksCancelBtn: {
-      width: '114px',
-      height: '36px',
+      width: 114,
+      height: 30,
 
       [theme.breakpoints.down(1282)]: {
-        height: 30,
         width: 90,
       },
     },
   },
 
   warehouseMyTasksCancelBtn: {
-    height: '40px',
-    width: '166px',
+    height: 30,
+    width: 166,
   },
 
   sizesLabel: {

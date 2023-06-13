@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import React from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -38,17 +38,13 @@ export const shopsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Warehouse report'])} />,
 
     width: 249,
-    renderCell: params => {
-      const onClickSeeStockReport = useCallback(() => handlers.onClickSeeStockReport(params.row), [])
-
-      return (
-        <ShopsReportBtnsCell
-          value={params.value}
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-          onClickSeeMore={onClickSeeStockReport}
-        />
-      )
-    },
+    renderCell: params => (
+      <ShopsReportBtnsCell
+        value={params.value}
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+        onClickSeeMore={() => handlers.onClickSeeStockReport(params.row)}
+      />
+    ),
   },
 
   {
@@ -57,11 +53,12 @@ export const shopsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Dashboard by goods/days'])} />,
 
     width: 247,
-    renderCell: params => {
-      const onClickSeeGoodsDailyReport = useCallback(() => handlers.onClickSeeGoodsDailyReport(params.row), [])
-
-      return <ShopsReportBtnsCell value={params.value} onClickSeeMore={onClickSeeGoodsDailyReport} />
-    },
+    renderCell: params => (
+      <ShopsReportBtnsCell
+        value={params.value}
+        onClickSeeMore={() => handlers.onClickSeeGoodsDailyReport(params.row)}
+      />
+    ),
   },
 
   {
@@ -70,20 +67,15 @@ export const shopsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     width: 510,
-    renderCell: params => {
-      const handlersMemo = useMemo(() => handlers, [])
-      const rowMemo = useMemo(() => params.row, [])
-
-      return (
-        <EditOrRemoveIconBtnsCell
-          tooltipFirstButton={t(TranslationKey['Change store name or links to reports'])}
-          tooltipSecondButton={t(TranslationKey['Remove a store from your list'])}
-          handlers={handlersMemo}
-          row={rowMemo}
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        />
-      )
-    },
+    renderCell: params => (
+      <EditOrRemoveIconBtnsCell
+        tooltipFirstButton={t(TranslationKey['Change store name or links to reports'])}
+        tooltipSecondButton={t(TranslationKey['Remove a store from your list'])}
+        handlers={handlers}
+        row={params.row}
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+      />
+    ),
 
     filterable: false,
     sortable: false,
