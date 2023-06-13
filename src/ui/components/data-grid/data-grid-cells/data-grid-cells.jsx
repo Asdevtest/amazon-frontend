@@ -154,22 +154,23 @@ export const InStockCell = React.memo(
   withStyles(
     ({ classes: classNames, boxAmounts, boxId, onClickInStock }) => (
       <div className={classNames.inStockWrapper}>
-        {boxAmounts
-          ?.sort((x, y) => x.storekeeper.name.localeCompare(y.storekeeper.name))
-          ?.map(el => (
-            <div key={el._id} className={classNames.inStockSubWrapper}>
-              <UserLink maxNameWidth={100} name={el.storekeeper?.name} userId={el.storekeeper?._id} />
+        {!!boxAmounts.length &&
+          boxAmounts
+            ?.sort((x, y) => x.storekeeper.name.localeCompare(y.storekeeper.name))
+            ?.map(el => (
+              <div key={el._id} className={classNames.inStockSubWrapper}>
+                <UserLink maxNameWidth={100} name={el.storekeeper?.name} userId={el.storekeeper?._id} />
 
-              <Link
-                target="_blank"
-                underline={'hover'}
-                className={classNames.linkWrapper}
-                onClick={() => onClickInStock(boxId, el.storekeeper)}
-              >
-                <Typography>{el.amountInBoxes}</Typography>
-              </Link>
-            </div>
-          ))}
+                <Link
+                  target="_blank"
+                  underline={'hover'}
+                  className={classNames.linkWrapper}
+                  onClick={() => onClickInStock(boxId, el.storekeeper)}
+                >
+                  <Typography>{el.amountInBoxes}</Typography>
+                </Link>
+              </div>
+            ))}
       </div>
     ),
     styles,
