@@ -40,6 +40,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '16px',
     fontWeight: 600,
     lineHeight: '19px',
+    textAlign: 'right',
   },
 
   scrollingText: {
@@ -64,10 +65,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   sizesWrapper: {
+    width: '220px',
     display: 'flex',
     alignItems: 'center',
-    width: '220px',
     justifyContent: 'space-between',
+    gap: '10px',
   },
 
   container: {
