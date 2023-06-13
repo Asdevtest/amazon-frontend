@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, { useCallback, useMemo } from 'react'
+import React from 'react'
 
 import { t } from 'i18n-js'
 
@@ -42,6 +43,25 @@ export const clientOrdersViewColumns = handlers => [
   },
 
   {
+    field: 'shopIds',
+    headerName: t(TranslationKey.Shop),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Shop)}
+        // isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 90,
+    sortable: false,
+    filterable: false,
+
+    columnKey: columnnsKeys.client.INVENTORY_SHOPS,
+  },
+
+  {
     field: 'priorityAndChinaDelivery',
     headerName: t(TranslationKey['Priority and Express Delivery']),
     renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
@@ -63,11 +83,7 @@ export const clientOrdersViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
     width: 290,
-    renderCell: params => {
-      const productMemo = useMemo(() => params.row.originalData.product, [])
-
-      return <OrderCell product={productMemo} />
-    },
+    renderCell: params => <OrderCell product={params.row.originalData.product} />,
     sortable: false,
   },
 
@@ -94,30 +110,29 @@ export const clientOrdersViewColumns = handlers => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     width: 200,
-    renderCell: params => {
-      const onClickReorder = useCallback(e => {
-        e.stopPropagation()
-        handlers.onClickReorder(params.row.originalData)
-      }, [])
-
-      return (
-        <>
-          {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
-            <NormalActionBtnCell
-              smallActionBtn
-              bTnText={t(TranslationKey['Repeat order'])}
-              onClickOkBtn={onClickReorder}
-            />
-          ) : (
-            <SuccessActionBtnCell
-              smallActionBtn
-              bTnText={t(TranslationKey['To order'])}
-              onClickOkBtn={onClickReorder}
-            />
-          )}
-        </>
-      )
-    },
+    renderCell: params => (
+      <>
+        {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
+          <NormalActionBtnCell
+            smallActionBtn
+            bTnText={t(TranslationKey['Repeat order'])}
+            onClickOkBtn={e => {
+              e.stopPropagation()
+              handlers.onClickReorder(params.row.originalData)
+            }}
+          />
+        ) : (
+          <SuccessActionBtnCell
+            smallActionBtn
+            bTnText={t(TranslationKey['To order'])}
+            onClickOkBtn={e => {
+              e.stopPropagation()
+              handlers.onClickReorder(params.row.originalData)
+            }}
+          />
+        )}
+      </>
+    ),
     filterable: false,
     sortable: false,
   },

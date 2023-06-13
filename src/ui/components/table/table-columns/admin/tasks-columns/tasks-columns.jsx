@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -40,11 +40,7 @@ export const adminTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
     width: 850,
-    renderCell: params => {
-      const rowMemo = useMemo(() => params.row.originalData, [])
-
-      return <TaskDescriptionCell task={rowMemo} />
-    },
+    renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
   },
@@ -66,11 +62,12 @@ export const adminTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 190,
-    renderCell: params => {
-      const setCurrentOpenedTask = useCallback(() => handlers.setCurrentOpenedTask(params.row.originalData), [])
-
-      return <NormalActionBtnCell bTnText={t(TranslationKey['View more'])} onClickOkBtn={setCurrentOpenedTask} />
-    },
+    renderCell: params => (
+      <NormalActionBtnCell
+        bTnText={t(TranslationKey['View more'])}
+        onClickOkBtn={handlers.setCurrentOpenedTask(params.row.originalData)}
+      />
+    ),
     filterable: false,
     sortable: false,
   },

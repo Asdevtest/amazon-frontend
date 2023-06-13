@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -107,21 +107,16 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     width: 200,
-    renderCell: params => {
-      const handlersMemo = useMemo(() => handlers, [])
-      const rowMemo = useMemo(() => params.row, [])
-
-      return (
-        <EditOrRemoveIconBtnsCell
-          tooltipFirstButton={t(TranslationKey.Edit)}
-          tooltipSecondButton={t(TranslationKey.Remove)}
-          handlers={handlersMemo}
-          row={rowMemo}
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-          isArchive={isArchive}
-        />
-      )
-    },
+    renderCell: params => (
+      <EditOrRemoveIconBtnsCell
+        tooltipFirstButton={t(TranslationKey.Edit)}
+        tooltipSecondButton={t(TranslationKey.Remove)}
+        handlers={handlers}
+        row={params.row}
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+        isArchive={isArchive}
+      />
+    ),
     filterable: false,
     sortable: false,
   },

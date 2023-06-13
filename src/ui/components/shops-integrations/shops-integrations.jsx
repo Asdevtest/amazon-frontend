@@ -43,12 +43,12 @@ export const ShopsIntegrations = observer(({ openModal }) => {
   const [curShop, setCurShop] = React.useState('')
 
   return (
-    <React.Fragment>
+    <div className={classNames.shopWrapper}>
       {SettingsModel.languageTag && (
         <Tabs
           variant={'fullWidth'}
           classes={{
-            root: classNames.row,
+            root: classNames.root,
             indicator: classNames.indicator,
           }}
           value={tabIndex}
@@ -87,6 +87,6 @@ export const ShopsIntegrations = observer(({ openModal }) => {
       <TabPanel value={tabIndex} index={tabsValues.GOODS_DAYS_REPORT}>
         <GoodsDaysReport curShop={curShop} />
       </TabPanel>
-    </React.Fragment>
+    </div>
   )
 })

@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import React from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -100,17 +100,13 @@ export const chosenGoodsColumns = handlers => [
   {
     field: ' ',
     headerName: '',
-    renderCell: params => {
-      const onClickTrash = useCallback(() => handlers.onClickTrash(params.row.asin), [])
-
-      return (
-        <TrashCell
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-          tooltipText={t(TranslationKey['Remove from the list'])}
-          onClick={onClickTrash}
-        />
-      )
-    },
+    renderCell: params => (
+      <TrashCell
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+        tooltipText={t(TranslationKey['Remove from the list'])}
+        onClick={() => handlers.onClickTrash(params.row.asin)}
+      />
+    ),
     width: 60,
   },
 ]
