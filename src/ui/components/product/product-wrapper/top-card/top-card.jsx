@@ -445,15 +445,14 @@ export const TopCard = observer(
                           {showActionBtns ? (
                             <div className={classNames.supplierButtonWrapper}>
                               <Button
-                                success
+                                danger={isSupplierAcceptRevokeActive}
+                                success={!isSupplierAcceptRevokeActive}
                                 tooltipInfoContent={
                                   isSupplierAcceptRevokeActive
                                     ? t(TranslationKey['Remove the current supplier'])
                                     : t(TranslationKey['Select a supplier as the current supplier'])
                                 }
-                                className={cx(classNames.iconBtn, classNames.iconBtnAccept, {
-                                  [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
-                                })}
+                                className={classNames.iconBtn}
                                 onClick={() =>
                                   isSupplierAcceptRevokeActive
                                     ? onClickSupplierBtns('acceptRevoke')
