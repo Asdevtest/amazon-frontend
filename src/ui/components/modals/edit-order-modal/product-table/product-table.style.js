@@ -69,4 +69,8 @@ export const useClassNames = makeStyles()(theme => ({
     height: '100%',
     display: 'flex',
   },
+
+  asin: {
+    color: '#4CA1DE',
+  },
 }))
