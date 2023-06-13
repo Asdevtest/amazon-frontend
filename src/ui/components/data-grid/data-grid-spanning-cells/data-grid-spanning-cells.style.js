@@ -51,10 +51,26 @@ export const styles = theme => ({
   },
 
   weightWrapper: {
+    // minWight: 170,
+    // maxWidth: 200,
     width: 170,
   },
 
   rateWrapper: {
     width: 58,
+  },
+
+  checkboxRoot: {
+    width: '17px !important',
+    height: '17px !important',
+    borderRadius: 4,
+  },
+
+  variantWrapper: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'start',
+    alignItems: 'center',
+    gap: 5,
   },
 })

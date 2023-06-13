@@ -39,7 +39,18 @@ const TabPanel = ({ children, value, index, ...other }) => (
 )
 
 export const SelectStorekeeperAndTariffForm = observer(
-  ({ storekeepers, curStorekeeperId, curTariffId, onSubmit, inNotifications, total, destinationsData }) => {
+  ({
+    showCheckbox,
+    storekeepers,
+    curStorekeeperId,
+    curTariffId,
+    onSubmit,
+    inNotifications,
+    total,
+    destinationsData,
+    currentVariationTariffId,
+    currentDestinationId,
+  }) => {
     const { classes: classNames } = useClassNames()
 
     const [tabIndex, setTabIndex] = React.useState(0)
@@ -60,11 +71,18 @@ export const SelectStorekeeperAndTariffForm = observer(
         : storekeepers.slice().sort((a, b) => a.name?.localeCompare(b?.name))[0],
     )
 
-    console.log('storekeepers', storekeepers)
-    console.log('curStorekeeper', curStorekeeper)
+    const [variationTariffId, setVariationTariffId] = useState(currentVariationTariffId)
+
+    const setVariationTariff = variationId => {
+      if (variationTariffId === variationId) {
+        setVariationTariffId(null)
+      } else {
+        setVariationTariffId(variationId)
+      }
+    }
 
     const onClickSelectTariff = tariffId => {
-      onSubmit(curStorekeeper._id, tariffId)
+      onSubmit(curStorekeeper._id, tariffId, variationTariffId)
     }
 
     const getRowClassName = params => curTariffId === params.row._id && classNames.attentionRow
@@ -137,7 +155,14 @@ export const SelectStorekeeperAndTariffForm = observer(
               columns={
                 total
                   ? TotalStorkeeperAndWeightBasedTariffFormColumns(destinationsData)
-                  : WeightBasedTariffFormColumns(onClickSelectTariff, destinationsData)
+                  : WeightBasedTariffFormColumns(
+                      showCheckbox,
+                      destinationsData,
+                      variationTariffId,
+                      currentDestinationId,
+                      onClickSelectTariff,
+                      setVariationTariff,
+                    )
               }
               getRowHeight={() => 'auto'}
             />
@@ -149,7 +174,10 @@ export const SelectStorekeeperAndTariffForm = observer(
                 color="primary"
                 variant={'outlined'}
                 className={classNames.resetBtn}
-                onClick={() => onSubmit(null, null)}
+                onClick={() => {
+                  setVariationTariffId(null)
+                  onSubmit(null, null, null)
+                }}
               >
                 {t(TranslationKey.reset)}
               </Button>
@@ -184,7 +212,10 @@ export const SelectStorekeeperAndTariffForm = observer(
                 color="primary"
                 variant={'outlined'}
                 className={classNames.resetBtn}
-                onClick={() => onSubmit(null, null)}
+                onClick={() => {
+                  setVariationTariffId(null)
+                  onSubmit(null, null, null)
+                }}
               >
                 {t(TranslationKey.reset)}
               </Button>
