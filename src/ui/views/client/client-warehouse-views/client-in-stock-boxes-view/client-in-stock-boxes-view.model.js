@@ -56,6 +56,7 @@ const updateBoxWhiteList = [
   'trackNumberText',
   'fbaNumber',
   'prepId',
+  'variationTariffId',
 ]
 
 const filtersFields = [
@@ -216,6 +217,8 @@ export class ClientInStockBoxesViewModel {
 
   setChangeItem(item) {
     this.changeItem = item
+
+    console.log('this.changeItem', this.changeItem)
   }
 
   confirmModalSettings = {
@@ -945,6 +948,7 @@ export class ClientInStockBoxesViewModel {
               shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : updatedBoxes[i].shippingLabel,
               destinationId: updatedBoxes[i].destinationId,
               logicsTariffId: updatedBoxes[i].logicsTariffId,
+              variationTariffId: updatedBoxes[i].variationTariffId,
               fbaShipment: updatedBoxes[i].fbaShipment,
               isBarCodeAlreadyAttachedByTheSupplier: updatedBoxes[i].isBarCodeAlreadyAttachedByTheSupplier,
               isBarCodeAttachedByTheStorekeeper: updatedBoxes[i].isBarCodeAttachedByTheStorekeeper,
@@ -1253,9 +1257,7 @@ export class ClientInStockBoxesViewModel {
 
   async editDestination(id, boxData) {
     try {
-      await BoxesModel.editBoxAtClient(id, {
-        destinationId: boxData.destinationId,
-      })
+      await BoxesModel.editBoxAtClient(id, boxData)
 
       await this.getBoxesMy()
     } catch (error) {
@@ -1271,6 +1273,7 @@ export class ClientInStockBoxesViewModel {
     try {
       await BoxesModel.editBoxAtClient(id, {
         logicsTariffId: boxData.logicsTariffId,
+        variationTariffId: boxData.variationTariffId,
       })
 
       await this.getBoxesMy()
@@ -1313,6 +1316,7 @@ export class ClientInStockBoxesViewModel {
           fbaShipment: boxData.fbaShipment,
           destinationId: boxData.destinationId,
           logicsTariffId: boxData.logicsTariffId,
+          variationTariffId: boxData.variationTariffId,
           shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
           isShippingLabelAttachedByStorekeeper:
             boxData.shippingLabel !== sourceData.shippingLabel

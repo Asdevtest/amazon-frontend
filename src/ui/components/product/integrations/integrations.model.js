@@ -120,9 +120,7 @@ export class IntegrationsModel {
     try {
       await SellerBoardModel.unlinkSkuProduct({
         productId: this.productId,
-        skus: this.sellerBoardData
-          .filter((el, index) => this.selectedRowIds.includes(index))
-          .map(el => el.originalData.sku),
+        skus: this.sellerBoardData.filter(el => this.selectedRowIds.includes(el._id)).map(el => el.originalData.sku),
       })
 
       this.selectedRowIds = []
