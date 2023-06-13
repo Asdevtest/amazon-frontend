@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useCallback, useMemo } from 'react'
+import React from 'react'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -28,12 +28,7 @@ export const clientTasksViewColumns = handlers => [
 
     width: 250,
 
-    renderCell: params => {
-      const handlersMemo = useMemo(() => handlers, [])
-      const rowMemo = useMemo(() => params.row.originalData, [params.row.originalData.status])
-
-      return <ClientTasksActionBtnsCell handlers={handlersMemo} row={rowMemo} />
-    },
+    renderCell: params => <ClientTasksActionBtnsCell handlers={handlers} row={params.row.originalData} />,
     filterable: false,
     sortable: false,
   },
@@ -44,17 +39,13 @@ export const clientTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
 
     width: window.innerWidth < 1282 ? 140 : 170,
-    renderCell: params => {
-      const updateTaskPriority = useCallback(handlers.updateTaskPriority, [])
-
-      return (
-        <TaskPriorityCell
-          curPriority={params.value}
-          taskId={params.row.originalData._id}
-          onChangePriority={updateTaskPriority}
-        />
-      )
-    },
+    renderCell: params => (
+      <TaskPriorityCell
+        curPriority={params.value}
+        taskId={params.row.originalData._id}
+        onChangePriority={handlers.updateTaskPriority}
+      />
+    ),
   },
 
   {
@@ -64,20 +55,16 @@ export const clientTasksViewColumns = handlers => [
 
     width: 271,
 
-    renderCell: params => {
-      const onClickSubmit = useCallback((id, reason) => {
-        handlers.updateTaskComment(id, params.row.originalData.priority, reason)
-      }, [])
-
-      return (
-        <ChangeInputCommentCell
-          rowsCount={4}
-          text={params.row.originalData.reason}
-          id={params.row.originalData._id}
-          onClickSubmit={onClickSubmit}
-        />
-      )
-    },
+    renderCell: params => (
+      <ChangeInputCommentCell
+        rowsCount={4}
+        text={params.row.originalData.reason}
+        id={params.row.originalData._id}
+        onClickSubmit={(id, reason) => {
+          handlers.updateTaskComment(id, params.row.originalData.priority, reason)
+        }}
+      />
+    ),
   },
 
   {
@@ -95,11 +82,7 @@ export const clientTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
     width: 290,
-    renderCell: params => {
-      const rowMemo = useMemo(() => params.row.originalData, [])
-
-      return <TaskDescriptionCell task={rowMemo} />
-    },
+    renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
   },

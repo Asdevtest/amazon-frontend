@@ -23,18 +23,14 @@ export const warehouseVacantTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    renderCell: params => {
-      const onClickPickupBtn = useCallback(() => handlers.onClickPickupBtn(params.row.originalData), [])
-
-      return (
-        <NormalActionBtnCell
-          tooltipText={t(TranslationKey['Take the task to work'])}
-          bTnText={t(TranslationKey['Get to work'])}
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-          onClickOkBtn={onClickPickupBtn}
-        />
-      )
-    },
+    renderCell: params => (
+      <NormalActionBtnCell
+        tooltipText={t(TranslationKey['Take the task to work'])}
+        bTnText={t(TranslationKey['Get to work'])}
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+        onClickOkBtn={() => handlers.onClickPickupBtn(params.row.originalData)}
+      />
+    ),
     width: window.innerWidth < 1282 ? 150 : 190,
     filterable: false,
     sortable: false,
@@ -62,20 +58,16 @@ export const warehouseVacantTasksViewColumns = handlers => [
 
     width: 271,
 
-    renderCell: params => {
-      const onClickSubmit = useCallback((id, reason) => {
-        handlers.updateTaskComment(id, params.row.originalData.priority, reason)
-      }, [])
-
-      return (
-        <ChangeInputCommentCell
-          rowsCount={4}
-          text={params.row.originalData.reason}
-          id={params.row.originalData._id}
-          onClickSubmit={onClickSubmit}
-        />
-      )
-    },
+    renderCell: params => (
+      <ChangeInputCommentCell
+        rowsCount={4}
+        text={params.row.originalData.reason}
+        id={params.row.originalData._id}
+        onClickSubmit={(id, reason) => {
+          handlers.updateTaskComment(id, params.row.originalData.priority, reason)
+        }}
+      />
+    ),
   },
 
   {
@@ -94,11 +86,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
 
     // width: window.innerWidth < 1282 ? 338 : 850,
     width: 290,
-    renderCell: params => {
-      const rowMemo = useMemo(() => params.row.originalData, [])
-
-      return <TaskDescriptionCell task={rowMemo} />
-    },
+    renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
   },

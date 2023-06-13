@@ -14,11 +14,12 @@ import { UserModel } from '@models/user-model'
 
 import { clientOrdersViewColumns } from '@components/table/table-columns/client/client-orders-columns'
 
-import { clientOrdersDataConverter } from '@utils/data-grid-data-converters'
+import { addIdDataConverter, clientOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+import { ShopModel } from '@models/shop-model'
 
 export class ClientOrdersViewModel {
   history = undefined
@@ -46,6 +47,7 @@ export class ClientOrdersViewModel {
   isOrder = []
   existingOrders = []
   checkPendingData = []
+  shopsData = []
 
   showAcceptMessage = undefined
   acceptMessage = undefined
@@ -215,14 +217,11 @@ export class ClientOrdersViewModel {
     return toJS(this.orders)
   }
 
-  // getCurrentReorderData() {
-  //   return toJS(this.reorderOrder)
-  // }
-
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
+      await this.getShops()
       await this.getOrders()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -232,6 +231,21 @@ export class ClientOrdersViewModel {
         if (error.body && error.body.message) {
           this.error = error.body.message
         }
+      })
+    }
+  }
+
+  async getShops() {
+    try {
+      const result = await ShopModel.getMyShopNames()
+
+      runInAction(() => {
+        this.shopsData = addIdDataConverter(result)
+      })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
       })
     }
   }
@@ -250,32 +264,6 @@ export class ClientOrdersViewModel {
     }
   }
 
-  // Было до создания фильтрации по статусам
-  // setOrderStatus = pathname => {
-  //   if (pathname) {
-  //     switch (pathname) {
-  //       case routsPathes.CLIENT_ORDERS:
-  // return `${OrderStatusByKey[OrderStatus.AT_PROCESS]}, ${OrderStatusByKey[OrderStatus.READY_TO_PROCESS]}, ${
-  //           OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]
-  //         }, ${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}, ${OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]}, ${
-  //           OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
-  //         }, ${OrderStatusByKey[OrderStatus.IN_STOCK]}, ${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}, ${
-  //           OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]
-  //         }`
-  //       case routsPathes.CLIENT_PENDING_ORDERS:
-  //         return `${OrderStatusByKey[OrderStatus.FORMED]}, ${OrderStatusByKey[OrderStatus.PENDING]}, ${
-  //           OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]
-  //         }`
-
-  //       default:
-  //         return `${OrderStatusByKey[OrderStatus.AT_PROCESS]}, ${
-  //           OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
-  //         }`
-  //     }
-  //   }
-  // }
-
-  // НЕ было до создания фильтрации по статусам
   setOrderStatus = pathname => {
     if (pathname) {
       switch (pathname) {
@@ -302,7 +290,6 @@ export class ClientOrdersViewModel {
     }
   }
 
-  // Убирает и добавляет статусы в массив выбранных статусов
   onClickOrderStatusData(status) {
     runInAction(() => {
       if (status) {
@@ -377,7 +364,7 @@ export class ClientOrdersViewModel {
 
         this.baseNoConvertedOrders = result.rows
 
-        this.orders = clientOrdersDataConverter(result.rows)
+        this.orders = clientOrdersDataConverter(result.rows, this.shopsData)
       })
     } catch (error) {
       console.log(error)

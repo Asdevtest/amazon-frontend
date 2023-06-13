@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **ideasVerified** | **Number** |  | [optional] 
 **ideasClosed** | **Number** |  | [optional] 
 **tags** | [**[ApiV1AdminsGetProductsByStatusTags]**](ApiV1AdminsGetProductsByStatusTags.md) |  | [optional] 
+**redFlags** | [**[ApiV1AdminsGetProductsByStatusRedFlags]**](ApiV1AdminsGetProductsByStatusRedFlags.md) |  | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
 
