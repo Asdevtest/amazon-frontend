@@ -63,7 +63,7 @@ export const clientInventoryColumns = (
         />
       )
     },
-    width: 300,
+    width: 295,
 
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
@@ -99,7 +99,7 @@ export const clientInventoryColumns = (
     ),
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 90,
+    width: 120,
 
     columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
   },
@@ -117,7 +117,7 @@ export const clientInventoryColumns = (
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 90,
+    width: 85,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -151,7 +151,7 @@ export const clientInventoryColumns = (
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 90,
+    width: 85,
 
     columnKey: columnnsKeys.shared.QUANTITY,
   },
@@ -179,7 +179,7 @@ export const clientInventoryColumns = (
       />
     ),
     type: 'number',
-    width: 90,
+    width: 85,
 
     columnKey: columnnsKeys.shared.QUANTITY,
   },
@@ -232,7 +232,7 @@ export const clientInventoryColumns = (
       )
     },
     type: 'number',
-    width: 90,
+    width: 85,
 
     columnKey: columnnsKeys.shared.QUANTITY,
   },
@@ -255,7 +255,7 @@ export const clientInventoryColumns = (
         onClickInStock={otherHandlers.onClickInStock}
       />
     ),
-    width: 160,
+    width: 155,
     sortable: false,
     columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
   },
