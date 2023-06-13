@@ -210,7 +210,10 @@ export class BuyerMyOrdersViewModel {
       this.history = history
     })
     // this.isShowPartialPayment = routsPathes.BUYER_MY_ORDERS_PARTIALLY_PAID === history.location.pathname;
-    if (routsPathes.BUYER_MY_ORDERS_PARTIALLY_PAID === history.location.pathname) {
+    if (
+      routsPathes.BUYER_MY_ORDERS_PARTIALLY_PAID === history.location.pathname ||
+      routsPathes.BUYER_MY_ORDERS_READY_FOR_PAYMENT === history.location.pathname
+    ) {
       this.columnsModel = BuyerReadyForPaymentColumns(this.rowHandlers, () => this.columnMenuSettings, true)
     }
 

@@ -243,10 +243,6 @@ export const clientBoxesViewColumns = (
     ),
 
     renderCell: params => {
-      // const destinationsMemo = useMemo(() => getDestinations(), [getDestinations()])
-      // const destinationsFavouritesMemo = useMemo(() => getDestinationsFavourites(), [getDestinationsFavourites()])
-      // const storekeepersDataMemo = useMemo(() => getStorekeepersData(), [getStorekeepersData()])
-
       return params.row.originalData ? (
         <WarehouseDestinationAndTariffCell
           destinations={getDestinations()}

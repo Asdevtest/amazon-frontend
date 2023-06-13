@@ -35,6 +35,7 @@ import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
 
 export const MergeBoxesModal = ({
+  showCheckbox,
   userInfo,
   destinations,
   storekeepers,
@@ -67,6 +68,9 @@ export const MergeBoxesModal = ({
     logicsTariffId: selectedBoxes.some(box => box.logicsTariff?._id !== selectedBoxes[0]?.logicsTariff?._id)
       ? ''
       : selectedBoxes[0].logicsTariff?._id,
+    variationTariffId: selectedBoxes.some(box => box.variationTariff?._id !== selectedBoxes[0]?.variationTariff?._id)
+      ? ''
+      : selectedBoxes[0].variationTariff?._id,
 
     fbaShipment: '',
 
@@ -99,16 +103,11 @@ export const MergeBoxesModal = ({
 
   const [comment, setComment] = useState('')
   const onSubmitBoxesModal = () => {
-    // Передаются файлы imagesOfBox
     onSubmit({ ...boxBody, destinationId: boxBody.destinationId || null }, comment, priority, priorityReason)
-    // setBoxBody({shippingLabel: '', destinationId: null, logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
-    // setComment('')
   }
 
   const onCloseBoxesModal = () => {
     setOpenModal()
-    // setBoxBody({shippingLabel: '', destinationId: null, logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
-    // setComment('')
   }
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
@@ -132,8 +131,8 @@ export const MergeBoxesModal = ({
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
-  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-    setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId })
+  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId) => {
+    setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId })
 
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
@@ -496,10 +495,13 @@ export const MergeBoxesModal = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
+          showCheckbox={showCheckbox}
           destinationsData={destinations}
           storekeepers={storekeepers?.filter(el => el._id === selectedBoxes[0]?.storekeeper._id)}
-          curStorekeeperId={boxBody.storekeeperId}
-          curTariffId={boxBody.logicsTariffId}
+          curStorekeeperId={boxBody?.storekeeperId}
+          curTariffId={boxBody?.logicsTariffId}
+          currentDestinationId={boxBody?.destinationId}
+          currentVariationTariffId={boxBody?.variationTariffId}
           onSubmit={onSubmitSelectStorekeeperAndTariff}
         />
       </Modal>
