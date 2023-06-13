@@ -183,11 +183,12 @@ export const OrderProductModal = ({
         {
           ...el,
           destinationId: el.destinationId ? el.destinationId : null,
-          totalPrice:
-            (productsForRender[i].currentSupplier.price +
-              productsForRender[i].currentSupplier.batchDeliveryCostInDollar /
-                productsForRender[i].currentSupplier.amount) *
-            el?.amount,
+          totalPrice: productsForRender[i]?.currentSupplier?.price
+            ? (productsForRender[i]?.currentSupplier.price +
+                productsForRender[i]?.currentSupplier.batchDeliveryCostInDollar /
+                  productsForRender[i]?.currentSupplier.amount) *
+              el?.amount
+            : 0,
 
           needsResearch: isResearchSupplier,
           tmpIsPendingOrder: isPendingOrder,
@@ -212,8 +213,8 @@ export const OrderProductModal = ({
   const disabledSubmit =
     orderState.some(
       (order, index) =>
-        toFixed(calcProductsPriceWithDelivery(productsForRender[index], order), 2) <
-          platformSettings.orderAmountLimit ||
+        // toFixed(calcProductsPriceWithDelivery(productsForRender[index], order), 2) <
+        //   platformSettings.orderAmountLimit ||
         order.storekeeperId === '' ||
         order.logicsTariffId === '' ||
         Number(order.amount) <= 0 ||
@@ -225,7 +226,7 @@ export const OrderProductModal = ({
           order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0),
     ) ||
     storekeeperEqualsDestination ||
-    productsForRender.some(item => !item.currentSupplier) ||
+    // productsForRender.some(item => !item.currentSupplier) ||
     !orderState.length ||
     submitIsClicked
 

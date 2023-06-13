@@ -33,11 +33,7 @@ export const subUsersColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Roles)} />,
 
     width: 213,
-    renderCell: params => {
-      const user = useMemo(() => params.row, [])
-
-      return <UserRolesCell user={user} />
-    },
+    renderCell: params => <UserRolesCell user={params.row} />,
   },
 
   {
@@ -46,23 +42,18 @@ export const subUsersColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 381,
-    renderCell: params => {
-      const handlersMemo = useMemo(() => handlers, [])
-      const rowMemo = useMemo(() => params.row, [])
-
-      return (
-        <EditOrRemoveBtnsCell
-          isSubUsersTable
-          tooltipFirstButton={t(TranslationKey["Editing an employee's permission list"])}
-          tooltipSecondButton={t(
-            TranslationKey['Removing an employee from the list, banning and disabling access to the platform'],
-          )}
-          handlers={handlersMemo}
-          row={rowMemo}
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        />
-      )
-    },
+    renderCell: params => (
+      <EditOrRemoveBtnsCell
+        isSubUsersTable
+        tooltipFirstButton={t(TranslationKey["Editing an employee's permission list"])}
+        tooltipSecondButton={t(
+          TranslationKey['Removing an employee from the list, banning and disabling access to the platform'],
+        )}
+        handlers={handlers}
+        row={params.row}
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+      />
+    ),
     filterable: false,
     sortable: false,
   },
@@ -73,11 +64,13 @@ export const subUsersColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
     width: 381,
-    renderCell: params => {
-      const onClickSaveComment = useCallback(handlers.onClickSaveComment, [])
-
-      return <CommentUsersCell id={params.row._id} comment={params?.row?.note?.comment} handler={onClickSaveComment} />
-    },
+    renderCell: params => (
+      <CommentUsersCell
+        id={params.row._id}
+        comment={params?.row?.note?.comment}
+        handler={handlers.onClickSaveComment}
+      />
+    ),
     filterable: false,
     sortable: false,
   },

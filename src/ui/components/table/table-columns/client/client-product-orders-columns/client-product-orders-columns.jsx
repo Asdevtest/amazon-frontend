@@ -1,6 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, { useMemo, useCallback } from 'react'
+import React from 'react'
 
 import { t } from 'i18n-js'
 
@@ -63,11 +63,7 @@ export const clientProductOrdersViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
     width: 400,
-    renderCell: params => {
-      const productMemo = useMemo(() => params.row.originalData.product, [])
-
-      return <OrderCell product={productMemo} />
-    },
+    renderCell: params => <OrderCell product={params.row.originalData.product} />,
     sortable: false,
   },
 
@@ -93,20 +89,21 @@ export const clientProductOrdersViewColumns = handlers => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     width: 200,
-    renderCell: params => {
-      const onClickReorder = useCallback(() => handlers.onClickReorder(params.row.originalData), [])
-      const onClickToOrder = useCallback(() => handlers.onClickReorder(params.row.originalData, true), [])
-
-      return (
-        <>
-          {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
-            <NormalActionBtnCell bTnText={t(TranslationKey['Repeat order'])} onClickOkBtn={onClickReorder} />
-          ) : (
-            <SuccessActionBtnCell bTnText={t(TranslationKey['To order'])} onClickOkBtn={onClickToOrder} />
-          )}
-        </>
-      )
-    },
+    renderCell: params => (
+      <>
+        {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
+          <NormalActionBtnCell
+            bTnText={t(TranslationKey['Repeat order'])}
+            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData)}
+          />
+        ) : (
+          <SuccessActionBtnCell
+            bTnText={t(TranslationKey['To order'])}
+            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData)}
+          />
+        )}
+      </>
+    ),
     filterable: false,
     sortable: false,
   },

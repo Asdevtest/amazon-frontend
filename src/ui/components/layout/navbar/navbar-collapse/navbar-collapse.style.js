@@ -39,23 +39,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: '#fff',
   },
 
-  redBadge: {
-    margin: '0 auto',
-    width: 'fit-content',
-    height: 20,
-    background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
-
-    padding: '1px 6px',
-
-    fontSize: '12px',
-
-    borderRadius: 30,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#fff',
-  },
-
   menuItem: {
     overflow: 'hidden',
     width: '100%',
@@ -82,6 +65,23 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: '400',
     lineHeight: '14px',
+  },
+
+  redBadge: {
+    margin: '0 auto',
+    width: 'fit-content',
+    height: 20,
+    background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
+
+    padding: '1px 6px',
+
+    fontSize: '12px',
+
+    borderRadius: 30,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
   },
 
   subCategory: {

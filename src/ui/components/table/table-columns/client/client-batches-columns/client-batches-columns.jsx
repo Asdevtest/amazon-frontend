@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -100,19 +100,15 @@ export const clientBatchesViewColumns = rowHandlers => [
     field: 'batchTracking',
     headerName: t(TranslationKey['Batch tracking']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch tracking'])} />,
-    renderCell: params => {
-      const rowHandlersMemo = useMemo(() => rowHandlers, [])
-
-      return (
-        <BatchTrackingCell
-          disabled
-          rowHandlers={rowHandlersMemo}
-          id={params.row?.originalData?._id}
-          arrivalDate={params.row?.originalData?.arrivalDate}
-          trackingNumber={params.row?.originalData?.trackingNumber}
-        />
-      )
-    },
+    renderCell: params => (
+      <BatchTrackingCell
+        disabled
+        rowHandlers={rowHandlers}
+        id={params.row?.originalData?._id}
+        arrivalDate={params.row?.originalData?.arrivalDate}
+        trackingNumber={params.row?.originalData?.trackingNumber}
+      />
+    ),
     width: 198,
     filterable: false,
     sortable: false,

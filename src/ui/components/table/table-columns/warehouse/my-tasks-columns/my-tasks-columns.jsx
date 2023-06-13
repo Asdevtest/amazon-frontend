@@ -33,19 +33,15 @@ export const warehouseMyTasksViewColumns = handlers => [
     //   />
     // ),
 
-    renderCell: params => {
-      const handlersMemo = useMemo(() => handlers, [])
-
-      return (
-        <WarehouseMyTasksBtnsCell
-          handlers={handlersMemo}
-          boxId={params.row.originalData.boxes[0]?._id}
-          rowId={params.row.originalData._id}
-          operationType={params.row.originalData.operationType}
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        />
-      )
-    },
+    renderCell: params => (
+      <WarehouseMyTasksBtnsCell
+        handlers={handlers}
+        boxId={params.row.originalData.boxes[0]?._id}
+        rowId={params.row.originalData._id}
+        operationType={params.row.originalData.operationType}
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+      />
+    ),
     filterable: false,
     sortable: false,
   },
@@ -64,17 +60,13 @@ export const warehouseMyTasksViewColumns = handlers => [
     //   />
     // ),
 
-    renderCell: params => {
-      const onChangePriority = useCallback(handlers.updateTaskPriority, [])
-
-      return (
-        <TaskPriorityCell
-          curPriority={params.value}
-          taskId={params.row.originalData._id}
-          onChangePriority={onChangePriority}
-        />
-      )
-    },
+    renderCell: params => (
+      <TaskPriorityCell
+        curPriority={params.value}
+        taskId={params.row.originalData._id}
+        onChangePriority={handlers.updateTaskPriority}
+      />
+    ),
   },
 
   {
@@ -83,20 +75,16 @@ export const warehouseMyTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
     width: 271,
-    renderCell: params => {
-      const onClickSubmit = useCallback((id, reason) => {
-        handlers.updateTaskComment(id, params.row.originalData.priority, reason)
-      }, [])
-
-      return (
-        <ChangeInputCommentCell
-          rowsCount={4}
-          text={params.row.originalData.reason}
-          id={params.row.originalData._id}
-          onClickSubmit={onClickSubmit}
-        />
-      )
-    },
+    renderCell: params => (
+      <ChangeInputCommentCell
+        rowsCount={4}
+        text={params.row.originalData.reason}
+        id={params.row.originalData._id}
+        onClickSubmit={(id, reason) => {
+          handlers.updateTaskComment(id, params.row.originalData.priority, reason)
+        }}
+      />
+    ),
   },
 
   {
@@ -117,11 +105,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     width: 290,
     // renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
 
-    renderCell: params => {
-      const originalDataMemo = useMemo(() => params.row.originalData, [])
-
-      return <TaskDescriptionCell task={originalDataMemo} />
-    },
+    renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
   },

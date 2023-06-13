@@ -169,6 +169,8 @@ export const getTableByColumn = (column, hint) => {
       'purchaseQuantity',
       'ideasClosed',
       'ideasVerified',
+      'bsr',
+      'fbaamount',
     ].includes(column)
   ) {
     // if (hint === 'requests') {

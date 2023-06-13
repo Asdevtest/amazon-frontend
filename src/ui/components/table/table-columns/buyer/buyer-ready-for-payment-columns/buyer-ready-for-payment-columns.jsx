@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, { useCallback, useMemo } from 'react'
+import React from 'react'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey } from '@constants/statuses/order-status'
@@ -59,11 +59,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
       width: 400,
-      renderCell: params => {
-        const productMemo = useMemo(() => params.row.originalData.product, [])
-
-        return <OrderCell product={productMemo} />
-      },
+      renderCell: params => <OrderCell product={params.row.originalData.product} />,
       sortable: false,
     },
 
@@ -150,7 +146,16 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       headerName: t(TranslationKey['To pay']) + ', Ұ',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['To pay']) + ', Ұ'} />,
 
-      renderCell: params => <MultilineTextCell text={toFixed(params.row.originalData.priceInYuan, 2)} />,
+      renderCell: params => (
+        <MultilineTextCell
+          text={toFixed(
+            params.row.originalData.partialPayment
+              ? params.row.originalData.partialPaymentAmountRmb
+              : params.row.originalData.priceInYuan,
+            2,
+          )}
+        />
+      ),
       type: 'number',
       width: 90,
     },
@@ -310,12 +315,12 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
   ]
 
   if (isShowPartialPayment) {
-    arr.splice(8, 0, {
-      field: 'partialPaymentAmountRmb',
+    arr.splice(9, 0, {
+      field: 'partiallyPaid',
       headerName: t(TranslationKey['Paid for']) + ', Ұ',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Paid for']) + ', Ұ'} />,
 
-      renderCell: params => <MultilineTextCell text={toFixed(params.row.originalData.partialPaymentAmountRmb, 2)} />,
+      renderCell: params => <MultilineTextCell text={toFixed(params.row.originalData.partiallyPaid, 2)} />,
       type: 'number',
       width: 110,
     })

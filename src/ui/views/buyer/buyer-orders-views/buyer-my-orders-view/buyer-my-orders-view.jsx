@@ -100,11 +100,13 @@ export const BuyerMyOrdersViewRaw = props => {
                 <Typography className={cx(classNames.totalPriceText, classNames.totalPrice)}>
                   {`${toFixedWithYuanSign(
                     isNoPaidedOrders
-                      ? Number(viewModel.paymentAmount?.totalPriceInUSD) * Number(viewModel.yuanToDollarRate)
-                      : viewModel.paymentAmount?.totalPriceInYuan,
+                      ? Number(viewModel.paymentAmount?.totalPriceInUSD) * Number(viewModel.yuanToDollarRate) +
+                          viewModel.paymentAmount?.partialPaymentAmountRmb
+                      : viewModel.paymentAmount?.totalPriceInYuan + viewModel.paymentAmount?.partialPaymentAmountRmb,
                     2,
                   )} ${t(TranslationKey.Or).toLocaleLowerCase()} ${toFixedWithDollarSign(
-                    viewModel.paymentAmount?.totalPriceInUSD,
+                    viewModel.paymentAmount?.totalPriceInUSD +
+                      viewModel.paymentAmount?.partialPaymentAmountRmb / Number(viewModel.yuanToDollarRate),
                     2,
                   )}`}
                 </Typography>

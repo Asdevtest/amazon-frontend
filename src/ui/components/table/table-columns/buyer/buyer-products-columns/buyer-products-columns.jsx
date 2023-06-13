@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React from 'react'
 
 import { colorByProductStatus, ProductStatusByCode } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -73,19 +73,15 @@ export const buyerProductsViewColumns = handlers => [
     headerName: t(TranslationKey['Fees & Net']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Fees & Net'])} />,
 
-    renderCell: params => {
-      const onClickFeesCalculateMemo = useCallback(handlers.onClickFeesCalculate, [])
-
-      return (
-        <FeesValuesWithCalculateBtnCell
-          noCalculate={!['30', '40', '50', '60'].includes(params.row.status)}
-          fbafee={params.row.originalData.fbafee}
-          reffee={params.row.originalData.reffee}
-          productId={params.row.originalData._id}
-          onClickCalculate={onClickFeesCalculateMemo}
-        />
-      )
-    },
+    renderCell: params => (
+      <FeesValuesWithCalculateBtnCell
+        noCalculate={!['30', '40', '50', '60'].includes(params.row.status)}
+        fbafee={params.row.originalData.fbafee}
+        reffee={params.row.originalData.reffee}
+        productId={params.row.originalData._id}
+        onClickCalculate={handlers.onClickFeesCalculate}
+      />
+    ),
     minWidth: 110,
 
     filterable: false,
@@ -124,6 +120,8 @@ export const buyerProductsViewColumns = handlers => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     minWidth: 50,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -134,6 +132,8 @@ export const buyerProductsViewColumns = handlers => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     minWidth: 150,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -190,12 +190,8 @@ export const buyerProductsViewColumns = handlers => [
   {
     field: 'tags',
     headerName: t(TranslationKey.Tags),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
-    renderCell: params => {
-      const tagsMemo = useMemo(() => params.row.originalData.tags, [])
-
-      return <TagsCell tags={tagsMemo} />
-    },
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
+    renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
     width: 160,
     sortable: false,
     columnKey: columnnsKeys.shared.OBJECT,
@@ -204,12 +200,8 @@ export const buyerProductsViewColumns = handlers => [
   {
     field: 'redFlags',
     headerName: t(TranslationKey['Red flags']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
-    renderCell: params => {
-      const redFlagsMemo = useMemo(() => params.row.originalData.redFlags, [])
-
-      return <RedFlagsCell flags={redFlagsMemo} />
-    },
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
+    renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
     width: 130,
     sortable: false,
     columnKey: columnnsKeys.shared.RED_FLAGS,

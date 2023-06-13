@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 
 // import {colorByProductStatus, ProductStatusByCode} from '@constants/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -35,12 +35,7 @@ export const supervisorSettingsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     width: 150,
-    renderCell: params => {
-      const handlersMemo = useMemo(() => handlers, [])
-      const rowMemo = useMemo(() => params.row, [])
-
-      return <EditOrRemoveIconBtnsCell handlers={handlersMemo} row={rowMemo} />
-    },
+    renderCell: params => <EditOrRemoveIconBtnsCell handlers={handlers} row={params.row} />,
     filterable: false,
     sortable: false,
   },

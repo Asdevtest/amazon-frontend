@@ -339,4 +339,36 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.second,
   },
+
+  partialPaymentWrapper: {
+    width: '100%',
+    padding: 10,
+    border: '1px solid #E0E0E0',
+    borderRadius: '4px',
+    marginBottom: 20,
+  },
+
+  partialPaymentCheckbox: {
+    display: 'flex',
+    gap: 10,
+    alignItems: 'center',
+
+    p: {
+      margin: 0,
+    },
+  },
+
+  partialPaymentFields: {
+    display: 'flex',
+    gap: 18,
+    paddingTop: 15,
+
+    '& > div': {
+      margin: 0,
+    },
+
+    '.MuiInputBase-root': {
+      width: 'unset',
+    },
+  },
 }))
