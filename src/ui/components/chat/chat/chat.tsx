@@ -8,10 +8,10 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
 
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined'
-import { InputAdornment, Typography, ClickAwayListener, Avatar } from '@mui/material'
+import { Avatar, ClickAwayListener, InputAdornment, Typography } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
-import React, { FC, ReactElement, useEffect, useState, KeyboardEvent, useContext } from 'react'
+import React, { FC, KeyboardEvent, ReactElement, useContext, useEffect, useRef, useState } from 'react'
 
 import { observer } from 'mobx-react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
@@ -96,6 +96,8 @@ export const Chat: FC<Props> = observer(
     onRemoveUsersFromGroupChat,
     onClickEditGroupChatInfo,
   }) => {
+    const messageInput = useRef<HTMLTextAreaElement | null>(null)
+
     const [showFiles, setShowFiles] = useState(false)
 
     const [showEmojis, setShowEmojis] = useState(false)
@@ -136,6 +138,12 @@ export const Chat: FC<Props> = observer(
       }
     }, [message])
 
+    useEffect(() => {
+      if (messageToReply !== null) {
+        messageInput.current?.focus()
+      }
+    }, [messageToReply])
+
     const changeMessageAndState = (value: string) => {
       setMessage(value)
       SettingsModel.setChatMessageState({ message: value, files }, chat._id)
@@ -170,6 +178,10 @@ export const Chat: FC<Props> = observer(
       setMessage(messageInitialState.message)
       setFiles(messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files)
       setShowGroupSettings(false)
+
+      return () => {
+        setMessageToReply(null)
+      }
     }, [chat?._id])
 
     useEffect(() => {
@@ -366,6 +378,7 @@ export const Chat: FC<Props> = observer(
             <TextField
               multiline
               autoFocus
+              inputRef={messageInput}
               disabled={!userContainedInChat}
               type="text"
               id="outlined-multiline-flexible"

@@ -7,7 +7,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     height: 801,
-    width: 1503,
+    maxWidth: 1692,
     gap: 20,
 
     [theme.breakpoints.down(768)]: {
@@ -99,6 +99,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
+    gap: 30,
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+      gap: 5,
+    },
   },
 
   datesWrapper: {
@@ -109,14 +114,12 @@ export const useClassNames = makeStyles()(theme => ({
 
   infoWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'flex-end',
-    gap: '10px',
+    justifyContent: 'space-between',
+    gap: 30,
     [theme.breakpoints.down(768)]: {
-      display: 'flex',
       flexDirection: 'column',
-      alignItems: 'flex-end',
-      gap: '5px',
+      gap: 5,
     },
   },
 
@@ -153,7 +156,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
-    width: 266,
+    width: 270,
     height: 40,
 
     textOverflow: 'ellipsis',
@@ -233,23 +236,23 @@ export const useClassNames = makeStyles()(theme => ({
     '-webkit-text-fill-color': `${theme.palette.text.second} !important`,
   },
   batchTitleField: {
-    width: '157px !important',
+    width: '160px !important',
     margin: 0,
   },
   destinationField: {
-    width: '215px !important',
+    width: '270px !important',
     margin: 0,
   },
   volumeWeightField: {
-    width: '186px !important',
+    width: '190px !important',
     margin: 0,
   },
   methodField: {
-    width: '266px !important',
+    width: '270px !important',
     margin: 0,
   },
   dividerField: {
-    width: '100px !important',
+    width: '120px !important',
     margin: 0,
   },
   filesAndButtonWrapper: {
@@ -257,12 +260,12 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
   },
   shippinCostContainer: {
-    width: '186px !important',
+    width: '190px !important',
     margin: 0,
   },
 
   closeFieldsWrapper: {
     display: 'flex',
-    gap: 15,
+    gap: 30,
   },
 }))
