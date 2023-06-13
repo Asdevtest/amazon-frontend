@@ -105,6 +105,7 @@ import {
 } from '@constants/configs/sizes-settings'
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
 import { PrioritySelect } from '@components/shared/priority-select/priority-select'
+import { el } from 'date-fns/locale'
 
 export const UserCell = React.memo(
   withStyles(
@@ -1155,6 +1156,9 @@ export const WarehouseDestinationAndTariffCell = React.memo(
         ?.tariffLogistics?.find(el => el?._id === boxesMy?.logicsTariff?._id)?.name
 
       const curDestination = destinations?.find(el => el?._id === boxesMy?.destination?._id)
+      // const curDestination = destinations?.find(
+      //   el => el?._id === boxesMy?.destination?._id || el?._id === boxesMy?.variationTariff?.destinationId,
+      // )
 
       const firstNumOfCode = curDestination?.zipCode[0]
 
@@ -1165,6 +1169,13 @@ export const WarehouseDestinationAndTariffCell = React.memo(
         ?.tariffLogistics?.find(el => el?._id === boxesMy?.logicsTariff?._id)?.conditionsByRegion[
         regionOfDeliveryName
       ]?.rate
+      // const tariffRate = storekeepers
+      //   ?.find(el => el?._id === boxesMy?.storekeeper?._id)
+      //   ?.tariffLogistics?.find(
+      //     el =>
+      //       el?._id === boxesMy?.logicsTariff?._id ||
+      //       el?._id === boxesMy?.variationTariff?.storekeeperTariffLogisticsId,
+      //   )?.conditionsByRegion[regionOfDeliveryName]?.rate
 
       return (
         <div className={classNames.destinationAndTariffWrapper}>
@@ -1175,11 +1186,23 @@ export const WarehouseDestinationAndTariffCell = React.memo(
               selectedItemName={
                 destinations.find(el => el?._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
               }
-              data={destinations.filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper._id)}
+              data={
+                boxesMy?.logicsTariff?._id
+                  ? destinations
+                      .filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
+                      .filter(el => boxesMy?.logicsTariff?._id && el?._id === boxesMy?.logicsTariff?._id)
+                  : destinations.filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
+              }
               searchFields={['name']}
               favourites={destinationsFavourites}
               onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-              onClickNotChosen={() => onSelectDestination(boxesMy?._id, { destinationId: null })}
+              onClickNotChosen={() =>
+                onSelectDestination(boxesMy?._id, {
+                  destinationId: null,
+                  // logicsTariffId: null,
+                  // variationTariffId: null,
+                })
+              }
               onClickSelect={el => onSelectDestination(boxesMy?._id, { destinationId: el?._id })}
             />
           </div>

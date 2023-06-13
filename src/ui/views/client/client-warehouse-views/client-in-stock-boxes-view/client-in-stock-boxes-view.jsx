@@ -314,6 +314,7 @@ export const ClientInStockBoxesViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showEditBoxModal')}
       >
         <EditBoxForm
+          showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
@@ -332,6 +333,7 @@ export const ClientInStockBoxesViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showRedistributeBoxModal')}
       >
         <RedistributeBox
+          showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           requestStatus={viewModel.requestStatus}
@@ -477,9 +479,7 @@ export const ClientInStockBoxesViewRaw = props => {
 
       <Modal openModal={viewModel.showSelectionStorekeeperAndTariffModal} setOpenModal={viewModel.openModalAndClear}>
         <SelectStorekeeperAndTariffForm
-          inNotifications={!viewModel.changeItem}
-          total={!viewModel.changeItem}
-          destinationsData={viewModel.destinations}
+          showCheckbox
           storekeepers={
             viewModel.changeItem
               ? viewModel.storekeepersData.filter(el => el._id === viewModel.changeItem?.storekeeper._id)
@@ -487,8 +487,17 @@ export const ClientInStockBoxesViewRaw = props => {
           }
           curStorekeeperId={viewModel.changeItem?.storekeeper?._id}
           curTariffId={viewModel.changeItem?.logicsTariff?._id}
-          onSubmit={(storekeeperId, tariffId) =>
-            viewModel.editTariff(viewModel.changeItem?._id, { logicsTariffId: tariffId, storekeeperId })
+          destinationsData={viewModel.destinations}
+          inNotifications={!viewModel.changeItem}
+          total={!viewModel.changeItem}
+          currentDestinationId={viewModel.changeItem?.destination?._id}
+          currentVariationTariffId={viewModel.changeItem?.variationTariff?._id}
+          onSubmit={(storekeeperId, tariffId, variationTariffId) =>
+            viewModel.editTariff(viewModel.changeItem?._id, {
+              logicsTariffId: tariffId,
+              storekeeperId,
+              variationTariffId,
+            })
           }
         />
       </Modal>

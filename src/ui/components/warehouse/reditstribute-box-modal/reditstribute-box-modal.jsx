@@ -36,6 +36,7 @@ import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
 
 const Box = ({
+  showCheckbox,
   destinations,
   storekeepers,
   box,
@@ -335,6 +336,7 @@ const Box = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
+          showCheckbox={showCheckbox}
           destinationsData={destinations}
           storekeepers={storekeepers.filter(el => el?._id === box?.storekeeper?._id)}
           curStorekeeperId={box?.storekeeperId}
@@ -347,6 +349,7 @@ const Box = ({
 }
 
 const NewBoxes = ({
+  showCheckbox,
   newBoxes,
   isMasterBox,
   selectedBox,
@@ -370,6 +373,7 @@ const NewBoxes = ({
         <div key={boxIndex} className={cx({ [classNames.marginBox]: newBoxes.length > 1 })}>
           <Box
             isNewBox
+            showCheckbox={showCheckbox}
             destinations={destinations}
             storekeepers={storekeepers}
             index={boxIndex}
@@ -391,6 +395,7 @@ const NewBoxes = ({
 
 export const RedistributeBox = observer(
   ({
+    showCheckbox,
     destinations,
     storekeepers,
     requestStatus,
@@ -550,6 +555,7 @@ export const RedistributeBox = observer(
 
             <Box
               readOnly
+              showCheckbox={showCheckbox}
               destinations={destinations}
               storekeepers={storekeepers}
               boxIsMasterBox={isMasterBox}
@@ -565,6 +571,7 @@ export const RedistributeBox = observer(
           </div>
 
           <NewBoxes
+            showCheckbox={showCheckbox}
             newBoxes={newBoxes}
             isMasterBox={isMasterBox}
             selectedBox={selectedBox}

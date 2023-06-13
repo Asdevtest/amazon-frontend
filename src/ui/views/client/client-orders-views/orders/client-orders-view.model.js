@@ -52,7 +52,6 @@ export class ClientOrdersViewModel {
   showAcceptMessage = undefined
   acceptMessage = undefined
 
-  ordersDataStateToSubmit = undefined
   selectedProduct = undefined
   reorderOrdersData = []
   uploadedFiles = []
@@ -581,15 +580,15 @@ export class ClientOrdersViewModel {
     await UserModel.getUserInfo()
   }
 
-  async onSubmitOrderProductModal() {
+  async onSubmitOrderProductModal(ordersDataState) {
     try {
       runInAction(() => {
         this.error = undefined
       })
       this.onTriggerOpenModal('showOrderModal')
 
-      for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
-        const orderObject = this.ordersDataStateToSubmit[i]
+      for (let i = 0; i < ordersDataState.length; i++) {
+        const orderObject = ordersDataState[i]
 
         runInAction(() => {
           this.uploadedFiles = []
@@ -655,15 +654,13 @@ export class ClientOrdersViewModel {
 
   onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {
     runInAction(() => {
-      this.ordersDataStateToSubmit = ordersDataState
-
       this.confirmModalSettings = {
         isWarning: false,
         confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
         confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
           ? t(TranslationKey['Pending order will be created'])
           : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-        onClickConfirm: () => this.onSubmitOrderProductModal(),
+        onClickConfirm: () => this.onSubmitOrderProductModal(ordersDataState),
       }
     })
 

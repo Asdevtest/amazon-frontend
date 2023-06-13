@@ -56,6 +56,7 @@ const updateBoxWhiteList = [
   'trackNumberText',
   'fbaNumber',
   'prepId',
+  'variationTariffId',
 ]
 
 const filtersFields = [
@@ -216,6 +217,8 @@ export class ClientInStockBoxesViewModel {
 
   setChangeItem(item) {
     this.changeItem = item
+
+    console.log('this.changeItem', this.changeItem)
   }
 
   confirmModalSettings = {
@@ -1253,9 +1256,7 @@ export class ClientInStockBoxesViewModel {
 
   async editDestination(id, boxData) {
     try {
-      await BoxesModel.editBoxAtClient(id, {
-        destinationId: boxData.destinationId,
-      })
+      await BoxesModel.editBoxAtClient(id, boxData)
 
       await this.getBoxesMy()
     } catch (error) {
@@ -1271,6 +1272,7 @@ export class ClientInStockBoxesViewModel {
     try {
       await BoxesModel.editBoxAtClient(id, {
         logicsTariffId: boxData.logicsTariffId,
+        variationTariffId: boxData.variationTariffId,
       })
 
       await this.getBoxesMy()
@@ -1309,10 +1311,13 @@ export class ClientInStockBoxesViewModel {
         //   (boxData.shippingLabel === sourceData.shippingLabel && sourceData.shippingLabel !== null))
         (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
       ) {
+        console.log('boxData', boxData)
+
         await BoxesModel.editBoxAtClient(id, {
           fbaShipment: boxData.fbaShipment,
           destinationId: boxData.destinationId,
           logicsTariffId: boxData.logicsTariffId,
+          variationTariffId: boxData.variationTariffId,
           shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
           isShippingLabelAttachedByStorekeeper:
             boxData.shippingLabel !== sourceData.shippingLabel
