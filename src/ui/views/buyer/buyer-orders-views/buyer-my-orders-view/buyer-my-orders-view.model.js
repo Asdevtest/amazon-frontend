@@ -50,6 +50,8 @@ const updateOrderKeys = [
   'priceInYuan',
   'priceBatchDeliveryInYuan',
   'partialPaymentAmountRmb',
+  'partiallyPaid',
+  'partialPayment',
 ]
 
 const filtersFields = ['payments']
@@ -380,6 +382,10 @@ export class BuyerMyOrdersViewModel {
       this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(
         OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT],
       )
+    } else if (
+      Number(OrderStatusByKey[this.orderStatusDataBase]) === Number(OrderStatusByKey[OrderStatus.PARTIALLY_PAID])
+    ) {
+      this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(OrderStatusByKey[OrderStatus.PARTIALLY_PAID])
     } else if (
       this.orderStatusDataBase.some(
         status =>
@@ -880,6 +886,7 @@ export class BuyerMyOrdersViewModel {
       orderFields = {
         ...orderFields,
         partialPaymentAmountRmb: Number(orderFields.partialPaymentAmountRmb) || 0,
+        partialPayment: Number(orderFields.partialPayment) || 0,
         images: this.readyImages,
       }
       // }
