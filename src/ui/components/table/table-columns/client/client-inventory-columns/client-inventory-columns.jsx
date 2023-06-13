@@ -321,7 +321,7 @@ export const clientInventoryColumns = (
       return <TagsCell tags={tagsMemo} />
     },
     width: 160,
-
+    sortable: false,
     columnKey: columnnsKeys.shared.OBJECT,
   },
 
@@ -341,7 +341,7 @@ export const clientInventoryColumns = (
       return <RedFlagsCell flags={redFlagsMemo} />
     },
     width: 130,
-
+    sortable: false,
     columnKey: columnnsKeys.shared.RED_FLAGS,
   },
 

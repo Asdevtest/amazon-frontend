@@ -197,7 +197,7 @@ export const buyerProductsViewColumns = handlers => [
       return <TagsCell tags={tagsMemo} />
     },
     width: 160,
-
+    sortable: false,
     columnKey: columnnsKeys.shared.OBJECT,
   },
 
@@ -211,7 +211,7 @@ export const buyerProductsViewColumns = handlers => [
       return <RedFlagsCell flags={redFlagsMemo} />
     },
     width: 130,
-
+    sortable: false,
     columnKey: columnnsKeys.shared.RED_FLAGS,
   },
 
