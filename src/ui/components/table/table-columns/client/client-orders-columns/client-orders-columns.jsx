@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import React, { useCallback, useMemo } from 'react'
@@ -39,6 +40,25 @@ export const clientOrdersViewColumns = handlers => [
     renderCell: params => <MultilineTextCell text={params.row.idItem} />,
     width: 100,
     type: 'number',
+  },
+
+  {
+    field: 'shopIds',
+    headerName: t(TranslationKey.Shop),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Shop)}
+        // isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 90,
+    sortable: false,
+    filterable: false,
+
+    columnKey: columnnsKeys.client.INVENTORY_SHOPS,
   },
 
   {
