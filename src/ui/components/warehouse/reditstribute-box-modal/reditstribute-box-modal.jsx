@@ -36,6 +36,7 @@ import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
 
 const Box = ({
+  showCheckbox,
   destinations,
   storekeepers,
   box,
@@ -70,9 +71,12 @@ const Box = ({
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
-  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-    onChangeField({ target: { value: storekeeperId } }, 'storekeeperId', box._id)
-    onChangeField({ target: { value: tariffId } }, 'logicsTariffId', box._id)
+  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId) => {
+    // onChangeField({ target: { value: tariffId } }, 'logicsTariffId', box._id)
+    // onChangeField({ target: { value: storekeeperId } }, 'storekeeperId', box._id)
+    // onChangeField({ target: { value: variationTariffId } }, 'variationTariffId', box._id)
+
+    onChangeField({ logicsTariffId: tariffId, storekeeperId, variationTariffId }, 'part', box._id)
 
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
@@ -335,10 +339,13 @@ const Box = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
+          showCheckbox={showCheckbox}
           destinationsData={destinations}
           storekeepers={storekeepers.filter(el => el?._id === box?.storekeeper?._id)}
           curStorekeeperId={box?.storekeeperId}
           curTariffId={box?.logicsTariffId}
+          currentDestinationId={box?.destinationId}
+          currentVariationTariffId={box?.variationTariffId}
           onSubmit={onSubmitSelectStorekeeperAndTariff}
         />
       </Modal>
@@ -347,6 +354,7 @@ const Box = ({
 }
 
 const NewBoxes = ({
+  showCheckbox,
   newBoxes,
   isMasterBox,
   selectedBox,
@@ -370,6 +378,7 @@ const NewBoxes = ({
         <div key={boxIndex} className={cx({ [classNames.marginBox]: newBoxes.length > 1 })}>
           <Box
             isNewBox
+            showCheckbox={showCheckbox}
             destinations={destinations}
             storekeepers={storekeepers}
             index={boxIndex}
@@ -391,6 +400,7 @@ const NewBoxes = ({
 
 export const RedistributeBox = observer(
   ({
+    showCheckbox,
     destinations,
     storekeepers,
     requestStatus,
@@ -408,6 +418,7 @@ export const RedistributeBox = observer(
       destinationId: selectedBox.destination?._id || null,
       storekeeperId: selectedBox.storekeeper?._id || '',
       logicsTariffId: selectedBox.logicsTariff?._id || '',
+      variationTariffId: selectedBox?.variationTariff?._id || '',
     })
     const [priority, setPriority] = useState()
     const [priorityReason, setPriorityReason] = useState()
@@ -466,14 +477,25 @@ export const RedistributeBox = observer(
     const onChangeField = (e, field, boxId) => {
       const targetBox = newBoxes.filter(newBox => newBox._id === boxId)[0]
 
-      const updatedTargetBox = {
-        ...targetBox,
-        [field /* field === 'shippingLabel' ? e.target.value.replace(' ', '') :*/]: e.target.value,
+      if (field === 'part') {
+        const updatedTargetBox = {
+          ...targetBox,
+          ...e,
+        }
+
+        const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
+
+        setNewBoxes(updatedNewBoxes)
+      } else {
+        const updatedTargetBox = {
+          ...targetBox,
+          [field]: e.target.value,
+        }
+
+        const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
+
+        setNewBoxes(updatedNewBoxes)
       }
-
-      const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
-
-      setNewBoxes(updatedNewBoxes)
     }
 
     const onClickRedistributeBtn = () => {
@@ -550,6 +572,7 @@ export const RedistributeBox = observer(
 
             <Box
               readOnly
+              showCheckbox={showCheckbox}
               destinations={destinations}
               storekeepers={storekeepers}
               boxIsMasterBox={isMasterBox}
@@ -565,6 +588,7 @@ export const RedistributeBox = observer(
           </div>
 
           <NewBoxes
+            showCheckbox={showCheckbox}
             newBoxes={newBoxes}
             isMasterBox={isMasterBox}
             selectedBox={selectedBox}
