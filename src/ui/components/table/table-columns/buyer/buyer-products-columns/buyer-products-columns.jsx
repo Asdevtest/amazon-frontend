@@ -120,6 +120,8 @@ export const buyerProductsViewColumns = handlers => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     minWidth: 50,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -130,6 +132,8 @@ export const buyerProductsViewColumns = handlers => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     minWidth: 150,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
