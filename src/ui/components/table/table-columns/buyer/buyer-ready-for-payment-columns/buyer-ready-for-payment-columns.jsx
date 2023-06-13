@@ -148,12 +148,14 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
 
       renderCell: params => (
         <MultilineTextCell
-          text={toFixed(
-            params.row.originalData.partialPayment
-              ? params.row.originalData.partialPaymentAmountRmb
-              : params.row.originalData.priceInYuan,
-            2,
-          )}
+          text={
+            toFixed(
+              params.row.originalData.partialPayment
+                ? params.row.originalData.partialPaymentAmountRmb
+                : params.row.originalData.priceInYuan,
+              2,
+            ) || '0'
+          }
         />
       ),
       type: 'number',
@@ -320,7 +322,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       headerName: t(TranslationKey['Paid for']) + ', Ұ',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Paid for']) + ', Ұ'} />,
 
-      renderCell: params => <MultilineTextCell text={toFixed(params.row.originalData.partiallyPaid, 2)} />,
+      renderCell: params => <MultilineTextCell text={toFixed(params.row.originalData.partiallyPaid, 2) || '0'} />,
       type: 'number',
       width: 110,
     })
