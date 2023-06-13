@@ -94,6 +94,10 @@ export class BuyerMyProductsViewModel {
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
   constructor({ history, location }) {
     runInAction(() => {
       this.history = history
@@ -444,7 +448,7 @@ export class BuyerMyProductsViewModel {
 
     const bsrFilter = exclusion !== 'bsr' && this.columnMenuSettings.bsr.currentFilterData.join(',')
 
-    const fbaAmountFilter = exclusion !== 'fbaamount' && this.columnMenuSettings.bsr.currentFilterData.join(',')
+    const fbaAmountFilter = exclusion !== 'fbaamount' && this.columnMenuSettings.fbaamount.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
       archive: { $eq: this.isArchive },
