@@ -1156,9 +1156,6 @@ export const WarehouseDestinationAndTariffCell = React.memo(
         ?.tariffLogistics?.find(el => el?._id === boxesMy?.logicsTariff?._id)?.name
 
       const curDestination = destinations?.find(el => el?._id === boxesMy?.destination?._id)
-      // const curDestination = destinations?.find(
-      //   el => el?._id === boxesMy?.destination?._id || el?._id === boxesMy?.variationTariff?.destinationId,
-      // )
 
       const firstNumOfCode = curDestination?.zipCode[0]
 
@@ -1169,13 +1166,6 @@ export const WarehouseDestinationAndTariffCell = React.memo(
         ?.tariffLogistics?.find(el => el?._id === boxesMy?.logicsTariff?._id)?.conditionsByRegion[
         regionOfDeliveryName
       ]?.rate
-      // const tariffRate = storekeepers
-      //   ?.find(el => el?._id === boxesMy?.storekeeper?._id)
-      //   ?.tariffLogistics?.find(
-      //     el =>
-      //       el?._id === boxesMy?.logicsTariff?._id ||
-      //       el?._id === boxesMy?.variationTariff?.storekeeperTariffLogisticsId,
-      //   )?.conditionsByRegion[regionOfDeliveryName]?.rate
 
       return (
         <div className={classNames.destinationAndTariffWrapper}>
@@ -1199,8 +1189,6 @@ export const WarehouseDestinationAndTariffCell = React.memo(
               onClickNotChosen={() =>
                 onSelectDestination(boxesMy?._id, {
                   destinationId: null,
-                  // logicsTariffId: null,
-                  // variationTariffId: null,
                 })
               }
               onClickSelect={el => onSelectDestination(boxesMy?._id, { destinationId: el?._id })}

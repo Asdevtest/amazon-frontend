@@ -124,9 +124,11 @@ const Box = ({
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
   const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId) => {
-    onChangeField({ target: { value: storekeeperId } }, 'storekeeperId', box._id)
-    onChangeField({ target: { value: tariffId } }, 'logicsTariffId', box._id)
-    onChangeField({ target: { value: variationTariffId } }, 'variationTariffId', box._id)
+    onChangeField({ storekeeperId, logicsTariffId: tariffId, variationTariffId }, 'part', box._id)
+
+    // onChangeField({ target: { value: storekeeperId } }, 'storekeeperId', box._id)
+    // onChangeField({ target: { value: tariffId } }, 'logicsTariffId', box._id)
+    // onChangeField({ target: { value: variationTariffId } }, 'variationTariffId', box._id)
 
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
@@ -656,14 +658,25 @@ export const EditMultipleBoxesForm = observer(
     const onChangeField = (e, field, boxId) => {
       const targetBox = newBoxes.filter(newBox => newBox._id === boxId)[0]
 
-      const updatedTargetBox = {
-        ...targetBox,
-        [field]: field === 'isShippingLabelAttachedByStorekeeper' ? e.target.checked : e.target.value,
+      if (field === 'part') {
+        const updatedTargetBox = {
+          ...targetBox,
+          ...e,
+        }
+
+        const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
+
+        setNewBoxes(updatedNewBoxes)
+      } else {
+        const updatedTargetBox = {
+          ...targetBox,
+          [field]: field === 'isShippingLabelAttachedByStorekeeper' ? e.target.checked : e.target.value,
+        }
+
+        const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
+
+        setNewBoxes(updatedNewBoxes)
       }
-
-      const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
-
-      setNewBoxes(updatedNewBoxes)
     }
 
     const onApplySharedValuesToAllBoxes = field => {

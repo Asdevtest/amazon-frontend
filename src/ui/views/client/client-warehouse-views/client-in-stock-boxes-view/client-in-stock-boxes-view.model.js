@@ -948,6 +948,7 @@ export class ClientInStockBoxesViewModel {
               shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : updatedBoxes[i].shippingLabel,
               destinationId: updatedBoxes[i].destinationId,
               logicsTariffId: updatedBoxes[i].logicsTariffId,
+              variationTariffId: updatedBoxes[i].variationTariffId,
               fbaShipment: updatedBoxes[i].fbaShipment,
               isBarCodeAlreadyAttachedByTheSupplier: updatedBoxes[i].isBarCodeAlreadyAttachedByTheSupplier,
               isBarCodeAttachedByTheStorekeeper: updatedBoxes[i].isBarCodeAttachedByTheStorekeeper,
@@ -1311,8 +1312,6 @@ export class ClientInStockBoxesViewModel {
         //   (boxData.shippingLabel === sourceData.shippingLabel && sourceData.shippingLabel !== null))
         (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
       ) {
-        console.log('boxData', boxData)
-
         await BoxesModel.editBoxAtClient(id, {
           fbaShipment: boxData.fbaShipment,
           destinationId: boxData.destinationId,

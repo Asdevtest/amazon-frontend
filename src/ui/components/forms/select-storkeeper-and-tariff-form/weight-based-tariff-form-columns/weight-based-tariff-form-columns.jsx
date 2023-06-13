@@ -130,7 +130,10 @@ export const WeightBasedTariffFormColumns = (
     width: 200,
     renderCell: params => (
       <NormalActionBtnCell
-        // disabled
+        disabled={
+          currentDestinationId &&
+          params.row.originalData?.destinationVariations.every(item => item?.destinationId !== currentDestinationId)
+        }
         bTnText={t(TranslationKey['Select Tariff'])}
         onClickOkBtn={() => onClickSelectTariff(params.row._id)}
       />
