@@ -111,11 +111,7 @@ export const batchInfoModalColumn = (
   {
     field: 'pricePerUnit',
     headerName: <MultilineTextHeaderCell text={t(TranslationKey['Price per unit'])} />,
-    renderCell: params => {
-      const rowMemo = useMemo(() => params.row, [])
-
-      return <PricePerUnitCell item={rowMemo} />
-    },
+    renderCell: params => <PricePerUnitCell item={params.row} />,
     type: 'number',
     width: 90,
   },
@@ -139,20 +135,16 @@ export const batchInfoModalColumn = (
   {
     field: 'actualCostWithDelivery',
     headerName: <MultilineTextHeaderCell text={t(TranslationKey['The actual cost of the box with delivery'])} />,
-    renderCell: params => {
-      const rowMemo = useMemo(() => params.row, [])
-
-      return (
-        <ActualCostWithDelivery
-          actualShippingCost={actualShippingCost}
-          rowMemo={rowMemo}
-          finalWeight={finalWeight}
-          calculationMethod={calculationMethod}
-          isActualGreaterTheVolume={isActualGreaterTheVolume}
-          volumeWeightCoefficient={volumeWeightCoefficient}
-        />
-      )
-    },
+    renderCell: params => (
+      <ActualCostWithDelivery
+        actualShippingCost={actualShippingCost}
+        rowMemo={params.row}
+        finalWeight={finalWeight}
+        calculationMethod={calculationMethod}
+        isActualGreaterTheVolume={isActualGreaterTheVolume}
+        volumeWeightCoefficient={volumeWeightCoefficient}
+      />
+    ),
     type: 'number',
     width: 170,
   },
@@ -160,20 +152,16 @@ export const batchInfoModalColumn = (
   {
     field: 'actualCostWithDeliveryPerUnit',
     headerName: <MultilineTextHeaderCell text={t(TranslationKey['Actual cost with delivery per unit'])} />,
-    renderCell: params => {
-      const rowMemo = useMemo(() => params.row, [])
-
-      return (
-        <ActualCostWithDeliveryPerUnit
-          actualShippingCost={actualShippingCost}
-          rowMemo={rowMemo}
-          finalWeight={finalWeight}
-          calculationMethod={calculationMethod}
-          isActualGreaterTheVolume={isActualGreaterTheVolume}
-          volumeWeightCoefficient={volumeWeightCoefficient}
-        />
-      )
-    },
+    renderCell: params => (
+      <ActualCostWithDeliveryPerUnit
+        actualShippingCost={actualShippingCost}
+        rowMemo={params.row}
+        finalWeight={finalWeight}
+        calculationMethod={calculationMethod}
+        isActualGreaterTheVolume={isActualGreaterTheVolume}
+        volumeWeightCoefficient={volumeWeightCoefficient}
+      />
+    ),
     type: 'number',
     width: 170,
   },
