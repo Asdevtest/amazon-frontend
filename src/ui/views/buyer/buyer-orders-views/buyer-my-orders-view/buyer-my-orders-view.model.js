@@ -26,10 +26,11 @@ import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 // import {resetDataGridFilter} from '@utils/filters'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
-import { objectToUrlQs, toFixed } from '@utils/text'
+import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 // import {toFixed} from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+import { GeneralModel } from '@models/general-model'
 
 const updateOrderKeys = [
   'deliveryMethod',
@@ -54,7 +55,20 @@ const updateOrderKeys = [
   'partialPayment',
 ]
 
-const filtersFields = ['payments']
+const filtersFields = [
+  'asin',
+  'skusByClient',
+  'amazonTitle',
+  'status',
+  'amount',
+  'payments',
+  'barCode',
+  'storekeeper',
+  'createdAt',
+  'updatedAt',
+  'totalPrice',
+  'priceInYuan',
+]
 
 export class BuyerMyOrdersViewModel {
   history = undefined
@@ -149,8 +163,15 @@ export class BuyerMyOrdersViewModel {
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
     onClickAccept: () => {
       // this.onLeaveColumnField()
-      // this.getBoxesMy()
+      // this.getOrdersMy()
       // this.getDataGridState()
+    },
+
+    filterRequestStatus: undefined,
+
+    isHaveBarCodeFilterData: {
+      isHaveBarCodeFilter: null,
+      onChangeIsHaveBarCodeFilter: value => this.onChangeIsHaveBarCodeFilter(value),
     },
 
     ...filtersFields.reduce(
@@ -216,46 +237,34 @@ export class BuyerMyOrdersViewModel {
           this.currentData = this.getCurrentData()
         }),
     )
-
-    reaction(
-      () => this.columnMenuSettings.payments.currentFilterData,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
-    )
   }
 
   async onClickFilterBtn(column) {
     try {
       this.setFilterRequestStatus(loadingStatuses.isLoading)
 
-      if (column === 'payments') {
-        const data = await SupplierModel.getSuppliersPaymentMethods()
+      const data =
+        column === 'payments'
+          ? await SupplierModel.getSuppliersPaymentMethods()
+          : await GeneralModel.getDataForColumn(
+              getTableByColumn(column, 'orders'),
+              column,
 
-        if (this.columnMenuSettings[column]) {
-          this.columnMenuSettings = {
-            ...this.columnMenuSettings,
-            [column]: { ...this.columnMenuSettings[column], filterData: data.map(el => ({ ...el, name: el.title })) },
-          }
+              /* `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter(column)}${
+          shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
+        }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`, */
+
+              `buyers/orders/pag/my?filters=${this.getFilter(column)}`,
+            )
+
+      console.log('data', data)
+
+      if (this.columnMenuSettings[column]) {
+        this.columnMenuSettings = {
+          ...this.columnMenuSettings,
+          [column]: { ...this.columnMenuSettings[column], filterData: data },
         }
       }
-
-      // const data = await GeneralModel.getDataForColumn(
-      //   getTableByColumn(column, 'boxes'),
-      //   column,
-
-      //   `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter(column)}${
-      //     shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
-      //   }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
-      // )
-
-      // if (this.columnMenuSettings[column]) {
-      //   this.columnMenuSettings = {
-      //     ...this.columnMenuSettings,
-      //     [column]: {...this.columnMenuSettings[column], filterData: data},
-      //   }
-      // }
 
       this.setFilterRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -266,6 +275,94 @@ export class BuyerMyOrdersViewModel {
         this.error = error
       })
     }
+  }
+
+  getFilter(exclusion) {
+    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin?.currentFilterData.join(',')
+    const skusByClientFilter =
+      exclusion !== 'skusByClient' &&
+      this.columnMenuSettings.skusByClient.currentFilterData /* .map(el => `"${el}"`) */
+        .join(',')
+    const amazonTitleFilter =
+      exclusion !== 'amazonTitle' &&
+      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
+
+    const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt.currentFilterData.join(',')
+    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
+
+    const amountFilter = exclusion !== 'amount' && this.columnMenuSettings.amount?.currentFilterData.join(',')
+
+    const paymentsFilter =
+      exclusion !== 'payments' &&
+      this.columnMenuSettings.payments?.currentFilterData.map(el => ({ ...el, name: el.title })).join(',')
+
+    const totalPriceFilter =
+      exclusion !== 'totalPrice' && this.columnMenuSettings.totalPrice?.currentFilterData.join(',')
+
+    const priceInYuanFilter =
+      exclusion !== 'priceInYuan' && this.columnMenuSettings.priceInYuan?.currentFilterData.join(',')
+
+    const filter = objectToUrlQs({
+      archive: { $eq: this.isArchive },
+      or: [
+        { asin: { $contains: this.nameSearchValue } },
+        { amazonTitle: { $contains: this.nameSearchValue } },
+        { skusByClient: { $contains: this.nameSearchValue } },
+      ],
+
+      ...(asinFilter && {
+        asin: { $eq: asinFilter },
+      }),
+      ...(skusByClientFilter && {
+        skusByClient: { $eq: skusByClientFilter },
+      }),
+      ...(amazonTitleFilter && {
+        amazonTitle: { $eq: amazonTitleFilter },
+      }),
+
+      ...(createdAtFilter && {
+        createdAt: { $eq: createdAtFilter },
+      }),
+      ...(updatedAtFilter && {
+        updatedAt: { $eq: updatedAtFilter },
+      }),
+
+      ...(amountFilter && {
+        amount: { $eq: amountFilter },
+      }),
+
+      ...(totalPriceFilter && {
+        totalPrice: { $eq: totalPriceFilter },
+      }),
+
+      ...(priceInYuanFilter && {
+        priceInYuan: { $eq: priceInYuanFilter },
+      }),
+
+      ...(paymentsFilter && {
+        payments: { $eq: paymentsFilter },
+      }),
+
+      ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
+        barCode: { [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true },
+      }),
+    })
+
+    return filter
+  }
+
+  onChangeIsHaveBarCodeFilter(value) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        isHaveBarCodeFilterData: {
+          ...this.columnMenuSettings.isHaveBarCodeFilterData,
+          isHaveBarCodeFilter: value,
+        },
+      }
+    })
+
+    // this.getOrdersMy()
   }
 
   setFilterRequestStatus(requestStatus) {

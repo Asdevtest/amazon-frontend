@@ -61,6 +61,8 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       width: 400,
       renderCell: params => <OrderCell product={params.row.originalData.product} />,
       sortable: false,
+
+      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
     },
 
     {
@@ -102,6 +104,8 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       width: 100,
       type: 'number',
       sortable: false,
+
+      columnKey: columnnsKeys.shared.QUANTITY,
     },
 
     {
@@ -112,6 +116,8 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.row.originalData.totalPrice, 2)} />,
       type: 'number',
       width: 90,
+
+      columnKey: columnnsKeys.shared.QUANTITY,
     },
 
     {
@@ -158,6 +164,8 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       ),
       type: 'number',
       width: 90,
+
+      columnKey: columnnsKeys.shared.QUANTITY,
     },
 
     {
@@ -173,6 +181,8 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
         />
       ),
       sortable: false,
+
+      columnKey: columnnsKeys.client.INVENTORY_BARCODE,
     },
 
     {
@@ -185,6 +195,8 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       ),
       width: 160,
       sortable: false,
+
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {
@@ -301,6 +313,8 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
       // type: 'date',
+
+      columnKey: columnnsKeys.shared.DATE,
     },
 
     {
@@ -311,6 +325,8 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderCell: params => <NormDateCell value={params.value} />,
       width: 130,
       // type: 'date',
+
+      columnKey: columnnsKeys.shared.DATE,
     },
   ]
 
