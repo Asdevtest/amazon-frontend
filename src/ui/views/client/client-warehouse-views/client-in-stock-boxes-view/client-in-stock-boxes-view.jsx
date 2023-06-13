@@ -356,6 +356,7 @@ export const ClientInStockBoxesViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showEditMultipleBoxesModal')}
       >
         <EditMultipleBoxesForm
+          showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           selectedBoxes={viewModel.boxesMy
@@ -391,6 +392,7 @@ export const ClientInStockBoxesViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showMergeBoxModal')}
       >
         <MergeBoxesModal
+          showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           selectedBoxes={

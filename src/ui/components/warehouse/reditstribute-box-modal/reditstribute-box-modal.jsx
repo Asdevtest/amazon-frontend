@@ -71,9 +71,10 @@ const Box = ({
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
-  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
+  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId) => {
     onChangeField({ target: { value: storekeeperId } }, 'storekeeperId', box._id)
     onChangeField({ target: { value: tariffId } }, 'logicsTariffId', box._id)
+    onChangeField({ target: { value: variationTariffId } }, 'variationTariffId', box._id)
 
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
@@ -341,6 +342,8 @@ const Box = ({
           storekeepers={storekeepers.filter(el => el?._id === box?.storekeeper?._id)}
           curStorekeeperId={box?.storekeeperId}
           curTariffId={box?.logicsTariffId}
+          currentDestinationId={box?.destinationId}
+          currentVariationTariffId={box?.variationTariffId}
           onSubmit={onSubmitSelectStorekeeperAndTariff}
         />
       </Modal>
@@ -413,6 +416,7 @@ export const RedistributeBox = observer(
       destinationId: selectedBox.destination?._id || null,
       storekeeperId: selectedBox.storekeeper?._id || '',
       logicsTariffId: selectedBox.logicsTariff?._id || '',
+      variationTariffId: selectedBox?.variationTariff?._id || '',
     })
     const [priority, setPriority] = useState()
     const [priorityReason, setPriorityReason] = useState()
