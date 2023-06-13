@@ -124,6 +124,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   middleContainer: {
     width: '190px !important',
+    marginBottom: 17,
   },
 
   shortContainer: {
@@ -131,6 +132,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   normalLabel: {
+    marginBottom: 15,
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',

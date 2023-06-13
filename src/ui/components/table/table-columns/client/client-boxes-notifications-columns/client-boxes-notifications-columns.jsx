@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -57,10 +57,7 @@ export const clientBoxesNotificationsViewColumns = handlers => [
 
     width: 325,
     renderCell: params => {
-      const handlersMemo = useMemo(() => handlers, [])
-      const rowMemo = useMemo(() => params.row.originalData, [])
-
-      return <ClientNotificationsBtnsCell handlers={handlersMemo} row={rowMemo} />
+      return <ClientNotificationsBtnsCell handlers={handlers} row={params.row.originalData} />
     },
     filterable: false,
     sortable: false,
@@ -73,16 +70,13 @@ export const clientBoxesNotificationsViewColumns = handlers => [
 
     width: 400,
     renderCell: params => {
-      const productMemo = useMemo(() => params.row.originalData.items[0].product, [])
-      const rowMemo = useMemo(() => params.row.originalData, [])
-
       return params.row.originalData.items.length > 1 ? (
-        <OrderManyItemsCell box={rowMemo} />
+        <OrderManyItemsCell box={params.row.originalData} />
       ) : (
         <OrderCell
-          product={productMemo}
+          product={params.row.originalData.items[0].product}
           superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
-          box={rowMemo}
+          box={params.row.originalData}
         />
       )
     },

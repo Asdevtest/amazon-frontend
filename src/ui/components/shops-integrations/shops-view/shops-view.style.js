@@ -1,8 +1,4 @@
 export const styles = theme => ({
-  shopWrapper: {
-    padding: '0 10px',
-  },
-
   buttonBox: {
     textAlign: 'left',
     marginRight: '0',

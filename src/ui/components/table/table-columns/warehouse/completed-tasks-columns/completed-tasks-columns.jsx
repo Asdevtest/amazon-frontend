@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React from 'react'
 
 import {
   colorByTaskPriorityStatus,
@@ -26,18 +26,14 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: window.innerWidth < 1282 ? 118 : 190,
-    renderCell: params => {
-      const setCurrentOpenedTask = useCallback(() => handlers.setCurrentOpenedTask(params.row.originalData), [])
-
-      return (
-        <NormalActionBtnCell
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-          tooltipText={t(TranslationKey['Open the window with task information'])}
-          bTnText={t(TranslationKey.View)}
-          onClickOkBtn={setCurrentOpenedTask}
-        />
-      )
-    },
+    renderCell: params => (
+      <NormalActionBtnCell
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+        tooltipText={t(TranslationKey['Open the window with task information'])}
+        bTnText={t(TranslationKey.View)}
+        onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row.originalData)}
+      />
+    ),
     filterable: false,
     sortable: false,
   },
@@ -72,11 +68,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
 
     // width: window.innerWidth < 1282 ? 338 : 850,
     width: 290,
-    renderCell: params => {
-      const rowMemo = useMemo(() => params.row.originalData, [])
-
-      return <TaskDescriptionCell task={rowMemo} />
-    },
+    renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
   },
