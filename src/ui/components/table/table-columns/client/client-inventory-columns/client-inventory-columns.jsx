@@ -297,7 +297,13 @@ export const clientInventoryColumns = (
   {
     field: 'tags',
     headerName: t(TranslationKey.Tags),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Tags)}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
     renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
     width: 160,
 
@@ -307,7 +313,13 @@ export const clientInventoryColumns = (
   {
     field: 'redFlags',
     headerName: t(TranslationKey['Red flags']),
-    renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Red flags'])}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
     renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
     width: 130,
 
