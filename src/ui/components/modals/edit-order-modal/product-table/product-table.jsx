@@ -41,17 +41,15 @@ export const ProductTable = ({ modalHeadCells, order, orderFields, setOrderField
             <TableCell>
               <Typography className={classNames.amazonTitle}>{order.product.amazonTitle}</Typography>
               <Typography sx={{ display: 'flex', gap: '2px' }}>
-                <div>
-                  ASIN:{' '}
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href={`https://www.amazon.com/dp/${order.product.asin}`}
-                    onClick={e => e.stopPropagation()}
-                  >
-                    <span>{shortAsin(order.product.asin)}</span>
-                  </a>
-                </div>
+                ASIN:{' '}
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href={`https://www.amazon.com/dp/${order.product.asin}`}
+                  onClick={e => e.stopPropagation()}
+                >
+                  <span className={classNames.asin}>{shortAsin(order.product.asin)}</span>
+                </a>
                 <CopyValue text={order.product.asin} />
               </Typography>
             </TableCell>

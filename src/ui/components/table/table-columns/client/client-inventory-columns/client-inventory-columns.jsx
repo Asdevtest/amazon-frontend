@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useCallback, useMemo } from 'react'
+import React from 'react'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { colorByProductStatus, ProductStatusByCode } from '@constants/product/product-status'
@@ -167,22 +167,17 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => {
-      const rowMemo = useMemo(() => params.row.originalData, [])
-      const onClickTextMemo = useCallback(e => {
-        e.stopPropagation()
+    renderCell: params => (
+      <OrderIdAndAmountCountCell
+        orderId={params.value}
+        amount={params.row.originalData.amountInPendingOrders}
+        onClickOrderId={e => {
+          e.stopPropagation()
 
-        otherHandlers.onClickOrderCell(params.row.originalData._id)
-      }, [])
-
-      return (
-        <OrderIdAndAmountCountCell
-          orderId={params.value}
-          amount={rowMemo.amountInPendingOrders}
-          onClickOrderId={onClickTextMemo}
-        />
-      )
-    },
+          otherHandlers.onClickOrderCell(params.row.originalData._id)
+        }}
+      />
+    ),
     type: 'number',
     width: 85,
 
@@ -200,18 +195,14 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => {
-      const onClickSaveStockUsMemo = useCallback(stockUsHandlers.onClickSaveStockUs, [])
-
-      return (
-        <ChangeInputCell
-          isInts
-          rowId={params.row.originalData._id}
-          text={params.value}
-          onClickSubmit={onClickSaveStockUsMemo}
-        />
-      )
-    },
+    renderCell: params => (
+      <ChangeInputCell
+        isInts
+        rowId={params.row.originalData._id}
+        text={params.value}
+        onClickSubmit={stockUsHandlers.onClickSaveStockUs}
+      />
+    ),
     width: 150,
 
     columnKey: columnnsKeys.shared.QUANTITY,
@@ -229,13 +220,16 @@ export const clientInventoryColumns = (
     ),
 
     renderCell: params => {
-      const onClickInTransferMemo = useCallback(e => {
-        e.stopPropagation()
+      return (
+        <MultilineTextCell
+          text={params.value}
+          onClickText={e => {
+            e.stopPropagation()
 
-        otherHandlers.onClickInTransfer(params.row.originalData._id)
-      }, [])
-
-      return <MultilineTextCell text={params.value} onClickText={onClickInTransferMemo} />
+            otherHandlers.onClickInTransfer(params.row.originalData._id)
+          }}
+        />
+      )
     },
     type: 'number',
     width: 85,
@@ -254,18 +248,13 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => {
-      const onClickInStockMemo = useCallback(otherHandlers.onClickInStock, [])
-      const boxAmountsMemo = useMemo(() => params.row.originalData.boxAmounts, [])
-
-      return (
-        <InStockCell
-          boxAmounts={boxAmountsMemo}
-          boxId={params.row.originalData._id}
-          onClickInStock={onClickInStockMemo}
-        />
-      )
-    },
+    renderCell: params => (
+      <InStockCell
+        boxAmounts={() => params.row.originalData.boxAmounts}
+        boxId={params.row.originalData._id}
+        onClickInStock={otherHandlers.onClickInStock}
+      />
+    ),
     width: 155,
     sortable: false,
     columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
@@ -309,11 +298,7 @@ export const clientInventoryColumns = (
     field: 'tags',
     headerName: t(TranslationKey.Tags),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
-    renderCell: params => {
-      const tagsMemo = useMemo(() => params.row.originalData.tags, [])
-
-      return <TagsCell tags={tagsMemo} />
-    },
+    renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
     width: 160,
 
     columnKey: columnnsKeys.shared.OBJECT,
@@ -323,11 +308,7 @@ export const clientInventoryColumns = (
     field: 'redFlags',
     headerName: t(TranslationKey['Red flags']),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
-    renderCell: params => {
-      const redFlagsMemo = useMemo(() => params.row.originalData.redFlags, [])
-
-      return <RedFlagsCell flags={redFlagsMemo} />
-    },
+    renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
     width: 130,
 
     columnKey: columnnsKeys.shared.RED_FLAGS,
@@ -343,18 +324,14 @@ export const clientInventoryColumns = (
         text={t(TranslationKey['Recommendation for additional purchases'])}
       />
     ),
-    renderCell: params => {
-      const onClickSaveFourMonthsStock = useCallback(fourMonthesStockHandlers.onClickSaveFourMonthsStock, [])
-
-      return (
-        <FourMonthesStockCell
-          rowId={params.row.originalData._id}
-          value={params.value}
-          fourMonthesStock={params.row.fourMonthesStock}
-          onClickSaveFourMonthsStock={onClickSaveFourMonthsStock}
-        />
-      )
-    },
+    renderCell: params => (
+      <FourMonthesStockCell
+        rowId={params.row.originalData._id}
+        value={params.value}
+        fourMonthesStock={params.row.fourMonthesStock}
+        onClickSaveFourMonthsStock={fourMonthesStockHandlers.onClickSaveFourMonthsStock}
+      />
+    ),
 
     width: 150,
     type: 'number',
@@ -425,12 +402,7 @@ export const clientInventoryColumns = (
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell withIcon isFilterActive text={t(TranslationKey.BarCode)} />,
 
-    renderCell: params => {
-      const barCodeHandlersMemo = useMemo(() => barCodeHandlers, [])
-      const productMemo = useMemo(() => params.row.originalData, [])
-
-      return <BarcodeCell product={productMemo} handlers={barCodeHandlersMemo} />
-    },
+    renderCell: params => <BarcodeCell product={params.row.originalData} handlers={barCodeHandlers} />,
     minWidth: 100,
     headerAlign: 'center',
     filterable: false,
@@ -444,12 +416,7 @@ export const clientInventoryColumns = (
     headerName: 'HS code',
     renderHeader: () => <MultilineTextHeaderCell text={'HS code'} />,
 
-    renderCell: params => {
-      const hsCodeHandlersMemo = useMemo(() => hsCodeHandlers, [])
-      const productMemo = useMemo(() => params.row.originalData, [])
-
-      return <HsCodeCell product={productMemo} handlers={hsCodeHandlersMemo} />
-    },
+    renderCell: params => <HsCodeCell product={params.row.originalData} handlers={hsCodeHandlers} />,
     minWidth: 100,
     headerAlign: 'center',
     type: 'actions',
@@ -576,11 +543,7 @@ export const clientInventoryColumns = (
       />
     ),
 
-    renderCell: params => {
-      const productsInWarehouseMemo = useMemo(() => params.row.originalData.productsInWarehouse, [])
-
-      return <CommentOfSbCell productsInWarehouse={productsInWarehouseMemo} />
-    },
+    renderCell: params => <CommentOfSbCell productsInWarehouse={params.row.originalData.productsInWarehouse} />,
     width: 400,
     filterable: false,
     sortable: false,

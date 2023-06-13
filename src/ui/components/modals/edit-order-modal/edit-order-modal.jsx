@@ -232,9 +232,13 @@ export const EditOrderModal = observer(
       payments: order.payments || [],
       orderSupplier: order?.orderSupplier || {},
       partialPaymentAmountRmb: order?.partialPaymentAmountRmb || 0,
+      partiallyPaid: order?.partiallyPaid || 0,
+      partialPayment: order?.partialPayment || false,
     }
 
     const [orderFields, setOrderFields] = useState(initialState)
+
+    console.log(orderFields)
 
     const validOrderPayments = orderFields?.orderSupplier?.paymentMethods?.length
       ? orderFields?.orderSupplier?.paymentMethods.filter(
@@ -302,6 +306,8 @@ export const EditOrderModal = observer(
           batchDeliveryCostInDollar: orderFields.deliveryCostToTheWarehouse || 0,
           batchTotalCostInDollar: orderFields.totalPriceChanged || 0,
           partialPaymentAmountRmb: orderFields.partialPaymentAmountRmb || 0,
+          partiallyPaid: orderFields.partiallyPaid || 0,
+          partialPayment: orderFields.partialPayment || false,
         },
       }
 

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useCallback } from 'react'
+import React from 'react'
 
 import { colorByIdeaStatus, ideaStatusByCode } from '@constants/statuses/idea-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -32,11 +32,12 @@ export const ideasNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 200,
-    renderCell: params => {
-      const onClickViewBtn = useCallback(() => handlers.onClickViewBtn(params?.row?.product?._id), [])
-
-      return <NormalActionBtnCell bTnText={t(TranslationKey.View)} onClickOkBtn={onClickViewBtn} />
-    },
+    renderCell: params => (
+      <NormalActionBtnCell
+        bTnText={t(TranslationKey.View)}
+        onClickOkBtn={() => handlers.onClickViewBtn(params?.row?.product?._id)}
+      />
+    ),
     filterable: false,
     sortable: false,
   },

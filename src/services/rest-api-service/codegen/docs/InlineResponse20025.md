@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **item** | **String** |  | [optional] 
 **priceInYuan** | **Number** | Цена в юанях | [optional] 
 **partialPaymentAmountRmb** | **Number** | Сумма частичной оплаты | [optional] 
+**partialPayment** | **Boolean** | Используется ли частичная оплата | [optional] 
 **paymentDetailsAttached** | **Boolean** | Есть ли реквизиты в ордере | [optional] 
 **partiallyPaid** | **Number** | Cумма частичной оплаты | [optional] 
 **payments** | [**[ApiV1BuyersOrdersMyPayments]**](ApiV1BuyersOrdersMyPayments.md) |  | [optional] 

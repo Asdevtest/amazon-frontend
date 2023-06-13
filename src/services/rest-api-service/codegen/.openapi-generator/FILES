@@ -23,6 +23,7 @@ docs/ApiV1AdminsPaymentsCreatedBy.md
 docs/ApiV1AdminsProductsVacCheckedby.md
 docs/ApiV1AdminsTasksLightBoxes.md
 docs/ApiV1AdminsTasksLightStorekeeper.md
+docs/ApiV1AdminsTasksLightVariationTariff.md
 docs/ApiV1AnnouncementsMyRequests.md
 docs/ApiV1BatchesBatch.md
 docs/ApiV1BatchesBoxes.md
@@ -41,6 +42,7 @@ docs/ApiV1BoxesClientsLightOrder.md
 docs/ApiV1BoxesClientsLightProduct.md
 docs/ApiV1BoxesItems.md
 docs/ApiV1BoxesMergeBoxBody.md
+docs/ApiV1BoxesSplitBoxBody.md
 docs/ApiV1BoxesSplitBoxItems.md
 docs/ApiV1BoxesSplitNewBoxesParams.md
 docs/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges.md
@@ -85,6 +87,7 @@ docs/ApiV1RequestsCustomRequestLinksToMediaFiles.md
 docs/ApiV1ShopSellStatistics.md
 docs/ApiV1ShopSellStatistics1.md
 docs/ApiV1StorekeepersBoxesGuidItems.md
+docs/ApiV1StorekeepersTariffLogisticsDestinationVariations.md
 docs/ApiV1StorekeepersTariffWarehouses.md
 docs/ApiV1SuppliersBoxProperties.md
 docs/ApiV1SuppliersPaymentMethods.md
@@ -463,6 +466,7 @@ src/model/ApiV1AdminsPaymentsCreatedBy.js
 src/model/ApiV1AdminsProductsVacCheckedby.js
 src/model/ApiV1AdminsTasksLightBoxes.js
 src/model/ApiV1AdminsTasksLightStorekeeper.js
+src/model/ApiV1AdminsTasksLightVariationTariff.js
 src/model/ApiV1AnnouncementsMyRequests.js
 src/model/ApiV1BatchesBatch.js
 src/model/ApiV1BatchesBoxes.js
@@ -481,6 +485,7 @@ src/model/ApiV1BoxesClientsLightOrder.js
 src/model/ApiV1BoxesClientsLightProduct.js
 src/model/ApiV1BoxesItems.js
 src/model/ApiV1BoxesMergeBoxBody.js
+src/model/ApiV1BoxesSplitBoxBody.js
 src/model/ApiV1BoxesSplitBoxItems.js
 src/model/ApiV1BoxesSplitNewBoxesParams.js
 src/model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges.js
@@ -525,6 +530,7 @@ src/model/ApiV1RequestsCustomRequestLinksToMediaFiles.js
 src/model/ApiV1ShopSellStatistics.js
 src/model/ApiV1ShopSellStatistics1.js
 src/model/ApiV1StorekeepersBoxesGuidItems.js
+src/model/ApiV1StorekeepersTariffLogisticsDestinationVariations.js
 src/model/ApiV1StorekeepersTariffWarehouses.js
 src/model/ApiV1SuppliersBoxProperties.js
 src/model/ApiV1SuppliersPaymentMethods.js
