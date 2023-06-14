@@ -133,10 +133,10 @@ export const batchInfoModalColumn = (
   },
 
   {
-    field: 'actualCostWithDelivery',
-    headerName: <MultilineTextHeaderCell text={t(TranslationKey['The actual cost of the box with delivery'])} />,
+    field: 'actualCostWithDeliveryPerUnit',
+    headerName: <MultilineTextHeaderCell text={t(TranslationKey['Actual cost with delivery per unit'])} />,
     renderCell: params => (
-      <ActualCostWithDelivery
+      <ActualCostWithDeliveryPerUnit
         actualShippingCost={actualShippingCost}
         rowMemo={params.row}
         finalWeight={finalWeight}
@@ -150,10 +150,10 @@ export const batchInfoModalColumn = (
   },
 
   {
-    field: 'actualCostWithDeliveryPerUnit',
-    headerName: <MultilineTextHeaderCell text={t(TranslationKey['Actual cost with delivery per unit'])} />,
+    field: 'actualCostWithDelivery',
+    headerName: <MultilineTextHeaderCell text={t(TranslationKey['The actual cost of the box with delivery'])} />,
     renderCell: params => (
-      <ActualCostWithDeliveryPerUnit
+      <ActualCostWithDelivery
         actualShippingCost={actualShippingCost}
         rowMemo={params.row}
         finalWeight={finalWeight}
