@@ -499,7 +499,13 @@ export const EditBoxForm = observer(
                             destinations.find(el => el._id === boxFields.destinationId)?.name ||
                             t(TranslationKey['Not chosen'])
                           }
-                          data={destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)}
+                          data={
+                            boxFields.logicsTariffId
+                              ? destinations
+                                  .filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
+                                  .filter(el => el?._id === boxFields.logicsTariffId)
+                              : destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
+                          }
                           searchFields={['name']}
                           favourites={destinationsFavourites}
                           onClickSetDestinationFavourite={setDestinationsFavouritesItem}
