@@ -114,16 +114,6 @@ export const WeightBasedTariffFormColumns = (
   },
 
   {
-    field: 'minWeightInKg',
-    headerName: t(TranslationKey['Min. weight, kg']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min. weight, kg'])} />,
-
-    type: 'number',
-    width: 100,
-    renderCell: params => <MultilineTextCell text={params.value} />,
-  },
-
-  {
     field: 'action',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
@@ -131,8 +121,12 @@ export const WeightBasedTariffFormColumns = (
     renderCell: params => (
       <NormalActionBtnCell
         disabled={
-          currentDestinationId &&
-          params.row.originalData?.destinationVariations.every(item => item?.destinationId !== currentDestinationId)
+          (currentDestinationId &&
+            params.row.originalData?.destinationVariations.every(
+              item => item?.destinationId !== currentDestinationId,
+            )) ||
+          !variationTariffId ||
+          params.row.originalData?.destinationVariations.every(item => item?._id !== variationTariffId)
         }
         bTnText={t(TranslationKey['Select Tariff'])}
         onClickOkBtn={() => onClickSelectTariff(params.row._id)}
