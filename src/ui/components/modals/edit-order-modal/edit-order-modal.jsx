@@ -874,7 +874,8 @@ export const EditOrderModal = observer(
 
                     <div className={classNames.supplierButtonWrapper}>
                       <Button
-                        danger
+                        danger={isSupplierAcceptRevokeActive}
+                        success={!isSupplierAcceptRevokeActive}
                         disabled={checkIsPlanningPrice && !isPendingOrder}
                         className={cx(classNames.iconBtn, classNames.iconBtnAccept, {
                           [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,

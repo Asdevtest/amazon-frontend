@@ -412,6 +412,7 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
 
     shippingLabel: item.shippingLabel,
     fbaShipment: item.fbaShipment,
+    variationTariff: item?.variationTariff,
     volumeWeightCoefficient,
 
     orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items

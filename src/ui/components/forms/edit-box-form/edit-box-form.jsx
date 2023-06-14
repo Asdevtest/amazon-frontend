@@ -103,6 +103,7 @@ const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
 
 export const EditBoxForm = observer(
   ({
+    showCheckbox,
     formItem,
     onSubmit,
     onTriggerOpenModal,
@@ -168,6 +169,7 @@ export const EditBoxForm = observer(
       destinationId: formItem?.destination?._id || null,
       storekeeperId: formItem?.storekeeper?._id || '',
       logicsTariffId: formItem?.logicsTariff?._id || '',
+      variationTariffId: formItem?.variationTariff?._id || '',
 
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel,
@@ -229,8 +231,8 @@ export const EditBoxForm = observer(
 
     const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
-    const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-      setBoxFields({ ...boxFields, storekeeperId, logicsTariffId: tariffId })
+    const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId) => {
+      setBoxFields({ ...boxFields, storekeeperId, logicsTariffId: tariffId, variationTariffId })
 
       setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
     }
@@ -764,10 +766,13 @@ export const EditBoxForm = observer(
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
         >
           <SelectStorekeeperAndTariffForm
+            showCheckbox={showCheckbox}
             storekeepers={storekeepers.filter(el => el._id === formItem?.storekeeper._id)}
             curStorekeeperId={boxFields.storekeeperId}
             curTariffId={boxFields.logicsTariffId}
             destinationsData={destinations}
+            currentDestinationId={boxFields?.destinationId}
+            currentVariationTariffId={boxFields?.variationTariffId}
             onSubmit={onSubmitSelectStorekeeperAndTariff}
           />
         </Modal>

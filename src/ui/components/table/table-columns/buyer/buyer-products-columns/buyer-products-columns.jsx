@@ -193,7 +193,7 @@ export const buyerProductsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
     renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
     width: 160,
-
+    sortable: false,
     columnKey: columnnsKeys.shared.OBJECT,
   },
 
@@ -203,7 +203,7 @@ export const buyerProductsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
     renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
     width: 130,
-
+    sortable: false,
     columnKey: columnnsKeys.shared.RED_FLAGS,
   },
 

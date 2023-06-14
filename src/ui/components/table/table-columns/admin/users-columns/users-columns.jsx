@@ -103,7 +103,7 @@ export const adminUsersViewColumns = handlers => [
       <NormalActionBtnCell
         disabled={params.row.originalData.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
         bTnText={t(TranslationKey['Edit and balance'])}
-        onClickOkBtn={handlers.onClickUser(params.row.originalData)}
+        onClickOkBtn={() => handlers.onClickUser(params.row.originalData)}
       />
     ),
 

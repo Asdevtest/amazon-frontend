@@ -252,7 +252,10 @@ export class ProfileViewModel {
         email: data.email,
       })
 
-      if (this.checkValidationNameOrEmail.nameIsUnique || this.checkValidationNameOrEmail.emailIsUnique) {
+      if (
+        this.checkValidationNameOrEmail.nameIsUnique === false ||
+        this.checkValidationNameOrEmail.emailIsUnique === false
+      ) {
         return
       } else {
         await UserModel.changeUserInfo({ name: data.name, email: data.email })
