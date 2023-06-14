@@ -47,29 +47,14 @@ class InlineObject67 {
         if (data) {
             obj = obj || new InlineObject67();
 
-            if (data.hasOwnProperty('productName')) {
-                obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('productLinks')) {
-                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [NULL_SCHEMA_ERR]);
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], [NULL_SCHEMA_ERR]);
-            }
-            if (data.hasOwnProperty('criteria')) {
-                obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
-            }
-            if (data.hasOwnProperty('dimensions')) {
-                obj['dimensions'] = ApiClient.convertToType(data['dimensions'], 'String');
-            }
-            if (data.hasOwnProperty('quantity')) {
-                obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
         }
         return obj;
@@ -79,52 +64,22 @@ class InlineObject67 {
 }
 
 /**
- * Назавние продукта
- * @member {String} productName
+ * Название услуги
+ * @member {String} name
  */
-InlineObject67.prototype['productName'] = undefined;
+InlineObject67.prototype['name'] = undefined;
 
 /**
- * Ссылки на продукт, если есть
- * @member {Array.<String>} productLinks
+ * Описание услуги
+ * @member {String} description
  */
-InlineObject67.prototype['productLinks'] = undefined;
+InlineObject67.prototype['description'] = undefined;
 
 /**
- * Image URL
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject67.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * Дополнительные критерии для поиска товара
- * @member {String} criteria
- */
-InlineObject67.prototype['criteria'] = undefined;
-
-/**
- * Размеры
- * @member {String} dimensions
- */
-InlineObject67.prototype['dimensions'] = undefined;
-
-/**
- * Количество товаров
- * @member {Number} quantity
- */
-InlineObject67.prototype['quantity'] = undefined;
-
-/**
- * Желаемая цена
+ * Цена услуги.
  * @member {Number} price
  */
 InlineObject67.prototype['price'] = undefined;
-
-/**
- * Product ID
- * @member {String} productId
- */
-InlineObject67.prototype['productId'] = undefined;
 
 
 

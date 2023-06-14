@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**userId** | **String** |  | [optional] 
-**productId** | **String** |  | [optional] 
+**count** | **Number** | Общее кол-во записей | [optional] 
+**rows** | [**[InlineResponse20051]**](InlineResponse20051.md) | Массив товаров. | [optional] 
 
 

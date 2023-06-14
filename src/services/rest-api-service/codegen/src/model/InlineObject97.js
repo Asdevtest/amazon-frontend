@@ -22,10 +22,11 @@ class InlineObject97 {
     /**
      * Constructs a new <code>InlineObject97</code>.
      * @alias module:model/InlineObject97
+     * @param productIds {Array.<String>} 
      */
-    constructor() { 
+    constructor(productIds) { 
         
-        InlineObject97.initialize(this);
+        InlineObject97.initialize(this, productIds);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject97 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productIds) { 
+        obj['productIds'] = productIds;
     }
 
     /**
@@ -47,8 +49,8 @@ class InlineObject97 {
         if (data) {
             obj = obj || new InlineObject97();
 
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('productIds')) {
+                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
             }
         }
         return obj;
@@ -58,10 +60,9 @@ class InlineObject97 {
 }
 
 /**
- * Причины закрытия приема предложений.
- * @member {String} reason
+ * @member {Array.<String>} productIds
  */
-InlineObject97.prototype['reason'] = undefined;
+InlineObject97.prototype['productIds'] = undefined;
 
 
 

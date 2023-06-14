@@ -21,12 +21,12 @@ import ApiClient from '../ApiClient';
 class InlineObject57 {
     /**
      * Constructs a new <code>InlineObject57</code>.
+     * Схема магазина.
      * @alias module:model/InlineObject57
-     * @param title {String} Тег
      */
-    constructor(title) { 
+    constructor() { 
         
-        InlineObject57.initialize(this, title);
+        InlineObject57.initialize(this);
     }
 
     /**
@@ -34,8 +34,7 @@ class InlineObject57 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, title) { 
-        obj['title'] = title;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +48,14 @@ class InlineObject57 {
         if (data) {
             obj = obj || new InlineObject57();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
+                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            }
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
+                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
             }
         }
         return obj;
@@ -60,10 +65,22 @@ class InlineObject57 {
 }
 
 /**
- * Тег
- * @member {String} title
+ * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+ * @member {String} name
  */
-InlineObject57.prototype['title'] = undefined;
+InlineObject57.prototype['name'] = undefined;
+
+/**
+ * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+ * @member {String} sellerBoardWarehouseReportUrlDaily
+ */
+InlineObject57.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+
+/**
+ * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+ * @member {String} sellerBoardWarehouseReportUrlMonthly
+ */
+InlineObject57.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
 
 
 

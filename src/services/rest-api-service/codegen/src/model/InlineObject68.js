@@ -47,8 +47,26 @@ class InlineObject68 {
         if (data) {
             obj = obj || new InlineObject68();
 
-            if (data.hasOwnProperty('requestStatus')) {
-                obj['requestStatus'] = ApiClient.convertToType(data['requestStatus'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('country')) {
+                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            }
+            if (data.hasOwnProperty('zipCode')) {
+                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
+            }
+            if (data.hasOwnProperty('state')) {
+                obj['state'] = ApiClient.convertToType(data['state'], 'String');
+            }
+            if (data.hasOwnProperty('city')) {
+                obj['city'] = ApiClient.convertToType(data['city'], 'String');
+            }
+            if (data.hasOwnProperty('address')) {
+                obj['address'] = ApiClient.convertToType(data['address'], 'String');
+            }
+            if (data.hasOwnProperty('fontColor')) {
+                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
             }
         }
         return obj;
@@ -58,10 +76,46 @@ class InlineObject68 {
 }
 
 /**
- * новый статус заявки
- * @member {String} requestStatus
+ * Название склада.
+ * @member {String} name
  */
-InlineObject68.prototype['requestStatus'] = undefined;
+InlineObject68.prototype['name'] = undefined;
+
+/**
+ * Страна.
+ * @member {String} country
+ */
+InlineObject68.prototype['country'] = undefined;
+
+/**
+ * Индекс. 5 цифр.
+ * @member {String} zipCode
+ */
+InlineObject68.prototype['zipCode'] = undefined;
+
+/**
+ * Штат.
+ * @member {String} state
+ */
+InlineObject68.prototype['state'] = undefined;
+
+/**
+ * Город.
+ * @member {String} city
+ */
+InlineObject68.prototype['city'] = undefined;
+
+/**
+ * Адрес склада.
+ * @member {String} address
+ */
+InlineObject68.prototype['address'] = undefined;
+
+/**
+ * Цвет шрифта
+ * @member {String} fontColor
+ */
+InlineObject68.prototype['fontColor'] = undefined;
 
 
 

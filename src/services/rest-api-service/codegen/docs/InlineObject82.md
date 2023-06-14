@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**rating** | **Number** | Поставить оценку юзеру | [optional] 
-**reason** | **String** | Комментарий причин изменения статуса. | [optional] 
-**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
+**title** | **String** | Название партии | [optional] 
+**boxesIds** | **[String]** |  | 
+**calculationMethod** | **Number** | Метод подсчта массы партии | [optional] 
+**volumeWeightDivide** | **Number** | Делитель объема партии | [optional] 
+**actualShippingCost** | **Number** | Настоящая стоимость доставки | [optional] 
 
 

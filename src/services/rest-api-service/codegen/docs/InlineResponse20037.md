@@ -4,11 +4,27 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**orders** | [**InlineResponse20037Orders**](InlineResponse20037Orders.md) |  | [optional] 
-**shops** | [**InlineResponse20037Shops**](InlineResponse20037Shops.md) |  | [optional] 
-**requests** | [**InlineResponse20037Requests**](InlineResponse20037Requests.md) |  | [optional] 
-**products** | [**InlineResponse20037Products**](InlineResponse20037Products.md) |  | [optional] 
-**batch** | [**InlineResponse20037Batch**](InlineResponse20037Batch.md) |  | [optional] 
-**boxes** | [**InlineResponse20037Boxes**](InlineResponse20037Boxes.md) |  | [optional] 
+**isRecommended** | **Boolean** |  | [optional] 
+**trackingSince** | **Number** |  | [optional] 
+**lastRatingUpdate** | **Number** |  | [optional] 
+**rootCategory** | **Number** |  | [optional] 
+**categories** | **[Number]** |  | [optional] 
+**parentAsin** | **String** |  | [optional] 
+**variationCSV** | **String** |  | [optional] 
+**frequentlyBoughtTogether** | **[String]** |  | [optional] 
+**manufacturer** | **String** |  | [optional] 
+**brand** | **String** |  | [optional] 
+**productGroup** | **String** |  | [optional] 
+**publicationDate** | **Number** |  | [optional] 
+**releaseDate** | **Number** |  | [optional] 
+**contributors** | **[[Number]]** |  | [optional] 
+**size** | **String** |  | [optional] 
+**salesRanks** | **Object** |  | [optional] 
+**offers** | [**[ApiV1ProductsKeepaOffers]**](ApiV1ProductsKeepaOffers.md) |  | [optional] 
+**liveOffersOrder** | **[Number]** |  | [optional] 
+**buyBoxSellerIdHistory** | **[String]** |  | [optional] 
+**availabilityAmazon** | **Number** |  | [optional] 
+**newPriceIsMAP** | **Boolean** |  | [optional] 
+**stats** | [**ApiV1ProductsKeepaStats**](ApiV1ProductsKeepaStats.md) |  | [optional] 
 
 

@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**profileId** | **String** | id профайла | 
+**priority** | **Number** | Выставить приоритет задачи | 
+**reason** | **String** | Reason of high priority | [optional] 
 
 

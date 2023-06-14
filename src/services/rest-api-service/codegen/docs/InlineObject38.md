@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**buyerComment** | **String** | Комментарии байера. | 
+**userId** | **String** |  | [optional] 
+**productIds** | **[String]** |  | [optional] 
 
 

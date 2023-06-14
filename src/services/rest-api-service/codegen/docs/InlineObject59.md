@@ -4,8 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Название профиля | [optional] 
-**os** | **String** | Название ОС | [optional] [default to &#39;mac&#39;]
-**navigator** | [**ApiV1GologinProfileNavigator**](ApiV1GologinProfileNavigator.md) |  | [optional] 
+**status** | **Number** | Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено. | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
+**storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
+**priority** | **Number** | Приоритет задачи | [optional] 
 
 

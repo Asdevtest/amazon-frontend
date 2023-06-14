@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**boxIds** | **[String]** |  | 
-**newAmounts** | **[Number]** |  | 
+**productId** | **String** |  | 
+**skus** | **[String]** |  | 
 
 

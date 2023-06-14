@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**rows** | [**[InlineResponse20020Rows]**](InlineResponse20020Rows.md) |  | [optional] 
-**count** | **Number** |  | [optional] 
+**tasks** | [**InlineResponse20020Tasks**](InlineResponse20020Tasks.md) |  | [optional] 
+**boxes** | [**InlineResponse20020Boxes**](InlineResponse20020Boxes.md) |  | [optional] 
+**batches** | [**InlineResponse20020Batches**](InlineResponse20020Batches.md) |  | [optional] 
 
 

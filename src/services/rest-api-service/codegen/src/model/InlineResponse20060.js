@@ -12,7 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20060Rows from './InlineResponse20060Rows';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1BatchesByProductGuidBoxes from './ApiV1BatchesByProductGuidBoxes';
 
 /**
  * The InlineResponse20060 model module.
@@ -48,11 +49,26 @@ class InlineResponse20060 {
         if (data) {
             obj = obj || new InlineResponse20060();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20060Rows]);
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesByProductGuidBoxes]);
+            }
+            if (data.hasOwnProperty('amountInBatch')) {
+                obj['amountInBatch'] = ApiClient.convertToType(data['amountInBatch'], 'Number');
+            }
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
             }
         }
         return obj;
@@ -62,15 +78,44 @@ class InlineResponse20060 {
 }
 
 /**
- * @member {Number} count
+ * GUID партии.
+ * @member {String} _id
  */
-InlineResponse20060.prototype['count'] = undefined;
+InlineResponse20060.prototype['_id'] = undefined;
 
 /**
- * Массив заявок.
- * @member {Array.<module:model/InlineResponse20060Rows>} rows
+ * Человекочитаемый id партии.
+ * @member {Number} humanFriendlyId
  */
-InlineResponse20060.prototype['rows'] = undefined;
+InlineResponse20060.prototype['humanFriendlyId'] = undefined;
+
+/**
+ * Название партии
+ * @member {String} title
+ */
+InlineResponse20060.prototype['title'] = undefined;
+
+/**
+ * Заархивирована ли партия
+ * @member {Boolean} archive
+ */
+InlineResponse20060.prototype['archive'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1BatchesByProductGuidBoxes>} boxes
+ */
+InlineResponse20060.prototype['boxes'] = undefined;
+
+/**
+ * Общее кол-во продуктов
+ * @member {Number} amountInBatch
+ */
+InlineResponse20060.prototype['amountInBatch'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
+ */
+InlineResponse20060.prototype['storekeeper'] = undefined;
 
 
 

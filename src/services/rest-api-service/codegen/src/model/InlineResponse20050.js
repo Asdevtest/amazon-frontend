@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
+import ApiV1StorekeepersTariffWarehouses from './ApiV1StorekeepersTariffWarehouses';
 
 /**
  * The InlineResponse20050 model module.
@@ -22,10 +24,11 @@ class InlineResponse20050 {
     /**
      * Constructs a new <code>InlineResponse20050</code>.
      * @alias module:model/InlineResponse20050
+     * @param _id {String} GUID сторкипера в DB
      */
-    constructor() { 
+    constructor(_id) { 
         
-        InlineResponse20050.initialize(this);
+        InlineResponse20050.initialize(this, _id);
     }
 
     /**
@@ -33,7 +36,8 @@ class InlineResponse20050 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, _id) { 
+        obj['_id'] = _id;
     }
 
     /**
@@ -50,8 +54,17 @@ class InlineResponse20050 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('tariffLogistics')) {
+                obj['tariffLogistics'] = ApiClient.convertToType(data['tariffLogistics'], [ApiV1AdminsOrdersLogicsTariff]);
+            }
+            if (data.hasOwnProperty('tariffWarehouses')) {
+                obj['tariffWarehouses'] = ApiClient.convertToType(data['tariffWarehouses'], [ApiV1StorekeepersTariffWarehouses]);
+            }
+            if (data.hasOwnProperty('boxesCount')) {
+                obj['boxesCount'] = ApiClient.convertToType(data['boxesCount'], 'Number');
             }
         }
         return obj;
@@ -61,16 +74,34 @@ class InlineResponse20050 {
 }
 
 /**
- * GUID заказа
+ * GUID сторкипера в DB
  * @member {String} _id
  */
 InlineResponse20050.prototype['_id'] = undefined;
 
 /**
- * id заказа
- * @member {Number} id
+ * Имя сторкипера.
+ * @member {String} name
  */
-InlineResponse20050.prototype['id'] = undefined;
+InlineResponse20050.prototype['name'] = undefined;
+
+/**
+ * Тарифы логистики для сторкипера.
+ * @member {Array.<module:model/ApiV1AdminsOrdersLogicsTariff>} tariffLogistics
+ */
+InlineResponse20050.prototype['tariffLogistics'] = undefined;
+
+/**
+ * Тарифы складов для сторкипера.
+ * @member {Array.<module:model/ApiV1StorekeepersTariffWarehouses>} tariffWarehouses
+ */
+InlineResponse20050.prototype['tariffWarehouses'] = undefined;
+
+/**
+ * Количество коробок в сторкепере.
+ * @member {Number} boxesCount
+ */
+InlineResponse20050.prototype['boxesCount'] = undefined;
 
 
 
