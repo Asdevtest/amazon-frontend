@@ -147,9 +147,19 @@ export const getTableByColumn = (column, hint) => {
       'priceInYuan',
       'id',
       'item',
+      'productionTerm',
+      'deadline',
+      'paymentDateToSupplier',
+      'paymentDetailsAttached',
+      'needsResearch',
+      'client',
+      'clientComment',
+      'buyerComment',
     ].includes(column)
   ) {
-    if (hint === 'orders') {
+    if (hint === 'suppliers') {
+      return 'suppliers'
+    } else if (hint === 'orders') {
       return 'orders'
     } else if (hint === 'requests') {
       return 'requests'
@@ -190,12 +200,13 @@ export const getTableByColumn = (column, hint) => {
     return 'products'
     // }
   } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags'].includes(column)) {
-    if (hint === 'boxes') {
+    if (hint === 'orders') {
+      return 'orders'
+    } else if (hint === 'boxes') {
       return 'boxes'
     } else if (hint === 'products') {
       return 'products'
-    }
-    if (hint === 'requests') {
+    } else {
       return 'requests'
     }
   } else if (
@@ -211,6 +222,10 @@ export const getTableByColumn = (column, hint) => {
       'withoutConfirmation',
     ].includes(column)
   ) {
+    if (hint === 'orders') {
+      return 'orders'
+    }
+
     return 'requests'
   }
 }

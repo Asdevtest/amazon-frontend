@@ -56,18 +56,27 @@ const updateOrderKeys = [
 const filtersFields = [
   'id',
   'item',
+  'priority',
   'asin',
   'skusByClient',
   'amazonTitle',
+  'paymentDetailsAttached',
   'status',
   'amount',
+  'totalPrice',
   'payments',
-  'barCode',
+  'priceInYuan',
   'storekeeper',
+  'productionTerm',
+  'deadline',
+  'paymentDateToSupplier',
+  'needsResearch',
+  'client',
+  'destination',
+  'clientComment',
+  'buyerComment',
   'createdAt',
   'updatedAt',
-  'totalPrice',
-  'priceInYuan',
 ]
 
 export class BuyerMyOrdersViewModel {
@@ -163,7 +172,7 @@ export class BuyerMyOrdersViewModel {
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
     onClickAccept: () => {
       // this.onLeaveColumnField()
-      // this.getOrdersMy()
+      // this.getBoxesMy()
       // this.getDataGridState()
     },
 
@@ -246,19 +255,13 @@ export class BuyerMyOrdersViewModel {
     try {
       this.setFilterRequestStatus(loadingStatuses.isLoading)
 
+      const table = getTableByColumn(column, column === 'productionTerm' ? 'suppliers' : 'orders')
+      const endpoint = `buyers/orders/pag/my?filters=${this.getFilter(column)}`
+
       const data =
         column === 'payments'
           ? await SupplierModel.getSuppliersPaymentMethods()
-          : await GeneralModel.getDataForColumn(
-              getTableByColumn(column, 'orders'),
-              column,
-
-              /* `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter(column)}${
-          shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
-        }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`, */
-
-              `buyers/orders/pag/my?filters=${this.getFilter(column)}`,
-            )
+          : await GeneralModel.getDataForColumn(table, column, endpoint)
 
       console.log('data', data)
 
@@ -281,30 +284,61 @@ export class BuyerMyOrdersViewModel {
   }
 
   getFilter(exclusion) {
-    const idFilter = exclusion !== 'id' && this.columnMenuSettings.id.currentFilterData.join(',')
-    const itemFilter = exclusion !== 'item' && this.columnMenuSettings.item.currentFilterData.join(',')
+    const idFilter = exclusion !== 'id' && this.columnMenuSettings.id?.currentFilterData.join(',')
+    const itemFilter = exclusion !== 'item' && this.columnMenuSettings.item?.currentFilterData.join(',')
+
+    const priorityFilter = exclusion !== 'priority' && this.columnMenuSettings.priority.currentFilterData.join(',')
 
     const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin?.currentFilterData.join(',')
     const skusByClientFilter =
-      exclusion !== 'skusByClient' && this.columnMenuSettings.skusByClient.currentFilterData.join(',')
+      exclusion !== 'skusByClient' && this.columnMenuSettings.skusByClient?.currentFilterData.join(',')
     const amazonTitleFilter =
       exclusion !== 'amazonTitle' &&
-      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
+      this.columnMenuSettings.amazonTitle?.currentFilterData.map(el => `"${el}"`).join(',')
 
-    const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt.currentFilterData.join(',')
-    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
+    const paymentDetailsAttachedFilter =
+      exclusion !== 'paymentDetailsAttached' &&
+      this.columnMenuSettings.paymentDetailsAttached?.currentFilterData.join(',')
 
     const amountFilter = exclusion !== 'amount' && this.columnMenuSettings.amount?.currentFilterData.join(',')
+
+    const totalPriceFilter =
+      exclusion !== 'totalPrice' && this.columnMenuSettings.totalPrice?.currentFilterData.join(',')
 
     const paymentsFilter =
       exclusion !== 'payments' &&
       this.columnMenuSettings.payments?.currentFilterData.map(el => ({ ...el, name: el.title })).join(',')
 
-    const totalPriceFilter =
-      exclusion !== 'totalPrice' && this.columnMenuSettings.totalPrice?.currentFilterData.join(',')
-
     const priceInYuanFilter =
       exclusion !== 'priceInYuan' && this.columnMenuSettings.priceInYuan?.currentFilterData.join(',')
+
+    const storekeeperFilter =
+      exclusion !== 'storekeeper' && this.columnMenuSettings.storekeeper?.currentFilterData.join(',')
+
+    const productionTermFilter =
+      exclusion !== 'productionTerm' && this.columnMenuSettings.productionTerm?.currentFilterData.join(',')
+
+    const deadlineFilter = exclusion !== 'deadline' && this.columnMenuSettings.deadline?.currentFilterData.join(',')
+
+    const paymentDateToSupplierFilter =
+      exclusion !== 'paymentDateToSupplier' &&
+      this.columnMenuSettings.paymentDateToSupplier?.currentFilterData.join(',')
+
+    const needsResearchFilter =
+      exclusion !== 'needsResearch' && this.columnMenuSettings.needsResearch?.currentFilterData.join(',')
+
+    const clientFilter = exclusion !== 'client' && this.columnMenuSettings.client?.currentFilterData.join(',')
+
+    const destinationFilter =
+      exclusion !== 'destination' && this.columnMenuSettings.destination?.currentFilterData.join(',')
+
+    const clientCommentFilter =
+      exclusion !== 'clientComment' && this.columnMenuSettings.clientComment?.currentFilterData.join(',')
+    const buyerCommentFilter =
+      exclusion !== 'buyerComment' && this.columnMenuSettings.buyerComment?.currentFilterData.join(',')
+
+    const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt?.currentFilterData.join(',')
+    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt?.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
       or: [
@@ -315,9 +349,7 @@ export class BuyerMyOrdersViewModel {
         { item: { $eq: this.nameSearchValue } },
       ].filter(
         el =>
-          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-            !el.id &&
-            !el.humanFriendlyId) ||
+          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
           !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
       ),
 
@@ -326,6 +358,10 @@ export class BuyerMyOrdersViewModel {
       }),
       ...(itemFilter && {
         item: { $eq: itemFilter },
+      }),
+
+      ...(priorityFilter && {
+        priority: { $eq: priorityFilter },
       }),
 
       ...(asinFilter && {
@@ -338,13 +374,6 @@ export class BuyerMyOrdersViewModel {
         amazonTitle: { $eq: amazonTitleFilter },
       }),
 
-      ...(createdAtFilter && {
-        createdAt: { $eq: createdAtFilter },
-      }),
-      ...(updatedAtFilter && {
-        updatedAt: { $eq: updatedAtFilter },
-      }),
-
       ...(amountFilter && {
         amount: { $eq: amountFilter },
       }),
@@ -353,12 +382,58 @@ export class BuyerMyOrdersViewModel {
         totalPrice: { $eq: totalPriceFilter },
       }),
 
+      ...(paymentDetailsAttachedFilter && {
+        paymentDetailsAttached: { $eq: paymentDetailsAttachedFilter },
+      }),
+
       ...(priceInYuanFilter && {
         priceInYuan: { $eq: priceInYuanFilter },
       }),
 
       ...(paymentsFilter && {
         payments: { $eq: paymentsFilter },
+      }),
+
+      ...(storekeeperFilter && {
+        storekeeper: { $eq: storekeeperFilter },
+      }),
+
+      ...(productionTermFilter && {
+        productionTerm: { $eq: productionTermFilter },
+      }),
+
+      ...(deadlineFilter && {
+        deadline: { $eq: deadlineFilter },
+      }),
+
+      ...(paymentDateToSupplierFilter && {
+        paymentDateToSupplier: { $eq: paymentDateToSupplierFilter },
+      }),
+
+      ...(needsResearchFilter && {
+        needsResearch: { $eq: needsResearchFilter },
+      }),
+
+      ...(clientFilter && {
+        client: { $eq: clientFilter },
+      }),
+
+      ...(destinationFilter && {
+        destination: { $eq: destinationFilter },
+      }),
+
+      ...(clientCommentFilter && {
+        clientComment: { $eq: clientCommentFilter },
+      }),
+      ...(buyerCommentFilter && {
+        buyerComment: { $eq: buyerCommentFilter },
+      }),
+
+      ...(createdAtFilter && {
+        createdAt: { $eq: createdAtFilter },
+      }),
+      ...(updatedAtFilter && {
+        updatedAt: { $eq: updatedAtFilter },
       }),
 
       ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
