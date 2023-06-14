@@ -34,7 +34,6 @@ export const columnnsKeys = {
   },
 
   shared: {
-    D: 'D',
     DATE: 'DATE',
     QUANTITY: 'QUANTITY',
     STRING: 'STRING',
