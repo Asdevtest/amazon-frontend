@@ -167,7 +167,7 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
     renderCell: params => <ManyUserLinkCell usersData={params.row.originalData?.product?.subUsers} />,
     width: 187,
 
-    columnKey: columnnsKeys.shared.OBJECT,
+    // columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
