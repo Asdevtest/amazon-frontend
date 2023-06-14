@@ -55,7 +55,7 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
       />
     ),
 
-    columnKey: columnnsKeys.shared.S,
+    columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
   },
 
   {
@@ -150,7 +150,7 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
     ),
     width: 110,
 
-    columnKey: columnnsKeys.shared.A,
+    columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
   },
 
   {
