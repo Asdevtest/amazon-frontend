@@ -149,7 +149,13 @@ const Box = ({
                       destinations.find(el => el._id === (isNewBox ? box.destinationId : box.destination?._id))?.name ||
                       t(TranslationKey['Not chosen'])
                     }
-                    data={destinations?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)}
+                    data={
+                      box?.variationTariffId
+                        ? destinations
+                            ?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)
+                            .filter(el => el._id === box?.variationTariffId)
+                        : destinations?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)
+                    }
                     searchFields={['name']}
                     favourites={destinationsFavourites}
                     onClickSetDestinationFavourite={setDestinationsFavouritesItem}

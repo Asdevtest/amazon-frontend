@@ -296,7 +296,13 @@ const Box = ({
                     selectedItemName={
                       destinations.find(el => el._id === box.destinationId)?.name || t(TranslationKey['Not chosen'])
                     }
-                    data={destinations.filter(el => el.storekeeper?._id !== box?.storekeeperId)}
+                    data={
+                      box.variationTariffId
+                        ? destinations
+                            .filter(el => el.storekeeper?._id !== box?.storekeeperId)
+                            .filter(el => el?._id === box?.variationTariffId)
+                        : destinations.filter(el => el?.storekeeper?._id !== box?.storekeeperId)
+                    }
                     searchFields={['name']}
                     onClickNotChosen={() => onChangeField({ target: { value: null } }, 'destinationId', box._id)}
                     onClickSelect={el => onChangeField({ target: { value: el._id } }, 'destinationId', box._id)}
@@ -552,7 +558,7 @@ export const EditMultipleBoxesForm = observer(
     const [sharedFields, setSharedFields] = useState({
       destinationId: null,
       logicsTariffId: null,
-      variationTariffId: null,
+      variationTariffId: undefined,
       shippingLabel: null,
       fbaShipment: '',
       isShippingLabelAttachedByStorekeeper: false,
@@ -560,7 +566,7 @@ export const EditMultipleBoxesForm = observer(
       isBarCodeAlreadyAttachedByTheSupplier: false,
       isBarCodeAttachedByTheStorekeeper: false,
 
-      storekeeperId: selectedBoxes[0]?.storekeeper?._id,
+      storekeeperId: selectedBoxes[0]?.storekeeper?._id || undefined,
       tmpShippingLabel: [],
       tmpBarCode: [],
     })
@@ -794,7 +800,13 @@ export const EditMultipleBoxesForm = observer(
                         destinations.find(el => el._id === sharedFields.destinationId)?.name ||
                         t(TranslationKey['Not chosen'])
                       }
-                      data={destinations.filter(el => el.storekeeper?._id !== sharedFields.storekeeperId)}
+                      data={
+                        sharedFields.variationTariffId
+                          ? destinations
+                              .filter(el => el.storekeeper?._id !== sharedFields.storekeeperId)
+                              .filter(el => el?._id === sharedFields.variationTariffId)
+                          : destinations.filter(el => el.storekeeper?._id !== sharedFields.storekeeperId)
+                      }
                       searchFields={['name']}
                       onClickNotChosen={() => onChangeSharedFields({ target: { value: null } }, 'destinationId')}
                       onClickSelect={el => onChangeSharedFields({ target: { value: el._id } }, 'destinationId')}
@@ -1086,7 +1098,11 @@ export const EditMultipleBoxesForm = observer(
           <SelectStorekeeperAndTariffForm
             showCheckbox={showCheckbox}
             destinationsData={destinations}
-            storekeepers={storekeepers.filter(el => el._id === sharedFields?.storekeeperId)}
+            storekeepers={
+              sharedFields?.storekeeperId
+                ? storekeepers?.filter(el => el._id === sharedFields?.storekeeperId)
+                : storekeepers.filter(el => el._id === selectedBoxes[0]?.storekeeper?._id)
+            }
             curStorekeeperId={sharedFields?.storekeeperId}
             curTariffId={sharedFields?.logicsTariffId}
             currentDestinationId={sharedFields?.destinationId}
