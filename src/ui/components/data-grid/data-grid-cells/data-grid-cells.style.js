@@ -1735,6 +1735,9 @@ export const styles = theme => ({
   printIcon: {
     color: theme.palette.background.darkBlue,
   },
+  printIconModal: {
+    color: '#fff',
+  },
   formedCell: {
     display: 'flex',
     alignItems: 'center',

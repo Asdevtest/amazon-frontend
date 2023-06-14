@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Avatar, Paper, Rating, Typography } from '@mui/material'
+import { Avatar, Checkbox, Paper, Rating, Typography } from '@mui/material'
 
 import React, { useState } from 'react'
 
@@ -38,8 +38,11 @@ export const OwnerGeneralRequestInfo = ({
   onClickCancelBtn,
   onClickAbortBtn,
   onRecoverRequest,
+  onToggleUploadedToListing,
 }) => {
   const { classes: classNames } = useClassNames()
+
+  console.log('request', request)
 
   const [isRestoreModalOpen, setIsRestoreModalOpen] = useState(false)
 
@@ -298,8 +301,20 @@ export const OwnerGeneralRequestInfo = ({
         </div>
       </div>
 
-      {request && request?.request.status === RequestStatus.DRAFT && (
-        <div className={classNames.btnsBlockWrapper}>
+      <div className={classNames.btnsBlockWrapper}>
+        <Button
+          border
+          className={classNames.listingButton}
+          onClick={() => onToggleUploadedToListing(request.request._id, request.request.uploadedToListing)}
+        >
+          <Checkbox
+            color="primary"
+            checked={request.request.uploadedToListing}
+            className={classNames.listingCheckbox}
+          />
+          <Typography className={cx(classNames.listingText)}>{t(TranslationKey['Uploaded by on listing'])}</Typography>
+        </Button>
+        {request && request?.request.status === RequestStatus.DRAFT && (
           <div className={classNames.btnsWrapper}>
             <div className={classNames.btnsRow}>
               <Button
@@ -329,81 +344,80 @@ export const OwnerGeneralRequestInfo = ({
               {t(TranslationKey.Publish)}
             </Button>
           </div>
-        </div>
-      )}
+        )}
+        {request && request?.request.status !== RequestStatus.DRAFT && (
+          <>
+            <div className={classNames.btnsWrapper}>
+              <div className={classNames.btnsRow}>
+                {requestIsNotDraftAndPublished && (
+                  <Button
+                    danger
+                    tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
+                    className={classNames.deleteBtn}
+                    onClick={onClickCancelBtn}
+                  >
+                    {t(TranslationKey.Delete)}
+                  </Button>
+                )}
 
-      {request && request?.request.status !== RequestStatus.DRAFT && (
-        <div className={classNames.btnsBlockWrapper}>
-          <div className={classNames.btnsWrapper}>
-            <div className={classNames.btnsRow}>
-              {requestIsNotDraftAndPublished && (
-                <Button
-                  danger
-                  tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
-                  className={classNames.deleteBtn}
-                  onClick={onClickCancelBtn}
-                >
-                  {t(TranslationKey.Delete)}
-                </Button>
-              )}
-
-              {request && request?.request.status === RequestStatus.PUBLISHED && (
-                <Button
-                  tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
-                  color="primary"
-                  className={cx(classNames.editBtn, {
-                    [classNames.buttonEditRemoveBtnIsShown]: requestIsNotDraftAndPublished,
-                  })}
-                  onClick={onClickEditBtn}
-                >
-                  {t(TranslationKey.Edit)}
-                </Button>
-              )}
-            </div>
-          </div>
-
-          {(request?.request.status === RequestStatus.IN_PROCESS ||
-            request?.request.status === RequestStatus.EXPIRED ||
-            request?.request.status === RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED) && (
-            <>
-              <Button className={classNames.recoverBtn} onClick={() => setIsRestoreModalOpen(true)}>
-                {t(TranslationKey['Change request terms'])}
-              </Button>
-
-              <Modal openModal={isRestoreModalOpen} setOpenModal={() => setIsRestoreModalOpen(false)}>
-                <RestoreRequestModal
-                  currentDate={request?.request?.timeoutAt}
-                  currentRequestsCount={request.request.maxAmountOfProposals}
-                  handleCloseModal={() => setIsRestoreModalOpen(false)}
-                  handleSubmit={onRecoverRequest}
-                />
-              </Modal>
-            </>
-          )}
-
-          {request?.request.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED &&
-            request?.request.status !== RequestStatus.EXPIRED && (
-              <div className={[classNames.btnsRow, classNames.btnsRowIsLast]}>
-                <Button
-                  tooltipInfoContent={
-                    request?.request.status !== RequestStatus.FORBID_NEW_PROPOSALS &&
-                    t(TranslationKey['Removes the visibility of the request on the exchange'])
-                  }
-                  color="primary"
-                  btnWrapperStyle={classNames.buttonWrapperFullWidth}
-                  className={cx(classNames.button, {
-                    [classNames.stopBtn]: request?.request.status !== RequestStatus.FORBID_NEW_PROPOSALS,
-                  })}
-                  onClick={request?.request.status !== 'FORBID_NEW_PROPOSALS' ? onClickAbortBtn : onClickPublishBtn}
-                >
-                  {request?.request.status === RequestStatus.FORBID_NEW_PROPOSALS
-                    ? t(TranslationKey['Resume accepting proposals'])
-                    : t(TranslationKey['Stop accepting proposals'])}
-                </Button>
+                {request && request?.request.status === RequestStatus.PUBLISHED && (
+                  <Button
+                    tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
+                    color="primary"
+                    className={cx(classNames.editBtn, {
+                      [classNames.buttonEditRemoveBtnIsShown]: requestIsNotDraftAndPublished,
+                    })}
+                    onClick={onClickEditBtn}
+                  >
+                    {t(TranslationKey.Edit)}
+                  </Button>
+                )}
               </div>
+            </div>
+
+            {(request?.request.status === RequestStatus.IN_PROCESS ||
+              request?.request.status === RequestStatus.EXPIRED ||
+              request?.request.status === RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED) && (
+              <>
+                <Button className={classNames.recoverBtn} onClick={() => setIsRestoreModalOpen(true)}>
+                  {t(TranslationKey['Change request terms'])}
+                </Button>
+
+                <Modal openModal={isRestoreModalOpen} setOpenModal={() => setIsRestoreModalOpen(false)}>
+                  <RestoreRequestModal
+                    currentDate={request?.request?.timeoutAt}
+                    currentRequestsCount={request.request.maxAmountOfProposals}
+                    handleCloseModal={() => setIsRestoreModalOpen(false)}
+                    handleSubmit={onRecoverRequest}
+                  />
+                </Modal>
+              </>
             )}
-        </div>
-      )}
+
+            {request?.request.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED &&
+              request?.request.status !== RequestStatus.EXPIRED && (
+                <div className={[classNames.btnsRow, classNames.btnsRowIsLast]}>
+                  <Button
+                    tooltipInfoContent={
+                      request?.request.status !== RequestStatus.FORBID_NEW_PROPOSALS &&
+                      t(TranslationKey['Removes the visibility of the request on the exchange'])
+                    }
+                    color="primary"
+                    btnWrapperStyle={classNames.buttonWrapperFullWidth}
+                    className={cx(classNames.button, {
+                      [classNames.stopBtn]: request?.request.status !== RequestStatus.FORBID_NEW_PROPOSALS,
+                    })}
+                    onClick={request?.request.status !== 'FORBID_NEW_PROPOSALS' ? onClickAbortBtn : onClickPublishBtn}
+                  >
+                    {request?.request.status === RequestStatus.FORBID_NEW_PROPOSALS
+                      ? t(TranslationKey['Resume accepting proposals'])
+                      : t(TranslationKey['Stop accepting proposals'])}
+                  </Button>
+                </div>
+              )}
+          </>
+        )}
+      </div>
     </Paper>
   )
 }

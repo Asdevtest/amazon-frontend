@@ -165,6 +165,13 @@ class RequestModelStatic {
     const response = await restApiService.SearchRequestApi.apiV1RequestsGetExistingRequestsTypeTaskGuidGet(id, typeTask)
     return response
   }
+
+  patchRequestsUploadedToListing = async data => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsUploadedToListingPatch({
+      body: data,
+    })
+    return response
+  }
 }
 
 export const RequestModel = new RequestModelStatic()
