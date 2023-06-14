@@ -1014,7 +1014,7 @@ export const DownloadAndPrintFilesCell = React.memo(
               <Button onClick={() => handlePrint()}>
                 <PrintIcon
                   classes={{
-                    root: styles.printIcon,
+                    root: styles.printIconModal,
                   }}
                 />
               </Button>
