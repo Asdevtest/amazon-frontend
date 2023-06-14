@@ -1742,4 +1742,10 @@ export const styles = theme => ({
     width: '100%',
     gap: 5,
   },
+
+  asinCellCopyWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 7,
+  },
 })

@@ -56,6 +56,9 @@ export const clientFreelanceNotificationsColumns = handlers => [
       <MultilineTextCell
         text={
           <Button
+            sx={{
+              height: '30px !important',
+            }}
             onClick={() => {
               handlers.onClickReplyBtn(params.row._id, params.row.humanFriendlyId)
             }}
@@ -65,5 +68,7 @@ export const clientFreelanceNotificationsColumns = handlers => [
         }
       />
     ),
+
+    sortable: false,
   },
 ]
