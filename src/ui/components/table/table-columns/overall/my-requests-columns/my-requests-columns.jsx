@@ -59,7 +59,7 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
   },
 
   {
-    field: 'product',
+    field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: params => (
       <MultilineTextHeaderCell
