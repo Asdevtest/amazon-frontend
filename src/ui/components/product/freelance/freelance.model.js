@@ -18,6 +18,8 @@ import { productMyRequestsViewColumns } from '@components/table/table-columns/ov
 import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { GeneralModel } from '@models/general-model'
+import { SettingsModel } from '@models/settings-model'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 
 const filtersFields = [
   'humanFriendlyId',
@@ -38,7 +40,7 @@ export class FreelanceModel {
   history = undefined
   requestStatus = undefined
   error = undefined
-
+  rowCount = 0
   drawerOpen = false
   showRequestForm = false
   showConfirmModal = false
@@ -86,7 +88,7 @@ export class FreelanceModel {
         this.getCurrentData()
       } else {
         this.getCustomRequests()
-        // this.getDataGridState()
+        this.getDataGridState()
       }
     },
 
@@ -177,7 +179,7 @@ export class FreelanceModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       await this.getCustomRequests()
-      // this.getDataGridState()
+      this.getDataGridState()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -216,6 +218,7 @@ export class FreelanceModel {
         // .sort(
         //   sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         // )
+        this.rowCount = result.count
       })
     } catch (error) {
       console.log(error)
@@ -350,10 +353,35 @@ export class FreelanceModel {
     this.getCustomRequests()
   }
 
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.PRODUCT_FREELANCE)
+  }
+
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.PRODUCT_FREELANCE]
+
+    runInAction(() => {
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
+    })
+  }
+
   onColumnVisibilityModelChange(model) {
     runInAction(() => {
       this.columnVisibilityModel = model
     })
+    console.log(model)
     this.setDataGridState()
   }
 
@@ -430,5 +458,27 @@ export class FreelanceModel {
     runInAction(() => {
       this[modal] = !this[modal]
     })
+  }
+
+  onChangeSortingModel(sortModel) {
+    runInAction(() => {
+      this.sortModel = sortModel
+    })
+
+    this.setDataGridState()
+    this.requestStatus = loadingStatuses.isLoading
+    this.getCustomRequests().then(() => {
+      this.requestStatus = loadingStatuses.success
+    })
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+      // this.paginationModel = { ...model, page: 0 }
+    })
+
+    this.setDataGridState()
+    this.getCustomRequests()
   }
 }
