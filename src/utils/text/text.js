@@ -155,6 +155,7 @@ export const getTableByColumn = (column, hint) => {
       'client',
       'clientComment',
       'buyerComment',
+      'partiallyPaid',
     ].includes(column)
   ) {
     if (hint === 'suppliers') {

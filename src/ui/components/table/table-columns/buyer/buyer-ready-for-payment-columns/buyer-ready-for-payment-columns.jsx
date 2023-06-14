@@ -51,8 +51,8 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       ),
       sortable: false,
       width: 60,
-      // TODO: write or replace columnskey!?
-      columnKey: columnnsKeys.shared.STRING,
+
+      columnKey: columnnsKeys.shared.S,
     },
 
     {
@@ -76,8 +76,8 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
         />
       ),
       width: 100,
-      // TODO : write or replace columnskey!?
-      columnKey: columnnsKeys.shared.STRING,
+
+      columnKey: columnnsKeys.shared.D,
     },
 
     {
@@ -193,7 +193,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       width: 160,
       sortable: false,
 
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.STRING,
     },
 
     {
@@ -261,7 +261,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
       width: 100,
 
-      columnKey: columnnsKeys.buyer.IS_NEED_RESEARCH,
+      columnKey: columnnsKeys.shared.D,
     },
 
     {
@@ -274,18 +274,18 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       width: 150,
       sortable: false,
 
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.STRING,
     },
 
     {
-      field: 'warehouses', // TODO: why not destination?
+      field: 'destination',
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-      renderCell: params => <RenderFieldValueCell value={params.value} />,
+      renderCell: params => <RenderFieldValueCell value={params.row.originalData.destination?.name} />,
       width: 130,
       sortable: false,
 
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.STRING,
     },
 
     {
@@ -340,10 +340,11 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       field: 'partiallyPaid',
       headerName: t(TranslationKey['Paid for']) + ', Ұ',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Paid for']) + ', Ұ'} />,
-
       renderCell: params => <MultilineTextCell text={toFixed(params.row.originalData.partiallyPaid, 2) || '0'} />,
-      type: 'number',
       width: 110,
+      type: 'number',
+
+      columnKey: columnnsKeys.shared.QUANTITY,
     })
   }
 

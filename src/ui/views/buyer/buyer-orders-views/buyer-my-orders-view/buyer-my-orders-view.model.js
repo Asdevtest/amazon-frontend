@@ -77,6 +77,7 @@ const filtersFields = [
   'buyerComment',
   'createdAt',
   'updatedAt',
+  'partiallyPaid',
 ]
 
 export class BuyerMyOrdersViewModel {
@@ -334,11 +335,15 @@ export class BuyerMyOrdersViewModel {
 
     const clientCommentFilter =
       exclusion !== 'clientComment' && this.columnMenuSettings.clientComment?.currentFilterData.join(',')
+
     const buyerCommentFilter =
       exclusion !== 'buyerComment' && this.columnMenuSettings.buyerComment?.currentFilterData.join(',')
 
     const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt?.currentFilterData.join(',')
     const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt?.currentFilterData.join(',')
+
+    const partiallyPaidFilter =
+      exclusion !== 'partiallyPaid' && this.columnMenuSettings.partiallyPaid?.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
       or: [
@@ -436,8 +441,8 @@ export class BuyerMyOrdersViewModel {
         updatedAt: { $eq: updatedAtFilter },
       }),
 
-      ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
-        barCode: { [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true },
+      ...(partiallyPaidFilter && {
+        partiallyPaid: { $eq: partiallyPaidFilter },
       }),
     })
 
