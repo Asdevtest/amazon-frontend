@@ -25,14 +25,18 @@ export const DashboardButtons = ({ user, routes }) => {
   const notices =
     (user.needConfirmPriceChange?.boxes || 0) +
     (user.needConfirmPriceChange?.orders || 0) +
-    (user.needUpdateTariff?.boxes || 0)
+    (user.needUpdateTariff?.boxes || 0) +
+    (user.freelanceNotices?.length || 0)
 
   return (
     <div className={classNames.buttonsWrapper}>
       {!checkIsResearcher(UserRoleCodeMap[user.role]) && (
         <div
           className={classNames.buttonWrapper}
-          onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)}
+          onClick={() => {
+            console.log(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)
+            history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)
+          }}
         >
           <div className={classNames.iconWrapper}>
             <MyNotificationsIcon classes={{ root: classNames.fontSizeLarge }} fontSize="large" />

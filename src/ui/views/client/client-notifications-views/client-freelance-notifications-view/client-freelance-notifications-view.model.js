@@ -23,6 +23,7 @@ export class ClientFreelanceNotificationsViewModel {
   }
 
   columnsModel = clientFreelanceNotificationsColumns(this.rowHandlers)
+  columnVisibilityModel = {}
 
   constructor({ history }) {
     runInAction(() => {

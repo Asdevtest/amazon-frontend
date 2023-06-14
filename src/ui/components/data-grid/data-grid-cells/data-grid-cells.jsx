@@ -200,7 +200,7 @@ export const UserRolesCell = React.memo(
 export const AsinCell = React.memo(
   withStyles(
     ({ classes: classNames, product, asin }) => (
-      <div className={classNames.multilineTextHeaderWrapper}>
+      <div className={cx(classNames.multilineTextHeaderWrapper, classNames.asinCellCopyWrapper)}>
         <Typography className={classNames.typoCell}>
           {product?.asin || asin ? (
             <a
