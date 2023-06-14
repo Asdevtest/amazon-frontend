@@ -51,6 +51,15 @@ export const useClassNames = makeStyles()(theme => ({
       // background: 'linear-gradient(180deg, #FF1616 100%, #DF0C0C 100%)',
     },
   },
+  border: {
+    background: 'none',
+    borderRadius: 4,
+    border: `1px solid ${theme.palette.primary.main}`,
+
+    '&:hover': {
+      background: 'unset !important',
+    },
+  },
 
   tooltipsWrapper: {
     position: 'absolute',

@@ -88,7 +88,6 @@ export class OwnerRequestDetailCustomViewModel {
           this.showChat = true
         }
 
-        // this.requestId = location.state.request._id
         this.acceptMessage = location.state.acceptMessage
         this.showAcceptMessage = location.state.showAcceptMessage
 
@@ -495,6 +494,27 @@ export class OwnerRequestDetailCustomViewModel {
     runInAction(() => {
       this.showResultToCorrectFormModal = !this.showResultToCorrectFormModal
     })
+  }
+
+  async onToggleUploadedToListing(id, uploadedToListingState) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      await RequestModel.patchRequestsUploadedToListing({
+        requestIds: [id],
+        uploadedToListing: !uploadedToListingState,
+      })
+
+      await this.loadData()
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
   }
 
   onTriggerOpenModal(modal) {

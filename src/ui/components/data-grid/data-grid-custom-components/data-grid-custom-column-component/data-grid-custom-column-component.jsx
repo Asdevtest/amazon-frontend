@@ -25,13 +25,11 @@ import {
   BoxestatusMenuItem,
   MyRequestsStatusMenuItem,
   FreelanceRequestType,
-  BooleanFieldMenuItem,
   ClientFreelancePriorityMenuItem,
   CreatedByMenuItem,
   FreelancerToWorkConfirmationMenuItem,
   RedFlagsCellMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
-import { RedFlagsCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 export const DataGridCustomColumnMenuComponent = props => {
   const {
@@ -132,7 +130,7 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  if (currentColumn.columnKey === columnnsKeys.shared.D) {
+  if (currentColumn.columnKey === columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <FreelancerToWorkConfirmationMenuItem
@@ -149,7 +147,7 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  if (currentColumn.columnKey === columnnsKeys.shared.S) {
+  if (currentColumn.columnKey === columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <ClientFreelancePriorityMenuItem
@@ -166,7 +164,7 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  if (currentColumn.columnKey === columnnsKeys.shared.A) {
+  if (currentColumn.columnKey === columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <CreatedByMenuItem

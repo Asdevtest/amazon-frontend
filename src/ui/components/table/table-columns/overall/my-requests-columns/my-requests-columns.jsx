@@ -5,6 +5,7 @@ import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@cons
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  CheckboxCell,
   ManyUserLinkCell,
   MultilineRequestStatusCell,
   MultilineTextCell,
@@ -18,7 +19,7 @@ import {
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
+export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
@@ -55,11 +56,11 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
       />
     ),
 
-    columnKey: columnnsKeys.shared.S,
+    columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
   },
 
   {
-    field: 'product',
+    field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: params => (
       <MultilineTextHeaderCell
@@ -150,7 +151,7 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
     ),
     width: 110,
 
-    columnKey: columnnsKeys.shared.A,
+    columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
   },
 
   {
@@ -167,7 +168,7 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
     renderCell: params => <ManyUserLinkCell usersData={params.row.originalData?.product?.subUsers} />,
     width: 187,
 
-    columnKey: columnnsKeys.shared.OBJECT,
+    // columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -221,6 +222,28 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 115,
     columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
+  {
+    field: 'uploadedToListing',
+    headerName: t(TranslationKey['Uploaded by on listing']),
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Uploaded by on listing'])}
+        // isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+
+    renderCell: params => (
+      <CheckboxCell
+        disabled
+        checked={params.value}
+        onClick={() => rowHandlers.onToggleUploadedToListing(params.row.originalData._id, params.value)}
+      />
+    ),
+    width: 115,
+    // columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {

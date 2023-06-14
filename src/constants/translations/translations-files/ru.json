@@ -1983,6 +1983,7 @@
   "Set urgent priority": "Установить срочный приоритет",
   "Finished": "Завершено",
   "Responsible": "Ответственный",
-  "Partial payment": "Частичная оплата",
-  "Unread messages": "Непрочитанных сообщений"
+  "Unread messages": "Непрочитанных сообщений",
+  "Uploaded by on listing": "Выгружено на листинг",
+  "Partial payment": "Частичная оплата"
 }
