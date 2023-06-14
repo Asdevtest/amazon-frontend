@@ -22,12 +22,11 @@ class InlineObject18 {
     /**
      * Constructs a new <code>InlineObject18</code>.
      * @alias module:model/InlineObject18
-     * @param batchIds {Array.<String>} 
-     * @param archive {Boolean} Заархивирована ли партия
+     * @param title {String} Тег
      */
-    constructor(batchIds, archive) { 
+    constructor(title) { 
         
-        InlineObject18.initialize(this, batchIds, archive);
+        InlineObject18.initialize(this, title);
     }
 
     /**
@@ -35,9 +34,8 @@ class InlineObject18 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, batchIds, archive) { 
-        obj['batchIds'] = batchIds;
-        obj['archive'] = archive;
+    static initialize(obj, title) { 
+        obj['title'] = title;
     }
 
     /**
@@ -51,11 +49,8 @@ class InlineObject18 {
         if (data) {
             obj = obj || new InlineObject18();
 
-            if (data.hasOwnProperty('batchIds')) {
-                obj['batchIds'] = ApiClient.convertToType(data['batchIds'], ['String']);
-            }
-            if (data.hasOwnProperty('archive')) {
-                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -65,15 +60,10 @@ class InlineObject18 {
 }
 
 /**
- * @member {Array.<String>} batchIds
+ * Тег
+ * @member {String} title
  */
-InlineObject18.prototype['batchIds'] = undefined;
-
-/**
- * Заархивирована ли партия
- * @member {Boolean} archive
- */
-InlineObject18.prototype['archive'] = undefined;
+InlineObject18.prototype['title'] = undefined;
 
 
 

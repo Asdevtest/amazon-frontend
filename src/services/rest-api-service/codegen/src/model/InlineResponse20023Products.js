@@ -50,23 +50,14 @@ class InlineResponse20023Products {
             if (data.hasOwnProperty('all')) {
                 obj['all'] = ApiClient.convertToType(data['all'], 'Number');
             }
-            if (data.hasOwnProperty('success')) {
-                obj['success'] = ApiClient.convertToType(data['success'], 'Number');
+            if (data.hasOwnProperty('publishedOnExchange')) {
+                obj['publishedOnExchange'] = ApiClient.convertToType(data['publishedOnExchange'], 'Number');
             }
             if (data.hasOwnProperty('paid')) {
                 obj['paid'] = ApiClient.convertToType(data['paid'], 'Number');
             }
-            if (data.hasOwnProperty('newSearchFromSupervisor')) {
-                obj['newSearchFromSupervisor'] = ApiClient.convertToType(data['newSearchFromSupervisor'], 'Number');
-            }
-            if (data.hasOwnProperty('newSearchFromClient')) {
-                obj['newSearchFromClient'] = ApiClient.convertToType(data['newSearchFromClient'], 'Number');
-            }
-            if (data.hasOwnProperty('inProcessOfSearching')) {
-                obj['inProcessOfSearching'] = ApiClient.convertToType(data['inProcessOfSearching'], 'Number');
-            }
-            if (data.hasOwnProperty('canceled')) {
-                obj['canceled'] = ApiClient.convertToType(data['canceled'], 'Number');
+            if (data.hasOwnProperty('rejected')) {
+                obj['rejected'] = ApiClient.convertToType(data['rejected'], 'Number');
             }
         }
         return obj;
@@ -81,9 +72,9 @@ class InlineResponse20023Products {
 InlineResponse20023Products.prototype['all'] = undefined;
 
 /**
- * @member {Number} success
+ * @member {Number} publishedOnExchange
  */
-InlineResponse20023Products.prototype['success'] = undefined;
+InlineResponse20023Products.prototype['publishedOnExchange'] = undefined;
 
 /**
  * @member {Number} paid
@@ -91,24 +82,9 @@ InlineResponse20023Products.prototype['success'] = undefined;
 InlineResponse20023Products.prototype['paid'] = undefined;
 
 /**
- * @member {Number} newSearchFromSupervisor
+ * @member {Number} rejected
  */
-InlineResponse20023Products.prototype['newSearchFromSupervisor'] = undefined;
-
-/**
- * @member {Number} newSearchFromClient
- */
-InlineResponse20023Products.prototype['newSearchFromClient'] = undefined;
-
-/**
- * @member {Number} inProcessOfSearching
- */
-InlineResponse20023Products.prototype['inProcessOfSearching'] = undefined;
-
-/**
- * @member {Number} canceled
- */
-InlineResponse20023Products.prototype['canceled'] = undefined;
+InlineResponse20023Products.prototype['rejected'] = undefined;
 
 
 

@@ -22,11 +22,12 @@ class InlineObject17 {
     /**
      * Constructs a new <code>InlineObject17</code>.
      * @alias module:model/InlineObject17
-     * @param attachedDocuments {Array.<String>} 
+     * @param userIds {Array.<String>} 
+     * @param title {String} Название группового чата
      */
-    constructor(attachedDocuments) { 
+    constructor(userIds, title) { 
         
-        InlineObject17.initialize(this, attachedDocuments);
+        InlineObject17.initialize(this, userIds, title);
     }
 
     /**
@@ -34,8 +35,9 @@ class InlineObject17 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, attachedDocuments) { 
-        obj['attachedDocuments'] = attachedDocuments;
+    static initialize(obj, userIds, title) { 
+        obj['userIds'] = userIds;
+        obj['title'] = title;
     }
 
     /**
@@ -49,8 +51,11 @@ class InlineObject17 {
         if (data) {
             obj = obj || new InlineObject17();
 
-            if (data.hasOwnProperty('attachedDocuments')) {
-                obj['attachedDocuments'] = ApiClient.convertToType(data['attachedDocuments'], ['String']);
+            if (data.hasOwnProperty('userIds')) {
+                obj['userIds'] = ApiClient.convertToType(data['userIds'], ['String']);
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -60,9 +65,15 @@ class InlineObject17 {
 }
 
 /**
- * @member {Array.<String>} attachedDocuments
+ * @member {Array.<String>} userIds
  */
-InlineObject17.prototype['attachedDocuments'] = undefined;
+InlineObject17.prototype['userIds'] = undefined;
+
+/**
+ * Название группового чата
+ * @member {String} title
+ */
+InlineObject17.prototype['title'] = undefined;
 
 
 

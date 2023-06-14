@@ -592,11 +592,11 @@ export const CreatedByMenuItem = React.memo(
     }) => {
       useEffect(() => {
         onClickFilterBtn('createdBy')
-        onClickFilterBtn('subUsers')
+        onClickFilterBtn('sub')
       }, [])
 
-      const filterData = [...data.createdBy.filterData, ...data.subUsers.filterData] || []
-      const currentFilterData = [...data.createdBy.currentFilterData, ...data.subUsers.currentFilterData] || []
+      const filterData = [...data.createdBy.filterData, ...data.sub.filterData] || []
+      const currentFilterData = [...data.createdBy.currentFilterData, ...data.sub.currentFilterData] || []
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -610,7 +610,6 @@ export const CreatedByMenuItem = React.memo(
 
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
 
-      console.log('itemsForRender', itemsForRender)
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
@@ -623,7 +622,7 @@ export const CreatedByMenuItem = React.memo(
                 Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
             ),
         )
-      }, [data.createdBy.filterData, data.subUsers.filterData])
+      }, [data.createdBy.filterData, data.sub.filterData])
 
       useEffect(() => {
         if (nameSearchValue) {
@@ -686,8 +685,8 @@ export const CreatedByMenuItem = React.memo(
                 if (choosenItems.some(item => data.createdBy.filterData.some(obj => obj._id === item._id))) {
                   onChangeFullFieldMenuItem(choosenItems, 'createdBy')
                 }
-                if (choosenItems.some(item => data.subUsers.filterData.some(obj => obj._id === item._id))) {
-                  onChangeFullFieldMenuItem(choosenItems, 'subUsers')
+                if (choosenItems.some(item => data.sub.filterData.some(obj => obj._id === item._id))) {
+                  onChangeFullFieldMenuItem(choosenItems, 'sub')
                 }
 
                 onClickAccept()
@@ -1150,7 +1149,7 @@ export const FreelancerToWorkConfirmationMenuItem = React.memo(
 
       const { filterData, currentFilterData } = data
 
-      const [choosenItems, setChoosenItems] = useState(filterData)
+      const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
       const onClickItem = value => {
         if (choosenItems.some(item => item === value)) {
@@ -1161,8 +1160,8 @@ export const FreelancerToWorkConfirmationMenuItem = React.memo(
       }
 
       useEffect(() => {
-        setChoosenItems(filterData)
-      }, [filterData])
+        setChoosenItems(currentFilterData)
+      }, [currentFilterData])
 
       return (
         <div className={classNames.shopsDataWrapper}>
@@ -1932,7 +1931,7 @@ export const NumberFieldMenuItem = React.memo(
                               checked={choosenItems?.some(item => item === el)}
                               onClick={() => onClickItem(el)}
                             />
-                            <div className={classNames.shopName}>{toFixed(el, 0) || 0}</div>
+                            <div className={classNames.shopName}>{toFixed(el, 2) || 0}</div>
                           </div>
                         ))}
                     </>

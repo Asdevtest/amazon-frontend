@@ -141,7 +141,6 @@ export const OrderModalBodyRow = ({
     }
   }, [orderState.amount])
 
-  console.log(item)
   return (
     <React.Fragment>
       <TableRow

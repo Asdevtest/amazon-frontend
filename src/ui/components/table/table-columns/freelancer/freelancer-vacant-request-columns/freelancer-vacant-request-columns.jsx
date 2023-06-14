@@ -183,7 +183,7 @@ export const FreelancerVacantRequestColumns = handlers => [
     width: 140,
     // type: 'date',
 
-    columnKey: columnnsKeys.shared.D,
+    columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
   },
 
   {

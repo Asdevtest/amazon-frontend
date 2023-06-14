@@ -4,10 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**requestId** | **String** | Guid заявки | [optional] 
-**proposalId** | **String** | Guid предложения | [optional] 
-**commentByClient** | **String** | комментарий клиента | [optional] 
-**commentByPerformer** | **String** | комментарий исполнителя | [optional] 
-**fileLink** | **String** | Ссылка на файл | 
+**clientComment** | **String** |  | 
+**priceForClient** | **Number** | Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика. | 
 
 

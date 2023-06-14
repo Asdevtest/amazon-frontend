@@ -12,7 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20015 from './InlineResponse20015';
+import InlineResponse20017AllFiles from './InlineResponse20017AllFiles';
+import InlineResponse20017AllImages from './InlineResponse20017AllImages';
 
 /**
  * The InlineResponse20017 model module.
@@ -22,7 +23,6 @@ import InlineResponse20015 from './InlineResponse20015';
 class InlineResponse20017 {
     /**
      * Constructs a new <code>InlineResponse20017</code>.
-     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20017
      */
     constructor() { 
@@ -49,11 +49,11 @@ class InlineResponse20017 {
         if (data) {
             obj = obj || new InlineResponse20017();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('allImages')) {
+                obj['allImages'] = ApiClient.convertToType(data['allImages'], [InlineResponse20017AllImages]);
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20015]);
+            if (data.hasOwnProperty('allFiles')) {
+                obj['allFiles'] = ApiClient.convertToType(data['allFiles'], [InlineResponse20017AllFiles]);
             }
         }
         return obj;
@@ -63,16 +63,14 @@ class InlineResponse20017 {
 }
 
 /**
- * Всего кол-во записей в результате запроса
- * @member {Number} count
+ * @member {Array.<module:model/InlineResponse20017AllImages>} allImages
  */
-InlineResponse20017.prototype['count'] = undefined;
+InlineResponse20017.prototype['allImages'] = undefined;
 
 /**
- * Массив коробок c пагинацией(заданная страничка).
- * @member {Array.<module:model/InlineResponse20015>} rows
+ * @member {Array.<module:model/InlineResponse20017AllFiles>} allFiles
  */
-InlineResponse20017.prototype['rows'] = undefined;
+InlineResponse20017.prototype['allFiles'] = undefined;
 
 
 

@@ -58,7 +58,7 @@ export const clientOrdersViewColumns = handlers => [
     sortable: false,
     filterable: false,
 
-    columnKey: columnnsKeys.client.INVENTORY_SHOPS,
+    // columnKey: columnnsKeys.client.INVENTORY_SHOPS,
   },
 
   {

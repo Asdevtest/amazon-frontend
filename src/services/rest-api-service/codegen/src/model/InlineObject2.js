@@ -21,13 +21,11 @@ import ApiClient from '../ApiClient';
 class InlineObject2 {
     /**
      * Constructs a new <code>InlineObject2</code>.
-     * Схема подтверждения возрата коробок на склад
      * @alias module:model/InlineObject2
-     * @param boxId {String} GUID коробки, который планируем изменить
      */
-    constructor(boxId) { 
+    constructor() { 
         
-        InlineObject2.initialize(this, boxId);
+        InlineObject2.initialize(this);
     }
 
     /**
@@ -35,8 +33,7 @@ class InlineObject2 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxId) { 
-        obj['boxId'] = boxId;
+    static initialize(obj) { 
     }
 
     /**
@@ -50,8 +47,23 @@ class InlineObject2 {
         if (data) {
             obj = obj || new InlineObject2();
 
-            if (data.hasOwnProperty('boxId')) {
-                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('commentByClient')) {
+                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
+            }
+            if (data.hasOwnProperty('commentByPerformer')) {
+                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
+            }
+            if (data.hasOwnProperty('fileLink')) {
+                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
+            }
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            }
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
         }
         return obj;
@@ -61,10 +73,40 @@ class InlineObject2 {
 }
 
 /**
- * GUID коробки, который планируем изменить
- * @member {String} boxId
+ * Гуид медиа
+ * @member {String} _id
  */
-InlineObject2.prototype['boxId'] = undefined;
+InlineObject2.prototype['_id'] = undefined;
+
+/**
+ * комментарий клиента
+ * @member {String} commentByClient
+ */
+InlineObject2.prototype['commentByClient'] = undefined;
+
+/**
+ * комментарий исполнителя
+ * @member {String} commentByPerformer
+ */
+InlineObject2.prototype['commentByPerformer'] = undefined;
+
+/**
+ * Ссылка на файл
+ * @member {String} fileLink
+ */
+InlineObject2.prototype['fileLink'] = undefined;
+
+/**
+ * Файл для записи в FreelanceSource
+ * @member {String} proposalId
+ */
+InlineObject2.prototype['proposalId'] = undefined;
+
+/**
+ * Комментарий к файлу
+ * @member {String} requestId
+ */
+InlineObject2.prototype['requestId'] = undefined;
 
 
 

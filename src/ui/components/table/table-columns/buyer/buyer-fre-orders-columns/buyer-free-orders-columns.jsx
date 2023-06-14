@@ -57,7 +57,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
         tooltipText={t(TranslationKey['To assign the order to Byer'])}
         bTnText={t(TranslationKey['Get to work'])}
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        onClickOkBtn={handlers.onClickTableRowBtn(params.row)}
+        onClickOkBtn={() => handlers.onClickTableRowBtn(params.row)}
       />
     ),
     filterable: false,

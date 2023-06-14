@@ -22,10 +22,11 @@ class InlineObject98 {
     /**
      * Constructs a new <code>InlineObject98</code>.
      * @alias module:model/InlineObject98
+     * @param productIds {Array.<String>} 
      */
-    constructor() { 
+    constructor(productIds) { 
         
-        InlineObject98.initialize(this);
+        InlineObject98.initialize(this, productIds);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject98 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productIds) { 
+        obj['productIds'] = productIds;
     }
 
     /**
@@ -47,20 +49,8 @@ class InlineObject98 {
         if (data) {
             obj = obj || new InlineObject98();
 
-            if (data.hasOwnProperty('commentByClient')) {
-                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
-            }
-            if (data.hasOwnProperty('commentByPerformer')) {
-                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
-            }
-            if (data.hasOwnProperty('fileLink')) {
-                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
-            }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
-            }
-            if (data.hasOwnProperty('requestId')) {
-                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            if (data.hasOwnProperty('productIds')) {
+                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
             }
         }
         return obj;
@@ -70,34 +60,9 @@ class InlineObject98 {
 }
 
 /**
- * комментарий клиента
- * @member {String} commentByClient
+ * @member {Array.<String>} productIds
  */
-InlineObject98.prototype['commentByClient'] = undefined;
-
-/**
- * комментарий исполнителя
- * @member {String} commentByPerformer
- */
-InlineObject98.prototype['commentByPerformer'] = undefined;
-
-/**
- * Ссылка на файл
- * @member {String} fileLink
- */
-InlineObject98.prototype['fileLink'] = undefined;
-
-/**
- * Файл для записи в FreelanceSource
- * @member {String} proposalId
- */
-InlineObject98.prototype['proposalId'] = undefined;
-
-/**
- * Комментарий к файлу
- * @member {String} requestId
- */
-InlineObject98.prototype['requestId'] = undefined;
+InlineObject98.prototype['productIds'] = undefined;
 
 
 

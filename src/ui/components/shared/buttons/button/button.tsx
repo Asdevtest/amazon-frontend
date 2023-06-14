@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { cx } from '@emotion/css'
 import { Box } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
@@ -26,6 +27,7 @@ interface Props {
   color?: string
   success?: boolean
   danger?: boolean
+  border?: boolean
   className?: string
   disabled?: boolean
   onClick?: () => void
@@ -44,6 +46,7 @@ export const Button: FC<Props> = observer(
     children,
     success,
     danger,
+    border,
     className,
     disabled,
     btnWrapperStyle,
@@ -62,6 +65,7 @@ export const Button: FC<Props> = observer(
 
     return (
       <div className={cx(classNames.btnWrapper, btnWrapperStyle)}>
+        {/* @ts-ignore */}
         <StyledButton
           disableElevation
           color={color || 'primary'}
@@ -73,6 +77,7 @@ export const Button: FC<Props> = observer(
               {
                 [classNames.success]: success,
                 [classNames.danger]: danger,
+                [classNames.border]: border,
                 // [classNames.disabled]: disabled,
                 [classNames.defaultButton]: !success && !danger && !variant,
               },

@@ -211,4 +211,19 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: 15,
   },
+
+  listingCheckbox: {
+    color: theme.palette.primary.main,
+  },
+
+  listingText: {
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.primary.main,
+  },
+
+  listingButton: {
+    width: '100%',
+  },
 }))

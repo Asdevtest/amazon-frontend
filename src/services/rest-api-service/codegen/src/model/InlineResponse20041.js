@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20038Finances from './InlineResponse20038Finances';
+import InlineResponse20041Rows from './InlineResponse20041Rows';
 
 /**
  * The InlineResponse20041 model module.
@@ -48,8 +48,11 @@ class InlineResponse20041 {
         if (data) {
             obj = obj || new InlineResponse20041();
 
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20038Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            }
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20041Rows]);
             }
         }
         return obj;
@@ -59,9 +62,15 @@ class InlineResponse20041 {
 }
 
 /**
- * @member {module:model/InlineResponse20038Finances} finances
+ * @member {Number} count
  */
-InlineResponse20041.prototype['finances'] = undefined;
+InlineResponse20041.prototype['count'] = undefined;
+
+/**
+ * Массив заявок.
+ * @member {Array.<module:model/InlineResponse20041Rows>} rows
+ */
+InlineResponse20041.prototype['rows'] = undefined;
 
 
 

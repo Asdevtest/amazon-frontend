@@ -12,9 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20038Finances from './InlineResponse20038Finances';
-import InlineResponse20042Checking from './InlineResponse20042Checking';
-import InlineResponse20042Products from './InlineResponse20042Products';
 
 /**
  * The InlineResponse20042 model module.
@@ -50,14 +47,29 @@ class InlineResponse20042 {
         if (data) {
             obj = obj || new InlineResponse20042();
 
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20042Products.constructFromObject(data['products']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('checking')) {
-                obj['checking'] = InlineResponse20042Checking.constructFromObject(data['checking']);
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20038Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            }
+            if (data.hasOwnProperty('commentByClient')) {
+                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
+            }
+            if (data.hasOwnProperty('commentByPerformer')) {
+                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
+            }
+            if (data.hasOwnProperty('fileLink')) {
+                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -67,19 +79,52 @@ class InlineResponse20042 {
 }
 
 /**
- * @member {module:model/InlineResponse20042Products} products
+ * GUID в базе данных
+ * @member {String} _id
  */
-InlineResponse20042.prototype['products'] = undefined;
+InlineResponse20042.prototype['_id'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20042Checking} checking
+ * Guid заявки к которой относится данное media.
+ * @member {String} requestId
  */
-InlineResponse20042.prototype['checking'] = undefined;
+InlineResponse20042.prototype['requestId'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20038Finances} finances
+ * Guid предложения к которой относится данное media.
+ * @member {String} proposalId
  */
-InlineResponse20042.prototype['finances'] = undefined;
+InlineResponse20042.prototype['proposalId'] = undefined;
+
+/**
+ * комментарий клиента
+ * @member {String} commentByClient
+ */
+InlineResponse20042.prototype['commentByClient'] = undefined;
+
+/**
+ * комментарий исполнителя
+ * @member {String} commentByPerformer
+ */
+InlineResponse20042.prototype['commentByPerformer'] = undefined;
+
+/**
+ * Ссылка на файл
+ * @member {String} fileLink
+ */
+InlineResponse20042.prototype['fileLink'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} createdAt
+ */
+InlineResponse20042.prototype['createdAt'] = undefined;
+
+/**
+ * Дата обновления.
+ * @member {Date} updatedAt
+ */
+InlineResponse20042.prototype['updatedAt'] = undefined;
 
 
 

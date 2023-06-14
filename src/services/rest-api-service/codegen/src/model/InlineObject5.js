@@ -47,23 +47,11 @@ class InlineObject5 {
         if (data) {
             obj = obj || new InlineObject5();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('boxId')) {
+                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
             }
-            if (data.hasOwnProperty('commentByClient')) {
-                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
-            }
-            if (data.hasOwnProperty('commentByPerformer')) {
-                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
-            }
-            if (data.hasOwnProperty('fileLink')) {
-                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
-            }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
-            }
-            if (data.hasOwnProperty('requestId')) {
-                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            if (data.hasOwnProperty('prepId')) {
+                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
             }
         }
         return obj;
@@ -73,40 +61,16 @@ class InlineObject5 {
 }
 
 /**
- * Гуид медиа
- * @member {String} _id
+ * Гуид коробки
+ * @member {String} boxId
  */
-InlineObject5.prototype['_id'] = undefined;
+InlineObject5.prototype['boxId'] = undefined;
 
 /**
- * комментарий клиента
- * @member {String} commentByClient
+ * Значение prepId
+ * @member {String} prepId
  */
-InlineObject5.prototype['commentByClient'] = undefined;
-
-/**
- * комментарий исполнителя
- * @member {String} commentByPerformer
- */
-InlineObject5.prototype['commentByPerformer'] = undefined;
-
-/**
- * Ссылка на файл
- * @member {String} fileLink
- */
-InlineObject5.prototype['fileLink'] = undefined;
-
-/**
- * Файл для записи в FreelanceSource
- * @member {String} proposalId
- */
-InlineObject5.prototype['proposalId'] = undefined;
-
-/**
- * Комментарий к файлу
- * @member {String} requestId
- */
-InlineObject5.prototype['requestId'] = undefined;
+InlineObject5.prototype['prepId'] = undefined;
 
 
 

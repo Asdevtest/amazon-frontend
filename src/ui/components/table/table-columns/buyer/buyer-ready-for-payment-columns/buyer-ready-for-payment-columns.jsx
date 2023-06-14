@@ -115,7 +115,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
     },
 
     {
-      field: 'payments',
+      field: 'paymentMethod',
       headerName: t(TranslationKey['Payment methods']),
       renderHeader: params => (
         <MultilineTextHeaderCell
@@ -126,7 +126,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderCell: params => {
         return (
           <StringListCell
-            sourceString={params?.value?.map(method => method?.paymentMethod?.title)}
+            sourceString={params?.row?.originalData?.payments?.map(method => method?.paymentMethod?.title)}
             maxItemsDisplay={3}
             maxLettersInItem={15}
             onClickCell={() => rowHandlers.onClickPaymentMethodCell(params?.row?.originalData)}
@@ -148,12 +148,14 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
 
       renderCell: params => (
         <MultilineTextCell
-          text={toFixed(
-            params.row.originalData.partialPayment
-              ? params.row.originalData.partialPaymentAmountRmb
-              : params.row.originalData.priceInYuan,
-            2,
-          )}
+          text={
+            toFixed(
+              params.row.originalData.partialPayment
+                ? params.row.originalData.partialPaymentAmountRmb
+                : params.row.originalData.priceInYuan,
+              2,
+            ) || '0'
+          }
         />
       ),
       type: 'number',
@@ -320,7 +322,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       headerName: t(TranslationKey['Paid for']) + ', Ұ',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Paid for']) + ', Ұ'} />,
 
-      renderCell: params => <MultilineTextCell text={toFixed(params.row.originalData.partiallyPaid, 2)} />,
+      renderCell: params => <MultilineTextCell text={toFixed(params.row.originalData.partiallyPaid, 2) || '0'} />,
       type: 'number',
       width: 110,
     })

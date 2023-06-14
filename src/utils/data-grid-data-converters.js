@@ -78,6 +78,7 @@ export const myRequestsDataConverter = data =>
     verifyingProposals: item?.countProposalsByStatuses?.verifyingProposals,
     waitedProposals: item?.countProposalsByStatuses?.waitedProposals,
     typeTask: item?.typeTask,
+    uploadedToListing: item?.uploadedToListing,
   }))
 
 export const researcherCustomRequestsDataConverter = data =>
@@ -411,6 +412,7 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
 
     shippingLabel: item.shippingLabel,
     fbaShipment: item.fbaShipment,
+    variationTariff: item?.variationTariff,
     volumeWeightCoefficient,
 
     orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items

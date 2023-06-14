@@ -74,6 +74,7 @@ export const DataGridTablesKeys = {
   CLIENT_ORDERS_NOTIFICATIONS: 'clientOrdersNotificationsDataGridState',
   CLIENT_BOXES_NOTIFICATIONS: 'clientBoxesNotificationsDataGridState',
   CLIENT_IDEAS_NOTIFICATIONS: 'clientIdeasNotificationsDataGridState',
+  CLIENT_FREELANCE_NOTIFICATIONS: 'clientFreelanceNotificationsDataGridState',
 
   CLIENT_WAREHOUSE: 'clientWarehouseDataGridState',
   CLIENT_PRODUCT_SEARCH_REQUESTS: 'clientProductSearchRequestsDataGridState',

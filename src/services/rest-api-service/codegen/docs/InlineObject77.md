@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**userId** | **String** |  | [optional] 
-**productIds** | **[String]** |  | [optional] 
+**email** | **String** | Почта от аккаунта, пароль которого Вы забыли | 
 
 
