@@ -1182,7 +1182,8 @@ export const WarehouseDestinationAndTariffCell = React.memo(
                 boxesMy?.logicsTariff?._id
                   ? destinations
                       .filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
-                      .filter(el => el?._id === boxesMy?.logicsTariff?._id)
+                      // .filter(el => el?._id === boxesMy?.logicsTariff?._id)
+                      .filter(el => el?._id === boxesMy?.variationTariff?.destinationId)
                   : destinations.filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
               }
               searchFields={['name']}
