@@ -192,7 +192,10 @@ export class AdminUsersViewModel {
         this.availableSubUsers = !!(await AdministratorModel.getUsersById(this.rowSelectionModel)).subUsers.length
       }
 
-      if (this.checkValidationNameOrEmail.nameIsUnique || this.checkValidationNameOrEmail.emailIsUnique) {
+      if (
+        this.checkValidationNameOrEmail.nameIsUnique === false ||
+        this.checkValidationNameOrEmail.emailIsUnique === false
+      ) {
         return
       } else if (this.availableSubUsers) {
         this.onTriggerOpenModal('showConfirmModal')
