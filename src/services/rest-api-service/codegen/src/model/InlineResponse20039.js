@@ -12,9 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20039Batches from './InlineResponse20039Batches';
-import InlineResponse20039Boxes from './InlineResponse20039Boxes';
-import InlineResponse20039Tasks from './InlineResponse20039Tasks';
 
 /**
  * The InlineResponse20039 model module.
@@ -50,14 +47,29 @@ class InlineResponse20039 {
         if (data) {
             obj = obj || new InlineResponse20039();
 
-            if (data.hasOwnProperty('tasks')) {
-                obj['tasks'] = InlineResponse20039Tasks.constructFromObject(data['tasks']);
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = InlineResponse20039Boxes.constructFromObject(data['boxes']);
+            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
+                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
             }
-            if (data.hasOwnProperty('batches')) {
-                obj['batches'] = InlineResponse20039Batches.constructFromObject(data['batches']);
+            if (data.hasOwnProperty('platformMargin')) {
+                obj['platformMargin'] = ApiClient.convertToType(data['platformMargin'], 'Number');
+            }
+            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
+                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
+            }
+            if (data.hasOwnProperty('supervisorFee')) {
+                obj['supervisorFee'] = ApiClient.convertToType(data['supervisorFee'], 'Number');
+            }
+            if (data.hasOwnProperty('unitCost')) {
+                obj['unitCost'] = ApiClient.convertToType(data['unitCost'], 'Number');
+            }
+            if (data.hasOwnProperty('maxAmountOfProposals')) {
+                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
+            }
+            if (data.hasOwnProperty('totalCost')) {
+                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
             }
         }
         return obj;
@@ -67,19 +79,52 @@ class InlineResponse20039 {
 }
 
 /**
- * @member {module:model/InlineResponse20039Tasks} tasks
+ * Цена за каждое предложение.
+ * @member {Number} price
  */
-InlineResponse20039.prototype['tasks'] = undefined;
+InlineResponse20039.prototype['price'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20039Boxes} boxes
+ * Процент с каждого предложения, маржа платформы, в процентах.
+ * @member {Number} requestPlatformMarginInPercent
  */
-InlineResponse20039.prototype['boxes'] = undefined;
+InlineResponse20039.prototype['requestPlatformMarginInPercent'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20039Batches} batches
+ * Услуги платформы.
+ * @member {Number} platformMargin
  */
-InlineResponse20039.prototype['batches'] = undefined;
+InlineResponse20039.prototype['platformMargin'] = undefined;
+
+/**
+ * Процент с каждого предложения для супервайзера, в процентах.
+ * @member {Number} requestSupervisorFeeInPercent
+ */
+InlineResponse20039.prototype['requestSupervisorFeeInPercent'] = undefined;
+
+/**
+ * Услуги супервайзера.
+ * @member {Number} supervisorFee
+ */
+InlineResponse20039.prototype['supervisorFee'] = undefined;
+
+/**
+ * Сумма.
+ * @member {Number} unitCost
+ */
+InlineResponse20039.prototype['unitCost'] = undefined;
+
+/**
+ * Количество предложений, не менее.
+ * @member {Number} maxAmountOfProposals
+ */
+InlineResponse20039.prototype['maxAmountOfProposals'] = undefined;
+
+/**
+ * Итого.
+ * @member {Number} totalCost
+ */
+InlineResponse20039.prototype['totalCost'] = undefined;
 
 
 

@@ -4,9 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**product** | [**ApiV1IdeasNotificationsProduct**](ApiV1IdeasNotificationsProduct.md) |  | [optional] 
-**idea** | [**ApiV1IdeasNotificationsIdea**](ApiV1IdeasNotificationsIdea.md) |  | [optional] 
-**createdBy** | [**ApiV1IdeasNotificationsCreatedBy**](ApiV1IdeasNotificationsCreatedBy.md) |  | [optional] 
-**createdAt** | **String** |  | [optional] 
+**_id** | **String** | ID магазина. | [optional] 
+**name** | **String** | Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами. | [optional] 
+**sellerBoardWarehouseReportUrlDaily** | **String** | URL для скачивания ежедневных отчетов SellerBoard. | [optional] 
+**sellerBoardWarehouseReportUrlMonthly** | **String** | URL для скачивания отчетов SellerBoard за последний месяц. | [optional] 
+**ownerId** | **String** | GUID, владелеца. | [optional] 
+**createdById** | **String** | GUID любого, кто последний создал. | [optional] 
+**lastModifiedById** | **String** | GUID любого, кто последний редактировал. | [optional] 
+**createdAt** | **Date** | Дата создания | [optional] 
+**updatedAt** | **Date** | Дата изменения | [optional] 
 
 

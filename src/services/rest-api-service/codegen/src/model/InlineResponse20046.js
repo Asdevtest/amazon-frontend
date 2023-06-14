@@ -12,9 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IdeasNotificationsCreatedBy from './ApiV1IdeasNotificationsCreatedBy';
-import ApiV1IdeasNotificationsIdea from './ApiV1IdeasNotificationsIdea';
-import ApiV1IdeasNotificationsProduct from './ApiV1IdeasNotificationsProduct';
 
 /**
  * The InlineResponse20046 model module.
@@ -24,6 +21,7 @@ import ApiV1IdeasNotificationsProduct from './ApiV1IdeasNotificationsProduct';
 class InlineResponse20046 {
     /**
      * Constructs a new <code>InlineResponse20046</code>.
+     * Схема магазина.
      * @alias module:model/InlineResponse20046
      */
     constructor() { 
@@ -50,17 +48,32 @@ class InlineResponse20046 {
         if (data) {
             obj = obj || new InlineResponse20046();
 
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = ApiV1IdeasNotificationsProduct.constructFromObject(data['product']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('idea')) {
-                obj['idea'] = ApiV1IdeasNotificationsIdea.constructFromObject(data['idea']);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1IdeasNotificationsCreatedBy.constructFromObject(data['createdBy']);
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
+                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            }
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
+                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            }
+            if (data.hasOwnProperty('ownerId')) {
+                obj['ownerId'] = ApiClient.convertToType(data['ownerId'], 'String');
+            }
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            }
+            if (data.hasOwnProperty('lastModifiedById')) {
+                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
             }
             if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -70,24 +83,58 @@ class InlineResponse20046 {
 }
 
 /**
- * @member {module:model/ApiV1IdeasNotificationsProduct} product
+ * ID магазина.
+ * @member {String} _id
  */
-InlineResponse20046.prototype['product'] = undefined;
+InlineResponse20046.prototype['_id'] = undefined;
 
 /**
- * @member {module:model/ApiV1IdeasNotificationsIdea} idea
+ * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+ * @member {String} name
  */
-InlineResponse20046.prototype['idea'] = undefined;
+InlineResponse20046.prototype['name'] = undefined;
 
 /**
- * @member {module:model/ApiV1IdeasNotificationsCreatedBy} createdBy
+ * URL для скачивания ежедневных отчетов SellerBoard.
+ * @member {String} sellerBoardWarehouseReportUrlDaily
  */
-InlineResponse20046.prototype['createdBy'] = undefined;
+InlineResponse20046.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
 
 /**
- * @member {String} createdAt
+ * URL для скачивания отчетов SellerBoard за последний месяц.
+ * @member {String} sellerBoardWarehouseReportUrlMonthly
+ */
+InlineResponse20046.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+
+/**
+ * GUID, владелеца.
+ * @member {String} ownerId
+ */
+InlineResponse20046.prototype['ownerId'] = undefined;
+
+/**
+ * GUID любого, кто последний создал.
+ * @member {String} createdById
+ */
+InlineResponse20046.prototype['createdById'] = undefined;
+
+/**
+ * GUID любого, кто последний редактировал.
+ * @member {String} lastModifiedById
+ */
+InlineResponse20046.prototype['lastModifiedById'] = undefined;
+
+/**
+ * Дата создания
+ * @member {Date} createdAt
  */
 InlineResponse20046.prototype['createdAt'] = undefined;
+
+/**
+ * Дата изменения
+ * @member {Date} updatedAt
+ */
+InlineResponse20046.prototype['updatedAt'] = undefined;
 
 
 

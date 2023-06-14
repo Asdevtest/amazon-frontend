@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import UserInfoSchemaFreelanceNotices from './UserInfoSchemaFreelanceNotices';
 import UserInfoSchemaMasterUser from './UserInfoSchemaMasterUser';
 import UserInfoSchemaNeedConfirmPriceChange from './UserInfoSchemaNeedConfirmPriceChange';
 import UserInfoSchemaNeedUpdateTariff from './UserInfoSchemaNeedUpdateTariff';
@@ -203,6 +204,9 @@ class UserInfoSchema {
             }
             if (data.hasOwnProperty('buyerFoundSupplier')) {
                 obj['buyerFoundSupplier'] = ApiClient.convertToType(data['buyerFoundSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('freelanceNotices')) {
+                obj['freelanceNotices'] = ApiClient.convertToType(data['freelanceNotices'], [UserInfoSchemaFreelanceNotices]);
             }
         }
         return obj;
@@ -504,6 +508,11 @@ UserInfoSchema.prototype['productIsAppropriate'] = undefined;
  * @member {Number} buyerFoundSupplier
  */
 UserInfoSchema.prototype['buyerFoundSupplier'] = undefined;
+
+/**
+ * @member {Array.<module:model/UserInfoSchemaFreelanceNotices>} freelanceNotices
+ */
+UserInfoSchema.prototype['freelanceNotices'] = undefined;
 
 
 

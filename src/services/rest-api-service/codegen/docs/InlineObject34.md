@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**isFormed** | **Boolean** | Сформирована ли коробка | 
+**clientComment** | **String** | Комментарий клиента | [optional] 
+**buyerComment** | **String** | Комментарий баера | [optional] 
 
 

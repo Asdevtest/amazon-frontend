@@ -22,11 +22,12 @@ class InlineObject99 {
     /**
      * Constructs a new <code>InlineObject99</code>.
      * @alias module:model/InlineObject99
-     * @param fileLink {String} Ссылка на файл
+     * @param clientComment {String} 
+     * @param priceForClient {Number} Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
      */
-    constructor(fileLink) { 
+    constructor(clientComment, priceForClient) { 
         
-        InlineObject99.initialize(this, fileLink);
+        InlineObject99.initialize(this, clientComment, priceForClient);
     }
 
     /**
@@ -34,8 +35,9 @@ class InlineObject99 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, fileLink) { 
-        obj['fileLink'] = fileLink;
+    static initialize(obj, clientComment, priceForClient) { 
+        obj['clientComment'] = clientComment;
+        obj['priceForClient'] = priceForClient;
     }
 
     /**
@@ -49,20 +51,11 @@ class InlineObject99 {
         if (data) {
             obj = obj || new InlineObject99();
 
-            if (data.hasOwnProperty('requestId')) {
-                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
-            }
-            if (data.hasOwnProperty('commentByClient')) {
-                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
-            }
-            if (data.hasOwnProperty('commentByPerformer')) {
-                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
-            }
-            if (data.hasOwnProperty('fileLink')) {
-                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
+            if (data.hasOwnProperty('priceForClient')) {
+                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
             }
         }
         return obj;
@@ -72,34 +65,15 @@ class InlineObject99 {
 }
 
 /**
- * Guid заявки
- * @member {String} requestId
+ * @member {String} clientComment
  */
-InlineObject99.prototype['requestId'] = undefined;
+InlineObject99.prototype['clientComment'] = undefined;
 
 /**
- * Guid предложения
- * @member {String} proposalId
+ * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+ * @member {Number} priceForClient
  */
-InlineObject99.prototype['proposalId'] = undefined;
-
-/**
- * комментарий клиента
- * @member {String} commentByClient
- */
-InlineObject99.prototype['commentByClient'] = undefined;
-
-/**
- * комментарий исполнителя
- * @member {String} commentByPerformer
- */
-InlineObject99.prototype['commentByPerformer'] = undefined;
-
-/**
- * Ссылка на файл
- * @member {String} fileLink
- */
-InlineObject99.prototype['fileLink'] = undefined;
+InlineObject99.prototype['priceForClient'] = undefined;
 
 
 

@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesMergeBoxBody from './ApiV1BoxesMergeBoxBody';
 
 /**
  * The InlineObject24 model module.
@@ -23,12 +22,10 @@ class InlineObject24 {
     /**
      * Constructs a new <code>InlineObject24</code>.
      * @alias module:model/InlineObject24
-     * @param guids {Array.<String>} Массив коробок.
-     * @param boxBody {module:model/ApiV1BoxesMergeBoxBody} 
      */
-    constructor(guids, boxBody) { 
+    constructor() { 
         
-        InlineObject24.initialize(this, guids, boxBody);
+        InlineObject24.initialize(this);
     }
 
     /**
@@ -36,9 +33,7 @@ class InlineObject24 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, guids, boxBody) { 
-        obj['guids'] = guids;
-        obj['boxBody'] = boxBody;
+    static initialize(obj) { 
     }
 
     /**
@@ -52,11 +47,41 @@ class InlineObject24 {
         if (data) {
             obj = obj || new InlineObject24();
 
-            if (data.hasOwnProperty('guids')) {
-                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('boxBody')) {
-                obj['boxBody'] = ApiV1BoxesMergeBoxBody.constructFromObject(data['boxBody']);
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
+            }
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            }
+            if (data.hasOwnProperty('productName')) {
+                obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
+            }
+            if (data.hasOwnProperty('productLinks')) {
+                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [NULL_SCHEMA_ERR]);
+            }
+            if (data.hasOwnProperty('criteria')) {
+                obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
+            }
+            if (data.hasOwnProperty('quantity')) {
+                obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('width')) {
+                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
+            }
+            if (data.hasOwnProperty('height')) {
+                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
+            }
+            if (data.hasOwnProperty('length')) {
+                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
             }
         }
         return obj;
@@ -66,15 +91,76 @@ class InlineObject24 {
 }
 
 /**
- * Массив коробок.
- * @member {Array.<String>} guids
+ * Название идеи
+ * @member {String} title
  */
-InlineObject24.prototype['guids'] = undefined;
+InlineObject24.prototype['title'] = undefined;
 
 /**
- * @member {module:model/ApiV1BoxesMergeBoxBody} boxBody
+ * Статус идеи
+ * @member {Number} status
  */
-InlineObject24.prototype['boxBody'] = undefined;
+InlineObject24.prototype['status'] = undefined;
+
+/**
+ * Images URLs
+ * @member {Array.<String>} media
+ */
+InlineObject24.prototype['media'] = undefined;
+
+/**
+ * Комментарий к идее
+ * @member {String} comments
+ */
+InlineObject24.prototype['comments'] = undefined;
+
+/**
+ * Назавние продукта
+ * @member {String} productName
+ */
+InlineObject24.prototype['productName'] = undefined;
+
+/**
+ * Ссылки на продукт, если есть
+ * @member {Array.<String>} productLinks
+ */
+InlineObject24.prototype['productLinks'] = undefined;
+
+/**
+ * Дополнительные критерии для поиска товара
+ * @member {String} criteria
+ */
+InlineObject24.prototype['criteria'] = undefined;
+
+/**
+ * Количество товаров
+ * @member {Number} quantity
+ */
+InlineObject24.prototype['quantity'] = undefined;
+
+/**
+ * Желаемая цена
+ * @member {Number} price
+ */
+InlineObject24.prototype['price'] = undefined;
+
+/**
+ * Ширина, см
+ * @member {Number} width
+ */
+InlineObject24.prototype['width'] = undefined;
+
+/**
+ * Высота, см
+ * @member {Number} height
+ */
+InlineObject24.prototype['height'] = undefined;
+
+/**
+ * Длина, см
+ * @member {Number} length
+ */
+InlineObject24.prototype['length'] = undefined;
 
 
 

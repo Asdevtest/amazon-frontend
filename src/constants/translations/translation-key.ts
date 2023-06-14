@@ -1983,6 +1983,7 @@ export enum TranslationKey {
   'Responsible' = 'Responsible',
   'Uploaded by on listing' = 'Uploaded by on listing',
   'Partial payment' = 'Partial payment',
+  'Unread messages' = 'Unread messages',
   // '' = '',
   // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР

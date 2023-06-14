@@ -22,10 +22,12 @@ class InlineObject75 {
     /**
      * Constructs a new <code>InlineObject75</code>.
      * @alias module:model/InlineObject75
+     * @param userId {String} Гуид саба
+     * @param comment {String} Заметка о сабе написаная мастером
      */
-    constructor() { 
+    constructor(userId, comment) { 
         
-        InlineObject75.initialize(this);
+        InlineObject75.initialize(this, userId, comment);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject75 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, userId, comment) { 
+        obj['userId'] = userId;
+        obj['comment'] = comment;
     }
 
     /**
@@ -47,14 +51,11 @@ class InlineObject75 {
         if (data) {
             obj = obj || new InlineObject75();
 
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            if (data.hasOwnProperty('userId')) {
+                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('strategy')) {
-                obj['strategy'] = ApiClient.convertToType(data['strategy'], 'String');
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
         }
         return obj;
@@ -64,58 +65,19 @@ class InlineObject75 {
 }
 
 /**
- * ASIN продукта
- * @member {String} asin
+ * Гуид саба
+ * @member {String} userId
  */
-InlineObject75.prototype['asin'] = undefined;
+InlineObject75.prototype['userId'] = undefined;
 
 /**
- * Причина
- * @member {String} reason
+ * Заметка о сабе написаная мастером
+ * @member {String} comment
  */
-InlineObject75.prototype['reason'] = undefined;
-
-/**
- * Стратегия
- * @member {module:model/InlineObject75.StrategyEnum} strategy
- */
-InlineObject75.prototype['strategy'] = undefined;
+InlineObject75.prototype['comment'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>strategy</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject75['StrategyEnum'] = {
-
-    /**
-     * value: "10"
-     * @const
-     */
-    "10": "10",
-
-    /**
-     * value: "20"
-     * @const
-     */
-    "20": "20",
-
-    /**
-     * value: "30"
-     * @const
-     */
-    "30": "30",
-
-    /**
-     * value: "40"
-     * @const
-     */
-    "40": "40"
-};
 
 
 

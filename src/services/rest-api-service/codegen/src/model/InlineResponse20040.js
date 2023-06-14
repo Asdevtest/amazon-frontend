@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20038Finances from './InlineResponse20038Finances';
-import InlineResponse20040Products from './InlineResponse20040Products';
 
 /**
  * The InlineResponse20040 model module.
@@ -49,11 +47,11 @@ class InlineResponse20040 {
         if (data) {
             obj = obj || new InlineResponse20040();
 
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20040Products.constructFromObject(data['products']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20038Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
             }
         }
         return obj;
@@ -63,14 +61,16 @@ class InlineResponse20040 {
 }
 
 /**
- * @member {module:model/InlineResponse20040Products} products
+ * Гуид заявки
+ * @member {String} _id
  */
-InlineResponse20040.prototype['products'] = undefined;
+InlineResponse20040.prototype['_id'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20038Finances} finances
+ * удобный ключ заявки
+ * @member {Number} humanFriendlyId
  */
-InlineResponse20040.prototype['finances'] = undefined;
+InlineResponse20040.prototype['humanFriendlyId'] = undefined;
 
 
 

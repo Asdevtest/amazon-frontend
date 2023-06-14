@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | GUID созданной коробки | [optional] 
+**fileName** | **String** | Имя файла для доступа к нему. | [optional] 
 
 

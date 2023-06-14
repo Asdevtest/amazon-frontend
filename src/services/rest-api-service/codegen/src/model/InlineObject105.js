@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineObject105 {
     /**
      * Constructs a new <code>InlineObject105</code>.
-     * Схема магазина.
      * @alias module:model/InlineObject105
      */
     constructor() { 
@@ -48,14 +47,14 @@ class InlineObject105 {
         if (data) {
             obj = obj || new InlineObject105();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
-                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
-                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -65,22 +64,22 @@ class InlineObject105 {
 }
 
 /**
- * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
- * @member {String} name
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject105.prototype['name'] = undefined;
+InlineObject105.prototype['rating'] = undefined;
 
 /**
- * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
- * @member {String} sellerBoardWarehouseReportUrlDaily
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
  */
-InlineObject105.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+InlineObject105.prototype['reason'] = undefined;
 
 /**
- * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
- * @member {String} sellerBoardWarehouseReportUrlMonthly
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineObject105.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+InlineObject105.prototype['linksToMediaFiles'] = undefined;
 
 
 

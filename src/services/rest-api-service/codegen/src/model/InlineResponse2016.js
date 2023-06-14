@@ -58,7 +58,7 @@ class InlineResponse2016 {
 }
 
 /**
- * guid созданного объекта
+ * Гуид созданного медиа
  * @member {String} guid
  */
 InlineResponse2016.prototype['guid'] = undefined;

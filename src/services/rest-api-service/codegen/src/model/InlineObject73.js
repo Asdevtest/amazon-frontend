@@ -22,10 +22,11 @@ class InlineObject73 {
     /**
      * Constructs a new <code>InlineObject73</code>.
      * @alias module:model/InlineObject73
+     * @param title {String} 
      */
-    constructor() { 
+    constructor(title) { 
         
-        InlineObject73.initialize(this);
+        InlineObject73.initialize(this, title);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject73 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, title) { 
+        obj['title'] = title;
     }
 
     /**
@@ -47,11 +49,8 @@ class InlineObject73 {
         if (data) {
             obj = obj || new InlineObject73();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -61,16 +60,9 @@ class InlineObject73 {
 }
 
 /**
- * Комментарий клиента
- * @member {String} clientComment
+ * @member {String} title
  */
-InlineObject73.prototype['clientComment'] = undefined;
-
-/**
- * Комментарий баера
- * @member {String} buyerComment
- */
-InlineObject73.prototype['buyerComment'] = undefined;
+InlineObject73.prototype['title'] = undefined;
 
 
 
