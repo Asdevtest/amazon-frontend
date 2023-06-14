@@ -145,6 +145,8 @@ export const getTableByColumn = (column, hint) => {
       'sub',
       'totalPrice',
       'priceInYuan',
+      'id',
+      'item',
     ].includes(column)
   ) {
     if (hint === 'orders') {
@@ -154,8 +156,6 @@ export const getTableByColumn = (column, hint) => {
     } else {
       return 'boxes'
     }
-  } else if (['id', 'item'].includes(column)) {
-    return 'orders'
   } else if (
     [
       'asin',

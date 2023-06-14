@@ -43,10 +43,8 @@ const updateOrderKeys = [
   'images',
   'yuanToDollarRate',
   'paymentDetails',
-
   'amount',
   'orderSupplierId',
-
   'item',
   'priceInYuan',
   'priceBatchDeliveryInYuan',
@@ -56,6 +54,8 @@ const updateOrderKeys = [
 ]
 
 const filtersFields = [
+  'id',
+  'item',
   'asin',
   'skusByClient',
   'amazonTitle',
@@ -281,11 +281,12 @@ export class BuyerMyOrdersViewModel {
   }
 
   getFilter(exclusion) {
+    const idFilter = exclusion !== 'id' && this.columnMenuSettings.id.currentFilterData.join(',')
+    const itemFilter = exclusion !== 'item' && this.columnMenuSettings.item.currentFilterData.join(',')
+
     const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin?.currentFilterData.join(',')
     const skusByClientFilter =
-      exclusion !== 'skusByClient' &&
-      this.columnMenuSettings.skusByClient.currentFilterData /* .map(el => `"${el}"`) */
-        .join(',')
+      exclusion !== 'skusByClient' && this.columnMenuSettings.skusByClient.currentFilterData.join(',')
     const amazonTitleFilter =
       exclusion !== 'amazonTitle' &&
       this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
@@ -306,12 +307,26 @@ export class BuyerMyOrdersViewModel {
       exclusion !== 'priceInYuan' && this.columnMenuSettings.priceInYuan?.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
-      archive: { $eq: this.isArchive },
       or: [
         { asin: { $contains: this.nameSearchValue } },
         { amazonTitle: { $contains: this.nameSearchValue } },
         { skusByClient: { $contains: this.nameSearchValue } },
-      ],
+        { id: { $eq: this.nameSearchValue } },
+        { item: { $eq: this.nameSearchValue } },
+      ].filter(
+        el =>
+          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
+            !el.id &&
+            !el.humanFriendlyId) ||
+          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+      ),
+
+      ...(idFilter && {
+        id: { $eq: idFilter },
+      }),
+      ...(itemFilter && {
+        item: { $eq: itemFilter },
+      }),
 
       ...(asinFilter && {
         asin: { $eq: asinFilter },
