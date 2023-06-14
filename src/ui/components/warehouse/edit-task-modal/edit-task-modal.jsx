@@ -200,6 +200,7 @@ export const EditTaskModal = observer(
             {!readOnly ? (
               <div className={classNames.imageFileInputWrapper}>
                 <UploadFilesInput
+                  fullWidth
                   dragAndDropBtnHeight={74}
                   images={photosOfTask}
                   setImages={setPhotosOfTask}
