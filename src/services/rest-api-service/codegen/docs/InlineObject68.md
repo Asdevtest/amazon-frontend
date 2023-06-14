@@ -4,6 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**requestStatus** | **String** | новый статус заявки | [optional] 
+**name** | **String** | Название склада. | [optional] 
+**country** | **String** | Страна. | [optional] 
+**zipCode** | **String** | Индекс. 5 цифр. | [optional] 
+**state** | **String** | Штат. | [optional] 
+**city** | **String** | Город. | [optional] 
+**address** | **String** | Адрес склада. | [optional] 
+**fontColor** | **String** | Цвет шрифта | [optional] 
 
 

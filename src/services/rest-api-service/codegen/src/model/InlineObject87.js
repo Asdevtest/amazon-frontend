@@ -22,10 +22,11 @@ class InlineObject87 {
     /**
      * Constructs a new <code>InlineObject87</code>.
      * @alias module:model/InlineObject87
+     * @param attachedDocuments {Array.<String>} 
      */
-    constructor() { 
+    constructor(attachedDocuments) { 
         
-        InlineObject87.initialize(this);
+        InlineObject87.initialize(this, attachedDocuments);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject87 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, attachedDocuments) { 
+        obj['attachedDocuments'] = attachedDocuments;
     }
 
     /**
@@ -47,14 +49,8 @@ class InlineObject87 {
         if (data) {
             obj = obj || new InlineObject87();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
-            }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('attachedDocuments')) {
+                obj['attachedDocuments'] = ApiClient.convertToType(data['attachedDocuments'], ['String']);
             }
         }
         return obj;
@@ -64,22 +60,9 @@ class InlineObject87 {
 }
 
 /**
- * Поставить оценку юзеру
- * @member {Number} rating
+ * @member {Array.<String>} attachedDocuments
  */
-InlineObject87.prototype['rating'] = undefined;
-
-/**
- * Комментарий причин изменения статуса.
- * @member {String} reason
- */
-InlineObject87.prototype['reason'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject87.prototype['linksToMediaFiles'] = undefined;
+InlineObject87.prototype['attachedDocuments'] = undefined;
 
 
 

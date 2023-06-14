@@ -22,12 +22,12 @@ class InlineObject32 {
     /**
      * Constructs a new <code>InlineObject32</code>.
      * @alias module:model/InlineObject32
-     * @param boxIds {Array.<String>} 
-     * @param newAmounts {Array.<Number>} 
+     * @param productId {String} 
+     * @param skus {Array.<String>} 
      */
-    constructor(boxIds, newAmounts) { 
+    constructor(productId, skus) { 
         
-        InlineObject32.initialize(this, boxIds, newAmounts);
+        InlineObject32.initialize(this, productId, skus);
     }
 
     /**
@@ -35,9 +35,9 @@ class InlineObject32 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxIds, newAmounts) { 
-        obj['boxIds'] = boxIds;
-        obj['newAmounts'] = newAmounts;
+    static initialize(obj, productId, skus) { 
+        obj['productId'] = productId;
+        obj['skus'] = skus;
     }
 
     /**
@@ -51,11 +51,11 @@ class InlineObject32 {
         if (data) {
             obj = obj || new InlineObject32();
 
-            if (data.hasOwnProperty('boxIds')) {
-                obj['boxIds'] = ApiClient.convertToType(data['boxIds'], ['String']);
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('newAmounts')) {
-                obj['newAmounts'] = ApiClient.convertToType(data['newAmounts'], ['Number']);
+            if (data.hasOwnProperty('skus')) {
+                obj['skus'] = ApiClient.convertToType(data['skus'], ['String']);
             }
         }
         return obj;
@@ -65,14 +65,14 @@ class InlineObject32 {
 }
 
 /**
- * @member {Array.<String>} boxIds
+ * @member {String} productId
  */
-InlineObject32.prototype['boxIds'] = undefined;
+InlineObject32.prototype['productId'] = undefined;
 
 /**
- * @member {Array.<Number>} newAmounts
+ * @member {Array.<String>} skus
  */
-InlineObject32.prototype['newAmounts'] = undefined;
+InlineObject32.prototype['skus'] = undefined;
 
 
 

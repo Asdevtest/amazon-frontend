@@ -208,7 +208,7 @@ export const EditOrderModal = observer(
       deliveryCostToTheWarehouse:
         order?.deliveryCostToTheWarehouse ||
         (order?.priceInYuan !== 0 && Number(order?.deliveryCostToTheWarehouse) === 0 && '0') ||
-        (order.orderSupplier.batchDeliveryCostInDollar / order.orderSupplier.amount) * order.amount ||
+        (order?.orderSupplier?.batchDeliveryCostInDollar / order?.orderSupplier?.amount) * order?.amount ||
         0,
       priceBatchDeliveryInYuan:
         // order?.priceBatchDeliveryInYuan ||
@@ -216,7 +216,7 @@ export const EditOrderModal = observer(
         // 0,
         order?.priceBatchDeliveryInYuan ||
         (order?.priceInYuan !== 0 && Number(order?.priceBatchDeliveryInYuan) === 0 && '0') ||
-        (order.orderSupplier.batchDeliveryCostInYuan / order.orderSupplier.amount) * order.amount ||
+        (order?.orderSupplier?.batchDeliveryCostInYuan / order?.orderSupplier?.amount) * order?.amount ||
         0,
       trackId: '',
       material: order?.product?.material || '',
@@ -237,8 +237,6 @@ export const EditOrderModal = observer(
     }
 
     const [orderFields, setOrderFields] = useState(initialState)
-
-    console.log(orderFields)
 
     const validOrderPayments = orderFields?.orderSupplier?.paymentMethods?.length
       ? orderFields?.orderSupplier?.paymentMethods.filter(
@@ -905,7 +903,7 @@ export const EditOrderModal = observer(
                 className={classNames.supplierCheckboxWrapper}
                 onClick={() => {
                   if (
-                    orderFields?.orderSupplier?.createdBy._id !== userInfo._id &&
+                    orderFields?.orderSupplier?.createdBy?._id !== userInfo?._id &&
                     userInfo?.masterUser?._id !== orderFields?.orderSupplier?.createdBy?._id
                   ) {
                     return
@@ -917,7 +915,7 @@ export const EditOrderModal = observer(
                 <Checkbox
                   disabled={
                     isPendingOrder ||
-                    (orderFields?.orderSupplier?.createdBy._id !== userInfo._id &&
+                    (orderFields?.orderSupplier?.createdBy?._id !== userInfo?._id &&
                       userInfo?.masterUser?._id !== orderFields?.orderSupplier?.createdBy?._id)
                   }
                   checked={updateSupplierData}

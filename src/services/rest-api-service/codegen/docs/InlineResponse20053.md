@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**productId** | **String** |  | [optional] 
-**shopIds** | **[String]** | Массив магазинов | [optional] 
+**_id** | **String** | GUID метода оплаты в базе данных | [optional] 
+**title** | **String** |  | [optional] 
+**updatedAt** | **Date** | Дата обновления. | [optional] 
 
 

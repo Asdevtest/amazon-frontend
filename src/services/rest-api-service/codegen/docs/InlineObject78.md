@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**suppliersIds** | **[String]** | GUIDы поставщиков, которые нужно добавить в БД. | [optional] 
+**hash** | **String** | Токен, который юзер получает через почту | 
+**password** | **String** | Новый пароль | [optional] 
 
 

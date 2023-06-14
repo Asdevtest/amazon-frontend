@@ -4,6 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**additionalBoxes** | [**[InlineObject19]**](InlineObject19.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
+**rating** | **Number** | Поставить оценку юзеру | [optional] 
+**reason** | **String** | Комментарий причин изменения статуса. | [optional] 
+**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
+**timeLimitInMinutes** | **Number** |  | [optional] 
+**media** | [**[ApiV1RequestProposalsGuidResultToCorrectMedia]**](ApiV1RequestProposalsGuidResultToCorrectMedia.md) |  | [optional] 
 
 

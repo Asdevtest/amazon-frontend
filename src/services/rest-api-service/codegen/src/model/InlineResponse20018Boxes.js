@@ -47,11 +47,14 @@ class InlineResponse20018Boxes {
         if (data) {
             obj = obj || new InlineResponse20018Boxes();
 
-            if (data.hasOwnProperty('all')) {
-                obj['all'] = ApiClient.convertToType(data['all'], 'Number');
+            if (data.hasOwnProperty('inStock')) {
+                obj['inStock'] = ApiClient.convertToType(data['inStock'], 'Number');
             }
-            if (data.hasOwnProperty('requestedShipment')) {
-                obj['requestedShipment'] = ApiClient.convertToType(data['requestedShipment'], 'Number');
+            if (data.hasOwnProperty('requestedSendToBatch')) {
+                obj['requestedSendToBatch'] = ApiClient.convertToType(data['requestedSendToBatch'], 'Number');
+            }
+            if (data.hasOwnProperty('inBatchOnTheWay')) {
+                obj['inBatchOnTheWay'] = ApiClient.convertToType(data['inBatchOnTheWay'], 'Number');
             }
         }
         return obj;
@@ -61,14 +64,19 @@ class InlineResponse20018Boxes {
 }
 
 /**
- * @member {Number} all
+ * @member {Number} inStock
  */
-InlineResponse20018Boxes.prototype['all'] = undefined;
+InlineResponse20018Boxes.prototype['inStock'] = undefined;
 
 /**
- * @member {Number} requestedShipment
+ * @member {Number} requestedSendToBatch
  */
-InlineResponse20018Boxes.prototype['requestedShipment'] = undefined;
+InlineResponse20018Boxes.prototype['requestedSendToBatch'] = undefined;
+
+/**
+ * @member {Number} inBatchOnTheWay
+ */
+InlineResponse20018Boxes.prototype['inBatchOnTheWay'] = undefined;
 
 
 
