@@ -393,11 +393,13 @@ import UserAdminFullSchema from './model/UserAdminFullSchema';
 import UserFullSchema from './model/UserFullSchema';
 import UserFullSchemaNote from './model/UserFullSchemaNote';
 import UserInfoSchema from './model/UserInfoSchema';
+import UserInfoSchemaFreelanceNotices from './model/UserInfoSchemaFreelanceNotices';
 import UserInfoSchemaMasterUser from './model/UserInfoSchemaMasterUser';
 import UserInfoSchemaNeedConfirmPriceChange from './model/UserInfoSchemaNeedConfirmPriceChange';
 import UserInfoSchemaNeedUpdateTariff from './model/UserInfoSchemaNeedUpdateTariff';
 import UserInfoSchemaPermissionGroups from './model/UserInfoSchemaPermissionGroups';
 import UserInfoSchemaPermissions from './model/UserInfoSchemaPermissions';
+import UserInfoSchemaRequest from './model/UserInfoSchemaRequest';
 import UserRegisterSchema from './model/UserRegisterSchema';
 import UserSettingInputSchema from './model/UserSettingInputSchema';
 import UserSettingInputSchemaData from './model/UserSettingInputSchemaData';
@@ -2750,6 +2752,12 @@ export {
     UserInfoSchema,
 
     /**
+     * The UserInfoSchemaFreelanceNotices model constructor.
+     * @property {module:model/UserInfoSchemaFreelanceNotices}
+     */
+    UserInfoSchemaFreelanceNotices,
+
+    /**
      * The UserInfoSchemaMasterUser model constructor.
      * @property {module:model/UserInfoSchemaMasterUser}
      */
@@ -2778,6 +2786,12 @@ export {
      * @property {module:model/UserInfoSchemaPermissions}
      */
     UserInfoSchemaPermissions,
+
+    /**
+     * The UserInfoSchemaRequest model constructor.
+     * @property {module:model/UserInfoSchemaRequest}
+     */
+    UserInfoSchemaRequest,
 
     /**
      * The UserRegisterSchema model constructor.
