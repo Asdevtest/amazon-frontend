@@ -50,12 +50,15 @@ export const Freelance = observer(({ productId }) => {
     isSomeFilterOn,
     columnMenuSettings,
     columnVisibilityModel,
+    rowCount,
     getCurrentData,
     onSearchSubmit,
     onClickTaskType,
     onTriggerOpenModal,
     onClickResetFilters,
     onColumnVisibilityModelChange,
+    onChangeSortingModel,
+    onChangePaginationModelChange,
   } = freelanceModel.current
 
   return (
@@ -90,6 +93,7 @@ export const Freelance = observer(({ productId }) => {
           pagination
           localeText={getLocalizationByLanguageTag()}
           propsToRerender={{ onHover }}
+          rowCount={rowCount}
           classes={{
             row: classNames.row,
             root: classNames.root,
@@ -127,9 +131,15 @@ export const Freelance = observer(({ productId }) => {
             Toolbar: DataGridCustomToolbar,
             ColumnMenuIcon: FilterAltOutlinedIcon,
           }}
+          sortingMode="server"
+          paginationMode="server"
           density={densityModel}
           columns={columnsModel}
           loading={requestStatus === loadingStatuses.isLoading}
+          columnVisibilityModel={columnVisibilityModel}
+          onColumnVisibilityModelChange={onColumnVisibilityModelChange}
+          onSortModelChange={onChangeSortingModel}
+          onPaginationModelChange={onChangePaginationModelChange}
         />
       </div>
 
