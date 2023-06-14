@@ -56,6 +56,9 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
       />
     ),
 
+    filterable: false,
+    sortable: false,
+
     columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
   },
 
@@ -87,6 +90,9 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
       )
     },
     width: 300,
+
+    filterable: false,
+    sortable: false,
 
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
@@ -123,6 +129,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
     renderCell: params => <MultilineRequestStatusCell /* languageTag={languageTag} */ status={params.value} />,
     width: 161,
     filterable: false,
+    sortable: false,
 
     columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
   },
@@ -151,7 +158,10 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
     ),
     width: 110,
 
-    columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
+    filterable: false,
+    sortable: false,
+
+    // columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
   },
 
   {
@@ -167,6 +177,9 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
 
     renderCell: params => <ManyUserLinkCell usersData={params.row.originalData?.product?.subUsers} />,
     width: 187,
+
+    filterable: false,
+    sortable: false,
 
     // columnKey: columnnsKeys.shared.OBJECT,
   },
