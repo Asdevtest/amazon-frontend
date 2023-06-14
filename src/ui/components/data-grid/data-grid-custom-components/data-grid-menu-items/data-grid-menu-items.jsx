@@ -1932,7 +1932,7 @@ export const NumberFieldMenuItem = React.memo(
                               checked={choosenItems?.some(item => item === el)}
                               onClick={() => onClickItem(el)}
                             />
-                            <div className={classNames.shopName}>{toFixed(el, 0) || 0}</div>
+                            <div className={classNames.shopName}>{toFixed(el, 2) || 0}</div>
                           </div>
                         ))}
                     </>
