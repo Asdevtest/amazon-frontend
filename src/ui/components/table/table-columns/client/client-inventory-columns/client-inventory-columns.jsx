@@ -250,7 +250,7 @@ export const clientInventoryColumns = (
 
     renderCell: params => (
       <InStockCell
-        boxAmounts={() => params.row.originalData.boxAmounts}
+        boxAmounts={params.row.originalData.boxAmounts}
         boxId={params.row.originalData._id}
         onClickInStock={otherHandlers.onClickInStock}
       />
