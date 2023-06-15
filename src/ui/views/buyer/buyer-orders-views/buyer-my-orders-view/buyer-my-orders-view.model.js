@@ -24,7 +24,7 @@ import { buyerMyOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
-import { objectToUrlQs, toFixed } from '@utils/text'
+import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
