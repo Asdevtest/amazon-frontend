@@ -25,6 +25,7 @@ import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
+
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 import { GeneralModel } from '@models/general-model'
@@ -40,10 +41,8 @@ const updateOrderKeys = [
   'images',
   'yuanToDollarRate',
   'paymentDetails',
-
   'amount',
   'orderSupplierId',
-
   'item',
   'priceInYuan',
   'priceBatchDeliveryInYuan',
@@ -52,7 +51,32 @@ const updateOrderKeys = [
   'partialPayment',
 ]
 
-const filtersFields = ['payments', 'paymentMethods']
+const filtersFields = [
+  'id',
+  'item',
+  'priority',
+  'asin',
+  'skusByClient',
+  'amazonTitle',
+  'paymentDetailsAttached',
+  'status',
+  'amount',
+  'totalPrice',
+  'paymentMethods',
+  'priceInYuan',
+  'storekeeper',
+  'productionTerm',
+  'deadline',
+  'paymentDateToSupplier',
+  'needsResearch',
+  'client',
+  'destination',
+  'clientComment',
+  'buyerComment',
+  'createdAt',
+  'updatedAt',
+  'partiallyPaid',
+]
 
 export class BuyerMyOrdersViewModel {
   history = undefined
@@ -125,7 +149,7 @@ export class BuyerMyOrdersViewModel {
   }
 
   rowHandlers = {
-    onClickPaymentMethodCell: row => this.onClickPaymentMethodCell(row),
+    onClickPaymentMethodsCell: row => this.onClickPaymentMethodsCell(row),
   }
 
   rowCount = 0
@@ -147,10 +171,11 @@ export class BuyerMyOrdersViewModel {
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
     onClickAccept: () => {
       this.onLeaveColumnField()
-
       this.getOrdersMy()
       this.getDataGridState()
     },
+
+    filterRequestStatus: undefined,
 
     ...filtersFields.reduce(
       (ac, cur) =>
@@ -218,14 +243,6 @@ export class BuyerMyOrdersViewModel {
           this.currentData = this.getCurrentData()
         }),
     )
-
-    // reaction(
-    //   () => this.columnMenuSettings.payments.currentFilterData,
-    //   () =>
-    //     runInAction(() => {
-    //       this.currentData = this.getCurrentData()
-    //     }),
-    // )
   }
 
   // async onClickFilterBtn(column) {
@@ -258,12 +275,12 @@ export class BuyerMyOrdersViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const data = await GeneralModel.getDataForColumn(
-        getTableByColumn(column),
-        column,
+      const table = getTableByColumn(column, column === 'productionTerm' ? 'suppliers' : 'orders')
+      const endpoint = `buyers/orders/pag/my?filters=${this.getFilter(column)}`
 
-        `buyers/orders/pag/my?filters=${this.getFilter(column)}`,
-      )
+      const data = await GeneralModel.getDataForColumn(table, column, endpoint)
+
+      console.log('data', data)
 
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
@@ -284,25 +301,165 @@ export class BuyerMyOrdersViewModel {
   }
 
   getFilter(exclusion) {
+    const idFilter = exclusion !== 'id' && this.columnMenuSettings.id?.currentFilterData.join(',')
+    const itemFilter = exclusion !== 'item' && this.columnMenuSettings.item?.currentFilterData.join(',')
+
+    const priorityFilter = exclusion !== 'priority' && this.columnMenuSettings.priority.currentFilterData.join(',')
+
+    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin?.currentFilterData.join(',')
+    const skusByClientFilter =
+      exclusion !== 'skusByClient' && this.columnMenuSettings.skusByClient?.currentFilterData.join(',')
+    const amazonTitleFilter =
+      exclusion !== 'amazonTitle' &&
+      this.columnMenuSettings.amazonTitle?.currentFilterData.map(el => `"${el}"`).join(',')
+
+    const paymentDetailsAttachedFilter =
+      exclusion !== 'paymentDetailsAttached' &&
+      this.columnMenuSettings.paymentDetailsAttached?.currentFilterData.join(',')
+
+    const amountFilter = exclusion !== 'amount' && this.columnMenuSettings.amount?.currentFilterData.join(',')
+
+    const totalPriceFilter =
+      exclusion !== 'totalPrice' && this.columnMenuSettings.totalPrice?.currentFilterData.join(',')
+
     const paymentMethodsFilter =
-      exclusion !== 'humanFriendlyId' &&
-      this.columnMenuSettings.paymentMethods.currentFilterData.map(item => item._id).join(',')
+      exclusion !== 'humanFriendlyId' && this.columnMenuSettings.paymentMethods.currentFilterData.join(',')
+
+    const priceInYuanFilter =
+      exclusion !== 'priceInYuan' && this.columnMenuSettings.priceInYuan?.currentFilterData.join(',')
+
+    const storekeeperFilter =
+      exclusion !== 'storekeeper' && this.columnMenuSettings.storekeeper?.currentFilterData.join(',')
+
+    const productionTermFilter =
+      exclusion !== 'productionTerm' && this.columnMenuSettings.productionTerm?.currentFilterData.join(',')
+
+    const deadlineFilter = exclusion !== 'deadline' && this.columnMenuSettings.deadline?.currentFilterData.join(',')
+
+    const paymentDateToSupplierFilter =
+      exclusion !== 'paymentDateToSupplier' &&
+      this.columnMenuSettings.paymentDateToSupplier?.currentFilterData.join(',')
+
+    const needsResearchFilter =
+      exclusion !== 'needsResearch' && this.columnMenuSettings.needsResearch?.currentFilterData.join(',')
+
+    const clientFilter = exclusion !== 'client' && this.columnMenuSettings.client?.currentFilterData.join(',')
+
+    const destinationFilter =
+      exclusion !== 'destination' && this.columnMenuSettings.destination?.currentFilterData.join(',')
+
+    const clientCommentFilter =
+      exclusion !== 'clientComment' && this.columnMenuSettings.clientComment?.currentFilterData.join(',')
+
+    const buyerCommentFilter =
+      exclusion !== 'buyerComment' && this.columnMenuSettings.buyerComment?.currentFilterData.join(',')
+
+    const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt?.currentFilterData.join(',')
+    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt?.currentFilterData.join(',')
+
+    const partiallyPaidFilter =
+      exclusion !== 'partiallyPaid' && this.columnMenuSettings.partiallyPaid?.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
       or: [
         { asin: { $contains: this.nameSearchValue } },
         { amazonTitle: { $contains: this.nameSearchValue } },
         { skusByClient: { $contains: this.nameSearchValue } },
-        { item: { $eq: this.nameSearchValue } },
         { id: { $eq: this.nameSearchValue } },
+        { item: { $eq: this.nameSearchValue } },
       ].filter(
         el =>
-          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
+          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
+            !el.id &&
+            !el.humanFriendlyId) ||
           !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
       ),
 
+      ...(idFilter && {
+        id: { $eq: idFilter },
+      }),
+      ...(itemFilter && {
+        item: { $eq: itemFilter },
+      }),
+
+      ...(priorityFilter && {
+        priority: { $eq: priorityFilter },
+      }),
+
+      ...(asinFilter && {
+        asin: { $eq: asinFilter },
+      }),
+      ...(skusByClientFilter && {
+        skusByClient: { $eq: skusByClientFilter },
+      }),
+      ...(amazonTitleFilter && {
+        amazonTitle: { $eq: amazonTitleFilter },
+      }),
+
+      ...(amountFilter && {
+        amount: { $eq: amountFilter },
+      }),
+
+      ...(totalPriceFilter && {
+        totalPrice: { $eq: totalPriceFilter },
+      }),
+
+      ...(paymentDetailsAttachedFilter && {
+        paymentDetailsAttached: { $eq: paymentDetailsAttachedFilter },
+      }),
+
+      ...(priceInYuanFilter && {
+        priceInYuan: { $eq: priceInYuanFilter },
+      }),
+
       ...(paymentMethodsFilter && {
         paymentMethods: { $eq: paymentMethodsFilter },
+      }),
+
+      ...(storekeeperFilter && {
+        storekeeper: { $eq: storekeeperFilter },
+      }),
+
+      ...(productionTermFilter && {
+        productionTerm: { $eq: productionTermFilter },
+      }),
+
+      ...(deadlineFilter && {
+        deadline: { $eq: deadlineFilter },
+      }),
+
+      ...(paymentDateToSupplierFilter && {
+        paymentDateToSupplier: { $eq: paymentDateToSupplierFilter },
+      }),
+
+      ...(needsResearchFilter && {
+        needsResearch: { $eq: needsResearchFilter },
+      }),
+
+      ...(clientFilter && {
+        client: { $eq: clientFilter },
+      }),
+
+      ...(destinationFilter && {
+        destination: { $eq: destinationFilter },
+      }),
+
+      ...(clientCommentFilter && {
+        clientComment: { $eq: clientCommentFilter },
+      }),
+      ...(buyerCommentFilter && {
+        buyerComment: { $eq: buyerCommentFilter },
+      }),
+
+      ...(createdAtFilter && {
+        createdAt: { $eq: createdAtFilter },
+      }),
+      ...(updatedAtFilter && {
+        updatedAt: { $eq: updatedAtFilter },
+      }),
+
+      ...(partiallyPaidFilter && {
+        partiallyPaid: { $eq: partiallyPaidFilter },
       }),
     })
 
@@ -662,7 +819,9 @@ export class BuyerMyOrdersViewModel {
     if (this.columnMenuSettings.payments.currentFilterData.length) {
       const curPaymentsIds = this.columnMenuSettings.payments.currentFilterData.map(el => el._id)
 
-      return toJS(this.ordersMy).filter(el => el.payments.some(item => curPaymentsIds.includes(item.paymentMethod._id)))
+      return toJS(this.ordersMy).filter(el =>
+        el.payments.some(item => curPaymentsIds.includes(item.paymentMethods._id)),
+      )
     } else {
       return toJS(this.ordersMy)
     }
@@ -674,7 +833,7 @@ export class BuyerMyOrdersViewModel {
     this.isReadyForPayment = currentStatus.some(status => status === OrderStatus.READY_FOR_PAYMENT)
   }
 
-  async onClickPaymentMethodCell(row) {
+  async onClickPaymentMethodsCell(row) {
     await this.getSuppliersPaymentMethods()
     runInAction(() => {
       this.currentOrder = row
@@ -811,7 +970,7 @@ export class BuyerMyOrdersViewModel {
   async saveOrderPayment(order, orderPayments) {
     if (Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
       try {
-        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
+        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethods?._id)]
         const validOrderPayments = []
         for (const payment of orderPayments) {
           if (payment?.photosForLoad?.length) {
@@ -824,7 +983,7 @@ export class BuyerMyOrdersViewModel {
           this.clearReadyImages()
 
           const validObj = {
-            paymentMethodId: payment?.paymentMethod._id,
+            paymentMethodId: payment?.paymentMethods._id,
             paymentDetails: payment?.paymentDetails,
             paymentImages: readyPhotosForLoad,
           }
@@ -967,7 +1126,7 @@ export class BuyerMyOrdersViewModel {
       }
 
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}`) {
-        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
+        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethods?._id)]
 
         const validOrderPayments = []
         for (const payment of orderPayments) {
@@ -981,7 +1140,7 @@ export class BuyerMyOrdersViewModel {
           this.clearReadyImages()
 
           const validObj = {
-            paymentMethodId: payment?.paymentMethod._id,
+            paymentMethodId: payment?.paymentMethods._id,
             paymentDetails: payment?.paymentDetails,
             paymentImages: readyPhotosForLoad,
           }

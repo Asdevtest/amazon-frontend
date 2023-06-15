@@ -149,16 +149,38 @@ export const objectToUrlQs = obj => decodeURI(QueryString.stringify(obj).replace
 
 export const getTableByColumn = (column, hint) => {
   if (
-    ['humanFriendlyId', 'amount', 'destination', 'logicsTariff', 'prepId', 'storekeeper', 'batchId', 'sub'].includes(
-      column,
-    )
+    [
+      'humanFriendlyId',
+      'amount',
+      'destination',
+      'logicsTariff',
+      'prepId',
+      'storekeeper',
+      'batchId',
+      'sub',
+      'totalPrice',
+      'priceInYuan',
+      'productionTerm',
+      'deadline',
+      'paymentDateToSupplier',
+      'paymentDetailsAttached',
+      'needsResearch',
+      'client',
+      'clientComment',
+      'buyerComment',
+      'partiallyPaid',
+    ].includes(column)
   ) {
-    if (hint === 'requests') {
+    if (hint === 'suppliers') {
+      return 'suppliers'
+    } else if (hint === 'orders') {
+      return 'orders'
+    } else if (hint === 'requests') {
       return 'requests'
     } else {
       return 'boxes'
     }
-  } else if (['id', 'item'].includes(column)) {
+  } else if (['id', 'item', 'paymentMethods'].includes(column)) {
     return 'orders'
   } else if (
     [
@@ -194,11 +216,14 @@ export const getTableByColumn = (column, hint) => {
     return 'products'
     // }
   } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags'].includes(column)) {
-    if (hint === 'boxes') {
+    if (hint === 'orders') {
+      return 'orders'
+    } else if (hint === 'boxes') {
       return 'boxes'
     } else if (hint === 'products') {
       return 'products'
-    } else if (hint === 'requests') {
+    }
+    if (hint === 'requests') {
       return 'requests'
     }
   } else if (
@@ -214,6 +239,10 @@ export const getTableByColumn = (column, hint) => {
       'withoutConfirmation',
     ].includes(column)
   ) {
+    if (hint === 'orders') {
+      return 'orders'
+    }
+
     return 'requests'
   } else if (['paymentMethods'].includes(column)) {
     return 'suppliers'
