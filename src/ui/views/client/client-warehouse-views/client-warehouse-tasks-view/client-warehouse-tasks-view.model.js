@@ -20,6 +20,8 @@ import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDate } from '@utils/date-time'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
+import { OtherModel } from '@models/other-model'
+import { TaskOperationType } from '@constants/task/task-operation-type'
 
 const filtersFields = ['operationType', 'status', 'storekeeper', 'priority']
 
@@ -33,6 +35,7 @@ export class ClientWarehouseTasksViewModel {
   nameSearchValue = ''
 
   currentData = []
+  selectedBoxes = []
 
   showConfirmModal = false
 
@@ -127,6 +130,10 @@ export class ClientWarehouseTasksViewModel {
         this.error = error
       })
     }
+  }
+
+  onHoverColumnField(field) {
+    this.onHover = field
   }
 
   async getStorekeepers() {
@@ -235,6 +242,19 @@ export class ClientWarehouseTasksViewModel {
   onSelectionModel(model) {
     runInAction(() => {
       this.selectedBoxes = model
+    })
+  }
+
+  onClickReportBtn() {
+    this.setRequestStatus(loadingStatuses.isLoading)
+    this.selectedBoxes.forEach((el, index) => {
+      const taskId = el
+
+      OtherModel.getReportTaskByTaskId(taskId).then(() => {
+        if (index === this.selectedBoxes.length - 1) {
+          this.setRequestStatus(loadingStatuses.success)
+        }
+      })
     })
   }
 
