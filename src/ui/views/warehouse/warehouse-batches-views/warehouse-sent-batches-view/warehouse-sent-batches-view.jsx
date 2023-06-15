@@ -23,6 +23,7 @@ import { t } from '@utils/translations'
 
 import { WarehouseSentBatchesViewModel } from './warehouse-sent-batches-view.model'
 import { styles } from './warehouse-sent-batches-view.style'
+import { Button } from '@components/shared/buttons/button'
 
 export const WarehouseSentBatchesViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseSentBatchesViewModel({ history: props.history }))
@@ -48,12 +49,24 @@ export const WarehouseSentBatchesViewRaw = props => {
               </div> */}
 
         <div className={classNames.headerWrapper}>
+          {viewModel.isArchive ? (
+            <Button variant="outlined" className={classNames.openArchiveBtn} onClick={viewModel.onTriggerArchive}>
+              {t(TranslationKey['Actual batches'])}
+            </Button>
+          ) : (
+            <Button variant="outlined" className={classNames.openArchiveBtn} onClick={viewModel.onTriggerArchive}>
+              {t(TranslationKey['Open archive'])}
+            </Button>
+          )}
+
           <SearchInput
             inputClasses={classNames.searchInput}
             value={viewModel.nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
             onSubmit={viewModel.onSearchSubmit}
           />
+
+          <div />
         </div>
 
         <div className={classNames.datagridWrapper}>
