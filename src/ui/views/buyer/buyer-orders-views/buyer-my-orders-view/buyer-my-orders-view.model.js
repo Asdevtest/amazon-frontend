@@ -170,9 +170,10 @@ export class BuyerMyOrdersViewModel {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
     onClickAccept: () => {
-      // this.onLeaveColumnField()
-      // this.getBoxesMy()
-      // this.getDataGridState()
+      this.onLeaveColumnField()
+
+      this.getOrdersMy()
+      this.getDataGridState()
     },
 
     filterRequestStatus: undefined,
@@ -418,7 +419,7 @@ export class BuyerMyOrdersViewModel {
       }),
 
       ...(paymentMethodFilter && {
-        paymentMethod: { $eq: paymentMethodFilter },
+        paymentMethods: { $eq: paymentMethodFilter },
       }),
 
       ...(storekeeperFilter && {
@@ -516,8 +517,8 @@ export class BuyerMyOrdersViewModel {
       }
     })
 
-    // this.getBoxesMy()
-    // this.getDataGridState()
+    this.getOrdersMy()
+    this.getDataGridState()
   }
 
   setDataGridTablesKeys = pathname => {
@@ -1467,5 +1468,9 @@ export class BuyerMyOrdersViewModel {
     runInAction(() => {
       this.imagesForLoad = []
     })
+  }
+
+  onLeaveColumnField() {
+    this.onHover = null
   }
 }

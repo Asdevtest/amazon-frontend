@@ -228,6 +228,8 @@ export const getTableByColumn = (column, hint) => {
     }
 
     return 'requests'
+  } else if (['paymentMethods'].includes(column)) {
+    return 'suppliers'
   }
 }
 
