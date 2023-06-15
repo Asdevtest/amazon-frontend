@@ -47,14 +47,11 @@ class InlineResponse20053 {
         if (data) {
             obj = obj || new InlineResponse20053();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
         }
         return obj;
@@ -64,21 +61,15 @@ class InlineResponse20053 {
 }
 
 /**
- * GUID метода оплаты в базе данных
- * @member {String} _id
+ * @member {String} productId
  */
-InlineResponse20053.prototype['_id'] = undefined;
+InlineResponse20053.prototype['productId'] = undefined;
 
 /**
- * @member {String} title
+ * Массив магазинов
+ * @member {Array.<String>} shopIds
  */
-InlineResponse20053.prototype['title'] = undefined;
-
-/**
- * Дата обновления.
- * @member {Date} updatedAt
- */
-InlineResponse20053.prototype['updatedAt'] = undefined;
+InlineResponse20053.prototype['shopIds'] = undefined;
 
 
 

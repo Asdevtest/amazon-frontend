@@ -95,6 +95,21 @@ export const getFullTariffTextForBoxOrOrder = box => {
   }`
 }
 
+export const getNewTariffTextForBoxOrOrder = (box, withoutRate) => {
+  if (!box || (!box.destination && !box.logicsTariff)) {
+    return t(TranslationKey['Not available'])
+  }
+
+  const firstNumOfCode = box.destination?.zipCode?.[0] || null
+
+  const regionOfDeliveryName =
+    firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+
+  const rate = box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate || box?.variationTariff?.pricePerKgUsd
+
+  return `${box.logicsTariff?.name || ''}${rate && !withoutRate ? ' / ' + rate + '$' : ''}`
+}
+
 export const shortSku = value => getShortenStringIfLongerThanCount(value, 12)
 export const shortAsin = value => getShortenStringIfLongerThanCount(value, 10)
 
@@ -207,7 +222,8 @@ export const getTableByColumn = (column, hint) => {
       return 'boxes'
     } else if (hint === 'products') {
       return 'products'
-    } else {
+    }
+    if (hint === 'requests') {
       return 'requests'
     }
   } else if (

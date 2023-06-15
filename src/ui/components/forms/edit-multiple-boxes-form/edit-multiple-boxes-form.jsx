@@ -6,6 +6,8 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import DoneIcon from '@mui/icons-material/Done'
 import { Checkbox, Chip, IconButton, Typography } from '@mui/material'
 
+import { toFixed, trimBarcode } from '@utils/text'
+
 import React, { useEffect, useState } from 'react'
 
 import { observer } from 'mobx-react'
@@ -29,7 +31,6 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './edit-multiple-boxes-form.style'
-import { trimBarcode } from '@utils/text'
 
 const Box = ({
   userInfo,
@@ -135,17 +136,18 @@ const Box = ({
 
   const curDestination = destinations.find(el => el._id === box.destinationId)
 
+  const currentStorekeeper = storekeepers.find(el => el._id === box.storekeeperId)
+  const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === box.logicsTariffId)
+
   const firstNumOfCode = curDestination?.zipCode[0]
 
   const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-  const tariffName = storekeepers
-    .find(el => el._id === box.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === box.logicsTariffId)?.name
+  const tariffName = currentLogicsTariff?.name
 
-  const tariffRate = storekeepers
-    .find(el => el._id === box.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === box.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+  const tariffRate =
+    currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
+    currentLogicsTariff?.destinationVariations?.find(el => el._id === box?.variationTariffId)?.pricePerKgUsd
 
   return (
     <div className={classNames.box}>
@@ -327,14 +329,8 @@ const Box = ({
                   >
                     {box.logicsTariffId
                       ? `${
-                          storekeepers.find(el => el._id === box.storekeeperId)?.name ||
-                          t(TranslationKey['Not available'])
-                        } /  
-                        ${
                           box.logicsTariffId
-                            ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-                                tariffRate ? ' / ' + tariffRate + ' $' : ''
-                              }`
+                            ? `${tariffName}${tariffRate ? ' / ' + toFixed(tariffRate, 2) + ' $' : ''}`
                             : 'none'
                         }`
                       : t(TranslationKey.Select)}
@@ -752,15 +748,14 @@ export const EditMultipleBoxesForm = observer(
 
     const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-    const tariffName = storekeepers
-      .find(el => el._id === sharedFields.storekeeperId)
-      ?.tariffLogistics.find(el => el._id === sharedFields.logicsTariffId)?.name
+    const currentStorekeeper = storekeepers.find(el => el._id === sharedFields.storekeeperId)
+    const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === sharedFields.logicsTariffId)
 
-    const tariffRate = storekeepers
-      .find(el => el._id === sharedFields.storekeeperId)
-      ?.tariffLogistics.find(el => el._id === sharedFields.logicsTariffId)?.conditionsByRegion[
-      regionOfDeliveryName
-    ]?.rate
+    const tariffName = currentLogicsTariff?.name
+
+    const tariffRate =
+      currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
+      currentLogicsTariff?.destinationVariations?.find(el => el._id === sharedFields?.variationTariffId)?.pricePerKgUsd
 
     const disabledSubmitBtn = newBoxes.some(
       el =>
@@ -843,16 +838,10 @@ export const EditMultipleBoxesForm = observer(
                     >
                       {sharedFields.logicsTariffId
                         ? `${
-                            storekeepers.find(el => el._id === sharedFields.storekeeperId)?.name ||
-                            t(TranslationKey['Not available'])
-                          } /
-                            ${
-                              sharedFields.logicsTariffId
-                                ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-                                    tariffRate ? ' / ' + tariffRate + ' $' : ''
-                                  }`
-                                : 'none'
-                            }`
+                            sharedFields.logicsTariffId
+                              ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
+                              : 'none'
+                          }`
                         : t(TranslationKey.Select)}
                     </Button>
                   }

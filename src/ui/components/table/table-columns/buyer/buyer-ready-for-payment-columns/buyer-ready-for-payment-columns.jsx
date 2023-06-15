@@ -52,7 +52,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       sortable: false,
       width: 60,
 
-      columnKey: columnnsKeys.shared.S,
+      columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
     },
 
     {
@@ -77,7 +77,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       ),
       width: 100,
 
-      columnKey: columnnsKeys.shared.D,
+      columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
     },
 
     {
@@ -93,7 +93,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       width: 130,
       sortable: false,
 
-      columnKey: columnnsKeys.buyer.MY_ORDERS_STATUS,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {
@@ -131,10 +131,10 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderCell: params => {
         return (
           <StringListCell
-            sourceString={params?.row?.originalData?.payments?.map(method => method?.paymentMethod?.title)}
+            sourceString={params?.row?.originalData?.payments?.map(method => method?.paymentMethods?.title)}
             maxItemsDisplay={3}
             maxLettersInItem={15}
-            onClickCell={() => rowHandlers.onClickPaymentMethodCell(params?.row?.originalData)}
+            onClickCell={() => rowHandlers.onClickPaymentMethodsCell(params?.row?.originalData)}
           />
         )
       },
@@ -180,6 +180,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       ),
       width: 160,
       sortable: false,
+      filterable: false,
     },
 
     {
@@ -260,7 +261,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderCell: params => <MultilineTextCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
       width: 100,
 
-      columnKey: columnnsKeys.shared.D,
+      columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
     },
 
     {

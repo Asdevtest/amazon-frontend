@@ -20,7 +20,7 @@ import {
   checkActualBatchWeightGreaterVolumeBatchWeight,
   getTariffRateForBoxOrOrder,
 } from './calculation'
-import { getFullTariffTextForBoxOrOrder } from './text'
+import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder } from './text'
 import { t } from './translations'
 
 export const addIdDataConverter = data =>
@@ -71,6 +71,7 @@ export const myRequestsDataConverter = data =>
     asin: item.asin,
     humanFriendlyId: item.humanFriendlyId,
     updatedAt: item.updatedAt,
+    createdAt: item.createdAt,
     timeoutAt: item.timeoutAt,
     acceptedProposals: item?.countProposalsByStatuses?.acceptedProposals,
     allProposals: item?.countProposalsByStatuses?.allProposals,
@@ -577,7 +578,7 @@ export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
     _id: item._id,
 
     destination: item.boxes[0].destination?.name,
-    tariff: getFullTariffTextForBoxOrOrder(item.boxes[0]),
+    tariff: getNewTariffTextForBoxOrOrder(item.boxes[0]),
     humanFriendlyId: item.humanFriendlyId,
 
     title: item.title,
@@ -788,7 +789,7 @@ export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
     _id: item?._id,
 
     warehouse: item?.destination?.name,
-    logicsTariff: getFullTariffTextForBoxOrOrder(item),
+    logicsTariff: getNewTariffTextForBoxOrOrder(item),
 
     client: item?.client?.name,
 

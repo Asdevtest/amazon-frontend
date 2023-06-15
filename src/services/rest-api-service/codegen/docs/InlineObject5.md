@@ -4,7 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**boxId** | **String** | Гуид коробки | [optional] 
-**prepId** | **String** | Значение prepId | [optional] 
+**_id** | **String** | Гуид медиа | [optional] 
+**commentByClient** | **String** | комментарий клиента | [optional] 
+**commentByPerformer** | **String** | комментарий исполнителя | [optional] 
+**fileLink** | **String** | Ссылка на файл | [optional] 
+**proposalId** | **String** | Файл для записи в FreelanceSource | [optional] 
+**requestId** | **String** | Комментарий к файлу | [optional] 
 
 

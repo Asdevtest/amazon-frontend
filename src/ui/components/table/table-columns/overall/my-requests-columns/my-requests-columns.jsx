@@ -21,22 +21,6 @@ import { t } from '@utils/translations'
 
 export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
   {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Updated)}
-        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
-
-    renderCell: params => <ShortDateCell value={params.value} />,
-    width: 117,
-    columnKey: columnnsKeys.shared.DATE,
-  },
-
-  {
     field: 'priority',
     headerName: t(TranslationKey['Priority and Express Delivery']),
     renderHeader: params => (
@@ -161,7 +145,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
     filterable: false,
     sortable: false,
 
-    // columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
+    columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
   },
 
   {
@@ -181,7 +165,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
     filterable: false,
     sortable: false,
 
-    // columnKey: columnnsKeys.shared.OBJECT,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -272,6 +256,38 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 115,
     // type: 'date',
+    columnKey: columnnsKeys.shared.DATE,
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Updated)}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+
+    renderCell: params => <ShortDateCell value={params.value} />,
+    width: 117,
+    columnKey: columnnsKeys.shared.DATE,
+  },
+
+  {
+    field: 'createdAt',
+    headerName: t(TranslationKey.Created),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Created)}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+
+    renderCell: params => <ShortDateCell value={params.value} />,
+    width: 117,
     columnKey: columnnsKeys.shared.DATE,
   },
 ]

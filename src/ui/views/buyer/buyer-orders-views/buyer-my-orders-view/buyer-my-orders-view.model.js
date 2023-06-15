@@ -149,7 +149,7 @@ export class BuyerMyOrdersViewModel {
   }
 
   rowHandlers = {
-    onClickPaymentMethodCell: row => this.onClickPaymentMethodCell(row),
+    onClickPaymentMethodsCell: row => this.onClickPaymentMethodsCell(row),
   }
 
   rowCount = 0
@@ -171,17 +171,11 @@ export class BuyerMyOrdersViewModel {
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
     onClickAccept: () => {
       this.onLeaveColumnField()
-
       this.getOrdersMy()
       this.getDataGridState()
     },
 
     filterRequestStatus: undefined,
-
-    isHaveBarCodeFilterData: {
-      isHaveBarCodeFilter: null,
-      onChangeIsHaveBarCodeFilter: value => this.onChangeIsHaveBarCodeFilter(value),
-    },
 
     ...filtersFields.reduce(
       (ac, cur) =>
@@ -328,8 +322,8 @@ export class BuyerMyOrdersViewModel {
     const totalPriceFilter =
       exclusion !== 'totalPrice' && this.columnMenuSettings.totalPrice?.currentFilterData.join(',')
 
-    const paymentMethodFilter =
-      exclusion !== 'humanFriendlyId' && this.columnMenuSettings.paymentMethod.currentFilterData.join(',')
+    const paymentMethodsFilter =
+      exclusion !== 'humanFriendlyId' && this.columnMenuSettings.paymentMethods.currentFilterData.join(',')
 
     const priceInYuanFilter =
       exclusion !== 'priceInYuan' && this.columnMenuSettings.priceInYuan?.currentFilterData.join(',')
@@ -418,8 +412,8 @@ export class BuyerMyOrdersViewModel {
         priceInYuan: { $eq: priceInYuanFilter },
       }),
 
-      ...(paymentMethodFilter && {
-        paymentMethods: { $eq: paymentMethodFilter },
+      ...(paymentMethodsFilter && {
+        paymentMethods: { $eq: paymentMethodsFilter },
       }),
 
       ...(storekeeperFilter && {
@@ -825,7 +819,9 @@ export class BuyerMyOrdersViewModel {
     if (this.columnMenuSettings.payments.currentFilterData.length) {
       const curPaymentsIds = this.columnMenuSettings.payments.currentFilterData.map(el => el._id)
 
-      return toJS(this.ordersMy).filter(el => el.payments.some(item => curPaymentsIds.includes(item.paymentMethod._id)))
+      return toJS(this.ordersMy).filter(el =>
+        el.payments.some(item => curPaymentsIds.includes(item.paymentMethods._id)),
+      )
     } else {
       return toJS(this.ordersMy)
     }
@@ -837,7 +833,7 @@ export class BuyerMyOrdersViewModel {
     this.isReadyForPayment = currentStatus.some(status => status === OrderStatus.READY_FOR_PAYMENT)
   }
 
-  async onClickPaymentMethodCell(row) {
+  async onClickPaymentMethodsCell(row) {
     await this.getSuppliersPaymentMethods()
     runInAction(() => {
       this.currentOrder = row
@@ -974,7 +970,7 @@ export class BuyerMyOrdersViewModel {
   async saveOrderPayment(order, orderPayments) {
     if (Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
       try {
-        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
+        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethods?._id)]
         const validOrderPayments = []
         for (const payment of orderPayments) {
           if (payment?.photosForLoad?.length) {
@@ -987,7 +983,7 @@ export class BuyerMyOrdersViewModel {
           this.clearReadyImages()
 
           const validObj = {
-            paymentMethodId: payment?.paymentMethod._id,
+            paymentMethodId: payment?.paymentMethods._id,
             paymentDetails: payment?.paymentDetails,
             paymentImages: readyPhotosForLoad,
           }
@@ -1130,7 +1126,7 @@ export class BuyerMyOrdersViewModel {
       }
 
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}`) {
-        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
+        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethods?._id)]
 
         const validOrderPayments = []
         for (const payment of orderPayments) {
@@ -1144,7 +1140,7 @@ export class BuyerMyOrdersViewModel {
           this.clearReadyImages()
 
           const validObj = {
-            paymentMethodId: payment?.paymentMethod._id,
+            paymentMethodId: payment?.paymentMethods._id,
             paymentDetails: payment?.paymentDetails,
             paymentImages: readyPhotosForLoad,
           }

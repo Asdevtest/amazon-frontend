@@ -82,18 +82,18 @@ const Box = ({
   }
 
   const curDestination = destinations.find(el => el._id === box.destinationId)
+  const currentStorekeeper = storekeepers.find(el => el._id === box.storekeeperId)
+  const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === box.logicsTariffId)
 
   const firstNumOfCode = curDestination?.zipCode[0]
 
   const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-  const tariffName = storekeepers
-    .find(el => el._id === box.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === box.logicsTariffId)?.name
+  const tariffName = currentLogicsTariff?.name
 
-  const tariffRate = storekeepers
-    .find(el => el._id === box.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === box.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+  const tariffRate =
+    currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
+    currentLogicsTariff?.destinationVariations?.find(el => el._id === box?.variationTariffId)?.pricePerKgUsd
 
   return (
     <div className={classNames.box}>
@@ -190,31 +190,13 @@ const Box = ({
                         }
                       >
                         {box.logicsTariffId
-                          ? `${
-                              storekeepers.find(el => el._id === box.storekeeperId)?.name ||
-                              t(TranslationKey['Not available'])
-                            } /  
-                            ${
-                              box.logicsTariffId
-                                ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-                                    tariffRate ? ' / ' + tariffRate + ' $' : ''
-                                  }`
-                                : 'none'
-                            }`
+                          ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                           : t(TranslationKey.Select)}
                       </Button>
                     ) : (
                       <Typography className={classNames.storekeeperDisableBtn}>{`${
-                        storekeepers.find(el => el._id === box.storekeeper?._id)?.name ||
-                        t(TranslationKey['Not available'])
-                      } /  
-                        ${
-                          box.logicsTariff?._id
-                            ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-                                tariffRate ? ' / ' + tariffRate + ' $' : ''
-                              }`
-                            : 'none'
-                        }`}</Typography>
+                        box.logicsTariff?._id ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}` : 'none'
+                      }`}</Typography>
                     )}
                   </div>
                 }

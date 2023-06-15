@@ -22,11 +22,10 @@ class InlineObject78 {
     /**
      * Constructs a new <code>InlineObject78</code>.
      * @alias module:model/InlineObject78
-     * @param hash {String} Токен, который юзер получает через почту
      */
-    constructor(hash) { 
+    constructor() { 
         
-        InlineObject78.initialize(this, hash);
+        InlineObject78.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject78 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, hash) { 
-        obj['hash'] = hash;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +47,8 @@ class InlineObject78 {
         if (data) {
             obj = obj || new InlineObject78();
 
-            if (data.hasOwnProperty('hash')) {
-                obj['hash'] = ApiClient.convertToType(data['hash'], 'String');
-            }
-            if (data.hasOwnProperty('password')) {
-                obj['password'] = ApiClient.convertToType(data['password'], 'String');
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -63,16 +58,10 @@ class InlineObject78 {
 }
 
 /**
- * Токен, который юзер получает через почту
- * @member {String} hash
+ * GUIDы поставщиков, которые нужно добавить в БД.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject78.prototype['hash'] = undefined;
-
-/**
- * Новый пароль
- * @member {String} password
- */
-InlineObject78.prototype['password'] = undefined;
+InlineObject78.prototype['suppliersIds'] = undefined;
 
 
 

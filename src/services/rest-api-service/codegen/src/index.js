@@ -34,9 +34,12 @@ import ApiV1AdminsTasksLightBoxes from './model/ApiV1AdminsTasksLightBoxes';
 import ApiV1AdminsTasksLightStorekeeper from './model/ApiV1AdminsTasksLightStorekeeper';
 import ApiV1AdminsTasksLightVariationTariff from './model/ApiV1AdminsTasksLightVariationTariff';
 import ApiV1AnnouncementsMyRequests from './model/ApiV1AnnouncementsMyRequests';
+import ApiV1BatchesBatch from './model/ApiV1BatchesBatch';
+import ApiV1BatchesBoxes from './model/ApiV1BatchesBoxes';
 import ApiV1BatchesByProductGuidBoxes from './model/ApiV1BatchesByProductGuidBoxes';
 import ApiV1BatchesByProductGuidDestination from './model/ApiV1BatchesByProductGuidDestination';
 import ApiV1BatchesByProductGuidLogicsTariff from './model/ApiV1BatchesByProductGuidLogicsTariff';
+import ApiV1BatchesItems from './model/ApiV1BatchesItems';
 import ApiV1BatchesStorekeeper from './model/ApiV1BatchesStorekeeper';
 import ApiV1BoxesClientsInTransferGuidBatch from './model/ApiV1BoxesClientsInTransferGuidBatch';
 import ApiV1BoxesClientsInTransferGuidLogicsTariff from './model/ApiV1BoxesClientsInTransferGuidLogicsTariff';
@@ -46,6 +49,7 @@ import ApiV1BoxesClientsLightItems from './model/ApiV1BoxesClientsLightItems';
 import ApiV1BoxesClientsLightLogicsTariff from './model/ApiV1BoxesClientsLightLogicsTariff';
 import ApiV1BoxesClientsLightOrder from './model/ApiV1BoxesClientsLightOrder';
 import ApiV1BoxesClientsLightProduct from './model/ApiV1BoxesClientsLightProduct';
+import ApiV1BoxesItems from './model/ApiV1BoxesItems';
 import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody';
 import ApiV1BoxesSplitBoxBody from './model/ApiV1BoxesSplitBoxBody';
 import ApiV1BoxesSplitBoxItems from './model/ApiV1BoxesSplitBoxItems';
@@ -59,9 +63,7 @@ import ApiV1BuyersOrdersMyPayments from './model/ApiV1BuyersOrdersMyPayments';
 import ApiV1BuyersOrdersMyProduct from './model/ApiV1BuyersOrdersMyProduct';
 import ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments from './model/ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments';
 import ApiV1BuyersProductsGuidTags from './model/ApiV1BuyersProductsGuidTags';
-import ApiV1BuyersTasksBatch from './model/ApiV1BuyersTasksBatch';
-import ApiV1BuyersTasksBoxesBefore from './model/ApiV1BuyersTasksBoxesBefore';
-import ApiV1BuyersTasksItems from './model/ApiV1BuyersTasksItems';
+import ApiV1ClientsProductsGuidRedFlags from './model/ApiV1ClientsProductsGuidRedFlags';
 import ApiV1GologinProfileNavigator from './model/ApiV1GologinProfileNavigator';
 import ApiV1IdeasNotificationsCreatedBy from './model/ApiV1IdeasNotificationsCreatedBy';
 import ApiV1IdeasNotificationsIdea from './model/ApiV1IdeasNotificationsIdea';
@@ -91,14 +93,11 @@ import ApiV1RequestsCustomDetailsCustom from './model/ApiV1RequestsCustomDetails
 import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
 import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
 import ApiV1RequestsCustomRequestLinksToMediaFiles from './model/ApiV1RequestsCustomRequestLinksToMediaFiles';
-import ApiV1ResearchersProductsGuidRedFlags from './model/ApiV1ResearchersProductsGuidRedFlags';
 import ApiV1ShopSellStatistics from './model/ApiV1ShopSellStatistics';
 import ApiV1ShopSellStatistics1 from './model/ApiV1ShopSellStatistics1';
 import ApiV1StorekeepersBoxesGuidItems from './model/ApiV1StorekeepersBoxesGuidItems';
 import ApiV1StorekeepersTariffLogisticsDestinationVariations from './model/ApiV1StorekeepersTariffLogisticsDestinationVariations';
 import ApiV1StorekeepersTariffWarehouses from './model/ApiV1StorekeepersTariffWarehouses';
-import ApiV1StorekeepersTasksDoneGuidAdditionalBoxes from './model/ApiV1StorekeepersTasksDoneGuidAdditionalBoxes';
-import ApiV1StorekeepersTasksDoneGuidItems from './model/ApiV1StorekeepersTasksDoneGuidItems';
 import ApiV1SuppliersBoxProperties from './model/ApiV1SuppliersBoxProperties';
 import ApiV1SuppliersPaymentMethods from './model/ApiV1SuppliersPaymentMethods';
 import ApiV1SuppliersPriceVariations from './model/ApiV1SuppliersPriceVariations';
@@ -250,37 +249,24 @@ import InlineResponse20014 from './model/InlineResponse20014';
 import InlineResponse20015 from './model/InlineResponse20015';
 import InlineResponse20016 from './model/InlineResponse20016';
 import InlineResponse20017 from './model/InlineResponse20017';
-import InlineResponse20017AllFiles from './model/InlineResponse20017AllFiles';
-import InlineResponse20017AllImages from './model/InlineResponse20017AllImages';
 import InlineResponse20018 from './model/InlineResponse20018';
-import InlineResponse20018Batch from './model/InlineResponse20018Batch';
-import InlineResponse20018Boxes from './model/InlineResponse20018Boxes';
-import InlineResponse20018Orders from './model/InlineResponse20018Orders';
-import InlineResponse20018Products from './model/InlineResponse20018Products';
-import InlineResponse20018Requests from './model/InlineResponse20018Requests';
-import InlineResponse20018Shops from './model/InlineResponse20018Shops';
 import InlineResponse20019 from './model/InlineResponse20019';
-import InlineResponse20019Finances from './model/InlineResponse20019Finances';
-import InlineResponse20019Orders from './model/InlineResponse20019Orders';
-import InlineResponse20019PendingOrders from './model/InlineResponse20019PendingOrders';
-import InlineResponse20019Products from './model/InlineResponse20019Products';
+import InlineResponse20019Rows from './model/InlineResponse20019Rows';
 import InlineResponse2002 from './model/InlineResponse2002';
 import InlineResponse20020 from './model/InlineResponse20020';
-import InlineResponse20020Batches from './model/InlineResponse20020Batches';
-import InlineResponse20020Boxes from './model/InlineResponse20020Boxes';
-import InlineResponse20020Tasks from './model/InlineResponse20020Tasks';
+import InlineResponse20020Group from './model/InlineResponse20020Group';
+import InlineResponse20020Rows from './model/InlineResponse20020Rows';
 import InlineResponse20021 from './model/InlineResponse20021';
-import InlineResponse20021Products from './model/InlineResponse20021Products';
 import InlineResponse20022 from './model/InlineResponse20022';
 import InlineResponse20023 from './model/InlineResponse20023';
-import InlineResponse20023Checking from './model/InlineResponse20023Checking';
-import InlineResponse20023Products from './model/InlineResponse20023Products';
 import InlineResponse20024 from './model/InlineResponse20024';
 import InlineResponse20025 from './model/InlineResponse20025';
 import InlineResponse20026 from './model/InlineResponse20026';
 import InlineResponse20027 from './model/InlineResponse20027';
 import InlineResponse20028 from './model/InlineResponse20028';
 import InlineResponse20029 from './model/InlineResponse20029';
+import InlineResponse20029AllFiles from './model/InlineResponse20029AllFiles';
+import InlineResponse20029AllImages from './model/InlineResponse20029AllImages';
 import InlineResponse2002AllowedUrls from './model/InlineResponse2002AllowedUrls';
 import InlineResponse2002PermissionGroups from './model/InlineResponse2002PermissionGroups';
 import InlineResponse2002Permissions from './model/InlineResponse2002Permissions';
@@ -289,22 +275,34 @@ import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse20030 from './model/InlineResponse20030';
 import InlineResponse20031 from './model/InlineResponse20031';
 import InlineResponse20032 from './model/InlineResponse20032';
-import InlineResponse20032Failed from './model/InlineResponse20032Failed';
+import InlineResponse20032Rows from './model/InlineResponse20032Rows';
 import InlineResponse20033 from './model/InlineResponse20033';
 import InlineResponse20034 from './model/InlineResponse20034';
 import InlineResponse20035 from './model/InlineResponse20035';
 import InlineResponse20036 from './model/InlineResponse20036';
 import InlineResponse20037 from './model/InlineResponse20037';
+import InlineResponse20037Batch from './model/InlineResponse20037Batch';
+import InlineResponse20037Boxes from './model/InlineResponse20037Boxes';
+import InlineResponse20037Orders from './model/InlineResponse20037Orders';
+import InlineResponse20037Products from './model/InlineResponse20037Products';
+import InlineResponse20037Requests from './model/InlineResponse20037Requests';
+import InlineResponse20037Shops from './model/InlineResponse20037Shops';
 import InlineResponse20038 from './model/InlineResponse20038';
+import InlineResponse20038Finances from './model/InlineResponse20038Finances';
+import InlineResponse20038Orders from './model/InlineResponse20038Orders';
+import InlineResponse20038PendingOrders from './model/InlineResponse20038PendingOrders';
+import InlineResponse20038Products from './model/InlineResponse20038Products';
 import InlineResponse20039 from './model/InlineResponse20039';
+import InlineResponse20039Batches from './model/InlineResponse20039Batches';
+import InlineResponse20039Boxes from './model/InlineResponse20039Boxes';
+import InlineResponse20039Tasks from './model/InlineResponse20039Tasks';
 import InlineResponse2004 from './model/InlineResponse2004';
 import InlineResponse20040 from './model/InlineResponse20040';
+import InlineResponse20040Products from './model/InlineResponse20040Products';
 import InlineResponse20041 from './model/InlineResponse20041';
-import InlineResponse20041CountProposalsByStatuses from './model/InlineResponse20041CountProposalsByStatuses';
-import InlineResponse20041Media from './model/InlineResponse20041Media';
-import InlineResponse20041Product from './model/InlineResponse20041Product';
-import InlineResponse20041Rows from './model/InlineResponse20041Rows';
 import InlineResponse20042 from './model/InlineResponse20042';
+import InlineResponse20042Checking from './model/InlineResponse20042Checking';
+import InlineResponse20042Products from './model/InlineResponse20042Products';
 import InlineResponse20043 from './model/InlineResponse20043';
 import InlineResponse20044 from './model/InlineResponse20044';
 import InlineResponse20045 from './model/InlineResponse20045';
@@ -315,6 +313,7 @@ import InlineResponse20049 from './model/InlineResponse20049';
 import InlineResponse2005 from './model/InlineResponse2005';
 import InlineResponse20050 from './model/InlineResponse20050';
 import InlineResponse20051 from './model/InlineResponse20051';
+import InlineResponse20051Failed from './model/InlineResponse20051Failed';
 import InlineResponse20052 from './model/InlineResponse20052';
 import InlineResponse20053 from './model/InlineResponse20053';
 import InlineResponse20054 from './model/InlineResponse20054';
@@ -325,9 +324,12 @@ import InlineResponse20058 from './model/InlineResponse20058';
 import InlineResponse20059 from './model/InlineResponse20059';
 import InlineResponse2006 from './model/InlineResponse2006';
 import InlineResponse20060 from './model/InlineResponse20060';
+import InlineResponse20060CountProposalsByStatuses from './model/InlineResponse20060CountProposalsByStatuses';
+import InlineResponse20060Media from './model/InlineResponse20060Media';
+import InlineResponse20060Product from './model/InlineResponse20060Product';
+import InlineResponse20060Rows from './model/InlineResponse20060Rows';
 import InlineResponse20061 from './model/InlineResponse20061';
 import InlineResponse20062 from './model/InlineResponse20062';
-import InlineResponse20062Rows from './model/InlineResponse20062Rows';
 import InlineResponse20063 from './model/InlineResponse20063';
 import InlineResponse20064 from './model/InlineResponse20064';
 import InlineResponse20065 from './model/InlineResponse20065';
@@ -341,14 +343,11 @@ import InlineResponse20071 from './model/InlineResponse20071';
 import InlineResponse20072 from './model/InlineResponse20072';
 import InlineResponse20073 from './model/InlineResponse20073';
 import InlineResponse20074 from './model/InlineResponse20074';
-import InlineResponse20074Rows from './model/InlineResponse20074Rows';
 import InlineResponse20075 from './model/InlineResponse20075';
-import InlineResponse20075Group from './model/InlineResponse20075Group';
-import InlineResponse20075Rows from './model/InlineResponse20075Rows';
 import InlineResponse20076 from './model/InlineResponse20076';
 import InlineResponse20077 from './model/InlineResponse20077';
-import InlineResponse20077Details from './model/InlineResponse20077Details';
 import InlineResponse20078 from './model/InlineResponse20078';
+import InlineResponse20078Details from './model/InlineResponse20078Details';
 import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse201 from './model/InlineResponse201';
@@ -599,6 +598,18 @@ export {
     ApiV1AnnouncementsMyRequests,
 
     /**
+     * The ApiV1BatchesBatch model constructor.
+     * @property {module:model/ApiV1BatchesBatch}
+     */
+    ApiV1BatchesBatch,
+
+    /**
+     * The ApiV1BatchesBoxes model constructor.
+     * @property {module:model/ApiV1BatchesBoxes}
+     */
+    ApiV1BatchesBoxes,
+
+    /**
      * The ApiV1BatchesByProductGuidBoxes model constructor.
      * @property {module:model/ApiV1BatchesByProductGuidBoxes}
      */
@@ -615,6 +626,12 @@ export {
      * @property {module:model/ApiV1BatchesByProductGuidLogicsTariff}
      */
     ApiV1BatchesByProductGuidLogicsTariff,
+
+    /**
+     * The ApiV1BatchesItems model constructor.
+     * @property {module:model/ApiV1BatchesItems}
+     */
+    ApiV1BatchesItems,
 
     /**
      * The ApiV1BatchesStorekeeper model constructor.
@@ -669,6 +686,12 @@ export {
      * @property {module:model/ApiV1BoxesClientsLightProduct}
      */
     ApiV1BoxesClientsLightProduct,
+
+    /**
+     * The ApiV1BoxesItems model constructor.
+     * @property {module:model/ApiV1BoxesItems}
+     */
+    ApiV1BoxesItems,
 
     /**
      * The ApiV1BoxesMergeBoxBody model constructor.
@@ -749,22 +772,10 @@ export {
     ApiV1BuyersProductsGuidTags,
 
     /**
-     * The ApiV1BuyersTasksBatch model constructor.
-     * @property {module:model/ApiV1BuyersTasksBatch}
+     * The ApiV1ClientsProductsGuidRedFlags model constructor.
+     * @property {module:model/ApiV1ClientsProductsGuidRedFlags}
      */
-    ApiV1BuyersTasksBatch,
-
-    /**
-     * The ApiV1BuyersTasksBoxesBefore model constructor.
-     * @property {module:model/ApiV1BuyersTasksBoxesBefore}
-     */
-    ApiV1BuyersTasksBoxesBefore,
-
-    /**
-     * The ApiV1BuyersTasksItems model constructor.
-     * @property {module:model/ApiV1BuyersTasksItems}
-     */
-    ApiV1BuyersTasksItems,
+    ApiV1ClientsProductsGuidRedFlags,
 
     /**
      * The ApiV1GologinProfileNavigator model constructor.
@@ -941,12 +952,6 @@ export {
     ApiV1RequestsCustomRequestLinksToMediaFiles,
 
     /**
-     * The ApiV1ResearchersProductsGuidRedFlags model constructor.
-     * @property {module:model/ApiV1ResearchersProductsGuidRedFlags}
-     */
-    ApiV1ResearchersProductsGuidRedFlags,
-
-    /**
      * The ApiV1ShopSellStatistics model constructor.
      * @property {module:model/ApiV1ShopSellStatistics}
      */
@@ -975,18 +980,6 @@ export {
      * @property {module:model/ApiV1StorekeepersTariffWarehouses}
      */
     ApiV1StorekeepersTariffWarehouses,
-
-    /**
-     * The ApiV1StorekeepersTasksDoneGuidAdditionalBoxes model constructor.
-     * @property {module:model/ApiV1StorekeepersTasksDoneGuidAdditionalBoxes}
-     */
-    ApiV1StorekeepersTasksDoneGuidAdditionalBoxes,
-
-    /**
-     * The ApiV1StorekeepersTasksDoneGuidItems model constructor.
-     * @property {module:model/ApiV1StorekeepersTasksDoneGuidItems}
-     */
-    ApiV1StorekeepersTasksDoneGuidItems,
 
     /**
      * The ApiV1SuppliersBoxProperties model constructor.
@@ -1895,58 +1888,10 @@ export {
     InlineResponse20017,
 
     /**
-     * The InlineResponse20017AllFiles model constructor.
-     * @property {module:model/InlineResponse20017AllFiles}
-     */
-    InlineResponse20017AllFiles,
-
-    /**
-     * The InlineResponse20017AllImages model constructor.
-     * @property {module:model/InlineResponse20017AllImages}
-     */
-    InlineResponse20017AllImages,
-
-    /**
      * The InlineResponse20018 model constructor.
      * @property {module:model/InlineResponse20018}
      */
     InlineResponse20018,
-
-    /**
-     * The InlineResponse20018Batch model constructor.
-     * @property {module:model/InlineResponse20018Batch}
-     */
-    InlineResponse20018Batch,
-
-    /**
-     * The InlineResponse20018Boxes model constructor.
-     * @property {module:model/InlineResponse20018Boxes}
-     */
-    InlineResponse20018Boxes,
-
-    /**
-     * The InlineResponse20018Orders model constructor.
-     * @property {module:model/InlineResponse20018Orders}
-     */
-    InlineResponse20018Orders,
-
-    /**
-     * The InlineResponse20018Products model constructor.
-     * @property {module:model/InlineResponse20018Products}
-     */
-    InlineResponse20018Products,
-
-    /**
-     * The InlineResponse20018Requests model constructor.
-     * @property {module:model/InlineResponse20018Requests}
-     */
-    InlineResponse20018Requests,
-
-    /**
-     * The InlineResponse20018Shops model constructor.
-     * @property {module:model/InlineResponse20018Shops}
-     */
-    InlineResponse20018Shops,
 
     /**
      * The InlineResponse20019 model constructor.
@@ -1955,28 +1900,10 @@ export {
     InlineResponse20019,
 
     /**
-     * The InlineResponse20019Finances model constructor.
-     * @property {module:model/InlineResponse20019Finances}
+     * The InlineResponse20019Rows model constructor.
+     * @property {module:model/InlineResponse20019Rows}
      */
-    InlineResponse20019Finances,
-
-    /**
-     * The InlineResponse20019Orders model constructor.
-     * @property {module:model/InlineResponse20019Orders}
-     */
-    InlineResponse20019Orders,
-
-    /**
-     * The InlineResponse20019PendingOrders model constructor.
-     * @property {module:model/InlineResponse20019PendingOrders}
-     */
-    InlineResponse20019PendingOrders,
-
-    /**
-     * The InlineResponse20019Products model constructor.
-     * @property {module:model/InlineResponse20019Products}
-     */
-    InlineResponse20019Products,
+    InlineResponse20019Rows,
 
     /**
      * The InlineResponse2002 model constructor.
@@ -1991,34 +1918,22 @@ export {
     InlineResponse20020,
 
     /**
-     * The InlineResponse20020Batches model constructor.
-     * @property {module:model/InlineResponse20020Batches}
+     * The InlineResponse20020Group model constructor.
+     * @property {module:model/InlineResponse20020Group}
      */
-    InlineResponse20020Batches,
+    InlineResponse20020Group,
 
     /**
-     * The InlineResponse20020Boxes model constructor.
-     * @property {module:model/InlineResponse20020Boxes}
+     * The InlineResponse20020Rows model constructor.
+     * @property {module:model/InlineResponse20020Rows}
      */
-    InlineResponse20020Boxes,
-
-    /**
-     * The InlineResponse20020Tasks model constructor.
-     * @property {module:model/InlineResponse20020Tasks}
-     */
-    InlineResponse20020Tasks,
+    InlineResponse20020Rows,
 
     /**
      * The InlineResponse20021 model constructor.
      * @property {module:model/InlineResponse20021}
      */
     InlineResponse20021,
-
-    /**
-     * The InlineResponse20021Products model constructor.
-     * @property {module:model/InlineResponse20021Products}
-     */
-    InlineResponse20021Products,
 
     /**
      * The InlineResponse20022 model constructor.
@@ -2031,18 +1946,6 @@ export {
      * @property {module:model/InlineResponse20023}
      */
     InlineResponse20023,
-
-    /**
-     * The InlineResponse20023Checking model constructor.
-     * @property {module:model/InlineResponse20023Checking}
-     */
-    InlineResponse20023Checking,
-
-    /**
-     * The InlineResponse20023Products model constructor.
-     * @property {module:model/InlineResponse20023Products}
-     */
-    InlineResponse20023Products,
 
     /**
      * The InlineResponse20024 model constructor.
@@ -2079,6 +1982,18 @@ export {
      * @property {module:model/InlineResponse20029}
      */
     InlineResponse20029,
+
+    /**
+     * The InlineResponse20029AllFiles model constructor.
+     * @property {module:model/InlineResponse20029AllFiles}
+     */
+    InlineResponse20029AllFiles,
+
+    /**
+     * The InlineResponse20029AllImages model constructor.
+     * @property {module:model/InlineResponse20029AllImages}
+     */
+    InlineResponse20029AllImages,
 
     /**
      * The InlineResponse2002AllowedUrls model constructor.
@@ -2129,10 +2044,10 @@ export {
     InlineResponse20032,
 
     /**
-     * The InlineResponse20032Failed model constructor.
-     * @property {module:model/InlineResponse20032Failed}
+     * The InlineResponse20032Rows model constructor.
+     * @property {module:model/InlineResponse20032Rows}
      */
-    InlineResponse20032Failed,
+    InlineResponse20032Rows,
 
     /**
      * The InlineResponse20033 model constructor.
@@ -2165,16 +2080,94 @@ export {
     InlineResponse20037,
 
     /**
+     * The InlineResponse20037Batch model constructor.
+     * @property {module:model/InlineResponse20037Batch}
+     */
+    InlineResponse20037Batch,
+
+    /**
+     * The InlineResponse20037Boxes model constructor.
+     * @property {module:model/InlineResponse20037Boxes}
+     */
+    InlineResponse20037Boxes,
+
+    /**
+     * The InlineResponse20037Orders model constructor.
+     * @property {module:model/InlineResponse20037Orders}
+     */
+    InlineResponse20037Orders,
+
+    /**
+     * The InlineResponse20037Products model constructor.
+     * @property {module:model/InlineResponse20037Products}
+     */
+    InlineResponse20037Products,
+
+    /**
+     * The InlineResponse20037Requests model constructor.
+     * @property {module:model/InlineResponse20037Requests}
+     */
+    InlineResponse20037Requests,
+
+    /**
+     * The InlineResponse20037Shops model constructor.
+     * @property {module:model/InlineResponse20037Shops}
+     */
+    InlineResponse20037Shops,
+
+    /**
      * The InlineResponse20038 model constructor.
      * @property {module:model/InlineResponse20038}
      */
     InlineResponse20038,
 
     /**
+     * The InlineResponse20038Finances model constructor.
+     * @property {module:model/InlineResponse20038Finances}
+     */
+    InlineResponse20038Finances,
+
+    /**
+     * The InlineResponse20038Orders model constructor.
+     * @property {module:model/InlineResponse20038Orders}
+     */
+    InlineResponse20038Orders,
+
+    /**
+     * The InlineResponse20038PendingOrders model constructor.
+     * @property {module:model/InlineResponse20038PendingOrders}
+     */
+    InlineResponse20038PendingOrders,
+
+    /**
+     * The InlineResponse20038Products model constructor.
+     * @property {module:model/InlineResponse20038Products}
+     */
+    InlineResponse20038Products,
+
+    /**
      * The InlineResponse20039 model constructor.
      * @property {module:model/InlineResponse20039}
      */
     InlineResponse20039,
+
+    /**
+     * The InlineResponse20039Batches model constructor.
+     * @property {module:model/InlineResponse20039Batches}
+     */
+    InlineResponse20039Batches,
+
+    /**
+     * The InlineResponse20039Boxes model constructor.
+     * @property {module:model/InlineResponse20039Boxes}
+     */
+    InlineResponse20039Boxes,
+
+    /**
+     * The InlineResponse20039Tasks model constructor.
+     * @property {module:model/InlineResponse20039Tasks}
+     */
+    InlineResponse20039Tasks,
 
     /**
      * The InlineResponse2004 model constructor.
@@ -2189,40 +2182,34 @@ export {
     InlineResponse20040,
 
     /**
+     * The InlineResponse20040Products model constructor.
+     * @property {module:model/InlineResponse20040Products}
+     */
+    InlineResponse20040Products,
+
+    /**
      * The InlineResponse20041 model constructor.
      * @property {module:model/InlineResponse20041}
      */
     InlineResponse20041,
 
     /**
-     * The InlineResponse20041CountProposalsByStatuses model constructor.
-     * @property {module:model/InlineResponse20041CountProposalsByStatuses}
-     */
-    InlineResponse20041CountProposalsByStatuses,
-
-    /**
-     * The InlineResponse20041Media model constructor.
-     * @property {module:model/InlineResponse20041Media}
-     */
-    InlineResponse20041Media,
-
-    /**
-     * The InlineResponse20041Product model constructor.
-     * @property {module:model/InlineResponse20041Product}
-     */
-    InlineResponse20041Product,
-
-    /**
-     * The InlineResponse20041Rows model constructor.
-     * @property {module:model/InlineResponse20041Rows}
-     */
-    InlineResponse20041Rows,
-
-    /**
      * The InlineResponse20042 model constructor.
      * @property {module:model/InlineResponse20042}
      */
     InlineResponse20042,
+
+    /**
+     * The InlineResponse20042Checking model constructor.
+     * @property {module:model/InlineResponse20042Checking}
+     */
+    InlineResponse20042Checking,
+
+    /**
+     * The InlineResponse20042Products model constructor.
+     * @property {module:model/InlineResponse20042Products}
+     */
+    InlineResponse20042Products,
 
     /**
      * The InlineResponse20043 model constructor.
@@ -2285,6 +2272,12 @@ export {
     InlineResponse20051,
 
     /**
+     * The InlineResponse20051Failed model constructor.
+     * @property {module:model/InlineResponse20051Failed}
+     */
+    InlineResponse20051Failed,
+
+    /**
      * The InlineResponse20052 model constructor.
      * @property {module:model/InlineResponse20052}
      */
@@ -2345,6 +2338,30 @@ export {
     InlineResponse20060,
 
     /**
+     * The InlineResponse20060CountProposalsByStatuses model constructor.
+     * @property {module:model/InlineResponse20060CountProposalsByStatuses}
+     */
+    InlineResponse20060CountProposalsByStatuses,
+
+    /**
+     * The InlineResponse20060Media model constructor.
+     * @property {module:model/InlineResponse20060Media}
+     */
+    InlineResponse20060Media,
+
+    /**
+     * The InlineResponse20060Product model constructor.
+     * @property {module:model/InlineResponse20060Product}
+     */
+    InlineResponse20060Product,
+
+    /**
+     * The InlineResponse20060Rows model constructor.
+     * @property {module:model/InlineResponse20060Rows}
+     */
+    InlineResponse20060Rows,
+
+    /**
      * The InlineResponse20061 model constructor.
      * @property {module:model/InlineResponse20061}
      */
@@ -2355,12 +2372,6 @@ export {
      * @property {module:model/InlineResponse20062}
      */
     InlineResponse20062,
-
-    /**
-     * The InlineResponse20062Rows model constructor.
-     * @property {module:model/InlineResponse20062Rows}
-     */
-    InlineResponse20062Rows,
 
     /**
      * The InlineResponse20063 model constructor.
@@ -2441,28 +2452,10 @@ export {
     InlineResponse20074,
 
     /**
-     * The InlineResponse20074Rows model constructor.
-     * @property {module:model/InlineResponse20074Rows}
-     */
-    InlineResponse20074Rows,
-
-    /**
      * The InlineResponse20075 model constructor.
      * @property {module:model/InlineResponse20075}
      */
     InlineResponse20075,
-
-    /**
-     * The InlineResponse20075Group model constructor.
-     * @property {module:model/InlineResponse20075Group}
-     */
-    InlineResponse20075Group,
-
-    /**
-     * The InlineResponse20075Rows model constructor.
-     * @property {module:model/InlineResponse20075Rows}
-     */
-    InlineResponse20075Rows,
 
     /**
      * The InlineResponse20076 model constructor.
@@ -2477,16 +2470,16 @@ export {
     InlineResponse20077,
 
     /**
-     * The InlineResponse20077Details model constructor.
-     * @property {module:model/InlineResponse20077Details}
-     */
-    InlineResponse20077Details,
-
-    /**
      * The InlineResponse20078 model constructor.
      * @property {module:model/InlineResponse20078}
      */
     InlineResponse20078,
+
+    /**
+     * The InlineResponse20078Details model constructor.
+     * @property {module:model/InlineResponse20078Details}
+     */
+    InlineResponse20078Details,
 
     /**
      * The InlineResponse2008 model constructor.

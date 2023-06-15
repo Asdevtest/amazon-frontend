@@ -249,18 +249,18 @@ export const EditBoxForm = observer(
     // !boxFields.destination?.storekeeperId)
 
     const curDestination = destinations.find(el => el._id === boxFields.destinationId)
+    const currentStorekeeper = storekeepers.find(el => el._id === boxFields.storekeeperId)
+    const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === boxFields.logicsTariffId)
 
     const firstNumOfCode = curDestination?.zipCode[0]
 
     const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-    const tariffName = storekeepers
-      .find(el => el._id === boxFields.storekeeperId)
-      ?.tariffLogistics.find(el => el._id === boxFields.logicsTariffId)?.name
+    const tariffName = currentLogicsTariff?.name
 
-    const tariffRate = storekeepers
-      .find(el => el._id === boxFields.storekeeperId)
-      ?.tariffLogistics.find(el => el._id === boxFields.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+    const tariffRate =
+      currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
+      currentLogicsTariff?.destinationVariations?.find(el => el._id === boxFields?.variationTariff?._id)?.pricePerKgUsd
 
     const allItemsCount =
       boxFields.items.reduce((ac, cur) => (ac = ac + cur.amount), 0) * (boxFields.amount < 1 ? 1 : boxFields.amount)
@@ -535,7 +535,7 @@ export const EditBoxForm = observer(
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }
                         >
-                          {boxFields.storekeeperId
+                          {/* {boxFields.storekeeperId
                             ? `${
                                 storekeepers.find(el => el._id === boxFields.storekeeperId)?.name ||
                                 t(TranslationKey['Not available'])
@@ -547,6 +547,10 @@ export const EditBoxForm = observer(
                               }${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                             : 'none'
                         }`
+                            : t(TranslationKey.Select)} */}
+
+                          {boxFields.storekeeperId
+                            ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                             : t(TranslationKey.Select)}
                         </Button>
                       }

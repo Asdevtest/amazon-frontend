@@ -31,6 +31,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import {
   checkAndMakeAbsoluteUrl,
   getFullTariffTextForBoxOrOrder,
+  getNewTariffTextForBoxOrOrder,
   toFixed,
   toFixedWithDollarSign,
   toFixedWithYuanSign,
@@ -179,7 +180,7 @@ export const SelectFields = ({
               disabled
               tooltipInfoContent={t(TranslationKey["Client's chosen rate, region of shipment and its cost"])}
               label={t(TranslationKey.Tariff)}
-              value={getFullTariffTextForBoxOrOrder(order)}
+              value={getNewTariffTextForBoxOrOrder(order, true)}
               inputClasses={classNames.nativeSelect}
               labelClasses={classNames.label}
             />

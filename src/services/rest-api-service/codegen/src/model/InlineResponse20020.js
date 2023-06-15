@@ -12,9 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20020Batches from './InlineResponse20020Batches';
-import InlineResponse20020Boxes from './InlineResponse20020Boxes';
-import InlineResponse20020Tasks from './InlineResponse20020Tasks';
+import InlineResponse20020Rows from './InlineResponse20020Rows';
 
 /**
  * The InlineResponse20020 model module.
@@ -50,14 +48,11 @@ class InlineResponse20020 {
         if (data) {
             obj = obj || new InlineResponse20020();
 
-            if (data.hasOwnProperty('tasks')) {
-                obj['tasks'] = InlineResponse20020Tasks.constructFromObject(data['tasks']);
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20020Rows]);
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = InlineResponse20020Boxes.constructFromObject(data['boxes']);
-            }
-            if (data.hasOwnProperty('batches')) {
-                obj['batches'] = InlineResponse20020Batches.constructFromObject(data['batches']);
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
         }
         return obj;
@@ -67,19 +62,14 @@ class InlineResponse20020 {
 }
 
 /**
- * @member {module:model/InlineResponse20020Tasks} tasks
+ * @member {Array.<module:model/InlineResponse20020Rows>} rows
  */
-InlineResponse20020.prototype['tasks'] = undefined;
+InlineResponse20020.prototype['rows'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20020Boxes} boxes
+ * @member {Number} count
  */
-InlineResponse20020.prototype['boxes'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20020Batches} batches
- */
-InlineResponse20020.prototype['batches'] = undefined;
+InlineResponse20020.prototype['count'] = undefined;
 
 
 

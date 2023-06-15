@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** |  | [optional] 
+**status** | **String** | Тестовый статус запуска | [optional] 
+**wsUrl** | **String** | Строка подключения к WS соединению | [optional] 
 
 

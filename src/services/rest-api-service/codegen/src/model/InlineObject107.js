@@ -47,14 +47,17 @@ class InlineObject107 {
         if (data) {
             obj = obj || new InlineObject107();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            }
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
             }
         }
         return obj;
@@ -64,22 +67,28 @@ class InlineObject107 {
 }
 
 /**
- * Поставить оценку юзеру
- * @member {Number} rating
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+ * @member {Number} status
  */
-InlineObject107.prototype['rating'] = undefined;
+InlineObject107.prototype['status'] = undefined;
 
 /**
- * Комментарий причин изменения статуса.
- * @member {String} reason
+ * Массив картинок.
+ * @member {Array.<String>} images
  */
-InlineObject107.prototype['reason'] = undefined;
+InlineObject107.prototype['images'] = undefined;
 
 /**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
  */
-InlineObject107.prototype['linksToMediaFiles'] = undefined;
+InlineObject107.prototype['storekeeperComment'] = undefined;
+
+/**
+ * Приоритет задачи
+ * @member {Number} priority
+ */
+InlineObject107.prototype['priority'] = undefined;
 
 
 

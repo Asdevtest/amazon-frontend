@@ -53,8 +53,6 @@ export const SelectStorekeeperAndTariffForm = observer(
   }) => {
     const { classes: classNames } = useClassNames()
 
-    console.log('showCheckbox', showCheckbox)
-
     const [tabIndex, setTabIndex] = React.useState(0)
 
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -74,8 +72,10 @@ export const SelectStorekeeperAndTariffForm = observer(
     )
 
     const [variationTariffId, setVariationTariffId] = useState(currentVariationTariffId)
+    // const [destinationId, setDestinationId] = useState(currentDestinationId)
 
-    const setVariationTariff = variationId => {
+    const setVariationTariff = (variationId, destinationId) => {
+      console.log('destinationId', destinationId)
       if (variationTariffId === variationId) {
         setVariationTariffId(null)
       } else {

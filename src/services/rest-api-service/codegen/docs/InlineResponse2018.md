@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | guid созданного объекта | [optional] 
+**_id** | **String** | Гуид тега | [optional] 
 
 

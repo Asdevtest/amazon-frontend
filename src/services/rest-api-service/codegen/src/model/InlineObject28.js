@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineObject19 from './InlineObject19';
 
 /**
  * The InlineObject28 model module.
@@ -47,29 +48,11 @@ class InlineObject28 {
         if (data) {
             obj = obj || new InlineObject28();
 
-            if (data.hasOwnProperty('productName')) {
-                obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
-            if (data.hasOwnProperty('productLinks')) {
-                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [NULL_SCHEMA_ERR]);
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], [NULL_SCHEMA_ERR]);
-            }
-            if (data.hasOwnProperty('criteria')) {
-                obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
-            }
-            if (data.hasOwnProperty('dimensions')) {
-                obj['dimensions'] = ApiClient.convertToType(data['dimensions'], 'String');
-            }
-            if (data.hasOwnProperty('quantity')) {
-                obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('additionalBoxes')) {
+                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject19]);
             }
         }
         return obj;
@@ -79,52 +62,16 @@ class InlineObject28 {
 }
 
 /**
- * Назавние продукта
- * @member {String} productName
+ * GUID для которой подтверждаем действие.
+ * @member {String} guid
  */
-InlineObject28.prototype['productName'] = undefined;
+InlineObject28.prototype['guid'] = undefined;
 
 /**
- * Ссылки на продукт, если есть
- * @member {Array.<String>} productLinks
+ * Массив дополнительных коробок которые случились при обработки.
+ * @member {Array.<module:model/InlineObject19>} additionalBoxes
  */
-InlineObject28.prototype['productLinks'] = undefined;
-
-/**
- * Image URL
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject28.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * Дополнительные критерии для поиска товара
- * @member {String} criteria
- */
-InlineObject28.prototype['criteria'] = undefined;
-
-/**
- * Размеры
- * @member {String} dimensions
- */
-InlineObject28.prototype['dimensions'] = undefined;
-
-/**
- * Количество товаров
- * @member {Number} quantity
- */
-InlineObject28.prototype['quantity'] = undefined;
-
-/**
- * Желаемая цена
- * @member {Number} price
- */
-InlineObject28.prototype['price'] = undefined;
-
-/**
- * Product ID
- * @member {String} productId
- */
-InlineObject28.prototype['productId'] = undefined;
+InlineObject28.prototype['additionalBoxes'] = undefined;
 
 
 
