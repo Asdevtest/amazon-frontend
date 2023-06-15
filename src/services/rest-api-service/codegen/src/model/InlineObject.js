@@ -22,12 +22,10 @@ class InlineObject {
     /**
      * Constructs a new <code>InlineObject</code>.
      * @alias module:model/InlineObject
-     * @param asin {String} ASIN продукта
-     * @param strategy {module:model/InlineObject.StrategyEnum} Стратегия
      */
-    constructor(asin, strategy) { 
+    constructor() { 
         
-        InlineObject.initialize(this, asin, strategy);
+        InlineObject.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, asin, strategy) { 
-        obj['asin'] = asin;
-        obj['strategy'] = strategy;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,14 +47,11 @@ class InlineObject {
         if (data) {
             obj = obj || new InlineObject();
 
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            if (data.hasOwnProperty('boxId')) {
+                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('strategy')) {
-                obj['strategy'] = ApiClient.convertToType(data['strategy'], 'String');
+            if (data.hasOwnProperty('prepId')) {
+                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
             }
         }
         return obj;
@@ -68,58 +61,19 @@ class InlineObject {
 }
 
 /**
- * ASIN продукта
- * @member {String} asin
+ * Гуид коробки
+ * @member {String} boxId
  */
-InlineObject.prototype['asin'] = undefined;
+InlineObject.prototype['boxId'] = undefined;
 
 /**
- * Причина
- * @member {String} reason
+ * Значение prepId
+ * @member {String} prepId
  */
-InlineObject.prototype['reason'] = undefined;
-
-/**
- * Стратегия
- * @member {module:model/InlineObject.StrategyEnum} strategy
- */
-InlineObject.prototype['strategy'] = undefined;
+InlineObject.prototype['prepId'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>strategy</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject['StrategyEnum'] = {
-
-    /**
-     * value: "10"
-     * @const
-     */
-    "10": "10",
-
-    /**
-     * value: "20"
-     * @const
-     */
-    "20": "20",
-
-    /**
-     * value: "30"
-     * @const
-     */
-    "30": "30",
-
-    /**
-     * value: "40"
-     * @const
-     */
-    "40": "40"
-};
 
 
 

@@ -22,12 +22,11 @@ class InlineObject88 {
     /**
      * Constructs a new <code>InlineObject88</code>.
      * @alias module:model/InlineObject88
-     * @param batchIds {Array.<String>} 
-     * @param archive {Boolean} Заархивирована ли партия
+     * @param fileLink {String} Ссылка на файл
      */
-    constructor(batchIds, archive) { 
+    constructor(fileLink) { 
         
-        InlineObject88.initialize(this, batchIds, archive);
+        InlineObject88.initialize(this, fileLink);
     }
 
     /**
@@ -35,9 +34,8 @@ class InlineObject88 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, batchIds, archive) { 
-        obj['batchIds'] = batchIds;
-        obj['archive'] = archive;
+    static initialize(obj, fileLink) { 
+        obj['fileLink'] = fileLink;
     }
 
     /**
@@ -51,11 +49,20 @@ class InlineObject88 {
         if (data) {
             obj = obj || new InlineObject88();
 
-            if (data.hasOwnProperty('batchIds')) {
-                obj['batchIds'] = ApiClient.convertToType(data['batchIds'], ['String']);
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
-            if (data.hasOwnProperty('archive')) {
-                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            }
+            if (data.hasOwnProperty('commentByClient')) {
+                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
+            }
+            if (data.hasOwnProperty('commentByPerformer')) {
+                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
+            }
+            if (data.hasOwnProperty('fileLink')) {
+                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
             }
         }
         return obj;
@@ -65,15 +72,34 @@ class InlineObject88 {
 }
 
 /**
- * @member {Array.<String>} batchIds
+ * Guid заявки
+ * @member {String} requestId
  */
-InlineObject88.prototype['batchIds'] = undefined;
+InlineObject88.prototype['requestId'] = undefined;
 
 /**
- * Заархивирована ли партия
- * @member {Boolean} archive
+ * Guid предложения
+ * @member {String} proposalId
  */
-InlineObject88.prototype['archive'] = undefined;
+InlineObject88.prototype['proposalId'] = undefined;
+
+/**
+ * комментарий клиента
+ * @member {String} commentByClient
+ */
+InlineObject88.prototype['commentByClient'] = undefined;
+
+/**
+ * комментарий исполнителя
+ * @member {String} commentByPerformer
+ */
+InlineObject88.prototype['commentByPerformer'] = undefined;
+
+/**
+ * Ссылка на файл
+ * @member {String} fileLink
+ */
+InlineObject88.prototype['fileLink'] = undefined;
 
 
 

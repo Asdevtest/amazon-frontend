@@ -21,13 +21,12 @@ import ApiClient from '../ApiClient';
 class InlineObject12 {
     /**
      * Constructs a new <code>InlineObject12</code>.
-     * Схема комментарии байера.
      * @alias module:model/InlineObject12
-     * @param buyerComment {String} Комментарии байера.
+     * @param boxesIds {Array.<String>} 
      */
-    constructor(buyerComment) { 
+    constructor(boxesIds) { 
         
-        InlineObject12.initialize(this, buyerComment);
+        InlineObject12.initialize(this, boxesIds);
     }
 
     /**
@@ -35,8 +34,8 @@ class InlineObject12 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, buyerComment) { 
-        obj['buyerComment'] = buyerComment;
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -50,8 +49,20 @@ class InlineObject12 {
         if (data) {
             obj = obj || new InlineObject12();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            }
+            if (data.hasOwnProperty('calculationMethod')) {
+                obj['calculationMethod'] = ApiClient.convertToType(data['calculationMethod'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightDivide')) {
+                obj['volumeWeightDivide'] = ApiClient.convertToType(data['volumeWeightDivide'], 'Number');
+            }
+            if (data.hasOwnProperty('actualShippingCost')) {
+                obj['actualShippingCost'] = ApiClient.convertToType(data['actualShippingCost'], 'Number');
             }
         }
         return obj;
@@ -61,10 +72,33 @@ class InlineObject12 {
 }
 
 /**
- * Комментарии байера.
- * @member {String} buyerComment
+ * Название партии
+ * @member {String} title
  */
-InlineObject12.prototype['buyerComment'] = undefined;
+InlineObject12.prototype['title'] = undefined;
+
+/**
+ * @member {Array.<String>} boxesIds
+ */
+InlineObject12.prototype['boxesIds'] = undefined;
+
+/**
+ * Метод подсчта массы партии
+ * @member {Number} calculationMethod
+ */
+InlineObject12.prototype['calculationMethod'] = undefined;
+
+/**
+ * Делитель объема партии
+ * @member {Number} volumeWeightDivide
+ */
+InlineObject12.prototype['volumeWeightDivide'] = undefined;
+
+/**
+ * Настоящая стоимость доставки
+ * @member {Number} actualShippingCost
+ */
+InlineObject12.prototype['actualShippingCost'] = undefined;
 
 
 

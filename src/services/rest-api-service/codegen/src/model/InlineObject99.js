@@ -22,12 +22,10 @@ class InlineObject99 {
     /**
      * Constructs a new <code>InlineObject99</code>.
      * @alias module:model/InlineObject99
-     * @param clientComment {String} 
-     * @param priceForClient {Number} Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
      */
-    constructor(clientComment, priceForClient) { 
+    constructor() { 
         
-        InlineObject99.initialize(this, clientComment, priceForClient);
+        InlineObject99.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject99 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, clientComment, priceForClient) { 
-        obj['clientComment'] = clientComment;
-        obj['priceForClient'] = priceForClient;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,11 @@ class InlineObject99 {
         if (data) {
             obj = obj || new InlineObject99();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
             }
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
             }
         }
         return obj;
@@ -65,15 +61,16 @@ class InlineObject99 {
 }
 
 /**
- * @member {String} clientComment
+ * Файл для записи в FreelanceSource
+ * @member {String} sourceFile
  */
-InlineObject99.prototype['clientComment'] = undefined;
+InlineObject99.prototype['sourceFile'] = undefined;
 
 /**
- * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
- * @member {Number} priceForClient
+ * Комментарий к файлу
+ * @member {String} comments
  */
-InlineObject99.prototype['priceForClient'] = undefined;
+InlineObject99.prototype['comments'] = undefined;
 
 
 

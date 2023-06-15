@@ -12,8 +12,10 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1AnnouncementsMyRequests from './ApiV1AnnouncementsMyRequests';
+import InlineResponse20038Finances from './InlineResponse20038Finances';
+import InlineResponse20038Orders from './InlineResponse20038Orders';
+import InlineResponse20038PendingOrders from './InlineResponse20038PendingOrders';
+import InlineResponse20038Products from './InlineResponse20038Products';
 
 /**
  * The InlineResponse20038 model module.
@@ -49,32 +51,17 @@ class InlineResponse20038 {
         if (data) {
             obj = obj || new InlineResponse20038();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20038Products.constructFromObject(data['products']);
             }
-            if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], 'String');
+            if (data.hasOwnProperty('orders')) {
+                obj['orders'] = InlineResponse20038Orders.constructFromObject(data['orders']);
             }
-            if (data.hasOwnProperty('requests')) {
-                obj['requests'] = ApiClient.convertToType(data['requests'], [ApiV1AnnouncementsMyRequests]);
+            if (data.hasOwnProperty('pendingOrders')) {
+                obj['pendingOrders'] = InlineResponse20038PendingOrders.constructFromObject(data['pendingOrders']);
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
-            }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20038Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -84,52 +71,24 @@ class InlineResponse20038 {
 }
 
 /**
- * GUID в базе данных
- * @member {String} _id
+ * @member {module:model/InlineResponse20038Products} products
  */
-InlineResponse20038.prototype['_id'] = undefined;
+InlineResponse20038.prototype['products'] = undefined;
 
 /**
- * @member {String} type
+ * @member {module:model/InlineResponse20038Orders} orders
  */
-InlineResponse20038.prototype['type'] = undefined;
+InlineResponse20038.prototype['orders'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1AnnouncementsMyRequests>} requests
+ * @member {module:model/InlineResponse20038PendingOrders} pendingOrders
  */
-InlineResponse20038.prototype['requests'] = undefined;
+InlineResponse20038.prototype['pendingOrders'] = undefined;
 
 /**
- * @member {Array.<String>} linksToMediaFiles
+ * @member {module:model/InlineResponse20038Finances} finances
  */
-InlineResponse20038.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * @member {String} title
- */
-InlineResponse20038.prototype['title'] = undefined;
-
-/**
- * @member {String} description
- */
-InlineResponse20038.prototype['description'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
- */
-InlineResponse20038.prototype['createdBy'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} createdAt
- */
-InlineResponse20038.prototype['createdAt'] = undefined;
-
-/**
- * Дата обновления.
- * @member {Date} updatedAt
- */
-InlineResponse20038.prototype['updatedAt'] = undefined;
+InlineResponse20038.prototype['finances'] = undefined;
 
 
 

@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20019Finances from './InlineResponse20019Finances';
 
 /**
  * The InlineResponse20022 model module.
@@ -48,8 +47,20 @@ class InlineResponse20022 {
         if (data) {
             obj = obj || new InlineResponse20022();
 
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20019Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            }
+            if (data.hasOwnProperty('skusByClient')) {
+                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('amazonTitle')) {
+                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
             }
         }
         return obj;
@@ -59,9 +70,33 @@ class InlineResponse20022 {
 }
 
 /**
- * @member {module:model/InlineResponse20019Finances} finances
+ * GUID продукта в базе данных
+ * @member {String} _id
  */
-InlineResponse20022.prototype['finances'] = undefined;
+InlineResponse20022.prototype['_id'] = undefined;
+
+/**
+ * ASIN продукта
+ * @member {String} asin
+ */
+InlineResponse20022.prototype['asin'] = undefined;
+
+/**
+ * @member {Array.<String>} skusByClient
+ */
+InlineResponse20022.prototype['skusByClient'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineResponse20022.prototype['images'] = undefined;
+
+/**
+ * Заголовок на товар с сайта амазон.
+ * @member {String} amazonTitle
+ */
+InlineResponse20022.prototype['amazonTitle'] = undefined;
 
 
 

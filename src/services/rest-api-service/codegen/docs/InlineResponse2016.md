@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | Гуид созданного медиа | [optional] 
+**guid** | **String** | guid созданного объекта | [optional] 
 
 

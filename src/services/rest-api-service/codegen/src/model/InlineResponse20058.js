@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20057 from './InlineResponse20057';
+import InlineResponse20058Rows from './InlineResponse20058Rows';
 
 /**
  * The InlineResponse20058 model module.
@@ -22,7 +22,6 @@ import InlineResponse20057 from './InlineResponse20057';
 class InlineResponse20058 {
     /**
      * Constructs a new <code>InlineResponse20058</code>.
-     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20058
      */
     constructor() { 
@@ -53,7 +52,7 @@ class InlineResponse20058 {
                 obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
             if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20057]);
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20058Rows]);
             }
         }
         return obj;
@@ -63,14 +62,13 @@ class InlineResponse20058 {
 }
 
 /**
- * Всего кол-во записей в результате запроса
  * @member {Number} count
  */
 InlineResponse20058.prototype['count'] = undefined;
 
 /**
- * Массив батчей c пагинацией(заданная страничка).
- * @member {Array.<module:model/InlineResponse20057>} rows
+ * Массив заявок.
+ * @member {Array.<module:model/InlineResponse20058Rows>} rows
  */
 InlineResponse20058.prototype['rows'] = undefined;
 

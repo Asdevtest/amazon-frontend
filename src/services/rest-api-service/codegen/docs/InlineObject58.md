@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**additionalBoxes** | [**[ApiV1StorekeepersTasksDoneGuidAdditionalBoxes]**](ApiV1StorekeepersTasksDoneGuidAdditionalBoxes.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
+**name** | **String** | Название профиля | [optional] 
+**os** | **String** | Название ОС | [optional] [default to &#39;mac&#39;]
+**navigator** | [**ApiV1GologinProfileNavigator**](ApiV1GologinProfileNavigator.md) |  | [optional] 
 
 

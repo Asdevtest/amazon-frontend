@@ -4,11 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | The unique identifier of the box. | [optional] 
-**cubicMeters** | **Number** | Объем в м ^ 3 | [optional] 
-**deliveryCost** | **Number** | The delivery cost of the box. | [optional] 
-**volumeWeightKgWarehouse** | **Number** | The volume weight of the box in kg. | [optional] 
-**weightFinalAccountingKgWarehouse** | **Number** | The weight of the box in kg. | [optional] 
-**deliveryRate** | **Number** | The delivery rate of the box. $/kg | [optional] 
+**_id** | **String** | GUID в базе данных | [optional] 
+**requestId** | **String** | Guid заявки к которой относится данное media. | [optional] 
+**proposalId** | **String** | Guid предложения к которой относится данное media. | [optional] 
+**commentByClient** | **String** | комментарий клиента | [optional] 
+**commentByPerformer** | **String** | комментарий исполнителя | [optional] 
+**fileLink** | **String** | Ссылка на файл | [optional] 
+**createdAt** | **Date** | Дата создания. | [optional] 
+**updatedAt** | **Date** | Дата обновления. | [optional] 
 
 

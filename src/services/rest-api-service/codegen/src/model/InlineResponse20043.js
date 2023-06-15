@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse20043 {
     /**
      * Constructs a new <code>InlineResponse20043</code>.
-     * Успешный ответ.
      * @alias module:model/InlineResponse20043
      */
     constructor() { 
@@ -48,11 +47,8 @@ class InlineResponse20043 {
         if (data) {
             obj = obj || new InlineResponse20043();
 
-            if (data.hasOwnProperty('isExist')) {
-                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
-            }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('profileId')) {
+                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
             }
         }
         return obj;
@@ -62,16 +58,10 @@ class InlineResponse20043 {
 }
 
 /**
- * Флаг, показывает есть ли такой ASIN в базе или нет
- * @member {Boolean} isExist
+ * id созданного профайла
+ * @member {String} profileId
  */
-InlineResponse20043.prototype['isExist'] = undefined;
-
-/**
- * Причина из таблицы с асинами
- * @member {String} reason
- */
-InlineResponse20043.prototype['reason'] = undefined;
+InlineResponse20043.prototype['profileId'] = undefined;
 
 
 

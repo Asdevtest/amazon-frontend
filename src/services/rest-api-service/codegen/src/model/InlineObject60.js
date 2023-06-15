@@ -22,11 +22,11 @@ class InlineObject60 {
     /**
      * Constructs a new <code>InlineObject60</code>.
      * @alias module:model/InlineObject60
-     * @param priority {Number} Выставить приоритет задачи
+     * @param profileId {String} id профайла
      */
-    constructor(priority) { 
+    constructor(profileId) { 
         
-        InlineObject60.initialize(this, priority);
+        InlineObject60.initialize(this, profileId);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject60 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, priority) { 
-        obj['priority'] = priority;
+    static initialize(obj, profileId) { 
+        obj['profileId'] = profileId;
     }
 
     /**
@@ -49,11 +49,8 @@ class InlineObject60 {
         if (data) {
             obj = obj || new InlineObject60();
 
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
-            }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('profileId')) {
+                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
             }
         }
         return obj;
@@ -63,16 +60,10 @@ class InlineObject60 {
 }
 
 /**
- * Выставить приоритет задачи
- * @member {Number} priority
+ * id профайла
+ * @member {String} profileId
  */
-InlineObject60.prototype['priority'] = undefined;
-
-/**
- * Reason of high priority
- * @member {String} reason
- */
-InlineObject60.prototype['reason'] = undefined;
+InlineObject60.prototype['profileId'] = undefined;
 
 
 

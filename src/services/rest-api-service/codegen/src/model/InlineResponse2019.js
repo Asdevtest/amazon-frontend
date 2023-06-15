@@ -47,8 +47,8 @@ class InlineResponse2019 {
         if (data) {
             obj = obj || new InlineResponse2019();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
         }
         return obj;
@@ -58,9 +58,10 @@ class InlineResponse2019 {
 }
 
 /**
- * @member {String} guid
+ * Гуид тега
+ * @member {String} _id
  */
-InlineResponse2019.prototype['guid'] = undefined;
+InlineResponse2019.prototype['_id'] = undefined;
 
 
 

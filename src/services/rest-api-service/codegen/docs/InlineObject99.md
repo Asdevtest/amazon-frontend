@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**clientComment** | **String** |  | 
-**priceForClient** | **Number** | Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика. | 
+**sourceFile** | **String** | Файл для записи в FreelanceSource | [optional] 
+**comments** | **String** | Комментарий к файлу | [optional] 
 
 

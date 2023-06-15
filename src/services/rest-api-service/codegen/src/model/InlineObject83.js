@@ -22,11 +22,12 @@ class InlineObject83 {
     /**
      * Constructs a new <code>InlineObject83</code>.
      * @alias module:model/InlineObject83
-     * @param boxesIds {Array.<String>} 
+     * @param requestIds {Array.<String>} 
+     * @param uploadedToListing {Boolean} 
      */
-    constructor(boxesIds) { 
+    constructor(requestIds, uploadedToListing) { 
         
-        InlineObject83.initialize(this, boxesIds);
+        InlineObject83.initialize(this, requestIds, uploadedToListing);
     }
 
     /**
@@ -34,8 +35,9 @@ class InlineObject83 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj, requestIds, uploadedToListing) { 
+        obj['requestIds'] = requestIds;
+        obj['uploadedToListing'] = uploadedToListing;
     }
 
     /**
@@ -49,8 +51,11 @@ class InlineObject83 {
         if (data) {
             obj = obj || new InlineObject83();
 
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('requestIds')) {
+                obj['requestIds'] = ApiClient.convertToType(data['requestIds'], ['String']);
+            }
+            if (data.hasOwnProperty('uploadedToListing')) {
+                obj['uploadedToListing'] = ApiClient.convertToType(data['uploadedToListing'], 'Boolean');
             }
         }
         return obj;
@@ -60,9 +65,14 @@ class InlineObject83 {
 }
 
 /**
- * @member {Array.<String>} boxesIds
+ * @member {Array.<String>} requestIds
  */
-InlineObject83.prototype['boxesIds'] = undefined;
+InlineObject83.prototype['requestIds'] = undefined;
+
+/**
+ * @member {Boolean} uploadedToListing
+ */
+InlineObject83.prototype['uploadedToListing'] = undefined;
 
 
 

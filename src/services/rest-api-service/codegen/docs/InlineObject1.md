@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**productId** | **String** | GUID продукта. | 
-**hsCode** | **String** |  | 
+**boxId** | **String** | GUID коробки, который планируем изменить | 
 
 

@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1ProductsKeepaOffers from './ApiV1ProductsKeepaOffers';
+import ApiV1ProductsKeepaStats from './ApiV1ProductsKeepaStats';
 
 /**
  * The InlineResponse20055 model module.
@@ -47,29 +49,71 @@ class InlineResponse20055 {
         if (data) {
             obj = obj || new InlineResponse20055();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('isRecommended')) {
+                obj['isRecommended'] = ApiClient.convertToType(data['isRecommended'], 'Boolean');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('trackingSince')) {
+                obj['trackingSince'] = ApiClient.convertToType(data['trackingSince'], 'Number');
             }
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            if (data.hasOwnProperty('lastRatingUpdate')) {
+                obj['lastRatingUpdate'] = ApiClient.convertToType(data['lastRatingUpdate'], 'Number');
             }
-            if (data.hasOwnProperty('numberOfPositiveFeedbacks')) {
-                obj['numberOfPositiveFeedbacks'] = ApiClient.convertToType(data['numberOfPositiveFeedbacks'], 'Number');
+            if (data.hasOwnProperty('rootCategory')) {
+                obj['rootCategory'] = ApiClient.convertToType(data['rootCategory'], 'Number');
             }
-            if (data.hasOwnProperty('numberOfNegativeFeedbacks')) {
-                obj['numberOfNegativeFeedbacks'] = ApiClient.convertToType(data['numberOfNegativeFeedbacks'], 'Number');
+            if (data.hasOwnProperty('categories')) {
+                obj['categories'] = ApiClient.convertToType(data['categories'], ['Number']);
             }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            if (data.hasOwnProperty('parentAsin')) {
+                obj['parentAsin'] = ApiClient.convertToType(data['parentAsin'], 'String');
             }
-            if (data.hasOwnProperty('isOnline')) {
-                obj['isOnline'] = ApiClient.convertToType(data['isOnline'], 'Boolean');
+            if (data.hasOwnProperty('variationCSV')) {
+                obj['variationCSV'] = ApiClient.convertToType(data['variationCSV'], 'String');
             }
-            if (data.hasOwnProperty('countsOfDeals')) {
-                obj['countsOfDeals'] = ApiClient.convertToType(data['countsOfDeals'], 'Number');
+            if (data.hasOwnProperty('frequentlyBoughtTogether')) {
+                obj['frequentlyBoughtTogether'] = ApiClient.convertToType(data['frequentlyBoughtTogether'], ['String']);
+            }
+            if (data.hasOwnProperty('manufacturer')) {
+                obj['manufacturer'] = ApiClient.convertToType(data['manufacturer'], 'String');
+            }
+            if (data.hasOwnProperty('brand')) {
+                obj['brand'] = ApiClient.convertToType(data['brand'], 'String');
+            }
+            if (data.hasOwnProperty('productGroup')) {
+                obj['productGroup'] = ApiClient.convertToType(data['productGroup'], 'String');
+            }
+            if (data.hasOwnProperty('publicationDate')) {
+                obj['publicationDate'] = ApiClient.convertToType(data['publicationDate'], 'Number');
+            }
+            if (data.hasOwnProperty('releaseDate')) {
+                obj['releaseDate'] = ApiClient.convertToType(data['releaseDate'], 'Number');
+            }
+            if (data.hasOwnProperty('contributors')) {
+                obj['contributors'] = ApiClient.convertToType(data['contributors'], [['Number']]);
+            }
+            if (data.hasOwnProperty('size')) {
+                obj['size'] = ApiClient.convertToType(data['size'], 'String');
+            }
+            if (data.hasOwnProperty('salesRanks')) {
+                obj['salesRanks'] = ApiClient.convertToType(data['salesRanks'], Object);
+            }
+            if (data.hasOwnProperty('offers')) {
+                obj['offers'] = ApiClient.convertToType(data['offers'], [ApiV1ProductsKeepaOffers]);
+            }
+            if (data.hasOwnProperty('liveOffersOrder')) {
+                obj['liveOffersOrder'] = ApiClient.convertToType(data['liveOffersOrder'], ['Number']);
+            }
+            if (data.hasOwnProperty('buyBoxSellerIdHistory')) {
+                obj['buyBoxSellerIdHistory'] = ApiClient.convertToType(data['buyBoxSellerIdHistory'], ['String']);
+            }
+            if (data.hasOwnProperty('availabilityAmazon')) {
+                obj['availabilityAmazon'] = ApiClient.convertToType(data['availabilityAmazon'], 'Number');
+            }
+            if (data.hasOwnProperty('newPriceIsMAP')) {
+                obj['newPriceIsMAP'] = ApiClient.convertToType(data['newPriceIsMAP'], 'Boolean');
+            }
+            if (data.hasOwnProperty('stats')) {
+                obj['stats'] = ApiV1ProductsKeepaStats.constructFromObject(data['stats']);
             }
         }
         return obj;
@@ -79,52 +123,114 @@ class InlineResponse20055 {
 }
 
 /**
- * GUID пользователя.
- * @member {String} _id
+ * @member {Boolean} isRecommended
  */
-InlineResponse20055.prototype['_id'] = undefined;
+InlineResponse20055.prototype['isRecommended'] = undefined;
 
 /**
- * Имя пользователя.
- * @member {String} name
+ * @member {Number} trackingSince
  */
-InlineResponse20055.prototype['name'] = undefined;
+InlineResponse20055.prototype['trackingSince'] = undefined;
 
 /**
- * Рейтинг пользователя.
- * @member {Number} rating
+ * @member {Number} lastRatingUpdate
  */
-InlineResponse20055.prototype['rating'] = undefined;
+InlineResponse20055.prototype['lastRatingUpdate'] = undefined;
 
 /**
- * Количество положительных отзыв
- * @member {Number} numberOfPositiveFeedbacks
+ * @member {Number} rootCategory
  */
-InlineResponse20055.prototype['numberOfPositiveFeedbacks'] = undefined;
+InlineResponse20055.prototype['rootCategory'] = undefined;
 
 /**
- * Количество негативных отзыв
- * @member {Number} numberOfNegativeFeedbacks
+ * @member {Array.<Number>} categories
  */
-InlineResponse20055.prototype['numberOfNegativeFeedbacks'] = undefined;
+InlineResponse20055.prototype['categories'] = undefined;
 
 /**
- * Страна
- * @member {String} country
+ * @member {String} parentAsin
  */
-InlineResponse20055.prototype['country'] = undefined;
+InlineResponse20055.prototype['parentAsin'] = undefined;
 
 /**
- * Пользователь онлайн
- * @member {Boolean} isOnline
+ * @member {String} variationCSV
  */
-InlineResponse20055.prototype['isOnline'] = undefined;
+InlineResponse20055.prototype['variationCSV'] = undefined;
 
 /**
- * Количество общих сделок
- * @member {Number} countsOfDeals
+ * @member {Array.<String>} frequentlyBoughtTogether
  */
-InlineResponse20055.prototype['countsOfDeals'] = undefined;
+InlineResponse20055.prototype['frequentlyBoughtTogether'] = undefined;
+
+/**
+ * @member {String} manufacturer
+ */
+InlineResponse20055.prototype['manufacturer'] = undefined;
+
+/**
+ * @member {String} brand
+ */
+InlineResponse20055.prototype['brand'] = undefined;
+
+/**
+ * @member {String} productGroup
+ */
+InlineResponse20055.prototype['productGroup'] = undefined;
+
+/**
+ * @member {Number} publicationDate
+ */
+InlineResponse20055.prototype['publicationDate'] = undefined;
+
+/**
+ * @member {Number} releaseDate
+ */
+InlineResponse20055.prototype['releaseDate'] = undefined;
+
+/**
+ * @member {Array.<Array.<Number>>} contributors
+ */
+InlineResponse20055.prototype['contributors'] = undefined;
+
+/**
+ * @member {String} size
+ */
+InlineResponse20055.prototype['size'] = undefined;
+
+/**
+ * @member {Object} salesRanks
+ */
+InlineResponse20055.prototype['salesRanks'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1ProductsKeepaOffers>} offers
+ */
+InlineResponse20055.prototype['offers'] = undefined;
+
+/**
+ * @member {Array.<Number>} liveOffersOrder
+ */
+InlineResponse20055.prototype['liveOffersOrder'] = undefined;
+
+/**
+ * @member {Array.<String>} buyBoxSellerIdHistory
+ */
+InlineResponse20055.prototype['buyBoxSellerIdHistory'] = undefined;
+
+/**
+ * @member {Number} availabilityAmazon
+ */
+InlineResponse20055.prototype['availabilityAmazon'] = undefined;
+
+/**
+ * @member {Boolean} newPriceIsMAP
+ */
+InlineResponse20055.prototype['newPriceIsMAP'] = undefined;
+
+/**
+ * @member {module:model/ApiV1ProductsKeepaStats} stats
+ */
+InlineResponse20055.prototype['stats'] = undefined;
 
 
 

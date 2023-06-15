@@ -14,12 +14,41 @@ import { UserModel } from '@models/user-model'
 
 import { clientOrdersViewColumns } from '@components/table/table-columns/client/client-orders-columns'
 
-import { addIdDataConverter, clientOrdersDataConverter } from '@utils/data-grid-data-converters'
+import {
+  addIdDataConverter,
+  buyerMyOrdersDataConverter,
+  clientOrdersDataConverter,
+} from '@utils/data-grid-data-converters'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
-import { objectToUrlQs } from '@utils/text'
+import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 import { ShopModel } from '@models/shop-model'
+import { GeneralModel } from '@models/general-model'
+import { BuyerModel } from '@models/buyer-model'
+
+const filtersFields = [
+  'id',
+  'item',
+  'shopIds',
+  'priority',
+  'asin',
+  'skusByClient',
+  'amazonTitle',
+  'status',
+  'amount',
+  'storekeeper',
+  'destination',
+  'productionTerm',
+  'deadline',
+  'needsResearch',
+  'totalPrice',
+  'weight',
+  'clientComment',
+  'buyerComment',
+  'createdAt',
+  'updatedAt',
+]
 
 export class ClientOrdersViewModel {
   history = undefined
@@ -60,6 +89,8 @@ export class ClientOrdersViewModel {
   destinations = []
   platformSettings = undefined
 
+  onHover = null
+
   confirmModalSettings = {
     isWarning: false,
     confirmTitle: '',
@@ -77,7 +108,11 @@ export class ClientOrdersViewModel {
   filterModel = { items: [] }
   densityModel = 'compact'
   amountLimit = 1000
-  columnsModel = clientOrdersViewColumns(this.rowHandlers)
+  columnsModel = clientOrdersViewColumns(
+    this.rowHandlers,
+    () => this.columnMenuSettings,
+    () => this.onHover,
+  )
 
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
@@ -97,6 +132,36 @@ export class ClientOrdersViewModel {
       chosenStatus: this.chosenStatus,
       onClickOrderStatusData: this.onClickOrderStatusData,
     }
+  }
+
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
+  columnMenuSettings = {
+    onClickFilterBtn: field => this.onClickFilterBtn(field),
+    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
+    onClickAccept: () => {
+      this.onLeaveColumnField()
+      // this.getOrdersMy()
+      this.getDataGridState()
+    },
+
+    filterRequestStatus: undefined,
+
+    isFormedData: { isFormed: null, onChangeIsFormed: value => this.onChangeIsFormed(value) },
+
+    ...filtersFields.reduce(
+      (ac, cur) =>
+        (ac = {
+          ...ac,
+          [cur]: {
+            filterData: [],
+            currentFilterData: [],
+          },
+        }),
+      {},
+    ),
   }
 
   constructor({ history, location }) {
@@ -121,6 +186,271 @@ export class ClientOrdersViewModel {
         })
       },
     )
+  }
+
+  async onClickFilterBtn(column) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      const table = getTableByColumn(column, column === 'productionTerm' ? 'suppliers' : 'orders')
+
+      const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
+      const shopFilter = this.columnMenuSettings.shopIds.currentFilterData && column !== 'shopIds' ? curShops : null
+      const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
+
+      const data = await GeneralModel.getDataForColumn(
+        table,
+        column,
+        `clients/pag/orders?filters=${this.getFilter(column)}${
+          shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
+        }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
+      )
+
+      console.log('data', data)
+
+      if (this.columnMenuSettings[column]) {
+        this.columnMenuSettings = {
+          ...this.columnMenuSettings,
+          [column]: { ...this.columnMenuSettings[column], filterData: data },
+        }
+      }
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  getFilter(exclusion) {
+    const idFilter = exclusion !== 'id' && this.columnMenuSettings.id?.currentFilterData.join(',')
+    const itemFilter = exclusion !== 'item' && this.columnMenuSettings.item?.currentFilterData.join(',')
+
+    const shopIdsFilter = exclusion !== 'shopIds' && this.columnMenuSettings.shopIds?.currentFilterData.join(',')
+
+    const priorityFilter = exclusion !== 'priority' && this.columnMenuSettings.priority?.currentFilterData.join(',')
+
+    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin?.currentFilterData.join(',')
+    const skusByClientFilter =
+      exclusion !== 'skusByClient' && this.columnMenuSettings.skusByClient?.currentFilterData.join(',')
+    const amazonTitleFilter =
+      exclusion !== 'amazonTitle' &&
+      this.columnMenuSettings.amazonTitle?.currentFilterData.map(el => `"${el}"`).join(',')
+
+    const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status?.currentFilterData.join(',')
+
+    const amountFilter = exclusion !== 'amount' && this.columnMenuSettings.amount?.currentFilterData.join(',')
+
+    const storekeeperFilter =
+      exclusion !== 'storekeeper' && this.columnMenuSettings.storekeeper?.currentFilterData.join(',')
+
+    const destinationFilter =
+      exclusion !== 'destination' && this.columnMenuSettings.destination?.currentFilterData.join(',')
+
+    const productionTermFilter =
+      exclusion !== 'productionTerm' && this.columnMenuSettings.productionTerm?.currentFilterData.join(',')
+
+    const deadlineFilter = exclusion !== 'deadline' && this.columnMenuSettings.deadline?.currentFilterData.join(',')
+
+    const needsResearchFilter =
+      exclusion !== 'needsResearch' && this.columnMenuSettings.needsResearch?.currentFilterData.join(',')
+
+    const totalPriceFilter =
+      exclusion !== 'totalPrice' && this.columnMenuSettings.totalPrice?.currentFilterData.join(',')
+
+    const weightFilter = exclusion !== 'weight' && this.columnMenuSettings.weight?.currentFilterData.join(',')
+
+    const clientCommentFilter =
+      exclusion !== 'clientComment' && this.columnMenuSettings.clientComment?.currentFilterData.join(',')
+    const buyerCommentFilter =
+      exclusion !== 'buyerComment' && this.columnMenuSettings.buyerComment?.currentFilterData.join(',')
+
+    const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt?.currentFilterData.join(',')
+    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt?.currentFilterData.join(',')
+
+    const filter = objectToUrlQs({
+      or: [
+        { asin: { $contains: this.nameSearchValue } },
+        { amazonTitle: { $contains: this.nameSearchValue } },
+        { skusByClient: { $contains: this.nameSearchValue } },
+        { id: { $eq: this.nameSearchValue } },
+        { item: { $eq: this.nameSearchValue } },
+      ].filter(
+        el =>
+          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
+          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
+      ),
+
+      ...(idFilter && {
+        id: { $eq: idFilter },
+      }),
+      ...(itemFilter && {
+        item: { $eq: itemFilter },
+      }),
+
+      ...(shopIdsFilter && {
+        shopIds: { $eq: shopIdsFilter },
+      }),
+
+      ...(priorityFilter && {
+        priority: { $eq: priorityFilter },
+      }),
+
+      ...(asinFilter && {
+        asin: { $eq: asinFilter },
+      }),
+      ...(skusByClientFilter && {
+        skusByClient: { $eq: skusByClientFilter },
+      }),
+      ...(amazonTitleFilter && {
+        amazonTitle: { $eq: amazonTitleFilter },
+      }),
+
+      ...(statusFilter && {
+        status: { $eq: statusFilter },
+      }),
+
+      ...(amountFilter && {
+        amount: { $eq: amountFilter },
+      }),
+
+      ...(storekeeperFilter && {
+        storekeeper: { $eq: storekeeperFilter },
+      }),
+
+      ...(destinationFilter && {
+        destination: { $eq: destinationFilter },
+      }),
+
+      ...(productionTermFilter && {
+        productionTerm: { $eq: productionTermFilter },
+      }),
+
+      ...(deadlineFilter && {
+        deadline: { $eq: deadlineFilter },
+      }),
+
+      ...(needsResearchFilter && {
+        needsResearch: { $eq: needsResearchFilter },
+      }),
+
+      ...(totalPriceFilter && {
+        totalPrice: { $eq: totalPriceFilter },
+      }),
+
+      ...(weightFilter && {
+        weight: { $eq: weightFilter },
+      }),
+
+      ...(clientCommentFilter && {
+        clientComment: { $eq: clientCommentFilter },
+      }),
+      ...(buyerCommentFilter && {
+        buyerComment: { $eq: buyerCommentFilter },
+      }),
+      ...(createdAtFilter && {
+        createdAt: { $eq: createdAtFilter },
+      }),
+      ...(updatedAtFilter && {
+        updatedAt: { $eq: updatedAtFilter },
+      }),
+    })
+
+    return filter
+  }
+
+  onChangeFullFieldMenuItem(value, field) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        [field]: {
+          ...this.columnMenuSettings[field],
+          currentFilterData: value,
+        },
+      }
+    })
+  }
+
+  // TODO: переписать
+  async getOrdersMy() {
+    try {
+      this.setDefaultStatuses()
+      const orderStatus = this.filteredStatus.map(item => OrderStatusByKey[item]).join(', ')
+
+      const result = await BuyerModel.getOrdersMyPag({
+        filters: this.getFilter(),
+
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
+
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        status: orderStatus,
+      })
+
+      runInAction(() => {
+        this.rowCount = result.count
+
+        this.baseNoConvertedOrders = result.rows
+
+        this.ordersMy = buyerMyOrdersDataConverter(result.rows)
+      })
+    } catch (error) {
+      runInAction(() => {
+        this.baseNoConvertedOrders = []
+        this.ordersMy = []
+      })
+      console.log(error)
+    }
+  }
+
+  onLeaveColumnField() {
+    this.onHover = null
+  }
+
+  onClickResetFilters() {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+
+        ...filtersFields.reduce(
+          (ac, cur) =>
+            (ac = {
+              ...ac,
+              [cur]: {
+                filterData: [],
+                currentFilterData: [],
+              },
+            }),
+          {},
+        ),
+      }
+    })
+
+    // TODO: Добавить когда перепишу метод
+    // this.getOrdersMy()
+    this.getDataGridState()
+  }
+
+  onChangeIsFormed(value) {
+    runInAction(() => {
+      // this.isFormed = value
+
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        isFormedData: {
+          ...this.columnMenuSettings.isFormedData,
+          isFormed: value,
+        },
+      }
+    })
+
+    // TODO: Добавить когда перепишу метод
+    // this.getOrdersMy()
   }
 
   setDestinationsFavouritesItem(item) {
@@ -302,7 +632,8 @@ export class ClientOrdersViewModel {
           }
         }
       }
-      this.getOrders()
+      // TODO: добавить после того как перепишу
+      // this.getOrdersMy()
     })
   }
 

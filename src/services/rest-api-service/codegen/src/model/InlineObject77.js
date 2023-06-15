@@ -22,11 +22,10 @@ class InlineObject77 {
     /**
      * Constructs a new <code>InlineObject77</code>.
      * @alias module:model/InlineObject77
-     * @param email {String} Почта от аккаунта, пароль которого Вы забыли
      */
-    constructor(email) { 
+    constructor() { 
         
-        InlineObject77.initialize(this, email);
+        InlineObject77.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject77 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, email) { 
-        obj['email'] = email;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,11 @@ class InlineObject77 {
         if (data) {
             obj = obj || new InlineObject77();
 
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
+            if (data.hasOwnProperty('userId')) {
+                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
+            }
+            if (data.hasOwnProperty('productIds')) {
+                obj['productIds'] = ApiClient.convertToType(data['productIds'], ['String']);
             }
         }
         return obj;
@@ -60,10 +61,14 @@ class InlineObject77 {
 }
 
 /**
- * Почта от аккаунта, пароль которого Вы забыли
- * @member {String} email
+ * @member {String} userId
  */
-InlineObject77.prototype['email'] = undefined;
+InlineObject77.prototype['userId'] = undefined;
+
+/**
+ * @member {Array.<String>} productIds
+ */
+InlineObject77.prototype['productIds'] = undefined;
 
 
 

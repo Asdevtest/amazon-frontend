@@ -134,12 +134,30 @@ export const objectToUrlQs = obj => decodeURI(QueryString.stringify(obj).replace
 
 export const getTableByColumn = (column, hint) => {
   if (
-    ['humanFriendlyId', 'amount', 'destination', 'logicsTariff', 'prepId', 'storekeeper', 'batchId', 'sub'].includes(
-      column,
-    )
+    [
+      'humanFriendlyId',
+      'amount',
+      'destination',
+      'logicsTariff',
+      'prepId',
+      'storekeeper',
+      'batchId',
+      'sub',
+      'productionTerm',
+      'deadline',
+      'clientComment',
+      'buyerComment',
+      'totalPrice',
+      'needsResearch',
+      'weight',
+    ].includes(column)
   ) {
     if (hint === 'requests') {
       return 'requests'
+    } else if (hint === 'suppliers') {
+      return 'suppliers'
+    } else if (hint === 'orders') {
+      return 'orders'
     } else {
       return 'boxes'
     }
@@ -183,8 +201,9 @@ export const getTableByColumn = (column, hint) => {
       return 'boxes'
     } else if (hint === 'products') {
       return 'products'
-    }
-    if (hint === 'requests') {
+    } else if (hint === 'orders') {
+      return 'orders'
+    } else {
       return 'requests'
     }
   } else if (

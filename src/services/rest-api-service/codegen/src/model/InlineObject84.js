@@ -22,11 +22,11 @@ class InlineObject84 {
     /**
      * Constructs a new <code>InlineObject84</code>.
      * @alias module:model/InlineObject84
-     * @param boxesIds {Array.<String>} 
+     * @param timeoutAt {Date} Время закрытия заявки.
      */
-    constructor(boxesIds) { 
+    constructor(timeoutAt) { 
         
-        InlineObject84.initialize(this, boxesIds);
+        InlineObject84.initialize(this, timeoutAt);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject84 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj, timeoutAt) { 
+        obj['timeoutAt'] = timeoutAt;
     }
 
     /**
@@ -49,8 +49,11 @@ class InlineObject84 {
         if (data) {
             obj = obj || new InlineObject84();
 
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('timeoutAt')) {
+                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
+            }
+            if (data.hasOwnProperty('maxAmountOfProposals')) {
+                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
             }
         }
         return obj;
@@ -60,9 +63,16 @@ class InlineObject84 {
 }
 
 /**
- * @member {Array.<String>} boxesIds
+ * Время закрытия заявки.
+ * @member {Date} timeoutAt
  */
-InlineObject84.prototype['boxesIds'] = undefined;
+InlineObject84.prototype['timeoutAt'] = undefined;
+
+/**
+ * Количество предложений. null без лимитов
+ * @member {Number} maxAmountOfProposals
+ */
+InlineObject84.prototype['maxAmountOfProposals'] = undefined;
 
 
 

@@ -22,12 +22,11 @@ class InlineObject76 {
     /**
      * Constructs a new <code>InlineObject76</code>.
      * @alias module:model/InlineObject76
-     * @param oldPassword {String} Старый ароль
-     * @param newPassword {String} Новый пароль
+     * @param text {String} текст отзыва/репорта
      */
-    constructor(oldPassword, newPassword) { 
+    constructor(text) { 
         
-        InlineObject76.initialize(this, oldPassword, newPassword);
+        InlineObject76.initialize(this, text);
     }
 
     /**
@@ -35,9 +34,8 @@ class InlineObject76 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, oldPassword, newPassword) { 
-        obj['oldPassword'] = oldPassword;
-        obj['newPassword'] = newPassword;
+    static initialize(obj, text) { 
+        obj['text'] = text;
     }
 
     /**
@@ -51,11 +49,11 @@ class InlineObject76 {
         if (data) {
             obj = obj || new InlineObject76();
 
-            if (data.hasOwnProperty('oldPassword')) {
-                obj['oldPassword'] = ApiClient.convertToType(data['oldPassword'], 'String');
+            if (data.hasOwnProperty('text')) {
+                obj['text'] = ApiClient.convertToType(data['text'], 'String');
             }
-            if (data.hasOwnProperty('newPassword')) {
-                obj['newPassword'] = ApiClient.convertToType(data['newPassword'], 'String');
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
             }
         }
         return obj;
@@ -65,16 +63,16 @@ class InlineObject76 {
 }
 
 /**
- * Старый ароль
- * @member {String} oldPassword
+ * текст отзыва/репорта
+ * @member {String} text
  */
-InlineObject76.prototype['oldPassword'] = undefined;
+InlineObject76.prototype['text'] = undefined;
 
 /**
- * Новый пароль
- * @member {String} newPassword
+ * Прикрепленные ссылки на медиа для репорта/отзыва
+ * @member {Array.<String>} media
  */
-InlineObject76.prototype['newPassword'] = undefined;
+InlineObject76.prototype['media'] = undefined;
 
 
 

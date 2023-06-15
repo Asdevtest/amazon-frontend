@@ -47,8 +47,8 @@ class InlineObject42 {
         if (data) {
             obj = obj || new InlineObject42();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('refundPrice')) {
+                obj['refundPrice'] = ApiClient.convertToType(data['refundPrice'], 'Number');
             }
         }
         return obj;
@@ -58,10 +58,10 @@ class InlineObject42 {
 }
 
 /**
- * GUIDы магазинов, которые нужно удалить.
- * @member {Array.<String>} suppliersIds
+ * Сумма воврата
+ * @member {Number} refundPrice
  */
-InlineObject42.prototype['suppliersIds'] = undefined;
+InlineObject42.prototype['refundPrice'] = undefined;
 
 
 

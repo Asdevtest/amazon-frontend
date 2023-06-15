@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**boxesIds** | **[String]** |  | 
+**timeoutAt** | **Date** | Время закрытия заявки. | 
+**maxAmountOfProposals** | **Number** | Количество предложений. null без лимитов | [optional] 
 
 

@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **String** | Название партии | [optional] 
-**calculationMethod** | **Number** | Метод подсчта массы партии | [optional] 
-**volumeWeightDivide** | **Number** | Делитель объема партии | [optional] 
-**trackingNumber** | **String** | Трек номер партии | [optional] 
-**actualShippingCost** | **Number** | Настоящая стоимость доставки | [optional] 
+**execution_time** | **Number** | Время на выполнение, в минутах. | [optional] 
+**price** | **Number** | Цена предложения. | [optional] 
+**comment** | **String** | Комментарий к предложению. | [optional] 
+**linksToMediaFiles** | **[String]** | Ссылки на медиафайлы. | [optional] 
+**title** | **String** | Название предложения | [optional] 
 
 

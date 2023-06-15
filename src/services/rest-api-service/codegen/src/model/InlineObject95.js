@@ -47,8 +47,14 @@ class InlineObject95 {
         if (data) {
             obj = obj || new InlineObject95();
 
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
+            if (data.hasOwnProperty('review')) {
+                obj['review'] = ApiClient.convertToType(data['review'], 'String');
+            }
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
             }
         }
         return obj;
@@ -58,9 +64,22 @@ class InlineObject95 {
 }
 
 /**
- * @member {String} clientComment
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject95.prototype['clientComment'] = undefined;
+InlineObject95.prototype['rating'] = undefined;
+
+/**
+ * Отзыв о работе
+ * @member {String} review
+ */
+InlineObject95.prototype['review'] = undefined;
+
+/**
+ * Файл для записи в FreelanceSource по этому пропоузалу
+ * @member {String} sourceFile
+ */
+InlineObject95.prototype['sourceFile'] = undefined;
 
 
 

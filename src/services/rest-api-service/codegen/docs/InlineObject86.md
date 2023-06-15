@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**boxesIds** | **[String]** |  | 
+**reason** | **String** | Причины закрытия приема предложений. | [optional] 
 
 
