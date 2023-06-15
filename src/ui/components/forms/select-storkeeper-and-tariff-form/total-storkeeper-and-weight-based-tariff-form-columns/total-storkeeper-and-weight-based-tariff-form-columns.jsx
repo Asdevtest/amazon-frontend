@@ -100,14 +100,4 @@ export const TotalStorkeeperAndWeightBasedTariffFormColumns = destinationsData =
     width: 120,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
-
-  {
-    field: 'minWeightInKg',
-    headerName: t(TranslationKey['Min. weight, kg']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min. weight, kg'])} />,
-
-    type: 'number',
-    width: 100,
-    renderCell: params => <MultilineTextCell text={params.value} />,
-  },
 ]

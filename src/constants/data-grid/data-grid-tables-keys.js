@@ -99,4 +99,6 @@ export const DataGridTablesKeys = {
   SHARED_FINANCES: 'overallSharedFinancesDataGridState',
 
   PROFILE_VAC_PRODUCTS: 'profileVacProductsDataGridState',
+
+  PRODUCT_FREELANCE: 'productFreelanceDataGridState',
 }

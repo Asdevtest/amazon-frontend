@@ -109,6 +109,7 @@ import { permissionsKeys } from '../keys/permissions'
 // import {WarehouseTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-tasks-view'
 // import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-vacant-tasks-view'
 import { TranslationKey } from '../translations/translation-key'
+import { FreelancerNotificationsView } from '@views/freelancer/freelancer-notifications-views/freelancer-notifications-view/freelancer-notifications-view'
 
 const AdminAwaitingBatchesView = lazy(() =>
   import('@views/admin/admin-batches-views/admin-awaiting-batches-view').then(module => ({
@@ -314,6 +315,14 @@ const ClientOrdersNotificationsView = lazy(() =>
 const ClientFreelanceNotificationsView = lazy(() =>
   import('@views/client/client-notifications-views/client-freelance-notifications-view').then(module => ({
     default: module.ClientFreelanceNotificationsView,
+  })),
+)
+
+const FreelancerFreelanceNotificationsView = lazy(() =>
+  import(
+    '@views/freelancer/freelancer-notifications-views/freelancer-notifications-view/freelancer-notifications-view'
+  ).then(module => ({
+    default: module.FreelancerNotificationsView,
   })),
 )
 
@@ -3017,6 +3026,40 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
       title: () => t(TranslationKey['Proposal Creation']),
+    },
+  },
+
+  {
+    routePath: '/freelancer/notifications',
+    component: FreelancerFreelanceNotificationsView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+
+    permissionKey: permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER,
+
+    crumbNameKey: TranslationKey.Notifications,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Notifications),
+    },
+  },
+
+  {
+    routePath: '/freelancer/notifications/freelance-notifications',
+    component: ClientFreelanceNotificationsView,
+    exact: false,
+    permission: [UserRole.FREELANCER],
+
+    permissionKey: permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER,
+
+    crumbNameKey: TranslationKey['On orders'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      activeSubCategory: 0,
+      title: () => t(TranslationKey.Notifications),
     },
   },
 

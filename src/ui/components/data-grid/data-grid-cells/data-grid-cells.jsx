@@ -200,7 +200,7 @@ export const UserRolesCell = React.memo(
 export const AsinCell = React.memo(
   withStyles(
     ({ classes: classNames, product, asin }) => (
-      <div className={classNames.multilineTextHeaderWrapper}>
+      <div className={cx(classNames.multilineTextHeaderWrapper, classNames.asinCellCopyWrapper)}>
         <Typography className={classNames.typoCell}>
           {product?.asin || asin ? (
             <a
@@ -1182,7 +1182,8 @@ export const WarehouseDestinationAndTariffCell = React.memo(
                 boxesMy?.logicsTariff?._id
                   ? destinations
                       .filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
-                      .filter(el => boxesMy?.logicsTariff?._id && el?._id === boxesMy?.logicsTariff?._id)
+                      // .filter(el => el?._id === boxesMy?.logicsTariff?._id)
+                      .filter(el => el?._id === boxesMy?.variationTariff?.destinationId)
                   : destinations.filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
               }
               searchFields={['name']}

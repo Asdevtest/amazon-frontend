@@ -115,7 +115,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
     },
 
     {
-      field: 'paymentMethod',
+      field: 'paymentMethods',
       headerName: t(TranslationKey['Payment methods']),
       renderHeader: params => (
         <MultilineTextHeaderCell
@@ -133,9 +133,8 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
           />
         )
       },
-      type: 'number',
-      width: 178,
       align: 'center',
+      width: 178,
       sortable: false,
 
       columnKey: columnnsKeys.shared.PAYMENTS,
