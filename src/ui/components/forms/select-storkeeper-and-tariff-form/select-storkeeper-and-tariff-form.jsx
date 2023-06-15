@@ -53,6 +53,8 @@ export const SelectStorekeeperAndTariffForm = observer(
   }) => {
     const { classes: classNames } = useClassNames()
 
+    console.log('showCheckbox', showCheckbox)
+
     const [tabIndex, setTabIndex] = React.useState(0)
 
     const [nameSearchValue, setNameSearchValue] = useState('')
