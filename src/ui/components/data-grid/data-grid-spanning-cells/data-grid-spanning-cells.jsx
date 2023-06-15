@@ -56,7 +56,7 @@ export const DestinationVariationsSpanningCell = React.memo(
                         disabled={activeDestinationId && activeDestinationId !== variant.destinationId}
                         checked={activeDedestinationVariationt === variant._id}
                         classes={{ root: classNames.checkboxRoot }}
-                        onClick={() => selectVariationTariff(variant._id)}
+                        onClick={() => selectVariationTariff(variant._id, variant.destinationId)}
                       />
                     )}
                     <Typography className={cx(classNames.destinationVariationText)}>{`${

@@ -198,8 +198,7 @@ export const getTableByColumn = (column, hint) => {
       return 'boxes'
     } else if (hint === 'products') {
       return 'products'
-    }
-    if (hint === 'requests') {
+    } else if (hint === 'requests') {
       return 'requests'
     }
   } else if (

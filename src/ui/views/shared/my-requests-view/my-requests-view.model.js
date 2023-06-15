@@ -36,6 +36,7 @@ const filtersFields = [
   'sub',
   'subUsers',
   'priority',
+  'createdAt',
 ]
 
 export class MyRequestsViewModel {
@@ -503,6 +504,8 @@ export class MyRequestsViewModel {
 
     const priorityFilter = exclusion !== 'priority' && this.columnMenuSettings.priority.currentFilterData.join(',')
 
+    const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt.currentFilterData.join(',')
+
     const filter = objectToUrlQs({
       or: [
         { asin: { $contains: this.nameSearchValue } },
@@ -559,6 +562,9 @@ export class MyRequestsViewModel {
       ...(priorityFilter && {
         priority: { $eq: priorityFilter },
       }),
+      ...(createdAtFilter && {
+        createdAt: { $eq: createdAtFilter },
+      }),
     })
 
     return filter
@@ -574,10 +580,24 @@ export class MyRequestsViewModel {
         `requests?kind=${RequestSubType.MY}&filters=${this.getFilter(column)}`,
       )
 
-      if (this.columnMenuSettings[column]) {
-        this.columnMenuSettings = {
-          ...this.columnMenuSettings,
-          [column]: { ...this.columnMenuSettings[column], filterData: data },
+      if (column === 'status') {
+        if (this.columnMenuSettings[column]) {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: {
+              ...this.columnMenuSettings[column],
+              filterData: this.isRequestsAtWork
+                ? data.filter(el => allowStatuses.includes(el))
+                : data.filter(el => !allowStatuses.includes(el)),
+            },
+          }
+        }
+      } else {
+        if (this.columnMenuSettings[column]) {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: { ...this.columnMenuSettings[column], filterData: data },
+          }
         }
       }
 

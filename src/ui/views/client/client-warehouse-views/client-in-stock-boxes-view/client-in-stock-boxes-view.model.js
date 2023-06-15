@@ -217,8 +217,6 @@ export class ClientInStockBoxesViewModel {
 
   setChangeItem(item) {
     this.changeItem = item
-
-    console.log('this.changeItem', this.changeItem)
   }
 
   confirmModalSettings = {
