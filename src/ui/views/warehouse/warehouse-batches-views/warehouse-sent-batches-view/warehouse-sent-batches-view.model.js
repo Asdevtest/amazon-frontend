@@ -31,6 +31,8 @@ export class WarehouseSentBatchesViewModel {
 
   showEditHSCodeModal = false
 
+  isArchive = false
+
   rowCount = 0
   currentData = []
 
@@ -80,6 +82,13 @@ export class WarehouseSentBatchesViewModel {
         runInAction(() => {
           this.currentData = this.getCurrentData()
         })
+      },
+    )
+
+    reaction(
+      () => this.isArchive,
+      () => {
+        this.loadData()
       },
     )
   }
@@ -277,6 +286,7 @@ export class WarehouseSentBatchesViewModel {
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.HAS_DISPATCHED,
         options: {
+          archive: this.isArchive,
           limit: this.paginationModel.pageSize,
           offset: this.paginationModel.page * this.paginationModel.pageSize,
 
@@ -375,6 +385,12 @@ export class WarehouseSentBatchesViewModel {
   onTriggerOpenModal(modal) {
     runInAction(() => {
       this[modal] = !this[modal]
+    })
+  }
+
+  onTriggerArchive() {
+    runInAction(() => {
+      this.isArchive = !this.isArchive
     })
   }
 }

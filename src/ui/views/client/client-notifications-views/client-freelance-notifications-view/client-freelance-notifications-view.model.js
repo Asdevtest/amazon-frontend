@@ -4,6 +4,8 @@ import { SettingsModel } from '@models/settings-model'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { restApiService } from '@services/rest-api-service/rest-api-service'
+import { UserRole, UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { UserModel } from '@models/user-model'
 
 export class ClientFreelanceNotificationsViewModel {
   history = undefined
@@ -125,9 +127,15 @@ export class ClientFreelanceNotificationsViewModel {
   }
 
   onClickReply(requestId, chatId) {
-    this.history.push(`/client/freelance/my-requests/custom-request?request-id=${requestId}`, {
-      chatId,
-    })
+    if (UserRoleCodeMap[UserModel.userInfo.role] === UserRole.FREELANCER) {
+      this.history.push(`/freelancer/freelance/my-proposals/custom-search-request?request-id=${requestId}`, {
+        chatId,
+      })
+    } else {
+      this.history.push(`/client/freelance/vacant-requests/custom-search-request?request-id=${requestId}`, {
+        chatId,
+      })
+    }
     // const win = window.open(
     //   `${window.location.origin}/client/inventory/product?product-id=${productId}&show-tab=ideas`,
     //   '_blank',

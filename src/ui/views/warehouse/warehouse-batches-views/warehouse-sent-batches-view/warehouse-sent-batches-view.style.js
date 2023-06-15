@@ -1,12 +1,12 @@
 export const styles = theme => ({
   headerWrapper: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     marginBottom: 20,
   },
 
   btnsWrapper: {
-    margin: '10px 0 15px',
+    display: 'flex',
   },
 
   row: {
@@ -82,5 +82,10 @@ export const styles = theme => ({
         width: '100%',
       },
     },
+  },
+
+  openArchiveBtn: {
+    padding: '0 30px',
+    color: theme.palette.primary.main,
   },
 })

@@ -45,6 +45,9 @@ export const OrderModalBodyRow = ({
   destinationsFavourites,
   onClickSetDestinationFavourite,
 }) => {
+  console.log('item', item)
+  console.log('storekeepers', storekeepers)
+
   const { classes: classNames } = useClassNames()
   const [isLocalPriseOutOfLimit, setIsLocalPriseOutOfLimit] = useState(false)
 
@@ -84,18 +87,17 @@ export const OrderModalBodyRow = ({
   const weightOfBatch = weightOfOneBox * orderState.amount || ''
 
   const curDestination = destinations.find(el => el._id === orderState.destinationId)
+  const currentStorkeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
+  const currentLogicsTariff = currentStorkeeper?.tariffLogistics?.find(el => el._id === item.logicsTariffId)
+
+  console.log('currentLogicsTariff', currentLogicsTariff)
 
   const firstNumOfCode = curDestination?.zipCode[0]
 
+  const tariffName = currentLogicsTariff?.name
   const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-  const tariffName = storekeepers
-    .find(el => el._id === item.storekeeperId)
-    ?.tariffLogistics?.find(el => el._id === item.logicsTariffId)?.name
-
-  const tariffRate = storekeepers
-    .find(el => el._id === item.storekeeperId)
-    ?.tariffLogistics?.find(el => el._id === item.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+  const tariffRate = currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate
 
   const curStorekeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
 
@@ -287,8 +289,9 @@ export const OrderModalBodyRow = ({
             )}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
-            {item.storekeeperId
-              ? `${storekeepers.find(el => el._id === item.storekeeperId).name} /  
+            {/* {item.storekeeperId
+              ? `${currentStorkeeper.name} / 
+                
                 ${
                   item.logicsTariffId
                     ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
@@ -296,6 +299,10 @@ export const OrderModalBodyRow = ({
                       }`
                     : 'none'
                 }`
+              : t(TranslationKey.Select)} */}
+            {item.storekeeperId
+              ? `                
+                ${item.logicsTariffId ? `${tariffName}` : 'none'}`
               : t(TranslationKey.Select)}
           </Button>
         </TableCell>

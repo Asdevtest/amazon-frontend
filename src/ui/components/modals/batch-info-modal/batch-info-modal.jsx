@@ -33,7 +33,12 @@ import {
 import { checkIsImageLink } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { formatDateWithoutTime } from '@utils/date-time'
-import { getFullTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
+import {
+  getFullTariffTextForBoxOrOrder,
+  getNewTariffTextForBoxOrOrder,
+  getShortenStringIfLongerThanCount,
+  toFixed,
+} from '@utils/text'
 import { t } from '@utils/translations'
 
 import { BigImagesModal } from '../big-images-modal'
@@ -174,7 +179,7 @@ export const BatchInfoModal = observer(
               inputClasses={cx(classNames.infoField, classNames.batchTitleField)}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey.Tariff)}
-              value={getFullTariffTextForBoxOrOrder(batch.boxes?.[0])}
+              value={getNewTariffTextForBoxOrOrder(batch.boxes?.[0])}
               placeholder={t(TranslationKey.Missing)}
             />
 

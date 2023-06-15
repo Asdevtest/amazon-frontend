@@ -101,4 +101,6 @@ export const DataGridTablesKeys = {
   PROFILE_VAC_PRODUCTS: 'profileVacProductsDataGridState',
 
   PRODUCT_FREELANCE: 'productFreelanceDataGridState',
+
+  SUB_WAREHOUSE_LOGISTICS_TARIFFS: 'subWarehouseLogisticsTariffsDataGridState',
 }

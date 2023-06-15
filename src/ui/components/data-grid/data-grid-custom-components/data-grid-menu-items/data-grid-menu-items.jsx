@@ -166,6 +166,7 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
       const [currentOption, setCurrentOption] = useState('first')
 
       const handleCategory = e => {
+        // isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(null);
         setCurrentOption(e.target.value)
       }
 
@@ -198,19 +199,14 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
 
                 <Checkbox
                   color="primary"
-                  checked={
-                    !isNeedPurchaseFilterData.isNeedPurchaseFilter ||
-                    isNeedPurchaseFilterData.isNeedPurchaseFilter === null
-                  }
-                  onClick={() =>
-                    isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(
-                      isNeedPurchaseFilterData.isNeedPurchaseFilter !== null
-                        ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
-                          ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
-                          : null
-                        : true,
-                    )
-                  }
+                  checked={isNeedPurchaseFilterData.isNotNeedPurchaseFilter}
+                  onClick={() => {
+                    if (isNeedPurchaseFilterData.isNotNeedPurchaseFilter) {
+                      isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(false, true)
+                    } else {
+                      isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(true, true)
+                    }
+                  }}
                 />
               </div>
 
@@ -219,19 +215,14 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
 
                 <Checkbox
                   color="primary"
-                  checked={
-                    isNeedPurchaseFilterData.isNeedPurchaseFilter ||
-                    isNeedPurchaseFilterData.isNeedPurchaseFilter === null
-                  }
-                  onClick={() =>
-                    isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(
-                      isNeedPurchaseFilterData.isNeedPurchaseFilter !== null
-                        ? isNeedPurchaseFilterData.isNeedPurchaseFilter
-                          ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
-                          : null
-                        : false,
-                    )
-                  }
+                  checked={isNeedPurchaseFilterData.isNeedPurchaseFilter}
+                  onClick={() => {
+                    if (isNeedPurchaseFilterData.isNeedPurchaseFilter) {
+                      isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(true, false)
+                    } else {
+                      isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(true, true)
+                    }
+                  }}
                 />
               </div>
 
