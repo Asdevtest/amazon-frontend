@@ -136,6 +136,7 @@ export class LogisticsTariffsModel {
       this.columnVisibilityModel = model
     })
     this.setDataGridState()
+    this.getDataGridState()
   }
 
   setDataGridState() {
@@ -146,11 +147,11 @@ export class LogisticsTariffsModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_LOGISTICS_TARIFFS)
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.SUB_WAREHOUSE_LOGISTICS_TARIFFS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_LOGISTICS_TARIFFS]
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.SUB_WAREHOUSE_LOGISTICS_TARIFFS]
 
     runInAction(() => {
       if (state) {

@@ -124,7 +124,6 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         localeText={getLocalizationByLanguageTag()}
         sortModel={sortModel}
         filterModel={filterModel}
-        columnVisibilityModel={columnVisibilityModel}
         paginationModel={paginationModel}
         pageSizeOptions={[15, 25, 50, 100]}
         rows={currentData}
@@ -144,10 +143,12 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         }}
         density={densityModel}
         columns={columnsModel}
+        columnVisibilityModel={columnVisibilityModel}
         loading={requestStatus === loadingStatuses.isLoading}
         onSortModelChange={onChangeSortingModel}
         onPaginationModelChange={onChangePaginationModelChange}
         onFilterModelChange={onChangeFilterModel}
+        onColumnVisibilityModelChange={onColumnVisibilityModelChange}
       />
 
       <Modal
