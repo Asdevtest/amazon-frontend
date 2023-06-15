@@ -1,7 +1,7 @@
 import { cx } from '@emotion/css'
 import { Chip, Typography } from '@mui/material'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { inchesCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
@@ -84,6 +84,10 @@ export const MergeBoxesModal = ({
     images: [],
   })
 
+  const [destinationId, setDestinationId] = useState(boxBody?.destinationId)
+
+  useEffect(() => {}, [boxBody?.destinationId])
+
   const setFormField = fieldName => e => {
     const newFormFields = { ...boxBody }
     const currentValue = e.target.value
@@ -131,8 +135,9 @@ export const MergeBoxesModal = ({
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
-  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId) => {
+  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId, destinationId) => {
     setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId })
+    setDestinationId(destinationId)
 
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
@@ -294,8 +299,8 @@ export const MergeBoxesModal = ({
                     data={
                       boxBody.logicsTariffId
                         ? destinations
-                            ?.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
-                            .filter(el => el?._id === boxBody.logicsTariffId)
+                            // ?.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
+                            .filter(el => el?._id === destinationId)
                         : destinations?.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
                     }
                     searchFields={['name']}

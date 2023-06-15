@@ -1220,31 +1220,8 @@ export class WarehouseMyWarehouseViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      // const filter = objectToUrlQs({
-      //   or: [
-      //     {asin: {$contains: this.nameSearchValue}},
-      //     {amazonTitle: {$contains: this.nameSearchValue}},
-      //     {skusByClient: {$contains: this.nameSearchValue}},
-      //     {item: {$eq: this.nameSearchValue}},
-      //     {id: {$eq: this.nameSearchValue}},
-      //     {humanFriendlyId: {$eq: this.nameSearchValue}},
-      //     {prepId: {$contains: this.nameSearchValue}},
-      //   ].filter(
-      //     el =>
-      //       ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-      //         !el.id &&
-      //         !el.humanFriendlyId) ||
-      //       !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
-      //   ),
-      // })
-
-      // console.log('filter', filter)
-
-      // console.log(this.getFilter())
       const boxes = await StorekeeperModel.getBoxesMyPag({
         filters: this.getFilter(),
-
-        // storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,

@@ -107,7 +107,7 @@ export const getNewTariffTextForBoxOrOrder = (box, withoutRate) => {
 
   const rate = box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate || box?.variationTariff?.pricePerKgUsd
 
-  return `${box.logicsTariff?.name || ''}${rate && !withoutRate ? ' / ' + rate + '$' : ''}`
+  return `${box.logicsTariff?.name || ''}${rate && !withoutRate ? ' / ' + toFixed(rate, 2) + '$' : ''}`
 }
 
 export const shortSku = value => getShortenStringIfLongerThanCount(value, 12)
