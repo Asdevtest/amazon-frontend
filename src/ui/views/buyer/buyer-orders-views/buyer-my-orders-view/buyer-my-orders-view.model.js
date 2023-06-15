@@ -52,7 +52,7 @@ const updateOrderKeys = [
   'partialPayment',
 ]
 
-const filtersFields = ['payments', 'paymentMethod']
+const filtersFields = ['payments', 'paymentMethods']
 
 export class BuyerMyOrdersViewModel {
   history = undefined
@@ -146,9 +146,10 @@ export class BuyerMyOrdersViewModel {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
     onClickAccept: () => {
-      // this.onLeaveColumnField()
-      // this.getBoxesMy()
-      // this.getDataGridState()
+      this.onLeaveColumnField()
+
+      this.getOrdersMy()
+      this.getDataGridState()
     },
 
     ...filtersFields.reduce(
@@ -258,7 +259,7 @@ export class BuyerMyOrdersViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       const data = await GeneralModel.getDataForColumn(
-        getTableByColumn(column, 'requests'),
+        getTableByColumn(column),
         column,
 
         `buyers/orders/pag/my?filters=${this.getFilter(column)}`,
@@ -283,8 +284,9 @@ export class BuyerMyOrdersViewModel {
   }
 
   getFilter(exclusion) {
-    const paymentMethodFilter =
-      exclusion !== 'humanFriendlyId' && this.columnMenuSettings.paymentMethod.currentFilterData.join(',')
+    const paymentMethodsFilter =
+      exclusion !== 'humanFriendlyId' &&
+      this.columnMenuSettings.paymentMethods.currentFilterData.map(item => item._id).join(',')
 
     const filter = objectToUrlQs({
       or: [
@@ -299,8 +301,8 @@ export class BuyerMyOrdersViewModel {
           !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
       ),
 
-      ...(paymentMethodFilter && {
-        paymentMethod: { $eq: paymentMethodFilter },
+      ...(paymentMethodsFilter && {
+        paymentMethods: { $eq: paymentMethodsFilter },
       }),
     })
 
@@ -352,8 +354,8 @@ export class BuyerMyOrdersViewModel {
       }
     })
 
-    // this.getBoxesMy()
-    // this.getDataGridState()
+    this.getOrdersMy()
+    this.getDataGridState()
   }
 
   setDataGridTablesKeys = pathname => {
@@ -1303,5 +1305,9 @@ export class BuyerMyOrdersViewModel {
     runInAction(() => {
       this.imagesForLoad = []
     })
+  }
+
+  onLeaveColumnField() {
+    this.onHover = null
   }
 }

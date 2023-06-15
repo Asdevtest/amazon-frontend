@@ -121,12 +121,13 @@ export const WeightBasedTariffFormColumns = (
     renderCell: params => (
       <NormalActionBtnCell
         disabled={
-          (currentDestinationId &&
+          showCheckbox &&
+          ((currentDestinationId &&
             params.row.originalData?.destinationVariations.every(
               item => item?.destinationId !== currentDestinationId,
             )) ||
-          !variationTariffId ||
-          params.row.originalData?.destinationVariations.every(item => item?._id !== variationTariffId)
+            !variationTariffId ||
+            params.row.originalData?.destinationVariations.every(item => item?._id !== variationTariffId))
         }
         bTnText={t(TranslationKey['Select Tariff'])}
         onClickOkBtn={() => onClickSelectTariff(params.row._id)}
