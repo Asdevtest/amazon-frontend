@@ -47,8 +47,41 @@ class InlineObject23 {
         if (data) {
             obj = obj || new InlineObject23();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
+            }
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            }
+            if (data.hasOwnProperty('productName')) {
+                obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
+            }
+            if (data.hasOwnProperty('productLinks')) {
+                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [NULL_SCHEMA_ERR]);
+            }
+            if (data.hasOwnProperty('criteria')) {
+                obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
+            }
+            if (data.hasOwnProperty('quantity')) {
+                obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('width')) {
+                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
+            }
+            if (data.hasOwnProperty('height')) {
+                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
+            }
+            if (data.hasOwnProperty('length')) {
+                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
+            }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
         }
         return obj;
@@ -58,10 +91,76 @@ class InlineObject23 {
 }
 
 /**
- * GUID коробки, объединение которой нужно отменить
- * @member {String} guid
+ * Название идеи
+ * @member {String} title
  */
-InlineObject23.prototype['guid'] = undefined;
+InlineObject23.prototype['title'] = undefined;
+
+/**
+ * Image URL
+ * @member {Array.<String>} media
+ */
+InlineObject23.prototype['media'] = undefined;
+
+/**
+ * Комментарий к идее
+ * @member {String} comments
+ */
+InlineObject23.prototype['comments'] = undefined;
+
+/**
+ * Назавние продукта
+ * @member {String} productName
+ */
+InlineObject23.prototype['productName'] = undefined;
+
+/**
+ * Ссылки на продукт, если есть
+ * @member {Array.<String>} productLinks
+ */
+InlineObject23.prototype['productLinks'] = undefined;
+
+/**
+ * Дополнительные критерии для поиска товара
+ * @member {String} criteria
+ */
+InlineObject23.prototype['criteria'] = undefined;
+
+/**
+ * Количество товаров
+ * @member {Number} quantity
+ */
+InlineObject23.prototype['quantity'] = undefined;
+
+/**
+ * Желаемая цена
+ * @member {Number} price
+ */
+InlineObject23.prototype['price'] = undefined;
+
+/**
+ * Ширина, см
+ * @member {Number} width
+ */
+InlineObject23.prototype['width'] = undefined;
+
+/**
+ * Высота, см
+ * @member {Number} height
+ */
+InlineObject23.prototype['height'] = undefined;
+
+/**
+ * Длина, см
+ * @member {Number} length
+ */
+InlineObject23.prototype['length'] = undefined;
+
+/**
+ * Product ID
+ * @member {String} productId
+ */
+InlineObject23.prototype['productId'] = undefined;
 
 
 

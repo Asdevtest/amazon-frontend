@@ -145,8 +145,6 @@ export const getTableByColumn = (column, hint) => {
       'sub',
       'totalPrice',
       'priceInYuan',
-      'id',
-      'item',
       'productionTerm',
       'deadline',
       'paymentDateToSupplier',
@@ -167,6 +165,8 @@ export const getTableByColumn = (column, hint) => {
     } else {
       return 'boxes'
     }
+  } else if (['id', 'item', 'paymentMethods'].includes(column)) {
+    return 'orders'
   } else if (
     [
       'asin',

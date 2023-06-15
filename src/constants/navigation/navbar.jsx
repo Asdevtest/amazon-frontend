@@ -250,6 +250,7 @@ export const navbarConfig = () => ({
         { subtitle: t(TranslationKey['On boxes']), subRoute: '/client/notifications/boxes-notifications' },
         { subtitle: t(TranslationKey['On boxes tariffs']), subRoute: '/client/notifications/tariffs-notifications' },
         { subtitle: t(TranslationKey['On ideas']), subRoute: '/client/notifications/ideas-notifications' },
+        { subtitle: t(TranslationKey.Freelance), subRoute: '/client/notifications/freelance-notifications' },
       ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
@@ -414,6 +415,7 @@ export const navbarConfig = () => ({
         !isHaveMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_PAYMENTS_FREELANCER),
     },
+
     {
       icon: Message,
       title: t(TranslationKey.Messages),
@@ -423,6 +425,19 @@ export const navbarConfig = () => ({
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_CHAT_FREELANCER),
+    },
+
+    {
+      icon: MyNotificationsIcon,
+      title: t(TranslationKey.Notifications),
+      route: '/freelancer/notifications',
+      subtitles: [
+        { subtitle: t(TranslationKey.Freelance), subRoute: '/freelancer/notifications/freelance-notifications' },
+      ],
+      key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER),
     },
   ],
   [UserRole.SUPERVISOR]: [

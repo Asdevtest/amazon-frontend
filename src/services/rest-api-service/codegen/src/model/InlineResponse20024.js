@@ -47,14 +47,14 @@ class InlineResponse20024 {
         if (data) {
             obj = obj || new InlineResponse20024();
 
-            if (data.hasOwnProperty('totalPriceInYuan')) {
-                obj['totalPriceInYuan'] = ApiClient.convertToType(data['totalPriceInYuan'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('totalPriceInUSD')) {
-                obj['totalPriceInUSD'] = ApiClient.convertToType(data['totalPriceInUSD'], 'Number');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('partialPaymentAmountRmb')) {
-                obj['partialPaymentAmountRmb'] = ApiClient.convertToType(data['partialPaymentAmountRmb'], 'Number');
+            if (data.hasOwnProperty('productCount')) {
+                obj['productCount'] = ApiClient.convertToType(data['productCount'], 'Number');
             }
         }
         return obj;
@@ -64,22 +64,22 @@ class InlineResponse20024 {
 }
 
 /**
- * total price in yuan for these statuses
- * @member {Number} totalPriceInYuan
+ * Гуид тега
+ * @member {String} _id
  */
-InlineResponse20024.prototype['totalPriceInYuan'] = undefined;
+InlineResponse20024.prototype['_id'] = undefined;
 
 /**
- * total price in USD for these statuses
- * @member {Number} totalPriceInUSD
+ * Тег
+ * @member {String} title
  */
-InlineResponse20024.prototype['totalPriceInUSD'] = undefined;
+InlineResponse20024.prototype['title'] = undefined;
 
 /**
- * Total partialPaymentAmountRmb
- * @member {Number} partialPaymentAmountRmb
+ * Кол-во продуктов, которые используют этот тег
+ * @member {Number} productCount
  */
-InlineResponse20024.prototype['partialPaymentAmountRmb'] = undefined;
+InlineResponse20024.prototype['productCount'] = undefined;
 
 
 

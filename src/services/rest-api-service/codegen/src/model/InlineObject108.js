@@ -22,11 +22,10 @@ class InlineObject108 {
     /**
      * Constructs a new <code>InlineObject108</code>.
      * @alias module:model/InlineObject108
-     * @param priority {Number} Выставить приоритет задачи
      */
-    constructor(priority) { 
+    constructor() { 
         
-        InlineObject108.initialize(this, priority);
+        InlineObject108.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject108 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, priority) { 
-        obj['priority'] = priority;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +47,14 @@ class InlineObject108 {
         if (data) {
             obj = obj || new InlineObject108();
 
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('review')) {
+                obj['review'] = ApiClient.convertToType(data['review'], 'String');
+            }
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
             }
         }
         return obj;
@@ -63,16 +64,22 @@ class InlineObject108 {
 }
 
 /**
- * Выставить приоритет задачи
- * @member {Number} priority
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject108.prototype['priority'] = undefined;
+InlineObject108.prototype['rating'] = undefined;
 
 /**
- * Reason of high priority
- * @member {String} reason
+ * Отзыв о работе
+ * @member {String} review
  */
-InlineObject108.prototype['reason'] = undefined;
+InlineObject108.prototype['review'] = undefined;
+
+/**
+ * Файл для записи в FreelanceSource по этому пропоузалу
+ * @member {String} sourceFile
+ */
+InlineObject108.prototype['sourceFile'] = undefined;
 
 
 

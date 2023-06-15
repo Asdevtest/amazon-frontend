@@ -200,7 +200,7 @@ export const UserRolesCell = React.memo(
 export const AsinCell = React.memo(
   withStyles(
     ({ classes: classNames, product, asin }) => (
-      <div className={classNames.multilineTextHeaderWrapper}>
+      <div className={cx(classNames.multilineTextHeaderWrapper, classNames.asinCellCopyWrapper)}>
         <Typography className={classNames.typoCell}>
           {product?.asin || asin ? (
             <a
@@ -349,7 +349,7 @@ export const StringListCell = React.memo(
     const handleClose = () => {
       setMenuAnchor(null)
     }
-    const items = Array.isArray(sourceString) ? sourceString : sourceString.split(', ')
+    const items = Array.isArray(sourceString) ? sourceString : sourceString?.split(', ')
 
     const [itemsForRender, setItemsForRender] = useState(items || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -366,28 +366,29 @@ export const StringListCell = React.memo(
     return (
       <div className={cx(classNames.flexDirectionColumn, classNames.adaptText)} /* onClick={onClickCell} */>
         <div onClick={onClickCell && onClickCell}>
-          {items
-            .slice(0, maxItemsDisplay)
-            .filter(el => el)
-            .map((item, i) => (
-              <div key={i} className={classNames.multilineTextHeaderWrapper}>
-                <Typography className={cx(classNames.typoCell, classNames.adaptText)}>
-                  {
-                    <span
-                      className={cx(classNames.multilineHeaderText, classNames.adaptText, {
-                        [classNames.bluelinkText]: onClickCell,
-                      })}
-                    >
-                      {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
-                    </span>
-                  }
-                </Typography>
-                {withCopy && <CopyValue text={item} />}
-              </div>
-            ))}
+          {!!items?.length &&
+            items
+              ?.slice(0, maxItemsDisplay)
+              ?.filter(el => el)
+              ?.map((item, i) => (
+                <div key={i} className={classNames.multilineTextHeaderWrapper}>
+                  <Typography className={cx(classNames.typoCell, classNames.adaptText)}>
+                    {
+                      <span
+                        className={cx(classNames.multilineHeaderText, classNames.adaptText, {
+                          [classNames.bluelinkText]: onClickCell,
+                        })}
+                      >
+                        {getShortenStringIfLongerThanCount(item, maxLettersInItem)}
+                      </span>
+                    }
+                  </Typography>
+                  {withCopy && <CopyValue text={item} />}
+                </div>
+              ))}
         </div>
 
-        {items.length > maxItemsDisplay ? (
+        {items?.length > maxItemsDisplay ? (
           <Button variant="text" className={cx(classNames.mainFilterBtn)} onClick={handleClick}>
             <div className={cx(classNames.mainFilterBtnInsert)}>
               <MoreHorizOutlinedIcon color="primary" />
@@ -415,7 +416,7 @@ export const StringListCell = React.memo(
             </div>
             <div className={classNames.shopsWrapper}>
               <div className={classNames.shopsBody}>
-                {itemsForRender.map((item, i) => (
+                {itemsForRender?.map((item, i) => (
                   <div key={i} className={classNames.multilineTextHeaderWrapper}>
                     <Typography className={classNames.typoCell}>
                       {
@@ -1014,7 +1015,7 @@ export const DownloadAndPrintFilesCell = React.memo(
               <Button onClick={() => handlePrint()}>
                 <PrintIcon
                   classes={{
-                    root: styles.printIcon,
+                    root: styles.printIconModal,
                   }}
                 />
               </Button>
@@ -1181,7 +1182,8 @@ export const WarehouseDestinationAndTariffCell = React.memo(
                 boxesMy?.logicsTariff?._id
                   ? destinations
                       .filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
-                      .filter(el => boxesMy?.logicsTariff?._id && el?._id === boxesMy?.logicsTariff?._id)
+                      // .filter(el => el?._id === boxesMy?.logicsTariff?._id)
+                      .filter(el => el?._id === boxesMy?.variationTariff?.destinationId)
                   : destinations.filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
               }
               searchFields={['name']}

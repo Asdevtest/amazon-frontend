@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**finances** | [**InlineResponse20038Finances**](InlineResponse20038Finances.md) |  | [optional] 
+**count** | **Number** |  | [optional] 
+**rows** | [**[InlineResponse20041Rows]**](InlineResponse20041Rows.md) | Массив заявок. | [optional] 
 
 

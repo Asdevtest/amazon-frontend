@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**itemsBarCodeChanges** | [**[ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges]**](ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges.md) |  | 
+**productId** | **String** |  | 
+**warehouseStocks** | [**[ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks]**](ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks.md) |  | 
 
 

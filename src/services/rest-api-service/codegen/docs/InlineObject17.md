@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**attachedDocuments** | **[String]** |  | 
+**userIds** | **[String]** |  | 
+**title** | **String** | Название группового чата | 
 
 

@@ -120,7 +120,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
     },
 
     {
-      field: 'payments',
+      field: 'paymentMethod',
       headerName: t(TranslationKey['Payment methods']),
       renderHeader: params => (
         <MultilineTextHeaderCell
@@ -131,7 +131,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       renderCell: params => {
         return (
           <StringListCell
-            sourceString={params?.value?.map(method => method?.paymentMethod?.title)}
+            sourceString={params?.row?.originalData?.payments?.map(method => method?.paymentMethod?.title)}
             maxItemsDisplay={3}
             maxLettersInItem={15}
             onClickCell={() => rowHandlers.onClickPaymentMethodCell(params?.row?.originalData)}

@@ -139,16 +139,24 @@ export const SelectStorekeeperAndTariffForm = observer(
           <div className={classNames.tableWrapper}>
             <MemoDataGrid
               hideFooter
-              // sx={{
-              //   border: 0,
-              //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-              //   backgroundColor: theme.palette.background.general,
-              // }}
               getRowClassName={getRowClassName}
               rows={
                 curStorekeeper?.tariffLogistics?.length
                   ? filterByNameSearch(
-                      addIdDataConverter(curStorekeeper.tariffLogistics).filter(item => item.tariffType === 20),
+                      addIdDataConverter(curStorekeeper.tariffLogistics)
+                        .filter(item => item.tariffType === 20)
+                        .sort((a, b) => {
+                          const aHasMatch = a?.destinationVariations?.some(obj => obj?._id === currentVariationTariffId)
+                          const bHasMatch = b?.destinationVariations?.some(obj => obj?._id === currentVariationTariffId)
+
+                          if (aHasMatch && !bHasMatch) {
+                            return -1
+                          } else if (!aHasMatch && bHasMatch) {
+                            return 1
+                          } else {
+                            return 0
+                          }
+                        }),
                     )
                   : []
               }
@@ -188,11 +196,6 @@ export const SelectStorekeeperAndTariffForm = observer(
           <div className={classNames.tableWrapper}>
             <MemoDataGrid
               hideFooter
-              // sx={{
-              //   border: 0,
-              //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-              //   backgroundColor: theme.palette.background.general,
-              // }}
               getRowClassName={getRowClassName}
               rows={
                 curStorekeeper?.tariffLogistics?.length
@@ -226,11 +229,6 @@ export const SelectStorekeeperAndTariffForm = observer(
           <div className={classNames.tableWrapper}>
             <MemoDataGrid
               hideFooter
-              // sx={{
-              //   border: 0,
-              //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-              //   backgroundColor: theme.palette.background.general,
-              // }}
               rows={
                 curStorekeeper?.tariffWarehouses?.length
                   ? filterByNameSearch(addIdDataConverter(curStorekeeper.tariffWarehouses))

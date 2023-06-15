@@ -1735,11 +1735,20 @@ export const styles = theme => ({
   printIcon: {
     color: theme.palette.background.darkBlue,
   },
+  printIconModal: {
+    color: '#fff',
+  },
   formedCell: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
     gap: 5,
+  },
+
+  asinCellCopyWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 7,
   },
 })

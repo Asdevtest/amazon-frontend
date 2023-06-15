@@ -15,9 +15,9 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject72 from '../model/InlineObject72';
-import InlineObject73 from '../model/InlineObject73';
-import InlineResponse20050 from '../model/InlineResponse20050';
+import InlineObject33 from '../model/InlineObject33';
+import InlineObject34 from '../model/InlineObject34';
+import InlineResponse20031 from '../model/InlineResponse20031';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -47,7 +47,7 @@ export default class OrderApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20050>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20031>} and HTTP response
      */
     apiV1OrdersCheckPendingOrderByProductGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -71,7 +71,7 @@ export default class OrderApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20050];
+      let returnType = [InlineResponse20031];
       return this.apiClient.callApi(
         '/api/v1/orders/check_pending_order_by_product/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -85,7 +85,7 @@ export default class OrderApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20050>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20031>}
      */
     apiV1OrdersCheckPendingOrderByProductGuidGet(guid, opts) {
       return this.apiV1OrdersCheckPendingOrderByProductGuidGetWithHttpInfo(guid, opts)
@@ -101,7 +101,7 @@ export default class OrderApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject73} opts.body 
+     * @param {module:model/InlineObject34} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1OrdersCommentGuidPatchWithHttpInfo(guid, opts) {
@@ -140,7 +140,7 @@ export default class OrderApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject73} opts.body 
+     * @param {module:model/InlineObject34} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1OrdersCommentGuidPatch(guid, opts) {
@@ -157,7 +157,7 @@ export default class OrderApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject72} opts.body 
+     * @param {module:model/InlineObject33} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1OrdersPendingGuidPatchWithHttpInfo(guid, opts) {
@@ -196,7 +196,7 @@ export default class OrderApi {
      * @param {String} guid GUID заказа, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject72} opts.body 
+     * @param {module:model/InlineObject33} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1OrdersPendingGuidPatch(guid, opts) {

@@ -12,8 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1AnnouncementsMyRequests from './ApiV1AnnouncementsMyRequests';
+import ApiV1AdminsGetProductsByStatusRedFlags from './ApiV1AdminsGetProductsByStatusRedFlags';
+import ApiV1AdminsGetProductsByStatusTags from './ApiV1AdminsGetProductsByStatusTags';
 
 /**
  * The InlineResponse2009 model module.
@@ -52,23 +52,68 @@ class InlineResponse2009 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], 'String');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
-            if (data.hasOwnProperty('requests')) {
-                obj['requests'] = ApiClient.convertToType(data['requests'], [ApiV1AnnouncementsMyRequests]);
+            if (data.hasOwnProperty('skusByClient')) {
+                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('strategyStatus')) {
+                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('checkednotes')) {
+                obj['checkednotes'] = ApiClient.convertToType(data['checkednotes'], 'String');
             }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            if (data.hasOwnProperty('bsr')) {
+                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
             }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
+            if (data.hasOwnProperty('amazon')) {
+                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
+            }
+            if (data.hasOwnProperty('reffee')) {
+                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
+            }
+            if (data.hasOwnProperty('fbafee')) {
+                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
+            }
+            if (data.hasOwnProperty('fbaamount')) {
+                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('amazonTitle')) {
+                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
+            }
+            if (data.hasOwnProperty('profit')) {
+                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
+            }
+            if (data.hasOwnProperty('material')) {
+                obj['material'] = ApiClient.convertToType(data['material'], 'String');
+            }
+            if (data.hasOwnProperty('productUsage')) {
+                obj['productUsage'] = ApiClient.convertToType(data['productUsage'], 'String');
+            }
+            if (data.hasOwnProperty('chinaTitle')) {
+                obj['chinaTitle'] = ApiClient.convertToType(data['chinaTitle'], 'String');
+            }
+            if (data.hasOwnProperty('ideasOnCheck')) {
+                obj['ideasOnCheck'] = ApiClient.convertToType(data['ideasOnCheck'], 'Number');
+            }
+            if (data.hasOwnProperty('ideasVerified')) {
+                obj['ideasVerified'] = ApiClient.convertToType(data['ideasVerified'], 'Number');
+            }
+            if (data.hasOwnProperty('ideasClosed')) {
+                obj['ideasClosed'] = ApiClient.convertToType(data['ideasClosed'], 'Number');
+            }
+            if (data.hasOwnProperty('tags')) {
+                obj['tags'] = ApiClient.convertToType(data['tags'], [ApiV1AdminsGetProductsByStatusTags]);
+            }
+            if (data.hasOwnProperty('redFlags')) {
+                obj['redFlags'] = ApiClient.convertToType(data['redFlags'], [ApiV1AdminsGetProductsByStatusRedFlags]);
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -84,49 +129,139 @@ class InlineResponse2009 {
 }
 
 /**
- * GUID в базе данных
+ * GUID продукта в базе данных
  * @member {String} _id
  */
 InlineResponse2009.prototype['_id'] = undefined;
 
 /**
- * @member {String} type
+ * ASIN продукта
+ * @member {String} asin
  */
-InlineResponse2009.prototype['type'] = undefined;
+InlineResponse2009.prototype['asin'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1AnnouncementsMyRequests>} requests
+ * @member {Array.<String>} skusByClient
  */
-InlineResponse2009.prototype['requests'] = undefined;
+InlineResponse2009.prototype['skusByClient'] = undefined;
 
 /**
- * @member {Array.<String>} linksToMediaFiles
+ * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+ * @member {Number} strategyStatus
  */
-InlineResponse2009.prototype['linksToMediaFiles'] = undefined;
+InlineResponse2009.prototype['strategyStatus'] = undefined;
 
 /**
- * @member {String} title
+ * 
+ * @member {String} checkednotes
  */
-InlineResponse2009.prototype['title'] = undefined;
+InlineResponse2009.prototype['checkednotes'] = undefined;
 
 /**
- * @member {String} description
+ * 
+ * @member {Number} bsr
  */
-InlineResponse2009.prototype['description'] = undefined;
+InlineResponse2009.prototype['bsr'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
+ * 
+ * @member {Number} amazon
  */
-InlineResponse2009.prototype['createdBy'] = undefined;
+InlineResponse2009.prototype['amazon'] = undefined;
 
 /**
- * Дата создания.
+ * комиссия которую берет амазон за любой заказ - 15%
+ * @member {Number} reffee
+ */
+InlineResponse2009.prototype['reffee'] = undefined;
+
+/**
+ * ФБА комиссия
+ * @member {Number} fbafee
+ */
+InlineResponse2009.prototype['fbafee'] = undefined;
+
+/**
+ *  Общая сумма с фба.
+ * @member {Number} fbaamount
+ */
+InlineResponse2009.prototype['fbaamount'] = undefined;
+
+/**
+ * Код текущего статуса
+ * @member {Number} status
+ */
+InlineResponse2009.prototype['status'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineResponse2009.prototype['images'] = undefined;
+
+/**
+ * Заголовок на товар с сайта амазон.
+ * @member {String} amazonTitle
+ */
+InlineResponse2009.prototype['amazonTitle'] = undefined;
+
+/**
+ * Прибыль
+ * @member {Number} profit
+ */
+InlineResponse2009.prototype['profit'] = undefined;
+
+/**
+ * Материл продукта
+ * @member {String} material
+ */
+InlineResponse2009.prototype['material'] = undefined;
+
+/**
+ * Применение продукта
+ * @member {String} productUsage
+ */
+InlineResponse2009.prototype['productUsage'] = undefined;
+
+/**
+ * chinese title?
+ * @member {String} chinaTitle
+ */
+InlineResponse2009.prototype['chinaTitle'] = undefined;
+
+/**
+ * @member {Number} ideasOnCheck
+ */
+InlineResponse2009.prototype['ideasOnCheck'] = undefined;
+
+/**
+ * @member {Number} ideasVerified
+ */
+InlineResponse2009.prototype['ideasVerified'] = undefined;
+
+/**
+ * @member {Number} ideasClosed
+ */
+InlineResponse2009.prototype['ideasClosed'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusTags>} tags
+ */
+InlineResponse2009.prototype['tags'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusRedFlags>} redFlags
+ */
+InlineResponse2009.prototype['redFlags'] = undefined;
+
+/**
+ * Дата создания
  * @member {Date} createdAt
  */
 InlineResponse2009.prototype['createdAt'] = undefined;
 
 /**
- * Дата обновления.
+ * Дата изменения
  * @member {Date} updatedAt
  */
 InlineResponse2009.prototype['updatedAt'] = undefined;

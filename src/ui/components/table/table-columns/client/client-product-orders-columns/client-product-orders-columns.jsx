@@ -159,7 +159,7 @@ export const clientProductOrdersViewColumns = handlers => [
     headerName: t(TranslationKey['Production time']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.row.originalData.orderSupplier.productionTerm} />,
+    renderCell: params => <MultilineTextCell text={params.row.originalData?.orderSupplier?.productionTerm} />,
     width: 120,
     sortable: false,
   },
@@ -168,15 +168,6 @@ export const clientProductOrdersViewColumns = handlers => [
     field: 'deadline',
     headerName: 'Deadline',
     renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
-
-    // renderCell: params => (
-    //   <MultilineTextCell
-    //     withLineBreaks
-    //     tooltipText={formatNormDateTime(params.value)}
-    //     color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-    //     text={params.value ? timeToDeadlineInHoursAndMins({date: params.value}) : ''}
-    //   />
-    // ),
 
     renderCell: params =>
       params.row.originalData.status < 20 ? (

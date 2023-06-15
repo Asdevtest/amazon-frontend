@@ -47,11 +47,14 @@ class InlineResponse20053 {
         if (data) {
             obj = obj || new InlineResponse20053();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('shopIds')) {
-                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -61,15 +64,21 @@ class InlineResponse20053 {
 }
 
 /**
- * @member {String} productId
+ * GUID метода оплаты в базе данных
+ * @member {String} _id
  */
-InlineResponse20053.prototype['productId'] = undefined;
+InlineResponse20053.prototype['_id'] = undefined;
 
 /**
- * Массив магазинов
- * @member {Array.<String>} shopIds
+ * @member {String} title
  */
-InlineResponse20053.prototype['shopIds'] = undefined;
+InlineResponse20053.prototype['title'] = undefined;
+
+/**
+ * Дата обновления.
+ * @member {Date} updatedAt
+ */
+InlineResponse20053.prototype['updatedAt'] = undefined;
 
 
 

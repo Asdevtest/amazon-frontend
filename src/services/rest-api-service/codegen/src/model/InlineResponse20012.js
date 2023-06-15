@@ -47,23 +47,14 @@ class InlineResponse20012 {
         if (data) {
             obj = obj || new InlineResponse20012();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('totalPriceInYuan')) {
+                obj['totalPriceInYuan'] = ApiClient.convertToType(data['totalPriceInYuan'], 'Number');
             }
-            if (data.hasOwnProperty('cubicMeters')) {
-                obj['cubicMeters'] = ApiClient.convertToType(data['cubicMeters'], 'Number');
+            if (data.hasOwnProperty('totalPriceInUSD')) {
+                obj['totalPriceInUSD'] = ApiClient.convertToType(data['totalPriceInUSD'], 'Number');
             }
-            if (data.hasOwnProperty('deliveryCost')) {
-                obj['deliveryCost'] = ApiClient.convertToType(data['deliveryCost'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
-                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('weightFinalAccountingKgWarehouse')) {
-                obj['weightFinalAccountingKgWarehouse'] = ApiClient.convertToType(data['weightFinalAccountingKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryRate')) {
-                obj['deliveryRate'] = ApiClient.convertToType(data['deliveryRate'], 'Number');
+            if (data.hasOwnProperty('partialPaymentAmountRmb')) {
+                obj['partialPaymentAmountRmb'] = ApiClient.convertToType(data['partialPaymentAmountRmb'], 'Number');
             }
         }
         return obj;
@@ -73,40 +64,22 @@ class InlineResponse20012 {
 }
 
 /**
- * The unique identifier of the box.
- * @member {String} guid
+ * total price in yuan for these statuses
+ * @member {Number} totalPriceInYuan
  */
-InlineResponse20012.prototype['guid'] = undefined;
+InlineResponse20012.prototype['totalPriceInYuan'] = undefined;
 
 /**
- * Объем в м ^ 3
- * @member {Number} cubicMeters
+ * total price in USD for these statuses
+ * @member {Number} totalPriceInUSD
  */
-InlineResponse20012.prototype['cubicMeters'] = undefined;
+InlineResponse20012.prototype['totalPriceInUSD'] = undefined;
 
 /**
- * The delivery cost of the box.
- * @member {Number} deliveryCost
+ * Total partialPaymentAmountRmb
+ * @member {Number} partialPaymentAmountRmb
  */
-InlineResponse20012.prototype['deliveryCost'] = undefined;
-
-/**
- * The volume weight of the box in kg.
- * @member {Number} volumeWeightKgWarehouse
- */
-InlineResponse20012.prototype['volumeWeightKgWarehouse'] = undefined;
-
-/**
- * The weight of the box in kg.
- * @member {Number} weightFinalAccountingKgWarehouse
- */
-InlineResponse20012.prototype['weightFinalAccountingKgWarehouse'] = undefined;
-
-/**
- * The delivery rate of the box. $/kg
- * @member {Number} deliveryRate
- */
-InlineResponse20012.prototype['deliveryRate'] = undefined;
+InlineResponse20012.prototype['partialPaymentAmountRmb'] = undefined;
 
 
 

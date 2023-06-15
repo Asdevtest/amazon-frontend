@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**totalPriceInYuan** | **Number** | total price in yuan for these statuses | [optional] 
-**totalPriceInUSD** | **Number** | total price in USD for these statuses | [optional] 
-**partialPaymentAmountRmb** | **Number** | Total partialPaymentAmountRmb | [optional] 
+**_id** | **String** | Гуид тега | [optional] 
+**title** | **String** | Тег | [optional] 
+**productCount** | **Number** | Кол-во продуктов, которые используют этот тег | [optional] 
 
 

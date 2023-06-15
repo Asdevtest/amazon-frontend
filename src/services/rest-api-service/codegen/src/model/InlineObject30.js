@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges from './ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges';
+import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from './ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks';
 
 /**
  * The InlineObject30 model module.
@@ -23,11 +23,12 @@ class InlineObject30 {
     /**
      * Constructs a new <code>InlineObject30</code>.
      * @alias module:model/InlineObject30
-     * @param itemsBarCodeChanges {Array.<module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>} 
+     * @param productId {String} 
+     * @param warehouseStocks {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} 
      */
-    constructor(itemsBarCodeChanges) { 
+    constructor(productId, warehouseStocks) { 
         
-        InlineObject30.initialize(this, itemsBarCodeChanges);
+        InlineObject30.initialize(this, productId, warehouseStocks);
     }
 
     /**
@@ -35,8 +36,9 @@ class InlineObject30 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, itemsBarCodeChanges) { 
-        obj['itemsBarCodeChanges'] = itemsBarCodeChanges;
+    static initialize(obj, productId, warehouseStocks) { 
+        obj['productId'] = productId;
+        obj['warehouseStocks'] = warehouseStocks;
     }
 
     /**
@@ -50,8 +52,11 @@ class InlineObject30 {
         if (data) {
             obj = obj || new InlineObject30();
 
-            if (data.hasOwnProperty('itemsBarCodeChanges')) {
-                obj['itemsBarCodeChanges'] = ApiClient.convertToType(data['itemsBarCodeChanges'], [ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges]);
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('warehouseStocks')) {
+                obj['warehouseStocks'] = ApiClient.convertToType(data['warehouseStocks'], [ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks]);
             }
         }
         return obj;
@@ -61,9 +66,14 @@ class InlineObject30 {
 }
 
 /**
- * @member {Array.<module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>} itemsBarCodeChanges
+ * @member {String} productId
  */
-InlineObject30.prototype['itemsBarCodeChanges'] = undefined;
+InlineObject30.prototype['productId'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} warehouseStocks
+ */
+InlineObject30.prototype['warehouseStocks'] = undefined;
 
 
 

@@ -4,9 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **Number** |  | [optional] 
-**linksToMediaFiles** | **[String]** |  | [optional] 
-**title** | **String** |  | [optional] 
-**description** | **String** |  | [optional] 
+**orderPayments** | [**[ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments]**](ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments.md) |  | [optional] 
 
 

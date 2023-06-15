@@ -50,26 +50,20 @@ class InlineResponse20061 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('requestId')) {
-                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
-            if (data.hasOwnProperty('commentByClient')) {
-                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
+            if (data.hasOwnProperty('amazonTitle')) {
+                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
             }
-            if (data.hasOwnProperty('commentByPerformer')) {
-                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
+            if (data.hasOwnProperty('skusByClient')) {
+                obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
             }
-            if (data.hasOwnProperty('fileLink')) {
-                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -79,52 +73,39 @@ class InlineResponse20061 {
 }
 
 /**
- * GUID в базе данных
+ * GUID продукта в базе данных
  * @member {String} _id
  */
 InlineResponse20061.prototype['_id'] = undefined;
 
 /**
- * Guid заявки к которой относится данное media.
- * @member {String} requestId
+ * ASIN продукта
+ * @member {String} asin
  */
-InlineResponse20061.prototype['requestId'] = undefined;
+InlineResponse20061.prototype['asin'] = undefined;
 
 /**
- * Guid предложения к которой относится данное media.
- * @member {String} proposalId
+ * ID магазинов для продукта
+ * @member {Array.<String>} shopIds
  */
-InlineResponse20061.prototype['proposalId'] = undefined;
+InlineResponse20061.prototype['shopIds'] = undefined;
 
 /**
- * комментарий клиента
- * @member {String} commentByClient
+ * Заголовок на товар с сайта амазон.
+ * @member {String} amazonTitle
  */
-InlineResponse20061.prototype['commentByClient'] = undefined;
+InlineResponse20061.prototype['amazonTitle'] = undefined;
 
 /**
- * комментарий исполнителя
- * @member {String} commentByPerformer
+ * @member {Array.<String>} skusByClient
  */
-InlineResponse20061.prototype['commentByPerformer'] = undefined;
+InlineResponse20061.prototype['skusByClient'] = undefined;
 
 /**
- * Ссылка на файл
- * @member {String} fileLink
+ * Массив картинок.
+ * @member {Array.<String>} images
  */
-InlineResponse20061.prototype['fileLink'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} createdAt
- */
-InlineResponse20061.prototype['createdAt'] = undefined;
-
-/**
- * Дата обновления.
- * @member {Date} updatedAt
- */
-InlineResponse20061.prototype['updatedAt'] = undefined;
+InlineResponse20061.prototype['images'] = undefined;
 
 
 
