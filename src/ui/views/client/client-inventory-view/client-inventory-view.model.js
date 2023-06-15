@@ -202,8 +202,9 @@ export class ClientInventoryViewModel {
     filterRequestStatus: undefined,
 
     isNeedPurchaseFilterData: {
-      isNeedPurchaseFilter: null,
-      onChangeIsNeedPurchaseFilter: value => this.onChangeIsNeedPurchaseFilter(value),
+      isNeedPurchaseFilter: true,
+      isNotNeedPurchaseFilter: true,
+      onChangeIsNeedPurchaseFilter: (value, value2) => this.onChangeIsNeedPurchaseFilter(value, value2),
     },
 
     isHaveBarCodeFilterData: {
@@ -716,13 +717,14 @@ export class ClientInventoryViewModel {
     })
   }
 
-  onChangeIsNeedPurchaseFilter(value) {
+  onChangeIsNeedPurchaseFilter(isNotNeedPurchaseFilter, isNeedPurchaseFilter) {
     runInAction(() => {
       this.columnMenuSettings = {
         ...this.columnMenuSettings,
         isNeedPurchaseFilterData: {
           ...this.columnMenuSettings.isNeedPurchaseFilterData,
-          isNeedPurchaseFilter: value,
+          isNeedPurchaseFilter,
+          isNotNeedPurchaseFilter,
         },
       }
     })
@@ -780,13 +782,9 @@ export class ClientInventoryViewModel {
         // }`,
 
         `clients/products/my_with_pag?filters=${this.getFilter(column)}${
-          shopFilter ? ';' + '[shopIds][$eq]=' + shopFilter : ''
-        }${
-          purchaseQuantityAboveZeroFilter ? ';' + 'purchaseQuantityAboveZero=' + purchaseQuantityAboveZeroFilter : ''
-        }`,
+          shopFilter ? `;[shopIds][$eq]=${shopFilter}` : ''
+        }&purchaseQuantityAboveZero=${purchaseQuantityAboveZeroFilter}`,
       )
-
-      console.log('data', data)
 
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
