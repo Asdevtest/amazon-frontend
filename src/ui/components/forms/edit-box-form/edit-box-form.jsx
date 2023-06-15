@@ -2,7 +2,7 @@
 import { cx } from '@emotion/css'
 import { Checkbox, Chip, Divider, Typography } from '@mui/material'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { observer } from 'mobx-react'
 
@@ -184,6 +184,11 @@ export const EditBoxForm = observer(
     }
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
+    const [destinationId, setDestinationId] = useState(boxFields?.destinationId)
+
+    useEffect(() => {
+      setDestinationId(boxFields?.destinationId)
+    }, [boxFields.destinationId])
 
     const setFormField = fieldName => e => {
       const newFormFields = { ...boxFields }
@@ -231,8 +236,9 @@ export const EditBoxForm = observer(
 
     const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
-    const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId) => {
+    const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId, destinationId) => {
       setBoxFields({ ...boxFields, storekeeperId, logicsTariffId: tariffId, variationTariffId })
+      setDestinationId(destinationId)
 
       setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
     }
@@ -260,7 +266,7 @@ export const EditBoxForm = observer(
 
     const tariffRate =
       currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
-      currentLogicsTariff?.destinationVariations?.find(el => el._id === boxFields?.variationTariff?._id)?.pricePerKgUsd
+      currentLogicsTariff?.destinationVariations?.find(el => el._id === boxFields?.variationTariffId)?.pricePerKgUsd
 
     const allItemsCount =
       boxFields.items.reduce((ac, cur) => (ac = ac + cur.amount), 0) * (boxFields.amount < 1 ? 1 : boxFields.amount)
@@ -503,7 +509,7 @@ export const EditBoxForm = observer(
                             boxFields.logicsTariffId
                               ? destinations
                                   .filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
-                                  .filter(el => el?._id === boxFields.logicsTariffId)
+                                  .filter(el => el?._id === destinationId)
                               : destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
                           }
                           searchFields={['name']}
