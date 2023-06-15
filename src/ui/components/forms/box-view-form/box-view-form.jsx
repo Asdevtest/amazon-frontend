@@ -41,6 +41,7 @@ import {
   shortAsin,
   toFixed,
   toFixedWithKg,
+  getNewTariffTextForBoxOrOrder,
 } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -189,7 +190,7 @@ export const BoxViewForm = observer(
                   inputClasses={classNames.deliveryInfoField}
                   labelClasses={classNames.label}
                   label={t(TranslationKey.Tariff)}
-                  value={getFullTariffTextForBoxOrOrder(box) || ''}
+                  value={getNewTariffTextForBoxOrOrder(box) || ''}
                   placeholder={t(TranslationKey['Not available'])}
                 />
               </Grid>

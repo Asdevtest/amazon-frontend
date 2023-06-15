@@ -164,13 +164,15 @@ export const MergeBoxesModal = ({
 
   const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-  const tariffName = storekeepers
-    ?.find(el => el._id === boxBody.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === boxBody.logicsTariffId)?.name
+  const currentStorekeeper = storekeepers.find(el => el._id === boxBody.storekeeperId)
+  const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === boxBody.logicsTariffId)
 
-  const tariffRate = storekeepers
-    ?.find(el => el._id === boxBody.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === boxBody.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+  const tariffName = currentLogicsTariff?.name
+
+  const tariffRate =
+    currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
+    currentLogicsTariff?.destinationVariations?.find(el => el._id === boxBody?.variationTariffId)?.pricePerKgUsd
+
   const boxData = selectedBoxes.map(box => box.items)
 
   const finalBoxData = Object.values(
@@ -320,14 +322,7 @@ export const MergeBoxesModal = ({
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
                     {boxBody.logicsTariffId
-                      ? `${storekeepers?.find(el => el._id === boxBody.storekeeperId)?.name} /  
-                ${
-                  boxBody.logicsTariffId
-                    ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-                        tariffRate ? ' / ' + tariffRate + ' $' : ''
-                      }`
-                    : 'none'
-                }`
+                      ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                       : t(TranslationKey.Select)}
                   </Button>
                 }

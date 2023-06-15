@@ -1153,9 +1153,10 @@ export const WarehouseDestinationAndTariffCell = React.memo(
       onClickSetTariff,
       disabled,
     }) => {
-      const tariffName = storekeepers
-        ?.find(el => el._id === boxesMy?.storekeeper?._id)
-        ?.tariffLogistics?.find(el => el?._id === boxesMy?.logicsTariff?._id)?.name
+      const currentStorekeeper = storekeepers?.find(el => el._id === boxesMy?.storekeeper?._id)
+      const currentTariff = currentStorekeeper?.tariffLogistics?.find(el => el?._id === boxesMy?.logicsTariff?._id)
+
+      const tariffName = currentTariff?.name
 
       const curDestination = destinations?.find(el => el?._id === boxesMy?.destination?._id)
 
@@ -1163,11 +1164,9 @@ export const WarehouseDestinationAndTariffCell = React.memo(
 
       const regionOfDeliveryName = zipCodeGroups?.find(el => el?.codes?.includes(Number(firstNumOfCode)))?.name
 
-      const tariffRate = storekeepers
-        ?.find(el => el?._id === boxesMy?.storekeeper?._id)
-        ?.tariffLogistics?.find(el => el?._id === boxesMy?.logicsTariff?._id)?.conditionsByRegion[
-        regionOfDeliveryName
-      ]?.rate
+      const tariffRate =
+        currentTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
+        currentTariff?.destinationVariations?.find(el => el._id === boxesMy?.variationTariff?._id)?.pricePerKgUsd
 
       return (
         <div className={classNames.destinationAndTariffWrapper}>
@@ -1209,7 +1208,7 @@ export const WarehouseDestinationAndTariffCell = React.memo(
                 setShowSelectionStorekeeperAndTariffModal()
               }}
             >
-              {boxesMy?.storekeeper?._id
+              {/* {boxesMy?.storekeeper?._id
                 ? `${
                     storekeepers.find(el => el._id === boxesMy?.storekeeper?._id)?.name ||
                     t(TranslationKey['Not available'])
@@ -1221,6 +1220,13 @@ export const WarehouseDestinationAndTariffCell = React.memo(
                               }${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                             : 'none'
                         }`
+                : t(TranslationKey.Select)} */}
+              {boxesMy?.storekeeper?._id
+                ? `${
+                    boxesMy?.storekeeper?._id
+                      ? `${tariffName ? tariffName : 'none'}${tariffRate ? ' / ' + toFixed(tariffRate, 2) + ' $' : ''}`
+                      : 'none'
+                  }`
                 : t(TranslationKey.Select)}
             </Button>
           </div>
