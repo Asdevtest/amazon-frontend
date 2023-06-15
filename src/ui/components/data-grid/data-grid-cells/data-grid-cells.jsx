@@ -1180,7 +1180,7 @@ export const WarehouseDestinationAndTariffCell = React.memo(
               data={
                 boxesMy?.logicsTariff?._id
                   ? destinations
-                      .filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
+                      // .filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
                       // .filter(el => el?._id === boxesMy?.logicsTariff?._id)
                       .filter(el => el?._id === boxesMy?.variationTariff?.destinationId)
                   : destinations.filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
@@ -1701,7 +1701,6 @@ export const RequestStatusCell = React.memo(
           RequestStatus.CANCELED_BY_CREATOR,
           RequestStatus.FORBID_NEW_PROPOSALS,
           RequestStatus.CANCELED_BY_ADMIN,
-          RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED,
           RequestStatus.CANCELED_BY_SUPERVISOR,
           RequestStatus.CANCELED_BY_EXECUTOR,
           RequestStatus.OFFER_CONDITIONS_REJECTED,
@@ -1710,6 +1709,7 @@ export const RequestStatusCell = React.memo(
         return '#FF1616'
       } else if (
         [
+          RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED,
           RequestStatus.IN_PROCESS,
           RequestStatus.VERIFYING_BY_SUPERVISOR,
           RequestStatus.ACCEPTED_BY_SUPERVISOR,

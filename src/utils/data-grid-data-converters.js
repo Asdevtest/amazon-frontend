@@ -71,6 +71,7 @@ export const myRequestsDataConverter = data =>
     asin: item.asin,
     humanFriendlyId: item.humanFriendlyId,
     updatedAt: item.updatedAt,
+    createdAt: item.createdAt,
     timeoutAt: item.timeoutAt,
     acceptedProposals: item?.countProposalsByStatuses?.acceptedProposals,
     allProposals: item?.countProposalsByStatuses?.allProposals,
