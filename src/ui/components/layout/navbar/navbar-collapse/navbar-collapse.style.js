@@ -57,7 +57,7 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '0 auto',
     width: 'fit-content',
     height: 20,
-    background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%)',
+    background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%) !important',
 
     padding: '1px 6px',
 
