@@ -289,7 +289,13 @@ export const MergeBoxesModal = ({
                       destinations?.find(el => el._id === boxBody.destinationId)?.name ||
                       t(TranslationKey['Not chosen'])
                     }
-                    data={destinations?.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)}
+                    data={
+                      boxBody.logicsTariffId
+                        ? destinations
+                            ?.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
+                            .filter(el => el?._id === boxBody.logicsTariffId)
+                        : destinations?.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
+                    }
                     searchFields={['name']}
                     favourites={destinationsFavourites}
                     onClickSetDestinationFavourite={setDestinationsFavouritesItem}

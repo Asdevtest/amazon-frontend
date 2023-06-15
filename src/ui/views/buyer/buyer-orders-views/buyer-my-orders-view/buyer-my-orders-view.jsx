@@ -91,7 +91,8 @@ export const BuyerMyOrdersViewRaw = props => {
           />
 
           {(viewModel.paymentAmount?.totalPriceInYuan ||
-            (isNoPaidedOrders && viewModel.paymentAmount?.totalPriceInUSD)) > 0 && (
+            (isNoPaidedOrders && viewModel.paymentAmount?.totalPriceInUSD) ||
+            viewModel.paymentAmount?.partialPaymentAmountRmb) > 0 && (
             <div className={classNames.totalPriceWrapper}>
               <Typography className={classNames.totalPriceText}>
                 {isNoPaidedOrders ? t(TranslationKey.Sum) + ':' : t(TranslationKey['Payment to all suppliers']) + ':'}
