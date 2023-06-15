@@ -11,7 +11,7 @@ import { Field } from '@components/shared/field/field'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { getFullTariffTextForBoxOrOrder } from '@utils/text'
+import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './box-for-merge.style'
@@ -87,9 +87,9 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
               labelClasses={classNames.label}
               inputComponent={
                 <div>
-                  <Typography className={classNames.storekeeperDisableBtn}>{`${
-                    box.storekeeper?.name
-                  } / ${getFullTariffTextForBoxOrOrder(box)}`}</Typography>
+                  <Typography className={classNames.storekeeperDisableBtn}>
+                    {getNewTariffTextForBoxOrOrder(box)}
+                  </Typography>
                 </div>
               }
             />

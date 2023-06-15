@@ -42,7 +42,7 @@ import { checkIsClient } from '@utils/checks'
 import { addOrEditBatchDataConverter } from '@utils/data-grid-data-converters'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { formatDateWithoutTime } from '@utils/date-time'
-import { getFullTariffTextForBoxOrOrder, toFixed } from '@utils/text'
+import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
@@ -434,8 +434,8 @@ export const AddOrEditBatchForm = observer(
                 label={t(TranslationKey.Tariff)}
                 value={
                   (sourceDataForFilters
-                    ? getFullTariffTextForBoxOrOrder(sourceDataForFilters)
-                    : getFullTariffTextForBoxOrOrder(chosenBoxes[0]?.originalData)) || ''
+                    ? getNewTariffTextForBoxOrOrder(sourceDataForFilters)
+                    : getNewTariffTextForBoxOrOrder(chosenBoxes[0]?.originalData)) || ''
                 }
                 placeholder={t(TranslationKey['Not chosen'])}
               />

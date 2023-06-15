@@ -1,5 +1,3 @@
-import { OrderIdAndAmountCountCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
-
 export const styles = theme => ({
   img: {
     height: '64px',

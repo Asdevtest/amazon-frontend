@@ -118,7 +118,7 @@ export const DeliveryParameters = ({
             className={cx({ [classNames.storekeeperBtn]: !formFields.storekeeperId })}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
-            {formFields?.storekeeperId
+            {/* {formFields?.storekeeperId
               ? `${
                   storekeepers?.find(el => el._id === formFields?.storekeeperId)?.name ||
                   `${t(TranslationKey['Not available'])}`
@@ -130,6 +130,9 @@ export const DeliveryParameters = ({
                               }${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                             : 'none'
                         }`
+              : t(TranslationKey.Select)} */}
+            {formFields?.storekeeperId
+              ? `${formFields?.storekeeperId ? `${tariffName ? tariffName : ''}` : 'none'}`
               : t(TranslationKey.Select)}
           </Button>
         }
