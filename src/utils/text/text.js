@@ -180,7 +180,7 @@ export const getTableByColumn = (column, hint) => {
     } else {
       return 'boxes'
     }
-  } else if (['id', 'item', 'paymentMethods'].includes(column)) {
+  } else if (['id', 'item', 'paymentMethod'].includes(column)) {
     return 'orders'
   } else if (
     [

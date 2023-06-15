@@ -62,7 +62,7 @@ const filtersFields = [
   'status',
   'amount',
   'totalPrice',
-  'paymentMethods',
+  'paymentMethod',
   'priceInYuan',
   'storekeeper',
   'productionTerm',
@@ -280,8 +280,6 @@ export class BuyerMyOrdersViewModel {
 
       const data = await GeneralModel.getDataForColumn(table, column, endpoint)
 
-      console.log('data', data)
-
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
           ...this.columnMenuSettings,
@@ -322,8 +320,9 @@ export class BuyerMyOrdersViewModel {
     const totalPriceFilter =
       exclusion !== 'totalPrice' && this.columnMenuSettings.totalPrice?.currentFilterData.join(',')
 
-    const paymentMethodsFilter =
-      exclusion !== 'humanFriendlyId' && this.columnMenuSettings.paymentMethods.currentFilterData.join(',')
+    const paymentMethodFilter =
+      exclusion !== 'paymentMethod' &&
+      this.columnMenuSettings.paymentMethod.currentFilterData.map(item => item?._id).join(',')
 
     const priceInYuanFilter =
       exclusion !== 'priceInYuan' && this.columnMenuSettings.priceInYuan?.currentFilterData.join(',')
@@ -412,8 +411,8 @@ export class BuyerMyOrdersViewModel {
         priceInYuan: { $eq: priceInYuanFilter },
       }),
 
-      ...(paymentMethodsFilter && {
-        paymentMethods: { $eq: paymentMethodsFilter },
+      ...(paymentMethodFilter && {
+        paymentMethod: { $eq: paymentMethodFilter },
       }),
 
       ...(storekeeperFilter && {
@@ -811,20 +810,18 @@ export class BuyerMyOrdersViewModel {
 
   async onClickHsCode(id) {
     this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
-
-    // this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
   getCurrentData() {
-    if (this.columnMenuSettings.payments.currentFilterData.length) {
-      const curPaymentsIds = this.columnMenuSettings.payments.currentFilterData.map(el => el._id)
+    // if (this.columnMenuSettings.paymentMethod.currentFilterData.length) {
+    //   const curPaymentsIds = this.columnMenuSettings.paymentMethod.currentFilterData.map(el => el._id)
 
-      return toJS(this.ordersMy).filter(el =>
-        el.payments.some(item => curPaymentsIds.includes(item.paymentMethods._id)),
-      )
-    } else {
-      return toJS(this.ordersMy)
-    }
+    //   return toJS(this.ordersMy).filter(el =>
+    //     el.payments.some(item => curPaymentsIds.includes(item.paymentMethods._id)),
+    //   )
+    // } else {
+    return toJS(this.ordersMy)
+    // }
   }
 
   async setColumnsModel() {
