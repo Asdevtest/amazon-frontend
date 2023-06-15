@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 
 /**
  * The InlineObject59 model module.
@@ -47,17 +48,14 @@ class InlineObject59 {
         if (data) {
             obj = obj || new InlineObject59();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('os')) {
+                obj['os'] = ApiClient.convertToType(data['os'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
-            }
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            if (data.hasOwnProperty('navigator')) {
+                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
             }
         }
         return obj;
@@ -67,28 +65,22 @@ class InlineObject59 {
 }
 
 /**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
- * @member {Number} status
+ * Название профиля
+ * @member {String} name
  */
-InlineObject59.prototype['status'] = undefined;
+InlineObject59.prototype['name'] = undefined;
 
 /**
- * Массив картинок.
- * @member {Array.<String>} images
+ * Название ОС
+ * @member {String} os
+ * @default 'mac'
  */
-InlineObject59.prototype['images'] = undefined;
+InlineObject59.prototype['os'] = 'mac';
 
 /**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
+ * @member {module:model/ApiV1GologinProfileNavigator} navigator
  */
-InlineObject59.prototype['storekeeperComment'] = undefined;
-
-/**
- * Приоритет задачи
- * @member {Number} priority
- */
-InlineObject59.prototype['priority'] = undefined;
+InlineObject59.prototype['navigator'] = undefined;
 
 
 

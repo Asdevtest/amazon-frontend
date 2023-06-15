@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**isExist** | **Boolean** | Флаг, показывает есть ли такой ASIN в базе или нет | [optional] 
-**reason** | **String** | Причина из таблицы с асинами | [optional] 
+**_id** | **String** | Гуид тега | [optional] 
+**title** | **String** | Тег | [optional] 
+**productCount** | **Number** | Кол-во продуктов, которые используют этот тег | [optional] 
 
 

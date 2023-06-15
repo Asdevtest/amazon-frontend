@@ -22,14 +22,10 @@ class InlineObject92 {
     /**
      * Constructs a new <code>InlineObject92</code>.
      * @alias module:model/InlineObject92
-     * @param storekeeperId {String} GUID storekeeper-a
-     * @param logicsTariffId {String} GUID тарифа доставки
-     * @param amount {Number} Кол-во продукта по этой позиции.
-     * @param productId {String} GUID заказанного продукта
      */
-    constructor(storekeeperId, logicsTariffId, amount, productId) { 
+    constructor() { 
         
-        InlineObject92.initialize(this, storekeeperId, logicsTariffId, amount, productId);
+        InlineObject92.initialize(this);
     }
 
     /**
@@ -37,11 +33,7 @@ class InlineObject92 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, storekeeperId, logicsTariffId, amount, productId) { 
-        obj['storekeeperId'] = storekeeperId;
-        obj['logicsTariffId'] = logicsTariffId;
-        obj['amount'] = amount;
-        obj['productId'] = productId;
+    static initialize(obj) { 
     }
 
     /**
@@ -55,50 +47,11 @@ class InlineObject92 {
         if (data) {
             obj = obj || new InlineObject92();
 
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
             }
-            if (data.hasOwnProperty('buyerId')) {
-                obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
-            }
-            if (data.hasOwnProperty('item')) {
-                obj['item'] = ApiClient.convertToType(data['item'], 'String');
-            }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
-            }
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
-            }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
-                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('expressChinaDelivery')) {
-                obj['expressChinaDelivery'] = ApiClient.convertToType(data['expressChinaDelivery'], 'Boolean');
-            }
-            if (data.hasOwnProperty('needsResearch')) {
-                obj['needsResearch'] = ApiClient.convertToType(data['needsResearch'], 'Boolean');
-            }
-            if (data.hasOwnProperty('deadline')) {
-                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'Date');
-            }
-            if (data.hasOwnProperty('totalPrice')) {
-                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
             }
         }
         return obj;
@@ -108,135 +61,19 @@ class InlineObject92 {
 }
 
 /**
- * GUID storekeeper-a
- * @member {String} storekeeperId
+ * Файл для записи в FreelanceSource
+ * @member {String} sourceFile
  */
-InlineObject92.prototype['storekeeperId'] = undefined;
+InlineObject92.prototype['sourceFile'] = undefined;
 
 /**
- * GUID баера
- * @member {String} buyerId
+ * Комментарий к файлу
+ * @member {String} comments
  */
-InlineObject92.prototype['buyerId'] = undefined;
-
-/**
- * @member {String} item
- */
-InlineObject92.prototype['item'] = undefined;
-
-/**
- * GUID тарифа доставки
- * @member {String} logicsTariffId
- */
-InlineObject92.prototype['logicsTariffId'] = undefined;
-
-/**
- * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
- * @member {module:model/InlineObject92.PriorityEnum} priority
- */
-InlineObject92.prototype['priority'] = undefined;
-
-/**
- * GUID пункта назначения.
- * @member {String} destinationId
- */
-InlineObject92.prototype['destinationId'] = undefined;
-
-/**
- * Кол-во продукта по этой позиции.
- * @member {Number} amount
- */
-InlineObject92.prototype['amount'] = undefined;
-
-/**
- * Стоимость доставки до склада.
- * @member {Number} deliveryCostToTheWarehouse
- */
-InlineObject92.prototype['deliveryCostToTheWarehouse'] = undefined;
-
-/**
- * Комментарии клиента.
- * @member {String} clientComment
- */
-InlineObject92.prototype['clientComment'] = undefined;
-
-/**
- * GUID заказанного продукта
- * @member {String} productId
- */
-InlineObject92.prototype['productId'] = undefined;
-
-/**
- * Массив изображений.
- * @member {Array.<String>} images
- */
-InlineObject92.prototype['images'] = undefined;
-
-/**
- * Флаг , обозначающий оплату за экспресс доставку по китаю
- * @member {Boolean} expressChinaDelivery
- */
-InlineObject92.prototype['expressChinaDelivery'] = undefined;
-
-/**
- * Нуждается ли заказ в повторном поиске поставщика
- * @member {Boolean} needsResearch
- */
-InlineObject92.prototype['needsResearch'] = undefined;
-
-/**
- * Дедлайн выкупа заказа
- * @member {Date} deadline
- */
-InlineObject92.prototype['deadline'] = undefined;
-
-/**
- * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
- * @member {Number} totalPrice
- */
-InlineObject92.prototype['totalPrice'] = undefined;
+InlineObject92.prototype['comments'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>priority</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject92['PriorityEnum'] = {
-
-    /**
-     * value: "10"
-     * @const
-     */
-    "10": "10",
-
-    /**
-     * value: "20"
-     * @const
-     */
-    "20": "20",
-
-    /**
-     * value: "30"
-     * @const
-     */
-    "30": "30",
-
-    /**
-     * value: "40"
-     * @const
-     */
-    "40": "40",
-
-    /**
-     * value: "50"
-     * @const
-     */
-    "50": "50"
-};
 
 
 

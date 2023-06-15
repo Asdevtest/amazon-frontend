@@ -12,9 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1SuppliersBoxProperties from './ApiV1SuppliersBoxProperties';
-import ApiV1SuppliersPaymentMethods from './ApiV1SuppliersPaymentMethods';
-import ApiV1SuppliersPriceVariations from './ApiV1SuppliersPriceVariations';
 
 /**
  * The InlineObject72 model module.
@@ -50,59 +47,53 @@ class InlineObject72 {
         if (data) {
             obj = obj || new InlineObject72();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
             if (data.hasOwnProperty('amount')) {
                 obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('minlot')) {
-                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
+            if (data.hasOwnProperty('orderSupplierId')) {
+                obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
             }
-            if (data.hasOwnProperty('multiplicity')) {
-                obj['multiplicity'] = ApiClient.convertToType(data['multiplicity'], 'Boolean');
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
-            if (data.hasOwnProperty('paymentMethods')) {
-                obj['paymentMethods'] = ApiClient.convertToType(data['paymentMethods'], [ApiV1SuppliersPaymentMethods]);
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            }
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('totalPrice')) {
+                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
             }
-            if (data.hasOwnProperty('yuanRate')) {
-                obj['yuanRate'] = ApiClient.convertToType(data['yuanRate'], 'Number');
+            if (data.hasOwnProperty('buyerComment')) {
+                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            }
+            if (data.hasOwnProperty('item')) {
+                obj['item'] = ApiClient.convertToType(data['item'], 'String');
+            }
+            if (data.hasOwnProperty('needsResearch')) {
+                obj['needsResearch'] = ApiClient.convertToType(data['needsResearch'], 'Boolean');
+            }
+            if (data.hasOwnProperty('deadline')) {
+                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'Date');
+            }
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
+            }
+            if (data.hasOwnProperty('expressChinaDelivery')) {
+                obj['expressChinaDelivery'] = ApiClient.convertToType(data['expressChinaDelivery'], 'Boolean');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
             if (data.hasOwnProperty('priceInYuan')) {
                 obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
             }
-            if (data.hasOwnProperty('batchDeliveryCostInDollar')) {
-                obj['batchDeliveryCostInDollar'] = ApiClient.convertToType(data['batchDeliveryCostInDollar'], 'Number');
-            }
-            if (data.hasOwnProperty('batchDeliveryCostInYuan')) {
-                obj['batchDeliveryCostInYuan'] = ApiClient.convertToType(data['batchDeliveryCostInYuan'], 'Number');
-            }
-            if (data.hasOwnProperty('batchTotalCostInDollar')) {
-                obj['batchTotalCostInDollar'] = ApiClient.convertToType(data['batchTotalCostInDollar'], 'Number');
-            }
-            if (data.hasOwnProperty('batchTotalCostInYuan')) {
-                obj['batchTotalCostInYuan'] = ApiClient.convertToType(data['batchTotalCostInYuan'], 'Number');
-            }
-            if (data.hasOwnProperty('productionTerm')) {
-                obj['productionTerm'] = ApiClient.convertToType(data['productionTerm'], 'Number');
-            }
-            if (data.hasOwnProperty('boxProperties')) {
-                obj['boxProperties'] = ApiV1SuppliersBoxProperties.constructFromObject(data['boxProperties']);
-            }
-            if (data.hasOwnProperty('priceVariations')) {
-                obj['priceVariations'] = ApiClient.convertToType(data['priceVariations'], [ApiV1SuppliersPriceVariations]);
+            if (data.hasOwnProperty('priceBatchDeliveryInYuan')) {
+                obj['priceBatchDeliveryInYuan'] = ApiClient.convertToType(data['priceBatchDeliveryInYuan'], 'Number');
             }
         }
         return obj;
@@ -112,45 +103,34 @@ class InlineObject72 {
 }
 
 /**
- * Название поставщика.
- * @member {String} name
- */
-InlineObject72.prototype['name'] = undefined;
-
-/**
- * Ссылка на поставщика.
- * @member {String} link
- */
-InlineObject72.prototype['link'] = undefined;
-
-/**
- * Цена за еденицу, dollar
- * @member {Number} price
- */
-InlineObject72.prototype['price'] = undefined;
-
-/**
- * кол-во
+ * Кол-во продукта по этой позиции.
  * @member {Number} amount
  */
 InlineObject72.prototype['amount'] = undefined;
 
 /**
- * Минимальный лот.
- * @member {Number} minlot
+ * Гуид сапплаера
+ * @member {String} orderSupplierId
  */
-InlineObject72.prototype['minlot'] = undefined;
+InlineObject72.prototype['orderSupplierId'] = undefined;
 
 /**
- * Имеет ли обязательный делитель на кол-во в заказе поставщик
- * @member {Boolean} multiplicity
+ * Склад для изменения
+ * @member {String} storekeeperId
  */
-InlineObject72.prototype['multiplicity'] = undefined;
+InlineObject72.prototype['storekeeperId'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1SuppliersPaymentMethods>} paymentMethods
+ * Пункт назначения
+ * @member {String} destinationId
  */
-InlineObject72.prototype['paymentMethods'] = undefined;
+InlineObject72.prototype['destinationId'] = undefined;
+
+/**
+ * Тариф для изменения
+ * @member {String} logicsTariffId
+ */
+InlineObject72.prototype['logicsTariffId'] = undefined;
 
 /**
  * Массив картинок.
@@ -159,64 +139,106 @@ InlineObject72.prototype['paymentMethods'] = undefined;
 InlineObject72.prototype['images'] = undefined;
 
 /**
- * Комментарий
- * @member {String} comment
+ * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+ * @member {Number} totalPrice
  */
-InlineObject72.prototype['comment'] = undefined;
+InlineObject72.prototype['totalPrice'] = undefined;
 
 /**
- * Курс доллара к юаню поставщика. 
- * @member {Number} yuanRate
+ * Комментарий баера
+ * @member {String} buyerComment
  */
-InlineObject72.prototype['yuanRate'] = undefined;
+InlineObject72.prototype['buyerComment'] = undefined;
 
 /**
- * Цена за еденицу, yuan
+ * Не настоящий ключ, используется только для нужд юзера
+ * @member {String} item
+ */
+InlineObject72.prototype['item'] = undefined;
+
+/**
+ * Нуждается ли заказ в повторном поиске поставщика
+ * @member {Boolean} needsResearch
+ */
+InlineObject72.prototype['needsResearch'] = undefined;
+
+/**
+ * Дедлайн выкупа заказа
+ * @member {Date} deadline
+ */
+InlineObject72.prototype['deadline'] = undefined;
+
+/**
+ * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+ * @member {module:model/InlineObject72.PriorityEnum} priority
+ */
+InlineObject72.prototype['priority'] = undefined;
+
+/**
+ * Флаг , обозначающий оплату за экспресс доставку по китаю
+ * @member {Boolean} expressChinaDelivery
+ */
+InlineObject72.prototype['expressChinaDelivery'] = undefined;
+
+/**
+ * Комментарий клтента в заказе
+ * @member {String} clientComment
+ */
+InlineObject72.prototype['clientComment'] = undefined;
+
+/**
+ * Цена в юанях
  * @member {Number} priceInYuan
  */
 InlineObject72.prototype['priceInYuan'] = undefined;
 
 /**
- * Доставка партии, dollar
- * @member {Number} batchDeliveryCostInDollar
+ * Цена доставки партии в юанях
+ * @member {Number} priceBatchDeliveryInYuan
  */
-InlineObject72.prototype['batchDeliveryCostInDollar'] = undefined;
+InlineObject72.prototype['priceBatchDeliveryInYuan'] = undefined;
+
+
+
+
 
 /**
- * Доставка партии, yuan
- * @member {Number} batchDeliveryCostInYuan
+ * Allowed values for the <code>priority</code> property.
+ * @enum {String}
+ * @readonly
  */
-InlineObject72.prototype['batchDeliveryCostInYuan'] = undefined;
+InlineObject72['PriorityEnum'] = {
 
-/**
- * Цена партии, dollar
- * @member {Number} batchTotalCostInDollar
- */
-InlineObject72.prototype['batchTotalCostInDollar'] = undefined;
+    /**
+     * value: "10"
+     * @const
+     */
+    "10": "10",
 
-/**
- * Цена партии, yuan
- * @member {Number} batchTotalCostInYuan
- */
-InlineObject72.prototype['batchTotalCostInYuan'] = undefined;
+    /**
+     * value: "20"
+     * @const
+     */
+    "20": "20",
 
-/**
- * @member {Number} productionTerm
- */
-InlineObject72.prototype['productionTerm'] = undefined;
+    /**
+     * value: "30"
+     * @const
+     */
+    "30": "30",
 
-/**
- * @member {module:model/ApiV1SuppliersBoxProperties} boxProperties
- */
-InlineObject72.prototype['boxProperties'] = undefined;
+    /**
+     * value: "40"
+     * @const
+     */
+    "40": "40",
 
-/**
- * @member {Array.<module:model/ApiV1SuppliersPriceVariations>} priceVariations
- */
-InlineObject72.prototype['priceVariations'] = undefined;
-
-
-
+    /**
+     * value: "50"
+     * @const
+     */
+    "50": "50"
+};
 
 
 

@@ -47,53 +47,29 @@ class InlineObject33 {
         if (data) {
             obj = obj || new InlineObject33();
 
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('orderSupplierId')) {
-                obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
-            }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
-            }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
-            }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('totalPrice')) {
-                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
-            }
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-            }
-            if (data.hasOwnProperty('item')) {
-                obj['item'] = ApiClient.convertToType(data['item'], 'String');
-            }
-            if (data.hasOwnProperty('needsResearch')) {
-                obj['needsResearch'] = ApiClient.convertToType(data['needsResearch'], 'Boolean');
-            }
-            if (data.hasOwnProperty('deadline')) {
-                obj['deadline'] = ApiClient.convertToType(data['deadline'], 'Date');
-            }
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
-            }
-            if (data.hasOwnProperty('expressChinaDelivery')) {
-                obj['expressChinaDelivery'] = ApiClient.convertToType(data['expressChinaDelivery'], 'Boolean');
-            }
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
-            if (data.hasOwnProperty('priceInYuan')) {
-                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
-            if (data.hasOwnProperty('priceBatchDeliveryInYuan')) {
-                obj['priceBatchDeliveryInYuan'] = ApiClient.convertToType(data['priceBatchDeliveryInYuan'], 'Number');
+            if (data.hasOwnProperty('referenceId')) {
+                obj['referenceId'] = ApiClient.convertToType(data['referenceId'], 'String');
+            }
+            if (data.hasOwnProperty('fbaNumber')) {
+                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
+            }
+            if (data.hasOwnProperty('upsTrackNumber')) {
+                obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberText')) {
+                obj['trackNumberText'] = ApiClient.convertToType(data['trackNumberText'], 'String');
+            }
+            if (data.hasOwnProperty('trackNumberFile')) {
+                obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], ['String']);
+            }
+            if (data.hasOwnProperty('prepId')) {
+                obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
             }
         }
         return obj;
@@ -103,142 +79,52 @@ class InlineObject33 {
 }
 
 /**
- * Кол-во продукта по этой позиции.
- * @member {Number} amount
- */
-InlineObject33.prototype['amount'] = undefined;
-
-/**
- * Гуид сапплаера
- * @member {String} orderSupplierId
- */
-InlineObject33.prototype['orderSupplierId'] = undefined;
-
-/**
- * Склад для изменения
- * @member {String} storekeeperId
- */
-InlineObject33.prototype['storekeeperId'] = undefined;
-
-/**
- * Пункт назначения
- * @member {String} destinationId
- */
-InlineObject33.prototype['destinationId'] = undefined;
-
-/**
- * Тариф для изменения
- * @member {String} logicsTariffId
- */
-InlineObject33.prototype['logicsTariffId'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineObject33.prototype['images'] = undefined;
-
-/**
- * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
- * @member {Number} totalPrice
- */
-InlineObject33.prototype['totalPrice'] = undefined;
-
-/**
- * Комментарий баера
- * @member {String} buyerComment
- */
-InlineObject33.prototype['buyerComment'] = undefined;
-
-/**
- * Не настоящий ключ, используется только для нужд юзера
- * @member {String} item
- */
-InlineObject33.prototype['item'] = undefined;
-
-/**
- * Нуждается ли заказ в повторном поиске поставщика
- * @member {Boolean} needsResearch
- */
-InlineObject33.prototype['needsResearch'] = undefined;
-
-/**
- * Дедлайн выкупа заказа
- * @member {Date} deadline
- */
-InlineObject33.prototype['deadline'] = undefined;
-
-/**
- * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
- * @member {module:model/InlineObject33.PriorityEnum} priority
- */
-InlineObject33.prototype['priority'] = undefined;
-
-/**
- * Флаг , обозначающий оплату за экспресс доставку по китаю
- * @member {Boolean} expressChinaDelivery
- */
-InlineObject33.prototype['expressChinaDelivery'] = undefined;
-
-/**
- * Комментарий клтента в заказе
  * @member {String} clientComment
  */
 InlineObject33.prototype['clientComment'] = undefined;
 
 /**
- * Цена в юанях
- * @member {Number} priceInYuan
+ * @member {String} storekeeperComment
  */
-InlineObject33.prototype['priceInYuan'] = undefined;
+InlineObject33.prototype['storekeeperComment'] = undefined;
 
 /**
- * Цена доставки партии в юанях
- * @member {Number} priceBatchDeliveryInYuan
+ * Дополнительное поле shippingLabel для доставки грузовиками
+ * @member {String} referenceId
  */
-InlineObject33.prototype['priceBatchDeliveryInYuan'] = undefined;
-
-
-
-
+InlineObject33.prototype['referenceId'] = undefined;
 
 /**
- * Allowed values for the <code>priority</code> property.
- * @enum {String}
- * @readonly
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaNumber
  */
-InlineObject33['PriorityEnum'] = {
+InlineObject33.prototype['fbaNumber'] = undefined;
 
-    /**
-     * value: "10"
-     * @const
-     */
-    "10": "10",
+/**
+ * Идентификатор UPS
+ * @member {String} upsTrackNumber
+ */
+InlineObject33.prototype['upsTrackNumber'] = undefined;
 
-    /**
-     * value: "20"
-     * @const
-     */
-    "20": "20",
+/**
+ * Текст трек номера
+ * @member {String} trackNumberText
+ */
+InlineObject33.prototype['trackNumberText'] = undefined;
 
-    /**
-     * value: "30"
-     * @const
-     */
-    "30": "30",
+/**
+ * @member {Array.<String>} trackNumberFile
+ */
+InlineObject33.prototype['trackNumberFile'] = undefined;
 
-    /**
-     * value: "40"
-     * @const
-     */
-    "40": "40",
+/**
+ * Значение информационного ключа
+ * @member {String} prepId
+ */
+InlineObject33.prototype['prepId'] = undefined;
 
-    /**
-     * value: "50"
-     * @const
-     */
-    "50": "50"
-};
+
+
 
 
 

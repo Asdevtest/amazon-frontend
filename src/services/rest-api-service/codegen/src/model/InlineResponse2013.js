@@ -47,8 +47,8 @@ class InlineResponse2013 {
         if (data) {
             obj = obj || new InlineResponse2013();
 
-            if (data.hasOwnProperty('fileName')) {
-                obj['fileName'] = ApiClient.convertToType(data['fileName'], 'String');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -58,10 +58,10 @@ class InlineResponse2013 {
 }
 
 /**
- * Имя файла для доступа к нему.
- * @member {String} fileName
+ * GUID созданной коробки
+ * @member {String} guid
  */
-InlineResponse2013.prototype['fileName'] = undefined;
+InlineResponse2013.prototype['guid'] = undefined;
 
 
 

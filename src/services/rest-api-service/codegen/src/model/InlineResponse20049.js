@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BuyersTasksBoxesBefore from './ApiV1BuyersTasksBoxesBefore';
 
 /**
  * The InlineResponse20049 model module.
@@ -22,7 +21,6 @@ import ApiV1BuyersTasksBoxesBefore from './ApiV1BuyersTasksBoxesBefore';
 class InlineResponse20049 {
     /**
      * Constructs a new <code>InlineResponse20049</code>.
-     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20049
      */
     constructor() { 
@@ -49,11 +47,8 @@ class InlineResponse20049 {
         if (data) {
             obj = obj || new InlineResponse20049();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
-            }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [ApiV1BuyersTasksBoxesBefore]);
+            if (data.hasOwnProperty('failed')) {
+                obj['failed'] = ApiClient.convertToType(data['failed'], ['String']);
             }
         }
         return obj;
@@ -63,16 +58,9 @@ class InlineResponse20049 {
 }
 
 /**
- * Всего кол-во записей в результате запроса
- * @member {Number} count
+ * @member {Array.<String>} failed
  */
-InlineResponse20049.prototype['count'] = undefined;
-
-/**
- * Массив коробок c пагинацией(заданная страничка).
- * @member {Array.<module:model/ApiV1BuyersTasksBoxesBefore>} rows
- */
-InlineResponse20049.prototype['rows'] = undefined;
+InlineResponse20049.prototype['failed'] = undefined;
 
 
 

@@ -4,14 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID в базе данных | [optional] 
-**type** | **String** |  | [optional] 
-**requests** | [**[ApiV1AnnouncementsMyRequests]**](ApiV1AnnouncementsMyRequests.md) |  | [optional] 
-**linksToMediaFiles** | **[String]** |  | [optional] 
-**title** | **String** |  | [optional] 
-**description** | **String** |  | [optional] 
-**createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
-**createdAt** | **Date** | Дата создания. | [optional] 
-**updatedAt** | **Date** | Дата обновления. | [optional] 
+**products** | [**InlineResponse20038Products**](InlineResponse20038Products.md) |  | [optional] 
+**orders** | [**InlineResponse20038Orders**](InlineResponse20038Orders.md) |  | [optional] 
+**pendingOrders** | [**InlineResponse20038PendingOrders**](InlineResponse20038PendingOrders.md) |  | [optional] 
+**finances** | [**InlineResponse20038Finances**](InlineResponse20038Finances.md) |  | [optional] 
 
 

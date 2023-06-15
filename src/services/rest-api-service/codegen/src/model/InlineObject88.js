@@ -22,12 +22,10 @@ class InlineObject88 {
     /**
      * Constructs a new <code>InlineObject88</code>.
      * @alias module:model/InlineObject88
-     * @param batchIds {Array.<String>} 
-     * @param archive {Boolean} Заархивирована ли партия
      */
-    constructor(batchIds, archive) { 
+    constructor() { 
         
-        InlineObject88.initialize(this, batchIds, archive);
+        InlineObject88.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject88 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, batchIds, archive) { 
-        obj['batchIds'] = batchIds;
-        obj['archive'] = archive;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,14 @@ class InlineObject88 {
         if (data) {
             obj = obj || new InlineObject88();
 
-            if (data.hasOwnProperty('batchIds')) {
-                obj['batchIds'] = ApiClient.convertToType(data['batchIds'], ['String']);
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('archive')) {
-                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
+            if (data.hasOwnProperty('review')) {
+                obj['review'] = ApiClient.convertToType(data['review'], 'String');
+            }
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
             }
         }
         return obj;
@@ -65,15 +64,22 @@ class InlineObject88 {
 }
 
 /**
- * @member {Array.<String>} batchIds
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject88.prototype['batchIds'] = undefined;
+InlineObject88.prototype['rating'] = undefined;
 
 /**
- * Заархивирована ли партия
- * @member {Boolean} archive
+ * Отзыв о работе
+ * @member {String} review
  */
-InlineObject88.prototype['archive'] = undefined;
+InlineObject88.prototype['review'] = undefined;
+
+/**
+ * Файл для записи в FreelanceSource по этому пропоузалу
+ * @member {String} sourceFile
+ */
+InlineObject88.prototype['sourceFile'] = undefined;
 
 
 

@@ -4,13 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**productName** | **String** | Назавние продукта | [optional] 
-**productLinks** | **[String]** | Ссылки на продукт, если есть | [optional] 
-**linksToMediaFiles** | **[String]** | Image URL | [optional] 
-**criteria** | **String** | Дополнительные критерии для поиска товара | [optional] 
-**dimensions** | **String** | Размеры | [optional] 
-**quantity** | **Number** | Количество товаров | [optional] 
-**price** | **Number** | Желаемая цена | [optional] 
-**productId** | **String** | Product ID | [optional] 
+**guid** | **String** | GUID для которой подтверждаем действие. | [optional] 
+**additionalBoxes** | [**[InlineObject19]**](InlineObject19.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
 
 

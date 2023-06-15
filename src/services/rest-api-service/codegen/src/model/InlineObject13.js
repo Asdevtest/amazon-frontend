@@ -21,13 +21,12 @@ import ApiClient from '../ApiClient';
 class InlineObject13 {
     /**
      * Constructs a new <code>InlineObject13</code>.
-     * Схема изменения итоговой цены, totalPriceChanged
      * @alias module:model/InlineObject13
-     * @param totalPriceChanged {Number} новое значение изменения итоговой цены.
+     * @param boxesIds {Array.<String>} 
      */
-    constructor(totalPriceChanged) { 
+    constructor(boxesIds) { 
         
-        InlineObject13.initialize(this, totalPriceChanged);
+        InlineObject13.initialize(this, boxesIds);
     }
 
     /**
@@ -35,8 +34,8 @@ class InlineObject13 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, totalPriceChanged) { 
-        obj['totalPriceChanged'] = totalPriceChanged;
+    static initialize(obj, boxesIds) { 
+        obj['boxesIds'] = boxesIds;
     }
 
     /**
@@ -50,8 +49,8 @@ class InlineObject13 {
         if (data) {
             obj = obj || new InlineObject13();
 
-            if (data.hasOwnProperty('totalPriceChanged')) {
-                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
+            if (data.hasOwnProperty('boxesIds')) {
+                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
             }
         }
         return obj;
@@ -61,10 +60,9 @@ class InlineObject13 {
 }
 
 /**
- * новое значение изменения итоговой цены.
- * @member {Number} totalPriceChanged
+ * @member {Array.<String>} boxesIds
  */
-InlineObject13.prototype['totalPriceChanged'] = undefined;
+InlineObject13.prototype['boxesIds'] = undefined;
 
 
 

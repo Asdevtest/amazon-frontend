@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | Гуид заявки | [optional] 
-**humanFriendlyId** | **Number** | удобный ключ заявки | [optional] 
+**products** | [**InlineResponse20040Products**](InlineResponse20040Products.md) |  | [optional] 
+**finances** | [**InlineResponse20038Finances**](InlineResponse20038Finances.md) |  | [optional] 
 
 

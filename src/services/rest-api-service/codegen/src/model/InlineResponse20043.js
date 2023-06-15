@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse20043 {
     /**
      * Constructs a new <code>InlineResponse20043</code>.
-     * Успешный ответ.
      * @alias module:model/InlineResponse20043
      */
     constructor() { 
@@ -48,11 +47,14 @@ class InlineResponse20043 {
         if (data) {
             obj = obj || new InlineResponse20043();
 
-            if (data.hasOwnProperty('isExist')) {
-                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('productCount')) {
+                obj['productCount'] = ApiClient.convertToType(data['productCount'], 'Number');
             }
         }
         return obj;
@@ -62,16 +64,22 @@ class InlineResponse20043 {
 }
 
 /**
- * Флаг, показывает есть ли такой ASIN в базе или нет
- * @member {Boolean} isExist
+ * Гуид тега
+ * @member {String} _id
  */
-InlineResponse20043.prototype['isExist'] = undefined;
+InlineResponse20043.prototype['_id'] = undefined;
 
 /**
- * Причина из таблицы с асинами
- * @member {String} reason
+ * Тег
+ * @member {String} title
  */
-InlineResponse20043.prototype['reason'] = undefined;
+InlineResponse20043.prototype['title'] = undefined;
+
+/**
+ * Кол-во продуктов, которые используют этот тег
+ * @member {Number} productCount
+ */
+InlineResponse20043.prototype['productCount'] = undefined;
 
 
 

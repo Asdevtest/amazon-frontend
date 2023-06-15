@@ -21,13 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject1 {
     /**
      * Constructs a new <code>InlineObject1</code>.
+     * Схема подтверждения итоговой цены, deliveryTotalPriceChanged
      * @alias module:model/InlineObject1
-     * @param productId {String} GUID продукта.
-     * @param hsCode {String} 
+     * @param boxId {String} GUID коробки, который планируем изменить
      */
-    constructor(productId, hsCode) { 
+    constructor(boxId) { 
         
-        InlineObject1.initialize(this, productId, hsCode);
+        InlineObject1.initialize(this, boxId);
     }
 
     /**
@@ -35,9 +35,8 @@ class InlineObject1 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId, hsCode) { 
-        obj['productId'] = productId;
-        obj['hsCode'] = hsCode;
+    static initialize(obj, boxId) { 
+        obj['boxId'] = boxId;
     }
 
     /**
@@ -51,11 +50,8 @@ class InlineObject1 {
         if (data) {
             obj = obj || new InlineObject1();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('hsCode')) {
-                obj['hsCode'] = ApiClient.convertToType(data['hsCode'], 'String');
+            if (data.hasOwnProperty('boxId')) {
+                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
             }
         }
         return obj;
@@ -65,15 +61,10 @@ class InlineObject1 {
 }
 
 /**
- * GUID продукта.
- * @member {String} productId
+ * GUID коробки, который планируем изменить
+ * @member {String} boxId
  */
-InlineObject1.prototype['productId'] = undefined;
-
-/**
- * @member {String} hsCode
- */
-InlineObject1.prototype['hsCode'] = undefined;
+InlineObject1.prototype['boxId'] = undefined;
 
 
 

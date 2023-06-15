@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse2018 {
     /**
      * Constructs a new <code>InlineResponse2018</code>.
-     * Успешный ответ.
      * @alias module:model/InlineResponse2018
      */
     constructor() { 
@@ -48,8 +47,8 @@ class InlineResponse2018 {
         if (data) {
             obj = obj || new InlineResponse2018();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
         }
         return obj;
@@ -59,10 +58,10 @@ class InlineResponse2018 {
 }
 
 /**
- * guid созданного объекта
- * @member {String} guid
+ * Гуид тега
+ * @member {String} _id
  */
-InlineResponse2018.prototype['guid'] = undefined;
+InlineResponse2018.prototype['_id'] = undefined;
 
 
 

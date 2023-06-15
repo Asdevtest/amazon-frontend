@@ -22,11 +22,10 @@ class InlineObject80 {
     /**
      * Constructs a new <code>InlineObject80</code>.
      * @alias module:model/InlineObject80
-     * @param rating {Number} Оценка, целое число от 1 до 5
      */
-    constructor(rating) { 
+    constructor() { 
         
-        InlineObject80.initialize(this, rating);
+        InlineObject80.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject80 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, rating) { 
-        obj['rating'] = rating;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +47,8 @@ class InlineObject80 {
         if (data) {
             obj = obj || new InlineObject80();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
         }
         return obj;
@@ -63,16 +58,10 @@ class InlineObject80 {
 }
 
 /**
- * Оценка, целое число от 1 до 5
- * @member {Number} rating
+ * GUIDы магазинов, которые нужно добавить к продукту.
+ * @member {Array.<String>} shopIds
  */
-InlineObject80.prototype['rating'] = undefined;
-
-/**
- * Комментарий к оценке
- * @member {String} comment
- */
-InlineObject80.prototype['comment'] = undefined;
+InlineObject80.prototype['shopIds'] = undefined;
 
 
 

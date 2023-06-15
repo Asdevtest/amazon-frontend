@@ -47,20 +47,14 @@ class InlineObject85 {
         if (data) {
             obj = obj || new InlineObject85();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('calculationMethod')) {
-                obj['calculationMethod'] = ApiClient.convertToType(data['calculationMethod'], 'Number');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
-            if (data.hasOwnProperty('volumeWeightDivide')) {
-                obj['volumeWeightDivide'] = ApiClient.convertToType(data['volumeWeightDivide'], 'Number');
-            }
-            if (data.hasOwnProperty('trackingNumber')) {
-                obj['trackingNumber'] = ApiClient.convertToType(data['trackingNumber'], 'String');
-            }
-            if (data.hasOwnProperty('actualShippingCost')) {
-                obj['actualShippingCost'] = ApiClient.convertToType(data['actualShippingCost'], 'Number');
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -70,34 +64,22 @@ class InlineObject85 {
 }
 
 /**
- * Название партии
- * @member {String} title
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject85.prototype['title'] = undefined;
+InlineObject85.prototype['rating'] = undefined;
 
 /**
- * Метод подсчта массы партии
- * @member {Number} calculationMethod
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
  */
-InlineObject85.prototype['calculationMethod'] = undefined;
+InlineObject85.prototype['reason'] = undefined;
 
 /**
- * Делитель объема партии
- * @member {Number} volumeWeightDivide
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineObject85.prototype['volumeWeightDivide'] = undefined;
-
-/**
- * Трек номер партии
- * @member {String} trackingNumber
- */
-InlineObject85.prototype['trackingNumber'] = undefined;
-
-/**
- * Настоящая стоимость доставки
- * @member {Number} actualShippingCost
- */
-InlineObject85.prototype['actualShippingCost'] = undefined;
+InlineObject85.prototype['linksToMediaFiles'] = undefined;
 
 
 

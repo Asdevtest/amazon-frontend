@@ -4,7 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
-**rows** | [**[InlineResponse20057]**](InlineResponse20057.md) | Массив батчей c пагинацией(заданная страничка). | [optional] 
+**price** | **Number** | Цена за каждое предложение. | [optional] 
+**requestPlatformMarginInPercent** | **Number** | Процент с каждого предложения, маржа платформы, в процентах. | [optional] 
+**platformMargin** | **Number** | Услуги платформы. | [optional] 
+**requestSupervisorFeeInPercent** | **Number** | Процент с каждого предложения для супервайзера, в процентах. | [optional] 
+**supervisorFee** | **Number** | Услуги супервайзера. | [optional] 
+**unitCost** | **Number** | Сумма. | [optional] 
+**maxAmountOfProposals** | **Number** | Количество предложений, не менее. | [optional] 
+**totalCost** | **Number** | Итого. | [optional] 
 
 

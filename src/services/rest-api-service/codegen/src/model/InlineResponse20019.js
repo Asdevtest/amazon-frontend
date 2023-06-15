@@ -12,10 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20019Finances from './InlineResponse20019Finances';
-import InlineResponse20019Orders from './InlineResponse20019Orders';
-import InlineResponse20019PendingOrders from './InlineResponse20019PendingOrders';
-import InlineResponse20019Products from './InlineResponse20019Products';
+import InlineResponse20019Rows from './InlineResponse20019Rows';
 
 /**
  * The InlineResponse20019 model module.
@@ -51,17 +48,11 @@ class InlineResponse20019 {
         if (data) {
             obj = obj || new InlineResponse20019();
 
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20019Products.constructFromObject(data['products']);
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20019Rows]);
             }
-            if (data.hasOwnProperty('orders')) {
-                obj['orders'] = InlineResponse20019Orders.constructFromObject(data['orders']);
-            }
-            if (data.hasOwnProperty('pendingOrders')) {
-                obj['pendingOrders'] = InlineResponse20019PendingOrders.constructFromObject(data['pendingOrders']);
-            }
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20019Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
         }
         return obj;
@@ -71,24 +62,14 @@ class InlineResponse20019 {
 }
 
 /**
- * @member {module:model/InlineResponse20019Products} products
+ * @member {Array.<module:model/InlineResponse20019Rows>} rows
  */
-InlineResponse20019.prototype['products'] = undefined;
+InlineResponse20019.prototype['rows'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20019Orders} orders
+ * @member {Number} count
  */
-InlineResponse20019.prototype['orders'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20019PendingOrders} pendingOrders
- */
-InlineResponse20019.prototype['pendingOrders'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20019Finances} finances
- */
-InlineResponse20019.prototype['finances'] = undefined;
+InlineResponse20019.prototype['count'] = undefined;
 
 
 

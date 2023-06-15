@@ -22,10 +22,12 @@ class InlineObject43 {
     /**
      * Constructs a new <code>InlineObject43</code>.
      * @alias module:model/InlineObject43
+     * @param userIds {Array.<String>} 
+     * @param title {String} Название группового чата
      */
-    constructor() { 
+    constructor(userIds, title) { 
         
-        InlineObject43.initialize(this);
+        InlineObject43.initialize(this, userIds, title);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject43 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, userIds, title) { 
+        obj['userIds'] = userIds;
+        obj['title'] = title;
     }
 
     /**
@@ -47,17 +51,11 @@ class InlineObject43 {
         if (data) {
             obj = obj || new InlineObject43();
 
-            if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], 'Number');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('userIds')) {
+                obj['userIds'] = ApiClient.convertToType(data['userIds'], ['String']);
             }
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
         }
         return obj;
@@ -67,24 +65,15 @@ class InlineObject43 {
 }
 
 /**
- * @member {Number} type
+ * @member {Array.<String>} userIds
  */
-InlineObject43.prototype['type'] = undefined;
+InlineObject43.prototype['userIds'] = undefined;
 
 /**
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject43.prototype['linksToMediaFiles'] = undefined;
-
-/**
+ * Название группового чата
  * @member {String} title
  */
 InlineObject43.prototype['title'] = undefined;
-
-/**
- * @member {String} description
- */
-InlineObject43.prototype['description'] = undefined;
 
 
 

@@ -47,23 +47,11 @@ class InlineResponse20059 {
         if (data) {
             obj = obj || new InlineResponse20059();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('cubicMeters')) {
-                obj['cubicMeters'] = ApiClient.convertToType(data['cubicMeters'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryCost')) {
-                obj['deliveryCost'] = ApiClient.convertToType(data['deliveryCost'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
-                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('weightFinalAccountingKgWarehouse')) {
-                obj['weightFinalAccountingKgWarehouse'] = ApiClient.convertToType(data['weightFinalAccountingKgWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryRate')) {
-                obj['deliveryRate'] = ApiClient.convertToType(data['deliveryRate'], 'Number');
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
             }
         }
         return obj;
@@ -73,40 +61,16 @@ class InlineResponse20059 {
 }
 
 /**
- * The unique identifier of the box.
- * @member {String} guid
+ * Гуид заявки
+ * @member {String} _id
  */
-InlineResponse20059.prototype['guid'] = undefined;
+InlineResponse20059.prototype['_id'] = undefined;
 
 /**
- * Объем в м ^ 3
- * @member {Number} cubicMeters
+ * удобный ключ заявки
+ * @member {Number} humanFriendlyId
  */
-InlineResponse20059.prototype['cubicMeters'] = undefined;
-
-/**
- * The delivery cost of the box.
- * @member {Number} deliveryCost
- */
-InlineResponse20059.prototype['deliveryCost'] = undefined;
-
-/**
- * The volume weight of the box in kg.
- * @member {Number} volumeWeightKgWarehouse
- */
-InlineResponse20059.prototype['volumeWeightKgWarehouse'] = undefined;
-
-/**
- * The weight of the box in kg.
- * @member {Number} weightFinalAccountingKgWarehouse
- */
-InlineResponse20059.prototype['weightFinalAccountingKgWarehouse'] = undefined;
-
-/**
- * The delivery rate of the box. $/kg
- * @member {Number} deliveryRate
- */
-InlineResponse20059.prototype['deliveryRate'] = undefined;
+InlineResponse20059.prototype['humanFriendlyId'] = undefined;
 
 
 
