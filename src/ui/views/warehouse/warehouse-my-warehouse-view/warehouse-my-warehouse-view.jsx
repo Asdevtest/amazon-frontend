@@ -36,6 +36,7 @@ import { t } from '@utils/translations'
 
 import { WarehouseMyWarehouseViewModel } from './warehouse-my-warehouse-view.model'
 import { styles } from './warehouse-my-warehouse-view.style'
+import { SettingsModel } from '@models/settings-model'
 
 export const WarehouseMyWarehouseViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseMyWarehouseViewModel({ history: props.history }))
@@ -99,6 +100,7 @@ export const WarehouseMyWarehouseViewRaw = props => {
         <div className={classNames.datagridWrapper}>
           <MemoDataGrid
             // disableVirtualization
+            key={SettingsModel.languageTag}
             checkboxSelection
             pagination
             localeText={getLocalizationByLanguageTag()}

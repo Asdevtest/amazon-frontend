@@ -93,7 +93,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       width: 130,
       sortable: false,
 
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.buyer.MY_ORDERS_STATUS,
     },
 
     {
@@ -193,7 +193,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       width: 160,
       sortable: false,
 
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {
@@ -285,7 +285,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       width: 130,
       sortable: false,
 
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {

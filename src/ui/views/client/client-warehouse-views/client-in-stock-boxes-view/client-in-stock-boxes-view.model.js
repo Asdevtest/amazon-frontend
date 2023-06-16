@@ -965,6 +965,8 @@ export class ClientInStockBoxesViewModel {
 
         const splitBoxesResult = await this.splitBoxes(id, resBoxes)
 
+        console.log('splitBoxesResult', splitBoxesResult)
+
         await this.postTask({
           idsData: splitBoxesResult,
           idsBeforeData: [id],
