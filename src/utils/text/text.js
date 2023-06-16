@@ -14,6 +14,7 @@ import { getDistanceBetweenDatesInSeconds } from '../date-time'
 import { t } from '../translations'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { OrderStatusByCode, OrderStatusTranslate } from '@constants/statuses/order-status'
 
 export const getShortenStringIfLongerThanCount = (str, count, showEnd) =>
   str?.length > count ? `${str.slice(0, count)}...${showEnd ? str.slice(str.length - 3) : ''}` : str
@@ -160,27 +161,23 @@ export const getTableByColumn = (column, hint) => {
       'sub',
       'totalPrice',
       'priceInYuan',
-      'productionTerm',
       'deadline',
       'paymentDateToSupplier',
       'paymentDetailsAttached',
       'needsResearch',
-      'client',
       'clientComment',
       'buyerComment',
       'partiallyPaid',
     ].includes(column)
   ) {
-    if (hint === 'suppliers') {
-      return 'suppliers'
-    } else if (hint === 'orders') {
+    if (hint === 'orders') {
       return 'orders'
     } else if (hint === 'requests') {
       return 'requests'
     } else {
       return 'boxes'
     }
-  } else if (['id', 'item', 'paymentMethod'].includes(column)) {
+  } else if (['id', 'item'].includes(column)) {
     return 'orders'
   } else if (
     [
@@ -208,6 +205,7 @@ export const getTableByColumn = (column, hint) => {
       'ideasVerified',
       'bsr',
       'fbaamount',
+      'client',
     ].includes(column)
   ) {
     // if (hint === 'requests') {
@@ -222,8 +220,7 @@ export const getTableByColumn = (column, hint) => {
       return 'boxes'
     } else if (hint === 'products') {
       return 'products'
-    }
-    if (hint === 'requests') {
+    } else {
       return 'requests'
     }
   } else if (
@@ -244,7 +241,7 @@ export const getTableByColumn = (column, hint) => {
     }
 
     return 'requests'
-  } else if (['paymentMethods'].includes(column)) {
+  } else if (['paymentMethod', 'productionTerm'].includes(column)) {
     return 'suppliers'
   }
 }
@@ -259,6 +256,8 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
       return MyRequestStatusTranslate(status)
     case columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY:
       return freelanceRequestTypeTranslate(freelanceRequestTypeByCode[status])
+    case columnnsKeys.client.ORDERS_STATUS:
+      return OrderStatusTranslate(OrderStatusByCode[status])
     default:
       return status
   }

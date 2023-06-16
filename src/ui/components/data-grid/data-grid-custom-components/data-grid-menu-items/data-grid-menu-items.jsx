@@ -591,6 +591,8 @@ export const CreatedByMenuItem = React.memo(
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
+      console.log('choosenItems', choosenItems)
+
       const onClickItem = obj => {
         if (choosenItems.some(item => item._id === obj._id)) {
           setChoosenItems(choosenItems.slice().filter(item => item._id !== obj._id))
@@ -674,14 +676,19 @@ export const CreatedByMenuItem = React.memo(
               onClick={e => {
                 onClose(e)
 
-                console.log('choosenItems', choosenItems)
-                console.log('data', data)
-
                 if (choosenItems.some(item => data?.createdBy?.filterData?.some(obj => obj?._id === item?._id))) {
-                  onChangeFullFieldMenuItem(choosenItems, 'createdBy')
+                  const choosenCreatedBy = choosenItems.filter(item =>
+                    data?.createdBy?.filterData?.some(obj => obj?._id === item?._id),
+                  )
+
+                  onChangeFullFieldMenuItem(choosenCreatedBy, 'createdBy')
                 }
                 if (choosenItems?.some(item => data?.sub?.filterData?.some(obj => obj?._id === item?._id))) {
-                  onChangeFullFieldMenuItem(choosenItems, 'sub')
+                  const choosenSub = choosenItems.filter(item =>
+                    data?.sub?.filterData?.some(obj => obj?._id === item?._id),
+                  )
+
+                  onChangeFullFieldMenuItem(choosenSub, 'sub')
                 }
 
                 onClickAccept()
