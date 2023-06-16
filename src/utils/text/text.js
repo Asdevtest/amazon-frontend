@@ -160,20 +160,16 @@ export const getTableByColumn = (column, hint) => {
       'sub',
       'totalPrice',
       'priceInYuan',
-      'productionTerm',
       'deadline',
       'paymentDateToSupplier',
       'paymentDetailsAttached',
       'needsResearch',
-      'client',
       'clientComment',
       'buyerComment',
       'partiallyPaid',
     ].includes(column)
   ) {
-    if (hint === 'suppliers') {
-      return 'suppliers'
-    } else if (hint === 'orders') {
+    if (hint === 'orders') {
       return 'orders'
     } else if (hint === 'requests') {
       return 'requests'
@@ -208,6 +204,7 @@ export const getTableByColumn = (column, hint) => {
       'ideasVerified',
       'bsr',
       'fbaamount',
+      'client',
     ].includes(column)
   ) {
     // if (hint === 'requests') {
@@ -222,8 +219,7 @@ export const getTableByColumn = (column, hint) => {
       return 'boxes'
     } else if (hint === 'products') {
       return 'products'
-    }
-    if (hint === 'requests') {
+    } else {
       return 'requests'
     }
   } else if (
@@ -244,7 +240,7 @@ export const getTableByColumn = (column, hint) => {
     }
 
     return 'requests'
-  } else if (['paymentMethods'].includes(column)) {
+  } else if (['productionTerm'].includes(column)) {
     return 'suppliers'
   }
 }
