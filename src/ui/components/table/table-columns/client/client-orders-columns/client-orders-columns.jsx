@@ -24,7 +24,6 @@ import {
   UserLinkCell,
   DownloadAndCopyBtnsCell,
   NormalActionBtnCell,
-  IconHeaderCell,
   PriorityAndChinaDeliverCell,
   SuccessActionBtnCell,
   RenderFieldValueCell,
@@ -32,8 +31,6 @@ import {
 
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
-import { colorByProductStatus, ProductStatusByCode } from '@constants/product/product-status'
-import { boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
 
 export const clientOrdersViewColumns = (onClickReorder, getColumnMenuSettings, getOnHover) => [
   {
@@ -101,22 +98,17 @@ export const clientOrdersViewColumns = (onClickReorder, getColumnMenuSettings, g
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Status)}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} Icon={FilterAltOutlinedIcon} />,
     renderCell: params => (
       <MultilineTextCell
         text={params.value}
-        color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
+        color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
       />
     ),
     width: 100,
+    sortable: false,
 
-    columnKey: columnnsKeys.shared.OBJECT,
+    columnKey: columnnsKeys.client.ORDERS_STATUS,
   },
 
   {

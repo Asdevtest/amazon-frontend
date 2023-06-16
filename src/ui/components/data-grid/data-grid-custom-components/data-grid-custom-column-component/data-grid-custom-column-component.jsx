@@ -181,7 +181,7 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  if ([columnnsKeys.buyer.MY_ORDERS_STATUS, columnnsKeys.client.ORDERS_STATUS].includes(currentColumn.columnKey)) {
+  if ([columnnsKeys.buyer.MY_ORDERS_STATUS].includes(currentColumn.columnKey)) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <ClientOrderAllStatusesMenuItem orderStatusData={orderStatusData} />
@@ -253,6 +253,7 @@ export const DataGridCustomColumnMenuComponent = props => {
       columnnsKeys.client.FREELANCE_MY_REQUESTS,
       columnnsKeys.shared.STRING,
       columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
+      columnnsKeys.client.ORDERS_STATUS,
     ].includes(currentColumn.columnKey)
   ) {
     return (
