@@ -284,7 +284,19 @@ export const PhotoAndFilesCarousel = props => {
         imgIndex={bigImagesOptions.imgIndex}
         setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         controls={isEditable ? bigImagesModalControls : undefined}
+        // getComment={index => filteredImagesTitles[index]}
       />
+
+      {/* <BigImagesModal */}
+      {/*   showPreviews */}
+      {/*   openModal={showPhotosModal} */}
+      {/*   setOpenModal={() => setShowPhotosModal(!showPhotosModal)} */}
+      {/*   images={bigImagesOptions.images} */}
+      {/*   imgIndex={bigImagesOptions.imgIndex} */}
+      {/*   setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))} */}
+      {/*   controls={isEditable ? bigImagesModalControls : undefined} */}
+      {/*   getComment={index => filteredImagesTitles[index]} */}
+      {/* /> */}
     </div>
   ) : (
     <div className={classNames.emptyIconWrapper}>
