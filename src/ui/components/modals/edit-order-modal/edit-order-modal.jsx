@@ -747,7 +747,10 @@ export const EditOrderModal = observer(
                         (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
                           order.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.PARTIALLY_PAID]}` &&
-                          order.status !== OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])
+                          order.status !== OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]) ||
+                        (order.status === OrderStatusByKey[OrderStatus.PENDING] &&
+                          statusCode !== `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}` &&
+                          statusCode !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`)
                       }
                     >
                       {OrderStatusTranslate(getOrderStatusOptionByCode(statusCode).key)}
