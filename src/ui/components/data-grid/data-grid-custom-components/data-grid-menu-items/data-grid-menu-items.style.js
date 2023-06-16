@@ -57,7 +57,6 @@ export const styles = theme => ({
   shopName: {
     width: '100%',
     textAlign: 'left',
-
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
