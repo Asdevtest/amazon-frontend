@@ -119,9 +119,9 @@ export const BigObjectImagesModal = ({
             {filteredImagesData.map(item => (
               <div key={item._id} className={classNames.imageModalImageWrapper}>
                 {/* {item.comment && <Typography className={cx(classNames.imageName, classNames.titleName)}>{item.comment}</Typography>} */}
-                <Typography className={cx(classNames.imageName, classNames.titleName)}>
-                  {t(TranslationKey.Title)}
-                </Typography>
+                {/* <Typography className={cx(classNames.imageName, classNames.titleName)}> */}
+                {/*   {t(TranslationKey.Title)} */}
+                {/* </Typography> */}
 
                 <Avatar
                   className={classNames.imageModalImage}
