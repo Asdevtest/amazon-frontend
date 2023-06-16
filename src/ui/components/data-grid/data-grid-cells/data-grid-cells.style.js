@@ -985,6 +985,8 @@ export const styles = theme => ({
 
   manyUserLinkWrapper: {
     width: '100%',
+    maxWidth: 167,
+    overflowX: 'auto',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

@@ -404,7 +404,7 @@ export const RedistributeBox = observer(
       destinationId: selectedBox.destination?._id || null,
       storekeeperId: selectedBox.storekeeper?._id || '',
       logicsTariffId: selectedBox.logicsTariff?._id || '',
-      variationTariffId: selectedBox?.variationTariff?._id || '',
+      variationTariffId: selectedBox?.variationTariff?._id || null,
     })
     const [priority, setPriority] = useState()
     const [priorityReason, setPriorityReason] = useState()
