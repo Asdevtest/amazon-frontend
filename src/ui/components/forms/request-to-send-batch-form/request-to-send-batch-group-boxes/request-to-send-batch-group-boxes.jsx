@@ -62,7 +62,9 @@ export const RequestToSendBatchesGroupBoxes = ({
     selectedGroup.logicsTariff?._id,
   )
 
-  const currentTariff = selectedGroup.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate
+  const currentTariff =
+    selectedGroup.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate ||
+    selectedGroup?.variationTariff?.pricePerKgUsd
 
   return (
     <div className={cx(classNames.tableWrapper, { [classNames.tableAlertWrapper]: tariffIsInvalid })}>
@@ -91,9 +93,7 @@ export const RequestToSendBatchesGroupBoxes = ({
           </div>
 
           <div className={classNames.headerSubWrapper}>
-            <Typography className={classNames.headerTitle}>{`${
-              t(TranslationKey.Rate) + ', $'
-            } (US ${regionOfDeliveryName})`}</Typography>
+            <Typography className={classNames.headerTitle}>{t(TranslationKey.Rate) + ', $'}</Typography>
 
             <Typography className={classNames.headerSpanText}>{toFixedWithDollarSign(currentTariff, 2)}</Typography>
           </div>
@@ -115,7 +115,6 @@ export const RequestToSendBatchesGroupBoxes = ({
                 box={findBox}
                 index={index}
                 price={findRequestToSendBatchPriceForCurBox?.deliveryCost}
-                currentTariff={currentTariff}
                 onClickRemoveBoxFromBatch={() => onClickRemoveBoxFromBatch(boxId._id)}
                 onSubmitChangeBoxFields={onSubmitChangeBoxFields}
                 onClickHsCode={onClickHsCode}

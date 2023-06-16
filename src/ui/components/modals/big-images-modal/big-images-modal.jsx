@@ -15,9 +15,20 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
 import { useClassNames } from './big-images-modal.style'
+import { getShortenStringIfLongerThanCount } from '@utils/text'
+import { CustomSlider } from '@components/shared/custom-slider'
 
 export const BigImagesModal = props => {
-  const { openModal, setOpenModal, images, imgIndex = 0, showPreviews = false, setImageIndex, controls } = props
+  const {
+    openModal,
+    setOpenModal,
+    images,
+    imgIndex = 0,
+    showPreviews = false,
+    setImageIndex,
+    controls,
+    getComment,
+  } = props
   const { classes: classNames } = useClassNames()
   const [currentScreenWidth, setCurrentScreenWidth] = useState(window.innerWidth)
 
@@ -83,6 +94,11 @@ export const BigImagesModal = props => {
                     }
                     loading="lazy"
                   />
+                  {getComment && (
+                    <Typography className={cx(classNames.imageLeftSideComment)}>
+                      {getShortenStringIfLongerThanCount(getComment(index), 20)}
+                    </Typography>
+                  )}
                 </div>
               ))}
             </div>
@@ -116,9 +132,32 @@ export const BigImagesModal = props => {
                   }
                   alt=""
                 />
+                {getComment && <Typography className={classNames.title}>{getComment(index)}</Typography>}
               </div>
             ))}
           </Carousel>
+          {/* <CustomSlider */}
+          {/*   index={imgIndex} */}
+          {/*   arrowSize="60px" */}
+          {/*   onChangeIndex={(index) => setImageIndex(index - 1)} */}
+          {/* > */}
+          {/*   {images?.map((el, index) => ( */}
+          {/*     <div key={index} className={classNames.mainWrapper}> */}
+          {/*       <img */}
+          {/*         className={classNames.imgBox} */}
+          {/*         src={ */}
+          {/*           typeof el === 'string' */}
+          {/*             ? getAmazonImageUrl(el, true) */}
+          {/*             : el?.file.type.includes('image') */}
+          {/*             ? el?.data_url */}
+          {/*             : '/assets/icons/file.png' */}
+          {/*         } */}
+          {/*         alt="" */}
+          {/*       /> */}
+          {/*       {getComment && <Typography className={classNames.title}>{getComment(index)}</Typography>} */}
+          {/*     </div> */}
+          {/*   ))} */}
+          {/* </CustomSlider> */}
         </div>
 
         {setImageIndex && (

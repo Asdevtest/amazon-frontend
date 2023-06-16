@@ -67,6 +67,8 @@ export const RequestToSendBatchForm = observer(
             destination: cur.destination,
             storekeeper: cur.storekeeper,
             logicsTariff: cur.logicsTariff,
+            variationTariff: cur.variationTariff,
+
             boxes: [cur],
           })
         }
