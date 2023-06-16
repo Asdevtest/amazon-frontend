@@ -97,6 +97,8 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
     const [formFields, setFormFields] = useState<FormFields>(initialState)
 
+    console.log('formFields', formFields)
+
     const [isWeightRangeValid, setIsWeightRangeValid] = useState(true)
 
     const disableSubmitBtn =
@@ -128,7 +130,13 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         ...prevState,
         name: tariff.name,
         description: tariff.description,
-        destinationVariations: tariff.destinationVariations,
+        destinationVariations: tariff.destinationVariations.map(item => ({
+          destinationId: item.destinationId,
+          minWeight: item.minWeight,
+          maxWeight: item.maxWeight,
+          pricePerKgRmb: item.pricePerKgRmb,
+          pricePerKgUsd: item.pricePerKgUsd,
+        })),
         deliveryTimeInDay: tariff.deliveryTimeInDay,
       }))
     }
