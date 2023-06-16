@@ -650,13 +650,13 @@ export const CreatedByMenuItem = React.memo(
                         setChoosenItems={setChoosenItems}
                       />
                       {itemsForRender.map(obj => (
-                        <div key={obj._id} className={classNames.shop}>
+                        <div key={obj?._id} className={classNames.shop}>
                           <Checkbox
                             color="primary"
-                            checked={choosenItems.some(item => item._id === obj._id)}
+                            checked={choosenItems.some(item => item?._id === obj?._id)}
                             onClick={() => onClickItem(obj)}
                           />
-                          <div className={classNames.shopName}>{obj.name || t(TranslationKey.Empty)}</div>
+                          <div className={classNames.shopName}>{(obj && obj?.name) || t(TranslationKey.Empty)}</div>
                         </div>
                       ))}
                     </>
@@ -673,10 +673,14 @@ export const CreatedByMenuItem = React.memo(
               variant="contained"
               onClick={e => {
                 onClose(e)
-                if (choosenItems.some(item => data.createdBy.filterData.some(obj => obj._id === item._id))) {
+
+                console.log('choosenItems', choosenItems)
+                console.log('data', data)
+
+                if (choosenItems.some(item => data?.createdBy?.filterData?.some(obj => obj?._id === item?._id))) {
                   onChangeFullFieldMenuItem(choosenItems, 'createdBy')
                 }
-                if (choosenItems.some(item => data.sub.filterData.some(obj => obj._id === item._id))) {
+                if (choosenItems?.some(item => data?.sub?.filterData?.some(obj => obj?._id === item?._id))) {
                   onChangeFullFieldMenuItem(choosenItems, 'sub')
                 }
 
