@@ -106,6 +106,7 @@ import {
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
 import { PrioritySelect } from '@components/shared/priority-select/priority-select'
 import { el } from 'date-fns/locale'
+import { tariffTypes } from '@constants/keys/tariff-types'
 
 export const UserCell = React.memo(
   withStyles(
@@ -1178,7 +1179,7 @@ export const WarehouseDestinationAndTariffCell = React.memo(
                 destinations.find(el => el?._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
               }
               data={
-                boxesMy?.logicsTariff?._id
+                boxesMy?.logicsTariff?._id && currentTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
                   ? destinations
                       // .filter(el => el?.storekeeper?._id !== boxesMy?.storekeeper?._id)
                       // .filter(el => el?._id === boxesMy?.logicsTariff?._id)

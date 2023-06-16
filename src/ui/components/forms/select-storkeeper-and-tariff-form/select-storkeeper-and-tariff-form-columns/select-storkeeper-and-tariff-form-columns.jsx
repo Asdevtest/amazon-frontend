@@ -87,7 +87,7 @@ export const logisticsTariffsColumns = handlers => [
     renderCell: params => (
       <NormalActionBtnCell
         bTnText={t(TranslationKey['Select Tariff'])}
-        onClickOkBtn={() => handlers.onClickSelectTariff(params.row._id)}
+        onClickOkBtn={() => handlers.onClickSelectTariffOld(params.row._id, null)}
       />
     ),
     filterable: false,
