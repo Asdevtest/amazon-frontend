@@ -33,6 +33,7 @@ import { CopyValue } from '@components/shared/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
+import { tariffTypes } from '@constants/keys/tariff-types'
 
 export const MergeBoxesModal = ({
   showCheckbox,
@@ -297,7 +298,8 @@ export const MergeBoxesModal = ({
                       t(TranslationKey['Not chosen'])
                     }
                     data={
-                      boxBody.logicsTariffId
+                      boxBody.logicsTariffId &&
+                      currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
                         ? destinations
                             // ?.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
                             .filter(el => el?._id === destinationId)
