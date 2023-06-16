@@ -84,9 +84,10 @@ export const SelectStorekeeperAndTariffForm = observer(
       }
     }
 
-    const onClickSelectTariff = tariffId => {
+    const onClickSelectTariff = tariffId => onSubmit(curStorekeeper._id, tariffId, variationTariffId, destinationId)
+
+    const onClickSelectTariffOld = (tariffId, variationTariffId) =>
       onSubmit(curStorekeeper._id, tariffId, variationTariffId, destinationId)
-    }
 
     const getRowClassName = params => curTariffId === params.row._id && classNames.attentionRow
 
@@ -207,7 +208,7 @@ export const SelectStorekeeperAndTariffForm = observer(
                     )
                   : []
               }
-              columns={total ? TotalTariffsColumns() : logisticsTariffsColumns({ onClickSelectTariff })}
+              columns={total ? TotalTariffsColumns() : logisticsTariffsColumns({ onClickSelectTariffOld })}
               getRowHeight={() => 'auto'}
             />
           </div>

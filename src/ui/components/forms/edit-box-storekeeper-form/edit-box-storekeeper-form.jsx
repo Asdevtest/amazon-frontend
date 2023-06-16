@@ -45,6 +45,7 @@ import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-
 import { useClassNames } from './edit-box-storekeeper-form.style'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { tariffTypes } from '@constants/keys/tariff-types'
 
 export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoefficient, setFormField, showCheckbox }) => {
   const { classes: classNames } = useClassNames()
@@ -647,7 +648,8 @@ export const EditBoxStorekeeperForm = observer(
                             t(TranslationKey['Not chosen'])
                           }
                           data={
-                            boxFields.logicsTariffId
+                            boxFields.logicsTariffId &&
+                            currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
                               ? destinations.filter(el => el?._id === destinationId)
                               : destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
                           }

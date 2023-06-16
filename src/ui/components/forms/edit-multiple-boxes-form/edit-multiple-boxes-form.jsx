@@ -31,6 +31,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './edit-multiple-boxes-form.style'
+import { tariffTypes } from '@constants/keys/tariff-types'
 
 const Box = ({
   userInfo,
@@ -295,7 +296,8 @@ const Box = ({
                       destinations.find(el => el._id === box.destinationId)?.name || t(TranslationKey['Not chosen'])
                     }
                     data={
-                      box.variationTariffId
+                      box.variationTariffId &&
+                      currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
                         ? destinations
                             // .filter(el => el.storekeeper?._id !== box?.storekeeperId)
                             .filter(el => el?._id === box?.destinationId)
@@ -797,7 +799,8 @@ export const EditMultipleBoxesForm = observer(
                         t(TranslationKey['Not chosen'])
                       }
                       data={
-                        sharedFields.variationTariffId
+                        sharedFields.variationTariffId &&
+                        currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
                           ? destinations
                               // .filter(el => el.storekeeper?._id !== sharedFields.storekeeperId)
                               .filter(el => el?._id === destinationId)
