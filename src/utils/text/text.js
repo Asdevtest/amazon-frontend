@@ -14,6 +14,7 @@ import { getDistanceBetweenDatesInSeconds } from '../date-time'
 import { t } from '../translations'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { OrderStatusByCode, OrderStatusTranslate } from '@constants/statuses/order-status'
 
 export const getShortenStringIfLongerThanCount = (str, count, showEnd) =>
   str?.length > count ? `${str.slice(0, count)}...${showEnd ? str.slice(str.length - 3) : ''}` : str
@@ -176,7 +177,7 @@ export const getTableByColumn = (column, hint) => {
     } else {
       return 'boxes'
     }
-  } else if (['id', 'item', 'paymentMethod'].includes(column)) {
+  } else if (['id', 'item'].includes(column)) {
     return 'orders'
   } else if (
     [
@@ -240,7 +241,7 @@ export const getTableByColumn = (column, hint) => {
     }
 
     return 'requests'
-  } else if (['productionTerm'].includes(column)) {
+  } else if (['paymentMethod', 'productionTerm'].includes(column)) {
     return 'suppliers'
   }
 }
@@ -255,6 +256,8 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
       return MyRequestStatusTranslate(status)
     case columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY:
       return freelanceRequestTypeTranslate(freelanceRequestTypeByCode[status])
+    case columnnsKeys.client.ORDERS_STATUS:
+      return OrderStatusTranslate(OrderStatusByCode[status])
     default:
       return status
   }
