@@ -76,13 +76,14 @@ export const BuyerMyOrdersViewRaw = props => {
         <div
           className={cx(classNames.headerWrapper, {
             [classNames.headerWrapperCenter]:
-              !viewModel.paymentAmount?.totalPriceInYuan && !viewModel.paymentAmount?.totalPriceInUSD,
+              !viewModel.paymentAmount?.totalPriceInYuan &&
+              !viewModel.paymentAmount?.totalPriceInUSD &&
+              !viewModel.paymentAmount?.partialPaymentAmountRmb,
           })}
         >
           {(viewModel.paymentAmount?.totalPriceInYuan ||
-            (isNoPaidedOrders && viewModel.paymentAmount?.totalPriceInUSD)) > 0 && (
-            <div className={classNames.totalPriceWrapper} />
-          )}
+            (isNoPaidedOrders && viewModel.paymentAmount?.totalPriceInUSD) ||
+            viewModel.paymentAmount?.partialPaymentAmountRmb) > 0 && <div className={classNames.totalPriceWrapper} />}
 
           <SearchInput
             inputClasses={classNames.searchInput}
