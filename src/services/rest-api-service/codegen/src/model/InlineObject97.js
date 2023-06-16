@@ -67,27 +67,6 @@ InlineObject97.prototype['reason'] = undefined;
 
 
 
-/**
- * Allowed values for the <code>action</code> property.
- * @enum {String}
- * @readonly
- */
-InlineObject97['ActionEnum'] = {
-
-    /**
-     * value: "LINK"
-     * @const
-     */
-    "LINK": "LINK",
-
-    /**
-     * value: "UNLINK"
-     * @const
-     */
-    "UNLINK": "UNLINK"
-};
-
-
 
 export default InlineObject97;
 

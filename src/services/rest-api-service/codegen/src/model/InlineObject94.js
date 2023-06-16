@@ -57,9 +57,6 @@ class InlineObject94 {
             if (data.hasOwnProperty('uploadedToListing')) {
                 obj['uploadedToListing'] = ApiClient.convertToType(data['uploadedToListing'], 'Boolean');
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
         }
         return obj;
     }

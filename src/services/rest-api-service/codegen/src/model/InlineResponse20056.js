@@ -53,8 +53,8 @@ class InlineResponse20056 {
         if (data) {
             obj = obj || new InlineResponse20056();
 
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
             if (data.hasOwnProperty('requestId')) {
                 obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
@@ -77,8 +77,8 @@ class InlineResponse20056 {
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
-                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
@@ -95,14 +95,8 @@ class InlineResponse20056 {
             if (data.hasOwnProperty('lastModifiedById')) {
                 obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
             }
-            if (data.hasOwnProperty('unitCost')) {
-                obj['unitCost'] = ApiClient.convertToType(data['unitCost'], 'Number');
-            }
-            if (data.hasOwnProperty('maxAmountOfProposals')) {
-                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
-            }
-            if (data.hasOwnProperty('totalCost')) {
-                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
+            if (data.hasOwnProperty('sub')) {
+                obj['sub'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['sub']);
             }
             if (data.hasOwnProperty('sourceFiles')) {
                 obj['sourceFiles'] = ApiClient.convertToType(data['sourceFiles'], [ApiV1RequestProposalsSourceFiles]);
@@ -139,7 +133,7 @@ class InlineResponse20056 {
  * Guid продожения к заявке.
  * @member {String} _id
  */
-InlineResponse20056.prototype['price'] = undefined;
+InlineResponse20056.prototype['_id'] = undefined;
 
 /**
  * Guid заявки к которой относится данное предложение.
@@ -187,7 +181,7 @@ InlineResponse20056.prototype['price'] = undefined;
  * Комментарий к предложению.
  * @member {String} comment
  */
-InlineResponse20056.prototype['requestSupervisorFeeInPercent'] = undefined;
+InlineResponse20056.prototype['comment'] = undefined;
 
 /**
  * Ссылки на медиафайлы.
@@ -220,22 +214,9 @@ InlineResponse20056.prototype['chatId'] = undefined;
 InlineResponse20056.prototype['lastModifiedById'] = undefined;
 
 /**
- * Сумма.
- * @member {Number} unitCost
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} sub
  */
-InlineResponse20056.prototype['unitCost'] = undefined;
-
-/**
- * Количество предложений, не менее.
- * @member {Number} maxAmountOfProposals
- */
-InlineResponse20056.prototype['maxAmountOfProposals'] = undefined;
-
-/**
- * Итого.
- * @member {Number} totalCost
- */
-InlineResponse20056.prototype['totalCost'] = undefined;
+InlineResponse20056.prototype['sub'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1RequestProposalsSourceFiles>} sourceFiles

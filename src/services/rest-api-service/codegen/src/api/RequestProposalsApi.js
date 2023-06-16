@@ -400,7 +400,7 @@ export default class RequestProposalsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20113;
+      let returnType = InlineResponse20111;
       return this.apiClient.callApi(
         '/api/v1/request-proposals/freelance-sources', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,

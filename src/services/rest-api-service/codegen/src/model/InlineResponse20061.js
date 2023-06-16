@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1RequestProposalsFreelanceSourcesProposal from './ApiV1RequestProposalsFreelanceSourcesProposal';
 
 /**
  * The InlineResponse20061 model module.

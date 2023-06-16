@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 
 /**
  * The InlineObject59 model module.
@@ -50,14 +49,8 @@ class InlineObject59 {
         if (data) {
             obj = obj || new InlineObject59();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('os')) {
-                obj['os'] = ApiClient.convertToType(data['os'], 'String');
-            }
-            if (data.hasOwnProperty('navigator')) {
-                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
+            if (data.hasOwnProperty('profileId')) {
+                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
             }
         }
         return obj;
@@ -67,22 +60,10 @@ class InlineObject59 {
 }
 
 /**
- * Название профиля
- * @member {String} name
+ * id профайла
+ * @member {String} profileId
  */
-InlineObject59.prototype['name'] = undefined;
-
-/**
- * Название ОС
- * @member {String} os
- * @default 'mac'
- */
-InlineObject59.prototype['os'] = 'mac';
-
-/**
- * @member {module:model/ApiV1GologinProfileNavigator} navigator
- */
-InlineObject59.prototype['navigator'] = undefined;
+InlineObject59.prototype['profileId'] = undefined;
 
 
 

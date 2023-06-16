@@ -354,7 +354,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestProposalsFreelanceSourcesPost
 
-> InlineResponse20113 apiV1RequestProposalsFreelanceSourcesPost(opts)
+> InlineResponse20111 apiV1RequestProposalsFreelanceSourcesPost(opts)
 
 #  Создать исходник.
 
@@ -394,7 +394,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20113**](InlineResponse20113.md)
+[**InlineResponse20111**](InlineResponse20111.md)
 
 ### Authorization
 

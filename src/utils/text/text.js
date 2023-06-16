@@ -177,10 +177,6 @@ export const getTableByColumn = (column, hint) => {
       return 'orders'
     } else if (hint === 'requests') {
       return 'requests'
-    } else if (hint === 'suppliers') {
-      return 'suppliers'
-    } else if (hint === 'orders') {
-      return 'orders'
     } else {
       return 'boxes'
     }
@@ -226,8 +222,6 @@ export const getTableByColumn = (column, hint) => {
       return 'boxes'
     } else if (hint === 'products') {
       return 'products'
-    } else if (hint === 'orders') {
-      return 'orders'
     } else {
       return 'requests'
     }

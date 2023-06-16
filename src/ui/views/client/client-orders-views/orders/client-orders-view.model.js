@@ -43,7 +43,6 @@ const filtersFields = [
   'deadline',
   'needsResearch',
   'totalPrice',
-  'weight',
   'clientComment',
   'buyerComment',
   'createdAt',
@@ -262,8 +261,6 @@ export class ClientOrdersViewModel {
     const totalPriceFilter =
       exclusion !== 'totalPrice' && this.columnMenuSettings.totalPrice?.currentFilterData.join(',')
 
-    const weightFilter = exclusion !== 'weight' && this.columnMenuSettings.weight?.currentFilterData.join(',')
-
     const clientCommentFilter =
       exclusion !== 'clientComment' && this.columnMenuSettings.clientComment?.currentFilterData.join(',')
     const buyerCommentFilter =
@@ -340,10 +337,6 @@ export class ClientOrdersViewModel {
 
       ...(totalPriceFilter && {
         totalPrice: { $eq: totalPriceFilter },
-      }),
-
-      ...(weightFilter && {
-        weight: { $eq: weightFilter },
       }),
 
       ...(clientCommentFilter && {

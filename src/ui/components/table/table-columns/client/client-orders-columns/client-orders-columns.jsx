@@ -186,7 +186,7 @@ export const clientOrdersViewColumns = (onClickReorder, getColumnMenuSettings, g
     width: 160,
     sortable: false,
 
-    columnKey: columnnsKeys.shared.STRING,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -197,7 +197,7 @@ export const clientOrdersViewColumns = (onClickReorder, getColumnMenuSettings, g
     width: 120,
     sortable: false,
 
-    columnKey: columnnsKeys.shared.STRING,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -260,8 +260,7 @@ export const clientOrdersViewColumns = (onClickReorder, getColumnMenuSettings, g
     width: 110,
     type: 'number',
     sortable: false,
-
-    columnKey: columnnsKeys.shared.QUANTITY,
+    filterable: false,
   },
 
   {
