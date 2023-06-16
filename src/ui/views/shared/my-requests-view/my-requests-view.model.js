@@ -490,7 +490,8 @@ export class MyRequestsViewModel {
     const timeoutAtFilter = exclusion !== 'timeoutAt' && this.columnMenuSettings.timeoutAt.currentFilterData.join(',')
     const subUsersFilter =
       exclusion !== 'subUsers' && this.columnMenuSettings?.subUsers?.currentFilterData?.map(item => item._id)?.join(',')
-    const subFilter = exclusion !== 'sub' && this.columnMenuSettings.sub.currentFilterData.join(',')
+    const subFilter =
+      exclusion !== 'sub' && this.columnMenuSettings.sub.currentFilterData.map(item => item._id)?.join(',')
 
     const skusByClientFilter =
       exclusion !== 'skusByClient' &&
@@ -500,7 +501,8 @@ export class MyRequestsViewModel {
       exclusion !== 'amazonTitle' &&
       this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
 
-    const createdByFilter = exclusion !== 'createdBy' && this.columnMenuSettings.createdBy.currentFilterData.join(',')
+    const createdByFilter =
+      exclusion !== 'createdBy' && this.columnMenuSettings.createdBy.currentFilterData.map(item => item._id)?.join(',')
 
     const priorityFilter = exclusion !== 'priority' && this.columnMenuSettings.priority.currentFilterData.join(',')
 

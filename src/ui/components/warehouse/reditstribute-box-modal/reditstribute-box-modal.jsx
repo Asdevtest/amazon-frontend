@@ -34,6 +34,7 @@ import { t } from '@utils/translations'
 import { useClassNames } from './reditstribute-box-modal.style'
 import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
+import { tariffTypes } from '@constants/keys/tariff-types'
 
 const Box = ({
   showCheckbox,
@@ -146,7 +147,8 @@ const Box = ({
                       t(TranslationKey['Not chosen'])
                     }
                     data={
-                      box?.variationTariffId
+                      box?.variationTariffId &&
+                      currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
                         ? destinations
                             // ?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)
                             ?.filter(el => el._id === box?.destinationId)
@@ -423,7 +425,6 @@ export const RedistributeBox = observer(
 
     const emptyBox = getEmptyBox()
     const [newBoxes, setNewBoxes] = useState([emptyBox])
-    // const [destinationId, setDestinationId] = useState(boxFields?.destinationId)
 
     const [comment, setComment] = useState('')
     const totalProductsAmount = isMasterBox
