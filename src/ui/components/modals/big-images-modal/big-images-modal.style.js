@@ -56,6 +56,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: '10px',
     width: 'max-content',
+    cursor: 'pointer',
   },
 
   previewListImage: {

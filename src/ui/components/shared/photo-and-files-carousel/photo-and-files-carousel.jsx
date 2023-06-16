@@ -284,7 +284,7 @@ export const PhotoAndFilesCarousel = props => {
         imgIndex={bigImagesOptions.imgIndex}
         setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         controls={isEditable ? bigImagesModalControls : undefined}
-        // getComment={index => filteredImagesTitles[index]}
+        getComment={index => filteredImagesTitles[index]}
       />
 
       {/* <BigImagesModal */}
