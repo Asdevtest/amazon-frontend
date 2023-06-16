@@ -938,9 +938,10 @@ export class BuyerMyOrdersViewModel {
   }
 
   async saveOrderPayment(order, orderPayments) {
+    console.log('orderPayments', orderPayments)
     if (Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
       try {
-        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethods?._id)]
+        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
         const validOrderPayments = []
         for (const payment of orderPayments) {
           if (payment?.photosForLoad?.length) {
@@ -953,7 +954,7 @@ export class BuyerMyOrdersViewModel {
           this.clearReadyImages()
 
           const validObj = {
-            paymentMethodId: payment?.paymentMethods._id,
+            paymentMethodId: payment?.paymentMethod._id,
             paymentDetails: payment?.paymentDetails,
             paymentImages: readyPhotosForLoad,
           }
@@ -1096,7 +1097,7 @@ export class BuyerMyOrdersViewModel {
       }
 
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}`) {
-        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethods?._id)]
+        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
 
         const validOrderPayments = []
         for (const payment of orderPayments) {
@@ -1110,7 +1111,7 @@ export class BuyerMyOrdersViewModel {
           this.clearReadyImages()
 
           const validObj = {
-            paymentMethodId: payment?.paymentMethods._id,
+            paymentMethodId: payment?.paymentMethod._id,
             paymentDetails: payment?.paymentDetails,
             paymentImages: readyPhotosForLoad,
           }
