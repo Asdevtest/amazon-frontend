@@ -16,6 +16,8 @@ import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
 import { useClassNames } from './big-object-images-modal.style'
 import { CustomSlider } from '@components/shared/custom-slider'
+import { TranslationKey } from '@constants/translations/translation-key'
+import { t } from '@utils/translations'
 
 export const BigObjectImagesModal = ({
   openModal,
@@ -117,7 +119,9 @@ export const BigObjectImagesModal = ({
             {filteredImagesData.map(item => (
               <div key={item._id} className={classNames.imageModalImageWrapper}>
                 {/* {item.comment && <Typography className={cx(classNames.imageName, classNames.titleName)}>{item.comment}</Typography>} */}
-                <Typography className={cx(classNames.imageName, classNames.titleName)}>Titlr</Typography>
+                <Typography className={cx(classNames.imageName, classNames.titleName)}>
+                  {t(TranslationKey.Title)}
+                </Typography>
 
                 <Avatar
                   className={classNames.imageModalImage}

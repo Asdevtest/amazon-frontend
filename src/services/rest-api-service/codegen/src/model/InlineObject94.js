@@ -22,10 +22,12 @@ class InlineObject94 {
     /**
      * Constructs a new <code>InlineObject94</code>.
      * @alias module:model/InlineObject94
+     * @param requestIds {Array.<String>} 
+     * @param uploadedToListing {Boolean} 
      */
-    constructor() { 
+    constructor(requestIds, uploadedToListing) { 
         
-        InlineObject94.initialize(this);
+        InlineObject94.initialize(this, requestIds, uploadedToListing);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject94 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, requestIds, uploadedToListing) { 
+        obj['requestIds'] = requestIds;
+        obj['uploadedToListing'] = uploadedToListing;
     }
 
     /**
@@ -47,11 +51,11 @@ class InlineObject94 {
         if (data) {
             obj = obj || new InlineObject94();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            if (data.hasOwnProperty('requestIds')) {
+                obj['requestIds'] = ApiClient.convertToType(data['requestIds'], ['String']);
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('uploadedToListing')) {
+                obj['uploadedToListing'] = ApiClient.convertToType(data['uploadedToListing'], 'Boolean');
             }
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
@@ -64,22 +68,14 @@ class InlineObject94 {
 }
 
 /**
- * Поставить оценку юзеру
- * @member {Number} rating
+ * @member {Array.<String>} requestIds
  */
-InlineObject94.prototype['rating'] = undefined;
+InlineObject94.prototype['requestIds'] = undefined;
 
 /**
- * Комментарий причин изменения статуса.
- * @member {String} reason
+ * @member {Boolean} uploadedToListing
  */
-InlineObject94.prototype['reason'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject94.prototype['linksToMediaFiles'] = undefined;
+InlineObject94.prototype['uploadedToListing'] = undefined;
 
 
 

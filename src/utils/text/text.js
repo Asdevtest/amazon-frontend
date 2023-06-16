@@ -107,7 +107,7 @@ export const getNewTariffTextForBoxOrOrder = (box, withoutRate) => {
 
   const rate = box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate || box?.variationTariff?.pricePerKgUsd
 
-  return `${box.logicsTariff?.name || ''}${rate && !withoutRate ? ' / ' + rate + '$' : ''}`
+  return `${box.logicsTariff?.name || ''}${rate && !withoutRate ? ' / ' + toFixed(rate, 2) + '$' : ''}`
 }
 
 export const shortSku = value => getShortenStringIfLongerThanCount(value, 12)
@@ -158,16 +158,24 @@ export const getTableByColumn = (column, hint) => {
       'storekeeper',
       'batchId',
       'sub',
+      'totalPrice',
+      'priceInYuan',
       'productionTerm',
       'deadline',
+      'paymentDateToSupplier',
+      'paymentDetailsAttached',
+      'needsResearch',
+      'client',
       'clientComment',
       'buyerComment',
-      'totalPrice',
-      'needsResearch',
-      'weight',
+      'partiallyPaid',
     ].includes(column)
   ) {
-    if (hint === 'requests') {
+    if (hint === 'suppliers') {
+      return 'suppliers'
+    } else if (hint === 'orders') {
+      return 'orders'
+    } else if (hint === 'requests') {
       return 'requests'
     } else if (hint === 'suppliers') {
       return 'suppliers'
@@ -176,7 +184,7 @@ export const getTableByColumn = (column, hint) => {
     } else {
       return 'boxes'
     }
-  } else if (['id', 'item'].includes(column)) {
+  } else if (['id', 'item', 'paymentMethod'].includes(column)) {
     return 'orders'
   } else if (
     [
@@ -212,7 +220,9 @@ export const getTableByColumn = (column, hint) => {
     return 'products'
     // }
   } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags'].includes(column)) {
-    if (hint === 'boxes') {
+    if (hint === 'orders') {
+      return 'orders'
+    } else if (hint === 'boxes') {
       return 'boxes'
     } else if (hint === 'products') {
       return 'products'
@@ -234,6 +244,10 @@ export const getTableByColumn = (column, hint) => {
       'withoutConfirmation',
     ].includes(column)
   ) {
+    if (hint === 'orders') {
+      return 'orders'
+    }
+
     return 'requests'
   } else if (['paymentMethods'].includes(column)) {
     return 'suppliers'

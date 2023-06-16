@@ -328,6 +328,10 @@ docs/InlineResponse20058Rows.md
 docs/InlineResponse20059.md
 docs/InlineResponse2006.md
 docs/InlineResponse20060.md
+docs/InlineResponse20060CountProposalsByStatuses.md
+docs/InlineResponse20060Media.md
+docs/InlineResponse20060Product.md
+docs/InlineResponse20060Rows.md
 docs/InlineResponse20061.md
 docs/InlineResponse20062.md
 docs/InlineResponse20063.md
@@ -346,8 +350,8 @@ docs/InlineResponse20074.md
 docs/InlineResponse20075.md
 docs/InlineResponse20076.md
 docs/InlineResponse20077.md
-docs/InlineResponse20077Details.md
 docs/InlineResponse20078.md
+docs/InlineResponse20078Details.md
 docs/InlineResponse2008.md
 docs/InlineResponse2009.md
 docs/InlineResponse201.md
@@ -764,6 +768,10 @@ src/model/InlineResponse20058Rows.js
 src/model/InlineResponse20059.js
 src/model/InlineResponse2006.js
 src/model/InlineResponse20060.js
+src/model/InlineResponse20060CountProposalsByStatuses.js
+src/model/InlineResponse20060Media.js
+src/model/InlineResponse20060Product.js
+src/model/InlineResponse20060Rows.js
 src/model/InlineResponse20061.js
 src/model/InlineResponse20062.js
 src/model/InlineResponse20063.js
@@ -782,8 +790,8 @@ src/model/InlineResponse20074.js
 src/model/InlineResponse20075.js
 src/model/InlineResponse20076.js
 src/model/InlineResponse20077.js
-src/model/InlineResponse20077Details.js
 src/model/InlineResponse20078.js
+src/model/InlineResponse20078Details.js
 src/model/InlineResponse2008.js
 src/model/InlineResponse2009.js
 src/model/InlineResponse201.js
@@ -842,3 +850,5 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
+test/model/UserInfoSchemaFreelanceNotices.spec.js
+test/model/UserInfoSchemaRequest.spec.js

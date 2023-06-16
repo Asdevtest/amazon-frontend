@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    maxWidth: 1682,
+    maxWidth: 1685,
     padding: '0 10px',
 
     display: 'flex',

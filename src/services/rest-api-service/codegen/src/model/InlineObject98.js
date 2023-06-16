@@ -22,13 +22,10 @@ class InlineObject98 {
     /**
      * Constructs a new <code>InlineObject98</code>.
      * @alias module:model/InlineObject98
-     * @param sourceFile {String} Файл для записи в FreelanceSource
-     * @param typeTask {Number} Код специализации фрилансера
-     * @param productId {String} гуид продукта
      */
-    constructor(sourceFile, typeTask, productId) { 
+    constructor() { 
         
-        InlineObject98.initialize(this, sourceFile, typeTask, productId);
+        InlineObject98.initialize(this);
     }
 
     /**
@@ -36,10 +33,7 @@ class InlineObject98 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, sourceFile, typeTask, productId) { 
-        obj['sourceFile'] = sourceFile;
-        obj['typeTask'] = typeTask;
-        obj['productId'] = productId;
+    static initialize(obj) { 
     }
 
     /**
@@ -53,20 +47,20 @@ class InlineObject98 {
         if (data) {
             obj = obj || new InlineObject98();
 
-            if (data.hasOwnProperty('sourceFile')) {
-                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            if (data.hasOwnProperty('commentByClient')) {
+                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('commentByPerformer')) {
+                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
             }
-            if (data.hasOwnProperty('typeTask')) {
-                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
-            }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('fileLink')) {
+                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
             }
             if (data.hasOwnProperty('proposalId')) {
                 obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            }
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
         }
         return obj;
@@ -76,34 +70,34 @@ class InlineObject98 {
 }
 
 /**
+ * комментарий клиента
+ * @member {String} commentByClient
+ */
+InlineObject98.prototype['commentByClient'] = undefined;
+
+/**
+ * комментарий исполнителя
+ * @member {String} commentByPerformer
+ */
+InlineObject98.prototype['commentByPerformer'] = undefined;
+
+/**
+ * Ссылка на файл
+ * @member {String} fileLink
+ */
+InlineObject98.prototype['fileLink'] = undefined;
+
+/**
  * Файл для записи в FreelanceSource
- * @member {String} sourceFile
- */
-InlineObject98.prototype['sourceFile'] = undefined;
-
-/**
- * Комментарий к файлу
- * @member {String} comment
- */
-InlineObject98.prototype['comment'] = undefined;
-
-/**
- * Код специализации фрилансера
- * @member {Number} typeTask
- */
-InlineObject98.prototype['typeTask'] = undefined;
-
-/**
- * гуид продукта
- * @member {String} productId
- */
-InlineObject98.prototype['productId'] = undefined;
-
-/**
- * Гуид пропоузала
  * @member {String} proposalId
  */
 InlineObject98.prototype['proposalId'] = undefined;
+
+/**
+ * Комментарий к файлу
+ * @member {String} requestId
+ */
+InlineObject98.prototype['requestId'] = undefined;
 
 
 

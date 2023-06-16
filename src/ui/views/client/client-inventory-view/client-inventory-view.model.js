@@ -1010,12 +1010,18 @@ export class ClientInventoryViewModel {
 
       const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
 
+      const purchaseQuantityAboveZero =
+        this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter &&
+        this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
+          ? null
+          : this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
+
       const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
         filters: this.getFilter(), // this.nameSearchValue ? filter : null,
 
         shopIds: shops ? shops : this.columnMenuSettings.shopIds.currentFilterData ? curShops : null,
 
-        purchaseQuantityAboveZero: this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter,
+        purchaseQuantityAboveZero,
 
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,

@@ -15,9 +15,9 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject61 from '../model/InlineObject61';
-import InlineResponse20044 from '../model/InlineResponse20044';
-import InlineResponse2019 from '../model/InlineResponse2019';
+import InlineObject57 from '../model/InlineObject57';
+import InlineResponse20043 from '../model/InlineResponse20043';
+import InlineResponse2018 from '../model/InlineResponse2018';
 import InternalServerError from '../model/InternalServerError';
 
 /**
@@ -113,7 +113,7 @@ export default class GeneralApi {
      * # Получить теги
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20044>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20043>} and HTTP response
      */
     apiV1GeneralTagsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -132,7 +132,7 @@ export default class GeneralApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20044];
+      let returnType = [InlineResponse20043];
       return this.apiClient.callApi(
         '/api/v1/general/tags', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -145,7 +145,7 @@ export default class GeneralApi {
      * # Получить теги
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20044>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20043>}
      */
     apiV1GeneralTagsGet(opts) {
       return this.apiV1GeneralTagsGetWithHttpInfo(opts)
@@ -160,8 +160,8 @@ export default class GeneralApi {
      * # Создать тег
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject61} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2019} and HTTP response
+     * @param {module:model/InlineObject57} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2018} and HTTP response
      */
     apiV1GeneralTagsPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -180,7 +180,7 @@ export default class GeneralApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2019;
+      let returnType = InlineResponse2018;
       return this.apiClient.callApi(
         '/api/v1/general/tags', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -193,8 +193,8 @@ export default class GeneralApi {
      * # Создать тег
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject61} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2019}
+     * @param {module:model/InlineObject57} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2018}
      */
     apiV1GeneralTagsPost(opts) {
       return this.apiV1GeneralTagsPostWithHttpInfo(opts)

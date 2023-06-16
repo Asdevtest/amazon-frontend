@@ -71,12 +71,8 @@ const Box = ({
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
-  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId) => {
-    // onChangeField({ target: { value: tariffId } }, 'logicsTariffId', box._id)
-    // onChangeField({ target: { value: storekeeperId } }, 'storekeeperId', box._id)
-    // onChangeField({ target: { value: variationTariffId } }, 'variationTariffId', box._id)
-
-    onChangeField({ logicsTariffId: tariffId, storekeeperId, variationTariffId }, 'part', box._id)
+  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId, destinationId) => {
+    onChangeField({ logicsTariffId: tariffId, storekeeperId, variationTariffId, destinationId }, 'part', box._id)
 
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
@@ -152,8 +148,8 @@ const Box = ({
                     data={
                       box?.variationTariffId
                         ? destinations
-                            ?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)
-                            .filter(el => el._id === box?.variationTariffId)
+                            // ?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)
+                            ?.filter(el => el._id === box?.destinationId)
                         : destinations?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)
                     }
                     searchFields={['name']}
@@ -427,6 +423,7 @@ export const RedistributeBox = observer(
 
     const emptyBox = getEmptyBox()
     const [newBoxes, setNewBoxes] = useState([emptyBox])
+    // const [destinationId, setDestinationId] = useState(boxFields?.destinationId)
 
     const [comment, setComment] = useState('')
     const totalProductsAmount = isMasterBox

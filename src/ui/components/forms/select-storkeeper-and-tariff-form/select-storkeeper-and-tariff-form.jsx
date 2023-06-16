@@ -72,17 +72,20 @@ export const SelectStorekeeperAndTariffForm = observer(
     )
 
     const [variationTariffId, setVariationTariffId] = useState(currentVariationTariffId)
+    const [destinationId, setDestinationId] = useState(currentDestinationId)
 
-    const setVariationTariff = variationId => {
+    const setVariationTariff = (variationId, destinationId) => {
       if (variationTariffId === variationId) {
         setVariationTariffId(null)
+        setDestinationId(null)
       } else {
         setVariationTariffId(variationId)
+        setDestinationId(destinationId)
       }
     }
 
     const onClickSelectTariff = tariffId => {
-      onSubmit(curStorekeeper._id, tariffId, variationTariffId)
+      onSubmit(curStorekeeper._id, tariffId, variationTariffId, destinationId)
     }
 
     const getRowClassName = params => curTariffId === params.row._id && classNames.attentionRow

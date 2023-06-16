@@ -22,10 +22,11 @@ class InlineObject95 {
     /**
      * Constructs a new <code>InlineObject95</code>.
      * @alias module:model/InlineObject95
+     * @param timeoutAt {Date} Время закрытия заявки.
      */
-    constructor() { 
+    constructor(timeoutAt) { 
         
-        InlineObject95.initialize(this);
+        InlineObject95.initialize(this, timeoutAt);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject95 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, timeoutAt) { 
+        obj['timeoutAt'] = timeoutAt;
     }
 
     /**
@@ -47,14 +49,11 @@ class InlineObject95 {
         if (data) {
             obj = obj || new InlineObject95();
 
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            if (data.hasOwnProperty('timeoutAt')) {
+                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
             }
-            if (data.hasOwnProperty('review')) {
-                obj['review'] = ApiClient.convertToType(data['review'], 'String');
-            }
-            if (data.hasOwnProperty('sourceFile')) {
-                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            if (data.hasOwnProperty('maxAmountOfProposals')) {
+                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
             }
         }
         return obj;
@@ -64,22 +63,16 @@ class InlineObject95 {
 }
 
 /**
- * Поставить оценку юзеру
- * @member {Number} rating
+ * Время закрытия заявки.
+ * @member {Date} timeoutAt
  */
-InlineObject95.prototype['rating'] = undefined;
+InlineObject95.prototype['timeoutAt'] = undefined;
 
 /**
- * Отзыв о работе
- * @member {String} review
+ * Количество предложений. null без лимитов
+ * @member {Number} maxAmountOfProposals
  */
-InlineObject95.prototype['review'] = undefined;
-
-/**
- * Файл для записи в FreelanceSource по этому пропоузалу
- * @member {String} sourceFile
- */
-InlineObject95.prototype['sourceFile'] = undefined;
+InlineObject95.prototype['maxAmountOfProposals'] = undefined;
 
 
 

@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**execution_time** | **Number** | Время на выполнение, в минутах. | [optional] 
-**price** | **Number** | Цена предложения. | [optional] 
-**comment** | **String** | Комментарий к предложению. | [optional] 
-**linksToMediaFiles** | **[String]** | Ссылки на медиафайлы. | [optional] 
-**title** | **String** | Название предложения | [optional] 
+**sourceFile** | **String** | Файл для записи в FreelanceSource | 
+**comment** | **String** | Комментарий к файлу | [optional] 
+**typeTask** | **Number** | Код специализации фрилансера | 
+**productId** | **String** | гуид продукта | 
+**proposalId** | **String** | Гуид пропоузала | [optional] 
 
 

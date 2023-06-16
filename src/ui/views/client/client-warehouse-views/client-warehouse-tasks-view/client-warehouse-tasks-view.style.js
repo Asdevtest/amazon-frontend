@@ -94,4 +94,26 @@ export const styles = theme => ({
     gap: 50,
     flexWrap: 'wrap',
   },
+
+  pickupOrdersButton: {
+    padding: '0 20px',
+    height: 40,
+    color: '#fff',
+    display: 'flex',
+    gap: 10,
+  },
+
+  downloadIcon: {
+    color: '#fff',
+  },
+
+  disabledDownloadIcon: {
+    color: theme.palette.button.disabledText,
+  },
+
+  controls: {
+    display: 'flex',
+    gap: 20,
+    justifyContent: 'space-between',
+  },
 })

@@ -4,10 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**requestId** | **String** | Guid заявки | [optional] 
-**proposalId** | **String** | Guid предложения | [optional] 
-**commentByClient** | **String** | комментарий клиента | [optional] 
-**commentByPerformer** | **String** | комментарий исполнителя | [optional] 
-**fileLink** | **String** | Ссылка на файл | 
+**rating** | **Number** | Поставить оценку юзеру | [optional] 
+**review** | **String** | Отзыв о работе | [optional] 
+**sourceFile** | **String** | Файл для записи в FreelanceSource по этому пропоузалу | [optional] 
 
 

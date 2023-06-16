@@ -467,7 +467,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersFeedbackGuidPost
 
-> InlineResponse20111 apiV1UsersFeedbackGuidPost(guid, opts)
+> InlineResponse20112 apiV1UsersFeedbackGuidPost(guid, opts)
 
 Оставить юзеру отзыв
 
@@ -509,7 +509,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20111**](InlineResponse20111.md)
+[**InlineResponse20112**](InlineResponse20112.md)
 
 ### Authorization
 

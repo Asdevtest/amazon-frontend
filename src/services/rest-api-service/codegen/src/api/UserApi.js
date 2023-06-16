@@ -27,7 +27,7 @@ import InlineObject128 from '../model/InlineObject128';
 import InlineResponse20073 from '../model/InlineResponse20073';
 import InlineResponse20074 from '../model/InlineResponse20074';
 import InlineResponse20075 from '../model/InlineResponse20075';
-import InlineResponse20111 from '../model/InlineResponse20111';
+import InlineResponse20112 from '../model/InlineResponse20112';
 import InternalServerError from '../model/InternalServerError';
 import LinkSubuserInputSchema from '../model/LinkSubuserInputSchema';
 import MePatchInputSchema from '../model/MePatchInputSchema';
@@ -484,7 +484,7 @@ export default class UserApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject127} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20111} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20112} and HTTP response
      */
     apiV1UsersFeedbackGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -508,7 +508,7 @@ export default class UserApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20111;
+      let returnType = InlineResponse20112;
       return this.apiClient.callApi(
         '/api/v1/users/feedback/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -523,7 +523,7 @@ export default class UserApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject127} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20111}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20112}
      */
     apiV1UsersFeedbackGuidPost(guid, opts) {
       return this.apiV1UsersFeedbackGuidPostWithHttpInfo(guid, opts)

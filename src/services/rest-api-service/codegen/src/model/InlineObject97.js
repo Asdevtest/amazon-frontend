@@ -22,11 +22,10 @@ class InlineObject97 {
     /**
      * Constructs a new <code>InlineObject97</code>.
      * @alias module:model/InlineObject97
-     * @param action {module:model/InlineObject97.ActionEnum} 
      */
-    constructor(action) { 
+    constructor() { 
         
-        InlineObject97.initialize(this, action);
+        InlineObject97.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject97 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, action) { 
-        obj['action'] = action;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,9 +47,6 @@ class InlineObject97 {
         if (data) {
             obj = obj || new InlineObject97();
 
-            if (data.hasOwnProperty('action')) {
-                obj['action'] = ApiClient.convertToType(data['action'], 'String');
-            }
             if (data.hasOwnProperty('reason')) {
                 obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
@@ -63,12 +58,7 @@ class InlineObject97 {
 }
 
 /**
- * @member {module:model/InlineObject97.ActionEnum} action
- */
-InlineObject97.prototype['action'] = undefined;
-
-/**
- * Причина смены статуса.
+ * Причины закрытия приема предложений.
  * @member {String} reason
  */
 InlineObject97.prototype['reason'] = undefined;

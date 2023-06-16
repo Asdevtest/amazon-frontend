@@ -52,23 +52,20 @@ class InlineResponse20061 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('sourceFile')) {
-                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
             }
-            if (data.hasOwnProperty('comments')) {
-                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
             }
-            if (data.hasOwnProperty('proposal')) {
-                obj['proposal'] = ApiV1RequestProposalsFreelanceSourcesProposal.constructFromObject(data['proposal']);
+            if (data.hasOwnProperty('commentByClient')) {
+                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
             }
-            if (data.hasOwnProperty('typeTask')) {
-                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
+            if (data.hasOwnProperty('commentByPerformer')) {
+                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
             }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
+            if (data.hasOwnProperty('fileLink')) {
+                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -84,44 +81,40 @@ class InlineResponse20061 {
 }
 
 /**
- * Гуид медиа
+ * GUID в базе данных
  * @member {String} _id
  */
 InlineResponse20061.prototype['_id'] = undefined;
 
 /**
- * Файл для записи в FreelanceSource
- * @member {String} sourceFile
+ * Guid заявки к которой относится данное media.
+ * @member {String} requestId
  */
-InlineResponse20061.prototype['sourceFile'] = undefined;
+InlineResponse20061.prototype['requestId'] = undefined;
 
 /**
- * Комментарий к файлу
- * @member {String} comments
+ * Guid предложения к которой относится данное media.
+ * @member {String} proposalId
  */
-InlineResponse20061.prototype['comments'] = undefined;
+InlineResponse20061.prototype['proposalId'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsFreelanceSourcesProposal} proposal
+ * комментарий клиента
+ * @member {String} commentByClient
  */
-InlineResponse20061.prototype['proposal'] = undefined;
+InlineResponse20061.prototype['commentByClient'] = undefined;
 
 /**
- * Код специализации фрилансера
- * @member {Number} typeTask
+ * комментарий исполнителя
+ * @member {String} commentByPerformer
  */
-InlineResponse20061.prototype['typeTask'] = undefined;
+InlineResponse20061.prototype['commentByPerformer'] = undefined;
 
 /**
- * гуид продукта
- * @member {String} productId
+ * Ссылка на файл
+ * @member {String} fileLink
  */
-InlineResponse20061.prototype['productId'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
- */
-InlineResponse20061.prototype['createdBy'] = undefined;
+InlineResponse20061.prototype['fileLink'] = undefined;
 
 /**
  * Дата создания.
@@ -130,7 +123,7 @@ InlineResponse20061.prototype['createdBy'] = undefined;
 InlineResponse20061.prototype['createdAt'] = undefined;
 
 /**
- * Дата создания.
+ * Дата обновления.
  * @member {Date} updatedAt
  */
 InlineResponse20061.prototype['updatedAt'] = undefined;
