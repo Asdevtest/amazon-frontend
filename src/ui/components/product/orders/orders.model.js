@@ -98,6 +98,15 @@ export class OrdersModel {
     })
   }
 
+  onClickResetFilters() {
+    this.chosenStatus = chosenStatusSettings.ALL
+    this.getOrdersByProductId()
+  }
+
+  get isSomeFilterOn() {
+    return this.chosenStatus !== chosenStatusSettings.ALL
+  }
+
   getCurrentData() {
     switch (this.chosenStatus) {
       case chosenStatusSettings.ALL:
