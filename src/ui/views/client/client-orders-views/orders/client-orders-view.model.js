@@ -224,7 +224,8 @@ export class ClientOrdersViewModel {
     const idFilter = exclusion !== 'id' && this.columnMenuSettings.id?.currentFilterData.join(',')
     const itemFilter = exclusion !== 'item' && this.columnMenuSettings.item?.currentFilterData.join(',')
 
-    const shopIdsFilter = exclusion !== 'shopIds' && this.columnMenuSettings.shopIds?.currentFilterData.join(',')
+    const shopIdsFilter =
+      exclusion !== 'shopIds' && this.columnMenuSettings.shopIds?.currentFilterData?.map(el => el._id).join(',')
 
     const priorityFilter = exclusion !== 'priority' && this.columnMenuSettings.priority?.currentFilterData.join(',')
 
@@ -232,18 +233,17 @@ export class ClientOrdersViewModel {
     const skusByClientFilter =
       exclusion !== 'skusByClient' && this.columnMenuSettings.skusByClient?.currentFilterData.join(',')
     const amazonTitleFilter =
-      exclusion !== 'amazonTitle' &&
-      this.columnMenuSettings.amazonTitle?.currentFilterData.map(el => `"${el}"`).join(',')
+      exclusion !== 'amazonTitle' && this.columnMenuSettings.amazonTitle?.currentFilterData.map(el => `${el}`).join(',')
 
     const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status?.currentFilterData.join(',')
 
     const amountFilter = exclusion !== 'amount' && this.columnMenuSettings.amount?.currentFilterData.join(',')
 
     const storekeeperFilter =
-      exclusion !== 'storekeeper' && this.columnMenuSettings.storekeeper?.currentFilterData.join(',')
+      exclusion !== 'storekeeper' && this.columnMenuSettings.storekeeper?.currentFilterData?.map(el => el._id).join(',')
 
     const destinationFilter =
-      exclusion !== 'destination' && this.columnMenuSettings.destination?.currentFilterData.join(',')
+      exclusion !== 'destination' && this.columnMenuSettings.destination?.currentFilterData?.map(el => el._id).join(',')
 
     const productionTermFilter =
       exclusion !== 'productionTerm' && this.columnMenuSettings.productionTerm?.currentFilterData.join(',')
@@ -315,7 +315,7 @@ export class ClientOrdersViewModel {
       }),
 
       ...(destinationFilter && {
-        destination: { $eq: destinationFilter },
+        destinationId: { $eq: destinationFilter },
       }),
 
       ...(productionTermFilter && {

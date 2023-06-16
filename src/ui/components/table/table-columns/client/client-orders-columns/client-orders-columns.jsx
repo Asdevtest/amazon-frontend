@@ -6,13 +6,7 @@ import React from 'react'
 import { t } from 'i18n-js'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import {
-  orderColorByStatus,
-  OrderStatus,
-  OrderStatusByCode,
-  OrderStatusByKey,
-  OrderStatusTranslate,
-} from '@constants/statuses/order-status'
+import { orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey } from '@constants/statuses/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -27,6 +21,7 @@ import {
   PriorityAndChinaDeliverCell,
   SuccessActionBtnCell,
   RenderFieldValueCell,
+  IconHeaderCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
@@ -63,22 +58,15 @@ export const clientOrdersViewColumns = (onClickReorder, getColumnMenuSettings, g
   {
     field: 'priority',
     headerName: t(TranslationKey['Priority and Express Delivery']),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        component={<img src="/assets/icons/bookmark.svg" />}
-        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+    renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
     renderCell: params => (
       <PriorityAndChinaDeliverCell
-        isRequest
         priority={params.row.originalData.priority}
         chinaDelivery={params.row.originalData.expressChinaDelivery}
         status={params.row.originalData.status}
       />
     ),
-    width: 60,
+    width: 50,
     sortable: false,
 
     columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
