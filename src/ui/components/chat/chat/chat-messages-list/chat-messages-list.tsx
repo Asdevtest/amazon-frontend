@@ -139,6 +139,8 @@ export const ChatMessagesList: FC<Props> = observer(
                   el => typeof messageItem?.replyMessageId === 'string' && el._id === messageItem?.replyMessageId,
                 )
 
+                const isDisabledReply = messageItem.type !== ChatMessageType.USER
+
                 return (
                   <div
                     key={`chatMessage_${messageItem._id}`}
@@ -223,17 +225,19 @@ export const ChatMessagesList: FC<Props> = observer(
                           </div>
                         </div>
                       </div>
-                      <div className={cx(classNames.controlsOverlay, 'controlsOverlay')}>
-                        <div className={classNames.controls}>
-                          <button
-                            onClick={() => {
-                              onClickReply(messageItem, isIncomming)
-                            }}
-                          >
-                            <ReplyIcon />
-                          </button>
+                      {!isDisabledReply && (
+                        <div className={cx(classNames.controlsOverlay, 'controlsOverlay')}>
+                          <div className={classNames.controls}>
+                            <button
+                              onClick={() => {
+                                onClickReply(messageItem, isIncomming)
+                              }}
+                            >
+                              <ReplyIcon />
+                            </button>
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   </div>
                 )
