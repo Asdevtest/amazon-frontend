@@ -61,6 +61,7 @@ import { EditOrderSuppliersTable } from './edit-order-suppliers-table'
 import { ProductTable } from './product-table'
 import { SelectFields } from './select-fields'
 import { CustomSlider } from '@components/shared/custom-slider'
+import { SaveIcon } from '@components/shared/svg-icons'
 
 const orderStatusesThatTriggersEditBoxBlock = [OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]]
 
@@ -544,8 +545,7 @@ export const EditOrderModal = observer(
                 endAdornment={
                   <InputAdornment position="start">
                     {(orderFields.item || (!orderFields.item && order?.item)) && order?.item !== orderFields.item ? (
-                      <img
-                        src={'/assets/icons/save-discet.svg'}
+                      <SaveIcon
                         className={classNames.itemInputIcon}
                         onClick={() => {
                           onSaveOrderItem(order._id, orderFields.item)

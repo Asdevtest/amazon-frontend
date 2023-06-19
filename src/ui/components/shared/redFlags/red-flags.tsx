@@ -9,6 +9,7 @@ import { ProductModel } from '@models/product-model'
 import { useRedFlagStyles } from '@components/shared/redFlags/red-flags.style'
 
 import { t } from '@utils/translations'
+import { SaveIcon } from '../svg-icons'
 
 interface Flag {
   title: string
@@ -74,7 +75,7 @@ export const RedFlags: FC<RedFlagsProps> = props => {
       {isEditMode && !isSaved && (
         <button className={styles.saveBtn} onClick={handleSave}>
           {t(TranslationKey.Save)}
-          <img src="/assets/icons/save-discet.svg" alt="Save" />
+          <SaveIcon className={styles.themeIcon} />
         </button>
       )}
 
