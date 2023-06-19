@@ -15,23 +15,23 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  DownloadAndCopyBtnsCell,
+  IconHeaderCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
+  NormalActionBtnCell,
   NormDateCell,
   OrderCell,
-  MultilineTextCell,
-  ToFixedWithKgSignCell,
-  UserLinkCell,
-  DownloadAndCopyBtnsCell,
-  NormalActionBtnCell,
-  IconHeaderCell,
   PriorityAndChinaDeliverCell,
   SuccessActionBtnCell,
+  ToFixedWithKgSignCell,
+  UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
 
-export const clientProductOrdersViewColumns = handlers => [
+export const clientProductOrdersViewColumns = (handlers, chosenStatus) => [
   {
     field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
@@ -70,7 +70,13 @@ export const clientProductOrdersViewColumns = handlers => [
   {
     field: 'orderStatus',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} Icon={FilterAltOutlinedIcon} />,
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        isFilterActive={chosenStatus() !== 'ALL'}
+        text={t(TranslationKey.Status)}
+        Icon={FilterAltOutlinedIcon}
+      />
+    ),
 
     width: 160,
     renderCell: params => (

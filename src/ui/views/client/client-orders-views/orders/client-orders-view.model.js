@@ -179,8 +179,6 @@ export class ClientOrdersViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const table = getTableByColumn(column, column === 'productionTerm' ? 'suppliers' : 'orders')
-
       const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
       const shopFilter = this.columnMenuSettings.shopIds.currentFilterData && column !== 'shopIds' ? curShops : null
       const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
@@ -188,7 +186,7 @@ export class ClientOrdersViewModel {
       const orderStatus = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
 
       const data = await GeneralModel.getDataForColumn(
-        table,
+        getTableByColumn(column, 'orders'),
         column,
         `clients/pag/orders?filters=${this.getFilter(column)}${
           shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
