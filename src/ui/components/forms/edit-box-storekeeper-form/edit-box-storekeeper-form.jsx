@@ -240,7 +240,7 @@ export const EditBoxStorekeeperForm = observer(
       destinationId: formItem?.destination?._id || null,
       storekeeperId: formItem?.storekeeper?._id || '',
       logicsTariffId: formItem?.logicsTariff?._id || null,
-      variationTariffId: formItem?.variationTariff?._id || '',
+      variationTariffId: formItem?.variationTariff?._id || null,
 
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel,
