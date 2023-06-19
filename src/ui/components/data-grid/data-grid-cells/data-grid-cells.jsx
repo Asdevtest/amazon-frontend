@@ -655,7 +655,6 @@ export const ChangeInputCell = React.memo(
                       onClickSubmit(rowId, value)
                     }}
                   />
-                  S
                   <ClearIcon classes={{ root: classNames.clearIcon }} onClick={() => setValue(defaultValue)} />
                 </div>
               ) : null}
