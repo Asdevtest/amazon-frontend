@@ -172,6 +172,9 @@ export const styles = theme => ({
   changeInputComment: {
     width: '100%',
     height: 'auto',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    paddingLeft: 5,
 
     '&::placeholder': {
       fontSize: 14,
@@ -1321,6 +1324,7 @@ export const styles = theme => ({
   iconWrapper: {
     display: 'flex',
     gap: 5,
+    paddingLeft: 5,
   },
   destinationAndTariffWrapper: {
     width: '100%',
@@ -1677,7 +1681,7 @@ export const styles = theme => ({
   },
   commentControls: {
     alignSelf: 'flex-end',
-    paddingBottom: 15,
+    paddingBottom: 20,
   },
 
   arrivalDateIcon: {
