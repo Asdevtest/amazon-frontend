@@ -22,11 +22,11 @@ class InlineObject34 {
     /**
      * Constructs a new <code>InlineObject34</code>.
      * @alias module:model/InlineObject34
-     * @param isFormed {Boolean} Сформирована ли коробка
+     * @param productId {String} ГУид продукта
      */
-    constructor(isFormed) { 
+    constructor(productId) { 
         
-        InlineObject34.initialize(this, isFormed);
+        InlineObject34.initialize(this, productId);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject34 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, isFormed) { 
-        obj['isFormed'] = isFormed;
+    static initialize(obj, productId) { 
+        obj['productId'] = productId;
     }
 
     /**
@@ -49,8 +49,8 @@ class InlineObject34 {
         if (data) {
             obj = obj || new InlineObject34();
 
-            if (data.hasOwnProperty('isFormed')) {
-                obj['isFormed'] = ApiClient.convertToType(data['isFormed'], 'Boolean');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
         }
         return obj;
@@ -60,10 +60,10 @@ class InlineObject34 {
 }
 
 /**
- * Сформирована ли коробка
- * @member {Boolean} isFormed
+ * ГУид продукта
+ * @member {String} productId
  */
-InlineObject34.prototype['isFormed'] = undefined;
+InlineObject34.prototype['productId'] = undefined;
 
 
 

@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsTasksLightVariationTariff from './ApiV1AdminsTasksLightVariationTariff';
+import ApiV1BatchesVariationTariff from './ApiV1BatchesVariationTariff';
 
 /**
  * The ApiV1AdminsTasksLightBoxes model module.
@@ -61,7 +61,7 @@ class ApiV1AdminsTasksLightBoxes {
                 obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], ['String']);
             }
             if (data.hasOwnProperty('variationTariff')) {
-                obj['variationTariff'] = ApiV1AdminsTasksLightVariationTariff.constructFromObject(data['variationTariff']);
+                obj['variationTariff'] = ApiV1BatchesVariationTariff.constructFromObject(data['variationTariff']);
             }
             if (data.hasOwnProperty('upsTrackNumber')) {
                 obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
@@ -100,7 +100,7 @@ ApiV1AdminsTasksLightBoxes.prototype['trackNumberText'] = undefined;
 ApiV1AdminsTasksLightBoxes.prototype['trackNumberFile'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsTasksLightVariationTariff} variationTariff
+ * @member {module:model/ApiV1BatchesVariationTariff} variationTariff
  */
 ApiV1AdminsTasksLightBoxes.prototype['variationTariff'] = undefined;
 

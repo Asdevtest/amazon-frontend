@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | Гуид юзера | [optional] 
-**name** | **String** | Имя юзера | [optional] 
+**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
+**rows** | [**[InlineResponse2006]**](InlineResponse2006.md) | Массив коробок c пагинацией(заданная страничка). | [optional] 
 
 

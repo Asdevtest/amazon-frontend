@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AnnouncementsMyCreatedBy from './ApiV1AnnouncementsMyCreatedBy';
 import ApiV1RequestProposalsRequestDetailsCustom from './ApiV1RequestProposalsRequestDetailsCustom';
 
 /**
@@ -50,7 +50,7 @@ class ApiV1RequestProposalsRequest {
             obj = obj || new ApiV1RequestProposalsRequest();
 
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
+                obj['createdBy'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['createdBy']);
             }
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
@@ -66,7 +66,7 @@ class ApiV1RequestProposalsRequest {
 }
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
+ * @member {module:model/ApiV1AnnouncementsMyCreatedBy} createdBy
  */
 ApiV1RequestProposalsRequest.prototype['createdBy'] = undefined;
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **Number** |  | [optional] 
-**rows** | [**[InlineResponse20060Rows]**](InlineResponse20060Rows.md) | Массив заявок. | [optional] 
+**isExist** | **Boolean** | Флаг, показывает есть ли такой ASIN в базе или нет | [optional] 
+**reason** | **String** | Причина из таблицы с асинами | [optional] 
 
 

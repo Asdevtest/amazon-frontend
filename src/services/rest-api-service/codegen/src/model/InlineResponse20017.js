@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20015 from './InlineResponse20015';
+import ApiV1AdminsFeedbackUser from './ApiV1AdminsFeedbackUser';
 
 /**
  * The InlineResponse20017 model module.
@@ -22,7 +22,6 @@ import InlineResponse20015 from './InlineResponse20015';
 class InlineResponse20017 {
     /**
      * Constructs a new <code>InlineResponse20017</code>.
-     * Результат запроса с пагинацией
      * @alias module:model/InlineResponse20017
      */
     constructor() { 
@@ -49,11 +48,20 @@ class InlineResponse20017 {
         if (data) {
             obj = obj || new InlineResponse20017();
 
-            if (data.hasOwnProperty('count')) {
-                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20015]);
+            if (data.hasOwnProperty('text')) {
+                obj['text'] = ApiClient.convertToType(data['text'], 'String');
+            }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [Object]);
+            }
+            if (data.hasOwnProperty('user')) {
+                obj['user'] = ApiV1AdminsFeedbackUser.constructFromObject(data['user']);
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -63,16 +71,33 @@ class InlineResponse20017 {
 }
 
 /**
- * Всего кол-во записей в результате запроса
- * @member {Number} count
+ * GUID пользователя в БД.
+ * @member {String} _id
  */
-InlineResponse20017.prototype['count'] = undefined;
+InlineResponse20017.prototype['_id'] = undefined;
 
 /**
- * Массив коробок c пагинацией(заданная страничка).
- * @member {Array.<module:model/InlineResponse20015>} rows
+ * текст отзыва/репорта
+ * @member {String} text
  */
-InlineResponse20017.prototype['rows'] = undefined;
+InlineResponse20017.prototype['text'] = undefined;
+
+/**
+ * Прикрепленные ссылки на медиа для репорта/отзыва
+ * @member {Array.<Object>} media
+ */
+InlineResponse20017.prototype['media'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsFeedbackUser} user
+ */
+InlineResponse20017.prototype['user'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} updatedAt
+ */
+InlineResponse20017.prototype['updatedAt'] = undefined;
 
 
 
