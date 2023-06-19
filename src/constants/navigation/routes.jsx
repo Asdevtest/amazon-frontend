@@ -109,7 +109,6 @@ import { permissionsKeys } from '../keys/permissions'
 // import {WarehouseTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-tasks-view'
 // import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-vacant-tasks-view'
 import { TranslationKey } from '../translations/translation-key'
-import { FreelancerNotificationsView } from '@views/freelancer/freelancer-notifications-views/freelancer-notifications-view/freelancer-notifications-view'
 
 const AdminAwaitingBatchesView = lazy(() =>
   import('@views/admin/admin-batches-views/admin-awaiting-batches-view').then(module => ({

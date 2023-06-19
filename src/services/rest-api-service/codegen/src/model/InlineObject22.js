@@ -22,11 +22,10 @@ class InlineObject22 {
     /**
      * Constructs a new <code>InlineObject22</code>.
      * @alias module:model/InlineObject22
-     * @param boxesIds {Array.<String>} 
      */
-    constructor(boxesIds) { 
+    constructor() { 
         
-        InlineObject22.initialize(this, boxesIds);
+        InlineObject22.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject22 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,29 +47,20 @@ class InlineObject22 {
         if (data) {
             obj = obj || new InlineObject22();
 
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            if (data.hasOwnProperty('lengthCmWarehouse')) {
+                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            if (data.hasOwnProperty('widthCmWarehouse')) {
+                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            if (data.hasOwnProperty('heightCmWarehouse')) {
+                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('shippingLabel')) {
-                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
+                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('fbaShipment')) {
-                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
-            }
-            if (data.hasOwnProperty('fbaNumber')) {
-                obj['fbaNumber'] = ApiClient.convertToType(data['fbaNumber'], 'String');
-            }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
-            }
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -81,51 +70,30 @@ class InlineObject22 {
 }
 
 /**
- * Штрихкод продукта
- * @member {String} barCode
+ * @member {Number} lengthCmWarehouse
  */
-InlineObject22.prototype['barCode'] = undefined;
+InlineObject22.prototype['lengthCmWarehouse'] = undefined;
 
 /**
- *  logicsTariff GUID
- * @member {String} logicsTariffId
+ * @member {Number} widthCmWarehouse
  */
-InlineObject22.prototype['logicsTariffId'] = undefined;
+InlineObject22.prototype['widthCmWarehouse'] = undefined;
 
 /**
- * GUID сотрудника склада
- * @member {String} storekeeperId
+ * @member {Number} heightCmWarehouse
  */
-InlineObject22.prototype['storekeeperId'] = undefined;
+InlineObject22.prototype['heightCmWarehouse'] = undefined;
 
 /**
- * Ссылка на наклейку для коробки
- * @member {String} shippingLabel
+ * @member {Number} weighGrossKgWarehouse
  */
-InlineObject22.prototype['shippingLabel'] = undefined;
+InlineObject22.prototype['weighGrossKgWarehouse'] = undefined;
 
 /**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaShipment
+ * Массив ссылок на фотографии.
+ * @member {Array.<String>} images
  */
-InlineObject22.prototype['fbaShipment'] = undefined;
-
-/**
- * Это номер конкретной коробки при отправке в амазон.
- * @member {String} fbaNumber
- */
-InlineObject22.prototype['fbaNumber'] = undefined;
-
-/**
- * Гуид модели destination
- * @member {String} destinationId
- */
-InlineObject22.prototype['destinationId'] = undefined;
-
-/**
- * @member {Array.<String>} boxesIds
- */
-InlineObject22.prototype['boxesIds'] = undefined;
+InlineObject22.prototype['images'] = undefined;
 
 
 

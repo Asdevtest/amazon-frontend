@@ -12,6 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1IdeasNotificationsCreatedBy from './ApiV1IdeasNotificationsCreatedBy';
+import ApiV1IdeasNotificationsIdea from './ApiV1IdeasNotificationsIdea';
+import ApiV1IdeasNotificationsProduct from './ApiV1IdeasNotificationsProduct';
 
 /**
  * The InlineResponse20044 model module.
@@ -47,14 +50,17 @@ class InlineResponse20044 {
         if (data) {
             obj = obj || new InlineResponse20044();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('product')) {
+                obj['product'] = ApiV1IdeasNotificationsProduct.constructFromObject(data['product']);
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('idea')) {
+                obj['idea'] = ApiV1IdeasNotificationsIdea.constructFromObject(data['idea']);
             }
-            if (data.hasOwnProperty('productCount')) {
-                obj['productCount'] = ApiClient.convertToType(data['productCount'], 'Number');
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1IdeasNotificationsCreatedBy.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
             }
         }
         return obj;
@@ -64,22 +70,24 @@ class InlineResponse20044 {
 }
 
 /**
- * Гуид тега
- * @member {String} _id
+ * @member {module:model/ApiV1IdeasNotificationsProduct} product
  */
-InlineResponse20044.prototype['_id'] = undefined;
+InlineResponse20044.prototype['product'] = undefined;
 
 /**
- * Тег
- * @member {String} title
+ * @member {module:model/ApiV1IdeasNotificationsIdea} idea
  */
-InlineResponse20044.prototype['title'] = undefined;
+InlineResponse20044.prototype['idea'] = undefined;
 
 /**
- * Кол-во продуктов, которые используют этот тег
- * @member {Number} productCount
+ * @member {module:model/ApiV1IdeasNotificationsCreatedBy} createdBy
  */
-InlineResponse20044.prototype['productCount'] = undefined;
+InlineResponse20044.prototype['createdBy'] = undefined;
+
+/**
+ * @member {String} createdAt
+ */
+InlineResponse20044.prototype['createdAt'] = undefined;
 
 
 

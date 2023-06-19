@@ -15,26 +15,6 @@ import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const addOrEditBatchFormColumns = isClient => [
-  // {
-  //   field: 'humanFriendlyId',
-  //   headerName: t(TranslationKey.ID),
-  //   renderCell: params => <MultilineTextCell text={params.value} />,
-  //   width: 70,
-  // },
-
-  // {
-  //   field: 'qty',
-  //   headerName: t(TranslationKey.Quantity),
-  //   renderCell: params =>
-  //     params.row.originalData.amount > 1 ? (
-  //       <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData.amount} />
-  //     ) : (
-  //       <MultilineTextCell text={params.value} />
-  //     ),
-  //   width: 150,
-  //   // type: 'number',
-  // },
-
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),

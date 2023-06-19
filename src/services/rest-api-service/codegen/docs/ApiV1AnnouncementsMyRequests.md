@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **price** | **Number** | Цена | [optional] 
 **status** | **String** | Статус запроса | [optional] 
 **timeoutAt** | **Date** | Время закрытия заявки. | [optional] 
-**createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
+**createdBy** | [**ApiV1AnnouncementsMyCreatedBy**](ApiV1AnnouncementsMyCreatedBy.md) |  | [optional] 
 **updatedAt** | **Date** |  | [optional] 
 
 
