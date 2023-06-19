@@ -177,7 +177,7 @@ export const getTableByColumn = (column, hint) => {
     } else {
       return 'boxes'
     }
-  } else if (['id', 'item'].includes(column)) {
+  } else if (['id', 'item', 'paymentMethod'].includes(column)) {
     return 'orders'
   } else if (
     [
@@ -241,7 +241,7 @@ export const getTableByColumn = (column, hint) => {
     }
 
     return 'requests'
-  } else if (['paymentMethod', 'productionTerm'].includes(column)) {
+  } else if (['productionTerm'].includes(column)) {
     return 'suppliers'
   }
 }
