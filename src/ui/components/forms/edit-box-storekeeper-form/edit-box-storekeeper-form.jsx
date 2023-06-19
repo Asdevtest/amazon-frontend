@@ -102,18 +102,21 @@ export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoeffic
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey['Volume weight']) + ': '}
           labelClasses={classNames.label}
-          value={toFixed(
-            (sizeSetting === unitsOfChangeOptions.EU
-              ? orderBox.heightCmWarehouse *
-                inchesCoefficient *
-                orderBox.widthCmWarehouse *
-                inchesCoefficient *
-                orderBox.lengthCmWarehouse *
-                inchesCoefficient
-              : orderBox.heightCmWarehouse * orderBox.widthCmWarehouse * orderBox.lengthCmWarehouse) /
-              volumeWeightCoefficient,
-            2,
-          )}
+          value={
+            //   toFixed(
+            //   (sizeSetting === unitsOfChangeOptions.EU
+            //     ? orderBox.heightCmWarehouse *
+            //       inchesCoefficient *
+            //       orderBox.widthCmWarehouse *
+            //       inchesCoefficient *
+            //       orderBox.lengthCmWarehouse *
+            //       inchesCoefficient
+            //     : orderBox.heightCmWarehouse * orderBox.widthCmWarehouse * orderBox.lengthCmWarehouse) /
+            //     volumeWeightCoefficient,
+            //   2,
+            // )
+            toFixed(calcVolumeWeightForBox(orderBox, volumeWeightCoefficient) / weightConversion, 2)
+          }
         />
 
         <Field

@@ -118,21 +118,25 @@ export const WeightBasedTariffFormColumns = (
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     width: 200,
-    renderCell: params => (
-      <NormalActionBtnCell
-        disabled={
-          showCheckbox &&
-          ((currentDestinationId &&
-            params.row.originalData?.destinationVariations.every(
-              item => item?.destinationId !== currentDestinationId,
-            )) ||
-            !variationTariffId ||
-            params.row.originalData?.destinationVariations.every(item => item?._id !== variationTariffId))
-        }
-        bTnText={t(TranslationKey['Select Tariff'])}
-        onClickOkBtn={() => onClickSelectTariff(params.row._id)}
-      />
-    ),
+    renderCell: params => {
+      console.log('params', params)
+
+      return (
+        <NormalActionBtnCell
+          disabled={
+            showCheckbox &&
+            ((currentDestinationId &&
+              params.row.originalData?.destinationVariations.every(
+                item => item?.destinationId !== currentDestinationId,
+              )) ||
+              !variationTariffId ||
+              params.row.originalData?.destinationVariations.every(item => item?._id !== variationTariffId))
+          }
+          bTnText={t(TranslationKey['Select Tariff'])}
+          onClickOkBtn={() => onClickSelectTariff(params.row._id)}
+        />
+      )
+    },
     filterable: false,
     sortable: false,
   },

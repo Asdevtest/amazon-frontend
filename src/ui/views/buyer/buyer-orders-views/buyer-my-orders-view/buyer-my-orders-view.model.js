@@ -245,40 +245,13 @@ export class BuyerMyOrdersViewModel {
     )
   }
 
-  // async onClickFilterBtn(column) {
-  //   try {
-  //     this.setFilterRequestStatus(loadingStatuses.isLoading)
-
-  //     if (column === 'payments') {
-  //       const data = await SupplierModel.getSuppliersPaymentMethods()
-
-  //       if (this.columnMenuSettings[column]) {
-  //         this.columnMenuSettings = {
-  //           ...this.columnMenuSettings,
-  //           [column]: { ...this.columnMenuSettings[column], filterData: data.map(el => ({ ...el, name: el.title })) },
-  //         }
-  //       }
-  //     }
-
-  //     this.setFilterRequestStatus(loadingStatuses.success)
-  //   } catch (error) {
-  //     this.setFilterRequestStatus(loadingStatuses.failed)
-
-  //     console.log(error)
-  //     runInAction(() => {
-  //       this.error = error
-  //     })
-  //   }
-  // }
-
   async onClickFilterBtn(column) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const table = getTableByColumn(column, column === 'productionTerm' ? 'suppliers' : 'orders')
       const endpoint = `buyers/orders/pag/my?filters=${this.getFilter(column)}`
 
-      const data = await GeneralModel.getDataForColumn(table, column, endpoint)
+      const data = await GeneralModel.getDataForColumn(getTableByColumn(column), column, endpoint)
 
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
@@ -328,7 +301,7 @@ export class BuyerMyOrdersViewModel {
       exclusion !== 'priceInYuan' && this.columnMenuSettings.priceInYuan?.currentFilterData.join(',')
 
     const storekeeperFilter =
-      exclusion !== 'storekeeper' && this.columnMenuSettings.storekeeper?.currentFilterData.join(',')
+      exclusion !== 'storekeeper' && this.columnMenuSettings.storekeeper?.currentFilterData?.map(el => el._id).join(',')
 
     const productionTermFilter =
       exclusion !== 'productionTerm' && this.columnMenuSettings.productionTerm?.currentFilterData.join(',')
@@ -345,7 +318,7 @@ export class BuyerMyOrdersViewModel {
     const clientFilter = exclusion !== 'client' && this.columnMenuSettings.client?.currentFilterData.join(',')
 
     const destinationFilter =
-      exclusion !== 'destination' && this.columnMenuSettings.destination?.currentFilterData.join(',')
+      exclusion !== 'destination' && this.columnMenuSettings.destination?.currentFilterData?.map(el => el._id).join(',')
 
     const clientCommentFilter =
       exclusion !== 'clientComment' && this.columnMenuSettings.clientComment?.currentFilterData.join(',')
@@ -440,7 +413,7 @@ export class BuyerMyOrdersViewModel {
       }),
 
       ...(destinationFilter && {
-        destination: { $eq: destinationFilter },
+        destinationId: { $eq: destinationFilter },
       }),
 
       ...(clientCommentFilter && {
@@ -965,9 +938,10 @@ export class BuyerMyOrdersViewModel {
   }
 
   async saveOrderPayment(order, orderPayments) {
+    console.log('orderPayments', orderPayments)
     if (Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
       try {
-        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethods?._id)]
+        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
         const validOrderPayments = []
         for (const payment of orderPayments) {
           if (payment?.photosForLoad?.length) {
@@ -980,7 +954,7 @@ export class BuyerMyOrdersViewModel {
           this.clearReadyImages()
 
           const validObj = {
-            paymentMethodId: payment?.paymentMethods._id,
+            paymentMethodId: payment?.paymentMethod._id,
             paymentDetails: payment?.paymentDetails,
             paymentImages: readyPhotosForLoad,
           }
@@ -1123,7 +1097,7 @@ export class BuyerMyOrdersViewModel {
       }
 
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}`) {
-        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethods?._id)]
+        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
 
         const validOrderPayments = []
         for (const payment of orderPayments) {
@@ -1137,7 +1111,7 @@ export class BuyerMyOrdersViewModel {
           this.clearReadyImages()
 
           const validObj = {
-            paymentMethodId: payment?.paymentMethods._id,
+            paymentMethodId: payment?.paymentMethod._id,
             paymentDetails: payment?.paymentDetails,
             paymentImages: readyPhotosForLoad,
           }

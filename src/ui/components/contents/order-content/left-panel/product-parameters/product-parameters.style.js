@@ -65,7 +65,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   sizesWrapper: {
-    width: '220px',
+    width: '255px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',

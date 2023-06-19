@@ -965,8 +965,6 @@ export class ClientInStockBoxesViewModel {
 
         const splitBoxesResult = await this.splitBoxes(id, resBoxes)
 
-        console.log('splitBoxesResult', splitBoxesResult)
-
         await this.postTask({
           idsData: splitBoxesResult,
           idsBeforeData: [id],
@@ -1464,6 +1462,9 @@ export class ClientInStockBoxesViewModel {
       const newBoxBody = getObjectFilteredByKeyArrayBlackList(
         { ...boxBody, shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxBody.shippingLabel },
         ['tmpShippingLabel', 'storekeeperId', 'humanFriendlyId'],
+        undefined,
+        undefined,
+        true,
       )
 
       const mergeBoxesResult = await this.mergeBoxes(selectedIds, newBoxBody)

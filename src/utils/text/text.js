@@ -165,7 +165,6 @@ export const getTableByColumn = (column, hint) => {
       'paymentDateToSupplier',
       'paymentDetailsAttached',
       'needsResearch',
-      'client',
       'clientComment',
       'buyerComment',
       'partiallyPaid',
@@ -178,7 +177,7 @@ export const getTableByColumn = (column, hint) => {
     } else {
       return 'boxes'
     }
-  } else if (['id', 'item', 'paymentMethod'].includes(column)) {
+  } else if (['id', 'item'].includes(column)) {
     return 'orders'
   } else if (
     [
@@ -206,6 +205,7 @@ export const getTableByColumn = (column, hint) => {
       'ideasVerified',
       'bsr',
       'fbaamount',
+      'client',
     ].includes(column)
   ) {
     // if (hint === 'requests') {
@@ -241,7 +241,7 @@ export const getTableByColumn = (column, hint) => {
     }
 
     return 'requests'
-  } else if (['paymentMethods', 'productionTerm'].includes(column)) {
+  } else if (['paymentMethod', 'productionTerm'].includes(column)) {
     return 'suppliers'
   }
 }

@@ -70,7 +70,7 @@ export const MergeBoxesModal = ({
       ? ''
       : selectedBoxes[0].logicsTariff?._id,
     variationTariffId: selectedBoxes.some(box => box.variationTariff?._id !== selectedBoxes[0]?.variationTariff?._id)
-      ? ''
+      ? null
       : selectedBoxes[0].variationTariff?._id,
 
     fbaShipment: '',
@@ -87,7 +87,9 @@ export const MergeBoxesModal = ({
 
   const [destinationId, setDestinationId] = useState(boxBody?.destinationId)
 
-  useEffect(() => {}, [boxBody?.destinationId])
+  useEffect(() => {
+    setDestinationId(boxBody?.destinationId)
+  }, [boxBody?.destinationId])
 
   const setFormField = fieldName => e => {
     const newFormFields = { ...boxBody }

@@ -252,7 +252,7 @@ export const SelectFields = ({
                 inputClasses={classNames.input}
                 labelClasses={classNames.blueLabel}
                 value={toFixedWithYuanSign(
-                  calcExchangeDollarsInYuansPrice(order.totalPrice, order.yuanToDollarRate),
+                  calcExchangeDollarsInYuansPrice(order.totalPrice, order?.yuanToDollarRate),
                   2,
                 )}
               />
@@ -260,13 +260,13 @@ export const SelectFields = ({
             <div className={classNames.yuanToDollarRate}>
               <Field
                 disabled={checkIsPlanningPrice}
-                error={`${yuanToDollarRate}` !== `${orderFields.yuanToDollarRate}`}
+                error={`${yuanToDollarRate}` !== `${orderFields?.yuanToDollarRate}`}
                 inputProps={{ maxLength: 10 }}
                 inputClasses={classNames.input}
                 tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
                 label={t(TranslationKey['Current order course'])}
                 labelClasses={classNames.label}
-                value={orderFields.yuanToDollarRate || ''}
+                value={orderFields?.yuanToDollarRate || ''}
                 onChange={e => {
                   setOrderField('yuanToDollarRate')(e)
                 }}
@@ -335,7 +335,7 @@ export const SelectFields = ({
 
                     setOrderField('priceBatchDeliveryInYuan')({
                       target: {
-                        value: calcExchangeDollarsInYuansPrice(e.target.value, orderFields.yuanToDollarRate),
+                        value: calcExchangeDollarsInYuansPrice(e.target.value, orderFields?.yuanToDollarRate),
                       },
                     })
                   }}
@@ -460,7 +460,7 @@ export const SelectFields = ({
             maxRows={4}
             inputProps={{ maxLength: 500 }}
             inputClasses={classNames.commentInput}
-            value={orderFields.buy1erComment}
+            value={orderFields.buyerComment}
             labelClasses={classNames.label}
             label={t(TranslationKey['Buyer comments to the order'])}
             onChange={setOrderField('buyerComment')}

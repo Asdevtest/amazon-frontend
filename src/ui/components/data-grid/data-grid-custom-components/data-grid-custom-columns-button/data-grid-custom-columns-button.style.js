@@ -57,5 +57,18 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+
+    '& div': {
+      justifyContent: 'left ',
+
+      '& p': {
+        textAlign: 'left ',
+        color: theme.palette.text.general,
+        fontFamily: 'Manrope,sans-serif',
+        fontWeight: 400,
+        fontSize: 16,
+        lineHeight: 1.5,
+      },
+    },
   },
 }))
