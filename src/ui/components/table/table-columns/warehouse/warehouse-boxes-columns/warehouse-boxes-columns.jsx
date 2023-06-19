@@ -98,7 +98,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     filterable: false,
     sortable: false,
 
-    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
+    // columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
   },
 
   {
