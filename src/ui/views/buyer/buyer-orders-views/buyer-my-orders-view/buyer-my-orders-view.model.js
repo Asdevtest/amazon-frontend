@@ -249,7 +249,11 @@ export class BuyerMyOrdersViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const endpoint = `buyers/orders/pag/my?filters=${this.getFilter(column)}`
+      const orderStatus = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
+
+      const endpoint = `buyers/orders/pag/my?filters=${this.getFilter(column)}${
+        orderStatus ? ';&' + 'status=' + orderStatus : ''
+      }`
 
       const data = await GeneralModel.getDataForColumn(getTableByColumn(column, 'orders'), column, endpoint)
 
@@ -592,7 +596,6 @@ export class BuyerMyOrdersViewModel {
     })
   }
 
-  // Запускается по дефолту со всеми статусами
   setDefaultStatuses() {
     if (!this.chosenStatus.length) {
       this.filteredStatus = this.setOrderStatus(this.history.location.pathname)
@@ -1368,7 +1371,8 @@ export class BuyerMyOrdersViewModel {
   async getOrdersMy() {
     try {
       this.setDefaultStatuses()
-      const orderStatus = this.filteredStatus.map(item => OrderStatusByKey[item]).join(', ')
+      const orderStatuses = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
+      const currentStatuses = this.columnMenuSettings.status?.currentFilterData.join(',')
 
       const result = await BuyerModel.getOrdersMyPag({
         filters: this.getFilter(),
@@ -1378,7 +1382,8 @@ export class BuyerMyOrdersViewModel {
 
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-        status: orderStatus,
+
+        status: this.columnMenuSettings.status?.currentFilterData.length ? currentStatuses : orderStatuses,
       })
 
       runInAction(() => {
