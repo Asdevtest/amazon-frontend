@@ -57,6 +57,7 @@ export const addOrEditBatchFormColumns = isClient => [
     field: 'boxes',
     headerName: t(TranslationKey.Boxes),
     width: 330,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
     renderCell: params =>
       params.row.originalData.items.length > 1 ? (
         <div>
@@ -88,6 +89,7 @@ export const addOrEditBatchFormColumns = isClient => [
   {
     field: 'logicsTariff',
     headerName: t(TranslationKey.Tariff),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 130,
   },
@@ -95,6 +97,7 @@ export const addOrEditBatchFormColumns = isClient => [
   {
     field: 'destination',
     headerName: t(TranslationKey.Destination),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 170,
   },
@@ -120,6 +123,7 @@ export const addOrEditBatchFormColumns = isClient => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
     // type: 'date',
@@ -128,6 +132,7 @@ export const addOrEditBatchFormColumns = isClient => [
   {
     field: 'finalWeight',
     headerName: t(TranslationKey['Final weight']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
     renderCell: params => (
       <ToFixedWithKgSignCell amount={params.row.originalData.amount} value={params.value} fix={2} />
     ),
@@ -138,6 +143,7 @@ export const addOrEditBatchFormColumns = isClient => [
   {
     field: 'deliveryTotalPrice',
     headerName: t(TranslationKey['Total price']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 100,
     // type: 'number',
