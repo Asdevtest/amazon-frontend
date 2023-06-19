@@ -19,7 +19,7 @@ import {
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
+export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover, onListingFiltersData) => [
   {
     field: 'priority',
     headerName: t(TranslationKey['Priority and Express Delivery']),
@@ -240,7 +240,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
       />
     ),
     width: 115,
-    // columnKey: columnnsKeys.shared.QUANTITY,
+    columnKey: columnnsKeys.client.FREELANCER_REQUEST_LISTING,
   },
 
   {

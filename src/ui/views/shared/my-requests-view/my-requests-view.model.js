@@ -63,6 +63,13 @@ export class MyRequestsViewModel {
 
   searchRequests = []
   openModal = null
+
+  onListingFiltersData = {
+    onListing: true,
+    notOnListing: true,
+    handleListingFilters: (onListing, notOnListing) => this.handleListingFilters(onListing, notOnListing),
+  }
+
   requestFormSettings = {
     request: {},
     isEdit: false,
@@ -115,6 +122,8 @@ export class MyRequestsViewModel {
         this.getDataGridState()
       }
     },
+
+    onListingFiltersData: this.onListingFiltersData,
 
     filterRequestStatus: undefined,
 
@@ -456,8 +465,14 @@ export class MyRequestsViewModel {
 
   async getCustomRequests() {
     try {
+      const listingFilters = this.columnMenuSettings.onListingFiltersData
+      const additionalFilters =
+        listingFilters.notOnListing && listingFilters.onListing
+          ? ''
+          : `;uploadedToListing[$eq]=${listingFilters.onListing}`
+
       const result = await RequestModel.getRequests(RequestSubType.MY, {
-        filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
+        filters: this.getFilter() + additionalFilters,
 
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
@@ -668,6 +683,20 @@ export class MyRequestsViewModel {
   onTriggerOpenModal(modal) {
     runInAction(() => {
       this[modal] = !this[modal]
+    })
+  }
+
+  handleListingFilters(onListing, notOnListing) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        onListingFiltersData: {
+          ...this.columnMenuSettings.onListingFiltersData,
+          onListing,
+          notOnListing,
+        },
+      }
+      this.getCustomRequests()
     })
   }
 }
