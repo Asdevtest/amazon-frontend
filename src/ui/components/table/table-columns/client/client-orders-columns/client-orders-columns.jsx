@@ -67,9 +67,9 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
       />
     ),
     width: 50,
-    sortable: false,
+    // sortable: false,
 
-    columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
+    columnKey: columnnsKeys.client.MY_ORDERS_PRIORITY,
   },
 
   {
