@@ -33,6 +33,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       headerName: t(TranslationKey.ID) + ' / item',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
+      sortable: false,
       width: 100,
 
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
@@ -93,7 +94,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       width: 130,
       sortable: false,
 
-      columnKey: columnnsKeys.buyer.MY_ORDERS_STATUS,
+      columnKey: columnnsKeys.client.ORDERS_STATUS,
     },
 
     {
