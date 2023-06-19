@@ -400,8 +400,6 @@ export class ClientAwaitingBatchesViewModel {
 
         this.boxesData = boxes
 
-        console.log('this.boxesData', this.boxesData)
-
         this.showCircularProgress = false
       })
 
