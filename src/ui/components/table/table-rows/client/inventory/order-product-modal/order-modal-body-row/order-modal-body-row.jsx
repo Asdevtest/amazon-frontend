@@ -45,9 +45,6 @@ export const OrderModalBodyRow = ({
   destinationsFavourites,
   onClickSetDestinationFavourite,
 }) => {
-  console.log('item', item)
-  console.log('storekeepers', storekeepers)
-
   const { classes: classNames } = useClassNames()
   const [isLocalPriseOutOfLimit, setIsLocalPriseOutOfLimit] = useState(false)
 
