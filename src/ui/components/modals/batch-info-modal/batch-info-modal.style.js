@@ -2,12 +2,10 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   form: {
-    // marginTop: theme.spacing(2.5),
-    // marginBottom: theme.spacing(2.5),
     display: 'flex',
     flexDirection: 'column',
     height: 801,
-    maxWidth: 1692,
+    width: 1692,
     gap: 20,
 
     [theme.breakpoints.down(768)]: {
@@ -52,8 +50,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   modalTitle: {
     marginRight: '100px',
-
+    marginBottom: '0 !important',
     color: theme.palette.text.general,
+
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
       lineHeight: '22px',
@@ -126,7 +125,7 @@ export const useClassNames = makeStyles()(theme => ({
   titleWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    // alignItems: 'center',
+
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       alignItems: 'start',
@@ -136,8 +135,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   storekeeperField: {
     maxWidth: '270px',
-    margin: 0,
-    padding: 0,
+    margin: '0 !important',
     display: 'flex !important',
     justifyContent: 'flex-end !important',
   },
@@ -237,23 +235,23 @@ export const useClassNames = makeStyles()(theme => ({
   },
   batchTitleField: {
     width: '160px !important',
-    margin: 0,
+    margin: '0 !important',
   },
   destinationField: {
     width: '270px !important',
-    margin: 0,
+    margin: '0 !important',
   },
   volumeWeightField: {
     width: '190px !important',
-    margin: 0,
+    margin: '0 !important',
   },
   methodField: {
     width: '270px !important',
-    margin: 0,
+    margin: '0 !important',
   },
   dividerField: {
     width: '120px !important',
-    margin: 0,
+    margin: '0 !important',
   },
   filesAndButtonWrapper: {
     display: 'flex',
@@ -261,7 +259,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   shippinCostContainer: {
     width: '190px !important',
-    margin: 0,
+    margin: '0 !important',
   },
 
   closeFieldsWrapper: {
