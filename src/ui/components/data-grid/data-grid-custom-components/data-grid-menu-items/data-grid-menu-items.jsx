@@ -2203,3 +2203,69 @@ export const RedFlagsCellMenuItem = React.memo(
     )
   }, styles),
 )
+
+export const OnListingCellMenuItem = React.memo(
+  withStyles(({ classes: classNames, data, onClose }) => {
+    // const {
+    //   classes: classNames,
+    //   onClose,
+    //   data,
+    //   field,
+    //   filterRequestStatus,
+    //   onChangeFullFieldMenuItem,
+    //   onClickAccept,
+    //   onClickFilterBtn,
+    //   onListingFiltersData
+    // } = props;
+
+    return (
+      <div className={classNames.shopsDataWrapper}>
+        <div className={classNames.shopsWrapper}>
+          <div className={classNames.shopsBody}>
+            <div className={classNames.shop}>
+              <Checkbox
+                color="primary"
+                checked={data.onListingFiltersData.onListing}
+                onClick={() => {
+                  if (data.onListingFiltersData.onListing) {
+                    data.onListingFiltersData.handleListingFilters(false, true)
+                  } else {
+                    data.onListingFiltersData.handleListingFilters(true, true)
+                  }
+                }}
+              />
+
+              <Typography>{t(TranslationKey.Yes)}</Typography>
+            </div>
+
+            <div className={classNames.shop}>
+              <Checkbox
+                color="primary"
+                checked={data.onListingFiltersData.notOnListing}
+                onClick={() => {
+                  if (data.onListingFiltersData.notOnListing) {
+                    data.onListingFiltersData.handleListingFilters(true, false)
+                  } else {
+                    data.onListingFiltersData.handleListingFilters(true, true)
+                  }
+                }}
+              />
+
+              <Typography>{t(TranslationKey.No)}</Typography>
+            </div>
+          </div>
+        </div>
+        <div className={classNames.buttonsWrapper}>
+          <Button
+            variant="contained"
+            onClick={e => {
+              onClose(e)
+            }}
+          >
+            {t(TranslationKey.Accept)}
+          </Button>
+        </div>
+      </div>
+    )
+  }, styles),
+)
