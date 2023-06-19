@@ -73,12 +73,10 @@ export const ChatMessagesList: FC<Props> = observer(
     })
 
     useEffect(() => {
-      if (!firstUnReadMessageId) {
-        return
+      if (messages?.length) {
+        setTimeout(() => scrollToElementClickHandler(firstUnReadMessageId || messages!.at(-1)!._id), 0)
       }
-
-      setTimeout(() => scrollToElementClickHandler(firstUnReadMessageId), 0)
-    }, [])
+    }, [messages])
 
     useEffect(() => {
       if (!messageToScroll) {
