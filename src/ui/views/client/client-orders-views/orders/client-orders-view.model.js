@@ -716,7 +716,8 @@ export class ClientOrdersViewModel {
 
   async getOrders() {
     try {
-      this.setDefaultStatuses()
+      this.setRequestStatus(loadingStatuses.isLoading)
+
       const orderStatuses = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
       const currentStatuses = this.columnMenuSettings.status?.currentFilterData.join(',')
 
@@ -743,7 +744,11 @@ export class ClientOrdersViewModel {
 
         this.orders = clientOrdersDataConverter(result.rows, this.shopsData)
       })
+
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+
       console.log(error)
 
       runInAction(() => {
