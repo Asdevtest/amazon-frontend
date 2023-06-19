@@ -25,7 +25,7 @@ import {
   BoxestatusMenuItem,
   MyRequestsStatusMenuItem,
   FreelanceRequestType,
-  ClientFreelancePriorityMenuItem,
+  PriorityMenuItem,
   CreatedByMenuItem,
   FreelancerToWorkConfirmationMenuItem,
   RedFlagsCellMenuItem,
@@ -147,10 +147,16 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  if (currentColumn.columnKey === columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY) {
+  if (
+    [
+      columnnsKeys.client.MY_ORDERS_PRIORITY,
+      columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
+      columnnsKeys.buyer.ORDERS_PRIORITY,
+    ].includes(currentColumn.columnKey)
+  ) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
-        <ClientFreelancePriorityMenuItem
+        <PriorityMenuItem
           data={props[currentColumn.field]}
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}

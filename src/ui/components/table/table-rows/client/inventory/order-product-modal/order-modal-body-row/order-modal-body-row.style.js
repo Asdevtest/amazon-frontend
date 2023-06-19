@@ -112,15 +112,15 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   containerField: {
-    width: 'min-content !important',
-    margin: '0 !important',
+    width: 'min-content',
+    margin: 0,
   },
   labelField: {
     fontSize: '14px',
     color: theme.palette.text.general,
     lineHeight: '17px',
     fontWeight: '600',
-    marginRight: '20px',
+    marginRight: '10px',
     whiteSpace: 'nowrap',
   },
 

@@ -251,7 +251,7 @@ export class BuyerMyOrdersViewModel {
 
       const endpoint = `buyers/orders/pag/my?filters=${this.getFilter(column)}`
 
-      const data = await GeneralModel.getDataForColumn(getTableByColumn(column), column, endpoint)
+      const data = await GeneralModel.getDataForColumn(getTableByColumn(column, 'orders'), column, endpoint)
 
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
@@ -315,7 +315,8 @@ export class BuyerMyOrdersViewModel {
     const needsResearchFilter =
       exclusion !== 'needsResearch' && this.columnMenuSettings.needsResearch?.currentFilterData.join(',')
 
-    const clientFilter = exclusion !== 'client' && this.columnMenuSettings.client?.currentFilterData.join(',')
+    const clientFilter =
+      exclusion !== 'client' && this.columnMenuSettings.client?.currentFilterData?.map(el => el._id).join(',')
 
     const destinationFilter =
       exclusion !== 'destination' && this.columnMenuSettings.destination?.currentFilterData?.map(el => el._id).join(',')
