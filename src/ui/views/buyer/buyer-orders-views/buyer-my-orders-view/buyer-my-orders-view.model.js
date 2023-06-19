@@ -251,7 +251,11 @@ export class BuyerMyOrdersViewModel {
 
       const endpoint = `buyers/orders/pag/my?filters=${this.getFilter(column)}`
 
-      const data = await GeneralModel.getDataForColumn(getTableByColumn(column), column, endpoint)
+      const data = await GeneralModel.getDataForColumn(
+        getTableByColumn(column, column === 'priority' ? 'orders' : ''),
+        column,
+        endpoint,
+      )
 
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {

@@ -1048,7 +1048,7 @@ export const NormalFieldMenuItem = React.memo(
   ),
 )
 
-export const ClientFreelancePriorityMenuItem = React.memo(
+export const PriorityMenuItem = React.memo(
   withStyles(
     ({
       classes: classNames,
@@ -1064,6 +1064,12 @@ export const ClientFreelancePriorityMenuItem = React.memo(
       useEffect(() => {
         onClickFilterBtn(field)
       }, [])
+
+      console.log('columnKey', columnKey)
+
+      const isOrder = ['MY_ORDERS_PRIORITY', 'ORDERS_PRIORITY'].includes(columnKey)
+      const urgentPriority = isOrder ? [40] : [30]
+      const withoutPriority = isOrder ? [30] : [10, 20]
 
       const { filterData, currentFilterData } = data
 
@@ -1088,20 +1094,20 @@ export const ClientFreelancePriorityMenuItem = React.memo(
               <div className={classNames.shop}>
                 <Checkbox
                   color="primary"
-                  checked={choosenItems.some(item => Number(item) === 30)}
-                  onClick={() => onClickItem([30])}
+                  checked={choosenItems.some(item => urgentPriority.includes(Number(item)))}
+                  onClick={() => onClickItem(urgentPriority)}
                 />
                 <div className={classNames.shopName}>
-                  {t(TranslationKey['Urgent request'])} <img src="/assets/icons/fire.svg" />
+                  {t(TranslationKey[`${isOrder ? 'Urgent' : 'Urgent request'}`])} <img src="/assets/icons/fire.svg" />
                 </div>
               </div>
 
               <div className={classNames.shop}>
                 <Checkbox
                   color="primary"
-                  checked={choosenItems.some(item => Number(item) === 10 || Number(item) === 20)}
+                  checked={choosenItems.some(item => withoutPriority.includes(Number(item)))}
                   onClick={() => {
-                    onClickItem([10, 20])
+                    onClickItem(withoutPriority)
                   }}
                 />
                 <div className={classNames.shopName}>{t(TranslationKey['Without Priority'])}</div>

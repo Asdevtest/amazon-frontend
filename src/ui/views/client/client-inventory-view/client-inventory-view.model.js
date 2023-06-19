@@ -650,72 +650,55 @@ export class ClientInventoryViewModel {
     }
   }
 
-  onClickShopBtn(shop) {
-    runInAction(() => {
-      if (shop) {
-        if (shop === 'ALL') {
-          this.currentShops = []
-        } else {
-          if (this.currentShops.some(item => item === shop)) {
-            this.currentShops = this.currentShops.filter(item => item !== shop)
-          } else {
-            this.currentShops.push(shop)
-          }
-        }
-      }
-    })
-
-    const noProductBaseUpdate = true
-    this.getProductsMy(noProductBaseUpdate)
-
-    runInAction(() => {
-      this.withoutProduct = false
-      this.withProduct = false
-    })
-  }
-
-  // onClickOrderStatusData(status) {
+  // onClickShopBtn(shop) {
   //   runInAction(() => {
-  //     if (status) {
-  //       if (status === 'ALL') {
-  //         this.chosenStatus = []
+  //     if (shop) {
+  //       if (shop === 'ALL') {
+  //         this.currentShops = []
   //       } else {
-  //         if (this.chosenStatus.some(item => item === status)) {
-  //           this.chosenStatus = this.chosenStatus.filter(item => item !== status)
+  //         if (this.currentShops.some(item => item === shop)) {
+  //           this.currentShops = this.currentShops.filter(item => item !== shop)
   //         } else {
-  //           this.chosenStatus.push(status)
+  //           this.currentShops.push(shop)
   //         }
   //       }
   //     }
-  //     this.getOrders()
+  //   })
+
+  //   const noProductBaseUpdate = true
+  //   this.getProductsMy(noProductBaseUpdate)
+
+  //   runInAction(() => {
+  //     this.withoutProduct = false
+  //     this.withProduct = false
   //   })
   // }
 
-  async onClickWithoutProductsShopBtn() {
-    runInAction(() => {
-      this.currentShops = []
-      this.withoutProduct = true
-      this.withProduct = false
-    })
+  // async onClickWithoutProductsShopBtn() {
+  //   runInAction(() => {
+  //     this.currentShops = []
+  //     this.withoutProduct = true
+  //     this.withProduct = false
+  //   })
 
-    await this.getProductsMy()
-    runInAction(() => {
-      this.productsMy = this.productsMy.filter(product => !product.originalData.shopIds?.length)
-    })
-  }
+  //   await this.getProductsMy()
+  //   runInAction(() => {
+  //     this.productsMy = this.productsMy.filter(product => !product.originalData.shopIds?.length)
+  //   })
+  // }
 
-  async onClickWithProductsShopBtn() {
-    runInAction(() => {
-      this.currentShops = []
-      this.withoutProduct = false
-      this.withProduct = true
-    })
+  // async onClickWithProductsShopBtn() {
+  //   runInAction(() => {
+  //     this.currentShops = []
+  //     this.withoutProduct = false
+  //     this.withProduct = true
+  //   })
 
-    await this.getProductsMy()
-    runInAction(() => {
-      this.productsMy = this.productsMy.filter(product => product.originalData.shopIds?.length)
-    })
-  }
+  //   await this.getProductsMy()
+  //   runInAction(() => {
+  //     this.productsMy = this.productsMy.filter(product => product.originalData.shopIds?.length)
+  //   })
+  // }
 
   onChangeIsNeedPurchaseFilter(isNotNeedPurchaseFilter, isNeedPurchaseFilter) {
     runInAction(() => {
@@ -774,12 +757,6 @@ export class ClientInventoryViewModel {
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'products'),
         column,
-
-        // `clients/products/my_with_pag?filters=${this.getFilter(column)}${
-        //   shopFilter ? ';&' + 'shopIds=' + shopFilter : ''
-        // }${
-        //   purchaseQuantityAboveZeroFilter ? ';&' + 'purchaseQuantityAboveZero=' + purchaseQuantityAboveZeroFilter : ''
-        // }`,
 
         `clients/products/my_with_pag?filters=${this.getFilter(column)}${
           shopFilter ? `;[shopIds][$eq]=${shopFilter}` : ''
@@ -1001,10 +978,6 @@ export class ClientInventoryViewModel {
   async getProductsMy(noProductBaseUpdate) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-
-      // const filter = `[archive][$eq]=${this.isArchive ? 'true' : 'false'};or[0][asin][$contains]=${
-      //   this.nameSearchValue
-      // };or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};`
 
       const shops = this.currentShops.map(item => item._id).join(',') // Похоже будет лишним
 
