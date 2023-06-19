@@ -336,10 +336,9 @@ export class OrdersModel {
   }
 
   onClickTableRow(order) {
-    this.history.push({
-      pathname: '/client/my-orders/orders/order',
-      search: `orderId=${order.originalData._id}`,
-    })
+    this.history.push(
+      `/client/my-orders/orders/order?orderId=${order.originalData._id}&order-human-friendly-id=${order.originalData.id}`,
+    )
   }
 
   onTriggerOpenModal(modal) {
