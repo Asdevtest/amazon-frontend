@@ -1,34 +1,30 @@
-import {
-  GridColumnMenu,
-  GridColumnMenuContainer, // GridColumnMenuFilterItem,
-  // GridColumnMenuSortItem,
-  // GridColumnMenuHideItem,
-  // GridColumnMenuColumnsItem,
-} from '@mui/x-data-grid'
+import { GridColumnMenu, GridColumnMenuContainer } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
 import {
+  BoxestatusMenuItem,
+  ClientFreelancePriorityMenuItem,
   ClientOrderAllStatusesMenuItem,
+  CreatedByMenuItem,
   DestinationMenuItem,
+  FreelanceRequestType,
+  FreelancerToWorkConfirmationMenuItem,
   FromToDateMenuItem,
   InStockMenuItem,
   IsFormedMenuItem,
+  IsHaveBarCodeFilterMenuItem,
   IsNeedPurchaseFilterMenuItem,
+  MyRequestsStatusMenuItem,
   NormalFieldMenuItem,
   NumberFieldMenuItem,
-  OrderStatusMenuItem,
   ObJectFieldMenuItem,
   OrderOrItemMenuItem,
+  OrderStatusMenuItem,
   ProductMenuItem,
-  IsHaveBarCodeFilterMenuItem,
-  BoxestatusMenuItem,
-  MyRequestsStatusMenuItem,
-  FreelanceRequestType,
-  ClientFreelancePriorityMenuItem,
-  CreatedByMenuItem,
-  FreelancerToWorkConfirmationMenuItem,
   RedFlagsCellMenuItem,
+  OnListingCellMenuItem,
+  PriorityMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
 
 export const DataGridCustomColumnMenuComponent = props => {
@@ -147,10 +143,16 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  if (currentColumn.columnKey === columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY) {
+  if (
+    [
+      columnnsKeys.client.MY_ORDERS_PRIORITY,
+      columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
+      columnnsKeys.buyer.ORDERS_PRIORITY,
+    ].includes(currentColumn.columnKey)
+  ) {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
-        <ClientFreelancePriorityMenuItem
+        <PriorityMenuItem
           data={props[currentColumn.field]}
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}
@@ -382,6 +384,24 @@ export const DataGridCustomColumnMenuComponent = props => {
           onClose={hideMenu}
           onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
           onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if (currentColumn.columnKey === columnnsKeys.client.FREELANCER_REQUEST_LISTING) {
+    const { ...rest } = other
+
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...rest}>
+        <OnListingCellMenuItem
+          data={props}
+          // field={currentColumn.field}
+          // filterRequestStatus={filterRequestStatus}
+          // onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          // onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          // onClickAccept={onClickAccept}
         />
       </GridColumnMenuContainer>
     )

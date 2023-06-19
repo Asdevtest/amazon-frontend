@@ -52,7 +52,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       sortable: false,
       width: 60,
 
-      columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
+      columnKey: columnnsKeys.buyer.ORDERS_PRIORITY,
     },
 
     {

@@ -27,7 +27,7 @@ import {
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
 
-export const clientOrdersViewColumns = (onClickReorder, getColumnMenuSettings, getOnHover) => [
+export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
   {
     field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
@@ -67,9 +67,9 @@ export const clientOrdersViewColumns = (onClickReorder, getColumnMenuSettings, g
       />
     ),
     width: 50,
-    sortable: false,
+    // sortable: false,
 
-    columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
+    columnKey: columnnsKeys.client.MY_ORDERS_PRIORITY,
   },
 
   {
@@ -111,7 +111,7 @@ export const clientOrdersViewColumns = (onClickReorder, getColumnMenuSettings, g
             bTnText={t(TranslationKey['Repeat order'])}
             onClickOkBtn={e => {
               e.stopPropagation()
-              onClickReorder(params.row.originalData)
+              rowHandlers.onClickReorder(params.row.originalData)
             }}
           />
         ) : (
@@ -120,7 +120,7 @@ export const clientOrdersViewColumns = (onClickReorder, getColumnMenuSettings, g
             bTnText={t(TranslationKey['To order'])}
             onClickOkBtn={e => {
               e.stopPropagation()
-              onClickReorder(params.row.originalData)
+              rowHandlers.onClickReorder(params.row.originalData)
             }}
           />
         )}

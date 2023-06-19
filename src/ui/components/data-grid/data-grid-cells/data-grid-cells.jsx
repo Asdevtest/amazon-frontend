@@ -61,7 +61,7 @@ import { Input } from '@components/shared/input'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { BoxArrow, ClockIcon, CubeIcon, EditIcon, EqualIcon, PlusIcon } from '@components/shared/svg-icons'
+import { BoxArrow, ClockIcon, CubeIcon, EditIcon, EqualIcon, PlusIcon, SaveIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
@@ -645,8 +645,7 @@ export const ChangeInputCell = React.memo(
                 <DoneIcon classes={{ root: classNames.doneIcon }} />
               ) : sourceValue !== value && valueChecked ? (
                 <div className={classNames.iconWrapper}>
-                  <img
-                    src={'/assets/icons/save-discet.svg'}
+                  <SaveIcon
                     className={classNames.changeInputIcon}
                     onClick={() => {
                       setShow(true)
@@ -717,8 +716,7 @@ export const ChangeInputCommentCell = React.memo(
                     <DoneIcon classes={{ root: classNames.doneIcon }} />
                   ) : isEdited ? (
                     <div className={classNames.iconWrapper}>
-                      <img
-                        src={'/assets/icons/save-discet.svg'}
+                      <SaveIcon
                         className={classNames.changeInputIcon}
                         onClick={() => {
                           setShow(true)
@@ -1332,8 +1330,7 @@ export const DatePickerCell = React.memo(
               <DoneIcon classes={{ root: cx(classNames.doneIcon, classNames.arrivalDateIcon) }} />
             ) : arrivalDate !== value ? (
               <div className={cx(classNames.iconWrapper, classNames.iconWrapperArrivalDate)}>
-                <img
-                  src={'/assets/icons/save-discet.svg'}
+                <SaveIcon
                   className={cx(classNames.changeInputIcon, classNames.arrivalDateIcon)}
                   onClick={() => {
                     setShow(true)
