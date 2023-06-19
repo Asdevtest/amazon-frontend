@@ -62,6 +62,10 @@ export class LogisticsTariffsModel {
     return UserModel.userInfo
   }
 
+  get destinationsFavourites() {
+    return SettingsModel.destinationsFavourites
+  }
+
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
@@ -211,15 +215,31 @@ export class LogisticsTariffsModel {
           el.storekeeper?._id === this.userInfo._id ||
           (el.storekeeper?._id === this.userInfo.masterUser?._id && el.storekeeper),
       )
-      if (storekeeperDestination) {
-        runInAction(() => {
-          this.destinationData = result
-          this.storekeeperDestination = storekeeperDestination
-        })
-      }
+
+      // const storekeeperDestination = result.filter(
+      //   el =>
+      //     el.storekeeper?._id !== this.userInfo._id ||
+      //     (el.storekeeper?._id !== this.userInfo.masterUser?._id && el.storekeeper),
+      // )
+
+      this.destinationData = result.filter(
+        el =>
+          el.storekeeper?._id !== this.userInfo._id ||
+          (el.storekeeper?._id !== this.userInfo.masterUser?._id && el.storekeeper),
+      )
+
+      // if (storekeeperDestination) {
+      //   runInAction(() => {
+      this.storekeeperDestination = storekeeperDestination
+      //   })
+      // }
     } catch (error) {
       console.log(error)
     }
+  }
+
+  setDestinationsFavouritesItem(item) {
+    SettingsModel.setDestinationsFavouritesItem(item)
   }
 
   onClickAddressBtn() {

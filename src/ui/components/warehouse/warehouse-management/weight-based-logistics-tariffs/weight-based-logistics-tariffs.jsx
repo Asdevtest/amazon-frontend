@@ -48,9 +48,11 @@ export const WeightBasedLogisticsTariffs = observer(() => {
     confirmModalSettings,
     showConfirmModal,
     currentData,
+    destinationsFavourites,
+    logisticsTariffs,
+    setDestinationsFavouritesItem,
     onTriggerOpenModal,
     onClickAddBtn,
-    logisticsTariffs,
 
     onChangeSortingModel,
     onChangeFilterModel,
@@ -67,6 +69,8 @@ export const WeightBasedLogisticsTariffs = observer(() => {
   useEffect(() => {
     gpModel.current.loadData()
   }, [])
+
+  console.log('storekeeperDestination', storekeeperDestination)
 
   return (
     <div className={classNames.mainWrapper}>
@@ -172,6 +176,8 @@ export const WeightBasedLogisticsTariffs = observer(() => {
           tariffToEdit={tariffToEdit}
           logisticsTariffsData={logisticsTariffs}
           destinationData={destinationData}
+          setDestinationsFavouritesItem={setDestinationsFavouritesItem}
+          destinationsFavourites={destinationsFavourites}
           onCreateSubmit={onSubmitCreateTariff}
           onEditSubmit={onSubmitEditTariff}
           onClickClose={() => onTriggerOpenModal('showAddOrEditLogisticTariffModal')}

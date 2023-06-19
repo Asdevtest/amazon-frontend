@@ -77,7 +77,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   destinationWrapper: {
-    width: '171px !important',
+    width: '250px !important',
   },
 
   destinationSearchInput: {
@@ -144,7 +144,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   rateFieldInput: {
-    width: 50,
+    width: 65,
   },
 
   rateFieldContainer: {
