@@ -224,11 +224,14 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
   {
     field: 'uploadedToListing',
     headerName: t(TranslationKey['Uploaded by on listing']),
-    renderHeader: () => (
+    renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey['Uploaded by on listing'])}
-        // isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={
+          !getColumnMenuSettings()?.onListingFiltersData?.onListing ||
+          !getColumnMenuSettings()?.onListingFiltersData?.notOnListing
+        }
       />
     ),
 
