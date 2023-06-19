@@ -223,9 +223,9 @@ export class LogisticsTariffsModel {
       // )
 
       this.destinationData = result.filter(
-        el =>
-          el.storekeeper?._id !== this.userInfo._id ||
-          (el.storekeeper?._id !== this.userInfo.masterUser?._id && el.storekeeper),
+        el => el.storekeeper?._id !== this.userInfo._id,
+        // ||
+        // (el.storekeeper?._id !== this.userInfo.masterUser?._id && el.storekeeper),
       )
 
       // if (storekeeperDestination) {

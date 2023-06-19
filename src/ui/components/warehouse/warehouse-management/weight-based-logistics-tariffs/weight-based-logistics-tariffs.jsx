@@ -70,8 +70,6 @@ export const WeightBasedLogisticsTariffs = observer(() => {
     gpModel.current.loadData()
   }, [])
 
-  console.log('storekeeperDestination', storekeeperDestination)
-
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.placeAddBtnWrapper}>
