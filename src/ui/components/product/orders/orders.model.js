@@ -65,7 +65,7 @@ export class OrdersModel {
     onClickReorder: (item, isPendingOrder) => this.onClickReorder(item, isPendingOrder),
   }
 
-  columnsModel = clientProductOrdersViewColumns(this.rowHandlers)
+  columnsModel = clientProductOrdersViewColumns(this.rowHandlers, () => this.chosenStatus)
   columnVisibilityModel = {}
 
   get orderStatusData() {
