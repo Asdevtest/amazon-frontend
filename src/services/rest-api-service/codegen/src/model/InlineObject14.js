@@ -22,11 +22,10 @@ class InlineObject14 {
     /**
      * Constructs a new <code>InlineObject14</code>.
      * @alias module:model/InlineObject14
-     * @param boxesIds {Array.<String>} 
      */
-    constructor(boxesIds) { 
+    constructor() { 
         
-        InlineObject14.initialize(this, boxesIds);
+        InlineObject14.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject14 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxesIds) { 
-        obj['boxesIds'] = boxesIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,8 @@ class InlineObject14 {
         if (data) {
             obj = obj || new InlineObject14();
 
-            if (data.hasOwnProperty('boxesIds')) {
-                obj['boxesIds'] = ApiClient.convertToType(data['boxesIds'], ['String']);
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -60,9 +58,10 @@ class InlineObject14 {
 }
 
 /**
- * @member {Array.<String>} boxesIds
+ * GUID коробки, объединение которой нужно отменить
+ * @member {String} guid
  */
-InlineObject14.prototype['boxesIds'] = undefined;
+InlineObject14.prototype['guid'] = undefined;
 
 
 

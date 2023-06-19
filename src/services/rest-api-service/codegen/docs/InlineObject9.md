@@ -4,9 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **Number** |  | [optional] 
-**linksToMediaFiles** | **[String]** |  | [optional] 
-**title** | **String** |  | [optional] 
-**description** | **String** |  | [optional] 
+**batchIds** | **[String]** |  | 
+**archive** | **Boolean** | Заархивирована ли партия | 
 
 

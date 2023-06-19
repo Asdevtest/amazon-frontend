@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AnnouncementsMyCreatedBy from './ApiV1AnnouncementsMyCreatedBy';
 
 /**
  * The ApiV1BuyersOrdersMyProduct model module.
@@ -67,7 +67,7 @@ class ApiV1BuyersOrdersMyProduct {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
             if (data.hasOwnProperty('client')) {
-                obj['client'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['client']);
+                obj['client'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['client']);
             }
         }
         return obj;
@@ -112,7 +112,7 @@ ApiV1BuyersOrdersMyProduct.prototype['barCode'] = undefined;
 ApiV1BuyersOrdersMyProduct.prototype['images'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} client
+ * @member {module:model/ApiV1AnnouncementsMyCreatedBy} client
  */
 ApiV1BuyersOrdersMyProduct.prototype['client'] = undefined;
 
