@@ -120,13 +120,6 @@ export class ClientOrdersViewModel {
   }
 
   // НЕ было до создания фильтрации по статусам
-  get orderStatusData() {
-    return {
-      orderStatusDataBase: this.orderStatusDataBase,
-      chosenStatus: this.chosenStatus,
-      onClickOrderStatusData: this.onClickOrderStatusData,
-    }
-  }
 
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
@@ -192,15 +185,17 @@ export class ClientOrdersViewModel {
       const shopFilter = this.columnMenuSettings.shopIds.currentFilterData && column !== 'shopIds' ? curShops : null
       const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
 
+      const orderStatus = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
+
       const data = await GeneralModel.getDataForColumn(
         table,
         column,
         `clients/pag/orders?filters=${this.getFilter(column)}${
           shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
-        }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
+        }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}${
+          orderStatus ? ';&' + 'status=' + orderStatus : ''
+        }`,
       )
-
-      console.log('data', data)
 
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
@@ -235,7 +230,7 @@ export class ClientOrdersViewModel {
     const amazonTitleFilter =
       exclusion !== 'amazonTitle' && this.columnMenuSettings.amazonTitle?.currentFilterData.map(el => `${el}`).join(',')
 
-    const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status?.currentFilterData.join(',')
+    // const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status?.currentFilterData.join(',')
 
     const amountFilter = exclusion !== 'amount' && this.columnMenuSettings.amount?.currentFilterData.join(',')
 
@@ -302,9 +297,9 @@ export class ClientOrdersViewModel {
         amazonTitle: { $eq: amazonTitleFilter },
       }),
 
-      ...(statusFilter && {
-        status: { $eq: statusFilter },
-      }),
+      // ...(statusFilter && {
+      //   status: { $eq: statusFilter },
+      // }),
 
       ...(amountFilter && {
         amount: { $eq: amountFilter },
@@ -571,24 +566,6 @@ export class ClientOrdersViewModel {
     }
   }
 
-  onClickOrderStatusData(status) {
-    runInAction(() => {
-      if (status) {
-        if (status === 'ALL') {
-          this.chosenStatus = []
-        } else {
-          if (this.chosenStatus.some(item => item === status)) {
-            this.chosenStatus = this.chosenStatus.filter(item => item !== status)
-          } else {
-            this.chosenStatus.push(status)
-          }
-        }
-      }
-
-      this.getOrders()
-    })
-  }
-
   setDefaultStatuses() {
     if (!this.chosenStatus.length) {
       this.filteredStatus = this.setOrderStatus(this.history.location.pathname)
@@ -742,12 +719,13 @@ export class ClientOrdersViewModel {
   async getOrders() {
     try {
       this.setDefaultStatuses()
-      const orderStatus = this.filteredStatus.map(item => OrderStatusByKey[item]).join(', ')
+      const orderStatuses = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
+      const currentStatuses = this.columnMenuSettings.status?.currentFilterData.join(',')
 
       const result = await ClientModel.getOrdersPag({
         filters: this.getFilter(),
 
-        status: orderStatus,
+        status: this.columnMenuSettings.status?.currentFilterData.length ? currentStatuses : orderStatuses,
 
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
