@@ -73,12 +73,10 @@ export const ChatMessagesList: FC<Props> = observer(
     })
 
     useEffect(() => {
-      if (!firstUnReadMessageId) {
-        return
+      if (messages?.length) {
+        setTimeout(() => scrollToElementClickHandler(firstUnReadMessageId || messages!.at(-1)!._id), 0)
       }
-
-      setTimeout(() => scrollToElementClickHandler(firstUnReadMessageId), 0)
-    }, [])
+    }, [messages])
 
     useEffect(() => {
       if (!messageToScroll) {
@@ -138,6 +136,8 @@ export const ChatMessagesList: FC<Props> = observer(
                 const repleyMessage = messages.find(
                   el => typeof messageItem?.replyMessageId === 'string' && el._id === messageItem?.replyMessageId,
                 )
+
+                const isDisabledReply = messageItem.type !== ChatMessageType.USER
 
                 return (
                   <div
@@ -223,17 +223,19 @@ export const ChatMessagesList: FC<Props> = observer(
                           </div>
                         </div>
                       </div>
-                      <div className={cx(classNames.controlsOverlay, 'controlsOverlay')}>
-                        <div className={classNames.controls}>
-                          <button
-                            onClick={() => {
-                              onClickReply(messageItem, isIncomming)
-                            }}
-                          >
-                            <ReplyIcon />
-                          </button>
+                      {!isDisabledReply && (
+                        <div className={cx(classNames.controlsOverlay, 'controlsOverlay')}>
+                          <div className={classNames.controls}>
+                            <button
+                              onClick={() => {
+                                onClickReply(messageItem, isIncomming)
+                              }}
+                            >
+                              <ReplyIcon />
+                            </button>
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   </div>
                 )

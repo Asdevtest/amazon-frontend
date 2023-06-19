@@ -39,16 +39,16 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
     (request?.request.restrictMoreThanOneProposalFromOneAssignee && requestProposals.length) ||
     requestProposals.some(
       el =>
-        el.proposal.status === RequestProposalStatus.CREATED ||
-        el.proposal.status === RequestProposalStatus.CORRECTED ||
-        el.proposal.status === RequestProposalStatus.VERIFYING_BY_SUPERVISOR ||
-        el.proposal.status === RequestProposalStatus.EXPIRED ||
-        el.proposal.status === RequestProposalStatus.TO_CORRECT ||
-        el.proposal.status === RequestProposalStatus.READY_TO_VERIFY ||
-        el.proposal.status === RequestProposalStatus.PROPOSAL_EDITED ||
-        el.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED ||
-        el.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-        el.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_REJECTED,
+        el.proposal?.status === RequestProposalStatus?.CREATED ||
+        el.proposal?.status === RequestProposalStatus?.CORRECTED ||
+        el.proposal?.status === RequestProposalStatus?.VERIFYING_BY_SUPERVISOR ||
+        el.proposal?.status === RequestProposalStatus?.EXPIRED ||
+        el.proposal?.status === RequestProposalStatus?.TO_CORRECT ||
+        el.proposal?.status === RequestProposalStatus?.READY_TO_VERIFY ||
+        el.proposal?.status === RequestProposalStatus?.PROPOSAL_EDITED ||
+        el.proposal?.status === RequestProposalStatus?.OFFER_CONDITIONS_CORRECTED ||
+        el.proposal?.status === RequestProposalStatus?.OFFER_CONDITIONS_ACCEPTED ||
+        el.proposal?.status === RequestProposalStatus?.OFFER_CONDITIONS_REJECTED,
     )
 
   const getMainInfos = () => (

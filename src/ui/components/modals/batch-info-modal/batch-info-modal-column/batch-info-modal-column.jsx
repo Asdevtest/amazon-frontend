@@ -92,7 +92,8 @@ export const batchInfoModalColumn = (
 
   {
     field: 'finalWeight',
-    headerName: <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
+    headerName: t(TranslationKey['Final weight']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
     renderCell: params => (
       <MultilineTextCell
         text={toFixedWithKg(
@@ -110,7 +111,8 @@ export const batchInfoModalColumn = (
 
   {
     field: 'pricePerUnit',
-    headerName: <MultilineTextHeaderCell text={t(TranslationKey['Price per unit'])} />,
+    headerName: t(TranslationKey['Price per unit']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price per unit'])} />,
     renderCell: params => <PricePerUnitCell item={params.row} />,
     type: 'number',
     width: 90,
@@ -118,7 +120,8 @@ export const batchInfoModalColumn = (
 
   {
     field: 'finalPrice',
-    headerName: <MultilineTextHeaderCell text={t(TranslationKey['Calculated price'])} />,
+    headerName: t(TranslationKey['Calculated price']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Calculated price'])} />,
     renderCell: params => (
       <FinalPricePerUnitCell
         box={params.row}
@@ -134,7 +137,8 @@ export const batchInfoModalColumn = (
 
   {
     field: 'actualCostWithDeliveryPerUnit',
-    headerName: <MultilineTextHeaderCell text={t(TranslationKey['Actual cost with delivery per unit'])} />,
+    headerName: t(TranslationKey['Actual cost with delivery per unit']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Actual cost with delivery per unit'])} />,
     renderCell: params => (
       <ActualCostWithDeliveryPerUnit
         actualShippingCost={actualShippingCost}
@@ -151,7 +155,10 @@ export const batchInfoModalColumn = (
 
   {
     field: 'actualCostWithDelivery',
-    headerName: <MultilineTextHeaderCell text={t(TranslationKey['The actual cost of the box with delivery'])} />,
+    headerName: t(TranslationKey['The actual cost of the box with delivery']),
+    renderHeader: () => (
+      <MultilineTextHeaderCell text={t(TranslationKey['The actual cost of the box with delivery'])} />
+    ),
     renderCell: params => (
       <ActualCostWithDelivery
         actualShippingCost={actualShippingCost}

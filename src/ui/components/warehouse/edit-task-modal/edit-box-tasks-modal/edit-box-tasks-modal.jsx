@@ -288,6 +288,7 @@ export const EditBoxTasksModal = ({
         <div className={classNames.imageFileInputWrapper}>
           <UploadFilesInput
             withoutLinks
+            fullWidth
             dragAndDropBtnHeight={67}
             images={editingBox.tmpImages}
             setImages={setImagesOfBox}
