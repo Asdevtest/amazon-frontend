@@ -122,6 +122,7 @@ export class MyProposalsViewModel {
             item.createdBy?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
           ) ||
           el?.humanFriendlyId?.toString().toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el?.createdBy?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
           el?.proposals.some(
             el =>
               el.sub?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
