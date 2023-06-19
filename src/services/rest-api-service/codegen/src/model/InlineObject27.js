@@ -22,10 +22,14 @@ class InlineObject27 {
     /**
      * Constructs a new <code>InlineObject27</code>.
      * @alias module:model/InlineObject27
+     * @param paymentType {module:model/InlineObject27.PaymentTypeEnum} DEPOSIT - пополнение депозита(баланса), WITHDRAW - вывод средств с баланса, FINE - штраф.
+     * @param recipientId {String} GUID пользователя.
+     * @param sum {Number} Начисленная сумма выплаты. Может быть отрицательной.
+     * @param comment {String} комментарий
      */
-    constructor() { 
+    constructor(paymentType, recipientId, sum, comment) { 
         
-        InlineObject27.initialize(this);
+        InlineObject27.initialize(this, paymentType, recipientId, sum, comment);
     }
 
     /**
@@ -33,7 +37,11 @@ class InlineObject27 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, paymentType, recipientId, sum, comment) { 
+        obj['paymentType'] = paymentType;
+        obj['recipientId'] = recipientId;
+        obj['sum'] = sum;
+        obj['comment'] = comment;
     }
 
     /**
@@ -47,8 +55,17 @@ class InlineObject27 {
         if (data) {
             obj = obj || new InlineObject27();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('paymentType')) {
+                obj['paymentType'] = ApiClient.convertToType(data['paymentType'], 'String');
+            }
+            if (data.hasOwnProperty('recipientId')) {
+                obj['recipientId'] = ApiClient.convertToType(data['recipientId'], 'String');
+            }
+            if (data.hasOwnProperty('sum')) {
+                obj['sum'] = ApiClient.convertToType(data['sum'], 'Number');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
         }
         return obj;
@@ -58,13 +75,64 @@ class InlineObject27 {
 }
 
 /**
- * GUID коробки разделение которой отменяем.
- * @member {String} guid
+ * DEPOSIT - пополнение депозита(баланса), WITHDRAW - вывод средств с баланса, FINE - штраф.
+ * @member {module:model/InlineObject27.PaymentTypeEnum} paymentType
  */
-InlineObject27.prototype['guid'] = undefined;
+InlineObject27.prototype['paymentType'] = undefined;
+
+/**
+ * GUID пользователя.
+ * @member {String} recipientId
+ */
+InlineObject27.prototype['recipientId'] = undefined;
+
+/**
+ * Начисленная сумма выплаты. Может быть отрицательной.
+ * @member {Number} sum
+ */
+InlineObject27.prototype['sum'] = undefined;
+
+/**
+ * комментарий
+ * @member {String} comment
+ */
+InlineObject27.prototype['comment'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>paymentType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject27['PaymentTypeEnum'] = {
+
+    /**
+     * value: "TRANSFER"
+     * @const
+     */
+    "TRANSFER": "TRANSFER",
+
+    /**
+     * value: "DEPOSIT"
+     * @const
+     */
+    "DEPOSIT": "DEPOSIT",
+
+    /**
+     * value: "WITHDRAW"
+     * @const
+     */
+    "WITHDRAW": "WITHDRAW",
+
+    /**
+     * value: "FINE"
+     * @const
+     */
+    "FINE": "FINE"
+};
 
 
 

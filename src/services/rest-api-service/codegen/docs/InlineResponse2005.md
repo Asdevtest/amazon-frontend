@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tech_pause** | **Number** |  | [optional] 
+**amount** | **Number** | Кол-во продукта в айтеме в коробке | [optional] 
+**id** | **Number** | Номер заказа | [optional] 
 
 

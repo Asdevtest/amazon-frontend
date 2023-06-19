@@ -22,12 +22,11 @@ class InlineObject32 {
     /**
      * Constructs a new <code>InlineObject32</code>.
      * @alias module:model/InlineObject32
-     * @param boxIds {Array.<String>} 
-     * @param newAmounts {Array.<Number>} 
+     * @param name {String} Название склада.
      */
-    constructor(boxIds, newAmounts) { 
+    constructor(name) { 
         
-        InlineObject32.initialize(this, boxIds, newAmounts);
+        InlineObject32.initialize(this, name);
     }
 
     /**
@@ -35,9 +34,8 @@ class InlineObject32 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxIds, newAmounts) { 
-        obj['boxIds'] = boxIds;
-        obj['newAmounts'] = newAmounts;
+    static initialize(obj, name) { 
+        obj['name'] = name;
     }
 
     /**
@@ -51,11 +49,26 @@ class InlineObject32 {
         if (data) {
             obj = obj || new InlineObject32();
 
-            if (data.hasOwnProperty('boxIds')) {
-                obj['boxIds'] = ApiClient.convertToType(data['boxIds'], ['String']);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('newAmounts')) {
-                obj['newAmounts'] = ApiClient.convertToType(data['newAmounts'], ['Number']);
+            if (data.hasOwnProperty('country')) {
+                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            }
+            if (data.hasOwnProperty('zipCode')) {
+                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
+            }
+            if (data.hasOwnProperty('state')) {
+                obj['state'] = ApiClient.convertToType(data['state'], 'String');
+            }
+            if (data.hasOwnProperty('city')) {
+                obj['city'] = ApiClient.convertToType(data['city'], 'String');
+            }
+            if (data.hasOwnProperty('address')) {
+                obj['address'] = ApiClient.convertToType(data['address'], 'String');
+            }
+            if (data.hasOwnProperty('fontColor')) {
+                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
             }
         }
         return obj;
@@ -65,14 +78,46 @@ class InlineObject32 {
 }
 
 /**
- * @member {Array.<String>} boxIds
+ * Название склада.
+ * @member {String} name
  */
-InlineObject32.prototype['boxIds'] = undefined;
+InlineObject32.prototype['name'] = undefined;
 
 /**
- * @member {Array.<Number>} newAmounts
+ * Страна.
+ * @member {String} country
  */
-InlineObject32.prototype['newAmounts'] = undefined;
+InlineObject32.prototype['country'] = undefined;
+
+/**
+ * Индекс. 5 цифр.
+ * @member {String} zipCode
+ */
+InlineObject32.prototype['zipCode'] = undefined;
+
+/**
+ * Штат.
+ * @member {String} state
+ */
+InlineObject32.prototype['state'] = undefined;
+
+/**
+ * Город.
+ * @member {String} city
+ */
+InlineObject32.prototype['city'] = undefined;
+
+/**
+ * Адрес склада.
+ * @member {String} address
+ */
+InlineObject32.prototype['address'] = undefined;
+
+/**
+ * Цвет шрифта
+ * @member {String} fontColor
+ */
+InlineObject32.prototype['fontColor'] = undefined;
 
 
 

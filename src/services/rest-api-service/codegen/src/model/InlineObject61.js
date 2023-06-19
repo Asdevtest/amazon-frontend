@@ -22,11 +22,11 @@ class InlineObject61 {
     /**
      * Constructs a new <code>InlineObject61</code>.
      * @alias module:model/InlineObject61
-     * @param title {String} Тег
+     * @param profileId {String} id профайла
      */
-    constructor(title) { 
+    constructor(profileId) { 
         
-        InlineObject61.initialize(this, title);
+        InlineObject61.initialize(this, profileId);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject61 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, title) { 
-        obj['title'] = title;
+    static initialize(obj, profileId) { 
+        obj['profileId'] = profileId;
     }
 
     /**
@@ -49,8 +49,8 @@ class InlineObject61 {
         if (data) {
             obj = obj || new InlineObject61();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('profileId')) {
+                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
             }
         }
         return obj;
@@ -60,10 +60,10 @@ class InlineObject61 {
 }
 
 /**
- * Тег
- * @member {String} title
+ * id профайла
+ * @member {String} profileId
  */
-InlineObject61.prototype['title'] = undefined;
+InlineObject61.prototype['profileId'] = undefined;
 
 
 
