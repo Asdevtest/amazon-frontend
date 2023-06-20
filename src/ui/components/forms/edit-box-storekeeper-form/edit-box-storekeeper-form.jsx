@@ -115,7 +115,7 @@ export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoeffic
             //     volumeWeightCoefficient,
             //   2,
             // )
-            toFixed(calcVolumeWeightForBox(orderBox, volumeWeightCoefficient) / weightConversion, 2)
+            toFixed(calcVolumeWeightForBox(orderBox, volumeWeightCoefficient), 2)
           }
         />
 
@@ -126,16 +126,14 @@ export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoeffic
           labelClasses={classNames.label}
           value={Math.max(
             toFixed(
-              ((sizeSetting === unitsOfChangeOptions.EU
-                ? orderBox.heightCmWarehouse *
-                  inchesCoefficient *
-                  orderBox.widthCmWarehouse *
-                  inchesCoefficient *
-                  orderBox.lengthCmWarehouse *
+              ((sizeSetting === unitsOfChangeOptions.US
+                ? ((((orderBox.heightCmWarehouse / inchesCoefficient) * orderBox.widthCmWarehouse) /
+                    inchesCoefficient) *
+                    orderBox.lengthCmWarehouse) /
                   inchesCoefficient
                 : orderBox.heightCmWarehouse * orderBox.widthCmWarehouse * orderBox.lengthCmWarehouse) /
                 volumeWeightCoefficient,
-              orderBox.weighGrossKgWarehouse) / weightConversion,
+              orderBox.weighGrossKgWarehouse),
               2,
             ),
           )}
@@ -240,7 +238,7 @@ export const EditBoxStorekeeperForm = observer(
       destinationId: formItem?.destination?._id || null,
       storekeeperId: formItem?.storekeeper?._id || '',
       logicsTariffId: formItem?.logicsTariff?._id || null,
-      variationTariffId: formItem?.variationTariff?._id || '',
+      variationTariffId: formItem?.variationTariff?._id || null,
 
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel,
@@ -321,7 +319,7 @@ export const EditBoxStorekeeperForm = observer(
           lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse / inchesCoefficient, 2),
           widthCmWarehouse: toFixed(boxFields.widthCmWarehouse / inchesCoefficient, 2),
           heightCmWarehouse: toFixed(boxFields.heightCmWarehouse / inchesCoefficient, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.heightCmWarehouse / poundsWeightCoefficient, 2),
+          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse / poundsWeightCoefficient, 2),
         })
       } else {
         setBoxFields({
@@ -329,19 +327,20 @@ export const EditBoxStorekeeperForm = observer(
           lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 2),
           widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 2),
           heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.heightCmWarehouse * poundsWeightCoefficient, 2),
+          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
         })
       }
     }
 
     const getBoxDataToSubmit = () => {
-      if (sizeSetting === unitsOfChangeOptions.EU) {
+      if (sizeSetting === unitsOfChangeOptions.US) {
         return {
           ...boxFields,
           destinationId: boxFields.destinationId || null,
           lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 2),
           widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 2),
           heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 2),
+          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
         }
       } else {
         return { ...boxFields, destinationId: boxFields.destinationId || null }
@@ -955,7 +954,7 @@ export const EditBoxStorekeeperForm = observer(
             disabled={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Save changes to the box'])}
             className={classNames.button}
-            onClick={() => {
+            onClick={() =>
               onSubmit({
                 id: formItem?._id,
                 boxData: getBoxDataToSubmit(),
@@ -966,7 +965,7 @@ export const EditBoxStorekeeperForm = observer(
                   hsCode: el.product.hsCode,
                 })),
               })
-            }}
+            }
           >
             {t(TranslationKey.Save)}
           </Button>

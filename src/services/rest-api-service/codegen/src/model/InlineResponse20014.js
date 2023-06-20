@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsTasksLightBoxes from './ApiV1AdminsTasksLightBoxes';
+import ApiV1AdminsTasksLightStorekeeper from './ApiV1AdminsTasksLightStorekeeper';
 
 /**
  * The InlineResponse20014 model module.
@@ -47,11 +49,38 @@ class InlineResponse20014 {
         if (data) {
             obj = obj || new InlineResponse20014();
 
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Number');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Number');
+            }
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('isBarCodeAttached')) {
+                obj['isBarCodeAttached'] = ApiClient.convertToType(data['isBarCodeAttached'], 'Boolean');
+            }
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            }
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AdminsTasksLightStorekeeper.constructFromObject(data['storekeeper']);
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1AdminsTasksLightBoxes]);
+            }
+            if (data.hasOwnProperty('boxesBefore')) {
+                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1AdminsTasksLightBoxes]);
             }
         }
         return obj;
@@ -61,16 +90,69 @@ class InlineResponse20014 {
 }
 
 /**
- * Кол-во продукта в айтеме в коробке
- * @member {Number} amount
+ * GUID элемента
+ * @member {String} _id
  */
-InlineResponse20014.prototype['amount'] = undefined;
+InlineResponse20014.prototype['_id'] = undefined;
 
 /**
- * Номер заказа
- * @member {Number} id
+ * Дата создания.
+ * @member {Number} createdAt
  */
-InlineResponse20014.prototype['id'] = undefined;
+InlineResponse20014.prototype['createdAt'] = undefined;
+
+/**
+ * Дата обновления.
+ * @member {Number} updatedAt
+ */
+InlineResponse20014.prototype['updatedAt'] = undefined;
+
+/**
+ * Тип операции
+ * @member {String} operationType
+ */
+InlineResponse20014.prototype['operationType'] = undefined;
+
+/**
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+ * @member {Number} status
+ */
+InlineResponse20014.prototype['status'] = undefined;
+
+/**
+ * Проклеены ли все баркоды в задаче
+ * @member {Boolean} isBarCodeAttached
+ */
+InlineResponse20014.prototype['isBarCodeAttached'] = undefined;
+
+/**
+ * Приоритет задачи
+ * @member {Number} priority
+ */
+InlineResponse20014.prototype['priority'] = undefined;
+
+/**
+ * reason of priority
+ * @member {String} reason
+ */
+InlineResponse20014.prototype['reason'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsTasksLightStorekeeper} storekeeper
+ */
+InlineResponse20014.prototype['storekeeper'] = undefined;
+
+/**
+ * Массив коробок которые были до переформирования коробок.
+ * @member {Array.<module:model/ApiV1AdminsTasksLightBoxes>} boxes
+ */
+InlineResponse20014.prototype['boxes'] = undefined;
+
+/**
+ * Массив коробок которые были до переформирования коробок.
+ * @member {Array.<module:model/ApiV1AdminsTasksLightBoxes>} boxesBefore
+ */
+InlineResponse20014.prototype['boxesBefore'] = undefined;
 
 
 

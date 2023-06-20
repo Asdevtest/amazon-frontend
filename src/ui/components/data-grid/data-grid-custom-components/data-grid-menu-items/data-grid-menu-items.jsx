@@ -591,8 +591,6 @@ export const CreatedByMenuItem = React.memo(
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
-      console.log('choosenItems', choosenItems)
-
       const onClickItem = obj => {
         if (choosenItems.some(item => item._id === obj._id)) {
           setChoosenItems(choosenItems.slice().filter(item => item._id !== obj._id))
@@ -676,21 +674,20 @@ export const CreatedByMenuItem = React.memo(
               onClick={e => {
                 onClose(e)
 
-                if (choosenItems.some(item => data?.createdBy?.filterData?.some(obj => obj?._id === item?._id))) {
-                  const choosenCreatedBy = choosenItems.filter(item =>
-                    data?.createdBy?.filterData?.some(obj => obj?._id === item?._id),
-                  )
-
-                  onChangeFullFieldMenuItem(choosenCreatedBy, 'createdBy')
-                }
                 if (choosenItems?.some(item => data?.sub?.filterData?.some(obj => obj?._id === item?._id))) {
                   const choosenSub = choosenItems.filter(item =>
                     data?.sub?.filterData?.some(obj => obj?._id === item?._id),
                   )
-
                   onChangeFullFieldMenuItem(choosenSub, 'sub')
                 }
 
+                if (choosenItems.some(item => data?.createdBy?.filterData?.some(obj => obj?._id === item?._id))) {
+                  // const choosenCreatedBy = choosenItems.filter(item =>
+                  //   data?.createdBy?.filterData?.some(obj => obj?._id === item?._id),
+                  // )
+                  // onChangeFullFieldMenuItem(choosenCreatedBy, 'createdBy')
+                  onChangeFullFieldMenuItem([], 'sub')
+                }
                 onClickAccept()
               }}
             >
@@ -961,7 +958,7 @@ export const NormalFieldMenuItem = React.memo(
       useEffect(() => {
         setItemsForRender(
           filterData
-            .filter(el => el)
+            .filter(el => Number.isInteger(el))
             .sort(
               (a, b) =>
                 currentFilterData.length &&

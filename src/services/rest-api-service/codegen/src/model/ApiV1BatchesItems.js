@@ -12,8 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse200 from './InlineResponse200';
-import InlineResponse2001 from './InlineResponse2001';
+import ApiV1BatchesOrder from './ApiV1BatchesOrder';
+import ApiV1BatchesProduct from './ApiV1BatchesProduct';
 
 /**
  * The ApiV1BatchesItems model module.
@@ -53,13 +53,13 @@ class ApiV1BatchesItems {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
             if (data.hasOwnProperty('product')) {
-                obj['product'] = InlineResponse200.constructFromObject(data['product']);
+                obj['product'] = ApiV1BatchesProduct.constructFromObject(data['product']);
             }
             if (data.hasOwnProperty('amount')) {
                 obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
             if (data.hasOwnProperty('order')) {
-                obj['order'] = InlineResponse2001.constructFromObject(data['order']);
+                obj['order'] = ApiV1BatchesOrder.constructFromObject(data['order']);
             }
             if (data.hasOwnProperty('barCode')) {
                 obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
@@ -84,7 +84,7 @@ class ApiV1BatchesItems {
 ApiV1BatchesItems.prototype['_id'] = undefined;
 
 /**
- * @member {module:model/InlineResponse200} product
+ * @member {module:model/ApiV1BatchesProduct} product
  */
 ApiV1BatchesItems.prototype['product'] = undefined;
 
@@ -95,7 +95,7 @@ ApiV1BatchesItems.prototype['product'] = undefined;
 ApiV1BatchesItems.prototype['amount'] = undefined;
 
 /**
- * @member {module:model/InlineResponse2001} order
+ * @member {module:model/ApiV1BatchesOrder} order
  */
 ApiV1BatchesItems.prototype['order'] = undefined;
 

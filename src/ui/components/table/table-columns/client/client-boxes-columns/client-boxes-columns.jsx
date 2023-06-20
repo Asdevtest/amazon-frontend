@@ -9,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ChangeChipCell,
   ChangeInputCell,
-  CheckboxCell,
   FormedCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
@@ -27,7 +26,6 @@ import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text
 import { t } from '@utils/translations'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
-import { Box, Typography } from '@mui/material'
 
 export const clientBoxesViewColumns = (
   handlers,
@@ -285,7 +283,13 @@ export const clientBoxesViewColumns = (
   {
     field: 'deadline',
     headerName: 'Deadline',
-    renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={'Deadline'}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.Deadline?.currentFilterData?.length}
+      />
+    ),
 
     renderCell: params => (
       <MultilineTextCell

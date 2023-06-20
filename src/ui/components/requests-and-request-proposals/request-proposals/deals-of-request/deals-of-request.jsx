@@ -47,9 +47,13 @@ export const DealsOfRequest = ({ requestProposals, onClickReview }) => {
             {requestProposals.map(deal => (
               <div key={deal.proposal._id} className={classNames.dealWrapper}>
                 <div className={classNames.userInfoWrapper}>
-                  <Avatar src={getUserAvatarSrc(deal.proposal.createdBy?._id)} className={classNames.cardImg} />
+                  <Avatar src={getUserAvatarSrc(deal?.proposal?.createdBy?._id)} className={classNames.cardImg} />
                   <div className={classNames.userNameWrapper}>
-                    <UserLink blackText name={deal.proposal.createdBy?.name} userId={deal.proposal.createdBy?._id} />
+                    <UserLink
+                      blackText
+                      name={deal?.proposal?.createdBy?.name}
+                      userId={deal?.proposal?.createdBy?._id}
+                    />
 
                     {/* <Typography>{t(TranslationKey.Reviews)}</Typography> */}
                     <Typography className={classNames.reviews} onClick={() => onClickReview()}>
@@ -58,7 +62,7 @@ export const DealsOfRequest = ({ requestProposals, onClickReview }) => {
                   </div>
 
                   <div className={classNames.userRatingWrapper}>
-                    <Rating disabled className={classNames.userRating} value={deal.proposal.createdBy?.rating} />
+                    <Rating disabled className={classNames.userRating} value={deal?.proposal?.createdBy?.rating} />
                   </div>
                 </div>
 
@@ -67,10 +71,10 @@ export const DealsOfRequest = ({ requestProposals, onClickReview }) => {
                     <Typography className={classNames.blockText}>{t(TranslationKey.Status)}</Typography>
                     <div className={classNames.requestStatusWrapper}>
                       <Typography className={classNames.requestStatus}>
-                        <span style={{ backgroundColor: RequestProposalStatusColor(deal.proposal.status) }}></span>
+                        <span style={{ backgroundColor: RequestProposalStatusColor(deal?.proposal?.status) }}></span>
                       </Typography>
                       <Typography className={classNames.standartText}>
-                        {RequestProposalStatusTranslate(deal.proposal.status)}
+                        {RequestProposalStatusTranslate(deal?.proposal?.status)}
                       </Typography>
                     </div>
                   </div>
@@ -80,7 +84,7 @@ export const DealsOfRequest = ({ requestProposals, onClickReview }) => {
                   <div className={classNames.requestItemInfoWrapper}>
                     <Typography className={classNames.blockText}>{t(TranslationKey.Time)}</Typography>
                     <Typography className={classNames.blockText}>
-                      {formatDateDistanceFromNowStrict(deal.proposal.timeoutAt, now)}
+                      {formatDateDistanceFromNowStrict(deal?.proposal?.timeoutAt, now)}
                     </Typography>
                   </div>
                 </div>
@@ -89,7 +93,7 @@ export const DealsOfRequest = ({ requestProposals, onClickReview }) => {
                   <div className={classNames.requestItemInfoWrapper}>
                     <Typography className={classNames.blockText}>{t(TranslationKey.Deadline)}</Typography>
                     <Typography className={classNames.blockText}>
-                      {formatNormDateTime(deal.proposal.timeoutAt)}
+                      {formatNormDateTime(deal?.proposal?.timeoutAt)}
                     </Typography>
                   </div>
                 </div>
@@ -98,7 +102,7 @@ export const DealsOfRequest = ({ requestProposals, onClickReview }) => {
                   <div className={classNames.requestItemInfoWrapper}>
                     <Typography className={classNames.blockText}>{t(TranslationKey['Total price'])}</Typography>
                     <Typography className={classNames.price}>
-                      {toFixedWithDollarSign(deal.proposal.price, 2)}
+                      {toFixedWithDollarSign(deal?.proposal?.price, 2)}
                     </Typography>
                   </div>
                 </div>

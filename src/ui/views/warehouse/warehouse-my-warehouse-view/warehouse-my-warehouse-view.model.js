@@ -524,13 +524,13 @@ export class WarehouseMyWarehouseViewModel {
         const newItems = boxData.items.map(el => {
           const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
           return {
-            ...getObjectFilteredByKeyArrayBlackList(el, [
-              'amount',
-              'order',
-              'product',
-              'tmpBarCode',
-              'changeBarCodInInventory',
-            ]),
+            ...getObjectFilteredByKeyArrayBlackList(
+              el,
+              ['amount', 'order', 'product', 'tmpBarCode', 'changeBarCodInInventory'],
+              undefined,
+              undefined,
+              true,
+            ),
 
             _id: el._id,
 
@@ -553,6 +553,9 @@ export class WarehouseMyWarehouseViewModel {
           trackNumberFile: [...boxData.trackNumberFile, ...this.uploadedTrackNumber],
         },
         updateBoxWhiteList,
+        undefined,
+        undefined,
+        true,
       )
 
       await StorekeeperModel.editBox(id, requestBox)

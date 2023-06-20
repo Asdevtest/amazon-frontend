@@ -106,14 +106,14 @@ export const OwnerGeneralRequestInfo = ({
 
             <Typography className={classNames.subTitle}>
               {translateProposalsLeftMessage(
-                request?.request.maxAmountOfProposals -
+                request?.request?.maxAmountOfProposals -
                   (requestProposals?.filter(
                     el =>
-                      el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
-                      el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST ||
-                      el.proposal.status === RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+                      el?.proposal?.status === RequestProposalStatus?.ACCEPTED_BY_CLIENT ||
+                      el?.proposal?.status === RequestProposalStatus?.ACCEPTED_BY_CREATOR_OF_REQUEST ||
+                      el?.proposal?.status === RequestProposalStatus?.ACCEPTED_BY_SUPERVISOR,
                   ).length || 0),
-                request?.request.maxAmountOfProposals,
+                request?.request?.maxAmountOfProposals,
               )}
             </Typography>
           </div>
@@ -238,7 +238,7 @@ export const OwnerGeneralRequestInfo = ({
             {t(TranslationKey.Submitted)}
           </Typography>
           <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
-            {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.CREATED).length || 0}
+            {requestProposals?.filter(el => el?.proposal?.status === RequestProposalStatus.CREATED).length || 0}
           </Typography>
         </div>
 
@@ -247,7 +247,7 @@ export const OwnerGeneralRequestInfo = ({
             {t(TranslationKey['In the work'])}
           </Typography>
           <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
-            {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED)
+            {requestProposals?.filter(el => el?.proposal?.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED)
               .length || 0}
           </Typography>
         </div>
@@ -257,7 +257,7 @@ export const OwnerGeneralRequestInfo = ({
             {t(TranslationKey['On refinement'])}
           </Typography>
           <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
-            {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.TO_CORRECT).length || 0}
+            {requestProposals?.filter(el => el?.proposal?.status === RequestProposalStatus.TO_CORRECT).length || 0}
           </Typography>
         </div>
 
@@ -266,7 +266,7 @@ export const OwnerGeneralRequestInfo = ({
             {t(TranslationKey['Waiting for checks'])}
           </Typography>
           <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
-            {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.READY_TO_VERIFY).length || 0}
+            {requestProposals?.filter(el => el?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY).length || 0}
           </Typography>
         </div>
 
@@ -277,9 +277,9 @@ export const OwnerGeneralRequestInfo = ({
           <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
             {requestProposals?.filter(
               el =>
-                el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
-                el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST ||
-                el.proposal.status === RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+                el?.proposal?.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
+                el?.proposal?.status === RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST ||
+                el?.proposal?.status === RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
             ).length || 0}
           </Typography>
         </div>
@@ -291,9 +291,9 @@ export const OwnerGeneralRequestInfo = ({
           <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
             {requestProposals?.filter(
               el =>
-                el.proposal.status === RequestProposalStatus.CANCELED_BY_CREATOR_OF_REQUEST ||
-                el.proposal.status === RequestProposalStatus.CANCELED_BY_SUPERVISOR ||
-                el.proposal.status === RequestProposalStatus.CANCELED_BY_EXECUTOR,
+                el?.proposal?.status === RequestProposalStatus.CANCELED_BY_CREATOR_OF_REQUEST ||
+                el?.proposal?.status === RequestProposalStatus.CANCELED_BY_SUPERVISOR ||
+                el?.proposal?.status === RequestProposalStatus.CANCELED_BY_EXECUTOR,
             ).length || 0}
           </Typography>
         </div>

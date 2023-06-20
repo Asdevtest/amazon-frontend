@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **supervisorId** | **String** | GUID супервизора. | [optional] 
 **chatId** | **String** | GUID чата. | [optional] 
 **lastModifiedById** | **String** | GUID любого, кто последний редактировал предложение. | [optional] 
-**sub** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
+**sub** | [**ApiV1AnnouncementsMyCreatedBy**](ApiV1AnnouncementsMyCreatedBy.md) |  | [optional] 
 **sourceFiles** | [**[ApiV1RequestProposalsSourceFiles]**](ApiV1RequestProposalsSourceFiles.md) |  | [optional] 
 **media** | [**[ApiV1RequestProposalsMedia]**](ApiV1RequestProposalsMedia.md) |  | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 

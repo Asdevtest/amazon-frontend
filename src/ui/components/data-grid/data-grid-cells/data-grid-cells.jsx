@@ -525,7 +525,9 @@ export const UserLinkCell = React.memo(
 export const ManyUserLinkCell = React.memo(
   withStyles(({ classes: classNames, usersData }) => {
     return (
-      <div className={classNames.manyUserLinkWrapper}>
+      <div
+        className={cx(classNames.manyUserLinkWrapper, { [classNames.manyUserLinkWrapperStart]: usersData.length >= 5 })}
+      >
         {usersData?.map(user => (
           <UserLink
             key={user?._id}

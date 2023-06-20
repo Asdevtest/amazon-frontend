@@ -3,7 +3,7 @@ import { Chip, Typography } from '@mui/material'
 
 import React, { useState, useEffect } from 'react'
 
-import { inchesCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
+import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -109,8 +109,19 @@ export const MergeBoxesModal = ({
   const [imagesOfBox, setImagesOfBox] = useState([])
 
   const [comment, setComment] = useState('')
-  const onSubmitBoxesModal = () => {
-    onSubmit({ ...boxBody, destinationId: boxBody.destinationId || null }, comment, priority, priorityReason)
+  const getBoxDataToSubmit = () => {
+    if (sizeSetting === unitsOfChangeOptions.US) {
+      return {
+        ...boxBody,
+        destinationId: boxBody.destinationId || null,
+        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse * inchesCoefficient, 2),
+        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse * inchesCoefficient, 2),
+        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse * inchesCoefficient, 2),
+        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
+      }
+    } else {
+      return { ...boxBody, destinationId: boxBody.destinationId || null }
+    }
   }
 
   const onCloseBoxesModal = () => {
@@ -214,6 +225,7 @@ export const MergeBoxesModal = ({
         lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse / inchesCoefficient, 2),
         widthCmWarehouse: toFixed(boxBody.widthCmWarehouse / inchesCoefficient, 2),
         heightCmWarehouse: toFixed(boxBody.heightCmWarehouse / inchesCoefficient, 2),
+        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse / poundsWeightCoefficient, 2),
       })
     } else {
       setBoxBody({
@@ -221,6 +233,7 @@ export const MergeBoxesModal = ({
         lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse * inchesCoefficient, 2),
         widthCmWarehouse: toFixed(boxBody.widthCmWarehouse * inchesCoefficient, 2),
         heightCmWarehouse: toFixed(boxBody.heightCmWarehouse * inchesCoefficient, 2),
+        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
       })
     }
   }
@@ -469,7 +482,7 @@ export const MergeBoxesModal = ({
             // Проверка для дизейбла
             disabled={isStorekeeper ? disabledSubmitStorekeeper : disabledSubmit}
             className={classNames.button}
-            onClick={onSubmitBoxesModal}
+            onClick={() => onSubmit(getBoxDataToSubmit(), comment, priority, priorityReason)}
           >
             {t(TranslationKey.Merge)}
           </Button>
