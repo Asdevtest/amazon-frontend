@@ -18,6 +18,7 @@ export const styles = theme => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'center',
 
     border: `1px solid ${theme.palette.input.customBorder}`,
     borderBottom: 'none',
