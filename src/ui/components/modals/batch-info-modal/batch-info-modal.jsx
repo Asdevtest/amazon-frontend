@@ -374,6 +374,7 @@ export const BatchInfoModal = observer(
                 columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
                 columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
                 row: classNames.row,
+                toolbarContainer: classNames.toolbarContainer,
                 // virtualScroller: classNames.virtualScroller,
               }}
               sx={{

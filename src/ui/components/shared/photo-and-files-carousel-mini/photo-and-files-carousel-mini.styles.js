@@ -201,7 +201,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 140.99,
   },
 
   emptyIcon: {
@@ -231,7 +230,6 @@ export const useClassNames = makeStyles()(theme => ({
   image: {
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     minWidth: 60,
-    height: 110,
     objectFit: 'contain',
   },
 
