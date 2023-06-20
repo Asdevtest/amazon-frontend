@@ -516,7 +516,7 @@ export class ClientProductViewModel {
         ),
       )
 
-      // this.getProductById()
+      this.getProductById()
 
       runInAction(() => {
         this.acceptMessage = t(TranslationKey['Data was successfully saved'])
