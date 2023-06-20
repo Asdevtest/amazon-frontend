@@ -129,20 +129,7 @@ export const NavbarCollapse = ({
         return <ListItemIcon>{<div className={classNames.badge}>{userInfo.partiallyPaid}</div>}</ListItemIcon>
 
       case '/buyer/all-orders':
-        return (
-          <ListItemIcon>
-            {
-              <div className={classNames.badge}>
-                {userInfo.confirmationRequired +
-                  userInfo.inbound +
-                  userInfo.needTrackNumber +
-                  userInfo.notPaid +
-                  userInfo.closedAndCanceled +
-                  userInfo.readyForPayment}
-              </div>
-            }
-          </ListItemIcon>
-        )
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.allOrders}</div>}</ListItemIcon>
 
       default:
         return null
