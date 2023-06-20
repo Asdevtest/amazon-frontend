@@ -958,7 +958,7 @@ export const NormalFieldMenuItem = React.memo(
       useEffect(() => {
         setItemsForRender(
           filterData
-            .filter(el => el)
+            .filter(el => Number.isInteger(el))
             .sort(
               (a, b) =>
                 currentFilterData.length &&
