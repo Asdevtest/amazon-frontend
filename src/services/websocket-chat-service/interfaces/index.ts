@@ -165,6 +165,7 @@ export interface ChatMessageDataProposalStatusChanged {
 export interface ChatMessageDataProposalResultEditedEdited {
   linksToMediaFiles?: { fileLink: string; commentByPerformer: string }[] | string[]
   result: string
+  media?: { commentByPerformer: string; fileLink: string; index: number; _id: string }[]
 }
 
 export interface ChatMessageDataProposalResultEditedRequest {
