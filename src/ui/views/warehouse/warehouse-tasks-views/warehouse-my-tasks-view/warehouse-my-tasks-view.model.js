@@ -645,7 +645,7 @@ export class WarehouseMyTasksViewModel {
   async onClickResolveBtn(itemId) {
     try {
       const [task, platformSettings] = await Promise.all([
-        StorekeeperModel.getTaskById(itemId),
+        StorekeeperModel.getTaskById(itemId._id),
         UserModel.getPlatformSettings(),
       ])
 
