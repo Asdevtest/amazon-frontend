@@ -256,12 +256,29 @@ export class MyRequestsViewModel {
       this.sortModel = sortModel
     })
 
-    this.setDataGridState()
+    const clientSortColumn = sortModel.find(column => column.field === 'waitedProposals')
 
-    this.requestStatus = loadingStatuses.isLoading
-    this.getCustomRequests().then(() => {
-      this.requestStatus = loadingStatuses.success
-    })
+    if (clientSortColumn) {
+      const isAscending = clientSortColumn.sort === 'asc'
+
+      const sortedData = [...this.currentData].sort((a, b) => {
+        const valueA = a.waitedProposals
+        const valueB = b.waitedProposals
+
+        return isAscending ? valueA - valueB : valueB - valueA
+      })
+
+      runInAction(() => {
+        this.currentData = sortedData
+      })
+
+      this.setDataGridState()
+    } else {
+      this.requestStatus = loadingStatuses.isLoading
+      this.getCustomRequests().then(() => {
+        this.requestStatus = loadingStatuses.success
+      })
+    }
   }
 
   getCurrentData() {
@@ -483,6 +500,7 @@ export class MyRequestsViewModel {
 
       runInAction(() => {
         this.searchRequests = myRequestsDataConverter(result.rows)
+
         this.rowCount = result.count
       })
     } catch (error) {

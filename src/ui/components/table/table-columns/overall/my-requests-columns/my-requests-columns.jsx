@@ -128,9 +128,10 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
         // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-
+    type: 'number',
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 120,
+
     // columnKey: columnnsKeys.shared.QUANTITY,
   },
 

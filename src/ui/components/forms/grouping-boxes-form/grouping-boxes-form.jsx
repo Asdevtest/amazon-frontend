@@ -32,6 +32,7 @@ import { t } from '@utils/translations'
 import { useClassNames } from './grouping-boxes-form.style'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Input } from '@components/shared/input'
+import { BigPlusIcon } from '@components/shared/svg-icons'
 
 const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
   const { classes: classNames } = useClassNames()
@@ -554,7 +555,7 @@ export const GroupingBoxesForm = observer(
                       />
                     </div>
                   ))}
-                  <img src="/assets/icons/big-plus.svg" className={classNames.bigPlus} onClick={onClickAddBox} />
+                  <BigPlusIcon className={classNames.bigPlus} onClick={onClickAddBox} />
                 </div>
               ) : (
                 <Typography className={classNames.needChooseMainBox}>

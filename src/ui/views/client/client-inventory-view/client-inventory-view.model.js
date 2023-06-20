@@ -750,7 +750,11 @@ export class ClientInventoryViewModel {
         ? curShops
         : null
 
-      const purchaseQuantityAboveZeroFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
+      const purchaseQuantityAboveZero =
+        this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter &&
+        this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
+          ? null
+          : this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
 
       // console.log('shopFilter', shopFilter)
 
@@ -760,7 +764,7 @@ export class ClientInventoryViewModel {
 
         `clients/products/my_with_pag?filters=${this.getFilter(column)}${
           shopFilter ? `;[shopIds][$eq]=${shopFilter}` : ''
-        }&purchaseQuantityAboveZero=${purchaseQuantityAboveZeroFilter}`,
+        }&purchaseQuantityAboveZero=${purchaseQuantityAboveZero}`,
       )
 
       if (this.columnMenuSettings[column]) {

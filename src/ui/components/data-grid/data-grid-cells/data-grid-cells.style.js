@@ -796,13 +796,16 @@ export const styles = theme => ({
   multilineHeaderText: {
     width: 'fit-content',
     textAlign: 'center',
-    whiteSpace: 'normal',
+    // whiteSpace: 'normal',
 
     color: theme.palette.text.general,
 
     fontWeight: '600',
     fontSize: '12px',
     lineHeight: '14px',
+
+    whiteSpace: 'pre-line',
+    wordBreak: 'break-word',
   },
 
   adaptText: {
