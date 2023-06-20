@@ -22,11 +22,10 @@ class InlineObject31 {
     /**
      * Constructs a new <code>InlineObject31</code>.
      * @alias module:model/InlineObject31
-     * @param name {String} Название склада.
      */
-    constructor(name) { 
+    constructor() { 
         
-        InlineObject31.initialize(this, name);
+        InlineObject31.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject31 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name) { 
-        obj['name'] = name;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,26 +47,20 @@ class InlineObject31 {
         if (data) {
             obj = obj || new InlineObject31();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('lengthCmWarehouse')) {
+                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            if (data.hasOwnProperty('widthCmWarehouse')) {
+                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('zipCode')) {
-                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
+            if (data.hasOwnProperty('heightCmWarehouse')) {
+                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('state')) {
-                obj['state'] = ApiClient.convertToType(data['state'], 'String');
+            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
+                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('city')) {
-                obj['city'] = ApiClient.convertToType(data['city'], 'String');
-            }
-            if (data.hasOwnProperty('address')) {
-                obj['address'] = ApiClient.convertToType(data['address'], 'String');
-            }
-            if (data.hasOwnProperty('fontColor')) {
-                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -78,46 +70,30 @@ class InlineObject31 {
 }
 
 /**
- * Название склада.
- * @member {String} name
+ * @member {Number} lengthCmWarehouse
  */
-InlineObject31.prototype['name'] = undefined;
+InlineObject31.prototype['lengthCmWarehouse'] = undefined;
 
 /**
- * Страна.
- * @member {String} country
+ * @member {Number} widthCmWarehouse
  */
-InlineObject31.prototype['country'] = undefined;
+InlineObject31.prototype['widthCmWarehouse'] = undefined;
 
 /**
- * Индекс. 5 цифр.
- * @member {String} zipCode
+ * @member {Number} heightCmWarehouse
  */
-InlineObject31.prototype['zipCode'] = undefined;
+InlineObject31.prototype['heightCmWarehouse'] = undefined;
 
 /**
- * Штат.
- * @member {String} state
+ * @member {Number} weighGrossKgWarehouse
  */
-InlineObject31.prototype['state'] = undefined;
+InlineObject31.prototype['weighGrossKgWarehouse'] = undefined;
 
 /**
- * Город.
- * @member {String} city
+ * Массив ссылок на фотографии.
+ * @member {Array.<String>} images
  */
-InlineObject31.prototype['city'] = undefined;
-
-/**
- * Адрес склада.
- * @member {String} address
- */
-InlineObject31.prototype['address'] = undefined;
-
-/**
- * Цвет шрифта
- * @member {String} fontColor
- */
-InlineObject31.prototype['fontColor'] = undefined;
+InlineObject31.prototype['images'] = undefined;
 
 
 

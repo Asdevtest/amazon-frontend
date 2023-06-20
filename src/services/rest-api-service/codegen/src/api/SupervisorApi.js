@@ -13,14 +13,14 @@
 
 
 import ApiClient from "../ApiClient";
-import ApiV1BatchesProduct from '../model/ApiV1BatchesProduct';
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
 import InlineObject117 from '../model/InlineObject117';
 import InlineObject118 from '../model/InlineObject118';
-import InlineResponse20020 from '../model/InlineResponse20020';
-import InlineResponse20068 from '../model/InlineResponse20068';
-import InlineResponse20069 from '../model/InlineResponse20069';
+import InlineResponse200 from '../model/InlineResponse200';
+import InlineResponse20022 from '../model/InlineResponse20022';
+import InlineResponse20070 from '../model/InlineResponse20070';
+import InlineResponse20071 from '../model/InlineResponse20071';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -105,7 +105,7 @@ export default class SupervisorApi {
      * ## Получить облегченный список товаров взятых на проверку супервайзером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20020>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20022>} and HTTP response
      */
     apiV1SupervisorsProductsLightGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -124,7 +124,7 @@ export default class SupervisorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20020];
+      let returnType = [InlineResponse20022];
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/light', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -137,7 +137,7 @@ export default class SupervisorApi {
      * ## Получить облегченный список товаров взятых на проверку супервайзером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20020>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20022>}
      */
     apiV1SupervisorsProductsLightGet(opts) {
       return this.apiV1SupervisorsProductsLightGetWithHttpInfo(opts)
@@ -208,7 +208,7 @@ export default class SupervisorApi {
      * ## Получить список товаров взятых на проверку супервайзером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20068>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20070>} and HTTP response
      */
     apiV1SupervisorsProductsMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -227,7 +227,7 @@ export default class SupervisorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20068];
+      let returnType = [InlineResponse20070];
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -240,7 +240,7 @@ export default class SupervisorApi {
      * ## Получить список товаров взятых на проверку супервайзером.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20068>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20070>}
      */
     apiV1SupervisorsProductsMyGet(opts) {
       return this.apiV1SupervisorsProductsMyGetWithHttpInfo(opts)
@@ -261,7 +261,7 @@ export default class SupervisorApi {
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.filters                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20069} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20071} and HTTP response
      */
     apiV1SupervisorsProductsPagMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -286,7 +286,7 @@ export default class SupervisorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20069;
+      let returnType = InlineResponse20071;
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/pag/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -305,7 +305,7 @@ export default class SupervisorApi {
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.filters                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20069}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20071}
      */
     apiV1SupervisorsProductsPagMyGet(opts) {
       return this.apiV1SupervisorsProductsPagMyGetWithHttpInfo(opts)
@@ -375,7 +375,7 @@ export default class SupervisorApi {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.isCreatedByClient Если true отдает товары созданные клиентом.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesProduct>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse200>} and HTTP response
      */
     apiV1SupervisorsProductsVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -395,7 +395,7 @@ export default class SupervisorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [ApiV1BatchesProduct];
+      let returnType = [InlineResponse200];
       return this.apiClient.callApi(
         '/api/v1/supervisors/products/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -409,7 +409,7 @@ export default class SupervisorApi {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.isCreatedByClient Если true отдает товары созданные клиентом.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesProduct>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse200>}
      */
     apiV1SupervisorsProductsVacGet(opts) {
       return this.apiV1SupervisorsProductsVacGetWithHttpInfo(opts)

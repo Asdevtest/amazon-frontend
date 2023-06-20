@@ -4,10 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID пользователя в БД. | [optional] 
-**text** | **String** | текст отзыва/репорта | [optional] 
-**media** | **[Object]** | Прикрепленные ссылки на медиа для репорта/отзыва | [optional] 
-**user** | [**ApiV1AdminsFeedbackUser**](ApiV1AdminsFeedbackUser.md) |  | [optional] 
-**updatedAt** | **Date** | Дата создания. | [optional] 
+**count** | **Number** | Всего кол-во записей в результате запроса | [optional] 
+**rows** | [**[InlineResponse20015]**](InlineResponse20015.md) | Массив коробок c пагинацией(заданная страничка). | [optional] 
 
 

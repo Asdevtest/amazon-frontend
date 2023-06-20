@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesSplitNewBoxesParams from './ApiV1BoxesSplitNewBoxesParams';
 
 /**
  * The InlineObject17 model module.
@@ -23,10 +22,11 @@ class InlineObject17 {
     /**
      * Constructs a new <code>InlineObject17</code>.
      * @alias module:model/InlineObject17
+     * @param attachedDocuments {Array.<String>} 
      */
-    constructor() { 
+    constructor(attachedDocuments) { 
         
-        InlineObject17.initialize(this);
+        InlineObject17.initialize(this, attachedDocuments);
     }
 
     /**
@@ -34,7 +34,8 @@ class InlineObject17 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, attachedDocuments) { 
+        obj['attachedDocuments'] = attachedDocuments;
     }
 
     /**
@@ -48,11 +49,8 @@ class InlineObject17 {
         if (data) {
             obj = obj || new InlineObject17();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
-            }
-            if (data.hasOwnProperty('newBoxesParams')) {
-                obj['newBoxesParams'] = ApiClient.convertToType(data['newBoxesParams'], [ApiV1BoxesSplitNewBoxesParams]);
+            if (data.hasOwnProperty('attachedDocuments')) {
+                obj['attachedDocuments'] = ApiClient.convertToType(data['attachedDocuments'], ['String']);
             }
         }
         return obj;
@@ -62,15 +60,9 @@ class InlineObject17 {
 }
 
 /**
- * GUID коробки, которую делим
- * @member {String} guid
+ * @member {Array.<String>} attachedDocuments
  */
-InlineObject17.prototype['guid'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1BoxesSplitNewBoxesParams>} newBoxesParams
- */
-InlineObject17.prototype['newBoxesParams'] = undefined;
+InlineObject17.prototype['attachedDocuments'] = undefined;
 
 
 
