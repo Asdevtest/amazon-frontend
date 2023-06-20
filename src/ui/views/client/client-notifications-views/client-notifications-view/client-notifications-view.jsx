@@ -74,6 +74,18 @@ export const ClientNotificationsViewRaw = props => {
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>
+
+            <Button
+              className={classNames.button}
+              color="primary"
+              variant="outlined"
+              onClick={viewModel.onClickFreelanceNotifications}
+            >
+              <div className={classNames.btnTextWrapper}>
+                <Typography className={classNames.btnText}>{t(TranslationKey.Freelance)}</Typography>
+                <ArrowRightAltIcon color="primary" />
+              </div>
+            </Button>
           </div>
         </div>
       </MainContent>

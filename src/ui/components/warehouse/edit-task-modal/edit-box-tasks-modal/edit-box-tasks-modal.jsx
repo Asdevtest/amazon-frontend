@@ -103,16 +103,12 @@ const AttributesEditBlock = ({ box, setNewBoxField, volumeWeightCoefficient, siz
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey['Final weight']) + ': '}
           labelClasses={classNames.label}
-          value={Math.max(
-            toFixed(
-              ((sizeSetting === unitsOfChangeOptions.US
-                ? (box.heightCmWarehouse / inchesCoefficient) *
-                  (box.widthCmWarehouse / inchesCoefficient) *
-                  (box.lengthCmWarehouse / inchesCoefficient)
-                : box.heightCmWarehouse * box.widthCmWarehouse * box.lengthCmWarehouse) / volumeWeightCoefficient,
-              box.weighGrossKgWarehouse),
-              2,
+          value={toFixed(
+            Math.max(
+              (box.heightCmWarehouse * box.widthCmWarehouse * box.lengthCmWarehouse) / volumeWeightCoefficient,
+              box.weighGrossKgWarehouse,
             ),
+            2,
           )}
         />
       </div>

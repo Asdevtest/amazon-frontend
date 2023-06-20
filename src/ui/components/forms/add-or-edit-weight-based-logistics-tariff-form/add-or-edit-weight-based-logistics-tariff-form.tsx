@@ -171,13 +171,13 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
         if (fieldName === 'pricePerKgUsd') {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }
-          updatedDestinationVariation[fieldName] = Number(value)
-          updatedDestinationVariation.pricePerKgRmb = Number(value) * Number(formFields.yuanToDollarRate)
+          updatedDestinationVariation[fieldName] = toFixed(value, 2)
+          updatedDestinationVariation.pricePerKgRmb = toFixed(value, 2) * Number(formFields.yuanToDollarRate)
           newDestinationVariations[index] = updatedDestinationVariation
         } else if (fieldName === 'pricePerKgRmb') {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }
-          updatedDestinationVariation[fieldName] = Number(value)
-          updatedDestinationVariation.pricePerKgUsd = Number(value) / Number(formFields.yuanToDollarRate)
+          updatedDestinationVariation[fieldName] = toFixed(value, 2)
+          updatedDestinationVariation.pricePerKgUsd = toFixed(value, 2) / Number(formFields.yuanToDollarRate)
           newDestinationVariations[index] = updatedDestinationVariation
         } else {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }
@@ -611,18 +611,21 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
                       placeholder={'0.00'}
                       value={
                         currentCurrency === currencyTypes.DOLLAR
-                          ? toFixed(variant.pricePerKgUsd, 2)
+                          ? variant.pricePerKgUsd
                           : currentCurrency === currencyTypes.YUAN
-                          ? toFixed(variant.pricePerKgRmb, 2)
+                          ? variant.pricePerKgRmb
                           : ''
                       }
                       inputProps={{ maxLength: 7 }}
                       className={classNames.regionFieldInput}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+                        const input = e.target.value
+
+                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input)) {
+                          // e.target.value = toFixed(e.target.value, 2)
                           onChangeDestinationVariations(
                             currentCurrency === currencyTypes.DOLLAR ? 'pricePerKgUsd' : 'pricePerKgRmb',
-                          )(variantIndex)(e.target.value)
+                          )(variantIndex)(input)
                         }
                       }}
                     />
