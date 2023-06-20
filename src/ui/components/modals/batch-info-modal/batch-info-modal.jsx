@@ -322,7 +322,7 @@ export const BatchInfoModal = observer(
               containerClasses={cx(classNames.sumField, classNames.shippinCostContainer)}
               inputClasses={cx(classNames.infoField, classNames.shippinCostContainer)}
               labelClasses={cx(classNames.subFieldLabel)}
-              value={currentBatch.calculatedShippingCost}
+              value={toFixed(currentBatch.calculatedShippingCost, 2) || 0}
             />
 
             <Field
