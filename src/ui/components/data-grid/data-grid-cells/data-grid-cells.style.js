@@ -988,11 +988,17 @@ export const styles = theme => ({
 
   manyUserLinkWrapper: {
     width: '100%',
-    maxWidth: 167,
+    maxWidth: 152,
     overflowX: 'auto',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  manyUserLinkWrapperStart: {
+    display: 'flex',
+    justifyContent: 'start',
+    paddingBottom: 5,
   },
 
   userLinkWrapper: {
