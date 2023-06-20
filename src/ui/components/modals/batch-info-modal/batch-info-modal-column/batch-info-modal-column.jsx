@@ -16,7 +16,7 @@ import {
   PricePerUnitCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { getFullTariffTextForBoxOrOrder, toFixedWithKg } from '@utils/text'
+import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const batchInfoModalColumn = (
@@ -69,7 +69,7 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
-    renderCell: params => <MultilineTextCell text={getFullTariffTextForBoxOrOrder(params.row)} />,
+    renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row)} />,
     width: 200,
   },
 
