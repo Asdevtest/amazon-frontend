@@ -30,31 +30,31 @@ export class AdminSettingsModel {
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = destinationsColumns(this.rowHandlers)
-
   paginationModel = { page: 0, pageSize: 15 }
-  columnVisibilityModel = {}
 
+  columnVisibilityModel = {}
   adminSettings = {}
+
   serverProxy = []
   infoModalText = ''
-
   showSuccessModal = false
-  showInfoModal = false
 
+  showInfoModal = false
   get user() {
     return UserModel.userInfo
-  }
-
-  confirmModalSettings = {
-    isWarning: false,
-    message: '',
-    onClickSuccess: () => {},
   }
 
   rowHandlers = {
     onClickRemoveBtn: row => this.onClickRemoveBtn(row),
     onClickEditBtn: row => this.onClickEditBtn(row),
+  }
+
+  columnsModel = destinationsColumns(this.rowHandlers)
+
+  confirmModalSettings = {
+    isWarning: false,
+    message: '',
+    onClickSuccess: () => {},
   }
 
   constructor({ history }) {
@@ -235,14 +235,15 @@ export class AdminSettingsModel {
 
   onClickRemoveBtn(row) {
     this.destinationIdToRemove = row._id
-
     this.confirmModalSettings = {
       isWarning: true,
       message: t(TranslationKey['Are you sure you want to delete the destination?']),
       onClickSuccess: () => this.removeDestination(),
     }
 
-    this.onTriggerOpenModal('showConfirmModal')
+    runInAction(() => {
+      this.onTriggerOpenModal('showConfirmModal')
+    })
   }
 
   async removeDestination() {

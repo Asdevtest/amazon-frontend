@@ -21,8 +21,8 @@ import InlineObject65 from '../model/InlineObject65';
 import InlineObject66 from '../model/InlineObject66';
 import InlineObject67 from '../model/InlineObject67';
 import InlineObject68 from '../model/InlineObject68';
-import InlineResponse20045 from '../model/InlineResponse20045';
-import InlineResponse20046 from '../model/InlineResponse20046';
+import InlineResponse20043 from '../model/InlineResponse20043';
+import InlineResponse20044 from '../model/InlineResponse20044';
 import InlineResponse2015 from '../model/InlineResponse2015';
 import InternalServerError from '../model/InternalServerError';
 
@@ -276,7 +276,7 @@ export default class IdeaApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.productId ID продукта, который должен быть в идее
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20045>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20043>} and HTTP response
      */
     apiV1IdeasGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -296,7 +296,7 @@ export default class IdeaApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20045];
+      let returnType = [InlineResponse20043];
       return this.apiClient.callApi(
         '/api/v1/ideas/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -310,7 +310,7 @@ export default class IdeaApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.productId ID продукта, который должен быть в идее
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20045>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20043>}
      */
     apiV1IdeasGet(opts) {
       return this.apiV1IdeasGetWithHttpInfo(opts)
@@ -591,7 +591,7 @@ export default class IdeaApi {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.archive Показывать в архиве/не в архиме нотификации (default to false)
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20046>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20044>} and HTTP response
      */
     apiV1IdeasNotificationsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -611,7 +611,7 @@ export default class IdeaApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20046];
+      let returnType = [InlineResponse20044];
       return this.apiClient.callApi(
         '/api/v1/ideas/notifications', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -625,7 +625,7 @@ export default class IdeaApi {
      * @param {Object} opts Optional parameters
      * @param {Boolean} opts.archive Показывать в архиве/не в архиме нотификации (default to false)
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20046>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20044>}
      */
     apiV1IdeasNotificationsGet(opts) {
       return this.apiV1IdeasNotificationsGetWithHttpInfo(opts)

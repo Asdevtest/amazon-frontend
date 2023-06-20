@@ -4,8 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | Гуид тега | [optional] 
-**title** | **String** | Тег | [optional] 
-**productCount** | **Number** | Кол-во продуктов, которые используют этот тег | [optional] 
+**product** | [**ApiV1IdeasNotificationsProduct**](ApiV1IdeasNotificationsProduct.md) |  | [optional] 
+**idea** | [**ApiV1IdeasNotificationsIdea**](ApiV1IdeasNotificationsIdea.md) |  | [optional] 
+**createdBy** | [**ApiV1IdeasNotificationsCreatedBy**](ApiV1IdeasNotificationsCreatedBy.md) |  | [optional] 
+**createdAt** | **String** |  | [optional] 
 
 

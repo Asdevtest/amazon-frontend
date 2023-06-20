@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | GUID коробки, объединение которой нужно отменить | [optional] 
+**boxIds** | **[String]** |  | 
+**newAmounts** | **[Number]** |  | 
 
 

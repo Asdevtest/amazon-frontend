@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**attachedDocuments** | **[String]** |  | 
+**guid** | **String** | GUID коробки, которую делим | [optional] 
+**newBoxesParams** | [**[ApiV1BoxesSplitNewBoxesParams]**](ApiV1BoxesSplitNewBoxesParams.md) |  | [optional] 
 
 

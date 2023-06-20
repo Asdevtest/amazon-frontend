@@ -19,7 +19,7 @@ import {
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
+export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover, onListingFiltersData) => [
   {
     field: 'priority',
     headerName: t(TranslationKey['Priority and Express Delivery']),
@@ -116,6 +116,22 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
     sortable: false,
 
     columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
+  },
+
+  {
+    field: 'waitedProposals',
+    headerName: t(TranslationKey['Waiting for checks']),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Waiting for checks'])}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 120,
+    // columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -224,11 +240,14 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
   {
     field: 'uploadedToListing',
     headerName: t(TranslationKey['Uploaded by on listing']),
-    renderHeader: () => (
+    renderHeader: params => (
       <MultilineTextHeaderCell
         text={t(TranslationKey['Uploaded by on listing'])}
-        // isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={
+          !getColumnMenuSettings()?.onListingFiltersData?.onListing ||
+          !getColumnMenuSettings()?.onListingFiltersData?.notOnListing
+        }
       />
     ),
 
@@ -240,7 +259,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
       />
     ),
     width: 115,
-    // columnKey: columnnsKeys.shared.QUANTITY,
+    columnKey: columnnsKeys.client.FREELANCER_REQUEST_LISTING,
   },
 
   {
@@ -257,22 +276,6 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
     width: 115,
     // type: 'date',
     columnKey: columnnsKeys.shared.DATE,
-  },
-
-  {
-    field: 'waitedProposals',
-    headerName: t(TranslationKey['Waiting for checks']),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey['Waiting for checks'])}
-        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
-
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 80,
-    // columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {

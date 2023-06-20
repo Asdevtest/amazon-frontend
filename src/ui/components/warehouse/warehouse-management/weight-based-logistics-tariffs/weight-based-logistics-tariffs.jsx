@@ -48,9 +48,11 @@ export const WeightBasedLogisticsTariffs = observer(() => {
     confirmModalSettings,
     showConfirmModal,
     currentData,
+    destinationsFavourites,
+    logisticsTariffs,
+    setDestinationsFavouritesItem,
     onTriggerOpenModal,
     onClickAddBtn,
-    logisticsTariffs,
 
     onChangeSortingModel,
     onChangeFilterModel,
@@ -172,6 +174,8 @@ export const WeightBasedLogisticsTariffs = observer(() => {
           tariffToEdit={tariffToEdit}
           logisticsTariffsData={logisticsTariffs}
           destinationData={destinationData}
+          setDestinationsFavouritesItem={setDestinationsFavouritesItem}
+          destinationsFavourites={destinationsFavourites}
           onCreateSubmit={onSubmitCreateTariff}
           onEditSubmit={onSubmitEditTariff}
           onClickClose={() => onTriggerOpenModal('showAddOrEditLogisticTariffModal')}

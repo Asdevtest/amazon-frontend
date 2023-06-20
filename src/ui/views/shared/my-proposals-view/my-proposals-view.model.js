@@ -11,8 +11,6 @@ import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
-
-import { checkIsFreelancer } from '@utils/checks'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
@@ -123,7 +121,13 @@ export class MyProposalsViewModel {
           el?.proposals?.some(item =>
             item.createdBy?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
           ) ||
-          el?.humanFriendlyId?.toString().toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          el?.humanFriendlyId?.toString().toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el?.createdBy?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el?.proposals.some(
+            el =>
+              el.sub?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+              el.createdBy?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          ),
         // String(el?.humanFriendlyId)?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
       )
     } else {
