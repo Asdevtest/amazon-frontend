@@ -45,7 +45,7 @@ export const DestinationVariationsSpanningCell = React.memo(
               <div className={cx(classNames.destinationWrapper, classNames.destinationVariation)}>
                 <Typography className={cx(classNames.destinationVariationText)}>
                   {destinationData?.find(obj => obj?._id === varians[0]?.destinationId)?.name ||
-                    varians[0]?.destinationId}
+                    t(TranslationKey.Missing)}
                 </Typography>
               </div>
               <div className={cx(classNames.destinationWrapper, classNames.weightWrapper)}>
