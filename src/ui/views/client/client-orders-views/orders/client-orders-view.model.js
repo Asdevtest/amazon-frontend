@@ -494,9 +494,12 @@ export class ClientOrdersViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.setDefaultStatuses()
       this.getDataGridState()
+
       await this.getShops()
       await this.getOrders()
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
