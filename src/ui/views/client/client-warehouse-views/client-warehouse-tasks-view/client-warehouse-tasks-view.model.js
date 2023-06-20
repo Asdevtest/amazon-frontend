@@ -208,11 +208,11 @@ export class ClientWarehouseTasksViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE_TASKS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_WAREHOUSE]
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_WAREHOUSE_TASKS]
 
     runInAction(() => {
       if (state) {
