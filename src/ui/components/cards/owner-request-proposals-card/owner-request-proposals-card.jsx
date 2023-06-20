@@ -78,10 +78,10 @@ export const OwnerRequestProposalsCard = ({
             <div className={classNames.cardSubContentWrapper}>
               <div className={classNames.userWrapper}>
                 <div className={classNames.userInfoWrapper}>
-                  <Avatar src={getUserAvatarSrc(item.proposal.createdBy?._id)} className={classNames.cardImg} />
+                  <Avatar src={getUserAvatarSrc(item?.proposal?.createdBy?._id)} className={classNames.cardImg} />
 
                   <div className={classNames.userNameWrapper}>
-                    <UserLink blackText name={item.proposal.createdBy?.name} userId={item.proposal.createdBy?._id} />
+                    <UserLink blackText name={item?.proposal?.createdBy?.name} userId={item.proposal.createdBy?._id} />
                     <div className={classNames.reviewWrapper}>
                       <Typography className={classNames.reviews} onClick={() => onClickReview()}>
                         {t(TranslationKey.Reviews)}
@@ -104,7 +104,7 @@ export const OwnerRequestProposalsCard = ({
                     </Typography>
 
                     <Typography className={classNames.cardTimeValue}>
-                      {minsToTime(item.proposal.execution_time)}
+                      {minsToTime(item?.proposal?.execution_time)}
                     </Typography>
                   </div>
 

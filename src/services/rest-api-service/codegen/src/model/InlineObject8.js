@@ -22,11 +22,11 @@ class InlineObject8 {
     /**
      * Constructs a new <code>InlineObject8</code>.
      * @alias module:model/InlineObject8
-     * @param productId {String} ГУид продукта
+     * @param attachedDocuments {Array.<String>} 
      */
-    constructor(productId) { 
+    constructor(attachedDocuments) { 
         
-        InlineObject8.initialize(this, productId);
+        InlineObject8.initialize(this, attachedDocuments);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject8 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId) { 
-        obj['productId'] = productId;
+    static initialize(obj, attachedDocuments) { 
+        obj['attachedDocuments'] = attachedDocuments;
     }
 
     /**
@@ -49,8 +49,8 @@ class InlineObject8 {
         if (data) {
             obj = obj || new InlineObject8();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('attachedDocuments')) {
+                obj['attachedDocuments'] = ApiClient.convertToType(data['attachedDocuments'], ['String']);
             }
         }
         return obj;
@@ -60,10 +60,9 @@ class InlineObject8 {
 }
 
 /**
- * ГУид продукта
- * @member {String} productId
+ * @member {Array.<String>} attachedDocuments
  */
-InlineObject8.prototype['productId'] = undefined;
+InlineObject8.prototype['attachedDocuments'] = undefined;
 
 
 

@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AnnouncementsMyCreatedBy from './ApiV1AnnouncementsMyCreatedBy';
+import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
 
 /**
  * The InlineResponse20061 model module.
@@ -21,6 +23,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20061 {
     /**
      * Constructs a new <code>InlineResponse20061</code>.
+     * Схема получение лайт версии продажи магазина
      * @alias module:model/InlineResponse20061
      */
     constructor() { 
@@ -50,26 +53,32 @@ class InlineResponse20061 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('requestId')) {
-                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            if (data.hasOwnProperty('owner')) {
+                obj['owner'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['owner']);
             }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('commentByClient')) {
-                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
             }
-            if (data.hasOwnProperty('commentByPerformer')) {
-                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
+            if (data.hasOwnProperty('files')) {
+                obj['files'] = ApiClient.convertToType(data['files'], ['String']);
             }
-            if (data.hasOwnProperty('fileLink')) {
-                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            if (data.hasOwnProperty('monthlyMultiplier')) {
+                obj['monthlyMultiplier'] = ApiClient.convertToType(data['monthlyMultiplier'], 'Number');
             }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('statistics')) {
+                obj['statistics'] = ApiV1ShopSellStatistics.constructFromObject(data['statistics']);
+            }
+            if (data.hasOwnProperty('businessStartDate')) {
+                obj['businessStartDate'] = ApiClient.convertToType(data['businessStartDate'], 'Date');
+            }
+            if (data.hasOwnProperty('shopDetails')) {
+                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
             }
         }
         return obj;
@@ -79,52 +88,62 @@ class InlineResponse20061 {
 }
 
 /**
- * GUID в базе данных
+ * GUID магазина на продажу.
  * @member {String} _id
  */
 InlineResponse20061.prototype['_id'] = undefined;
 
 /**
- * Guid заявки к которой относится данное media.
- * @member {String} requestId
+ * @member {module:model/ApiV1AnnouncementsMyCreatedBy} owner
  */
-InlineResponse20061.prototype['requestId'] = undefined;
+InlineResponse20061.prototype['owner'] = undefined;
 
 /**
- * Guid предложения к которой относится данное media.
- * @member {String} proposalId
+ * Имя магазина для продажи
+ * @member {String} title
  */
-InlineResponse20061.prototype['proposalId'] = undefined;
+InlineResponse20061.prototype['title'] = undefined;
 
 /**
- * комментарий клиента
- * @member {String} commentByClient
+ * Статус магазина для продажи
+ * @member {String} status
  */
-InlineResponse20061.prototype['commentByClient'] = undefined;
+InlineResponse20061.prototype['status'] = undefined;
 
 /**
- * комментарий исполнителя
- * @member {String} commentByPerformer
+ * Файлы, которые привязаны к магазину
+ * @member {Array.<String>} files
  */
-InlineResponse20061.prototype['commentByPerformer'] = undefined;
+InlineResponse20061.prototype['files'] = undefined;
 
 /**
- * Ссылка на файл
- * @member {String} fileLink
+ * Стоимость магазина
+ * @member {Number} price
  */
-InlineResponse20061.prototype['fileLink'] = undefined;
+InlineResponse20061.prototype['price'] = undefined;
 
 /**
- * Дата создания.
- * @member {Date} createdAt
+ * Ежемесячный множитель
+ * @member {Number} monthlyMultiplier
  */
-InlineResponse20061.prototype['createdAt'] = undefined;
+InlineResponse20061.prototype['monthlyMultiplier'] = undefined;
 
 /**
- * Дата обновления.
- * @member {Date} updatedAt
+ * @member {module:model/ApiV1ShopSellStatistics} statistics
  */
-InlineResponse20061.prototype['updatedAt'] = undefined;
+InlineResponse20061.prototype['statistics'] = undefined;
+
+/**
+ * Дата создания бизнеса
+ * @member {Date} businessStartDate
+ */
+InlineResponse20061.prototype['businessStartDate'] = undefined;
+
+/**
+ * Детали магазина
+ * @member {String} shopDetails
+ */
+InlineResponse20061.prototype['shopDetails'] = undefined;
 
 
 

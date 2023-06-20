@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
+import ApiV1BatchesOrderLogicsTariffConditionsByRegion from './ApiV1BatchesOrderLogicsTariffConditionsByRegion';
 import ApiV1StorekeepersTariffLogisticsDestinationVariations from './ApiV1StorekeepersTariffLogisticsDestinationVariations';
 
 /**
@@ -74,7 +74,7 @@ class InlineObject113 {
                 obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
             }
             if (data.hasOwnProperty('conditionsByRegion')) {
-                obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
+                obj['conditionsByRegion'] = ApiV1BatchesOrderLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
             if (data.hasOwnProperty('destinationVariations')) {
                 obj['destinationVariations'] = ApiClient.convertToType(data['destinationVariations'], [ApiV1StorekeepersTariffLogisticsDestinationVariations]);
@@ -135,7 +135,7 @@ InlineObject113.prototype['minWeightInKg'] = undefined;
 InlineObject113.prototype['archive'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
+ * @member {module:model/ApiV1BatchesOrderLogicsTariffConditionsByRegion} conditionsByRegion
  */
 InlineObject113.prototype['conditionsByRegion'] = undefined;
 
