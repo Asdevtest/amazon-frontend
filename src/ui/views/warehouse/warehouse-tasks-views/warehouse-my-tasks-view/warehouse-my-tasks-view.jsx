@@ -185,7 +185,7 @@ export const WarehouseMyTasksViewRaw = props => {
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onChangePaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
-            onRowDoubleClick={params => viewModel.onClickResolveBtn(params.row.originalData)}
+            onRowDoubleClick={params => viewModel.onClickResolveBtn(params.row.originalData._id)}
           />
         </div>
       </MainContent>
