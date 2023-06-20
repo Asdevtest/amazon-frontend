@@ -124,18 +124,25 @@ export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoeffic
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey['Final weight']) + ': '}
           labelClasses={classNames.label}
-          value={Math.max(
-            toFixed(
-              ((sizeSetting === unitsOfChangeOptions.US
-                ? ((((orderBox.heightCmWarehouse / inchesCoefficient) * orderBox.widthCmWarehouse) /
-                    inchesCoefficient) *
-                    orderBox.lengthCmWarehouse) /
-                  inchesCoefficient
-                : orderBox.heightCmWarehouse * orderBox.widthCmWarehouse * orderBox.lengthCmWarehouse) /
+          value={toFixed(
+            Math.max(
+              // toFixed(
+              //   ((sizeSetting === unitsOfChangeOptions.US
+              //     ? ((((orderBox.heightCmWarehouse / inchesCoefficient) * orderBox.widthCmWarehouse) /
+              //         inchesCoefficient) *
+              //         orderBox.lengthCmWarehouse) /
+              //       inchesCoefficient
+              //     : orderBox.heightCmWarehouse * orderBox.widthCmWarehouse * orderBox.lengthCmWarehouse) /
+              //     volumeWeightCoefficient,
+              //   orderBox.weighGrossKgWarehouse),
+              //   2,
+              // ),
+
+              (orderBox.heightCmWarehouse * orderBox.widthCmWarehouse * orderBox.lengthCmWarehouse) /
                 volumeWeightCoefficient,
-              orderBox.weighGrossKgWarehouse),
-              2,
+              orderBox.weighGrossKgWarehouse,
             ),
+            2,
           )}
         />
       </div>

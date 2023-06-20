@@ -70,7 +70,8 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, isL
         <PhotoAndFilesCarousel
           notToShowEmpty
           small
-          files={message.data.edited.linksToMediaFiles?.map(el => (typeof el === 'object' ? el.fileLink : el))}
+          // files={message.data.edited.linksToMediaFiles?.map(el => (typeof el === 'object' ? el.fileLink : el))}
+          files={message.data?.edited?.media?.map(el => (typeof el === 'object' ? el.fileLink : el))}
           width="340px"
           withoutPhotos={undefined}
           whithoutFiles={undefined}
