@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20060Rows from './InlineResponse20060Rows';
 
 /**
  * The InlineResponse20060 model module.
@@ -21,7 +22,6 @@ import ApiClient from '../ApiClient';
 class InlineResponse20060 {
     /**
      * Constructs a new <code>InlineResponse20060</code>.
-     * Успешный ответ.
      * @alias module:model/InlineResponse20060
      */
     constructor() { 
@@ -48,11 +48,11 @@ class InlineResponse20060 {
         if (data) {
             obj = obj || new InlineResponse20060();
 
-            if (data.hasOwnProperty('isExist')) {
-                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
+            if (data.hasOwnProperty('count')) {
+                obj['count'] = ApiClient.convertToType(data['count'], 'Number');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('rows')) {
+                obj['rows'] = ApiClient.convertToType(data['rows'], [InlineResponse20060Rows]);
             }
         }
         return obj;
@@ -62,16 +62,15 @@ class InlineResponse20060 {
 }
 
 /**
- * Флаг, показывает есть ли такой ASIN в базе или нет
- * @member {Boolean} isExist
+ * @member {Number} count
  */
-InlineResponse20060.prototype['isExist'] = undefined;
+InlineResponse20060.prototype['count'] = undefined;
 
 /**
- * Причина из таблицы с асинами
- * @member {String} reason
+ * Массив заявок.
+ * @member {Array.<module:model/InlineResponse20060Rows>} rows
  */
-InlineResponse20060.prototype['reason'] = undefined;
+InlineResponse20060.prototype['rows'] = undefined;
 
 
 

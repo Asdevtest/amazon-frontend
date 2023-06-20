@@ -22,12 +22,10 @@ class InlineObject23 {
     /**
      * Constructs a new <code>InlineObject23</code>.
      * @alias module:model/InlineObject23
-     * @param boxIds {Array.<String>} 
-     * @param newAmounts {Array.<Number>} 
      */
-    constructor(boxIds, newAmounts) { 
+    constructor() { 
         
-        InlineObject23.initialize(this, boxIds, newAmounts);
+        InlineObject23.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject23 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, boxIds, newAmounts) { 
-        obj['boxIds'] = boxIds;
-        obj['newAmounts'] = newAmounts;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,8 @@ class InlineObject23 {
         if (data) {
             obj = obj || new InlineObject23();
 
-            if (data.hasOwnProperty('boxIds')) {
-                obj['boxIds'] = ApiClient.convertToType(data['boxIds'], ['String']);
-            }
-            if (data.hasOwnProperty('newAmounts')) {
-                obj['newAmounts'] = ApiClient.convertToType(data['newAmounts'], ['Number']);
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -65,14 +58,10 @@ class InlineObject23 {
 }
 
 /**
- * @member {Array.<String>} boxIds
+ * GUID коробки, объединение которой нужно отменить
+ * @member {String} guid
  */
-InlineObject23.prototype['boxIds'] = undefined;
-
-/**
- * @member {Array.<Number>} newAmounts
- */
-InlineObject23.prototype['newAmounts'] = undefined;
+InlineObject23.prototype['guid'] = undefined;
 
 
 

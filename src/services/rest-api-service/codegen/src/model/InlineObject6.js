@@ -22,10 +22,11 @@ class InlineObject6 {
     /**
      * Constructs a new <code>InlineObject6</code>.
      * @alias module:model/InlineObject6
+     * @param name {String} Название склада.
      */
-    constructor() { 
+    constructor(name) { 
         
-        InlineObject6.initialize(this);
+        InlineObject6.initialize(this, name);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject6 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name) { 
+        obj['name'] = name;
     }
 
     /**
@@ -47,20 +49,26 @@ class InlineObject6 {
         if (data) {
             obj = obj || new InlineObject6();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('calculationMethod')) {
-                obj['calculationMethod'] = ApiClient.convertToType(data['calculationMethod'], 'Number');
+            if (data.hasOwnProperty('country')) {
+                obj['country'] = ApiClient.convertToType(data['country'], 'String');
             }
-            if (data.hasOwnProperty('volumeWeightDivide')) {
-                obj['volumeWeightDivide'] = ApiClient.convertToType(data['volumeWeightDivide'], 'Number');
+            if (data.hasOwnProperty('zipCode')) {
+                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
             }
-            if (data.hasOwnProperty('trackingNumber')) {
-                obj['trackingNumber'] = ApiClient.convertToType(data['trackingNumber'], 'String');
+            if (data.hasOwnProperty('state')) {
+                obj['state'] = ApiClient.convertToType(data['state'], 'String');
             }
-            if (data.hasOwnProperty('actualShippingCost')) {
-                obj['actualShippingCost'] = ApiClient.convertToType(data['actualShippingCost'], 'Number');
+            if (data.hasOwnProperty('city')) {
+                obj['city'] = ApiClient.convertToType(data['city'], 'String');
+            }
+            if (data.hasOwnProperty('address')) {
+                obj['address'] = ApiClient.convertToType(data['address'], 'String');
+            }
+            if (data.hasOwnProperty('fontColor')) {
+                obj['fontColor'] = ApiClient.convertToType(data['fontColor'], 'String');
             }
         }
         return obj;
@@ -70,34 +78,46 @@ class InlineObject6 {
 }
 
 /**
- * Название партии
- * @member {String} title
+ * Название склада.
+ * @member {String} name
  */
-InlineObject6.prototype['title'] = undefined;
+InlineObject6.prototype['name'] = undefined;
 
 /**
- * Метод подсчта массы партии
- * @member {Number} calculationMethod
+ * Страна.
+ * @member {String} country
  */
-InlineObject6.prototype['calculationMethod'] = undefined;
+InlineObject6.prototype['country'] = undefined;
 
 /**
- * Делитель объема партии
- * @member {Number} volumeWeightDivide
+ * Индекс. 5 цифр.
+ * @member {String} zipCode
  */
-InlineObject6.prototype['volumeWeightDivide'] = undefined;
+InlineObject6.prototype['zipCode'] = undefined;
 
 /**
- * Трек номер партии
- * @member {String} trackingNumber
+ * Штат.
+ * @member {String} state
  */
-InlineObject6.prototype['trackingNumber'] = undefined;
+InlineObject6.prototype['state'] = undefined;
 
 /**
- * Настоящая стоимость доставки
- * @member {Number} actualShippingCost
+ * Город.
+ * @member {String} city
  */
-InlineObject6.prototype['actualShippingCost'] = undefined;
+InlineObject6.prototype['city'] = undefined;
+
+/**
+ * Адрес склада.
+ * @member {String} address
+ */
+InlineObject6.prototype['address'] = undefined;
+
+/**
+ * Цвет шрифта
+ * @member {String} fontColor
+ */
+InlineObject6.prototype['fontColor'] = undefined;
 
 
 

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **id** | **Number** | id заказ. | [optional] 
 **item** | **String** |  | [optional] 
 **clientComment** | **String** | Комментарии к товару, от клиента. | [optional] 
-**orderSupplier** | [**ApiV1BatchesProductSuppliers**](ApiV1BatchesProductSuppliers.md) |  | [optional] 
+**orderSupplier** | [**ApiV1AdminsGetProductsByStatusSuppliers**](ApiV1AdminsGetProductsByStatusSuppliers.md) |  | [optional] 
 **priority** | **String** | Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно | [optional] 
 
 

@@ -13,17 +13,17 @@
 
 
 import ApiClient from "../ApiClient";
-import ApiV1BatchesProduct from '../model/ApiV1BatchesProduct';
-import ApiV1BatchesProductRedFlags from '../model/ApiV1BatchesProductRedFlags';
+import ApiV1AdminsGetProductsByStatusRedFlags from '../model/ApiV1AdminsGetProductsByStatusRedFlags';
 import BadRequestError from '../model/BadRequestError';
 import InlineObject4 from '../model/InlineObject4';
 import InlineObject78 from '../model/InlineObject78';
 import InlineObject79 from '../model/InlineObject79';
 import InlineObject80 from '../model/InlineObject80';
 import InlineObject81 from '../model/InlineObject81';
-import InlineResponse20028 from '../model/InlineResponse20028';
-import InlineResponse20052 from '../model/InlineResponse20052';
-import InlineResponse20053 from '../model/InlineResponse20053';
+import InlineResponse200 from '../model/InlineResponse200';
+import InlineResponse20030 from '../model/InlineResponse20030';
+import InlineResponse20054 from '../model/InlineResponse20054';
+import InlineResponse20055 from '../model/InlineResponse20055';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -165,7 +165,7 @@ export default class ProductApi {
      * @param {String} guid ID пользователя
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20028>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20030>} and HTTP response
      */
     apiV1ProductsByCreatorGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -189,7 +189,7 @@ export default class ProductApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20028];
+      let returnType = [InlineResponse20030];
       return this.apiClient.callApi(
         '/api/v1/products/by_creator/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -203,7 +203,7 @@ export default class ProductApi {
      * @param {String} guid ID пользователя
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20028>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20030>}
      */
     apiV1ProductsByCreatorGuidGet(guid, opts) {
       return this.apiV1ProductsByCreatorGuidGetWithHttpInfo(guid, opts)
@@ -322,7 +322,7 @@ export default class ProductApi {
      * @param {String} guid id товара.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiV1BatchesProduct} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
      */
     apiV1ProductsGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -346,7 +346,7 @@ export default class ProductApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = ApiV1BatchesProduct;
+      let returnType = InlineResponse200;
       return this.apiClient.callApi(
         '/api/v1/products/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -360,7 +360,7 @@ export default class ProductApi {
      * @param {String} guid id товара.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiV1BatchesProduct}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
      */
     apiV1ProductsGuidGet(guid, opts) {
       return this.apiV1ProductsGuidGetWithHttpInfo(guid, opts)
@@ -429,7 +429,7 @@ export default class ProductApi {
      *        ## На вход получает xlsx файл, в котором первая колонка заполнена асинами        Фильтруются продукты, критерии фильтра:        Амазон не продает этот товар        Первый продавец продукта сейчас не продает его        Возвращается xlsx файл с его данными из Keepa       
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20053>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20055>} and HTTP response
      */
     apiV1ProductsKeepaPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -448,7 +448,7 @@ export default class ProductApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20053];
+      let returnType = [InlineResponse20055];
       return this.apiClient.callApi(
         '/api/v1/products/keepa', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -461,7 +461,7 @@ export default class ProductApi {
      *        ## На вход получает xlsx файл, в котором первая колонка заполнена асинами        Фильтруются продукты, критерии фильтра:        Амазон не продает этот товар        Первый продавец продукта сейчас не продает его        Возвращается xlsx файл с его данными из Keepa       
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20053>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20055>}
      */
     apiV1ProductsKeepaPost(opts) {
       return this.apiV1ProductsKeepaPostWithHttpInfo(opts)
@@ -532,7 +532,7 @@ export default class ProductApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20052} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20054} and HTTP response
      */
     apiV1ProductsParseSellercentralGetWithHttpInfo(asin, opts) {
       opts = opts || {};
@@ -557,7 +557,7 @@ export default class ProductApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20052;
+      let returnType = InlineResponse20054;
       return this.apiClient.callApi(
         '/api/v1/products/parse_sellercentral', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -572,7 +572,7 @@ export default class ProductApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20052}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20054}
      */
     apiV1ProductsParseSellercentralGet(asin, opts) {
       return this.apiV1ProductsParseSellercentralGetWithHttpInfo(asin, opts)
@@ -587,7 +587,7 @@ export default class ProductApi {
      *        Получить красные флаги       
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesProductRedFlags>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusRedFlags>} and HTTP response
      */
     apiV1ProductsRedFlagsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -606,7 +606,7 @@ export default class ProductApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [ApiV1BatchesProductRedFlags];
+      let returnType = [ApiV1AdminsGetProductsByStatusRedFlags];
       return this.apiClient.callApi(
         '/api/v1/products/red_flags', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -619,7 +619,7 @@ export default class ProductApi {
      *        Получить красные флаги       
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesProductRedFlags>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsGetProductsByStatusRedFlags>}
      */
     apiV1ProductsRedFlagsGet(opts) {
       return this.apiV1ProductsRedFlagsGetWithHttpInfo(opts)

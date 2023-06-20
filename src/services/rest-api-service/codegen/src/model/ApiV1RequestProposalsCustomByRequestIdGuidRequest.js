@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AnnouncementsMyCreatedBy from './ApiV1AnnouncementsMyCreatedBy';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 
 /**
  * The ApiV1RequestProposalsCustomByRequestIdGuidRequest model module.
@@ -55,7 +55,7 @@ class ApiV1RequestProposalsCustomByRequestIdGuidRequest {
                 obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AnnouncementsMyCreatedBy.constructFromObject(data['createdBy']);
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
         }
         return obj;
@@ -77,7 +77,7 @@ ApiV1RequestProposalsCustomByRequestIdGuidRequest.prototype['humanFriendlyId'] =
 ApiV1RequestProposalsCustomByRequestIdGuidRequest.prototype['asin'] = undefined;
 
 /**
- * @member {module:model/ApiV1AnnouncementsMyCreatedBy} createdBy
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
  */
 ApiV1RequestProposalsCustomByRequestIdGuidRequest.prototype['createdBy'] = undefined;
 

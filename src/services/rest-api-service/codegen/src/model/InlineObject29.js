@@ -21,22 +21,11 @@ import ApiClient from '../ApiClient';
 class InlineObject29 {
     /**
      * Constructs a new <code>InlineObject29</code>.
-     * Схема динамических настроек.
      * @alias module:model/InlineObject29
-     * @param yuanToDollarRate {Number} Курс юаня к доллару.
-     * @param costOfFindingSupplier {Number} Цена за поиск поставщика, оплата байеру, в долларах.
-     * @param deadlineForFindingSupplier {Number} Дедлайна на поиск поставщика., в часах.
-     * @param requestMinAmountPriceOfProposal {Number} Минимальная цена за предложение к заявке, в долларах.
-     * @param requestPlatformMarginInPercent {Number} Процент с каждого предложения, маржа платформы, в процентах.
-     * @param requestSupervisorFeeInPercent {Number} Процент с каждого предложения для супервайзера, в процентах.
-     * @param requestTimeLimitInHourForCancelingProposalsByClient {Number} Время после которого будет автоматом принято предложение клиентом, в часах.
-     * @param requestTimeLimitInHourForCheckingProposalBySuper {Number} Время после которого будет автоматом снят супервизор с проверки предложения, в часах.
-     * @param tech_pause {Number} Работает ли сервер
-     * @param timeToDeadlinePendingOrder {Number} Интервал в часах для уведомлений по поводу дедлайнов ордеров
      */
-    constructor(yuanToDollarRate, costOfFindingSupplier, deadlineForFindingSupplier, requestMinAmountPriceOfProposal, requestPlatformMarginInPercent, requestSupervisorFeeInPercent, requestTimeLimitInHourForCancelingProposalsByClient, requestTimeLimitInHourForCheckingProposalBySuper, tech_pause, timeToDeadlinePendingOrder) { 
+    constructor() { 
         
-        InlineObject29.initialize(this, yuanToDollarRate, costOfFindingSupplier, deadlineForFindingSupplier, requestMinAmountPriceOfProposal, requestPlatformMarginInPercent, requestSupervisorFeeInPercent, requestTimeLimitInHourForCancelingProposalsByClient, requestTimeLimitInHourForCheckingProposalBySuper, tech_pause, timeToDeadlinePendingOrder);
+        InlineObject29.initialize(this);
     }
 
     /**
@@ -44,17 +33,7 @@ class InlineObject29 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, yuanToDollarRate, costOfFindingSupplier, deadlineForFindingSupplier, requestMinAmountPriceOfProposal, requestPlatformMarginInPercent, requestSupervisorFeeInPercent, requestTimeLimitInHourForCancelingProposalsByClient, requestTimeLimitInHourForCheckingProposalBySuper, tech_pause, timeToDeadlinePendingOrder) { 
-        obj['yuanToDollarRate'] = yuanToDollarRate;
-        obj['costOfFindingSupplier'] = costOfFindingSupplier;
-        obj['deadlineForFindingSupplier'] = deadlineForFindingSupplier;
-        obj['requestMinAmountPriceOfProposal'] = requestMinAmountPriceOfProposal;
-        obj['requestPlatformMarginInPercent'] = requestPlatformMarginInPercent;
-        obj['requestSupervisorFeeInPercent'] = requestSupervisorFeeInPercent;
-        obj['requestTimeLimitInHourForCancelingProposalsByClient'] = requestTimeLimitInHourForCancelingProposalsByClient;
-        obj['requestTimeLimitInHourForCheckingProposalBySuper'] = requestTimeLimitInHourForCheckingProposalBySuper;
-        obj['tech_pause'] = tech_pause;
-        obj['timeToDeadlinePendingOrder'] = timeToDeadlinePendingOrder;
+    static initialize(obj) { 
     }
 
     /**
@@ -68,44 +47,32 @@ class InlineObject29 {
         if (data) {
             obj = obj || new InlineObject29();
 
-            if (data.hasOwnProperty('yuanToDollarRate')) {
-                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
+            if (data.hasOwnProperty('lengthCmWarehouse')) {
+                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('costOfFindingSupplier')) {
-                obj['costOfFindingSupplier'] = ApiClient.convertToType(data['costOfFindingSupplier'], 'Number');
+            if (data.hasOwnProperty('widthCmWarehouse')) {
+                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('costOfCheckingProduct')) {
-                obj['costOfCheckingProduct'] = ApiClient.convertToType(data['costOfCheckingProduct'], 'Number');
+            if (data.hasOwnProperty('heightCmWarehouse')) {
+                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('deadlineForFindingSupplier')) {
-                obj['deadlineForFindingSupplier'] = ApiClient.convertToType(data['deadlineForFindingSupplier'], 'Number');
+            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
+                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('requestMinAmountPriceOfProposal')) {
-                obj['requestMinAmountPriceOfProposal'] = ApiClient.convertToType(data['requestMinAmountPriceOfProposal'], 'Number');
+            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
+                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('requestPlatformMarginInPercent')) {
-                obj['requestPlatformMarginInPercent'] = ApiClient.convertToType(data['requestPlatformMarginInPercent'], 'Number');
+            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
             }
-            if (data.hasOwnProperty('requestSupervisorFeeInPercent')) {
-                obj['requestSupervisorFeeInPercent'] = ApiClient.convertToType(data['requestSupervisorFeeInPercent'], 'Number');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
-            if (data.hasOwnProperty('requestTimeLimitInHourForCancelingProposalsByClient')) {
-                obj['requestTimeLimitInHourForCancelingProposalsByClient'] = ApiClient.convertToType(data['requestTimeLimitInHourForCancelingProposalsByClient'], 'Number');
+            if (data.hasOwnProperty('variationTariffId')) {
+                obj['variationTariffId'] = ApiClient.convertToType(data['variationTariffId'], 'String');
             }
-            if (data.hasOwnProperty('requestTimeLimitInHourForCheckingProposalBySuper')) {
-                obj['requestTimeLimitInHourForCheckingProposalBySuper'] = ApiClient.convertToType(data['requestTimeLimitInHourForCheckingProposalBySuper'], 'Number');
-            }
-            if (data.hasOwnProperty('volumeWeightCoefficient')) {
-                obj['volumeWeightCoefficient'] = ApiClient.convertToType(data['volumeWeightCoefficient'], 'Number');
-            }
-            if (data.hasOwnProperty('tech_pause')) {
-                obj['tech_pause'] = ApiClient.convertToType(data['tech_pause'], 'Number');
-            }
-            if (data.hasOwnProperty('timeToDeadlinePendingOrder')) {
-                obj['timeToDeadlinePendingOrder'] = ApiClient.convertToType(data['timeToDeadlinePendingOrder'], 'Number');
-            }
-            if (data.hasOwnProperty('orderAmountLimit')) {
-                obj['orderAmountLimit'] = ApiClient.convertToType(data['orderAmountLimit'], 'Number');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -115,82 +82,53 @@ class InlineObject29 {
 }
 
 /**
- * Курс юаня к доллару.
- * @member {Number} yuanToDollarRate
+ * @member {Number} lengthCmWarehouse
  */
-InlineObject29.prototype['yuanToDollarRate'] = undefined;
+InlineObject29.prototype['lengthCmWarehouse'] = undefined;
 
 /**
- * Цена за поиск поставщика, оплата байеру, в долларах.
- * @member {Number} costOfFindingSupplier
+ * @member {Number} widthCmWarehouse
  */
-InlineObject29.prototype['costOfFindingSupplier'] = undefined;
+InlineObject29.prototype['widthCmWarehouse'] = undefined;
 
 /**
- * Цена за поиск поставщика, оплата ресерчера, в долларах.
- * @member {Number} costOfCheckingProduct
+ * @member {Number} heightCmWarehouse
  */
-InlineObject29.prototype['costOfCheckingProduct'] = undefined;
+InlineObject29.prototype['heightCmWarehouse'] = undefined;
 
 /**
- * Дедлайна на поиск поставщика., в часах.
- * @member {Number} deadlineForFindingSupplier
+ * @member {Number} weighGrossKgWarehouse
  */
-InlineObject29.prototype['deadlineForFindingSupplier'] = undefined;
+InlineObject29.prototype['weighGrossKgWarehouse'] = undefined;
 
 /**
- * Минимальная цена за предложение к заявке, в долларах.
- * @member {Number} requestMinAmountPriceOfProposal
+ * @member {Number} volumeWeightKgWarehouse
  */
-InlineObject29.prototype['requestMinAmountPriceOfProposal'] = undefined;
+InlineObject29.prototype['volumeWeightKgWarehouse'] = undefined;
 
 /**
- * Процент с каждого предложения, маржа платформы, в процентах.
- * @member {Number} requestPlatformMarginInPercent
+ * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
  */
-InlineObject29.prototype['requestPlatformMarginInPercent'] = undefined;
+InlineObject29.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
 
 /**
- * Процент с каждого предложения для супервайзера, в процентах.
- * @member {Number} requestSupervisorFeeInPercent
+ * Комментарии к коробке
+ * @member {String} storekeeperComment
  */
-InlineObject29.prototype['requestSupervisorFeeInPercent'] = undefined;
+InlineObject29.prototype['storekeeperComment'] = undefined;
 
 /**
- * Время после которого будет автоматом принято предложение клиентом, в часах.
- * @member {Number} requestTimeLimitInHourForCancelingProposalsByClient
+ * Гуид вариации
+ * @member {String} variationTariffId
  */
-InlineObject29.prototype['requestTimeLimitInHourForCancelingProposalsByClient'] = undefined;
+InlineObject29.prototype['variationTariffId'] = undefined;
 
 /**
- * Время после которого будет автоматом снят супервизор с проверки предложения, в часах.
- * @member {Number} requestTimeLimitInHourForCheckingProposalBySuper
+ * Массив ссылок на фотографии.
+ * @member {Array.<String>} images
  */
-InlineObject29.prototype['requestTimeLimitInHourForCheckingProposalBySuper'] = undefined;
-
-/**
- * Коэффициент расчета объемного веса.
- * @member {Number} volumeWeightCoefficient
- */
-InlineObject29.prototype['volumeWeightCoefficient'] = undefined;
-
-/**
- * Работает ли сервер
- * @member {Number} tech_pause
- */
-InlineObject29.prototype['tech_pause'] = undefined;
-
-/**
- * Интервал в часах для уведомлений по поводу дедлайнов ордеров
- * @member {Number} timeToDeadlinePendingOrder
- */
-InlineObject29.prototype['timeToDeadlinePendingOrder'] = undefined;
-
-/**
- * Лимит на кол-во в ордере
- * @member {Number} orderAmountLimit
- */
-InlineObject29.prototype['orderAmountLimit'] = undefined;
+InlineObject29.prototype['images'] = undefined;
 
 
 
