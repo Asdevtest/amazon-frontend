@@ -200,9 +200,12 @@ export class ProfileViewModel {
   async onSubmitUserInfoEdit(data) {
     try {
       if (data) {
-        await Promise.all([this.changeUserNameOrEmail(data), this.changeUserPassword(data)])
+        const [isUniqueProfileData] = await Promise.all([
+          this.changeUserNameOrEmail(data),
+          this.changeUserPassword(data),
+        ])
 
-        if (!this.wrongPassword) {
+        if (!this.wrongPassword && isUniqueProfileData) {
           this.onTriggerOpenModal('showUserInfoModal')
           this.warningInfoModalTitle = t(TranslationKey['Data was successfully saved'])
           this.onTriggerOpenModal('showInfoModal')
@@ -256,11 +259,12 @@ export class ProfileViewModel {
         this.checkValidationNameOrEmail.nameIsUnique === false ||
         this.checkValidationNameOrEmail.emailIsUnique === false
       ) {
-        return
+        return false
       } else {
         await UserModel.changeUserInfo({ name: data.name, email: data.email })
 
         await UserModel.getUserInfo()
+        return true
       }
     } catch (error) {
       runInAction(() => {
