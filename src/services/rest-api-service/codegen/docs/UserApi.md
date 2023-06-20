@@ -193,7 +193,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersContactsGet
 
-> [InlineResponse20072] apiV1UsersContactsGet(opts)
+> [InlineResponse20074] apiV1UsersContactsGet(opts)
 
 Выдача массива перечень всех контактов пользователя.
 
@@ -231,7 +231,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20072]**](InlineResponse20072.md)
+[**[InlineResponse20074]**](InlineResponse20074.md)
 
 ### Authorization
 
@@ -355,7 +355,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersFeedbackGuidGet
 
-> [InlineResponse20073] apiV1UsersFeedbackGuidGet(guid, opts)
+> [InlineResponse20075] apiV1UsersFeedbackGuidGet(guid, opts)
 
 Получить отзывы оставленые юзеру по его гуиду
 
@@ -397,7 +397,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20073]**](InlineResponse20073.md)
+[**[InlineResponse20075]**](InlineResponse20075.md)
 
 ### Authorization
 
@@ -523,7 +523,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersFeedbackMyGet
 
-> [InlineResponse20073] apiV1UsersFeedbackMyGet(opts)
+> [InlineResponse20075] apiV1UsersFeedbackMyGet(opts)
 
 Получить отзывы оставленые юзеру
 
@@ -563,7 +563,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20073]**](InlineResponse20073.md)
+[**[InlineResponse20075]**](InlineResponse20075.md)
 
 ### Authorization
 
@@ -897,7 +897,7 @@ Name | Type | Description  | Notes
 
 ## apiV1UsersPlatformSettingsGet
 
-> InlineResponse20071 apiV1UsersPlatformSettingsGet(opts)
+> InlineResponse20073 apiV1UsersPlatformSettingsGet(opts)
 
 Выдача настроек сервера.
 
@@ -935,7 +935,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20071**](InlineResponse20071.md)
+[**InlineResponse20073**](InlineResponse20073.md)
 
 ### Authorization
 

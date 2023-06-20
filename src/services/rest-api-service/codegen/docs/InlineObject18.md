@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | GUID коробки разделение которой отменяем. | [optional] 
+**batchIds** | **[String]** |  | 
+**archive** | **Boolean** | Заархивирована ли партия | 
 
 

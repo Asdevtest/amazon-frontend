@@ -12,7 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsPaymentsCreatedBy from './ApiV1AdminsPaymentsCreatedBy';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1BatchesByProductGuidBoxes from './ApiV1BatchesByProductGuidBoxes';
 
 /**
  * The InlineResponse20013 model module.
@@ -51,32 +52,23 @@ class InlineResponse20013 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
             }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['createdBy']);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('role')) {
-                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
+            if (data.hasOwnProperty('archive')) {
+                obj['archive'] = ApiClient.convertToType(data['archive'], 'Boolean');
             }
-            if (data.hasOwnProperty('subUser')) {
-                obj['subUser'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['subUser']);
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesByProductGuidBoxes]);
             }
-            if (data.hasOwnProperty('entityId')) {
-                obj['entityId'] = ApiClient.convertToType(data['entityId'], 'String');
+            if (data.hasOwnProperty('amountInBatch')) {
+                obj['amountInBatch'] = ApiClient.convertToType(data['amountInBatch'], 'Number');
             }
-            if (data.hasOwnProperty('paymentType')) {
-                obj['paymentType'] = ApiClient.convertToType(data['paymentType'], 'String');
-            }
-            if (data.hasOwnProperty('recipient')) {
-                obj['recipient'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['recipient']);
-            }
-            if (data.hasOwnProperty('sum')) {
-                obj['sum'] = ApiClient.convertToType(data['sum'], 'Number');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
             }
         }
         return obj;
@@ -86,145 +78,47 @@ class InlineResponse20013 {
 }
 
 /**
- * GUID платежа
+ * GUID партии.
  * @member {String} _id
  */
 InlineResponse20013.prototype['_id'] = undefined;
 
 /**
- * Дата создания.
- * @member {Date} createdAt
+ * Человекочитаемый id партии.
+ * @member {Number} humanFriendlyId
  */
-InlineResponse20013.prototype['createdAt'] = undefined;
+InlineResponse20013.prototype['humanFriendlyId'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsPaymentsCreatedBy} createdBy
+ * Название партии
+ * @member {String} title
  */
-InlineResponse20013.prototype['createdBy'] = undefined;
+InlineResponse20013.prototype['title'] = undefined;
 
 /**
- * Роль пользователя на момент инициации платежа.
- * @member {Number} role
+ * Заархивирована ли партия
+ * @member {Boolean} archive
  */
-InlineResponse20013.prototype['role'] = undefined;
+InlineResponse20013.prototype['archive'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsPaymentsCreatedBy} subUser
+ * @member {Array.<module:model/ApiV1BatchesByProductGuidBoxes>} boxes
  */
-InlineResponse20013.prototype['subUser'] = undefined;
+InlineResponse20013.prototype['boxes'] = undefined;
 
 /**
- * GUID товара или услуги.
- * @member {String} entityId
+ * Общее кол-во продуктов
+ * @member {Number} amountInBatch
  */
-InlineResponse20013.prototype['entityId'] = undefined;
+InlineResponse20013.prototype['amountInBatch'] = undefined;
 
 /**
- * Тип платежа
- * @member {module:model/InlineResponse20013.PaymentTypeEnum} paymentType
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
  */
-InlineResponse20013.prototype['paymentType'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsPaymentsCreatedBy} recipient
- */
-InlineResponse20013.prototype['recipient'] = undefined;
-
-/**
- * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
- * @member {Number} sum
- */
-InlineResponse20013.prototype['sum'] = undefined;
-
-/**
- * комментарий
- * @member {String} comment
- */
-InlineResponse20013.prototype['comment'] = undefined;
+InlineResponse20013.prototype['storekeeper'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>paymentType</code> property.
- * @enum {String}
- * @readonly
- */
-InlineResponse20013['PaymentTypeEnum'] = {
-
-    /**
-     * value: "PRODUCT"
-     * @const
-     */
-    "PRODUCT": "PRODUCT",
-
-    /**
-     * value: "ORDER"
-     * @const
-     */
-    "ORDER": "ORDER",
-
-    /**
-     * value: "BOX"
-     * @const
-     */
-    "BOX": "BOX",
-
-    /**
-     * value: "BATCH"
-     * @const
-     */
-    "BATCH": "BATCH",
-
-    /**
-     * value: "USER"
-     * @const
-     */
-    "USER": "USER",
-
-    /**
-     * value: "REQUEST-CUSTOM"
-     * @const
-     */
-    "REQUEST-CUSTOM": "REQUEST-CUSTOM",
-
-    /**
-     * value: "REQUEST-SEARCH_PRODUCT"
-     * @const
-     */
-    "REQUEST-SEARCH_PRODUCT": "REQUEST-SEARCH_PRODUCT",
-
-    /**
-     * value: "REQUEST-SEARCH_NICHE"
-     * @const
-     */
-    "REQUEST-SEARCH_NICHE": "REQUEST-SEARCH_NICHE",
-
-    /**
-     * value: "REQUEST-PROPOSAL-CUSTOM"
-     * @const
-     */
-    "REQUEST-PROPOSAL-CUSTOM": "REQUEST-PROPOSAL-CUSTOM",
-
-    /**
-     * value: "REQUEST-PROPOSAL-SEARCH_PRODUCT"
-     * @const
-     */
-    "REQUEST-PROPOSAL-SEARCH_PRODUCT": "REQUEST-PROPOSAL-SEARCH_PRODUCT",
-
-    /**
-     * value: "REQUEST-PROPOSAL-SEARCH_NICHE"
-     * @const
-     */
-    "REQUEST-PROPOSAL-SEARCH_NICHE": "REQUEST-PROPOSAL-SEARCH_NICHE",
-
-    /**
-     * value: "OTHER"
-     * @const
-     */
-    "OTHER": "OTHER"
-};
 
 
 

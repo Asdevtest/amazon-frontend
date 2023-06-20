@@ -47,11 +47,8 @@ class InlineResponse2005 {
         if (data) {
             obj = obj || new InlineResponse2005();
 
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
+            if (data.hasOwnProperty('tech_pause')) {
+                obj['tech_pause'] = ApiClient.convertToType(data['tech_pause'], 'Number');
             }
         }
         return obj;
@@ -61,16 +58,9 @@ class InlineResponse2005 {
 }
 
 /**
- * Кол-во продукта в айтеме в коробке
- * @member {Number} amount
+ * @member {Number} tech_pause
  */
-InlineResponse2005.prototype['amount'] = undefined;
-
-/**
- * Номер заказа
- * @member {Number} id
- */
-InlineResponse2005.prototype['id'] = undefined;
+InlineResponse2005.prototype['tech_pause'] = undefined;
 
 
 

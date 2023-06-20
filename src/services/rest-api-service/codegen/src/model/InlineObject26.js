@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesSplitNewBoxesParams from './ApiV1BoxesSplitNewBoxesParams';
 
 /**
  * The InlineObject26 model module.
@@ -47,8 +48,11 @@ class InlineObject26 {
         if (data) {
             obj = obj || new InlineObject26();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            }
+            if (data.hasOwnProperty('newBoxesParams')) {
+                obj['newBoxesParams'] = ApiClient.convertToType(data['newBoxesParams'], [ApiV1BoxesSplitNewBoxesParams]);
             }
         }
         return obj;
@@ -58,10 +62,15 @@ class InlineObject26 {
 }
 
 /**
- * Админ может менять статус с 70 на 100 и обратно
- * @member {Number} status
+ * GUID коробки, которую делим
+ * @member {String} guid
  */
-InlineObject26.prototype['status'] = undefined;
+InlineObject26.prototype['guid'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1BoxesSplitNewBoxesParams>} newBoxesParams
+ */
+InlineObject26.prototype['newBoxesParams'] = undefined;
 
 
 

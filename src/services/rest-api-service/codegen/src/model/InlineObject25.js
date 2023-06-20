@@ -22,11 +22,10 @@ class InlineObject25 {
     /**
      * Constructs a new <code>InlineObject25</code>.
      * @alias module:model/InlineObject25
-     * @param isFormed {Boolean} Сформирована ли коробка
      */
-    constructor(isFormed) { 
+    constructor() { 
         
-        InlineObject25.initialize(this, isFormed);
+        InlineObject25.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject25 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, isFormed) { 
-        obj['isFormed'] = isFormed;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,8 @@ class InlineObject25 {
         if (data) {
             obj = obj || new InlineObject25();
 
-            if (data.hasOwnProperty('isFormed')) {
-                obj['isFormed'] = ApiClient.convertToType(data['isFormed'], 'Boolean');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -60,10 +58,10 @@ class InlineObject25 {
 }
 
 /**
- * Сформирована ли коробка
- * @member {Boolean} isFormed
+ * GUID коробки, объединение которой нужно отменить
+ * @member {String} guid
  */
-InlineObject25.prototype['isFormed'] = undefined;
+InlineObject25.prototype['guid'] = undefined;
 
 
 

@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20051Failed from './InlineResponse20051Failed';
 
 /**
  * The InlineResponse20051 model module.
@@ -47,11 +48,8 @@ class InlineResponse20051 {
         if (data) {
             obj = obj || new InlineResponse20051();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('shopIds')) {
-                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
+            if (data.hasOwnProperty('failed')) {
+                obj['failed'] = ApiClient.convertToType(data['failed'], [InlineResponse20051Failed]);
             }
         }
         return obj;
@@ -61,15 +59,9 @@ class InlineResponse20051 {
 }
 
 /**
- * @member {String} productId
+ * @member {Array.<module:model/InlineResponse20051Failed>} failed
  */
-InlineResponse20051.prototype['productId'] = undefined;
-
-/**
- * Массив магазинов
- * @member {Array.<String>} shopIds
- */
-InlineResponse20051.prototype['shopIds'] = undefined;
+InlineResponse20051.prototype['failed'] = undefined;
 
 
 

@@ -12,9 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IdeasNotificationsCreatedBy from './ApiV1IdeasNotificationsCreatedBy';
-import ApiV1IdeasNotificationsIdea from './ApiV1IdeasNotificationsIdea';
-import ApiV1IdeasNotificationsProduct from './ApiV1IdeasNotificationsProduct';
 
 /**
  * The InlineResponse20044 model module.
@@ -50,17 +47,8 @@ class InlineResponse20044 {
         if (data) {
             obj = obj || new InlineResponse20044();
 
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = ApiV1IdeasNotificationsProduct.constructFromObject(data['product']);
-            }
-            if (data.hasOwnProperty('idea')) {
-                obj['idea'] = ApiV1IdeasNotificationsIdea.constructFromObject(data['idea']);
-            }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1IdeasNotificationsCreatedBy.constructFromObject(data['createdBy']);
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
+            if (data.hasOwnProperty('profileId')) {
+                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
             }
         }
         return obj;
@@ -70,24 +58,10 @@ class InlineResponse20044 {
 }
 
 /**
- * @member {module:model/ApiV1IdeasNotificationsProduct} product
+ * id созданного профайла
+ * @member {String} profileId
  */
-InlineResponse20044.prototype['product'] = undefined;
-
-/**
- * @member {module:model/ApiV1IdeasNotificationsIdea} idea
- */
-InlineResponse20044.prototype['idea'] = undefined;
-
-/**
- * @member {module:model/ApiV1IdeasNotificationsCreatedBy} createdBy
- */
-InlineResponse20044.prototype['createdBy'] = undefined;
-
-/**
- * @member {String} createdAt
- */
-InlineResponse20044.prototype['createdAt'] = undefined;
+InlineResponse20044.prototype['profileId'] = undefined;
 
 
 
