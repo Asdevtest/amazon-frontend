@@ -2,12 +2,10 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   form: {
-    // marginTop: theme.spacing(2.5),
-    // marginBottom: theme.spacing(2.5),
     display: 'flex',
     flexDirection: 'column',
     height: 801,
-    width: 1503,
+    width: 1692,
     gap: 20,
 
     [theme.breakpoints.down(768)]: {
@@ -52,8 +50,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   modalTitle: {
     marginRight: '100px',
-
+    marginBottom: '0 !important',
     color: theme.palette.text.general,
+
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
       lineHeight: '22px',
@@ -99,6 +98,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
+    gap: 30,
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+      gap: 5,
+    },
   },
 
   datesWrapper: {
@@ -109,21 +113,19 @@ export const useClassNames = makeStyles()(theme => ({
 
   infoWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'flex-end',
-    gap: '10px',
+    justifyContent: 'space-between',
+    gap: 30,
     [theme.breakpoints.down(768)]: {
-      display: 'flex',
       flexDirection: 'column',
-      alignItems: 'flex-end',
-      gap: '5px',
+      gap: 5,
     },
   },
 
   titleWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    // alignItems: 'center',
+
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       alignItems: 'start',
@@ -133,8 +135,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   storekeeperField: {
     maxWidth: '270px',
-    margin: 0,
-    padding: 0,
+    margin: '0 !important',
     display: 'flex !important',
     justifyContent: 'flex-end !important',
   },
@@ -153,7 +154,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
-    width: 266,
+    width: 270,
     height: 40,
 
     textOverflow: 'ellipsis',
@@ -233,36 +234,36 @@ export const useClassNames = makeStyles()(theme => ({
     '-webkit-text-fill-color': `${theme.palette.text.second} !important`,
   },
   batchTitleField: {
-    width: '157px !important',
-    margin: 0,
+    width: '160px !important',
+    margin: '0 !important',
   },
   destinationField: {
-    width: '215px !important',
-    margin: 0,
+    width: '270px !important',
+    margin: '0 !important',
   },
   volumeWeightField: {
-    width: '186px !important',
-    margin: 0,
+    width: '190px !important',
+    margin: '0 !important',
   },
   methodField: {
-    width: '266px !important',
-    margin: 0,
+    width: '270px !important',
+    margin: '0 !important',
   },
   dividerField: {
-    width: '100px !important',
-    margin: 0,
+    width: '120px !important',
+    margin: '0 !important',
   },
   filesAndButtonWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
   },
   shippinCostContainer: {
-    width: '186px !important',
-    margin: 0,
+    width: '190px !important',
+    margin: '0 !important',
   },
 
   closeFieldsWrapper: {
     display: 'flex',
-    gap: 15,
+    gap: 30,
   },
 }))

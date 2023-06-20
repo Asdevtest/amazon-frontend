@@ -87,7 +87,7 @@ export class AuthViewModel {
       } else {
         runInAction(() => {
           this.requestStatus = loadingStatuses.failed
-          this.error = new Error(t(TranslationKey['The user is waiting for confirmation by the Administrator']))
+          this.error = new Error('The user is waiting for confirmation by the Administrator')
         })
       }
     } catch (error) {

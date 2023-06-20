@@ -166,6 +166,7 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
       const [currentOption, setCurrentOption] = useState('first')
 
       const handleCategory = e => {
+        // isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(null);
         setCurrentOption(e.target.value)
       }
 
@@ -198,19 +199,14 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
 
                 <Checkbox
                   color="primary"
-                  checked={
-                    !isNeedPurchaseFilterData.isNeedPurchaseFilter ||
-                    isNeedPurchaseFilterData.isNeedPurchaseFilter === null
-                  }
-                  onClick={() =>
-                    isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(
-                      isNeedPurchaseFilterData.isNeedPurchaseFilter !== null
-                        ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
-                          ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
-                          : null
-                        : true,
-                    )
-                  }
+                  checked={isNeedPurchaseFilterData.isNotNeedPurchaseFilter}
+                  onClick={() => {
+                    if (isNeedPurchaseFilterData.isNotNeedPurchaseFilter) {
+                      isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(false, true)
+                    } else {
+                      isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(true, true)
+                    }
+                  }}
                 />
               </div>
 
@@ -219,19 +215,14 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
 
                 <Checkbox
                   color="primary"
-                  checked={
-                    isNeedPurchaseFilterData.isNeedPurchaseFilter ||
-                    isNeedPurchaseFilterData.isNeedPurchaseFilter === null
-                  }
-                  onClick={() =>
-                    isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(
-                      isNeedPurchaseFilterData.isNeedPurchaseFilter !== null
-                        ? isNeedPurchaseFilterData.isNeedPurchaseFilter
-                          ? !isNeedPurchaseFilterData.isNeedPurchaseFilter
-                          : null
-                        : false,
-                    )
-                  }
+                  checked={isNeedPurchaseFilterData.isNeedPurchaseFilter}
+                  onClick={() => {
+                    if (isNeedPurchaseFilterData.isNeedPurchaseFilter) {
+                      isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(true, false)
+                    } else {
+                      isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(true, true)
+                    }
+                  }}
                 />
               </div>
 
@@ -592,11 +583,11 @@ export const CreatedByMenuItem = React.memo(
     }) => {
       useEffect(() => {
         onClickFilterBtn('createdBy')
-        onClickFilterBtn('subUsers')
+        onClickFilterBtn('sub')
       }, [])
 
-      const filterData = [...data.createdBy.filterData, ...data.subUsers.filterData] || []
-      const currentFilterData = [...data.createdBy.currentFilterData, ...data.subUsers.currentFilterData] || []
+      const filterData = [...data.createdBy.filterData, ...data.sub.filterData] || []
+      const currentFilterData = [...data.createdBy.currentFilterData, ...data.sub.currentFilterData] || []
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -610,7 +601,6 @@ export const CreatedByMenuItem = React.memo(
 
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
 
-      console.log('itemsForRender', itemsForRender)
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
@@ -623,7 +613,7 @@ export const CreatedByMenuItem = React.memo(
                 Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
             ),
         )
-      }, [data.createdBy.filterData, data.subUsers.filterData])
+      }, [data.createdBy.filterData, data.sub.filterData])
 
       useEffect(() => {
         if (nameSearchValue) {
@@ -660,13 +650,13 @@ export const CreatedByMenuItem = React.memo(
                         setChoosenItems={setChoosenItems}
                       />
                       {itemsForRender.map(obj => (
-                        <div key={obj._id} className={classNames.shop}>
+                        <div key={obj?._id} className={classNames.shop}>
                           <Checkbox
                             color="primary"
-                            checked={choosenItems.some(item => item._id === obj._id)}
+                            checked={choosenItems.some(item => item?._id === obj?._id)}
                             onClick={() => onClickItem(obj)}
                           />
-                          <div className={classNames.shopName}>{obj.name || t(TranslationKey.Empty)}</div>
+                          <div className={classNames.shopName}>{(obj && obj?.name) || t(TranslationKey.Empty)}</div>
                         </div>
                       ))}
                     </>
@@ -683,13 +673,21 @@ export const CreatedByMenuItem = React.memo(
               variant="contained"
               onClick={e => {
                 onClose(e)
-                if (choosenItems.some(item => data.createdBy.filterData.some(obj => obj._id === item._id))) {
-                  onChangeFullFieldMenuItem(choosenItems, 'createdBy')
-                }
-                if (choosenItems.some(item => data.subUsers.filterData.some(obj => obj._id === item._id))) {
-                  onChangeFullFieldMenuItem(choosenItems, 'subUsers')
+
+                if (choosenItems?.some(item => data?.sub?.filterData?.some(obj => obj?._id === item?._id))) {
+                  const choosenSub = choosenItems.filter(item =>
+                    data?.sub?.filterData?.some(obj => obj?._id === item?._id),
+                  )
+                  onChangeFullFieldMenuItem(choosenSub, 'sub')
                 }
 
+                if (choosenItems.some(item => data?.createdBy?.filterData?.some(obj => obj?._id === item?._id))) {
+                  // const choosenCreatedBy = choosenItems.filter(item =>
+                  //   data?.createdBy?.filterData?.some(obj => obj?._id === item?._id),
+                  // )
+                  // onChangeFullFieldMenuItem(choosenCreatedBy, 'createdBy')
+                  onChangeFullFieldMenuItem([], 'sub')
+                }
                 onClickAccept()
               }}
             >
@@ -960,7 +958,7 @@ export const NormalFieldMenuItem = React.memo(
       useEffect(() => {
         setItemsForRender(
           filterData
-            .filter(el => el)
+            .filter(el => Number.isInteger(el))
             .sort(
               (a, b) =>
                 currentFilterData.length &&
@@ -1047,7 +1045,7 @@ export const NormalFieldMenuItem = React.memo(
   ),
 )
 
-export const ClientFreelancePriorityMenuItem = React.memo(
+export const PriorityMenuItem = React.memo(
   withStyles(
     ({
       classes: classNames,
@@ -1063,6 +1061,12 @@ export const ClientFreelancePriorityMenuItem = React.memo(
       useEffect(() => {
         onClickFilterBtn(field)
       }, [])
+
+      console.log('columnKey', columnKey)
+
+      const isOrder = ['MY_ORDERS_PRIORITY', 'ORDERS_PRIORITY'].includes(columnKey)
+      const urgentPriority = isOrder ? [40] : [30]
+      const withoutPriority = isOrder ? [30] : [10, 20]
 
       const { filterData, currentFilterData } = data
 
@@ -1087,20 +1091,20 @@ export const ClientFreelancePriorityMenuItem = React.memo(
               <div className={classNames.shop}>
                 <Checkbox
                   color="primary"
-                  checked={choosenItems.some(item => Number(item) === 30)}
-                  onClick={() => onClickItem([30])}
+                  checked={choosenItems.some(item => urgentPriority.includes(Number(item)))}
+                  onClick={() => onClickItem(urgentPriority)}
                 />
                 <div className={classNames.shopName}>
-                  {t(TranslationKey['Urgent request'])} <img src="/assets/icons/fire.svg" />
+                  {t(TranslationKey[`${isOrder ? 'Urgent' : 'Urgent request'}`])} <img src="/assets/icons/fire.svg" />
                 </div>
               </div>
 
               <div className={classNames.shop}>
                 <Checkbox
                   color="primary"
-                  checked={choosenItems.some(item => Number(item) === 10 || Number(item) === 20)}
+                  checked={choosenItems.some(item => withoutPriority.includes(Number(item)))}
                   onClick={() => {
-                    onClickItem([10, 20])
+                    onClickItem(withoutPriority)
                   }}
                 />
                 <div className={classNames.shopName}>{t(TranslationKey['Without Priority'])}</div>
@@ -1150,7 +1154,7 @@ export const FreelancerToWorkConfirmationMenuItem = React.memo(
 
       const { filterData, currentFilterData } = data
 
-      const [choosenItems, setChoosenItems] = useState(filterData)
+      const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
       const onClickItem = value => {
         if (choosenItems.some(item => item === value)) {
@@ -1161,8 +1165,8 @@ export const FreelancerToWorkConfirmationMenuItem = React.memo(
       }
 
       useEffect(() => {
-        setChoosenItems(filterData)
-      }, [filterData])
+        setChoosenItems(currentFilterData)
+      }, [currentFilterData])
 
       return (
         <div className={classNames.shopsDataWrapper}>
@@ -1932,7 +1936,7 @@ export const NumberFieldMenuItem = React.memo(
                               checked={choosenItems?.some(item => item === el)}
                               onClick={() => onClickItem(el)}
                             />
-                            <div className={classNames.shopName}>{toFixed(el, 0) || 0}</div>
+                            <div className={classNames.shopName}>{toFixed(el, 2) || 0}</div>
                           </div>
                         ))}
                     </>
@@ -2193,6 +2197,72 @@ export const RedFlagsCellMenuItem = React.memo(
         onClickFilterBtn={onClickFilterBtn}
         onClose={onClose}
       />
+    )
+  }, styles),
+)
+
+export const OnListingCellMenuItem = React.memo(
+  withStyles(({ classes: classNames, data, onClose }) => {
+    // const {
+    //   classes: classNames,
+    //   onClose,
+    //   data,
+    //   field,
+    //   filterRequestStatus,
+    //   onChangeFullFieldMenuItem,
+    //   onClickAccept,
+    //   onClickFilterBtn,
+    //   onListingFiltersData
+    // } = props;
+
+    return (
+      <div className={classNames.shopsDataWrapper}>
+        <div className={classNames.shopsWrapper}>
+          <div className={classNames.shopsBody}>
+            <div className={classNames.shop}>
+              <Checkbox
+                color="primary"
+                checked={data.onListingFiltersData.onListing}
+                onClick={() => {
+                  if (data.onListingFiltersData.onListing) {
+                    data.onListingFiltersData.handleListingFilters(false, true)
+                  } else {
+                    data.onListingFiltersData.handleListingFilters(true, true)
+                  }
+                }}
+              />
+
+              <Typography>{t(TranslationKey.Yes)}</Typography>
+            </div>
+
+            <div className={classNames.shop}>
+              <Checkbox
+                color="primary"
+                checked={data.onListingFiltersData.notOnListing}
+                onClick={() => {
+                  if (data.onListingFiltersData.notOnListing) {
+                    data.onListingFiltersData.handleListingFilters(true, false)
+                  } else {
+                    data.onListingFiltersData.handleListingFilters(true, true)
+                  }
+                }}
+              />
+
+              <Typography>{t(TranslationKey.No)}</Typography>
+            </div>
+          </div>
+        </div>
+        <div className={classNames.buttonsWrapper}>
+          <Button
+            variant="contained"
+            onClick={e => {
+              onClose(e)
+            }}
+          >
+            {t(TranslationKey.Accept)}
+          </Button>
+        </div>
+      </div>
     )
   }, styles),
 )

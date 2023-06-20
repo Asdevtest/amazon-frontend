@@ -61,6 +61,7 @@ import { EditOrderSuppliersTable } from './edit-order-suppliers-table'
 import { ProductTable } from './product-table'
 import { SelectFields } from './select-fields'
 import { CustomSlider } from '@components/shared/custom-slider'
+import { SaveIcon } from '@components/shared/svg-icons'
 
 const orderStatusesThatTriggersEditBoxBlock = [OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]]
 
@@ -208,7 +209,7 @@ export const EditOrderModal = observer(
       deliveryCostToTheWarehouse:
         order?.deliveryCostToTheWarehouse ||
         (order?.priceInYuan !== 0 && Number(order?.deliveryCostToTheWarehouse) === 0 && '0') ||
-        (order.orderSupplier.batchDeliveryCostInDollar / order.orderSupplier.amount) * order.amount ||
+        (order?.orderSupplier?.batchDeliveryCostInDollar / order?.orderSupplier?.amount) * order?.amount ||
         0,
       priceBatchDeliveryInYuan:
         // order?.priceBatchDeliveryInYuan ||
@@ -216,7 +217,7 @@ export const EditOrderModal = observer(
         // 0,
         order?.priceBatchDeliveryInYuan ||
         (order?.priceInYuan !== 0 && Number(order?.priceBatchDeliveryInYuan) === 0 && '0') ||
-        (order.orderSupplier.batchDeliveryCostInYuan / order.orderSupplier.amount) * order.amount ||
+        (order?.orderSupplier?.batchDeliveryCostInYuan / order?.orderSupplier?.amount) * order?.amount ||
         0,
       trackId: '',
       material: order?.product?.material || '',
@@ -227,11 +228,13 @@ export const EditOrderModal = observer(
       yuanToDollarRate: order?.yuanToDollarRate || yuanToDollarRate,
       item: order?.item || 0,
       tmpRefundToClient: 0,
-      priceInYuan: order?.priceInYuan || order.totalPriceChanged * order.yuanToDollarRate,
-      paymentDetails: order.paymentDetails || [],
-      payments: order.payments || [],
+      priceInYuan: order?.priceInYuan || order?.totalPriceChanged * order?.yuanToDollarRate,
+      paymentDetails: order?.paymentDetails || [],
+      payments: order?.payments || [],
       orderSupplier: order?.orderSupplier || {},
       partialPaymentAmountRmb: order?.partialPaymentAmountRmb || 0,
+      partiallyPaid: order?.partiallyPaid || 0,
+      partialPayment: order?.partialPayment || false,
     }
 
     const [orderFields, setOrderFields] = useState(initialState)
@@ -253,7 +256,7 @@ export const EditOrderModal = observer(
 
       newOrderFieldsState.deliveryCostToTheWarehouse =
         (orderFields.orderSupplier.batchDeliveryCostInYuan /
-          orderFields.yuanToDollarRate /
+          orderFields?.yuanToDollarRate /
           orderFields.orderSupplier.amount) *
         orderFields.amount
 
@@ -302,6 +305,8 @@ export const EditOrderModal = observer(
           batchDeliveryCostInDollar: orderFields.deliveryCostToTheWarehouse || 0,
           batchTotalCostInDollar: orderFields.totalPriceChanged || 0,
           partialPaymentAmountRmb: orderFields.partialPaymentAmountRmb || 0,
+          partiallyPaid: orderFields.partiallyPaid || 0,
+          partialPayment: orderFields.partialPayment || false,
         },
       }
 
@@ -363,12 +368,12 @@ export const EditOrderModal = observer(
               orderFields.priceBatchDeliveryInYuan / (e.target.value || 1)
           }
         } else if (filedName === 'priceInYuan') {
-          newOrderFieldsState.totalPriceChanged = e.target.value / orderFields.yuanToDollarRate
+          newOrderFieldsState.totalPriceChanged = e.target.value / orderFields?.yuanToDollarRate
         }
         newOrderFieldsState[filedName] = e.target.value
       } else if (filedName === 'priceBatchDeliveryInYuan') {
         newOrderFieldsState.priceBatchDeliveryInYuan = e.target.value || 0
-        newOrderFieldsState.deliveryCostToTheWarehouse = Number(e.target.value) / orderFields.yuanToDollarRate || 0
+        newOrderFieldsState.deliveryCostToTheWarehouse = Number(e.target.value) / orderFields?.yuanToDollarRate || 0
       } else if (filedName === 'status') {
         newOrderFieldsState[filedName] = e.target.value
         setTmpNewOrderFieldsState(newOrderFieldsState)
@@ -407,7 +412,7 @@ export const EditOrderModal = observer(
         newOrderFieldsState.deliveryCostToTheWarehouse =
           (orderFields.orderSupplier.batchDeliveryCostInYuan /
             orderFields.orderSupplier.amount /
-            orderFields.yuanToDollarRate) *
+            orderFields?.yuanToDollarRate) *
             clearEverythingExceptNumbers(e.target.value) || 0
       } else {
         newOrderFieldsState[filedName] = e.target.value
@@ -415,7 +420,7 @@ export const EditOrderModal = observer(
 
       if (filedName === 'totalPriceChanged' && Number(e.target.value) - orderFields.totalPrice > 0) {
         newOrderFieldsState.status = order.status
-        newOrderFieldsState.priceInYuan = orderFields.yuanToDollarRate * e.target.value
+        newOrderFieldsState.priceInYuan = orderFields?.yuanToDollarRate * e.target.value
       }
 
       setOrderFields(newOrderFieldsState)
@@ -507,7 +512,7 @@ export const EditOrderModal = observer(
       requestStatus === loadingStatuses.isLoading ||
       submitDisabledOrderStatuses.includes(order.status + '') ||
       !orderFields.orderSupplier ||
-      !orderFields.yuanToDollarRate ||
+      !orderFields?.yuanToDollarRate ||
       !orderFields.amount ||
       (order.status === OrderStatusByKey[OrderStatus.VERIFY_RECEIPT] &&
         orderFields.status === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
@@ -540,8 +545,7 @@ export const EditOrderModal = observer(
                 endAdornment={
                   <InputAdornment position="start">
                     {(orderFields.item || (!orderFields.item && order?.item)) && order?.item !== orderFields.item ? (
-                      <img
-                        src={'/assets/icons/save-discet.svg'}
+                      <SaveIcon
                         className={classNames.itemInputIcon}
                         onClick={() => {
                           onSaveOrderItem(order._id, orderFields.item)
@@ -743,7 +747,10 @@ export const EditOrderModal = observer(
                         (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
                           order.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.PARTIALLY_PAID]}` &&
-                          order.status !== OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])
+                          order.status !== OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]) ||
+                        (order.status === OrderStatusByKey[OrderStatus.PENDING] &&
+                          statusCode !== `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}` &&
+                          statusCode !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`)
                       }
                     >
                       {OrderStatusTranslate(getOrderStatusOptionByCode(statusCode).key)}
@@ -868,7 +875,8 @@ export const EditOrderModal = observer(
 
                     <div className={classNames.supplierButtonWrapper}>
                       <Button
-                        danger
+                        danger={isSupplierAcceptRevokeActive}
+                        success={!isSupplierAcceptRevokeActive}
                         disabled={checkIsPlanningPrice && !isPendingOrder}
                         className={cx(classNames.iconBtn, classNames.iconBtnAccept, {
                           [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
@@ -898,7 +906,7 @@ export const EditOrderModal = observer(
                 className={classNames.supplierCheckboxWrapper}
                 onClick={() => {
                   if (
-                    orderFields?.orderSupplier?.createdBy._id !== userInfo._id &&
+                    orderFields?.orderSupplier?.createdBy?._id !== userInfo?._id &&
                     userInfo?.masterUser?._id !== orderFields?.orderSupplier?.createdBy?._id
                   ) {
                     return
@@ -910,7 +918,7 @@ export const EditOrderModal = observer(
                 <Checkbox
                   disabled={
                     isPendingOrder ||
-                    (orderFields?.orderSupplier?.createdBy._id !== userInfo._id &&
+                    (orderFields?.orderSupplier?.createdBy?._id !== userInfo?._id &&
                       userInfo?.masterUser?._id !== orderFields?.orderSupplier?.createdBy?._id)
                   }
                   checked={updateSupplierData}

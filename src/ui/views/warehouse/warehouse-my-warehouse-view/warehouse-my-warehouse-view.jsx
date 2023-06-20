@@ -36,6 +36,7 @@ import { t } from '@utils/translations'
 
 import { WarehouseMyWarehouseViewModel } from './warehouse-my-warehouse-view.model'
 import { styles } from './warehouse-my-warehouse-view.style'
+import { SettingsModel } from '@models/settings-model'
 
 export const WarehouseMyWarehouseViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseMyWarehouseViewModel({ history: props.history }))
@@ -99,6 +100,7 @@ export const WarehouseMyWarehouseViewRaw = props => {
         <div className={classNames.datagridWrapper}>
           <MemoDataGrid
             // disableVirtualization
+            key={SettingsModel.languageTag}
             checkboxSelection
             pagination
             localeText={getLocalizationByLanguageTag()}
@@ -212,6 +214,7 @@ export const WarehouseMyWarehouseViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showFullEditBoxModal')}
       >
         <EditBoxStorekeeperForm
+          showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
@@ -242,6 +245,7 @@ export const WarehouseMyWarehouseViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showEditMultipleBoxesModal')}
       >
         <EditMultipleBoxesForm
+          showCheckbox
           userInfo={viewModel.userInfo}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
@@ -291,6 +295,7 @@ export const WarehouseMyWarehouseViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showMergeBoxModal')}
       >
         <MergeBoxesModal
+          showCheckbox
           userInfo={viewModel.userInfo}
           volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           destinations={viewModel.destinations}
@@ -317,6 +322,7 @@ export const WarehouseMyWarehouseViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showRedistributeBoxModal')}
       >
         <StorekeeperRedistributeBox
+          showCheckbox
           volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           showEditBoxModalR={viewModel.showEditBoxModalR}
           destinations={viewModel.destinations}

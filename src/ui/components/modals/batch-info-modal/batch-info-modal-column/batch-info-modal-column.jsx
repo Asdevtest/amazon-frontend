@@ -16,7 +16,7 @@ import {
   PricePerUnitCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { getFullTariffTextForBoxOrOrder, toFixedWithKg } from '@utils/text'
+import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const batchInfoModalColumn = (
@@ -69,7 +69,7 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
-    renderCell: params => <MultilineTextCell text={getFullTariffTextForBoxOrOrder(params.row)} />,
+    renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row)} />,
     width: 200,
   },
 
@@ -92,7 +92,8 @@ export const batchInfoModalColumn = (
 
   {
     field: 'finalWeight',
-    headerName: <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
+    headerName: t(TranslationKey['Final weight']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
     renderCell: params => (
       <MultilineTextCell
         text={toFixedWithKg(
@@ -110,19 +111,17 @@ export const batchInfoModalColumn = (
 
   {
     field: 'pricePerUnit',
-    headerName: <MultilineTextHeaderCell text={t(TranslationKey['Price per unit'])} />,
-    renderCell: params => {
-      const rowMemo = useMemo(() => params.row, [])
-
-      return <PricePerUnitCell item={rowMemo} />
-    },
+    headerName: t(TranslationKey['Price per unit']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price per unit'])} />,
+    renderCell: params => <PricePerUnitCell item={params.row} />,
     type: 'number',
     width: 90,
   },
 
   {
     field: 'finalPrice',
-    headerName: <MultilineTextHeaderCell text={t(TranslationKey['Calculated price'])} />,
+    headerName: t(TranslationKey['Calculated price']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Calculated price'])} />,
     renderCell: params => (
       <FinalPricePerUnitCell
         box={params.row}
@@ -137,43 +136,39 @@ export const batchInfoModalColumn = (
   },
 
   {
-    field: 'actualCostWithDelivery',
-    headerName: <MultilineTextHeaderCell text={t(TranslationKey['The actual cost of the box with delivery'])} />,
-    renderCell: params => {
-      const rowMemo = useMemo(() => params.row, [])
-
-      return (
-        <ActualCostWithDelivery
-          actualShippingCost={actualShippingCost}
-          rowMemo={rowMemo}
-          finalWeight={finalWeight}
-          calculationMethod={calculationMethod}
-          isActualGreaterTheVolume={isActualGreaterTheVolume}
-          volumeWeightCoefficient={volumeWeightCoefficient}
-        />
-      )
-    },
+    field: 'actualCostWithDeliveryPerUnit',
+    headerName: t(TranslationKey['Actual cost with delivery per unit']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Actual cost with delivery per unit'])} />,
+    renderCell: params => (
+      <ActualCostWithDeliveryPerUnit
+        actualShippingCost={actualShippingCost}
+        rowMemo={params.row}
+        finalWeight={finalWeight}
+        calculationMethod={calculationMethod}
+        isActualGreaterTheVolume={isActualGreaterTheVolume}
+        volumeWeightCoefficient={volumeWeightCoefficient}
+      />
+    ),
     type: 'number',
     width: 170,
   },
 
   {
-    field: 'actualCostWithDeliveryPerUnit',
-    headerName: <MultilineTextHeaderCell text={t(TranslationKey['Actual cost with delivery per unit'])} />,
-    renderCell: params => {
-      const rowMemo = useMemo(() => params.row, [])
-
-      return (
-        <ActualCostWithDeliveryPerUnit
-          actualShippingCost={actualShippingCost}
-          rowMemo={rowMemo}
-          finalWeight={finalWeight}
-          calculationMethod={calculationMethod}
-          isActualGreaterTheVolume={isActualGreaterTheVolume}
-          volumeWeightCoefficient={volumeWeightCoefficient}
-        />
-      )
-    },
+    field: 'actualCostWithDelivery',
+    headerName: t(TranslationKey['The actual cost of the box with delivery']),
+    renderHeader: () => (
+      <MultilineTextHeaderCell text={t(TranslationKey['The actual cost of the box with delivery'])} />
+    ),
+    renderCell: params => (
+      <ActualCostWithDelivery
+        actualShippingCost={actualShippingCost}
+        rowMemo={params.row}
+        finalWeight={finalWeight}
+        calculationMethod={calculationMethod}
+        isActualGreaterTheVolume={isActualGreaterTheVolume}
+        volumeWeightCoefficient={volumeWeightCoefficient}
+      />
+    ),
     type: 'number',
     width: 170,
   },

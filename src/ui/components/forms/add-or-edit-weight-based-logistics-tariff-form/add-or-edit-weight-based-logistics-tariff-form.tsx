@@ -42,6 +42,8 @@ interface DestinationVariationsContentProps {
   destinationVariations: Array<DestinationVariationInterface>
   destinationData: Array<DestinationInterface>
   currentCurrency: string
+  destinationsFavourites: Array<Array<string>>
+  setDestinationsFavouritesItem: () => void
   onChangeDestinationVariations: (fieldName: string) => (index: number) => (value: string | number) => void
   onClickAddDestinationVariation: (index: number) => void
   onClickRemoveDestinationVariation: (index: number) => void
@@ -52,6 +54,8 @@ interface AddOrEditWeightBasedLogisticsTariffFormProps {
   sourceYuanToDollarRate: number
   logisticsTariffsData: Array<LogisticTariffInterface>
   destinationData: Array<DestinationInterface>
+  destinationsFavourites: Array<Array<string>>
+  setDestinationsFavouritesItem: () => void
   onCreateSubmit: (formFields: FormFields) => void
   onEditSubmit: (id: string, formFields: FormFields) => void
   onClickClose: () => void
@@ -66,6 +70,8 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       sourceYuanToDollarRate,
       logisticsTariffsData,
       destinationData,
+      destinationsFavourites,
+      setDestinationsFavouritesItem,
       onCreateSubmit,
       onEditSubmit,
       onClickClose,
@@ -128,7 +134,13 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         ...prevState,
         name: tariff.name,
         description: tariff.description,
-        destinationVariations: tariff.destinationVariations,
+        destinationVariations: tariff.destinationVariations.map(item => ({
+          destinationId: item.destinationId,
+          minWeight: item.minWeight,
+          maxWeight: item.maxWeight,
+          pricePerKgRmb: item.pricePerKgRmb,
+          pricePerKgUsd: item.pricePerKgUsd,
+        })),
         deliveryTimeInDay: tariff.deliveryTimeInDay,
       }))
     }
@@ -159,13 +171,13 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
         if (fieldName === 'pricePerKgUsd') {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }
-          updatedDestinationVariation[fieldName] = Number(value)
-          updatedDestinationVariation.pricePerKgRmb = Number(value) * Number(formFields.yuanToDollarRate)
+          updatedDestinationVariation[fieldName] = toFixed(value, 2)
+          updatedDestinationVariation.pricePerKgRmb = toFixed(value, 2) * Number(formFields.yuanToDollarRate)
           newDestinationVariations[index] = updatedDestinationVariation
         } else if (fieldName === 'pricePerKgRmb') {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }
-          updatedDestinationVariation[fieldName] = Number(value)
-          updatedDestinationVariation.pricePerKgUsd = Number(value) / Number(formFields.yuanToDollarRate)
+          updatedDestinationVariation[fieldName] = toFixed(value, 2)
+          updatedDestinationVariation.pricePerKgUsd = toFixed(value, 2) / Number(formFields.yuanToDollarRate)
           newDestinationVariations[index] = updatedDestinationVariation
         } else {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }
@@ -379,6 +391,8 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
           <DestinationVariationsContent
             destinationVariations={formFields.destinationVariations}
             destinationData={destinationData}
+            destinationsFavourites={destinationsFavourites}
+            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             currentCurrency={currentCurrency}
             onClickAddDestinationVariation={onClickAddDestinationVariation}
             onClickRemoveDestinationVariation={onClickRemoveDestinationVariation}
@@ -493,6 +507,8 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
     destinationVariations,
     destinationData,
     currentCurrency,
+    destinationsFavourites,
+    setDestinationsFavouritesItem,
     onChangeDestinationVariations,
     onClickAddDestinationVariation,
     onClickRemoveDestinationVariation,
@@ -516,6 +532,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
                   darkIcon
                   chosenItemNoHover
                   data={destinationData}
+                  favourites={destinationsFavourites}
                   width={'100%'}
                   searchFields={['name']}
                   fieldNamesWrapperStyles={classNames.fieldNamesWrapperStyles}
@@ -529,6 +546,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
                       ? destinationData?.find(obj => obj?._id === variant?.destinationId)?.name
                       : t(TranslationKey.Select)
                   }
+                  onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                   onClickSelect={(el: DestinationInterface) => {
                     onChangeDestinationVariations('destinationId')(variantIndex)(el._id)
                   }}
@@ -593,18 +611,21 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
                       placeholder={'0.00'}
                       value={
                         currentCurrency === currencyTypes.DOLLAR
-                          ? toFixed(variant.pricePerKgUsd, 2)
+                          ? variant.pricePerKgUsd
                           : currentCurrency === currencyTypes.YUAN
-                          ? toFixed(variant.pricePerKgRmb, 2)
+                          ? variant.pricePerKgRmb
                           : ''
                       }
                       inputProps={{ maxLength: 7 }}
                       className={classNames.regionFieldInput}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+                        const input = e.target.value
+
+                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input)) {
+                          // e.target.value = toFixed(e.target.value, 2)
                           onChangeDestinationVariations(
                             currentCurrency === currencyTypes.DOLLAR ? 'pricePerKgUsd' : 'pricePerKgRmb',
-                          )(variantIndex)(e.target.value)
+                          )(variantIndex)(input)
                         }
                       }}
                     />
@@ -639,58 +660,3 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
     )
   },
 )
-
-{
-  /* <div className={classNames.regionsWrapper}>
-            <Field
-              label={'US West Coast'}
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.regionContainer}
-              inputComponent={
-                <div className={classNames.regionWrapper}>
-                  <Input
-                    placeholder={'0.00'}
-                    inputProps={{ maxLength: 10 }}
-                    className={classNames.regionFieldInput}
-                    // onChange={onChangeField('asin')}
-                  />
-                  <Typography className={classNames.currencyStyle}>{currency}</Typography>
-                </div>
-              }
-            />
-
-            <Field
-              label={'US Central'}
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.regionContainer}
-              inputComponent={
-                <div className={classNames.regionWrapper}>
-                  <Input
-                    placeholder={'0.00'}
-                    inputProps={{ maxLength: 10 }}
-                    className={classNames.regionFieldInput}
-                    // onChange={onChangeField('asin')}
-                  />
-                  <Typography className={classNames.currencyStyle}>{currency}</Typography>
-                </div>
-              }
-            />
-
-            <Field
-              label={'US East Coast'}
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.regionContainer}
-              inputComponent={
-                <div className={classNames.regionWrapper}>
-                  <Input
-                    placeholder={'0.00'}
-                    inputProps={{ maxLength: 10 }}
-                    className={classNames.regionFieldInput}
-                    // onChange={onChangeField('asin')}
-                  />
-                  <Typography className={classNames.currencyStyle}>{currency}</Typography>
-                </div>
-              }
-            />
-          </div> */
-}

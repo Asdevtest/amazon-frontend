@@ -35,6 +35,7 @@ import { Text } from '@components/shared/text'
 import {
   checkAndMakeAbsoluteUrl,
   getFullTariffTextForBoxOrOrder,
+  getNewTariffTextForBoxOrOrder,
   getShortenStringIfLongerThanCount,
   toFixed,
   toFixedWithKg,
@@ -155,11 +156,11 @@ const Box = observer(
               tooltipInfoContent={t(TranslationKey['Selected shipping tariff to USA'])}
               label={t(TranslationKey.Tariff)}
               labelClasses={classNames.smallLabel}
-              value={getFullTariffTextForBoxOrOrder(box)}
+              value={getNewTariffTextForBoxOrOrder(box, true)}
               inputClasses={cx(classNames.field, {
                 [classNames.editAccent]:
                   needAccent &&
-                  getFullTariffTextForBoxOrOrder(box) !== getFullTariffTextForBoxOrOrder(referenceEditingBox),
+                  getNewTariffTextForBoxOrOrder(box, true) !== getNewTariffTextForBoxOrOrder(referenceEditingBox, true),
               })}
             />
           </div>
@@ -1068,21 +1069,6 @@ export const BeforeAfterBlock = observer(
             )}`}</Typography>
           </div>
 
-          {/* {taskType !== TaskOperationType.MERGE && taskType !== TaskOperationType.SPLIT && (
-          <div className={classNames.fieldsWrapper}>
-            <Field disabled label={t(TranslationKey.Warehouse)} value={currentBoxes[0].destination?.name} />
-
-            <Field disabled label={t(TranslationKey.Tariff)} value={currentBoxes[0].logicsTariff?.name || 'N/A'} />
-
-            {taskType === TaskOperationType.RECEIVE && (
-              <Field
-                disabled
-                label={t(TranslationKey.Status)}
-                value={getOrderStatusOptionByCode(currentBoxes[0].items?.[0].order.status)?.label}
-              />
-            )}
-          </div>
-        )} */}
           <div className={classNames.newBoxesWrapper}>
             {incomingBoxes &&
               incomingBoxes.map((box, boxIndex) => (
@@ -1094,22 +1080,6 @@ export const BeforeAfterBlock = observer(
                     taskType={taskType}
                     volumeWeightCoefficient={volumeWeightCoefficient}
                   />
-                  {/* {taskType === TaskOperationType.MERGE && (
-                  <div
-                    className={classNames.tablePanelSortWrapper}
-                    onClick={() => setShowFullIncomingCard(!showFullIncomingCard)}
-                  >
-                    <Typography className={classNames.tablePanelViewText}>
-                      {showFullIncomingCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
-                    </Typography>
-
-                    {!showFullIncomingCard ? (
-                      <ArrowDropDownIcon color="primary" />
-                    ) : (
-                      <ArrowDropUpIcon color="primary" />
-                    )}
-                  </div>
-                )} */}
                 </React.Fragment>
               ))}
           </div>

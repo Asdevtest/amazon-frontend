@@ -97,6 +97,10 @@ export const BuyerMyProductsViewRaw = props => {
             slotProps={{
               columnMenu: viewModel.columnMenuSettings,
               toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,

@@ -31,6 +31,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import {
   checkAndMakeAbsoluteUrl,
   getFullTariffTextForBoxOrOrder,
+  getNewTariffTextForBoxOrOrder,
   toFixed,
   toFixedWithDollarSign,
   toFixedWithYuanSign,
@@ -179,7 +180,7 @@ export const SelectFields = ({
               disabled
               tooltipInfoContent={t(TranslationKey["Client's chosen rate, region of shipment and its cost"])}
               label={t(TranslationKey.Tariff)}
-              value={getFullTariffTextForBoxOrOrder(order)}
+              value={getNewTariffTextForBoxOrOrder(order, true)}
               inputClasses={classNames.nativeSelect}
               labelClasses={classNames.label}
             />
@@ -251,7 +252,7 @@ export const SelectFields = ({
                 inputClasses={classNames.input}
                 labelClasses={classNames.blueLabel}
                 value={toFixedWithYuanSign(
-                  calcExchangeDollarsInYuansPrice(order.totalPrice, order.yuanToDollarRate),
+                  calcExchangeDollarsInYuansPrice(order.totalPrice, order?.yuanToDollarRate),
                   2,
                 )}
               />
@@ -259,13 +260,13 @@ export const SelectFields = ({
             <div className={classNames.yuanToDollarRate}>
               <Field
                 disabled={checkIsPlanningPrice}
-                error={`${yuanToDollarRate}` !== `${orderFields.yuanToDollarRate}`}
+                error={`${yuanToDollarRate}` !== `${orderFields?.yuanToDollarRate}`}
                 inputProps={{ maxLength: 10 }}
                 inputClasses={classNames.input}
                 tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
                 label={t(TranslationKey['Current order course'])}
                 labelClasses={classNames.label}
-                value={orderFields.yuanToDollarRate || ''}
+                value={orderFields?.yuanToDollarRate || ''}
                 onChange={e => {
                   setOrderField('yuanToDollarRate')(e)
                 }}
@@ -334,7 +335,7 @@ export const SelectFields = ({
 
                     setOrderField('priceBatchDeliveryInYuan')({
                       target: {
-                        value: calcExchangeDollarsInYuansPrice(e.target.value, orderFields.yuanToDollarRate),
+                        value: calcExchangeDollarsInYuansPrice(e.target.value, orderFields?.yuanToDollarRate),
                       },
                     })
                   }}
@@ -467,16 +468,16 @@ export const SelectFields = ({
         </Box>
 
         <Box my={3} className={classNames.trackAndHsCodeAndComments}>
-          <Field
-            disabled // ={disableSubmit}
-            tooltipInfoContent={t(TranslationKey['Tracking number for goods in transit'])}
-            value={orderFields.trackingNumberChina}
-            label={t(TranslationKey['Track number'])}
-            labelClasses={classNames.label}
-            inputClasses={classNames.input}
-            inputProps={{ maxLength: 50 }}
-            // onChange={setOrderField('trackingNumberChina')}
-          />
+          {/* <Field */}
+          {/*   disabled // ={disableSubmit} */}
+          {/*   tooltipInfoContent={t(TranslationKey['Tracking number for goods in transit'])} */}
+          {/*   value={orderFields.trackingNumberChina} */}
+          {/*   label={t(TranslationKey['Track number'])} */}
+          {/*   labelClasses={classNames.label} */}
+          {/*   inputClasses={classNames.input} */}
+          {/*   inputProps={{ maxLength: 50 }} */}
+          {/*   // onChange={setOrderField('trackingNumberChina')} */}
+          {/* /> */}
 
           <Box display="flex" width="100%">
             <Box className={classNames.trackAndHsCodeAndComments}>
@@ -541,75 +542,117 @@ export const SelectFields = ({
               </div> */}
             </Box>
           </Box>
-        </Box>
-
-        {/** Hs code fields */}
-
-        <Box my={3} className={classNames.formItem} alignItems="flex-end">
-          <Field
-            label={t(TranslationKey['Paid for']) + ', Ұ'}
-            labelClasses={classNames.label}
-            inputClasses={classNames.input}
-            inputProps={{ maxLength: 10 }}
-            value={orderFields.partialPaymentAmountRmb}
-            onChange={event => {
-              if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value)) {
-                setOrderField('partialPaymentAmountRmb')(event)
+          <div className={classNames.supplierPaymentButtonWrapper}>
+            <Button
+              className={cx(classNames.supplierPaymentButton, {
+                [classNames.noPaymentButton]: orderFields?.paymentDetails.length,
+              })}
+              variant={
+                !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length ? 'outlined' : 'contained'
               }
-            }}
-          />
-
-          {!isPendingOrder && (
-            <div className={classNames.supplierPaymentButtonWrapper}>
-              <Button
-                className={cx(classNames.supplierPaymentButton, {
-                  [classNames.noPaymentButton]: orderFields?.paymentDetails.length,
+              onClick={onClickSupplierPaymentButton}
+            >
+              <Typography
+                className={cx(classNames.normalPaymentText, {
+                  [classNames.whiteNormalPaymentText]:
+                    orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
                 })}
-                variant={
-                  !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length ? 'outlined' : 'contained'
-                }
-                onClick={onClickSupplierPaymentButton}
               >
+                {t(
+                  TranslationKey[
+                    `${
+                      !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length
+                        ? 'Add payment document'
+                        : 'Document added'
+                    }`
+                  ],
+                )}
+              </Typography>
+
+              {!orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length && (
+                <AddIcon className={classNames.addIcon} />
+              )}
+
+              {!!orderFields?.paymentDetails.length && (
                 <Typography
                   className={cx(classNames.normalPaymentText, {
                     [classNames.whiteNormalPaymentText]:
                       orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
                   })}
-                >
-                  {t(
-                    TranslationKey[
-                      `${
-                        !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length
-                          ? 'Add payment document'
-                          : 'Document added'
-                      }`
-                    ],
-                  )}
-                </Typography>
+                >{`(${orderFields?.paymentDetails.length})`}</Typography>
+              )}
+              {!!paymentDetailsPhotosToLoad.length && (
+                <Typography
+                  className={cx(classNames.normalPaymentText, {
+                    [classNames.whiteNormalPaymentText]:
+                      orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
+                  })}
+                >{`+ ${paymentDetailsPhotosToLoad.length}`}</Typography>
+              )}
+            </Button>
+          </div>
+        </Box>
 
-                {!orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length && (
-                  <AddIcon className={classNames.addIcon} />
-                )}
+        {/** Hs code fields */}
 
-                {!!orderFields?.paymentDetails.length && (
-                  <Typography
-                    className={cx(classNames.normalPaymentText, {
-                      [classNames.whiteNormalPaymentText]:
-                        orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
-                    })}
-                  >{`(${orderFields?.paymentDetails.length})`}</Typography>
-                )}
-                {!!paymentDetailsPhotosToLoad.length && (
-                  <Typography
-                    className={cx(classNames.normalPaymentText, {
-                      [classNames.whiteNormalPaymentText]:
-                        orderFields?.paymentDetails.length || paymentDetailsPhotosToLoad.length,
-                    })}
-                  >{`+ ${paymentDetailsPhotosToLoad.length}`}</Typography>
-                )}
-              </Button>
+        <Box my={3} className={classNames.formItem} alignItems="flex-end">
+          <div className={classNames.partialPaymentWrapper}>
+            <div className={classNames.partialPaymentCheckbox}>
+              <Checkbox
+                className={classNames.checkbox}
+                checked={orderFields.partialPayment}
+                color="primary"
+                onChange={() => setOrderField('partialPayment')({ target: { value: !orderFields.partialPayment } })}
+              />
+              <Typography className={classNames.label}>{t(TranslationKey['Partial payment'])}</Typography>
             </div>
-          )}
+
+            <div className={classNames.partialPaymentFields}>
+              <Field
+                disabled={!orderFields.partialPayment}
+                label={t(TranslationKey['To pay']) + ', Ұ'}
+                labelClasses={classNames.label}
+                inputClasses={classNames.input}
+                inputProps={{ maxLength: 10 }}
+                value={orderFields.partialPaymentAmountRmb}
+                onChange={event => {
+                  if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value)) {
+                    setOrderField('partialPaymentAmountRmb')(event)
+                  }
+                }}
+              />
+
+              <Field
+                disabled={!orderFields.partialPayment}
+                label={t(TranslationKey['Paid for']) + ', Ұ'}
+                labelClasses={classNames.label}
+                inputClasses={classNames.input}
+                inputProps={{ maxLength: 10 }}
+                value={orderFields.partiallyPaid}
+                onChange={event => {
+                  if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value)) {
+                    {
+                      setOrderField('partiallyPaid')(event)
+                    }
+                  }
+                }}
+              />
+            </div>
+          </div>
+          {/* <Field */}
+          {/*   label={t(TranslationKey['Paid for']) + ', Ұ'} */}
+          {/*   labelClasses={classNames.label} */}
+          {/*   inputClasses={classNames.input} */}
+          {/*   inputProps={{ maxLength: 10 }} */}
+          {/*   value={orderFields.partialPaymentAmountRmb} */}
+          {/*   onChange={event => { */}
+          {/*     if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value)) { */}
+          {/*       setOrderField('partialPaymentAmountRmb')(event) */}
+          {/*     } */}
+          {/*   }} */}
+          {/* /> */}
+
+          <Box width="100%"></Box>
         </Box>
 
         <Box my={3} className={classNames.formItem}>

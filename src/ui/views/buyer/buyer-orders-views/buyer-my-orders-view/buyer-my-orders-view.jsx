@@ -76,13 +76,14 @@ export const BuyerMyOrdersViewRaw = props => {
         <div
           className={cx(classNames.headerWrapper, {
             [classNames.headerWrapperCenter]:
-              !viewModel.paymentAmount?.totalPriceInYuan && !viewModel.paymentAmount?.totalPriceInUSD,
+              !viewModel.paymentAmount?.totalPriceInYuan &&
+              !viewModel.paymentAmount?.totalPriceInUSD &&
+              !viewModel.paymentAmount?.partialPaymentAmountRmb,
           })}
         >
           {(viewModel.paymentAmount?.totalPriceInYuan ||
-            (isNoPaidedOrders && viewModel.paymentAmount?.totalPriceInUSD)) > 0 && (
-            <div className={classNames.totalPriceWrapper} />
-          )}
+            (isNoPaidedOrders && viewModel.paymentAmount?.totalPriceInUSD) ||
+            viewModel.paymentAmount?.partialPaymentAmountRmb) > 0 && <div className={classNames.totalPriceWrapper} />}
 
           <SearchInput
             inputClasses={classNames.searchInput}
@@ -91,7 +92,8 @@ export const BuyerMyOrdersViewRaw = props => {
           />
 
           {(viewModel.paymentAmount?.totalPriceInYuan ||
-            (isNoPaidedOrders && viewModel.paymentAmount?.totalPriceInUSD)) > 0 && (
+            (isNoPaidedOrders && viewModel.paymentAmount?.totalPriceInUSD) ||
+            viewModel.paymentAmount?.partialPaymentAmountRmb) > 0 && (
             <div className={classNames.totalPriceWrapper}>
               <Typography className={classNames.totalPriceText}>
                 {isNoPaidedOrders ? t(TranslationKey.Sum) + ':' : t(TranslationKey['Payment to all suppliers']) + ':'}
@@ -100,11 +102,13 @@ export const BuyerMyOrdersViewRaw = props => {
                 <Typography className={cx(classNames.totalPriceText, classNames.totalPrice)}>
                   {`${toFixedWithYuanSign(
                     isNoPaidedOrders
-                      ? Number(viewModel.paymentAmount?.totalPriceInUSD) * Number(viewModel.yuanToDollarRate)
-                      : viewModel.paymentAmount?.totalPriceInYuan,
+                      ? Number(viewModel.paymentAmount?.totalPriceInUSD) * Number(viewModel.yuanToDollarRate) +
+                          viewModel.paymentAmount?.partialPaymentAmountRmb
+                      : viewModel.paymentAmount?.totalPriceInYuan + viewModel.paymentAmount?.partialPaymentAmountRmb,
                     2,
                   )} ${t(TranslationKey.Or).toLocaleLowerCase()} ${toFixedWithDollarSign(
-                    viewModel.paymentAmount?.totalPriceInUSD,
+                    viewModel.paymentAmount?.totalPriceInUSD +
+                      viewModel.paymentAmount?.partialPaymentAmountRmb / Number(viewModel.yuanToDollarRate),
                     2,
                   )}`}
                 </Typography>

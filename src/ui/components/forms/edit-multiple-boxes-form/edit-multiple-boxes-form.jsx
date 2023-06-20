@@ -6,6 +6,8 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import DoneIcon from '@mui/icons-material/Done'
 import { Checkbox, Chip, IconButton, Typography } from '@mui/material'
 
+import { toFixed, trimBarcode } from '@utils/text'
+
 import React, { useEffect, useState } from 'react'
 
 import { observer } from 'mobx-react'
@@ -29,10 +31,11 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './edit-multiple-boxes-form.style'
-import { trimBarcode } from '@utils/text'
+import { tariffTypes } from '@constants/keys/tariff-types'
 
 const Box = ({
   userInfo,
+  showCheckbox,
   destinations,
   storekeepers,
   box,
@@ -61,14 +64,6 @@ const Box = ({
   const [showFullCard, setShowFullCard] = useState(true)
 
   const onClickSaveBarcode = product => value => {
-    // onChangeField({target: {value}}, 'tmpBarCode', box._id)
-
-    // const newFormFields = {...boxFields}
-
-    // newFormFields.items = [
-    //   ...boxFields.items.map(el => (el.product._id === product.product._id ? {...el, tmpBarCode: newBarCodeData} : el)),
-    // ]
-
     const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
 
     const newFormFields = { ...targetBox }
@@ -130,26 +125,26 @@ const Box = ({
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
-  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-    onChangeField({ target: { value: storekeeperId } }, 'storekeeperId', box._id)
-    onChangeField({ target: { value: tariffId } }, 'logicsTariffId', box._id)
+  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId, destinationId) => {
+    onChangeField({ storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId }, 'part', box._id)
 
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
 
   const curDestination = destinations.find(el => el._id === box.destinationId)
 
+  const currentStorekeeper = storekeepers.find(el => el._id === box.storekeeperId)
+  const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === box.logicsTariffId)
+
   const firstNumOfCode = curDestination?.zipCode[0]
 
   const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-  const tariffName = storekeepers
-    .find(el => el._id === box.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === box.logicsTariffId)?.name
+  const tariffName = currentLogicsTariff?.name
 
-  const tariffRate = storekeepers
-    .find(el => el._id === box.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === box.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+  const tariffRate =
+    currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
+    currentLogicsTariff?.destinationVariations?.find(el => el._id === box?.variationTariffId)?.pricePerKgUsd
 
   return (
     <div className={classNames.box}>
@@ -300,7 +295,14 @@ const Box = ({
                     selectedItemName={
                       destinations.find(el => el._id === box.destinationId)?.name || t(TranslationKey['Not chosen'])
                     }
-                    data={destinations.filter(el => el.storekeeper?._id !== box?.storekeeperId)}
+                    data={
+                      box.variationTariffId &&
+                      currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
+                        ? destinations
+                            // .filter(el => el.storekeeper?._id !== box?.storekeeperId)
+                            .filter(el => el?._id === box?.destinationId)
+                        : destinations.filter(el => el?.storekeeper?._id !== box?.storekeeperId)
+                    }
                     searchFields={['name']}
                     onClickNotChosen={() => onChangeField({ target: { value: null } }, 'destinationId', box._id)}
                     onClickSelect={el => onChangeField({ target: { value: el._id } }, 'destinationId', box._id)}
@@ -325,14 +327,8 @@ const Box = ({
                   >
                     {box.logicsTariffId
                       ? `${
-                          storekeepers.find(el => el._id === box.storekeeperId)?.name ||
-                          t(TranslationKey['Not available'])
-                        } /  
-                        ${
                           box.logicsTariffId
-                            ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-                                tariffRate ? ' / ' + tariffRate + ' $' : ''
-                              }`
+                            ? `${tariffName}${tariffRate ? ' / ' + toFixed(tariffRate, 2) + ' $' : ''}`
                             : 'none'
                         }`
                       : t(TranslationKey.Select)}
@@ -441,10 +437,13 @@ const Box = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
+          showCheckbox={showCheckbox}
           destinationsData={destinations}
           storekeepers={storekeepers.filter(el => el._id === box?.storekeeper._id)}
           curStorekeeperId={box.storekeeperId}
           curTariffId={box.logicsTariffId}
+          currentDestinationId={box?.destinationId}
+          currentVariationTariffId={box?.variationTariffId}
           onSubmit={onSubmitSelectStorekeeperAndTariff}
         />
       </Modal>
@@ -462,6 +461,7 @@ const Box = ({
 }
 
 const NewBoxes = ({
+  showCheckbox,
   userInfo,
   newBoxes,
   onChangeField,
@@ -514,6 +514,7 @@ const NewBoxes = ({
         <div key={boxIndex} className={cx({ [classNames.marginBox]: newBoxes.length > 1 })}>
           <Box
             isNewBox
+            showCheckbox={showCheckbox}
             userInfo={userInfo}
             newBoxes={newBoxes}
             destinations={destinations}
@@ -534,14 +535,13 @@ const NewBoxes = ({
 
 export const EditMultipleBoxesForm = observer(
   ({
+    showCheckbox,
     userInfo,
     destinations,
     storekeepers,
     onSubmit,
     onCloseModal,
-
     selectedBoxes,
-
     destinationsFavourites,
     setDestinationsFavouritesItem,
   }) => {
@@ -550,6 +550,7 @@ export const EditMultipleBoxesForm = observer(
     const [sharedFields, setSharedFields] = useState({
       destinationId: null,
       logicsTariffId: null,
+      variationTariffId: undefined,
       shippingLabel: null,
       fbaShipment: '',
       isShippingLabelAttachedByStorekeeper: false,
@@ -557,10 +558,16 @@ export const EditMultipleBoxesForm = observer(
       isBarCodeAlreadyAttachedByTheSupplier: false,
       isBarCodeAttachedByTheStorekeeper: false,
 
-      storekeeperId: selectedBoxes[0]?.storekeeper?._id,
+      storekeeperId: selectedBoxes[0]?.storekeeper?._id || undefined,
       tmpShippingLabel: [],
       tmpBarCode: [],
     })
+
+    const [destinationId, setDestinationId] = useState(sharedFields.destinationId)
+
+    useEffect(() => {
+      setDestinationId(sharedFields.destinationId)
+    }, [sharedFields.destinationId])
 
     const onChangeSharedFields = (event, field) => {
       const newFormFields = { ...sharedFields }
@@ -598,9 +605,9 @@ export const EditMultipleBoxesForm = observer(
       setShowSetBarcodeModal(!showSetBarcodeModal)
     }
 
-    const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-      onChangeSharedFields({ target: { value: storekeeperId } }, 'storekeeperId')
-      onChangeSharedFields({ target: { value: tariffId } }, 'logicsTariffId')
+    const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId, destinationId) => {
+      setSharedFields({ ...sharedFields, storekeeperId, logicsTariffId: tariffId, variationTariffId })
+      setDestinationId(destinationId)
 
       setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
     }
@@ -623,6 +630,7 @@ export const EditMultipleBoxesForm = observer(
         destinationId: el.destination?._id || null,
         storekeeperId: el.storekeeper?._id || null,
         logicsTariffId: el.logicsTariff?._id || null,
+        variationTariffId: el?.variationTariff?._id || null,
 
         tmpShippingLabel: [],
         items: el?.items ? [...el.items.map(el => ({ ...el, changeBarCodInInventory: false, tmpBarCode: [] }))] : [],
@@ -655,19 +663,28 @@ export const EditMultipleBoxesForm = observer(
     const onChangeField = (e, field, boxId) => {
       const targetBox = newBoxes.filter(newBox => newBox._id === boxId)[0]
 
-      const updatedTargetBox = {
-        ...targetBox,
-        [field]: field === 'isShippingLabelAttachedByStorekeeper' ? e.target.checked : e.target.value,
+      if (field === 'part') {
+        const updatedTargetBox = {
+          ...targetBox,
+          ...e,
+        }
+
+        const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
+
+        setNewBoxes(updatedNewBoxes)
+      } else {
+        const updatedTargetBox = {
+          ...targetBox,
+          [field]: field === 'isShippingLabelAttachedByStorekeeper' ? e.target.checked : e.target.value,
+        }
+
+        const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
+
+        setNewBoxes(updatedNewBoxes)
       }
-
-      const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
-
-      setNewBoxes(updatedNewBoxes)
     }
 
     const onApplySharedValuesToAllBoxes = field => {
-      // let updatedNewBoxes = null
-
       const visibleBoxesIds = visibleBoxes.map(el => el._id)
 
       let updatedNewBoxes
@@ -721,29 +738,6 @@ export const EditMultipleBoxesForm = observer(
 
       setTimeout(() => setApplyBtnsClicked({ ...applyBtnsClicked, [field]: false }), 1000)
 
-      // if (field === 'destinationId') {
-      //   updatedNewBoxes = newBoxes.map(newBox => ({
-      //     ...newBox,
-      //     destinationId: sharedFields.destinationId,
-      //   }))
-      // } else if (field === 'logicsTariffId') {
-      //   updatedNewBoxes = newBoxes.map(newBox => ({
-      //     ...newBox,
-      //     logicsTariffId: sharedFields.logicsTariffId,
-      //   }))
-      // } else if (field === 'fbaShipment') {
-      //   updatedNewBoxes = newBoxes.map(newBox => ({
-      //     ...newBox,
-      //     fbaShipment: sharedFields.fbaShipment,
-      //   }))
-      // } else if (field === 'tmpShippingLabel') {
-      //   updatedNewBoxes = newBoxes.map(newBox => ({
-      //     ...newBox,
-      //     shippingLabel: sharedFields.shippingLabel,
-      //     tmpShippingLabel: sharedFields.tmpShippingLabel,
-      //   }))
-      // }
-
       setNewBoxes(updatedNewBoxes)
     }
 
@@ -757,15 +751,14 @@ export const EditMultipleBoxesForm = observer(
 
     const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-    const tariffName = storekeepers
-      .find(el => el._id === sharedFields.storekeeperId)
-      ?.tariffLogistics.find(el => el._id === sharedFields.logicsTariffId)?.name
+    const currentStorekeeper = storekeepers.find(el => el._id === sharedFields.storekeeperId)
+    const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === sharedFields.logicsTariffId)
 
-    const tariffRate = storekeepers
-      .find(el => el._id === sharedFields.storekeeperId)
-      ?.tariffLogistics.find(el => el._id === sharedFields.logicsTariffId)?.conditionsByRegion[
-      regionOfDeliveryName
-    ]?.rate
+    const tariffName = currentLogicsTariff?.name
+
+    const tariffRate =
+      currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
+      currentLogicsTariff?.destinationVariations?.find(el => el._id === sharedFields?.variationTariffId)?.pricePerKgUsd
 
     const disabledSubmitBtn = newBoxes.some(
       el =>
@@ -805,7 +798,14 @@ export const EditMultipleBoxesForm = observer(
                         destinations.find(el => el._id === sharedFields.destinationId)?.name ||
                         t(TranslationKey['Not chosen'])
                       }
-                      data={destinations.filter(el => el.storekeeper?._id !== sharedFields.storekeeperId)}
+                      data={
+                        sharedFields.variationTariffId &&
+                        currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
+                          ? destinations
+                              // .filter(el => el.storekeeper?._id !== sharedFields.storekeeperId)
+                              .filter(el => el?._id === destinationId)
+                          : destinations.filter(el => el.storekeeper?._id !== sharedFields.storekeeperId)
+                      }
                       searchFields={['name']}
                       onClickNotChosen={() => onChangeSharedFields({ target: { value: null } }, 'destinationId')}
                       onClickSelect={el => onChangeSharedFields({ target: { value: el._id } }, 'destinationId')}
@@ -842,16 +842,10 @@ export const EditMultipleBoxesForm = observer(
                     >
                       {sharedFields.logicsTariffId
                         ? `${
-                            storekeepers.find(el => el._id === sharedFields.storekeeperId)?.name ||
-                            t(TranslationKey['Not available'])
-                          } /
-                            ${
-                              sharedFields.logicsTariffId
-                                ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-                                    tariffRate ? ' / ' + tariffRate + ' $' : ''
-                                  }`
-                                : 'none'
-                            }`
+                            sharedFields.logicsTariffId
+                              ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
+                              : 'none'
+                          }`
                         : t(TranslationKey.Select)}
                     </Button>
                   }
@@ -1045,6 +1039,7 @@ export const EditMultipleBoxesForm = observer(
           </div>
 
           <NewBoxes
+            showCheckbox={showCheckbox}
             userInfo={userInfo}
             visibleBoxes={visibleBoxes}
             newBoxes={newBoxes}
@@ -1094,10 +1089,17 @@ export const EditMultipleBoxesForm = observer(
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
         >
           <SelectStorekeeperAndTariffForm
+            showCheckbox={showCheckbox}
             destinationsData={destinations}
-            storekeepers={storekeepers.filter(el => el._id === sharedFields?.storekeeperId)}
-            curStorekeeperId={sharedFields.storekeeperId}
-            curTariffId={sharedFields.logicsTariffId}
+            storekeepers={
+              sharedFields?.storekeeperId
+                ? storekeepers?.filter(el => el._id === sharedFields?.storekeeperId)
+                : storekeepers.filter(el => el._id === selectedBoxes[0]?.storekeeper?._id)
+            }
+            curStorekeeperId={sharedFields?.storekeeperId}
+            curTariffId={sharedFields?.logicsTariffId}
+            currentDestinationId={sharedFields?.destinationId}
+            currentVariationTariffId={sharedFields?.variationTariffId}
             onSubmit={onSubmitSelectStorekeeperAndTariff}
           />
         </Modal>

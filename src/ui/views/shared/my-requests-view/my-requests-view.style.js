@@ -29,10 +29,6 @@ export const styles = theme => ({
     whiteSpace: 'normal',
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.01, 1)',
-    },
   },
 
   root: {
@@ -40,10 +36,10 @@ export const styles = theme => ({
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     backgroundColor: theme.palette.background.general,
 
-    '.MuiTypography-root': {
-      fontSize: 14,
-      fontFamily: 'Regular, sans-serif',
-    },
+    // '.MuiTypography-root': {
+    //   fontSize: 14,
+    //   fontFamily: 'Regular, sans-serif',
+    // },
   },
 
   datagridWrapper: {

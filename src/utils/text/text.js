@@ -14,6 +14,7 @@ import { getDistanceBetweenDatesInSeconds } from '../date-time'
 import { t } from '../translations'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { OrderStatusByCode, OrderStatusTranslate } from '@constants/statuses/order-status'
 
 export const getShortenStringIfLongerThanCount = (str, count, showEnd) =>
   str?.length > count ? `${str.slice(0, count)}...${showEnd ? str.slice(str.length - 3) : ''}` : str
@@ -95,6 +96,21 @@ export const getFullTariffTextForBoxOrOrder = box => {
   }`
 }
 
+export const getNewTariffTextForBoxOrOrder = (box, withoutRate) => {
+  if (!box || (!box.destination && !box.logicsTariff)) {
+    return t(TranslationKey['Not available'])
+  }
+
+  const firstNumOfCode = box.destination?.zipCode?.[0] || null
+
+  const regionOfDeliveryName =
+    firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+
+  const rate = box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate || box?.variationTariff?.pricePerKgUsd
+
+  return `${box.logicsTariff?.name || ''}${rate && !withoutRate ? ' / ' + toFixed(rate, 2) + '$' : ''}`
+}
+
 export const shortSku = value => getShortenStringIfLongerThanCount(value, 12)
 export const shortAsin = value => getShortenStringIfLongerThanCount(value, 10)
 
@@ -134,16 +150,34 @@ export const objectToUrlQs = obj => decodeURI(QueryString.stringify(obj).replace
 
 export const getTableByColumn = (column, hint) => {
   if (
-    ['humanFriendlyId', 'amount', 'destination', 'logicsTariff', 'prepId', 'storekeeper', 'batchId', 'sub'].includes(
-      column,
-    )
+    [
+      'humanFriendlyId',
+      'amount',
+      'destination',
+      'logicsTariff',
+      'prepId',
+      'storekeeper',
+      'batchId',
+      'sub',
+      'totalPrice',
+      'priceInYuan',
+      'deadline',
+      'paymentDateToSupplier',
+      'paymentDetailsAttached',
+      'needsResearch',
+      'clientComment',
+      'buyerComment',
+      'partiallyPaid',
+    ].includes(column)
   ) {
-    if (hint === 'requests') {
+    if (hint === 'orders') {
+      return 'orders'
+    } else if (hint === 'requests') {
       return 'requests'
     } else {
       return 'boxes'
     }
-  } else if (['id', 'item'].includes(column)) {
+  } else if (['id', 'item', 'paymentMethod'].includes(column)) {
     return 'orders'
   } else if (
     [
@@ -169,6 +203,9 @@ export const getTableByColumn = (column, hint) => {
       'purchaseQuantity',
       'ideasClosed',
       'ideasVerified',
+      'bsr',
+      'fbaamount',
+      'client',
     ].includes(column)
   ) {
     // if (hint === 'requests') {
@@ -177,12 +214,13 @@ export const getTableByColumn = (column, hint) => {
     return 'products'
     // }
   } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags'].includes(column)) {
-    if (hint === 'boxes') {
+    if (hint === 'orders') {
+      return 'orders'
+    } else if (hint === 'boxes') {
       return 'boxes'
     } else if (hint === 'products') {
       return 'products'
-    }
-    if (hint === 'requests') {
+    } else {
       return 'requests'
     }
   } else if (
@@ -198,7 +236,13 @@ export const getTableByColumn = (column, hint) => {
       'withoutConfirmation',
     ].includes(column)
   ) {
+    if (hint === 'orders') {
+      return 'orders'
+    }
+
     return 'requests'
+  } else if (['productionTerm'].includes(column)) {
+    return 'suppliers'
   }
 }
 
@@ -212,6 +256,8 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
       return MyRequestStatusTranslate(status)
     case columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY:
       return freelanceRequestTypeTranslate(freelanceRequestTypeByCode[status])
+    case columnnsKeys.client.ORDERS_STATUS:
+      return OrderStatusTranslate(OrderStatusByCode[status])
     default:
       return status
   }

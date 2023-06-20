@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -21,11 +21,7 @@ export const adminBatchesViewColumns = () => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     width: 550,
-    renderCell: params => {
-      const boxesMemo = useMemo(() => params.row.originalData.boxes, [])
-
-      return <BatchBoxesCell boxes={boxesMemo} />
-    },
+    renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
     filterable: false,
     sortable: false,
   },

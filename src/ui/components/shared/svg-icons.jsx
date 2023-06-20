@@ -743,3 +743,24 @@ export const SoundOffIcon = props => (
     />
   </SvgIcon>
 )
+
+export const ReplyIcon = props => (
+  <SvgIcon {...props} width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M16 14V10C16 9.16667 15.7083 8.45833 15.125 7.875C14.5417 7.29167 13.8333 7 13 7H3.8L7.4 10.6L6 12L0 6L6 0L7.4 1.4L3.8 5H13C14.3833 5 15.5627 5.48767 16.538 6.463C17.5133 7.43833 18.0007 8.61733 18 10V14H16Z"
+      fill="#5C6A7A"
+    />
+  </SvgIcon>
+)
+
+export const SaveIcon = props => (
+  <SvgIcon {...props} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M14 0H2C0.89 0 0 0.9 0 2V16C0 17.1 0.89 18 2 18H16C17.1 18 18 17.1 18 16V4L14 0ZM9 16C7.34 16 6 14.66 6 13C6 11.34 7.34 10 9 10C10.66 10 12 11.34 12 13C12 14.66 10.66 16 9 16ZM12 6H2V2H12V6Z" />
+    <defs>
+      <linearGradient id="paint0_linear_10534_305495" x1="9" y1="0" x2="9" y2="18" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#006CFF" />
+        <stop offset="1" stop-color="#0164F4" />
+      </linearGradient>
+    </defs>
+  </SvgIcon>
+)

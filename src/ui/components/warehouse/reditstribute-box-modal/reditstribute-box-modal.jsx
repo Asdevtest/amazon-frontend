@@ -34,8 +34,10 @@ import { t } from '@utils/translations'
 import { useClassNames } from './reditstribute-box-modal.style'
 import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
+import { tariffTypes } from '@constants/keys/tariff-types'
 
 const Box = ({
+  showCheckbox,
   destinations,
   storekeepers,
   box,
@@ -70,26 +72,25 @@ const Box = ({
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
-  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-    onChangeField({ target: { value: storekeeperId } }, 'storekeeperId', box._id)
-    onChangeField({ target: { value: tariffId } }, 'logicsTariffId', box._id)
+  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId, destinationId) => {
+    onChangeField({ logicsTariffId: tariffId, storekeeperId, variationTariffId, destinationId }, 'part', box._id)
 
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
 
   const curDestination = destinations.find(el => el._id === box.destinationId)
+  const currentStorekeeper = storekeepers.find(el => el._id === box.storekeeperId)
+  const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === box.logicsTariffId)
 
   const firstNumOfCode = curDestination?.zipCode[0]
 
   const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-  const tariffName = storekeepers
-    .find(el => el._id === box.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === box.logicsTariffId)?.name
+  const tariffName = currentLogicsTariff?.name
 
-  const tariffRate = storekeepers
-    .find(el => el._id === box.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === box.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+  const tariffRate =
+    currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
+    currentLogicsTariff?.destinationVariations?.find(el => el._id === box?.variationTariffId)?.pricePerKgUsd
 
   return (
     <div className={classNames.box}>
@@ -145,7 +146,14 @@ const Box = ({
                       destinations.find(el => el._id === (isNewBox ? box.destinationId : box.destination?._id))?.name ||
                       t(TranslationKey['Not chosen'])
                     }
-                    data={destinations?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)}
+                    data={
+                      box?.variationTariffId &&
+                      currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
+                        ? destinations
+                            // ?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)
+                            ?.filter(el => el._id === box?.destinationId)
+                        : destinations?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)
+                    }
                     searchFields={['name']}
                     favourites={destinationsFavourites}
                     onClickSetDestinationFavourite={setDestinationsFavouritesItem}
@@ -180,31 +188,13 @@ const Box = ({
                         }
                       >
                         {box.logicsTariffId
-                          ? `${
-                              storekeepers.find(el => el._id === box.storekeeperId)?.name ||
-                              t(TranslationKey['Not available'])
-                            } /  
-                            ${
-                              box.logicsTariffId
-                                ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-                                    tariffRate ? ' / ' + tariffRate + ' $' : ''
-                                  }`
-                                : 'none'
-                            }`
+                          ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                           : t(TranslationKey.Select)}
                       </Button>
                     ) : (
                       <Typography className={classNames.storekeeperDisableBtn}>{`${
-                        storekeepers.find(el => el._id === box.storekeeper?._id)?.name ||
-                        t(TranslationKey['Not available'])
-                      } /  
-                        ${
-                          box.logicsTariff?._id
-                            ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-                                tariffRate ? ' / ' + tariffRate + ' $' : ''
-                              }`
-                            : 'none'
-                        }`}</Typography>
+                        box.logicsTariff?._id ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}` : 'none'
+                      }`}</Typography>
                     )}
                   </div>
                 }
@@ -335,10 +325,13 @@ const Box = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
+          showCheckbox={showCheckbox}
           destinationsData={destinations}
           storekeepers={storekeepers.filter(el => el?._id === box?.storekeeper?._id)}
           curStorekeeperId={box?.storekeeperId}
           curTariffId={box?.logicsTariffId}
+          currentDestinationId={box?.destinationId}
+          currentVariationTariffId={box?.variationTariffId}
           onSubmit={onSubmitSelectStorekeeperAndTariff}
         />
       </Modal>
@@ -347,6 +340,7 @@ const Box = ({
 }
 
 const NewBoxes = ({
+  showCheckbox,
   newBoxes,
   isMasterBox,
   selectedBox,
@@ -370,6 +364,7 @@ const NewBoxes = ({
         <div key={boxIndex} className={cx({ [classNames.marginBox]: newBoxes.length > 1 })}>
           <Box
             isNewBox
+            showCheckbox={showCheckbox}
             destinations={destinations}
             storekeepers={storekeepers}
             index={boxIndex}
@@ -391,6 +386,7 @@ const NewBoxes = ({
 
 export const RedistributeBox = observer(
   ({
+    showCheckbox,
     destinations,
     storekeepers,
     requestStatus,
@@ -408,6 +404,7 @@ export const RedistributeBox = observer(
       destinationId: selectedBox.destination?._id || null,
       storekeeperId: selectedBox.storekeeper?._id || '',
       logicsTariffId: selectedBox.logicsTariff?._id || '',
+      variationTariffId: selectedBox?.variationTariff?._id || null,
     })
     const [priority, setPriority] = useState()
     const [priorityReason, setPriorityReason] = useState()
@@ -466,14 +463,25 @@ export const RedistributeBox = observer(
     const onChangeField = (e, field, boxId) => {
       const targetBox = newBoxes.filter(newBox => newBox._id === boxId)[0]
 
-      const updatedTargetBox = {
-        ...targetBox,
-        [field /* field === 'shippingLabel' ? e.target.value.replace(' ', '') :*/]: e.target.value,
+      if (field === 'part') {
+        const updatedTargetBox = {
+          ...targetBox,
+          ...e,
+        }
+
+        const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
+
+        setNewBoxes(updatedNewBoxes)
+      } else {
+        const updatedTargetBox = {
+          ...targetBox,
+          [field]: e.target.value,
+        }
+
+        const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
+
+        setNewBoxes(updatedNewBoxes)
       }
-
-      const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
-
-      setNewBoxes(updatedNewBoxes)
     }
 
     const onClickRedistributeBtn = () => {
@@ -550,6 +558,7 @@ export const RedistributeBox = observer(
 
             <Box
               readOnly
+              showCheckbox={showCheckbox}
               destinations={destinations}
               storekeepers={storekeepers}
               boxIsMasterBox={isMasterBox}
@@ -565,6 +574,7 @@ export const RedistributeBox = observer(
           </div>
 
           <NewBoxes
+            showCheckbox={showCheckbox}
             newBoxes={newBoxes}
             isMasterBox={isMasterBox}
             selectedBox={selectedBox}

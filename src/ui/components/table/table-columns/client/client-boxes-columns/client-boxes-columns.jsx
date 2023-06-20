@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import React, { useCallback, useMemo } from 'react'
+import React from 'react'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { BoxStatus, boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
@@ -9,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ChangeChipCell,
   ChangeInputCell,
-  CheckboxCell,
   FormedCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
@@ -27,7 +26,6 @@ import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text
 import { t } from '@utils/translations'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
-import { Box, Typography } from '@mui/material'
 
 export const clientBoxesViewColumns = (
   handlers,
@@ -150,13 +148,10 @@ export const clientBoxesViewColumns = (
 
     width: 400,
     renderCell: params => {
-      const productMemo = useMemo(() => params.row.originalData?.items[0]?.product, [])
-      const rowMemo = useMemo(() => params.row.originalData, [])
-
       return params.row.originalData ? (
         params.row.originalData?.items.length > 1 ? (
           <OrderManyItemsCell
-            box={rowMemo}
+            box={params.row.originalData}
             error={
               !findTariffInStorekeepersData(
                 getStorekeepersData(),
@@ -167,8 +162,8 @@ export const clientBoxesViewColumns = (
           />
         ) : (
           <OrderCell
-            box={rowMemo}
-            product={productMemo}
+            box={params.row.originalData}
+            product={params.row.originalData?.items[0]?.product}
             superbox={params.row.originalData?.amount > 1 && params.row.originalData?.amount}
             error={
               !findTariffInStorekeepersData(
@@ -194,14 +189,12 @@ export const clientBoxesViewColumns = (
     renderHeader: () => <MultilineTextHeaderCell withIcon isFilterActive text={t(TranslationKey.Formed)} />,
 
     renderCell: params => {
-      const onChangeIsFormedInBox = useCallback(() => handlers.onChangeIsFormedInBox(params.row.originalData), [])
-      const sub = useMemo(
-        () => params.row.originalData?.sub,
-        [params.row.originalData?.sub, params.row.originalData?.isFormed],
-      )
-
       return params.row.originalData ? (
-        <FormedCell sub={sub} params={params} onChangeIsFormedInBox={onChangeIsFormedInBox} />
+        <FormedCell
+          sub={params.row.originalData?.sub}
+          params={params}
+          onChangeIsFormedInBox={() => handlers.onChangeIsFormedInBox(params.row.originalData)}
+        />
       ) : (
         ''
       )
@@ -248,25 +241,17 @@ export const clientBoxesViewColumns = (
     ),
 
     renderCell: params => {
-      // const destinationsMemo = useMemo(() => getDestinations(), [getDestinations()])
-      // const destinationsFavouritesMemo = useMemo(() => getDestinationsFavourites(), [getDestinationsFavourites()])
-      // const storekeepersDataMemo = useMemo(() => getStorekeepersData(), [getStorekeepersData()])
-
-      const rowMemo = useMemo(() => params.row.originalData, [params.row.originalData])
-
-      const handlersMemo = useMemo(() => handlers, [])
-
       return params.row.originalData ? (
         <WarehouseDestinationAndTariffCell
           destinations={getDestinations()}
-          boxesMy={rowMemo}
+          boxesMy={params.row.originalData}
           destinationsFavourites={getDestinationsFavourites()}
-          setDestinationsFavouritesItem={handlersMemo.onClickSetDestinationFavourite}
+          setDestinationsFavouritesItem={handlers.onClickSetDestinationFavourite}
           storekeepers={getStorekeepersData()}
-          setShowSelectionStorekeeperAndTariffModal={handlersMemo.setShowSelectionStorekeeperAndTariffModal}
+          setShowSelectionStorekeeperAndTariffModal={handlers.setShowSelectionStorekeeperAndTariffModal}
           disabled={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-          onSelectDestination={handlersMemo.onSelectDestination}
-          onClickSetTariff={handlersMemo.onClickSetTariff}
+          onSelectDestination={handlers.onSelectDestination}
+          onClickSetTariff={handlers.onClickSetTariff}
         />
       ) : (
         ''
@@ -298,7 +283,13 @@ export const clientBoxesViewColumns = (
   {
     field: 'deadline',
     headerName: 'Deadline',
-    renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={'Deadline'}
+        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.Deadline?.currentFilterData?.length}
+      />
+    ),
 
     renderCell: params => (
       <MultilineTextCell
@@ -323,32 +314,28 @@ export const clientBoxesViewColumns = (
     ),
 
     renderCell: params => {
-      const rowMemo = useMemo(() => params.row.originalData, [params.row.originalData])
-
-      const handlersMemo = useMemo(() => handlers, [])
-
       return params.row.originalData ? (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '7px', padding: '10px 0' }}>
           <ChangeChipCell
             label={t(TranslationKey['Shipping label']) + ':'}
             disabled={params.row.originalData?.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-            row={rowMemo}
+            row={params.row.originalData}
             value={params.row.shippingLabel}
             text={'Set Shipping Label'}
-            onClickChip={handlersMemo.onClickShippingLabel}
-            onDoubleClickChip={handlersMemo.onDoubleClickShippingLabel}
-            onDeleteChip={handlersMemo.onDeleteShippingLabel}
+            onClickChip={handlers.onClickShippingLabel}
+            onDoubleClickChip={handlers.onDoubleClickShippingLabel}
+            onDeleteChip={handlers.onDeleteShippingLabel}
           />
 
           <ChangeChipCell
             label={t(TranslationKey['FBA Shipment']) + ':'}
             disabled={params.row.originalData?.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-            row={rowMemo}
+            row={params.row.originalData}
             value={params.row.fbaShipment}
             text={t(TranslationKey['FBA Shipment'])}
-            onClickChip={handlersMemo.onClickFbaShipment}
-            onDoubleClickChip={handlersMemo.onDoubleClickFbaShipment}
-            onDeleteChip={handlersMemo.onDeleteFbaShipment}
+            onClickChip={handlers.onClickFbaShipment}
+            onDoubleClickChip={handlers.onDoubleClickFbaShipment}
+            onDeleteChip={handlers.onDeleteFbaShipment}
           />
         </div>
       ) : (
@@ -382,11 +369,9 @@ export const clientBoxesViewColumns = (
     ),
 
     renderCell: params => {
-      const rowMemo = useMemo(() => params.row.originalData, [])
-
       return params.row.originalData ? (
         <ShortBoxDimensions
-          box={rowMemo}
+          box={params.row.originalData}
           volumeWeightCoefficient={params.row.volumeWeightCoefficient}
           unitsOption={getUnitsOption()}
         />
@@ -410,14 +395,12 @@ export const clientBoxesViewColumns = (
     ),
 
     renderCell: params => {
-      const onClickSavePrepId = useCallback(handlers.onClickSavePrepId, [])
-
       return (
         <ChangeInputCell
           maxLength={25}
           rowId={params.row.originalData._id}
           text={params.value}
-          onClickSubmit={onClickSavePrepId}
+          onClickSubmit={handlers.onClickSavePrepId}
         />
       )
     },

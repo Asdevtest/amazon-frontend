@@ -524,13 +524,13 @@ export class WarehouseMyWarehouseViewModel {
         const newItems = boxData.items.map(el => {
           const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
           return {
-            ...getObjectFilteredByKeyArrayBlackList(el, [
-              'amount',
-              'order',
-              'product',
-              'tmpBarCode',
-              'changeBarCodInInventory',
-            ]),
+            ...getObjectFilteredByKeyArrayBlackList(
+              el,
+              ['amount', 'order', 'product', 'tmpBarCode', 'changeBarCodInInventory'],
+              undefined,
+              undefined,
+              true,
+            ),
 
             _id: el._id,
 
@@ -553,6 +553,9 @@ export class WarehouseMyWarehouseViewModel {
           trackNumberFile: [...boxData.trackNumberFile, ...this.uploadedTrackNumber],
         },
         updateBoxWhiteList,
+        undefined,
+        undefined,
+        true,
       )
 
       await StorekeeperModel.editBox(id, requestBox)
@@ -966,10 +969,17 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickSubmitGroupingBoxes({ oldBoxes, newBoxes }) {
     try {
-      await BoxesModel.regroupBoxes({
+      const createdBoxes = await BoxesModel.regroupBoxes({
         boxIds: oldBoxes.map(el => el._id),
         newAmounts: newBoxes.map(el => Number(el.amount)).filter(num => num >= 1),
       })
+
+      const patchPrepIds = createdBoxes.map((el, index) => ({
+        boxId: el,
+        prepId: newBoxes[index].prepId || '',
+      }))
+
+      await BoxesModel.updatePrepId(patchPrepIds)
 
       runInAction(() => {
         this.selectedBoxes = []
@@ -1213,31 +1223,8 @@ export class WarehouseMyWarehouseViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      // const filter = objectToUrlQs({
-      //   or: [
-      //     {asin: {$contains: this.nameSearchValue}},
-      //     {amazonTitle: {$contains: this.nameSearchValue}},
-      //     {skusByClient: {$contains: this.nameSearchValue}},
-      //     {item: {$eq: this.nameSearchValue}},
-      //     {id: {$eq: this.nameSearchValue}},
-      //     {humanFriendlyId: {$eq: this.nameSearchValue}},
-      //     {prepId: {$contains: this.nameSearchValue}},
-      //   ].filter(
-      //     el =>
-      //       ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-      //         !el.id &&
-      //         !el.humanFriendlyId) ||
-      //       !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
-      //   ),
-      // })
-
-      // console.log('filter', filter)
-
-      // console.log(this.getFilter())
       const boxes = await StorekeeperModel.getBoxesMyPag({
         filters: this.getFilter(),
-
-        // storekeeperId: this.currentStorekeeper && this.currentStorekeeper._id,
 
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,

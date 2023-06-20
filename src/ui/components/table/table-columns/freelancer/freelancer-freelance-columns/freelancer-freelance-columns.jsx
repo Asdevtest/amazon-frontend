@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, { useCallback } from 'react'
+import React from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -82,17 +82,13 @@ export const FreelancerFreelanceColumns = handlers => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    renderCell: params => {
-      const onClickOpenButton = useCallback(() => handlers.onClickOpenButton(params.row.id), [])
-
-      return (
-        <NormalActionBtnCell
-          // disabled={!params.row.batch}
-          bTnText={t(TranslationKey.Open)}
-          onClickOkBtn={onClickOpenButton}
-        />
-      )
-    },
+    renderCell: params => (
+      <NormalActionBtnCell
+        // disabled={!params.row.batch}
+        bTnText={t(TranslationKey.Open)}
+        onClickOkBtn={() => handlers.onClickOpenButton(params.row.id)}
+      />
+    ),
     width: 190,
   },
 ]

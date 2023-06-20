@@ -36,6 +36,7 @@ const filtersFields = [
   'sub',
   'subUsers',
   'priority',
+  'createdAt',
 ]
 
 export class MyRequestsViewModel {
@@ -62,6 +63,13 @@ export class MyRequestsViewModel {
 
   searchRequests = []
   openModal = null
+
+  onListingFiltersData = {
+    onListing: true,
+    notOnListing: true,
+    handleListingFilters: (onListing, notOnListing) => this.handleListingFilters(onListing, notOnListing),
+  }
+
   requestFormSettings = {
     request: {},
     isEdit: false,
@@ -87,7 +95,13 @@ export class MyRequestsViewModel {
   filterModel = { items: [] }
   densityModel = 'compact'
 
+  rowHandlers = {
+    onToggleUploadedToListing: (id, uploadedToListingState) =>
+      this.onToggleUploadedToListing(id, uploadedToListingState),
+  }
+
   columnsModel = myRequestsViewColumns(
+    this.rowHandlers,
     () => this.columnMenuSettings,
     () => this.onHover,
   )
@@ -108,6 +122,8 @@ export class MyRequestsViewModel {
         this.getDataGridState()
       }
     },
+
+    onListingFiltersData: this.onListingFiltersData,
 
     filterRequestStatus: undefined,
 
@@ -240,12 +256,29 @@ export class MyRequestsViewModel {
       this.sortModel = sortModel
     })
 
-    this.setDataGridState()
+    const clientSortColumn = sortModel.find(column => column.field === 'waitedProposals')
 
-    this.requestStatus = loadingStatuses.isLoading
-    this.getCustomRequests().then(() => {
-      this.requestStatus = loadingStatuses.success
-    })
+    if (clientSortColumn) {
+      const isAscending = clientSortColumn.sort === 'asc'
+
+      const sortedData = [...this.currentData].sort((a, b) => {
+        const valueA = a.waitedProposals
+        const valueB = b.waitedProposals
+
+        return isAscending ? valueA - valueB : valueB - valueA
+      })
+
+      runInAction(() => {
+        this.currentData = sortedData
+      })
+
+      this.setDataGridState()
+    } else {
+      this.requestStatus = loadingStatuses.isLoading
+      this.getCustomRequests().then(() => {
+        this.requestStatus = loadingStatuses.success
+      })
+    }
   }
 
   getCurrentData() {
@@ -449,8 +482,14 @@ export class MyRequestsViewModel {
 
   async getCustomRequests() {
     try {
+      const listingFilters = this.columnMenuSettings.onListingFiltersData
+      const additionalFilters =
+        listingFilters.notOnListing && listingFilters.onListing
+          ? ''
+          : `;uploadedToListing[$eq]=${listingFilters.onListing}`
+
       const result = await RequestModel.getRequests(RequestSubType.MY, {
-        filters: this.getFilter() /* this.nameSearchValue ? filter : null */,
+        filters: this.getFilter() + additionalFilters,
 
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
@@ -461,6 +500,7 @@ export class MyRequestsViewModel {
 
       runInAction(() => {
         this.searchRequests = myRequestsDataConverter(result.rows)
+
         this.rowCount = result.count
       })
     } catch (error) {
@@ -483,7 +523,8 @@ export class MyRequestsViewModel {
     const timeoutAtFilter = exclusion !== 'timeoutAt' && this.columnMenuSettings.timeoutAt.currentFilterData.join(',')
     const subUsersFilter =
       exclusion !== 'subUsers' && this.columnMenuSettings?.subUsers?.currentFilterData?.map(item => item._id)?.join(',')
-    const subFilter = exclusion !== 'sub' && this.columnMenuSettings.sub.currentFilterData.join(',')
+    const subFilter =
+      exclusion !== 'sub' && this.columnMenuSettings.sub.currentFilterData.map(item => item._id)?.join(',')
 
     const skusByClientFilter =
       exclusion !== 'skusByClient' &&
@@ -493,9 +534,12 @@ export class MyRequestsViewModel {
       exclusion !== 'amazonTitle' &&
       this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
 
-    const createdByFilter = exclusion !== 'createdBy' && this.columnMenuSettings.createdBy.currentFilterData.join(',')
+    const createdByFilter =
+      exclusion !== 'createdBy' && this.columnMenuSettings.createdBy.currentFilterData.map(item => item._id)?.join(',')
 
     const priorityFilter = exclusion !== 'priority' && this.columnMenuSettings.priority.currentFilterData.join(',')
+
+    const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt.currentFilterData.join(',')
 
     const filter = objectToUrlQs({
       or: [
@@ -553,6 +597,9 @@ export class MyRequestsViewModel {
       ...(priorityFilter && {
         priority: { $eq: priorityFilter },
       }),
+      ...(createdAtFilter && {
+        createdAt: { $eq: createdAtFilter },
+      }),
     })
 
     return filter
@@ -568,10 +615,24 @@ export class MyRequestsViewModel {
         `requests?kind=${RequestSubType.MY}&filters=${this.getFilter(column)}`,
       )
 
-      if (this.columnMenuSettings[column]) {
-        this.columnMenuSettings = {
-          ...this.columnMenuSettings,
-          [column]: { ...this.columnMenuSettings[column], filterData: data },
+      if (column === 'status') {
+        if (this.columnMenuSettings[column]) {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: {
+              ...this.columnMenuSettings[column],
+              filterData: this.isRequestsAtWork
+                ? data.filter(el => allowStatuses.includes(el))
+                : data.filter(el => !allowStatuses.includes(el)),
+            },
+          }
+        }
+      } else {
+        if (this.columnMenuSettings[column]) {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: { ...this.columnMenuSettings[column], filterData: data },
+          }
         }
       }
 
@@ -579,6 +640,27 @@ export class MyRequestsViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
 
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async onToggleUploadedToListing(id, uploadedToListingState) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      await RequestModel.patchRequestsUploadedToListing({
+        requestIds: [id],
+        uploadedToListing: !uploadedToListingState,
+      })
+
+      await this.loadData()
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       runInAction(() => {
         this.error = error
@@ -619,6 +701,20 @@ export class MyRequestsViewModel {
   onTriggerOpenModal(modal) {
     runInAction(() => {
       this[modal] = !this[modal]
+    })
+  }
+
+  handleListingFilters(onListing, notOnListing) {
+    runInAction(() => {
+      this.columnMenuSettings = {
+        ...this.columnMenuSettings,
+        onListingFiltersData: {
+          ...this.columnMenuSettings.onListingFiltersData,
+          onListing,
+          notOnListing,
+        },
+      }
+      this.getCustomRequests()
     })
   }
 }

@@ -35,4 +35,10 @@ export class ClientNotificationsViewModel {
       pathname: '/client/notifications/ideas-notifications',
     })
   }
+
+  onClickFreelanceNotifications() {
+    this.history.push({
+      pathname: '/client/notifications/freelance-notifications',
+    })
+  }
 }

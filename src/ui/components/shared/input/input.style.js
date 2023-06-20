@@ -6,9 +6,9 @@ export const styles = theme => ({
     flexShrink: '0',
   },
   input: {
-    paddingLeft: '8px',
-    paddingRight: '8px',
+    padding: '9px 15px',
     color: theme.palette.text.general,
+    fontFamily: 'Regular, sans-serif',
 
     '&:-webkit-autofill': {
       borderRadius: '4px',

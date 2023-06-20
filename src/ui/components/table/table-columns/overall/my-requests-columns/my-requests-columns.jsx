@@ -5,6 +5,7 @@ import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@cons
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  CheckboxCell,
   ManyUserLinkCell,
   MultilineRequestStatusCell,
   MultilineTextCell,
@@ -18,23 +19,7 @@ import {
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
-  {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Updated)}
-        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
-
-    renderCell: params => <ShortDateCell value={params.value} />,
-    width: 117,
-    columnKey: columnnsKeys.shared.DATE,
-  },
-
+export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover, onListingFiltersData) => [
   {
     field: 'priority',
     headerName: t(TranslationKey['Priority and Express Delivery']),
@@ -55,11 +40,14 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
       />
     ),
 
-    columnKey: columnnsKeys.shared.S,
+    filterable: false,
+    sortable: false,
+
+    columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
   },
 
   {
-    field: 'product',
+    field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: params => (
       <MultilineTextHeaderCell
@@ -86,6 +74,9 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
       )
     },
     width: 300,
+
+    filterable: false,
+    sortable: false,
 
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
@@ -122,8 +113,26 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
     renderCell: params => <MultilineRequestStatusCell /* languageTag={languageTag} */ status={params.value} />,
     width: 161,
     filterable: false,
+    sortable: false,
 
     columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
+  },
+
+  {
+    field: 'waitedProposals',
+    headerName: t(TranslationKey['Waiting for checks']),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Waiting for checks'])}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+    type: 'number',
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 120,
+
+    // columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -150,7 +159,10 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
     ),
     width: 110,
 
-    columnKey: columnnsKeys.shared.A,
+    filterable: false,
+    sortable: false,
+
+    columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
   },
 
   {
@@ -166,6 +178,9 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
 
     renderCell: params => <ManyUserLinkCell usersData={params.row.originalData?.product?.subUsers} />,
     width: 187,
+
+    filterable: false,
+    sortable: false,
 
     columnKey: columnnsKeys.shared.OBJECT,
   },
@@ -224,6 +239,31 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
   },
 
   {
+    field: 'uploadedToListing',
+    headerName: t(TranslationKey['Uploaded by on listing']),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey['Uploaded by on listing'])}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={
+          !getColumnMenuSettings()?.onListingFiltersData?.onListing ||
+          !getColumnMenuSettings()?.onListingFiltersData?.notOnListing
+        }
+      />
+    ),
+
+    renderCell: params => (
+      <CheckboxCell
+        disabled
+        checked={params.value}
+        onClick={() => rowHandlers.onToggleUploadedToListing(params.row.originalData._id, params.value)}
+      />
+    ),
+    width: 115,
+    columnKey: columnnsKeys.client.FREELANCER_REQUEST_LISTING,
+  },
+
+  {
     field: 'timeoutAt',
     headerName: t(TranslationKey.Deadline),
     renderHeader: params => (
@@ -236,6 +276,38 @@ export const myRequestsViewColumns = (getColumnMenuSettings, getOnHover) => [
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 115,
     // type: 'date',
+    columnKey: columnnsKeys.shared.DATE,
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Updated)}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+
+    renderCell: params => <ShortDateCell value={params.value} />,
+    width: 117,
+    columnKey: columnnsKeys.shared.DATE,
+  },
+
+  {
+    field: 'createdAt',
+    headerName: t(TranslationKey.Created),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Created)}
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+
+    renderCell: params => <ShortDateCell value={params.value} />,
+    width: 117,
     columnKey: columnnsKeys.shared.DATE,
   },
 ]

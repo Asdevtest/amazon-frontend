@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -59,20 +59,15 @@ export const warehouseTariffsColumns = handlers => [
     width: 250,
     renderCell: (
       params, // <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />
-    ) => {
-      const handlersMemo = useMemo(() => handlers, [])
-      const rowMemo = useMemo(() => params.row, [])
-
-      return (
-        <EditOrRemoveIconBtnsCell
-          tooltipFirstButton={t(TranslationKey.Edit)}
-          tooltipSecondButton={t(TranslationKey.Remove)}
-          handlers={handlersMemo}
-          row={rowMemo}
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        />
-      )
-    },
+    ) => (
+      <EditOrRemoveIconBtnsCell
+        tooltipFirstButton={t(TranslationKey.Edit)}
+        tooltipSecondButton={t(TranslationKey.Remove)}
+        handlers={handlers}
+        row={params.row}
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+      />
+    ),
 
     filterable: false,
     sortable: false,

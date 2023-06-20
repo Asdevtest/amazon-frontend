@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AdminsTasksLightVariationTariff from './ApiV1AdminsTasksLightVariationTariff';
 import ApiV1BoxesClientsLightBatch from './ApiV1BoxesClientsLightBatch';
 import ApiV1BoxesClientsLightDestination from './ApiV1BoxesClientsLightDestination';
 import ApiV1BoxesClientsLightItems from './ApiV1BoxesClientsLightItems';
@@ -135,6 +136,9 @@ class InlineResponse20015 {
             }
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            }
+            if (data.hasOwnProperty('variationTariff')) {
+                obj['variationTariff'] = ApiV1AdminsTasksLightVariationTariff.constructFromObject(data['variationTariff']);
             }
             if (data.hasOwnProperty('items')) {
                 obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesClientsLightItems]);
@@ -331,6 +335,11 @@ InlineResponse20015.prototype['createdAt'] = undefined;
  * @member {Date} updatedAt
  */
 InlineResponse20015.prototype['updatedAt'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsTasksLightVariationTariff} variationTariff
+ */
+InlineResponse20015.prototype['variationTariff'] = undefined;
 
 /**
  * Массив коробок.

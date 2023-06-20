@@ -33,7 +33,12 @@ import {
 import { checkIsImageLink } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { formatDateWithoutTime } from '@utils/date-time'
-import { getFullTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
+import {
+  getFullTariffTextForBoxOrOrder,
+  getNewTariffTextForBoxOrOrder,
+  getShortenStringIfLongerThanCount,
+  toFixed,
+} from '@utils/text'
 import { t } from '@utils/translations'
 
 import { BigImagesModal } from '../big-images-modal'
@@ -41,6 +46,7 @@ import { batchInfoModalColumn } from './batch-info-modal-column'
 import { useClassNames } from './batch-info-modal.style'
 import { PhotoAndFilesCarouselMini } from '@components/shared/photo-and-files-carousel-mini'
 import { DownloadIcon } from '@components/shared/svg-icons'
+import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
 
 export const BatchInfoModal = observer(
   ({
@@ -52,7 +58,16 @@ export const BatchInfoModal = observer(
     onSubmitChangeBoxFields,
     onClickHsCode,
     patchActualShippingCostBatch,
+    history,
+    location,
   }) => {
+    const [viewModel] = useState(
+      () =>
+        new ClientAwaitingBatchesViewModel({
+          history,
+          location,
+        }),
+    )
     const { classes: classNames } = useClassNames()
 
     const [showBoxViewModal, setShowBoxViewModal] = useState(false)
@@ -174,7 +189,7 @@ export const BatchInfoModal = observer(
               inputClasses={cx(classNames.infoField, classNames.batchTitleField)}
               labelClasses={classNames.subFieldLabel}
               label={t(TranslationKey.Tariff)}
-              value={getFullTariffTextForBoxOrOrder(batch.boxes?.[0])}
+              value={getNewTariffTextForBoxOrOrder(batch.boxes?.[0])}
               placeholder={t(TranslationKey.Missing)}
             />
 
@@ -353,6 +368,7 @@ export const BatchInfoModal = observer(
               // autoHeight
               pagination
               localeText={getLocalizationByLanguageTag()}
+              columnVisibilityModel={viewModel.columnVisibilityModel}
               pageSizeOptions={[50, 100]}
               classes={{
                 columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
@@ -378,6 +394,21 @@ export const BatchInfoModal = observer(
                 //   </div>
                 // ),
               }}
+              slotProps={{
+                toolbar: {
+                  columsBtnSettings: {
+                    columnsModel: batchInfoModalColumn(
+                      currentBatch.volumeWeightDivide,
+                      currentBatch.calculationMethod,
+                      isActualGreaterTheVolume,
+                      currentBatch.actualShippingCost || currentBatch.calculatedShippingCost,
+                      currentBatch.finalWeight,
+                    ),
+                    columnVisibilityModel: viewModel.columnVisibilityModel,
+                    onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                  },
+                },
+              }}
               getRowId={dataToRender => dataToRender._id}
               columns={batchInfoModalColumn(
                 currentBatch.volumeWeightDivide,
@@ -389,6 +420,7 @@ export const BatchInfoModal = observer(
               rows={toJS(dataToRender)}
               getRowHeight={() => 'auto'}
               onRowDoubleClick={e => openBoxView(e.row)}
+              onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             />
             {/* </div> */}
           </div>

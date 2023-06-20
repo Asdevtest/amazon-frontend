@@ -56,6 +56,7 @@ const updateBoxWhiteList = [
   'trackNumberText',
   'fbaNumber',
   'prepId',
+  'variationTariffId',
 ]
 
 const filtersFields = [
@@ -945,6 +946,7 @@ export class ClientInStockBoxesViewModel {
               shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : updatedBoxes[i].shippingLabel,
               destinationId: updatedBoxes[i].destinationId,
               logicsTariffId: updatedBoxes[i].logicsTariffId,
+              variationTariffId: updatedBoxes[i].variationTariffId,
               fbaShipment: updatedBoxes[i].fbaShipment,
               isBarCodeAlreadyAttachedByTheSupplier: updatedBoxes[i].isBarCodeAlreadyAttachedByTheSupplier,
               isBarCodeAttachedByTheStorekeeper: updatedBoxes[i].isBarCodeAttachedByTheStorekeeper,
@@ -1253,9 +1255,7 @@ export class ClientInStockBoxesViewModel {
 
   async editDestination(id, boxData) {
     try {
-      await BoxesModel.editBoxAtClient(id, {
-        destinationId: boxData.destinationId,
-      })
+      await BoxesModel.editBoxAtClient(id, boxData)
 
       await this.getBoxesMy()
     } catch (error) {
@@ -1271,6 +1271,7 @@ export class ClientInStockBoxesViewModel {
     try {
       await BoxesModel.editBoxAtClient(id, {
         logicsTariffId: boxData.logicsTariffId,
+        variationTariffId: boxData.variationTariffId,
       })
 
       await this.getBoxesMy()
@@ -1313,6 +1314,7 @@ export class ClientInStockBoxesViewModel {
           fbaShipment: boxData.fbaShipment,
           destinationId: boxData.destinationId,
           logicsTariffId: boxData.logicsTariffId,
+          variationTariffId: boxData.variationTariffId,
           shippingLabel: this.uploadedFiles?.length ? this.uploadedFiles[0] : boxData.shippingLabel,
           isShippingLabelAttachedByStorekeeper:
             boxData.shippingLabel !== sourceData.shippingLabel
@@ -1460,6 +1462,9 @@ export class ClientInStockBoxesViewModel {
       const newBoxBody = getObjectFilteredByKeyArrayBlackList(
         { ...boxBody, shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxBody.shippingLabel },
         ['tmpShippingLabel', 'storekeeperId', 'humanFriendlyId'],
+        undefined,
+        undefined,
+        true,
       )
 
       const mergeBoxesResult = await this.mergeBoxes(selectedIds, newBoxBody)
@@ -1715,11 +1720,15 @@ export class ClientInStockBoxesViewModel {
 
       const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
 
+      const curStatus = this.columnMenuSettings.status.currentFilterData.length
+        ? this.columnMenuSettings.status.currentFilterData.join(',')
+        : `${BoxStatus.NEW},${BoxStatus.IN_STOCK},${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.ACCEPTED_IN_PROCESSING},${BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE},${BoxStatus.NEED_TO_UPDATE_THE_TARIFF}`
+
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'boxes'),
         column,
 
-        `boxes/pag/clients_light?status=IN_STOCK&filters=;${this.getFilter(column)}${
+        `boxes/pag/clients_light?status=${curStatus}&filters=;${this.getFilter(column)}${
           shopFilter ? ';&' + '[shopIds][$eq]=' + shopFilter : ''
         }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
       )

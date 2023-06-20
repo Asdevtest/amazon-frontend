@@ -1,5 +1,3 @@
-import { OrderIdAndAmountCountCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
-
 export const styles = theme => ({
   img: {
     height: '64px',
@@ -174,6 +172,9 @@ export const styles = theme => ({
   changeInputComment: {
     width: '100%',
     height: 'auto',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    paddingLeft: 5,
 
     '&::placeholder': {
       fontSize: 14,
@@ -386,11 +387,10 @@ export const styles = theme => ({
   },
 
   warehouseMyTasksSuccessBtn: {
-    height: '40px',
-    width: '166px',
+    height: 30,
+    width: 166,
 
     [theme.breakpoints.down(1282)]: {
-      height: 30,
       width: 90,
     },
   },
@@ -678,7 +678,6 @@ export const styles = theme => ({
     textAlign: 'center',
     whiteSpace: 'normal',
     textOverflow: 'ellipsis',
-    wordBreak: 'break-all',
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',
@@ -861,7 +860,8 @@ export const styles = theme => ({
   },
 
   warehouseBoxesBtn: {
-    width: '210px',
+    width: 210,
+    height: 30,
   },
 
   shopsReportBtnsWrapper: {
@@ -988,9 +988,17 @@ export const styles = theme => ({
 
   manyUserLinkWrapper: {
     width: '100%',
+    maxWidth: 152,
+    overflowX: 'auto',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  manyUserLinkWrapperStart: {
+    display: 'flex',
+    justifyContent: 'start',
+    paddingBottom: 5,
   },
 
   userLinkWrapper: {
@@ -1262,24 +1270,23 @@ export const styles = theme => ({
     },
 
     warehouseMyTasksSuccessBtn: {
-      width: '114px',
-      height: '36px',
+      width: 114,
+      height: 30,
     },
 
     warehouseMyTasksCancelBtn: {
-      width: '114px',
-      height: '36px',
+      width: 114,
+      height: 30,
 
       [theme.breakpoints.down(1282)]: {
-        height: 30,
         width: 90,
       },
     },
   },
 
   warehouseMyTasksCancelBtn: {
-    height: '40px',
-    width: '166px',
+    height: 30,
+    width: 166,
   },
 
   sizesLabel: {
@@ -1323,6 +1330,7 @@ export const styles = theme => ({
   iconWrapper: {
     display: 'flex',
     gap: 5,
+    paddingLeft: 5,
   },
   destinationAndTariffWrapper: {
     width: '100%',
@@ -1679,7 +1687,7 @@ export const styles = theme => ({
   },
   commentControls: {
     alignSelf: 'flex-end',
-    paddingBottom: 15,
+    paddingBottom: 20,
   },
 
   arrivalDateIcon: {
@@ -1737,11 +1745,20 @@ export const styles = theme => ({
   printIcon: {
     color: theme.palette.background.darkBlue,
   },
+  printIconModal: {
+    color: '#fff',
+  },
   formedCell: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
     gap: 5,
+  },
+
+  asinCellCopyWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 7,
   },
 })

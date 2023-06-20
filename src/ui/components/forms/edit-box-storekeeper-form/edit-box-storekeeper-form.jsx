@@ -2,7 +2,7 @@
 import { cx } from '@emotion/css'
 import { Avatar, Checkbox, Chip, Divider, Typography } from '@mui/material'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { observer } from 'mobx-react'
 
@@ -45,8 +45,9 @@ import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-
 import { useClassNames } from './edit-box-storekeeper-form.style'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { tariffTypes } from '@constants/keys/tariff-types'
 
-export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoefficient, setFormField }) => {
+export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoefficient, setFormField, showCheckbox }) => {
   const { classes: classNames } = useClassNames()
 
   const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
@@ -101,18 +102,21 @@ export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoeffic
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey['Volume weight']) + ': '}
           labelClasses={classNames.label}
-          value={toFixed(
-            (sizeSetting === unitsOfChangeOptions.EU
-              ? orderBox.heightCmWarehouse *
-                inchesCoefficient *
-                orderBox.widthCmWarehouse *
-                inchesCoefficient *
-                orderBox.lengthCmWarehouse *
-                inchesCoefficient
-              : orderBox.heightCmWarehouse * orderBox.widthCmWarehouse * orderBox.lengthCmWarehouse) /
-              volumeWeightCoefficient,
-            2,
-          )}
+          value={
+            //   toFixed(
+            //   (sizeSetting === unitsOfChangeOptions.EU
+            //     ? orderBox.heightCmWarehouse *
+            //       inchesCoefficient *
+            //       orderBox.widthCmWarehouse *
+            //       inchesCoefficient *
+            //       orderBox.lengthCmWarehouse *
+            //       inchesCoefficient
+            //     : orderBox.heightCmWarehouse * orderBox.widthCmWarehouse * orderBox.lengthCmWarehouse) /
+            //     volumeWeightCoefficient,
+            //   2,
+            // )
+            toFixed(calcVolumeWeightForBox(orderBox, volumeWeightCoefficient), 2)
+          }
         />
 
         <Field
@@ -120,20 +124,25 @@ export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoeffic
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey['Final weight']) + ': '}
           labelClasses={classNames.label}
-          value={Math.max(
-            toFixed(
-              ((sizeSetting === unitsOfChangeOptions.EU
-                ? orderBox.heightCmWarehouse *
-                  inchesCoefficient *
-                  orderBox.widthCmWarehouse *
-                  inchesCoefficient *
-                  orderBox.lengthCmWarehouse *
-                  inchesCoefficient
-                : orderBox.heightCmWarehouse * orderBox.widthCmWarehouse * orderBox.lengthCmWarehouse) /
+          value={toFixed(
+            Math.max(
+              // toFixed(
+              //   ((sizeSetting === unitsOfChangeOptions.US
+              //     ? ((((orderBox.heightCmWarehouse / inchesCoefficient) * orderBox.widthCmWarehouse) /
+              //         inchesCoefficient) *
+              //         orderBox.lengthCmWarehouse) /
+              //       inchesCoefficient
+              //     : orderBox.heightCmWarehouse * orderBox.widthCmWarehouse * orderBox.lengthCmWarehouse) /
+              //     volumeWeightCoefficient,
+              //   orderBox.weighGrossKgWarehouse),
+              //   2,
+              // ),
+
+              (orderBox.heightCmWarehouse * orderBox.widthCmWarehouse * orderBox.lengthCmWarehouse) /
                 volumeWeightCoefficient,
-              orderBox.weighGrossKgWarehouse) / weightConversion,
-              2,
+              orderBox.weighGrossKgWarehouse,
             ),
+            2,
           )}
         />
       </div>
@@ -236,6 +245,7 @@ export const EditBoxStorekeeperForm = observer(
       destinationId: formItem?.destination?._id || null,
       storekeeperId: formItem?.storekeeper?._id || '',
       logicsTariffId: formItem?.logicsTariff?._id || null,
+      variationTariffId: formItem?.variationTariff?._id || null,
 
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel,
@@ -249,6 +259,13 @@ export const EditBoxStorekeeperForm = observer(
     }
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
+    const [destinationId, setDestinationId] = useState(boxFields?.destinationId)
+
+    useEffect(() => {
+      setDestinationId(boxFields?.destinationId)
+    }, [boxFields?.destinationId])
+
+    console.log('boxFields', boxFields)
 
     const setFormField = fieldName => e => {
       const newFormFields = { ...boxFields }
@@ -309,7 +326,7 @@ export const EditBoxStorekeeperForm = observer(
           lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse / inchesCoefficient, 2),
           widthCmWarehouse: toFixed(boxFields.widthCmWarehouse / inchesCoefficient, 2),
           heightCmWarehouse: toFixed(boxFields.heightCmWarehouse / inchesCoefficient, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.heightCmWarehouse / poundsWeightCoefficient, 2),
+          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse / poundsWeightCoefficient, 2),
         })
       } else {
         setBoxFields({
@@ -317,19 +334,20 @@ export const EditBoxStorekeeperForm = observer(
           lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 2),
           widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 2),
           heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.heightCmWarehouse * poundsWeightCoefficient, 2),
+          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
         })
       }
     }
 
     const getBoxDataToSubmit = () => {
-      if (sizeSetting === unitsOfChangeOptions.EU) {
+      if (sizeSetting === unitsOfChangeOptions.US) {
         return {
           ...boxFields,
           destinationId: boxFields.destinationId || null,
           lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 2),
           widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 2),
           heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 2),
+          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
         }
       } else {
         return { ...boxFields, destinationId: boxFields.destinationId || null }
@@ -338,8 +356,9 @@ export const EditBoxStorekeeperForm = observer(
 
     const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
-    const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-      setBoxFields({ ...boxFields, storekeeperId, logicsTariffId: tariffId })
+    const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId, destinationId) => {
+      setBoxFields({ ...boxFields, storekeeperId, logicsTariffId: tariffId, variationTariffId })
+      setDestinationId(destinationId)
 
       setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
     }
@@ -389,18 +408,18 @@ export const EditBoxStorekeeperForm = observer(
       !imagesOfBox.length
 
     const curDestination = destinations.find(el => el._id === boxFields.destinationId)
+    const currentStorekeeper = storekeepers.find(el => el._id === boxFields.storekeeperId)
+    const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === boxFields.logicsTariffId)
 
     const firstNumOfCode = curDestination?.zipCode[0]
 
     const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-    const tariffName = storekeepers
-      .find(el => el._id === boxFields.storekeeperId)
-      ?.tariffLogistics.find(el => el._id === boxFields.logicsTariffId)?.name
+    const tariffName = currentLogicsTariff?.name
 
-    const tariffRate = storekeepers
-      .find(el => el._id === boxFields.storekeeperId)
-      ?.tariffLogistics.find(el => el._id === boxFields.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+    const tariffRate =
+      currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
+      currentLogicsTariff?.destinationVariations?.find(el => el._id === boxFields?.variationTariffId)?.pricePerKgUsd
 
     const allItemsCount =
       boxFields.items.reduce((ac, cur) => (ac = ac + cur.amount), 0) * (boxFields.amount < 1 ? 1 : boxFields.amount)
@@ -637,7 +656,12 @@ export const EditBoxStorekeeperForm = observer(
                             destinations.find(el => el._id === boxFields.destinationId)?.name ||
                             t(TranslationKey['Not chosen'])
                           }
-                          data={destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)}
+                          data={
+                            boxFields.logicsTariffId &&
+                            currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
+                              ? destinations.filter(el => el?._id === destinationId)
+                              : destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
+                          }
                           searchFields={['name']}
                           onClickNotChosen={() => setBoxFields({ ...boxFields, destinationId: null })}
                           onClickSelect={el => setBoxFields({ ...boxFields, destinationId: el._id })}
@@ -666,7 +690,7 @@ export const EditBoxStorekeeperForm = observer(
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }
                         >
-                          {boxFields.storekeeperId
+                          {/* {boxFields.storekeeperId
                             ? `${
                                 storekeepers.find(el => el._id === boxFields.storekeeperId)?.name ||
                                 t(TranslationKey['Not available'])
@@ -678,6 +702,10 @@ export const EditBoxStorekeeperForm = observer(
                               }${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                             : 'none'
                         }`
+                            : t(TranslationKey.Select)} */}
+
+                          {boxFields.storekeeperId
+                            ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                             : t(TranslationKey.Select)}
                         </Button>
                       }
@@ -933,7 +961,7 @@ export const EditBoxStorekeeperForm = observer(
             disabled={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Save changes to the box'])}
             className={classNames.button}
-            onClick={() => {
+            onClick={() =>
               onSubmit({
                 id: formItem?._id,
                 boxData: getBoxDataToSubmit(),
@@ -944,7 +972,7 @@ export const EditBoxStorekeeperForm = observer(
                   hsCode: el.product.hsCode,
                 })),
               })
-            }}
+            }
           >
             {t(TranslationKey.Save)}
           </Button>
@@ -987,10 +1015,13 @@ export const EditBoxStorekeeperForm = observer(
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
         >
           <SelectStorekeeperAndTariffForm
+            showCheckbox
             destinationsData={destinations}
             storekeepers={storekeepers.filter(el => el._id === formItem?.storekeeper._id)}
             curStorekeeperId={boxFields.storekeeperId}
             curTariffId={boxFields.logicsTariffId}
+            currentDestinationId={boxFields?.destinationId}
+            currentVariationTariffId={boxFields?.variationTariffId}
             onSubmit={onSubmitSelectStorekeeperAndTariff}
           />
         </Modal>

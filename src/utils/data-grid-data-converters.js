@@ -20,7 +20,7 @@ import {
   checkActualBatchWeightGreaterVolumeBatchWeight,
   getTariffRateForBoxOrOrder,
 } from './calculation'
-import { getFullTariffTextForBoxOrOrder } from './text'
+import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder } from './text'
 import { t } from './translations'
 
 export const addIdDataConverter = data =>
@@ -71,6 +71,7 @@ export const myRequestsDataConverter = data =>
     asin: item.asin,
     humanFriendlyId: item.humanFriendlyId,
     updatedAt: item.updatedAt,
+    createdAt: item.createdAt,
     timeoutAt: item.timeoutAt,
     acceptedProposals: item?.countProposalsByStatuses?.acceptedProposals,
     allProposals: item?.countProposalsByStatuses?.allProposals,
@@ -78,6 +79,7 @@ export const myRequestsDataConverter = data =>
     verifyingProposals: item?.countProposalsByStatuses?.verifyingProposals,
     waitedProposals: item?.countProposalsByStatuses?.waitedProposals,
     typeTask: item?.typeTask,
+    uploadedToListing: item?.uploadedToListing,
   }))
 
 export const researcherCustomRequestsDataConverter = data =>
@@ -345,7 +347,7 @@ export const depersonalizedPickDataConverter = data =>
     updatedAt: item.updatedAt,
   }))
 
-export const clientOrdersDataConverter = data =>
+export const clientOrdersDataConverter = (data, shopsData) =>
   data.map(item => ({
     originalData: item,
     id: item._id,
@@ -370,6 +372,8 @@ export const clientOrdersDataConverter = data =>
     needsResearch: item.needsResearch,
     buyerComment: item.buyerComment,
     clientComment: item.clientComment,
+    shopIds: shopsData?.find(el => el._id === item.product.shopIds?.[0])?.name || '',
+    // shopIds: item.product.shopIds?.[0],
   }))
 
 export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shopsData) =>
@@ -409,6 +413,7 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
 
     shippingLabel: item.shippingLabel,
     fbaShipment: item.fbaShipment,
+    variationTariff: item?.variationTariff,
     volumeWeightCoefficient,
 
     orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
@@ -462,7 +467,7 @@ export const addOrEditBatchDataConverter = (
     destination: item.destination?.name,
     storekeeper: item.storekeeper?.name,
     // storekeeper: item.storekeeper,
-    logicsTariff: getFullTariffTextForBoxOrOrder(item),
+    logicsTariff: getNewTariffTextForBoxOrOrder(item),
     client: item.client?.name,
 
     isDraft: item.isDraft,
@@ -573,7 +578,7 @@ export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
     _id: item._id,
 
     destination: item.boxes[0].destination?.name,
-    tariff: getFullTariffTextForBoxOrOrder(item.boxes[0]),
+    tariff: getNewTariffTextForBoxOrOrder(item.boxes[0]),
     humanFriendlyId: item.humanFriendlyId,
 
     title: item.title,
@@ -784,7 +789,7 @@ export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
     _id: item?._id,
 
     warehouse: item?.destination?.name,
-    logicsTariff: getFullTariffTextForBoxOrOrder(item),
+    logicsTariff: getNewTariffTextForBoxOrOrder(item),
 
     client: item?.client?.name,
 

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -26,22 +26,18 @@ export const depersonalizedPickColumns = (handlers, isSupervisor) => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    renderCell: params => {
-      const onPickUp = useCallback(() => handlers.onPickUp(params.row.originalData), [])
-
-      return (
-        <NormalActionBtnCell
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-          tooltipText={
-            isSupervisor
-              ? t(TranslationKey['Assign a product card to a supervisor'])
-              : t(TranslationKey['To assign the order to Byer'])
-          }
-          bTnText={t(TranslationKey['Get to work'])}
-          onClickOkBtn={onPickUp}
-        />
-      )
-    },
+    renderCell: params => (
+      <NormalActionBtnCell
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+        tooltipText={
+          isSupervisor
+            ? t(TranslationKey['Assign a product card to a supervisor'])
+            : t(TranslationKey['To assign the order to Byer'])
+        }
+        bTnText={t(TranslationKey['Get to work'])}
+        onClickOkBtn={() => handlers.onPickUp(params.row.originalData)}
+      />
+    ),
     width: 550,
   },
 

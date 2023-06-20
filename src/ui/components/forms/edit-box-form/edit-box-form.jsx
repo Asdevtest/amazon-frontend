@@ -2,7 +2,7 @@
 import { cx } from '@emotion/css'
 import { Checkbox, Chip, Divider, Typography } from '@mui/material'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { observer } from 'mobx-react'
 
@@ -44,6 +44,7 @@ import { CopyValue } from '@components/shared/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
+import { tariffTypes } from '@constants/keys/tariff-types'
 
 const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
   const { classes: classNames } = useClassNames()
@@ -103,6 +104,7 @@ const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
 
 export const EditBoxForm = observer(
   ({
+    showCheckbox,
     formItem,
     onSubmit,
     onTriggerOpenModal,
@@ -168,6 +170,7 @@ export const EditBoxForm = observer(
       destinationId: formItem?.destination?._id || null,
       storekeeperId: formItem?.storekeeper?._id || '',
       logicsTariffId: formItem?.logicsTariff?._id || '',
+      variationTariffId: formItem?.variationTariff?._id || null,
 
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel,
@@ -182,6 +185,11 @@ export const EditBoxForm = observer(
     }
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
+    const [destinationId, setDestinationId] = useState(boxFields?.destinationId)
+
+    useEffect(() => {
+      setDestinationId(boxFields?.destinationId)
+    }, [boxFields.destinationId])
 
     const setFormField = fieldName => e => {
       const newFormFields = { ...boxFields }
@@ -229,8 +237,9 @@ export const EditBoxForm = observer(
 
     const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
-    const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-      setBoxFields({ ...boxFields, storekeeperId, logicsTariffId: tariffId })
+    const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId, destinationId) => {
+      setBoxFields({ ...boxFields, storekeeperId, logicsTariffId: tariffId, variationTariffId })
+      setDestinationId(destinationId)
 
       setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
     }
@@ -247,18 +256,18 @@ export const EditBoxForm = observer(
     // !boxFields.destination?.storekeeperId)
 
     const curDestination = destinations.find(el => el._id === boxFields.destinationId)
+    const currentStorekeeper = storekeepers.find(el => el._id === boxFields.storekeeperId)
+    const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === boxFields.logicsTariffId)
 
     const firstNumOfCode = curDestination?.zipCode[0]
 
     const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-    const tariffName = storekeepers
-      .find(el => el._id === boxFields.storekeeperId)
-      ?.tariffLogistics.find(el => el._id === boxFields.logicsTariffId)?.name
+    const tariffName = currentLogicsTariff?.name
 
-    const tariffRate = storekeepers
-      .find(el => el._id === boxFields.storekeeperId)
-      ?.tariffLogistics.find(el => el._id === boxFields.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+    const tariffRate =
+      currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
+      currentLogicsTariff?.destinationVariations?.find(el => el._id === boxFields?.variationTariffId)?.pricePerKgUsd
 
     const allItemsCount =
       boxFields.items.reduce((ac, cur) => (ac = ac + cur.amount), 0) * (boxFields.amount < 1 ? 1 : boxFields.amount)
@@ -497,7 +506,14 @@ export const EditBoxForm = observer(
                             destinations.find(el => el._id === boxFields.destinationId)?.name ||
                             t(TranslationKey['Not chosen'])
                           }
-                          data={destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)}
+                          data={
+                            boxFields.logicsTariffId &&
+                            currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
+                              ? destinations
+                                  .filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
+                                  .filter(el => el?._id === destinationId)
+                              : destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
+                          }
                           searchFields={['name']}
                           favourites={destinationsFavourites}
                           onClickSetDestinationFavourite={setDestinationsFavouritesItem}
@@ -527,7 +543,7 @@ export const EditBoxForm = observer(
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }
                         >
-                          {boxFields.storekeeperId
+                          {/* {boxFields.storekeeperId
                             ? `${
                                 storekeepers.find(el => el._id === boxFields.storekeeperId)?.name ||
                                 t(TranslationKey['Not available'])
@@ -539,6 +555,10 @@ export const EditBoxForm = observer(
                               }${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                             : 'none'
                         }`
+                            : t(TranslationKey.Select)} */}
+
+                          {boxFields.storekeeperId
+                            ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                             : t(TranslationKey.Select)}
                         </Button>
                       }
@@ -764,10 +784,13 @@ export const EditBoxForm = observer(
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
         >
           <SelectStorekeeperAndTariffForm
+            showCheckbox={showCheckbox}
             storekeepers={storekeepers.filter(el => el._id === formItem?.storekeeper._id)}
             curStorekeeperId={boxFields.storekeeperId}
             curTariffId={boxFields.logicsTariffId}
             destinationsData={destinations}
+            currentDestinationId={boxFields?.destinationId}
+            currentVariationTariffId={boxFields?.variationTariffId}
             onSubmit={onSubmitSelectStorekeeperAndTariff}
           />
         </Modal>

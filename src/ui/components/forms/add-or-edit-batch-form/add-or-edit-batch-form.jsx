@@ -42,11 +42,12 @@ import { checkIsClient } from '@utils/checks'
 import { addOrEditBatchDataConverter } from '@utils/data-grid-data-converters'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { formatDateWithoutTime } from '@utils/date-time'
-import { getFullTariffTextForBoxOrOrder, toFixed } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
 import { useClassNames } from './add-or-edit-batch-form.style'
+import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
 
 export const AddOrEditBatchForm = observer(
   ({
@@ -58,7 +59,17 @@ export const AddOrEditBatchForm = observer(
     sourceBox,
     showProgress,
     progressValue,
+    history,
+    location,
   }) => {
+    const [viewModel] = useState(
+      () =>
+        new ClientAwaitingBatchesViewModel({
+          history,
+          location,
+        }),
+    )
+
     const { classes: classNames } = useClassNames()
 
     const isClient = checkIsClient(UserRoleCodeMap[userRole])
@@ -434,8 +445,8 @@ export const AddOrEditBatchForm = observer(
                 label={t(TranslationKey.Tariff)}
                 value={
                   (sourceDataForFilters
-                    ? getFullTariffTextForBoxOrOrder(sourceDataForFilters)
-                    : getFullTariffTextForBoxOrOrder(chosenBoxes[0]?.originalData)) || ''
+                    ? getNewTariffTextForBoxOrOrder(sourceDataForFilters)
+                    : getNewTariffTextForBoxOrOrder(chosenBoxes[0]?.originalData)) || ''
                 }
                 placeholder={t(TranslationKey['Not chosen'])}
               />
@@ -492,6 +503,7 @@ export const AddOrEditBatchForm = observer(
               pagination
               checkboxSelection
               keepNonExistentRowsSelected
+              columnVisibilityModel={viewModel.columnVisibilityModel}
               initialState={{
                 sorting: {
                   sortModel: [{ field: 'updatedAt', sort: 'desc' }],
@@ -503,6 +515,15 @@ export const AddOrEditBatchForm = observer(
                 toolbar: DataGridCustomToolbar,
                 columnMenuIcon: FilterAltOutlinedIcon,
               }}
+              slotProps={{
+                toolbar: {
+                  columsBtnSettings: {
+                    columnsModel: viewModel.columnsModel,
+                    columnVisibilityModel: viewModel.columnVisibilityModel,
+                    onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                  },
+                },
+              }}
               sx={{
                 border: `1px solid  #EBEBEB !important`,
                 boxShadow: '0px 2px 10px 2px #EBEBEB !important',
@@ -512,6 +533,7 @@ export const AddOrEditBatchForm = observer(
               rowHeight={100}
               rowSelectionModel={boxesToAddIds}
               onRowSelectionModelChange={onSelectionAwaitingBoxes}
+              onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             />
           </div>
 
@@ -586,6 +608,7 @@ export const AddOrEditBatchForm = observer(
               checkboxSelection
               // keepNonExistentRowsSelected
               localeText={getLocalizationByLanguageTag()}
+              columnVisibilityModel={viewModel.columnVisibilityModel}
               pageSizeOptions={[50, 100]}
               sx={{
                 boxShadow: '0px 2px 10px 2px #EBEBEB',
@@ -595,6 +618,15 @@ export const AddOrEditBatchForm = observer(
                 toolbar: DataGridCustomToolbar,
                 columnMenuIcon: FilterAltOutlinedIcon,
               }}
+              slotProps={{
+                toolbar: {
+                  columsBtnSettings: {
+                    columnsModel: viewModel.columnsModel,
+                    columnVisibilityModel: viewModel.columnVisibilityModel,
+                    onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                  },
+                },
+              }}
               classes={{
                 root: classNames.rootDataGrid,
               }}
@@ -602,6 +634,7 @@ export const AddOrEditBatchForm = observer(
               columns={addOrEditBatchFormColumns(isClient)}
               rowHeight={100}
               onRowSelectionModelChange={onSelectionChoosenBoxes}
+              onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             />
           </div>
 

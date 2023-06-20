@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import { BatchStatus } from '@constants/statuses/batch-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -24,11 +24,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     width: 550,
-    renderCell: params => {
-      const boxesMemo = useMemo(() => params.row.originalData.boxes, [])
-
-      return <BatchBoxesCell boxes={boxesMemo} />
-    },
+    renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
     filterable: false,
     sortable: false,
   },
@@ -89,19 +85,15 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     field: 'batchTracking',
     headerName: t(TranslationKey['Batch tracking']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch tracking'])} />,
-    renderCell: params => {
-      const rowHandlersMemo = useMemo(() => rowHandlers, [])
-
-      return (
-        <BatchTrackingCell
-          disabled={getStatus() !== BatchStatus.HAS_DISPATCHED}
-          id={params.row?.originalData?._id}
-          arrivalDate={params.row?.originalData?.arrivalDate}
-          trackingNumber={params.row?.originalData?.trackingNumber}
-          rowHandlers={rowHandlersMemo}
-        />
-      )
-    },
+    renderCell: params => (
+      <BatchTrackingCell
+        disabled={getStatus() !== BatchStatus.HAS_DISPATCHED}
+        id={params.row?.originalData?._id}
+        arrivalDate={params.row?.originalData?.arrivalDate}
+        trackingNumber={params.row?.originalData?.trackingNumber}
+        rowHandlers={rowHandlers}
+      />
+    ),
     width: 198,
     filterable: false,
     sortable: false,

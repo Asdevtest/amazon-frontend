@@ -1,9 +1,9 @@
 import { cx } from '@emotion/css'
 import { Chip, Typography } from '@mui/material'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
-import { inchesCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
+import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -33,8 +33,10 @@ import { CopyValue } from '@components/shared/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
+import { tariffTypes } from '@constants/keys/tariff-types'
 
 export const MergeBoxesModal = ({
+  showCheckbox,
   userInfo,
   destinations,
   storekeepers,
@@ -67,6 +69,9 @@ export const MergeBoxesModal = ({
     logicsTariffId: selectedBoxes.some(box => box.logicsTariff?._id !== selectedBoxes[0]?.logicsTariff?._id)
       ? ''
       : selectedBoxes[0].logicsTariff?._id,
+    variationTariffId: selectedBoxes.some(box => box.variationTariff?._id !== selectedBoxes[0]?.variationTariff?._id)
+      ? null
+      : selectedBoxes[0].variationTariff?._id,
 
     fbaShipment: '',
 
@@ -79,6 +84,12 @@ export const MergeBoxesModal = ({
     weighGrossKgWarehouse: 0,
     images: [],
   })
+
+  const [destinationId, setDestinationId] = useState(boxBody?.destinationId)
+
+  useEffect(() => {
+    setDestinationId(boxBody?.destinationId)
+  }, [boxBody?.destinationId])
 
   const setFormField = fieldName => e => {
     const newFormFields = { ...boxBody }
@@ -98,17 +109,23 @@ export const MergeBoxesModal = ({
   const [imagesOfBox, setImagesOfBox] = useState([])
 
   const [comment, setComment] = useState('')
-  const onSubmitBoxesModal = () => {
-    // Передаются файлы imagesOfBox
-    onSubmit({ ...boxBody, destinationId: boxBody.destinationId || null }, comment, priority, priorityReason)
-    // setBoxBody({shippingLabel: '', destinationId: null, logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
-    // setComment('')
+  const getBoxDataToSubmit = () => {
+    if (sizeSetting === unitsOfChangeOptions.US) {
+      return {
+        ...boxBody,
+        destinationId: boxBody.destinationId || null,
+        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse * inchesCoefficient, 2),
+        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse * inchesCoefficient, 2),
+        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse * inchesCoefficient, 2),
+        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
+      }
+    } else {
+      return { ...boxBody, destinationId: boxBody.destinationId || null }
+    }
   }
 
   const onCloseBoxesModal = () => {
     setOpenModal()
-    // setBoxBody({shippingLabel: '', destinationId: null, logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
-    // setComment('')
   }
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
@@ -132,8 +149,9 @@ export const MergeBoxesModal = ({
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
-  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-    setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId })
+  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId, destinationId) => {
+    setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId })
+    setDestinationId(destinationId)
 
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
@@ -165,13 +183,15 @@ export const MergeBoxesModal = ({
 
   const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-  const tariffName = storekeepers
-    ?.find(el => el._id === boxBody.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === boxBody.logicsTariffId)?.name
+  const currentStorekeeper = storekeepers.find(el => el._id === boxBody.storekeeperId)
+  const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === boxBody.logicsTariffId)
 
-  const tariffRate = storekeepers
-    ?.find(el => el._id === boxBody.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === boxBody.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+  const tariffName = currentLogicsTariff?.name
+
+  const tariffRate =
+    currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
+    currentLogicsTariff?.destinationVariations?.find(el => el._id === boxBody?.variationTariffId)?.pricePerKgUsd
+
   const boxData = selectedBoxes.map(box => box.items)
 
   const finalBoxData = Object.values(
@@ -205,6 +225,7 @@ export const MergeBoxesModal = ({
         lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse / inchesCoefficient, 2),
         widthCmWarehouse: toFixed(boxBody.widthCmWarehouse / inchesCoefficient, 2),
         heightCmWarehouse: toFixed(boxBody.heightCmWarehouse / inchesCoefficient, 2),
+        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse / poundsWeightCoefficient, 2),
       })
     } else {
       setBoxBody({
@@ -212,6 +233,7 @@ export const MergeBoxesModal = ({
         lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse * inchesCoefficient, 2),
         widthCmWarehouse: toFixed(boxBody.widthCmWarehouse * inchesCoefficient, 2),
         heightCmWarehouse: toFixed(boxBody.heightCmWarehouse * inchesCoefficient, 2),
+        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
       })
     }
   }
@@ -290,7 +312,14 @@ export const MergeBoxesModal = ({
                       destinations?.find(el => el._id === boxBody.destinationId)?.name ||
                       t(TranslationKey['Not chosen'])
                     }
-                    data={destinations?.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)}
+                    data={
+                      boxBody.logicsTariffId &&
+                      currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
+                        ? destinations
+                            // ?.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
+                            .filter(el => el?._id === destinationId)
+                        : destinations?.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
+                    }
                     searchFields={['name']}
                     favourites={destinationsFavourites}
                     onClickSetDestinationFavourite={setDestinationsFavouritesItem}
@@ -315,14 +344,7 @@ export const MergeBoxesModal = ({
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
                     {boxBody.logicsTariffId
-                      ? `${storekeepers?.find(el => el._id === boxBody.storekeeperId)?.name} /  
-                ${
-                  boxBody.logicsTariffId
-                    ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-                        tariffRate ? ' / ' + tariffRate + ' $' : ''
-                      }`
-                    : 'none'
-                }`
+                      ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                       : t(TranslationKey.Select)}
                   </Button>
                 }
@@ -460,7 +482,7 @@ export const MergeBoxesModal = ({
             // Проверка для дизейбла
             disabled={isStorekeeper ? disabledSubmitStorekeeper : disabledSubmit}
             className={classNames.button}
-            onClick={onSubmitBoxesModal}
+            onClick={() => onSubmit(getBoxDataToSubmit(), comment, priority, priorityReason)}
           >
             {t(TranslationKey.Merge)}
           </Button>
@@ -496,10 +518,13 @@ export const MergeBoxesModal = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
+          showCheckbox={showCheckbox}
           destinationsData={destinations}
           storekeepers={storekeepers?.filter(el => el._id === selectedBoxes[0]?.storekeeper._id)}
-          curStorekeeperId={boxBody.storekeeperId}
-          curTariffId={boxBody.logicsTariffId}
+          curStorekeeperId={boxBody?.storekeeperId}
+          curTariffId={boxBody?.logicsTariffId}
+          currentDestinationId={boxBody?.destinationId}
+          currentVariationTariffId={boxBody?.variationTariffId}
           onSubmit={onSubmitSelectStorekeeperAndTariff}
         />
       </Modal>

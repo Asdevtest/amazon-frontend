@@ -48,9 +48,11 @@ export const WeightBasedLogisticsTariffs = observer(() => {
     confirmModalSettings,
     showConfirmModal,
     currentData,
+    destinationsFavourites,
+    logisticsTariffs,
+    setDestinationsFavouritesItem,
     onTriggerOpenModal,
     onClickAddBtn,
-    logisticsTariffs,
 
     onChangeSortingModel,
     onChangeFilterModel,
@@ -124,7 +126,6 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         localeText={getLocalizationByLanguageTag()}
         sortModel={sortModel}
         filterModel={filterModel}
-        columnVisibilityModel={columnVisibilityModel}
         paginationModel={paginationModel}
         pageSizeOptions={[15, 25, 50, 100]}
         rows={currentData}
@@ -144,10 +145,12 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         }}
         density={densityModel}
         columns={columnsModel}
+        columnVisibilityModel={columnVisibilityModel}
         loading={requestStatus === loadingStatuses.isLoading}
         onSortModelChange={onChangeSortingModel}
         onPaginationModelChange={onChangePaginationModelChange}
         onFilterModelChange={onChangeFilterModel}
+        onColumnVisibilityModelChange={onColumnVisibilityModelChange}
       />
 
       <Modal
@@ -171,6 +174,8 @@ export const WeightBasedLogisticsTariffs = observer(() => {
           tariffToEdit={tariffToEdit}
           logisticsTariffsData={logisticsTariffs}
           destinationData={destinationData}
+          setDestinationsFavouritesItem={setDestinationsFavouritesItem}
+          destinationsFavourites={destinationsFavourites}
           onCreateSubmit={onSubmitCreateTariff}
           onEditSubmit={onSubmitEditTariff}
           onClickClose={() => onTriggerOpenModal('showAddOrEditLogisticTariffModal')}

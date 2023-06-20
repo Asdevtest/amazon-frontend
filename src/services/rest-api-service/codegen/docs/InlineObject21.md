@@ -16,5 +16,6 @@ Name | Type | Description | Notes
 **shippingLabel** | **String** | shippingLabel коробки | [optional] 
 **isShippingLabelAttachedByStorekeeper** | **Boolean** | shippingLabel проклеен сторкипером | [optional] 
 **prepId** | **String** | Значение информационного ключа | [optional] 
+**variationTariffId** | **String** | Гуид вариации | [optional] 
 
 

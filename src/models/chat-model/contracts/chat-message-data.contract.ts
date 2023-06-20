@@ -322,6 +322,8 @@ export class ChatMessageDataProposalResultEditedEdited
   @IsNotEmpty()
   @IsString()
   public result!: string
+  @IsOptional()
+  public media?: { commentByPerformer: string; fileLink: string; index: number; _id: string }[]
 }
 
 export class ChatMessageDataProposalResultEditedProposalContract

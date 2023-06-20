@@ -79,6 +79,10 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
         slotProps={{
           columnMenu: { orderStatusData },
           toolbar: {
+            resetFiltersBtnSettings: {
+              onClickResetFilters: model.current.onClickResetFilters,
+              isSomeFilterOn: model.current.isSomeFilterOn,
+            },
             columsBtnSettings: {
               columnsModel,
               columnVisibilityModel: model.current.columnVisibilityModel,

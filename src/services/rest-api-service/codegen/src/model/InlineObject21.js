@@ -83,6 +83,9 @@ class InlineObject21 {
             if (data.hasOwnProperty('prepId')) {
                 obj['prepId'] = ApiClient.convertToType(data['prepId'], 'String');
             }
+            if (data.hasOwnProperty('variationTariffId')) {
+                obj['variationTariffId'] = ApiClient.convertToType(data['variationTariffId'], 'String');
+            }
         }
         return obj;
     }
@@ -160,6 +163,12 @@ InlineObject21.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
  * @member {String} prepId
  */
 InlineObject21.prototype['prepId'] = undefined;
+
+/**
+ * Гуид вариации
+ * @member {String} variationTariffId
+ */
+InlineObject21.prototype['variationTariffId'] = undefined;
 
 
 

@@ -1,6 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, { useMemo, useCallback } from 'react'
+import React from 'react'
 
 import { t } from 'i18n-js'
 
@@ -15,23 +15,23 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  DownloadAndCopyBtnsCell,
+  IconHeaderCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
+  NormalActionBtnCell,
   NormDateCell,
   OrderCell,
-  MultilineTextCell,
-  ToFixedWithKgSignCell,
-  UserLinkCell,
-  DownloadAndCopyBtnsCell,
-  NormalActionBtnCell,
-  IconHeaderCell,
   PriorityAndChinaDeliverCell,
   SuccessActionBtnCell,
+  ToFixedWithKgSignCell,
+  UserLinkCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
 
-export const clientProductOrdersViewColumns = handlers => [
+export const clientProductOrdersViewColumns = (handlers, chosenStatus) => [
   {
     field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
@@ -63,18 +63,20 @@ export const clientProductOrdersViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
     width: 400,
-    renderCell: params => {
-      const productMemo = useMemo(() => params.row.originalData.product, [])
-
-      return <OrderCell product={productMemo} />
-    },
+    renderCell: params => <OrderCell product={params.row.originalData.product} />,
     sortable: false,
   },
 
   {
     field: 'orderStatus',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} Icon={FilterAltOutlinedIcon} />,
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        isFilterActive={chosenStatus() !== 'ALL'}
+        text={t(TranslationKey.Status)}
+        Icon={FilterAltOutlinedIcon}
+      />
+    ),
 
     width: 160,
     renderCell: params => (
@@ -93,20 +95,21 @@ export const clientProductOrdersViewColumns = handlers => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     width: 200,
-    renderCell: params => {
-      const onClickReorder = useCallback(() => handlers.onClickReorder(params.row.originalData), [])
-      const onClickToOrder = useCallback(() => handlers.onClickReorder(params.row.originalData, true), [])
-
-      return (
-        <>
-          {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
-            <NormalActionBtnCell bTnText={t(TranslationKey['Repeat order'])} onClickOkBtn={onClickReorder} />
-          ) : (
-            <SuccessActionBtnCell bTnText={t(TranslationKey['To order'])} onClickOkBtn={onClickToOrder} />
-          )}
-        </>
-      )
-    },
+    renderCell: params => (
+      <>
+        {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
+          <NormalActionBtnCell
+            bTnText={t(TranslationKey['Repeat order'])}
+            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData)}
+          />
+        ) : (
+          <SuccessActionBtnCell
+            bTnText={t(TranslationKey['To order'])}
+            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData)}
+          />
+        )}
+      </>
+    ),
     filterable: false,
     sortable: false,
   },
@@ -162,7 +165,7 @@ export const clientProductOrdersViewColumns = handlers => [
     headerName: t(TranslationKey['Production time']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.row.originalData.orderSupplier.productionTerm} />,
+    renderCell: params => <MultilineTextCell text={params.row.originalData?.orderSupplier?.productionTerm} />,
     width: 120,
     sortable: false,
   },
@@ -171,15 +174,6 @@ export const clientProductOrdersViewColumns = handlers => [
     field: 'deadline',
     headerName: 'Deadline',
     renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
-
-    // renderCell: params => (
-    //   <MultilineTextCell
-    //     withLineBreaks
-    //     tooltipText={formatNormDateTime(params.value)}
-    //     color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-    //     text={params.value ? timeToDeadlineInHoursAndMins({date: params.value}) : ''}
-    //   />
-    // ),
 
     renderCell: params =>
       params.row.originalData.status < 20 ? (

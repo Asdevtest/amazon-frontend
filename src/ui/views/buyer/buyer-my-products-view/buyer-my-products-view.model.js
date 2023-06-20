@@ -41,6 +41,8 @@ const filtersFields = [
   'ideasVerified',
   'tags',
   'redFlags',
+  'bsr',
+  'fbaamount',
 ]
 
 export class BuyerMyProductsViewModel {
@@ -91,6 +93,10 @@ export class BuyerMyProductsViewModel {
 
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
+
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
 
   constructor({ history, location }) {
     runInAction(() => {
@@ -440,6 +446,10 @@ export class BuyerMyProductsViewModel {
     const redFlagsFilter =
       exclusion !== 'redFlags' && this.columnMenuSettings.redFlags.currentFilterData.map(el => el._id).join(',')
 
+    const bsrFilter = exclusion !== 'bsr' && this.columnMenuSettings.bsr.currentFilterData.join(',')
+
+    const fbaAmountFilter = exclusion !== 'fbaamount' && this.columnMenuSettings.fbaamount.currentFilterData.join(',')
+
     const filter = objectToUrlQs({
       archive: { $eq: this.isArchive },
       or: [
@@ -537,6 +547,14 @@ export class BuyerMyProductsViewModel {
 
       ...(redFlagsFilter && {
         redFlags: { $eq: redFlagsFilter },
+      }),
+
+      ...(bsrFilter && {
+        bsr: { $eq: bsrFilter },
+      }),
+
+      ...(fbaAmountFilter && {
+        fbaamount: { $eq: fbaAmountFilter },
       }),
     })
 

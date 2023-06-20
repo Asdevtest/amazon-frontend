@@ -13,7 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
-import ApiV1AdminsOrdersLogicsTariffDestinationVariations from './ApiV1AdminsOrdersLogicsTariffDestinationVariations';
+import ApiV1StorekeepersTariffLogisticsDestinationVariations from './ApiV1StorekeepersTariffLogisticsDestinationVariations';
 
 /**
  * The InlineObject113 model module.
@@ -77,7 +77,7 @@ class InlineObject113 {
                 obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
             if (data.hasOwnProperty('destinationVariations')) {
-                obj['destinationVariations'] = ApiClient.convertToType(data['destinationVariations'], [ApiV1AdminsOrdersLogicsTariffDestinationVariations]);
+                obj['destinationVariations'] = ApiClient.convertToType(data['destinationVariations'], [ApiV1StorekeepersTariffLogisticsDestinationVariations]);
             }
         }
         return obj;
@@ -140,7 +140,7 @@ InlineObject113.prototype['archive'] = undefined;
 InlineObject113.prototype['conditionsByRegion'] = undefined;
 
 /**
- * @member {Array.<module:model/ApiV1AdminsOrdersLogicsTariffDestinationVariations>} destinationVariations
+ * @member {Array.<module:model/ApiV1StorekeepersTariffLogisticsDestinationVariations>} destinationVariations
  */
 InlineObject113.prototype['destinationVariations'] = undefined;
 

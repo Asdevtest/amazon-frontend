@@ -125,7 +125,8 @@ export const RegistrationFormRaw = ({
               label={t(TranslationKey.Name)}
               placeholder={t(TranslationKey.Name)}
               error={
-                checkValidationNameOrEmail.nameIsUnique && t(TranslationKey['A user with this name already exists'])
+                checkValidationNameOrEmail.nameIsUnique === false &&
+                t(TranslationKey['A user with this name already exists'])
               }
               value={formFields.name}
               startAdornment={
@@ -145,7 +146,7 @@ export const RegistrationFormRaw = ({
               placeholder={t(TranslationKey.Email)}
               type="email"
               error={
-                checkValidationNameOrEmail?.emailIsUnique
+                checkValidationNameOrEmail?.emailIsUnique === false
                   ? t(TranslationKey['A user with this email already exists'])
                   : ''
               }

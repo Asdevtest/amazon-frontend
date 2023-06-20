@@ -62,6 +62,10 @@ export class LogisticsTariffsModel {
     return UserModel.userInfo
   }
 
+  get destinationsFavourites() {
+    return SettingsModel.destinationsFavourites
+  }
+
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
@@ -136,6 +140,7 @@ export class LogisticsTariffsModel {
       this.columnVisibilityModel = model
     })
     this.setDataGridState()
+    this.getDataGridState()
   }
 
   setDataGridState() {
@@ -146,11 +151,11 @@ export class LogisticsTariffsModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_LOGISTICS_TARIFFS)
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.SUB_WAREHOUSE_LOGISTICS_TARIFFS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_LOGISTICS_TARIFFS]
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.SUB_WAREHOUSE_LOGISTICS_TARIFFS]
 
     runInAction(() => {
       if (state) {
@@ -210,15 +215,31 @@ export class LogisticsTariffsModel {
           el.storekeeper?._id === this.userInfo._id ||
           (el.storekeeper?._id === this.userInfo.masterUser?._id && el.storekeeper),
       )
-      if (storekeeperDestination) {
-        runInAction(() => {
-          this.destinationData = result
-          this.storekeeperDestination = storekeeperDestination
-        })
-      }
+
+      // const storekeeperDestination = result.filter(
+      //   el =>
+      //     el.storekeeper?._id !== this.userInfo._id ||
+      //     (el.storekeeper?._id !== this.userInfo.masterUser?._id && el.storekeeper),
+      // )
+
+      this.destinationData = result.filter(
+        el => el.storekeeper?._id !== this.userInfo._id,
+        // ||
+        // (el.storekeeper?._id !== this.userInfo.masterUser?._id && el.storekeeper),
+      )
+
+      // if (storekeeperDestination) {
+      //   runInAction(() => {
+      this.storekeeperDestination = storekeeperDestination
+      //   })
+      // }
     } catch (error) {
       console.log(error)
     }
+  }
+
+  setDestinationsFavouritesItem(item) {
+    SettingsModel.setDestinationsFavouritesItem(item)
   }
 
   onClickAddressBtn() {
