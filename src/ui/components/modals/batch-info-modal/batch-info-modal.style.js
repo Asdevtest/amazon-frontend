@@ -255,6 +255,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   filesAndButtonWrapper: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
   shippinCostContainer: {
@@ -264,6 +265,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   closeFieldsWrapper: {
     display: 'flex',
+    gap: 30,
+  },
+
+  toolbarContainer: {
+    height: 52,
     gap: 30,
   },
 }))
