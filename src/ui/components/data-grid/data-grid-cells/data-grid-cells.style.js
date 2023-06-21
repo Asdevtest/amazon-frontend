@@ -203,16 +203,16 @@ export const styles = theme => ({
 
   order: {
     display: 'flex',
-    alignItems: 'center',
-    padding: '10px 0',
+    alignItems: 'flex-start',
+    gap: 10,
   },
 
   orderImg: {
-    height: '64px',
-    width: '64px',
-    marginRight: '12px',
-    objectFit: 'contain',
+    height: 100,
+    width: 100,
+    objectFit: 'cover',
     objectPosition: 'center',
+    borderRadius: 4,
   },
   orderTitle: {
     fontSize: '14px',
