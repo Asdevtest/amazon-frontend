@@ -31,6 +31,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './fields-and-suppliers.style'
 import { UserRole } from '@constants/keys/user-roles'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
@@ -57,9 +58,12 @@ export const FieldsAndSuppliers = observer(
 
     const [edit, setEdit] = useState(true)
 
-    const onChangeShop = e => {
-      onChangeField('shopIds')({ target: { value: e.target.value ? [e.target.value] : [] } })
+    const onChangeShop = shopId => {
+      onChangeField('shopIds')({ target: { value: shopId ? [shopId] : [] } })
     }
+
+    console.log('shops', shops)
+    console.log('product', product)
 
     const isEditRedFlags =
       showActionBtns && (checkIsSupervisor(curUserRole) || checkIsResearcher(curUserRole) || checkIsClient(curUserRole))
@@ -477,7 +481,7 @@ export const FieldsAndSuppliers = observer(
         ) : null}
         {checkIsClient(curUserRole) ? (
           <div className={classNames.shopsWrapper}>
-            <Field
+            {/* <Field
               label={t(TranslationKey.Shop)}
               containerClasses={classNames.allowedRoleContainer}
               inputComponent={
@@ -516,6 +520,42 @@ export const FieldsAndSuppliers = observer(
                     ))}
                   </Select>
                 </div>
+              }
+            /> */}
+
+            <Field
+              label={t(TranslationKey.Shop)}
+              labelClasses={classNames.spanLabelSmall}
+              containerClasses={classNames.allowedRoleContainer}
+              inputComponent={
+                <WithSearchSelect
+                  grayBorder
+                  blackSelectedItem
+                  darkIcon
+                  chosenItemNoHover
+                  width={300}
+                  disabled={
+                    !(
+                      shops.length ||
+                      (checkIsClient(curUserRole) &&
+                        product.isCreatedByClient &&
+                        clientToEditStatuses.includes(productBase.status) &&
+                        checkIsClient(curUserRole) &&
+                        !product.archive)
+                    )
+                  }
+                  customSubMainWrapper={classNames.customSubMainWrapper}
+                  customSearchInput={classNames.customSearchInput}
+                  data={[...shops]?.sort((a, b) => a?.name?.localeCompare(b?.name))}
+                  searchFields={['name']}
+                  selectedItemName={
+                    shops?.find(shop => shop?._id === product?.shopIds[0])?.name || t(TranslationKey['Select a store'])
+                  }
+                  onClickNotChosen={() => onChangeShop('')}
+                  onClickSelect={el => {
+                    onChangeShop(el._id)
+                  }}
+                />
               }
             />
           </div>
