@@ -1746,7 +1746,7 @@ export const styles = theme => ({
     },
   },
   printIcon: {
-    color: theme.palette.background.darkBlue,
+    color: theme.palette.primary.main,
   },
   printIconModal: {
     color: '#fff',
