@@ -87,7 +87,7 @@ export const OrderModalBodyRow = ({
   const currentStorkeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
   const currentLogicsTariff = currentStorkeeper?.tariffLogistics?.find(el => el._id === item.logicsTariffId)
 
-  console.log('currentLogicsTariff', currentLogicsTariff)
+  const priceVariations = item.currentSupplier?.priceVariations
 
   const firstNumOfCode = curDestination?.zipCode[0]
 
@@ -178,14 +178,17 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={classNames.cell}>
           <Typography className={classNames.standartText}>
-            {item.currentSupplier && toFixed(item.currentSupplier.price, 2)}
+            {item.currentSupplier ? toFixed(item.currentSupplier.price, 2) : <span>—</span>}
           </Typography>
         </TableCell>
 
         <TableCell className={classNames.cell}>
           <Typography className={classNames.standartText}>
-            {item.currentSupplier &&
-              toFixed(item.currentSupplier.batchDeliveryCostInDollar / item.currentSupplier.amount, 2)}
+            {item.currentSupplier ? (
+              toFixed(item.currentSupplier.batchDeliveryCostInDollar / item.currentSupplier.amount, 2)
+            ) : (
+              <span>—</span>
+            )}
           </Typography>
         </TableCell>
 
@@ -244,13 +247,17 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={classNames.cell}>
           <div className={classNames.priceVariationsCell}>
-            {item.currentSupplier?.priceVariations?.map((el, index) => (
-              <div key={index}>
-                {el.quantity} {t(TranslationKey['pcs.'])}. /{' '}
-                {toFixedWithDollarSign(el.price / platformSettings.yuanToDollarRate, 2)}{' '}
-                {t(TranslationKey.Per).toLowerCase()} {t(TranslationKey['pcs.'])}
-              </div>
-            ))}
+            {priceVariations?.length > 0 ? (
+              priceVariations?.map((el, index) => (
+                <div key={index}>
+                  {el.quantity} {t(TranslationKey['pcs.'])}. /{' '}
+                  {toFixedWithDollarSign(el.price / platformSettings.yuanToDollarRate, 2)}{' '}
+                  {t(TranslationKey.Per).toLowerCase()} {t(TranslationKey['pcs.'])}
+                </div>
+              ))
+            ) : (
+              <span>—</span>
+            )}
           </div>
         </TableCell>
 
