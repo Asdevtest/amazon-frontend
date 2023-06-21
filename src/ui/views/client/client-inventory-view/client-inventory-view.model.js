@@ -251,6 +251,7 @@ export class ClientInventoryViewModel {
     onClickInStock: (item, storekeeper) => this.onClickInStock(item, storekeeper),
     onClickInTransfer: productId => this.onClickInTransfer(productId),
     onClickOrderCell: productId => this.onClickOrderCell(productId),
+    onClickShowProduct: row => this.onClickShowProduct(row),
   }
 
   confirmModalSettings = {
@@ -430,14 +431,14 @@ export class ClientInventoryViewModel {
   }
 
   onSelectionModel(model) {
-    if (this.selectedRowIds.includes(model[0])) {
-      this.selectedRowIds.filter(id => id !== model[0])
-    } else {
-      this.selectedRowIds.push(model[0])
-    }
+    // if (this.selectedRowIds.includes(model[0])) {
+    //   this.selectedRowIds.filter(id => id !== model[0])
+    // } else {
+    //   this.selectedRowIds.push(model[0])
+    // }
 
-    console.log('this.selectedRowIds', this.selectedRowIds)
-    // this.selectedRowIds = model
+    // console.log('this.selectedRowIds', this.selectedRowIds)
+    this.selectedRowIds = model
   }
 
   getCurrentData() {

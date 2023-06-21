@@ -52,7 +52,16 @@ import { Input } from '@components/shared/input'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { BoxArrow, ClockIcon, CubeIcon, EditIcon, EqualIcon, PlusIcon, SaveIcon } from '@components/shared/svg-icons'
+import {
+  BoxArrow,
+  ClockIcon,
+  CubeIcon,
+  EditIcon,
+  EqualIcon,
+  PlusIcon,
+  SaveIcon,
+  ShareLinkIcon,
+} from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
@@ -3048,100 +3057,23 @@ export const FormedCell = React.memo(
   ),
 )
 
-// export const ShortBoxDimensions = React.memo( withStyles(
-//   ({classes: classNames, box, volumeWeightCoefficient, curUser, handlers}) => {
-//     const dimensionsConfig = {
-//       PRIMARY: 'PRIMARY',
-//       SHIPPING: 'SHIPPING',
-//     }
-
-//     const [toggleDimensionsValue, setToggleDimensionsValue] = useState(
-//       (box.deliveryHeight || box.deliveryLength || box.deliveryMass || box.deliveryWidth) && !box.fitsInitialDimensions
-//         ? dimensionsConfig.SHIPPING
-//         : dimensionsConfig.PRIMARY,
-//     )
-
-//     const finalWeight = calcFinalWeightForBox(
-//       box,
-//       volumeWeightCoefficient,
-//       toggleDimensionsValue === dimensionsConfig.SHIPPING,
-//     )
-
-//     return (
-//       <div className={classNames.shortBoxDimensionsWrapper}>
-//         <div className={classNames.toggleSizesWrapper}>
-//           <div className={classNames.toggleItemWrapper}>
-//             {toggleDimensionsValue === dimensionsConfig.PRIMARY ? <span className={classNames.indicator}></span> : null}
-
-//             <Typography
-//               className={cx(classNames.sizesLabel, {
-//                 [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.PRIMARY,
-//               })}
-//               onClick={() => setToggleDimensionsValue(dimensionsConfig.PRIMARY)}
-//             >
-//               {t(TranslationKey['Primary dimensions'])}
-//             </Typography>
-
-//             {box.fitsInitialDimensions ? <DoneOutlineRoundedIcon color="success" fontSize="small" /> : null}
-//           </div>
-//           <div className={classNames.toggleItemWrapper}>
-//             {toggleDimensionsValue === dimensionsConfig.SHIPPING ? (
-//               <span className={classNames.indicator}></span>
-//             ) : null}
-
-//             <Typography
-//               className={cx(classNames.sizesLabel, {
-//                 [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.SHIPPING,
-//               })}
-//               onClick={() => setToggleDimensionsValue(dimensionsConfig.SHIPPING)}
-//             >
-//               {t(TranslationKey['Shipping dimensions'])}
-//             </Typography>
-//           </div>
-//         </div>
-
-//         <Typography className={classNames.shortBoxDimensionsText}>{`${toFixed(
-//           toggleDimensionsValue === dimensionsConfig.SHIPPING ? box.deliveryLength : box.lengthCmWarehouse,
-//           2,
-//         )}x${toFixed(
-//           toggleDimensionsValue === dimensionsConfig.SHIPPING ? box.deliveryWidth : box.widthCmWarehouse,
-//           2,
-//         )}x${toFixed(
-//           toggleDimensionsValue === dimensionsConfig.SHIPPING ? box.deliveryHeight : box.heightCmWarehouse,
-//           2,
-//         )}`}</Typography>
-
-//         <Typography className={classNames.shortBoxDimensionsText}>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(
-//           toggleDimensionsValue === dimensionsConfig.SHIPPING ? box.deliveryMass : box.weighGrossKgWarehouse,
-//           2,
-//         )}`}</Typography>
-//         <Typography className={classNames.shortBoxDimensionsText}>{`${t(
-//           TranslationKey['Volume weight'],
-//         )}: ${toFixedWithKg(
-//           calcVolumeWeightForBox(box, volumeWeightCoefficient, toggleDimensionsValue === dimensionsConfig.SHIPPING),
-//           2,
-//         )}`}</Typography>
-//         <Typography
-//           className={cx(classNames.shortBoxDimensionsText, {
-//             [classNames.alertText]: !box.isDraft && finalWeight < 12,
-//           })}
-//         >{`${t(TranslationKey['Final weight'])}: ${toFixedWithKg(finalWeight, 2)}`}</Typography>
-
-//         {!box.isDraft && finalWeight < 12 ? (
-//           <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
-//         ) : null}
-//         {checkIsStorekeeper(UserRoleCodeMap[curUser]) ? (
-//           <Button
-//             disabled={box.isDraft}
-//             className={cx(classNames.shortBoxDimensionsButton, {
-//               [classNames.editPaddingButton]: !box.isDraft && finalWeight < 12,
-//             })}
-//             onClick={() => handlers.setDimensions(box)}
-//           >
-//             {t(TranslationKey.Set)}
-//           </Button>
-//         ) : null}
-//       </div>
-//     )
-//   },
-// )
+export const SelectRowCell = React.memo(
+  withStyles(
+    ({ classes: classNames, checkboxComponent, onClickShareIcon }) => (
+      <div className={classNames.selectRowCellWrapper}>
+        {checkboxComponent}
+        <Tooltip
+          arrow
+          title={t(TranslationKey['Open in a new tab'])}
+          placement="top"
+          classes={{ tooltip: classNames.tooltip, arrow: classNames.arrow }}
+        >
+          <div className={classNames.iconWrapper} onClick={onClickShareIcon}>
+            <ShareLinkIcon className={classNames.shareLinkIcon} />
+          </div>
+        </Tooltip>
+      </div>
+    ),
+    styles,
+  ),
+)

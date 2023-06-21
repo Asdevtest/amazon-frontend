@@ -1984,7 +1984,7 @@ export enum TranslationKey {
   'Uploaded by on listing' = 'Uploaded by on listing',
   'Partial payment' = 'Partial payment',
   'Unread messages' = 'Unread messages',
-  // '' = '',
+  'Open in a new tab' = 'Open in a new tab',
   // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
   // '' = '',
