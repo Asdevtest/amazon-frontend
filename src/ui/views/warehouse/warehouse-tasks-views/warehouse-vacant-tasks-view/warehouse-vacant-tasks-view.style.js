@@ -49,6 +49,10 @@ export const styles = theme => ({
     alignItems: 'center',
     gap: 40,
     flexWrap: 'wrap',
+
+    [theme.breakpoints.down(1282)]: {
+      gap: 20,
+    },
   },
 
   footerContainer: {
