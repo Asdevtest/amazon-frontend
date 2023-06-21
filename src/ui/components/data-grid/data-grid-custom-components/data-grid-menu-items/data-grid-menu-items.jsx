@@ -166,9 +166,18 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
       const [currentOption, setCurrentOption] = useState('first')
 
       const handleCategory = e => {
-        // isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(null);
         setCurrentOption(e.target.value)
       }
+
+      // useEffect(() => {
+      //   if (currentOption === 'second') {
+      //     if (isNeedPurchaseFilterData.isNeedPurchaseFilter) {
+      //       isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(true, false)
+      //     } else {
+      //       isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(true, true)
+      //     }
+      //   }
+      // }, [currentOption])
 
       return (
         <div className={classNames.shopsDataWrapper}>
