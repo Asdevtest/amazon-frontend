@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**timeoutAt** | **Date** | Время закрытия заявки. | 
-**maxAmountOfProposals** | **Number** | Количество предложений. null без лимитов | [optional] 
+**reason** | **String** | Причины закрытия приема предложений. | [optional] 
 
 
