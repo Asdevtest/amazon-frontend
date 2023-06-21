@@ -212,6 +212,7 @@ export class MyRequestsViewModel {
       this.columnVisibilityModel = model
     })
     this.setDataGridState()
+    this.getCustomRequests()
   }
 
   onClickChangeCatigory(value) {
@@ -275,6 +276,7 @@ export class MyRequestsViewModel {
       this.setDataGridState()
     } else {
       this.requestStatus = loadingStatuses.isLoading
+
       this.getCustomRequests().then(() => {
         this.requestStatus = loadingStatuses.success
       })
@@ -494,7 +496,10 @@ export class MyRequestsViewModel {
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-        sortField: this.sortModel?.length ? this.sortModel[0]?.field : 'updatedAt',
+        sortField:
+          this.sortModel?.length && this.sortModel[0]?.field !== 'waitedProposals'
+            ? this.sortModel[0]?.field
+            : 'updatedAt',
         sortType: this.sortModel?.length ? this.sortModel[0]?.sort.toUpperCase() : 'DESC',
       })
 
