@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC, memo } from 'react'
 import { useNavbarButtonStyles } from '@components/layout/navbar/navbar-button/navbar-button.styles'
 import { cx } from '@emotion/css'
 import { IconButton } from '@mui/material'
@@ -7,38 +7,26 @@ import CloseIcon from '@mui/icons-material/Close'
 
 interface NavbarButtonProps {
   shortNavbar: boolean
+  showOverlayNavBar: boolean
   setShortNavbar: (arg: boolean) => void
   setShowOverlayNavBar: (arg: boolean) => void
-  showOverlayNavBar: boolean
 }
 
-export const NavbarButton = (props: NavbarButtonProps) => {
-  const { shortNavbar, setShortNavbar, showOverlayNavBar, setShowOverlayNavBar } = props
+export const NavbarButton: FC<NavbarButtonProps> = memo(
+  ({ shortNavbar, showOverlayNavBar, setShortNavbar, setShowOverlayNavBar }) => {
+    const { classes: styles } = useNavbarButtonStyles()
 
-  const { classes: styles } = useNavbarButtonStyles()
-
-  return (
-    <div className={cx(styles.iconButtonWrapper, { [styles.iconButtonWrapperLeft]: !shortNavbar })}>
-      {shortNavbar && (
+    return (
+      <div className={cx(styles.iconButtonWrapper, { [styles.iconButtonWrapperLeft]: !shortNavbar })}>
         <IconButton
           onClick={() => {
             setShortNavbar(!shortNavbar)
             setShowOverlayNavBar(!showOverlayNavBar)
           }}
         >
-          <MenuIcon />
+          {shortNavbar ? <MenuIcon /> : <CloseIcon className={styles.closeIcon} />}
         </IconButton>
-      )}
-
-      {!shortNavbar && (
-        <CloseIcon
-          className={styles.closeIcon}
-          onClick={() => {
-            setShortNavbar(!shortNavbar)
-            setShowOverlayNavBar(!showOverlayNavBar)
-          }}
-        />
-      )}
-    </div>
-  )
-}
+      </div>
+    )
+  },
+)
