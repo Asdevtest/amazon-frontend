@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**reason** | **String** | Причины закрытия приема предложений. | [optional] 
+**timeoutAt** | **Date** | Время закрытия заявки. | 
+**maxAmountOfProposals** | **Number** | Количество предложений. null без лимитов | [optional] 
 
 
