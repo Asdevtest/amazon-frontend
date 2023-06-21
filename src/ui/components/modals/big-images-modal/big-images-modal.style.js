@@ -31,7 +31,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
     flexDirection: 'column',
     alignItems: 'center',
-    paddingBottom: '60px',
+    // paddingBottom: '60px',
     gap: '20px',
   },
 
