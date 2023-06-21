@@ -212,6 +212,7 @@ export class MyRequestsViewModel {
       this.columnVisibilityModel = model
     })
     this.setDataGridState()
+    this.getCustomRequests()
   }
 
   onClickChangeCatigory(value) {
