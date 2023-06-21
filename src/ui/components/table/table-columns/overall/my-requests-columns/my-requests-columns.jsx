@@ -22,7 +22,7 @@ import { t } from '@utils/translations'
 export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover, onListingFiltersData) => [
   {
     field: 'priority',
-    headerName: t(TranslationKey['Priority and Express Delivery']),
+    headerName: t(TranslationKey.Priority),
     renderHeader: params => (
       <MultilineTextHeaderCell
         component={<img src="/assets/icons/bookmark.svg" />}
