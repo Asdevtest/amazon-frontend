@@ -430,9 +430,14 @@ export class ClientInventoryViewModel {
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedRowIds = model
-    })
+    if (this.selectedRowIds.includes(model[0])) {
+      this.selectedRowIds.filter(id => id !== model[0])
+    } else {
+      this.selectedRowIds.push(model[0])
+    }
+
+    console.log('this.selectedRowIds', this.selectedRowIds)
+    // this.selectedRowIds = model
   }
 
   getCurrentData() {

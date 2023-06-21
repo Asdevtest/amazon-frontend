@@ -215,7 +215,7 @@ export const ClientInventoryViewRaw = props => {
           <MemoDataGrid
             disableVirtualization
             pagination
-            checkboxSelection
+            // checkboxSelection
             propsToRerender={{ onHover: viewModel.onHover }}
             localeText={getLocalizationByLanguageTag()}
             classes={{
