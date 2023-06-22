@@ -38,16 +38,17 @@ export const useNavbarDrawerContentStyles = makeStyles()(theme => ({
     backgroundColor: theme.palette.background.general,
     height: '100%',
     overflow: 'auto',
+    padding: 0,
   },
 
   bottomCategories: {
     justifySelf: 'flex-end',
-    marginBottom: 20,
+    marginBottom: 15,
   },
 
   feedBackButton: {
     width: '100%',
-    height: 46,
+    height: 43,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',

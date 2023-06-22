@@ -41,7 +41,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
 
     {
       field: 'priority',
-      headerName: t(TranslationKey['Priority and Express Delivery']),
+      headerName: t(TranslationKey.Priority),
       renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
       renderCell: params => (
         <PriorityAndChinaDeliverCell
@@ -293,7 +293,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
       field: 'clientComment',
       headerName: t(TranslationKey['Client comment']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
-      renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+      renderCell: params => <MultilineTextAlignLeftCell fourLines withTooltip text={params.value} />,
       width: 400,
       sortable: false,
 

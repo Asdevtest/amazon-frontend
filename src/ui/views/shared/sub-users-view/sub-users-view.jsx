@@ -21,7 +21,7 @@ import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
-import { checkIsClient, checkIsStorekeeper } from '@utils/checks'
+import { checkIsClient, checkIsWithoutProductPermissions } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
@@ -117,7 +117,7 @@ export const SubUsersViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showPermissionModal')}
       >
         <AddOrEditUserPermissionsForm
-          isWithoutProductPermissions={checkIsStorekeeper(UserRoleCodeMap[viewModel.userInfo.role])}
+          isWithoutProductPermissions={checkIsWithoutProductPermissions(UserRoleCodeMap[viewModel.userInfo.role])}
           isWithoutShopsDepends={!checkIsClient(UserRoleCodeMap[viewModel.userInfo.role])}
           curUserProductPermissions={viewModel.curUserProductPermissions}
           permissionsToSelect={viewModel.singlePermissions}

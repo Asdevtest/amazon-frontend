@@ -74,8 +74,8 @@ export class ClientOrderViewModel {
 
     runInAction(() => {
       this.history = history
-      this.orderId = url.searchParams.get('order-id')
-      SettingsModel.changeLastCrumbAdditionalText(` № ${url.searchParams.get('order-human-friendly-id')}`)
+      this.orderId = url.searchParams.get('orderId')
+      SettingsModel.changeLastCrumbAdditionalText(` № ${this.orderId}`)
       // this.orderId = history.location.search.slice(1)
     })
     makeAutoObservable(this, undefined, { autoBind: true })

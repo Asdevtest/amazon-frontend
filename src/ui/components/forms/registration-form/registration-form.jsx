@@ -157,6 +157,15 @@ export const RegistrationFormRaw = ({
                 </InputAdornment>
               }
               onChange={onChangeFormField('email')}
+              onKeyPress={event => {
+                const charCode = event.which || event.keyCode
+                const char = String.fromCharCode(charCode)
+                const emailRegex = /^[a-zA-Z0-9._%+-@]+$/
+
+                if (!emailRegex.test(char)) {
+                  event.preventDefault()
+                }
+              }}
             />
           </>
         ) : null}

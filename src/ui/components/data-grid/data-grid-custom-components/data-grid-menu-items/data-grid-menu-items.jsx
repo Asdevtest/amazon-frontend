@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { compareDesc, isAfter, parseISO } from 'date-fns'
 import { withStyles } from 'tss-react/mui'
@@ -166,9 +166,18 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
       const [currentOption, setCurrentOption] = useState('first')
 
       const handleCategory = e => {
-        // isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(null);
         setCurrentOption(e.target.value)
       }
+
+      // useEffect(() => {
+      //   if (currentOption === 'second') {
+      //     if (isNeedPurchaseFilterData.isNeedPurchaseFilter) {
+      //       isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(true, false)
+      //     } else {
+      //       isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(true, true)
+      //     }
+      //   }
+      // }, [currentOption])
 
       return (
         <div className={classNames.shopsDataWrapper}>
@@ -958,7 +967,7 @@ export const NormalFieldMenuItem = React.memo(
       useEffect(() => {
         setItemsForRender(
           filterData
-            .filter(el => Number.isInteger(el))
+            .filter(el => el !== undefined && el !== null)
             .sort(
               (a, b) =>
                 currentFilterData.length &&
@@ -1832,9 +1841,11 @@ export const NumberFieldMenuItem = React.memo(
     }) => {
       const [fromValue, setFromValue] = useState('')
       const [toValue, setToValue] = useState('')
+      const [isNotFixedValue, setIsNotFixedValue] = useState(false)
 
       useEffect(() => {
         onClickFilterBtn(field)
+        setIsNotFixedValue(checkIsNotFixedValue(field))
       }, [])
 
       const { filterData, currentFilterData } = data
@@ -1879,6 +1890,19 @@ export const NumberFieldMenuItem = React.memo(
         )
         setItemsForRender(filter)
       }, [nameSearchValue, fromValue, toValue])
+
+      const checkIsNotFixedValue = useCallback(() => {
+        const whiteList = [
+          'amount',
+          'productionTerm',
+          'amountInOrders',
+          'stockUSA',
+          'purchaseQuantity',
+          'sentToFbaSum',
+          'reservedSum',
+        ]
+        return whiteList.includes(field)
+      }, [field])
 
       return (
         <div className={classNames.shopsDataWrapper}>
@@ -1936,7 +1960,7 @@ export const NumberFieldMenuItem = React.memo(
                               checked={choosenItems?.some(item => item === el)}
                               onClick={() => onClickItem(el)}
                             />
-                            <div className={classNames.shopName}>{toFixed(el, 2) || 0}</div>
+                            <div className={classNames.shopName}>{isNotFixedValue ? el : toFixed(el, 2) || 0}</div>
                           </div>
                         ))}
                     </>
