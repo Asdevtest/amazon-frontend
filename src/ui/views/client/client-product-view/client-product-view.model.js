@@ -516,10 +516,9 @@ export class ClientProductViewModel {
 
       if (this.imagesForLoad.length) {
         await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
-
-        // runInAction(() => {
-        //   this.imagesForLoad = []
-        // })
+        runInAction(() => {
+          this.imagesForLoad = []
+        })
       }
 
       await ClientModel.updateProduct(

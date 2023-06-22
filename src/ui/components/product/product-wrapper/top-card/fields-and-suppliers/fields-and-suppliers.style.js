@@ -72,7 +72,7 @@ export const useClassNames = makeStyles()(theme => ({
   nativeSelect: {
     width: '300px',
     color: theme.palette.text.general,
-    height: 33,
+    height: 40,
     '& > disabled': {
       backgroundColor: theme.palette.input.customDisabled,
     },
@@ -265,5 +265,16 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     maxWidth: '226px',
     flexWrap: 'wrap',
+  },
+
+  customSubMainWrapper: {
+    padding: '10px 10px !important',
+    width: '300px !important',
+  },
+
+  customSearchInput: {
+    width: '100% !important',
+    padding: '0 !important',
+    margin: '0 !important',
   },
 }))
