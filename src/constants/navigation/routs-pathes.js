@@ -10,4 +10,6 @@ export const routsPathes = {
 
   CLIENT_ORDERS: '/client/my-orders/orders',
   CLIENT_PENDING_ORDERS: '/client/my-orders/pending-orders',
+
+  ADMIN_INVENTORY_PRODUCT: '/admin/inventory/product',
 }
