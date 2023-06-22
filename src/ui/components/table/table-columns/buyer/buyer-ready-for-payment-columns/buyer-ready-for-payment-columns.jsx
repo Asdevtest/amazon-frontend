@@ -41,7 +41,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
 
     {
       field: 'priority',
-      headerName: t(TranslationKey['Priority and Express Delivery']),
+      headerName: t(TranslationKey.Priority),
       renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
       renderCell: params => (
         <PriorityAndChinaDeliverCell

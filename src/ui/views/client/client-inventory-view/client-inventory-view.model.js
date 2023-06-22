@@ -754,7 +754,7 @@ export class ClientInventoryViewModel {
       const purchaseQuantityAboveZero =
         this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter &&
         this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
-          ? null
+          ? ''
           : this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
 
       // console.log('shopFilter', shopFilter)
