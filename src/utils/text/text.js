@@ -206,6 +206,7 @@ export const getTableByColumn = (column, hint) => {
       'bsr',
       'fbaamount',
       'client',
+      'buyer',
     ].includes(column)
   ) {
     // if (hint === 'requests') {
@@ -213,7 +214,7 @@ export const getTableByColumn = (column, hint) => {
     // } else {
     return 'products'
     // }
-  } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags'].includes(column)) {
+  } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags', 'createdBy'].includes(column)) {
     if (hint === 'orders') {
       return 'orders'
     } else if (hint === 'boxes') {
@@ -229,7 +230,7 @@ export const getTableByColumn = (column, hint) => {
       'typeTask',
       'price',
       'timeoutAt',
-      'createdBy',
+      // 'createdBy',
       'subUsers',
       'priority',
       'priceAmazon',

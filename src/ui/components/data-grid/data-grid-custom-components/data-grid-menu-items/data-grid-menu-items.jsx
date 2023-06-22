@@ -2266,3 +2266,59 @@ export const OnListingCellMenuItem = React.memo(
     )
   }, styles),
 )
+
+export const YesNoCellMenuItem = React.memo(
+  withStyles(({ classes: classNames, data, onClose, field }) => {
+    const filterData = data[`${field}YesNoFilterData`]
+
+    return (
+      <div className={classNames.shopsDataWrapper}>
+        <div className={classNames.shopsWrapper}>
+          <div className={classNames.shopsBody}>
+            <div className={classNames.shop}>
+              <Checkbox
+                color="primary"
+                checked={filterData.yes}
+                onClick={() => {
+                  if (filterData.yes) {
+                    filterData.handleFilters(false, true)
+                  } else {
+                    filterData.handleFilters(true, true)
+                  }
+                }}
+              />
+
+              <Typography>{t(TranslationKey.Yes)}</Typography>
+            </div>
+
+            <div className={classNames.shop}>
+              <Checkbox
+                color="primary"
+                checked={filterData.no}
+                onClick={() => {
+                  if (filterData.no) {
+                    filterData.handleFilters(true, false)
+                  } else {
+                    filterData.handleFilters(true, true)
+                  }
+                }}
+              />
+
+              <Typography>{t(TranslationKey.No)}</Typography>
+            </div>
+          </div>
+        </div>
+        <div className={classNames.buttonsWrapper}>
+          <Button
+            variant="contained"
+            onClick={e => {
+              onClose(e)
+            }}
+          >
+            {t(TranslationKey.Accept)}
+          </Button>
+        </div>
+      </div>
+    )
+  }, styles),
+)

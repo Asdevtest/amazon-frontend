@@ -14,6 +14,7 @@ import {
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 
 export const supervisorProductsViewColumns = () => [
   {
@@ -34,6 +35,8 @@ export const supervisorProductsViewColumns = () => [
       )
     },
     width: 350,
+
+    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
   {
@@ -56,6 +59,8 @@ export const supervisorProductsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
     renderCell: params => <MultilineStatusCell status={params.value} />,
     width: 120,
+
+    columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
   },
 
   {
@@ -66,26 +71,39 @@ export const supervisorProductsViewColumns = () => [
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
     type: 'number',
     width: 100,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
-    field: 'researcherName',
+    field: 'createdBy',
     headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
     renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.createdBy?._id} />
+      <UserLinkCell
+        blackText
+        name={params.row.originalData.createdBy?.name}
+        userId={params.row.originalData.createdBy?._id}
+      />
     ),
+
     width: 170,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
-    field: 'buyerName',
+    field: 'buyer',
     headerName: t(TranslationKey.Buyer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
-    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.buyer?._id} />,
+    renderCell: params => (
+      <UserLinkCell blackText name={params.row.originalData.buyer?.name} userId={params.row.originalData.buyer?._id} />
+    ),
     width: 170,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -96,6 +114,8 @@ export const supervisorProductsViewColumns = () => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 70,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -106,6 +126,8 @@ export const supervisorProductsViewColumns = () => [
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.fbafee} fix={2} />,
     type: 'number',
     minWidth: 100,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -134,6 +156,8 @@ export const supervisorProductsViewColumns = () => [
     ),
     minWidth: 50,
     type: 'boolean',
+    sortable: false,
+    columnKey: columnnsKeys.shared.YES_NO,
   },
 
   {
@@ -144,6 +168,8 @@ export const supervisorProductsViewColumns = () => [
     width: 120,
     renderCell: params => <NormDateCell value={params.value} />,
     // type: 'date',
+
+    columnKey: columnnsKeys.shared.DATE,
   },
 
   {
@@ -155,5 +181,7 @@ export const supervisorProductsViewColumns = () => [
     flex: 1,
     renderCell: params => <NormDateCell value={params.value} />,
     // type: 'date',
+
+    columnKey: columnnsKeys.shared.DATE,
   },
 ]
