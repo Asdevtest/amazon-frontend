@@ -38,6 +38,7 @@ const clientToEditStatuses = [
 
 export const RightSideComments = observer(
   ({
+    modal,
     showActionBtns,
     curUserRole,
     onChangeField,
@@ -54,7 +55,7 @@ export const RightSideComments = observer(
 
     return (
       <div className={classNames.rightBoxCommentsWrapper}>
-        <Box className={classNames.rightBoxComments}>
+        <div className={classNames.rightBoxComments}>
           <Typography className={classNames.title}>{t(TranslationKey.Comments)}</Typography>
           <Field
             multiline
@@ -119,95 +120,100 @@ export const RightSideComments = observer(
             </>
           )}
 
-          {showActionBtns && (
-            <ProductStatusButtons
-              product={product}
-              curUserRole={curUserRole}
-              buttonsConfig={productStatusButtonsConfig}
-              onClickButton={onClickSetProductStatusBtn}
-            />
-          )}
-
-          {showActionBtns ? (
-            <div className={classNames.buttonsWrapper}>
-              {product?.status === ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
-              checkIsBuyer(curUserRole) ? null : (
-                <Button
-                  tooltipInfoContent={translateTooltipSaveBtnMessage(curUserRole)}
-                  className={cx(classNames.buttonNormal, classNames.buttonAccept)}
-                  color="primary"
-                  variant="contained"
-                  onClick={() => handleProductActionButtons('accept', false)}
-                >
-                  {checkIsClient(curUserRole) ? t(TranslationKey.Save) : t(TranslationKey.Receive)}
-                </Button>
+          {!modal && (
+            <>
+              {showActionBtns && (
+                <ProductStatusButtons
+                  product={product}
+                  curUserRole={curUserRole}
+                  buttonsConfig={productStatusButtonsConfig}
+                  onClickButton={onClickSetProductStatusBtn}
+                />
               )}
 
-              {checkIsResearcher(curUserRole) && (
-                <Button
-                  tooltipInfoContent={translateTooltipMessageByRole(
-                    t(TranslationKey['Save without status']),
-                    curUserRole,
+              {showActionBtns ? (
+                <div className={classNames.buttonsWrapper}>
+                  {product?.status ===
+                    ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
+                  checkIsBuyer(curUserRole) ? null : (
+                    <Button
+                      tooltipInfoContent={translateTooltipSaveBtnMessage(curUserRole)}
+                      className={cx(classNames.buttonNormal, classNames.buttonAccept)}
+                      color="primary"
+                      variant="contained"
+                      onClick={() => handleProductActionButtons('accept', false)}
+                    >
+                      {checkIsClient(curUserRole) ? t(TranslationKey.Save) : t(TranslationKey.Receive)}
+                    </Button>
                   )}
-                  disabled={product?.status === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]}
-                  className={classNames.buttonNormal}
-                  variant="contained"
-                  onClick={
-                    checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole)
-                      ? () => handleProductActionButtons('accept', withoutStatus)
-                      : undefined
-                  }
-                >
-                  {t(TranslationKey['Save without status'])}
-                </Button>
+
+                  {checkIsResearcher(curUserRole) && (
+                    <Button
+                      tooltipInfoContent={translateTooltipMessageByRole(
+                        t(TranslationKey['Save without status']),
+                        curUserRole,
+                      )}
+                      disabled={product?.status === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]}
+                      className={classNames.buttonNormal}
+                      variant="contained"
+                      onClick={
+                        checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole)
+                          ? () => handleProductActionButtons('accept', withoutStatus)
+                          : undefined
+                      }
+                    >
+                      {t(TranslationKey['Save without status'])}
+                    </Button>
+                  )}
+
+                  <Button
+                    tooltipInfoContent={translateTooltipCloseBtnMessage(curUserRole)}
+                    className={cx(classNames.buttonClose, {
+                      [classNames.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
+                    })}
+                    variant="contained"
+                    onClick={() => handleProductActionButtons('cancel')}
+                  >
+                    {checkIsClient(curUserRole) ? t(TranslationKey.Close) : t(TranslationKey.Cancel)}
+                  </Button>
+
+                  {checkIsResearcher(curUserRole) || (checkIsClient(curUserRole) && !product.archive) ? (
+                    <Button
+                      tooltipInfoContent={translateTooltipDeleteBtnMessage(curUserRole)}
+                      className={classNames.buttonDelete}
+                      variant="contained"
+                      onClick={() => handleProductActionButtons('delete')}
+                    >
+                      {t(TranslationKey.Delete)}
+                    </Button>
+                  ) : undefined}
+
+                  {checkIsClient(curUserRole) && product.archive && (
+                    <Button
+                      className={classNames.restoreBtn}
+                      color="primary"
+                      variant="contained"
+                      onClick={() => handleProductActionButtons('restore')}
+                    >
+                      {t(TranslationKey.Restore)}
+                    </Button>
+                  )}
+                </div>
+              ) : (
+                <div className={classNames.buttonWrapper}>
+                  <Button
+                    tooltipInfoContent={t(TranslationKey['Close product card'])}
+                    className={cx(classNames.buttonClose, {
+                      [classNames.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
+                    })}
+                    variant="contained"
+                    onClick={() => handleProductActionButtons('cancel')}
+                  >
+                    {t(TranslationKey.Close)}
+                  </Button>
+                </div>
               )}
-
-              <Button
-                tooltipInfoContent={translateTooltipCloseBtnMessage(curUserRole)}
-                className={cx(classNames.buttonClose, {
-                  [classNames.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
-                })}
-                variant="contained"
-                onClick={() => handleProductActionButtons('cancel')}
-              >
-                {checkIsClient(curUserRole) ? t(TranslationKey.Close) : t(TranslationKey.Cancel)}
-              </Button>
-
-              {checkIsResearcher(curUserRole) || (checkIsClient(curUserRole) && !product.archive) ? (
-                <Button
-                  tooltipInfoContent={translateTooltipDeleteBtnMessage(curUserRole)}
-                  className={classNames.buttonDelete}
-                  variant="contained"
-                  onClick={() => handleProductActionButtons('delete')}
-                >
-                  {t(TranslationKey.Delete)}
-                </Button>
-              ) : undefined}
-
-              {checkIsClient(curUserRole) && product.archive && (
-                <Button
-                  className={classNames.restoreBtn}
-                  color="primary"
-                  variant="contained"
-                  onClick={() => handleProductActionButtons('restore')}
-                >
-                  {t(TranslationKey.Restore)}
-                </Button>
-              )}
-            </div>
-          ) : (
-            <div className={classNames.buttonWrapper}>
-              <Button
-                tooltipInfoContent={t(TranslationKey['Close product card'])}
-                className={cx(classNames.buttonClose, {
-                  [classNames.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
-                })}
-                variant="contained"
-                onClick={() => handleProductActionButtons('cancel')}
-              >
-                {t(TranslationKey.Close)}
-              </Button>
-            </div>
+            </>
           )}
 
           {acceptMessage ? (
@@ -217,7 +223,7 @@ export const RightSideComments = observer(
               </Alert>
             </div>
           ) : null}
-        </Box>
+        </div>
       </div>
     )
   },

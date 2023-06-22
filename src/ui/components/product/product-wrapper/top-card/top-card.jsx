@@ -57,6 +57,7 @@ export const TopCard = observer(
     actionStatus,
     product,
     shops,
+    modal,
 
     productBase,
     onClickSupplierBtns,
@@ -328,6 +329,7 @@ export const TopCard = observer(
               />
             </div>
             <RightSideComments
+              modal={modal}
               showActionBtns={showActionBtns}
               curUserRole={curUserRole}
               product={product}

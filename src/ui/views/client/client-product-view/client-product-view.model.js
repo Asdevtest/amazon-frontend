@@ -128,6 +128,8 @@ export class ClientProductViewModel {
 
   showTab = undefined
 
+  setOpenModal = undefined
+
   weightParserAmazon = 0
   weightParserSELLCENTRAL = 0
 
@@ -159,11 +161,15 @@ export class ClientProductViewModel {
     return SettingsModel.languageTag
   }
 
-  constructor({ history }) {
+  constructor({ history, setOpenModal }) {
     const url = new URL(window.location.href)
 
     runInAction(() => {
       this.history = history
+
+      if (setOpenModal) {
+        this.setOpenModal = setOpenModal
+      }
 
       // this.productId = url.searchParams.get("product-id");
 
@@ -199,9 +205,6 @@ export class ClientProductViewModel {
 
   async loadData() {
     try {
-      // await this.getProductById();
-      this.product = undefined
-      await this.clearReadyImages()
       await this.getShops()
     } catch (error) {
       console.log(error)
@@ -224,12 +227,12 @@ export class ClientProductViewModel {
     try {
       const result = await ProductModel.getProductById(this.productId)
 
+      await this.clearReadyImages()
+
       runInAction(() => {
         this.product = result
 
         this.productBase = result
-
-        // this.imagesForLoad = result.images.map(el => getAmazonImageUrl(el, true))
 
         this.updateImagesForLoad(result.images)
 
@@ -388,6 +391,9 @@ export class ClientProductViewModel {
 
         this.onTriggerOpenModal('showConfirmModal')
 
+        break
+      case 'closeModal':
+        this.setOpenModal()
         break
     }
   }
@@ -837,73 +843,9 @@ export class ClientProductViewModel {
     })
   }
 
-  // async onClickParseProductData(productDataParser, product) {
-  //   try {
-  //     this.setActionStatus(loadingStatuses.isLoading)
-  //     runInAction(() => {
-  //       this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
-  //     })
-
-  //     if (product.asin) {
-  //       const parseResult = await (() => {
-  //         switch (productDataParser) {
-  //           case ProductDataParser.AMAZON:
-  //             return ProductModel.parseAmazon(product.asin)
-  //           case ProductDataParser.SELLCENTRAL:
-  //             return ProductModel.parseParseSellerCentral(product.asin)
-  //         }
-  //       })()
-
-  //       switch (productDataParser) {
-  //         case ProductDataParser.AMAZON:
-  //           this.weightParserAmazon = parseResult.weight || 0
-  //           break
-  //         case ProductDataParser.SELLCENTRAL:
-  //           this.weightParserSELLCENTRAL = parseResult.weight / poundsWeightCoefficient || 0
-  //           break
-  //       }
-
-  //       runInAction(() => {
-  //         if (Object.keys(parseResult).length > 5) {
-  //           // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-  //           runInAction(() => {
-  //             this.product = {
-  //               ...this.product,
-  //               ...parseFieldsAdapter(parseResult, productDataParser),
-  //               weight:
-  //                 this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
-  //                   ? this.product.weight
-  //                   : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
-
-  //               // Вернуть старый вариант парса
-  //               // weight:
-  //               //   this.product.weight > parseResult.weight * poundsWeightCoefficient
-  //               //     ? this.product.weight
-  //               //     : parseResult.weight * poundsWeightCoefficient,
-
-  //               amazonDescription: parseResult.info?.description || this.product.amazonDescription,
-  //               amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
-  //               fbafee: this.product.fbafee,
-  //             }
-  //           })
-  //         }
-  //         updateProductAutoCalculatedFields.call(this)
-  //       })
-  //     } else {
-  //       runInAction(() => {
-  //         this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN'])}
-  //       })
-  //     }
-
-  //     this.setActionStatus(loadingStatuses.success)
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.setActionStatus(loadingStatuses.failed)
-  //     if (error.body && error.body.message) {
-  //       runInAction(() => {
-  //         this.error = error.body.message
-  //       })
-  //     }
-  //   }
-  // }
+  clearProduct() {
+    runInAction(() => {
+      this.product = undefined
+    })
+  }
 }

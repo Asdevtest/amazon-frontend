@@ -294,9 +294,7 @@ export const ClientInventoryViewRaw = props => {
             onCellDoubleClick={params =>
               !disableSelectionCells.includes(params.field) && viewModel.onClickShowProduct(params.row)
             }
-            onRowClick={params => {
-              viewModel.onClickProductModal(params.row)
-            }}
+            onRowClick={params => viewModel.onClickProductModal(params.row)}
           />
         </div>
       </MainContent>
@@ -314,7 +312,11 @@ export const ClientInventoryViewRaw = props => {
         />
       </Modal>
 
-      <ProductCardModal openModal={viewModel.productCardModal} setOpenModal={() => viewModel.onClickProductModal()} />
+      <ProductCardModal
+        history={viewModel.history}
+        openModal={viewModel.productCardModal}
+        setOpenModal={() => viewModel.onClickProductModal()}
+      />
 
       <Modal
         openModal={viewModel.showProductLotDataModal}
