@@ -135,6 +135,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   rightBoxCommentsWrapper: {
+    position: 'relative',
     display: 'flex',
     // flexDirection: 'column',
     width: '50%',

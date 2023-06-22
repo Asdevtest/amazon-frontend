@@ -25,13 +25,19 @@ import {
 } from '@utils/translate-tooltip-message'
 import { cx } from '@emotion/css'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
+import { WarningInfoModal } from '../warning-info-modal'
+import { ConfirmationModal } from '../confirmation-modal'
 
 export const ProductCardModal = observer(props => {
   const { classes: classNames } = useClassNames()
 
-  const { openModal, setOpenModal, onClickShareIcon, history } = props
+  const { openModal, setOpenModal, history, onClickOpenNewTab } = props
 
   const { search } = useLocation()
+  const queries = new URLSearchParams(search)
   const [viewModel] = useState(
     () =>
       new ClientProductViewModel({
@@ -40,12 +46,13 @@ export const ProductCardModal = observer(props => {
       }),
   )
 
+  const [currentTab, setCurrentTab] = useState('MAIN_INFO')
+
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   useEffect(() => {
-    const queries = new URLSearchParams(search)
     const productId = queries.get('product-id')
 
     viewModel.clearProduct()
@@ -55,8 +62,6 @@ export const ProductCardModal = observer(props => {
       viewModel.updateProductId(productId)
     }
   }, [search])
-
-  const [show, setShow] = useState()
 
   const clientToEditStatuses = [
     ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
@@ -112,16 +117,24 @@ export const ProductCardModal = observer(props => {
             handleSupplierButtons={viewModel.onClickSupplierButtons}
             handleProductActionButtons={viewModel.handleProductActionButtons}
             formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
+            setCurrentTab={tab => setCurrentTab(tab)}
             onClickSupplier={viewModel.onChangeSelectedSupplier}
             onChangeField={viewModel.onChangeProductFields}
             onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
             onClickParseProductData={viewModel.onClickParseProductData}
           />
         )}
+        {viewModel.requestStatus === loadingStatuses.isLoading && <CircularProgressWithLabel />}
       </div>
-      {viewModel.product && (
+      {viewModel.product && currentTab === 'MAIN_INFO' && (
         <div className={classNames.footerWrapper}>
-          <div className={classNames.shareWrapper} onClick={onClickShareIcon}>
+          <div
+            className={classNames.shareWrapper}
+            onClick={() => {
+              const productId = queries.get('product-id')
+              onClickOpenNewTab({ originalData: { _id: productId } })
+            }}
+          >
             <ShareLinkIcon className={classNames.shareLinkIcon} />
             <Typography className={classNames.shareLinkText}>{t(TranslationKey['Open in a new tab'])}</Typography>
           </div>
@@ -185,7 +198,7 @@ export const ProductCardModal = observer(props => {
                 <Button
                   className={classNames.buttonDelete}
                   variant="contained"
-                  onClick={() => viewModel.handleProductActionButtons('delete')}
+                  onClick={() => viewModel.handleProductActionButtons('delete', undefined, true)}
                 >
                   {t(TranslationKey.Delete)}
                 </Button>
@@ -196,7 +209,7 @@ export const ProductCardModal = observer(props => {
                   className={classNames.restoreBtn}
                   color="primary"
                   variant="contained"
-                  onClick={() => viewModel.handleProductActionButtons('restore')}
+                  onClick={() => viewModel.handleProductActionButtons('restore', undefined, true)}
                 >
                   {t(TranslationKey.Restore)}
                 </Button>
@@ -215,7 +228,53 @@ export const ProductCardModal = observer(props => {
           )}
         </div>
       )}
-      {/* {isFileDownloading && <CircularProgressWithLabel />} */}
+
+      <Modal
+        missClickModalOn={!viewModel.supplierModalReadOnly}
+        openModal={viewModel.showAddOrEditSupplierModal}
+        setOpenModal={viewModel.onTriggerAddOrEditSupplierModal}
+      >
+        <AddOrEditSupplierModalContent
+          paymentMethods={viewModel.paymentMethods}
+          product={viewModel.product}
+          storekeepersData={viewModel.storekeepersData}
+          onlyRead={viewModel.supplierModalReadOnly}
+          requestStatus={viewModel.requestStatus}
+          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          supplier={viewModel.selectedSupplier}
+          showProgress={viewModel.showProgress}
+          progressValue={viewModel.progressValue}
+          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
+          onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
+        />
+      </Modal>
+
+      <WarningInfoModal
+        openModal={viewModel.showWarningModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
+        title={viewModel.warningModalTitle}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showWarningModal')
+        }}
+      />
+
+      <ConfirmationModal
+        isWarning={viewModel.confirmModalSettings.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={viewModel.confirmModalSettings.title}
+        message={viewModel.confirmModalSettings.message}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={() => {
+          viewModel.confirmModalSettings.onClickOkBtn()
+          viewModel.onTriggerOpenModal('showConfirmModal')
+        }}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
     </Modal>
   )
 })

@@ -81,6 +81,7 @@ export const ProductWrapper = observer(
     onChangeField,
     actionStatus,
     handleProductActionButtons,
+    setCurrentTab,
     onClickParseProductData,
     onChangeImagesForLoad,
     acceptMessage,
@@ -108,6 +109,7 @@ export const ProductWrapper = observer(
               value={tabIndex}
               onChange={(e, value) => {
                 setTabIndex(value)
+                setCurrentTab && setCurrentTab(value)
               }}
             >
               <ITab
@@ -184,11 +186,15 @@ export const ProductWrapper = observer(
             </TabPanel>
 
             <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.ORDERS}>
-              <Orders productId={product._id} showAtProcessOrders={getTab(showTab) === tabsValues.ORDERS} />
+              <Orders
+                modal={modal}
+                productId={product._id}
+                showAtProcessOrders={getTab(showTab) === tabsValues.ORDERS}
+              />
             </TabPanel>
 
             <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.INTEGRATIONS}>
-              <Integrations productId={product._id} />
+              <Integrations modal={modal} productId={product._id} />
             </TabPanel>
 
             {/* <TabPanel value={tabIndex} index={tabsValues.LISTING}>
@@ -196,7 +202,7 @@ export const ProductWrapper = observer(
             </TabPanel> */}
 
             <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.FREELANCE}>
-              <Freelance productId={product._id} />
+              <Freelance modal={modal} productId={product._id} />
             </TabPanel>
 
             <TabPanel isModalProductCard={modal} value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>

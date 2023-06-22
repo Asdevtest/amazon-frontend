@@ -26,7 +26,7 @@ import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-co
 import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 
-export const Freelance = observer(({ productId }) => {
+export const Freelance = observer(({ productId, modal }) => {
   const { classes: classNames } = useClassNames()
   const history = useHistory()
   const freelanceModel = useRef(new FreelanceModel({ history, productId }))
@@ -87,7 +87,7 @@ export const Freelance = observer(({ productId }) => {
           onSubmit={onSearchSubmit}
         />
       </div>
-      <div className={classNames.mainWrapper}>
+      <div className={cx(classNames.mainWrapper, { [classNames.modalWrapper]: modal })}>
         <MemoDataGrid
           disableVirtualization
           pagination

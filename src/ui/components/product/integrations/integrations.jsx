@@ -23,8 +23,9 @@ import { t } from '@utils/translations'
 
 import { IntegrationsModel } from './integrations.model'
 import { useClassNames } from './integrations.style'
+import { cx } from '@emotion/css'
 
-export const Integrations = observer(({ productId }) => {
+export const Integrations = observer(({ productId, modal }) => {
   const { classes: classNames } = useClassNames()
   const history = useHistory()
   const model = useRef(new IntegrationsModel({ history, productId }))
@@ -43,6 +44,7 @@ export const Integrations = observer(({ productId }) => {
     showInfoModal,
     requestStatus,
     columnsModel,
+
     onTriggerOpenModal,
     sellerBoardDailyData,
     getStockGoodsByFilters,
@@ -53,7 +55,7 @@ export const Integrations = observer(({ productId }) => {
   } = model.current
 
   return (
-    <div className={classNames.mainWrapper}>
+    <div className={cx(classNames.mainWrapper, { [classNames.modalWrapper]: modal })}>
       {SettingsModel.languageTag && (
         <div className={classNames.addProductBtnsWrapper}>
           <Button onClick={onClickBindInventoryGoodsToStockBtn}>

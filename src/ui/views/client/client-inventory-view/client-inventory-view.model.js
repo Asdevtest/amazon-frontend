@@ -363,9 +363,13 @@ export class ClientInventoryViewModel {
 
   onClickProductModal(row) {
     if (row) {
-      this.history.push(`/client/inventory?product-id=${row.originalData._id}`)
+      this.isArchive
+        ? this.history.push(`/client/inventory/archive?product-id=${row.originalData._id}`)
+        : this.history.push(`/client/inventory?product-id=${row.originalData._id}`)
     } else {
-      this.history.push(`/client/inventory`)
+      this.isArchive ? this.history.push(`/client/inventory/archive`) : this.history.push(`/client/inventory`)
+
+      this.loadData()
     }
 
     this.onTriggerOpenModal('productCardModal')

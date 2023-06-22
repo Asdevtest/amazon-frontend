@@ -225,20 +225,23 @@ export class ClientProductViewModel {
 
   async getProductById() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       const result = await ProductModel.getProductById(this.productId)
-
-      await this.clearReadyImages()
 
       runInAction(() => {
         this.product = result
 
         this.productBase = result
 
+        this.imagesForLoad = []
+
         this.updateImagesForLoad(result.images)
 
         updateProductAutoCalculatedFields.call(this)
+        this.setRequestStatus(loadingStatuses.success)
       })
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -351,7 +354,7 @@ export class ClientProductViewModel {
     }
   }
 
-  async handleProductActionButtons(actionType, withoutStatus) {
+  async handleProductActionButtons(actionType, withoutStatus, isModal) {
     switch (actionType) {
       case 'accept':
         this.openConfirmModalWithTextByStatus(withoutStatus)
@@ -369,7 +372,7 @@ export class ClientProductViewModel {
             message: t(TranslationKey['After confirmation, the card will be moved to the archive. Move?']),
             successBtnText: t(TranslationKey.Delete),
             cancelBtnText: t(TranslationKey.Cancel),
-            onClickOkBtn: () => this.onDeleteProduct(),
+            onClickOkBtn: () => this.onDeleteProduct(isModal),
           }
         })
 
@@ -385,7 +388,7 @@ export class ClientProductViewModel {
             message: t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?']),
             successBtnText: t(TranslationKey.Yes),
             cancelBtnText: t(TranslationKey.Cancel),
-            onClickOkBtn: () => this.onRestoreProduct(),
+            onClickOkBtn: () => this.onRestoreProduct(isModal),
           }
         })
 
@@ -398,14 +401,18 @@ export class ClientProductViewModel {
     }
   }
 
-  async onRestoreProduct() {
+  async onRestoreProduct(isModal) {
     try {
       await ClientModel.updateProduct(
         this.product._id,
         getObjectFilteredByKeyArrayWhiteList({ ...this.product, archive: false }, ['archive']),
       )
 
-      this.history.goBack()
+      if (isModal) {
+        this.setOpenModal()
+      } else {
+        this.history.goBack()
+      }
     } catch (error) {
       console.log(error)
       runInAction(() => {
@@ -414,14 +421,18 @@ export class ClientProductViewModel {
     }
   }
 
-  async onDeleteProduct() {
+  async onDeleteProduct(isModal) {
     try {
       await ClientModel.updateProduct(
         this.product._id,
         getObjectFilteredByKeyArrayWhiteList({ ...this.product, archive: true }, ['archive']),
       )
 
-      this.history.goBack()
+      if (isModal) {
+        this.setOpenModal()
+      } else {
+        this.history.goBack()
+      }
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)

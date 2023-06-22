@@ -316,6 +316,7 @@ export const ClientInventoryViewRaw = props => {
         history={viewModel.history}
         openModal={viewModel.productCardModal}
         setOpenModal={() => viewModel.onClickProductModal()}
+        onClickOpenNewTab={row => viewModel.onClickShowProduct(row)}
       />
 
       <Modal
