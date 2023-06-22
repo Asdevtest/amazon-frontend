@@ -1,141 +1,94 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
+  wrapper: {
+    display: 'flex',
+    gap: 30,
+  },
+
+  textFileds: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+
+    '> div': {
+      margin: 0,
+    },
+  },
+
   textField: {
-    width: '100%',
-    minHeight: '40px',
+    width: 410,
+    height: 40,
     color: theme.palette.text.general,
-    padding: '8px',
-    fontSize: '16px',
+    padding: '15px 7px',
+    fontSize: 16,
     outline: 'none',
-    border: '1px solid rgba(217, 222, 229, 1)',
-    borderRadius: '10px',
-
-    fontWeight: '400',
-    lineHeight: '1.5',
+    border: '1px solid var(--light-thin-lines, #E0E0E0)',
+    borderRadius: 4,
   },
 
-  placeAddBtnWrapper: {
+  label: {
+    marginBottom: 10,
+    fontSize: 14,
+    color: theme.palette.text.second,
+  },
+
+  proxyContent: {
     display: 'flex',
-    justifyContent: 'end',
-    marginTop: '20px',
-    marginBottom: '20px',
-  },
-
-  proxyButtonWrapper: {
-    display: 'flex',
-    justifyContent: 'end',
-    marginTop: '20px',
-  },
-
-  submitButton: {
-    width: '165px',
-    height: '40px',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
   },
 
   proxyField: {
     display: 'flex',
-    alignItems: 'start',
+    alignItems: 'flex-end',
+    gap: 15,
   },
 
-  proxyFieldText: {
-    marginBottom: '12px',
-    fontSize: '18px',
-    lineHeight: '140%',
-    fontWeight: '400',
-    color: theme.palette.text.general,
+  btnAddProxy: {
+    width: 112,
+    height: 40,
+    marginBottom: 20,
   },
 
-  proxyFieldTextUnSelection: {
-    marginBottom: '12px',
-    fontSize: '18px',
-    lineHeight: '140%',
-    fontWeight: '400',
-    color: theme.palette.text.general,
-    userSelect: 'none',
-  },
-
-  textFieldUnSelection: {
+  proxyList: {
     width: '100%',
-    minHeight: '40px',
-    color: theme.palette.text.general,
-    padding: '8px',
-    fontSize: '16px',
-    outline: 'none',
-    border: '1px solid rgba(217, 222, 229, 1)',
-    borderRadius: '10px',
-
-    fontWeight: '400',
-    lineHeight: '1.5',
-
-    '& > ::selection': {
-      userSelect: 'none',
-    },
+    height: 155,
+    overflowX: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
+    marginBottom: 20,
   },
 
-  unselectable: {
-    userSelect: 'none',
-  },
   proxyWrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '10px',
-    marginTop: '22px',
-  },
-
-  proxiesWrapper: {
-    height: '100%',
-  },
-
-  halfProxiesWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    height: '275px',
-    overflow: 'hidden',
-  },
-  proxySubWrapper: {
-    display: 'flex',
-    alignItems: 'center',
+    gap: 10,
   },
 
   proxy: {
-    color: theme.palette.primary.main,
     fontSize: '16px',
     lineHeight: '19px',
+    color: theme.palette.primary.main,
+  },
+
+  iconsWrapper: {
+    display: 'flex',
+    gap: 5,
   },
 
   deleteProxy: {
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(1.07)',
     },
   },
-  tablePanelSortWrapper: {
-    marginTop: '20px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'end',
 
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      opacity: '.8',
-    },
-  },
-  tablePanelViewText: {
-    fontSize: '16px',
-    lineHeight: '19px',
-    color: theme.palette.primary.main,
-
-    marginRight: '15px',
-  },
-  disabledTablePanelSortWrapper: {
-    cursor: 'default',
-  },
-  iconsWrapper: {
-    display: 'flex',
+  saveProxyButton: {
+    width: 123,
+    height: 40,
   },
 }))

@@ -5,6 +5,7 @@ export const styles = theme => ({
   },
 
   technicalBtn: {
-    marginBottom: 25,
+    padding: '0 20px',
+    marginBottom: 30,
   },
 })

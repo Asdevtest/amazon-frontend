@@ -1,5 +1,5 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Box } from '@mui/material'
+import { Tabs, Tab } from '@mui/material'
 
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -29,6 +29,7 @@ import { TabFreelanceContent } from './admin-tabs-content/tab-freelance-content'
 import { TabMainContent } from './admin-tabs-content/tab-main-content'
 import { TabOrdersContent } from './admin-tabs-content/tab-orders-content'
 import { TabSearchSupplierContent } from './admin-tabs-content/tab-search-supplier-content'
+import { TabPanel } from './admin-tabs-content/tab-panel'
 
 const fieldsWithoutCharactersAfterDote = [
   'requestPlatformMarginInPercent',
@@ -85,8 +86,8 @@ export const AdminSettingsContent = observer(() => {
   } = asModel.current
 
   const [formFields, setFormFields] = useState({})
-  const [activeTab, setActiveTab] = useState(tabsValues.MAIN)
   const [proxyArr, setProxyArr] = useState(serverProxy)
+  const [tabIndex, setTabIndex] = useState(0)
 
   useEffect(() => {
     setProxyArr(serverProxy)
@@ -164,6 +165,10 @@ export const AdminSettingsContent = observer(() => {
     setFormFields(newFormFields)
   }
 
+  const handleChangeTab = (event, newValue) => {
+    setTabIndex(newValue)
+  }
+
   const disabledSubmitFirstBlock =
     JSON.stringify(adminSettings.dynamicSettings) === JSON.stringify(formFields) ||
     Number(formFields.yuanToDollarRate) === 0 ||
@@ -184,225 +189,151 @@ export const AdminSettingsContent = observer(() => {
 
   const disabledSubmitProxy = JSON.stringify(serverProxy) === JSON.stringify(proxyArr)
 
+  const tabLabels = [
+    TranslationKey.Main,
+    TranslationKey.Freelance,
+    TranslationKey['Supplier search'],
+    TranslationKey.Orders,
+    TranslationKey.Destinations,
+  ]
+
   return (
-    SettingsModel.languageTag && (
-      <div className={classNames.mainWrapper}>
-        <div className={classNames.tabsWrapper}>
-          <Button
-            className={activeTab === tabsValues.MAIN ? classNames.tabItemActiveButton : classNames.tabItemButton}
-            onClick={() => setActiveTab(tabsValues.MAIN)}
-          >
-            {t(TranslationKey.Main)}
-          </Button>
-          <Button
-            className={activeTab === tabsValues.FREELANCE ? classNames.tabItemActiveButton : classNames.tabItemButton}
-            onClick={() => setActiveTab(tabsValues.FREELANCE)}
-          >
-            {t(TranslationKey.Freelance)}
-          </Button>
-          <Button
-            className={
-              activeTab === tabsValues.SEARCH_SUPPLIER ? classNames.tabItemActiveButton : classNames.tabItemButton
-            }
-            onClick={() => setActiveTab(tabsValues.SEARCH_SUPPLIER)}
-          >
-            {t(TranslationKey['Supplier search'])}
-          </Button>
+    <React.Fragment>
+      <Tabs
+        value={tabIndex}
+        variant="scrollable"
+        classes={{
+          root: classNames.rootTabs,
+          indicator: classNames.indicator,
+          flexContainer: classNames.flexContainerTabs,
+        }}
+        onChange={handleChangeTab}
+      >
+        {tabLabels.map(label => (
+          <Tab key={label} label={t(label)} classes={{ root: classNames.rootTab }} />
+        ))}
+      </Tabs>
 
-          <Button
-            className={activeTab === tabsValues.ORDERS ? classNames.tabItemActiveButton : classNames.tabItemButton}
-            onClick={() => setActiveTab(tabsValues.ORDERS)}
-          >
-            {t(TranslationKey.Orders)}
-          </Button>
-
-          <Button
-            className={
-              activeTab === tabsValues.DESTINATIONS ? classNames.tabItemActiveButton : classNames.tabItemButton
-            }
-            onClick={() => setActiveTab(tabsValues.DESTINATIONS)}
-          >
-            {t(TranslationKey.Destinations)}
-          </Button>
-        </div>
-
-        <div className={classNames.tabsItemWrapper}>
-          <Box className={activeTab === tabsValues.DESTINATIONS ? classNames.hideBlock : classNames.tabItemWrapper}>
-            <div
-              className={
-                activeTab === tabsValues.MAIN ? classNames.tabItemActiveContent : classNames.tabItemNoActiveContent
-              }
-            >
-              <TabMainContent
-                disabled={activeTab !== tabsValues.MAIN}
-                formFields={formFields}
-                disabledSubmit={disabledSubmitFirstBlock || activeTab !== tabsValues.MAIN}
-                disabledAddButton={activeTab !== tabsValues.MAIN}
-                disabledSubmitProxy={disabledSubmitProxy}
-                proxyArr={proxyArr}
-                setProxyArr={setProxyArr}
-                onChangeField={onChangeField}
-                onSubmit={onCreateSubmit}
-                onSubmitProxy={onSubmitProxy}
-                onClickAddProxyBtn={() => onTriggerOpenModal('showAsinCheckerModal')}
-              />
-            </div>
-          </Box>
-
-          <Box className={activeTab === tabsValues.DESTINATIONS ? classNames.hideBlock : classNames.tabItemWrapper}>
-            <div
-              className={
-                activeTab === tabsValues.FREELANCE ? classNames.tabItemActiveContent : classNames.tabItemNoActiveContent
-              }
-            >
-              <TabFreelanceContent
-                disabled={activeTab !== tabsValues.FREELANCE}
-                formFields={formFields}
-                disabledSubmit={disabledSubmitSecondBlock || activeTab !== tabsValues.FREELANCE}
-                onChangeField={onChangeField}
-                onSubmit={onCreateSubmit}
-              />
-            </div>
-          </Box>
-
-          <Box className={activeTab === tabsValues.DESTINATIONS ? classNames.hideBlock : classNames.tabItemWrapper}>
-            <div
-              className={
-                activeTab === tabsValues.SEARCH_SUPPLIER
-                  ? classNames.tabItemActiveContent
-                  : classNames.tabItemNoActiveContent
-              }
-            >
-              <TabSearchSupplierContent
-                disabled={activeTab !== tabsValues.SEARCH_SUPPLIER}
-                formFields={formFields}
-                disabledSubmit={disabledSubmitThirdBlock || activeTab !== tabsValues.SEARCH_SUPPLIER}
-                onChangeField={onChangeField}
-                onSubmit={onCreateSubmit}
-              />
-            </div>
-          </Box>
-
-          <Box className={activeTab === tabsValues.DESTINATIONS ? classNames.hideBlock : classNames.tabItemWrapper}>
-            <div
-              className={
-                activeTab === tabsValues.ORDERS ? classNames.tabItemActiveContent : classNames.tabItemNoActiveContent
-              }
-            >
-              <TabOrdersContent
-                disabled={activeTab !== tabsValues.ORDERS}
-                disabledSubmit={disabledSubmitThirdBlock || activeTab !== tabsValues.ORDERS}
-                formFields={formFields}
-                onChangeField={onChangeField}
-                onSubmit={onCreateSubmit}
-              />
-            </div>
-          </Box>
-
-          <Box
-            className={
-              activeTab !== tabsValues.DESTINATIONS
-                ? classNames.tabHideDestinationWrapper
-                : classNames.tabActiveDestinationWrapper
-            }
-          >
-            <div
-              className={
-                activeTab === tabsValues.DESTINATIONS
-                  ? classNames.tabItemActiveContent
-                  : classNames.tabItemNoActiveContent
-              }
-            >
-              <div className={classNames.placeAddBtnWrapper}>
-                <Button success onClick={() => onClickAddBtn()}>
-                  {t(TranslationKey['Add a destination'])}
-                </Button>
-              </div>
-              <div className={classNames.datagridWrapper}>
-                <MemoDataGrid
-                  pagination
-                  useResizeContainer
-                  classes={{
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
-                  }}
-                  localeText={getLocalizationByLanguageTag()}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  columnVisibilityModel={asModel.current.columnVisibilityModel}
-                  paginationModel={asModel.current.paginationModel}
-                  pageSizeOptions={[15, 25, 50, 100]}
-                  rows={getCurrentData()}
-                  rowHeight={120}
-                  slots={{
-                    toolbar: DataGridCustomToolbar,
-                    columnMenuIcon: FilterAltOutlinedIcon,
-                  }}
-                  slotProps={{
-                    toolbar: {
-                      columsBtnSettings: {
-                        columnsModel,
-                        columnVisibilityModel: asModel.current.columnVisibilityModel,
-                        onColumnVisibilityModelChange: asModel.current.onColumnVisibilityModelChange,
-                      },
-                    },
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSortModelChange={onChangeSortingModel}
-                  onPaginationModelChange={asModel.current.onChangePaginationModelChange}
-                  onFilterModelChange={onChangeFilterModel}
-                />
-              </div>
-
-              <Modal
-                openModal={showAddOrEditDestinationModal}
-                setOpenModal={() => onTriggerOpenModal('showAddOrEditDestinationModal')}
-              >
-                <AddOrEditDestinationForm
-                  destinationToEdit={destinationToEdit}
-                  onCloseModal={() => onClickCancelBtn()}
-                  onCreateSubmit={onSubmitCreateDestination}
-                  onEditSubmit={onSubmitEditDestination}
-                />
-              </Modal>
-
-              <ConfirmationModal
-                isWarning={confirmModalSettings.isWarning}
-                openModal={showConfirmModal}
-                setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-                title={t(TranslationKey.Attention)}
-                message={confirmModalSettings.message}
-                successBtnText={t(TranslationKey.Yes)}
-                cancelBtnText={t(TranslationKey.No)}
-                onClickSuccessBtn={confirmModalSettings.onClickSuccess}
-                onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-              />
-            </div>
-          </Box>
-        </div>
-
-        <WarningInfoModal
-          openModal={showInfoModal}
-          setOpenModal={() => onCloseInfoModal()}
-          title={infoModalText}
-          btnText={t(TranslationKey.Close)}
-          onClickBtn={() => {
-            onCloseInfoModal()
-          }}
-        />
-
-        <Modal openModal={showAsinCheckerModal} setOpenModal={() => onTriggerOpenModal('showAsinCheckerModal')}>
-          <AsinProxyCheckerForm
-            user={user}
-            onSubmit={setProxyArr}
-            onClose={() => onTriggerOpenModal('showAsinCheckerModal')}
+      <TabPanel value={tabIndex} index={0}>
+        <div className={classNames.contentWrapper}>
+          <TabMainContent
+            disabledSubmit={disabledSubmitFirstBlock}
+            disabledAddButton={false}
+            disabledSubmitProxy={disabledSubmitProxy}
+            formFields={formFields}
+            proxyArr={proxyArr}
+            setProxyArr={setProxyArr}
+            onChangeField={onChangeField}
+            onSubmit={onCreateSubmit}
+            onSubmitProxy={onSubmitProxy}
+            onClickAddProxyBtn={() => onTriggerOpenModal('showAsinCheckerModal')}
           />
-        </Modal>
-      </div>
-    )
+        </div>
+      </TabPanel>
+      <TabPanel value={tabIndex} index={1}>
+        <div className={classNames.contentWrapper}>
+          <TabFreelanceContent formFields={formFields} onChangeField={onChangeField} onSubmit={onCreateSubmit} />
+        </div>
+      </TabPanel>
+      <TabPanel value={tabIndex} index={2}>
+        <div className={classNames.contentWrapper}>
+          <TabSearchSupplierContent formFields={formFields} onChangeField={onChangeField} onSubmit={onCreateSubmit} />
+        </div>
+      </TabPanel>
+      <TabPanel value={tabIndex} index={3}>
+        <div className={classNames.contentWrapper}>
+          <TabOrdersContent formFields={formFields} onChangeField={onChangeField} onSubmit={onCreateSubmit} />
+        </div>
+      </TabPanel>
+      <TabPanel value={tabIndex} index={4}>
+        <div className={classNames.contentWrapper}>
+          <div className={classNames.placeAddBtnWrapper}>
+            <Button success onClick={() => onClickAddBtn()}>
+              {t(TranslationKey['Add a destination'])}
+            </Button>
+          </div>
+          <div className={classNames.datagridWrapper}>
+            <MemoDataGrid
+              pagination
+              useResizeContainer
+              classes={{
+                root: classNames.root,
+                footerContainer: classNames.footerContainer,
+                footerCell: classNames.footerCell,
+                toolbarContainer: classNames.toolbarContainer,
+              }}
+              localeText={getLocalizationByLanguageTag()}
+              sortModel={sortModel}
+              filterModel={filterModel}
+              columnVisibilityModel={asModel.current.columnVisibilityModel}
+              paginationModel={asModel.current.paginationModel}
+              pageSizeOptions={[15, 25, 50, 100]}
+              rows={getCurrentData()}
+              rowHeight={120}
+              slots={{
+                toolbar: DataGridCustomToolbar,
+                columnMenuIcon: FilterAltOutlinedIcon,
+              }}
+              slotProps={{
+                toolbar: {
+                  columsBtnSettings: {
+                    columnsModel,
+                    columnVisibilityModel: asModel.current.columnVisibilityModel,
+                    onColumnVisibilityModelChange: asModel.current.onColumnVisibilityModelChange,
+                  },
+                },
+              }}
+              density={densityModel}
+              columns={columnsModel}
+              loading={requestStatus === loadingStatuses.isLoading}
+              onSortModelChange={onChangeSortingModel}
+              onPaginationModelChange={asModel.current.onChangePaginationModelChange}
+              onFilterModelChange={onChangeFilterModel}
+            />
+          </div>
+
+          <Modal
+            openModal={showAddOrEditDestinationModal}
+            setOpenModal={() => onTriggerOpenModal('showAddOrEditDestinationModal')}
+          >
+            <AddOrEditDestinationForm
+              destinationToEdit={destinationToEdit}
+              onCloseModal={() => onClickCancelBtn()}
+              onCreateSubmit={onSubmitCreateDestination}
+              onEditSubmit={onSubmitEditDestination}
+            />
+          </Modal>
+
+          <ConfirmationModal
+            isWarning={confirmModalSettings.isWarning}
+            openModal={showConfirmModal}
+            setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+            title={t(TranslationKey.Attention)}
+            message={confirmModalSettings.message}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={confirmModalSettings.onClickSuccess}
+            onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+          />
+        </div>
+      </TabPanel>
+
+      <WarningInfoModal
+        openModal={showInfoModal}
+        setOpenModal={() => onCloseInfoModal()}
+        title={infoModalText}
+        btnText={t(TranslationKey.Close)}
+        onClickBtn={() => {
+          onCloseInfoModal()
+        }}
+      />
+      <Modal openModal={showAsinCheckerModal} setOpenModal={() => onTriggerOpenModal('showAsinCheckerModal')}>
+        <AsinProxyCheckerForm
+          user={user}
+          onSubmit={setProxyArr}
+          onClose={() => onTriggerOpenModal('showAsinCheckerModal')}
+        />
+      </Modal>
+    </React.Fragment>
   )
 })
