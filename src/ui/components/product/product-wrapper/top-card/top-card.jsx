@@ -218,9 +218,9 @@ export const TopCard = observer(
     return (
       <React.Fragment>
         <Paper className={classNames.mainCardWrapper}>
-          <Grid container spacing={2}>
-            <Grid container item sm={7} xs={12}>
-              <Grid item xs={12}>
+          <div className={classNames.mainCard222}>
+            <div className={classNames.mainCard}>
+              <div className={classNames.card}>
                 <Box>
                   {product.images && product.images.length ? (
                     <div className={classNames.carouselWrapper}>
@@ -288,6 +288,7 @@ export const TopCard = observer(
                     {(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) || clientToEdit) && (
                       <div className={classNames.imageFileInputWrapper}>
                         <UploadFilesInput
+                          fullWidth
                           images={imagesForLoad}
                           setImages={onChangeImagesForLoad}
                           // maxNumber={50 - product.images?.length < 0 ? 0 : 50 - product.images?.length}
@@ -309,7 +310,7 @@ export const TopCard = observer(
                       : alertFailedText || t(TranslationKey['Fields not filled in'])}
                   </Alert>
                 ) : undefined}
-              </Grid>
+              </div>
               <FieldsAndSuppliers
                 user={user}
                 showActionBtns={showActionBtns}
@@ -325,7 +326,7 @@ export const TopCard = observer(
                 onClickHsCode={onClickHsCode}
                 onClickParseProductData={onClickParseProductData}
               />
-            </Grid>
+            </div>
             <RightSideComments
               showActionBtns={showActionBtns}
               curUserRole={curUserRole}
@@ -337,7 +338,7 @@ export const TopCard = observer(
               onClickSetProductStatusBtn={onClickSetProductStatusBtn}
               onChangeField={onChangeField}
             />
-          </Grid>
+          </div>
 
           {!checkIsResearcher(curUserRole) && (
             <>

@@ -40,16 +40,12 @@ export const clientInventoryColumns = (
 ) => [
   {
     ...GRID_CHECKBOX_SELECTION_COL_DEF,
-    renderCell: params => {
-      console.log('params', params)
-
-      return (
-        <SelectRowCell
-          checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
-          onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row)}
-        />
-      )
-    },
+    renderCell: params => (
+      <SelectRowCell
+        checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
+        onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row)}
+      />
+    ),
     width: 80,
   },
 

@@ -53,7 +53,7 @@ export const RightSideComments = observer(
       productStatusButtonsConfigs[curUserRole] && productStatusButtonsConfigs[curUserRole](productBase.status)
 
     return (
-      <Grid item sm={5} xs={12}>
+      <div className={classNames.rightBoxCommentsWrapper}>
         <Box className={classNames.rightBoxComments}>
           <Typography className={classNames.title}>{t(TranslationKey.Comments)}</Typography>
           <Field
@@ -218,7 +218,7 @@ export const RightSideComments = observer(
             </div>
           ) : null}
         </Box>
-      </Grid>
+      </div>
     )
   },
 )

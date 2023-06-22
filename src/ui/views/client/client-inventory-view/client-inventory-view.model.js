@@ -174,6 +174,7 @@ export class ClientInventoryViewModel {
   showProductLotDataModal = false
   showGetFilesModal = false
   showEditHSCodeModal = false
+  productCardModal = false
 
   successModalText = ''
   confirmMessage = ''
@@ -358,6 +359,16 @@ export class ClientInventoryViewModel {
     )
 
     win.focus()
+  }
+
+  onClickProductModal(row) {
+    if (row) {
+      this.history.push(`/client/inventory?product-id=${row.originalData._id}`)
+    } else {
+      this.history.push(`/client/inventory`)
+    }
+
+    this.onTriggerOpenModal('productCardModal')
   }
 
   onClickPandingOrder(id) {

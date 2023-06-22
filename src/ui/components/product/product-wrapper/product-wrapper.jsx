@@ -49,6 +49,7 @@ const getTab = tabKey => {
 const TabPanel = ({ children, value, index, ...other }) => (
   <div
     role="tabpanel"
+    style={{ width: '100%' }}
     hidden={value !== index}
     id={`simple-tabpanel-${index}`}
     aria-labelledby={`simple-tab-${index}`}

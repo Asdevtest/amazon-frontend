@@ -200,6 +200,8 @@ export class ClientProductViewModel {
   async loadData() {
     try {
       // await this.getProductById();
+      this.product = undefined
+      await this.clearReadyImages()
       await this.getShops()
     } catch (error) {
       console.log(error)

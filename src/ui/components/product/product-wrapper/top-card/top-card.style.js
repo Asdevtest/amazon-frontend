@@ -159,4 +159,22 @@ export const useClassNames = makeStyles()(theme => ({
     opacity: 0,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
+
+  mainCard: {
+    width: '50%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  card: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  mainCard222: {
+    width: '100%',
+    display: 'flex',
+    gap: 30,
+  },
 }))
