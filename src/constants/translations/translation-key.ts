@@ -1985,6 +1985,7 @@ export enum TranslationKey {
   'Partial payment' = 'Partial payment',
   'Unread messages' = 'Unread messages',
   'Search companion' = 'Search companion',
+  'Service representative' = 'Service representative',
   // '' = '',
   // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
