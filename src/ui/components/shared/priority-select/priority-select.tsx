@@ -15,6 +15,7 @@ import { observer } from 'mobx-react'
 interface PrioritySelectProps {
   currentPriority: number
   setCurrentPriority: (priority: number) => void
+  disabled?: boolean
 }
 
 export const PrioritySelect = observer((props: PrioritySelectProps) => {
@@ -23,6 +24,7 @@ export const PrioritySelect = observer((props: PrioritySelectProps) => {
   return (
     <>
       <Select
+        disabled={props.disabled}
         value={String(props.currentPriority)}
         className={styles.nativeSelect}
         input={<Input className={styles.nativeSelect} />}

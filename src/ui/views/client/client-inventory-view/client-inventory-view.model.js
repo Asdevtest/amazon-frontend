@@ -343,6 +343,7 @@ export class ClientInventoryViewModel {
   }
 
   onColumnVisibilityModelChange(model) {
+    console.log('model', model)
     runInAction(() => {
       this.columnVisibilityModel = model
     })
