@@ -343,6 +343,7 @@ export class ClientInventoryViewModel {
   }
 
   onColumnVisibilityModelChange(model) {
+    console.log('model', model)
     runInAction(() => {
       this.columnVisibilityModel = model
     })
@@ -753,7 +754,7 @@ export class ClientInventoryViewModel {
       const purchaseQuantityAboveZero =
         this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter &&
         this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
-          ? null
+          ? ''
           : this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
 
       // console.log('shopFilter', shopFilter)
