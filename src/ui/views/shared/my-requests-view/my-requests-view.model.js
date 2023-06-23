@@ -4,7 +4,6 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestStatus } from '@constants/requests/request-status'
 import { RequestSubType } from '@constants/requests/request-type'
-import { freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { RequestModel } from '@models/request-model'
@@ -37,6 +36,7 @@ const filtersFields = [
   'subUsers',
   'priority',
   'createdAt',
+  'announcementCreatedBy',
 ]
 
 export class MyRequestsViewModel {
@@ -553,6 +553,10 @@ export class MyRequestsViewModel {
     const createdAtFilter =
       exclusion !== 'createdAt' && this.columnMenuSettings?.createdAt?.currentFilterData?.join(',')
 
+    const announcementCreatedByFilter =
+      exclusion !== 'announcementCreatedBy' &&
+      this.columnMenuSettings?.announcementCreatedBy?.currentFilterData?.map(item => item._id)?.join(',')
+
     const filter = objectToUrlQs({
       or: [
         { asin: { $contains: this.nameSearchValue } },
@@ -611,6 +615,10 @@ export class MyRequestsViewModel {
       }),
       ...(createdAtFilter && {
         createdAt: { $eq: createdAtFilter },
+      }),
+
+      ...(announcementCreatedByFilter && {
+        announcementCreatedBy: { $eq: announcementCreatedByFilter },
       }),
     })
 
