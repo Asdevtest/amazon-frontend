@@ -324,6 +324,7 @@ docs/InlineResponse20058.md
 docs/InlineResponse20059.md
 docs/InlineResponse2006.md
 docs/InlineResponse20060.md
+docs/InlineResponse20060Announcement.md
 docs/InlineResponse20060CountProposalsByStatuses.md
 docs/InlineResponse20060Media.md
 docs/InlineResponse20060Product.md
@@ -760,6 +761,7 @@ src/model/InlineResponse20058.js
 src/model/InlineResponse20059.js
 src/model/InlineResponse2006.js
 src/model/InlineResponse20060.js
+src/model/InlineResponse20060Announcement.js
 src/model/InlineResponse20060CountProposalsByStatuses.js
 src/model/InlineResponse20060Media.js
 src/model/InlineResponse20060Product.js
@@ -842,3 +844,4 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
+test/model/InlineResponse20060Announcement.spec.js
