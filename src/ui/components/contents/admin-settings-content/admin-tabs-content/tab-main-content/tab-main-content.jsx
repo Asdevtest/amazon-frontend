@@ -98,7 +98,7 @@ export const TabMainContent = ({
             ))}
         </div>
 
-        <Button disabled={disabledSubmitProxy} className={classNames.saveProxyButton} onClick={() => onSubmitProxy()}>
+        <Button disabled={disabledSubmitProxy} className={classNames.saveButton} onClick={() => onSubmitProxy()}>
           {t(TranslationKey.Save)}
         </Button>
       </div>

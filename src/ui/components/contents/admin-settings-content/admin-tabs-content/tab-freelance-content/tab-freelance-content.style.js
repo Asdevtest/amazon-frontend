@@ -1,49 +1,43 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  textFieldUnSelection: {
-    width: '100%',
-    minHeight: '40px',
-    color: theme.palette.text.general,
-    padding: '8px',
-    fontSize: '16px',
-    outline: 'none',
-    border: '1px solid rgba(217, 222, 229, 1)',
-    borderRadius: '10px',
+  wrapper: {
+    display: 'flex',
+    gap: 30,
+  },
 
-    fontWeight: '400',
-    lineHeight: '1.5',
+  textFileds: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    gap: 20,
 
-    '& > ::selection': {
-      userSelect: 'none',
+    '> div': {
+      margin: 0,
     },
   },
 
   textField: {
-    width: '100%',
-    minHeight: '40px',
+    width: 410,
+    height: 40,
     color: theme.palette.text.general,
-    padding: '8px',
-    fontSize: '16px',
+    padding: '15px 7px',
+    fontSize: 16,
     outline: 'none',
-    border: '1px solid rgba(217, 222, 229, 1)',
-    borderRadius: '10px',
-
-    fontWeight: '400',
-    lineHeight: '1.5',
+    border: '1px solid var(--light-thin-lines, #E0E0E0)',
+    borderRadius: 4,
   },
 
-  placeAddBtnWrapper: {
-    display: 'flex',
-    justifyContent: 'end',
+  label: {
+    maxWidth: 410,
+    marginBottom: 10,
+    fontSize: 14,
+    color: theme.palette.text.second,
   },
 
-  submitButton: {
-    width: '165px',
-    height: '40px',
-  },
-
-  unselectable: {
-    userSelect: 'none',
+  saveButton: {
+    width: 123,
+    height: 40,
   },
 }))

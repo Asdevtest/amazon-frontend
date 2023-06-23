@@ -87,7 +87,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  saveProxyButton: {
+  saveButton: {
     width: 123,
     height: 40,
   },

@@ -20,7 +20,12 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 18,
     fontWeight: 600,
     lineHeight: 1.4,
+    textTransform: 'none',
     color: theme.palette.text.second,
+  },
+
+  lol: {
+    color: 'white',
   },
 
   contentWrapper: {

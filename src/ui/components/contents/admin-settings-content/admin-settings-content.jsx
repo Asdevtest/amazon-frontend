@@ -1,8 +1,6 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Tabs, Tab } from '@mui/material'
-
-import React, { useEffect, useRef, useState } from 'react'
-
+import { useEffect, useRef, useState } from 'react'
 import { observer } from 'mobx-react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -198,7 +196,7 @@ export const AdminSettingsContent = observer(() => {
   ]
 
   return (
-    <React.Fragment>
+    <>
       <Tabs
         value={tabIndex}
         variant="scrollable"
@@ -210,7 +208,7 @@ export const AdminSettingsContent = observer(() => {
         onChange={handleChangeTab}
       >
         {tabLabels.map(label => (
-          <Tab key={label} label={t(label)} classes={{ root: classNames.rootTab }} />
+          <Tab key={label} label={t(label)} classes={{ root: classNames.rootTab, labelIcon: classNames.lol }} />
         ))}
       </Tabs>
 
@@ -232,7 +230,12 @@ export const AdminSettingsContent = observer(() => {
       </TabPanel>
       <TabPanel value={tabIndex} index={1}>
         <div className={classNames.contentWrapper}>
-          <TabFreelanceContent formFields={formFields} onChangeField={onChangeField} onSubmit={onCreateSubmit} />
+          <TabFreelanceContent
+            formFields={formFields}
+            disabledSubmit={disabledSubmitSecondBlock}
+            onSubmit={onCreateSubmit}
+            onChangeField={onChangeField}
+          />
         </div>
       </TabPanel>
       <TabPanel value={tabIndex} index={2}>
@@ -334,6 +337,6 @@ export const AdminSettingsContent = observer(() => {
           onClose={() => onTriggerOpenModal('showAsinCheckerModal')}
         />
       </Modal>
-    </React.Fragment>
+    </>
   )
 })
