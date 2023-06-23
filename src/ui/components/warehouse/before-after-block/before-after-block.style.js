@@ -260,8 +260,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   image: {
-    width: 120,
-    height: '70px',
+    width: 60,
+    height: 70,
     objectFit: 'contain',
     objectPosition: 'center',
   },

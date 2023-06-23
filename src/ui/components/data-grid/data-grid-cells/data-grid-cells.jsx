@@ -852,7 +852,7 @@ export const OrderCell = React.memo(
   withStyles(
     ({ classes: classNames, product, superbox, box, error, withoutSku, itemAmount, withQuantity }) => (
       <div className={classNames.order}>
-        <img alt="" src={getAmazonImageUrl(product?.images[0])} className={classNames.orderImg} />
+        <img src={getAmazonImageUrl(product?.images[0])} alt="product" className={classNames.orderImg} />
         <div>
           <Typography className={classNames.orderTitle}>{product?.amazonTitle}</Typography>
           <div className={classNames.copyAsin}>
@@ -1122,10 +1122,11 @@ export const WarehouseTariffDatesCell = React.memo(
 export const TaskPriorityCell =
   /* React.memo( */
   withStyles(
-    ({ classes: classNames, curPriority, onChangePriority, taskId }) => (
+    ({ classes: classNames, curPriority, onChangePriority, taskId, disabled }) => (
       <PrioritySelect
         setCurrentPriority={priority => onChangePriority(taskId, priority)}
         currentPriority={curPriority}
+        disabled={disabled}
       />
     ),
     styles,
