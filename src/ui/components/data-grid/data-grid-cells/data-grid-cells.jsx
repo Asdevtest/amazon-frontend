@@ -1122,10 +1122,11 @@ export const WarehouseTariffDatesCell = React.memo(
 export const TaskPriorityCell =
   /* React.memo( */
   withStyles(
-    ({ classes: classNames, curPriority, onChangePriority, taskId }) => (
+    ({ classes: classNames, curPriority, onChangePriority, taskId, disabled }) => (
       <PrioritySelect
         setCurrentPriority={priority => onChangePriority(taskId, priority)}
         currentPriority={curPriority}
+        disabled={disabled}
       />
     ),
     styles,
