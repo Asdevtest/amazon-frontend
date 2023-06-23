@@ -34,30 +34,17 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   proxyContent: {
+    width: 410,
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-end',
-  },
-
-  proxyField: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    gap: 15,
-  },
-
-  btnAddProxy: {
-    width: 112,
-    height: 40,
-    marginBottom: 20,
   },
 
   proxyList: {
     width: '100%',
-    height: 155,
+    height: 160,
     overflowX: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    gap: 5,
     marginBottom: 20,
   },
 
@@ -79,15 +66,31 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 5,
   },
 
-  deleteProxy: {
-    cursor: 'pointer',
-    transition: '0.3s ease',
+  iconDelete: {
+    padding: 1,
+
     '&:hover': {
-      transform: 'scale(1.07)',
+      background: 'none',
     },
   },
 
-  saveButton: {
+  deleteProxy: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+
+  buttons: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 30,
+  },
+
+  button: {
     width: 123,
     height: 40,
   },
