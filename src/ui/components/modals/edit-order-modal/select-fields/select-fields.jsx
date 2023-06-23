@@ -518,18 +518,6 @@ export const SelectFields = ({
                     </Typography>
                   </div>
                 </div>
-
-                {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.IN_STOCK]) ? (
-                  <Field
-                    disabled={disableSubmit}
-                    value={orderFields.tmpRefundToClient}
-                    label={t(TranslationKey['Return to Client']) + ', $'}
-                    labelClasses={classNames.label}
-                    inputClasses={classNames.input}
-                    inputProps={{ maxLength: 50 }}
-                    onChange={setOrderField('tmpRefundToClient')}
-                  />
-                ) : null}
               </div>
               {/* <div className={classNames.researchWrapper}>
                 <Checkbox
@@ -652,7 +640,19 @@ export const SelectFields = ({
           {/*   }} */}
           {/* /> */}
 
-          <Box width="100%"></Box>
+          {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.IN_STOCK]) ? (
+            <Field
+              disabled={disableSubmit}
+              value={orderFields.tmpRefundToClient}
+              label={t(TranslationKey['Return to Client']) + ', $'}
+              labelClasses={classNames.label}
+              inputClasses={classNames.input}
+              inputProps={{ maxLength: 50 }}
+              onChange={setOrderField('tmpRefundToClient')}
+            />
+          ) : (
+            <Box width="100%"></Box>
+          )}
         </Box>
 
         <Box my={3} className={classNames.formItem}>

@@ -186,6 +186,8 @@ export class MyRequestsViewModel {
       () => this.searchRequests,
       () => {
         this.currentData = this.getCurrentData()
+
+        console.log('this.currentData', this.currentData)
       },
     )
   }
@@ -284,37 +286,36 @@ export class MyRequestsViewModel {
   }
 
   getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.searchRequests)
-        .filter(
-          el =>
-            el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-            el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-            el?.humanFriendlyId?.toString().toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-        )
-        .filter(el =>
-          this.columnMenuSettings?.status?.currentFilterData?.length
-            ? this.columnMenuSettings?.status?.currentFilterData?.includes(el?.status)
-            : el,
-        )
-        .filter(el =>
-          this.columnMenuSettings?.typeTask?.currentFilterData?.length
-            ? this.columnMenuSettings?.typeTask?.currentFilterData?.includes(freelanceRequestTypeByCode[el?.typeTask])
-            : el,
-        )
-    } else {
-      return toJS(this.searchRequests)
-        .filter(el =>
-          this.columnMenuSettings?.status?.currentFilterData?.length
-            ? this.columnMenuSettings?.status?.currentFilterData?.includes(el?.status)
-            : el,
-        )
-        .filter(el =>
-          this.columnMenuSettings?.typeTask?.currentFilterData?.length
-            ? this.columnMenuSettings?.typeTask?.currentFilterData?.includes(freelanceRequestTypeByCode[el?.typeTask])
-            : el,
-        )
-    }
+    // if (this.nameSearchValue) {
+    return toJS(this.searchRequests)
+    //     .filter(
+    //       el =>
+    //         el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+    //         el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+    //         el?.humanFriendlyId?.toString().toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+    //     )
+    //     .filter(el =>
+    //       this.columnMenuSettings?.status?.currentFilterData?.length
+    //         ? this.columnMenuSettings?.status?.currentFilterData?.includes(el?.status)
+    //         : el,
+    //     )
+    //     .filter(el =>
+    //       this.columnMenuSettings?.typeTask?.currentFilterData?.length
+    //         ? this.columnMenuSettings?.typeTask?.currentFilterData?.includes(freelanceRequestTypeByCode[el?.typeTask])
+    //         : el,
+    //     )
+    // } else {
+    //   return toJS(this.searchRequests).filter(el =>
+    //     this.columnMenuSettings?.status?.currentFilterData?.length
+    //       ? this.columnMenuSettings?.status?.currentFilterData?.includes(el?.status)
+    //       : el,
+    //   )
+    // .filter(el =>
+    //   this.columnMenuSettings?.typeTask?.currentFilterData?.length
+    //     ? this.columnMenuSettings?.typeTask?.currentFilterData?.includes(freelanceRequestTypeByCode[el?.typeTask])
+    //     : el,
+    // )
+    // }
   }
 
   onHoverColumnField(field) {
@@ -505,6 +506,8 @@ export class MyRequestsViewModel {
 
       runInAction(() => {
         this.searchRequests = myRequestsDataConverter(result.rows)
+
+        console.log('this.searchRequests', this.searchRequests)
 
         this.rowCount = result.count
       })
