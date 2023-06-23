@@ -13,9 +13,7 @@ import { t } from '@utils/translations'
 import { useClassNames } from './tab-main-content.style'
 
 export const TabMainContent = ({
-  disabledSubmit,
   onChangeField,
-  onSubmit,
   onSubmitProxy,
   formFields,
   disabledAddButton,

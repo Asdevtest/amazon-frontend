@@ -1,49 +1,35 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  textField: {
-    width: '100%',
-    minHeight: '40px',
-    color: theme.palette.text.general,
-    padding: '8px',
-    fontSize: '16px',
-    outline: 'none',
-    border: '1px solid rgba(217, 222, 229, 1)',
-    borderRadius: '10px',
-
-    fontWeight: '400',
-    lineHeight: '1.5',
-  },
-
-  placeAddBtnWrapper: {
+  wrapper: {
     display: 'flex',
-    justifyContent: 'end',
-  },
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    gap: 30,
 
-  submitButton: {
-    width: '165px',
-    height: '40px',
-  },
-
-  textFieldUnSelection: {
-    width: '100%',
-    minHeight: '40px',
-    color: theme.palette.text.general,
-    padding: '8px',
-    fontSize: '16px',
-    outline: 'none',
-    border: '1px solid rgba(217, 222, 229, 1)',
-    borderRadius: '10px',
-
-    fontWeight: '400',
-    lineHeight: '1.5',
-
-    '& > ::selection': {
-      userSelect: 'none',
+    '> div': {
+      margin: 0,
     },
   },
 
-  unselectable: {
-    userSelect: 'none',
+  textField: {
+    width: 430,
+    height: 40,
+    color: theme.palette.text.general,
+    outline: 'none',
+    border: '1px solid var(--light-thin-lines, #E0E0E0)',
+    borderRadius: 4,
+  },
+
+  label: {
+    maxWidth: 430,
+    marginBottom: 10,
+    fontSize: 14,
+    color: theme.palette.text.second,
+  },
+
+  saveButton: {
+    width: 123,
+    height: 40,
   },
 }))

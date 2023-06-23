@@ -215,14 +215,12 @@ export const AdminSettingsContent = observer(() => {
       <TabPanel value={tabIndex} index={0}>
         <div className={classNames.contentWrapper}>
           <TabMainContent
-            disabledSubmit={disabledSubmitFirstBlock}
             disabledAddButton={false}
             disabledSubmitProxy={disabledSubmitProxy}
             formFields={formFields}
             proxyArr={proxyArr}
             setProxyArr={setProxyArr}
             onChangeField={onChangeField}
-            onSubmit={onCreateSubmit}
             onSubmitProxy={onSubmitProxy}
             onClickAddProxyBtn={() => onTriggerOpenModal('showAsinCheckerModal')}
           />

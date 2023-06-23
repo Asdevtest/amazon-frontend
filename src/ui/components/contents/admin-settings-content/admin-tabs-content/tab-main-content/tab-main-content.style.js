@@ -20,8 +20,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: 410,
     height: 40,
     color: theme.palette.text.general,
-    padding: '15px 7px',
-    fontSize: 16,
     outline: 'none',
     border: '1px solid var(--light-thin-lines, #E0E0E0)',
     borderRadius: 4,
