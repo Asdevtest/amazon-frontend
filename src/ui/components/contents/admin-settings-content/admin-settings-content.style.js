@@ -24,15 +24,11 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
   },
 
-  lol: {
-    color: 'white',
-  },
-
   contentWrapper: {
     padding: 40,
     borderRadius: 4,
     backgroundColor: theme.palette.background.general,
-    boxShadow: '0 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    boxShadow: theme.palette.boxShadow.dialog,
   },
 
   tabItemButton: {
