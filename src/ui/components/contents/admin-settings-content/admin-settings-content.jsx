@@ -46,15 +46,16 @@ export const AdminSettingsContent = observer(() => {
     viewModel.loadData()
   }, [])
 
-  const adminDynamicSettings = viewModel?.adminSettings?.dynamicSettings
-
   const [formFields, setFormFields] = useState({})
+  const [isFormFieldsChanged, setIsFormFieldsChanged] = useState(false)
   const [proxyArr, setProxyArr] = useState(viewModel?.serverProxy)
   const [tabIndex, setTabIndex] = useState(0)
 
   useEffect(() => {
     setProxyArr(viewModel?.serverProxy)
   }, [viewModel?.serverProxy])
+
+  const adminDynamicSettings = viewModel?.adminSettings?.dynamicSettings
 
   useEffect(() => {
     const sourceFormFields = {
@@ -69,11 +70,8 @@ export const AdminSettingsContent = observer(() => {
         adminDynamicSettings?.requestTimeLimitInHourForCancelingProposalsByClient || 0,
       requestTimeLimitInHourForCheckingProposalBySuper:
         adminDynamicSettings?.requestTimeLimitInHourForCheckingProposalBySuper || 0,
-
       volumeWeightCoefficient: adminDynamicSettings?.volumeWeightCoefficient || 0,
-
       timeToDeadlinePendingOrder: adminDynamicSettings?.timeToDeadlinePendingOrder || 0,
-
       tech_pause: adminDynamicSettings?.tech_pause || 0,
     }
 
@@ -107,6 +105,8 @@ export const AdminSettingsContent = observer(() => {
     // }
 
     viewModel?.createAdminSettings(formFields)
+
+    setIsFormFieldsChanged(false)
   }
 
   const onSubmitProxy = () => {
@@ -126,28 +126,29 @@ export const AdminSettingsContent = observer(() => {
     }
     newFormFields[fieldName] = event.target.value
     setFormFields(newFormFields)
+
+    setIsFormFieldsChanged(true)
   }
 
   const handleChangeTab = (event, newValue) => {
     setTabIndex(newValue)
   }
 
-  const isEqualSettings = isEqual(adminDynamicSettings, formFields)
-
   const disabledSubmitFirstBlock =
-    isEqualSettings || Number(formFields.yuanToDollarRate) === 0 || Number(formFields.volumeWeightCoefficient) === 0
-
-  const disabledSubmitProxy = JSON.stringify(viewModel?.serverProxy) === JSON.stringify(proxyArr)
+    !isFormFieldsChanged ||
+    Number(formFields.yuanToDollarRate) === 0 ||
+    Number(formFields.volumeWeightCoefficient) === 0
+  const disabledSubmitProxy = isEqual(viewModel?.serverProxy, proxyArr)
 
   const disabledSubmitSecondBlock =
-    isEqualSettings ||
+    !isFormFieldsChanged ||
     Number(formFields.requestPlatformMarginInPercent) === 0 ||
     Number(formFields.requestSupervisorFeeInPercent) === 0 ||
     Number(formFields.requestTimeLimitInHourForCancelingProposalsByClient) === 0 ||
     Number(formFields.requestTimeLimitInHourForCheckingProposalBySuper) === 0
 
   const disabledSubmitThirdBlock =
-    isEqualSettings ||
+    !isFormFieldsChanged ||
     Number(formFields.costOfFindingSupplier) === 0 ||
     Number(formFields.deadlineForFindingSupplier) === 0 ||
     Number(formFields.costOfCheckingProduct) === 0
@@ -173,7 +174,6 @@ export const AdminSettingsContent = observer(() => {
         <div className={classNames.contentWrapper}>
           <TabMainContent
             disabledSubmit={disabledSubmitFirstBlock}
-            disabledAddButton={false}
             disabledSubmitProxy={disabledSubmitProxy}
             formFields={formFields}
             proxyArr={proxyArr}

@@ -16,23 +16,42 @@ export const TabMainContent = ({
   onChangeField,
   onSubmitProxy,
   formFields,
-  disabledAddButton,
   disabledSubmitProxy,
   setProxyArr,
   proxyArr,
   onClickAddProxyBtn,
-  disabledSubmitFirstBlock,
+  disabledSubmit,
   onSubmit,
 }) => {
   const { classes: classNames } = useClassNames()
-
-  const disabledSubmit = disabledSubmitFirstBlock || disabledSubmitProxy
 
   const onClickDeleteProxy = proxy => {
     const removeProxy = proxyArr.filter(p => p !== proxy)
 
     setProxyArr(removeProxy)
   }
+
+  const handleSaveButtonClick = (disabledSubmit, disabledSubmitProxy) => {
+    let disabled = true
+    let handleClick = null
+
+    if (!disabledSubmit && !disabledSubmitProxy) {
+      handleClick = () => {
+        onSubmit()
+        onSubmitProxy()
+      }
+      disabled = false
+    } else if (!disabledSubmit) {
+      handleClick = () => onSubmit()
+      disabled = false
+    } else if (!disabledSubmitProxy) {
+      handleClick = () => onSubmitProxy()
+      disabled = false
+    }
+
+    return { disabled, handleClick }
+  }
+  const saveButtonData = handleSaveButtonClick(disabledSubmit, disabledSubmitProxy)
 
   return (
     <div className={classNames.wrapper}>
@@ -71,7 +90,7 @@ export const TabMainContent = ({
 
                 <div className={classNames.iconsWrapper}>
                   <CopyValue text={proxy} />
-                  <IconButton size="small" disabled={disabledAddButton} classes={{ root: classNames.iconDelete }}>
+                  <IconButton size="small" classes={{ root: classNames.iconDelete }}>
                     <DeleteOutlineOutlinedIcon
                       className={classNames.deleteProxy}
                       onClick={() => onClickDeleteProxy(proxy)}
@@ -83,10 +102,14 @@ export const TabMainContent = ({
         </div>
 
         <div className={classNames.buttons}>
-          <Button disabled={disabledAddButton} className={classNames.button} onClick={onClickAddProxyBtn}>
+          <Button className={classNames.button} onClick={onClickAddProxyBtn}>
             {t(TranslationKey['Add proxy'])}
           </Button>
-          <Button disabled={disabledSubmit} className={classNames.button} onClick={() => onSubmitProxy()}>
+          <Button
+            disabled={saveButtonData.disabled}
+            className={classNames.button}
+            onClick={() => saveButtonData.handleClick()}
+          >
             {t(TranslationKey.Save)}
           </Button>
         </div>

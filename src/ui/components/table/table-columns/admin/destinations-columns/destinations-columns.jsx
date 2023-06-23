@@ -16,7 +16,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
-    width: 195,
+    width: 240,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -34,7 +34,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey['ZIP code']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ZIP code'])} />,
 
-    width: 100,
+    width: 95,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -43,7 +43,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.City),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.City)} />,
 
-    width: 190,
+    width: 140,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -52,7 +52,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.State),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.State)} />,
 
-    width: 170,
+    width: 150,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
