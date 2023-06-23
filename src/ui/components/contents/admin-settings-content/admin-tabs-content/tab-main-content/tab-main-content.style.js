@@ -43,7 +43,7 @@ export const useClassNames = makeStyles()(theme => ({
     overflowX: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    marginBottom: 20,
+    marginBottom: 18,
   },
 
   proxyWrapper: {
@@ -89,7 +89,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   button: {
-    width: 123,
-    height: 40,
+    minWidth: '123px !important',
   },
 }))

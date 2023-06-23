@@ -21,8 +21,12 @@ export const TabMainContent = ({
   setProxyArr,
   proxyArr,
   onClickAddProxyBtn,
+  disabledSubmitFirstBlock,
+  onSubmit,
 }) => {
   const { classes: classNames } = useClassNames()
+
+  const disabledSubmit = disabledSubmitFirstBlock || disabledSubmitProxy
 
   const onClickDeleteProxy = proxy => {
     const removeProxy = proxyArr.filter(p => p !== proxy)
@@ -82,7 +86,7 @@ export const TabMainContent = ({
           <Button disabled={disabledAddButton} className={classNames.button} onClick={onClickAddProxyBtn}>
             {t(TranslationKey['Add proxy'])}
           </Button>
-          <Button disabled={disabledSubmitProxy} className={classNames.button} onClick={() => onSubmitProxy()}>
+          <Button disabled={disabledSubmit} className={classNames.button} onClick={() => onSubmitProxy()}>
             {t(TranslationKey.Save)}
           </Button>
         </div>

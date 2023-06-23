@@ -42,6 +42,8 @@ export const ClientOrdersViewRaw = props => {
     viewModel.loadData()
   }, [])
 
+  console.log(viewModel)
+
   return (
     <React.Fragment>
       <MainContent>
