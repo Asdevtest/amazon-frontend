@@ -1,5 +1,4 @@
 import { useState } from 'react'
-
 import { observer } from 'mobx-react'
 import { withStyles } from 'tss-react/mui'
 
@@ -26,13 +25,11 @@ export const AdminSettingsViewRaw = props => {
   return (
     <>
       <MainContent>
-        <div className={classNames.mainWrapper}>
-          <Button className={classNames.technicalBtn} onClick={viewModel.onClickTechnicalBtn}>
-            {t(TranslationKey['Technical work and notices'])}
-          </Button>
+        <Button className={classNames.technicalBtn} onClick={viewModel.onClickTechnicalBtn}>
+          {t(TranslationKey['Technical work and notices'])}
+        </Button>
 
-          <AdminSettingsContent />
-        </div>
+        <AdminSettingsContent />
       </MainContent>
     </>
   )

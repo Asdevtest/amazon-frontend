@@ -64,8 +64,8 @@ export const TabMainContent = ({
         <Typography className={classNames.label}>{t(TranslationKey['Proxy servers for parsing'])}:</Typography>
 
         <div className={classNames.proxyList}>
-          {proxyArr.length !== 0 &&
-            proxyArr.map((proxy, index) => (
+          {proxyArr?.length !== 0 &&
+            proxyArr?.map((proxy, index) => (
               <div key={index} className={classNames.proxyWrapper}>
                 <Typography className={classNames.proxy}>{proxy}</Typography>
 

@@ -1,5 +1,5 @@
 import { Tabs, Tab } from '@mui/material'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react'
 import isEqual from 'lodash.isequal'
 
@@ -29,59 +29,56 @@ const fieldsWithoutCharactersAfterDote = [
   'requestTimeLimitInHourForCheckingProposalBySuper',
 ]
 
+const tabLabels = [
+  TranslationKey.Main,
+  TranslationKey.Freelance,
+  TranslationKey['Supplier search'],
+  TranslationKey.Orders,
+  TranslationKey.Destinations,
+]
+
 export const AdminSettingsContent = observer(() => {
   const { classes: classNames } = useClassNames()
 
-  const asModel = useRef(new AdminSettingsModel({ history }))
+  const [viewModel] = useState(() => new AdminSettingsModel({ history }))
 
   useEffect(() => {
-    asModel.current.loadData()
+    viewModel.loadData()
   }, [])
 
-  const {
-    user,
-    adminSettings,
-    serverProxy,
-    infoModalText,
-    showInfoModal,
-    showAsinCheckerModal,
-    createAdminSettings,
-    onTriggerOpenModal,
-    createProxy,
-    onCloseInfoModal,
-  } = asModel.current
+  const adminDynamicSettings = viewModel?.adminSettings?.dynamicSettings
 
   const [formFields, setFormFields] = useState({})
-  const [proxyArr, setProxyArr] = useState(serverProxy)
+  const [proxyArr, setProxyArr] = useState(viewModel?.serverProxy)
   const [tabIndex, setTabIndex] = useState(0)
 
   useEffect(() => {
-    setProxyArr(serverProxy)
-  }, [serverProxy])
+    setProxyArr(viewModel?.serverProxy)
+  }, [viewModel?.serverProxy])
 
   useEffect(() => {
     const sourceFormFields = {
-      yuanToDollarRate: adminSettings?.dynamicSettings?.yuanToDollarRate || 0,
-      costOfFindingSupplier: adminSettings?.dynamicSettings?.costOfFindingSupplier || 0,
-      costOfCheckingProduct: adminSettings?.dynamicSettings?.costOfCheckingProduct || 0,
-      deadlineForFindingSupplier: adminSettings?.dynamicSettings?.deadlineForFindingSupplier || 0,
-      requestMinAmountPriceOfProposal: adminSettings?.dynamicSettings?.requestMinAmountPriceOfProposal || 0,
-      requestPlatformMarginInPercent: adminSettings?.dynamicSettings?.requestPlatformMarginInPercent || 0,
-      requestSupervisorFeeInPercent: adminSettings?.dynamicSettings?.requestSupervisorFeeInPercent || 0,
+      yuanToDollarRate: adminDynamicSettings?.yuanToDollarRate || 0,
+      costOfFindingSupplier: adminDynamicSettings?.costOfFindingSupplier || 0,
+      costOfCheckingProduct: adminDynamicSettings?.costOfCheckingProduct || 0,
+      deadlineForFindingSupplier: adminDynamicSettings?.deadlineForFindingSupplier || 0,
+      requestMinAmountPriceOfProposal: adminDynamicSettings?.requestMinAmountPriceOfProposal || 0,
+      requestPlatformMarginInPercent: adminDynamicSettings?.requestPlatformMarginInPercent || 0,
+      requestSupervisorFeeInPercent: adminDynamicSettings?.requestSupervisorFeeInPercent || 0,
       requestTimeLimitInHourForCancelingProposalsByClient:
-        adminSettings?.dynamicSettings?.requestTimeLimitInHourForCancelingProposalsByClient || 0,
+        adminDynamicSettings?.requestTimeLimitInHourForCancelingProposalsByClient || 0,
       requestTimeLimitInHourForCheckingProposalBySuper:
-        adminSettings?.dynamicSettings?.requestTimeLimitInHourForCheckingProposalBySuper || 0,
+        adminDynamicSettings?.requestTimeLimitInHourForCheckingProposalBySuper || 0,
 
-      volumeWeightCoefficient: adminSettings?.dynamicSettings?.volumeWeightCoefficient || 0,
+      volumeWeightCoefficient: adminDynamicSettings?.volumeWeightCoefficient || 0,
 
-      timeToDeadlinePendingOrder: adminSettings?.dynamicSettings?.timeToDeadlinePendingOrder || 0,
+      timeToDeadlinePendingOrder: adminDynamicSettings?.timeToDeadlinePendingOrder || 0,
 
-      tech_pause: adminSettings?.dynamicSettings?.tech_pause || 0,
+      tech_pause: adminDynamicSettings?.tech_pause || 0,
     }
 
     setFormFields(sourceFormFields)
-  }, [adminSettings])
+  }, [adminDynamicSettings])
 
   // const dataKeys = [
   //   'yuanToDollarRate',
@@ -109,11 +106,11 @@ export const AdminSettingsContent = observer(() => {
     //   })
     // }
 
-    createAdminSettings(formFields)
+    viewModel?.createAdminSettings(formFields)
   }
 
   const onSubmitProxy = () => {
-    createProxy(proxyArr)
+    viewModel?.createProxy(proxyArr)
   }
 
   const onChangeField = fieldName => event => {
@@ -135,12 +132,12 @@ export const AdminSettingsContent = observer(() => {
     setTabIndex(newValue)
   }
 
-  const isEqualSettings = isEqual(adminSettings.dynamicSettings, formFields)
+  const isEqualSettings = isEqual(adminDynamicSettings, formFields)
 
   const disabledSubmitFirstBlock =
     isEqualSettings || Number(formFields.yuanToDollarRate) === 0 || Number(formFields.volumeWeightCoefficient) === 0
 
-  const disabledSubmitProxy = JSON.stringify(serverProxy) === JSON.stringify(proxyArr)
+  const disabledSubmitProxy = JSON.stringify(viewModel?.serverProxy) === JSON.stringify(proxyArr)
 
   const disabledSubmitSecondBlock =
     isEqualSettings ||
@@ -155,14 +152,6 @@ export const AdminSettingsContent = observer(() => {
     Number(formFields.deadlineForFindingSupplier) === 0 ||
     Number(formFields.costOfCheckingProduct) === 0
 
-  const tabLabels = [
-    TranslationKey.Main,
-    TranslationKey.Freelance,
-    TranslationKey['Supplier search'],
-    TranslationKey.Orders,
-    TranslationKey.Destinations,
-  ]
-
   return (
     <>
       <Tabs
@@ -176,7 +165,7 @@ export const AdminSettingsContent = observer(() => {
         onChange={handleChangeTab}
       >
         {tabLabels.map(label => (
-          <Tab key={label} label={t(label)} classes={{ root: classNames.rootTab, labelIcon: classNames.lol }} />
+          <Tab key={label} label={t(label)} classes={{ root: classNames.rootTab }} />
         ))}
       </Tabs>
 
@@ -192,7 +181,7 @@ export const AdminSettingsContent = observer(() => {
             onChangeField={onChangeField}
             onSubmit={onCreateSubmit}
             onSubmitProxy={onSubmitProxy}
-            onClickAddProxyBtn={() => onTriggerOpenModal('showAsinCheckerModal')}
+            onClickAddProxyBtn={() => viewModel?.onTriggerOpenModal('showAsinCheckerModal')}
           />
         </div>
       </TabPanel>
@@ -208,34 +197,45 @@ export const AdminSettingsContent = observer(() => {
       </TabPanel>
       <TabPanel value={tabIndex} index={2}>
         <div className={classNames.contentWrapper}>
-          <TabSearchSupplierContent formFields={formFields} onChangeField={onChangeField} onSubmit={onCreateSubmit} />
+          <TabSearchSupplierContent
+            formFields={formFields}
+            disabledSubmit={disabledSubmitThirdBlock}
+            onChangeField={onChangeField}
+            onSubmit={onCreateSubmit}
+          />
         </div>
       </TabPanel>
       <TabPanel value={tabIndex} index={3}>
         <div className={classNames.contentWrapper}>
-          <TabOrdersContent formFields={formFields} onChangeField={onChangeField} onSubmit={onCreateSubmit} />
+          <TabOrdersContent
+            formFields={formFields}
+            disabledSubmit={disabledSubmitThirdBlock}
+            onChangeField={onChangeField}
+            onSubmit={onCreateSubmit}
+          />
         </div>
       </TabPanel>
       <TabPanel value={tabIndex} index={4}>
-        <div className={classNames.contentWrapper}>
-          <TabDestinationsContent />
-        </div>
+        <TabDestinationsContent />
       </TabPanel>
 
       <WarningInfoModal
-        openModal={showInfoModal}
-        setOpenModal={() => onCloseInfoModal()}
-        title={infoModalText}
+        openModal={viewModel?.showInfoModal}
+        setOpenModal={() => viewModel?.onCloseInfoModal()}
+        title={viewModel?.infoModalText}
         btnText={t(TranslationKey.Close)}
         onClickBtn={() => {
-          onCloseInfoModal()
+          viewModel?.onCloseInfoModal()
         }}
       />
-      <Modal openModal={showAsinCheckerModal} setOpenModal={() => onTriggerOpenModal('showAsinCheckerModal')}>
+      <Modal
+        openModal={viewModel?.showAsinCheckerModal}
+        setOpenModal={() => viewModel?.onTriggerOpenModal('showAsinCheckerModal')}
+      >
         <AsinProxyCheckerForm
-          user={user}
+          user={viewModel?.user}
           onSubmit={setProxyArr}
-          onClose={() => onTriggerOpenModal('showAsinCheckerModal')}
+          onClose={() => viewModel?.onTriggerOpenModal('showAsinCheckerModal')}
         />
       </Modal>
     </>

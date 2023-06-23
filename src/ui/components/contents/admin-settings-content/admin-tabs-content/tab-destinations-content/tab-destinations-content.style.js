@@ -3,39 +3,36 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   wrapper: {
     display: 'flex',
-    gap: 30,
-  },
-
-  textFileds: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
     alignItems: 'flex-end',
-    gap: 20,
-
-    '> div': {
-      margin: 0,
-    },
-  },
-
-  textField: {
-    width: 410,
-    height: 40,
-    color: theme.palette.text.general,
-    outline: 'none',
-    border: '1px solid var(--light-thin-lines, #E0E0E0)',
-    borderRadius: 4,
-  },
-
-  label: {
-    maxWidth: 410,
-    marginBottom: 10,
-    fontSize: 14,
-    color: theme.palette.text.second,
+    flexDirection: 'column',
+    gap: 10,
   },
 
   saveButton: {
-    width: 123,
-    height: 40,
+    width: 240,
+  },
+
+  datagridWrapper: {
+    width: '100%',
+    height: 650,
+    borderRadius: 4,
+    boxShadow: theme.palette.boxShadow.dialog,
+  },
+
+  footerContainer: {
+    position: 'absolute',
+    top: 20,
+    right: 5,
+    borderTop: 'none !important',
+  },
+
+  footerCell: {
+    padding: 0,
+    margin: 0,
+  },
+
+  toolbarContainer: {
+    padding: '20px 20px 15px',
+    height: 79,
   },
 }))
