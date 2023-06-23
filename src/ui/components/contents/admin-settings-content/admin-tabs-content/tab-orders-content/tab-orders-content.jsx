@@ -5,7 +5,7 @@ import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './tab-orders-content.style'
+import { useClassNames } from '../../admin-settings-content.style'
 
 export const TabOrdersContent = ({ formFields, disabledSubmit, onSubmit, onChangeField }) => {
   const { classes: classNames } = useClassNames()

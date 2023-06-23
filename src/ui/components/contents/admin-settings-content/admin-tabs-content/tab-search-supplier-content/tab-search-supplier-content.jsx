@@ -5,7 +5,7 @@ import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './tab-search-supplier-content.style'
+import { useClassNames } from '../../admin-settings-content.style'
 
 export const TabSearchSupplierContent = ({ formFields, disabledSubmit, onSubmit, onChangeField }) => {
   const { classes: classNames } = useClassNames()
