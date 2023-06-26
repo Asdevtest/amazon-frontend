@@ -53,16 +53,21 @@ export const AdminSettingsContent = observer(() => {
     viewModel.loadData()
   }, [])
 
-  const [formFields, setFormFields] = useState({})
-  const [isFormFieldsChanged, setIsFormFieldsChanged] = useState(false)
-  const [proxyArr, setProxyArr] = useState([])
   const [tabIndex, setTabIndex] = useState(0)
+  const [isFormFieldsChanged, setIsFormFieldsChanged] = useState(false)
+
+  const [fieldMethod, setFieldMethod] = useState('')
+  const [formFields, setFormFields] = useState({})
+
+  const [proxyArr, setProxyArr] = useState([])
+  const [paymentMethods, setPaymentMethods] = useState([])
 
   useEffect(() => {
-    setProxyArr(viewModel?.serverProxy)
-  }, [viewModel?.serverProxy])
+    setProxyArr(viewModel.serverProxy)
+    setPaymentMethods(viewModel.paymentMethods)
+  }, [viewModel.serverProxy, viewModel.paymentMethods])
 
-  const adminDynamicSettings = viewModel?.adminSettings?.dynamicSettings
+  const adminDynamicSettings = viewModel.adminSettings?.dynamicSettings
 
   useEffect(() => {
     const sourceFormFields = {
@@ -85,21 +90,6 @@ export const AdminSettingsContent = observer(() => {
     setFormFields(sourceFormFields)
   }, [adminDynamicSettings])
 
-  // const dataKeys = [
-  //   'yuanToDollarRate',
-  //   'airDeliveryPrice',
-  //   'seaDeliveryPrice',
-  //   'costOfFindingSupplier',
-  //   'costOfCheckingProduct',
-  //   'requestMinAmountPriceOfProposal',
-  //   'requestPlatformMarginInPercent',
-  //   'requestSupervisorFeeInPercent',
-  //   'requestTimeLimitInHourForCancelingProposalsByClient',
-  //   'requestTimeLimitInHourForCheckingProposalBySuper',
-  //   'deadlineForFindingSupplier',
-  //   'volumeWeightCoefficient'
-  // ]
-
   const onCreateSubmit = () => {
     // if (!adminSettings) { // ЕСЛИ НУЖНО ОБНОВЛЯТЬ ОТДЕЛЬНЫЕ КЛЮЧИ
     //   createAdminSettings(formFields)
@@ -120,6 +110,12 @@ export const AdminSettingsContent = observer(() => {
     viewModel?.createProxy(proxyArr)
   }
 
+  const handleSubmitPaymentMethod = () => {
+    viewModel?.createPaymentMethod(fieldMethod)
+
+    setFieldMethod('')
+  }
+
   const onChangeField = fieldName => event => {
     const newFormFields = { ...formFields }
 
@@ -135,6 +131,10 @@ export const AdminSettingsContent = observer(() => {
     setFormFields(newFormFields)
 
     setIsFormFieldsChanged(true)
+  }
+
+  const handleChangeFieldMethod = event => {
+    setFieldMethod(event.target.value)
   }
 
   const handleChangeTab = (event, newValue) => {
@@ -229,7 +229,13 @@ export const AdminSettingsContent = observer(() => {
       </TabPanel>
       <TabPanel value={tabIndex} index={5}>
         <div className={classNames.contentWrapper}>
-          <TabPaymentMethodsContent />
+          <TabPaymentMethodsContent
+            fieldMethod={fieldMethod}
+            paymentMethods={paymentMethods}
+            setPaymentMethods={setPaymentMethods}
+            handleChangeFieldMethod={handleChangeFieldMethod}
+            onSubmitPaymentMethod={handleSubmitPaymentMethod}
+          />
         </div>
       </TabPanel>
 

@@ -5,11 +5,12 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
+    gap: 20,
   },
 
   title: {
     width: '100%',
-    margin: '0 0 20px',
+    margin: 0,
     fontSize: 18,
     lineHeight: 1.4,
   },
@@ -21,6 +22,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     '& > div:first-of-type': {
       width: 'max-content',
+      margin: 0,
     },
   },
 
@@ -49,7 +51,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20,
     overflow: 'hidden',
     backgroundImage: `linear-gradient(to right, ${theme.palette.primary.main} 50%, transparent 50%), linear-gradient(to right, ${theme.palette.primary.main} 50%, transparent 50%), linear-gradient(to bottom, ${theme.palette.primary.main} 50%, transparent 50%), linear-gradient(to bottom, ${theme.palette.primary.main} 50%, transparent 50%)`,
     backgroundPosition: 'left top, left bottom, left top, right top',
@@ -112,7 +113,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   paymentMethods: {
     width: '100%',
-    height: 175,
+    height: 170,
+    margin: '10px 0',
     overflowX: 'auto',
     display: 'flex',
     flexDirection: 'column',
@@ -138,7 +140,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   iconDelete: {
-    padding: 1,
+    padding: 3,
 
     '&:hover': {
       background: 'none',
@@ -160,6 +162,5 @@ export const useClassNames = makeStyles()(theme => ({
 
   buttonAdd: {
     minWidth: '112px !important',
-    marginBottom: 20,
   },
 }))

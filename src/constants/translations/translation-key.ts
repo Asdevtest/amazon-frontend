@@ -1989,6 +1989,8 @@ export enum TranslationKey {
   'Adding a payment method' = 'Adding a payment method',
   'Add a payment method icon' = 'Add a payment method icon',
   'Payment method name' = 'Payment method name',
+  'Payment method successfully saved' = 'Payment method successfully saved',
+  'Payment method is not saved' = 'Payment method is not saved',
   // '' = '',
   // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР

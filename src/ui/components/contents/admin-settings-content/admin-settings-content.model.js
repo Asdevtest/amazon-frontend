@@ -13,6 +13,7 @@ import { destinationsColumns } from '@components/table/table-columns/admin/desti
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
+import { SupplierModel } from '@models/supplier-model'
 
 export class AdminSettingsModel {
   history = undefined
@@ -36,6 +37,7 @@ export class AdminSettingsModel {
   adminSettings = {}
 
   serverProxy = []
+  paymentMethods = []
   infoModalText = ''
   showSuccessModal = false
 
@@ -145,7 +147,12 @@ export class AdminSettingsModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await Promise.allSettled([this.getDestinations(), this.getAdminSettings(), this.getServerProxy()])
+      await Promise.allSettled([
+        this.getDestinations(),
+        this.getAdminSettings(),
+        this.getServerProxy(),
+        this.getPaymentMethods(),
+      ])
 
       this.getDataGridState()
 
@@ -283,6 +290,18 @@ export class AdminSettingsModel {
     }
   }
 
+  async getPaymentMethods() {
+    try {
+      const result = await SupplierModel.getSuppliersPaymentMethods()
+
+      runInAction(() => {
+        this.paymentMethods = result
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async createProxy(proxy) {
     try {
       await AdministratorModel.createProxy(proxy)
@@ -290,8 +309,19 @@ export class AdminSettingsModel {
       this.infoModalText = t(TranslationKey['Proxy successfully saved'])
       this.onTriggerOpenModal('showInfoModal')
     } catch (error) {
-      console.log(error)
       this.infoModalText = t(TranslationKey['Proxy is not saved'])
+      this.onTriggerOpenModal('showInfoModal')
+    }
+  }
+
+  async createPaymentMethod(paymentMethod) {
+    try {
+      await await SupplierModel.addSuppliersPaymentMethod(paymentMethod)
+
+      this.infoModalText = t(TranslationKey['Payment method successfully saved'])
+      this.onTriggerOpenModal('showInfoModal')
+    } catch (error) {
+      this.infoModalText = t(TranslationKey['Payment method is not saved'])
       this.onTriggerOpenModal('showInfoModal')
     }
   }

@@ -1990,5 +1990,7 @@
   "Service representative": "Представитель услуг",
   "Adding a payment method": "Добавление способа оплаты",
   "Add a payment method icon": "Добавить иконку способа оплаты",
-  "Payment method name": "Название способа оплаты"
+  "Payment method name": "Название способа оплаты",
+  "Payment method successfully saved": "Способ оплаты успешно сохранен",
+  "Payment method is not saved": "Способ оплаты не сохранен"
 }

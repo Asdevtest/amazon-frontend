@@ -1,26 +1,35 @@
-import { IconButton, Typography } from '@material-ui/core'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import { IconButton, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field/field'
-
-import { t } from '@utils/translations'
-
 import { UploadIcon } from '@components/shared/svg-icons'
 import { CopyValue } from '@components/shared/copy-value'
+
+import { t } from '@utils/translations'
 
 import { useAddPaymentMethodIcon } from './use-add-payment-method-icon.ts'
 
 import { useClassNames } from './tab-payment-methods-content.style'
 
-export const TabPaymentMethodsContent = ({ formFields, disabledSubmit, onSubmit, onChangeField }) => {
+export const TabPaymentMethodsContent = ({
+  fieldMethod,
+  paymentMethods,
+  handleChangeFieldMethod,
+  setPaymentMethods,
+  onSubmitPaymentMethod,
+}) => {
   const { classes: classNames } = useClassNames()
 
   const { imageUrl, imageName, onImageUpload, onRemoveImage } = useAddPaymentMethodIcon()
 
-  const paymentMethods = []
+  const onClickDeleteMethod = method => {
+    const removeMethod = paymentMethods.filter(m => m !== method)
+
+    setPaymentMethods(removeMethod)
+  }
 
   return (
     <div className={classNames.wrapper}>
@@ -50,7 +59,7 @@ export const TabPaymentMethodsContent = ({ formFields, disabledSubmit, onSubmit,
           )}
         </label>
 
-        <Button disabled={!imageUrl} className={classNames.buttonAdd} onClick={() => {}}>
+        <Button disabled={!imageUrl} className={classNames.buttonAdd}>
           {t(TranslationKey.Load)}
         </Button>
       </div>
@@ -60,12 +69,12 @@ export const TabPaymentMethodsContent = ({ formFields, disabledSubmit, onSubmit,
           label={t(TranslationKey['Payment method name']) + '*'}
           labelClasses={classNames.label}
           classes={{ root: classNames.textFieldFullWidth }}
-          value={null}
+          value={fieldMethod}
           placeholder={t(TranslationKey.Add)}
-          onChange={() => {}}
+          onChange={handleChangeFieldMethod}
         />
 
-        <Button disabled className={classNames.buttonAdd} onClick={() => {}}>
+        <Button disabled className={classNames.buttonAdd}>
           {t(TranslationKey.Add)}
         </Button>
       </div>
@@ -74,19 +83,22 @@ export const TabPaymentMethodsContent = ({ formFields, disabledSubmit, onSubmit,
         {paymentMethods?.length !== 0 &&
           paymentMethods?.map((method, index) => (
             <div key={index} className={classNames.paymentMethodWrapper}>
-              <Typography className={classNames.paymentMethod}>{method}</Typography>
+              <Typography className={classNames.paymentMethod}>{method.title}</Typography>
 
               <div className={classNames.iconsWrapper}>
                 <CopyValue text={method} />
                 <IconButton size="small" classes={{ root: classNames.iconDelete }}>
-                  <DeleteOutlineOutlinedIcon className={classNames.deletePaymentMethod} onClick={() => {}} />
+                  <DeleteOutlineOutlinedIcon
+                    className={classNames.deletePaymentMethod}
+                    onClick={() => onClickDeleteMethod(method)}
+                  />
                 </IconButton>
               </div>
             </div>
           ))}
       </div>
 
-      <Button disabled className={classNames.button} onClick={() => {}}>
+      <Button disabled={!fieldMethod} className={classNames.button} onClick={() => onSubmitPaymentMethod()}>
         {t(TranslationKey.Save)}
       </Button>
     </div>
