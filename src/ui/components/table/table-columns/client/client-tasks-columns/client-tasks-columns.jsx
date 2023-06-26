@@ -19,6 +19,7 @@ import {
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { t } from '@utils/translations'
+import { mapTaskStatusEmumToKey, TaskStatus } from '@constants/task/task-status'
 
 export const clientTasksViewColumns = handlers => [
   {
@@ -41,6 +42,7 @@ export const clientTasksViewColumns = handlers => [
     width: window.innerWidth < 1282 ? 140 : 170,
     renderCell: params => (
       <TaskPriorityCell
+        disabled={params.row.originalData.status === mapTaskStatusEmumToKey[TaskStatus.SOLVED]}
         curPriority={params.value}
         taskId={params.row.originalData._id}
         onChangePriority={handlers.updateTaskPriority}

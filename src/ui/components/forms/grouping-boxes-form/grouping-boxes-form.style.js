@@ -347,9 +347,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 5,
+    marginLeft: 24,
 
     '& > div': {
-      maxWidth: 148,
+      maxWidth: 218,
     },
   },
 

@@ -324,6 +324,7 @@ import InlineResponse20058 from './model/InlineResponse20058';
 import InlineResponse20059 from './model/InlineResponse20059';
 import InlineResponse2006 from './model/InlineResponse2006';
 import InlineResponse20060 from './model/InlineResponse20060';
+import InlineResponse20060Announcement from './model/InlineResponse20060Announcement';
 import InlineResponse20060CountProposalsByStatuses from './model/InlineResponse20060CountProposalsByStatuses';
 import InlineResponse20060Media from './model/InlineResponse20060Media';
 import InlineResponse20060Product from './model/InlineResponse20060Product';
@@ -2336,6 +2337,12 @@ export {
      * @property {module:model/InlineResponse20060}
      */
     InlineResponse20060,
+
+    /**
+     * The InlineResponse20060Announcement model constructor.
+     * @property {module:model/InlineResponse20060Announcement}
+     */
+    InlineResponse20060Announcement,
 
     /**
      * The InlineResponse20060CountProposalsByStatuses model constructor.
