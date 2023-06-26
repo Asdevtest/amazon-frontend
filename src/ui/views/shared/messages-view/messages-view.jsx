@@ -58,6 +58,7 @@ export const MessagesViewRaw = props => {
             <SearchInput
               inputClasses={classNames.searchInput}
               value={viewModel.nameSearchValue}
+              placeholder={t(TranslationKey['Search companion'])}
               onChange={viewModel.onChangeNameSearchValue}
             />
 

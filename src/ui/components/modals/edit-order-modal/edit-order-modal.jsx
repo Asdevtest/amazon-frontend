@@ -976,13 +976,15 @@ export const EditOrderModal = observer(
                 {t(TranslationKey['Add boxes for this order'])}
               </Typography>
 
-              <Button
-                tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])}
-                className={classNames.addBoxButton}
-                onClick={addBoxHandler}
-              >
-                {t(TranslationKey['Add a box'])}
-              </Button>
+              <Box width="fit-content">
+                <Button
+                  tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])}
+                  className={classNames.addBoxButton}
+                  onClick={addBoxHandler}
+                >
+                  {t(TranslationKey['Add a box'])}
+                </Button>
+              </Box>
             </div>
           ) : (
             <div />

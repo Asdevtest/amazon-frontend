@@ -22,7 +22,7 @@ import { t } from '@utils/translations'
 export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover, onListingFiltersData) => [
   {
     field: 'priority',
-    headerName: t(TranslationKey['Priority and Express Delivery']),
+    headerName: t(TranslationKey.Priority),
     renderHeader: params => (
       <MultilineTextHeaderCell
         component={<img src="/assets/icons/bookmark.svg" />}
@@ -178,6 +178,32 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
 
     renderCell: params => <ManyUserLinkCell usersData={params.row.originalData?.product?.subUsers} />,
     width: 187,
+
+    filterable: false,
+    sortable: false,
+
+    columnKey: columnnsKeys.shared.OBJECT,
+  },
+
+  {
+    field: 'announcementCreatedBy',
+    headerName: t(TranslationKey['Service representative']),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+        text={t(TranslationKey['Service representative'])}
+      />
+    ),
+
+    renderCell: params => (
+      <UserLinkCell
+        blackText
+        name={params.row.originalData?.announcement?.createdBy.name}
+        userId={params.row.originalData?.announcement?.createdBy._id}
+      />
+    ),
+    width: 160,
 
     filterable: false,
     sortable: false,

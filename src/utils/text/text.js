@@ -235,6 +235,7 @@ export const getTableByColumn = (column, hint) => {
       'priority',
       'priceAmazon',
       'withoutConfirmation',
+      'announcementCreatedBy',
     ].includes(column)
   ) {
     if (hint === 'orders') {
