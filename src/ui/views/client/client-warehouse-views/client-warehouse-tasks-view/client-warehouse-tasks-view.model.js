@@ -138,13 +138,11 @@ export class ClientWarehouseTasksViewModel {
 
   async getStorekeepers() {
     try {
+      this.getDataGridState()
       const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK)
-
       runInAction(() => {
         this.storekeepersData = result
       })
-
-      this.getDataGridState()
     } catch (error) {
       console.log(error)
     }
@@ -208,11 +206,11 @@ export class ClientWarehouseTasksViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE_TASKS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_WAREHOUSE]
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_WAREHOUSE_TASKS]
 
     runInAction(() => {
       if (state) {

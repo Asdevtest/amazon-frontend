@@ -203,17 +203,23 @@ export const styles = theme => ({
 
   order: {
     display: 'flex',
-    alignItems: 'center',
-    padding: '10px 0',
+    alignItems: 'flex-start',
+    gap: 10,
   },
 
   orderImg: {
-    height: '64px',
-    width: '64px',
-    marginRight: '12px',
-    objectFit: 'contain',
+    height: 64,
+    width: 64,
+    objectFit: 'cover',
     objectPosition: 'center',
+    borderRadius: 4,
   },
+
+  orderImageBig: {
+    height: 100,
+    width: 100,
+  },
+
   orderTitle: {
     fontSize: '14px',
     fontWeight: 400,
@@ -1746,7 +1752,7 @@ export const styles = theme => ({
     },
   },
   printIcon: {
-    color: theme.palette.background.darkBlue,
+    color: theme.palette.primary.main,
   },
   printIconModal: {
     color: '#fff',
