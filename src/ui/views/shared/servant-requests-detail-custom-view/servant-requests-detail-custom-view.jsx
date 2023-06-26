@@ -54,7 +54,9 @@ export const RequestDetailCustomViewRaw = props => {
 
   const findRequestProposalForCurChat =
     viewModel.chatSelectedId &&
-    viewModel.requestProposals?.find(requestProposal => requestProposal.proposal.chatId === viewModel.chatSelectedId)
+    viewModel.requestProposals?.find(requestProposal => requestProposal?.proposal?.chatId === viewModel.chatSelectedId)
+
+  console.log(findRequestProposalForCurChat)
 
   return (
     <React.Fragment>
@@ -101,18 +103,17 @@ export const RequestDetailCustomViewRaw = props => {
                 renderAdditionalButtons={(params, resetAllInputs) => (
                   <div className={classNames.additionalButtonsWrapper}>
                     {findRequestProposalForCurChat &&
-                    requestProposalCancelAllowedStatuses.includes(findRequestProposalForCurChat?.proposal?.status) ? (
+                    requestProposalCancelAllowedStatuses?.includes(findRequestProposalForCurChat?.proposal?.status) ? (
                       <Button danger onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}>
                         {t(TranslationKey['Reject the deal'])}
                       </Button>
                     ) : (
                       <div />
                     )}
-
-                    {((findRequestProposalForCurChat.proposal.sub &&
-                      findRequestProposalForCurChat.proposal.sub?._id === viewModel.userInfo?._id) ||
-                      (!findRequestProposalForCurChat.proposal.sub &&
-                        findRequestProposalForCurChat.proposal.createdBy?._id === viewModel.userInfo?._id)) &&
+                    {((findRequestProposalForCurChat?.proposal?.sub &&
+                      findRequestProposalForCurChat?.proposal?.sub?._id === viewModel.userInfo?._id) ||
+                      (!findRequestProposalForCurChat?.proposal?.sub &&
+                        findRequestProposalForCurChat?.proposal?.createdBy?._id === viewModel.userInfo?._id)) &&
                     (findRequestProposalForCurChat?.proposal?.status ===
                       RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
                       findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.TO_CORRECT ||
@@ -137,7 +138,8 @@ export const RequestDetailCustomViewRaw = props => {
                       >
                         {/* t(TranslationKey['Send as a result']) */ t(TranslationKey.Result)}
                       </Button>
-                    ) : undefined}
+                    ) : null}
+
                     {/* {findRequestProposalForCurChat?.proposal.status ===
                         RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ? (
                           <Button onClick={viewModel.onClickReadyToVerify}>Отправить на проверку</Button>

@@ -786,6 +786,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20059](docs/InlineResponse20059.md)
  - [TestSwagger.InlineResponse2006](docs/InlineResponse2006.md)
  - [TestSwagger.InlineResponse20060](docs/InlineResponse20060.md)
+ - [TestSwagger.InlineResponse20060Announcement](docs/InlineResponse20060Announcement.md)
  - [TestSwagger.InlineResponse20060CountProposalsByStatuses](docs/InlineResponse20060CountProposalsByStatuses.md)
  - [TestSwagger.InlineResponse20060Media](docs/InlineResponse20060Media.md)
  - [TestSwagger.InlineResponse20060Product](docs/InlineResponse20060Product.md)
