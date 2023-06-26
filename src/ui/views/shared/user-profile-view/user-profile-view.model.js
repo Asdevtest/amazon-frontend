@@ -32,7 +32,8 @@ export class ProfileViewModel {
 
   productsVacant = []
 
-  wrongPassword = null
+  isUniqueProfileData = true
+  wrongPassword = undefined
 
   warningInfoModalTitle = ''
 
@@ -200,16 +201,28 @@ export class ProfileViewModel {
   async onSubmitUserInfoEdit(data) {
     try {
       if (data) {
-        const [isUniqueProfileData] = await Promise.all([
-          this.changeUserNameOrEmail(data),
-          this.changeUserPassword(data),
-        ])
+        // const [isUniqueProfileData] = await Promise.all([
+        //   this.changeUserNameOrEmail(data),
+        //   this.changeUserPassword(data),
+        // ])
 
-        if (!this.wrongPassword && isUniqueProfileData) {
+        const { name, email, oldPassword, newPassword } = data
+
+        if (name || email) {
+          await this.changeUserNameOrEmail(data)
+        }
+
+        if (oldPassword || newPassword) {
+          await this.changeUserPassword(data)
+        }
+
+        if (!this.wrongPassword && this.isUniqueProfileData) {
           this.onTriggerOpenModal('showUserInfoModal')
           this.warningInfoModalTitle = t(TranslationKey['Data was successfully saved'])
           this.onTriggerOpenModal('showInfoModal')
         }
+
+        this.loadData()
       } else {
         return
       }
@@ -259,12 +272,17 @@ export class ProfileViewModel {
         this.checkValidationNameOrEmail.nameIsUnique === false ||
         this.checkValidationNameOrEmail.emailIsUnique === false
       ) {
-        return false
+        runInAction(() => {
+          this.isUniqueProfileData = false
+        })
       } else {
         await UserModel.changeUserInfo({ name: data.name, email: data.email })
 
         await UserModel.getUserInfo()
-        return true
+
+        runInAction(() => {
+          this.isUniqueProfileData = true
+        })
       }
     } catch (error) {
       runInAction(() => {

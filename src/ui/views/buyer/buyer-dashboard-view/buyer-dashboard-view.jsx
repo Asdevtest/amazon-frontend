@@ -19,6 +19,7 @@ import { t } from '@utils/translations'
 
 import { BuyerDashboardViewModel } from './buyer-dashboard-view.model'
 import { styles } from './buyer-dashboard-view.style'
+import { observer } from 'mobx-react'
 
 export const BuyerDashboardViewRaw = props => {
   const [viewModel] = useState(() => new BuyerDashboardViewModel({ history: props.history }))
@@ -57,24 +58,18 @@ export const BuyerDashboardViewRaw = props => {
             </div>
           )}
         </Paper>
-        {getBuyerDashboardCardConfig().map(item => (
-          <DashboardOneLineCardsList
-            key={item.key}
-            config={item}
-            valuesData={viewModel.dashboardData}
-            onClickViewMore={viewModel.onClickInfoCardViewMode}
-          />
-        ))}
-        {/* <div className={classNames.amountWithLabelCardsWrapper}>
-                <SectionalDashboard
-                  config={getBuyerDashboardCardConfig()}
-                  valuesData={dashboardData}
-                  onClickViewMore={onClickInfoCardViewMode}
-                />
-              </div> */}
+        {viewModel.currentData &&
+          getBuyerDashboardCardConfig().map(item => (
+            <DashboardOneLineCardsList
+              key={item.key}
+              config={item}
+              valuesData={viewModel.currentData}
+              onClickViewMore={viewModel.onClickInfoCardViewMode}
+            />
+          ))}
       </MainContent>
     </React.Fragment>
   )
 }
 
-export const BuyerDashboardView = withStyles(BuyerDashboardViewRaw, styles)
+export const BuyerDashboardView = withStyles(observer(BuyerDashboardViewRaw), styles)

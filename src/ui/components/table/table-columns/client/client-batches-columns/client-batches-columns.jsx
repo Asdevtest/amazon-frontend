@@ -103,6 +103,7 @@ export const clientBatchesViewColumns = rowHandlers => [
     renderCell: params => (
       <BatchTrackingCell
         disabled
+        disableMultilineForTrack
         rowHandlers={rowHandlers}
         id={params.row?.originalData?._id}
         arrivalDate={params.row?.originalData?.arrivalDate}
