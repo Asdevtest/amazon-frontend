@@ -550,7 +550,7 @@ export const EditMultipleBoxesForm = observer(
     const [sharedFields, setSharedFields] = useState({
       destinationId: null,
       logicsTariffId: null,
-      variationTariffId: undefined,
+      variationTariffId: null,
       shippingLabel: null,
       fbaShipment: '',
       isShippingLabelAttachedByStorekeeper: false,
@@ -723,6 +723,16 @@ export const EditMultipleBoxesForm = observer(
               }
             : newBox,
         )
+      } else if (field === 'logicsTariffId') {
+        updatedNewBoxes = newBoxes.map(newBox =>
+          visibleBoxesIds.includes(newBox._id)
+            ? {
+                ...newBox,
+                logicsTariffId: sharedFields.logicsTariffId,
+                variationTariffId: sharedFields.variationTariffId,
+              }
+            : newBox,
+        )
       } else {
         updatedNewBoxes = newBoxes.map(newBox =>
           visibleBoxesIds.includes(newBox._id)
@@ -737,6 +747,9 @@ export const EditMultipleBoxesForm = observer(
       setApplyBtnsClicked({ ...applyBtnsClicked, [field]: true })
 
       setTimeout(() => setApplyBtnsClicked({ ...applyBtnsClicked, [field]: false }), 1000)
+
+      console.log('sharedFields', sharedFields)
+      console.log('updatedNewBoxes', updatedNewBoxes)
 
       setNewBoxes(updatedNewBoxes)
     }
