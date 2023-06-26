@@ -680,6 +680,7 @@ export const ChangeInputCommentCell = React.memo(
       rowsCount,
       fieldName,
       placeholder,
+      disableMultiline,
     }) => {
       const [value, setValue] = useState(text)
       const [isEdited, setIsEdited] = useState(false)
@@ -693,7 +694,7 @@ export const ChangeInputCommentCell = React.memo(
       return (
         <div className={classNames.ChangeInputCommentCellWrapper}>
           <Input
-            multiline
+            multiline={!disableMultiline}
             autoFocus={false}
             minRows={rowsCount ?? 2}
             maxRows={rowsCount ?? 2}
@@ -1261,7 +1262,7 @@ export const RenderFieldValueCell = React.memo(
 
 export const BatchTrackingCell = React.memo(
   withStyles(
-    ({ classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled }) => (
+    ({ classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled, disableMultilineForTrack }) => (
       <div className={classNames.batchTrackingWrapper}>
         <Field
           containerClasses={cx(classNames.batchTrackingContainer)}
@@ -1269,6 +1270,7 @@ export const BatchTrackingCell = React.memo(
           labelClasses={classNames.batchTrackingTitle}
           inputComponent={
             <ChangeInputCommentCell
+              disableMultiline={disableMultilineForTrack}
               disabled={disabled}
               id={id}
               rowsCount={1}
