@@ -36,7 +36,7 @@ export const styles = theme => ({
   },
 
   noBorder: {
-    border: 'none',
+    border: 'none !important',
   },
 
   destinationWrapper: {
