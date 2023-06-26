@@ -52,9 +52,10 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     width: 380,
     renderCell: params => {
       return params.row.originalData.items.length > 1 ? (
-        <OrderManyItemsCell box={params.row.originalData} />
+        <OrderManyItemsCell box={params.row.originalData} imageSize={'big'} />
       ) : (
         <OrderCell
+          imageSize={'big'}
           box={params.row.originalData}
           product={params.row.originalData.items[0]?.product}
           superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
