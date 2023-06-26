@@ -208,12 +208,18 @@ export const styles = theme => ({
   },
 
   orderImg: {
-    height: 100,
-    width: 100,
+    height: 64,
+    width: 64,
     objectFit: 'cover',
     objectPosition: 'center',
     borderRadius: 4,
   },
+
+  orderImageBig: {
+    height: 100,
+    width: 100,
+  },
+
   orderTitle: {
     fontSize: '14px',
     fontWeight: 400,
