@@ -1987,5 +1987,8 @@
   "Uploaded by on listing": "Выгружено на листинг",
   "Partial payment": "Частичная оплата",
   "Search companion": "Поиск собеседника",
-  "Service representative": "Представитель услуг"
+  "Service representative": "Представитель услуг",
+  "Adding a payment method": "Добавление способа оплаты",
+  "Add a payment method icon": "Добавить иконку способа оплаты",
+  "Payment method name": "Название способа оплаты"
 }

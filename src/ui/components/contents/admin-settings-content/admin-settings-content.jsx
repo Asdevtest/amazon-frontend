@@ -9,19 +9,23 @@ import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Modal } from '@components/shared/modal'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { SettingsModel } from '@models/settings-model'
 import { AdminSettingsModel } from './admin-settings-content.model'
+
+import {
+  TabFreelanceContent,
+  TabMainContent,
+  TabOrdersContent,
+  TabSearchSupplierContent,
+  TabPanel,
+  TabDestinationsContent,
+  TabPaymentMethodsContent,
+} from './admin-tabs-content'
+
 import { useClassNames } from './admin-settings-content.style'
-import { TabFreelanceContent } from './admin-tabs-content/tab-freelance-content'
-import { TabMainContent } from './admin-tabs-content/tab-main-content'
-import { TabOrdersContent } from './admin-tabs-content/tab-orders-content'
-import { TabSearchSupplierContent } from './admin-tabs-content/tab-search-supplier-content'
-import { TabPanel } from './admin-tabs-content/tab-panel'
-import { TabDestinationsContent } from './admin-tabs-content/tab-destinations-content'
 
 const fieldsWithoutCharactersAfterDote = [
   'requestPlatformMarginInPercent',
@@ -37,6 +41,7 @@ const tabLabels = [
   TranslationKey['Supplier search'],
   TranslationKey.Orders,
   TranslationKey.Destinations,
+  TranslationKey['Payment methods'],
 ]
 
 export const AdminSettingsContent = observer(() => {
@@ -221,6 +226,11 @@ export const AdminSettingsContent = observer(() => {
       </TabPanel>
       <TabPanel value={tabIndex} index={4}>
         <TabDestinationsContent />
+      </TabPanel>
+      <TabPanel value={tabIndex} index={5}>
+        <div className={classNames.contentWrapper}>
+          <TabPaymentMethodsContent />
+        </div>
       </TabPanel>
 
       <WarningInfoModal
