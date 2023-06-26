@@ -1,7 +1,7 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
+import { ProductStatus, ProductStatusByKey, ProductStatusGroups } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { SettingsModel } from '@models/settings-model'
@@ -56,6 +56,7 @@ export class SupervisorProductsViewModel {
   nameSearchValue = ''
 
   currentFilterStatus = ProductStatusByKey[ProductStatus.DEFAULT]
+  currentStatusGroup = ProductStatusGroups.allProducts
 
   currentData = []
 
@@ -224,7 +225,7 @@ export class SupervisorProductsViewModel {
 
   onClickStatusFilterButton(status) {
     runInAction(() => {
-      this.currentFilterStatus = status
+      this.currentStatusGroup = status
       this.getProductsMy()
     })
   }
@@ -394,8 +395,9 @@ export class SupervisorProductsViewModel {
       const result = await SupervisorModel.getProductsMyPag({
         filters: this.getFilter() + `${ordered !== null ? `;ordered[$eq]=${ordered}` : ''}`,
 
-        status:
-          this.currentFilterStatus === ProductStatusByKey[ProductStatus.DEFAULT] ? null : this.currentFilterStatus,
+        statusGroup: this.currentStatusGroup,
+        // status:
+        //   this.currentFilterStatus === ProductStatusByKey[ProductStatus.DEFAULT] ? null : this.currentFilterStatus,
         limit: this.paginationModel.pageSize,
 
         offset: this.paginationModel.page * this.paginationModel.pageSize,
@@ -549,7 +551,7 @@ export class SupervisorProductsViewModel {
         getTableByColumn(column, 'products'),
         column,
 
-        `supervisors/products/pag/my?filters=${this.getFilter(column)}&status=${this.currentFilterStatus}` +
+        `supervisors/products/pag/my?filters=${this.getFilter(column)}&statusGroup=${this.currentStatusGroup}` +
           `${ordered !== null ? `;ordered[$eq]=${ordered}` : ''}`,
       )
 

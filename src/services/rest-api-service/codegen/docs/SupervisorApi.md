@@ -257,6 +257,7 @@ let opts = {
   'sortField': "sortField_example", // String | Название поля
   'sortType': "sortType_example", // String | Тип сортировки
   'filters': "filters_example", // String |                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+  'statusGroup': "statusGroup_example", // String | \"allProducts\": [5, 205, 15, 20, 30, 230, 35, 235, 40, 240, 50, 250, 60, 260, 70, 270, 75, 275, 80, 280, 90, 290],     \"rejectedBySupervisor\": [20],     \"onCheckWithSupervisor\": [5, 205],     \"atTheBuyerInWork\": [230, 30, 235, 35],     \"searchComplete\": [70, 270],     \"supplierWasNotFound\": [50, 250, 80, 280],     \"supplierPriceDoesNotFit\": [60, 260, 90, 290],     \"paidByTheClient\": [275, 75],     \"productIsAppropriate\": [15],     \"buyerFoundSupplier\": [240, 40]
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1SupervisorsProductsPagMyGet(opts).then((data) => {
@@ -278,6 +279,7 @@ Name | Type | Description  | Notes
  **sortField** | **String**| Название поля | [optional] 
  **sortType** | **String**| Тип сортировки | [optional] 
  **filters** | **String**|                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк              | [optional] 
+ **statusGroup** | **String**| \&quot;allProducts\&quot;: [5, 205, 15, 20, 30, 230, 35, 235, 40, 240, 50, 250, 60, 260, 70, 270, 75, 275, 80, 280, 90, 290],     \&quot;rejectedBySupervisor\&quot;: [20],     \&quot;onCheckWithSupervisor\&quot;: [5, 205],     \&quot;atTheBuyerInWork\&quot;: [230, 30, 235, 35],     \&quot;searchComplete\&quot;: [70, 270],     \&quot;supplierWasNotFound\&quot;: [50, 250, 80, 280],     \&quot;supplierPriceDoesNotFit\&quot;: [60, 260, 90, 290],     \&quot;paidByTheClient\&quot;: [275, 75],     \&quot;productIsAppropriate\&quot;: [15],     \&quot;buyerFoundSupplier\&quot;: [240, 40] | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

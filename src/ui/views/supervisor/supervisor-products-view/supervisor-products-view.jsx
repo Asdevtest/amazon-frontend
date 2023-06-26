@@ -11,6 +11,7 @@ import {
   ProductStatus,
   ProductStatusByCode,
   ProductStatusByKey,
+  ProductStatusGroups,
   productStatusTranslateKey,
 } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -60,43 +61,43 @@ const attentionStatuses = [
 
 const statusesList = [
   {
-    userInfoKey: 'allProducts',
+    userInfoKey: ProductStatusGroups.allProducts,
     status: ProductStatusByKey[ProductStatus.DEFAULT],
   },
   {
-    userInfoKey: 'atTheBuyerInWork',
+    userInfoKey: ProductStatusGroups.atTheBuyerInWork,
     status: ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT],
   },
   {
-    userInfoKey: 'buyerFoundSupplier',
+    userInfoKey: ProductStatusGroups.buyerFoundSupplier,
     status: ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
   },
   {
-    userInfoKey: 'paidByTheClient',
+    userInfoKey: ProductStatusGroups.paidByTheClient,
     status: ProductStatusByKey[ProductStatus.FROM_CLIENT_PAID_BY_CLIENT],
   },
   {
-    userInfoKey: 'productIsAppropriate',
+    userInfoKey: ProductStatusGroups.productIsAppropriate,
     status: ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
   },
   {
-    userInfoKey: 'rejectedBySupervisor',
+    userInfoKey: ProductStatusGroups.rejectedBySupervisor,
     status: ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
   },
   {
-    userInfoKey: 'searchComplete',
+    userInfoKey: ProductStatusGroups.searchComplete,
     status: ProductStatusByKey[ProductStatus.SUPPLIER_FOUND],
   },
   {
-    userInfoKey: 'supplierPriceDoesNotFit',
+    userInfoKey: ProductStatusGroups.supplierPriceDoesNotFit,
     status: ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],
   },
   {
-    userInfoKey: 'supplierWasNotFound',
+    userInfoKey: ProductStatusGroups.supplierWasNotFound,
     status: ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
   },
   {
-    userInfoKey: 'onCheckWithSupervisor',
+    userInfoKey: ProductStatusGroups.onCheckWithSupervisor,
     status: ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
   },
 ]
@@ -122,28 +123,6 @@ export const SupervisorProductsViewRaw = props => {
     <React.Fragment>
       <MainContent>
         <div className={classNames.headerWrapper}>
-          {/* {Object.keys({ */}
-          {/*   ...getObjectFilteredByKeyArrayWhiteList(ProductStatusByCode, allowProductStatuses) */}
-          {/* }).map((status, statusIndex) => { */}
-          {/*   const count = viewModel.getProductsCountByStatus(status); */}
-
-          {/*   return ( */}
-          {/*     <Button */}
-          {/*       key={statusIndex} */}
-          {/*       variant="text" */}
-          {/*       disabled={!count} */}
-          {/*       // disabled={Number(statusIndex) === Number(currentFilterStatus)} */}
-          {/*       className={cx(classNames.selectStatusFilterButton, { */}
-          {/*         [classNames.selectedStatusFilterButton]: Number(status) === Number(viewModel.currentFilterStatus) */}
-          {/*       })} */}
-          {/*       onClick={() => viewModel.onClickStatusFilterButton(status)} */}
-          {/*     > */}
-          {/*       {t(productStatusTranslateKey(ProductStatusByCode[status]))}{" "} */}
-          {/*       {count >= 1 && <span className={classNames.badge}>{count}</span>} */}
-          {/*     </Button> */}
-          {/*   ); */}
-          {/* })} */}
-
           {statusesList.map(el => (
             <Button
               key={el.status}
@@ -151,9 +130,9 @@ export const SupervisorProductsViewRaw = props => {
               disabled={!viewModel.userInfo[el.userInfoKey]}
               // disabled={Number(statusIndex) === Number(currentFilterStatus)}
               className={cx(classNames.selectStatusFilterButton, {
-                [classNames.selectedStatusFilterButton]: Number(el.status) === Number(viewModel.currentFilterStatus),
+                [classNames.selectedStatusFilterButton]: el.userInfoKey === viewModel.currentStatusGroup,
               })}
-              onClick={() => viewModel.onClickStatusFilterButton(el.status)}
+              onClick={() => viewModel.onClickStatusFilterButton(el.userInfoKey)}
             >
               {t(productStatusTranslateKey(ProductStatusByCode[el.status]))}{' '}
               <span className={classNames.badge}>{viewModel.userInfo[el.userInfoKey]}</span>
