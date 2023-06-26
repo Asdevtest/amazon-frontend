@@ -145,7 +145,7 @@ export class AdminSettingsModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await Promise.all([this.getDestinations(), this.getAdminSettings(), this.getServerProxy()])
+      await Promise.allSettled([this.getDestinations(), this.getAdminSettings(), this.getServerProxy()])
 
       this.getDataGridState()
 
@@ -286,6 +286,7 @@ export class AdminSettingsModel {
   async createProxy(proxy) {
     try {
       await AdministratorModel.createProxy(proxy)
+
       this.infoModalText = t(TranslationKey['Proxy successfully saved'])
       this.onTriggerOpenModal('showInfoModal')
     } catch (error) {

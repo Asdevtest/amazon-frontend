@@ -9,6 +9,8 @@ import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Modal } from '@components/shared/modal'
 
+import { SettingsModel } from '@models/settings-model'
+
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
@@ -48,7 +50,7 @@ export const AdminSettingsContent = observer(() => {
 
   const [formFields, setFormFields] = useState({})
   const [isFormFieldsChanged, setIsFormFieldsChanged] = useState(false)
-  const [proxyArr, setProxyArr] = useState(viewModel?.serverProxy)
+  const [proxyArr, setProxyArr] = useState([])
   const [tabIndex, setTabIndex] = useState(0)
 
   useEffect(() => {
@@ -155,20 +157,22 @@ export const AdminSettingsContent = observer(() => {
 
   return (
     <>
-      <Tabs
-        value={tabIndex}
-        variant="scrollable"
-        classes={{
-          root: classNames.rootTabs,
-          indicator: classNames.indicator,
-          flexContainer: classNames.flexContainerTabs,
-        }}
-        onChange={handleChangeTab}
-      >
-        {tabLabels.map(label => (
-          <Tab key={label} label={t(label)} classes={{ root: classNames.rootTab }} />
-        ))}
-      </Tabs>
+      {SettingsModel.languageTag && (
+        <Tabs
+          value={tabIndex}
+          variant="scrollable"
+          classes={{
+            root: classNames.rootTabs,
+            indicator: classNames.indicator,
+            flexContainer: classNames.flexContainerTabs,
+          }}
+          onChange={handleChangeTab}
+        >
+          {tabLabels.map(label => (
+            <Tab key={label} label={t(label)} classes={{ root: classNames.rootTab }} />
+          ))}
+        </Tabs>
+      )}
 
       <TabPanel value={tabIndex} index={0}>
         <div className={classNames.contentWrapper}>

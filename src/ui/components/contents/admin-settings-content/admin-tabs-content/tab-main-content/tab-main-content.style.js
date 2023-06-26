@@ -35,6 +35,20 @@ export const useClassNames = makeStyles()(theme => ({
     width: 410,
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'flex-end',
+  },
+
+  proxyAdd: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 30,
+  },
+
+  buttonAdd: {
+    minWidth: '123px !important',
+    marginBottom: 10,
   },
 
   proxyList: {
@@ -43,7 +57,7 @@ export const useClassNames = makeStyles()(theme => ({
     overflowX: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    marginBottom: 18,
+    marginBottom: 8,
   },
 
   proxyWrapper: {
@@ -81,14 +95,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  buttons: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 30,
-  },
-
-  button: {
+  buttonSave: {
     minWidth: '123px !important',
   },
 }))

@@ -80,7 +80,12 @@ export const TabMainContent = ({
       </div>
 
       <div className={classNames.proxyContent}>
-        <Typography className={classNames.label}>{t(TranslationKey['Proxy servers for parsing'])}:</Typography>
+        <div className={classNames.proxyAdd}>
+          <Typography className={classNames.label}>{t(TranslationKey['Proxy servers for parsing'])}</Typography>
+          <Button className={classNames.buttonAdd} onClick={onClickAddProxyBtn}>
+            {t(TranslationKey['Add proxy'])}
+          </Button>
+        </div>
 
         <div className={classNames.proxyList}>
           {proxyArr?.length !== 0 &&
@@ -101,18 +106,13 @@ export const TabMainContent = ({
             ))}
         </div>
 
-        <div className={classNames.buttons}>
-          <Button className={classNames.button} onClick={onClickAddProxyBtn}>
-            {t(TranslationKey['Add proxy'])}
-          </Button>
-          <Button
-            disabled={saveButtonData.disabled}
-            className={classNames.button}
-            onClick={() => saveButtonData.handleClick()}
-          >
-            {t(TranslationKey.Save)}
-          </Button>
-        </div>
+        <Button
+          disabled={saveButtonData.disabled}
+          className={classNames.buttonSave}
+          onClick={() => saveButtonData.handleClick()}
+        >
+          {t(TranslationKey.Save)}
+        </Button>
       </div>
     </div>
   )
