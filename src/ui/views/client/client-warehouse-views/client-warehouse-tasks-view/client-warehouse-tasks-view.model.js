@@ -138,13 +138,11 @@ export class ClientWarehouseTasksViewModel {
 
   async getStorekeepers() {
     try {
+      this.getDataGridState()
       const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK)
-
       runInAction(() => {
         this.storekeepersData = result
       })
-
-      this.getDataGridState()
     } catch (error) {
       console.log(error)
     }
