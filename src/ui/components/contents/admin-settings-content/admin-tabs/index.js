@@ -1,0 +1,7 @@
+export { TabDestinations } from './tab-destinations/tab-destinations'
+export { TabFreelance } from './tab-freelance/tab-freelance'
+export { TabMain } from './tab-main/tab-main'
+export { TabOrders } from './tab-orders/tab-orders'
+export { TabPanel } from './tab-panel/tab-panel'
+export { TabSearchSupplier } from './tab-search-supplier/tab-search-supplier'
+export { TabPaymentMethods } from './tab-payment-methods/tab-payment-methods'

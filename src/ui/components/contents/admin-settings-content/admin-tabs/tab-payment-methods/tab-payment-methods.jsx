@@ -14,9 +14,9 @@ import { CopyValue } from '@components/shared/copy-value'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './tab-payment-methods-content.style'
+import { useClassNames } from './tab-payment-methods.style'
 
-export const TabPaymentMethodsContent = ({
+export const TabPaymentMethods = ({
   imageUrl,
   imageName,
   onImageUpload,

@@ -1,7 +1,0 @@
-export { TabDestinationsContent } from './tab-destinations-content'
-export { TabFreelanceContent } from './tab-freelance-content'
-export { TabMainContent } from './tab-main-content'
-export { TabOrdersContent } from './tab-orders-content'
-export { TabPanel } from './tab-panel'
-export { TabPaymentMethodsContent } from './tab-payment-methods-content'
-export { TabSearchSupplierContent } from './tab-search-supplier-content'

@@ -4,6 +4,7 @@ import { observer } from 'mobx-react'
 import isEqual from 'lodash.isequal'
 
 import { TranslationKey } from '@constants/translations/translation-key'
+import { fieldsWithoutCharactersAfterDote, tabLabels } from './constants'
 
 import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
@@ -16,33 +17,16 @@ import { SettingsModel } from '@models/settings-model'
 import { AdminSettingsModel } from './admin-settings-content.model'
 
 import {
-  TabFreelanceContent,
-  TabMainContent,
-  TabOrdersContent,
-  TabSearchSupplierContent,
+  TabFreelance,
+  TabMain,
+  TabOrders,
+  TabSearchSupplier,
   TabPanel,
-  TabDestinationsContent,
-  TabPaymentMethodsContent,
-} from './admin-tabs-content'
+  TabDestinations,
+  TabPaymentMethods,
+} from './admin-tabs'
 
 import { useClassNames } from './admin-settings-content.style'
-
-const fieldsWithoutCharactersAfterDote = [
-  'requestPlatformMarginInPercent',
-  'requestSupervisorFeeInPercent',
-  'deadlineForFindingSupplier',
-  'requestTimeLimitInHourForCancelingProposalsByClient',
-  'requestTimeLimitInHourForCheckingProposalBySuper',
-]
-
-const tabLabels = [
-  TranslationKey.Main,
-  TranslationKey.Freelance,
-  TranslationKey['Supplier search'],
-  TranslationKey.Orders,
-  TranslationKey.Destinations,
-  TranslationKey['Payment methods'],
-]
 
 export const AdminSettingsContent = observer(() => {
   const { classes: classNames } = useClassNames()
@@ -184,7 +168,7 @@ export const AdminSettingsContent = observer(() => {
 
       <TabPanel value={tabIndex} index={0}>
         <div className={classNames.contentWrapper}>
-          <TabMainContent
+          <TabMain
             disabledSubmit={disabledSubmitFirstBlock}
             disabledSubmitProxy={disabledSubmitProxy}
             formFields={formFields}
@@ -199,7 +183,7 @@ export const AdminSettingsContent = observer(() => {
       </TabPanel>
       <TabPanel value={tabIndex} index={1}>
         <div className={classNames.contentWrapper}>
-          <TabFreelanceContent
+          <TabFreelance
             formFields={formFields}
             disabledSubmit={disabledSubmitSecondBlock}
             onSubmit={onCreateSubmit}
@@ -209,7 +193,7 @@ export const AdminSettingsContent = observer(() => {
       </TabPanel>
       <TabPanel value={tabIndex} index={2}>
         <div className={classNames.contentWrapper}>
-          <TabSearchSupplierContent
+          <TabSearchSupplier
             formFields={formFields}
             disabledSubmit={disabledSubmitThirdBlock}
             onChangeField={onChangeField}
@@ -219,7 +203,7 @@ export const AdminSettingsContent = observer(() => {
       </TabPanel>
       <TabPanel value={tabIndex} index={3}>
         <div className={classNames.contentWrapper}>
-          <TabOrdersContent
+          <TabOrders
             formFields={formFields}
             disabledSubmit={disabledSubmitThirdBlock}
             onChangeField={onChangeField}
@@ -228,11 +212,11 @@ export const AdminSettingsContent = observer(() => {
         </div>
       </TabPanel>
       <TabPanel value={tabIndex} index={4}>
-        <TabDestinationsContent />
+        <TabDestinations />
       </TabPanel>
       <TabPanel value={tabIndex} index={5}>
         <div className={classNames.contentWrapper}>
-          <TabPaymentMethodsContent
+          <TabPaymentMethods
             imageUrl={viewModel.imageUrl}
             imageName={viewModel.imageName}
             fieldMethod={fieldMethod}
@@ -244,6 +228,9 @@ export const AdminSettingsContent = observer(() => {
             onSubmitPaymentMethod={handleSubmitPaymentMethod}
           />
         </div>
+      </TabPanel>
+      <TabPanel value={tabIndex} index={6}>
+        <TabDestinations />
       </TabPanel>
 
       <WarningInfoModal

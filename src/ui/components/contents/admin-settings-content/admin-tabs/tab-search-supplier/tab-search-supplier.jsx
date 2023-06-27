@@ -7,7 +7,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from '../../admin-settings-content.style'
 
-export const TabSearchSupplierContent = ({ formFields, disabledSubmit, onSubmit, onChangeField }) => {
+export const TabSearchSupplier = ({ formFields, disabledSubmit, onSubmit, onChangeField }) => {
   const { classes: classNames } = useClassNames()
 
   return (

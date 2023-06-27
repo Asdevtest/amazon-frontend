@@ -5,9 +5,9 @@ import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './tab-freelance-content.style'
+import { useClassNames } from './tab-freelance.style'
 
-export const TabFreelanceContent = ({ formFields, disabledSubmit, onSubmit, onChangeField }) => {
+export const TabFreelance = ({ formFields, disabledSubmit, onSubmit, onChangeField }) => {
   const { classes: classNames } = useClassNames()
 
   return (

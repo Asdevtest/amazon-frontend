@@ -15,7 +15,7 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './tab-destinations-content.style'
+import { useClassNames } from './tab-tags.style'
 
 import { AdminSettingsModel } from '../../admin-settings-content.model'
 
