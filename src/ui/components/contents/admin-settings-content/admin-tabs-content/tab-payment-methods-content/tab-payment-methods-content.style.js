@@ -16,6 +16,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   container: {
+    width: '100%',
     display: 'flex',
     alignItems: 'flex-end',
     gap: 15,
@@ -51,6 +52,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    gap: 15,
     overflow: 'hidden',
     backgroundImage: `linear-gradient(to right, ${theme.palette.primary.main} 50%, transparent 50%), linear-gradient(to right, ${theme.palette.primary.main} 50%, transparent 50%), linear-gradient(to bottom, ${theme.palette.primary.main} 50%, transparent 50%), linear-gradient(to bottom, ${theme.palette.primary.main} 50%, transparent 50%)`,
     backgroundPosition: 'left top, left bottom, left top, right top',
@@ -70,12 +72,6 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'pointer',
   },
 
-  inputContent: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 15,
-  },
-
   text: {
     fontSize: 14,
     fontWeight: 600,
@@ -88,26 +84,37 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
   },
 
-  deleteImage: {
-    position: 'absolute',
-    top: 0,
-    right: 10,
-    margin: 0,
-    transform: 'translateY(calc(50%))',
-    color: 'red',
-    fontSize: 20,
-    lineHeight: '20px',
-    fontWeight: 500,
-    cursor: 'pointer',
-
-    '&:hover': {
-      fontSize: 22,
-    },
-  },
-
   label: {
     marginBottom: 10,
     fontSize: 14,
+    color: theme.palette.text.second,
+  },
+
+  containerImage: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 5,
+    border: `1px solid ${theme.palette.primary.main}`,
+    borderRadius: 8,
+
+    '& > img': {
+      width: 83,
+      height: 73,
+      borderRadius: 4,
+    },
+  },
+
+  actionIconsWrapper: {
+    display: 'flex',
+    gap: 10,
+    cursor: 'pointer',
+  },
+
+  actionIconWrapper: { position: 'relative' },
+
+  paymentMethodLabel: {
+    fontSize: 12,
     color: theme.palette.text.second,
   },
 

@@ -37,9 +37,14 @@ export class AdminSettingsModel {
   adminSettings = {}
 
   serverProxy = []
-  paymentMethods = []
+
   infoModalText = ''
   showSuccessModal = false
+
+  imageUrl = ''
+  imageName = ''
+
+  paymentMethods = []
 
   showInfoModal = false
   get user() {
@@ -62,6 +67,27 @@ export class AdminSettingsModel {
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
+  }
+
+  onImageUpload(event) {
+    const file = event.target.files?.[0]
+    const reader = new FileReader()
+
+    if (file) {
+      reader.onload = e => {
+        if (e?.target && e?.target?.result) {
+          this.imageUrl = e.target.result.toString()
+          this.imageName = file.name
+        }
+      }
+
+      reader.readAsDataURL(file)
+    }
+  }
+
+  onRemoveImage() {
+    this.imageUrl = ''
+    this.imageName = ''
   }
 
   onColumnVisibilityModelChange(model) {

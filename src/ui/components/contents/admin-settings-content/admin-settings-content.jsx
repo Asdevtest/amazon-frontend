@@ -64,8 +64,11 @@ export const AdminSettingsContent = observer(() => {
 
   useEffect(() => {
     setProxyArr(viewModel.serverProxy)
+  }, [viewModel.serverProxy])
+
+  useEffect(() => {
     setPaymentMethods(viewModel.paymentMethods)
-  }, [viewModel.serverProxy, viewModel.paymentMethods])
+  }, [viewModel.paymentMethods])
 
   const adminDynamicSettings = viewModel.adminSettings?.dynamicSettings
 
@@ -230,10 +233,14 @@ export const AdminSettingsContent = observer(() => {
       <TabPanel value={tabIndex} index={5}>
         <div className={classNames.contentWrapper}>
           <TabPaymentMethodsContent
+            imageUrl={viewModel.imageUrl}
+            imageName={viewModel.imageName}
             fieldMethod={fieldMethod}
             paymentMethods={paymentMethods}
             setPaymentMethods={setPaymentMethods}
-            handleChangeFieldMethod={handleChangeFieldMethod}
+            onChangeFieldMethod={handleChangeFieldMethod}
+            onImageUpload={viewModel.onImageUpload}
+            onRemoveImage={viewModel.onRemoveImage}
             onSubmitPaymentMethod={handleSubmitPaymentMethod}
           />
         </div>

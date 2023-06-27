@@ -1,5 +1,9 @@
+import { useState } from 'react'
+
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { IconButton, Typography } from '@mui/material'
+import AutorenewIcon from '@mui/icons-material/Autorenew'
+import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,25 +14,42 @@ import { CopyValue } from '@components/shared/copy-value'
 
 import { t } from '@utils/translations'
 
-import { useAddPaymentMethodIcon } from './use-add-payment-method-icon.ts'
-
 import { useClassNames } from './tab-payment-methods-content.style'
 
 export const TabPaymentMethodsContent = ({
+  imageUrl,
+  imageName,
+  onImageUpload,
+  onRemoveImage,
   fieldMethod,
   paymentMethods,
-  handleChangeFieldMethod,
+  onChangeFieldMethod,
   setPaymentMethods,
   onSubmitPaymentMethod,
 }) => {
   const { classes: classNames } = useClassNames()
 
-  const { imageUrl, imageName, onImageUpload, onRemoveImage } = useAddPaymentMethodIcon()
+  const [externalImageUrl, setExternalImageUrl] = useState('')
+
+  const handleChangeExternalImageUrl = event => {
+    setExternalImageUrl(event.target.value)
+  }
 
   const onClickDeleteMethod = method => {
     const removeMethod = paymentMethods.filter(m => m !== method)
 
     setPaymentMethods(removeMethod)
+  }
+
+  const externalImageNameArr = externalImageUrl.split('/')
+  const currentImageName = imageName ? imageName : externalImageNameArr[externalImageNameArr.length - 1]
+  const currentImageUrl = imageUrl ? imageUrl : externalImageUrl
+  const handleRemoveImg = () => {
+    if (imageUrl) {
+      onRemoveImage()
+    } else {
+      setExternalImageUrl('')
+    }
   }
 
   return (
@@ -37,32 +58,42 @@ export const TabPaymentMethodsContent = ({
 
       <div className={classNames.container}>
         <Field
+          disabled={imageUrl}
           label={t(TranslationKey['Add a payment method icon']) + '*'}
           labelClasses={classNames.label}
           classes={{ root: classNames.textField }}
-          value={null}
+          value={externalImageUrl}
           placeholder={t(TranslationKey.Link)}
-          onChange={() => {}}
+          onChange={handleChangeExternalImageUrl}
         />
 
-        <label htmlFor="image-upload" className={classNames.inputContainer}>
+        <label disabled={externalImageUrl} htmlFor="image-upload" className={classNames.inputContainer}>
           <input type="file" accept="image/*" className={classNames.input} onChange={onImageUpload} />
-          <div className={classNames.inputContent}>
-            <span className={classNames.text}>{imageUrl ? imageName : t(TranslationKey['Add photo'])}</span>
-            {!imageUrl && <UploadIcon className={classNames.icon} />}
-          </div>
-
-          {imageUrl && (
-            <span className={classNames.deleteImage} onClick={onRemoveImage}>
-              &times;
-            </span>
-          )}
+          <span className={classNames.text}>{t(TranslationKey['Add photo'])}</span>
+          <UploadIcon className={classNames.icon} />
         </label>
 
-        <Button disabled={!imageUrl} className={classNames.buttonAdd}>
+        <Button disabled className={classNames.buttonAdd}>
           {t(TranslationKey.Load)}
         </Button>
       </div>
+
+      {currentImageUrl && (
+        <div className={classNames.container}>
+          <div className={classNames.containerImage}>
+            <img src={currentImageUrl} alt="payment method" />
+            <span className={classNames.paymentMethodLabel}>{currentImageName}</span>
+            <div className={classNames.actionIconsWrapper}>
+              <div className={classNames.actionIconWrapper}>
+                <input type="file" accept="image/*" className={classNames.input} onChange={onImageUpload} />
+                <AutorenewIcon fontSize="small" />
+              </div>
+
+              <HighlightOffIcon fontSize="small" onClick={handleRemoveImg} />
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className={classNames.container}>
         <Field
@@ -71,7 +102,7 @@ export const TabPaymentMethodsContent = ({
           classes={{ root: classNames.textFieldFullWidth }}
           value={fieldMethod}
           placeholder={t(TranslationKey.Add)}
-          onChange={handleChangeFieldMethod}
+          onChange={onChangeFieldMethod}
         />
 
         <Button disabled className={classNames.buttonAdd}>
