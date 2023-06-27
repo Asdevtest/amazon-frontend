@@ -24,6 +24,7 @@ import {
   TabPanel,
   TabDestinations,
   TabPaymentMethods,
+  TabTags,
 } from './admin-tabs'
 
 import { useClassNames } from './admin-settings-content.style'
@@ -54,28 +55,9 @@ export const AdminSettingsContent = observer(() => {
     setPaymentMethods(viewModel.paymentMethods)
   }, [viewModel.paymentMethods])
 
-  const adminDynamicSettings = viewModel.adminSettings?.dynamicSettings
-
   useEffect(() => {
-    const sourceFormFields = {
-      yuanToDollarRate: adminDynamicSettings?.yuanToDollarRate || 0,
-      costOfFindingSupplier: adminDynamicSettings?.costOfFindingSupplier || 0,
-      costOfCheckingProduct: adminDynamicSettings?.costOfCheckingProduct || 0,
-      deadlineForFindingSupplier: adminDynamicSettings?.deadlineForFindingSupplier || 0,
-      requestMinAmountPriceOfProposal: adminDynamicSettings?.requestMinAmountPriceOfProposal || 0,
-      requestPlatformMarginInPercent: adminDynamicSettings?.requestPlatformMarginInPercent || 0,
-      requestSupervisorFeeInPercent: adminDynamicSettings?.requestSupervisorFeeInPercent || 0,
-      requestTimeLimitInHourForCancelingProposalsByClient:
-        adminDynamicSettings?.requestTimeLimitInHourForCancelingProposalsByClient || 0,
-      requestTimeLimitInHourForCheckingProposalBySuper:
-        adminDynamicSettings?.requestTimeLimitInHourForCheckingProposalBySuper || 0,
-      volumeWeightCoefficient: adminDynamicSettings?.volumeWeightCoefficient || 0,
-      timeToDeadlinePendingOrder: adminDynamicSettings?.timeToDeadlinePendingOrder || 0,
-      tech_pause: adminDynamicSettings?.tech_pause || 0,
-    }
-
-    setFormFields(sourceFormFields)
-  }, [adminDynamicSettings])
+    setFormFields(viewModel.sourceFormFields)
+  }, [viewModel.sourceFormFields])
 
   const onCreateSubmit = () => {
     // if (!adminSettings) { // ЕСЛИ НУЖНО ОБНОВЛЯТЬ ОТДЕЛЬНЫЕ КЛЮЧИ
@@ -230,7 +212,7 @@ export const AdminSettingsContent = observer(() => {
         </div>
       </TabPanel>
       <TabPanel value={tabIndex} index={6}>
-        <TabDestinations />
+        <TabTags />
       </TabPanel>
 
       <WarningInfoModal

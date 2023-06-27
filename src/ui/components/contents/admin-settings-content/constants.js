@@ -17,3 +17,18 @@ export const fieldsWithoutCharactersAfterDote = [
   'requestTimeLimitInHourForCancelingProposalsByClient',
   'requestTimeLimitInHourForCheckingProposalBySuper',
 ]
+
+export const fieldNames = [
+  'yuanToDollarRate',
+  'costOfFindingSupplier',
+  'costOfCheckingProduct',
+  'deadlineForFindingSupplier',
+  'requestMinAmountPriceOfProposal',
+  'requestPlatformMarginInPercent',
+  'requestSupervisorFeeInPercent',
+  'requestTimeLimitInHourForCancelingProposalsByClient',
+  'requestTimeLimitInHourForCheckingProposalBySuper',
+  'volumeWeightCoefficient',
+  'timeToDeadlinePendingOrder',
+  'tech_pause',
+]

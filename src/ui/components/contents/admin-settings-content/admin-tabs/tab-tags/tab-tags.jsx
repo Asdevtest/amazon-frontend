@@ -1,28 +1,30 @@
 import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react'
+
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
+import { AddOrEditTagForm } from '@components/forms/add-or-edit-tag-form'
 import { Button } from '@components/shared/buttons/button'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { AdminSettingsTagsModel } from './tab-tags.model'
+
 import { useClassNames } from './tab-tags.style'
 
-import { AdminSettingsModel } from '../../admin-settings-content.model'
-
-export const TabDestinationsContent = observer(() => {
+export const TabTags = observer(() => {
   const { classes: classNames } = useClassNames()
 
-  const [viewModel] = useState(() => new AdminSettingsModel({ history }))
+  const [viewModel] = useState(() => new AdminSettingsTagsModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -30,12 +32,29 @@ export const TabDestinationsContent = observer(() => {
 
   return (
     <div className={classNames.wrapper}>
-      <Button success className={classNames.saveButton} onClick={() => viewModel?.onClickAddBtn()}>
-        {t(TranslationKey['Add a destination'])}
-      </Button>
+      <div className={classNames.buttons}>
+        <Button
+          danger
+          disabled={!viewModel.rowSelectionModel.length}
+          className={classNames.deleteButton}
+          // onClick={viewModel.removeTags}
+        >
+          {t(TranslationKey['Delete selected tags'])}
+        </Button>
+        <SearchInput
+          inputClasses={classNames.searchInput}
+          value={viewModel.nameSearchValue}
+          placeholder={t(TranslationKey['Search by tags'])}
+          onChange={e => viewModel.onChangeNameSearchValue(e)}
+        />
+        <Button success className={classNames.saveButton} onClick={() => viewModel.onClickAddBtn()}>
+          {t(TranslationKey['Add Tag'])}
+        </Button>
+      </div>
 
       <div className={classNames.datagridWrapper}>
         <MemoDataGrid
+          checkboxSelection
           pagination
           useResizeContainer
           classes={{
@@ -44,13 +63,14 @@ export const TabDestinationsContent = observer(() => {
             toolbarContainer: classNames.toolbarContainer,
           }}
           localeText={getLocalizationByLanguageTag()}
-          sortModel={viewModel?.sortModel}
-          filterModel={viewModel?.filterModel}
-          columnVisibilityModel={viewModel?.columnVisibilityModel}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          rowSelectionModel={viewModel.rowSelectionModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel?.paginationModel}
           pageSizeOptions={[15, 25, 50, 100]}
-          rows={viewModel?.getCurrentData()}
-          rowHeight={120}
+          rows={viewModel.getCurrentData()}
+          rowHeight={70}
           slots={{
             toolbar: DataGridCustomToolbar,
             columnMenuIcon: FilterAltOutlinedIcon,
@@ -58,43 +78,43 @@ export const TabDestinationsContent = observer(() => {
           slotProps={{
             toolbar: {
               columsBtnSettings: {
-                columnsModel: viewModel?.columnsModel,
-                columnVisibilityModel: viewModel?.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel?.onColumnVisibilityModelChange,
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
             },
           }}
-          density={viewModel?.densityModel}
-          columns={viewModel?.columnsModel}
-          loading={viewModel?.requestStatus === loadingStatuses.isLoading}
-          onSortModelChange={viewModel?.onChangeSortingModel}
-          onPaginationModelChange={viewModel?.onChangePaginationModelChange}
-          onFilterModelChange={viewModel?.onChangeFilterModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
+          onPaginationModelChange={viewModel.onChangePaginationModel}
+          onFilterModelChange={viewModel.onChangeFilterModel}
         />
       </div>
 
       <Modal
-        openModal={viewModel?.showAddOrEditDestinationModal}
-        setOpenModal={() => viewModel?.onTriggerOpenModal('showAddOrEditDestinationModal')}
+        openModal={viewModel?.showAddOrEditTagModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditTagModal')}
       >
-        <AddOrEditDestinationForm
-          destinationToEdit={viewModel?.destinationToEdit}
-          onCloseModal={() => viewModel?.onClickCancelBtn()}
-          onCreateSubmit={viewModel?.onSubmitCreateDestination}
-          onEditSubmit={viewModel?.onSubmitEditDestination}
+        <AddOrEditTagForm
+          tagToEdit={viewModel.tagToEdit}
+          onCloseModal={() => viewModel.onClickCancelBtn()}
+          onCreateSubmit={viewModel.createTag}
+          // onEditSubmit={viewModel.editTag}
         />
       </Modal>
 
       <ConfirmationModal
-        isWarning={viewModel?.confirmModalSettings.isWarning}
-        openModal={viewModel?.showConfirmModal}
-        setOpenModal={() => viewModel?.onTriggerOpenModal('showConfirmModal')}
+        isWarning={viewModel.confirmModalSettings.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         title={t(TranslationKey.Attention)}
-        message={viewModel?.confirmModalSettings.message}
+        message={viewModel.confirmModalSettings.message}
         successBtnText={t(TranslationKey.Yes)}
         cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel?.confirmModalSettings.onClickSuccess}
-        onClickCancelBtn={() => viewModel?.onTriggerOpenModal('showConfirmModal')}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
     </div>
   )

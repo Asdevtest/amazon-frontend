@@ -2653,7 +2653,7 @@ export const EditOrRemoveIconBtnsCell = React.memo(
                 >
                   {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <EditOutlinedIcon />}
                 </Button>
-                <Typography className={classNames.editOrRemoveBtnText}>{'Edit'}</Typography>
+                {/* <Typography className={classNames.editOrRemoveBtnText}>{'Edit'}</Typography> */}
               </div>
             )}
 
@@ -2701,7 +2701,7 @@ export const EditOrRemoveIconBtnsCell = React.memo(
               >
                 <DeleteOutlineOutlinedIcon />
               </Button>
-              <Typography className={classNames.editOrRemoveBtnText}>{'Delete'}</Typography>
+              {/* <Typography className={classNames.editOrRemoveBtnText}>{'Delete'}</Typography> */}
             </div>
           ) : null}
         </div>

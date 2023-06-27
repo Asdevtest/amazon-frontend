@@ -1992,5 +1992,12 @@
   "Add a payment method icon": "Добавить иконку способа оплаты",
   "Payment method name": "Название способа оплаты",
   "Payment method successfully saved": "Способ оплаты успешно сохранен",
-  "Payment method is not saved": "Способ оплаты не сохранен"
+  "Payment method is not saved": "Способ оплаты не сохранен",
+  "Add Tag": "Добавить тег",
+  "Delete selected tags": "Удалить выбранные теги",
+  "Search by tags": "Поиск по тегам",
+  "Tag name": "Название тега",
+  "Number of uses": "Количество использований",
+  "Are you sure you want to delete the tag?": "Вы уверены, что хотите удалить тег?",
+  "Add a new tag": "Добавить новый тег"
 }

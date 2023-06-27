@@ -14,6 +14,7 @@ import { destinationsColumns } from '@components/table/table-columns/admin/desti
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 import { SupplierModel } from '@models/supplier-model'
+import { fieldNames } from './constants'
 
 export class AdminSettingsModel {
   history = undefined
@@ -46,6 +47,8 @@ export class AdminSettingsModel {
 
   paymentMethods = []
 
+  sourceFormFields = {}
+
   showInfoModal = false
   get user() {
     return UserModel.userInfo
@@ -67,6 +70,12 @@ export class AdminSettingsModel {
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
+  }
+
+  initializeSourceFormFields() {
+    fieldNames.forEach(fieldName => {
+      this.sourceFormFields[fieldName] = this.adminSettings?.dynamicSettings?.[fieldName] || 0
+    })
   }
 
   onImageUpload(event) {
@@ -180,6 +189,8 @@ export class AdminSettingsModel {
         this.getPaymentMethods(),
       ])
 
+      this.initializeSourceFormFields()
+
       this.getDataGridState()
 
       this.setRequestStatus(loadingStatuses.success)
@@ -274,9 +285,7 @@ export class AdminSettingsModel {
       onClickSuccess: () => this.removeDestination(),
     }
 
-    runInAction(() => {
-      this.onTriggerOpenModal('showConfirmModal')
-    })
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   async removeDestination() {

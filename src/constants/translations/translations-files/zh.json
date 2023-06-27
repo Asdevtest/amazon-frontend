@@ -1991,5 +1991,12 @@
   "Add a payment method icon": "Add a payment method icon",
   "Payment method name": "Payment method name",
   "Payment method successfully saved": "Payment method successfully saved",
-  "Payment method is not saved": "Payment method is not saved"
+  "Payment method is not saved": "Payment method is not saved",
+  "Add Tag": "Add Tag",
+  "Delete selected tags": "Delete selected tags",
+  "Search by tags": "Search by tags",
+  "Tag name": "Tag name",
+  "Number of uses": "Number of uses",
+  "Are you sure you want to delete the tag?": "Are you sure you want to delete the tag?",
+  "Add a new tag": "Add a new tag"
 }

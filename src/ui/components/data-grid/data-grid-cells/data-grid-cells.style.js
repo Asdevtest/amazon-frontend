@@ -1125,7 +1125,7 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: '40px',
+    gap: 30,
     padding: '15px 0',
   },
 

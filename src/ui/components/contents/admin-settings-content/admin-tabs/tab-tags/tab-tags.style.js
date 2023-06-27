@@ -3,13 +3,28 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   wrapper: {
     display: 'flex',
-    alignItems: 'flex-end',
     flexDirection: 'column',
     gap: 10,
   },
 
+  buttons: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  deleteButton: {
+    width: 215,
+  },
+
+  searchInput: {
+    width: 290,
+    height: 40,
+    border: `1px solid ${theme.palette.primary.main}`,
+  },
+
   saveButton: {
-    width: 240,
+    width: 140,
   },
 
   datagridWrapper: {
@@ -34,5 +49,12 @@ export const useClassNames = makeStyles()(theme => ({
   toolbarContainer: {
     padding: '20px 20px 15px',
     height: 79,
+  },
+
+  columnHeaderTitleContainer: {
+    flexDirection: 'row !important',
+  },
+  columnHeaderDraggableContainer: {
+    flexDirection: 'row !important',
   },
 }))
