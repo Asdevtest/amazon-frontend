@@ -1243,6 +1243,9 @@ export class BuyerMyOrdersViewModel {
 
   async onSubmitCreateBoxes({ order, boxesForCreation, trackNumber, commentToWarehouse }) {
     try {
+      console.log('order', order)
+      console.log('boxesForCreation', boxesForCreation)
+
       runInAction(() => {
         this.error = undefined
 
@@ -1267,6 +1270,9 @@ export class BuyerMyOrdersViewModel {
           const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
             {
               ...order.orderSupplier,
+              paymentMethods: order?.orderSupplier?.map(paymentMethod => ({
+                _id: paymentMethod._id,
+              })),
               boxProperties: {
                 amountInBox: elementOrderBox.items[0].amount || 0,
                 boxHeightCm: parseFloat(elementOrderBox?.heightCmSupplier) || 0,
