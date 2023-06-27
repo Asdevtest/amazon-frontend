@@ -12,6 +12,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '100%',
     maxWidth: 720,
     width: '100vh',
+    margin: 'auto',
   },
 
   body: {
