@@ -25,7 +25,6 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { SettingsModel } from '@models/settings-model'
 
 import { Button } from '@components/shared/buttons/button'
-import { MemberPlus, Pencil } from '@components/shared/svg-icons'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
@@ -37,6 +36,7 @@ import { ChatFilesInput } from './chat-files-input'
 import { ChatMessagesList, ChatMessageUniversalHandlers } from './chat-messages-list'
 import { useClassNames } from './chat.style'
 import { ChatMessageByType } from './chat-messages-list/chat-message-by-type'
+import { ChatInfo } from '@components/chat/chat/chat-info/chat-info'
 
 export interface RenderAdditionalButtonsParams {
   message: string
@@ -102,7 +102,7 @@ export const Chat: FC<Props> = observer(
 
     const [showEmojis, setShowEmojis] = useState(false)
 
-    const [showGroupSettings, setShowGroupSettings] = useState(false)
+    const [showChatInfo, setShowChatInfo] = useState(false)
 
     const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
@@ -177,7 +177,7 @@ export const Chat: FC<Props> = observer(
     useEffect(() => {
       setMessage(messageInitialState.message)
       setFiles(messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files)
-      setShowGroupSettings(false)
+      setShowChatInfo(false)
 
       return () => {
         setMessageToReply(null)
@@ -249,78 +249,32 @@ export const Chat: FC<Props> = observer(
             setMessageToReply={setMessageToReply}
           />
 
-          {isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0 ? (
-            <div
-              className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: showGroupSettings })}
-              onClick={() => setShowGroupSettings(!showGroupSettings)}
-            >
-              {showGroupSettings ? (
-                <div className={classNames.collapseWrapper}>
-                  <Typography className={classNames.collapseText}>{t(TranslationKey.Hide)}</Typography>
+          <div
+            className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: showChatInfo })}
+            onClick={() => setShowChatInfo(!showChatInfo)}
+          >
+            {showChatInfo ? (
+              <div className={classNames.collapseWrapper}>
+                <Typography className={classNames.collapseText}>{t(TranslationKey.Hide)}</Typography>
 
-                  <ArrowRightOutlinedIcon className={classNames.arrowIcon} />
-                </div>
-              ) : (
-                <MoreVertOutlinedIcon className={classNames.arrowIcon} />
-              )}
-            </div>
-          ) : null}
-          {showGroupSettings ? (
-            <div className={classNames.groupSettingsWrapper}>
-              <div className={classNames.groupSettingsImageWrapper}>
-                <img src={chat.info?.image || '/assets/img/no-photo.jpg'} className={classNames.groupSettingsImage} />
-                <div className={classNames.groupSettingsImageShadow}></div>
-
-                <div className={classNames.groupSettingsInfoWrapper}>
-                  <div>
-                    <Typography className={classNames.groupSettingsInfoTitle}>{chat.info?.title}</Typography>
-                    <Typography className={classNames.usersCount}>{`${chat.users?.length} ${t(
-                      TranslationKey.Members,
-                    ).toLocaleLowerCase()}`}</Typography>
-                  </div>
-
-                  {userId === chat.info?.createdBy ? (
-                    <Pencil className={classNames.pencilEditIcon} onClick={onClickEditGroupChatInfo} />
-                  ) : null}
-                </div>
+                <ArrowRightOutlinedIcon className={classNames.arrowIcon} />
               </div>
+            ) : (
+              <MoreVertOutlinedIcon className={classNames.arrowIcon} />
+            )}
+          </div>
 
-              {userId === chat.info?.createdBy ? (
-                <Button onClick={onClickAddUsersToGroupChat}>
-                  <div className={classNames.addMemberBtnWrapper}>
-                    <Typography className={classNames.addMemberBtnText}>{t(TranslationKey['Add member'])}</Typography>
-
-                    <MemberPlus className={classNames.arrowIcon} />
-                  </div>
-                </Button>
-              ) : null}
-
-              <div className={classNames.membersWrapper}>
-                {chat.users
-                  .slice()
-                  .sort((a, b) => Number(b._id === chat.info?.createdBy) - Number(a._id === chat.info?.createdBy))
-                  .map(el => (
-                    <div key={el._id} className={classNames.memberWrapper}>
-                      <div className={classNames.memberInfo}>
-                        <Avatar src={getUserAvatarSrc(el._id)} className={classNames.avatarWrapper} />
-                        <Typography className={classNames.opponentName}>{el?.name}</Typography>
-                        {el._id === chat.info?.createdBy ? (
-                          <Typography className={classNames.ownerSign}>{`(${t(TranslationKey.Owner)})`}</Typography>
-                        ) : null}
-                      </div>
-
-                      {el._id !== chat.info?.createdBy && userId === chat.info?.createdBy ? (
-                        <CloseOutlinedIcon
-                          className={classNames.pencilEditIcon}
-                          fontSize="small"
-                          onClick={() => onRemoveUsersFromGroupChat([el._id])}
-                        />
-                      ) : null}
-                    </div>
-                  ))}
-              </div>
-            </div>
-          ) : null}
+          {showChatInfo && (
+            <ChatInfo
+              chat={chat}
+              currentOpponent={currentOpponent}
+              isGroupChat={isGroupChat}
+              userId={userId}
+              onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}
+              onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
+              onClickEditGroupChatInfo={onClickEditGroupChatInfo}
+            />
+          )}
         </div>
 
         {messageToReply && (

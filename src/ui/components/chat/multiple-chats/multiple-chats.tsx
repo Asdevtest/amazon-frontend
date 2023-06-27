@@ -146,6 +146,7 @@ export const MultipleChats = observer(
                   searchPhrase={searchPhrase}
                   renderAdditionalButtons={renderAdditionalButtons}
                   updateData={updateData}
+                  currentOpponent={currentOpponent}
                   onSubmitMessage={(message: string, files: IFile[], replyMessageId: string | null) =>
                     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     onSubmitMessage(message, files, chatSelectedId!, replyMessageId)

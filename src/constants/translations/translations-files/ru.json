@@ -1728,7 +1728,7 @@
   "Proxy": "Прокси",
   "Such dialogue already exists": "Такой диалог уже существует",
   "Name of group chat": "Название группового чата",
-  "Members": "Участников",
+  "Members": "Участники",
   "Add member": "Добавить участника",
   "Owner": "Владелец",
   "Update supplier data": "Обновить данные поставщика",
@@ -1987,5 +1987,7 @@
   "Uploaded by on listing": "Выгружено на листинг",
   "Partial payment": "Частичная оплата",
   "Search companion": "Поиск собеседника",
-  "Service representative": "Представитель услуг"
+  "Service representative": "Представитель услуг",
+  "Participants": "Участников",
+  "Photo and Video": "Фото и Видео"
 }
