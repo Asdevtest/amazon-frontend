@@ -1,4 +1,4 @@
-import {configurePersistable} from 'mobx-persist-store'
+import { configurePersistable } from 'mobx-persist-store'
 
 const setItem = async (key, value) => {
   try {
@@ -24,5 +24,5 @@ configurePersistable(
     stringify: true,
     debugMode: false,
   },
-  {delay: 200, fireImmediately: false},
+  { delay: 200, fireImmediately: false },
 )

@@ -1,4 +1,4 @@
-import {useRef} from 'react'
+import { useRef } from 'react'
 
 export const noop = () => {}
 
@@ -27,8 +27,8 @@ export const cancellablePromise = promise => {
 
   const wrappedPromise = new Promise((resolve, reject) => {
     promise.then(
-      value => (isCanceled ? reject({isCanceled, value}) : resolve(value)),
-      error => reject({isCanceled, error}),
+      value => (isCanceled ? reject({ isCanceled, value }) : resolve(value)),
+      error => reject({ isCanceled, error }),
     )
   })
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextCell,
@@ -8,9 +8,9 @@ import {
   WarehouseTariffDestinationCell,
   WarehouseTariffRatesCell,
   MultilineTextHeaderCell,
-} from '@components/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const TotalTariffsColumns = () => [
   {
@@ -69,7 +69,9 @@ export const TotalTariffsColumns = () => [
     field: 'dates',
     headerName: t(TranslationKey.Dates),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dates)} />,
-    renderCell: params => <WarehouseTariffDatesCell row={params.row} />,
+    renderCell: params => (
+      <WarehouseTariffDatesCell cls={params.row?.cls} etd={params.row?.etd} eta={params.row?.eta} />
+    ),
     width: 370,
     filterable: false,
     sortable: false,

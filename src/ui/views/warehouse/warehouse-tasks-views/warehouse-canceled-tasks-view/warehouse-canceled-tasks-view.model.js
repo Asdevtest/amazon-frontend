@@ -1,19 +1,18 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { mapTaskStatusEmumToKey, TaskStatus } from '@constants/task/task-status'
 
-import {OtherModel} from '@models/other-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { OtherModel } from '@models/other-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {warehouseCanceledTasksViewColumns} from '@components/table-columns/warehouse/canceled-tasks-columns'
+import { warehouseCanceledTasksViewColumns } from '@components/table/table-columns/warehouse/canceled-tasks-columns'
 
-import {warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {objectToUrlQs} from '@utils/text'
+import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
+import { objectToUrlQs } from '@utils/text'
 
 export class WarehouseCanceledTasksViewModel {
   history = undefined
@@ -34,50 +33,23 @@ export class WarehouseCanceledTasksViewModel {
 
   rowCount = 0
 
-  drawerOpen = false
-
   rowHandlers = {
     setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
   }
-  firstRowId = undefined
   sortModel = []
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
   densityModel = 'compact'
-  columnsModel = warehouseCanceledTasksViewColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = warehouseCanceledTasksViewColumns(this.rowHandlers)
 
   showTaskInfoModal = false
 
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = warehouseCanceledTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
@@ -86,18 +58,13 @@ export class WarehouseCanceledTasksViewModel {
     })
   }
 
-  setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
-    })
-
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_CANCELED_TASKS)
   }
@@ -107,26 +74,28 @@ export class WarehouseCanceledTasksViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = warehouseCanceledTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
 
-  onChangeRowsPerPage(e) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.rowsPerPage = e
-
-      this.curPage = 0
+      this.paginationModel = model
     })
 
+    this.setDataGridState()
+    this.getTasksMy()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
     this.getTasksMy()
   }
 
@@ -136,16 +105,11 @@ export class WarehouseCanceledTasksViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
     })
+    this.setDataGridState()
     this.getTasksMy()
   }
 
@@ -210,33 +174,20 @@ export class WarehouseCanceledTasksViewModel {
 
   async setCurrentOpenedTask(item) {
     try {
-      const result = await StorekeeperModel.getTaskById(item._id)
-
-      const platformSettingsResult = await UserModel.getPlatformSettings()
+      const [task, platformSettings] = await Promise.all([
+        StorekeeperModel.getTaskById(item._id),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
-        this.volumeWeightCoefficient = platformSettingsResult.volumeWeightCoefficient
+        this.volumeWeightCoefficient = platformSettings.volumeWeightCoefficient
 
-        this.curOpenedTask = result
+        this.curOpenedTask = task
       })
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onChangeTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
-
-    this.getTasksMy()
   }
 
   async getTasksMy() {
@@ -245,7 +196,7 @@ export class WarehouseCanceledTasksViewModel {
 
       const filter = objectToUrlQs({
         or: [
-          {asin: {$contains: this.nameSearchValue}},
+          { asin: { $contains: this.nameSearchValue } },
           {
             trackNumberText: {
               [`${
@@ -253,8 +204,8 @@ export class WarehouseCanceledTasksViewModel {
               }`]: this.nameSearchValue,
             },
           },
-          {id: {$eq: this.nameSearchValue}},
-          {item: {$eq: this.nameSearchValue}},
+          { id: { $eq: this.nameSearchValue } },
+          { item: { $eq: this.nameSearchValue } },
         ].filter(
           el =>
             ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) && !el.id) ||
@@ -264,8 +215,8 @@ export class WarehouseCanceledTasksViewModel {
 
       const result = await StorekeeperModel.getLightTasksWithPag({
         status: mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED],
-        offset: this.curPage * this.rowsPerPage,
-        limit: this.rowsPerPage,
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
         filters: this.nameSearchValue ? filter : null,
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
@@ -278,7 +229,7 @@ export class WarehouseCanceledTasksViewModel {
 
         // this.tasksMyBase = result.rows
 
-        this.tasksMy = warehouseTasksDataConverter(result.rows.map(el => ({...el, beforeBoxes: el.boxesBefore})))
+        this.tasksMy = warehouseTasksDataConverter(result.rows.map(el => ({ ...el, beforeBoxes: el.boxesBefore })))
       })
 
       this.setRequestStatus(loadingStatuses.success)

@@ -1,8 +1,9 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   cardsWrapper: {
     width: '485px',
+    padding: '25px 0 30px',
     backgroundColor: theme.palette.background.general,
     // boxShadow: '0px 2px 11px 2px #DFDFDF',
     boxShadow: `0px 2px 11px 2px ${theme.palette.boxShadow.general}`,
@@ -12,7 +13,7 @@ export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: '10px 40px',
+    padding: '10px 35px 10px 30px',
     borderBottom: '1px solid #eeeeee',
     alignItems: 'center',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
@@ -27,7 +28,7 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '30px',
   },
   cardListTitle: {
-    fontSize: '20px',
+    fontSize: '18px',
     lineHeight: '27px',
     color: theme.palette.text.general,
     fontWeight: 600,

@@ -1,1 +1,1 @@
-export {LinkSubUserForm} from './link-sub-user-form'
+export { LinkSubUserForm } from './link-sub-user-form'

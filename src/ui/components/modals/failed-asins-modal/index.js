@@ -1,1 +1,1 @@
-export {FailedAsinsModal} from './failed-asins-modal'
+export { FailedAsinsModal } from './failed-asins-modal'

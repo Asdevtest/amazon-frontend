@@ -1,1 +1,1 @@
-export {RegistrationView} from './registration-view'
+export { RegistrationView } from './registration-view'

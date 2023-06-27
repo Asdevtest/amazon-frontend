@@ -1,1 +1,1 @@
-export {CustomSearchRequestDetails} from './custom-request-details'
+export { CustomSearchRequestDetails } from './custom-request-details'

@@ -1,30 +1,9 @@
 export const styles = theme => ({
   tableWrapper: {
-    // height: 'calc(100vh - 180px)',
     height: 'calc(100vh - 250px)',
-
     [theme.breakpoints.down(1282)]: {
       height: 'calc(100vh - 250px)',
     },
-  },
-
-  modalMessageWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '20px',
-  },
-  heightFieldAuto: {
-    height: 'auto',
-    maxWidth: '380px',
-    minWidth: '250px',
-
-    padding: 0,
-  },
-  buttonsWrapper: {
-    marginTop: '15px',
-    display: 'flex',
-    justifyContent: 'flex-end',
   },
 
   headerWrapper: {
@@ -34,14 +13,9 @@ export const styles = theme => ({
     marginBottom: 20,
   },
 
-  rowCancelBtn: {
-    marginLeft: '10px',
-  },
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
   },
 
@@ -49,7 +23,6 @@ export const styles = theme => ({
     position: 'absolute',
     top: 0,
     right: 0,
-
     borderTop: 'none !important',
     [theme.breakpoints.down(768)]: {
       '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(3)': {
@@ -71,17 +44,13 @@ export const styles = theme => ({
       height: '100px',
       display: 'grid',
       gridTemplateColumns: 'repeat(2, 1fr)',
-
       alignItems: 'start',
-
       marginTop: '40px',
-
       '& > button': {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'start',
         alignItems: 'center !important',
-
         fontSize: '12px',
       },
       '& > button > span': {
@@ -93,7 +62,6 @@ export const styles = theme => ({
     [theme.breakpoints.down(768)]: {
       display: 'flex',
       flexDirection: 'column',
-
       '& > div': {
         width: '100%',
       },
@@ -103,9 +71,6 @@ export const styles = theme => ({
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
-    // '&:hover': {
-    //   transform: 'scale(1.01)',
-    // },
     border: 0,
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     backgroundColor: theme.palette.background.general,
@@ -122,25 +87,18 @@ export const styles = theme => ({
     boxShadow: 'inset 0 0 35px rgba(0, 255, 0, .5)',
   },
 
-  warningRow: {
-    boxShadow: 'inset 0 0 35px rgba(255, 0, 0, .5)',
-  },
-
   button: {
     padding: '0 15px',
     height: 'auto',
     whiteSpace: 'nowrap',
     marginBottom: 5,
     color: theme.palette.primary.main,
-
     display: 'flex',
     alignItems: 'center !important',
     gap: '12px',
     justifyContent: 'center',
-
     fontSize: 14,
     fontWeight: 600,
-
     '&>disabled': {
       backgroundColor: 'inherit',
     },
@@ -157,33 +115,7 @@ export const styles = theme => ({
   selectedBoxesBtn: {
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
-
-    borderBottom: '5px solid #0460DE',
-
+    borderBottom: theme.palette.other.tableActiveFilterBtn,
     color: `${theme.palette.primary.main} !important`,
-  },
-  columnHeaderDraggableContainer: {
-    flexDirection: 'row !important',
-  },
-  columnHeaderTitleContainer: {
-    flexDirection: 'row !important',
-    display: 'flex !important',
-    alignItems: 'center !important',
-  },
-  iconSeparator: {
-    padding: '0 1px',
-  },
-
-  resolveTaskModalContent: {
-    paddingTop: 0,
-    paddingBottom: 0,
-  },
-
-  memoDataGridWrapper: {
-    height: '81vh',
-
-    [theme.breakpoints.down(1282)]: {
-      height: '76vh',
-    },
   },
 })

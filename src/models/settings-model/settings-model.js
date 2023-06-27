@@ -1,15 +1,15 @@
 import axios from 'axios'
-import {compareVersions} from 'compare-versions'
+import { compareVersions } from 'compare-versions'
 import isEqual from 'lodash.isequal'
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
-import {makePersistable} from 'mobx-persist-store'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
+import { makePersistable } from 'mobx-persist-store'
 
-import {appVersion} from '@constants/app-version'
-import {snackNoticeKey} from '@constants/snack-notifications'
-import {UiTheme} from '@constants/themes'
-import {LanguageKey} from '@constants/translations/language-key'
+import { appVersion } from '@constants/app-version'
+import { snackNoticeKey } from '@constants/keys/snack-notifications'
+import { UiTheme } from '@constants/theme/themes'
+import { LanguageKey } from '@constants/translations/language-key'
 
-import {setI18nConfig} from '@utils/translations'
+import { setI18nConfig } from '@utils/translations'
 
 const persistProperties = [
   'dataGridState',
@@ -22,6 +22,7 @@ const persistProperties = [
 ]
 
 const stateModelName = 'SettingsModel'
+
 class SettingsModelStatic {
   dataGridState = {}
   activeSubCategoryState = {}
@@ -34,6 +35,8 @@ class SettingsModelStatic {
   breadcrumbsForProfile = null
   showHints = true
   noticeOfSimpleChats = true
+
+  lastCrumbAdditionalText = ''
 
   destinationsFavourites = []
 
@@ -48,9 +51,9 @@ class SettingsModelStatic {
   }
 
   constructor() {
-    makeAutoObservable(this, undefined, {autoBind: true})
-    makePersistable(this, {name: stateModelName, properties: persistProperties})
-      .then(({isHydrated}) => {
+    makeAutoObservable(this, undefined, { autoBind: true })
+    makePersistable(this, { name: stateModelName, properties: persistProperties })
+      .then(({ isHydrated }) => {
         runInAction(() => {
           this.isHydrated = isHydrated
         })
@@ -78,46 +81,30 @@ class SettingsModelStatic {
       },
     })
 
-    const cach = await caches.keys()
-    console.log('appVersion', appVersion)
-    console.log('response.data.version', response.data.version)
-
-    console.log('caches', caches)
-    console.log('cach.keys()', cach)
-
-    // if (appVersion !== response.data.version) {
-
-    console.log(
-      'compareVersions(response.data.version, appVersion)',
-      compareVersions(response.data.version, appVersion),
-    )
-
     if (compareVersions(response.data.version, appVersion) > 0) {
-      console.log('!!!*** versions do not match')
+      // console.log('!!!*** versions do not match')
 
-      // if (caches) {
-      //   caches.keys().then(names => {
-      //     for (const name of names) {
-      //       caches.delete(name)
-      //     }
-      //   })
-      // }
+      // Очистка локального хранилища
+      localStorage.clear()
 
-      if (cach) {
-        cach.forEach(names => {
+      // Очистка кэша
+      if (window.caches && window.caches.delete) {
+        caches.keys().then(names => {
           for (const name of names) {
             caches.delete(name)
           }
         })
+      } else {
+        // Для старых версий Edge используем следующий способ очистки кэша
+        window.location.reload(true)
       }
 
-      console.log('!!!*** start reload window')
       window.location.reload()
-
-      // function redirectFunc() {
-      //   window.location.href = "https://www.w3docs.com/";
-      // }
     }
+  }
+
+  changeLastCrumbAdditionalText(text) {
+    this.lastCrumbAdditionalText = text
   }
 
   setDestinationsFavouritesItem(item) {
@@ -129,17 +116,17 @@ class SettingsModelStatic {
     } else {
       this.destinationsFavourites.push(item)
     }
-    console.log('this.destinationsFavourites ', toJS(this.destinationsFavourites))
+    // console.log('this.destinationsFavourites ', toJS(this.destinationsFavourites))
   }
 
   setIntervalCheckAppVersion() {
     setTimeout(() => {
-      console.log('!!!*** setTimeout version check')
+      // console.log('!!!*** setTimeout version check')
       this.checkAppVersion()
     }, 30000)
 
     setInterval(() => {
-      console.log('!!!*** setInterval version check')
+      // console.log('!!!*** setInterval version check')
 
       this.checkAppVersion()
     }, 300000)
@@ -154,19 +141,19 @@ class SettingsModelStatic {
   }
 
   setDataGridState(state, tableKey) {
-    this.dataGridState = {...this.dataGridState, [tableKey]: state}
+    this.dataGridState = { ...this.dataGridState, [tableKey]: state }
   }
 
   setActiveSubCategoryState(state, tableKey) {
-    this.activeSubCategoryState = {...this.activeSubCategoryState, [tableKey]: state}
+    this.activeSubCategoryState = { ...this.activeSubCategoryState, [tableKey]: state }
   }
 
   setViewTableModeState(state, tableKey) {
-    this.viewTableModeState = {...this.viewTableModeState, [tableKey]: state}
+    this.viewTableModeState = { ...this.viewTableModeState, [tableKey]: state }
   }
 
   setChatMessageState(state, tableKey) {
-    this.chatMessageState = {...this.chatMessageState, [tableKey]: state}
+    this.chatMessageState = { ...this.chatMessageState, [tableKey]: state }
   }
 
   setLanguageTag(languageKey) {
@@ -181,9 +168,9 @@ class SettingsModelStatic {
     this.breadcrumbsForProfile = pathname
   }
 
-  setSnackNotifications({key, notice}) {
+  setSnackNotifications({ key, notice }) {
     runInAction(() => {
-      this.snackNotifications = {...this.snackNotifications, [key]: notice}
+      this.snackNotifications = { ...this.snackNotifications, [key]: notice }
     })
   }
 }

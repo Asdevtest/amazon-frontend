@@ -1,4 +1,4 @@
-import {isNull, isUndefined} from '@utils/checks'
+import { isNull, isUndefined } from '@utils/checks'
 
 export const getObjectKeys = target => Object.keys(target)
 
@@ -7,11 +7,11 @@ export const getObjectEntries = (target, rules) => {
   return entries.map(([, value]) => value)
 }
 
-export const getObjectFilteredByKeyArrayWhiteList = (obj, keyArr, skipUndefined, valueModifier) =>
+export const getObjectFilteredByKeyArrayWhiteList = (obj, keyArr, skipUndefined, valueModifier, keepNull) =>
   Object.keys(obj)
     .filter(key => keyArr.includes(key))
     .reduce((acc, key) => {
-      if (skipUndefined && isUndefined(obj[key])) {
+      if ((skipUndefined && isUndefined(obj[key])) || (!keepNull && isNull(obj[key]))) {
         return acc
       } else {
         acc[key] = valueModifier ? valueModifier(key, obj[key]) : obj[key]
@@ -53,3 +53,15 @@ export const getNewObjectWithDefaultValue = (target, defaultValue) =>
     acc[cur] = defaultValue
     return acc
   }, {})
+
+export const filterNullValues = obj => {
+  const result = {}
+
+  Object.keys(obj).forEach(key => {
+    if (obj[key] !== null) {
+      result[key] = obj[key]
+    }
+  })
+
+  return result
+}

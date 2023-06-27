@@ -1,22 +1,22 @@
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {toJS} from 'mobx'
-import {observer} from 'mobx-react'
+import { toJS } from 'mobx'
+import { observer } from 'mobx-react'
 import qs from 'qs'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {SearchInput} from '@components/search-input'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { SearchInput } from '@components/shared/search-input'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {chosenGoodsColumns, inventoryColumns} from './bind-stock-goods-to-inventory-columns'
-import {useClassNames} from './bind-stock-goods-to-inventory-form.style'
+import { chosenGoodsColumns, inventoryColumns } from './bind-stock-goods-to-inventory-columns'
+import { useClassNames } from './bind-stock-goods-to-inventory-form.style'
 
 const chipConfigSettings = {
   RECOMMENDED: 'RECOMMENDED',
@@ -25,8 +25,8 @@ const chipConfigSettings = {
 }
 
 export const BindStockGoodsToInventoryForm = observer(
-  ({goodsToSelect, inventoryData, updateInventoryData, onSubmit}) => {
-    const {classes: classNames} = useClassNames()
+  ({ goodsToSelect, inventoryData, updateInventoryData, onSubmit }) => {
+    const { classes: classNames } = useClassNames()
 
     const [chosenGoods, setChosenGoods] = useState(goodsToSelect)
 
@@ -60,15 +60,15 @@ export const BindStockGoodsToInventoryForm = observer(
       .stringify(
         chipConfig === chipConfigSettings.RECOMMENDED
           ? goodsToSelect.length === 1
-            ? {[filterByChipConfig(chipConfig)]: {$contains: goodsToSelect[0].asin}}
+            ? { [filterByChipConfig(chipConfig)]: { $contains: goodsToSelect[0].asin } }
             : {
                 or: goodsToSelect.reduce(
-                  (ac, cur) => (ac = [...ac, {[filterByChipConfig(chipConfig)]: {$contains: cur.asin}}]),
+                  (ac, cur) => (ac = [...ac, { [filterByChipConfig(chipConfig)]: { $contains: cur.asin } }]),
                   [],
                 ),
               }
-          : {[filterByChipConfig(chipConfig)]: {$contains: searchInputValue}},
-        {encode: false},
+          : { [filterByChipConfig(chipConfig)]: { $contains: searchInputValue } },
+        { encode: false },
       )
       .replace(/&/, ';')
 
@@ -78,7 +78,9 @@ export const BindStockGoodsToInventoryForm = observer(
 
     useEffect(() => {
       if (chipConfig === chipConfigSettings.RECOMMENDED) {
-        const recFilter = qs.stringify({asin: {$contains: goodsToSelect[0].asin}}, {encode: false}).replace(/&/, ';')
+        const recFilter = qs
+          .stringify({ asin: { $contains: goodsToSelect[0].asin } }, { encode: false })
+          .replace(/&/, ';')
         const isRecCall = true
 
         updateInventoryData(recFilter, isRecCall)
@@ -94,9 +96,9 @@ export const BindStockGoodsToInventoryForm = observer(
     }, [searchInputValue])
 
     const onClickSubmit = () => {
-      const selectedWarehouseStocks = chosenGoods.map(el => ({sku: el.sku, shopId: el.shop._id}))
+      const selectedWarehouseStocks = chosenGoods.map(el => ({ sku: el.sku, shopId: el.shop._id }))
 
-      onSubmit({productId: selectedRow._id, warehouseStocks: selectedWarehouseStocks})
+      onSubmit({ productId: selectedRow._id, warehouseStocks: selectedWarehouseStocks })
     }
 
     return (
@@ -140,7 +142,6 @@ export const BindStockGoodsToInventoryForm = observer(
             </Button>
 
             <SearchInput
-              inputClasses={classNames.searchInput}
               disabled={chipConfig === chipConfigSettings.RECOMMENDED}
               value={searchInputValue}
               placeholder={t(TranslationKey.search)}
@@ -157,7 +158,7 @@ export const BindStockGoodsToInventoryForm = observer(
               //   backgroundColor: theme.palette.background.general,
               // }}
               rows={toJS(inventoryData)}
-              columns={inventoryColumns({selectRow: onClickRowRadioBtn}, selectedRow)}
+              columns={inventoryColumns({ selectRow: onClickRowRadioBtn }, selectedRow)}
               rowHeight={60}
             />
           </div>
@@ -175,7 +176,7 @@ export const BindStockGoodsToInventoryForm = observer(
               //   backgroundColor: theme.palette.background.general,
               // }}
               rows={chosenGoods || []}
-              columns={chosenGoodsColumns({onClickTrash})}
+              columns={chosenGoodsColumns({ onClickTrash })}
               rowHeight={60}
             />
           </div>

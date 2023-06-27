@@ -1,54 +1,54 @@
-import {cx} from '@emotion/css'
-import {Typography, Paper, Avatar, Rating, Divider} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography, Paper, Avatar, Rating, Divider } from '@mui/material'
 
 import React from 'react'
 
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-  freelanceRequestTypeTranslate,
-} from '@constants/freelance-request-type'
 import {
   MyRequestStatusTranslate,
   RequestProposalStatus,
   RequestProposalStatusColor,
   RequestProposalStatusTranslate,
-} from '@constants/request-proposal-status'
-import {colorByRequestStatus, RequestStatus} from '@constants/request-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+} from '@constants/requests/request-proposal-status'
+import { colorByRequestStatus, RequestStatus } from '@constants/requests/request-status'
+import {
+  freelanceRequestType,
+  freelanceRequestTypeByCode,
+  freelanceRequestTypeByKey,
+  freelanceRequestTypeTranslate,
+} from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CustomCarousel} from '@components/custom-carousel'
-import {VacantRequestPriceCell} from '@components/data-grid-cells/data-grid-cells'
-import {Field} from '@components/field'
-import {UserLink} from '@components/user-link'
+import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
+import { UserLink } from '@components/user/user-link'
 
-import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
-import {translateProposalsLeftMessage} from '@utils/validation'
+import { formatNormDateTime, formatNormDateTimeWithParseISO } from '@utils/date-time'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { toFixed, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
+import { translateProposalsLeftMessage } from '@utils/validation'
 
-import {useClassNames} from './servant-general-request-info.style'
+import { useClassNames } from './servant-general-request-info.style'
+import { CustomSlider } from '@components/shared/custom-slider'
 
-export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals}) => {
-  const {classes: classNames} = useClassNames()
+export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals }) => {
+  const { classes: classNames } = useClassNames()
 
   const buttonDisabled =
     (request?.request.restrictMoreThanOneProposalFromOneAssignee && requestProposals.length) ||
     requestProposals.some(
       el =>
-        el.proposal.status === RequestProposalStatus.CREATED ||
-        el.proposal.status === RequestProposalStatus.CORRECTED ||
-        el.proposal.status === RequestProposalStatus.VERIFYING_BY_SUPERVISOR ||
-        el.proposal.status === RequestProposalStatus.EXPIRED ||
-        el.proposal.status === RequestProposalStatus.TO_CORRECT ||
-        el.proposal.status === RequestProposalStatus.READY_TO_VERIFY ||
-        el.proposal.status === RequestProposalStatus.PROPOSAL_EDITED ||
-        el.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED ||
-        el.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-        el.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_REJECTED,
+        el.proposal?.status === RequestProposalStatus?.CREATED ||
+        el.proposal?.status === RequestProposalStatus?.CORRECTED ||
+        el.proposal?.status === RequestProposalStatus?.VERIFYING_BY_SUPERVISOR ||
+        el.proposal?.status === RequestProposalStatus?.EXPIRED ||
+        el.proposal?.status === RequestProposalStatus?.TO_CORRECT ||
+        el.proposal?.status === RequestProposalStatus?.READY_TO_VERIFY ||
+        el.proposal?.status === RequestProposalStatus?.PROPOSAL_EDITED ||
+        el.proposal?.status === RequestProposalStatus?.OFFER_CONDITIONS_CORRECTED ||
+        el.proposal?.status === RequestProposalStatus?.OFFER_CONDITIONS_ACCEPTED ||
+        el.proposal?.status === RequestProposalStatus?.OFFER_CONDITIONS_REJECTED,
     )
 
   const getMainInfos = () => (
@@ -114,7 +114,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
             inputComponent={
               <Typography
                 className={classNames.deadline}
-                style={{color: colorByRequestStatus(request?.request.status)}}
+                style={{ color: colorByRequestStatus(request?.request.status) }}
               >
                 {MyRequestStatusTranslate(request?.request.status)}
               </Typography>
@@ -285,7 +285,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
         <div className={classNames.proposalsWrapper}>
           <Divider orientation={'vertical'} />
 
-          <CustomCarousel view="complex" title={t(TranslationKey.Proposal)}>
+          <CustomSlider view="complex" title={t(TranslationKey.Proposal)}>
             {requestProposals.map((proposal, index) => (
               <div key={index} className={classNames.proposalWrapper}>
                 <Field
@@ -312,7 +312,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
                   <div className={classNames.statusField}>
                     <span
                       className={classNames.circleIndicator}
-                      style={{backgroundColor: RequestProposalStatusColor(proposal.proposal.status)}}
+                      style={{ backgroundColor: RequestProposalStatusColor(proposal.proposal.status) }}
                     />
                     <Typography className={classNames.status}>
                       {RequestProposalStatusTranslate(proposal.proposal.status)}
@@ -321,7 +321,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
                 </div>
               </div>
             ))}
-          </CustomCarousel>
+          </CustomSlider>
         </div>
       </div>
     </Paper>

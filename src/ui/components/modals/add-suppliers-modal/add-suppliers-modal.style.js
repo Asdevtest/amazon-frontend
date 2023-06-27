@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -11,12 +11,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     marginBottom: '30px',
   },
-  modalText: {
-    color: theme.palette.text.general,
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '21px',
-  },
+
   linkWrapper: {
     display: 'flex',
     gap: '5px',
@@ -45,16 +40,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
     alignItems: 'center',
     marginBottom: '30px',
-  },
-
-  copyImg: {
-    width: '20px',
-    height: '20px',
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.2)',
-    },
   },
 
   copyWrapper: {

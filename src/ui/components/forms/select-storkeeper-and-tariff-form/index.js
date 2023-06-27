@@ -1,1 +1,1 @@
-export {SelectStorekeeperAndTariffForm} from './select-storkeeper-and-tariff-form'
+export { SelectStorekeeperAndTariffForm } from './select-storkeeper-and-tariff-form'

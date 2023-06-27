@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -22,12 +22,9 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  button: {width: '121px', height: '40px'},
+  button: { width: '121px', height: '40px' },
 
   closeButton: {
-    color: theme.palette.text.general,
-  },
-  title: {
     color: theme.palette.text.general,
   },
 
@@ -42,31 +39,6 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'hidden',
 
     padding: 0,
-  },
-
-  allowUrlsWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-  },
-
-  urlInputWrapper: {
-    width: 'auto',
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  httpMethodSelect: {
-    height: '65px',
-    width: '95px',
-  },
-
-  urlInput: {
-    overflowY: 'auto',
-    whiteSpace: 'wrap',
-    height: '65px',
-    marginRight: '20px',
-    width: '450px',
   },
 
   form: {

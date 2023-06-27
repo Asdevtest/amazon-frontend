@@ -1,1 +1,1 @@
-export {DashboardOneLineCardsList} from './dashboard-one-line-cards-list'
+export { DashboardOneLineCardsList } from './dashboard-one-line-cards-list'

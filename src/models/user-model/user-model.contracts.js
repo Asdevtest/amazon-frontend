@@ -1,6 +1,6 @@
-import {IsString, IsNotEmpty, IsEmail} from 'class-validator'
+import { IsString, IsNotEmpty, IsEmail } from 'class-validator'
 
-import {InlineResponse2007, InlineResponse2011} from '@services/rest-api-service/codegen/src'
+import { InlineResponse2007, InlineResponse2011 } from '@services/rest-api-service/codegen/src'
 
 export class UserSignInDataContract extends InlineResponse2011 {}
 

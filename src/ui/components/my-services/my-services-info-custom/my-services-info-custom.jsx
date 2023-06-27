@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Typography, Paper, Avatar, Rating, Divider} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography, Paper, Avatar, Rating, Divider } from '@mui/material'
 
 import React from 'react'
 
@@ -9,22 +9,22 @@ import {
   freelanceRequestTypeByCode,
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
-} from '@constants/freelance-request-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+} from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
+import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { Button } from '@components/shared/buttons/button'
 
-import {calcNumberMinusPercent, calcPercentAfterMinusNumbers} from '@utils/calculation'
-import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-time'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/calculation'
+import { formatDateDistanceFromNowStrict, formatNormDateTime } from '@utils/date-time'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './my-services-info-custom.style'
+import { useClassNames } from './my-services-info-custom.style'
 
-export const MyServicesInfoCustom = ({request, announcementData, onClickSuggestDealBtn}) => {
-  const {classes: classNames} = useClassNames()
+export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggestDealBtn }) => {
+  const { classes: classNames } = useClassNames()
   const now = new Date()
 
   const newProductPrice =
@@ -44,7 +44,7 @@ export const MyServicesInfoCustom = ({request, announcementData, onClickSuggestD
                 <Rating
                   disabled
                   value={5}
-                  classes={{icon: classNames.icon}}
+                  classes={{ icon: classNames.icon }}
                   size="small"
                   // onChange={onChangeField('rating')}
                 />
@@ -74,7 +74,7 @@ export const MyServicesInfoCustom = ({request, announcementData, onClickSuggestD
                   <div className={classNames.pricesWrapper}>
                     {newProductPrice && (
                       <Typography
-                        className={cx(classNames.blockInfoCellText, {[classNames.newPrice]: newProductPrice})}
+                        className={cx(classNames.blockInfoCellText, { [classNames.newPrice]: newProductPrice })}
                       >
                         {'$ ' + toFixed(newProductPrice, 2)}
                       </Typography>
@@ -112,7 +112,7 @@ export const MyServicesInfoCustom = ({request, announcementData, onClickSuggestD
                   {
                     <RequestStatusCell
                       status={request?.request.status}
-                      styles={{fontWeight: 600, fontSize: 14, lineHeight: '19px', textAlign: 'left'}}
+                      styles={{ fontWeight: 600, fontSize: 14, lineHeight: '19px', textAlign: 'left' }}
                     />
                   }
                 </div>
@@ -155,7 +155,7 @@ export const MyServicesInfoCustom = ({request, announcementData, onClickSuggestD
           </div>
         </div>
 
-        <Divider orientation="vertical" className={classNames.divider} />
+        <Divider orientation="vertical" />
 
         <div className={cx(classNames.announcementBlock)}>
           <Typography className={classNames.requestTitle}>{t(TranslationKey.Announcement)}</Typography>

@@ -1,34 +1,32 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
 
-import {observer} from 'mobx-react'
-import {useHistory} from 'react-router-dom'
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { OrderProductModal } from '@components/modals/order-product-modal'
+import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
 
-import {DataGridCustomColumnMenuComponent} from '@components/data-grid-custom-components/data-grid-custom-column-component'
-import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {Modal} from '@components/modal'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
-import {SuccessInfoModal} from '@components/modals/success-info-modal'
-import {OrderProductModal} from '@components/screens/client/order-product-modal'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { OrdersModel } from './orders.model'
+import { useClassNames } from './orders.style'
 
-import {OrdersModel} from './orders.model'
-import {useClassNames} from './orders.style'
-
-export const Orders = observer(({productId, showAtProcessOrders}) => {
-  const {classes: classNames} = useClassNames()
+export const Orders = observer(({ productId, showAtProcessOrders }) => {
+  const { classes: classNames } = useClassNames()
   const history = useHistory()
-  const model = useRef(new OrdersModel({history, productId, showAtProcessOrders}))
+  const model = useRef(new OrdersModel({ history, productId, showAtProcessOrders }))
 
   const {
     orderStatusData,
@@ -48,22 +46,16 @@ export const Orders = observer(({productId, showAtProcessOrders}) => {
     showSuccessModal,
     showConfirmModal,
     onClickTableRow,
-    updateColumnsModel,
     onTriggerOpenModal,
     onConfirmSubmitOrderProductModal,
     onClickSaveBarcode,
     onDoubleClickBarcode,
     setDataGridState,
-    changeColumnsModel,
   } = model.current
 
   useEffect(() => {
     model.current.loadData()
   }, [])
-
-  useEffect(() => {
-    updateColumnsModel()
-  }, [SettingsModel.languageTag])
 
   return (
     <div className={classNames.mainWrapper}>
@@ -75,18 +67,27 @@ export const Orders = observer(({productId, showAtProcessOrders}) => {
         classes={{
           row: classNames.row,
         }}
-        rowsPerPageOptions={[15, 25, 50, 100]}
+        columnVisibilityModel={model.current.columnVisibilityModel}
+        pageSizeOptions={[15, 25, 50, 100]}
         rows={getCurrentData()}
         rowHeight={100}
-        components={{
-          Toolbar: DataGridCustomToolbar,
-          ColumnMenuIcon: FilterAltOutlinedIcon,
-          ColumnMenu: DataGridCustomColumnMenuComponent,
+        slots={{
+          toolbar: DataGridCustomToolbar,
+          columnMenuIcon: FilterAltOutlinedIcon,
+          columnMenu: DataGridCustomColumnMenuComponent,
         }}
-        componentsProps={{
-          columnMenu: {orderStatusData},
+        slotProps={{
+          columnMenu: { orderStatusData },
           toolbar: {
-            columsBtnSettings: {columnsModel, changeColumnsModel},
+            resetFiltersBtnSettings: {
+              onClickResetFilters: model.current.onClickResetFilters,
+              isSomeFilterOn: model.current.isSomeFilterOn,
+            },
+            columsBtnSettings: {
+              columnsModel,
+              columnVisibilityModel: model.current.columnVisibilityModel,
+              onColumnVisibilityModelChange: model.current.onColumnVisibilityModelChange,
+            },
           },
         }}
         columns={columnsModel}

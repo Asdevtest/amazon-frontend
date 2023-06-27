@@ -1,1 +1,1 @@
-export {FeedBackModal} from './feedback-modal'
+export { FeedBackModal } from './feedback-modal'

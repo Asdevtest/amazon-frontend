@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -30,18 +30,6 @@ export const useClassNames = makeStyles()(theme => ({
       padding: '10px 40px 10px 10px',
       width: '100vw',
     },
-  },
-
-  btnsWrapper: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-
-  backBtn: {
-    marginRight: '10px',
   },
 
   endAdornment: {
@@ -192,7 +180,6 @@ export const useClassNames = makeStyles()(theme => ({
       gap: 10,
     },
   },
-  backIcon: {},
   sendBtnText: {
     [theme.breakpoints.down(768)]: {
       display: 'none',
@@ -211,13 +198,13 @@ export const useClassNames = makeStyles()(theme => ({
   hideAndShowIconWrapper: {
     position: 'absolute',
     top: 20,
-    right: 20,
+    right: 30,
     zIndex: 1200,
-    width: '40px',
-    height: '40px',
+    width: 40,
+    height: 40,
     // backgroundColor: '#d1d1d1a8', // старый цвет
-    backgroundColor: '#FFFFFF',
-    boxShadow: '0px 2px 40px 2px rgba(0, 0, 0, 0.1)',
+    backgroundColor: theme.palette.background.general,
+    boxShadow: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -288,10 +275,6 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'flex-end',
   },
 
-  groupSettingsInfo: {
-    // marginLeft: 10,
-  },
-
   groupSettingsInfoTitle: {
     fontWeight: 600,
     fontSize: 14,
@@ -343,14 +326,6 @@ export const useClassNames = makeStyles()(theme => ({
     height: 30,
 
     marginRight: 10,
-
-    // cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    // transition: '.3s ease',
-
-    // '&:hover': {
-    //   transform: 'scale(1.01)',
-    //   opacity: '0.8',
-    // },
   },
 
   memberWrapper: {
@@ -378,4 +353,38 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
     marginLeft: 5,
   },
+
+  messageToReplyWrapper: {
+    wordBreak: 'break-word',
+    whiteSpace: 'normal',
+    position: 'relative',
+    overflowY: 'auto',
+    maxHeight: 300,
+    display: 'flex',
+    // flexGrow: 1,
+    // alignItems: 'flex-end',
+
+    cursor: 'pointer',
+  },
+
+  messageToReplyIcon: {
+    position: 'sticky',
+    top: 20,
+    margin: '0px 5px',
+  },
+
+  messageToReplyCloseIcon: {
+    position: 'sticky',
+    top: 20,
+    marginLeft: 'auto',
+    marginRight: 10,
+
+    cursor: 'pointer',
+    transition: '.3s ease',
+    '&: hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+
+  messageToReplySubWrapper: {},
 }))

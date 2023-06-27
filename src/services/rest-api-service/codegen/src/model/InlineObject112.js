@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
+import ApiV1StorekeepersTariffLogisticsDestinationVariations from './ApiV1StorekeepersTariffLogisticsDestinationVariations';
 
 /**
  * The InlineObject112 model module.
@@ -23,10 +24,11 @@ class InlineObject112 {
     /**
      * Constructs a new <code>InlineObject112</code>.
      * @alias module:model/InlineObject112
+     * @param name {String} Название тарифа
      */
-    constructor() { 
+    constructor(name) { 
         
-        InlineObject112.initialize(this);
+        InlineObject112.initialize(this, name);
     }
 
     /**
@@ -34,7 +36,8 @@ class InlineObject112 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name) { 
+        obj['name'] = name;
     }
 
     /**
@@ -48,6 +51,9 @@ class InlineObject112 {
         if (data) {
             obj = obj || new InlineObject112();
 
+            if (data.hasOwnProperty('tariffType')) {
+                obj['tariffType'] = ApiClient.convertToType(data['tariffType'], 'Number');
+            }
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
@@ -75,12 +81,21 @@ class InlineObject112 {
             if (data.hasOwnProperty('conditionsByRegion')) {
                 obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
+            if (data.hasOwnProperty('destinationVariations')) {
+                obj['destinationVariations'] = ApiClient.convertToType(data['destinationVariations'], [ApiV1StorekeepersTariffLogisticsDestinationVariations]);
+            }
         }
         return obj;
     }
 
 
 }
+
+/**
+ * Тип тарифа
+ * @member {Number} tariffType
+ */
+InlineObject112.prototype['tariffType'] = undefined;
 
 /**
  * Название тарифа
@@ -134,6 +149,11 @@ InlineObject112.prototype['archive'] = undefined;
  * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
  */
 InlineObject112.prototype['conditionsByRegion'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1StorekeepersTariffLogisticsDestinationVariations>} destinationVariations
+ */
+InlineObject112.prototype['destinationVariations'] = undefined;
 
 
 

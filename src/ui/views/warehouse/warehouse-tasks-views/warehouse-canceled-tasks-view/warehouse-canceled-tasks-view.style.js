@@ -1,23 +1,14 @@
 export const styles = theme => ({
   tableWrapper: {
-    // height: 'calc(100vh - 180px)',
     height: 'calc(100vh - 250px)',
-
     [theme.breakpoints.down(1282)]: {
       height: 'calc(100vh - 250px)',
     },
   },
-  modalMessageWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '20px',
-  },
+
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
   },
 
@@ -32,7 +23,6 @@ export const styles = theme => ({
     position: 'absolute',
     top: 0,
     right: 0,
-
     borderTop: 'none !important',
     [theme.breakpoints.down(768)]: {
       '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(3)': {
@@ -54,17 +44,13 @@ export const styles = theme => ({
       height: '100px',
       display: 'grid',
       gridTemplateColumns: 'repeat(2, 1fr)',
-
       alignItems: 'start',
-
       marginTop: '40px',
-
       '& > button': {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'start',
         alignItems: 'center !important',
-
         fontSize: '12px',
       },
       '& > button > span': {
@@ -107,10 +93,8 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     marginBottom: 5,
     color: theme.palette.primary.main,
-
     fontSize: 14,
     fontWeight: 600,
-
     '&>disabled': {
       backgroundColor: 'inherit',
     },
@@ -127,17 +111,7 @@ export const styles = theme => ({
   selectedBoxesBtn: {
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
-
-    borderBottom: '5px solid #0460DE',
-
+    borderBottom: theme.palette.other.tableActiveFilterBtn,
     color: `${theme.palette.primary.main} !important`,
-  },
-
-  boxesFiltersWrappe44: {
-    marginTop: '5px',
-    marginBottom: '10px',
-    display: 'flex',
-    gap: '10px',
-    flexWrap: 'wrap',
   },
 })

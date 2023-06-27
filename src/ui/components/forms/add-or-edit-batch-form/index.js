@@ -1,1 +1,1 @@
-export {AddOrEditBatchForm} from './add-or-edit-batch-form'
+export { AddOrEditBatchForm } from './add-or-edit-batch-form'

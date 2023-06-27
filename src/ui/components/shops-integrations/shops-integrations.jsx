@@ -1,23 +1,23 @@
-import {Box, Tabs} from '@mui/material'
+import { Box, Tabs } from '@mui/material'
 
 import React from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {ITab} from '@components/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab/i-tab'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {GoodsDaysReport} from './goods-days-report'
-import {useClassNames} from './shops-integrations.style'
-import {ShopsView} from './shops-view'
-import {StockReport} from './stock-report/stock-report'
+import { GoodsDaysReport } from './goods-days-report'
+import { useClassNames } from './shops-integrations.style'
+import { ShopsView } from './shops-view'
+import { StockReport } from './stock-report/stock-report'
 
-const TabPanel = ({children, value, index, ...other}) => (
+const TabPanel = ({ children, value, index, ...other }) => (
   <div
     role="tabpanel"
     hidden={value !== index}
@@ -35,20 +35,20 @@ const tabsValues = {
   GOODS_DAYS_REPORT: 'GOODS_DAYS_REPORT',
 }
 
-export const ShopsIntegrations = observer(({openModal}) => {
-  const {classes: classNames} = useClassNames()
+export const ShopsIntegrations = observer(({ openModal }) => {
+  const { classes: classNames } = useClassNames()
 
   const [tabIndex, setTabIndex] = React.useState(tabsValues.SHOPS)
 
   const [curShop, setCurShop] = React.useState('')
 
   return (
-    <React.Fragment>
+    <div className={classNames.shopWrapper}>
       {SettingsModel.languageTag && (
         <Tabs
           variant={'fullWidth'}
           classes={{
-            root: classNames.row,
+            root: classNames.root,
             indicator: classNames.indicator,
           }}
           value={tabIndex}
@@ -87,6 +87,6 @@ export const ShopsIntegrations = observer(({openModal}) => {
       <TabPanel value={tabIndex} index={tabsValues.GOODS_DAYS_REPORT}>
         <GoodsDaysReport curShop={curShop} />
       </TabPanel>
-    </React.Fragment>
+    </div>
   )
 })

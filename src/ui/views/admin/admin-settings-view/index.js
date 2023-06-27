@@ -1,1 +1,1 @@
-export {AdminSettingsView} from './admin-settings-view'
+export { AdminSettingsView } from './admin-settings-view'

@@ -1,39 +1,42 @@
-import {cx} from '@emotion/css'
-import {Chip, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Chip, Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
-import {UiTheme} from '@constants/themes'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
-import {zipCodeGroups} from '@constants/zip-code-groups'
+import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
+import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { UiTheme } from '@constants/theme/themes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
-// import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
-import {Field} from '@components/field/field'
-import {WarehouseDemensions} from '@components/forms/edit-box-storekeeper-form/edit-box-storekeeper-form'
-import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
-import {Modal} from '@components/modal'
-import {WithSearchSelect} from '@components/selects/with-search-select'
-import {Text} from '@components/text'
-import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
-import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
-import {UploadFilesInput} from '@components/upload-files-input'
+import { WarehouseDemensions } from '@components/forms/edit-box-storekeeper-form/edit-box-storekeeper-form'
+import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field/field'
+import { Modal } from '@components/shared/modal'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { Text } from '@components/shared/text'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import {checkIsStorekeeper} from '@utils/checks'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, checkIsStorekeeper } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {SetShippingLabelModal} from '../set-shipping-label-modal'
-import {BoxForMerge} from './box-for-merge'
-import {useClassNames} from './merge-boxes-modal.style'
+import { SetShippingLabelModal } from '../set-shipping-label-modal'
+import { BoxForMerge } from './box-for-merge'
+import { useClassNames } from './merge-boxes-modal.style'
+import { CopyValue } from '@components/shared/copy-value'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { PriorityForm } from '@components/shared/priority-form/priority-form'
+import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
+import { tariffTypes } from '@constants/keys/tariff-types'
 
 export const MergeBoxesModal = ({
+  showCheckbox,
   userInfo,
   destinations,
   storekeepers,
@@ -46,10 +49,13 @@ export const MergeBoxesModal = ({
   setDestinationsFavouritesItem,
   volumeWeightCoefficient,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   // Добавил
   const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
+
+  const [priority, setPriority] = useState()
+  const [priorityReason, setPriorityReason] = useState()
 
   const [boxBody, setBoxBody] = useState({
     shippingLabel: null,
@@ -63,6 +69,9 @@ export const MergeBoxesModal = ({
     logicsTariffId: selectedBoxes.some(box => box.logicsTariff?._id !== selectedBoxes[0]?.logicsTariff?._id)
       ? ''
       : selectedBoxes[0].logicsTariff?._id,
+    variationTariffId: selectedBoxes.some(box => box.variationTariff?._id !== selectedBoxes[0]?.variationTariff?._id)
+      ? null
+      : selectedBoxes[0].variationTariff?._id,
 
     fbaShipment: '',
 
@@ -76,17 +85,23 @@ export const MergeBoxesModal = ({
     images: [],
   })
 
-  // Добавил
+  const [destinationId, setDestinationId] = useState(boxBody?.destinationId)
+
+  useEffect(() => {
+    setDestinationId(boxBody?.destinationId)
+  }, [boxBody?.destinationId])
+
   const setFormField = fieldName => e => {
-    const newFormFields = {...boxBody}
+    const newFormFields = { ...boxBody }
+    const currentValue = e.target.value
 
     if (['weighGrossKgWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'lengthCmWarehouse'].includes(fieldName)) {
-      if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+      if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(currentValue)) {
         return
       }
     }
 
-    newFormFields[fieldName] = e.target.value
+    newFormFields[fieldName] = currentValue
 
     setBoxBody(newFormFields)
   }
@@ -94,23 +109,29 @@ export const MergeBoxesModal = ({
   const [imagesOfBox, setImagesOfBox] = useState([])
 
   const [comment, setComment] = useState('')
-  const onSubmitBoxesModal = () => {
-    // Передаются файлы imagesOfBox
-    onSubmit({...boxBody, destinationId: boxBody.destinationId || null}, comment)
-    // setBoxBody({shippingLabel: '', destinationId: null, logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
-    // setComment('')
+  const getBoxDataToSubmit = () => {
+    if (sizeSetting === unitsOfChangeOptions.US) {
+      return {
+        ...boxBody,
+        destinationId: boxBody.destinationId || null,
+        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse * inchesCoefficient, 2),
+        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse * inchesCoefficient, 2),
+        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse * inchesCoefficient, 2),
+        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
+      }
+    } else {
+      return { ...boxBody, destinationId: boxBody.destinationId || null }
+    }
   }
 
   const onCloseBoxesModal = () => {
     setOpenModal()
-    // setBoxBody({shippingLabel: '', destinationId: null, logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
-    // setComment('')
   }
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
 
   const setShippingLabel = () => value => {
-    const newFormFields = {...boxBody}
+    const newFormFields = { ...boxBody }
     newFormFields.tmpShippingLabel = value
 
     setBoxBody(newFormFields)
@@ -121,15 +142,16 @@ export const MergeBoxesModal = ({
   }
 
   const onDeleteShippingLabel = () => {
-    const newFormFields = {...boxBody}
+    const newFormFields = { ...boxBody }
     newFormFields.shippingLabel = ''
     setBoxBody(newFormFields)
   }
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
-  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-    setBoxBody({...boxBody, storekeeperId, logicsTariffId: tariffId})
+  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId, destinationId) => {
+    setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId })
+    setDestinationId(destinationId)
 
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
@@ -144,7 +166,8 @@ export const MergeBoxesModal = ({
     isDifferentStorekeepers ||
     ((boxBody.shippingLabel || boxBody.tmpShippingLabel?.length) &&
       !boxBody.fbaShipment &&
-      !destinations.find(el => el._id === boxBody.destinationId)?.storekeeper)
+      !destinations.find(el => el._id === boxBody.destinationId)?.storekeeper) ||
+    (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason?.length)
 
   const disabledSubmitStorekeeper =
     disabledSubmit ||
@@ -160,25 +183,27 @@ export const MergeBoxesModal = ({
 
   const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-  const tariffName = storekeepers
-    ?.find(el => el._id === boxBody.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === boxBody.logicsTariffId)?.name
+  const currentStorekeeper = storekeepers.find(el => el._id === boxBody.storekeeperId)
+  const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === boxBody.logicsTariffId)
 
-  const tariffRate = storekeepers
-    ?.find(el => el._id === boxBody.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === boxBody.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+  const tariffName = currentLogicsTariff?.name
+
+  const tariffRate =
+    currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
+    currentLogicsTariff?.destinationVariations?.find(el => el._id === boxBody?.variationTariffId)?.pricePerKgUsd
+
   const boxData = selectedBoxes.map(box => box.items)
 
   const finalBoxData = Object.values(
     boxData.flat().reduce((acc, item) => {
       if (!acc[item.product.asin] && acc[item.product.asin]?.order?._id !== item.order._id) {
-        acc[item.product.asin] = {...item}
+        acc[item.product.asin] = { ...item }
       } else if (
         acc[item.product.asin] &&
         !acc[item.product.asin + 'mark'] &&
         acc[item.product.asin]?.order?._id !== item.order._id
       ) {
-        acc[item.product.asin + 'mark'] = {...item}
+        acc[item.product.asin + 'mark'] = { ...item }
       } else if (acc[item.product.asin + 'mark'] && acc[item.product.asin + 'mark']?.order?._id === item.order._id) {
         acc[item.product.asin + 'mark'].amount = acc[item.product.asin + 'mark'].amount + item.amount
       } else {
@@ -189,24 +214,26 @@ export const MergeBoxesModal = ({
   )
 
   // Добавил
-  const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
-  const handleChange = (event, newAlignment) => {
-    setSizeSetting(newAlignment)
+  const handleChange = condition => {
+    setSizeSetting(condition)
 
-    if (newAlignment === sizesType.INCHES) {
+    if (condition === unitsOfChangeOptions.US) {
       setBoxBody({
         ...boxBody,
-        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse / inchesCoefficient, 4),
-        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse / inchesCoefficient, 4),
-        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse / inchesCoefficient, 4),
+        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse / inchesCoefficient, 2),
+        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse / inchesCoefficient, 2),
+        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse / inchesCoefficient, 2),
+        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse / poundsWeightCoefficient, 2),
       })
     } else {
       setBoxBody({
         ...boxBody,
-        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse * inchesCoefficient, 4),
-        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse * inchesCoefficient, 4),
-        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse * inchesCoefficient, 4),
+        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse * inchesCoefficient, 2),
+        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse * inchesCoefficient, 2),
+        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse * inchesCoefficient, 2),
+        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
       })
     }
   }
@@ -246,7 +273,10 @@ export const MergeBoxesModal = ({
                   <div>
                     <div className={classNames.asinWrapper}>
                       <Typography className={classNames.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
-                      <Typography className={classNames.asinValue}>{order.product?.asin}</Typography>
+                      <div className={classNames.asinTextWrapper}>
+                        <Typography className={classNames.asinValue}>{order.product?.asin}</Typography>
+                        {order.product?.asin && <CopyValue text={order.product?.asin} />}
+                      </div>
                     </div>
                     <div className={classNames.asinWrapper}>
                       <Typography className={classNames.asinTitle}>{t(TranslationKey.Order)}</Typography>
@@ -282,12 +312,19 @@ export const MergeBoxesModal = ({
                       destinations?.find(el => el._id === boxBody.destinationId)?.name ||
                       t(TranslationKey['Not chosen'])
                     }
-                    data={destinations?.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)}
+                    data={
+                      boxBody.logicsTariffId &&
+                      currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
+                        ? destinations
+                            // ?.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
+                            .filter(el => el?._id === destinationId)
+                        : destinations?.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
+                    }
                     searchFields={['name']}
                     favourites={destinationsFavourites}
                     onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-                    onClickNotChosen={() => setBoxBody({...boxBody, destinationId: ''})}
-                    onClickSelect={el => setBoxBody({...boxBody, destinationId: el._id})}
+                    onClickNotChosen={() => setBoxBody({ ...boxBody, destinationId: '' })}
+                    onClickSelect={el => setBoxBody({ ...boxBody, destinationId: el._id })}
                   />
                 }
               />
@@ -307,14 +344,7 @@ export const MergeBoxesModal = ({
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
                     {boxBody.logicsTariffId
-                      ? `${storekeepers?.find(el => el._id === boxBody.storekeeperId)?.name} /  
-                ${
-                  boxBody.logicsTariffId
-                    ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-                        tariffRate ? ' / ' + tariffRate + ' $' : ''
-                      }`
-                    : 'none'
-                }`
+                      ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                       : t(TranslationKey.Select)}
                   </Button>
                 }
@@ -329,10 +359,10 @@ export const MergeBoxesModal = ({
                     !destinations.find(el => el._id === boxBody.destinationId)?.storekeeper,
                 })}
                 labelClasses={classNames.label}
-                inputProps={{maxLength: 255}}
+                inputProps={{ maxLength: 255 }}
                 label={t(TranslationKey['FBA Shipment'])}
                 value={boxBody.fbaShipment}
-                onChange={e => setBoxBody({...boxBody, fbaShipment: e.target.value})}
+                onChange={e => setBoxBody({ ...boxBody, fbaShipment: e.target.value })}
               />
               <Field
                 label={t(TranslationKey['Shipping label']) + ':'}
@@ -347,7 +377,7 @@ export const MergeBoxesModal = ({
                       deleteIcon: classNames.barcodeChipIcon,
                       label: classNames.barcodeChiplabel,
                     }}
-                    className={cx({[classNames.barcodeChipExists]: boxBody.shippingLabel})}
+                    className={cx({ [classNames.barcodeChipExists]: boxBody.shippingLabel })}
                     size="small"
                     label={
                       boxBody.tmpShippingLabel?.length
@@ -378,20 +408,16 @@ export const MergeBoxesModal = ({
                         {t(TranslationKey.Dimensions)}
                       </Text>
 
-                      <ToggleBtnGroup
-                        exclusive
-                        size="small"
-                        color="primary"
-                        value={sizeSetting}
-                        onChange={handleChange}
-                      >
-                        <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                          {'In'}
-                        </ToggleBtn>
-                        <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                          {'Cm'}
-                        </ToggleBtn>
-                      </ToggleBtnGroup>
+                      <div className={classNames.customSwitcherWrapper}>
+                        <CustomSwitcher
+                          condition={sizeSetting}
+                          nameFirstArg={unitsOfChangeOptions.EU}
+                          nameSecondArg={unitsOfChangeOptions.US}
+                          firstArgValue={unitsOfChangeOptions.EU}
+                          secondArgValue={unitsOfChangeOptions.US}
+                          changeConditionHandler={condition => handleChange(condition)}
+                        />
+                      </div>
                     </div>
 
                     <WarehouseDemensions
@@ -422,20 +448,29 @@ export const MergeBoxesModal = ({
 
         {/* Рендерится не у сторкипера  */}
         {!isStorekeeper && (
-          <Field
-            multiline
-            className={classNames.heightFieldAuto}
-            minRows={18}
-            maxRows={18}
-            inputProps={{maxLength: 2000}}
-            label={t(TranslationKey['Client comment on the task'])}
-            placeholder={t(TranslationKey['Client comment on the task'])}
-            value={comment}
-            onChange={e => setComment(e.target.value)}
-          />
+          <div>
+            <PriorityForm
+              setCurrentPriority={setPriority}
+              setComment={setPriorityReason}
+              currentPriority={priority}
+              comment={priorityReason}
+            />
+            <Field
+              multiline
+              labelClasses={classNames.commentLabel}
+              className={classNames.heightFieldAuto}
+              minRows={3}
+              maxRows={3}
+              inputProps={{ maxLength: 2000 }}
+              label={t(TranslationKey['Client comment on the task'])}
+              placeholder={t(TranslationKey['Client comment on the task'])}
+              value={comment}
+              onChange={e => setComment(e.target.value)}
+            />
+          </div>
         )}
       </div>
-      <div className={cx(classNames.modalFooter, {[classNames.modalAlternateFooter]: !isDifferentStorekeepers})}>
+      <div className={cx(classNames.modalFooter, { [classNames.modalAlternateFooter]: !isDifferentStorekeepers })}>
         {isDifferentStorekeepers && (
           <Typography className={classNames.attentionDifStorekeepers}>
             {t(TranslationKey['Intermediate warehouses must match!'])}
@@ -447,7 +482,7 @@ export const MergeBoxesModal = ({
             // Проверка для дизейбла
             disabled={isStorekeeper ? disabledSubmitStorekeeper : disabledSubmit}
             className={classNames.button}
-            onClick={onSubmitBoxesModal}
+            onClick={() => onSubmit(getBoxDataToSubmit(), comment, priority, priorityReason)}
           >
             {t(TranslationKey.Merge)}
           </Button>
@@ -483,9 +518,13 @@ export const MergeBoxesModal = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
+          showCheckbox={showCheckbox}
+          destinationsData={destinations}
           storekeepers={storekeepers?.filter(el => el._id === selectedBoxes[0]?.storekeeper._id)}
-          curStorekeeperId={boxBody.storekeeperId}
-          curTariffId={boxBody.logicsTariffId}
+          curStorekeeperId={boxBody?.storekeeperId}
+          curTariffId={boxBody?.logicsTariffId}
+          currentDestinationId={boxBody?.destinationId}
+          currentVariationTariffId={boxBody?.variationTariffId}
           onSubmit={onSubmitSelectStorekeeperAndTariff}
         />
       </Modal>

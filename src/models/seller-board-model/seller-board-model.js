@@ -1,4 +1,4 @@
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class SellerBoardModelStatic {
   getMyDailyReports = async () => {
@@ -18,7 +18,7 @@ class SellerBoardModelStatic {
   }
 
   getStockGoodsByFilters = async filters => {
-    const response = await restApiService.integrationsApi.apiV1IntegrationsWarehouseReportGet({filters})
+    const response = await restApiService.integrationsApi.apiV1IntegrationsWarehouseReportGet({ filters })
     return response
   }
 

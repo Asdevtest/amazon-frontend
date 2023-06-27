@@ -1,38 +1,38 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import {Typography, Checkbox, Select, ListItemText, MenuItem, Rating} from '@mui/material'
+import { Checkbox, ListItemText, MenuItem, Rating, Select, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
-import {humanFriendlyStategyStatus, mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
+import { mapUserRoleEnumToKey, UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 // import {RegistrationForm} from '@components/forms/registration-form'
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
-import {AddOrEditUserPermissionsForm} from '@components/forms/add-or-edit-user-permissions-form'
-import {Input} from '@components/input'
-import {Modal} from '@components/modal'
-import {UserLink} from '@components/user-link'
+import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user-permissions-form'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
+import { Input } from '@components/shared/input'
+import { Modal } from '@components/shared/modal'
+import { UserLink } from '@components/user/user-link'
 
-import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail} from '@utils/checks'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
-import {t} from '@utils/translations'
-import {validationMessagesArray} from '@utils/validation'
+import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail } from '@utils/checks'
+import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
+import { t } from '@utils/translations'
+import { validationMessagesArray } from '@utils/validation'
 
-import {useClassNames} from './admin-user-edit-content.style'
+import { useClassNames } from './admin-user-edit-content.style'
 
 const activeOptions = [
-  {value: true, label: t(TranslationKey.Active)},
-  {value: false, label: t(TranslationKey.Banned)},
+  { value: true, label: t(TranslationKey.Active) },
+  { value: false, label: t(TranslationKey.Banned) },
 ]
 
 export const AdminUserEditContent = observer(
@@ -47,7 +47,7 @@ export const AdminUserEditContent = observer(
     changeFields,
     wrongPassword,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const [showPermissionModal, setShowPermissionModal] = useState(false)
 
@@ -83,10 +83,10 @@ export const AdminUserEditContent = observer(
     const [clearSelect, setClearSelect] = useState(false)
 
     const [permissionsToSelect, setPermissionsToSelect] = useState([
-      ...singlePermissions.filter(item => item.role === formFields.role),
+      ...((!!singlePermissions && singlePermissions?.filter(item => item?.role === formFields?.role)) || []),
     ])
     const [permissionGroupsToSelect, setPermissionGroupsToSelect] = useState([
-      ...groupPermissions.filter(item => item.role === formFields.role),
+      ...((!!groupPermissions && groupPermissions?.filter(item => item?.role === formFields?.role)) || []),
     ])
 
     useEffect(() => {
@@ -104,7 +104,7 @@ export const AdminUserEditContent = observer(
     }
 
     const onChangeFormField = fieldName => event => {
-      const newFormFields = {...formFields}
+      const newFormFields = { ...formFields }
       if (fieldName === 'rate') {
         newFormFields[fieldName] = event.target.value.replace(/[-]/, '')
       } else if (['fba', 'canByMasterUser', 'hideSuppliers', 'isUserPreprocessingCenterUSA'].includes(fieldName)) {
@@ -151,7 +151,7 @@ export const AdminUserEditContent = observer(
     }, [])
 
     const onSubmitUserPermissionsForm = permissions => {
-      const newFormFields = {...formFields}
+      const newFormFields = { ...formFields }
       newFormFields.permissions = permissions
       newFormFields.permissionGroups = []
       setFormFields(newFormFields)
@@ -176,19 +176,19 @@ export const AdminUserEditContent = observer(
           : [...selectedAllowedRoles, Number(formFields.role)],
       }
 
-      const {oldPassword, password, confirmPassword, ...other} = dataToSubmit
+      const { oldPassword, password, confirmPassword, ...other } = dataToSubmit
 
-      onSubmit(other, editUserFormFields, {oldPassword, password, confirmPassword})
+      onSubmit(other, editUserFormFields, { oldPassword, password, confirmPassword })
     }
 
-    const selectedPermissions = singlePermissions.filter(per => formFields.permissions.includes(per._id))
-    const selectedGroupPermissions = groupPermissions.filter(perGroup =>
-      formFields.permissionGroups.includes(perGroup._id),
+    const selectedPermissions = singlePermissions?.filter(per => formFields?.permissions?.includes(per?._id))
+    const selectedGroupPermissions = groupPermissions?.filter(perGroup =>
+      formFields?.permissionGroups?.includes(perGroup?._id),
     )
 
     const isWrongPermissionsSelect =
-      selectedPermissions.find(per => per.role !== Number(formFields.role)) ||
-      selectedGroupPermissions.find(perGroup => perGroup.role !== Number(formFields.role))
+      selectedPermissions?.find(per => per?.role !== Number(formFields?.role)) ||
+      selectedGroupPermissions?.find(perGroup => perGroup?.role !== Number(formFields?.role))
 
     const disabledSubmitButton =
       !emailIsValid ||
@@ -199,7 +199,6 @@ export const AdminUserEditContent = observer(
       (JSON.stringify(changedAllowedRoles) === JSON.stringify(selectedAllowedRoles) &&
         JSON.stringify(sourceFormFields) === JSON.stringify(formFields))
 
-    // Новое
     const [visibilityPass, setVisibilityPass] = useState(false)
     const [visibilityOldPass, setVisibilityOldPass] = useState(false)
     const [errorOneNumber, setErrorOneNumber] = useState(false)
@@ -344,17 +343,19 @@ export const AdminUserEditContent = observer(
 
             <div className={classNames.nameEmailWrapper}>
               <Field
-                inputProps={{maxLength: 50}}
+                inputProps={{ maxLength: 50 }}
                 label={t(TranslationKey.Name)}
-                error={checkValidationNameOrEmail.nameIsUnique && 'Пользователь с таким именем уже существует'}
+                error={
+                  checkValidationNameOrEmail.nameIsUnique === false && 'Пользователь с таким именем уже существует'
+                }
                 value={formFields.name}
                 onChange={onChangeFormField('name')}
               />
               <Field
-                inputProps={{maxLength: 50}}
+                inputProps={{ maxLength: 50 }}
                 label={t(TranslationKey.Email)}
                 error={
-                  (checkValidationNameOrEmail.emailIsUnique && 'Пользователь с таким email уже существует') ||
+                  (checkValidationNameOrEmail.emailIsUnique === false && 'Пользователь с таким email уже существует') ||
                   (!emailIsValid && t(TranslationKey['Invalid email!']))
                 }
                 value={formFields.email}
@@ -367,7 +368,7 @@ export const AdminUserEditContent = observer(
             <div className={classNames.field}>
               <Field
                 disabled
-                inputProps={{maxLength: 128}}
+                inputProps={{ maxLength: 128 }}
                 labelClasses={classNames.labelField}
                 error={wrongPassword && t(TranslationKey['Old password'])}
                 inputClasses={classNames.input}
@@ -385,7 +386,7 @@ export const AdminUserEditContent = observer(
             <div className={classNames.field}>
               <Field
                 disabled
-                inputProps={{maxLength: 128}}
+                inputProps={{ maxLength: 128 }}
                 labelClasses={classNames.labelField}
                 error={showError}
                 inputClasses={classNames.input}
@@ -406,7 +407,10 @@ export const AdminUserEditContent = observer(
                   errorLowercaseLetter,
                   errorNoEngLetter,
                 ).map((text, index) => (
-                  <span key={index} className={cx(classNames.validationText, {[classNames.red]: submit && text.error})}>
+                  <span
+                    key={index}
+                    className={cx(classNames.validationText, { [classNames.red]: submit && text.error })}
+                  >
                     {text.name}
                   </span>
                 ))}
@@ -415,8 +419,8 @@ export const AdminUserEditContent = observer(
                 <Typography
                   className={cx(
                     classNames.validationHiddenText,
-                    {[classNames.red]: submit && errorMaxLength},
-                    {[classNames.visibility]: errorMaxLength},
+                    { [classNames.red]: submit && errorMaxLength },
+                    { [classNames.visibility]: errorMaxLength },
                   )}
                 >
                   {`${t(TranslationKey.maximum)} 32 ${t(TranslationKey.characters)}`}
@@ -427,7 +431,7 @@ export const AdminUserEditContent = observer(
             <div className={classNames.field}>
               <Field
                 disabled
-                inputProps={{maxLength: 128}}
+                inputProps={{ maxLength: 128 }}
                 labelClasses={classNames.labelField}
                 error={submit && equalityError && t(TranslationKey["Passwords don't match"])}
                 inputClasses={classNames.input}
@@ -443,7 +447,7 @@ export const AdminUserEditContent = observer(
 
           <div className={classNames.middleWrapper}>
             <Field
-              inputProps={{maxLength: 10}}
+              inputProps={{ maxLength: 10 }}
               label={t(TranslationKey.Overdraft)}
               containerClasses={classNames.overdraftContainer}
               value={formFields.overdraft}
@@ -483,7 +487,7 @@ export const AdminUserEditContent = observer(
 
               {!editUserFormFields?.masterUser ? (
                 <Field
-                  inputProps={{maxLength: 8}}
+                  inputProps={{ maxLength: 8 }}
                   containerClasses={classNames.rateContainer}
                   label={t(TranslationKey.Rate)}
                   value={formFields.rate}
@@ -499,7 +503,7 @@ export const AdminUserEditContent = observer(
                 <Field
                   oneLine
                   disabled
-                  inputProps={{maxLength: 8}}
+                  inputProps={{ maxLength: 8 }}
                   inputClasses={classNames.allowedRoleRateInput}
                   containerClasses={classNames.allowedRoleRateContainer}
                   label={t(TranslationKey.Rate)}
@@ -519,7 +523,7 @@ export const AdminUserEditContent = observer(
                       size="small"
                       variant="standard"
                       input={<Input fullWidth />}
-                      classes={{select: classNames.selectRoot}}
+                      classes={{ select: classNames.selectRoot }}
                       value={selectedRole ? selectedRole : 'Роль'}
                       renderValue={selected =>
                         clearSelect ? t(TranslationKey['Choose a role']) : UserRoleCodeMap[selected]
@@ -553,7 +557,7 @@ export const AdminUserEditContent = observer(
                   <Field
                     oneLine
                     disabled
-                    inputProps={{maxLength: 8}}
+                    inputProps={{ maxLength: 8 }}
                     inputClasses={classNames.allowedRoleRateInput}
                     containerClasses={classNames.allowedRoleRateContainer}
                     label={t(TranslationKey.Rate)}
@@ -565,7 +569,7 @@ export const AdminUserEditContent = observer(
               {selectedRole ? (
                 <CheckBoxIcon
                   fontSize="medium"
-                  classes={{root: classNames.actionButton}}
+                  classes={{ root: classNames.actionButton }}
                   onClick={() => addAllowedRole()}
                 />
               ) : null}
@@ -579,7 +583,9 @@ export const AdminUserEditContent = observer(
                   multiple
                   className={classNames.standartText}
                   value={formFields.allowedStrategies}
-                  renderValue={selected => selected.map(el => mapProductStrategyStatusEnum[el]).join(', ')}
+                  renderValue={selected =>
+                    selected.map(el => humanFriendlyStategyStatus(mapProductStrategyStatusEnum[el])).join(', ')
+                  }
                   onChange={onChangeFormField('allowedStrategies')}
                 >
                   {Object.keys(mapProductStrategyStatusEnum).map((strategy, index) => (

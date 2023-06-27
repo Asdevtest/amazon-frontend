@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   modalMainWrapper: {
@@ -36,9 +36,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     height: 40,
     borderRadius: 4,
-
     padding: '0 5px',
-
     '&:before, &:after': {
       border: 'none',
     },
@@ -47,7 +45,6 @@ export const useClassNames = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     gap: 40,
-
     justifyContent: 'flex-end',
   },
   button: {
@@ -61,14 +58,12 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-
     marginBottom: 20,
   },
   inputWrapper: {
     display: 'flex',
     alignItems: 'center',
     width: '100%',
-
     gap: 20,
   },
   linksSubWrapper: {
@@ -79,14 +74,11 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     marginTop: 10,
     gap: 5,
-
     padding: '0 5px 0 15px',
-
     boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
   },
   linkWrapper: {
     width: '100%',
-
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',

@@ -1,34 +1,21 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
-import {Typography, Paper, Avatar, Rating} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography, Paper, Avatar, Rating } from '@mui/material'
 
-import React from 'react'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import Carousel from 'react-material-ui-carousel'
+import { Button } from '@components/shared/buttons/button'
+import { UserLink } from '@components/user/user-link'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
-import {RequestProposalStatus} from '@constants/request-proposal-status'
-import {RequestStatus} from '@constants/request-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { t } from '@utils/translations'
 
-import {Button} from '@components/buttons/button'
-import {CustomCarousel} from '@components/custom-carousel'
-import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
-import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
-import {UserLink} from '@components/user-link'
+import { useClassNames } from './my-services.style'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
 
-import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-time'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
-import {translateProposalsLeftMessage} from '@utils/validation'
-
-import {useClassNames} from './my-services.style'
-
-export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn, onClickCloseAnnouncementBtn}) => {
-  const {classes: classNames} = useClassNames()
+export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBtn, onClickCloseAnnouncementBtn }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <Paper className={classNames.root}>
@@ -41,7 +28,7 @@ export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn
               <div className={classNames.userInfoSubWrapper}>
                 <UserLink
                   blackText
-                  customStyles={{maxWidth: 500, fontSize: 18}}
+                  customStyles={{ maxWidth: 500, fontSize: 18 }}
                   name={announcementData?.createdBy?.name}
                   userId={announcementData?.createdBy?._id}
                 />
@@ -76,20 +63,6 @@ export const MyServicesInfo = ({announcementData, onClickEditBtn, onClickBackBtn
           </div>
         </div>
         <div className={classNames.userCarouselWrapper}>
-          {/* <CustomCarousel>
-            {announcementData?.linksToMediaFiles?.map((imageHash, index) => (
-              <img
-                key={index}
-                alt=""
-                className={classNames.carouselImage}
-                src={getAmazonImageUrl(imageHash, true)}
-                onClick={() => {
-                  // onClickThumbnail({images: announcementData?.linksToMediaFiles, imgIndex: index})
-                }}
-              />
-            ))}
-          </CustomCarousel> */}
-
           <div className={classNames.photoWrapper}>
             <PhotoCarousel isAmazonPhoto files={announcementData?.linksToMediaFiles} />
           </div>

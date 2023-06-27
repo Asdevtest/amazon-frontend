@@ -1,1 +1,1 @@
-export {WarehouseVacantTasksView} from './warehouse-vacant-tasks-view'
+export { WarehouseVacantTasksView } from './warehouse-vacant-tasks-view'

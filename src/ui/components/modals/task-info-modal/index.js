@@ -1,1 +1,1 @@
-export {TaskInfoModal} from './task-info-modal'
+export { TaskInfoModal } from './task-info-modal'

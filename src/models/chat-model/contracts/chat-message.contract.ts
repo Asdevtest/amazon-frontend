@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import {IsBoolean, IsEnum, IsNotEmpty, IsOptional, IsString} from 'class-validator'
+import { IsBoolean, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
-import {TWebsocketChatService} from '@services/websocket-chat-service'
+import { TWebsocketChatService } from '@services/websocket-chat-service'
 
 import {
   ChatMessageDataAddUsersToGroupChatContract,
@@ -16,9 +16,9 @@ import {
   ChatMessageRemovePatchInfoGroupChatContract,
   ChatMessageRemoveUsersFromGroupChatContract,
 } from './chat-message-data.contract'
-import {ChatUserContract} from './chat-user.contract'
+import { ChatUserContract } from './chat-user.contract'
 
-export {ChatMessageType} from '@services/websocket-chat-service'
+export { ChatMessageType } from '@services/websocket-chat-service'
 
 export type TChatMessageDataUniversal =
   | ChatMessageDataAddUsersToGroupChatContract
@@ -57,10 +57,10 @@ export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMess
   @IsEnum(TWebsocketChatService.ChatMessageType)
   public type!: TWebsocketChatService.ChatMessageType
   @IsNotEmpty()
-  @IsString({each: true})
+  @IsString({ each: true })
   public images!: string[]
   @IsNotEmpty()
-  @IsString({each: true})
+  @IsString({ each: true })
   public files!: string[]
   @IsOptional()
   @IsBoolean()
@@ -76,4 +76,7 @@ export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMess
   @IsOptional()
   public user?: ChatUserContract
   public humanFriendlyId?: string
+
+  @IsOptional()
+  public replyMessageId?: boolean | null
 }

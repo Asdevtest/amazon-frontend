@@ -14,6 +14,8 @@ declare module '@mui/material/styles' {
 
 declare module 'react-highlight-words'
 
-declare module 'notistack'
-
 declare module 'he'
+
+declare module 'react-inverted-scrollview'
+
+declare module '@opuscapita/react-markdown'

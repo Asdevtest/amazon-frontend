@@ -1,1 +1,1 @@
-export {VacantRequestListCard} from './vacant-request-list-card'
+export { VacantRequestListCard } from './vacant-request-list-card'

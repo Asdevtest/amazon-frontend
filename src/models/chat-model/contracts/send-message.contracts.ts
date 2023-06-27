@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {IsBoolean, IsNotEmpty, IsOptional, IsString} from 'class-validator'
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
 export class SendMessageRequestParamsContract {
   @IsNotEmpty()
@@ -9,7 +9,7 @@ export class SendMessageRequestParamsContract {
   @IsString()
   public text!: string
   @IsOptional()
-  @IsString({each: true})
+  @IsString({ each: true })
   public images?: string[]
   @IsOptional()
   // @IsString({each: true})
@@ -17,4 +17,7 @@ export class SendMessageRequestParamsContract {
   @IsOptional()
   @IsBoolean()
   public is_draft?: boolean
+
+  @IsOptional()
+  public replyMessageId?: string | null
 }

@@ -1,1 +1,1 @@
-export {VacantCustomRequestsView} from './vacant-requests-view'
+export { VacantCustomRequestsView } from './vacant-requests-view'

@@ -1,23 +1,23 @@
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {FC, useState} from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import he from 'he'
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 import Highlighter from 'react-highlight-words'
 import Linkify from 'react-linkify-always-blank'
 
-import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
 // import {Button} from '@components/buttons/button'
-import {ChatMessageFiles} from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files'
-import {ImagesTile} from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile'
-import {UserLink} from '@components/user-link'
+import { ChatMessageFiles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files'
+import { ImagesTile } from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile'
+import { UserLink } from '@components/user/user-link'
 
-import {formatDateTimeHourAndMinutes} from '@utils/date-time'
+import { formatDateTimeHourAndMinutes } from '@utils/date-time'
 
-import {useClassNames} from './chat-message-basic-text.style'
+import { useClassNames } from './chat-message-basic-text.style'
 
 interface Props {
   showName: boolean
@@ -48,7 +48,7 @@ interface FindChunksProps {
   textToHighlight: string
 }
 
-const findChunks = ({/* autoEscape, caseSensitive, sanitize, */ searchWords, textToHighlight}: FindChunksProps) => {
+const findChunks = ({ /* autoEscape, caseSensitive, sanitize, */ searchWords, textToHighlight }: FindChunksProps) => {
   const chunks: Chunk[] = []
   const textLow = textToHighlight.toLowerCase()
   const sep = /[\s]+/
@@ -86,12 +86,21 @@ const imagesRegex =
   /(http[s]?:\/\/.*\.(?:bmp|cdr|gif|heif|ico|jpeg|jpg|pbm|pcx|pgm|png|ppm|psd|raw|svg|tga|tif|wbmp|webp|xbm|xpm))/i
 
 export const ChatMessageBasicText: FC<Props> = observer(
-  ({message, isIncomming, unReadMessage, isFound, searchPhrase, showName}) => {
-    const {classes: classNames} = useClassNames()
-    const [photoFiles] = useState(() => message.files.filter(url => imagesRegex.test(url)))
-    const [anotherFiles] = useState(() => message.files.filter(url => !imagesRegex.test(url)))
+  ({ message, isIncomming, unReadMessage, isFound, searchPhrase, showName }) => {
+    const { classes: classNames } = useClassNames()
+    const [photoFiles, setPhotoFiles] = useState(() => message.files.filter(url => imagesRegex.test(url)))
+    const [anotherFiles, setAnotherFiles] = useState(() => message.files.filter(url => !imagesRegex.test(url)))
+
+    useEffect(() => {
+      setPhotoFiles(message.files.filter(url => imagesRegex.test(url)))
+      setAnotherFiles(message.files.filter(url => !imagesRegex.test(url)))
+    }, [message])
 
     // console.log('message', message)
+
+    // console.log('photoFiles', photoFiles)
+
+    // console.log('anotherFiles', anotherFiles)
 
     // console.log('message.text', message.text, he.decode(message.text))
 
@@ -99,9 +108,9 @@ export const ChatMessageBasicText: FC<Props> = observer(
       <div
         className={cx(
           classNames.root,
-          {[classNames.rootIsIncomming]: isIncomming},
-          {[classNames.isFound]: isFound},
-          {[classNames.isFoundIncomming]: isFound && isIncomming},
+          { [classNames.rootIsIncomming]: isIncomming },
+          { [classNames.isFound]: isFound },
+          { [classNames.isFoundIncomming]: isFound && isIncomming },
         )}
       >
         <div className={classNames.subWrapper}>
@@ -116,7 +125,7 @@ export const ChatMessageBasicText: FC<Props> = observer(
               blackText={undefined}
               withAvatar={undefined}
               maxNameWidth={undefined}
-              customStyles={{marginBottom: 10}}
+              customStyles={{ marginBottom: 10 }}
               customClassNames={undefined}
             />
           ) : null}
@@ -135,7 +144,7 @@ export const ChatMessageBasicText: FC<Props> = observer(
               textToHighlight={he.decode(message.text)}
               className={classNames.messageText}
               findChunks={findChunks}
-              highlightTag={({children /* , highlightIndex*/}: HighlightTag) => (
+              highlightTag={({ children /* , highlightIndex*/ }: HighlightTag) => (
                 <Linkify>
                   <span
                     className={cx(

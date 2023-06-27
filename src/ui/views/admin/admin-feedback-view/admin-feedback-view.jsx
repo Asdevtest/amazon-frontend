@@ -1,144 +1,100 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {ReplyFeedbackForm} from '@components/forms/reply-feedback-form'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {Modal} from '@components/modal'
-import {Navbar} from '@components/navbar'
-import {SearchInput} from '@components/search-input'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { ReplyFeedbackForm } from '@components/forms/reply-feedback-form'
+import { MainContent } from '@components/layout/main-content'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {AdminFeedbackViewModel} from './admin-feedback-view.model'
-import {styles} from './admin-feedback-view.style'
+import { AdminFeedbackViewModel } from './admin-feedback-view.model'
+import { styles } from './admin-feedback-view.style'
 
-const activeCategory = navBarActiveCategory.NAVBAR_FEEDBACK
+export const AdminFeedbackViewRaw = props => {
+  const [viewModel] = useState(() => new AdminFeedbackViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
-@observer
-export class AdminFeedbackViewRaw extends Component {
-  viewModel = new AdminFeedbackViewModel({history: this.props.history})
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.headerWrapper}>
+          <SearchInput
+            inputClasses={classNames.searchInput}
+            placeholder={t(TranslationKey['Search by name, email'])}
+            value={viewModel.nameSearchValue}
+            onChange={viewModel.onChangeNameSearchValue}
+          />
+        </div>
 
-  render() {
-    const {
-      selectedFeedback,
-      showReplyFeedbackModal,
-      nameSearchValue,
-      getCurrentData,
-      sortModel,
-      filterModel,
-      densityModel,
-      columnsModel,
+        <MemoDataGrid
+          disableVirtualization
+          pagination
+          useResizeContainer
+          localeText={getLocalizationByLanguageTag()}
+          classes={{
+            row: classNames.row,
+            footerContainer: classNames.footerContainer,
+            footerCell: classNames.footerCell,
+            toolbarContainer: classNames.toolbarContainer,
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rowHeight={100}
+          pageSizeOptions={[15, 25, 50, 100]}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          slots={{
+            toolbar: DataGridCustomToolbar,
+            columnMenuIcon: FilterAltOutlinedIcon,
+          }}
+          slotProps={{
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+            },
+          }}
+          getRowHeight={() => 'auto'}
+          rows={viewModel.getCurrentData()}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+        />
 
-      requestStatus,
-      drawerOpen,
-      curPage,
-      rowsPerPage,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      onSelectionModel,
-      onTriggerDrawer,
-      setDataGridState,
-      onChangeSortingModel,
-
-      onChangeFilterModel,
-      onChangeNameSearchValue,
-      onTriggerOpenModal,
-
-      onClickWriteBtn,
-      changeColumnsModel,
-    } = this.viewModel
-
-    const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <Navbar activeCategory={activeCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
-        <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Feedback)}>
-            <MainContent>
-              <div className={classNames.headerWrapper}>
-                <SearchInput
-                  inputClasses={classNames.searchInput}
-                  placeholder={t(TranslationKey['Search by name, email'])}
-                  value={nameSearchValue}
-                  onChange={onChangeNameSearchValue}
-                />
-              </div>
-
-              <MemoDataGrid
-                disableVirtualization
-                pagination
-                useResizeContainer
-                localeText={getLocalizationByLanguageTag()}
-                classes={{
-                  row: classNames.row,
-                  footerContainer: classNames.footerContainer,
-                  footerCell: classNames.footerCell,
-                  toolbarContainer: classNames.toolbarContainer,
-                }}
-                density={densityModel}
-                columns={columnsModel}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowHeight={100}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                loading={requestStatus === loadingStatuses.isLoading}
-                components={{
-                  Toolbar: DataGridCustomToolbar,
-                  ColumnMenuIcon: FilterAltOutlinedIcon,
-                }}
-                componentsProps={{
-                  toolbar: {
-                    columsBtnSettings: {columnsModel, changeColumnsModel},
-                  },
-                }}
-                getRowHeight={() => 'auto'}
-                rows={getCurrentData()}
-                onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection[0])
-                }}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onStateChange={setDataGridState}
-                onFilterModelChange={model => onChangeFilterModel(model)}
-              />
-
-              <Modal
-                openModal={showReplyFeedbackModal}
-                setOpenModal={() => onTriggerOpenModal('showReplyFeedbackModal')}
-              >
-                <ReplyFeedbackForm
-                  feedback={selectedFeedback}
-                  onCloseModal={() => onTriggerOpenModal('showReplyFeedbackModal')}
-                  onSubmit={onClickWriteBtn}
-                />
-              </Modal>
-            </MainContent>
-          </Appbar>
-        </Main>
-      </React.Fragment>
-    )
-  }
+        <Modal
+          openModal={viewModel.showReplyFeedbackModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showReplyFeedbackModal')}
+        >
+          <ReplyFeedbackForm
+            feedback={viewModel.selectedFeedback}
+            onCloseModal={() => viewModel.onTriggerOpenModal('showReplyFeedbackModal')}
+            onSubmit={viewModel.onClickWriteBtn}
+          />
+        </Modal>
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const AdminFeedbackView = withStyles(AdminFeedbackViewRaw, styles)
+export const AdminFeedbackView = withStyles(observer(AdminFeedbackViewRaw), styles)

@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
@@ -96,20 +96,18 @@ export const useClassNames = makeStyles()(theme => ({
 
   footerInfoWrapper: {
     display: 'flex',
-    // margin: '40px 0 30px',
     width: '100%',
-    // justifyContent: 'space-between',
     alignItems: 'flex-end',
   },
 
   footerInfoContainer: {
-    // width: 'min-content',
     margin: '0 20px 0 0',
   },
 
   green: {
     color: 'green',
   },
+
   red: {
     color: 'red',
   },

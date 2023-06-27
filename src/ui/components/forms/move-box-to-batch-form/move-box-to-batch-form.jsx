@@ -1,22 +1,22 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
+import { cx } from '@emotion/css'
+import React, { useState } from 'react'
 
-import React, {useState} from 'react'
+import { toJS } from 'mobx'
+import { observer } from 'mobx-react'
 
-import {toJS} from 'mobx'
-import {observer} from 'mobx-react'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
-import {Button} from '@components/buttons/button'
-import {MemoDataGrid} from '@components/memo-data-grid'
+import { t } from '@utils/translations'
 
-import {t} from '@utils/translations'
+import { moveBoxToBatchFormColumns } from './move-box-to-batch-form-columns'
+import { useClassNames } from './move-box-to-batch-form.style'
 
-import {moveBoxToBatchFormColumns} from './move-box-to-batch-form-columns'
-import {useClassNames} from './move-box-to-batch-form.style'
-
-export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, box, onSubmitCreateBatch}) => {
-  const {classes: classNames} = useClassNames()
+export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, box, onSubmitCreateBatch }) => {
+  const { classes: classNames } = useClassNames()
 
   const [selectedBatch, setSelectedBatch] = useState(null)
 
@@ -32,7 +32,7 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
   }
 
   return (
-    <div className={classNames.root}>
+    <div>
       {filteredBatches.length ? (
         <div className={classNames.batchesExistBlock}>
           <div className={classNames.titleWrapper}>
@@ -60,7 +60,7 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
               //   backgroundColor: theme.palette.background.general,
               // }}
               rows={toJS(filteredBatches)}
-              columns={moveBoxToBatchFormColumns({onClickRowRadioBtn}, selectedBatch)}
+              columns={moveBoxToBatchFormColumns({ onClickRowRadioBtn }, selectedBatch)}
               rowHeight={80}
               onRowClick={e => setSelectedBatch(e.row)}
             />
@@ -80,9 +80,8 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
             <div className={classNames.btnsSubWrapper}>
               <Button
                 disabled={!selectedBatch}
-                color="primary"
                 variant="contained"
-                className={classNames.cancelBtn}
+                className={cx(classNames.cancelBtn, classNames.moveBox)}
                 onClick={() => onSubmit(box, selectedBatch)}
               >
                 {box.batchId ? t(TranslationKey['Move box']) : t(TranslationKey.Add)}

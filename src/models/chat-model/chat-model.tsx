@@ -1,16 +1,16 @@
-import {plainToInstance} from 'class-transformer'
-import {transformAndValidate} from 'class-transformer-validator'
-import {makeAutoObservable, runInAction} from 'mobx'
+import { plainToInstance } from 'class-transformer'
+import { transformAndValidate } from 'class-transformer-validator'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {BACKEND_API_URL} from '@constants/env'
-import {snackNoticeKey} from '@constants/snack-notifications'
-import {noticeSound} from '@constants/sounds.js'
+import { BACKEND_API_URL } from '@constants/keys/env'
+import { snackNoticeKey } from '@constants/keys/snack-notifications'
+import { noticeSound } from '@constants/sounds.js'
 
-import {OtherModel} from '@models/other-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { OtherModel } from '@models/other-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {WebsocketChatService} from '@services/websocket-chat-service'
+import { WebsocketChatService } from '@services/websocket-chat-service'
 import {
   AddUsersToGroupChatParams,
   ChatMessageType,
@@ -21,10 +21,10 @@ import {
   TypingMessageRequestParams,
 } from '@services/websocket-chat-service/interfaces'
 
-import {checkIsChatMessageRemoveUsersFromGroupChatContract} from '@utils/ts-checks'
+import { checkIsChatMessageRemoveUsersFromGroupChatContract } from '@utils/ts-checks'
 
-import {ChatContract, SendMessageRequestParamsContract} from './contracts'
-import {ChatMessageContract, TChatMessageDataUniversal} from './contracts/chat-message.contract'
+import { ChatContract, SendMessageRequestParamsContract } from './contracts'
+import { ChatMessageContract, TChatMessageDataUniversal } from './contracts/chat-message.contract'
 
 const websocketChatServiceIsNotInitializedError = new Error('websocketChatService is not  onotialized')
 const noTokenProvidedError = new Error('no access token in user model, login before useing websocket')
@@ -63,7 +63,7 @@ class ChatModelStatic {
   }
 
   constructor() {
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   public init() {
@@ -101,8 +101,8 @@ class ChatModelStatic {
       return
     }
     try {
-      console.log('crmItemId, crmItemType ', crmItemId, crmItemType)
-      console.log('getChats')
+      // console.log('crmItemId, crmItemType ', crmItemId, crmItemType)
+      // console.log('getChats')
       const getChatsResult = await this.websocketChatService.getChats(crmItemId, crmItemType)
       console.log('getChatsResult ', getChatsResult)
       runInAction(() => {
@@ -129,7 +129,7 @@ class ChatModelStatic {
       return
     }
     try {
-      console.log('getSimpleChats')
+      // console.log('getSimpleChats')
 
       const getSimpleChatsResult = await this.websocketChatService.getChats()
       runInAction(() => {
@@ -168,7 +168,7 @@ class ChatModelStatic {
       throw websocketChatServiceIsNotInitializedError
     }
 
-    console.log('***SEND_MESSAGE', params)
+    // console.log('***SEND_MESSAGE', params)
 
     if (params.files?.length) {
       for (let i = 0; i < params.files.length; i++) {
@@ -178,7 +178,7 @@ class ChatModelStatic {
       }
     }
 
-    const paramsWithLoadedFiles = {...params, files: this.loadedFiles}
+    const paramsWithLoadedFiles = { ...params, files: this.loadedFiles }
 
     this.loadedFiles = []
 
@@ -216,7 +216,7 @@ class ChatModelStatic {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
     }
-    console.log('***TYPING_MESSAGE!!!')
+    // console.log('***TYPING_MESSAGE!!!')
     await this.websocketChatService.typingMessage(params)
     // return plainToInstance(ChatMessageContract, sendMessageResult)
   }
@@ -236,7 +236,7 @@ class ChatModelStatic {
         runInAction(() => {
           this.chats[findChatIndexById].messages = [
             ...this.chats[findChatIndexById].messages.map(mes =>
-              mes._id !== messageId ? mes : {...mes, isRead: true},
+              mes._id !== messageId ? mes : { ...mes, isRead: true },
             ),
           ]
         })
@@ -250,7 +250,7 @@ class ChatModelStatic {
         runInAction(() => {
           this.simpleChats[findSimpleChatIndexById].messages = [
             ...this.simpleChats[findSimpleChatIndexById].messages.map(mes =>
-              mes._id !== messageId ? mes : {...mes, isRead: true},
+              mes._id !== messageId ? mes : { ...mes, isRead: true },
             ),
           ]
         })
@@ -268,26 +268,26 @@ class ChatModelStatic {
   private onNewOrderDeadlineNotification(notification: object[]) {
     // console.log('notification', notification)
 
-    SettingsModel.setSnackNotifications({key: snackNoticeKey.ORDER_DEADLINE, notice: notification})
+    SettingsModel.setSnackNotifications({ key: snackNoticeKey.ORDER_DEADLINE, notice: notification })
   }
 
   private onUserIdea(notification: object[]) {
-    console.log('notification', notification)
+    // console.log('notification', notification)
 
-    SettingsModel.setSnackNotifications({key: snackNoticeKey.IDEAS, notice: notification})
+    SettingsModel.setSnackNotifications({ key: snackNoticeKey.IDEAS, notice: notification })
   }
 
   private onUserOrdersUpdates(notification: object[]) {
-    SettingsModel.setSnackNotifications({key: snackNoticeKey.ORDERS_UPDATES, notice: notification})
+    SettingsModel.setSnackNotifications({ key: snackNoticeKey.ORDERS_UPDATES, notice: notification })
   }
 
   private onUserBoxesUpdates(notification: object[]) {
-    SettingsModel.setSnackNotifications({key: snackNoticeKey.BOXES_UPDATES, notice: notification})
+    SettingsModel.setSnackNotifications({ key: snackNoticeKey.BOXES_UPDATES, notice: notification })
   }
 
   private onNewMessage(newMessage: ChatMessageContract) {
     if (newMessage.type === ChatMessageType.SYSTEM) {
-      console.log('SYS')
+      // console.log('SYS')
 
       this.getSimpleChats()
     }
@@ -313,11 +313,11 @@ class ChatModelStatic {
     const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === message.chatId)
 
     if (message.user?._id !== this.userId && message.type === ChatMessageType.USER) {
-      SettingsModel.setSnackNotifications({key: snackNoticeKey.SIMPLE_MESSAGE, notice: message})
+      SettingsModel.setSnackNotifications({ key: snackNoticeKey.SIMPLE_MESSAGE, notice: message })
     }
 
     if (findSimpleChatIndexById !== -1) {
-      console.log('***NEW_MESSAGE_IS_COME!!!', message)
+      // console.log('***NEW_MESSAGE_IS_COME!!!', message)
 
       if (this.noticeOfSimpleChats && message.user?._id !== this.userId) {
         noticeSound.play()
@@ -353,7 +353,7 @@ class ChatModelStatic {
   }
 
   private onReadMessage(response: OnReadMessageResponse) {
-    console.log('***MY_MESSAGE_IS_READ_!!!')
+    // console.log('***MY_MESSAGE_IS_READ_!!!')
 
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === response.chatId)
 
@@ -361,7 +361,7 @@ class ChatModelStatic {
       runInAction(() => {
         this.chats[findChatIndexById].messages = [
           ...this.chats[findChatIndexById].messages.map(mes =>
-            response.messagesId.includes(mes._id) ? {...mes, isRead: true} : mes,
+            response.messagesId.includes(mes._id) ? { ...mes, isRead: true } : mes,
           ),
         ]
       })
@@ -373,7 +373,7 @@ class ChatModelStatic {
       runInAction(() => {
         this.simpleChats[findSimpleChatIndexById].messages = [
           ...this.simpleChats[findSimpleChatIndexById].messages.map(mes =>
-            response.messagesId.includes(mes._id) ? {...mes, isRead: true} : mes,
+            response.messagesId.includes(mes._id) ? { ...mes, isRead: true } : mes,
           ),
         ]
       })
@@ -399,7 +399,7 @@ class ChatModelStatic {
   }
 
   private onNewChat(newChat: ChatContract) {
-    console.log('***ON_NEW_CHAT!!!')
+    // console.log('***ON_NEW_CHAT!!!')
     this.getSimpleChats()
 
     const chat = plainToInstance<ChatContract, unknown>(ChatContract, newChat)

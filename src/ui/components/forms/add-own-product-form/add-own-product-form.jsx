@@ -1,25 +1,25 @@
-import {Typography, IconButton, Grid, Checkbox} from '@mui/material'
+import { Typography, IconButton, Grid, Checkbox } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {Field} from '@components/field/field'
-import {Input} from '@components/input'
-import {UploadFilesInput} from '@components/upload-files-input'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { Field } from '@components/shared/field/field'
+import { Input } from '@components/shared/input'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
-import {t} from '@utils/translations'
+import { getAmazonCodeFromLink } from '@utils/get-amazon-code-from-link'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './add-own-product-form.style'
+import { useClassNames } from './add-own-product-form.style'
 
-export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValue}) => {
-  const {classes: classNames} = useClassNames()
+export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressValue }) => {
+  const { classes: classNames } = useClassNames()
 
   const [skuLine, setSkuLine] = useState('')
 
@@ -41,22 +41,22 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
   const [formFields, setFormFields] = useState(sourceFormFields)
 
   const onClickParseBtn = () => {
-    setFormFields({...formFields, asin: getAmazonCodeFromLink(formFields.lamazon) || ''})
+    setFormFields({ ...formFields, asin: getAmazonCodeFromLink(formFields.lamazon) || '' })
   }
 
   const onClickSkuBtn = () => {
-    setFormFields({...formFields, skusByClient: [...formFields.skusByClient, skuLine.toUpperCase()]})
+    setFormFields({ ...formFields, skusByClient: [...formFields.skusByClient, skuLine.toUpperCase()] })
     setSkuLine('')
   }
 
   const onRemoveSku = index => {
     const newArr = formFields.skusByClient.filter((el, i) => i !== index)
 
-    setFormFields({...formFields, skusByClient: newArr})
+    setFormFields({ ...formFields, skusByClient: newArr })
   }
 
   const onChangeField = fieldName => event => {
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
     newFormFields[fieldName] = event.target.value
     setFormFields(newFormFields)
   }
@@ -102,7 +102,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
       />
 
       <Field
-        inputProps={{maxLength: 50}}
+        inputProps={{ maxLength: 50 }}
         label={t(TranslationKey.ASIN)}
         labelClasses={classNames.fieldLabel}
         value={formFields.asin}
@@ -144,7 +144,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
                 <div className={classNames.inputWrapper}>
                   <Input
                     placeholder={t(TranslationKey.SKU)}
-                    inputProps={{maxLength: 256}}
+                    inputProps={{ maxLength: 256 }}
                     value={skuLine}
                     className={classNames.input}
                     onChange={e => setSkuLine(e.target.value)}

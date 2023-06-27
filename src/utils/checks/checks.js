@@ -1,5 +1,5 @@
-import {BACKEND_API_URL} from '@constants/env'
-import {UserRole} from '@constants/user-roles'
+import { BACKEND_API_URL } from '@constants/keys/env'
+import { UserRole } from '@constants/keys/user-roles'
 
 export const isNotUndefined = value => typeof value !== 'undefined'
 export const isUndefined = value => typeof value === 'undefined'
@@ -48,7 +48,7 @@ export const isHaveMasterUser = user => !!user.masterUser
 // export const noPermissionsUser = user => !user.permissions // Не используется
 
 export const findTariffInStorekeepersData = (storekeepers, storekeeperId, logicsTariffId) =>
-  storekeepers.find(el => el._id === storekeeperId)?.tariffLogistics.find(el => el._id === logicsTariffId)
+  storekeepers?.find(el => el?._id === storekeeperId)?.tariffLogistics?.find(el => el?._id === logicsTariffId)
 
 export const checkIsImageLink = link =>
   link?.endsWith('.png') ||
@@ -92,3 +92,5 @@ export const checkIsStringFilesSame = (str1, str2) => {
 }
 
 export const isStringInArray = (str, arr) => arr.includes(str)
+
+export const checkDateByDeadline = date => (date !== null ? date < new Date() : false)

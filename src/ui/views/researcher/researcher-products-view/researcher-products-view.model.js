@@ -1,23 +1,23 @@
-import {action, makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { action, makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
-import {mapProductStrategyStatusEnumToKey, ProductStrategyStatus} from '@constants/product-strategy-status'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
+import { mapProductStrategyStatusEnumToKey, ProductStrategyStatus } from '@constants/product/product-strategy-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {ResearcherModel} from '@models/researcher-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { ResearcherModel } from '@models/researcher-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {researcherProductsViewColumns} from '@components/table-columns/researcher/researcher-products-columns'
+import { researcherProductsViewColumns } from '@components/table/table-columns/researcher/researcher-products-columns'
 
-import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
-import {researcherProductsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
-import {getNewObjectWithDefaultValue, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
-import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
+import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
+import { researcherProductsDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getAmazonCodeFromLink } from '@utils/get-amazon-code-from-link'
+import { getNewObjectWithDefaultValue } from '@utils/object'
+import { t } from '@utils/translations'
+import { isValidationErrors, plainValidationErrorAndApplyFuncForEachError } from '@utils/validation'
 
 const formFieldsDefault = {
   amazonLink: '',
@@ -41,9 +41,7 @@ export class ResearcherProductsViewModel {
   reasonError = undefined
   actionStatus = undefined
 
-  drawerOpen = false
-
-  formFields = {...formFieldsDefault}
+  formFields = { ...formFieldsDefault }
   newProductId = undefined
 
   showWarningInfoModal = false
@@ -56,11 +54,12 @@ export class ResearcherProductsViewModel {
 
   sortModel = []
   startFilterModel = undefined
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel = researcherProductsViewColumns()
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   warningInfoModalSettings = {
     isWarning: false,
@@ -71,7 +70,7 @@ export class ResearcherProductsViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
 
@@ -83,51 +82,41 @@ export class ResearcherProductsViewModel {
     //       this.startFilterModel = resetDataGridFilter
     //     }
 
-    makeAutoObservable(this, undefined, {autoBind: true})
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-
-      runInAction(() => {
-        this.products = researcherProductsDataConverter(
-          this.baseNoConvertedProducts.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')),
-        )
-      })
-    }
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.RESEARCHER_PRODUCTS)
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = researcherProductsViewColumns().map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
   }
 
   getDataGridState() {
@@ -135,27 +124,18 @@ export class ResearcherProductsViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = this.startFilterModel
-          ? {
-              ...this.startFilterModel,
-              items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
-            }
-          : state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = researcherProductsViewColumns().map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(
+          this.startFilterModel
+            ? {
+                ...this.startFilterModel,
+                items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
+              }
+            : state.filterModel,
+        )
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
-    })
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
     })
   }
 
@@ -165,21 +145,17 @@ export class ResearcherProductsViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.setDataGridState()
   }
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
+      this.rowSelectionModel = model
     })
   }
 
@@ -324,7 +300,7 @@ export class ResearcherProductsViewModel {
             pathname: '/researcher/products/product',
             search: foundedProd.originalData._id,
           },
-          {startParse: true},
+          { startParse: true },
         )
       } catch (error) {
         console.warn(error)
@@ -361,7 +337,7 @@ export class ResearcherProductsViewModel {
       this.onTriggerOpenModal('showWarningInfoModal')
 
       if (isValidationErrors(error)) {
-        plainValidationErrorAndApplyFuncForEachError(error, ({errorProperty, constraint}) => {
+        plainValidationErrorAndApplyFuncForEachError(error, ({ errorProperty, constraint }) => {
           runInAction(() => {
             this.formFieldsValidationErrors[errorProperty] = constraint
           })
@@ -477,18 +453,6 @@ export class ResearcherProductsViewModel {
         }
       })
     })
-
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
 
   onTriggerOpenModal(modal) {
     runInAction(() => {

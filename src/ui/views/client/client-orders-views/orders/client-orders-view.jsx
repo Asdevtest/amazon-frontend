@@ -1,270 +1,206 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Alert} from '@mui/material'
+import { Alert } from '@mui/material'
 
-import React, {Component} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
-import {DataGridCustomColumnMenuComponent} from '@components/data-grid-custom-components/data-grid-custom-column-component'
-import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {CheckPendingOrderForm} from '@components/forms/check-pending-order-form'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {Modal} from '@components/modal'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
-// import {SuccessInfoModal} from '@components/modals/success-info-modal'
-import {Navbar} from '@components/navbar'
-import {OrderProductModal} from '@components/screens/client/order-product-modal'
-import {SearchInput} from '@components/search-input'
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
+import { MainContent } from '@components/layout/main-content'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { OrderProductModal } from '@components/modals/order-product-modal'
+import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {ClientOrdersViewModel} from './client-orders-view.model'
-import {styles} from './client-orders-view.style'
+import { ClientOrdersViewModel } from './client-orders-view.model'
+import { styles } from './client-orders-view.style'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_ORDERS
+export const ClientOrdersViewRaw = props => {
+  const [viewModel] = useState(
+    () =>
+      new ClientOrdersViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
+  const { classes: classNames } = props
 
-@observer
-class ClientOrdersViewRaw extends Component {
-  viewModel = new ClientOrdersViewModel({history: this.props.history, location: this.props.location})
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.topHeaderBtnsWrapper}>
+          {viewModel.isPendingOrdering ? (
+            <div className={classNames.topHeaderBtnsSubWrapper}>
+              <Button
+                success
+                disabled={!viewModel.selectedRowIds.length}
+                className={classNames.button}
+                onClick={viewModel.onClickManyReorder}
+              >
+                {t(TranslationKey['To order'])}
+              </Button>
 
-  render() {
-    const {
-      orderStatusData,
-      // showSuccessModal,
-      // successModalText,
-      isPendingOrdering,
-      selectedRowIds,
-      navbarActiveSubCategory,
-      destinationsFavourites,
-      rowCount,
-      confirmModalSettings,
-      reorderOrdersData,
+              <Button
+                danger
+                disabled={!viewModel.selectedRowIds.length}
+                className={classNames.button}
+                onClick={viewModel.onConfirmCancelManyReorder}
+              >
+                {t(TranslationKey['Cancel order'])}
+              </Button>
+            </div>
+          ) : (
+            <div />
+          )}
 
-      showAcceptMessage,
-      acceptMessage,
+          <SearchInput
+            inputClasses={classNames.searchInput}
+            placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
+            onSubmit={viewModel.onSearchSubmit}
+          />
 
-      existingOrders,
-      checkPendingData,
-      isOrder,
-      selectedProduct,
-      storekeepers,
-      destinations,
-      platformSettings,
-      requestStatus,
-      currentData,
-      sortModel,
-      filterModel,
-      densityModel,
-      columnsModel,
-      showOrderModal,
-      showSetBarcodeModal,
-      showCheckPendingOrderFormModal,
-      showConfirmModal,
+          <div className={cx({ [classNames.invis]: viewModel.isPendingOrdering })} />
+        </div>
+        <div className={classNames.datagridWrapper}>
+          <MemoDataGrid
+            disableVirtualization
+            pagination
+            useResizeContainer
+            checkboxSelection={viewModel.isPendingOrdering}
+            localeText={getLocalizationByLanguageTag()}
+            classes={{
+              row: classNames.row,
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+            }}
+            sortingMode="server"
+            paginationMode="server"
+            rowCount={viewModel.rowCount}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
+            rows={viewModel.currentData}
+            // rowHeight={100}
+            getRowHeight={() => 'auto'}
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
+            }}
+            slotProps={{
+              columnMenu: viewModel.columnMenuSettings,
 
-      drawerOpen,
-      rowsPerPage,
-      curPage,
-      onTriggerDrawerOpen,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      onClickTableRow,
-      onClickPandingOrder,
-      onClickContinueBtn,
+              toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                },
+              },
+            }}
+            rowSelectionModel={viewModel.selectedRowIds}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+          />
+        </div>
+      </MainContent>
 
-      onSelectionModel,
-      setDataGridState,
-      onChangeSortingModel,
-      onChangeFilterModel,
-
-      onTriggerOpenModal,
-      onClickSaveBarcode,
-      onDoubleClickBarcode,
-      onConfirmSubmitOrderProductModal,
-      onSearchSubmit,
-      setDestinationsFavouritesItem,
-      onConfirmCancelManyReorder,
-      onClickManyReorder,
-      changeColumnsModel,
-    } = this.viewModel
-    const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
+      <Modal
+        openModal={viewModel.showSetBarcodeModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
+      >
+        <SetBarcodeModal
+          item={viewModel.selectedProduct}
+          onClickSaveBarcode={viewModel.onClickSaveBarcode}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
         />
-        <Main>
-          <Appbar
-            title={isPendingOrdering ? t(TranslationKey['Pending orders']) : t(TranslationKey.Orders)}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
-            <MainContent>
-              <div className={classNames.topHeaderBtnsWrapper}>
-                {isPendingOrdering ? (
-                  <div className={classNames.topHeaderBtnsSubWrapper}>
-                    <Button
-                      success
-                      disabled={!selectedRowIds.length}
-                      className={classNames.button}
-                      onClick={onClickManyReorder}
-                    >
-                      {t(TranslationKey['To order'])}
-                    </Button>
+      </Modal>
 
-                    <Button
-                      danger
-                      disabled={!selectedRowIds.length}
-                      className={classNames.button}
-                      onClick={onConfirmCancelManyReorder}
-                    >
-                      {t(TranslationKey['Cancel order'])}
-                    </Button>
-                  </div>
-                ) : (
-                  <div />
-                )}
+      <Modal
+        missClickModalOn
+        openModal={viewModel.showOrderModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}
+      >
+        <OrderProductModal
+          isPendingOrdering={viewModel.isPendingOrdering}
+          reorderOrdersData={viewModel.reorderOrdersData}
+          platformSettings={viewModel.platformSettings}
+          destinations={viewModel.destinations}
+          storekeepers={viewModel.storekeepers}
+          destinationsFavourites={viewModel.destinationsFavourites}
+          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          onTriggerOpenModal={viewModel.onTriggerOpenModal}
+          onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
+          onSubmit={viewModel.onConfirmSubmitOrderProductModal}
+        />
+      </Modal>
 
-                <SearchInput
-                  inputClasses={classNames.searchInput}
-                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
-                  onSubmit={onSearchSubmit}
-                />
+      <Modal
+        openModal={viewModel.showCheckPendingOrderFormModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
+      >
+        <CheckPendingOrderForm
+          existingOrders={viewModel.existingOrders}
+          checkPendingData={viewModel.checkPendingData}
+          onClickPandingOrder={viewModel.onClickPandingOrder}
+          onClickContinueBtn={() => viewModel.onClickContinueBtn(viewModel.isOrder)}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
+        />
+      </Modal>
 
-                <div className={cx({[classNames.invis]: isPendingOrdering})} />
-              </div>
-              <div className={classNames.datagridWrapper}>
-                <MemoDataGrid
-                  disableVirtualization
-                  pagination
-                  useResizeContainer
-                  checkboxSelection={isPendingOrdering}
-                  localeText={getLocalizationByLanguageTag()}
-                  classes={{
-                    row: classNames.row,
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
-                  }}
-                  sortingMode="server"
-                  paginationMode="server"
-                  rowCount={rowCount}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={currentData}
-                  // rowHeight={100}
-                  getRowHeight={() => 'auto'}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                    ColumnMenu: DataGridCustomColumnMenuComponent,
-                  }}
-                  componentsProps={{
-                    columnMenu: {orderStatusData},
-                    toolbar: {
-                      columsBtnSettings: {columnsModel, changeColumnsModel},
-                    },
-                  }}
-                  selectionModel={selectedRowIds}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={onSelectionModel}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onRowDoubleClick={e => onClickTableRow(e.row)}
-                  onFilterModelChange={onChangeFilterModel}
-                />
-              </div>
-            </MainContent>
+      <ConfirmationModal
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        isWarning={viewModel.confirmModalSettings.isWarning}
+        title={viewModel.confirmModalSettings.confirmTitle}
+        message={viewModel.confirmModalSettings.confirmMessage}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
 
-            <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>
-              <SetBarcodeModal
-                item={selectedProduct}
-                onClickSaveBarcode={onClickSaveBarcode}
-                onCloseModal={() => onTriggerOpenModal('showSetBarcodeModal')}
-              />
-            </Modal>
-
-            <Modal
-              missClickModalOn
-              openModal={showOrderModal}
-              setOpenModal={() => onTriggerOpenModal('showOrderModal')}
-            >
-              <OrderProductModal
-                isPendingOrdering={isPendingOrdering}
-                reorderOrdersData={reorderOrdersData}
-                platformSettings={platformSettings}
-                destinations={destinations}
-                storekeepers={storekeepers}
-                destinationsFavourites={destinationsFavourites}
-                setDestinationsFavouritesItem={setDestinationsFavouritesItem}
-                onTriggerOpenModal={onTriggerOpenModal}
-                onDoubleClickBarcode={onDoubleClickBarcode}
-                onSubmit={onConfirmSubmitOrderProductModal}
-              />
-            </Modal>
-
-            <Modal
-              openModal={showCheckPendingOrderFormModal}
-              setOpenModal={() => onTriggerOpenModal('showCheckPendingOrderFormModal')}
-            >
-              <CheckPendingOrderForm
-                existingOrders={existingOrders}
-                checkPendingData={checkPendingData}
-                onClickPandingOrder={onClickPandingOrder}
-                onClickContinueBtn={() => onClickContinueBtn(isOrder)}
-                onClickCancelBtn={() => onTriggerOpenModal('showCheckPendingOrderFormModal')}
-              />
-            </Modal>
-
-            <ConfirmationModal
-              openModal={showConfirmModal}
-              setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-              isWarning={confirmModalSettings.isWarning}
-              title={confirmModalSettings.confirmTitle}
-              message={confirmModalSettings.confirmMessage}
-              successBtnText={t(TranslationKey.Yes)}
-              cancelBtnText={t(TranslationKey.Cancel)}
-              onClickSuccessBtn={confirmModalSettings.onClickConfirm}
-              onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-            />
-          </Appbar>
-        </Main>
-        {acceptMessage && showAcceptMessage ? (
-          <div className={classNames.acceptMessageWrapper}>
-            <Alert elevation={5} severity="success">
-              {acceptMessage}
-            </Alert>
-          </div>
-        ) : null}
-      </React.Fragment>
-    )
-  }
+      {viewModel.acceptMessage && viewModel.showAcceptMessage ? (
+        <div className={classNames.acceptMessageWrapper}>
+          <Alert elevation={5} severity="success">
+            {viewModel.acceptMessage}
+          </Alert>
+        </div>
+      ) : null}
+    </React.Fragment>
+  )
 }
 
-export const ClientOrdersView = withStyles(ClientOrdersViewRaw, styles)
+export const ClientOrdersView = withStyles(observer(ClientOrdersViewRaw), styles)

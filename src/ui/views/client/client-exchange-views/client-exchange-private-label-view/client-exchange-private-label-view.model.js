@@ -1,15 +1,15 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {mapProductStrategyStatusEnumToKey, ProductStrategyStatus} from '@constants/product-strategy-status'
+import { mapProductStrategyStatusEnumToKey, ProductStrategyStatus } from '@constants/product/product-strategy-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {ClientModel} from '@models/client-model'
-import {ShopModel} from '@models/shop-model'
-import {UserModel} from '@models/user-model'
+import { ClientModel } from '@models/client-model'
+import { ShopModel } from '@models/shop-model'
+import { UserModel } from '@models/user-model'
 
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
+import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 
 export class ClientExchangePrivateLabelViewModel {
   history = undefined
@@ -18,31 +18,25 @@ export class ClientExchangePrivateLabelViewModel {
 
   productsVacant = []
   selectedProduct = {}
-  drawerOpen = false
   shopsData = []
 
   productToPay = {}
   showConfirmPayModal = false
   showSuccessModal = false
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getProductsVacant()
-      await this.getShops()
+
+      await Promise.all([this.getProductsVacant(), this.getShops()])
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

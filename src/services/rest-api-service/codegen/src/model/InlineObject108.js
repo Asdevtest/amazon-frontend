@@ -22,10 +22,11 @@ class InlineObject108 {
     /**
      * Constructs a new <code>InlineObject108</code>.
      * @alias module:model/InlineObject108
+     * @param priority {Number} Выставить приоритет задачи
      */
-    constructor() { 
+    constructor(priority) { 
         
-        InlineObject108.initialize(this);
+        InlineObject108.initialize(this, priority);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject108 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, priority) { 
+        obj['priority'] = priority;
     }
 
     /**
@@ -47,8 +49,11 @@ class InlineObject108 {
         if (data) {
             obj = obj || new InlineObject108();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            }
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -58,10 +63,16 @@ class InlineObject108 {
 }
 
 /**
- * Статус
- * @member {Number} status
+ * Выставить приоритет задачи
+ * @member {Number} priority
  */
-InlineObject108.prototype['status'] = undefined;
+InlineObject108.prototype['priority'] = undefined;
+
+/**
+ * Reason of high priority
+ * @member {String} reason
+ */
+InlineObject108.prototype['reason'] = undefined;
 
 
 

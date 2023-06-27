@@ -1,8 +1,8 @@
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class ResearcherModelStatic {
   createProduct = async data => {
-    const response = await restApiService.researcherApi.apiV1ResearchersProductsPost({body: data})
+    const response = await restApiService.researcherApi.apiV1ResearchersProductsPost({ body: data })
     return response
   }
 

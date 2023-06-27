@@ -1,9 +1,10 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   balanceWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
+    marginBottom: '15px',
   },
 
   balanceTitle: {
@@ -30,14 +31,13 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 18,
     // color: theme.palette.text.general,
     lineHeight: '140%',
-    marginBottom: '16px',
+    marginBottom: '3px',
 
     color: theme.palette.text.general,
     [theme.breakpoints.down(768)]: {
       fontSize: 12,
       color: theme.palette.text.general,
       lineHeight: '16px',
-      marginBottom: '16px',
     },
   },
 }))

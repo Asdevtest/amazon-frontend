@@ -1,7 +1,4 @@
 export const styles = theme => ({
-  // root: {
-  //   padding: '0 40px',
-  // },
   formFields: {
     display: 'flex',
     alignItems: 'center',
@@ -20,7 +17,7 @@ export const styles = theme => ({
     marginLeft: '-12px',
   },
   label: {
-    fontWeight: 600,
+    fontSize: '14px',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
 
     color: theme.palette.text.general,
@@ -44,6 +41,7 @@ export const styles = theme => ({
 
   forgotPassword: {
     marginLeft: '20px',
+    fontSize: '14px',
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
 

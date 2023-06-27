@@ -1,1 +1,1 @@
-export {ServiceExchangeView} from './service-exchange-view'
+export { ServiceExchangeView } from './service-exchange-view'

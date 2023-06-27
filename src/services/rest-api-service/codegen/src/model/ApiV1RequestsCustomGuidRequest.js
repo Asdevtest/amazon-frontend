@@ -48,6 +48,9 @@ class ApiV1RequestsCustomGuidRequest {
         if (data) {
             obj = obj || new ApiV1RequestsCustomGuidRequest();
 
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            }
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
@@ -102,6 +105,12 @@ class ApiV1RequestsCustomGuidRequest {
 
 
 }
+
+/**
+ * Приоритет заявки
+ * @member {Number} priority
+ */
+ApiV1RequestsCustomGuidRequest.prototype['priority'] = undefined;
 
 /**
  * Title заявки.

@@ -15,6 +15,7 @@ import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1AdminsOrdersDestination from './ApiV1AdminsOrdersDestination';
 import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
+import ApiV1AdminsTasksLightVariationTariff from './ApiV1AdminsTasksLightVariationTariff';
 import ApiV1BatchesBatch from './ApiV1BatchesBatch';
 import ApiV1BoxesStorekeepersSentToBatchItems from './ApiV1BoxesStorekeepersSentToBatchItems';
 
@@ -111,6 +112,9 @@ class InlineResponse20018 {
             }
             if (data.hasOwnProperty('lastModifiedById')) {
                 obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
+            }
+            if (data.hasOwnProperty('variationTariff')) {
+                obj['variationTariff'] = ApiV1AdminsTasksLightVariationTariff.constructFromObject(data['variationTariff']);
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -268,6 +272,11 @@ InlineResponse20018.prototype['createdById'] = undefined;
  * @member {String} lastModifiedById
  */
 InlineResponse20018.prototype['lastModifiedById'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsTasksLightVariationTariff} variationTariff
+ */
+InlineResponse20018.prototype['variationTariff'] = undefined;
 
 /**
  * @member {Date} createdAt

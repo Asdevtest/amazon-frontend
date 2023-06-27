@@ -1,1 +1,1 @@
-export {CreateOrEditProposalContent} from './create-or-edit-proposal-content'
+export { CreateOrEditProposalContent } from './create-or-edit-proposal-content'

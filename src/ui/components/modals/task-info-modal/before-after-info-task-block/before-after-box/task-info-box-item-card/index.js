@@ -1,1 +1,1 @@
-export {TaskInfoBoxItemCard} from './task-info-box-item-card'
+export { TaskInfoBoxItemCard } from './task-info-box-item-card'

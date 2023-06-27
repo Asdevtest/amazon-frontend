@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
@@ -25,13 +25,13 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  cardTitleWrapperHorizontal: {gap: '38px'},
+  cardTitleWrapperHorizontal: { gap: '38px' },
   cardTitle: {
     width: '111px',
     color: theme.palette.text.second,
   },
   cardListTitle: {
-    fontSize: '20px',
+    fontSize: '18px',
     lineHeight: '27px',
     color: theme.palette.text.general,
     fontWeight: 600,

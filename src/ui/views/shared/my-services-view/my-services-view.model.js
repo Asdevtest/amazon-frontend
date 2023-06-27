@@ -1,28 +1,26 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
+import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import {
   freelanceRequestTypeByCode,
   freelanceRequestType,
   freelanceRequestTypeByKey,
-} from '@constants/freelance-request-type'
-import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
-import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/user-roles'
-import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
+} from '@constants/statuses/freelance-request-type'
+import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
+import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
-import {AnnouncementsModel} from '@models/announcements-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { AnnouncementsModel } from '@models/announcements-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {checkIsFreelancer} from '@utils/checks'
+import { checkIsFreelancer } from '@utils/checks'
 
 export class MyServicesViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
   actionStatus = undefined
-
-  drawerOpen = false
 
   showAcceptMessage = null
   acceptMessage = null
@@ -48,7 +46,7 @@ export class MyServicesViewModel {
 
   showImageModal = false
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
     })
@@ -57,13 +55,13 @@ export class MyServicesViewModel {
       this.acceptMessage = location.state.acceptMessage
       this.showAcceptMessage = location.state.showAcceptMessage
 
-      const state = {...history.location.state}
+      const state = { ...history.location.state }
       delete state.acceptMessage
       delete state.showAcceptMessage
-      history.replace({...history.location, state})
+      history.replace({ ...history.location, state })
     }
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.announcements,
@@ -99,8 +97,7 @@ export class MyServicesViewModel {
 
   async loadData() {
     try {
-      await this.getUserInfo()
-      await this.getMyAnnouncementsData()
+      await Promise.all([this.getUserInfo(), this.getMyAnnouncementsData()])
     } catch (error) {
       console.log(error)
     }
@@ -154,7 +151,7 @@ export class MyServicesViewModel {
   }
 
   setTableModeState() {
-    const state = {viewMode: this.viewMode, sortMode: this.sortMode}
+    const state = { viewMode: this.viewMode, sortMode: this.sortMode }
 
     SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.MY_SERVICES)
   }

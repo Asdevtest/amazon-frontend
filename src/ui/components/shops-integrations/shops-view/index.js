@@ -1,1 +1,1 @@
-export {ShopsView} from './shops-view'
+export { ShopsView } from './shops-view'

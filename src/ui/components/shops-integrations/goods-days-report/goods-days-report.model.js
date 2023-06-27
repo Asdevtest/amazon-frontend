@@ -1,19 +1,18 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SellerBoardModel} from '@models/seller-board-model'
-import {SettingsModel} from '@models/settings-model'
-import {ShopModel} from '@models/shop-model'
+import { SellerBoardModel } from '@models/seller-board-model'
+import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
 
-import {clientLast30DaySellerBoardColumns} from '@components/table-columns/client/client-last-30-day-seller-board-columns copy'
+import { clientLast30DaySellerBoardColumns } from '@components/table/table-columns/client/client-last-30-day-seller-board-columns copy'
 
-import {addIdDataConverter, stockReportDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { addIdDataConverter, stockReportDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { t } from '@utils/translations'
 
 export class GoodsDaysReportModel {
   history = undefined
@@ -33,11 +32,14 @@ export class GoodsDaysReportModel {
   showConfirmModal = false
 
   sortModel = []
-  filterModel = {items: []}
+  filterModel = { items: [] }
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = clientLast30DaySellerBoardColumns()
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   successModalText = ''
 
@@ -49,31 +51,21 @@ export class GoodsDaysReportModel {
     onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
   }
 
-  constructor({history, curShop}) {
+  constructor({ history, curShop }) {
     this.history = history
 
     this.currentShop = curShop
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_LAST_30_DAY_SELLER_BOARD)
   }
@@ -81,29 +73,41 @@ export class GoodsDaysReportModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_LAST_30_DAY_SELLER_BOARD]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
+    runInAction(() => {
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
+    })
+  }
 
-      this.densityModel = state.density.value
-      this.columnsModel = clientLast30DaySellerBoardColumns().map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
   }
 
   onSelectionModel(model) {
     this.selectedRows = model
+
+    this.setDataGridState()
   }
 
   onChangeFilterModel(model) {
     this.filterModel = model
-  }
 
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    this.setDataGridState()
   }
 
   setRequestStatus(requestStatus) {
@@ -116,6 +120,8 @@ export class GoodsDaysReportModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
+
+    this.setDataGridState()
   }
 
   getCurrentData() {
@@ -143,9 +149,9 @@ export class GoodsDaysReportModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getShops()
 
-      await this.getMyDailyReportsLast30Days()
+      await Promise.all([this.getShops(), this.getMyDailyReportsLast30Days()])
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -157,14 +163,10 @@ export class GoodsDaysReportModel {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onChangeCurPage(e) {
-    this.curPage = e
-  }
-
   async getMyDailyReportsLast30Days() {
     try {
       const result = await SellerBoardModel.getMyDailyReportsLast30Days(
-        this.currentShop && {shopId: this.currentShop._id},
+        this.currentShop && { shopId: this.currentShop._id },
       )
 
       runInAction(() => {

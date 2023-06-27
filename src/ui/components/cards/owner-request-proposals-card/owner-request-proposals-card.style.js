@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   cardMainWrapper: {
@@ -37,6 +37,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     marginBottom: '20px',
   },
+
   userWrapper: {
     width: '100%',
     display: 'flex',
@@ -150,18 +151,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  proposalDescriptionWrapper: {
-    display: 'flex',
-  },
-
-  imgBox: {
-    width: '100%',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
   photoWrapper: {
     marginLeft: '60px',
     width: '391px',
@@ -171,22 +160,15 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  photoSubWrapper: {
-    width: '391px',
-    height: '182px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    overflow: 'hidden',
-  },
-
   cardContentWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
   },
+
   cardSubContentWrapper: {
     width: '100%',
   },
+
   circleIndicator: {
     display: 'block',
     width: '12px',

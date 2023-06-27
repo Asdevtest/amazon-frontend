@@ -1,19 +1,17 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {WarehouseDashboardCardDataKey} from '@constants/dashboard-configs'
-import {loadingStatuses} from '@constants/loading-statuses'
+import { WarehouseDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {ClientModel} from '@models/client-model'
-import {DashboardModel} from '@models/dashboard-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { ClientModel } from '@models/client-model'
+import { DashboardModel } from '@models/dashboard-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
 export class WarehouseDashboardViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
-
-  drawerOpen = false
 
   showAddOrEditDestinationModal = false
 
@@ -32,17 +30,11 @@ export class WarehouseDashboardViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
-  }
-
-  onChangeTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {

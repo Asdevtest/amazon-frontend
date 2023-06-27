@@ -1,1 +1,1 @@
-export {AdminExchangeViews} from './admin-exchange-views'
+export { AdminExchangeViews } from './admin-exchange-views'

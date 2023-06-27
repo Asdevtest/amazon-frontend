@@ -230,6 +230,9 @@ class InlineResponse20033 {
             if (data.hasOwnProperty('amountInOrders')) {
                 obj['amountInOrders'] = ApiClient.convertToType(data['amountInOrders'], 'Number');
             }
+            if (data.hasOwnProperty('amountInPendingOrders')) {
+                obj['amountInPendingOrders'] = ApiClient.convertToType(data['amountInPendingOrders'], 'Number');
+            }
             if (data.hasOwnProperty('boxAmounts')) {
                 obj['boxAmounts'] = ApiClient.convertToType(data['boxAmounts'], [ApiV1AdminsGetProductsByStatusBoxAmounts]);
             }
@@ -278,8 +281,14 @@ class InlineResponse20033 {
             if (data.hasOwnProperty('fbaFbmStockSum')) {
                 obj['fbaFbmStockSum'] = ApiClient.convertToType(data['fbaFbmStockSum'], 'Number');
             }
-            if (data.hasOwnProperty('ideaCount')) {
-                obj['ideaCount'] = ApiClient.convertToType(data['ideaCount'], 'Number');
+            if (data.hasOwnProperty('ideasOnCheck')) {
+                obj['ideasOnCheck'] = ApiClient.convertToType(data['ideasOnCheck'], 'Number');
+            }
+            if (data.hasOwnProperty('ideasVerified')) {
+                obj['ideasVerified'] = ApiClient.convertToType(data['ideasVerified'], 'Number');
+            }
+            if (data.hasOwnProperty('ideasClosed')) {
+                obj['ideasClosed'] = ApiClient.convertToType(data['ideasClosed'], 'Number');
             }
             if (data.hasOwnProperty('subUsers')) {
                 obj['subUsers'] = ApiClient.convertToType(data['subUsers'], [ApiV1AdminsGetProductsByStatusCreatedBy]);
@@ -653,6 +662,12 @@ InlineResponse20033.prototype['needCheckBySupervisor'] = undefined;
 InlineResponse20033.prototype['amountInOrders'] = undefined;
 
 /**
+ * Сколько такого продукта находится в заказах в статусах 0, 2, 3.
+ * @member {Number} amountInPendingOrders
+ */
+InlineResponse20033.prototype['amountInPendingOrders'] = undefined;
+
+/**
  * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusBoxAmounts>} boxAmounts
  */
 InlineResponse20033.prototype['boxAmounts'] = undefined;
@@ -744,9 +759,19 @@ InlineResponse20033.prototype['sentToFbaSum'] = undefined;
 InlineResponse20033.prototype['fbaFbmStockSum'] = undefined;
 
 /**
- * @member {Number} ideaCount
+ * @member {Number} ideasOnCheck
  */
-InlineResponse20033.prototype['ideaCount'] = undefined;
+InlineResponse20033.prototype['ideasOnCheck'] = undefined;
+
+/**
+ * @member {Number} ideasVerified
+ */
+InlineResponse20033.prototype['ideasVerified'] = undefined;
+
+/**
+ * @member {Number} ideasClosed
+ */
+InlineResponse20033.prototype['ideasClosed'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>} subUsers

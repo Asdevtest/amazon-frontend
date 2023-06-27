@@ -1,4 +1,4 @@
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   NormDateCell, // OrderCell,
@@ -9,32 +9,12 @@ import {
   OrderBoxesCell,
   MultilineTextHeaderCell,
   OrdersIdsItemsCell,
-} from '@components/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-export const addOrEditBatchFormColumns = () => [
-  // {
-  //   field: 'humanFriendlyId',
-  //   headerName: t(TranslationKey.ID),
-  //   renderCell: params => <MultilineTextCell text={params.value} />,
-  //   width: 70,
-  // },
-
-  // {
-  //   field: 'qty',
-  //   headerName: t(TranslationKey.Quantity),
-  //   renderCell: params =>
-  //     params.row.originalData.amount > 1 ? (
-  //       <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData.amount} />
-  //     ) : (
-  //       <MultilineTextCell text={params.value} />
-  //     ),
-  //   width: 150,
-  //   // type: 'number',
-  // },
-
+export const addOrEditBatchFormColumns = isClient => [
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
@@ -50,13 +30,14 @@ export const addOrEditBatchFormColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
 
     renderCell: params => <OrdersIdsItemsCell value={params.value} />,
-    width: 140,
+    width: 160,
   },
 
   {
     field: 'boxes',
     headerName: t(TranslationKey.Boxes),
     width: 330,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
     renderCell: params =>
       params.row.originalData.items.length > 1 ? (
         <div>
@@ -88,6 +69,7 @@ export const addOrEditBatchFormColumns = () => [
   {
     field: 'logicsTariff',
     headerName: t(TranslationKey.Tariff),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 130,
   },
@@ -95,6 +77,7 @@ export const addOrEditBatchFormColumns = () => [
   {
     field: 'destination',
     headerName: t(TranslationKey.Destination),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 170,
   },
@@ -102,21 +85,34 @@ export const addOrEditBatchFormColumns = () => [
   {
     field: 'client',
     headerName: t(TranslationKey.Client),
-    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.client._id} />,
+    renderHeader: () => (
+      <MultilineTextHeaderCell text={isClient ? t(TranslationKey.Storekeeper) : t(TranslationKey.Client)} />
+    ),
+    renderCell: params => (
+      <UserLinkCell
+        blackText
+        name={isClient ? params.row.originalData?.storekeeper?.name : params.row.originalData?.client?.name}
+        userId={isClient ? params.row.originalData?.storekeeper?._id : params.row.originalData?.client?._id}
+      />
+    ),
     width: 160,
+    filterable: false,
+    sortable: false,
   },
 
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
-    renderCell: params => <NormDateCell params={params} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+    renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
-    type: 'date',
+    // type: 'date',
   },
 
   {
     field: 'finalWeight',
     headerName: t(TranslationKey['Final weight']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
     renderCell: params => (
       <ToFixedWithKgSignCell amount={params.row.originalData.amount} value={params.value} fix={2} />
     ),
@@ -127,6 +123,7 @@ export const addOrEditBatchFormColumns = () => [
   {
     field: 'deliveryTotalPrice',
     headerName: t(TranslationKey['Total price']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 100,
     // type: 'number',

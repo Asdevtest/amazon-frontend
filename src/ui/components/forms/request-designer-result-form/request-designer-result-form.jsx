@@ -1,37 +1,36 @@
 /* eslint-disable react/jsx-indent */
 
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import DisabledByDefaultOutlinedIcon from '@mui/icons-material/DisabledByDefaultOutlined'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
-import {Accordion, AccordionDetails, AccordionSummary, Typography, Avatar, Tooltip, Zoom} from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Avatar, Tooltip, Typography, Zoom } from '@mui/material'
 
-import React, {useCallback, useState} from 'react'
+import React, { useCallback, useState } from 'react'
 
-import {nanoid} from 'nanoid'
-import {DndProvider, useDrag, useDrop} from 'react-dnd'
-import {HTML5Backend, NativeTypes} from 'react-dnd-html5-backend'
+import { nanoid } from 'nanoid'
+import { DndProvider, useDrag, useDrop } from 'react-dnd'
+import { HTML5Backend, NativeTypes } from 'react-dnd-html5-backend'
 
-import {BigPlus, CrossInRectangleIcon, PhotoCameraWithPlus} from '@constants/svg-icons'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
-import {Input} from '@components/input'
-import {Modal} from '@components/modal'
-import {BigObjectImagesModal} from '@components/modals/big-object-images-modal'
+import { BigObjectImagesModal } from '@components/modals/big-object-images-modal'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
+import { Input } from '@components/shared/input'
+import { Modal } from '@components/shared/modal'
+import { BigPlus, CrossInRectangleIcon, PhotoCameraWithPlus } from '@components/shared/svg-icons'
 
-import {checkIsImageLink} from '@utils/checks'
-import {getFileNameFromUrl} from '@utils/get-file-name-from-url'
-import {getShortenStringIfLongerThanCount, minsToTime} from '@utils/text'
-import {t} from '@utils/translations'
+import { checkIsImageLink } from '@utils/checks'
+import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
+import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {ImageEditForm} from '../image-edit-form'
-import {useClassNames} from './request-designer-result-form.style'
+import { ImageEditForm } from '../image-edit-form'
+import { useClassNames } from './request-designer-result-form.style'
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list)
@@ -54,10 +53,10 @@ const Slot = ({
   isRework,
   onClickRemoveItem,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
-  const [{isDragging}, drag] = useDrag({
-    item: {type: 'slot', id: slot?._id, index},
+  const [{ isDragging }, drag] = useDrag({
+    item: { type: 'slot', id: slot?._id, index },
     type: 'slot',
     collect: monitor => ({
       isDragging: monitor.isDragging(),
@@ -68,7 +67,7 @@ const Slot = ({
     accept: ['slot', NativeTypes.FILE],
     drop: (item, monitor) => {
       if (item.type === 'slot') {
-        if (!monitor.isOver({shallow: true})) {
+        if (!monitor.isOver({ shallow: true })) {
           return
         }
         if (item.index === index) {
@@ -91,20 +90,21 @@ const Slot = ({
 
   return (
     <div key={slot._id} ref={drop}>
-      <div ref={drag} style={{opacity}} className={classNames.imageObjWrapper}>
+      <div style={{ opacity }} className={classNames.imageObjWrapper}>
         <Tooltip
           arrow
           title={getFileNameFromUrl(typeof slot.image === 'string' ? slot.image : slot.image?.file.name)?.fullName}
           placement="right-end"
           TransitionComponent={Zoom}
-          TransitionProps={{timeout: 300}}
+          TransitionProps={{ timeout: 300 }}
         >
           <div
+            ref={drag}
             className={cx(
               classNames.imageWrapper,
 
-              {[classNames.isHaveImage]: !!slot?.image},
-              {[classNames.mainImageWrapper]: index === 0},
+              { [classNames.isHaveImage]: !!slot?.image },
+              { [classNames.mainImageWrapper]: index === 0 },
             )}
           >
             {index === 0 && <img src="/assets/icons/star-main.svg" className={classNames.mainStarIcon} />}
@@ -136,7 +136,7 @@ const Slot = ({
                 > */}
                 <Avatar
                   className={classNames.image}
-                  classes={{img: classNames.image}}
+                  classes={{ img: classNames.image }}
                   src={
                     typeof slot.image === 'string'
                       ? checkIsImageLink(slot.image)
@@ -150,7 +150,7 @@ const Slot = ({
                   variant="square"
                   onClick={() => {
                     if (checkIsImageLink(slot.image?.file?.name || slot.image)) {
-                      console.log('slot', slot)
+                      // console.log('slot', slot)
 
                       setCurImageId(slot._id)
                       setShowImageModal(!showImageModal)
@@ -203,7 +203,7 @@ const Slot = ({
 
           <Input
             multiline
-            inputProps={{maxLength: 128}}
+            inputProps={{ maxLength: 128 }}
             maxRows={3}
             variant="filled"
             className={classNames.imageObjInput}
@@ -224,8 +224,8 @@ const Slot = ({
   )
 }
 
-export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpenModal, proposal}) => {
-  const {classes: classNames} = useClassNames()
+export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpenModal, proposal }) => {
+  const { classes: classNames } = useClassNames()
 
   const isRework = !!proposal.proposal.media?.length
 
@@ -252,13 +252,13 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
         commentByClient: el.commentByClient,
         _id: el._id,
       }))
-    : [{image: null, comment: '', commentByClient: '', _id: nanoid()}]
+    : [{ image: null, comment: '', commentByClient: '', _id: nanoid() }]
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
 
   const onChangeImageFileds = useCallback(
     (field, imageId) => event => {
-      const findImage = {...imagesData.find(el => el._id === imageId)}
+      const findImage = { ...imagesData.find(el => el._id === imageId) }
 
       findImage[field] = event.target.value
 
@@ -268,19 +268,19 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
   )
 
   const onClickAddImageObj = () => {
-    setImagesData(() => [...imagesData, {image: null, comment: '', commentByClient: '', _id: nanoid()}])
+    setImagesData(() => [...imagesData, { image: null, comment: '', commentByClient: '', _id: nanoid() }])
   }
 
   const onClickRemoveImageObj = () => {
     // setImagesData(() => imagesData.filter(el => el._id !== curImageId))
 
-    setImagesData(() => imagesData.map(el => (el._id === curImageId ? {...el, image: null} : el)))
+    setImagesData(() => imagesData.map(el => (el._id === curImageId ? { ...el, image: null } : el)))
 
     setCurImageId(() => null)
   }
 
   const onClickEditImageSubmit = image => {
-    setImagesData(() => imagesData.map(el => (el._id === curImageId ? {...el, image} : el)))
+    setImagesData(() => imagesData.map(el => (el._id === curImageId ? { ...el, image } : el)))
   }
 
   const onClickEditImage = () => {
@@ -289,7 +289,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
   const onClickRemoveItem = slot => {
     if (slot.image) {
-      setImagesData(() => imagesData.map(el => (el._id === slot._id ? {...el, image: null} : el)))
+      setImagesData(() => imagesData.map(el => (el._id === slot._id ? { ...el, image: null } : el)))
     } else {
       setImagesData(() => imagesData.filter(el => el._id !== slot._id))
     }
@@ -310,11 +310,11 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
     const restNewSlots = readyFilesArr
       .slice(1)
-      .map((el, i) => ({image: el, comment: el.file.name, commentByClient: '', _id: nanoid()}))
+      .map((el, i) => ({ image: el, comment: el.file.name, commentByClient: '', _id: nanoid() }))
 
     setImagesData([
       ...imagesData.map(el =>
-        el._id === imageId ? {...el, image: readyFilesArr[0], comment: readyFilesArr[0]?.file.name} : el,
+        el._id === imageId ? { ...el, image: readyFilesArr[0], comment: readyFilesArr[0]?.file.name } : el,
       ),
       ...restNewSlots,
     ])
@@ -340,11 +340,11 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
       const restNewSlots = readyFilesArr
         .slice(1)
-        .map((el, i) => ({image: el, comment: el.file.name, commentByClient: '', _id: nanoid()}))
+        .map((el, i) => ({ image: el, comment: el.file.name, commentByClient: '', _id: nanoid() }))
 
       setImagesData([
         ...imagesData.map(el =>
-          el._id === imageId ? {...el, image: readyFilesArr[0], comment: readyFilesArr[0]?.file.name} : el,
+          el._id === imageId ? { ...el, image: readyFilesArr[0], comment: readyFilesArr[0]?.file.name } : el,
         ),
         ...restNewSlots,
       ])
@@ -371,7 +371,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
 
           <Accordion
             disableGutters
-            classes={{root: classNames.accordionMain}}
+            classes={{ root: classNames.accordionMain }}
             // style={{borderRadius: '4px', boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)'}}
             expanded={showDetails}
             onChange={onClickToShowDetails}
@@ -389,7 +389,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
               </Typography>
             </AccordionSummary>
 
-            <AccordionDetails classes={{root: classNames.details}} style={{padding: 0}}>
+            <AccordionDetails classes={{ root: classNames.details }} style={{ padding: 0 }}>
               <Typography className={cx(classNames.headerSubText, classNames.textMargin)}>
                 {t(TranslationKey['Product images style guideline'])}
               </Typography>
@@ -437,7 +437,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
             multiline
             className={cx(classNames.heightFieldAuto)}
             labelClasses={classNames.fieldLabel}
-            inputProps={{maxLength: 1000}}
+            inputProps={{ maxLength: 1000 }}
             minRows={4}
             maxRows={4}
             label={t(TranslationKey["Performer's comment"])}
@@ -457,7 +457,10 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
                 index={index}
                 imagesData={imagesData}
                 setImagesData={setImagesData}
-                setCurImageId={setCurImageId}
+                setCurImageId={id => {
+                  console.log('id:', id)
+                  setCurImageId(id)
+                }}
                 setShowImageModal={setShowImageModal}
                 showImageModal={showImageModal}
                 isRework={isRework}
@@ -484,7 +487,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
           <Field
             labelClasses={classNames.fieldLabel}
             inputClasses={classNames.linkInput}
-            inputProps={{maxLength: 500}}
+            inputProps={{ maxLength: 500 }}
             label={t(TranslationKey['Link to sources']) + ':'}
             containerClasses={classNames.containerField}
             value={sourceLink}
@@ -499,7 +502,7 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
             disabled={disableSubmit}
             className={cx(classNames.button)}
             onClick={() => {
-              onClickSendAsResult({message: comment, files: imagesData.filter(el => el.image), sourceLink})
+              onClickSendAsResult({ message: comment, files: imagesData.filter(el => el.image), sourceLink })
               setOpenModal()
             }}
           >
@@ -515,37 +518,38 @@ export const RequestDesignerResultForm = ({onClickSendAsResult, request, setOpen
           onSave={onClickEditImageSubmit}
         />
       </Modal>
+      {showImageModal && (
+        <BigObjectImagesModal
+          isRedImageComment
+          openModal={showImageModal}
+          setOpenModal={() => setShowImageModal(!showImageModal)}
+          imagesData={imagesData.map(el => ({ ...el, imageComment: el?.commentByClient || '' }))}
+          curImageId={curImageId}
+          renderBtns={() => (
+            <>
+              <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickEditImage()}>
+                <ModeOutlinedIcon />
+              </Button>
 
-      <BigObjectImagesModal
-        isRedImageComment
-        openModal={showImageModal}
-        setOpenModal={() => setShowImageModal(!showImageModal)}
-        imagesData={imagesData.map(el => ({...el, imageComment: el?.commentByClient || ''}))}
-        curImageId={curImageId}
-        renderBtns={() => (
-          <>
-            <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickEditImage()}>
-              <ModeOutlinedIcon />
-            </Button>
+              <Button className={cx(classNames.imagesModalBtn)}>
+                <AutorenewIcon />
+                <input
+                  multiple
+                  type={'file'}
+                  className={classNames.pasteInput}
+                  defaultValue={''}
+                  onChange={onUploadFile(curImageId)}
+                />
+              </Button>
 
-            <Button className={cx(classNames.imagesModalBtn)}>
-              <AutorenewIcon />
-              <input
-                multiple
-                type={'file'}
-                className={classNames.pasteInput}
-                defaultValue={''}
-                onChange={onUploadFile(curImageId)}
-              />
-            </Button>
-
-            <Button danger className={cx(classNames.imagesModalBtn)} onClick={onClickRemoveImageObj}>
-              <DeleteOutlineOutlinedIcon />
-            </Button>
-          </>
-        )}
-        setCurImageId={setCurImageId}
-      />
+              <Button danger className={cx(classNames.imagesModalBtn)} onClick={onClickRemoveImageObj}>
+                <DeleteOutlineOutlinedIcon />
+              </Button>
+            </>
+          )}
+          setCurImageId={setCurImageId}
+        />
+      )}
     </div>
   )
 }

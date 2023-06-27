@@ -1,4 +1,4 @@
-import {NODE_ENV} from '@constants/env'
+import { NODE_ENV } from '@constants/keys/env'
 
 export const isDebug = () => NODE_ENV === 'development'
 

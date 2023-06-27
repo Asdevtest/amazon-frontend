@@ -1,1 +1,1 @@
-export {FirstStep} from './first-step'
+export { FirstStep } from './first-step'

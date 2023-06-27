@@ -1,19 +1,19 @@
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
+import { Button } from '@components/shared/buttons/button'
 
-import {findTariffInStorekeepersData} from '@utils/checks'
-import {t} from '@utils/translations'
+import { findTariffInStorekeepersData } from '@utils/checks'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './request-to-send-batch-form.style'
-import {RequestToSendBatchesGroupBoxes} from './request-to-send-batch-group-boxes'
+import { useClassNames } from './request-to-send-batch-form.style'
+import { RequestToSendBatchesGroupBoxes } from './request-to-send-batch-group-boxes'
 
 export const RequestToSendBatchForm = observer(
   ({
@@ -29,7 +29,7 @@ export const RequestToSendBatchForm = observer(
     onSubmitChangeBoxFields,
     onClickHsCode,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
     useEffect(() => {
       if (!selectedBoxes.length) {
         closeModal()
@@ -67,6 +67,8 @@ export const RequestToSendBatchForm = observer(
             destination: cur.destination,
             storekeeper: cur.storekeeper,
             logicsTariff: cur.logicsTariff,
+            variationTariff: cur.variationTariff,
+
             boxes: [cur],
           })
         }
@@ -127,7 +129,7 @@ export const RequestToSendBatchForm = observer(
         <div className={classNames.warningWrapper}>
           <Typography
             variant="subtitle1"
-            className={cx(classNames.warningText, {[classNames.noWarningText]: !disabledSubmit})}
+            className={cx(classNames.warningText, { [classNames.noWarningText]: !disabledSubmit })}
           >
             {'*' +
               t(

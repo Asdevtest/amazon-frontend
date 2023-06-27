@@ -1,1 +1,1 @@
-export {ProductSearchRequestDetails} from './product-request-details'
+export { ProductSearchRequestDetails } from './product-request-details'

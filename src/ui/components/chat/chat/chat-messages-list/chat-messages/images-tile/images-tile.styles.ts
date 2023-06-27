@@ -1,4 +1,5 @@
-import {makeStyles} from 'tss-react/mui'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -13,51 +14,6 @@ export const useClassNames = makeStyles()(theme => ({
 
     '& div': {
       overflow: 'hidden',
-    },
-  },
-  imageTile2: {
-    gridTemplateColumns: 'repeat(2, 1fr)',
-    gridTemplateRows: 'repeat(1, 1fr)',
-  },
-  imageTile3: {
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gridTemplateRows: 'repeat(2, 1fr)',
-
-    '& div:nth-child(1)': {
-      gridColumn: '1/3',
-      gridRow: '1/3',
-    },
-  },
-  imageTile4: {
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gridTemplateRows: 'repeat(3, 1fr)',
-
-    '& div:nth-child(1)': {
-      gridColumn: '1/3',
-      gridRow: '1/4',
-    },
-  },
-  imageTile5: {
-    gridTemplateColumns: 'repeat(4, 1fr)',
-    gridTemplateRows: 'repeat(2, 1fr)',
-
-    '& div:nth-child(1)': {
-      gridColumn: '1/3',
-      gridRow: '1/3',
-    },
-  },
-  imageTile6: {
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gridTemplateRows: 'repeat(3, 1fr)',
-
-    '& div:nth-child(1)': {
-      gridColumn: '1/3',
-      gridRow: '1/3',
-    },
-
-    '& div:nth-child(6)': {
-      gridColumn: '3',
-      gridRow: '3',
     },
   },
 

@@ -1,14 +1,15 @@
-import {Box, Checkbox, FormControlLabel} from '@mui/material'
+import { Box, Checkbox, FormControlLabel } from '@mui/material'
 
-import React, {FC, useEffect, useState} from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ProductModel} from '@models/product-model'
+import { ProductModel } from '@models/product-model'
 
-import {useRedFlagStyles} from '@components/shared/redFlags/red-flags.style'
+import { useRedFlagStyles } from '@components/shared/redFlags/red-flags.style'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
+import { SaveIcon } from '../svg-icons'
 
 interface Flag {
   title: string
@@ -23,8 +24,8 @@ interface RedFlagsProps {
 }
 
 export const RedFlags: FC<RedFlagsProps> = props => {
-  const {activeFlags = [], isEditMode, handleSaveFlags} = props
-  const {classes: styles} = useRedFlagStyles()
+  const { activeFlags = [], isEditMode, handleSaveFlags } = props
+  const { classes: styles } = useRedFlagStyles()
 
   const [selectedFlags, setSelectedFlags] = useState<Flag[]>(activeFlags)
   const [flags, setFlags] = useState<Flag[]>([])
@@ -74,7 +75,7 @@ export const RedFlags: FC<RedFlagsProps> = props => {
       {isEditMode && !isSaved && (
         <button className={styles.saveBtn} onClick={handleSave}>
           {t(TranslationKey.Save)}
-          <img src="/assets/icons/save-discet.svg" alt="Save" />
+          <SaveIcon className={styles.themeIcon} />
         </button>
       )}
 

@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**tariffType** | **Number** | Тип тарифа | [optional] 
 **name** | **String** | Название тарифа | 
 **description** | **String** | Описание тарифа | [optional] 
 **deliveryTimeInDay** | **String** | Время доставки, днях | [optional] 
@@ -12,9 +13,11 @@ Name | Type | Description | Notes
 **eta** | **Date** | Ожидаема дата прибытия. | [optional] 
 **minWeightInKg** | **Number** | Минимальный вес, в кг | [optional] 
 **archive** | **Boolean** | Заархивирован ли тариф | [optional] 
-**conditionsByRegion** | [**ApiV1AdminsOrdersLogicsTariffConditionsByRegion**](ApiV1AdminsOrdersLogicsTariffConditionsByRegion.md) |  | 
+**conditionsByRegion** | [**ApiV1AdminsOrdersLogicsTariffConditionsByRegion**](ApiV1AdminsOrdersLogicsTariffConditionsByRegion.md) |  | [optional] 
+**destinationVariations** | [**[ApiV1AdminsOrdersLogicsTariffDestinationVariations]**](ApiV1AdminsOrdersLogicsTariffDestinationVariations.md) |  | [optional] 
 **_id** | **String** |  | [optional] 
 **storekeeperId** | **String** |  | [optional] 
 **updatedAt** | **Date** |  | [optional] 
+**createdAt** | **Date** |  | [optional] 
 
 

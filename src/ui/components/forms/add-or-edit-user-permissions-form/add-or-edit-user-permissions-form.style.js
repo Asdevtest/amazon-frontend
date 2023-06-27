@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -38,29 +38,6 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '20px',
   },
 
-  permGroupBtn: {
-    marginLeft: '10px',
-    width: '150px',
-    height: '30px',
-    fontSize: '11px',
-  },
-
-  permGroupSubWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  permGroup: {
-    padding: '5px',
-    border: '1px solid rgba(0,0,0, .3)',
-    borderRadius: '10px',
-  },
-
-  permissionSelect: {
-    maxWidth: '200px',
-    marginBottom: '20px',
-  },
-
   permissionWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -71,13 +48,6 @@ export const useClassNames = makeStyles()(theme => ({
     '&:hover': {
       transform: 'translate(0%, -3%)',
     },
-  },
-
-  permissionsGroupWrapper: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    flexDirection: 'column',
-    gap: '20px',
   },
 
   button: {
@@ -91,49 +61,6 @@ export const useClassNames = makeStyles()(theme => ({
   cancelBtn: {
     color: theme.palette.text.general,
   },
-  multiline: {
-    width: '100%',
-    minHeight: '100px',
-  },
-
-  descriptionField: {
-    minHeight: '100px',
-    width: '100%',
-    overflowY: 'auto',
-  },
-
-  allowUrlsWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-  },
-
-  urlInputWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  urlInput: {
-    overflowY: 'auto',
-    whiteSpace: 'wrap',
-    height: '65px',
-
-    width: '450px',
-  },
-
-  permissionsSubTitle: {
-    fontWeight: 'bold',
-  },
-
-  selectModalBtnsWrapper: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    position: 'sticky',
-    bottom: '0',
-    right: '0',
-    zIndex: 999,
-  },
-  // **************************************
 
   leftSideWrapper: {
     display: 'flex',
@@ -197,10 +124,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  permissionItem: {
-    color: theme.palette.text.general,
-  },
-
   permissionGroupsToSelectCheckboxWrapper: {
     border: '1px solid rgba(0,0,0, .1)',
     borderRadius: '10px',
@@ -242,7 +165,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   indicator: {
-    backgroundColor: '#006CFF',
+    backgroundColor: theme.palette.background.darkBlue,
     height: '6px',
     [theme.breakpoints.down(768)]: {
       height: '0',
@@ -289,48 +212,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  accordion: {
-    boxShadow: 'none',
-
-    '&::before': {
-      display: 'none',
-    },
-  },
-  accordionSummary: {
-    height: '64px',
-  },
-  accordionExpanded: {
-    background: '#F4F4F4',
-  },
-  selectedValue: {
-    marginLeft: '5px',
-    color: theme.palette.text.second,
-  },
-  details: {
-    height: '53vh',
-  },
-  detailsShopWrapper: {
-    width: '100%',
-  },
-  searchWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    margin: '20px 0',
-  },
-
-  searchContainer: {
-    margin: 0,
-  },
-
-  searchInput: {
-    width: '290px',
-    height: '40px',
-  },
-  tableWrapper: {
-    marginTop: '10px',
-    height: '350px',
-  },
   permGroupWrapper: {
     [theme.breakpoints.down(768)]: {
       border: `1px solid ${theme.palette.input.customBorder}`,

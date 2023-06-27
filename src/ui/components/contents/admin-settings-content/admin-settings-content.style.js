@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
@@ -6,38 +6,6 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     // justifyContent: 'space-between',
     // gap: '10px',
-  },
-
-  mainTitle: {
-    marginBottom: '30px',
-  },
-
-  link: {
-    width: '500px',
-    overflowX: 'auto',
-    whiteSpace: 'nowrap',
-  },
-
-  noSettingsWarning: {
-    color: 'red',
-  },
-
-  cancelButton: {
-    marginLeft: '10px',
-  },
-
-  textField: {
-    width: '100%',
-    minHeight: '40px',
-    color: theme.palette.text.general,
-    padding: '8px',
-    fontSize: '16px',
-    outline: 'none',
-    border: '1px solid rgba(217, 222, 229, 1)',
-    borderRadius: '10px',
-
-    fontWeight: '400',
-    lineHeight: '1.5',
   },
 
   tabItemWrapper: {
@@ -89,11 +57,6 @@ export const useClassNames = makeStyles()(theme => ({
   placeAddBtnWrapper: {
     display: 'flex',
     justifyContent: 'end',
-  },
-
-  submitButton: {
-    width: '165px',
-    height: '40px',
   },
 
   tabsWrapper: {

@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   modalTitle: {
@@ -58,26 +58,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
-  searchContainer: {
-    width: 'auto',
-    margin: 0,
-  },
-  searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    width: '300px',
-    height: 36,
-  },
-  tableSearchWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '12px',
-  },
-  tableSearchTitle: {
-    fontSize: '18px',
-    lineHeight: '140%',
-    color: theme.palette.text.general,
-  },
+
   commentContainer: {
     margin: 0,
   },

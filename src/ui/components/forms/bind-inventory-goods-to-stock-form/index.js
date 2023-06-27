@@ -1,1 +1,1 @@
-export {BindInventoryGoodsToStockForm} from './bind-inventory-goods-to-stock-form'
+export { BindInventoryGoodsToStockForm } from './bind-inventory-goods-to-stock-form'

@@ -1,19 +1,18 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ClientModel} from '@models/client-model'
-import {SettingsModel} from '@models/settings-model'
-import {ShopModel} from '@models/shop-model'
+import { ClientModel } from '@models/client-model'
+import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
 
-import {shopsColumns} from '@components/table-columns/shops-columns'
+import { shopsColumns } from '@components/table/table-columns/shops-columns'
 
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { t } from '@utils/translations'
 
 export class ShopsViewModel {
   history = undefined
@@ -35,7 +34,7 @@ export class ShopsViewModel {
   showWarningModal = false
   showConfirmModal = false
 
-  selectionModel = []
+  rowSelectionModel = []
 
   activeSubCategory = 0
 
@@ -47,68 +46,42 @@ export class ShopsViewModel {
     onClickSeeGoodsDailyReport: row => this.onClickSeeGoodsDailyReport(row),
   }
 
-  firstRowId = undefined
   sortModel = []
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = shopsColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = shopsColumns(this.rowHandlers)
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
+
   openModal = null
   warningInfoModalSettings = {
     isWarning: false,
     title: '',
   }
 
-  constructor({history, tabsValues, onChangeTabIndex, onChangeCurShop, openModal}) {
+  constructor({ history, tabsValues, onChangeTabIndex, onChangeCurShop, openModal }) {
     this.history = history
 
     this.tabsValues = tabsValues
     this.onChangeTabIndex = onChangeTabIndex
     this.onChangeCurShop = onChangeCurShop
     this.openModal = openModal
-    makeAutoObservable(this, undefined, {autoBind: true})
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
     this.filterModel = model
+
+    this.setDataGridState()
   }
 
-  setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
-
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_SHOPS)
   }
@@ -116,17 +89,14 @@ export class ShopsViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_SHOPS]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
-
-      this.densityModel = state.density.value
-      this.columnsModel = shopsColumns(this.rowHandlers, this.firstRowId).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+    runInAction(() => {
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
+    })
   }
 
   setRequestStatus(requestStatus) {
@@ -138,23 +108,32 @@ export class ShopsViewModel {
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    this.rowSelectionModel = model
   }
 
   onChangeDrawerOpen() {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onChangeCurPage = e => {
-    this.curPage = e
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
   }
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
-  }
 
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    this.setDataGridState()
   }
 
   onClickSeeStockReport(shop) {
@@ -220,7 +199,7 @@ export class ShopsViewModel {
   async updateShops() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await ClientModel.updateShops(this.selectionModel)
+      await ClientModel.updateShops(this.rowSelectionModel)
 
       this.setRequestStatus(loadingStatuses.success)
 

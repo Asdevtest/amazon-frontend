@@ -1,29 +1,29 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { mapUserRoleEnumToKey, UserRole, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatModel} from '@models/chat-model'
-import {ChatsModel} from '@models/chats-model'
-import {ClientModel} from '@models/client-model'
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {ShopModel} from '@models/shop-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { ChatModel } from '@models/chat-model'
+import { ChatsModel } from '@models/chats-model'
+import { ClientModel } from '@models/client-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {clientExchangeViewColumns} from '@components/table-columns/client/client-exchange-columns'
+import { clientExchangeViewColumns } from '@components/table/table-columns/client/client-exchange-columns'
 // import {UserModel} from '@models/user-model'
-import {vacByUserIdExchangeColumns} from '@components/table-columns/product/vac-by-user-id-exchange-columns'
+import { vacByUserIdExchangeColumns } from '@components/table/table-columns/product/vac-by-user-id-exchange-columns'
 
-import {addIdDataConverter, clientProductsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { addIdDataConverter, clientProductsDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class AnotherProfileViewModel {
   history = undefined
@@ -33,8 +33,6 @@ export class AnotherProfileViewModel {
   userId = undefined
 
   user = undefined
-
-  drawerOpen = false
 
   productList = []
 
@@ -48,7 +46,6 @@ export class AnotherProfileViewModel {
   selectedUser = undefined
   showTabModal = false
   showInfoModal = false
-  firstRowId = undefined
 
   headerInfoData = {
     investorsCount: 255,
@@ -96,50 +93,33 @@ export class AnotherProfileViewModel {
   }
 
   sortModel = []
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel =
     this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT]
-      ? clientExchangeViewColumns(this.rowHandlers, this.firstRowId)
+      ? clientExchangeViewColumns(this.rowHandlers)
       : vacByUserIdExchangeColumns()
 
-  constructor({history}) {
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
+
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
 
       this.userId = history.location.search.slice(1)
     })
 
-    makeAutoObservable(this, undefined, {autoBind: true})
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
-  }
-
-  setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
-    })
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.PROFILE_VAC_PRODUCTS)
   }
@@ -149,19 +129,10 @@ export class AnotherProfileViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = (
-          this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT]
-            ? clientExchangeViewColumns(this.rowHandlers, this.firstRowId)
-            : vacByUserIdExchangeColumns()
-        ).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
@@ -278,11 +249,11 @@ export class AnotherProfileViewModel {
 
   async openCreateOrder() {
     try {
-      const storekeepers = await StorekeeperModel.getStorekeepers()
-
-      const destinations = await ClientModel.getDestinations()
-
-      const result = await UserModel.getPlatformSettings()
+      const [storekeepers, destinations, result] = await Promise.all([
+        StorekeeperModel.getStorekeepers(),
+        ClientModel.getDestinations(),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.storekeepers = storekeepers
@@ -307,7 +278,7 @@ export class AnotherProfileViewModel {
     await UserModel.getUserInfo()
   }
 
-  onClickOrderNowBtn = ({ordersDataState, totalOrdersCost}) => {
+  onClickOrderNowBtn = ({ ordersDataState, totalOrdersCost }) => {
     runInAction(() => {
       this.ordersDataStateToSubmit = ordersDataState[0]
 
@@ -328,7 +299,7 @@ export class AnotherProfileViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const requestProduct = getObjectFilteredByKeyArrayBlackList({...this.ordersDataStateToSubmit}, [
+      const requestProduct = getObjectFilteredByKeyArrayBlackList({ ...this.ordersDataStateToSubmit }, [
         'tmpResearcherName',
         'tmpBuyerName',
         'tmpStrategyStatus',
@@ -361,9 +332,9 @@ export class AnotherProfileViewModel {
       })
 
       if (orderObject.tmpBarCode.length) {
-        await onSubmitPostImages.call(this, {images: orderObject.tmpBarCode, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
       } else if (!orderObject.barCode) {
-        await ClientModel.updateProductBarCode(orderObject.productId, {barCode: null})
+        await ClientModel.updateProductBarCode(orderObject.productId, { barCode: null })
       }
 
       const createorderData = {
@@ -379,7 +350,7 @@ export class AnotherProfileViewModel {
       await ClientModel.createOrder(createorderData)
 
       if (this.uploadedFiles.length) {
-        await ClientModel.updateProductBarCode(orderObject.productId, {barCode: this.uploadedFiles[0]})
+        await ClientModel.updateProductBarCode(orderObject.productId, { barCode: this.uploadedFiles[0] })
       }
 
       runInAction(() => {
@@ -397,12 +368,23 @@ export class AnotherProfileViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
   }
 
-  onChangeRowsPerPage(e) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.rowsPerPage = e
+      this.paginationModel = model
     })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
   }
 
   setRequestStatus(requestStatus) {
@@ -411,16 +393,12 @@ export class AnotherProfileViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.setDataGridState()
   }
 
   getCurrentData() {
@@ -430,14 +408,14 @@ export class AnotherProfileViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getUserById()
+
+      await Promise.all([
+        this.getUserById(),
+        this.getProductsVacant(),
+        this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT] && this.getShops(),
+      ])
+
       this.getDataGridState()
-
-      if (this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT]) {
-        await this.getShops()
-      }
-
-      await this.getProductsVacant()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -505,18 +483,6 @@ export class AnotherProfileViewModel {
   onChangeTabExchange(e, value) {
     runInAction(() => {
       this.tabExchange = value
-    })
-  }
-
-  onTriggerDrawerOpen = () => {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
     })
   }
 

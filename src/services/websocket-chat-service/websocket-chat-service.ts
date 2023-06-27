@@ -1,9 +1,9 @@
-import {Manager, Socket} from 'socket.io-client'
+import { Manager, Socket } from 'socket.io-client'
 
-import {BACKEND_WEBSOCKET_CHAT_URL} from '@constants/env'
+import { BACKEND_WEBSOCKET_CHAT_URL } from '@constants/keys/env'
 
-import {ChatHandlerName, handlerToEventMapping} from './event-handler-mappings'
-import {EentToEmit} from './event-to-emit'
+import { ChatHandlerName, handlerToEventMapping } from './event-handler-mappings'
+import { EentToEmit } from './event-to-emit'
 import {
   AddUsersToGroupChatParams,
   Chat,
@@ -27,7 +27,7 @@ export class WebsocketChatService {
   private socket!: Socket
   private manager!: Manager
 
-  constructor({token, handlers}: WebsocketChatServiceConstructorParams) {
+  constructor({ token, handlers }: WebsocketChatServiceConstructorParams) {
     this.init(token)
     this.registerHandlers(handlers)
   }
@@ -71,7 +71,7 @@ export class WebsocketChatService {
 
   public disconnect(): void {
     this.socket.disconnect()
-    console.log('IN_DISCONNECT')
+    // console.log('IN_DISCONNECT')
   }
 
   public async getChats(crmItemId?: string | null, crmItemType?: string | null): Promise<Chat[]> {
@@ -83,7 +83,7 @@ export class WebsocketChatService {
         crmItemType ? EentToEmit.GET_CHATS : EentToEmit.GET_SIMPLE_CHATS,
         // 'Chat:user:get-simple-chats',
         // {crmItemId: null, crmItemType: null},
-        {crmItemId, crmItemType},
+        { crmItemId, crmItemType },
         (getChatsResponse: WebsocketChatResponse<Chat[]>) => {
           if (!getChatsResponse.success || !getChatsResponse.data) {
             reject(getChatsResponse.error)
@@ -154,10 +154,10 @@ export class WebsocketChatService {
   }
 
   public async readMessage(messageIds: string[]): Promise<ChatMessage> {
-    console.log('***READ_OPPONENT_MESSAGE!!!')
+    // console.log('***READ_OPPONENT_MESSAGE!!!')
 
     return new Promise(() => {
-      this.socket.emit(EentToEmit.READ_MESSAGE, {messageIds})
+      this.socket.emit(EentToEmit.READ_MESSAGE, { messageIds })
     })
   }
 }

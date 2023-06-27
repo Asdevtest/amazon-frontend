@@ -1,30 +1,30 @@
-import {cx} from '@emotion/css'
-import {Typography, Avatar} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Avatar, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {freelanceRequestType, freelanceRequestTypeByCode} from '@constants/freelance-request-type'
 import {
   RequestProposalStatus,
   RequestProposalStatusColor,
   RequestProposalStatusTranslate,
-} from '@constants/request-proposal-status'
-import {RequestStatus} from '@constants/request-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+} from '@constants/requests/request-proposal-status'
+import { RequestStatus } from '@constants/requests/request-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
-import {RequestDesignerResultClientForm} from '@components/forms/request-designer-result-client-form'
-import {RequestStandartResultForm} from '@components/forms/request-standart-result-form'
-import {Modal} from '@components/modal'
-import {UserLink} from '@components/user-link'
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { Modal } from '@components/shared/modal'
+import { Button } from '@components/shared/buttons/button'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { UserLink } from '@components/user/user-link'
 
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {minsToTime, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { minsToTime, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './owner-request-proposals-card.style'
+import { useClassNames } from './owner-request-proposals-card.style'
+import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
+import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
 
 export const OwnerRequestProposalsCard = ({
   item,
@@ -35,7 +35,7 @@ export const OwnerRequestProposalsCard = ({
   onClickOrderProposal,
   onClickRejectProposal,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [showRequestDesignerResultClientModal, setShowRequestDesignerResultClientModal] = useState(false)
   const [showRequestStandartResultModal, setShowRequestStandartResultModal] = useState(false)
@@ -78,10 +78,10 @@ export const OwnerRequestProposalsCard = ({
             <div className={classNames.cardSubContentWrapper}>
               <div className={classNames.userWrapper}>
                 <div className={classNames.userInfoWrapper}>
-                  <Avatar src={getUserAvatarSrc(item.proposal.createdBy?._id)} className={classNames.cardImg} />
+                  <Avatar src={getUserAvatarSrc(item?.proposal?.createdBy?._id)} className={classNames.cardImg} />
 
                   <div className={classNames.userNameWrapper}>
-                    <UserLink blackText name={item.proposal.createdBy?.name} userId={item.proposal.createdBy?._id} />
+                    <UserLink blackText name={item?.proposal?.createdBy?.name} userId={item.proposal.createdBy?._id} />
                     <div className={classNames.reviewWrapper}>
                       <Typography className={classNames.reviews} onClick={() => onClickReview()}>
                         {t(TranslationKey.Reviews)}
@@ -104,7 +104,7 @@ export const OwnerRequestProposalsCard = ({
                     </Typography>
 
                     <Typography className={classNames.cardTimeValue}>
-                      {minsToTime(item.proposal.execution_time)}
+                      {minsToTime(item?.proposal?.execution_time)}
                     </Typography>
                   </div>
 
@@ -133,7 +133,7 @@ export const OwnerRequestProposalsCard = ({
         <div className={classNames.statusField}>
           <span
             className={classNames.circleIndicator}
-            style={{backgroundColor: RequestProposalStatusColor(item.proposal.status)}}
+            style={{ backgroundColor: RequestProposalStatusColor(item.proposal.status) }}
           />
           <Typography className={classNames.standartText}>
             {RequestProposalStatusTranslate(item.proposal.status)}

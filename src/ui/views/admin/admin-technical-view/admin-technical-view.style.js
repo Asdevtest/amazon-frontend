@@ -1,24 +1,6 @@
 export const styles = theme => ({
-  balanceTitle: {
-    color: theme.palette.text.general,
-    fontSize: '72px',
-    fontWeight: 400,
-    lineHeight: '84px',
-    marginBottom: '24px',
-  },
-  mb5: {
-    marginBottom: theme.spacing(5),
-  },
-  mr2: {
-    marginRight: theme.spacing(2),
-  },
-
   mainWrapper: {
     padding: '20px 45px',
-  },
-
-  technicalBtn: {
-    marginBottom: 25,
   },
 
   btnsWrapper: {
@@ -42,9 +24,7 @@ export const styles = theme => ({
   },
 
   noticeAttention: {
-    // color: theme.palette.text.red,
     color: 'red',
-
     marginLeft: 42,
   },
 

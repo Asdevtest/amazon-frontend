@@ -1,7 +1,6 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  cardsWrapper: {},
   cardWrapper: {
     width: '277px',
 
@@ -31,9 +30,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   iconBtn: {
     marginLeft: '15px',
-    // position: 'absolute',
-    // top: '11px',
-    // right: '25px',
 
     width: 15,
     height: 15,
@@ -61,7 +57,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: '#c4c4c4',
   },
   cardListTitle: {
-    fontSize: '20px',
+    fontSize: '18px',
     lineHeight: '27px',
     color: theme.palette.text.general,
     fontWeight: 600,
@@ -105,9 +101,18 @@ export const useClassNames = makeStyles()(theme => ({
       padding: '0 10px',
       marginBottom: '15px',
     },
+
+    '.swiper-button-prev': {
+      color: theme.palette.primary.main,
+    },
+
+    '.swiper-button-next': {
+      color: theme.palette.primary.main,
+    },
   },
   addButton: {
     height: '40px',
     marginLeft: 50,
   },
 }))
+1

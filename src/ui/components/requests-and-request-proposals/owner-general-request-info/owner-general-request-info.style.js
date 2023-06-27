@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -46,28 +46,18 @@ export const useClassNames = makeStyles()(theme => ({
   },
   requestInfoWrapper: {
     display: 'flex',
-
     justifyContent: 'space-between',
-
     width: 950,
     height: 140,
-
     padding: 20,
-
     border: `1px solid rgba(0,0,0, .1)`,
     borderRadius: 4,
   },
-  requestItemInfoWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'start',
-    padding: '15px',
-  },
+
   blockInfoWrapper: {
     display: 'flex',
     width: 121,
     flexDirection: 'column',
-
     justifyContent: 'space-between',
   },
   blockInfoWrapperLast: {
@@ -75,22 +65,17 @@ export const useClassNames = makeStyles()(theme => ({
   },
   title: {
     maxWidth: 300,
-
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
-
-    // height: '60px',
   },
   subTitle: {
     fontWeight: 400,
     fontSize: 16,
     lineHeight: '22px',
-
     color: theme.palette.text.second,
   },
   btnsBlockWrapper: {
@@ -98,7 +83,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
-
     gap: 20,
   },
   recoverBtn: {
@@ -132,32 +116,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
   button: {
     display: 'flex',
-    // flex: 1,
   },
   buttonEditRemoveBtnIsShown: {
     marginLeft: '10px',
   },
-  requestStatus: {
-    fontSize: '18px',
-    lineHeight: '140%',
-    color: '#00B746',
-  },
-  successBtn: {
-    backgroundColor: '#00B746',
-    '&:hover': {
-      opacity: '0.8',
-      backgroundColor: '#00B746',
-    },
-  },
-  cancelBtn: {
-    color: '#fff',
-    // marginLeft: '10px',
-    backgroundColor: '#F44336',
-    '&:hover': {
-      opacity: '0.8',
-      backgroundColor: '#F44336',
-    },
-  },
+
   deleteBtn: {
     color: '#fff',
     width: 140,
@@ -174,7 +137,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   price: {
     color: theme.palette.text.general,
-
     fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',
@@ -191,20 +153,17 @@ export const useClassNames = makeStyles()(theme => ({
   titleAndAsinWrapper: {
     display: 'flex',
     alignItems: 'center',
-
     gap: 35,
   },
 
   asinTitleWrapper: {
     display: 'flex',
-
     gap: 5,
   },
   asinText: {
     fontWeight: 400,
     fontSize: 18,
     lineHeight: '140%',
-
     color: theme.palette.text.second,
   },
   asinTextDark: {
@@ -216,33 +175,25 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '16px',
-
     color: theme.palette.text.second,
   },
   blockInfoCellText: {
     fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',
-
     whiteSpace: 'nowrap',
-
     color: theme.palette.text.main,
   },
   blockInfoCell: {
     display: 'flex',
     flexDirection: 'column',
-
     gap: 5,
   },
   pricesWrapper: {
     display: 'flex',
     gap: 5,
   },
-  twoStepFieldResult: {
-    fontWeight: 600,
 
-    color: theme.palette.text.main,
-  },
   oldPrice: {
     textDecoration: 'line-through',
   },
@@ -258,8 +209,21 @@ export const useClassNames = makeStyles()(theme => ({
 
   userInfo: {
     display: 'flex',
-    // alignItems: 'center',
-
     gap: 15,
+  },
+
+  listingCheckbox: {
+    color: theme.palette.primary.main,
+  },
+
+  listingText: {
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.primary.main,
+  },
+
+  listingButton: {
+    width: '100%',
   },
 }))

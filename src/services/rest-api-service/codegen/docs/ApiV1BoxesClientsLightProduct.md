@@ -15,5 +15,6 @@ Name | Type | Description | Notes
 **chinaTitle** | **String** | chinese title? | [optional] 
 **barCode** | **String** | Штрихкод продукта | [optional] 
 **hsCode** | **String** | hsCode продукта. | [optional] 
+**subUsers** | [**[ApiV1AdminsGetProductsByStatusCreatedBy]**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 
 

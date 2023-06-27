@@ -1,30 +1,30 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Alert, Box, Grid, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Alert, Box, Grid, Typography } from '@mui/material'
 
 import React from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
-import {productStatusButtonsConfigs} from '@constants/product-status-buttons-configs'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
+import { productStatusButtonsConfigs } from '@constants/product/product-status-buttons-configs'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
 
-import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
+import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import {
   translateTooltipCloseBtnMessage,
   translateTooltipDeleteBtnMessage,
   translateTooltipMessageByRole,
   translateTooltipSaveBtnMessage,
 } from '@utils/translate-tooltip-message'
-import {t} from '@utils/translations'
-import {errorMessagesTranslate} from '@utils/validation'
+import { t } from '@utils/translations'
+import { errorMessagesTranslate } from '@utils/validation'
 
-import {ProductStatusButtons} from './product-status-buttons'
-import {useClassNames} from './right-side-comments.style'
+import { ProductStatusButtons } from './product-status-buttons'
+import { useClassNames } from './right-side-comments.style'
 
 const withoutStatus = true
 
@@ -48,7 +48,7 @@ export const RightSideComments = observer(
     formFieldsValidationErrors,
     acceptMessage,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
     const productStatusButtonsConfig =
       productStatusButtonsConfigs[curUserRole] && productStatusButtonsConfigs[curUserRole](productBase.status)
 
@@ -63,7 +63,7 @@ export const RightSideComments = observer(
             className={cx(classNames.heightFieldAuto, {
               [classNames.errorActive]: formFieldsValidationErrors.icomment,
             })}
-            inputProps={{maxLength: 1000}}
+            inputProps={{ maxLength: 1000 }}
             minRows={4}
             maxRows={6}
             label={t(TranslationKey.Researcher)}
@@ -78,7 +78,7 @@ export const RightSideComments = observer(
             className={cx(classNames.heightFieldAuto, {
               [classNames.errorActive]: formFieldsValidationErrors.checkednotes,
             })}
-            inputProps={{maxLength: 1000}}
+            inputProps={{ maxLength: 1000 }}
             minRows={4}
             maxRows={6}
             label={t(TranslationKey.Supervisor)}
@@ -95,7 +95,7 @@ export const RightSideComments = observer(
                 className={cx(classNames.heightFieldAuto, {
                   [classNames.errorActive]: formFieldsValidationErrors.buyersComment,
                 })}
-                inputProps={{maxLength: 1000}}
+                inputProps={{ maxLength: 1000 }}
                 minRows={4}
                 maxRows={6}
                 label={t(TranslationKey.Buyer)}
@@ -109,7 +109,7 @@ export const RightSideComments = observer(
                 className={cx(classNames.heightFieldAuto, {
                   // [classNames.errorActive]: formFieldsValidationErrors.icomment,
                 })}
-                inputProps={{maxLength: 1000}}
+                inputProps={{ maxLength: 1000 }}
                 minRows={4}
                 maxRows={6}
                 label={t(TranslationKey.Client)}

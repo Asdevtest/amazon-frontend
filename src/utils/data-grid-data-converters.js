@@ -1,16 +1,16 @@
-import {ideaStatusByCode, ideaStatusTranslate} from '@constants/idea-status'
-import {OrderStatusByCode, OrderStatusTranslate} from '@constants/order-status'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import {
   ProductStatus,
   ProductStatusByCode,
   ProductStatusByKey,
   productStatusTranslateKey,
-} from '@constants/product-status'
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
-import {mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel} from '@constants/task-operation-type'
-import {mapTaskStatusKeyToEnum} from '@constants/task-status'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
+} from '@constants/product/product-status'
+import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
+import { OrderStatusByCode, OrderStatusTranslate } from '@constants/statuses/order-status'
+import { mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel } from '@constants/task/task-operation-type'
+import { mapTaskStatusKeyToEnum } from '@constants/task/task-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   calcFinalWeightForBox,
@@ -20,10 +20,11 @@ import {
   checkActualBatchWeightGreaterVolumeBatchWeight,
   getTariffRateForBoxOrOrder,
 } from './calculation'
-import {getFullTariffTextForBoxOrOrder} from './text'
-import {t} from './translations'
+import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder } from './text'
+import { t } from './translations'
 
-export const addIdDataConverter = data => data.map((item, index) => ({...item, id: item._id ? item._id : index}))
+export const addIdDataConverter = data =>
+  data.map((item, index) => ({ ...item, originalData: item, id: item._id ? item._id : index }))
 
 export const ideaNoticeDataConverter = data =>
   data.map((item, index) => ({
@@ -70,6 +71,7 @@ export const myRequestsDataConverter = data =>
     asin: item.asin,
     humanFriendlyId: item.humanFriendlyId,
     updatedAt: item.updatedAt,
+    createdAt: item.createdAt,
     timeoutAt: item.timeoutAt,
     acceptedProposals: item?.countProposalsByStatuses?.acceptedProposals,
     allProposals: item?.countProposalsByStatuses?.allProposals,
@@ -77,6 +79,7 @@ export const myRequestsDataConverter = data =>
     verifyingProposals: item?.countProposalsByStatuses?.verifyingProposals,
     waitedProposals: item?.countProposalsByStatuses?.waitedProposals,
     typeTask: item?.typeTask,
+    uploadedToListing: item?.uploadedToListing,
   }))
 
 export const researcherCustomRequestsDataConverter = data =>
@@ -174,7 +177,10 @@ export const buyerProductsDataConverter = data =>
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
 
-    ideaCount: item.ideaCount,
+    ideasOnCheck: item.ideasOnCheck,
+    ideasVerified: item.ideasVerified,
+    ideasClosed: item.ideasClosed,
+
     amazon: item.amazon,
     profit: item.profit,
     bsr: item.bsr,
@@ -277,8 +283,6 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     bsr: item.bsr,
     fbafee: item.fbafee,
 
-    ideaCount: item.ideaCount,
-
     id: item._id,
     _id: item._id,
     asin: item.asin,
@@ -298,6 +302,10 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     fourMonthesStock: item.fourMonthesStock,
     clientComment: item.clientComment,
     stockUSA: item.stockUSA,
+
+    ideasOnCheck: item.ideasOnCheck,
+    ideasVerified: item.ideasVerified,
+    ideasClosed: item.ideasClosed,
 
     shopIds: shopsData?.find(el => el._id === item.shopIds?.[0])?.name || '',
   }))
@@ -339,7 +347,7 @@ export const depersonalizedPickDataConverter = data =>
     updatedAt: item.updatedAt,
   }))
 
-export const clientOrdersDataConverter = data =>
+export const clientOrdersDataConverter = (data, shopsData) =>
   data.map(item => ({
     originalData: item,
     id: item._id,
@@ -364,6 +372,8 @@ export const clientOrdersDataConverter = data =>
     needsResearch: item.needsResearch,
     buyerComment: item.buyerComment,
     clientComment: item.clientComment,
+    shopIds: shopsData?.find(el => el._id === item.product.shopIds?.[0])?.name || '',
+    // shopIds: item.product.shopIds?.[0],
   }))
 
 export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shopsData) =>
@@ -403,6 +413,7 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
 
     shippingLabel: item.shippingLabel,
     fbaShipment: item.fbaShipment,
+    variationTariff: item?.variationTariff,
     volumeWeightCoefficient,
 
     orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
@@ -455,7 +466,8 @@ export const addOrEditBatchDataConverter = (
 
     destination: item.destination?.name,
     storekeeper: item.storekeeper?.name,
-    logicsTariff: getFullTariffTextForBoxOrOrder(item),
+    // storekeeper: item.storekeeper,
+    logicsTariff: getNewTariffTextForBoxOrOrder(item),
     client: item.client?.name,
 
     isDraft: item.isDraft,
@@ -566,7 +578,7 @@ export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
     _id: item._id,
 
     destination: item.boxes[0].destination?.name,
-    tariff: getFullTariffTextForBoxOrOrder(item.boxes[0]),
+    tariff: getNewTariffTextForBoxOrOrder(item.boxes[0]),
     humanFriendlyId: item.humanFriendlyId,
 
     title: item.title,
@@ -777,7 +789,7 @@ export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
     _id: item?._id,
 
     warehouse: item?.destination?.name,
-    logicsTariff: getFullTariffTextForBoxOrOrder(item),
+    logicsTariff: getNewTariffTextForBoxOrOrder(item),
 
     client: item?.client?.name,
 

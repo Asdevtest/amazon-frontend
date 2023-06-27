@@ -1,1 +1,1 @@
-export {StorekeeperRedistributeBox} from './storekeeper-redistribute-box-modal'
+export { StorekeeperRedistributeBox } from './storekeeper-redistribute-box-modal'

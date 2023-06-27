@@ -1,1 +1,1 @@
-export {OwnerRequestDetailCustomView} from './owner-requests-detail-custom-view'
+export { OwnerRequestDetailCustomView } from './owner-requests-detail-custom-view'

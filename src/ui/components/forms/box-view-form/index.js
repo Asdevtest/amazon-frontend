@@ -1,1 +1,1 @@
-export {BoxViewForm} from './box-view-form'
+export { BoxViewForm } from './box-view-form'

@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
@@ -8,18 +8,8 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
   },
 
-  link: {
-    width: '500px',
-    overflowX: 'auto',
-    whiteSpace: 'nowrap',
-  },
-
   noSettingsWarning: {
     color: 'red',
-  },
-
-  cancelButton: {
-    marginLeft: '10px',
   },
 
   textField: {

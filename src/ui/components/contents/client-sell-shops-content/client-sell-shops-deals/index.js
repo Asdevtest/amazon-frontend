@@ -1,1 +1,1 @@
-export {ClientSellShopsDeals} from './client-sell-shops-deals'
+export { ClientSellShopsDeals } from './client-sell-shops-deals'

@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AdminsTasksLightVariationTariff from './ApiV1AdminsTasksLightVariationTariff';
 import ApiV1BoxesClientsInTransferGuidBatch from './ApiV1BoxesClientsInTransferGuidBatch';
 import ApiV1BoxesClientsInTransferGuidLogicsTariff from './ApiV1BoxesClientsInTransferGuidLogicsTariff';
 import ApiV1BoxesClientsLightDestination from './ApiV1BoxesClientsLightDestination';
@@ -136,8 +137,14 @@ class InlineResponse20016 {
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
+            if (data.hasOwnProperty('variationTariff')) {
+                obj['variationTariff'] = ApiV1AdminsTasksLightVariationTariff.constructFromObject(data['variationTariff']);
+            }
             if (data.hasOwnProperty('items')) {
                 obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesClientsLightItems]);
+            }
+            if (data.hasOwnProperty('sub')) {
+                obj['sub'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['sub']);
             }
             if (data.hasOwnProperty('storekeeper')) {
                 obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
@@ -330,10 +337,20 @@ InlineResponse20016.prototype['createdAt'] = undefined;
 InlineResponse20016.prototype['updatedAt'] = undefined;
 
 /**
+ * @member {module:model/ApiV1AdminsTasksLightVariationTariff} variationTariff
+ */
+InlineResponse20016.prototype['variationTariff'] = undefined;
+
+/**
  * Массив коробок.
  * @member {Array.<module:model/ApiV1BoxesClientsLightItems>} items
  */
 InlineResponse20016.prototype['items'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} sub
+ */
+InlineResponse20016.prototype['sub'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper

@@ -1,16 +1,16 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
 
-import {checkIsPositiveNum, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
-import {t} from '@utils/translations'
+import { checkIsPositiveNum, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './check-quantity-form.style'
+import { useClassNames } from './check-quantity-form.style'
 
 export const CheckQuantityForm = ({
   title,
@@ -22,7 +22,7 @@ export const CheckQuantityForm = ({
   withRefund,
   maxRefundNumber,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [quantityValue, setQuantityValue] = useState('')
 
@@ -53,10 +53,10 @@ export const CheckQuantityForm = ({
       <Typography className={classNames.normalText}>{description}</Typography>
 
       <Field
-        inputProps={{maxLength: 10}}
+        inputProps={{ maxLength: 10 }}
         containerClasses={classNames.inputContainer}
         inputClasses={classNames.input}
-        classes={{input: classNames.input}}
+        classes={{ input: classNames.input }}
         error={isBadValue && valueIsEntered && t(TranslationKey['Incorrect value'])}
         value={quantityValue}
         onChange={onChangeQuantityValue}
@@ -69,10 +69,10 @@ export const CheckQuantityForm = ({
           </Typography>
 
           <Field
-            inputProps={{maxLength: 8}}
+            inputProps={{ maxLength: 8 }}
             containerClasses={classNames.inputContainer}
             inputClasses={classNames.input}
-            classes={{input: classNames.input}}
+            classes={{ input: classNames.input }}
             placeholder={'0.00'}
             value={refundValue}
             onChange={onChangeRefundValue}
@@ -86,7 +86,7 @@ export const CheckQuantityForm = ({
         <Button
           disabled={isBadValue || !valueIsEntered || !quantityValue}
           className={classNames.button}
-          onClick={() => onSubmit({refundValue})}
+          onClick={() => onSubmit({ refundValue })}
         >
           {t(TranslationKey.Yes)}
         </Button>

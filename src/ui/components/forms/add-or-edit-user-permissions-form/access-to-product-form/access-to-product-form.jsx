@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import {
   Accordion,
@@ -13,20 +13,20 @@ import {
   Typography,
 } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {toJS} from 'mobx'
-import {observer} from 'mobx-react'
+import { toJS } from 'mobx'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {SearchInput} from '@components/search-input'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { SearchInput } from '@components/shared/search-input'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {sourceColumns} from '../access-to-products-columns'
-import {useClassNames} from './access-to-product-form.style'
+import { sourceColumns } from '../access-to-products-columns'
+import { useClassNames } from './access-to-product-form.style'
 
 const accessProductSettings = {
   ALL_PRODUCTS: 'ALL_PRODUCTS',
@@ -34,8 +34,8 @@ const accessProductSettings = {
 }
 
 export const AccessToProductForm = React.memo(
-  observer(({shop, shops, selectedShop, onClickToShowDetails, setShopDataToRender, sourceData}) => {
-    const {classes: classNames} = useClassNames()
+  observer(({ shop, shops, selectedShop, onClickToShowDetails, setShopDataToRender, sourceData }) => {
+    const { classes: classNames } = useClassNames()
 
     const [curProdutsData, setCurProdutsData] = useState(sourceData || null)
 
@@ -69,23 +69,25 @@ export const AccessToProductForm = React.memo(
 
     useEffect(() => {
       if (selectedAccess === accessProductSettings.NEED_SELECT) {
-        setShopDataToRender(shops.map(item => (item._id === shop._id ? {...item, tmpProductsIds: chosenGoods} : item)))
+        setShopDataToRender(
+          shops.map(item => (item._id === shop._id ? { ...item, tmpProductsIds: chosenGoods } : item)),
+        )
       }
     }, [chosenGoods])
 
     useEffect(() => {
       if (selectedAccess === accessProductSettings.ALL_PRODUCTS) {
         setShopDataToRender(
-          shops.map(item => (item._id === shop._id ? {...item, tmpProductsIds: allProductsIds} : item)),
+          shops.map(item => (item._id === shop._id ? { ...item, tmpProductsIds: allProductsIds } : item)),
         )
 
         setChooseAllCheck(true)
       } else {
         setChosenGoods(shop?.tmpProductsIds || [])
-        // setShopDataToRender(shops.map(item => (item._id === shop._id ? {...item, tmpProductsIds: []} : item)))
+        // setShopDataToRender(shops.map(item => (item._id === traiding-shop._id ? {...item, tmpProductsIds: []} : item)))
         setChooseAllCheck(false)
       }
-      // setChosenGoods(shop?.tmpProductsIds || [])
+      // setChosenGoods(traiding-shop?.tmpProductsIds || [])
     }, [selectedAccess])
 
     useEffect(() => {
@@ -115,7 +117,7 @@ export const AccessToProductForm = React.memo(
     return (
       shops && (
         <Accordion
-          classes={{root: classNames.accordion}}
+          classes={{ root: classNames.accordion }}
           expanded={selectedShop === shop?._id}
           onChange={() => {
             onClickToShowDetails(selectedShop === shop?._id ? null : shop?._id)
@@ -123,7 +125,7 @@ export const AccessToProductForm = React.memo(
         >
           <AccordionSummary
             expandIcon={<ArrowDropDownIcon />}
-            classes={{root: classNames.accordionSummary, expanded: classNames.accordionExpanded}}
+            classes={{ root: classNames.accordionSummary, expanded: classNames.accordionExpanded }}
           >
             <div className={classNames.accardionTitleWrapper}>
               <Checkbox
@@ -136,7 +138,7 @@ export const AccessToProductForm = React.memo(
               <Typography className={classNames.title}>{shop?.name}</Typography>
 
               {/* <Typography className={classNames.selectedValue}>{`(${
-                shop.tmpProductsIds.length === sourceData.length
+                traiding-shop.tmpProductsIds.length === sourceData.length
                   ? t(TranslationKey['Access to all products'])
                   : t(TranslationKey['Access to selected products only'])
               })`}</Typography> */}
@@ -152,7 +154,7 @@ export const AccessToProductForm = React.memo(
             </div>
           </AccordionSummary>
 
-          <AccordionDetails classes={{root: classNames.details}}>
+          <AccordionDetails classes={{ root: classNames.details }}>
             <div className={classNames.detailsShopWrapper}>
               {curProdutsData ? (
                 <FormControl>
@@ -197,7 +199,7 @@ export const AccessToProductForm = React.memo(
                   <MemoDataGrid
                     disableVirtualization
                     hideFooter
-                    disableSelectionOnClick
+                    disableRowSelectionOnClick
                     keepNonExistentRowsSelected
                     checkboxSelection={selectedAccess === accessProductSettings.NEED_SELECT}
                     rows={toJS(
@@ -207,10 +209,8 @@ export const AccessToProductForm = React.memo(
                     )}
                     columns={sourceColumns()}
                     rowHeight={65}
-                    selectionModel={chosenGoods}
-                    onSelectionModelChange={newSelection => {
-                      setChosenGoods(newSelection)
-                    }}
+                    rowSelectionModel={chosenGoods}
+                    onRowSelectionModelChange={setChosenGoods}
                   />
                 </div>
               ) : null}

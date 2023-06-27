@@ -47,8 +47,20 @@ class InlineObject96 {
         if (data) {
             obj = obj || new InlineObject96();
 
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('execution_time')) {
+                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -58,10 +70,34 @@ class InlineObject96 {
 }
 
 /**
- * Причины закрытия приема предложений.
- * @member {String} reason
+ * Время на выполнение, в минутах.
+ * @member {Number} execution_time
  */
-InlineObject96.prototype['reason'] = undefined;
+InlineObject96.prototype['execution_time'] = undefined;
+
+/**
+ * Цена предложения.
+ * @member {Number} price
+ */
+InlineObject96.prototype['price'] = undefined;
+
+/**
+ * Комментарий к предложению.
+ * @member {String} comment
+ */
+InlineObject96.prototype['comment'] = undefined;
+
+/**
+ * Ссылки на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject96.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * Название предложения
+ * @member {String} title
+ */
+InlineObject96.prototype['title'] = undefined;
 
 
 

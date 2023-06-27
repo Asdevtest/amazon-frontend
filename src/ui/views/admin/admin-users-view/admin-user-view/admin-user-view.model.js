@@ -1,8 +1,8 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {AdministratorModel} from '@models/administrator-model'
+import { AdministratorModel } from '@models/administrator-model'
 
 export class AdminUserViewModel {
   history = undefined
@@ -12,10 +12,9 @@ export class AdminUserViewModel {
   userId = undefined
   user = undefined
 
-  drawerOpen = false
   order = undefined
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
     })
@@ -25,7 +24,7 @@ export class AdminUserViewModel {
         this.user = location.state.user
       })
     }
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async getUserInfo(id) {
@@ -52,11 +51,6 @@ export class AdminUserViewModel {
     }
   }
 
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus

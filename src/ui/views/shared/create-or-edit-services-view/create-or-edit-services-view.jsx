@@ -1,78 +1,45 @@
 /* eslint-disable no-unused-vars */
-import React, {Component} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { CreateOrEditServiceContent } from '@components/contents/create-or-edit-services-content/create-or-edit-services-content'
+import { MainContent } from '@components/layout/main-content'
 
-import {Appbar} from '@components/appbar'
-import {CreateOrEditServiceContent} from '@components/contents/create-or-edit-services-content/create-or-edit-services-content'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {Navbar} from '@components/navbar'
+import { CreateOrEditServicesViewModel } from './create-or-edit-services-view.model'
+import { styles } from './create-or-edit-services-view.style'
 
-import {t} from '@utils/translations'
+export const CreateOrEditServicesViewRaw = props => {
+  const [viewModel] = useState(
+    () =>
+      new CreateOrEditServicesViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
+  const { classes: classNames } = props
 
-import {CreateOrEditServicesViewModel} from './create-or-edit-services-view.model'
-import {styles} from './create-or-edit-services-view.style'
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
-const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES
-@observer
-export class CreateOrEditServicesViewRaw extends Component {
-  viewModel = new CreateOrEditServicesViewModel({
-    history: this.props.history,
-    location: this.props.location,
-  })
-
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
-
-  render() {
-    const {
-      drawerOpen,
-      requestToEdit,
-      pathname,
-      userInfo,
-
-      onTriggerDrawerOpen,
-      onClickCreateBtn,
-      onClickBackBtn,
-      onClickEditBtn,
-    } = this.viewModel
-
-    const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-        />
-        <Main>
-          <Appbar title={t(TranslationKey['Create service'])} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <div className={classNames.root}>
-                <CreateOrEditServiceContent
-                  pathname={pathname}
-                  userInfo={userInfo}
-                  data={requestToEdit}
-                  onClickCreateBtn={onClickCreateBtn}
-                  onClickEditBtn={onClickEditBtn}
-                  onClickBackBtn={onClickBackBtn}
-                />
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
-      </React.Fragment>
-    )
-  }
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.root}>
+          <CreateOrEditServiceContent
+            pathname={viewModel.pathname}
+            userInfo={viewModel.userInfo}
+            data={viewModel.requestToEdit}
+            onClickCreateBtn={viewModel.onClickCreateBtn}
+            onClickEditBtn={viewModel.onClickEditBtn}
+            onClickBackBtn={viewModel.onClickBackBtn}
+          />
+        </div>
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const CreateOrEditServicesView = withStyles(CreateOrEditServicesViewRaw, styles)
+export const CreateOrEditServicesView = withStyles(observer(CreateOrEditServicesViewRaw), styles)

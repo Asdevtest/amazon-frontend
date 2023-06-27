@@ -1,1 +1,1 @@
-export {ClientOrdersView} from './client-orders-view'
+export { ClientOrdersView } from './client-orders-view'

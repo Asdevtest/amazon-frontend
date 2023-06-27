@@ -1,37 +1,37 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import {Chip, IconButton, Link, Typography} from '@mui/material'
+import { Chip, IconButton, Link, Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {operationTypes} from '@constants/operation-types'
-import {UiTheme} from '@constants/themes'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {zipCodeGroups} from '@constants/zip-code-groups'
+import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { operationTypes } from '@constants/keys/operation-types'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { UiTheme } from '@constants/theme/themes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value/copy-value'
-import {Field} from '@components/field'
-import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
-import {Modal} from '@components/modal'
-import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
-import {EditBoxTasksModal} from '@components/screens/warehouse/edit-task-modal/edit-box-tasks-modal'
-import {WithSearchSelect} from '@components/selects/with-search-select'
+import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
+import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
+import { Button } from '@components/shared/buttons/button'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { Field } from '@components/shared/field'
+import { Modal } from '@components/shared/modal'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { EditBoxTasksModal } from '@components/warehouse/edit-task-modal/edit-box-tasks-modal'
 
-import {checkIsPositiveNum} from '@utils/checks'
-import {filterEmptyBoxes, filterEmptyOrders} from '@utils/filters'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import { checkIsPositiveNum } from '@utils/checks'
+import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 // import {checkAndMakeAbsoluteUrl} from '@utils/text'
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './storekeeper-redistribute-box-modal.style'
+import { useClassNames } from './storekeeper-redistribute-box-modal.style'
 
 const Box = ({
   destinations,
@@ -52,13 +52,13 @@ const Box = ({
   setCurBox,
   onClickApplyAllBtn,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
   const [showFullCard, setShowFullCard] = useState(true)
 
   const setShippingLabel = () => value => {
-    onChangeField({target: {value}}, 'tmpShippingLabel', box._id)
+    onChangeField({ target: { value } }, 'tmpShippingLabel', box._id)
   }
 
   const onClickShippingLabel = () => {
@@ -66,31 +66,30 @@ const Box = ({
   }
 
   const onDeleteShippingLabel = () => {
-    onChangeField({target: {value: ''}}, 'shippingLabel', box._id)
+    onChangeField({ target: { value: '' } }, 'shippingLabel', box._id)
   }
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
-  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-    onChangeField({target: {value: storekeeperId}}, 'storekeeperId', box._id)
-    onChangeField({target: {value: tariffId}}, 'logicsTariffId', box._id)
+  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId, destinationId) => {
+    onChangeField({ storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId }, 'part', box._id)
 
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
 
   const curDestination = destinations.find(el => el._id === box.destinationId)
+  const currentStorekeeper = storekeepers.find(el => el._id === box.storekeeperId)
+  const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === box.logicsTariffId)
 
   const firstNumOfCode = curDestination?.zipCode[0]
 
   const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-  const tariffName = storekeepers
-    .find(el => el._id === box.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === box.logicsTariffId)?.name
+  const tariffName = currentLogicsTariff?.name
 
-  const tariffRate = storekeepers
-    .find(el => el._id === box.storekeeperId)
-    ?.tariffLogistics.find(el => el._id === box.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+  const tariffRate =
+    currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
+    currentLogicsTariff?.destinationVariations?.find(el => el._id === box?.variationTariffId)?.pricePerKgUsd
 
   return (
     <div className={classNames.box}>
@@ -143,12 +142,18 @@ const Box = ({
                       destinations.find(el => el._id === (isNewBox ? box.destinationId : box.destination?._id))?.name ||
                       t(TranslationKey['Not chosen'])
                     }
-                    data={destinations?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)}
+                    data={
+                      box?.variationTariffId
+                        ? destinations
+                            ?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)
+                            ?.filter(el => el._id === box?.destinationId)
+                        : destinations?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)
+                    }
                     searchFields={['name']}
                     favourites={destinationsFavourites}
                     onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-                    onClickNotChosen={() => onChangeField({target: {value: ''}}, 'destinationId', box._id)}
-                    onClickSelect={el => onChangeField({target: {value: el._id}}, 'destinationId', box._id)}
+                    onClickNotChosen={() => onChangeField({ target: { value: '' } }, 'destinationId', box._id)}
+                    onClickSelect={el => onChangeField({ target: { value: el._id } }, 'destinationId', box._id)}
                   />
                 }
               />
@@ -166,43 +171,25 @@ const Box = ({
                         variant={box.logicsTariffId && 'text'}
                         className={cx(
                           classNames.storekeeperBtnDefault,
-                          {[classNames.storekeeperBtn]: !box.logicsTariffId},
+                          { [classNames.storekeeperBtn]: !box.logicsTariffId },
                           {
                             [classNames.storekeeperBtnColored]:
                               !box.logicsTariffId && SettingsModel.uiTheme === UiTheme.light,
                           },
-                          {[classNames.storekeeperDisableBtn]: !isNewBox},
+                          { [classNames.storekeeperDisableBtn]: !isNewBox },
                         )}
                         onClick={() =>
                           setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                         }
                       >
                         {box.logicsTariffId
-                          ? `${
-                              storekeepers.find(el => el._id === box.storekeeperId)?.name ||
-                              t(TranslationKey['Not available'])
-                            } /  
-                            ${
-                              box.logicsTariffId
-                                ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-                                    tariffRate ? ' / ' + tariffRate + ' $' : ''
-                                  }`
-                                : 'none'
-                            }`
+                          ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                           : t(TranslationKey.Select)}
                       </Button>
                     ) : (
                       <Typography className={classNames.storekeeperDisableBtn}>{`${
-                        storekeepers.find(el => el._id === box.storekeeper?._id)?.name ||
-                        t(TranslationKey['Not available'])
-                      } /  
-                        ${
-                          box.logicsTariff?._id
-                            ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-                                tariffRate ? ' / ' + tariffRate + ' $' : ''
-                              }`
-                            : 'none'
-                        }`}</Typography>
+                        box.logicsTariff?._id ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}` : 'none'
+                      }`}</Typography>
                     )}
                   </div>
                 }
@@ -210,7 +197,7 @@ const Box = ({
 
               <Field
                 disabled={!isNewBox}
-                inputProps={{maxLength: 255}}
+                inputProps={{ maxLength: 255 }}
                 tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
                 containerClasses={classNames.field}
                 labelClasses={classNames.label}
@@ -229,7 +216,7 @@ const Box = ({
               {!isNewBox ? (
                 <Field
                   disabled={!isNewBox}
-                  inputProps={{maxLength: 255}}
+                  inputProps={{ maxLength: 255 }}
                   containerClasses={classNames.field}
                   labelClasses={classNames.label}
                   className={classNames.fieldInput}
@@ -267,7 +254,7 @@ const Box = ({
                           deleteIcon: classNames.barcodeChipIcon,
                           label: classNames.barcodeChiplabel,
                         }}
-                        className={cx({[classNames.barcodeChipExists]: box.shippingLabel})}
+                        className={cx({ [classNames.barcodeChipExists]: box.shippingLabel })}
                         size="small"
                         label={
                           box.tmpShippingLabel?.length
@@ -296,7 +283,7 @@ const Box = ({
 
           {isNewBox && (
             <div className={classNames.bottomBlockWrapper}>
-              <IconButton classes={{root: classNames.icon}} onClick={() => onRemoveBox(box._id)}>
+              <IconButton classes={{ root: classNames.icon }} onClick={() => onRemoveBox(box._id)}>
                 <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
               </IconButton>
               <Button
@@ -364,9 +351,13 @@ const Box = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
+          showCheckbox
+          destinationsData={destinations}
           storekeepers={storekeepers.filter(el => el?._id === box?.storekeeper?._id)}
           curStorekeeperId={box?.storekeeperId}
           curTariffId={box?.logicsTariffId}
+          currentDestinationId={box?.destinationId}
+          currentVariationTariffId={box?.variationTariffId}
           onSubmit={onSubmitSelectStorekeeperAndTariff}
         />
       </Modal>
@@ -392,7 +383,7 @@ const NewBoxes = ({
   setNewBoxes,
   onClickApplyAllBtn,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [curBox, setCurBox] = useState({})
 
@@ -403,7 +394,7 @@ const NewBoxes = ({
       </div>
 
       {newBoxes.map((box, boxIndex) => (
-        <div key={boxIndex} className={cx({[classNames.marginBox]: newBoxes.length > 1})}>
+        <div key={boxIndex} className={cx({ [classNames.marginBox]: newBoxes.length > 1 })}>
           <Box
             isNewBox
             destinations={destinations}
@@ -460,7 +451,7 @@ export const StorekeeperRedistributeBox = observer(
     onTriggerShowEditBoxModalR,
     volumeWeightCoefficient,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const onClickEditBox = box => {
       onEditBox(box)
@@ -471,6 +462,7 @@ export const StorekeeperRedistributeBox = observer(
       destinationId: selectedBox.destination?._id || null,
       storekeeperId: selectedBox.storekeeper?._id || '',
       logicsTariffId: selectedBox.logicsTariff?._id || '',
+      variationTariffId: selectedBox.variationTariff?._id || '',
 
       lengthCmWarehouse: 0,
       widthCmWarehouse: 0,
@@ -481,7 +473,7 @@ export const StorekeeperRedistributeBox = observer(
 
     const isMasterBox = selectedBox?.amount && selectedBox?.amount > 1
 
-    const emptyProducts = currentBox?.items?.map(product => ({...product, amount: isMasterBox ? product.amount : 0}))
+    const emptyProducts = currentBox?.items?.map(product => ({ ...product, amount: isMasterBox ? product.amount : 0 }))
 
     const getEmptyBox = () => ({
       ...currentBox,
@@ -501,11 +493,11 @@ export const StorekeeperRedistributeBox = observer(
     const onChangeAmountInput = (e, _id, order) => {
       const targetBox = newBoxes.filter(box => box._id === _id)[0]
       const targetProduct = targetBox.items.filter(product => product.order === order)[0]
-      const updatedTargetProduct = {...targetProduct, amount: Number(e.target.value)}
+      const updatedTargetProduct = { ...targetProduct, amount: Number(e.target.value) }
       const updatedTargetProducts = targetBox.items.map(product =>
         product.order === order ? updatedTargetProduct : product,
       )
-      const updatedTargetBox = {...targetBox, items: updatedTargetProducts}
+      const updatedTargetBox = { ...targetBox, items: updatedTargetProducts }
 
       const updatedNewBoxes = newBoxes.map(box => (box._id === _id ? updatedTargetBox : box))
 
@@ -517,11 +509,11 @@ export const StorekeeperRedistributeBox = observer(
       if (checkAmount < 0) {
         return
       }
-      const updatedCurrentOrder = {...currentOrder, amount: checkAmount}
+      const updatedCurrentOrder = { ...currentOrder, amount: checkAmount }
       const updatedCurrentOrders = currentBox?.items.map(product =>
         product.order === order ? updatedCurrentOrder : product,
       )
-      const updatedCurrentBox = {...currentBox, items: updatedCurrentOrders}
+      const updatedCurrentBox = { ...currentBox, items: updatedCurrentOrders }
 
       setNewBoxes(updatedNewBoxes)
       setCurrentBox(updatedCurrentBox)
@@ -530,14 +522,21 @@ export const StorekeeperRedistributeBox = observer(
     const onChangeField = (e, field, boxId) => {
       const targetBox = newBoxes.filter(newBox => newBox._id === boxId)[0]
 
-      const updatedTargetBox = {
-        ...targetBox,
-        [field /* field === 'shippingLabel' ? e.target.value.replace(' ', '') :*/]: e.target.value,
+      if (field === 'part') {
+        const updatedTargetBox = {
+          ...targetBox,
+          ...e,
+        }
+        const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
+        setNewBoxes(updatedNewBoxes)
+      } else {
+        const updatedTargetBox = {
+          ...targetBox,
+          [field /* field === 'shippingLabel' ? e.target.value.replace(' ', '') :*/]: e.target.value,
+        }
+        const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
+        setNewBoxes(updatedNewBoxes)
       }
-
-      const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
-
-      setNewBoxes(updatedNewBoxes)
     }
 
     const onClickRedistributeBtn = () => {
@@ -556,7 +555,7 @@ export const StorekeeperRedistributeBox = observer(
 
       onRedistribute(
         selectedBox._id,
-        newBoxesWithoutEmptyOrders.map(el => ({...el, destinationId: el.destinationId || null})),
+        newBoxesWithoutEmptyOrders.map(el => ({ ...el, destinationId: el.destinationId || null })),
         operationTypes.SPLIT,
         isMasterBox,
         selectedBox,

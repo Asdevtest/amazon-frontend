@@ -1,20 +1,20 @@
-import {cx} from '@emotion/css'
-import {Divider, InputBase, Paper, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Divider, InputBase, Paper, Typography } from '@mui/material'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
+import { Button } from '@components/shared/buttons/button'
 
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {toFixedWithDollarSign, toFixedWithKg, withAmount} from '@utils/text'
-import {t} from '@utils/translations'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { toFixedWithDollarSign, toFixedWithKg, withAmount } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './private-label-card.style'
+import { useClassNames } from './private-label-card.style'
 
-export const PrivateLabelCard = ({item, setProductToPay, index}) => {
-  const {classes: classNames} = useClassNames()
+export const PrivateLabelCard = ({ item, setProductToPay, index }) => {
+  const { classes: classNames } = useClassNames()
 
-  const InfoRow = ({label, value}) => (
+  const InfoRow = ({ label, value }) => (
     <div className={classNames.textWrapper}>
       <Typography className={cx(classNames.text, classNames.label)}>{label}</Typography>
       <Typography className={cx(classNames.text, classNames.value)}>{value}</Typography>
@@ -32,7 +32,7 @@ export const PrivateLabelCard = ({item, setProductToPay, index}) => {
         <InfoRow label={t(TranslationKey.Price)} value={toFixedWithDollarSign(item.amazon, 2)} />
         <div className={classNames.textWrapper}>
           <Typography className={cx(classNames.text, classNames.label)}>{t(TranslationKey.Quantity)}</Typography>
-          <InputBase classes={{root: classNames.inputWrapper, input: classNames.input}} defaultValue={100} />
+          <InputBase classes={{ root: classNames.inputWrapper, input: classNames.input }} defaultValue={100} />
         </div>
 
         <Divider className={classNames.divider} />

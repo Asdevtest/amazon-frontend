@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -19,7 +19,6 @@ export const useClassNames = makeStyles()(theme => ({
   button: {
     marginBottom: 5,
     marginRight: '10px',
-
     color: theme.palette.primary.main,
 
     '&>disabled': {
@@ -30,16 +29,12 @@ export const useClassNames = makeStyles()(theme => ({
   selectedBoxesBtn: {
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
-
-    borderBottom: '5px solid #0460DE',
-
+    borderBottom: theme.palette.other.tableActiveFilterBtn,
     color: `${theme.palette.primary.main} !important`,
   },
 
   selectedStorekeeperBtn: {
     boxShadow: `inset 0 0 15px ${theme.palette.primary.main}`,
-
-    // color: theme.palette.text.general,
   },
 
   resetBtn: {
@@ -63,11 +58,5 @@ export const useClassNames = makeStyles()(theme => ({
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: '400px',
-  },
-
-  searchContainer: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'flex-end',
   },
 }))

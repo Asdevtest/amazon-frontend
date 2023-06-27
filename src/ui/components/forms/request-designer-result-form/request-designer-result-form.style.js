@@ -1,14 +1,11 @@
 /* eslint-disable no-unused-vars */
-import {borderRadius} from '@mui/system'
+import { borderRadius } from '@mui/system'
 
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   modalMainWrapper: {
     width: 1500,
-    // maxHeight: 800,
-
-    // padding: '0 10px',
   },
 
   headerWrapper: {
@@ -20,10 +17,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 18,
     lineHeight: '140%',
-
     color: theme.palette.text.main,
-
-    // marginBottom: 20,
   },
 
   mainTitleMargin: {
@@ -64,7 +58,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex !important',
     justifyContent: 'flex-start',
     padding: 0,
-
     width: 'min-content',
   },
 
@@ -96,16 +89,6 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     marginTop: 30,
-    // marginBottom: 30,
-    gap: 30,
-  },
-
-  footerSubWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    marginTop: 30,
-    // marginBottom: 30,
     gap: 30,
   },
 
@@ -121,12 +104,10 @@ export const useClassNames = makeStyles()(theme => ({
   bodyWrapper: {
     minHeight: 300,
     maxHeight: 400,
-
     display: 'flex',
     flexWrap: 'wrap',
     gap: 27,
     paddingTop: 30,
-    // background: 'grey',
     overflowY: 'auto',
     overflowX: 'hidden',
   },
@@ -136,19 +117,13 @@ export const useClassNames = makeStyles()(theme => ({
     flexWrap: 'wrap',
     gap: 24,
     paddingRight: 15,
-    // paddingTop: 30,
-    // // background: 'grey',
-    // overflowY: 'auto',
-    // overflowX: 'hidden',
   },
 
   imageObjWrapper: {
     display: 'flex',
     flexDirection: 'column',
     width: 161,
-    // border: '1px solid red',
     height: 'min-content',
-
     position: 'relative',
   },
 
@@ -161,7 +136,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    // position: 'relative',
   },
 
   isHaveImage: {
@@ -192,7 +166,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainImageWrapper: {
     position: 'relative',
-
     padding: 3,
     backgroundImage: `url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23007BFFFF' stroke-width='4' stroke-dasharray='6%2c 14' stroke-dashoffset='90' stroke-linecap='square'/%3e%3c/svg%3e")`,
   },
@@ -213,46 +186,35 @@ export const useClassNames = makeStyles()(theme => ({
 
   clientComment: {
     fontSize: 18,
-    // color: theme.palette.text.red,
     color: '#DF0C0C',
     wordBreak: 'break-word',
-
-    // lineHeight: '45px',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-
     display: '-webkit-box',
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
   },
 
   imageObjInput: {
-    // width: '100%',
     width: 133,
     height: 'auto',
   },
 
   bigPlusWrapper: {
-    // height: 205,
-    // width: 161,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     justifySelf: 'flex-start',
-
     marginLeft: 100,
   },
 
   bigPlus: {
     color: theme.palette.primary.main,
-
-    // marginTop: 40,
     margin: '15px 0 30px 0',
     cursor: 'pointer',
     transition: '.3s ease',
     transform: 'scale(2.8)',
-
     '&:hover': {
       transform: 'scale(3)',
     },
@@ -279,7 +241,6 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     width: '100%',
     height: '100%',
-
     transition: '.3s ease',
     cursor: 'pointer',
     '&: hover': {
@@ -290,10 +251,6 @@ export const useClassNames = makeStyles()(theme => ({
   imageListItem: {
     width: '100%',
     height: '100%',
-
-    // backgroundImage: `linear-gradient(to right, #fff 40%, ${theme.palette.primary.main} 40%)`,
-    // backgroundSize: '10px 1px',
-    // backgroundRepeat: 'repeat-x',
   },
 
   imageUploadText: {
@@ -309,7 +266,6 @@ export const useClassNames = makeStyles()(theme => ({
     left: 0,
     opacity: 0,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    // zIndex: 1000000,
   },
 
   image: {
@@ -317,17 +273,11 @@ export const useClassNames = makeStyles()(theme => ({
     height: '100%',
     objectFit: 'contain',
     background: theme.palette.background.general,
-
     transition: '.3s ease',
     cursor: 'pointer',
     '&: hover': {
       transform: 'scale(1.05)',
     },
-  },
-
-  imagesModalBtnsWrapper: {
-    display: 'flex',
-    gap: 20,
   },
 
   imagesModalBtn: {

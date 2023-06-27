@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
 
 /**
  * The InlineResponse20062 model module.
@@ -23,7 +21,7 @@ import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
 class InlineResponse20062 {
     /**
      * Constructs a new <code>InlineResponse20062</code>.
-     * Схема получение лайт версии продажи магазина
+     * Успешный ответ.
      * @alias module:model/InlineResponse20062
      */
     constructor() { 
@@ -50,35 +48,11 @@ class InlineResponse20062 {
         if (data) {
             obj = obj || new InlineResponse20062();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('isExist')) {
+                obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
             }
-            if (data.hasOwnProperty('owner')) {
-                obj['owner'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['owner']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'String');
-            }
-            if (data.hasOwnProperty('files')) {
-                obj['files'] = ApiClient.convertToType(data['files'], ['String']);
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('monthlyMultiplier')) {
-                obj['monthlyMultiplier'] = ApiClient.convertToType(data['monthlyMultiplier'], 'Number');
-            }
-            if (data.hasOwnProperty('statistics')) {
-                obj['statistics'] = ApiV1ShopSellStatistics.constructFromObject(data['statistics']);
-            }
-            if (data.hasOwnProperty('businessStartDate')) {
-                obj['businessStartDate'] = ApiClient.convertToType(data['businessStartDate'], 'Date');
-            }
-            if (data.hasOwnProperty('shopDetails')) {
-                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -88,62 +62,16 @@ class InlineResponse20062 {
 }
 
 /**
- * GUID магазина на продажу.
- * @member {String} _id
+ * Флаг, показывает есть ли такой ASIN в базе или нет
+ * @member {Boolean} isExist
  */
-InlineResponse20062.prototype['_id'] = undefined;
+InlineResponse20062.prototype['isExist'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} owner
+ * Причина из таблицы с асинами
+ * @member {String} reason
  */
-InlineResponse20062.prototype['owner'] = undefined;
-
-/**
- * Имя магазина для продажи
- * @member {String} title
- */
-InlineResponse20062.prototype['title'] = undefined;
-
-/**
- * Статус магазина для продажи
- * @member {String} status
- */
-InlineResponse20062.prototype['status'] = undefined;
-
-/**
- * Файлы, которые привязаны к магазину
- * @member {Array.<String>} files
- */
-InlineResponse20062.prototype['files'] = undefined;
-
-/**
- * Стоимость магазина
- * @member {Number} price
- */
-InlineResponse20062.prototype['price'] = undefined;
-
-/**
- * Ежемесячный множитель
- * @member {Number} monthlyMultiplier
- */
-InlineResponse20062.prototype['monthlyMultiplier'] = undefined;
-
-/**
- * @member {module:model/ApiV1ShopSellStatistics} statistics
- */
-InlineResponse20062.prototype['statistics'] = undefined;
-
-/**
- * Дата создания бизнеса
- * @member {Date} businessStartDate
- */
-InlineResponse20062.prototype['businessStartDate'] = undefined;
-
-/**
- * Детали магазина
- * @member {String} shopDetails
- */
-InlineResponse20062.prototype['shopDetails'] = undefined;
+InlineResponse20062.prototype['reason'] = undefined;
 
 
 

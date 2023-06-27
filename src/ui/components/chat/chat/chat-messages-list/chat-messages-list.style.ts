@@ -1,6 +1,4 @@
-import {tooltipClasses} from '@mui/material/Tooltip'
-
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -16,14 +14,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'end',
     flexDirection: 'row-reverse',
+    // position: 'relative',
 
     [theme.breakpoints.down(768)]: {
       width: '90%',
     },
-  },
-
-  messageWrapperIsNextMessageSameAuthor: {
-    // marginBottom: '40px',
   },
 
   messageWrapperIsIncomming: {
@@ -80,14 +75,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.second,
   },
-  linkText: {
-    fontSize: '10px',
-    textAlign: 'center',
-    overflow: 'auto',
-    maxHeight: '40px',
-    maxWidth: '200px',
-    whiteSpace: 'nowrap',
-  },
+
   timeTextWrapper: {
     // position: 'absolute',
     // bottom: '-30px',
@@ -98,69 +86,78 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     marginBottom: 10,
   },
-  tooltipWrapper: {
-    padding: '0',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  },
-
-  tooltipImg: {
-    width: '300px',
-    height: '200px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-  },
-
-  imgTooltip: {
-    [`& .${tooltipClasses.tooltip}`]: {
-      maxWidth: 450,
-    },
-  },
-
-  image: {
-    marginLeft: '20px',
-    width: '80px',
-    height: '70px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
-
-  imageWrapper: {
-    display: 'flex',
-    alignItems: 'flex-end',
-  },
-
-  filesTitle: {marginBottom: 10},
-
-  filesMainWrapper: {
-    backgroundColor: '#FCFCFC',
-    padding: '14px 10px',
-    borderRadius: '4px',
-  },
-
-  filesWrapper: {
-    display: 'flex',
-    maxWidth: '500px',
-  },
 
   message: {
     marginTop: 10,
   },
+
   unReadMessage: {
     backgroundColor: 'rgba(0,0,0, .07)',
     borderRadius: 10,
 
     padding: 10,
   },
-  // '@media (max-width: 768px)': {
-  //   messageWrapper: {
-  //     width: '90%',
-  //   },
-  // },
+
+  icon: {
+    marginRight: '13px',
+    color: theme.palette.primary.main,
+    height: 25,
+    width: 25,
+  },
+
+  repleyWrapper: {
+    display: 'flex',
+    opacity: '0.7',
+    transform: 'scale(0.97)',
+    cursor: 'pointer',
+  },
+
+  repleyDivider: {
+    margin: '8px 10px 16px',
+    borderRight: `7px solid ${theme.palette.input.customBorder}`,
+    backgroundColor: '#E0E0E0',
+  },
+
+  messageContent: {
+    position: 'relative',
+
+    '&:hover': {
+      '.controlsOverlay': {
+        display: 'flex',
+      },
+    },
+  },
+
+  controlsOverlay: {
+    pointerEvents: 'none',
+    display: 'none',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    background: 'rgba(0,0,0, .1)',
+    borderRadius: '20px',
+    margin: '0 44px',
+    justifyContent: 'flex-end',
+  },
+
+  controls: {
+    backgroundColor: theme.palette.background.general,
+    display: 'flex',
+    gap: '16px',
+    padding: '6px 16px',
+    height: 'fit-content',
+    pointerEvents: 'all',
+    borderRadius: '8px',
+
+    button: {
+      all: 'unset',
+      cursor: 'pointer',
+    },
+
+    svg: {
+      width: 18,
+    },
+  },
 }))

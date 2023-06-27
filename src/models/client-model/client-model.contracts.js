@@ -1,4 +1,4 @@
-import {IsInt, IsString, IsNotEmpty, IsArray, IsOptional, IsNumber} from 'class-validator'
+import { IsInt, IsString, IsNotEmpty, IsArray, IsOptional, IsNumber } from 'class-validator'
 
 import {
   ApiV1AdminsGetNotPaidProductsCreatedby,

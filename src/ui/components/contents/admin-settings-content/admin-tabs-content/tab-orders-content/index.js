@@ -1,1 +1,1 @@
-export {TabOrdersContent} from './tab-orders-content'
+export { TabOrdersContent } from './tab-orders-content'

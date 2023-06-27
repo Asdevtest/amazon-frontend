@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   buttonsWrapper: {
@@ -62,11 +62,8 @@ export const useClassNames = makeStyles()(theme => ({
     width: 225,
     height: 130,
     objectFit: 'contain',
-    // objectPosition: 'center',
-
     cursor: 'pointer',
     transition: '.3s ease',
-
     '&:hover': {
       transform: 'scale(1.01)',
     },
@@ -146,12 +143,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  carouselWrapper: {
-    width: '240px',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-
   imgBoxWrapper: {
     width: '100%',
     display: 'flex',
@@ -161,25 +152,6 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       width: '280px',
     },
-  },
-
-  imgBox: {
-    width: '100px',
-    height: '100px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
-
-  noImgBox: {
-    width: '240px',
-    height: '100px',
-    objectFit: 'contain',
-    objectPosition: 'center',
   },
 
   productsWrapper: {
@@ -202,42 +174,16 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  productSubWrapper: {
-    display: 'flex',
-    marginBottom: '10px',
-    alignItems: 'flex-start',
-  },
-
-  countField: {
-    // width: '120px',
-  },
-
   amazonTitle: {
-    // display: 'flex',
-    // flexWrap: 'wrap',
     whiteSpace: 'pre-line',
     width: '225px',
     color: theme.palette.text.general,
     marginBottom: '20px',
     [theme.breakpoints.down(768)]: {
-      // display: 'flex',
-      // flexWrap: 'wrap',
       width: '280px',
       marginBottom: '20px',
       marginTop: '20px',
     },
-  },
-
-  linkFieldWrapper: {
-    display: 'flex',
-    justifyContent: 'start',
-    alignItems: 'center',
-    maxWidth: 225,
-    height: 40,
-
-    border: `1px solid ${theme.palette.input.customBorder}`,
-
-    borderRadius: '4px',
   },
 
   linkField: {
@@ -321,10 +267,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   checkboxContainer: {
     display: 'flex',
-    // justifyContent: 'end',
     alignItems: 'center',
     width: '100%',
-    // width: 225,
     marginBottom: '0',
   },
 
@@ -374,11 +318,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  copyImg: {
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    display: 'block',
-  },
-
   linkWrapper: {
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     marginRight: '10px',
@@ -396,11 +335,9 @@ export const useClassNames = makeStyles()(theme => ({
     height: 40,
   },
 
-  barCode: {display: 'flex', gap: '5px'},
+  barCode: { display: 'flex', gap: '5px' },
   titleSubWrapper: {
-    // width: '650px',
     display: 'flex',
-    // justifyContent: 'space-between',
     alignItems: 'center',
     [theme.breakpoints.down(768)]: {
       width: '280px',
@@ -453,29 +390,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.second,
   },
-  sizesLabel: {
-    fontSize: '14px',
-    lineHeight: '19px',
-    color: '#c4c4c4',
-    cursor: 'pointer',
-  },
-  selectedLabel: {
-    color: theme.palette.primary.main,
-  },
-  selectedIndicator: {
-    backgroundColor: '#006CFF',
-  },
-  toggleItemWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 5,
-  },
-  indicator: {
-    display: 'block',
-    backgroundColor: '#006CFF',
-    width: '2px',
-    height: '10px',
-  },
+
   normalizeLink: {
     color: theme.palette.primary.main,
     textDecoration: 'none',
@@ -517,7 +432,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   shortInputField: {
-    // width: 225,
     height: 40,
   },
 

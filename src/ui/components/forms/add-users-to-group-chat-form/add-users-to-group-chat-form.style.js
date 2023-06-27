@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   button: {
@@ -19,21 +19,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  customBtnWrapper: {
-    display: 'flex',
-
-    cursor: 'pointer',
-    transition: '.3s ease',
-
-    marginBottom: 10,
-
-    '&: hover': {
-      transform: 'scale(0.99)',
-
-      backgroundColor: theme.palette.background.second,
-    },
-  },
-
   customBtnNameWrapper: {
     display: 'flex !important',
     alignItems: 'center',
@@ -47,19 +32,6 @@ export const useClassNames = makeStyles()(theme => ({
     '&:hover': {
       backgroundColor: '#CCE2FF',
     },
-  },
-
-  customBtnName: {
-    color: theme.palette.primary.main,
-
-    width: 200,
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-  },
-
-  customBtnEmail: {
-    color: theme.palette.text.general,
   },
 
   buttonWrapper: {

@@ -1,1 +1,1 @@
-export {WarehouseAwaitingBatchesView} from './warehouse-awaiting-batches-view'
+export { WarehouseAwaitingBatchesView } from './warehouse-awaiting-batches-view'

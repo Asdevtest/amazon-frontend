@@ -1,29 +1,29 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
-import {Modal} from '@components/modal'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field/field'
+import { Modal } from '@components/shared/modal'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './add-competitor-modal.style'
+import { useClassNames } from './add-competitor-modal.style'
 
-export const AddCompetitorModal = observer(({openModal, setOpenModal, currentCompetitors, onChangeField}) => {
-  const {classes: classNames} = useClassNames()
+export const AddCompetitorModal = observer(({ openModal, setOpenModal, currentCompetitors, onChangeField }) => {
+  const { classes: classNames } = useClassNames()
 
-  const [competitor, setCompetitor] = useState({link: '', comments: ''})
+  const [competitor, setCompetitor] = useState({ link: '', comments: '' })
 
   const onSubmit = () => {
-    onChangeField({target: {value: [...currentCompetitors, competitor]}}, 'listingSupplierCompetitors')
+    onChangeField({ target: { value: [...currentCompetitors, competitor] } }, 'listingSupplierCompetitors')
     setOpenModal()
 
-    setCompetitor({link: '', comments: ''})
+    setCompetitor({ link: '', comments: '' })
   }
 
   return (
@@ -41,7 +41,7 @@ export const AddCompetitorModal = observer(({openModal, setOpenModal, currentCom
             label={t(TranslationKey.Link)}
             className={classNames.linkField}
             value={competitor.link}
-            onChange={e => setCompetitor({...competitor, link: e.target.value})}
+            onChange={e => setCompetitor({ ...competitor, link: e.target.value })}
           />
 
           <Field
@@ -51,7 +51,7 @@ export const AddCompetitorModal = observer(({openModal, setOpenModal, currentCom
             maxRows={4}
             className={classNames.commentField}
             value={competitor.comments}
-            onChange={e => setCompetitor({...competitor, comments: e.target.value})}
+            onChange={e => setCompetitor({ ...competitor, comments: e.target.value })}
           />
         </div>
 
@@ -73,7 +73,7 @@ export const AddCompetitorModal = observer(({openModal, setOpenModal, currentCom
             variant="contained"
             onClick={() => {
               setOpenModal()
-              setCompetitor({link: '', comments: ''})
+              setCompetitor({ link: '', comments: '' })
             }}
           >
             {t(TranslationKey.Cancel)}

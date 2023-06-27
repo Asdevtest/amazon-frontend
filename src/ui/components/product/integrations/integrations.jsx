@@ -1,33 +1,33 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
 
-import {observer} from 'mobx-react'
-import {useHistory} from 'react-router-dom'
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
-import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-goods-to-stock-form'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {Modal} from '@components/modal'
-import {SuccessInfoModal} from '@components/modals/success-info-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {IntegrationsModel} from './integrations.model'
-import {useClassNames} from './integrations.style'
+import { IntegrationsModel } from './integrations.model'
+import { useClassNames } from './integrations.style'
 
-export const Integrations = observer(({productId}) => {
-  const {classes: classNames} = useClassNames()
+export const Integrations = observer(({ productId }) => {
+  const { classes: classNames } = useClassNames()
   const history = useHistory()
-  const model = useRef(new IntegrationsModel({history, productId}))
+  const model = useRef(new IntegrationsModel({ history, productId }))
 
   useEffect(() => {
     model.current.loadData()
@@ -50,7 +50,6 @@ export const Integrations = observer(({productId}) => {
     onClickBindInventoryGoodsToStockBtn,
     onSelectionModel,
     onUnlinkSkuSProduct,
-    changeColumnsModel,
   } = model.current
 
   return (
@@ -80,22 +79,27 @@ export const Integrations = observer(({productId}) => {
         classes={{
           row: classNames.row,
         }}
-        rowsPerPageOptions={[15, 25, 50, 100]}
+        columnVisibilityModel={model.current.columnVisibilityModel}
+        pageSizeOptions={[15, 25, 50, 100]}
         rows={getCurrentData()}
         rowHeight={100}
-        components={{
-          Toolbar: DataGridCustomToolbar,
-          ColumnMenuIcon: FilterAltOutlinedIcon,
+        slots={{
+          toolbar: DataGridCustomToolbar,
+          columnMenuIcon: FilterAltOutlinedIcon,
         }}
-        componentsProps={{
+        slotProps={{
           toolbar: {
-            columsBtnSettings: {columnsModel, changeColumnsModel},
+            columsBtnSettings: {
+              columnsModel,
+              columnVisibilityModel: model.current.columnVisibilityModel,
+              onColumnVisibilityModelChange: model.current.onColumnVisibilityModelChange,
+            },
           },
         }}
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.isLoading}
-        selectionModel={selectedRowIds}
-        onSelectionModelChange={onSelectionModel}
+        rowSelectionModel={selectedRowIds}
+        onRowSelectionModelChange={onSelectionModel}
       />
 
       <Modal

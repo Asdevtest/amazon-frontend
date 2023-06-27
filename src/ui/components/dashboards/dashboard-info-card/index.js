@@ -1,1 +1,1 @@
-export {DashboardInfoCard} from './dashboard-info-card'
+export { DashboardInfoCard } from './dashboard-info-card'

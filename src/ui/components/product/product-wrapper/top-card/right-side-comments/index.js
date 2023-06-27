@@ -1,1 +1,1 @@
-export {RightSideComments} from './right-side-comments'
+export { RightSideComments } from './right-side-comments'

@@ -1,21 +1,20 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {OtherModel} from '@models/other-model'
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { OtherModel } from '@models/other-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {vacByUserIdExchangeColumns} from '@components/table-columns/product/vac-by-user-id-exchange-columns'
+import { vacByUserIdExchangeColumns } from '@components/table/table-columns/product/vac-by-user-id-exchange-columns'
 
-import {clientProductsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
-import {dataURLtoFile} from '@utils/upload-files'
+import { clientProductsDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { t } from '@utils/translations'
+import { dataURLtoFile } from '@utils/upload-files'
 
 export class ProfileViewModel {
   history = undefined
@@ -37,7 +36,6 @@ export class ProfileViewModel {
 
   warningInfoModalTitle = ''
 
-  drawerOpen = false
   productList = []
   tabExchange = 0
   tabHistory = 0
@@ -58,37 +56,27 @@ export class ProfileViewModel {
   }
 
   sortModel = []
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel = vacByUserIdExchangeColumns()
 
-  constructor({history}) {
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
+
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
-  }
-
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.PROFILE_VAC_PRODUCTS)
   }
@@ -98,15 +86,10 @@ export class ProfileViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = vacByUserIdExchangeColumns().map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
@@ -115,23 +98,27 @@ export class ProfileViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
   }
 
-  onChangeRowsPerPage(e) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.rowsPerPage = e
+      this.paginationModel = model
     })
+
+    this.setDataGridState()
   }
 
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+  }
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
     })
   }
 
@@ -139,6 +126,8 @@ export class ProfileViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.setDataGridState()
   }
 
   getCurrentData() {
@@ -211,10 +200,12 @@ export class ProfileViewModel {
   async onSubmitUserInfoEdit(data) {
     try {
       if (data) {
-        await this.changeUserNameOrEmail(data)
-        await this.changeUserPassword(data)
+        const [isUniqueProfileData] = await Promise.all([
+          this.changeUserNameOrEmail(data),
+          this.changeUserPassword(data),
+        ])
 
-        if (!this.wrongPassword) {
+        if (!this.wrongPassword && isUniqueProfileData) {
           this.onTriggerOpenModal('showUserInfoModal')
           this.warningInfoModalTitle = t(TranslationKey['Data was successfully saved'])
           this.onTriggerOpenModal('showInfoModal')
@@ -264,12 +255,16 @@ export class ProfileViewModel {
         email: data.email,
       })
 
-      if (this.checkValidationNameOrEmail.nameIsUnique || this.checkValidationNameOrEmail.emailIsUnique) {
-        return
+      if (
+        this.checkValidationNameOrEmail.nameIsUnique === false ||
+        this.checkValidationNameOrEmail.emailIsUnique === false
+      ) {
+        return false
       } else {
-        await UserModel.changeUserInfo({name: data.name, email: data.email})
+        await UserModel.changeUserInfo({ name: data.name, email: data.email })
 
         await UserModel.getUserInfo()
+        return true
       }
     } catch (error) {
       runInAction(() => {
@@ -330,18 +325,6 @@ export class ProfileViewModel {
       this.selectedUser = item
     })
     this.onTriggerShowTabModal()
-  }
-
-  onTriggerDrawerOpen = () => {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
   }
 
   onTriggerOpenModal(modal) {

@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import '@testing-library/jest-dom'
-import {render, screen, fireEvent} from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import {LinkSubUserForm} from './link-sub-user-form'
+import { LinkSubUserForm } from './link-sub-user-form'
 
 const user = userEvent.setup()
 

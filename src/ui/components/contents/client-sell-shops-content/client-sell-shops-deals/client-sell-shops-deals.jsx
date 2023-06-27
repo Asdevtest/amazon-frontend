@@ -1,33 +1,33 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
 
-import {observer} from 'mobx-react'
-import {useHistory} from 'react-router-dom'
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
 import {
   /* tableViewMode,*/
   tableSortMode,
-} from '@constants/table-view-modes'
-import {TranslationKey} from '@constants/translations/translation-key'
+} from '@constants/table/table-view-modes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {TradingShopCard} from '@components/cards/trading-shop-card'
-import {SearchInput} from '@components/search-input'
+import { TradingShopCard } from '@components/cards/trading-shop-card'
+import { SearchInput } from '@components/shared/search-input'
 
-import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
-import {t} from '@utils/translations'
+import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
+import { t } from '@utils/translations'
 
-import {ClientSellShopsDealsModel} from './client-sell-shops-deals.model'
-import {useClassNames} from './client-sell-shops-deals.style'
+import { ClientSellShopsDealsModel } from './client-sell-shops-deals.model'
+import { useClassNames } from './client-sell-shops-deals.style'
 
 export const ClientSellShopsDeals = observer(() => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
   const history = useHistory()
-  const model = useRef(new ClientSellShopsDealsModel({history}))
+  const model = useRef(new ClientSellShopsDealsModel({ history }))
 
   useEffect(() => {
     model.current.loadData()

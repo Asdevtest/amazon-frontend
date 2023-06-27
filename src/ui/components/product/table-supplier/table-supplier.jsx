@@ -1,28 +1,34 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {NewSupplier} from '@constants/svg-icons'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {CopyValue} from '@components/copy-value/copy-value'
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
+import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { NewSupplier } from '@components/shared/svg-icons'
 
-import {formatNormDateTime} from '@utils/date-time'
-import {checkAndMakeAbsoluteUrl, toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { formatNormDateTime } from '@utils/date-time'
+import { checkAndMakeAbsoluteUrl, toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './table-supplier.style'
+import { useClassNames } from './table-supplier.style'
+import { UserModel } from '@models/user-model'
 
-export const TableSupplier = observer(({isClient, product, productBaseData, selectedSupplier, onClickSupplier}) => {
-  const {classes: classNames} = useClassNames()
+export const TableSupplier = observer(({ isClient, product, productBaseData, selectedSupplier, onClickSupplier }) => {
+  const { classes: classNames } = useClassNames()
+  const [platformSettings, setPlatformSettings] = useState()
+
+  useEffect(() => {
+    UserModel.getPlatformSettings().then(data => setPlatformSettings(data))
+  }, [])
 
   const renderHeader = () => (
     <TableHead className={classNames.tableHead}>
@@ -38,6 +44,7 @@ export const TableSupplier = observer(({isClient, product, productBaseData, sele
         <TableCell className={classNames.alignCenter}>{t(TranslationKey['Batch price'])}</TableCell>
 
         <TableCell className={classNames.alignCenter}>{t(TranslationKey['Production time'])}</TableCell>
+        <TableCell className={classNames.alignCenter}>{t(TranslationKey['Price variations'])}</TableCell>
 
         <TableCell className={classNames.alignCenter}>{t(TranslationKey.Comment)}</TableCell>
         <TableCell className={classNames.alignCenter}>{t(TranslationKey.Files)}</TableCell>
@@ -48,7 +55,7 @@ export const TableSupplier = observer(({isClient, product, productBaseData, sele
   )
 
   return (
-    <TableContainer className={classNames.table} sx={{maxHeight: 540}}>
+    <TableContainer className={classNames.table} sx={{ maxHeight: 540 }}>
       <Table className={classNames.tableBody}>
         {SettingsModel.languageTag && renderHeader()}
         <TableBody>
@@ -74,7 +81,7 @@ export const TableSupplier = observer(({isClient, product, productBaseData, sele
                     {isClient ? (
                       new Date(productBaseData.createdAt) < new Date(supplier.createdAt) ? (
                         <div className={classNames.imgWrapper}>
-                          <NewSupplier fontSize={'large'} classes={{root: classNames.primary}} />
+                          <NewSupplier fontSize={'large'} classes={{ root: classNames.primary }} />
                         </div>
                       ) : null
                     ) : null}
@@ -115,6 +122,19 @@ export const TableSupplier = observer(({isClient, product, productBaseData, sele
                 </TableCell>
 
                 <TableCell className={classNames.alignCenter}>{supplier.productionTerm}</TableCell>
+                <TableCell className={cx(classNames.alignCenter)}>
+                  {platformSettings && (
+                    <div className={classNames.priceVariationsCell}>
+                      {supplier?.priceVariations?.map((el, index) => (
+                        <div key={index}>
+                          {el.quantity} {t(TranslationKey['pcs.'])}. /{' '}
+                          {toFixedWithDollarSign(el.price / platformSettings?.yuanToDollarRate, 2)}{' '}
+                          {t(TranslationKey.Per).toLowerCase()} {t(TranslationKey['pcs.'])}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </TableCell>
 
                 <TableCell className={cx(classNames.alignCenter, classNames.commentCell)}>{supplier.comment}</TableCell>
 

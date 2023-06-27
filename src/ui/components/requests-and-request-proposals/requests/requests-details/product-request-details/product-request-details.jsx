@@ -1,16 +1,16 @@
-import {cx} from '@emotion/css'
-import {Typography, Paper} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography, Paper } from '@mui/material'
 
 import React from 'react'
 
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
+import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
 
-import {toFixedWithDollarSign} from '@utils/text'
+import { toFixedWithDollarSign } from '@utils/text'
 
-import {useClassNames} from './product-request-details.style'
+import { useClassNames } from './product-request-details.style'
 
-export const ProductSearchRequestDetails = ({request}) => {
-  const {classes: classNames} = useClassNames()
+export const ProductSearchRequestDetails = ({ request }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <Paper>

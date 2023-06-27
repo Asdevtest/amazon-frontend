@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   modalWrapper: {
@@ -23,16 +23,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     fontWeight: 400,
     lineHeight: '140%',
-  },
-
-  modalSubTitle: {
-    fontSize: '18px',
-  },
-  modalText: {
-    color: theme.palette.text.general,
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '21px',
   },
 
   modalTextArea: {
@@ -79,13 +69,10 @@ export const useClassNames = makeStyles()(theme => ({
   modalButtonBack: {
     width: '121px',
     height: '40px',
-
     backgroundColor: 'inherit',
     color: theme.palette.text.general,
-
     '&:hover': {
       backgroundColor: '#e4e4e4',
-
       '@media (hover: none)': {
         backgroundColor: '#009a07',
       },
@@ -113,7 +100,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   searchSupplierForIdeaBtn: {
     width: 485,
-    // width: '100%',
     '&:hover': {
       transform: 'scale(1.01)',
     },

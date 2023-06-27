@@ -21,8 +21,11 @@ Name | Type | Description | Notes
 **material** | **String** | Материл продукта | [optional] 
 **productUsage** | **String** | Применение продукта | [optional] 
 **chinaTitle** | **String** | chinese title? | [optional] 
-**ideaCount** | **Number** |  | [optional] 
+**ideasOnCheck** | **Number** |  | [optional] 
+**ideasVerified** | **Number** |  | [optional] 
+**ideasClosed** | **Number** |  | [optional] 
 **tags** | [**[ApiV1AdminsGetProductsByStatusTags]**](ApiV1AdminsGetProductsByStatusTags.md) |  | [optional] 
+**redFlags** | [**[ApiV1AdminsGetProductsByStatusRedFlags]**](ApiV1AdminsGetProductsByStatusRedFlags.md) |  | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
 

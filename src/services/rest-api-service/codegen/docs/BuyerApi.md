@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**apiV1BuyersOrdersGuidTrackNumberIssuedPatch**](BuyerApi.md#apiV1BuyersOrdersGuidTrackNumberIssuedPatch) | **PATCH** /api/v1/buyers/orders/{guid}/track_number_issued | # Выставить статус \&quot;выдан трек номер\&quot;.
 [**apiV1BuyersOrdersMyGet**](BuyerApi.md#apiV1BuyersOrdersMyGet) | **GET** /api/v1/buyers/orders/my | # Получить список заказов текущего байера.
 [**apiV1BuyersOrdersPagMyGet**](BuyerApi.md#apiV1BuyersOrdersPagMyGet) | **GET** /api/v1/buyers/orders/pag/my | # Получить список заказов текущего байера с пагинацией.
+[**apiV1BuyersOrdersPartiallyPaidGuidPatch**](BuyerApi.md#apiV1BuyersOrdersPartiallyPaidGuidPatch) | **PATCH** /api/v1/buyers/orders/partially_paid/{guid} | # Переместить заказ в статус partiallyPaid
 [**apiV1BuyersOrdersPaymentAmountGet**](BuyerApi.md#apiV1BuyersOrdersPaymentAmountGet) | **GET** /api/v1/buyers/orders/payment_amount | # Получить общую стоимость заказов по статусам
 [**apiV1BuyersOrdersPaymentGuidPatch**](BuyerApi.md#apiV1BuyersOrdersPaymentGuidPatch) | **PATCH** /api/v1/buyers/orders/payment/{guid} | # Изменить реквезиты ордера
 [**apiV1BuyersOrdersPickupGuidPost**](BuyerApi.md#apiV1BuyersOrdersPickupGuidPost) | **POST** /api/v1/buyers/orders/pickup/{guid} | # Закрепить заказ за байером. Взять его в работу.
@@ -577,6 +578,60 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**InlineResponse20026**](InlineResponse20026.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1BuyersOrdersPartiallyPaidGuidPatch
+
+> String apiV1BuyersOrdersPartiallyPaidGuidPatch(guid, opts)
+
+# Переместить заказ в статус partiallyPaid
+
+Переместить заказ в статус partiallyPaid
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BuyerApi();
+let guid = null; // String | GUID заказа, который планируем изменить
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1BuyersOrdersPartiallyPaidGuidPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID заказа, который планируем изменить | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+**String**
 
 ### Authorization
 

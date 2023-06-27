@@ -1,28 +1,28 @@
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {FC, useState} from 'react'
+import React, { FC, useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatMessageRemovePatchInfoGroupChatContract} from '@models/chat-model/contracts/chat-message-data.contract'
-import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
+import { ChatMessageRemovePatchInfoGroupChatContract } from '@models/chat-model/contracts/chat-message-data.contract'
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-import {BigImagesModal} from '@components/modals/big-images-modal'
-import {UserLink} from '@components/user-link'
+import { BigImagesModal } from '@components/modals/big-images-modal'
+import { UserLink } from '@components/user/user-link'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './chat-message-patch-info-group-chat.style'
+import { useClassNames } from './chat-message-patch-info-group-chat.style'
 
 interface Props {
   message: ChatMessageContract<ChatMessageRemovePatchInfoGroupChatContract>
 }
 
-export const ChatMessagePatchInfoGroupChat: FC<Props> = ({message}) => {
-  const {classes: classNames} = useClassNames()
+export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
+  const { classes: classNames } = useClassNames()
 
-  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0} as {
+  const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 } as {
     images: string[]
     imgIndex: number
   })
@@ -99,7 +99,7 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({message}) => {
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={bigImagesOptions.images}
         imgIndex={bigImagesOptions.imgIndex}
-        setImageIndex={(imgIndex: number) => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
+        setImageIndex={(imgIndex: number) => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
       />
     </div>
   )

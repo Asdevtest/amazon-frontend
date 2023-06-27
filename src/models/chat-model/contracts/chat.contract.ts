@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {Type} from 'class-transformer'
-import {IsBoolean, IsNotEmpty, IsOptional, IsString} from 'class-validator'
+import { Type } from 'class-transformer'
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
-import {TWebsocketChatService} from '@services/websocket-chat-service'
+import { TWebsocketChatService } from '@services/websocket-chat-service'
 
-import {ChatMessageContract} from './chat-message.contract'
-import {ChatUserContract} from './chat-user.contract'
+import { ChatMessageContract } from './chat-message.contract'
+import { ChatUserContract } from './chat-user.contract'
 
 export class ChatContract implements TWebsocketChatService.Chat {
   @IsNotEmpty()
@@ -40,7 +40,7 @@ export class ChatContract implements TWebsocketChatService.Chat {
   public type!: string
   @IsNotEmpty()
   @IsString()
-  public lastUpdatedBy!: {[x: string]: unknown; _id: string}
+  public lastUpdatedBy!: { [x: string]: unknown; _id: string }
   @IsNotEmpty()
   @Type(() => ChatUserContract)
   public users!: ChatUserContract[]
@@ -48,5 +48,5 @@ export class ChatContract implements TWebsocketChatService.Chat {
   @Type(() => ChatMessageContract)
   public messages!: ChatMessageContract[]
   @IsOptional()
-  public info?: {image: string; title: string; createdBy: string}
+  public info?: { image: string; title: string; createdBy: string }
 }

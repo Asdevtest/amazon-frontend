@@ -1,10 +1,4 @@
 export const styles = () => ({
-  tableWrapper: {
-    marginTop: '32px',
-    minWidth: '100%',
-    height: '100%',
-  },
-
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',

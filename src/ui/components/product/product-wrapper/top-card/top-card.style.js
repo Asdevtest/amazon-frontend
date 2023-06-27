@@ -1,23 +1,16 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   label: {
     fontSize: '16px',
     lineHeight: '20px',
-    // color: theme.palette.text.general,
     fontWeight: '600',
-
     color: theme.palette.text.general,
   },
   input: {
     width: '100%',
   },
-  text: {
-    color: theme.palette.text.general,
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '22px',
-  },
+
   iconButton: {
     height: '40px',
     width: '40px',
@@ -68,76 +61,16 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     marginRight: 30,
   },
-  productFieldBox: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-    justifyContent: 'flex-end',
-  },
-  productCheckboxBox: {
-    alignItems: 'center',
-    display: 'flex',
-  },
-  typoCheckbox: {
-    marginRight: '16px',
-  },
 
-  supplierIcon: {
-    marginRight: '16px',
-  },
-  supplierIconBackground: {
-    backgroundColor: 'rgba(224, 32, 32, 1)',
-  },
-  tableCellPadding: {
-    padding: '16px 24px',
-  },
-  centerTableCellPadding: {
-    padding: '16px 24px',
-  },
-  alignCenter: {
-    textAlign: 'center',
-  },
-  alignRight: {
-    textAlign: 'right',
-  },
-  rightBoxComments: {
-    display: 'flex',
-    flexDirection: 'row',
-    height: '100%',
-    justifyContent: 'flex-start',
-  },
-  heightFieldAuto: {
-    height: 'auto',
-
-    padding: 0,
-  },
-  buttonsWrapper: {
-    display: 'flex',
-  },
-  buttonNormal: {
-    flexGrow: 1,
-    marginRight: '16px',
-  },
-  buttonDelete: {
-    flexGrow: 1,
-  },
   carouselWrapper: {
     padding: '16px',
     marginBottom: '16px',
     height: '350px',
   },
-  carouselImageWrapper: {
-    // width: '300px',
-    height: '300px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
   carouselImage: {
-    // height: '100%',
     height: '300px',
     objectFit: 'contain',
-
     transition: '.2s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
@@ -157,7 +90,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   supplierTitle: {
     marginBottom: '5px',
-
     color: theme.palette.text.general,
   },
 
@@ -181,19 +113,15 @@ export const useClassNames = makeStyles()(theme => ({
     maxHeight: '40px',
     maxWidth: '40px',
     color: 'white',
-    backgroundColor: theme.palette.primary.main,
+    // backgroundColor: theme.palette.primary.main,
     borderRadius: '4px',
-
-    '&:hover': {
-      backgroundColor: 'rgba(0, 123, 255, 1)',
-    },
   },
 
   iconBtnRemove: {
     backgroundColor: 'rgba(224, 32, 32, 1)',
   },
   iconBtnAccept: {
-    backgroundColor: 'rgba(30, 220, 30, 1)',
+    backgroundColor: 'rgba(30, 220, 30, 1) !important',
   },
   iconBtnAcceptRevoke: {
     backgroundColor: 'rgba(224, 32, 32, 1)',
@@ -204,19 +132,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '12px',
     lineHeight: '14px',
     fontWeight: '400',
-    // color: theme.palette.text.second,
-
     color: theme.palette.text.second,
-  },
-
-  imagesModalBtnsWrapper: {
-    display: 'flex',
-    // flexDirection: 'column',
-    gap: 20,
-    position: 'absolute',
-    bottom: 30,
-    right: 30,
-    marginRight: 20,
   },
 
   imagesModalBtn: {
@@ -230,11 +146,6 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     borderRadius: 4,
     background: 'rgb(53, 112, 155)',
-    // background: '#F5CF00',
-    // background: theme.palette.background.yellow,
-
-    // color: 'yellow',
-    // color: '#fff',
     color: '#F5CF00',
   },
 

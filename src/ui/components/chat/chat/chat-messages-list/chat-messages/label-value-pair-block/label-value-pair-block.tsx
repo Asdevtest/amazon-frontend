@@ -1,10 +1,10 @@
-import {cx} from '@emotion/css'
-import {ClassNamesArg} from '@emotion/react'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { ClassNamesArg } from '@emotion/react'
+import { Typography } from '@mui/material'
 
-import React, {FC} from 'react'
+import React, { FC } from 'react'
 
-import {useClassNames} from './label-value-pair-block.style'
+import { useClassNames } from './label-value-pair-block.style'
 
 interface Props {
   bgColor?: 'white' | 'green' | 'yellow'
@@ -13,24 +13,22 @@ interface Props {
   labelClasses?: ClassNamesArg | undefined
 }
 
-export const LabelValuePairBlock: FC<Props> = ({bgColor, label, value, labelClasses}) => {
-  const {classes: classNames} = useClassNames()
+export const LabelValuePairBlock: FC<Props> = ({ bgColor, label, value, labelClasses }) => {
+  const { classes: classNames } = useClassNames()
   return (
     <div
       className={cx(
         classNames.root,
-        {[classNames.rootGreen]: bgColor === 'green'},
-        {[classNames.rootYellow]: bgColor === 'yellow'},
+        { [classNames.rootGreen]: bgColor === 'green' },
+        { [classNames.rootYellow]: bgColor === 'yellow' },
       )}
     >
       {label && (
-        <div className={classNames.labelWrapper}>
+        <div>
           <Typography className={cx(classNames.labelText, labelClasses)}>{label}</Typography>
         </div>
       )}
-      <div className={classNames.valueWrapper}>
-        {typeof value === 'string' ? <Typography className={classNames.valueText}>{value}</Typography> : value}
-      </div>
+      <div>{typeof value === 'string' ? <Typography className={classNames.valueText}>{value}</Typography> : value}</div>
     </div>
   )
 }

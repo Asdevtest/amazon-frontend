@@ -1,11 +1,12 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {BoxesModel} from '@models/boxes-model'
-import {ClientModel} from '@models/client-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { BoxesModel } from '@models/boxes-model'
+import { ClientModel } from '@models/client-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
 export class AdminOrderViewModel {
   history = undefined
@@ -21,27 +22,33 @@ export class AdminOrderViewModel {
   orderBoxes = []
   orderId = undefined
 
-  drawerOpen = false
+  storekeepers = []
+  destinations = []
+
   order = undefined
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
       this.orderId = history.location.search.slice(1)
+      SettingsModel.changeLastCrumbAdditionalText(` № ${this.orderId}`)
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getOrderById()
-      await this.getBoxesOfOrder(this.order._id)
 
-      const storekeepers = await StorekeeperModel.getStorekeepers()
+      const [order, boxes, storekeepers, destinations] = await Promise.all([
+        this.getOrderById(),
+        this.getBoxesOfOrder(this.orderId),
+        StorekeeperModel.getStorekeepers(),
+        ClientModel.getDestinations(),
+      ])
 
       runInAction(() => {
-        // this.destinations = await ClientModel.getDestinations()
+        this.destinations = destinations
         this.storekeepers = storekeepers
       })
       this.setRequestStatus(loadingStatuses.success)
@@ -92,8 +99,8 @@ export class AdminOrderViewModel {
           this.selectedSupplier = undefined
         })
       } else {
-        const result = await UserModel.getPlatformSettings()
-        await this.getStorekeepers()
+        const [result, _] = await Promise.all([UserModel.getPlatformSettings(), this.getStorekeepers()])
+
         runInAction(() => {
           this.yuanToDollarRate = result.yuanToDollarRate
           this.volumeWeightCoefficient = result.volumeWeightCoefficient
@@ -118,11 +125,6 @@ export class AdminOrderViewModel {
     }
   }
 
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus

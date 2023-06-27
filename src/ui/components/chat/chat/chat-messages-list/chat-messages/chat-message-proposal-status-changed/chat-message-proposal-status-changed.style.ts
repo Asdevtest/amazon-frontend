@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -9,7 +9,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  statusWrapper: {},
   statusTextDesciption: {
     color: 'grey',
     fontSize: '18px',
@@ -32,7 +31,6 @@ export const useClassNames = makeStyles()(theme => ({
       margin: 0,
     },
   },
-  titleWrapper: {},
   titleText: {
     fontSize: 18,
     fontWeight: 700,
@@ -86,12 +84,6 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  rightSide: {
-    alignItems: 'flex-end',
-    display: 'flex',
-    flexDirection: 'row',
-  },
-
   actionButton: {
     height: '40px',
     width: 217,
@@ -124,9 +116,5 @@ export const useClassNames = makeStyles()(theme => ({
   actionBtnWrapperStyle: {
     flex: 1,
     display: 'flex',
-  },
-
-  actionBtnWrapperStyleNotFirst: {
-    // marginLeft: '50px',
   },
 }))

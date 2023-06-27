@@ -77,6 +77,18 @@ class InlineResponse20025 {
             if (data.hasOwnProperty('priceInYuan')) {
                 obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
             }
+            if (data.hasOwnProperty('partialPaymentAmountRmb')) {
+                obj['partialPaymentAmountRmb'] = ApiClient.convertToType(data['partialPaymentAmountRmb'], 'Number');
+            }
+            if (data.hasOwnProperty('partialPayment')) {
+                obj['partialPayment'] = ApiClient.convertToType(data['partialPayment'], 'Boolean');
+            }
+            if (data.hasOwnProperty('paymentDetailsAttached')) {
+                obj['paymentDetailsAttached'] = ApiClient.convertToType(data['paymentDetailsAttached'], 'Boolean');
+            }
+            if (data.hasOwnProperty('partiallyPaid')) {
+                obj['partiallyPaid'] = ApiClient.convertToType(data['partiallyPaid'], 'Number');
+            }
             if (data.hasOwnProperty('payments')) {
                 obj['payments'] = ApiClient.convertToType(data['payments'], [ApiV1BuyersOrdersMyPayments]);
             }
@@ -174,6 +186,30 @@ InlineResponse20025.prototype['item'] = undefined;
  * @member {Number} priceInYuan
  */
 InlineResponse20025.prototype['priceInYuan'] = undefined;
+
+/**
+ * Сумма частичной оплаты
+ * @member {Number} partialPaymentAmountRmb
+ */
+InlineResponse20025.prototype['partialPaymentAmountRmb'] = undefined;
+
+/**
+ * Используется ли частичная оплата
+ * @member {Boolean} partialPayment
+ */
+InlineResponse20025.prototype['partialPayment'] = undefined;
+
+/**
+ * Есть ли реквизиты в ордере
+ * @member {Boolean} paymentDetailsAttached
+ */
+InlineResponse20025.prototype['paymentDetailsAttached'] = undefined;
+
+/**
+ * Cумма частичной оплаты
+ * @member {Number} partiallyPaid
+ */
+InlineResponse20025.prototype['partiallyPaid'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1BuyersOrdersMyPayments>} payments

@@ -1,202 +1,171 @@
-import React, {Component} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Navbar} from '@components/navbar'
-import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
-import {OrderProductModal} from '@components/screens/client/order-product-modal'
-import {OrderContent} from '@components/screens/orders-view/order-content'
+import { SettingsModel } from '@models/settings-model'
 
-import {t} from '@utils/translations'
+import { OrderContent } from '@components/contents/order-content'
+import { MainContent } from '@components/layout/main-content'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { OrderProductModal } from '@components/modals/order-product-modal'
+import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
+import { Button } from '@components/shared/buttons/button'
+import { Modal } from '@components/shared/modal'
 
-import {ClientOrderViewModel} from './client-order-view.model'
-import {styles} from './client-order-view.style'
+import { t } from '@utils/translations'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_ORDERS
+import { ClientOrderViewModel } from './client-order-view.model'
+import { styles } from './client-order-view.style'
+import { useLocation } from 'react-router-dom'
 
-@observer
-class ClientOrderViewRaw extends Component {
-  viewModel = new ClientOrderViewModel({
-    history: this.props.history,
-  })
+export const ClientOrderViewRaw = props => {
+  const { search } = useLocation()
+  const [viewModel] = useState(
+    () =>
+      new ClientOrderViewModel({
+        history: props.history,
+      }),
+  )
+  const { classes: classNames } = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
 
-  render() {
-    const {
-      yuanToDollarRate,
-      showAddOrEditSupplierModal,
-      confirmModalSettings,
-      selectedSupplier,
-      selectedProduct,
-      destinationsFavourites,
-      destinations,
-      storekeepers,
-      navbarActiveSubCategory,
-      userInfo,
-      platformSettings,
-      warningInfoModalSettings,
-      orderBoxes,
-      drawerOpen,
-      order,
-      hsCodeData,
-      history,
-      showConfirmModal,
-      showWarningInfoModal,
-      showOrderModal,
-      showSetBarcodeModal,
-      showEditHSCodeModal,
-      onClickSaveHsCode,
-      onClickHsCode,
-      onTriggerAddOrEditSupplierModal,
-      onChangeSelectedSupplier,
-      onTriggerDrawerOpen,
-      onTriggerOpenModal,
-      onClickCancelOrder,
-      onSubmitChangeBoxFields,
-      onSubmitSaveOrder,
-      onClickReorder,
-      setDestinationsFavouritesItem,
-      onDoubleClickBarcode,
-      onClickSaveBarcode,
-      onConfirmSubmitOrderProductModal,
-    } = this.viewModel
-    const {classes: classNames} = this.props
-
-    const goBack = () => {
-      history.goBack()
+    return () => {
+      SettingsModel.changeLastCrumbAdditionalText('')
     }
+  }, [])
 
-    return (
-      <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-        />
-        <Main>
-          <Appbar
-            title={t(TranslationKey.Order)}
-            setDrawerOpen={onTriggerDrawerOpen}
-            lastCrumbAdditionalText={order?.id && ` № ${order?.id}`}
-          >
-            <MainContent>
-              <div className={classNames.backButtonWrapper}>
-                <Button className={classNames.backButton} onClick={goBack}>
-                  {t(TranslationKey.Back)}
-                </Button>
-              </div>
-              {order ? (
-                <OrderContent
-                  isClient
-                  storekeepers={storekeepers}
-                  destinations={destinations}
-                  userInfo={userInfo}
-                  volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
-                  order={order}
-                  boxes={orderBoxes}
-                  selectedSupplier={selectedSupplier}
-                  destinationsFavourites={destinationsFavourites}
-                  setDestinationsFavouritesItem={setDestinationsFavouritesItem}
-                  onClickCancelOrder={onClickCancelOrder}
-                  onSubmitChangeBoxFields={onSubmitChangeBoxFields}
-                  onSubmitSaveOrder={onSubmitSaveOrder}
-                  onClickReorder={onClickReorder}
-                  onChangeSelectedSupplier={onChangeSelectedSupplier}
-                  onTriggerAddOrEditSupplierModal={onTriggerAddOrEditSupplierModal}
-                  onClickHsCode={onClickHsCode}
-                />
-              ) : null}
-            </MainContent>
-          </Appbar>
+  useEffect(() => {
+    console.log(search)
+    const queries = new URLSearchParams(search)
+    const orderId = queries.get('orderId')
 
-          <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
-            <OrderProductModal
-              isPendingOrdering
-              reorderOrdersData={[order]}
-              // volumeWeightCoefficient={volumeWeightCoefficient}
-              platformSettings={platformSettings}
-              destinations={destinations}
-              storekeepers={storekeepers}
-              destinationsFavourites={destinationsFavourites}
-              setDestinationsFavouritesItem={setDestinationsFavouritesItem}
-              onTriggerOpenModal={onTriggerOpenModal}
-              onDoubleClickBarcode={onDoubleClickBarcode}
-              onSubmit={onConfirmSubmitOrderProductModal}
-            />
-          </Modal>
+    if (orderId) {
+      viewModel.updateOrderId(orderId)
+    }
+  }, [search])
 
-          <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
-            <EditHSCodeModal
-              hsCodeData={hsCodeData}
-              onClickSaveHsCode={onClickSaveHsCode}
-              onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
-            />
-          </Modal>
-
-          <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>
-            <SetBarcodeModal
-              item={selectedProduct}
-              onClickSaveBarcode={onClickSaveBarcode}
-              onCloseModal={() => onTriggerOpenModal('showSetBarcodeModal')}
-            />
-          </Modal>
-
-          <ConfirmationModal
-            openModal={showConfirmModal}
-            setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-            isWarning={confirmModalSettings.isWarning}
-            title={confirmModalSettings.confirmTitle}
-            message={confirmModalSettings.confirmMessage}
-            successBtnText={t(TranslationKey.Yes)}
-            cancelBtnText={t(TranslationKey.Cancel)}
-            onClickSuccessBtn={confirmModalSettings.onClickConfirm}
-            onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-          />
-
-          <WarningInfoModal
-            isWarning={warningInfoModalSettings.isWarning}
-            openModal={showWarningInfoModal}
-            setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
-            title={warningInfoModalSettings.title}
-            btnText={t(TranslationKey.Ok)}
-            onClickBtn={() => {
-              onTriggerOpenModal('showWarningInfoModal')
-            }}
-          />
-
-          <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
-            <AddOrEditSupplierModalContent
-              onlyRead
-              product={order?.product}
-              storekeepersData={storekeepers}
-              sourceYuanToDollarRate={yuanToDollarRate}
-              volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
-              title={t(TranslationKey['Adding and editing a supplier'])}
-              supplier={selectedSupplier}
-              onTriggerShowModal={onTriggerAddOrEditSupplierModal}
-            />
-          </Modal>
-        </Main>
-      </React.Fragment>
-    )
+  const goBack = () => {
+    viewModel.history.goBack()
   }
+
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.backButtonWrapper}>
+          <Button className={classNames.backButton} onClick={goBack}>
+            {t(TranslationKey.Back)}
+          </Button>
+        </div>
+        {viewModel.order ? (
+          <OrderContent
+            isClient
+            storekeepers={viewModel.storekeepers}
+            destinations={viewModel.destinations}
+            userInfo={viewModel.userInfo}
+            volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
+            order={viewModel.order}
+            boxes={viewModel.orderBoxes}
+            selectedSupplier={viewModel.selectedSupplier}
+            destinationsFavourites={viewModel.destinationsFavourites}
+            setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+            onClickCancelOrder={viewModel.onClickCancelOrder}
+            onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
+            onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
+            onClickReorder={viewModel.onClickReorder}
+            onChangeSelectedSupplier={viewModel.onChangeSelectedSupplier}
+            onTriggerAddOrEditSupplierModal={viewModel.onTriggerAddOrEditSupplierModal}
+            onClickHsCode={viewModel.onClickHsCode}
+          />
+        ) : null}
+      </MainContent>
+
+      <Modal
+        missClickModalOn
+        openModal={viewModel.showOrderModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}
+      >
+        <OrderProductModal
+          isPendingOrdering
+          reorderOrdersData={[viewModel.order]}
+          // volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          platformSettings={viewModel.platformSettings}
+          destinations={viewModel.destinations}
+          storekeepers={viewModel.storekeepers}
+          destinationsFavourites={viewModel.destinationsFavourites}
+          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          onTriggerOpenModal={viewModel.onTriggerOpenModal}
+          onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
+          onSubmit={viewModel.onConfirmSubmitOrderProductModal}
+        />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showEditHSCodeModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+      >
+        <EditHSCodeModal
+          hsCodeData={viewModel.hsCodeData}
+          onClickSaveHsCode={viewModel.onClickSaveHsCode}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+        />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showSetBarcodeModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
+      >
+        <SetBarcodeModal
+          item={viewModel.selectedProduct}
+          onClickSaveBarcode={viewModel.onClickSaveBarcode}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
+        />
+      </Modal>
+
+      <ConfirmationModal
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        isWarning={viewModel.confirmModalSettings.isWarning}
+        title={viewModel.confirmModalSettings.confirmTitle}
+        message={viewModel.confirmModalSettings.confirmMessage}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+
+      <WarningInfoModal
+        isWarning={viewModel.warningInfoModalSettings.isWarning}
+        openModal={viewModel.showWarningInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        title={viewModel.warningInfoModalSettings.title}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showWarningInfoModal')
+        }}
+      />
+
+      <Modal openModal={viewModel.showAddOrEditSupplierModal} setOpenModal={viewModel.onTriggerAddOrEditSupplierModal}>
+        <AddOrEditSupplierModalContent
+          onlyRead
+          product={viewModel.order?.product}
+          storekeepersData={viewModel.storekeepers}
+          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          supplier={viewModel.selectedSupplier}
+          onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
+        />
+      </Modal>
+    </React.Fragment>
+  )
 }
 
-export const ClientOrderView = withStyles(ClientOrderViewRaw, styles)
+export const ClientOrderView = withStyles(observer(ClientOrderViewRaw), styles)

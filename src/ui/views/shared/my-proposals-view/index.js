@@ -1,1 +1,1 @@
-export {MyProposalsView} from './my-proposals-view'
+export { MyProposalsView } from './my-proposals-view'

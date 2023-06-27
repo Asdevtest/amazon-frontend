@@ -1,22 +1,22 @@
-import {cx} from '@emotion/css'
-import {Button, Checkbox, ListItemText, MenuItem, Select, TextareaAutosize, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Button, Checkbox, ListItemText, MenuItem, Select, TextareaAutosize, Typography } from '@mui/material'
 
-import {useState} from 'react'
+import { useState } from 'react'
 
-import {parseISO} from 'date-fns/esm'
+import { parseISO } from 'date-fns/esm'
 
-import {RequestStatus} from '@constants/request-status'
-import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
+import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { RequestStatus } from '@constants/requests/request-status'
 
-import {NewDatePicker} from '@components/date-picker/date-picker'
-import {Field} from '@components/field'
+import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { Field } from '@components/shared/field'
 
-import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
+import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 
-import {useClassNames} from './custom-search-request-form.style'
+import { useClassNames } from './custom-search-request-form.style'
 
-export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, requestToEdit}) => {
-  const {classes: classNames} = useClassNames()
+export const CustomSearchRequestForm = ({ onSubmit, setOpenModal, isEdit, requestToEdit }) => {
+  const { classes: classNames } = useClassNames()
 
   const sourceFormFields = {
     request: {
@@ -39,7 +39,7 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
   const [deadlineError, setDeadlineError] = useState(false)
 
   const onChangeField = section => fieldName => event => {
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
     if (['maxAmountOfProposals'].includes(fieldName)) {
       newFormFields[section][fieldName] = parseInt(event.target.value) || ''
     } else if (
@@ -95,7 +95,7 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
           containerClasses={classNames.field}
           label={'timeoutAt'}
           inputComponent={
-            <div className={cx({[classNames.deadlineError]: deadlineError})}>
+            <div className={cx({ [classNames.deadlineError]: deadlineError })}>
               <NewDatePicker value={formFields.request.timeoutAt} onChange={onChangeField('request')('timeoutAt')} />
               {deadlineError && <p className={classNames.deadlineErrorText}>{'deadlineError'}</p>}
             </div>

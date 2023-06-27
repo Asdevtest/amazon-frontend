@@ -1,1 +1,1 @@
-export {MessagesView} from './messages-view'
+export { MessagesView } from './messages-view'

@@ -1,1 +1,1 @@
-export {CreateOrEditTradingShopView} from './create-or-edit-trading-shop-view'
+export { CreateOrEditTradingShopView } from './create-or-edit-trading-shop-view'

@@ -1,16 +1,6 @@
 export const styles = theme => ({
-  card: {
-    padding: '16px 20px',
-    marginBottom: '42px',
-  },
   button: {
     marginRight: '24px',
-  },
-  buttonsWrapper: {
-    textAlign: 'right',
-  },
-  tableWrapper: {
-    marginTop: '24px',
   },
 
   row: {
@@ -23,8 +13,6 @@ export const styles = theme => ({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
   },
 
@@ -46,10 +34,6 @@ export const styles = theme => ({
     height: '76vh',
   },
 
-  searchContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: 400,
@@ -61,7 +45,7 @@ export const styles = theme => ({
     margin: '10px 0 15px',
     display: 'flex',
 
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   },
   openArchiveBtn: {
     minWidth: 230,
@@ -77,6 +61,11 @@ export const styles = theme => ({
     '&:hover': {
       border: '1px solid #FF1616',
       opacity: 0.6,
+    },
+
+    '&:disabled': {
+      color: '#FEB9B9',
+      borderColor: '#FEB9B9',
     },
   },
   simpleBtnsWrapper: {
@@ -97,7 +86,7 @@ export const styles = theme => ({
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
 
-    borderBottom: '5px solid #0460DE',
+    borderBottom: theme.palette.other.tableActiveFilterBtn,
 
     color: `${theme.palette.primary.main} !important`,
   },

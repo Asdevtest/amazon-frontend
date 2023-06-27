@@ -1,1 +1,1 @@
-export {GetFilesForm} from './get-files-form'
+export { GetFilesForm } from './get-files-form'

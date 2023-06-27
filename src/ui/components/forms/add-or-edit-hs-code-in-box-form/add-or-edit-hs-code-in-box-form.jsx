@@ -1,23 +1,23 @@
-import {TableCell, TableRow, Typography} from '@mui/material'
+import { TableCell, TableRow, Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Input} from '@components/input'
-import {Table} from '@components/table'
-import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
+import { Button } from '@components/shared/buttons/button'
+import { Input } from '@components/shared/input'
+import { Table } from '@components/shared/table'
+import { TableHeadRow } from '@components/table/table-rows/batches-view/table-head-row'
 
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {t} from '@utils/translations'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './add-or-edit-hs-code-in-box-form.style'
+import { useClassNames } from './add-or-edit-hs-code-in-box-form.style'
 
-const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
-  const {classes: classNames} = useClassNames()
+const TableBodyBoxRow = ({ item, handlers, ...restProps }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <TableRow>
@@ -46,7 +46,7 @@ const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
 
       <TableCell>
         <Input
-          inputProps={{maxLength: 18}}
+          inputProps={{ maxLength: 18 }}
           value={item.hsCode}
           onChange={handlers.onChangeField('hsCode', item.productId)}
         />
@@ -55,13 +55,13 @@ const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
   )
 }
 
-export const AddOrEditHsCodeInBox = observer(({box, setOpenModal, onSubmit, startData}) => {
-  const {classes: classNames} = useClassNames()
+export const AddOrEditHsCodeInBox = observer(({ box, setOpenModal, onSubmit, startData }) => {
+  const { classes: classNames } = useClassNames()
 
   const HEAD_CELLS = [
-    {title: t(TranslationKey.Product)},
-    {title: t(TranslationKey.Quantity)},
-    {title: t(TranslationKey['HS code'])},
+    { title: t(TranslationKey.Product) },
+    { title: t(TranslationKey.Quantity) },
+    { title: t(TranslationKey['HS code']) },
   ]
 
   const renderHeadRow = <TableHeadRow headCells={HEAD_CELLS} />
@@ -104,7 +104,7 @@ export const AddOrEditHsCodeInBox = observer(({box, setOpenModal, onSubmit, star
         BodyRow={TableBodyBoxRow}
         renderHeadRow={renderHeadRow}
         box={box}
-        rowsHandlers={{onChangeField}}
+        rowsHandlers={{ onChangeField }}
       />
 
       <div className={classNames.buttonsWrapper}>

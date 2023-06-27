@@ -1,27 +1,26 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {BoxStatus} from '@constants/box-status'
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {zipCodeGroups} from '@constants/zip-code-groups'
+import { zipCodeGroups } from '@constants/configs/zip-code-groups'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { BoxStatus } from '@constants/statuses/box-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BoxesModel} from '@models/boxes-model'
-import {ClientModel} from '@models/client-model'
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { BoxesModel } from '@models/boxes-model'
+import { ClientModel } from '@models/client-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {clientBoxesTariffsNotificationsViewColumns} from '@components/table-columns/client/client-boxes-tariffs-notifications-columns'
+import { clientBoxesTariffsNotificationsViewColumns } from '@components/table/table-columns/client/client-boxes-tariffs-notifications-columns'
 
-import {calcFinalWeightForBox} from '@utils/calculation'
-import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { calcFinalWeightForBox } from '@utils/calculation'
+import { clientWarehouseDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class ClientBoxesTariffsNotificationsViewModel {
   history = undefined
@@ -40,7 +39,6 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
   storekeepersData = []
   boxes = []
-  drawerOpen = false
   showConfirmModal = false
   confirmModalSettings = {
     isWarning: false,
@@ -57,9 +55,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
   uploadedFiles = []
 
   sortModel = []
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
   densityModel = 'compact'
   rowHandlers = {
     onTriggerOpenConfirmModal: row => this.onTriggerOpenConfirmModal(row),
@@ -67,75 +63,64 @@ export class ClientBoxesTariffsNotificationsViewModel {
   }
   columnsModel = clientBoxesTariffsNotificationsViewColumns(this.rowHandlers)
 
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
+
   get userInfo() {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
+
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_BOXES_NOTIFICATIONS)
   }
 
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_BOXES_NOTIFICATIONS]
 
-    if (state) {
-      runInAction(() => {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = clientBoxesTariffsNotificationsViewColumns(this.rowHandlers).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
-      })
-    }
-  }
-
-  onChangeRowsPerPage(e) {
     runInAction(() => {
-      this.rowsPerPage = e
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
     })
   }
 
@@ -144,7 +129,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
       this.uploadedFiles = []
 
       if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
 
       await BoxesModel.editAdditionalInfo(data._id, {
@@ -229,7 +214,10 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
   async onSubmitSelectTariff() {
     try {
-      await ClientModel.updateTariffIfTariffWasDeleted({boxId: this.curBox._id, logicsTariffId: this.tariffIdToChange})
+      await ClientModel.updateTariffIfTariffWasDeleted({
+        boxId: this.curBox._id,
+        logicsTariffId: this.tariffIdToChange,
+      })
 
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
@@ -298,16 +286,12 @@ export class ClientBoxesTariffsNotificationsViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.setDataGridState()
   }
 
   onSelectionModel(model) {
@@ -340,9 +324,10 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
   async getBoxes() {
     try {
-      const result = await BoxesModel.getBoxesForCurClient(BoxStatus.NEED_TO_UPDATE_THE_TARIFF)
-
-      const platformSettings = await UserModel.getPlatformSettings()
+      const [result, platformSettings] = await Promise.all([
+        BoxesModel.getBoxesForCurClient(BoxStatus.NEED_TO_UPDATE_THE_TARIFF),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.boxes = clientWarehouseDataConverter(result, platformSettings?.volumeWeightCoefficient).sort(
@@ -378,21 +363,9 @@ export class ClientBoxesTariffsNotificationsViewModel {
     }
   }
 
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
-  }
-
   async onClickRejectOrderPriceChangeBtn(box) {
     try {
-      await ClientModel.returnBoxFromBatch([{boxId: box._id}])
+      await ClientModel.returnBoxFromBatch([{ boxId: box._id }])
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
     } catch (error) {

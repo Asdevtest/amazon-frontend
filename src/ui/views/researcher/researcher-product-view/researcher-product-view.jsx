@@ -1,147 +1,103 @@
-import React, {Component} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Navbar} from '@components/navbar'
-import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
-import {ProductWrapper} from '@components/product/product-wrapper'
+import { MainContent } from '@components/layout/main-content'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
+import { ProductWrapper } from '@components/product/product-wrapper'
+import { Modal } from '@components/shared/modal'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {ResearcherProductViewModel} from './researcher-product-view.model'
+import { ResearcherProductViewModel } from './researcher-product-view.model'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
+export const ResearcherProductView = observer(props => {
+  const [viewModel] = useState(
+    () =>
+      new ResearcherProductViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
 
-@observer
-export class ResearcherProductView extends Component {
-  viewModel = new ResearcherProductViewModel({
-    history: this.props.history,
-    location: this.props.location,
-  })
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
-
-  render() {
-    const {
-      supplierModalReadOnly,
-      volumeWeightCoefficient,
-      yuanToDollarRate,
-      userInfo,
-      imagesForLoad,
-      requestStatus,
-      alertFailedText,
-      showProgress,
-      progressValue,
-      drawerOpen,
-      product,
-      productBase,
-      actionStatus,
-      selectedSupplier,
-      showAddOrEditSupplierModal,
-      formFieldsValidationErrors,
-      showConfirmModal,
-      confirmModalSettings,
-      showWarningModal,
-      warningModalTitle,
-      onTriggerAddOrEditSupplierModal,
-      onClickSaveSupplierBtn,
-      onChangeProductFields,
-      onClickSupplierButtons,
-      onChangeSelectedSupplier,
-      onTriggerDrawerOpen,
-      onClickParseProductData,
-      handleProductActionButtons,
-      onTriggerOpenModal,
-      onClickSetProductStatusBtn,
-      onChangeImagesForLoad,
-    } = this.viewModel
-
-    return (
-      <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
-        <Main>
-          <Appbar title={t(TranslationKey.Product)} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              {product ? (
-                <ProductWrapper
-                  user={userInfo}
-                  userRole={userInfo.role}
-                  imagesForLoad={imagesForLoad}
-                  showProgress={showProgress}
-                  progressValue={progressValue}
-                  alertFailedText={alertFailedText}
-                  product={product}
-                  productBase={productBase}
-                  actionStatus={actionStatus}
-                  selectedSupplier={selectedSupplier}
-                  formFieldsValidationErrors={formFieldsValidationErrors}
-                  handleSupplierButtons={onClickSupplierButtons}
-                  handleProductActionButtons={handleProductActionButtons}
-                  onChangeField={onChangeProductFields}
-                  onClickSetProductStatusBtn={onClickSetProductStatusBtn}
-                  onClickSupplier={onChangeSelectedSupplier}
-                  onClickParseProductData={onClickParseProductData}
-                  onChangeImagesForLoad={onChangeImagesForLoad}
-                />
-              ) : undefined}
-            </MainContent>
-          </Appbar>
-        </Main>
-        <Modal
-          missClickModalOn={!supplierModalReadOnly}
-          openModal={showAddOrEditSupplierModal}
-          setOpenModal={onTriggerAddOrEditSupplierModal}
-        >
-          <AddOrEditSupplierModalContent
-            onlyRead={supplierModalReadOnly}
-            requestStatus={requestStatus}
-            sourceYuanToDollarRate={yuanToDollarRate}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            title={t(TranslationKey['Adding and editing a supplier'])}
-            supplier={selectedSupplier}
-            showProgress={showProgress}
-            progressValue={progressValue}
-            onClickSaveBtn={onClickSaveSupplierBtn}
-            onTriggerShowModal={onTriggerAddOrEditSupplierModal}
+  return (
+    <React.Fragment>
+      <MainContent>
+        {viewModel.product ? (
+          <ProductWrapper
+            user={viewModel.userInfo}
+            userRole={viewModel.userInfo.role}
+            imagesForLoad={viewModel.imagesForLoad}
+            showProgress={viewModel.showProgress}
+            progressValue={viewModel.progressValue}
+            alertFailedText={viewModel.alertFailedText}
+            product={viewModel.product}
+            productBase={viewModel.productBase}
+            actionStatus={viewModel.actionStatus}
+            selectedSupplier={viewModel.selectedSupplier}
+            formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
+            handleSupplierButtons={viewModel.onClickSupplierButtons}
+            handleProductActionButtons={viewModel.handleProductActionButtons}
+            onChangeField={viewModel.onChangeProductFields}
+            onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
+            onClickSupplier={viewModel.onChangeSelectedSupplier}
+            onClickParseProductData={viewModel.onClickParseProductData}
+            onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
           />
-        </Modal>
+        ) : undefined}
+      </MainContent>
 
-        <WarningInfoModal
-          openModal={showWarningModal}
-          setOpenModal={() => onTriggerOpenModal('showWarningModal')}
-          title={warningModalTitle}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showWarningModal')
-          }}
+      <Modal
+        missClickModalOn={!viewModel.supplierModalReadOnly}
+        openModal={viewModel.showAddOrEditSupplierModal}
+        setOpenModal={viewModel.onTriggerAddOrEditSupplierModal}
+      >
+        <AddOrEditSupplierModalContent
+          onlyRead={viewModel.supplierModalReadOnly}
+          requestStatus={viewModel.requestStatus}
+          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          supplier={viewModel.selectedSupplier}
+          showProgress={viewModel.showProgress}
+          progressValue={viewModel.progressValue}
+          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
+          onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
         />
+      </Modal>
 
-        <ConfirmationModal
-          isWarning={confirmModalSettings.isWarning}
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={t(TranslationKey.Attention)}
-          message={confirmModalSettings.message}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={() => {
-            confirmModalSettings.onClickOkBtn()
-            onTriggerOpenModal('showConfirmModal')
-          }}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-        />
-      </React.Fragment>
-    )
-  }
-}
+      <WarningInfoModal
+        openModal={viewModel.showWarningModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
+        title={viewModel.warningModalTitle}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showWarningModal')
+        }}
+      />
+
+      <ConfirmationModal
+        isWarning={viewModel.confirmModalSettings.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={viewModel.confirmModalSettings.message}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={() => {
+          viewModel.confirmModalSettings.onClickOkBtn()
+          viewModel.onTriggerOpenModal('showConfirmModal')
+        }}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
+    </React.Fragment>
+  )
+})

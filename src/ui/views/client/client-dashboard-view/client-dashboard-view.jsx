@@ -1,122 +1,100 @@
-import {cx} from '@emotion/css'
-import {Avatar, Paper, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Avatar, Paper, Typography } from '@mui/material'
 
-import React, {Component} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {getClientDashboardCardConfig} from '@constants/dashboard-configs'
-import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { getClientDashboardCardConfig } from '@constants/navigation/dashboard-configs'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
-import {DashboardBalance} from '@components/dashboards/dashboard-balance'
-import {DashboardButtons} from '@components/dashboards/dashboard-buttons'
-import {DashboardWidgetsCard} from '@components/dashboards/dashboard-widgets-card'
+import { DashboardBalance } from '@components/dashboards/dashboard-balance'
+import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
+import { DashboardWidgetsCard } from '@components/dashboards/dashboard-widgets-card'
 // import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {UserMoneyTransferModal} from '@components/modals/user-money-transfer-modal'
-import {Navbar} from '@components/navbar'
-import {UserLink} from '@components/user-link'
+import { MainContent } from '@components/layout/main-content'
+import { UserMoneyTransferModal } from '@components/modals/user-money-transfer-modal'
+import { Button } from '@components/shared/buttons/button'
+import { UserLink } from '@components/user/user-link'
 
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {t} from '@utils/translations'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { t } from '@utils/translations'
 
-import {ClientDashboardViewModel} from './client-dashboard-view.model'
-import {styles} from './client-dashboard-view.style'
+import { ClientDashboardViewModel } from './client-dashboard-view.model'
+import { styles } from './client-dashboard-view.style'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_DASHBOARD
+export const ClientDashboardViewRaw = props => {
+  const [viewModel] = useState(() => new ClientDashboardViewModel({ history: props.history }))
+  const { classes } = props
 
-@observer
-export class ClientDashboardViewRaw extends Component {
-  viewModel = new ClientDashboardViewModel({history: this.props.history})
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  componentDidMount() {
-    this.viewModel.loadData()
+  const clientButtonsRoutes = {
+    notifications: 'notifications/orders-notifications',
+    messages: 'messages',
   }
 
-  render() {
-    const {
-      userInfo,
-      dashboardData,
-      drawerOpen,
-      showTransferModal,
-      transferModalSettings,
-      onTriggerDrawer,
-      onTriggerOpenModal,
-      onClickAddMoney,
-      onClickWithdrawMoney,
-      onClickInfoCardViewMode,
-      onClickAddProduct,
-    } = this.viewModel
-    const {classes} = this.props
-    const clientButtonsRoutes = {
-      notifications: 'notifications/orders-notifications',
-      messages: 'messages',
-    }
-    return (
-      <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
-        <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Dashboard)} balance={userInfo.balance}>
-            <MainContent>
-              <Paper className={classes.userInfoWrapper}>
-                <div className={classes.userInfoLeftWrapper}>
-                  <Avatar src={getUserAvatarSrc(userInfo._id)} className={classes.cardImg} />
-                  <div className={classes.balanceWrapper}>
-                    <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+  return (
+    <React.Fragment>
+      <MainContent>
+        <Paper className={classes.userInfoWrapper}>
+          <div className={classes.userInfoLeftWrapper}>
+            <Avatar src={getUserAvatarSrc(viewModel.userInfo._id)} className={classes.cardImg} />
+            <div className={classes.balanceWrapper}>
+              <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />
 
-                    <div className={classes.buttonWrapper}>
-                      <Button
-                        tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
-                        className={classes.button}
-                        onClick={onClickWithdrawMoney}
-                      >
-                        {t(TranslationKey.Deposit)}
-                        <img src="/assets/icons/white-plus.svg" className={classes.icon} />
-                      </Button>
-                      <Button
-                        tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
-                        className={cx(classes.button, classes.withdrawBtn)}
-                        variant="text"
-                        onClick={onClickAddMoney}
-                      >
-                        {t(TranslationKey.Withdraw)}
-                      </Button>
-                    </div>
-                  </div>
-                </div>
+              <div className={classes.buttonWrapper}>
+                <Button
+                  tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
+                  className={classes.button}
+                  onClick={viewModel.onClickWithdrawMoney}
+                >
+                  {t(TranslationKey.Deposit)}
+                  <img src="/assets/icons/white-plus.svg" className={classes.icon} />
+                </Button>
+                <Button
+                  tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
+                  className={cx(classes.button, classes.withdrawBtn)}
+                  variant="text"
+                  onClick={viewModel.onClickAddMoney}
+                >
+                  {t(TranslationKey.Withdraw)}
+                </Button>
+              </div>
+            </div>
+          </div>
 
-                <DashboardButtons user={userInfo} routes={clientButtonsRoutes} />
+          <DashboardButtons user={viewModel.userInfo} routes={clientButtonsRoutes} />
 
-                {userInfo.masterUser && (
-                  <div className={classes.masterUserWrapper}>
-                    <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
+          {viewModel.userInfo.masterUser && (
+            <div className={classes.masterUserWrapper}>
+              <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
 
-                    <UserLink blackText name={userInfo.masterUser?.name} userId={userInfo.masterUser?._id} />
-                  </div>
-                )}
-              </Paper>
-              <DashboardWidgetsCard
-                config={getClientDashboardCardConfig()}
-                valuesData={dashboardData}
-                onClickViewMore={onClickInfoCardViewMode}
-                onClickAddProduct={onClickAddProduct}
+              <UserLink
+                blackText
+                name={viewModel.userInfo.masterUser?.name}
+                userId={viewModel.userInfo.masterUser?._id}
               />
-            </MainContent>
-          </Appbar>
-        </Main>
-        <UserMoneyTransferModal
-          openModal={showTransferModal}
-          setOpenModal={() => onTriggerOpenModal('showTransferModal')}
-          isWithdraw={transferModalSettings.isWithdraw}
+            </div>
+          )}
+        </Paper>
+        <DashboardWidgetsCard
+          config={getClientDashboardCardConfig()}
+          valuesData={viewModel.dashboardData}
+          onClickViewMore={viewModel.onClickInfoCardViewMode}
+          onClickAddProduct={viewModel.onClickAddProduct}
         />
-      </React.Fragment>
-    )
-  }
+      </MainContent>
+      <UserMoneyTransferModal
+        openModal={viewModel.showTransferModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showTransferModal')}
+        isWithdraw={viewModel.transferModalSettings.isWithdraw}
+      />
+    </React.Fragment>
+  )
 }
 
-export const ClientDashboardView = withStyles(ClientDashboardViewRaw, styles)
+export const ClientDashboardView = withStyles(observer(ClientDashboardViewRaw), styles)

@@ -1,26 +1,4 @@
 export const styles = theme => ({
-  sendOwnProductBtn: {
-    marginBottom: theme.spacing(2),
-  },
-  redistributionWrapper: {},
-  modalMessageWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  modalMessage: {
-    maxWidth: '400px',
-  },
-  modalMessageBtn: {
-    alignSelf: 'flex-end',
-  },
-  btnsWrapper: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: '0 0 10px',
-  },
-
   editBtn: {
     padding: '0 54px',
   },
@@ -38,22 +16,8 @@ export const styles = theme => ({
     gap: '10px',
   },
 
-  heightFieldAuto: {
-    height: 'auto',
-    maxWidth: '380px',
-    minWidth: '250px',
-
-    padding: 0,
-  },
-  buttonsWrapper: {
-    marginTop: '15px',
-  },
   button: {
     marginRight: '10px',
-  },
-
-  tableWrapper: {
-    minWidth: '100%',
   },
 
   isDraftRow: {
@@ -70,8 +34,6 @@ export const styles = theme => ({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
   },
 
@@ -79,7 +41,6 @@ export const styles = theme => ({
     position: 'absolute',
     top: 0,
     right: 0,
-
     borderTop: 'none !important',
     [theme.breakpoints.down(768)]: {
       '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(3)': {
@@ -101,17 +62,13 @@ export const styles = theme => ({
       height: '100px',
       display: 'grid',
       gridTemplateColumns: 'repeat(2, 1fr)',
-
       alignItems: 'start',
-
       marginTop: '40px',
-
       '& > button': {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'start',
         alignItems: 'center !important',
-
         fontSize: '12px',
       },
       '& > button > span': {
@@ -119,10 +76,7 @@ export const styles = theme => ({
       },
     },
   },
-  searchContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
+
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: 400,
@@ -136,7 +90,6 @@ export const styles = theme => ({
     [theme.breakpoints.down(768)]: {
       display: 'flex',
       flexDirection: 'column',
-
       '& > div': {
         width: '100%',
       },

@@ -1,13 +1,13 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {BuyerModel} from '@models/buyer-model'
+import { BuyerModel } from '@models/buyer-model'
 
-import {buyerSearchSuppliersViewColumns} from '@components/table-columns/buyer/buyer-seach-suppliers-columns'
+import { buyerSearchSuppliersViewColumns } from '@components/table/table-columns/buyer/buyer-seach-suppliers-columns'
 
-import {depersonalizedPickDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
+import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 
 export class BuyerSearchSupplierByClientModel {
   history = undefined
@@ -15,8 +15,6 @@ export class BuyerSearchSupplierByClientModel {
   actionStatus = undefined
 
   productsVacant = []
-
-  drawerOpen = false
 
   showInfoModal = false
 
@@ -26,24 +24,14 @@ export class BuyerSearchSupplierByClientModel {
     onPickUp: row => this.onClickTableRowBtn(row),
   }
 
-  firstRowId = undefined
+  columnsModel = buyerSearchSuppliersViewColumns(this.rowHandlers)
+  columnVisibilityModel = {}
 
-  columnsModel = buyerSearchSuppliersViewColumns(this.rowHandlers, this.firstRowId)
-
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   getCurrentData() {
@@ -56,10 +44,11 @@ export class BuyerSearchSupplierByClientModel {
     })
   }
 
-  setDataGridState(state) {
+  onColumnVisibilityModelChange(model) {
     runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
+      this.columnVisibilityModel = model
     })
+    // this.setDataGridState()
   }
 
   async loadData() {
@@ -115,7 +104,7 @@ export class BuyerSearchSupplierByClientModel {
       for (let i = 0; i < this.selectedRowIds.length; i++) {
         const itemId = this.selectedRowIds[i]
 
-        await this.onClickTableRowBtn({_id: itemId}, true)
+        await this.onClickTableRowBtn({ _id: itemId }, true)
       }
 
       runInAction(() => {
@@ -151,12 +140,6 @@ export class BuyerSearchSupplierByClientModel {
         })
       }
     }
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setRequestStatus(requestStatus) {

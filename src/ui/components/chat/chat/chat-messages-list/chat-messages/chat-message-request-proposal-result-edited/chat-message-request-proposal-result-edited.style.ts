@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -18,7 +18,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  headerWrapper: {},
+
   headerText: {
     color: theme.palette.text.general,
     fontSize: 18,
@@ -39,7 +39,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     marginTop: 20,
   },
-  titleWrapper: {},
+
   titleText: {
     color: theme.palette.text.second,
     fontSize: 18,
@@ -64,12 +64,7 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  resultLeftSide: {
-    flex: 4,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  resultTextWrapper: {},
+
   resultText: {
     fontSize: 18,
     fontWeight: 400,
@@ -82,13 +77,7 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'auto',
     overflowX: 'hidden',
   },
-  resultLinksWrapper: {
-    marginTop: 20,
-  },
-  linkWrapper: {
-    padding: '10px 0',
-  },
-  resultRightSide: {},
+
   timeToCheckBlockWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -130,11 +119,6 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'end',
     marginTop: '48px',
   },
-
-  actionBtnWrapperStyle: {
-    // flex: 1,
-    // display: 'flex',
-  },
   actionBtnWrapperStyleNotFirst: {
     marginLeft: '42px',
   },
@@ -155,60 +139,4 @@ export const useClassNames = makeStyles()(theme => ({
       backgroundColor: '#4CAF50',
     },
   },
-
-  image: {
-    marginLeft: '20px',
-    width: '80px',
-    height: '70px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
-
-  imageWrapper: {
-    display: 'flex',
-    alignItems: 'flex-end',
-  },
-
-  filesWrapper: {
-    display: 'flex',
-    maxWidth: '400px',
-  },
-
-  imagesAndFilesWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '60%',
-  },
-
-  imagesWrapper: {},
-  photoTitle: {
-    fontWeight: 600,
-    fontSize: '18px',
-    lineHeight: '140%',
-  },
-  carouselWrapper: {
-    marginTop: '10px',
-  },
-  documentsWrapper: {},
-  documentsTitle: {
-    fontWeight: 600,
-    fontSize: '18px',
-    lineHeight: '140%',
-  },
-  documentWrapper: {
-    marginTop: '10px',
-  },
-  documentTitle: {},
-  emptyDocumentIcon: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '30px',
-  },
-  documentEmpty: {},
 }))

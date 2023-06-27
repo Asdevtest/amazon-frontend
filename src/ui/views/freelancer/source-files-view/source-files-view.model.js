@@ -1,24 +1,22 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {tableSortMode} from '@constants/table-view-modes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { tableSortMode } from '@constants/table/table-view-modes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {RequestProposalModel} from '@models/request-proposal'
-import {SettingsModel} from '@models/settings-model'
+import { RequestProposalModel } from '@models/request-proposal'
+import { SettingsModel } from '@models/settings-model'
 
-import {sourceFilesColumns} from '@views/freelancer/source-files-columns/source-files-columns'
+import { sourceFilesColumns } from '@components/table/table-columns/freelancer/source-files-columns/source-files-columns'
 
-import {SourceFilesDataConverter} from '@utils/data-grid-data-converters'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { SourceFilesDataConverter } from '@utils/data-grid-data-converters'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
 
 export class SourceFilesViewModel {
   history = undefined
   error = undefined
-
-  drawerOpen = false
 
   nameSearchValue = ''
 
@@ -31,7 +29,7 @@ export class SourceFilesViewModel {
   showWarningModal = false
   showConfirmModal = false
 
-  selectionModel = []
+  rowSelectionModel = []
 
   activeSubCategory = 0
 
@@ -46,13 +44,13 @@ export class SourceFilesViewModel {
     onChangeText: fileName => value => this.onChangeText(fileName)(value),
   }
 
-  firstRowId = undefined
   sortModel = []
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = sourceFilesColumns(this.rowHandlers, this.languageTag, this.editField)
+  columnsModel = sourceFilesColumns(this.rowHandlers, () => this.editField)
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
   openModal = null
 
   confirmModalSettings = {
@@ -62,18 +60,9 @@ export class SourceFilesViewModel {
     onClickSuccess: () => {},
   }
 
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
-
-  constructor({history}) {
+  constructor({ history }) {
     this.history = history
-    makeAutoObservable(this, undefined, {autoBind: true})
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.sourceFiles,
@@ -85,36 +74,26 @@ export class SourceFilesViewModel {
     )
 
     reaction(
-      () => this.currentData,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
       () => this.nameSearchValue,
       () => {
         this.currentData = this.getCurrentData()
       },
     )
-
-    reaction(
-      () => this.editField,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
   }
 
   onChangeFilterModel(model) {
     this.filterModel = model
   }
 
-  getDataGridState() {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.columnsModel = sourceFilesColumns(this.rowHandlers, this.languageTag, this.editField)
+      this.paginationModel = model
+    })
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
     })
   }
 
@@ -132,26 +111,14 @@ export class SourceFilesViewModel {
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
+      this.rowSelectionModel = model
     })
-  }
-
-  onChangeDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
-  }
-
-  onChangeCurPage = e => {
-    this.curPage = e
   }
 
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
     })
-  }
-
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
   }
 
   async loadData() {
@@ -239,7 +206,7 @@ export class SourceFilesViewModel {
   }
 
   onChangeText = fieldName => value => {
-    const newFormFields = {...this.editField}
+    const newFormFields = { ...this.editField }
     newFormFields[fieldName] = value
 
     runInAction(() => {

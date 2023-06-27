@@ -1,1 +1,1 @@
-export {AdminWarehouseBoxesView} from './admin-warehouse-boxes-view'
+export { AdminWarehouseBoxesView } from './admin-warehouse-boxes-view'

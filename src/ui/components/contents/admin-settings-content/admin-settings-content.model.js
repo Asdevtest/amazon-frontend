@@ -1,19 +1,18 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {AdministratorModel} from '@models/administrator-model'
-import {ClientModel} from '@models/client-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { AdministratorModel } from '@models/administrator-model'
+import { ClientModel } from '@models/client-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {destinationsColumns} from '@components/table-columns/admin/destinations-columns'
+import { destinationsColumns } from '@components/table/table-columns/admin/destinations-columns'
 
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { t } from '@utils/translations'
 
 export class AdminSettingsModel {
   history = undefined
@@ -29,27 +28,20 @@ export class AdminSettingsModel {
   showConfirmModal = false
 
   sortModel = []
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = destinationsColumns(this.rowHandlers)
+  paginationModel = { page: 0, pageSize: 15 }
 
+  columnVisibilityModel = {}
   adminSettings = {}
+
   serverProxy = []
   infoModalText = ''
-
   showSuccessModal = false
-  showInfoModal = false
 
+  showInfoModal = false
   get user() {
     return UserModel.userInfo
-  }
-
-  confirmModalSettings = {
-    isWarning: false,
-    message: '',
-    onClickSuccess: () => {},
   }
 
   rowHandlers = {
@@ -57,42 +49,37 @@ export class AdminSettingsModel {
     onClickEditBtn: row => this.onClickEditBtn(row),
   }
 
-  constructor({history}) {
+  columnsModel = destinationsColumns(this.rowHandlers)
+
+  confirmModalSettings = {
+    isWarning: false,
+    message: '',
+    onClickSuccess: () => {},
+  }
+
+  constructor({ history }) {
     this.history = history
-    makeAutoObservable(this, undefined, {autoBind: true})
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  changeColumnsModel(newHideState) {
+  onColumnVisibilityModelChange(model) {
     runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
+      this.columnVisibilityModel = model
     })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
+    this.setDataGridState()
   }
 
   onChangeFilterModel(model) {
     this.filterModel = model
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_DESTINATIONS)
   }
@@ -100,21 +87,20 @@ export class AdminSettingsModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_DESTINATIONS]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
-
-      this.densityModel = state.density.value
-      this.columnsModel = destinationsColumns(this.rowHandlers).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+    runInAction(() => {
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
+    })
   }
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
+
+    this.setDataGridState()
   }
 
   setRequestStatus(requestStatus) {
@@ -131,14 +117,24 @@ export class AdminSettingsModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
+
+    this.setDataGridState()
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    this.rowSelectionModel = model
   }
 
   onChangeCurPage(e) {
     this.curPage = e
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
   }
 
   getCurrentData() {
@@ -147,10 +143,10 @@ export class AdminSettingsModel {
 
   async loadData() {
     try {
-      await this.getDestinations()
-      await this.getAdminSettings()
-      await this.getServerProxy()
       this.setRequestStatus(loadingStatuses.isLoading)
+
+      await Promise.all([this.getDestinations(), this.getAdminSettings(), this.getServerProxy()])
+
       this.getDataGridState()
 
       this.setRequestStatus(loadingStatuses.success)
@@ -239,14 +235,15 @@ export class AdminSettingsModel {
 
   onClickRemoveBtn(row) {
     this.destinationIdToRemove = row._id
-
     this.confirmModalSettings = {
       isWarning: true,
       message: t(TranslationKey['Are you sure you want to delete the destination?']),
       onClickSuccess: () => this.removeDestination(),
     }
 
-    this.onTriggerOpenModal('showConfirmModal')
+    runInAction(() => {
+      this.onTriggerOpenModal('showConfirmModal')
+    })
   }
 
   async removeDestination() {

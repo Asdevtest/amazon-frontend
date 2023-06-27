@@ -1,21 +1,19 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
+import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {SupervisorModel} from '@models/supervisor-model'
+import { SupervisorModel } from '@models/supervisor-model'
 
-import {depersonalizedPickColumns} from '@components/table-columns/depersonalized-pick-columns'
+import { depersonalizedPickColumns } from '@components/table/table-columns/depersonalized-pick-columns'
 
-import {depersonalizedPickDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
+import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 
 export class SupervisorReadyToCheckViewModel {
   history = undefined
   requestStatus = undefined
   actionStatus = undefined
-
-  drawerOpen = false
 
   showInfoModal = false
 
@@ -28,23 +26,20 @@ export class SupervisorReadyToCheckViewModel {
     onPickUp: row => this.onClickTableRowBtn(row),
   }
 
-  firstRowId = undefined
-
   columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor)
 
-  constructor({history}) {
+  columnVisibilityModel = {}
+
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  changeColumnsModel(newHideState) {
+  onColumnVisibilityModelChange(model) {
     runInAction(() => {
-      this.columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
+      this.columnVisibilityModel = model
     })
   }
 
@@ -55,12 +50,6 @@ export class SupervisorReadyToCheckViewModel {
   onSelectionModel(model) {
     runInAction(() => {
       this.selectedRowIds = model
-    })
-  }
-
-  setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
     })
   }
 
@@ -95,9 +84,6 @@ export class SupervisorReadyToCheckViewModel {
             .sort(sortObjectsArrayByFiledDateWithParseISOAsc('createdAt')),
         )
       })
-
-      console.log('result', result)
-      console.log('this.productsReadyToCheck', this.productsReadyToCheck)
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
@@ -113,18 +99,12 @@ export class SupervisorReadyToCheckViewModel {
     }
   }
 
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
   async onPickupSomeItems() {
     try {
       for (let i = 0; i < this.selectedRowIds.length; i++) {
         const itemId = this.selectedRowIds[i]
 
-        await this.onClickTableRowBtn({_id: itemId}, true)
+        await this.onClickTableRowBtn({ _id: itemId }, true)
       }
 
       runInAction(() => {

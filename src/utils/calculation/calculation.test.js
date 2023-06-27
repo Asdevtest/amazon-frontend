@@ -28,13 +28,13 @@ import {
 
 describe('Test roundSafely(num)', () => {
   const validTestValue = [
-    {enter: 10.666, expect: 10.67},
-    {enter: 10.888, expect: 10.89},
+    { enter: 10.666, expect: 10.67 },
+    { enter: 10.888, expect: 10.89 },
   ]
 
   const unvalidTestValue = [
-    {enter: '10.6', expect: 10.6},
-    {enter: '10.8', expect: 10.8},
+    { enter: '10.6', expect: 10.6 },
+    { enter: '10.8', expect: 10.8 },
   ]
 
   validTestValue.forEach(value => {
@@ -58,13 +58,13 @@ describe('Test roundSafely(num)', () => {
 
 describe('Test roundHalf(num)', () => {
   const validTestValue = [
-    {enter: 10.6, expect: 10.5},
-    {enter: 10.8, expect: 11},
+    { enter: 10.6, expect: 10.5 },
+    { enter: 10.8, expect: 11 },
   ]
 
   const unvalidTestValue = [
-    {enter: '10.6', expect: 10.5},
-    {enter: '10.8', expect: 11},
+    { enter: '10.6', expect: 10.5 },
+    { enter: '10.8', expect: 11 },
   ]
 
   validTestValue.forEach(value => {
@@ -87,11 +87,11 @@ describe('Test roundHalf(num)', () => {
 })
 
 describe('Test calcProductsPriceWithDelivery(product, order)', () => {
-  const validProductMock = {currentSupplier: {price: 7, batchDeliveryCostInDollar: 75, amount: 10}}
-  const validOrderMock = {amount: 100}
+  const validProductMock = { currentSupplier: { price: 7, batchDeliveryCostInDollar: 75, amount: 10 } }
+  const validOrderMock = { amount: 100 }
 
-  const unvalidProductMock = {currentSupplier: null}
-  const unvalidOrderMock = {amount: 100}
+  const unvalidProductMock = { currentSupplier: null }
+  const unvalidOrderMock = { amount: 100 }
 
   test('Valid props', () => {
     const res = calcProductsPriceWithDelivery(validProductMock, validOrderMock)
@@ -109,10 +109,10 @@ describe('Test calcProductsPriceWithDelivery(product, order)', () => {
 })
 
 describe('Test calcOrderTotalPrice(supplier, goodsAmount)', () => {
-  const validSupplierMock = {price: 7, batchDeliveryCostInDollar: 75, amount: 10}
+  const validSupplierMock = { price: 7, batchDeliveryCostInDollar: 75, amount: 10 }
   const validGoodsAmount = 100
 
-  const unvalidSupplierMock = {price: '', batchDeliveryCostInDollar: '', amount: 10}
+  const unvalidSupplierMock = { price: '', batchDeliveryCostInDollar: '', amount: 10 }
   const unvalidGoodsAmount = 100
 
   test('Valid props', () => {
@@ -131,10 +131,10 @@ describe('Test calcOrderTotalPrice(supplier, goodsAmount)', () => {
 })
 
 describe('Test calcOrderTotalPriceInYuann(supplier, goodsAmount)', () => {
-  const validSupplierMock = {price: 7, batchDeliveryCostInYuan: 75, amount: 10}
+  const validSupplierMock = { price: 7, batchDeliveryCostInYuan: 75, amount: 10 }
   const validGoodsAmount = 100
 
-  const unvalidSupplierMock = {price: '', batchDeliveryCostInYuan: '', amount: 10}
+  const unvalidSupplierMock = { price: '', batchDeliveryCostInYuan: '', amount: 10 }
   const unvalidGoodsAmount = 100
 
   test('Valid props', () => {
@@ -788,9 +788,9 @@ describe('Test calcTotalPriceForBatch(batch)', () => {
 })
 
 describe('Test calcSupplierPriceForUnit(supplier)', () => {
-  const validSupplierMock = {price: 7, batchDeliveryCostInDollar: 75, amount: 10}
+  const validSupplierMock = { price: 7, batchDeliveryCostInDollar: 75, amount: 10 }
 
-  const unvalidSupplierMock = {price: '', batchDeliveryCostInDollar: '', amount: 10}
+  const unvalidSupplierMock = { price: '', batchDeliveryCostInDollar: '', amount: 10 }
 
   test('Valid props', () => {
     const res = calcSupplierPriceForUnit(validSupplierMock)

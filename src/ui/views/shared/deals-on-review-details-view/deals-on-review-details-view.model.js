@@ -1,12 +1,12 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 
-import {RequestModel} from '@models/request-model'
-import {RequestProposalModel} from '@models/request-proposal'
-import {UserModel} from '@models/user-model'
+import { RequestModel } from '@models/request-model'
+import { RequestProposalModel } from '@models/request-proposal'
+import { UserModel } from '@models/user-model'
 
-import {onSubmitPostImages} from '@utils/upload-files'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class VacantDealsDetailsViewModel {
   history = undefined
@@ -18,7 +18,6 @@ export class VacantDealsDetailsViewModel {
   proposalId = undefined
   curProposalId = undefined
 
-  drawerOpen = false
   showConfirmModal = false
   showRejectModal = false
   showReworkModal = false
@@ -29,7 +28,7 @@ export class VacantDealsDetailsViewModel {
   request = []
   requestProposals = []
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
       if (location.state) {
@@ -38,7 +37,7 @@ export class VacantDealsDetailsViewModel {
         this.requester = location.state.requester
       }
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   get user() {
@@ -47,8 +46,7 @@ export class VacantDealsDetailsViewModel {
 
   async loadData() {
     try {
-      await this.getDealsVacantCur()
-      await this.getCustomRequestById()
+      await Promise.all([this.getDealsVacantCur(), this.getCustomRequestById()])
     } catch (error) {
       console.log(error)
     }
@@ -86,7 +84,7 @@ export class VacantDealsDetailsViewModel {
 
   async onClickConfirmDeal(data) {
     try {
-      await RequestProposalModel.requestProposalResultAccept(this.proposalId, {...data})
+      await RequestProposalModel.requestProposalResultAccept(this.proposalId, { ...data })
       this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review`)
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
@@ -99,7 +97,7 @@ export class VacantDealsDetailsViewModel {
 
   async onClickRejectDeal(data) {
     try {
-      await RequestProposalModel.requestProposalCancel(this.proposalId, {...data})
+      await RequestProposalModel.requestProposalCancel(this.proposalId, { ...data })
       this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review`)
       this.onTriggerOpenModal('showRejectModal')
     } catch (error) {
@@ -117,7 +115,7 @@ export class VacantDealsDetailsViewModel {
       })
 
       if (files.length) {
-        await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
       }
       await RequestProposalModel.requestProposalResultToCorrect(this.proposalId, {
         ...data,
@@ -152,12 +150,6 @@ export class VacantDealsDetailsViewModel {
       this.proposalId = id
     })
     this.onTriggerOpenModal('showRejectModal')
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setActionStatus(actionStatus) {

@@ -1,21 +1,21 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field/field'
 
-import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
-import {t} from '@utils/translations'
+import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './add-or-edit-warehouse-tariff-form.style'
+import { useClassNames } from './add-or-edit-warehouse-tariff-form.style'
 
-export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSubmit, onEditSubmit, tariffToEdit}) => {
-  const {classes: classNames} = useClassNames()
+export const AddOrEditWarehouseTariffForm = observer(({ onCloseModal, onCreateSubmit, onEditSubmit, tariffToEdit }) => {
+  const { classes: classNames } = useClassNames()
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
@@ -28,7 +28,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
   const [formFields, setFormFields] = useState(sourceFormFields)
 
   const onChangeField = fieldName => event => {
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
 
     if (['price'].includes(fieldName)) {
       if (
@@ -71,7 +71,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
       <div className={classNames.form}>
         <Field
           label={t(TranslationKey.Title)}
-          inputProps={{maxLength: 50}}
+          inputProps={{ maxLength: 50 }}
           labelClasses={classNames.fieldLabel}
           tooltipInfoContent={t(TranslationKey['Rate name'])}
           value={formFields.name}
@@ -81,7 +81,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
 
         <Field
           label={t(TranslationKey['Service cost per kg, $']) + '*'}
-          inputProps={{maxLength: 10}}
+          inputProps={{ maxLength: 10 }}
           labelClasses={classNames.fieldLabel}
           tooltipInfoContent={t(TranslationKey['The cost of providing the service'])}
           value={formFields.price}
@@ -92,7 +92,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
           multiline
           minRows={4}
           maxRows={4}
-          inputProps={{maxLength: 255}}
+          inputProps={{ maxLength: 255 }}
           labelClasses={classNames.fieldLabel}
           tooltipInfoContent={t(TranslationKey['Additional information about the rate'])}
           className={classNames.descriptionField}

@@ -1,24 +1,35 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import ZoomOutMapOutlinedIcon from '@mui/icons-material/ZoomOutMapOutlined'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Carousel from 'react-material-ui-carousel'
 
-import {Button} from '@components/buttons/button'
-import {ImageZoomForm} from '@components/forms/image-zoom-form'
-import {Modal} from '@components/modal'
+import { ImageZoomForm } from '@components/forms/image-zoom-form'
+import { Button } from '@components/shared/buttons/button'
+import { Modal } from '@components/shared/modal'
 
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {downloadFile, downloadFileByLink} from '@utils/upload-files'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
-import {useClassNames} from './big-images-modal.style'
+import { useClassNames } from './big-images-modal.style'
+import { getShortenStringIfLongerThanCount } from '@utils/text'
+import { CustomSlider } from '@components/shared/custom-slider'
 
 export const BigImagesModal = props => {
-  const {openModal, setOpenModal, images, imgIndex = 0, showPreviews = false, setImageIndex, controls} = props
-  const {classes: classNames} = useClassNames()
+  const {
+    openModal,
+    setOpenModal,
+    images,
+    imgIndex = 0,
+    showPreviews = false,
+    setImageIndex,
+    controls,
+    getComment,
+  } = props
+  const { classes: classNames } = useClassNames()
   const [currentScreenWidth, setCurrentScreenWidth] = useState(window.innerWidth)
 
   const [zoomOpen, setZoomOpen] = useState(false)
@@ -67,7 +78,6 @@ export const BigImagesModal = props => {
                   key={index}
                   className={classNames.previewListItem}
                   onClick={() => {
-                    console.log('handlePreview(index)', index)
                     handlePreview(index)
                   }}
                 >
@@ -84,6 +94,11 @@ export const BigImagesModal = props => {
                     }
                     loading="lazy"
                   />
+                  {getComment && (
+                    <Typography className={cx(classNames.imageLeftSideComment)}>
+                      {getShortenStringIfLongerThanCount(getComment(index), 20)}
+                    </Typography>
+                  )}
                 </div>
               ))}
             </div>
@@ -101,7 +116,6 @@ export const BigImagesModal = props => {
             indicators={setImageIndex ? false : true}
             index={imgIndex}
             onChange={now => {
-              console.log('now', now)
               handlePreview(now)
             }}
           >
@@ -118,9 +132,32 @@ export const BigImagesModal = props => {
                   }
                   alt=""
                 />
+                {getComment && <Typography className={classNames.title}>{getComment(index)}</Typography>}
               </div>
             ))}
           </Carousel>
+          {/* <CustomSlider */}
+          {/*   index={imgIndex} */}
+          {/*   arrowSize="60px" */}
+          {/*   onChangeIndex={(index) => setImageIndex(index - 1)} */}
+          {/* > */}
+          {/*   {images?.map((el, index) => ( */}
+          {/*     <div key={index} className={classNames.mainWrapper}> */}
+          {/*       <img */}
+          {/*         className={classNames.imgBox} */}
+          {/*         src={ */}
+          {/*           typeof el === 'string' */}
+          {/*             ? getAmazonImageUrl(el, true) */}
+          {/*             : el?.file.type.includes('image') */}
+          {/*             ? el?.data_url */}
+          {/*             : '/assets/icons/file.png' */}
+          {/*         } */}
+          {/*         alt="" */}
+          {/*       /> */}
+          {/*       {getComment && <Typography className={classNames.title}>{getComment(index)}</Typography>} */}
+          {/*     </div> */}
+          {/*   ))} */}
+          {/* </CustomSlider> */}
         </div>
 
         {setImageIndex && (

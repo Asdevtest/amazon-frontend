@@ -1,6 +1,6 @@
 // import axios from 'axios'
 // import {BACKEND_API_URL} from '@constants/env'
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class ClientModelStatic {
   getProductsVacant = async () => {
@@ -21,7 +21,7 @@ class ClientModelStatic {
   }
 
   getProductsMy = async filters => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsMyGet({filters})
+    const response = await restApiService.clientApi.apiV1ClientsProductsMyGet({ filters })
     return response
   }
 
@@ -60,7 +60,7 @@ class ClientModelStatic {
 
   makePayments = async productIds => {
     const response = await restApiService.clientApi.apiV1ClientsMakePaymentsPost({
-      body: {guids: productIds},
+      body: { guids: productIds },
     })
     return response
   }
@@ -71,17 +71,17 @@ class ClientModelStatic {
   }
 
   createOrder = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsOrdersPost({body: data})
+    const response = await restApiService.clientApi.apiV1ClientsOrdersPost({ body: data })
     return response
   }
 
   createFormedOrder = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsOrdersFormedPost({body: data})
+    const response = await restApiService.clientApi.apiV1ClientsOrdersFormedPost({ body: data })
     return response
   }
 
   getOrders = async status => {
-    const response = await restApiService.clientApi.apiV1ClientsOrdersGet({status})
+    const response = await restApiService.clientApi.apiV1ClientsOrdersGet({ status })
     return response
   }
 
@@ -108,7 +108,7 @@ class ClientModelStatic {
   }
 
   createTask = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsTasksPost({body: data})
+    const response = await restApiService.clientApi.apiV1ClientsTasksPost({ body: data })
     return response
   }
 
@@ -133,32 +133,34 @@ class ClientModelStatic {
   }
 
   cancelTask = async (id, data) => {
-    const response = await restApiService.clientApi.apiV1ClientsTasksCancelGuidPost(id, {body: data})
+    const response = await restApiService.clientApi.apiV1ClientsTasksCancelGuidPost(id, { body: data })
     return response
   }
 
   orderConfirmPriceChange = async orderId => {
-    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidConfirmPriceChangePost(orderId, {body: {}})
+    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidConfirmPriceChangePost(orderId, { body: {} })
     return response
   }
 
   updateTariffIfTariffWasDeleted = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsBoxesUpdateTariffIfTariffWasDeletedPost({body: data})
+    const response = await restApiService.clientApi.apiV1ClientsBoxesUpdateTariffIfTariffWasDeletedPost({ body: data })
     return response
   }
 
   boxConfirmPriceChange = async boxId => {
-    const response = await restApiService.clientApi.apiV1ClientsBoxesConfirmDeliveryPriceChangePost({body: [{boxId}]})
+    const response = await restApiService.clientApi.apiV1ClientsBoxesConfirmDeliveryPriceChangePost({
+      body: [{ boxId }],
+    })
     return response
   }
 
   cancelOrder = async orderId => {
-    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidCancelPost(orderId, {body: {}})
+    const response = await restApiService.clientApi.apiV1ClientsOrdersGuidCancelPost(orderId, { body: {} })
     return response
   }
 
   returnBoxFromBatch = async boxIds => {
-    const response = await restApiService.clientApi.apiV1ClientsBoxesReturnBoxesToStockPost({body: boxIds})
+    const response = await restApiService.clientApi.apiV1ClientsBoxesReturnBoxesToStockPost({ body: boxIds })
     return response
   }
 
@@ -168,7 +170,7 @@ class ClientModelStatic {
   }
 
   createProduct = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsPost({body: data})
+    const response = await restApiService.clientApi.apiV1ClientsProductsPost({ body: data })
     return response
   }
 
@@ -251,7 +253,7 @@ class ClientModelStatic {
   }
 
   editProductsStockUS = async (id, data) => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsGuidStockUSAPatch(id, {body: data})
+    const response = await restApiService.clientApi.apiV1ClientsProductsGuidStockUSAPatch(id, { body: data })
     return response
   }
 
@@ -273,7 +275,7 @@ class ClientModelStatic {
   }
 
   updateShops = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsUpdateStoreDataPatch({body: data})
+    const response = await restApiService.clientApi.apiV1ClientsUpdateStoreDataPatch({ body: data })
     return response
   }
 }

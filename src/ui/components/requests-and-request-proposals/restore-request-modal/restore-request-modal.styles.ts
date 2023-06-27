@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useRestoreRequestModalStyles = makeStyles()(theme => ({
   body: {
@@ -31,5 +31,13 @@ export const useRestoreRequestModalStyles = makeStyles()(theme => ({
   controlButton: {
     width: '100%',
     maxWidth: 'unset',
+  },
+
+  cancelButton: {
+    color: theme.palette.text.general,
+  },
+
+  errorInput: {
+    borderColor: theme.palette.text.red,
   },
 }))

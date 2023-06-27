@@ -1,1 +1,1 @@
-export {ClientExchangePrivateLabelView} from './client-exchange-private-label-view'
+export { ClientExchangePrivateLabelView } from './client-exchange-private-label-view'

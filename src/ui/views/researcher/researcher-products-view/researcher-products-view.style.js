@@ -7,7 +7,6 @@ export const styles = theme => ({
   },
   formWrapper: {
     marginTop: '32px',
-    // backgroundColor: theme.palette.background.general,
   },
   tableWrapper: {
     marginTop: '32px',

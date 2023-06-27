@@ -1,1 +1,1 @@
-export {ClientAwaitingBatchesView} from './client-awaiting-batches-view'
+export { ClientAwaitingBatchesView } from './client-awaiting-batches-view'

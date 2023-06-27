@@ -1,4 +1,4 @@
-import {keyframes} from '@emotion/react'
+import { keyframes } from '@emotion/react'
 
 const ani = keyframes`
 0% {
@@ -12,16 +12,10 @@ const ani = keyframes`
 `
 
 export const styles = theme => ({
-  multiline: {
-    height: 'auto',
-    width: '100%',
-  },
   field: {
     marginTop: theme.spacing(2.5),
   },
-  titleWrapper: {
-    marginBottom: theme.spacing(5),
-  },
+
   placeRequestBtnWrapper: {
     width: '100%',
     display: 'flex',
@@ -30,26 +24,22 @@ export const styles = theme => ({
     marginBottom: '20px',
     paddingRight: '5px',
   },
-  tableWrapper: {
-    marginTop: '15px',
-  },
 
   row: {
     whiteSpace: 'normal',
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.01, 1)',
-    },
   },
 
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
+
+    // '.MuiTypography-root': {
+    //   fontSize: 14,
+    //   fontFamily: 'Regular, sans-serif',
+    // },
   },
 
   datagridWrapper: {
@@ -72,9 +62,7 @@ export const styles = theme => ({
   acceptMessageWrapper: {
     position: 'absolute',
     top: 0,
-    // top: '50%',
     left: '50%',
-
     padding: '10px',
     marginTop: '63px',
     zIndex: 999,
@@ -96,6 +84,7 @@ export const styles = theme => ({
   columnHeaderTitleContainer: {
     flexDirection: 'row !important',
     display: 'flex !important',
+    overflow: 'visible',
   },
   columnHeaderDraggableContainer: {
     flexDirection: 'row !important',
@@ -103,6 +92,7 @@ export const styles = theme => ({
 
   waitingCheckedBacklighting: {
     background: theme.palette.background.green,
+    zIndex: -1,
   },
   yellowBorder: {
     background: theme.palette.boxShadow.yellow,
@@ -125,9 +115,7 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     color: theme.palette.text.second,
-
     width: '100%',
-
     fontWeight: 600,
     fontSize: 18,
     lineHeight: '140%',
@@ -154,10 +142,8 @@ export const styles = theme => ({
     right: -7,
     top: 13,
     visibility: 'visible !important',
-
     width: '18px !important',
     height: '18px !important',
-
     '.MuiSvgIcon-root': {
       display: 'none',
     },

@@ -1,22 +1,21 @@
 /* eslint-disable react/jsx-indent */
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
 import React from 'react'
 
 import Linkify from 'react-linkify-always-blank'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import { t } from '@utils/translations'
 
-import {t} from '@utils/translations'
+import { useClassNames } from './request-standart-result-form.style'
+import { Button } from '@components/shared/buttons/button'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
-import {useClassNames} from './request-standart-result-form.style'
-
-export const RequestStandartResultForm = ({/* request, */ setOpenModal, proposal}) => {
-  const {classes: classNames} = useClassNames()
+export const RequestStandartResultForm = ({ /* request, */ setOpenModal, proposal }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <div className={classNames.root}>

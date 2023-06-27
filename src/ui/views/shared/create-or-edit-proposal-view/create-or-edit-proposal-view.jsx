@@ -1,128 +1,80 @@
 /* eslint-disable no-unused-vars */
-import React, {Component} from 'react'
+import React, { Component, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
-import {CreateOrEditProposalContent} from '@components/contents/create-or-edit-proposal-content'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Navbar} from '@components/navbar'
+import { CreateOrEditProposalContent } from '@components/contents/create-or-edit-proposal-content'
+import { MainContent } from '@components/layout/main-content'
+import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {CreateOrEditProposalViewModel} from './create-or-edit-proposal-view.model'
-import {styles} from './create-or-edit-proposal-view.style'
+import { CreateOrEditProposalViewModel } from './create-or-edit-proposal-view.model'
+import { styles } from './create-or-edit-proposal-view.style'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
-@observer
-export class CreateOrEditProposalViewRaw extends Component {
-  viewModel = new CreateOrEditProposalViewModel({
-    history: this.props.history,
-    location: this.props.location,
-  })
+export const CreateOrEditProposalViewRaw = props => {
+  const [viewModel] = useState(
+    () =>
+      new CreateOrEditProposalViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
+  const { classes: classNames } = props
 
-  render() {
-    const {
-      progressValue,
-      showProgress,
-      request,
-      proposalToEdit,
-      infoModalText,
-      drawerOpen,
-      showInfoModal,
-      showResultModal,
-
-      onTriggerDrawerOpen,
-      onTriggerOpenModal,
-      onSubmitCreateProposal,
-      onClickBackBtn,
-      onClickOkInfoModal,
-      onSubmitEditProposal,
-      onClickResultModal,
-      goToMyRequest,
-    } = this.viewModel
-
-    const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={
-            this.props.location.pathname.includes('my-proposals')
-              ? navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS
-              : navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS
-          }
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
-        />
-        <Main>
-          <Appbar
-            title={
-              this.props.location.state?.proposalToEdit
-                ? t(TranslationKey['Proposal Edition'])
-                : t(TranslationKey['Proposal Creation'])
-            }
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
-            <MainContent>
-              {/* <div className={classNames.backBtnWrapper}>
-                <Button variant="contained" color="primary" className={classNames.backBtn} onClick={onClickBackBtn}>
+  return (
+    <React.Fragment>
+      <MainContent>
+        {/* <div className={classNames.backBtnWrapper}>
+                <Button variant="contained" color="primary" className={classNames.backBtn} onClick={viewModel.onClickBackBtn}>
                   {t(TranslationKey.Back)}
                 </Button>
               </div> */}
 
-              <CreateOrEditProposalContent
-                progressValue={progressValue}
-                showProgress={showProgress}
-                request={request}
-                proposalToEdit={proposalToEdit}
-                onClickBackBtn={onClickBackBtn}
-                onCreateSubmit={onSubmitCreateProposal}
-                onEditSubmit={onSubmitEditProposal}
-              />
-            </MainContent>
-          </Appbar>
-        </Main>
-
-        <TwoVerticalChoicesModal
-          openModal={showResultModal}
-          setOpenModal={() => {
-            onTriggerOpenModal('showResultModal')
-            onClickResultModal({goBack: true})
-          }}
-          title={infoModalText}
-          // topBtnText={t(TranslationKey['To vacant requests'])}
-          // bottomBtnText={t(TranslationKey['To the list of proposals'])}
-          // onClickTopBtn={() => onClickResultModal({goBack: true})}
-          // onClickBottomBtn={() => onClickResultModal({goBack: false})}
-
-          topBtnText={t(TranslationKey['Go to request'])}
-          bottomBtnText={t(TranslationKey['To vacant requests'])}
-          thirdBtnText={t(TranslationKey['To the list of proposals'])}
-          onClickTopBtn={() => goToMyRequest()}
-          onClickBottomBtn={() => onClickResultModal({goBack: true})}
-          onClickThirdBtn={() => onClickResultModal({goBack: false})}
+        <CreateOrEditProposalContent
+          progressValue={viewModel.progressValue}
+          showProgress={viewModel.showProgress}
+          request={viewModel.request}
+          proposalToEdit={viewModel.proposalToEdit}
+          onClickBackBtn={viewModel.onClickBackBtn}
+          onCreateSubmit={viewModel.onSubmitCreateProposal}
+          onEditSubmit={viewModel.onSubmitEditProposal}
         />
+      </MainContent>
 
-        <WarningInfoModal
-          openModal={showInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showInfoModal')}
-          title={infoModalText}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={onClickOkInfoModal}
-        />
-      </React.Fragment>
-    )
-  }
+      <TwoVerticalChoicesModal
+        openModal={viewModel.showResultModal}
+        setOpenModal={() => {
+          viewModel.onTriggerOpenModal('showResultModal')
+          viewModel.onClickResultModal({ goBack: true })
+        }}
+        title={viewModel.infoModalText}
+        // topBtnText={t(TranslationKey['To vacant requests'])}
+        // bottomBtnText={t(TranslationKey['To the list of proposals'])}
+        // onClickTopBtn={() => onClickResultModal({goBack: true})}
+        // onClickBottomBtn={() => onClickResultModal({goBack: false})}
+
+        topBtnText={t(TranslationKey['Go to request'])}
+        bottomBtnText={t(TranslationKey['To vacant requests'])}
+        thirdBtnText={t(TranslationKey['To the list of proposals'])}
+        onClickTopBtn={() => viewModel.goToMyRequest()}
+        onClickBottomBtn={() => viewModel.onClickResultModal({ goBack: true })}
+        onClickThirdBtn={() => viewModel.onClickResultModal({ goBack: false })}
+      />
+
+      <WarningInfoModal
+        openModal={viewModel.showInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
+        title={viewModel.infoModalText}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={viewModel.onClickOkInfoModal}
+      />
+    </React.Fragment>
+  )
 }
 
-export const CreateOrEditProposalView = withStyles(CreateOrEditProposalViewRaw, styles)
+export const CreateOrEditProposalView = withStyles(observer(CreateOrEditProposalViewRaw), styles)

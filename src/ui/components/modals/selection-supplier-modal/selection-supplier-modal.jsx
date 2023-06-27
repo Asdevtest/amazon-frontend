@@ -1,17 +1,17 @@
-import {cx} from '@emotion/css'
-import {Container, Divider, Grid, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Container, Divider, Grid, Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './selection-supplier-modal.style'
+import { useClassNames } from './selection-supplier-modal.style'
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT],
@@ -40,7 +40,7 @@ export const SelectionSupplierModal = ({
 
   const [comment, setComment] = useState(product?.originalData.clientComment || '')
 
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const buttonSearchSupplierForIdeaClsx = cx(classNames.modalButton, classNames.searchSupplierForIdeaBtn, {
     [classNames.modalButtonActive]: selectedButtonValue === selectedButtonValueConfig.SUPPLIER_TO_IDEAS,
@@ -52,7 +52,7 @@ export const SelectionSupplierModal = ({
   const buttonAddSupplierClsx = cx(classNames.modalButton, {
     [classNames.modalButtonActive]: selectedButtonValue === selectedButtonValueConfig.ADD_NEW_SUPPLIER,
   })
-  const modalTitleClsx = cx(classNames.modalTitle, {[classNames.modalTitleChange]: clickNextOrPrevButton})
+  const modalTitleClsx = cx(classNames.modalTitle, { [classNames.modalTitleChange]: clickNextOrPrevButton })
 
   const onClickSearchSupplierForIdeaButton = () => {
     setSelectedButtonValue(selectedButtonValueConfig.SUPPLIER_TO_IDEAS)

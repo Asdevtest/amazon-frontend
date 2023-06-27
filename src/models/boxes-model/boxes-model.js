@@ -1,8 +1,8 @@
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class BoxesModelStatic {
   createBox = async data => {
-    const response = await restApiService.boxesApi.apiV1BoxesPost({body: data})
+    const response = await restApiService.boxesApi.apiV1BoxesPost({ body: data })
     return response
   }
 
@@ -13,21 +13,21 @@ class BoxesModelStatic {
 
   mergeBoxes = async (ids, boxBody) => {
     const response = await restApiService.boxesApi.apiV1BoxesMergePost({
-      body: {guids: ids, boxBody},
+      body: { guids: ids, boxBody },
     })
     return response
   }
 
   cancelMergeBoxes = async id => {
     const response = await restApiService.boxesApi.apiV1BoxesCancelMergePost({
-      body: {guid: id},
+      body: { guid: id },
     })
     return response
   }
 
   cancelEditBoxes = async id => {
     const response = await restApiService.boxesApi.apiV1BoxesCancelEditPost({
-      body: {guid: id},
+      body: { guid: id },
     })
     return response
   }
@@ -39,34 +39,34 @@ class BoxesModelStatic {
 
   splitBoxes = async (id, data) => {
     const response = await restApiService.boxesApi.apiV1BoxesSplitPost({
-      body: {guid: id, newBoxesParams: data},
+      body: { guid: id, newBoxesParams: data },
     })
     return response
   }
 
-  editBox = async ({id, data}) => {
-    const response = await restApiService.boxesApi.apiV1BoxesEditGuidPost(id, {body: data})
+  editBox = async ({ id, data }) => {
+    const response = await restApiService.boxesApi.apiV1BoxesEditGuidPost(id, { body: data })
     return response
   }
 
   editBoxAtClient = async (id, data) => {
-    const response = await restApiService.boxesApi.apiV1BoxesClientsGuidPatch(id, {body: data})
+    const response = await restApiService.boxesApi.apiV1BoxesClientsGuidPatch(id, { body: data })
     return response
   }
 
   editIsFormed = async (id, data) => {
-    const response = await restApiService.boxesApi.apiV1BoxesIsFormedGuidPatch(id, {body: data})
+    const response = await restApiService.boxesApi.apiV1BoxesIsFormedGuidPatch(id, { body: data })
     return response
   }
 
   regroupBoxes = async data => {
-    const response = await restApiService.boxesApi.apiV1BoxesSuperboxRegroupPatch({body: data})
+    const response = await restApiService.boxesApi.apiV1BoxesSuperboxRegroupPatch({ body: data })
     return response
   }
 
   cancelSplitBoxes = async id => {
     const response = await restApiService.boxesApi.apiV1BoxesCancelSplitPost({
-      body: {guid: id},
+      body: { guid: id },
     })
     return response
   }
@@ -80,10 +80,10 @@ class BoxesModelStatic {
     const response = await restApiService.boxesApi.apiV1BoxesApprovePost(
       Array.isArray(request)
         ? {
-            body: {guid: id, additionalBoxes: [...request]},
+            body: { guid: id, additionalBoxes: [...request] },
           }
         : {
-            body: {guid: request},
+            body: { guid: request },
           },
     )
     return response
@@ -100,7 +100,7 @@ class BoxesModelStatic {
   }
 
   getBoxesForCurClientLight = async (status, storekeeperId) => {
-    const response = await restApiService.boxesApi.apiV1BoxesClientsLightGet(status, {storekeeperId})
+    const response = await restApiService.boxesApi.apiV1BoxesClientsLightGet(status, { storekeeperId })
     return response
   }
 
@@ -157,24 +157,29 @@ class BoxesModelStatic {
   }
 
   sendBoxesToBatch = async boxesIds => {
-    const response = await restApiService.boxesApi.apiV1BoxesSendBoxesToBatchPost({body: {boxesIds}})
+    const response = await restApiService.boxesApi.apiV1BoxesSendBoxesToBatchPost({ body: { boxesIds } })
     return response
   }
 
   setBarcodeAttachedCheckboxes = async (id, data) => {
     const response = await restApiService.boxesApi.apiV1BoxesStorekeepersGuidSetItemsBarCodePatch(id, {
-      body: {itemsBarCodeChanges: data},
+      body: { itemsBarCodeChanges: data },
     })
     return response
   }
 
   editBoxByStorekeeper = async (id, data) => {
-    const response = await restApiService.boxesApi.apiV1BoxesChangeDimensionsGuidPatch(id, {body: data})
+    const response = await restApiService.boxesApi.apiV1BoxesChangeDimensionsGuidPatch(id, { body: data })
     return response
   }
 
   editAdditionalInfo = async (id, data) => {
-    const response = await restApiService.boxesApi.apiV1BoxesAdditionalInfoGuidPatch(id, {body: data})
+    const response = await restApiService.boxesApi.apiV1BoxesAdditionalInfoGuidPatch(id, { body: data })
+    return response
+  }
+
+  updatePrepId = async boxes => {
+    const response = await restApiService.boxesApi.apiV1BoxesPrepIdPatch({ body: boxes })
     return response
   }
 }

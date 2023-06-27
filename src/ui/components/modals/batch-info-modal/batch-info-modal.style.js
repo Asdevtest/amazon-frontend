@@ -1,17 +1,12 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  commentsWrapper: {
-    display: 'flex',
-    gap: '10px',
-  },
   form: {
-    // marginTop: theme.spacing(2.5),
-    // marginBottom: theme.spacing(2.5),
     display: 'flex',
     flexDirection: 'column',
-    height: 728,
-    width: 1350,
+    height: 801,
+    width: 1692,
+    gap: 20,
 
     [theme.breakpoints.down(768)]: {
       width: '280px',
@@ -55,8 +50,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   modalTitle: {
     marginRight: '100px',
-
+    marginBottom: '0 !important',
     color: theme.palette.text.general,
+
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
       lineHeight: '22px',
@@ -64,79 +60,6 @@ export const useClassNames = makeStyles()(theme => ({
       fontWeight: 600,
       marginRight: 0,
     },
-  },
-  subTitle: {
-    color: theme.palette.text.general,
-    fontSize: '16px',
-    fontWeight: '600',
-    lineHeight: '20px',
-    marginBottom: '12px',
-  },
-
-  methodInput: {
-    width: 280,
-  },
-  tariffInput: {
-    width: 210,
-  },
-
-  sumField: {
-    width: 'min-content',
-    marginBottom: '10px !important',
-  },
-
-  shortInput: {
-    color: `red !important`,
-    width: 150,
-  },
-
-  pricesWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    height: 'auto',
-    flexGrow: 1,
-
-    gap: 45,
-  },
-
-  imgBox: {
-    width: '50px',
-    height: '50px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
-
-  productTitle: {
-    whiteSpace: 'nowrap',
-    width: '250px',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-
-  shippinLabel: {
-    whiteSpace: 'nowrap',
-    width: '250px',
-    overflowX: 'auto',
-  },
-
-  imgBlock: {
-    display: 'flex',
-  },
-
-  imgSubBlock: {
-    display: 'flex',
-    marginLeft: '10px',
-    flexDirection: 'column',
-  },
-
-  countBlock: {
-    display: 'flex',
   },
 
   buttonsWrapper: {
@@ -157,13 +80,6 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 5,
   },
 
-  superboxTypo: {
-    marginLeft: '10px',
-    color: theme.palette.primary.main,
-    fontSize: '20px',
-    fontWeight: '900px',
-  },
-
   amount: {
     marginLeft: '5px',
   },
@@ -182,6 +98,11 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
+    gap: 30,
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+      gap: 5,
+    },
   },
 
   datesWrapper: {
@@ -193,25 +114,18 @@ export const useClassNames = makeStyles()(theme => ({
   infoWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
-    gap: '10px',
+    justifyContent: 'space-between',
+    gap: 30,
     [theme.breakpoints.down(768)]: {
-      display: 'flex',
       flexDirection: 'column',
-      alignItems: 'flex-end',
-      gap: '5px',
+      gap: 5,
     },
-  },
-
-  needPay: {
-    color: 'red',
-    fontWeight: 'bold',
-    marginLeft: '15px',
   },
 
   titleWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    // alignItems: 'center',
+
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       alignItems: 'start',
@@ -221,7 +135,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   storekeeperField: {
     maxWidth: '270px',
-    margin: '0',
+    margin: '0 !important',
     display: 'flex !important',
     justifyContent: 'flex-end !important',
   },
@@ -231,41 +145,6 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'flex-end',
   },
 
-  imageFileInputWrapper: {
-    width: '100%',
-    display: 'flex',
-    marginTop: '20px',
-    alignItems: 'flex-start',
-  },
-
-  // filesWrapper: {
-  //   width: '450px',
-  //   maxHeight: '220px',
-  //   overflow: 'auto',
-  // },
-
-  filesContainer: {
-    width: 'auto',
-    marginLeft: '30px',
-  },
-
-  linkText: {
-    color: theme.palette.primary.main,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    transition: '.3s ease',
-    whiteSpace: 'nowrap',
-    overflow: 'auto',
-
-    '&:hover': {
-      opacity: '0.8',
-    },
-  },
-
-  filesWrapper: {
-    marginTop: 20,
-    height: 125,
-  },
-
   files: {
     fontWeight: 600,
     fontSize: '18px',
@@ -273,34 +152,21 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  textEllipsis: {
-    maxWidth: 150,
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
-    width: '380px',
+    width: 270,
     height: 40,
-    marginBottom: 10,
+
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+
     [theme.breakpoints.down(768)]: {
       width: '280px',
       height: 36,
     },
   },
 
-  searchContainer: {
-    width: 'auto',
-    justifySelf: 'flex-start',
-  },
-
-  searchWrapper: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginBottom: 20,
-  },
   fieldLabel: {
     fontWeight: 600,
     fontSize: 18,
@@ -316,10 +182,12 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
 
     fontWeight: 400,
-    fontSize: 14,
-    lineHeight: '19px',
+    fontSize: 12,
+    lineHeight: '16px',
 
-    whiteSpace: 'nowrap',
+    whiteSpace: 'pre-wrap',
+
+    marginBottom: '5px !important',
 
     [theme.breakpoints.down(768)]: {
       fontSize: '14px',
@@ -345,10 +213,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   tableWrapper: {
-    // height: '600px',
-    // minHeight: 400,
-    // maxHeight: 600,
-    height: 502,
+    height: 590,
     overflowY: 'auto',
     width: '100%',
     borderBottom: '1px solid white',
@@ -369,25 +234,42 @@ export const useClassNames = makeStyles()(theme => ({
     '-webkit-text-fill-color': `${theme.palette.text.second} !important`,
   },
   batchTitleField: {
-    width: 186,
+    width: '160px !important',
+    margin: '0 !important',
   },
-  batchNumberField: {
-    width: 100,
+  destinationField: {
+    width: '270px !important',
+    margin: '0 !important',
   },
-  tariffField: {
-    width: 230,
+  volumeWeightField: {
+    width: '190px !important',
+    margin: '0 !important',
   },
-  dstinationField: {
-    width: 190,
-  },
-
   methodField: {
-    width: 270,
+    width: '270px !important',
+    margin: '0 !important',
+  },
+  dividerField: {
+    width: '120px !important',
+    margin: '0 !important',
   },
   filesAndButtonWrapper: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  shippinCostContainer: {
+    width: '190px !important',
+    margin: '0 !important',
+  },
 
-    marginTop: 20,
+  closeFieldsWrapper: {
+    display: 'flex',
+    gap: 30,
+  },
+
+  toolbarContainer: {
+    height: 52,
+    gap: 30,
   },
 }))

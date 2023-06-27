@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   box: {
@@ -13,9 +13,6 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.background.red,
   },
 
-  boxNoPrice: {
-    border: '1px solid red',
-  },
   tableCell: {
     padding: '0 5px',
     textAlign: 'left',
@@ -29,10 +26,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100px',
   },
 
-  imgWrapper: {
-    minHeight: '50px',
-    width: '50px',
-  },
   img: {
     height: '60px',
     width: '60px',
@@ -54,7 +47,6 @@ export const useClassNames = makeStyles()(theme => ({
   boxWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    // width: '500px'
   },
 
   boxItemWrapper: {
@@ -66,9 +58,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   superBoxTypo: {
     minWidth: '40px',
-    // color: 'blue',
     fontWeight: 'bold',
-
     color: theme.palette.primary.main,
   },
 
@@ -82,7 +72,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
   productCell: {
     minWidth: '300px',
-
     minHeight: 134,
   },
 
@@ -108,13 +97,8 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  shippingLabelCell: {
-    // width: '250px'
-  },
-
   priceCell: {
     width: '140px',
-
     textAlign: 'center',
   },
 
@@ -149,17 +133,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   checkboxWrapper: {
-    // margin: '0 10px 0 20px',
-
     display: 'flex',
-
     alignItems: 'center',
-  },
-
-  link: {
-    maxWidth: '200px',
-    whiteSpace: 'nowrap',
-    overflowX: 'auto',
   },
 
   boxItemSubWrapper: {
@@ -196,20 +171,8 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  copyImg: {
-    marginLeft: '30px',
-    width: '20px',
-    height: '20px',
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.2)',
-    },
-  },
-
   linkWrapper: {
     display: 'flex',
-    // alignItems: 'center',
     gap: '10px',
   },
 
@@ -219,7 +182,6 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
     '&:hover': {
-      // transform: 'scale(0.99)', // изменяет красный цвет при наведении
       boxShadow: 'inset 0 0 30px rgba(7, 179, 247, .8)',
     },
   },

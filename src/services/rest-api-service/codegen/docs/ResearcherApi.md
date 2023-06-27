@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## apiV1ResearchersCheckProductsAsinStrategyGet
 
-> InlineResponse20061 apiV1ResearchersCheckProductsAsinStrategyGet(asin, strategy, opts)
+> InlineResponse20062 apiV1ResearchersCheckProductsAsinStrategyGet(asin, strategy, opts)
 
 Проверить продукт по ID существует ли он в базе.
 
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20061**](InlineResponse20061.md)
+[**InlineResponse20062**](InlineResponse20062.md)
 
 ### Authorization
 
@@ -252,7 +252,7 @@ let apiInstance = new TestSwagger.ResearcherApi();
 let guid = "guid_example"; // String | GUID продукта БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject100() // InlineObject100 | 
+  'body': new TestSwagger.InlineObject101() // InlineObject101 | 
 };
 apiInstance.apiV1ResearchersProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -269,7 +269,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject100**](InlineObject100.md)|  | [optional] 
+ **body** | [**InlineObject101**](InlineObject101.md)|  | [optional] 
 
 ### Return type
 
@@ -307,7 +307,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ResearcherApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject99() // InlineObject99 | 
+  'body': new TestSwagger.InlineObject100() // InlineObject100 | 
 };
 apiInstance.apiV1ResearchersProductsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -323,7 +323,7 @@ apiInstance.apiV1ResearchersProductsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject99**](InlineObject99.md)|  | [optional] 
+ **body** | [**InlineObject100**](InlineObject100.md)|  | [optional] 
 
 ### Return type
 

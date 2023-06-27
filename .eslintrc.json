@@ -108,7 +108,7 @@
     "react/jsx-closing-bracket-location": [2, "tag-aligned"],
 
     // Other
-    "arrow-body-style": "error",
+    "arrow-body-style": "off",
     "arrow-parens": ["off", "as-needed"],
     "camelcase": "off",
     "capitalized-comments": "off",
@@ -183,12 +183,11 @@
     "import/no-named-as-default-member": "off",
     "react/prop-types": "off",
     "react/display-name": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
 
     // "react-hooks/exhaustive-deps": "error"
 
-    // "no-unused-vars": "off",
-    // "@typescript-eslint/no-unused-vars": ["error"]
+     "no-unused-vars": "warn"
   },
   "overrides": [
     {

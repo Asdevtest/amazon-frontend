@@ -1,11 +1,11 @@
-import {ValidationError} from 'class-validator'
+import { ValidationError } from 'class-validator'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {getObjectKeys} from './object'
-import {t} from './translations'
+import { getObjectKeys } from './object'
+import { t } from './translations'
 
 export const isValidationErrors = errors => {
   if (Array.isArray(errors)) {
@@ -31,7 +31,7 @@ export const plainValidationErrorAndApplyFuncForEachError = (error, func) => {
   plainErrors.forEach(err => {
     if (err.constraints) {
       const [firstConstraint] = getObjectKeys(err.constraints)
-      func({errorProperty: err.property, constraint: err.constraints[firstConstraint]})
+      func({ errorProperty: err.property, constraint: err.constraints[firstConstraint] })
     }
   })
 }

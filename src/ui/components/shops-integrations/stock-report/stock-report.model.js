@@ -1,26 +1,26 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {creatSupplier} from '@constants/white-list'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
+import { creatSupplier } from '@constants/white-list'
 
-import {ClientModel} from '@models/client-model'
-import {ProductModel} from '@models/product-model'
-import {SellerBoardModel} from '@models/seller-board-model'
-import {SettingsModel} from '@models/settings-model'
-import {ShopModel} from '@models/shop-model'
-import {SupplierModel} from '@models/supplier-model'
-import {UserModel} from '@models/user-model'
+import { ClientModel } from '@models/client-model'
+import { ProductModel } from '@models/product-model'
+import { SellerBoardModel } from '@models/seller-board-model'
+import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
+import { SupplierModel } from '@models/supplier-model'
+import { UserModel } from '@models/user-model'
 
-import {clientDailySellerBoardColumns} from '@components/table-columns/client/client-daily-seller-board-columns'
+import { clientDailySellerBoardColumns } from '@components/table/table-columns/client/client-daily-seller-board-columns'
 
-import {addIdDataConverter, stockReportDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { addIdDataConverter, stockReportDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class StockReportModel {
   history = undefined
@@ -59,10 +59,6 @@ export class StockReportModel {
     onSubmit: data => this.onSubmitCreateSinglePermission(data),
   }
 
-  rowHandlers = {
-    selectedRow: item => this.onClickRowRadioBtn(item),
-  }
-
   readyImages = []
   progressValue = 0
   showProgress = false
@@ -70,11 +66,12 @@ export class StockReportModel {
   selectedRows = []
   selectedRow = {}
   sortModel = []
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = clientDailySellerBoardColumns(this.selectedRow, this.rowHandlers)
+  columnsModel = clientDailySellerBoardColumns()
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   confirmModalSettings = {
     isWarning: false,
@@ -84,41 +81,35 @@ export class StockReportModel {
     onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
   }
 
-  constructor({history, curShop}) {
+  constructor({ history, curShop }) {
     this.history = history
 
     this.currentShop = curShop
-    makeAutoObservable(this, undefined, {autoBind: true})
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  changeColumnsModel(newHideState) {
+  onChangePaginationModelChange(model) {
     runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
+      this.paginationModel = model
     })
+
+    this.setDataGridState()
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
-  }
-
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_DAILY_SELLER_BOARD)
   }
@@ -126,25 +117,20 @@ export class StockReportModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_DAILY_SELLER_BOARD]
 
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
-
-      this.densityModel = state.density.value
-      this.columnsModel = clientDailySellerBoardColumns(this.selectedRow, this.rowHandlers).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
+    runInAction(() => {
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
+    })
   }
 
   onChangeFilterModel(model) {
     this.filterModel = model
-  }
 
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
+    this.setDataGridState()
   }
 
   setRequestStatus(requestStatus) {
@@ -157,15 +143,12 @@ export class StockReportModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
+
+    this.setDataGridState()
   }
 
   getCurrentData() {
     return toJS(this.sellerBoardDailyData)
-  }
-
-  onClickRowRadioBtn = item => {
-    this.selectedRow = item
-    this.getDataGridState()
   }
 
   onClickShopBtn(shop) {
@@ -177,9 +160,10 @@ export class StockReportModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getShops()
+
+      await Promise.all([this.getShops(), this.getStockGoods()])
+
       this.getDataGridState()
-      await this.getStockGoods()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
@@ -205,10 +189,6 @@ export class StockReportModel {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onChangeCurPage(e) {
-    this.curPage = e
-  }
-
   onSelectionModel(model) {
     this.selectedRows = model
   }
@@ -221,12 +201,12 @@ export class StockReportModel {
       this.sellerBoardDailyData.forEach(
         cur =>
           this.selectedRows.includes(cur.id) &&
-          productsToCreate.push({shopId: cur.shop._id, asin: cur.asin, sku: cur.sku, title: cur.title}),
+          productsToCreate.push({ shopId: cur.shop._id, asin: cur.asin, sku: cur.sku, title: cur.title }),
       )
 
       this.selectedRows = []
 
-      await SellerBoardModel.createAndLinkSkuProducts({payload: productsToCreate})
+      await SellerBoardModel.createAndLinkSkuProducts({ payload: productsToCreate })
 
       this.showCircularProgressModal = false
 
@@ -257,7 +237,7 @@ export class StockReportModel {
 
   async getStockGoods() {
     try {
-      const result = await SellerBoardModel.getStockGoods(this.currentShop && {shopId: this.currentShop._id})
+      const result = await SellerBoardModel.getStockGoods(this.currentShop && { shopId: this.currentShop._id })
 
       runInAction(() => {
         this.sellerBoardDailyData = stockReportDataConverter(result).sort(
@@ -319,14 +299,14 @@ export class StockReportModel {
   async onSubmitCreateAndBindProduct(data, photosOfNewProduct) {
     try {
       if (photosOfNewProduct.length) {
-        await onSubmitPostImages.call(this, {images: photosOfNewProduct, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: photosOfNewProduct, type: 'readyImages' })
       }
 
-      const resData = {...data, images: this.readyImages.length ? this.readyImages : data.images}
+      const resData = { ...data, images: this.readyImages.length ? this.readyImages : data.images }
 
       const result = await ClientModel.createProduct(resData)
 
-      await SellerBoardModel.bindStockProductsBySku({productId: result.guid, skus: data.skusByClient})
+      await SellerBoardModel.bindStockProductsBySku({ productId: result.guid, skus: data.skusByClient })
 
       if (result) {
         this.selectedRowId = result.guid
@@ -424,10 +404,10 @@ export class StockReportModel {
     }
   }
 
-  async onSubmitSaveSupplier({supplier, photosOfSupplier, addMore, makeMainSupplier}) {
+  async onSubmitSaveSupplier({ supplier, photosOfSupplier, addMore, makeMainSupplier }) {
     try {
       if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
       }
 
       supplier = {

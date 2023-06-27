@@ -1,21 +1,8 @@
 export const styles = theme => ({
-  modalTitle: {
-    color: theme.palette.text.general,
-    fontSize: '24px',
-    fontWeight: 500,
-    lineHeight: '28px',
-    marginBottom: '24px',
-  },
-  buttonWrapper: {
-    padding: '16px',
-    textAlign: 'right',
-    marginRight: '0px',
-    borderTop: '1px solid rgb(224,224,224)',
-  },
   tableWrapper: {
     marginTop: '24px',
     width: '100%',
-    height: '85vh',
+    height: 'calc(100vh - 190px)',
   },
 
   row: {
@@ -28,8 +15,6 @@ export const styles = theme => ({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
   },
 

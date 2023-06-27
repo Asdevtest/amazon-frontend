@@ -1,29 +1,29 @@
 /* eslint-disable no-unused-vars */
-import {Box, TextareaAutosize, Typography, Alert, Select, MenuItem} from '@mui/material'
+import { Box, TextareaAutosize, Typography, Alert, Select, MenuItem } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/loading-statuses'
 import {
   mapProductStrategyStatusEnum,
   mapProductStrategyStatusEnumToKey,
   ProductStrategyStatus,
-} from '@constants/product-strategy-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+} from '@constants/product/product-strategy-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
-import {Input} from '@components/input'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
+import { Input } from '@components/shared/input'
 
-import {t} from '@utils/translations'
-import {errorMessagesTranslate} from '@utils/validation'
+import { t } from '@utils/translations'
+import { errorMessagesTranslate } from '@utils/validation'
 
-import {styles} from './reasearcher-add-product-form.style'
+import { styles } from './reasearcher-add-product-form.style'
 
 export const ResearcherAddProductFormRaw = observer(
   ({
@@ -53,7 +53,7 @@ export const ResearcherAddProductFormRaw = observer(
               />
               <Field
                 tooltipInfoContent={t(TranslationKey['Amazon ID number'])}
-                inputProps={{maxLength: 50}}
+                inputProps={{ maxLength: 50 }}
                 label={`${t(TranslationKey['Product code'])}*`}
                 value={formFields.productCode}
                 onChange={e => {
@@ -64,7 +64,7 @@ export const ResearcherAddProductFormRaw = observer(
             </div>
 
             {errorMsg ? (
-              <Alert classes={{root: classNames.alert}} elevation={0} severity="error">
+              <Alert classes={{ root: classNames.alert }} elevation={0} severity="error">
                 {errorMessagesTranslate(errorMsg)}
                 {reasonErrorMsg ? (
                   <>
@@ -154,17 +154,17 @@ export const ResearcherAddProductFormRaw = observer(
 
           {!disabledNoProvatLabel && (
             <div className={classNames.rightBlockWrapper}>
-              <div className={classNames.fieldsWrapper}>
+              <div>
                 <Field
                   disabled={disabledNoProvatLabel}
-                  inputProps={{maxLength: 255}}
+                  inputProps={{ maxLength: 255 }}
                   label={t(TranslationKey.Niche)}
                   value={formFields.niche}
                   onChange={onChangeFormFields('niche')}
                 />
                 <Field
                   disabled={disabledNoProvatLabel}
-                  inputProps={{maxLength: 255}}
+                  inputProps={{ maxLength: 255 }}
                   label={'Asins'}
                   value={formFields.asins}
                   onChange={onChangeFormFields('asins')}
@@ -173,7 +173,7 @@ export const ResearcherAddProductFormRaw = observer(
                 <div className={classNames.fieldsSubWrapper}>
                   <Field
                     disabled={disabledNoProvatLabel}
-                    inputProps={{maxLength: 10}}
+                    inputProps={{ maxLength: 10 }}
                     containerClasses={classNames.shortInput}
                     label={t(TranslationKey['Average revenue'])}
                     value={formFields.avgRevenue}
@@ -182,7 +182,7 @@ export const ResearcherAddProductFormRaw = observer(
                   <Field
                     disabled={disabledNoProvatLabel}
                     containerClasses={classNames.shortInput}
-                    inputProps={{maxLength: 10}}
+                    inputProps={{ maxLength: 10 }}
                     label={t(TranslationKey['Average BSR'])}
                     value={formFields.avgBSR}
                     onChange={onChangeFormFields('avgBSR')}
@@ -190,17 +190,17 @@ export const ResearcherAddProductFormRaw = observer(
                 </div>
               </div>
 
-              <div className={classNames.fieldsWrapper}>
+              <div>
                 <Field
                   disabled={disabledNoProvatLabel}
-                  inputProps={{maxLength: 10}}
+                  inputProps={{ maxLength: 10 }}
                   label={t(TranslationKey['Total Revenue'])}
                   value={formFields.totalRevenue}
                   onChange={onChangeFormFields('totalRevenue')}
                 />
                 <Field
                   disabled={disabledNoProvatLabel}
-                  inputProps={{maxLength: 10}}
+                  inputProps={{ maxLength: 10 }}
                   label={t(TranslationKey.Coefficient)}
                   value={formFields.coefficient}
                   onChange={onChangeFormFields('coefficient')}
@@ -209,7 +209,7 @@ export const ResearcherAddProductFormRaw = observer(
                 <div className={classNames.fieldsSubWrapper}>
                   <Field
                     disabled={disabledNoProvatLabel}
-                    inputProps={{maxLength: 10}}
+                    inputProps={{ maxLength: 10 }}
                     containerClasses={classNames.shortInput}
                     label={t(TranslationKey['Average Price'])}
                     value={formFields.avgPrice}
@@ -218,7 +218,7 @@ export const ResearcherAddProductFormRaw = observer(
                   <Field
                     disabled={disabledNoProvatLabel}
                     containerClasses={classNames.shortInput}
-                    inputProps={{maxLength: 10}}
+                    inputProps={{ maxLength: 10 }}
                     label={t(TranslationKey['Average Review'])}
                     value={formFields.avgReviews}
                     onChange={onChangeFormFields('avgReviews')}

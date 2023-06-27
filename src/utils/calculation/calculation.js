@@ -1,6 +1,6 @@
-import {zipCodeGroups} from '@constants/zip-code-groups'
+import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 
-import {toFixed} from '@utils/text'
+import { toFixed } from '@utils/text'
 
 export const roundSafely = num => Math.round(num * 100) / 100
 
@@ -62,12 +62,6 @@ export const calcExchangeDollarsInYuansPrice = (price, rate) =>
 export const calcPriceForItem = (fullPrice, amount) => (parseFloat(fullPrice) || 0) / (parseFloat(amount) || 1)
 
 export const calcVolumeWeightForBox = (box, coefficient) => {
-  // if (box.lengthCmWarehouse || box.widthCmWarehouse || box.heightCmWarehouse) {
-  //   return roundSafely((box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient) || 0
-  // } else {
-  //   return roundSafely((box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient) || 0
-  // }
-
   if (box.lengthCmWarehouse || box.widthCmWarehouse || box.heightCmWarehouse) {
     return (box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient || 0
   } else {
@@ -80,12 +74,15 @@ export const getTariffRateForBoxOrOrder = box => {
     return 0
   }
 
-  const firstNumOfCode = box.destination?.zipCode?.[0] || null
+  const firstNumOfCode = box?.destination?.zipCode?.[0] || null
 
   const regionOfDeliveryName =
     firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-  return box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate
+  const currentRate =
+    box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate || box?.variationTariff?.pricePerKgUsd
+
+  return currentRate
 }
 
 export const calcFinalWeightForBox = (box, coefficient) =>

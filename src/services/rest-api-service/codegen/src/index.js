@@ -27,10 +27,12 @@ import ApiV1AdminsOrdersDestinationStorekeeper from './model/ApiV1AdminsOrdersDe
 import ApiV1AdminsOrdersLogicsTariff from './model/ApiV1AdminsOrdersLogicsTariff';
 import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
 import ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest from './model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest';
+import ApiV1AdminsOrdersLogicsTariffDestinationVariations from './model/ApiV1AdminsOrdersLogicsTariffDestinationVariations';
 import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
 import ApiV1AdminsProductsVacCheckedby from './model/ApiV1AdminsProductsVacCheckedby';
 import ApiV1AdminsTasksLightBoxes from './model/ApiV1AdminsTasksLightBoxes';
 import ApiV1AdminsTasksLightStorekeeper from './model/ApiV1AdminsTasksLightStorekeeper';
+import ApiV1AdminsTasksLightVariationTariff from './model/ApiV1AdminsTasksLightVariationTariff';
 import ApiV1AnnouncementsMyRequests from './model/ApiV1AnnouncementsMyRequests';
 import ApiV1BatchesBatch from './model/ApiV1BatchesBatch';
 import ApiV1BatchesBoxes from './model/ApiV1BatchesBoxes';
@@ -49,6 +51,7 @@ import ApiV1BoxesClientsLightOrder from './model/ApiV1BoxesClientsLightOrder';
 import ApiV1BoxesClientsLightProduct from './model/ApiV1BoxesClientsLightProduct';
 import ApiV1BoxesItems from './model/ApiV1BoxesItems';
 import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody';
+import ApiV1BoxesSplitBoxBody from './model/ApiV1BoxesSplitBoxBody';
 import ApiV1BoxesSplitBoxItems from './model/ApiV1BoxesSplitBoxItems';
 import ApiV1BoxesSplitNewBoxesParams from './model/ApiV1BoxesSplitNewBoxesParams';
 import ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges from './model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges';
@@ -85,16 +88,15 @@ import ApiV1RequestProposalsMedia from './model/ApiV1RequestProposalsMedia';
 import ApiV1RequestProposalsRequest from './model/ApiV1RequestProposalsRequest';
 import ApiV1RequestProposalsRequestDetailsCustom from './model/ApiV1RequestProposalsRequestDetailsCustom';
 import ApiV1RequestProposalsSourceFiles from './model/ApiV1RequestProposalsSourceFiles';
-import ApiV1RequestsCountProposalsByStatuses from './model/ApiV1RequestsCountProposalsByStatuses';
 import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
 import ApiV1RequestsCustomDetailsCustom from './model/ApiV1RequestsCustomDetailsCustom';
 import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
 import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
 import ApiV1RequestsCustomRequestLinksToMediaFiles from './model/ApiV1RequestsCustomRequestLinksToMediaFiles';
-import ApiV1RequestsMedia from './model/ApiV1RequestsMedia';
 import ApiV1ShopSellStatistics from './model/ApiV1ShopSellStatistics';
 import ApiV1ShopSellStatistics1 from './model/ApiV1ShopSellStatistics1';
 import ApiV1StorekeepersBoxesGuidItems from './model/ApiV1StorekeepersBoxesGuidItems';
+import ApiV1StorekeepersTariffLogisticsDestinationVariations from './model/ApiV1StorekeepersTariffLogisticsDestinationVariations';
 import ApiV1StorekeepersTariffWarehouses from './model/ApiV1StorekeepersTariffWarehouses';
 import ApiV1SuppliersBoxProperties from './model/ApiV1SuppliersBoxProperties';
 import ApiV1SuppliersPaymentMethods from './model/ApiV1SuppliersPaymentMethods';
@@ -142,6 +144,7 @@ import InlineObject128 from './model/InlineObject128';
 import InlineObject129 from './model/InlineObject129';
 import InlineObject13 from './model/InlineObject13';
 import InlineObject130 from './model/InlineObject130';
+import InlineObject131 from './model/InlineObject131';
 import InlineObject14 from './model/InlineObject14';
 import InlineObject15 from './model/InlineObject15';
 import InlineObject16 from './model/InlineObject16';
@@ -321,6 +324,11 @@ import InlineResponse20058 from './model/InlineResponse20058';
 import InlineResponse20059 from './model/InlineResponse20059';
 import InlineResponse2006 from './model/InlineResponse2006';
 import InlineResponse20060 from './model/InlineResponse20060';
+import InlineResponse20060Announcement from './model/InlineResponse20060Announcement';
+import InlineResponse20060CountProposalsByStatuses from './model/InlineResponse20060CountProposalsByStatuses';
+import InlineResponse20060Media from './model/InlineResponse20060Media';
+import InlineResponse20060Product from './model/InlineResponse20060Product';
+import InlineResponse20060Rows from './model/InlineResponse20060Rows';
 import InlineResponse20061 from './model/InlineResponse20061';
 import InlineResponse20062 from './model/InlineResponse20062';
 import InlineResponse20063 from './model/InlineResponse20063';
@@ -339,7 +347,8 @@ import InlineResponse20074 from './model/InlineResponse20074';
 import InlineResponse20075 from './model/InlineResponse20075';
 import InlineResponse20076 from './model/InlineResponse20076';
 import InlineResponse20077 from './model/InlineResponse20077';
-import InlineResponse20077Details from './model/InlineResponse20077Details';
+import InlineResponse20078 from './model/InlineResponse20078';
+import InlineResponse20078Details from './model/InlineResponse20078Details';
 import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse201 from './model/InlineResponse201';
@@ -385,11 +394,13 @@ import UserAdminFullSchema from './model/UserAdminFullSchema';
 import UserFullSchema from './model/UserFullSchema';
 import UserFullSchemaNote from './model/UserFullSchemaNote';
 import UserInfoSchema from './model/UserInfoSchema';
+import UserInfoSchemaFreelanceNotices from './model/UserInfoSchemaFreelanceNotices';
 import UserInfoSchemaMasterUser from './model/UserInfoSchemaMasterUser';
 import UserInfoSchemaNeedConfirmPriceChange from './model/UserInfoSchemaNeedConfirmPriceChange';
 import UserInfoSchemaNeedUpdateTariff from './model/UserInfoSchemaNeedUpdateTariff';
 import UserInfoSchemaPermissionGroups from './model/UserInfoSchemaPermissionGroups';
 import UserInfoSchemaPermissions from './model/UserInfoSchemaPermissions';
+import UserInfoSchemaRequest from './model/UserInfoSchemaRequest';
 import UserRegisterSchema from './model/UserRegisterSchema';
 import UserSettingInputSchema from './model/UserSettingInputSchema';
 import UserSettingInputSchemaData from './model/UserSettingInputSchemaData';
@@ -546,6 +557,12 @@ export {
     ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest,
 
     /**
+     * The ApiV1AdminsOrdersLogicsTariffDestinationVariations model constructor.
+     * @property {module:model/ApiV1AdminsOrdersLogicsTariffDestinationVariations}
+     */
+    ApiV1AdminsOrdersLogicsTariffDestinationVariations,
+
+    /**
      * The ApiV1AdminsPaymentsCreatedBy model constructor.
      * @property {module:model/ApiV1AdminsPaymentsCreatedBy}
      */
@@ -568,6 +585,12 @@ export {
      * @property {module:model/ApiV1AdminsTasksLightStorekeeper}
      */
     ApiV1AdminsTasksLightStorekeeper,
+
+    /**
+     * The ApiV1AdminsTasksLightVariationTariff model constructor.
+     * @property {module:model/ApiV1AdminsTasksLightVariationTariff}
+     */
+    ApiV1AdminsTasksLightVariationTariff,
 
     /**
      * The ApiV1AnnouncementsMyRequests model constructor.
@@ -676,6 +699,12 @@ export {
      * @property {module:model/ApiV1BoxesMergeBoxBody}
      */
     ApiV1BoxesMergeBoxBody,
+
+    /**
+     * The ApiV1BoxesSplitBoxBody model constructor.
+     * @property {module:model/ApiV1BoxesSplitBoxBody}
+     */
+    ApiV1BoxesSplitBoxBody,
 
     /**
      * The ApiV1BoxesSplitBoxItems model constructor.
@@ -894,12 +923,6 @@ export {
     ApiV1RequestProposalsSourceFiles,
 
     /**
-     * The ApiV1RequestsCountProposalsByStatuses model constructor.
-     * @property {module:model/ApiV1RequestsCountProposalsByStatuses}
-     */
-    ApiV1RequestsCountProposalsByStatuses,
-
-    /**
      * The ApiV1RequestsCustomDetails model constructor.
      * @property {module:model/ApiV1RequestsCustomDetails}
      */
@@ -930,12 +953,6 @@ export {
     ApiV1RequestsCustomRequestLinksToMediaFiles,
 
     /**
-     * The ApiV1RequestsMedia model constructor.
-     * @property {module:model/ApiV1RequestsMedia}
-     */
-    ApiV1RequestsMedia,
-
-    /**
      * The ApiV1ShopSellStatistics model constructor.
      * @property {module:model/ApiV1ShopSellStatistics}
      */
@@ -952,6 +969,12 @@ export {
      * @property {module:model/ApiV1StorekeepersBoxesGuidItems}
      */
     ApiV1StorekeepersBoxesGuidItems,
+
+    /**
+     * The ApiV1StorekeepersTariffLogisticsDestinationVariations model constructor.
+     * @property {module:model/ApiV1StorekeepersTariffLogisticsDestinationVariations}
+     */
+    ApiV1StorekeepersTariffLogisticsDestinationVariations,
 
     /**
      * The ApiV1StorekeepersTariffWarehouses model constructor.
@@ -1234,6 +1257,12 @@ export {
      * @property {module:model/InlineObject130}
      */
     InlineObject130,
+
+    /**
+     * The InlineObject131 model constructor.
+     * @property {module:model/InlineObject131}
+     */
+    InlineObject131,
 
     /**
      * The InlineObject14 model constructor.
@@ -2310,6 +2339,36 @@ export {
     InlineResponse20060,
 
     /**
+     * The InlineResponse20060Announcement model constructor.
+     * @property {module:model/InlineResponse20060Announcement}
+     */
+    InlineResponse20060Announcement,
+
+    /**
+     * The InlineResponse20060CountProposalsByStatuses model constructor.
+     * @property {module:model/InlineResponse20060CountProposalsByStatuses}
+     */
+    InlineResponse20060CountProposalsByStatuses,
+
+    /**
+     * The InlineResponse20060Media model constructor.
+     * @property {module:model/InlineResponse20060Media}
+     */
+    InlineResponse20060Media,
+
+    /**
+     * The InlineResponse20060Product model constructor.
+     * @property {module:model/InlineResponse20060Product}
+     */
+    InlineResponse20060Product,
+
+    /**
+     * The InlineResponse20060Rows model constructor.
+     * @property {module:model/InlineResponse20060Rows}
+     */
+    InlineResponse20060Rows,
+
+    /**
      * The InlineResponse20061 model constructor.
      * @property {module:model/InlineResponse20061}
      */
@@ -2418,10 +2477,16 @@ export {
     InlineResponse20077,
 
     /**
-     * The InlineResponse20077Details model constructor.
-     * @property {module:model/InlineResponse20077Details}
+     * The InlineResponse20078 model constructor.
+     * @property {module:model/InlineResponse20078}
      */
-    InlineResponse20077Details,
+    InlineResponse20078,
+
+    /**
+     * The InlineResponse20078Details model constructor.
+     * @property {module:model/InlineResponse20078Details}
+     */
+    InlineResponse20078Details,
 
     /**
      * The InlineResponse2008 model constructor.
@@ -2694,6 +2759,12 @@ export {
     UserInfoSchema,
 
     /**
+     * The UserInfoSchemaFreelanceNotices model constructor.
+     * @property {module:model/UserInfoSchemaFreelanceNotices}
+     */
+    UserInfoSchemaFreelanceNotices,
+
+    /**
      * The UserInfoSchemaMasterUser model constructor.
      * @property {module:model/UserInfoSchemaMasterUser}
      */
@@ -2722,6 +2793,12 @@ export {
      * @property {module:model/UserInfoSchemaPermissions}
      */
     UserInfoSchemaPermissions,
+
+    /**
+     * The UserInfoSchemaRequest model constructor.
+     * @property {module:model/UserInfoSchemaRequest}
+     */
+    UserInfoSchemaRequest,
 
     /**
      * The UserRegisterSchema model constructor.

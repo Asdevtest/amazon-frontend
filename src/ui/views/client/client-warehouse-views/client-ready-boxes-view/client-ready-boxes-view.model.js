@@ -1,24 +1,23 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {BoxStatus} from '@constants/box-status'
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { BoxStatus } from '@constants/statuses/box-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BoxesModel} from '@models/boxes-model'
-import {ClientModel} from '@models/client-model'
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { BoxesModel } from '@models/boxes-model'
+import { ClientModel } from '@models/client-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {clientBoxesReadyToBatchViewColumns} from '@components/table-columns/client/client-boxes-ready-to-batch-columns'
+import { clientBoxesReadyToBatchViewColumns } from '@components/table/table-columns/client/client-boxes-ready-to-batch-columns'
 
-import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { clientWarehouseDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class ClientReadyBoxesViewModel {
   history = undefined
@@ -29,7 +28,6 @@ export class ClientReadyBoxesViewModel {
   boxesMy = []
   curBox = undefined
 
-  drawerOpen = false
   selectedBoxes = []
   currentStorekeeper = undefined
   storekeepersData = []
@@ -52,11 +50,12 @@ export class ClientReadyBoxesViewModel {
   currentData = []
 
   sortModel = []
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel = clientBoxesReadyToBatchViewColumns(this.storekeepersData)
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   warningInfoModalSettings = {
     isWarning: false,
@@ -67,16 +66,11 @@ export class ClientReadyBoxesViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.currentStorekeeper,
@@ -93,26 +87,28 @@ export class ClientReadyBoxesViewModel {
     )
   }
 
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
-  }
-
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
       this.selectedBoxes = []
     })
+
+    this.setDataGridState()
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
   }
 
   onChangeNameSearchValue(e) {
@@ -121,14 +117,13 @@ export class ClientReadyBoxesViewModel {
     })
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_BOXES_READY_TO_BATCH)
   }
@@ -136,30 +131,15 @@ export class ClientReadyBoxesViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_BOXES_READY_TO_BATCH]
 
-    if (state) {
-      runInAction(() => {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = clientBoxesReadyToBatchViewColumns().map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
-      })
-    }
-  }
-
-  onChangeRowsPerPage(e) {
     runInAction(() => {
-      this.rowsPerPage = e
-      this.selectedBoxes = []
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
     })
   }
-
-  // curPage = 0
-  // rowsPerPage = 15
 
   onSelectionModel(model) {
     if (model.length === this.boxesMy.length) {
@@ -183,17 +163,13 @@ export class ClientReadyBoxesViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
       this.selectedBoxes = []
     })
+
+    this.setDataGridState()
   }
 
   // getCurrentData() {
@@ -288,7 +264,7 @@ export class ClientReadyBoxesViewModel {
       this.uploadedFiles = []
 
       if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, {images: data.tmpTrackNumberFile, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
 
       await BoxesModel.editAdditionalInfo(data._id, {
@@ -345,19 +321,6 @@ export class ClientReadyBoxesViewModel {
     this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
-  onChangeCurPage = e => {
-    runInAction(() => {
-      this.curPage = e
-      this.selectedBoxes = []
-    })
-  }
-
   async setCurrentOpenedBox(row) {
     try {
       runInAction(() => {
@@ -386,7 +349,7 @@ export class ClientReadyBoxesViewModel {
 
   async returnBoxesToStock() {
     try {
-      await ClientModel.returnBoxFromBatch(this.selectedBoxes.map(boxId => ({boxId})))
+      await ClientModel.returnBoxFromBatch(this.selectedBoxes.map(boxId => ({ boxId })))
       runInAction(() => {
         this.selectedBoxes = []
       })

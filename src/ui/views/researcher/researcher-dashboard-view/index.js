@@ -1,1 +1,1 @@
-export {ResearcherDashboardView} from './researcher-dashboard-view'
+export { ResearcherDashboardView } from './researcher-dashboard-view'

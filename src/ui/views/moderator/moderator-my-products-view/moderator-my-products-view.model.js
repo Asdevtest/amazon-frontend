@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 // import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 // import {loadingStatuses} from '@constants/loading-statuses'
@@ -18,7 +18,6 @@ export class ModeratorMyProductsViewModel {
   requestStatus = undefined
 
   productsMy = []
-  drawerOpen = false
 
   // sortModel = []
   // filterModel = {items: []}
@@ -34,23 +33,12 @@ export class ModeratorMyProductsViewModel {
   // densityModel = 'compact'
   // columnsModel = buyerProductsViewColumns(this.rowHandlers)
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
-
-    // reaction(
-    //   () => SettingsModel.languageTag,
-    //   () => this.updateColumnsModel(),
-    // )
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
-
-  // async updateColumnsModel() {
-  //   if (await SettingsModel.languageTag) {
-  //     this.getDataGridState()
-  //   }
-  // }
 
   // async onClickFeesCalculate(product) {
   //   try {
@@ -102,18 +90,12 @@ export class ModeratorMyProductsViewModel {
   //   this.requestStatus = requestStatus
   // }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   // onChangeSortingModel(e) {
   //   this.sortModel = e.sortModel
   // }
 
   // onSelectionModel(model) {
-  //   this.selectionModel = model
+  //   this.rowSelectionModel = model
   // }
 
   // getCurrentData() {
@@ -157,12 +139,6 @@ export class ModeratorMyProductsViewModel {
   //     search: item.originalData._id,
   //   })
   // }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
 
   // onChangeCurPage(e) {
   //   this.curPage = e

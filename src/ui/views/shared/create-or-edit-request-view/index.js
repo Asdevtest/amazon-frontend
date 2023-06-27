@@ -1,1 +1,1 @@
-export {CreateOrEditRequestView} from './create-or-edit-request-view'
+export { CreateOrEditRequestView } from './create-or-edit-request-view'

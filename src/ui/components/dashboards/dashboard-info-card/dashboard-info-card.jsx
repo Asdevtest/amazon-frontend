@@ -1,25 +1,25 @@
-import {Paper, Typography} from '@mui/material'
+import { Paper, Typography } from '@mui/material'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
+import { Button } from '@components/shared/buttons/button'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './dashboard-info-card.style'
+import { useClassNames } from './dashboard-info-card.style'
 
 export const DashboardInfoCard = observer(
-  ({color, title, value, route, onClickViewMore, sectionIndex, sectionSubIndex, dataGridFilter}) => {
-    const {classes: classNames} = useClassNames()
+  ({ color, title, value, route, onClickViewMore, sectionIndex, sectionSubIndex, dataGridFilter }) => {
+    const { classes: classNames } = useClassNames()
 
     return (
       SettingsModel.languageTag && (
         <Paper className={classNames.root}>
-          <div className={classNames.circle} style={{borderColor: color}}>
+          <div className={classNames.circle} style={{ borderColor: color }}>
             <Typography className={classNames.circleTitle}>{value || 0}</Typography>
           </div>
           <div className={classNames.titleWrapper}>

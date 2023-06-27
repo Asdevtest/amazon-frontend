@@ -1,38 +1,32 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {Button} from '@mui/material'
+import { Button } from '@mui/material'
 
-import React, {Component} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {
   ProductStatus,
   ProductStatusByCode,
   ProductStatusByKey,
   productStatusTranslateKey,
-} from '@constants/product-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+} from '@constants/product/product-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {Navbar} from '@components/navbar'
-import {SearchInput} from '@components/search-input'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { MainContent } from '@components/layout/main-content'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { SearchInput } from '@components/shared/search-input'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
 
-import {SupervisorProductsViewModel} from './supervisor-products-view.model'
-import {styles} from './supervisor-products-view.style'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
+import { SupervisorProductsViewModel } from './supervisor-products-view.model'
+import { styles } from './supervisor-products-view.style'
 
 const allowProductStatuses = [
   `${ProductStatusByKey[ProductStatus.DEFAULT]}`,
@@ -63,138 +57,104 @@ const attentionStatuses = [
   ProductStatus.RESEARCHER_CREATED_PRODUCT,
 ]
 
-@observer
-class SupervisorProductsViewRaw extends Component {
-  viewModel = new SupervisorProductsViewModel({history: this.props.history, location: this.props.location})
+export const SupervisorProductsViewRaw = props => {
+  const [viewModel] = useState(
+    () =>
+      new SupervisorProductsViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
+  const { classes: classNames } = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-    this.viewModel.getDataGridState()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+    viewModel.getDataGridState()
+  }, [])
 
-  render() {
-    const {
-      nameSearchValue,
-      requestStatus,
-      currentData,
-      sortModel,
-      filterModel,
-      densityModel,
-      columnsModel,
+  const getRowClassName = params => attentionStatuses.includes(params.row.statusForAttention) && classNames.attentionRow
 
-      drawerOpen,
-      curPage,
-      rowsPerPage,
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.headerWrapper}>
+          {Object.keys({
+            ...getObjectFilteredByKeyArrayWhiteList(ProductStatusByCode, allowProductStatuses),
+          }).map((status, statusIndex) => {
+            const count = viewModel.getProductsCountByStatus(status)
 
-      currentFilterStatus,
-
-      onTriggerDrawerOpen,
-      onChangeCurPage,
-      onChangeRowsPerPage,
-      onClickTableRow,
-
-      onSelectionModel,
-      setDataGridState,
-      onChangeSortingModel,
-      onChangeFilterModel,
-      onChangeNameSearchValue,
-      onClickStatusFilterButton,
-      changeColumnsModel,
-      getProductsCountByStatus,
-    } = this.viewModel
-    const {classes: classNames} = this.props
-
-    const getRowClassName = params =>
-      attentionStatuses.includes(params.row.statusForAttention) && classNames.attentionRow
-    // attentionStatuses.includes(params.row.originalData.status) && classNames.attentionRow
-
-    return (
-      <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
-        <Main>
-          <Appbar title={t(TranslationKey['My products'])} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <div className={classNames.headerWrapper}>
-                {Object.keys({
-                  ...getObjectFilteredByKeyArrayWhiteList(ProductStatusByCode, allowProductStatuses),
-                }).map((status, statusIndex) => {
-                  const count = getProductsCountByStatus(status)
-
-                  return (
-                    <Button
-                      key={statusIndex}
-                      variant="text"
-                      disabled={!count}
-                      // disabled={Number(statusIndex) === Number(currentFilterStatus)}
-                      className={cx(classNames.selectStatusFilterButton, {
-                        [classNames.selectedStatusFilterButton]: Number(status) === Number(currentFilterStatus),
-                      })}
-                      onClick={() => onClickStatusFilterButton(status)}
-                    >
-                      {t(productStatusTranslateKey(ProductStatusByCode[status]))}{' '}
-                      {count >= 1 && <span className={classNames.badge}>{count}</span>}
-                    </Button>
-                  )
+            return (
+              <Button
+                key={statusIndex}
+                variant="text"
+                disabled={!count}
+                // disabled={Number(statusIndex) === Number(currentFilterStatus)}
+                className={cx(classNames.selectStatusFilterButton, {
+                  [classNames.selectedStatusFilterButton]: Number(status) === Number(viewModel.currentFilterStatus),
                 })}
+                onClick={() => viewModel.onClickStatusFilterButton(status)}
+              >
+                {t(productStatusTranslateKey(ProductStatusByCode[status]))}{' '}
+                {count >= 1 && <span className={classNames.badge}>{count}</span>}
+              </Button>
+            )
+          })}
 
-                <div className={classNames.searchInputWrapper}>
-                  <SearchInput
-                    inputClasses={classNames.searchInput}
-                    value={nameSearchValue}
-                    placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-                    onChange={onChangeNameSearchValue}
-                  />
-                </div>
-              </div>
-              <div className={classNames.dataGridWrapper}>
-                <MemoDataGrid
-                  pagination
-                  useResizeContainer
-                  localeText={getLocalizationByLanguageTag()}
-                  classes={{
-                    row: classNames.row,
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
-                  }}
-                  getRowClassName={getRowClassName}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={currentData}
-                  rowHeight={100}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                  }}
-                  componentsProps={{
-                    toolbar: {
-                      columsBtnSettings: {columnsModel, changeColumnsModel},
-                    },
-                  }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={newSelection => {
-                    onSelectionModel(newSelection[0])
-                  }}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onStateChange={setDataGridState}
-                  onRowDoubleClick={e => onClickTableRow(e.row)}
-                  onFilterModelChange={onChangeFilterModel}
-                />
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
-      </React.Fragment>
-    )
-  }
+          <div className={classNames.searchInputWrapper}>
+            <SearchInput
+              inputClasses={classNames.searchInput}
+              value={viewModel.nameSearchValue}
+              placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+              onChange={viewModel.onChangeNameSearchValue}
+            />
+          </div>
+        </div>
+        <div className={classNames.dataGridWrapper}>
+          <MemoDataGrid
+            pagination
+            useResizeContainer
+            localeText={getLocalizationByLanguageTag()}
+            classes={{
+              row: classNames.row,
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+            }}
+            getRowClassName={getRowClassName}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
+            rows={viewModel.currentData}
+            rowHeight={100}
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
+            }}
+            slotProps={{
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                },
+              },
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+          />
+        </div>
+      </MainContent>
+    </React.Fragment>
+  )
 }
 
-export const SupervisorProductsView = withStyles(SupervisorProductsViewRaw, styles)
+export const SupervisorProductsView = withStyles(observer(SupervisorProductsViewRaw), styles)

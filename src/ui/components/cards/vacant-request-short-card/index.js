@@ -1,1 +1,1 @@
-export {VacantRequestShortCard} from './vacant-request-short-card'
+export { VacantRequestShortCard } from './vacant-request-short-card'

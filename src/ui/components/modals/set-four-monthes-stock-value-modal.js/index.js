@@ -1,1 +1,1 @@
-export {SetFourMonthesStockModal} from './set-four-monthes-stock-value-modal'
+export { SetFourMonthesStockModal } from './set-four-monthes-stock-value-modal'

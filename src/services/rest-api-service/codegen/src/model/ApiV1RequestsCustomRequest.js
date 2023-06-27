@@ -60,6 +60,9 @@ class ApiV1RequestsCustomRequest {
         if (data) {
             obj = obj || new ApiV1RequestsCustomRequest();
 
+            if (data.hasOwnProperty('priority')) {
+                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            }
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
@@ -114,6 +117,12 @@ class ApiV1RequestsCustomRequest {
 
 
 }
+
+/**
+ * Приоритет заявки
+ * @member {Number} priority
+ */
+ApiV1RequestsCustomRequest.prototype['priority'] = undefined;
 
 /**
  * Title заявки.

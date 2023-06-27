@@ -1,1 +1,1 @@
-export {TabFreelanceContent} from './tab-freelance-content'
+export { TabFreelanceContent } from './tab-freelance-content'

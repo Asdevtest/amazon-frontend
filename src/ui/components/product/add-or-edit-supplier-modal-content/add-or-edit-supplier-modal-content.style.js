@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   modalTitle: {
@@ -54,15 +54,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   saveBtn: {
-    // backgroundColor: 'rgba(0, 123, 255, 1)',
     color: '#fff',
   },
   cancelBtn: {
     color: theme.palette.text.general,
     textTransform: 'none',
-    // '&:hover': {
-    //   color: '#fff',
-    // },
     marginLeft: '8px',
   },
 
@@ -74,31 +70,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
   },
 
-  loadTitle: {
-    color: theme.palette.text.general,
-    fontSize: '16px',
-    fontWeight: '600',
-    lineHeight: '20px',
-    marginBottom: '12px',
-  },
-  imagesButton: {
-    marginTop: '30px',
-  },
-
   imageFileInputWrapper: {
     width: '798px',
-  },
-
-  photoLinkWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  photoLinkButton: {
-    width: '160px',
-    height: 'auto',
-    marginLeft: '20px',
-    marginTop: '10px',
   },
 
   makeMainSupplierСheckboxWrapper: {
@@ -130,13 +103,6 @@ export const useClassNames = makeStyles()(theme => ({
     marginRight: 10,
   },
 
-  checkboxText: {
-    fontSize: '16px',
-    lineHeight: '20px',
-    color: theme.palette.text.general,
-    fontWeight: '600',
-  },
-
   nameBlock: {
     display: 'flex',
     width: '100%',
@@ -158,34 +124,19 @@ export const useClassNames = makeStyles()(theme => ({
 
   middleContainer: {
     width: '190px !important',
+    marginBottom: 17,
   },
 
   shortContainer: {
     width: '120px !important',
   },
 
-  middleInput: {
-    width: '160px !important',
-  },
-
-  rateInput: {
-    width: '185px !important',
-    marginLeft: 10,
-  },
-
   normalLabel: {
+    marginBottom: 15,
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',
     maxWidth: 250,
-  },
-
-  leftMargin: {
-    marginLeft: '10px',
-  },
-
-  rightMargin: {
-    marginRight: '10px',
   },
 
   costBlock: {
@@ -210,10 +161,6 @@ export const useClassNames = makeStyles()(theme => ({
   calculationMainWrapper: {
     display: 'flex',
   },
-
-  calculationWrapper: {},
-
-  calculationSubWrapper: {},
 
   divider: {
     margin: '35px 10px 10px 10px',
@@ -292,32 +239,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  paymentsWrapper: {
-    display: 'flex',
-    marginLeft: 30,
-    gap: 30,
-  },
   courseInput: {
     width: 95,
-  },
-
-  paymentMethodsLabel: {
-    fontWeight: 600,
-    fontSize: 14,
-    lineHeight: '19pх',
-
-    color: theme.palette.text.general,
-    margin: '0 !important',
-  },
-
-  paymentMethodsContainer: {
-    display: 'flex',
-    gap: 30,
-  },
-
-  paymentMethodsField: {
-    width: 240,
-    height: 40,
-    borderRadius: 4,
   },
 }))

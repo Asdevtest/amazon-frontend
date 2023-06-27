@@ -50,8 +50,23 @@ class InlineResponse20031Products {
             if (data.hasOwnProperty('all')) {
                 obj['all'] = ApiClient.convertToType(data['all'], 'Number');
             }
+            if (data.hasOwnProperty('success')) {
+                obj['success'] = ApiClient.convertToType(data['success'], 'Number');
+            }
             if (data.hasOwnProperty('paid')) {
                 obj['paid'] = ApiClient.convertToType(data['paid'], 'Number');
+            }
+            if (data.hasOwnProperty('newSearchFromSupervisor')) {
+                obj['newSearchFromSupervisor'] = ApiClient.convertToType(data['newSearchFromSupervisor'], 'Number');
+            }
+            if (data.hasOwnProperty('newSearchFromClient')) {
+                obj['newSearchFromClient'] = ApiClient.convertToType(data['newSearchFromClient'], 'Number');
+            }
+            if (data.hasOwnProperty('inProcessOfSearching')) {
+                obj['inProcessOfSearching'] = ApiClient.convertToType(data['inProcessOfSearching'], 'Number');
+            }
+            if (data.hasOwnProperty('canceled')) {
+                obj['canceled'] = ApiClient.convertToType(data['canceled'], 'Number');
             }
         }
         return obj;
@@ -66,9 +81,34 @@ class InlineResponse20031Products {
 InlineResponse20031Products.prototype['all'] = undefined;
 
 /**
+ * @member {Number} success
+ */
+InlineResponse20031Products.prototype['success'] = undefined;
+
+/**
  * @member {Number} paid
  */
 InlineResponse20031Products.prototype['paid'] = undefined;
+
+/**
+ * @member {Number} newSearchFromSupervisor
+ */
+InlineResponse20031Products.prototype['newSearchFromSupervisor'] = undefined;
+
+/**
+ * @member {Number} newSearchFromClient
+ */
+InlineResponse20031Products.prototype['newSearchFromClient'] = undefined;
+
+/**
+ * @member {Number} inProcessOfSearching
+ */
+InlineResponse20031Products.prototype['inProcessOfSearching'] = undefined;
+
+/**
+ * @member {Number} canceled
+ */
+InlineResponse20031Products.prototype['canceled'] = undefined;
 
 
 

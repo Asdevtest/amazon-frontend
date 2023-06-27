@@ -1,17 +1,18 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {FC, useState} from 'react'
+import React, { FC, useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {NewDatePicker} from '@components/date-picker/date-picker'
-import {Field} from '@components/field'
-import {Input} from '@components/input'
-import {useRestoreRequestModalStyles} from '@components/requests-and-request-proposals/restore-request-modal/restore-request-modal.styles'
+import { useRestoreRequestModalStyles } from '@components/requests-and-request-proposals/restore-request-modal/restore-request-modal.styles'
+import { Button } from '@components/shared/buttons/button'
+import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { Field } from '@components/shared/field'
+import { Input } from '@components/shared/input'
 
-import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
-import {t} from '@utils/translations'
+import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
+import { t } from '@utils/translations'
+import { cx } from '@emotion/css'
 
 interface RestoreRequestModalProps {
   currentDate: string
@@ -21,8 +22,8 @@ interface RestoreRequestModalProps {
 }
 
 export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
-  const {currentDate, currentRequestsCount = 1, handleCloseModal, handleSubmit} = props
-  const {classes: styles} = useRestoreRequestModalStyles()
+  const { currentDate, currentRequestsCount = 1, handleCloseModal, handleSubmit } = props
+  const { classes: styles } = useRestoreRequestModalStyles()
 
   const [date, setDate] = useState<string>()
   const [requestCount, setRequestCount] = useState<string | number>(currentRequestsCount + 1)
@@ -47,9 +48,11 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
       <Field
         labelClasses={styles.label}
         label={t(TranslationKey['Enter the number of proposals'])}
+        error={requestCount <= currentRequestsCount && `${t(TranslationKey['At least'])} ${currentRequestsCount}`}
         inputComponent={
           <Input
             // type="number"
+            className={cx({ [styles.errorInput]: requestCount <= currentRequestsCount })}
             value={requestCount}
             slotProps={{
               input: {
@@ -57,7 +60,7 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
                 step: 1,
               },
             }}
-            inputProps={{maxLength: 7}}
+            inputProps={{ maxLength: 7 }}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 0) &&
               setRequestCount(e.target.value.replace('.', ''))
@@ -77,7 +80,7 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={styles.controlButton} onClick={handleCloseModal}>
+        <Button variant="text" className={cx(styles.controlButton, styles.cancelButton)} onClick={handleCloseModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

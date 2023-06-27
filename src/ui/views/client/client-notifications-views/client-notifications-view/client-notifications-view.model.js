@@ -1,23 +1,15 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 export class ClientNotificationsViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
 
-  drawerOpen = false
-
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
-  }
-
-  onChangeDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onClickOrdersNotifications() {
@@ -41,6 +33,12 @@ export class ClientNotificationsViewModel {
   onClickIdeasNotifications() {
     this.history.push({
       pathname: '/client/notifications/ideas-notifications',
+    })
+  }
+
+  onClickFreelanceNotifications() {
+    this.history.push({
+      pathname: '/client/notifications/freelance-notifications',
     })
   }
 }

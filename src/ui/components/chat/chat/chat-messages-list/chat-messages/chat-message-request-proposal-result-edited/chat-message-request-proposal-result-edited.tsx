@@ -1,26 +1,26 @@
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {FC, useContext} from 'react'
+import React, { FC, useContext } from 'react'
 
 import Linkify from 'react-linkify-always-blank'
 
-import {RequestProposalStatus} from '@constants/request-proposal-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatMessageDataProposalResultEditedContract} from '@models/chat-model/contracts/chat-message-data.contract'
-import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
-import {UserModel} from '@models/user-model'
+import { ChatMessageDataProposalResultEditedContract } from '@models/chat-model/contracts/chat-message-data.contract'
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
+import { UserModel } from '@models/user-model'
 
-import {Button} from '@components/buttons/button'
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import { Button } from '@components/shared/buttons/button'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 
-import {formatDateTimeHourAndMinutes} from '@utils/date-time'
-import {t} from '@utils/translations'
+import { formatDateTimeHourAndMinutes } from '@utils/date-time'
+import { t } from '@utils/translations'
 
-import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
+import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import {useClassNames} from './chat-message-request-proposal-result-edited.style'
+import { useClassNames } from './chat-message-request-proposal-result-edited.style'
 
 export interface ChatMessageRequestProposalResultEditedHandlers {
   onClickProposalResultToCorrect: (proposalId: string) => void
@@ -33,8 +33,8 @@ interface Props {
   handlers: ChatMessageRequestProposalResultEditedHandlers
 }
 
-export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, isLastMessage, handlers}) => {
-  const {classes: classNames} = useClassNames()
+export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, isLastMessage, handlers }) => {
+  const { classes: classNames } = useClassNames()
   const proposal = message.data.proposal
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
@@ -44,7 +44,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, isLa
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
-        <div className={classNames.headerWrapper}>
+        <div>
           <Typography className={classNames.headerText}>{t(TranslationKey.Result)}</Typography>
         </div>
         <div className={classNames.timeWrapper}>
@@ -61,7 +61,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, isLa
           </Linkify>
         </div>
       </div>
-      <div className={classNames.resultTextWrapper}>
+      <div>
         <Linkify>
           <Typography className={classNames.resultText}>{message.data.edited.result}</Typography>
         </Linkify>
@@ -70,7 +70,8 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, isLa
         <PhotoAndFilesCarousel
           notToShowEmpty
           small
-          files={message.data.edited.linksToMediaFiles?.map(el => (typeof el === 'object' ? el.fileLink : el))}
+          // files={message.data.edited.linksToMediaFiles?.map(el => (typeof el === 'object' ? el.fileLink : el))}
+          files={message.data?.edited?.media?.map(el => (typeof el === 'object' ? el.fileLink : el))}
           width="340px"
           withoutPhotos={undefined}
           whithoutFiles={undefined}
@@ -80,7 +81,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, isLa
           onChangeImagesForLoad={undefined}
         />
 
-        <div className={classNames.resultRightSide}>
+        <div>
           <div className={classNames.timeToCheckBlockWrapper}>
             <Typography className={classNames.timeToCheckBlockLabelText}>
               {t(TranslationKey['Time to check'])}
@@ -107,7 +108,6 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, isLa
               <Button
                 variant="contained"
                 color="primary"
-                btnWrapperStyle={classNames.actionBtnWrapperStyle}
                 className={cx(classNames.actionButton, classNames.editButton)}
                 onClick={() => handlers.onClickProposalResultToCorrect(proposal._id)}
               >
@@ -117,7 +117,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, isLa
             <Button
               variant="contained"
               color="primary"
-              btnWrapperStyle={cx(classNames.actionBtnWrapperStyle, classNames.actionBtnWrapperStyleNotFirst)}
+              btnWrapperStyle={classNames.actionBtnWrapperStyleNotFirst}
               className={cx(classNames.actionButton, classNames.successBtn)}
               onClick={() => handlers.onClickProposalResultAccept(proposal._id)}
             >
@@ -131,7 +131,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, isLa
             <Button
               variant="contained"
               color="primary"
-             
+
             >
               Редактировать
             </Button>

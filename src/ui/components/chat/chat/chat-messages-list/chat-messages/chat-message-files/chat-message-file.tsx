@@ -1,12 +1,13 @@
-import {Box} from '@mui/material'
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { Box } from '@mui/material'
 
-import React, {FC, useEffect, useState} from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
-import {useChatMessageFileStyles} from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files.styles'
+import { useChatMessageFileStyles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files.styles'
 
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getFileNameFromUrl} from '@utils/get-file-name-from-url'
-import {downloadFileByLink, getFileWeight} from '@utils/upload-files'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
+import { downloadFileByLink, getFileWeight } from '@utils/upload-files'
 
 interface ChatMessageFileProps {
   src: string
@@ -37,8 +38,8 @@ const imageTypes: string[] = [
 ]
 
 export const ChatMessageFile: FC<ChatMessageFileProps> = props => {
-  const {src} = props
-  const {classes: styles} = useChatMessageFileStyles()
+  const { src } = props
+  const { classes: styles } = useChatMessageFileStyles()
 
   const [fileSize, setFileSize] = useState('0 byte')
 

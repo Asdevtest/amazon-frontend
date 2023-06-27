@@ -1,16 +1,16 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {BoxesModel} from '@models/boxes-model'
-import {OtherModel} from '@models/other-model'
-import {ProductModel} from '@models/product-model'
-import {SupervisorModel} from '@models/supervisor-model'
-import {UserModel} from '@models/user-model'
+import { BoxesModel } from '@models/boxes-model'
+import { OtherModel } from '@models/other-model'
+import { ProductModel } from '@models/product-model'
+import { SupervisorModel } from '@models/supervisor-model'
+import { UserModel } from '@models/user-model'
 
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 const fieldsOfProductAllowedToUpdate = [
   'listingName',
@@ -32,7 +32,7 @@ export class ListingModel {
   curImage = undefined
   imagesFromBoxes = []
 
-  bigImagesOptions = {images: [], imgIndex: 0}
+  bigImagesOptions = { images: [], imgIndex: 0 }
 
   progressValue = 0
 
@@ -48,16 +48,16 @@ export class ListingModel {
     return UserModel.userInfo?.role
   }
 
-  constructor({history, productId}) {
+  constructor({ history, productId }) {
     this.history = history
 
     this.productId = productId
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async onSaveSubmit() {
     try {
-      await onSubmitPostImages.call(this, {images: this.tmpListingImages, type: 'imagesToLoad'})
+      await onSubmitPostImages.call(this, { images: this.tmpListingImages, type: 'imagesToLoad' })
 
       await this.onSaveProductData()
 
@@ -80,19 +80,19 @@ export class ListingModel {
   }
 
   onChangeArrayField(e, fieldName, itemIndex) {
-    const newFormFields = {...this.listingProduct}
+    const newFormFields = { ...this.listingProduct }
     newFormFields[fieldName][itemIndex] = e.target.value
     this.listingProduct = newFormFields
   }
 
   onChangeField(e, fieldName) {
-    const newFormFields = {...this.listingProduct}
+    const newFormFields = { ...this.listingProduct }
     newFormFields[fieldName] = e.target.value
     this.listingProduct = newFormFields
   }
 
   onRemoveCompetitor(index) {
-    const newFormFields = {...this.listingProduct}
+    const newFormFields = { ...this.listingProduct }
 
     newFormFields.listingSupplierCompetitors.splice(index, 1)
 
@@ -105,8 +105,7 @@ export class ListingModel {
 
       await this.getProductById()
 
-      await this.getBoxes()
-      await this.getPayments()
+      await Promise.all([this.getBoxes(), this.getPayments()])
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -198,7 +197,7 @@ export class ListingModel {
   }
 
   setBigImagesOptions(opt) {
-    this.bigImagesOptions = {images: opt.images, imgIndex: opt.imgIndex}
+    this.bigImagesOptions = { images: opt.images, imgIndex: opt.imgIndex }
   }
 
   setRequestStatus(requestStatus) {

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
@@ -18,11 +18,13 @@ export const useClassNames = makeStyles()(theme => ({
 
     marginBottom: 30,
   },
+
   nameWrapper: {},
   cardCarouselWrapper: {
     height: 105,
     width: 220,
   },
+
   carouselImage: {
     height: 96,
     objectFit: 'contain',
@@ -42,7 +44,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: 275,
   },
 
-  titleWrapper: {},
   cardTitle: {
     width: '100%',
 
@@ -57,7 +58,6 @@ export const useClassNames = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
   },
 
-  descriptionWrapper: {},
   cardDescription: {
     fontWeight: 400,
     fontSize: '14px',
@@ -80,6 +80,7 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.second,
   },
+
   detailDescription: {
     fontWeight: 600,
     fontSize: 14,
@@ -90,6 +91,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: 30,
   },
+
   detailsSubWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -100,6 +102,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 75px',
     height: 40,
   },
+
   detailsAndButtonWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -110,21 +113,25 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
   },
+
   userInfo: {
     display: 'flex',
     alignItems: 'center',
 
     gap: 10,
   },
+
   cardImg: {
     width: 28,
     height: 28,
   },
+
   detailsWrapperAll: {
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
   },
+
   detailsSubWrapperAll: {
     display: 'flex',
     justifyContent: 'space-between',

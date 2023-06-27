@@ -1,9 +1,9 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 
-import {RequestProposalModel} from '@models/request-proposal'
-import {UserModel} from '@models/user-model'
+import { RequestProposalModel } from '@models/request-proposal'
+import { UserModel } from '@models/user-model'
 
 export class VacantDealsDetailsViewModel {
   history = undefined
@@ -15,13 +15,12 @@ export class VacantDealsDetailsViewModel {
   requester = undefined
   proposalId = undefined
   curProposalId = undefined
-  drawerOpen = false
   showConfirmModal = false
   showDetails = true
 
   requestProposals = []
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
       if (location.state) {
@@ -30,7 +29,7 @@ export class VacantDealsDetailsViewModel {
         this.requester = location.state.requester
       }
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   get user() {
@@ -62,7 +61,7 @@ export class VacantDealsDetailsViewModel {
 
   async onClickGetToWork(id, requestId) {
     try {
-      await RequestProposalModel.requestProposalLinkOrUnlinkSupervisor(id, {action: 'LINK'})
+      await RequestProposalModel.requestProposalLinkOrUnlinkSupervisor(id, { action: 'LINK' })
       this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review/deal-on-review`, {
         requestId,
         curProposalId: id,
@@ -76,12 +75,6 @@ export class VacantDealsDetailsViewModel {
 
   onClickGetToWorkModal() {
     this.onTriggerOpenModal('showConfirmModal')
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   setActionStatus(actionStatus) {

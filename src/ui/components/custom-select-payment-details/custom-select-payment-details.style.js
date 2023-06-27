@@ -1,16 +1,17 @@
 /* eslint-disable no-unused-vars */
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '100%',
   },
-  standartText: {},
+
   select: {
     padding: '0 !important',
   },
   selectIsNotEmpty: {
-    padding: '10px 73px 10px 15px !important',
+    // padding: '10px 73px 10px 15px !important',
+    padding: '0 73px 0 15px !important',
   },
 
   paymentMethodsLabel: {
@@ -37,14 +38,11 @@ export const useClassNames = makeStyles()(theme => ({
 
   paymentMethodsField: {
     position: 'relative',
-
     minWidth: 240,
     width: '100%',
     minHeight: 40,
     borderRadius: 4,
-
     border: `1px solid ${theme.palette.primary.main}`,
-
     '&:before': {
       content: 'none',
     },

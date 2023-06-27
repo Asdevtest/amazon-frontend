@@ -1,17 +1,15 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {ClientDashboardCardDataKey} from '@constants/dashboard-configs'
-import {loadingStatuses} from '@constants/loading-statuses'
+import { ClientDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {DashboardModel} from '@models/dashboard-model'
-import {UserModel} from '@models/user-model'
+import { DashboardModel } from '@models/dashboard-model'
+import { UserModel } from '@models/user-model'
 
 export class ClientDashboardViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
-
-  drawerOpen = false
 
   dashboardData = {
     [ClientDashboardCardDataKey.IN_INVENTORY]: '',
@@ -39,11 +37,11 @@ export class ClientDashboardViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onClickAddMoney() {
@@ -75,12 +73,6 @@ export class ClientDashboardViewModel {
   onChangeSubCategory(index) {
     runInAction(() => {
       this.activeSubCategory = index
-    })
-  }
-
-  onTriggerDrawer() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 
@@ -137,13 +129,13 @@ export class ClientDashboardViewModel {
 
   onClickInfoCardViewMode(route, dataGridFilter) {
     if (dataGridFilter) {
-      this.history.push(route, {dataGridFilter})
+      this.history.push(route, { dataGridFilter })
     } else {
       this.history.push(route)
     }
   }
 
   onClickAddProduct(route) {
-    this.history.push(route, {isModalOpen: true})
+    this.history.push(route, { isModalOpen: true })
   }
 }

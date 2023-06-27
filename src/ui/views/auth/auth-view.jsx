@@ -1,80 +1,72 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import {Component} from 'react'
+import { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {EntryLeftPanel} from '@components/entry-left-panel'
-import {EntryRightPanel} from '@components/entry-right-panel'
-import {AuthForm} from '@components/forms/auth-form'
+import { AuthPageBanner } from '@components/auth/auth-page-banner'
+import { AuthFormWrapper } from '@components/auth/auth-form-wrapper'
+import { AuthForm } from '@components/forms/auth-form'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {AuthViewModel} from './auth-view.model'
-import {styles} from './auth-view.style'
+import { AuthViewModel } from './auth-view.model'
+import { styles } from './auth-view.style'
 
-@observer
-export class AuthViewRaw extends Component {
-  viewModel = new AuthViewModel({history: this.props.history})
+export const AuthViewRaw = props => {
+  const [viewModel] = useState(() => new AuthViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
-  componentDidMount() {
-    this.viewModel.onLoadPage()
+  useEffect(() => {
+    viewModel.onLoadPage()
+  }, [])
+
+  const onChangeFormField = fieldName => event => {
+    viewModel.setField(fieldName)(event.target.value)
   }
 
-  componentDidUpdate() {
-    this.viewModel.onLoadPage()
+  const onClickRedirect = () => {
+    props.history.push('/registration')
   }
 
-  render() {
-    const {classes: classNames} = this.props
+  return (
+    <div className={classNames.root}>
+      <AuthPageBanner />
 
-    return (
-      <div className={classNames.root}>
-        <EntryLeftPanel />
-
-        <EntryRightPanel
-          redirect={t(TranslationKey['Create account'])}
-          title={t(TranslationKey['Sign in'])}
-          onClickRedirect={this.onClickRedirect}
-        >
-          <AuthForm
-            formFields={{
-              email: this.viewModel.email,
-              password: this.viewModel.password,
-              remember: this.viewModel.remember,
-            }}
-            onChangeFormField={this.onChangeFormField}
-            onSubmit={this.viewModel.onSubmitForm}
-          />
-          {SettingsModel.languageTag && (
-            <Typography className={classNames.error}>
-              {this.viewModel.error &&
-                ((this.viewModel.error.body?.statusCode === 404 && t(TranslationKey['User not found'])) ||
-                  (this.viewModel.error.body?.message === 'User blocked by administrator' &&
-                    t(TranslationKey['User blocked by administrator'])) ||
-                  (this.viewModel.error.body?.statusCode === 403 && t(TranslationKey['Incorrect email or password'])) ||
-                  /* t(TranslationKey['The user is waiting for confirmation by the Administrator'])*/ t(
-                    TranslationKey.Error,
-                  ))}
-            </Typography>
-          )}
-        </EntryRightPanel>
-      </div>
-    )
-  }
-
-  onClickRedirect = () => {
-    this.props.history.push('/registration')
-  }
-
-  onChangeFormField = fieldName => event => {
-    this.viewModel.setField(fieldName)(event.target.value)
-  }
+      <AuthFormWrapper
+        redirect={t(TranslationKey['Create account'])}
+        title={t(TranslationKey['Sign in'])}
+        onClickRedirect={onClickRedirect}
+      >
+        <AuthForm
+          formFields={{
+            email: viewModel.email,
+            password: viewModel.password,
+            remember: viewModel.remember,
+          }}
+          onChangeFormField={onChangeFormField}
+          onSubmit={viewModel.onSubmitForm}
+        />
+        {SettingsModel.languageTag && (
+          <Typography className={classNames.error}>
+            {viewModel.error &&
+              ((viewModel.error.body?.statusCode === 404 && t(TranslationKey['User not found'])) ||
+                (viewModel.error.body?.message === 'User blocked by administrator' &&
+                  t(TranslationKey['User blocked by administrator'])) ||
+                (viewModel.error?.message === 'The user is waiting for confirmation by the Administrator' &&
+                  t(TranslationKey['The user is waiting for confirmation by the Administrator'])) ||
+                (viewModel.error.body?.statusCode === 403 && t(TranslationKey['Incorrect email or password'])) ||
+                t(TranslationKey.Error))}
+          </Typography>
+        )}
+      </AuthFormWrapper>
+    </div>
+  )
 }
 
-export const AuthView = withStyles(AuthViewRaw, styles)
+export const AuthView = withStyles(observer(AuthViewRaw), styles)

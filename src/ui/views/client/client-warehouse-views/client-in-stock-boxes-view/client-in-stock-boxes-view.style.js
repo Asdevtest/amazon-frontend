@@ -1,18 +1,4 @@
 export const styles = theme => ({
-  sendOwnProductBtn: {
-    marginBottom: theme.spacing(2),
-  },
-  redistributionWrapper: {},
-  modalMessageWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  modalMessage: {
-    maxWidth: '400px',
-  },
-  modalMessageBtn: {
-    alignSelf: 'flex-end',
-  },
   btnsWrapper: {
     width: '100%',
     display: 'flex',
@@ -27,39 +13,14 @@ export const styles = theme => ({
     gap: '10px',
   },
 
-  productFilterWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    marginLeft: 50,
-  },
-
-  productFilterText: {
-    fontSize: 22,
-    fontWeight: 600,
-    color: 'rgba(247, 179, 7, .8)',
-    letterSpacing: 5,
-  },
-
-  heightFieldAuto: {
-    height: 'auto',
-    maxWidth: '380px',
-    minWidth: '250px',
-
-    padding: 0,
-  },
-  buttonsWrapper: {
-    marginTop: '15px',
-  },
   button: {
     padding: '0 45px',
     height: 'auto',
     whiteSpace: 'nowrap',
     marginBottom: 5,
     color: theme.palette.primary.main,
-
     fontSize: 14,
     fontWeight: 600,
-
     '&>disabled': {
       backgroundColor: 'inherit',
     },
@@ -71,8 +32,6 @@ export const styles = theme => ({
 
   tasksWrapper: {
     marginTop: '30px',
-
-    // height: 'calc(100vh - 380px)',
   },
 
   boxesFiltersWrapper: {
@@ -86,9 +45,7 @@ export const styles = theme => ({
   selectedBoxesBtn: {
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
-
-    borderBottom: '5px solid #0460DE',
-
+    borderBottom: theme.palette.other.tableActiveFilterBtn,
     color: `${theme.palette.primary.main} !important`,
   },
 
@@ -98,11 +55,6 @@ export const styles = theme => ({
     '&:hover': {
       transform: 'scale(1.01)',
     },
-  },
-
-  dataGridWrapper: {
-    height: '73vh',
-    overflow: 'auto',
   },
 
   virtualScrollerContent: {
@@ -115,10 +67,6 @@ export const styles = theme => ({
     height: 36,
   },
 
-  searchContainer: {
-    width: 'auto',
-  },
-
   topHeaderBtnsWrapper: {
     paddingTop: 5,
     display: 'flex',
@@ -126,30 +74,13 @@ export const styles = theme => ({
     justifyContent: 'space-between',
     marginBottom: 10,
   },
-  modalTitleWrapper: {
-    width: '100%',
-    display: 'flex',
-    gap: '20px',
-    alignItems: 'center',
-    marginBottom: '40px',
-  },
-  modalTitle: {
-    fontSize: '30px',
-    lineHeight: '40px',
-    fontWeight: '600',
-    color: theme.palette.text.general,
-  },
+
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
   },
-  datagridWrapper: {
-    marginTop: '10px',
-    height: '79vh',
-  },
+
   footerContainer: {
     position: 'absolute',
     top: 0,
@@ -174,6 +105,7 @@ export const styles = theme => ({
     flexDirection: 'row !important',
     display: 'flex !important',
     alignItems: 'center !important',
+    overflow: 'visible',
   },
   menuIconButton: {
     zIndex: 1000,
@@ -191,10 +123,5 @@ export const styles = theme => ({
   },
   iconSeparator: {
     padding: '0 1px',
-  },
-
-  tableWrapper: {
-    height: 'calc(100vh - 310px)',
-    width: '100%',
   },
 })

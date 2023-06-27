@@ -1,11 +1,8 @@
 export const styles = theme => ({
-  test: {
-    padding: theme.spacing(7),
-  },
   buttonBox: {
     textAlign: 'left',
     marginRight: '0',
-    padding: '16px',
+    padding: '16px 0',
     display: 'flex',
     gap: 30,
   },
@@ -21,8 +18,6 @@ export const styles = theme => ({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
   },
 
@@ -45,14 +40,7 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
-
-    // textOverflow: 'ellipsis',
-    // minHeight: '20px',
-
     height: 'auto !important',
-    // overflow: 'hidden',
-    // whiteSpace: 'nowrap',
-
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },

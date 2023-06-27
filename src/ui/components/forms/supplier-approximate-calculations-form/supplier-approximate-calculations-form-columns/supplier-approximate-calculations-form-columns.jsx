@@ -1,11 +1,11 @@
 import React from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {MultilineTextCell, MultilineTextHeaderCell} from '@components/data-grid-cells/data-grid-cells'
+import { MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
 export const supplierApproximateCalculationsFormColumns = () => [
   {

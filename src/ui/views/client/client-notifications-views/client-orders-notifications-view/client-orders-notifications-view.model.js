@@ -1,20 +1,19 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ClientModel} from '@models/client-model'
-import {SettingsModel} from '@models/settings-model'
+import { ClientModel } from '@models/client-model'
+import { SettingsModel } from '@models/settings-model'
 
-import {clientOrdersNotificationsViewColumns} from '@components/table-columns/client/client-orders-notifications-columns'
+import { clientOrdersNotificationsViewColumns } from '@components/table/table-columns/client/client-orders-notifications-columns'
 
-import {clientOrdersNotificationsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {toFixedWithDollarSign} from '@utils/text'
-import {t} from '@utils/translations'
+import { clientOrdersNotificationsDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { toFixedWithDollarSign } from '@utils/text'
+import { t } from '@utils/translations'
 
 export class ClientOrdersNotificationsViewModel {
   history = undefined
@@ -26,96 +25,73 @@ export class ClientOrdersNotificationsViewModel {
   orders = []
   baseNoConvertedOrders = []
 
-  drawerOpen = false
   showConfirmModal = false
   confirmModalSettings = {
     isWarning: false,
     onClickOkBtn: () => this.onSaveProductData(),
   }
   sortModel = []
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
   densityModel = 'compact'
   rowHandlers = {
     onTriggerOpenConfirmModal: row => this.onTriggerOpenConfirmModal(row),
     onTriggerOpenRejectModal: row => this.onTriggerOpenRejectModal(row),
   }
   columnsModel = clientOrdersNotificationsViewColumns(this.rowHandlers)
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-
-      runInAction(() => {
-        this.orders = clientOrdersNotificationsDataConverter(
-          this.baseNoConvertedOrders.filter(
-            order => order.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
-          ),
-        ).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
-      })
-    }
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
   }
 
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
+  }
+
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
+
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_ORDERS_NOTIFICATIONS)
   }
 
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_ORDERS_NOTIFICATIONS]
 
-    if (state) {
-      runInAction(() => {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = clientOrdersNotificationsViewColumns(this.rowHandlers).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
-      })
-    }
-  }
-
-  onChangeRowsPerPage(e) {
     runInAction(() => {
-      this.rowsPerPage = e
+      if (state) {
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+      }
     })
   }
 
@@ -156,16 +132,12 @@ export class ClientOrdersNotificationsViewModel {
     })
   }
 
-  onChangeDrawerOpen(e, value) {
-    runInAction(() => {
-      this.drawerOpen = value
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.setDataGridState()
   }
 
   onSelectionModel(model) {
@@ -222,19 +194,7 @@ export class ClientOrdersNotificationsViewModel {
   onClickTableRow(order) {
     this.history.push({
       pathname: '/client/my-orders/orders/order',
-      search: order.originalData._id,
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
+      search: `orderId=${order.originalData._id}`,
     })
   }
 

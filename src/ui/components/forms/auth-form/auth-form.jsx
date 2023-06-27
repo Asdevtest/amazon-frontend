@@ -3,21 +3,21 @@ import LockIcon from '@mui/icons-material/Lock'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import {Button, Checkbox, InputAdornment, Typography} from '@mui/material'
+import { Button, Checkbox, InputAdornment, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {withStyles} from 'tss-react/mui'
+import { withStyles } from 'tss-react/mui'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Field} from '@components/field'
+import { Field } from '@components/shared/field'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {styles} from './auth-form.style'
+import { styles } from './auth-form.style'
 
-const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubmit}) => {
+const AuthFormRaw = ({ classes: classNames, formFields, onChangeFormField, onSubmit }) => {
   const onSubmitForm = event => {
     event.preventDefault()
     setIsSubmit(true)

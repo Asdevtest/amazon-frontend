@@ -1,23 +1,15 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 export class ClientWarehouseViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
 
-  drawerOpen = false
-
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
-  }
-
-  onChangeDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onClickInStock() {
@@ -26,9 +18,9 @@ export class ClientWarehouseViewModel {
     })
   }
 
-  onClickReadyToBatch() {
+  onClickTasks() {
     this.history.push({
-      pathname: '/client/warehouse/boxes-ready-to-batch',
+      pathname: '/client/warehouse/tasks',
     })
   }
 }

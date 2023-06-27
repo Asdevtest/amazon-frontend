@@ -1,1 +1,1 @@
-export {TermsView} from './terms'
+export { TermsView } from './terms'

@@ -95,6 +95,15 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('paymentDateToSupplier')) {
                 obj['paymentDateToSupplier'] = ApiClient.convertToType(data['paymentDateToSupplier'], 'String');
             }
+            if (data.hasOwnProperty('partialPaymentAmountRmb')) {
+                obj['partialPaymentAmountRmb'] = ApiClient.convertToType(data['partialPaymentAmountRmb'], 'Number');
+            }
+            if (data.hasOwnProperty('partiallyPaid')) {
+                obj['partiallyPaid'] = ApiClient.convertToType(data['partiallyPaid'], 'Number');
+            }
+            if (data.hasOwnProperty('partialPayment')) {
+                obj['partialPayment'] = ApiClient.convertToType(data['partialPayment'], 'Boolean');
+            }
             if (data.hasOwnProperty('yuanToDollarRate')) {
                 obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
             }
@@ -240,6 +249,24 @@ InlineResponse2001.prototype['paidAt'] = undefined;
  * @member {String} paymentDateToSupplier
  */
 InlineResponse2001.prototype['paymentDateToSupplier'] = undefined;
+
+/**
+ * Сумма частичной оплаты
+ * @member {Number} partialPaymentAmountRmb
+ */
+InlineResponse2001.prototype['partialPaymentAmountRmb'] = undefined;
+
+/**
+ * Cумма частичной оплаты
+ * @member {Number} partiallyPaid
+ */
+InlineResponse2001.prototype['partiallyPaid'] = undefined;
+
+/**
+ * Оплачивается ли заказ частично
+ * @member {Boolean} partialPayment
+ */
+InlineResponse2001.prototype['partialPayment'] = undefined;
 
 /**
  * Курс юань доллар.

@@ -15,6 +15,7 @@ import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1AdminsOrdersDestination from './ApiV1AdminsOrdersDestination';
 import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
+import ApiV1AdminsTasksLightVariationTariff from './ApiV1AdminsTasksLightVariationTariff';
 import ApiV1BatchesBatch from './ApiV1BatchesBatch';
 import ApiV1BatchesItems from './ApiV1BatchesItems';
 
@@ -165,6 +166,9 @@ class ApiV1BatchesBoxes {
             }
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            }
+            if (data.hasOwnProperty('variationTariff')) {
+                obj['variationTariff'] = ApiV1AdminsTasksLightVariationTariff.constructFromObject(data['variationTariff']);
             }
             if (data.hasOwnProperty('items')) {
                 obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BatchesItems]);
@@ -421,6 +425,11 @@ ApiV1BatchesBoxes.prototype['createdAt'] = undefined;
  * @member {Date} updatedAt
  */
 ApiV1BatchesBoxes.prototype['updatedAt'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsTasksLightVariationTariff} variationTariff
+ */
+ApiV1BatchesBoxes.prototype['variationTariff'] = undefined;
 
 /**
  * Массив коробок.

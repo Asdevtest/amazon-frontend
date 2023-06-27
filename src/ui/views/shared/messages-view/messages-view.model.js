@@ -1,15 +1,15 @@
-import {makeAutoObservable, runInAction, reaction} from 'mobx'
+import { makeAutoObservable, runInAction, reaction } from 'mobx'
 
-import {chatsType} from '@constants/chats'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { chatsType } from '@constants/keys/chats'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatModel} from '@models/chat-model'
-import {ChatsModel} from '@models/chats-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { ChatModel } from '@models/chat-model'
+import { ChatsModel } from '@models/chats-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {t} from '@utils/translations'
-import {dataURLtoFile, onSubmitPostImages} from '@utils/upload-files'
+import { t } from '@utils/translations'
+import { dataURLtoFile, onSubmitPostImages } from '@utils/upload-files'
 
 export class MessagesViewModel {
   history = undefined
@@ -17,7 +17,6 @@ export class MessagesViewModel {
   error = undefined
   actionStatus = undefined
 
-  drawerOpen = false
   showConfirmModal = false
   showAddNewChatByEmailModal = false
   showAddUsersToGroupChatModal = false
@@ -62,7 +61,7 @@ export class MessagesViewModel {
     return SettingsModel.noticeOfSimpleChats
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
 
@@ -90,7 +89,7 @@ export class MessagesViewModel {
       }
     })
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.simpleChats,
@@ -191,7 +190,7 @@ export class MessagesViewModel {
     try {
       this.onTriggerOpenModal('showAddUsersToGroupChatModal')
 
-      await ChatModel.addUsersToGroupChat({chatId: this.chatSelectedId, users: users.map(el => el._id)})
+      await ChatModel.addUsersToGroupChat({ chatId: this.chatSelectedId, users: users.map(el => el._id) })
 
       // await ChatModel.getSimpleChats()
     } catch (error) {
@@ -201,7 +200,7 @@ export class MessagesViewModel {
 
   async onRemoveUsersFromGroupChat(usersIds) {
     try {
-      await ChatModel.removeUsersFromGroupChat({chatId: this.chatSelectedId, users: usersIds})
+      await ChatModel.removeUsersFromGroupChat({ chatId: this.chatSelectedId, users: usersIds })
 
       // await ChatModel.getSimpleChats()
     } catch (error) {
@@ -218,7 +217,7 @@ export class MessagesViewModel {
       if (imageIsNeedChange) {
         const file = dataURLtoFile(state.preview, this.user._id)
 
-        await onSubmitPostImages.call(this, {images: [{file}], type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: [{ file }], type: 'readyImages' })
       }
 
       await ChatModel.patchInfoGroupChat({
@@ -239,7 +238,7 @@ export class MessagesViewModel {
           [],
         )
 
-        if (existedChatsUsers.includes(formFields.chosenUsers[0]._id)) {
+        if (existedChatsUsers.includes(formFields.chosenUsers[0]?._id)) {
           runInAction(() => {
             this.warningInfoModalSettings = {
               isWarning: false,
@@ -249,11 +248,11 @@ export class MessagesViewModel {
 
           this.onTriggerOpenModal('showWarningInfoModal')
         } else {
-          await ChatsModel.createSimpleChatByUserId(formFields.chosenUsers[0]._id)
+          await ChatsModel.createSimpleChatByUserId(formFields.chosenUsers[0]?._id)
         }
       } else {
         if (formFields.images.length) {
-          await onSubmitPostImages.call(this, {images: formFields.images, type: 'readyImages'})
+          await onSubmitPostImages.call(this, { images: formFields.images, type: 'readyImages' })
         }
 
         await ChatsModel.createSimpleGroupChat({
@@ -270,7 +269,7 @@ export class MessagesViewModel {
   }
 
   onTypingMessage(chatId) {
-    ChatModel.typingMessage({chatId})
+    ChatModel.typingMessage({ chatId })
   }
 
   onTriggerNoticeOfSimpleChats() {
@@ -303,12 +302,14 @@ export class MessagesViewModel {
     })
   }
 
-  async onSubmitMessage(message, files, chatId) {
+  async onSubmitMessage(message, files, chatId, replyMessageId) {
     try {
       await ChatModel.sendMessage({
         chatId,
         text: message,
         files: files?.map(item => item?.file),
+
+        ...(replyMessageId && { replyMessageId }),
       })
     } catch (error) {
       console.warn('onSubmitMessage error ', error)
@@ -326,12 +327,6 @@ export class MessagesViewModel {
       // this.chatSelectedId = undefined
 
       ChatModel.onChangeChatSelectedId(undefined)
-    })
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
     })
   }
 

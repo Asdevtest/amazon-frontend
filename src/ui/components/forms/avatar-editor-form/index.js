@@ -1,1 +1,1 @@
-export {AvatarEditorForm} from './avatar-editor-form'
+export { AvatarEditorForm } from './avatar-editor-form'

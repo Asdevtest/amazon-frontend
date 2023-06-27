@@ -1,1 +1,1 @@
-export {FinancesView} from './finances-view'
+export { FinancesView } from './finances-view'

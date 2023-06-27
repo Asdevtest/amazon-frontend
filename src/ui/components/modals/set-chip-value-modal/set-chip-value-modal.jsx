@@ -1,18 +1,18 @@
-import {Box, Container, Typography} from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './set-chip-value-modal.style'
+import { useClassNames } from './set-chip-value-modal.style'
 
-export const SetChipValueModal = ({title, onSubmit, onCloseModal, sourceValue, isInts, maxLength}) => {
-  const {classes: classNames} = useClassNames()
+export const SetChipValueModal = ({ title, onSubmit, onCloseModal, sourceValue, isInts, maxLength }) => {
+  const { classes: classNames } = useClassNames()
 
   const [newValue, setNewValue] = useState(sourceValue)
 
@@ -22,7 +22,7 @@ export const SetChipValueModal = ({title, onSubmit, onCloseModal, sourceValue, i
 
       <Field
         containerClasses={classNames.field}
-        inputProps={{maxLength: maxLength ? maxLength : 255}}
+        inputProps={{ maxLength: maxLength ? maxLength : 255 }}
         value={newValue}
         onChange={e => setNewValue(isInts ? (e.target.value ? parseInt(e.target.value) : 0) : e.target.value)}
       />

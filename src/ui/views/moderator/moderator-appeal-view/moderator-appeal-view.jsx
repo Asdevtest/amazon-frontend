@@ -1,60 +1,22 @@
-import React, {Component} from 'react'
+import React from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { AppealDetailsCard } from '@components/cards/appeal-details-card'
+import { MainContent } from '@components/layout/main-content'
 
-import {Appbar} from '@components/appbar'
-import {AppealDetailsCard} from '@components/cards/appeal-details-card'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-// import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {Navbar} from '@components/navbar'
+import { styles } from './moderator-appeal-view.style'
 
-import {t} from '@utils/translations'
+export const ModeratorAppealViewRaw = () => (
+  // const [viewModel] = useState(() => new ModeratorAppealsViewModel({history: props.history}))
 
-import {ModeratorAppealsViewModel} from './moderator-appeal-view.model'
-import {styles} from './moderator-appeal-view.style'
+  <React.Fragment>
+    <MainContent>
+      <AppealDetailsCard />
+    </MainContent>
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_APPEALS
-
-@observer
-class ModeratorAppealViewRaw extends Component {
-  viewModel = new ModeratorAppealsViewModel({history: this.props.history})
-
-  // componentDidMount() {
-  //   this.viewModel.loadData()
-  // }
-
-  render() {
-    const {
-      drawerOpen,
-      // showConfirmModal,
-      // deals,
-      onTriggerDrawerOpen,
-      // onClickViewMore,
-      // onTriggerOpenModal,
-      // onClickGetToWorkModal,
-      // onClickGetToWork,
-      // requestId,
-      // proposalId,
-    } = this.viewModel
-    // const {classes: classNames} = this.props
-
-    return (
-      <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
-        <Main>
-          <Appbar title={t(TranslationKey.Appeal)} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <AppealDetailsCard />
-            </MainContent>
-          </Appbar>
-        </Main>
-
-        {/* <ConfirmationModal
+    {/* <ConfirmationModal
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
           title={t(TranslationKey.Attention)}
@@ -64,9 +26,7 @@ class ModeratorAppealViewRaw extends Component {
           onClickSuccessBtn={() => onClickGetToWork(proposalId, requestId)}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         /> */}
-      </React.Fragment>
-    )
-  }
-}
+  </React.Fragment>
+)
 
-export const ModeratorAppealView = withStyles(ModeratorAppealViewRaw, styles)
+export const ModeratorAppealView = withStyles(observer(ModeratorAppealViewRaw), styles)

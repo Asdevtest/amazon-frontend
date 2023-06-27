@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   NormalActionBtnCell,
@@ -10,9 +10,9 @@ import {
   WarehouseTariffDestinationCell,
   WarehouseTariffRatesCell,
   MultilineTextHeaderCell,
-} from '@components/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
 export const logisticsTariffsColumns = handlers => [
   {
@@ -71,7 +71,9 @@ export const logisticsTariffsColumns = handlers => [
     field: 'dates',
     headerName: t(TranslationKey.Dates),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dates)} />,
-    renderCell: params => <WarehouseTariffDatesCell row={params.row} />,
+    renderCell: params => (
+      <WarehouseTariffDatesCell cls={params.row?.cls} etd={params.row?.etd} eta={params.row?.eta} />
+    ),
     width: 330,
     filterable: false,
     sortable: false,
@@ -85,7 +87,7 @@ export const logisticsTariffsColumns = handlers => [
     renderCell: params => (
       <NormalActionBtnCell
         bTnText={t(TranslationKey['Select Tariff'])}
-        onClickOkBtn={() => handlers.onClickSelectTariff(params.row._id)}
+        onClickOkBtn={() => handlers.onClickSelectTariffOld(params.row._id, null)}
       />
     ),
     filterable: false,

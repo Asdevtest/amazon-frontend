@@ -1,17 +1,15 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {AdminDashboardCardDataKey} from '@constants/dashboard-configs'
-import {loadingStatuses} from '@constants/loading-statuses'
+import { AdminDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {AdministratorModel} from '@models/administrator-model'
-import {UserModel} from '@models/user-model'
+import { AdministratorModel } from '@models/administrator-model'
+import { UserModel } from '@models/user-model'
 
 export class AdminDashboardViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
-
-  drawerOpen = false
 
   dashboardData = {
     [AdminDashboardCardDataKey.EXCHANGE_WAITING_TO_CHECK]: '',
@@ -28,17 +26,11 @@ export class AdminDashboardViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
-  }
-
-  onChangeTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {

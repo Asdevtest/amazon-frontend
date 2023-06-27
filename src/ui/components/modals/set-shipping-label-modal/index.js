@@ -1,1 +1,1 @@
-export {SetShippingLabelModal} from './set-shipping-label-modal'
+export { SetShippingLabelModal } from './set-shipping-label-modal'

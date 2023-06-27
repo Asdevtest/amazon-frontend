@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -46,14 +46,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: 30,
     justifyContent: 'flex-end',
-  },
-
-  urlInput: {
-    overflowY: 'auto',
-    whiteSpace: 'wrap',
-    height: '65px',
-
-    width: '450px',
   },
 
   permissionSelect: {

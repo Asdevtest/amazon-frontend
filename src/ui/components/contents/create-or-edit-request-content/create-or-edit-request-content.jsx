@@ -1,57 +1,57 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import CircleIcon from '@mui/icons-material/Circle'
 import {
+  Avatar,
   Checkbox,
-  Typography,
+  Input,
+  InputAdornment,
   Link,
   List,
   ListItem,
   ListItemText,
-  Select,
-  Input,
-  InputAdornment,
   MenuItem,
-  Avatar,
   Rating,
+  Select,
+  Typography,
 } from '@mui/material'
 
-import React, {useEffect, useRef, useState} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import dayjs from 'dayjs'
-import {toJS} from 'mobx'
 
 import {
   freelanceRequestType,
   freelanceRequestTypeByCode,
   freelanceRequestTypeByKey,
   freelanceRequestTypeTranslate,
-} from '@constants/freelance-request-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+} from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {CopyValue} from '@components/copy-value'
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {CustomTextEditor} from '@components/custom-text-editor'
-import {NewDatePicker, DatePickerTime} from '@components/date-picker/date-picker'
-import {Field} from '@components/field'
-import {Modal} from '@components/modal'
-import {ChoiceOfPerformerModal} from '@components/modals/choice-of-performer-modal'
-import {ScrollToTopOrBottom} from '@components/scroll-to-top-or-bottom/scroll-to-top-or-bottom'
-import {WithSearchSelect} from '@components/selects/with-search-select'
-import {Text} from '@components/text'
-import {UploadFilesInputMini} from '@components/upload-files-input-mini'
-import {UserLink} from '@components/user-link'
+import { ChoiceOfPerformerModal } from '@components/modals/choice-of-performer-modal'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CopyValue } from '@components/shared/copy-value'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { CustomTextEditor } from '@components/shared/custom-text-editor'
+import { DatePickerTime, NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { Field } from '@components/shared/field'
+import { Modal } from '@components/shared/modal'
+import { ScrollToTopOrBottom } from '@components/shared/scroll-to-top-or-bottom/scroll-to-top-or-bottom'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { Text } from '@components/shared/text'
+import { UserLink } from '@components/user/user-link'
 
-import {calcNumberMinusPercent, calcPercentAfterMinusNumbers} from '@utils/calculation'
-import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
-import {formatDateForShowWithoutParseISO} from '@utils/date-time'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {shortAsin, replaceCommaByDot, toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/calculation'
+import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
+import { formatDateForShowWithoutParseISO } from '@utils/date-time'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { replaceCommaByDot, shortAsin, toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './create-or-edit-request-content.style'
+import { useClassNames } from './create-or-edit-request-content.style'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
+import { CheckRequestByTypeExists } from '@components/forms/check-request-by-type-exists'
 
 const stepVariant = {
   STEP_ONE: 'STEP_ONE',
@@ -68,12 +68,14 @@ export const CreateOrEditRequestContent = ({
   showProgress,
   progressValue,
   mainContentRef,
+  checkRequestByTypeExists,
+  onClickExistingRequest,
   onClickChoosePerformer,
   onClickThumbnail,
   onCreateSubmit,
   onEditSubmit,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const mainContentRefElement = mainContentRef.current
 
@@ -81,6 +83,7 @@ export const CreateOrEditRequestContent = ({
 
   const [showScrollUp, setShowScrollUp] = useState(false)
   const [showScrollDown, setShowScrollDown] = useState(false)
+  const [showCheckRequestByTypeExists, setShowCheckRequestByTypeExists] = useState(false)
 
   const [openModal, setOpenModal] = useState(false)
 
@@ -114,7 +117,7 @@ export const CreateOrEditRequestContent = ({
     const resizeObserver = new ResizeObserver(entries => {
       for (const entry of entries) {
         if (entry.target === componentRef.current) {
-          componentRef.current.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'nearest'})
+          componentRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' })
         }
       }
     })
@@ -178,6 +181,7 @@ export const CreateOrEditRequestContent = ({
       announcementId: requestToEdit?.request?.announcementId || undefined,
       productId: requestToEdit?.request?.productId || undefined,
       withoutConfirmation: requestToEdit?.request?.withoutConfirmation || false,
+      priority: requestToEdit?.request.priority || 20,
 
       discountedPrice: requestToEdit
         ? toFixed(
@@ -194,6 +198,8 @@ export const CreateOrEditRequestContent = ({
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
 
+  const [requestIds, setRequestIds] = useState([])
+
   const [announcement, setAnnouncement] = useState(choosenAnnouncements || undefined)
 
   useEffect(() => {
@@ -203,7 +209,7 @@ export const CreateOrEditRequestContent = ({
   useEffect(() => {
     setAnnouncement(choosenAnnouncements)
 
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
     newFormFields.request.typeTask = choosenAnnouncements?.type || null
     setFormFields(newFormFields)
   }, [choosenAnnouncements])
@@ -218,7 +224,7 @@ export const CreateOrEditRequestContent = ({
   const [deadlineError, setDeadlineError] = useState(false)
 
   const onChangeField = section => fieldName => event => {
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
 
     if (['price', 'priceAmazon', 'cashBackInPercent', 'discountedPrice'].includes(fieldName)) {
       if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(replaceCommaByDot(event.target.value))) {
@@ -290,7 +296,8 @@ export const CreateOrEditRequestContent = ({
 
   const isDeadlineError = formFields.request.timeoutAt < new Date()
 
-  const onSuccessSubmit = ({withPublish}) => {
+  const [withPublish, setWithPublish] = useState({ withPublish: false })
+  const onSuccessSubmit = withPublish => {
     if (isDeadlineError) {
       setDeadlineError(!deadlineError)
     } else {
@@ -299,6 +306,17 @@ export const CreateOrEditRequestContent = ({
       } else {
         onCreateSubmit(formFields, images, withPublish, announcement)
       }
+    }
+  }
+
+  const onClickCreate = async ({ withPublish }) => {
+    await setWithPublish(withPublish)
+    const result = await checkRequestByTypeExists(formFields.request.typeTask, formFields.request.productId)
+    if (result.length) {
+      setRequestIds(result)
+      setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)
+    } else {
+      onSuccessSubmit(withPublish)
     }
   }
 
@@ -338,13 +356,13 @@ export const CreateOrEditRequestContent = ({
           <ScrollToTopOrBottom
             showScrollUp={showScrollUp}
             showScrollDown={showScrollDown}
-            customStyles={{bottom: '180px', right: '55px'}}
+            customStyles={{ bottom: '180px', right: '55px' }}
             сomponentWillScroll={componentRef}
           />
         )}
         <div className={classNames.headerWrapper}>
           <Typography
-            className={cx(classNames.mainTitle, {[classNames.mainTitleStapTwo]: curStep === stepVariant.STEP_TWO})}
+            className={cx(classNames.mainTitle, { [classNames.mainTitleStapTwo]: curStep === stepVariant.STEP_TWO })}
           >
             {curStep === stepVariant.STEP_TWO
               ? t(TranslationKey['The request is ready'])
@@ -369,7 +387,7 @@ export const CreateOrEditRequestContent = ({
                 <div className={classNames.nameFieldWrapper}>
                   <Field
                     tooltipInfoContent={t(TranslationKey['Future request title'])}
-                    inputProps={{maxLength: 100}}
+                    inputProps={{ maxLength: 100 }}
                     label={t(TranslationKey['Request title']) + '*'}
                     className={classNames.nameField}
                     containerClasses={classNames.nameFieldContainer}
@@ -450,7 +468,7 @@ export const CreateOrEditRequestContent = ({
                     <Field
                       className={classNames.nameField}
                       containerClasses={classNames.bloggerFieldContainer}
-                      inputProps={{maxLength: 8}}
+                      inputProps={{ maxLength: 8 }}
                       label={t(TranslationKey['Price on Amazon']) + ', $'}
                       labelClasses={classNames.spanLabelSmall}
                       value={formFields.request.priceAmazon}
@@ -460,7 +478,7 @@ export const CreateOrEditRequestContent = ({
                     <Field
                       className={classNames.nameField}
                       containerClasses={classNames.bloggerFieldContainer}
-                      inputProps={{maxLength: 8}}
+                      inputProps={{ maxLength: 8 }}
                       label={t(TranslationKey['Discounted price']) + ', $'}
                       labelClasses={classNames.spanLabelSmall}
                       value={toFixed(formFields.request.discountedPrice, 2)}
@@ -477,7 +495,7 @@ export const CreateOrEditRequestContent = ({
                     <Field
                       className={classNames.nameField}
                       containerClasses={classNames.bloggerFieldContainer}
-                      inputProps={{maxLength: 8}}
+                      inputProps={{ maxLength: 8 }}
                       label={t(TranslationKey['CashBack Percentage']) + ', %'}
                       labelClasses={classNames.spanLabelSmall}
                       value={toFixed(formFields.request.cashBackInPercent, 2)}
@@ -491,13 +509,16 @@ export const CreateOrEditRequestContent = ({
                 )}
 
                 <div className={classNames.imageFileInputWrapper}>
-                  <UploadFilesInputMini
+                  <UploadFilesInput
+                    minimized
+                    fullWidth
                     withComment
-                    // oneLineMaxHeight
-                    maxHeight={160}
                     images={images}
                     setImages={setImages}
                     maxNumber={50}
+                    // oneLineMaxHeight
+                    maxHeight={160}
+                    addFilesButtonTitle={t(TranslationKey['Add file'])}
                   />
                   {/* {formFields.details.linksToMediaFiles?.length ? (
                     <PhotoAndFilesCarousel
@@ -623,7 +644,7 @@ export const CreateOrEditRequestContent = ({
                   <div className={classNames.priceAndAmountWrapper}>
                     <Field
                       tooltipInfoContent={t(TranslationKey['How many proposals are you willing to consider'])}
-                      inputProps={{maxLength: 8}}
+                      inputProps={{ maxLength: 8 }}
                       label={`${t(TranslationKey['Enter the number of proposals'])} *`}
                       labelClasses={classNames.spanLabelSmall}
                       value={formFields.request.maxAmountOfProposals}
@@ -639,7 +660,7 @@ export const CreateOrEditRequestContent = ({
                         } $`
                       }
                       tooltipInfoContent={t(TranslationKey['The price you are willing to pay for the result'])}
-                      inputProps={{maxLength: 8}}
+                      inputProps={{ maxLength: 8 }}
                       label={`${t(TranslationKey['Enter the offer price'])}`}
                       labelClasses={classNames.spanLabelSmall}
                       value={formFields.request.price}
@@ -686,45 +707,73 @@ export const CreateOrEditRequestContent = ({
                     </div>
                   </div>
 
-                  <div className={classNames.performerAndButtonWrapper}>
-                    <div className={classNames.performerAndButtonSubWrapper}>
-                      {announcement?._id && (
-                        <div className={classNames.performerWrapper}>
-                          <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
-                          <div className={classNames.userInfo}>
-                            <Avatar
-                              src={getUserAvatarSrc(announcement?.createdBy?._id)}
-                              className={classNames.cardImg}
-                            />
-
-                            <div className={classNames.nameWrapper}>
-                              <UserLink
-                                blackText
-                                name={announcement?.createdBy?.name}
-                                userId={announcement?.createdBy?._id}
+                  <div
+                    className={cx(classNames.checkboxAndButtonWrapper, classNames.checkboxAndButtonWrapperMarginTop)}
+                  >
+                    <div className={classNames.performerAndButtonWrapper}>
+                      <div className={classNames.performerAndButtonSubWrapper}>
+                        {announcement?._id && (
+                          <div className={classNames.performerWrapper}>
+                            <Typography className={classNames.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
+                            <div className={classNames.userInfo}>
+                              <Avatar
+                                src={getUserAvatarSrc(announcement?.createdBy?._id)}
+                                className={classNames.cardImg}
                               />
-                              <Rating disabled value={5} size="small" classes={classNames.rating} />
+
+                              <div className={classNames.nameWrapper}>
+                                <UserLink
+                                  blackText
+                                  name={announcement?.createdBy?.name}
+                                  userId={announcement?.createdBy?._id}
+                                />
+                                <Rating disabled value={5} size="small" classes={classNames.rating} />
+                              </div>
                             </div>
                           </div>
+                        )}
+                        <Button
+                          disabled={!formFields?.request?.typeTask}
+                          variant={'contained'}
+                          className={classNames.changePerformerBtn}
+                          onClick={async () => {
+                            await onClickChoosePerformer(formFields.request.typeTask)
+                            setOpenModal(true)
+                          }}
+                        >
+                          {announcement
+                            ? t(TranslationKey['Change performer'])
+                            : t(TranslationKey['Select a Performer'])}
+                        </Button>
+                      </div>
+                      {announcement?.title && (
+                        <div className={classNames.performerDescriptionWrapper}>
+                          <Typography className={classNames.performerDescriptionText}>{announcement?.title}</Typography>
                         </div>
                       )}
-                      <Button
-                        disabled={!formFields?.request?.typeTask}
-                        variant={'contained'}
-                        className={classNames.changePerformerBtn}
-                        onClick={async () => {
-                          await onClickChoosePerformer(formFields.request.typeTask)
-                          setOpenModal(true)
+                    </div>
+
+                    <div className={cx(classNames.checkboxProposalWrapper)}>
+                      <div
+                        className={classNames.checkboxWrapper}
+                        onClick={() => {
+                          if (formFields.request.priority === 20) {
+                            onChangeField('request')('priority')({ target: { value: 30 } })
+                          } else {
+                            onChangeField('request')('priority')({ target: { value: 20 } })
+                          }
                         }}
                       >
-                        {announcement ? t(TranslationKey['Change performer']) : t(TranslationKey['Select a Performer'])}
-                      </Button>
-                    </div>
-                    {announcement?.title && (
-                      <div className={classNames.performerDescriptionWrapper}>
-                        <Typography className={classNames.performerDescriptionText}>{announcement?.title}</Typography>
+                        <Checkbox color="primary" checked={formFields.request.priority === 30} />
+                        <Text
+                          className={classNames.priorityText}
+                          tooltipPosition={'corner'} /* tooltipInfoContent={t(TranslationKey['Set urgent priority'])} */
+                        >
+                          {t(TranslationKey['Set urgent priority'])}
+                          <img src="/assets/icons/fire.svg" />
+                        </Text>
                       </div>
-                    )}
+                    </div>
                   </div>
                 </div>
                 {/* {requestToEdit ? (
@@ -808,14 +857,14 @@ export const CreateOrEditRequestContent = ({
 
                   <List>
                     <ListItem className={classNames.adviceListItem}>
-                      <CircleIcon color="primary" classes={{root: classNames.listItemDot}} />
+                      <CircleIcon color="primary" classes={{ root: classNames.listItemDot }} />
 
                       <ListItemText className={classNames.adviceListItemText}>
                         {t(TranslationKey['Read the reviews about the performer'])}
                       </ListItemText>
                     </ListItem>
                     <ListItem className={classNames.adviceListItem}>
-                      <CircleIcon color="primary" classes={{root: classNames.listItemDot}} />
+                      <CircleIcon color="primary" classes={{ root: classNames.listItemDot }} />
 
                       <ListItemText className={classNames.adviceListItemText}>
                         {t(
@@ -826,7 +875,7 @@ export const CreateOrEditRequestContent = ({
                       </ListItemText>
                     </ListItem>
                     <ListItem className={classNames.adviceListItem}>
-                      <CircleIcon color="primary" classes={{root: classNames.listItemDot}} />
+                      <CircleIcon color="primary" classes={{ root: classNames.listItemDot }} />
 
                       <ListItemText className={classNames.adviceListItemText}>
                         {t(
@@ -1021,7 +1070,7 @@ export const CreateOrEditRequestContent = ({
                                   blackText
                                   name={announcement?.createdBy?.name}
                                   userId={announcement?.createdBy?._id}
-                                  customStyles={{maxWidth: 300}}
+                                  customStyles={{ maxWidth: 300 }}
                                 />
                                 <Rating disabled value={5} size="small" classes={classNames.rating} />
                               </div>
@@ -1217,7 +1266,7 @@ export const CreateOrEditRequestContent = ({
                   }
                   disabled={disableSubmit}
                   className={classNames.successBtn}
-                  onClick={onSuccessSubmit}
+                  onClick={() => onClickCreate({ withPublish: false })}
                 >
                   {curStep === stepVariant.STEP_TWO ? (
                     t(TranslationKey['Create a request'])
@@ -1239,7 +1288,7 @@ export const CreateOrEditRequestContent = ({
                     success
                     disabled={disableSubmit}
                     className={classNames.successBtn}
-                    onClick={() => onSuccessSubmit({withPublish: true})}
+                    onClick={() => onClickCreate({ withPublish: true })}
                   >
                     {t(TranslationKey['Create and publish a request'])}
                   </Button>
@@ -1253,11 +1302,11 @@ export const CreateOrEditRequestContent = ({
         <div className={classNames.stepPagination}>
           <div className={classNames.stepPaginationStartBar}></div>
           <div className={classNames.stepPaginationBar}>
-            <div className={classNames.step} style={{width: curStep === stepVariant.STEP_ONE ? '50%' : '100%'}}></div>
+            <div className={classNames.step} style={{ width: curStep === stepVariant.STEP_ONE ? '50%' : '100%' }}></div>
           </div>
           <div
             className={classNames.stepPaginationEndBar}
-            style={{backgroundColor: curStep === stepVariant.STEP_TWO ? '#00B746' : '#c4c4c4'}}
+            style={{ backgroundColor: curStep === stepVariant.STEP_TWO ? '#00B746' : '#c4c4c4' }}
           ></div>
         </div>
         <Typography className={classNames.stepTitle}>
@@ -1273,6 +1322,21 @@ export const CreateOrEditRequestContent = ({
           onClickChooseBtn={setAnnouncement}
           onClickResetPerformerBtn={() => setAnnouncement('')}
           onClickCloseBtn={() => setOpenModal(!openModal)}
+        />
+      </Modal>
+
+      <Modal
+        openModal={showCheckRequestByTypeExists}
+        setOpenModal={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
+        dialogContextClassName={classNames.dialogContextClassName}
+      >
+        <CheckRequestByTypeExists
+          requestsData={requestIds}
+          asin={formFields.request.asin}
+          type={formFields.request.typeTask}
+          onClickRequest={onClickExistingRequest}
+          onClickContinue={() => onCreateSubmit(formFields, images, withPublish, announcement)}
+          onClickCancel={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
         />
       </Modal>
     </div>

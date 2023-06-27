@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -24,7 +24,11 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
   commentInput: {
-    height: 'auto',
+    height: '180px',
+
+    textarea: {
+      height: '100% !important',
+    },
   },
   label: {
     margin: '0 !important',

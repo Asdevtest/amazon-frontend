@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -57,31 +57,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   standartText: {
     color: theme.palette.text.second,
-  },
-
-  allowUrlsWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-  },
-
-  urlInputWrapper: {
-    width: 'auto',
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  httpMethodSelect: {
-    height: '65px',
-    width: '95px',
-  },
-
-  urlInput: {
-    overflowY: 'auto',
-    whiteSpace: 'wrap',
-    height: '65px',
-    marginRight: '20px',
-    width: '450px',
   },
 
   form: {

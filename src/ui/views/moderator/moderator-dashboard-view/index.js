@@ -1,1 +1,1 @@
-export {ModeratorDashboardView} from './moderator-dashboard-view'
+export { ModeratorDashboardView } from './moderator-dashboard-view'

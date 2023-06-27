@@ -1,13 +1,13 @@
-import {filterEmptyBoxes} from './filters'
+import { filterEmptyBoxes } from './filters'
 
 describe('Test filterEmptyBoxes(boxes)', () => {
-  const validTestValue = [{enter: [], expect: true}]
+  const validTestValue = [{ enter: [], expect: true }]
 
   const unvalidTestValue = [
-    {enter: 1, expect: null},
-    {enter: '', expect: null},
-    {enter: false, expect: null},
-    {enter: null, expect: null},
+    { enter: 1, expect: null },
+    { enter: '', expect: null },
+    { enter: false, expect: null },
+    { enter: null, expect: null },
   ]
 
   validTestValue.forEach(value => {

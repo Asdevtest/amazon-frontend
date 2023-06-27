@@ -1,1 +1,1 @@
-export {HighPriorityValue} from './high-priority-value'
+export { HighPriorityValue } from './high-priority-value'

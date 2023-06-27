@@ -1,1 +1,1 @@
-export {TableSupplier} from './table-supplier'
+export { TableSupplier } from './table-supplier'

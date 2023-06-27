@@ -1,19 +1,19 @@
-import {Link, Typography} from '@mui/material'
+import { Link, Typography } from '@mui/material'
 
 import React from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Modal} from '@components/modal'
+import { Button } from '@components/shared/buttons/button'
+import { Modal } from '@components/shared/modal'
 
-import {checkAndMakeAbsoluteUrl} from '@utils/text'
-import {t} from '@utils/translations'
+import { checkAndMakeAbsoluteUrl } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './user-money-transfer-modal.style'
+import { useClassNames } from './user-money-transfer-modal.style'
 
-export const UserMoneyTransferModal = ({openModal, setOpenModal, isWithdraw}) => {
-  const {classes: classNames} = useClassNames()
+export const UserMoneyTransferModal = ({ openModal, setOpenModal, isWithdraw }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>

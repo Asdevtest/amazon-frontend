@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AdminsTasksLightVariationTariff from './ApiV1AdminsTasksLightVariationTariff';
 import ApiV1BoxesClientsLightBatch from './ApiV1BoxesClientsLightBatch';
 import ApiV1BoxesClientsLightDestination from './ApiV1BoxesClientsLightDestination';
 import ApiV1BoxesClientsLightItems from './ApiV1BoxesClientsLightItems';
@@ -136,8 +137,14 @@ class InlineResponse20015 {
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
+            if (data.hasOwnProperty('variationTariff')) {
+                obj['variationTariff'] = ApiV1AdminsTasksLightVariationTariff.constructFromObject(data['variationTariff']);
+            }
             if (data.hasOwnProperty('items')) {
                 obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesClientsLightItems]);
+            }
+            if (data.hasOwnProperty('sub')) {
+                obj['sub'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['sub']);
             }
             if (data.hasOwnProperty('storekeeper')) {
                 obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
@@ -330,10 +337,20 @@ InlineResponse20015.prototype['createdAt'] = undefined;
 InlineResponse20015.prototype['updatedAt'] = undefined;
 
 /**
+ * @member {module:model/ApiV1AdminsTasksLightVariationTariff} variationTariff
+ */
+InlineResponse20015.prototype['variationTariff'] = undefined;
+
+/**
  * Массив коробок.
  * @member {Array.<module:model/ApiV1BoxesClientsLightItems>} items
  */
 InlineResponse20015.prototype['items'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} sub
+ */
+InlineResponse20015.prototype['sub'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper

@@ -1,21 +1,23 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import ZoomOutMapOutlinedIcon from '@mui/icons-material/ZoomOutMapOutlined'
-import {Avatar, Typography} from '@mui/material'
+import { Avatar, Typography } from '@mui/material'
 
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 
-import {Button} from '@components/buttons/button'
+import { ImageZoomForm } from '@components/forms/image-zoom-form'
+import { Button } from '@components/shared/buttons/button'
 // import React, {useEffect, useState} from 'react'
-import {CustomCarousel} from '@components/custom-carousel'
-import {ImageZoomForm} from '@components/forms/image-zoom-form'
-import {Modal} from '@components/modal'
+import { Modal } from '@components/shared/modal'
 
-import {checkIsImageLink} from '@utils/checks'
-import {getShortenStringIfLongerThanCount} from '@utils/text'
-import {downloadFile, downloadFileByLink} from '@utils/upload-files'
+import { checkIsImageLink } from '@utils/checks'
+import { getShortenStringIfLongerThanCount } from '@utils/text'
+import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
-import {useClassNames} from './big-object-images-modal.style'
+import { useClassNames } from './big-object-images-modal.style'
+import { CustomSlider } from '@components/shared/custom-slider'
+import { TranslationKey } from '@constants/translations/translation-key'
+import { t } from '@utils/translations'
 
 export const BigObjectImagesModal = ({
   openModal,
@@ -26,7 +28,7 @@ export const BigObjectImagesModal = ({
   setCurImageId,
   isRedImageComment,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const filteredImagesData = imagesData.filter(el => !!el.image && checkIsImageLink(el.image?.file?.name || el.image))
 
@@ -58,13 +60,13 @@ export const BigObjectImagesModal = ({
   }
 
   const onClickDownloadBtn = () => {
-    const imageObj = {...imagesData.find(el => el._id === curImageId)}
+    const imageObj = { ...imagesData.find(el => el._id === curImageId) }
 
     typeof imageObj.image === 'string' ? downloadFileByLink(imageObj.image) : downloadFile(imageObj.image.file)
   }
 
   const onClickZoomBtn = () => {
-    const imageObj = {...imagesData.find(el => el._id === curImageId)}
+    const imageObj = { ...imagesData.find(el => el._id === curImageId) }
 
     setZoomImage(typeof imageObj.image === 'string' ? imageObj.image : imageObj.image.data_url)
 
@@ -86,7 +88,7 @@ export const BigObjectImagesModal = ({
               >
                 <Avatar
                   className={classNames.imageModalImageLeftSide}
-                  classes={{img: classNames.imageModalImageLeftSide}}
+                  classes={{ img: classNames.imageModalImageLeftSide }}
                   src={
                     typeof item.image === 'string'
                       ? item.image
@@ -113,14 +115,17 @@ export const BigObjectImagesModal = ({
         </div>
 
         <div className={classNames.carouselWrapper}>
-          <CustomCarousel index={curImageIndex} onChangeIndex={onChangeCurImageIndex}>
+          <CustomSlider index={curImageIndex} arrowSize="60px" onChangeIndex={onChangeCurImageIndex}>
             {filteredImagesData.map(item => (
               <div key={item._id} className={classNames.imageModalImageWrapper}>
-                <Typography className={cx(classNames.imageName, classNames.titleName)}>{item.comment}</Typography>
+                {/* {item.comment && <Typography className={cx(classNames.imageName, classNames.titleName)}>{item.comment}</Typography>} */}
+                {/* <Typography className={cx(classNames.imageName, classNames.titleName)}> */}
+                {/*   {t(TranslationKey.Title)} */}
+                {/* </Typography> */}
 
                 <Avatar
                   className={classNames.imageModalImage}
-                  classes={{img: classNames.imageModalImage}}
+                  classes={{ img: classNames.imageModalImage }}
                   src={
                     typeof item.image === 'string'
                       ? item.image
@@ -132,12 +137,12 @@ export const BigObjectImagesModal = ({
                   variant="square"
                 />
 
-                <Typography className={cx(classNames.imageComment, {[classNames.redText]: isRedImageComment})}>
+                <Typography className={cx(classNames.imageComment, { [classNames.redText]: isRedImageComment })}>
                   {item.imageComment}
                 </Typography>
               </div>
             ))}
-          </CustomCarousel>
+          </CustomSlider>
         </div>
 
         <div className={cx(/* classNames.imageModalSubWrapper, */ classNames.imageModalSubWrapperRightSide)}>

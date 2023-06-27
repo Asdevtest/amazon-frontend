@@ -1,1 +1,1 @@
-export {AdminFeedbackView} from './admin-feedback-view'
+export { AdminFeedbackView } from './admin-feedback-view'

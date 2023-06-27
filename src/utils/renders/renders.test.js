@@ -1,8 +1,8 @@
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {renderAttentionTooltipTitle, renderTooltipTitle} from './renders'
+import { renderAttentionTooltipTitle, renderTooltipTitle } from './renders'
 
 describe('Test renderTooltipTitle(categoryTitle, userRole)', () => {
   const buyer = 40

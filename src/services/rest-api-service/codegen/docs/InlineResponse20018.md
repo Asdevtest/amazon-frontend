@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **clientId** | **String** | Клиент владелец товара в коробке в работу. | [optional] 
 **createdById** | **String** | Клиент создавший заказ и коробку. | [optional] 
 **lastModifiedById** | **String** | GUID любого, кто последний редактировал коробку. | [optional] 
+**variationTariff** | [**ApiV1AdminsTasksLightVariationTariff**](ApiV1AdminsTasksLightVariationTariff.md) |  | [optional] 
 **createdAt** | **Date** |  | [optional] 
 **updatedAt** | **Date** |  | [optional] 
 **items** | [**[ApiV1BoxesStorekeepersSentToBatchItems]**](ApiV1BoxesStorekeepersSentToBatchItems.md) | Массив коробок. | [optional] 

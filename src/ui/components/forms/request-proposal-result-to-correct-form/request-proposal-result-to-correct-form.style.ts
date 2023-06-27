@@ -1,13 +1,10 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '586px',
   },
-  reasonInputWrapper: {
-    width: '100%',
-    height: '100%',
-  },
+
   reasonInput: {
     height: 'auto',
     width: '100%',
@@ -51,19 +48,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   input: {
-    // width: '35px',
     width: '100px',
-
     border: 'none',
     padding: 0,
     margin: 0,
-
     borderRadius: 0,
-
     borderBottom: '1px solid #e0e0e0',
-
     '& >::-webkit-outer-spin-button,::-webkit-inner-spin-button': {
-      // '-webkit-appearance': 'none',
       WebkitAppearance: 'none',
       margin: 0,
       padding: 0,
@@ -85,13 +76,8 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
   },
   inputsWrapper: {
-    // width: '300px',
     display: 'flex',
-    // justifyContent: 'space-between',
-
     gap: 30,
-
-    // borderBottom: '1px solid #e0e0e0',
   },
 
   reasonWrapper: {
@@ -107,14 +93,6 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '10px',
   },
 
-  coverLetterWrapper: {
-    width: '100%',
-    marginTop: '30px',
-  },
-
-  coverLetterInput: {
-    height: '136px',
-  },
   totalTime: {
     marginBottom: '30px',
   },

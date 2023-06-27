@@ -1,26 +1,27 @@
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {forwardRef, ReactElement} from 'react'
+import React, { forwardRef, ReactElement } from 'react'
 
-import {compareDesc, parseISO} from 'date-fns'
-import {observer} from 'mobx-react'
+import { compareDesc, parseISO } from 'date-fns'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatContract, ChatUserContract} from '@models/chat-model/contracts'
-import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
-import {SettingsModel} from '@models/settings-model'
+import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
+import { SettingsModel } from '@models/settings-model'
 
-import {OnTypingMessageResponse} from '@services/websocket-chat-service/interfaces'
+import { OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
-import {isNotUndefined} from '@utils/checks'
-import {t} from '@utils/translations'
+import { isNotUndefined } from '@utils/checks'
+import { t } from '@utils/translations'
 
-import {Chat, RenderAdditionalButtonsParams} from '../chat'
-import {ChatMessageUniversalHandlers} from '../chat/chat-messages-list'
-import {ChatsList} from '../chats-list'
-import {useClassNames} from './multiple-chats.style'
+import { Chat, RenderAdditionalButtonsParams } from '../chat'
+import { ChatMessageUniversalHandlers } from '../chat/chat-messages-list'
+import { ChatsList } from '../chats-list'
+import { useClassNames } from './multiple-chats.style'
+import { NoSelectedChat } from '@components/shared/svg-icons'
 
 export interface IFile {
   data_url: string
@@ -55,7 +56,7 @@ interface Props {
 
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   updateData: () => void
-  onSubmitMessage: (message: string, files: IFile[], chat: string) => void
+  onSubmitMessage: (message: string, files: IFile[], chat: string, replyMessageId: string | null) => void
   onClickChat: (chat: ChatContract) => void
   onTypingMessage: (chatId: string) => void
   onClickBackButton: () => void
@@ -91,7 +92,7 @@ export const MultipleChats = observer(
       },
       ref,
     ) => {
-      const {classes: classNames} = useClassNames()
+      const { classes: classNames } = useClassNames()
 
       const filteredChats = chats
         .filter(el => {
@@ -111,6 +112,8 @@ export const MultipleChats = observer(
         })
 
       const findChatByChatId = filteredChats.find((chat: ChatContract) => chat._id === chatSelectedId)
+
+      console.log('findChatByChatId', findChatByChatId)
 
       return (
         <div ref={ref} className={classNames.root}>
@@ -143,9 +146,9 @@ export const MultipleChats = observer(
                   searchPhrase={searchPhrase}
                   renderAdditionalButtons={renderAdditionalButtons}
                   updateData={updateData}
-                  onSubmitMessage={(message: string, files: IFile[]) =>
+                  onSubmitMessage={(message: string, files: IFile[], replyMessageId: string | null) =>
                     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                    onSubmitMessage(message, files, chatSelectedId!)
+                    onSubmitMessage(message, files, chatSelectedId!, replyMessageId)
                   }
                   onTypingMessage={onTypingMessage}
                   onClickBackButton={onClickBackButton}
@@ -155,7 +158,7 @@ export const MultipleChats = observer(
                 />
               ) : (
                 <div className={classNames.noChatWrapper}>
-                  <img src="/assets/icons/no-chats.svg" />
+                  <NoSelectedChat className={classNames.noSelectedChatIcon} />
                   <Typography className={classNames.noChatTitle}>{t(TranslationKey['Choose chat'])}</Typography>
                   <Typography className={classNames.noChatSubTitle}>
                     {t(TranslationKey['Try selecting a dialogue or Find a concrete speaker'])}
@@ -176,9 +179,9 @@ export const MultipleChats = observer(
                   chatMessageHandlers={chatMessageHandlers}
                   renderAdditionalButtons={renderAdditionalButtons}
                   updateData={updateData}
-                  onSubmitMessage={(message: string, files: IFile[]) =>
+                  onSubmitMessage={(message: string, files: IFile[], replyMessageId: string | null) =>
                     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                    onSubmitMessage(message, files, chatSelectedId!)
+                    onSubmitMessage(message, files, chatSelectedId!, replyMessageId)
                   }
                   onTypingMessage={onTypingMessage}
                   onClickBackButton={onClickBackButton}

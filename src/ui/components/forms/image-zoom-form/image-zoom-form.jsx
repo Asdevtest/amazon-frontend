@@ -1,9 +1,9 @@
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import {useClassNames} from './image-zoom-form.style'
+import { useClassNames } from './image-zoom-form.style'
 
-export const ImageZoomForm = ({item}) => {
-  const {classes: classNames} = useClassNames()
+export const ImageZoomForm = ({ item }) => {
+  const { classes: classNames } = useClassNames()
 
   return (
     <img

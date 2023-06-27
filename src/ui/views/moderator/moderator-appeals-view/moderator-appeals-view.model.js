@@ -1,8 +1,8 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 
-import {UserModel} from '@models/user-model'
+import { UserModel } from '@models/user-model'
 
 export class ModeratorAppealsViewModel {
   history = undefined
@@ -10,28 +10,21 @@ export class ModeratorAppealsViewModel {
   error = undefined
   actionStatus = undefined
 
-  drawerOpen = false
   showConfirmModal = false
 
   get user() {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onClickViewMore() {
     this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/appeals/appeal`)
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 
   // setActionStatus(actionStatus) {

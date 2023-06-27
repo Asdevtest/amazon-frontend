@@ -1,32 +1,32 @@
-import {Typography, Tooltip, IconButton, MenuItem, Select, Input} from '@mui/material'
+import { Typography, Tooltip, IconButton, MenuItem, Select, Input } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import ListItemText from '@mui/material/ListItemText'
 import ListSubheader from '@mui/material/ListSubheader'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
-import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
+import { mapUserRoleEnumToKey, UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
-import {Modal} from '@components/modal'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field/field'
+import { Modal } from '@components/shared/modal'
 
-import {checkIsPositiveNum} from '@utils/checks'
-import {t} from '@utils/translations'
+import { checkIsPositiveNum } from '@utils/checks'
+import { t } from '@utils/translations'
 
-import {AddOrEditSinglePermissionForm} from '../add-or-edit-single-permission-form'
-import {useClassNames} from './add-or-edit-group-permission-form.style'
+import { AddOrEditSinglePermissionForm } from '../add-or-edit-single-permission-form'
+import { useClassNames } from './add-or-edit-group-permission-form.style'
 
 export const AddOrEditGroupPermissionForm = observer(
-  ({onCloseModal, onSubmit, isEdit, permissionToEdit, singlePermissions, existingGroupPermissions}) => {
-    const {classes: classNames} = useClassNames()
+  ({ onCloseModal, onSubmit, isEdit, permissionToEdit, singlePermissions, existingGroupPermissions }) => {
+    const { classes: classNames } = useClassNames()
 
     const objectSinglePermissions = singlePermissions.reduce(
-      (prev, item) => ({...prev, [item.role]: prev[item.role] ? [...prev[item.role], item] : [item]}),
+      (prev, item) => ({ ...prev, [item.role]: prev[item.role] ? [...prev[item.role], item] : [item] }),
       {},
     )
 
@@ -60,7 +60,7 @@ export const AddOrEditGroupPermissionForm = observer(
     }
 
     const onChangeField = fieldName => event => {
-      const newFormFields = {...formFields}
+      const newFormFields = { ...formFields }
       newFormFields[fieldName] = event.target.value
 
       if (fieldName === 'key') {
@@ -83,9 +83,9 @@ export const AddOrEditGroupPermissionForm = observer(
       }
 
       const {
-        target: {value},
+        target: { value },
       } = event
-      const newFormFields = {...formFields}
+      const newFormFields = { ...formFields }
       newFormFields.permissions = typeof value === 'string' ? value.split(',') : value
       setFormFields(newFormFields)
     }
@@ -312,7 +312,7 @@ export const AddOrEditGroupPermissionForm = observer(
                           className={[classNames.button, classNames.resetBtn]}
                           color="primary"
                           variant="default"
-                          onClick={() => onChangeField('permissions')({target: {value: []}})}
+                          onClick={() => onChangeField('permissions')({ target: { value: [] } })}
                         >
                           {t(TranslationKey.reset)}
                         </Button>

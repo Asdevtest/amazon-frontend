@@ -20,7 +20,7 @@ import {
 } from './date-time'
 
 describe('Test getYearDate(dateString)', () => {
-  const validTestValue = [{enter: '2023-01-17T08:41:47.680Z', expect: '2023'}]
+  const validTestValue = [{ enter: '2023-01-17T08:41:47.680Z', expect: '2023' }]
 
   validTestValue.forEach(value => {
     test('Valid props', () => {
@@ -30,7 +30,7 @@ describe('Test getYearDate(dateString)', () => {
 })
 
 describe('Test formatDate(dateString)', () => {
-  const validTestValue = [{enter: '2023-01-17T08:41:47.680Z', expect: '17-01-2023'}]
+  const validTestValue = [{ enter: '2023-01-17T08:41:47.680Z', expect: '17-01-2023' }]
 
   validTestValue.forEach(value => {
     test('Valid props', () => {
@@ -40,7 +40,7 @@ describe('Test formatDate(dateString)', () => {
 })
 
 describe('Test formatNormDateTime(dateString)', () => {
-  const validTestValue = [{enter: '1111-11-10T21:29:43.000Z', expect: '10-11-1111 23:19'}]
+  const validTestValue = [{ enter: '1111-11-10T21:29:43.000Z', expect: '10-11-1111 23:19' }]
 
   validTestValue.forEach(value => {
     test('Valid props', () => {
@@ -50,7 +50,7 @@ describe('Test formatNormDateTime(dateString)', () => {
 })
 
 describe('Test formatDateTimeHourAndMinutes(dateString)', () => {
-  const validTestValue = [{enter: '1111-11-10T21:29:43.000Z', expect: '23:19'}]
+  const validTestValue = [{ enter: '1111-11-10T21:29:43.000Z', expect: '23:19' }]
 
   validTestValue.forEach(value => {
     test('Valid props', () => {
@@ -60,7 +60,7 @@ describe('Test formatDateTimeHourAndMinutes(dateString)', () => {
 })
 
 describe('Test formatShortDateTime(dateString)', () => {
-  const validTestValue = [{enter: '1111-11-10T21:29:43.000Z', expect: '10-11-1111 23:19'}]
+  const validTestValue = [{ enter: '1111-11-10T21:29:43.000Z', expect: '10-11-1111 23:19' }]
 
   validTestValue.forEach(value => {
     test('Valid props', () => {
@@ -70,7 +70,7 @@ describe('Test formatShortDateTime(dateString)', () => {
 })
 
 describe('Test formatDateWithoutTime(dateString)', () => {
-  const validTestValue = [{enter: '1111-11-10T21:29:43.000Z', expect: '10-11-1111'}]
+  const validTestValue = [{ enter: '1111-11-10T21:29:43.000Z', expect: '10-11-1111' }]
 
   validTestValue.forEach(value => {
     test('Valid props', () => {
@@ -80,7 +80,7 @@ describe('Test formatDateWithoutTime(dateString)', () => {
 })
 
 describe('Test formatNormDateTimeWithParseISO(dateString)', () => {
-  const validTestValue = [{enter: '1111-11-10T21:29:43.000Z', expect: '10-11-1111 23:19'}]
+  const validTestValue = [{ enter: '1111-11-10T21:29:43.000Z', expect: '10-11-1111 23:19' }]
 
   validTestValue.forEach(value => {
     test('Valid props', () => {
@@ -90,7 +90,7 @@ describe('Test formatNormDateTimeWithParseISO(dateString)', () => {
 })
 
 describe('Test formatDateMonthYear(date)', () => {
-  const validTestValue = [{enter: '2023-01-17T08:41:47.680Z', expect: 'Jan 2023'}]
+  const validTestValue = [{ enter: '2023-01-17T08:41:47.680Z', expect: 'Jan 2023' }]
 
   validTestValue.forEach(value => {
     test('Valid props', () => {
@@ -100,7 +100,7 @@ describe('Test formatDateMonthYear(date)', () => {
 })
 
 describe('Test formatDateMonthYearWithoutFormatISO(date)', () => {
-  const validTestValue = [{enter: '2023-01-17T08:41:47.680Z', expect: 'Jan 2023'}]
+  const validTestValue = [{ enter: '2023-01-17T08:41:47.680Z', expect: 'Jan 2023' }]
 
   validTestValue.forEach(value => {
     test('Valid props', () => {
@@ -110,7 +110,7 @@ describe('Test formatDateMonthYearWithoutFormatISO(date)', () => {
 })
 
 describe('Test formatDateDayMonthYear(date)', () => {
-  const validTestValue = [{enter: '2023-01-17T08:41:47.680Z', expect: '17 January 2023'}]
+  const validTestValue = [{ enter: '2023-01-17T08:41:47.680Z', expect: '17 January 2023' }]
 
   validTestValue.forEach(value => {
     test('Valid props', () => {
@@ -120,7 +120,7 @@ describe('Test formatDateDayMonthYear(date)', () => {
 })
 
 describe('Test formatDateDistanceFromNow(date)', () => {
-  const validTestValue = [{enter: '2023-01-17T08:41:47.680Z'}]
+  const validTestValue = [{ enter: '2023-01-17T08:41:47.680Z' }]
 
   validTestValue.forEach(value => {
     test('Valid props', () => {
@@ -131,7 +131,7 @@ describe('Test formatDateDistanceFromNow(date)', () => {
 })
 
 describe('Test convertDaysToSeconds(days)', () => {
-  const validTestValue = [{enter: 5, expect: 432000}]
+  const validTestValue = [{ enter: 5, expect: 432000 }]
 
   validTestValue.forEach(value => {
     test('Valid props', () => {

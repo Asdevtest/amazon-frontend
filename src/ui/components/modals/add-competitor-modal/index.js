@@ -1,1 +1,1 @@
-export {AddCompetitorModal} from './add-competitor-modal'
+export { AddCompetitorModal } from './add-competitor-modal'

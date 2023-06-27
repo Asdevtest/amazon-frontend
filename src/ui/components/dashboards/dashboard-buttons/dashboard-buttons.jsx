@@ -1,23 +1,23 @@
 /* eslint-disable no-unused-vars */
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
 import React from 'react'
 
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
-import {Message, MyNotificationsIcon, SettingsIcon} from '@constants/svg-icons'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatModel} from '@models/chat-model'
+import { ChatModel } from '@models/chat-model'
 
-import {useClassNames} from '@components/dashboards/dashboard-buttons/dashboard-buttons.style'
+import { useClassNames } from '@components/dashboards/dashboard-buttons/dashboard-buttons.style'
+import { Message, MyNotificationsIcon, SettingsIcon } from '@components/shared/svg-icons'
 
-import {checkIsAdmin, checkIsResearcher, checkIsStorekeeper, checkIsSupervisor} from '@utils/checks'
-import {t} from '@utils/translations'
+import { checkIsAdmin, checkIsResearcher, checkIsStorekeeper, checkIsSupervisor } from '@utils/checks'
+import { t } from '@utils/translations'
 
-export const DashboardButtons = ({user, routes}) => {
-  const {classes: classNames} = useClassNames()
+export const DashboardButtons = ({ user, routes }) => {
+  const { classes: classNames } = useClassNames()
   const history = useHistory()
 
   const unreadMessages = ChatModel.unreadMessages
@@ -25,17 +25,21 @@ export const DashboardButtons = ({user, routes}) => {
   const notices =
     (user.needConfirmPriceChange?.boxes || 0) +
     (user.needConfirmPriceChange?.orders || 0) +
-    (user.needUpdateTariff?.boxes || 0)
+    (user.needUpdateTariff?.boxes || 0) +
+    (user.freelanceNotices?.length || 0)
 
   return (
     <div className={classNames.buttonsWrapper}>
       {!checkIsResearcher(UserRoleCodeMap[user.role]) && (
         <div
           className={classNames.buttonWrapper}
-          onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)}
+          onClick={() => {
+            console.log(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)
+            history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)
+          }}
         >
           <div className={classNames.iconWrapper}>
-            <MyNotificationsIcon classes={{root: classNames.fontSizeLarge}} fontSize="large" />
+            <MyNotificationsIcon classes={{ root: classNames.fontSizeLarge }} fontSize="large" />
             {Number(notices) > 0 ? <div className={classNames.badge}>{notices}</div> : undefined}
           </div>
 
@@ -47,7 +51,7 @@ export const DashboardButtons = ({user, routes}) => {
         onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.messages}`)}
       >
         <div className={classNames.iconWrapper}>
-          <Message classes={{root: classNames.fontSizeLarge}} fontSize="large" />
+          <Message classes={{ root: classNames.fontSizeLarge }} fontSize="large" />
 
           {unreadMessages ? <div className={classNames.badge}>{unreadMessages}</div> : undefined}
         </div>
@@ -62,7 +66,7 @@ export const DashboardButtons = ({user, routes}) => {
           onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.settings}`)}
         >
           <div className={classNames.iconWrapper}>
-            <SettingsIcon classes={{root: classNames.fontSizeLarge}} fontSize="large" />
+            <SettingsIcon classes={{ root: classNames.fontSizeLarge }} fontSize="large" />
           </div>
 
           <Typography className={classNames.title}>

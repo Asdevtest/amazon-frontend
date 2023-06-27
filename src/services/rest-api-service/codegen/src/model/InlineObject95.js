@@ -22,10 +22,11 @@ class InlineObject95 {
     /**
      * Constructs a new <code>InlineObject95</code>.
      * @alias module:model/InlineObject95
+     * @param timeoutAt {Date} Время закрытия заявки.
      */
-    constructor() { 
+    constructor(timeoutAt) { 
         
-        InlineObject95.initialize(this);
+        InlineObject95.initialize(this, timeoutAt);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject95 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, timeoutAt) { 
+        obj['timeoutAt'] = timeoutAt;
     }
 
     /**
@@ -47,20 +49,11 @@ class InlineObject95 {
         if (data) {
             obj = obj || new InlineObject95();
 
-            if (data.hasOwnProperty('execution_time')) {
-                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
+            if (data.hasOwnProperty('timeoutAt')) {
+                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('maxAmountOfProposals')) {
+                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
             }
         }
         return obj;
@@ -70,34 +63,16 @@ class InlineObject95 {
 }
 
 /**
- * Время на выполнение, в минутах.
- * @member {Number} execution_time
+ * Время закрытия заявки.
+ * @member {Date} timeoutAt
  */
-InlineObject95.prototype['execution_time'] = undefined;
+InlineObject95.prototype['timeoutAt'] = undefined;
 
 /**
- * Цена предложения.
- * @member {Number} price
+ * Количество предложений. null без лимитов
+ * @member {Number} maxAmountOfProposals
  */
-InlineObject95.prototype['price'] = undefined;
-
-/**
- * Комментарий к предложению.
- * @member {String} comment
- */
-InlineObject95.prototype['comment'] = undefined;
-
-/**
- * Ссылки на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject95.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * Название предложения
- * @member {String} title
- */
-InlineObject95.prototype['title'] = undefined;
+InlineObject95.prototype['maxAmountOfProposals'] = undefined;
 
 
 

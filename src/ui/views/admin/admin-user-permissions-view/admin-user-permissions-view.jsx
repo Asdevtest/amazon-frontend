@@ -1,47 +1,30 @@
-import React, {Component} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { MainContent } from '@components/layout/main-content'
+import { UserPermissions } from '@components/user/user-permissions/user-permissions'
 
-import {Appbar} from '@components/appbar'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {Navbar} from '@components/navbar'
-import {UserPermissions} from '@components/user-permissions/user-permissions'
+import { AdminUserPermissionsViewModel } from './admin-user-permissions-view.model'
 
-import {t} from '@utils/translations'
+export const AdminUserPermissionsView = observer(props => {
+  const [viewModel] = useState(
+    () =>
+      new AdminUserPermissionsViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
 
-import {AdminUserPermissionsViewModel} from './admin-user-permissions-view.model'
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_PERMISSIONS
-
-@observer
-export class AdminUserPermissionsView extends Component {
-  viewModel = new AdminUserPermissionsViewModel({
-    history: this.props.history,
-    location: this.props.location,
-  })
-
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
-
-  render() {
-    const {drawerOpen, onTriggerDrawerOpen, history} = this.viewModel
-
-    return (
-      <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
-        <Main>
-          <Appbar title={t(TranslationKey['User permissions'])} history={history} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <UserPermissions />
-            </MainContent>
-          </Appbar>
-        </Main>
-      </React.Fragment>
-    )
-  }
-}
+  return (
+    <React.Fragment>
+      <MainContent>
+        <UserPermissions />
+      </MainContent>
+    </React.Fragment>
+  )
+})

@@ -1,29 +1,29 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import {Link, Typography} from '@mui/material'
+import { Link, Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {CopyValue} from '@components/copy-value/copy-value'
-import {Field} from '@components/field/field'
-import {WithSearchSelect} from '@components/selects/with-search-select'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { Field } from '@components/shared/field/field'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getFullTariffTextForBoxOrOrder} from '@utils/text'
-import {t} from '@utils/translations'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './box-for-merge.style'
+import { useClassNames } from './box-for-merge.style'
 
-export const BoxForMerge = ({box, readOnly = false, index, destinations}) => {
-  const {classes: classNames} = useClassNames()
+export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
+  const { classes: classNames } = useClassNames()
   const [showFullCard, setShowFullCard] = useState(true)
 
   return (
     <div className={classNames.box}>
       <Typography className={classNames.boxTitle}>{`${t(TranslationKey.Box)} № ${box.humanFriendlyId}`}</Typography>
-      <div className={classNames.itemsWrapper}>
+      <div>
         <div>
           {box.items.map((order, orderIndex) => (
             <div key={`box_${box._id}_${readOnly ? 1 : 0}_${index}`}>
@@ -32,7 +32,11 @@ export const BoxForMerge = ({box, readOnly = false, index, destinations}) => {
                 <div>
                   <div className={classNames.asinWrapper}>
                     <Typography className={classNames.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
-                    <Typography className={classNames.asinValue}>{order.product.asin}</Typography>
+
+                    <div className={classNames.asinTextWrapper}>
+                      <Typography className={classNames.asinValue}>{order.product.asin}</Typography>
+                      {order.product.asin && <CopyValue text={order.product.asin} />}
+                    </div>
                   </div>
 
                   <div className={classNames.asinWrapper}>
@@ -83,15 +87,15 @@ export const BoxForMerge = ({box, readOnly = false, index, destinations}) => {
               labelClasses={classNames.label}
               inputComponent={
                 <div>
-                  <Typography className={classNames.storekeeperDisableBtn}>{`${
-                    box.storekeeper?.name
-                  } / ${getFullTariffTextForBoxOrOrder(box)}`}</Typography>
+                  <Typography className={classNames.storekeeperDisableBtn}>
+                    {getNewTariffTextForBoxOrOrder(box)}
+                  </Typography>
                 </div>
               }
             />
             <Field
               disabled
-              inputProps={{maxLength: 255}}
+              inputProps={{ maxLength: 255 }}
               tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
               containerClasses={classNames.field}
               labelClasses={classNames.label}
@@ -101,7 +105,7 @@ export const BoxForMerge = ({box, readOnly = false, index, destinations}) => {
             />
             <Field
               disabled
-              inputProps={{maxLength: 255}}
+              inputProps={{ maxLength: 255 }}
               containerClasses={classNames.field}
               labelClasses={classNames.label}
               className={classNames.fieldInput}

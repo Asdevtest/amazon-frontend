@@ -1,18 +1,18 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import {AdministratorModel} from '@models/administrator-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {UserModel} from '@models/user-model'
+import { AdministratorModel } from '@models/administrator-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
-import {adminTasksViewColumns} from '@components/table-columns/admin/tasks-columns'
+import { adminTasksViewColumns } from '@components/table/table-columns/admin/tasks-columns'
 
-import {adminTasksDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import { adminTasksDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDate } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 
 export class AdminWarehouseTasksViewModel {
   history = undefined
@@ -23,46 +23,25 @@ export class AdminWarehouseTasksViewModel {
   tasksData = []
   curOpenedTask = {}
 
-  drawerOpen = false
-
   rowHandlers = {
     setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
   }
 
   sortModel = []
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel = adminTasksViewColumns(this.rowHandlers)
 
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
+
   showTaskInfoModal = false
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-  }
-
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = this.columnsModel.map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {
@@ -81,6 +60,23 @@ export class AdminWarehouseTasksViewModel {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
   }
 
   setDataGridState(state) {
@@ -119,21 +115,17 @@ export class AdminWarehouseTasksViewModel {
     })
   }
 
-  onChangeDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
   onChangeSortingModel(sortModel) {
     runInAction(() => {
       this.sortModel = sortModel
     })
+
+    this.setDataGridState()
   }
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
+      this.rowSelectionModel = model
     })
   }
 
@@ -147,7 +139,7 @@ export class AdminWarehouseTasksViewModel {
 
       runInAction(() => {
         this.tasksData = adminTasksDataConverter(
-          result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({...el, beforeBoxes: el.boxesBefore})),
+          result.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({ ...el, beforeBoxes: el.boxesBefore })),
         )
       })
     } catch (error) {
@@ -166,9 +158,10 @@ export class AdminWarehouseTasksViewModel {
 
   async setCurrentOpenedTask(item) {
     try {
-      const task = await StorekeeperModel.getTaskById(item._id)
-
-      const result = await UserModel.getPlatformSettings()
+      const [task, result] = await Promise.all([
+        StorekeeperModel.getTaskById(item._id),
+        UserModel.getPlatformSettings(),
+      ])
 
       runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
@@ -185,18 +178,6 @@ export class AdminWarehouseTasksViewModel {
   onTriggerOpenModal(modal) {
     runInAction(() => {
       this[modal] = !this[modal]
-    })
-  }
-
-  onChangeCurPage = e => {
-    runInAction(() => {
-      this.curPage = e
-    })
-  }
-
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
     })
   }
 }

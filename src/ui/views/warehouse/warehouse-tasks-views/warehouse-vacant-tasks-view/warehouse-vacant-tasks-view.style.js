@@ -1,4 +1,4 @@
-import {keyframes} from '@emotion/react'
+import { keyframes } from '@emotion/react'
 
 const ani = keyframes`
   0% {
@@ -12,16 +12,8 @@ const ani = keyframes`
 `
 
 export const styles = theme => ({
-  // tableWrapper: {
-  //   marginTop: '32px',
-  //   width: '100%',
-  //   height: '100%',
-  // },
-
   tableWrapper: {
-    // height: 'calc(100vh - 180px)',
     height: 'calc(100vh - 250px)',
-
     [theme.breakpoints.down(1282)]: {
       height: 'calc(100vh - 250px)',
     },
@@ -29,8 +21,6 @@ export const styles = theme => ({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
   },
 
@@ -41,6 +31,7 @@ export const styles = theme => ({
     flexDirection: 'row !important',
     display: 'flex !important',
     alignItems: 'center !important',
+    overflow: 'visible',
   },
   iconSeparator: {
     padding: '0 1px',
@@ -51,13 +42,13 @@ export const styles = theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
-    [theme.breakpoints.down(1282)]: {},
   },
 
-  alignmentUnit: {
-    [theme.breakpoints.down(1282)]: {
-      display: 'none',
-    },
+  headerContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 40,
+    flexWrap: 'wrap',
   },
 
   footerContainer: {
@@ -108,11 +99,6 @@ export const styles = theme => ({
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
-
-    // '&:hover': {
-    //   transform: 'scale(1.01)',
-    // },
-
     border: 0,
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     backgroundColor: theme.palette.background.general,
@@ -136,17 +122,25 @@ export const styles = theme => ({
   },
 
   pickupOrdersButton: {
-    padding: '0 25px',
+    padding: '0 20px',
     height: 40,
     color: '#fff',
+    display: 'flex',
+    gap: 10,
+  },
+
+  downloadIcon: {
+    color: '#fff',
+  },
+
+  disabledDownloadIcon: {
+    color: theme.palette.button.disabledText,
   },
 
   acceptMessageWrapper: {
     position: 'absolute',
     top: 0,
-    // top: '50%',
     left: '50%',
-
     padding: '10px',
     marginTop: '63px',
     zIndex: 999,
@@ -159,49 +153,32 @@ export const styles = theme => ({
     boxShadow: 'inset 0 0 35px rgba(0, 255, 0, .5)',
   },
 
-  warningRow: {
-    boxShadow: 'inset 0 0 35px rgba(255, 0, 0, .5)',
-  },
-
   button: {
-    padding: '0 15px',
-    height: 'auto',
+    padding: '0 15px 5px',
+    height: 40,
     whiteSpace: 'nowrap',
-    marginBottom: 5,
     color: theme.palette.primary.main,
-
     display: 'flex',
     alignItems: 'center !important',
     gap: '12px',
     justifyContent: 'center',
-
     fontSize: 14,
     fontWeight: 600,
-
     '&>disabled': {
       backgroundColor: 'inherit',
     },
   },
 
   boxesFiltersWrapper: {
-    marginTop: '5px',
-    marginBottom: '10px',
     display: 'flex',
     gap: '10px',
     flexWrap: 'wrap',
   },
 
   selectedBoxesBtn: {
-    marginBottom: 0,
+    paddingBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
-
-    borderBottom: '5px solid #0460DE',
-
+    borderBottom: theme.palette.other.tableActiveFilterBtn,
     color: `${theme.palette.primary.main} !important`,
-  },
-
-  rushOrderImg: {
-    width: '12px',
-    height: '14px',
   },
 })

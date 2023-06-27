@@ -1,14 +1,14 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 
-import {Button} from '@components/buttons/button'
-import {Modal} from '@components/modal'
+import { Button } from '@components/shared/buttons/button'
+import { Modal } from '@components/shared/modal'
 
-import {useClassNames} from './success-info-modal.style'
+import { useClassNames } from './success-info-modal.style'
 
-export const SuccessInfoModal = ({openModal, setOpenModal, title, successBtnText, onClickSuccessBtn}) => {
-  const {classes: classNames} = useClassNames()
+export const SuccessInfoModal = ({ openModal, setOpenModal, title, successBtnText, onClickSuccessBtn }) => {
+  const { classes: classNames } = useClassNames()
 
   useEffect(() => {
     const listener = event => {

@@ -1,31 +1,39 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Checkbox, Divider, Grid, Link, Typography, Tooltip} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Checkbox, Divider, Grid, Link, Typography, Tooltip } from '@mui/material'
 
-import {React, useState} from 'react'
+import React, { useMemo, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
+import {
+  getConversion,
+  getWeightConversion,
+  getWeightSizesType,
+  getlengthConversion,
+  inchesCoefficient,
+  poundsWeightCoefficient,
+  sizesType,
+  unitsOfChangeOptions,
+} from '@constants/configs/sizes-settings'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value/copy-value'
-import {CustomCarousel} from '@components/custom-carousel'
-import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
-import {Field} from '@components/field/field'
-import {Input} from '@components/input'
-import {Modal} from '@components/modal'
-import {BigImagesModal} from '@components/modals/big-images-modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
-import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
-import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
-import {UserLink} from '@components/user-link'
+import { BigImagesModal } from '@components/modals/big-images-modal'
+import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { Button } from '@components/shared/buttons/button'
+import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
+import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { Field } from '@components/shared/field/field'
+import { Input } from '@components/shared/input'
+import { Modal } from '@components/shared/modal'
+import { UserLink } from '@components/user/user-link'
 
-import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
-import {checkIsBuyer, checkIsClient, checkIsStorekeeper} from '@utils/checks'
-import {formatShortDateTime} from '@utils/date-time'
+import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
+import { checkIsBuyer, checkIsClient, checkIsStorekeeper } from '@utils/checks'
+import { formatShortDateTime } from '@utils/date-time'
 import {
   getShortenStringIfLongerThanCount,
   checkAndMakeAbsoluteUrl,
@@ -33,10 +41,13 @@ import {
   shortAsin,
   toFixed,
   toFixedWithKg,
+  getNewTariffTextForBoxOrOrder,
 } from '@utils/text'
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './box-view-form.style'
+import { useClassNames } from './box-view-form.style'
+import { CustomSlider } from '@components/shared/custom-slider'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 export const BoxViewForm = observer(
   ({
@@ -50,48 +61,53 @@ export const BoxViewForm = observer(
     onClickHsCode,
     calcFinalWeightForBoxFunction,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
-    const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+    const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
     const [showPhotosModal, setShowPhotosModal] = useState(false)
 
-    const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
-    const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
-    const isBuyer = checkIsBuyer(UserRoleCodeMap[userInfo?.role])
-
-    const isEdit = isClient || isStorekeeper || isBuyer
-
-    const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+    const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
 
-    const handleChange = (event, newAlignment) => {
-      setSizeSetting(newAlignment)
+    const sourceFormFields = {
+      ...box,
+      prepId: box.prepId || '',
+      tmpTrackNumberFile: [],
     }
 
-    const [formFields, setFormFields] = useState({...box, tmpTrackNumberFile: []})
+    const [formFields, setFormFields] = useState(sourceFormFields)
 
     const onChangeField = fieldName => event => {
-      const newFormFields = {...formFields}
+      const newFormFields = { ...formFields }
       newFormFields[fieldName] = event.target.value
 
       setFormFields(newFormFields)
     }
 
     const onChangeHsCode = index => event => {
-      const newFormFields = {...formFields}
+      const newFormFields = { ...formFields }
       newFormFields.items[index].product.hsCode = event.target.value
 
       setFormFields(newFormFields)
     }
 
     const setTmpTrackNumberFile = () => value => {
-      onChangeField('tmpTrackNumberFile')({target: {value}})
+      onChangeField('tmpTrackNumberFile')({ target: { value } })
     }
 
     const finalWeightForBox = calcFinalWeightForBoxFunction
       ? calcFinalWeightForBoxFunction(box, volumeWeightCoefficient)
       : calcFinalWeightForBox(box, volumeWeightCoefficient)
+
+    const isClient = checkIsClient(UserRoleCodeMap[userInfo?.role])
+    const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
+    const isBuyer = checkIsBuyer(UserRoleCodeMap[userInfo?.role])
+    const isEdit = isClient || isStorekeeper || isBuyer
+    const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
+    const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
+    const totalWeightConversion = getConversion(sizeSetting, 12 / poundsWeightCoefficient, 12)
+    const weightSizesType = getWeightSizesType(sizeSetting)
 
     return (
       <div className={classNames.formContainer}>
@@ -106,8 +122,8 @@ export const BoxViewForm = observer(
               <Input
                 disabled={!(isClient || isStorekeeper)}
                 className={classNames.itemInput}
-                classes={{input: classNames.input}}
-                inputProps={{maxLength: 25}}
+                classes={{ input: classNames.input }}
+                inputProps={{ maxLength: 25 }}
                 value={formFields.prepId}
                 onChange={onChangeField('prepId')}
               />
@@ -174,148 +190,19 @@ export const BoxViewForm = observer(
                   inputClasses={classNames.deliveryInfoField}
                   labelClasses={classNames.label}
                   label={t(TranslationKey.Tariff)}
-                  value={getFullTariffTextForBoxOrOrder(box) || ''}
+                  value={getNewTariffTextForBoxOrOrder(box) || ''}
                   placeholder={t(TranslationKey['Not available'])}
                 />
               </Grid>
             </Grid>
 
             <div className={classNames.productsWrapper}>
-              <CustomCarousel alignButtons="end">
-                {formFields.items.map((item, index) => (
-                  <div key={index} className={classNames.productWrapper}>
-                    <div className={classNames.leftColumn}>
-                      <div className={classNames.photoWrapper}>
-                        <PhotoCarousel isAmazonPhoto files={item.product.images} />
-                      </div>
-                      <Tooltip placement={'right-start'} title={item.product.amazonTitle}>
-                        <Typography className={classNames.amazonTitle}>
-                          {getShortenStringIfLongerThanCount(item.product.amazonTitle, 100)}
-                        </Typography>
-                      </Tooltip>
-
-                      <div className={classNames.copyAsin}>
-                        <div className={classNames.asinWrapper}>
-                          <Typography>{t(TranslationKey.ASIN)}</Typography>
-                          {item.product.asin ? (
-                            <a
-                              target="_blank"
-                              rel="noreferrer"
-                              href={`https://www.amazon.com/dp/${item.product.asin}`}
-                              className={classNames.normalizeLink}
-                            >
-                              <span className={classNames.linkSpan}>{shortAsin(item.product.asin)}</span>
-                            </a>
-                          ) : (
-                            <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
-                          )}
-                        </div>
-                        {item.product.asin ? <CopyValue text={item.product.asin} /> : null}
-                      </div>
-                    </div>
-
-                    <div className={classNames.rightColumn}>
-                      <Field
-                        inputClasses={classNames.countField}
-                        labelClasses={classNames.label}
-                        label={t(TranslationKey['HS code'])}
-                        inputProps={{maxLength: 255}}
-                        value={item.product.hsCode}
-                        placeholder={t(TranslationKey['Not available'])}
-                        inputComponent={
-                          <Button className={classNames.hsCodeBtn} onClick={() => onClickHsCode(item.product._id)}>
-                            {t(TranslationKey['HS code'])}
-                          </Button>
-                        }
-                        onChange={onChangeHsCode(index)}
-                      />
-
-                      <div className={classNames.priorityWrapper}>
-                        <Typography className={classNames.label}>{`${t(TranslationKey.Priority)}:`}</Typography>
-                        {item.order.priority === '40' ? (
-                          <div className={classNames.rushOrderWrapper}>
-                            <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" />
-                            <Typography className={classNames.rushOrder}>{t(TranslationKey['Rush order'])}</Typography>
-                          </div>
-                        ) : null}
-                        {/* {item.order.expressChinaDelivery ? (
-                          <div className={classNames.rushOrderWrapper}>
-                            <img className={classNames.rushOrderImg} src="/assets/icons/truck.svg" />
-                            <Typography className={classNames.rushOrder}>
-                              {t(TranslationKey['Express delivery'])}
-                            </Typography>
-                          </div>
-                        ) : null} */}
-                        {item.order.priority !== '40' && !item.order.expressChinaDelivery ? (
-                          <div className={classNames.rushOrderWrapper}>
-                            <Typography className={classNames.rushOrder}>
-                              {t(TranslationKey['Medium priority'])}
-                            </Typography>
-                          </div>
-                        ) : null}
-                      </div>
-
-                      <Field
-                        label={t(TranslationKey.BarCode)}
-                        labelClasses={classNames.label}
-                        inputComponent={
-                          item.barCode ? (
-                            <div className={classNames.barCode}>
-                              <Typography className={classNames.linkWrapper}>
-                                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
-                                  {t(TranslationKey.View)}
-                                </Link>
-                              </Typography>
-
-                              <CopyValue text={item.barCode} />
-                            </div>
-                          ) : (
-                            <Typography className={classNames.linkField}>
-                              {t(TranslationKey['Not available'])}
-                            </Typography>
-                          )
-                        }
-                      />
-
-                      {item.isBarCodeAlreadyAttachedByTheSupplier ? (
-                        <Field
-                          oneLine
-                          containerClasses={classNames.checkboxContainer}
-                          labelClasses={classNames.label}
-                          label={t(TranslationKey['BarCode is glued by supplier'])}
-                          inputComponent={<Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />}
-                        />
-                      ) : (
-                        <Field
-                          oneLine
-                          containerClasses={classNames.checkboxContainer}
-                          labelClasses={classNames.label}
-                          label={t(TranslationKey['BarCode is glued by storekeeper'])}
-                          inputComponent={<Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />}
-                        />
-                      )}
-                      <Field
-                        disabled
-                        inputClasses={classNames.countField}
-                        containerClasses={classNames.countContainer}
-                        labelClasses={classNames.label}
-                        label={t(TranslationKey.Quantity)}
-                        value={(box.amount > 1 ? `${item.amount} * ${box.amount}` : item.amount) || 0}
-                        placeholder={t(TranslationKey['Not available'])}
-                      />
-
-                      <Field
-                        disabled
-                        inputClasses={classNames.countField}
-                        containerClasses={classNames.countContainer}
-                        labelClasses={classNames.label}
-                        label={t(TranslationKey['Order number/Item'])}
-                        value={`${item.order?.id} / ${item.order?.item ? item.order?.item : '-'}`}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </CustomCarousel>
+              <Content
+                items={formFields.items}
+                box={box}
+                onClickHsCode={onClickHsCode}
+                onChangeHsCode={onChangeHsCode}
+              />
             </div>
           </div>
 
@@ -333,54 +220,58 @@ export const BoxViewForm = observer(
                   <div className={classNames.sizesSubWrapper}>
                     <Typography className={classNames.label}>{t(TranslationKey.Dimensions) + ':'}</Typography>
 
-                    <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-                      <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                        {'In'}
-                      </ToggleBtn>
-                      <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                        {'Cm'}
-                      </ToggleBtn>
-                    </ToggleBtnGroup>
+                    <CustomSwitcher
+                      condition={sizeSetting}
+                      nameFirstArg={unitsOfChangeOptions.EU}
+                      nameSecondArg={unitsOfChangeOptions.US}
+                      firstArgValue={unitsOfChangeOptions.EU}
+                      secondArgValue={unitsOfChangeOptions.US}
+                      changeConditionHandler={condition => setSizeSetting(condition)}
+                    />
                   </div>
                   <Typography className={classNames.standartText}>
                     {t(TranslationKey.Length) + ': '}
-                    {toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                    {toFixed(box.lengthCmWarehouse / lengthConversion, 2)}
                   </Typography>
                   <Typography className={classNames.standartText}>
                     {t(TranslationKey.Width) + ': '}
-                    {toFixed(box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                    {toFixed(box.widthCmWarehouse / lengthConversion, 2)}
                   </Typography>
                   <Typography className={classNames.standartText}>
                     {t(TranslationKey.Height) + ': '}
-                    {toFixed(box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                    {toFixed(box.heightCmWarehouse / lengthConversion, 2)}
                   </Typography>
 
                   <Typography className={classNames.standartText}>
                     {t(TranslationKey.Weight) + ': '}
-                    {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
+                    {toFixed(box.weighGrossKgWarehouse / weightConversion, 2)}
                   </Typography>
                   <Typography className={classNames.standartText}>
                     {t(TranslationKey['Volume weight']) + ': '}
-                    {toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}
+                    {toFixed(calcVolumeWeightForBox(box, volumeWeightCoefficient) / weightConversion, 2)}
                   </Typography>
                   <Typography
                     className={cx(classNames.standartText, {
-                      [classNames.alertText]: finalWeightForBox < 12,
+                      [classNames.alertText]: finalWeightForBox / weightConversion < totalWeightConversion,
                     })}
                   >
                     {t(TranslationKey['Final weight']) + ': '}
-                    {toFixedWithKg(finalWeightForBox, 2)}
+                    {`${toFixed(finalWeightForBox / weightConversion, 2)} ${weightSizesType}!`}
                   </Typography>
 
-                  {finalWeightForBox < 12 ? (
+                  {finalWeightForBox / weightConversion < totalWeightConversion ? (
                     // eslint-disable-next-line react/jsx-indent
-                    <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
+                    <span className={classNames.alertText}>{`${t(TranslationKey['Weight less than'])} ${toFixed(
+                      totalWeightConversion,
+                      2,
+                    )} ${weightSizesType}!`}</span>
                   ) : null}
 
                   {box.amount > 1 ? (
                     <Typography className={classNames.standartText}>
                       {t(TranslationKey['Total final weight']) + ': '}
-                      {toFixedWithKg(finalWeightForBox * box.amount, 2)}
+                      {toFixed((finalWeightForBox / weightConversion) * box.amount, 2)}
+                      {' ' + weightSizesType}
                     </Typography>
                   ) : null}
                 </div>
@@ -462,7 +353,7 @@ export const BoxViewForm = observer(
                   labelClasses={classNames.label}
                   containerClasses={classNames.containerField}
                   inputClasses={classNames.shortInputField}
-                  inputProps={{maxLength: 250}}
+                  inputProps={{ maxLength: 250 }}
                   label={t(TranslationKey['Reference id'])}
                   value={formFields.referenceId}
                   onChange={onChangeField('referenceId')}
@@ -473,7 +364,7 @@ export const BoxViewForm = observer(
                   labelClasses={classNames.label}
                   containerClasses={classNames.containerField}
                   inputClasses={classNames.shortInputField}
-                  inputProps={{maxLength: 250}}
+                  inputProps={{ maxLength: 250 }}
                   label={'FBA number'}
                   value={formFields.fbaNumber}
                   onChange={onChangeField('fbaNumber')}
@@ -484,7 +375,7 @@ export const BoxViewForm = observer(
                   labelClasses={classNames.label}
                   containerClasses={classNames.containerField}
                   inputClasses={classNames.inputField}
-                  inputProps={{maxLength: 250}}
+                  inputProps={{ maxLength: 250 }}
                   label={'UPS Track number'}
                   value={formFields.upsTrackNumber}
                   onChange={onChangeField('upsTrackNumber')}
@@ -499,7 +390,7 @@ export const BoxViewForm = observer(
                       labelClasses={classNames.label}
                       containerClasses={classNames.containerField}
                       inputClasses={classNames.inputField}
-                      inputProps={{maxLength: 250}}
+                      inputProps={{ maxLength: 250 }}
                       label={t(TranslationKey['Track number'])}
                       value={formFields.trackNumberText}
                       onChange={onChangeField('trackNumberText')}
@@ -516,7 +407,7 @@ export const BoxViewForm = observer(
 
                   <div className={classNames.trackNumberPhotoWrapper}>
                     {formFields.trackNumberFile[0] || formFields.tmpTrackNumberFile[0] ? (
-                      <CustomCarousel>
+                      <CustomSlider>
                         {(formFields.trackNumberFile.length
                           ? formFields.trackNumberFile
                           : formFields.tmpTrackNumberFile
@@ -548,7 +439,7 @@ export const BoxViewForm = observer(
                             }}
                           />
                         ))}
-                      </CustomCarousel>
+                      </CustomSlider>
                     ) : (
                       <Typography>{'no photo track number...'}</Typography>
                     )}
@@ -618,9 +509,144 @@ export const BoxViewForm = observer(
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
+          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
       </div>
     )
+  },
+)
+
+const Content = React.memo(
+  ({ items, box, onClickHsCode, onChangeHsCode }) => {
+    const { classes: classNames } = useClassNames()
+
+    return (
+      <CustomSlider alignButtons="end">
+        {items.map((item, index) => (
+          <div key={index} className={classNames.productWrapper}>
+            <div className={classNames.leftColumn}>
+              <div className={classNames.photoWrapper}>
+                <PhotoCarousel isAmazonPhoto files={item.product.images} />
+              </div>
+              <Tooltip placement={'right-start'} title={item.product.amazonTitle}>
+                <Typography className={classNames.amazonTitle}>
+                  {getShortenStringIfLongerThanCount(item.product.amazonTitle, 100)}
+                </Typography>
+              </Tooltip>
+
+              <div className={classNames.copyAsin}>
+                <div className={classNames.asinWrapper}>
+                  <Typography>{t(TranslationKey.ASIN)}</Typography>
+                  {item.product.asin ? (
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      href={`https://www.amazon.com/dp/${item.product.asin}`}
+                      className={classNames.normalizeLink}
+                    >
+                      <span className={classNames.linkSpan}>{shortAsin(item.product.asin)}</span>
+                    </a>
+                  ) : (
+                    <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
+                  )}
+                </div>
+                {item.product.asin ? <CopyValue text={item.product.asin} /> : null}
+              </div>
+            </div>
+
+            <div className={classNames.rightColumn}>
+              <Field
+                labelClasses={classNames.label}
+                label={t(TranslationKey['HS code'])}
+                inputProps={{ maxLength: 255 }}
+                value={item.product.hsCode}
+                placeholder={t(TranslationKey['Not available'])}
+                inputComponent={
+                  <Button className={classNames.hsCodeBtn} onClick={() => onClickHsCode(item.product._id)}>
+                    {t(TranslationKey['HS code'])}
+                  </Button>
+                }
+                onChange={onChangeHsCode(index)}
+              />
+
+              <div className={classNames.priorityWrapper}>
+                <Typography className={classNames.label}>{`${t(TranslationKey.Priority)}:`}</Typography>
+                {item.order.priority === '40' ? (
+                  <div className={classNames.rushOrderWrapper}>
+                    <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" />
+                    <Typography className={classNames.rushOrder}>{t(TranslationKey['Rush order'])}</Typography>
+                  </div>
+                ) : null}
+                {item.order.priority !== '40' && !item.order.expressChinaDelivery ? (
+                  <div className={classNames.rushOrderWrapper}>
+                    <Typography className={classNames.rushOrder}>{t(TranslationKey['Medium priority'])}</Typography>
+                  </div>
+                ) : null}
+              </div>
+
+              <Field
+                label={t(TranslationKey.BarCode)}
+                labelClasses={classNames.label}
+                inputComponent={
+                  item.barCode ? (
+                    <div className={classNames.barCode}>
+                      <Typography className={classNames.linkWrapper}>
+                        <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
+                          {t(TranslationKey.View)}
+                        </Link>
+                      </Typography>
+
+                      <CopyValue text={item.barCode} />
+                    </div>
+                  ) : (
+                    <Typography className={classNames.linkField}>{t(TranslationKey['Not available'])}</Typography>
+                  )
+                }
+              />
+
+              {item.isBarCodeAlreadyAttachedByTheSupplier ? (
+                <Field
+                  oneLine
+                  containerClasses={classNames.checkboxContainer}
+                  labelClasses={classNames.label}
+                  label={t(TranslationKey['BarCode is glued by supplier'])}
+                  inputComponent={<Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />}
+                />
+              ) : (
+                <Field
+                  oneLine
+                  containerClasses={classNames.checkboxContainer}
+                  labelClasses={classNames.label}
+                  label={t(TranslationKey['BarCode is glued by storekeeper'])}
+                  inputComponent={<Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />}
+                />
+              )}
+              <Field
+                disabled
+                containerClasses={classNames.countContainer}
+                labelClasses={classNames.label}
+                label={t(TranslationKey.Quantity)}
+                value={(box.amount > 1 ? `${item.amount} * ${box.amount}` : item.amount) || 0}
+                placeholder={t(TranslationKey['Not available'])}
+              />
+
+              <Field
+                disabled
+                containerClasses={classNames.countContainer}
+                labelClasses={classNames.label}
+                label={t(TranslationKey['Order number/Item'])}
+                value={`${item.order?.id} / ${item.order?.item ? item.order?.item : '-'}`}
+              />
+            </div>
+          </div>
+        ))}
+      </CustomSlider>
+    )
+  },
+  (prevProps, nextProps) => {
+    if (prevProps.items === nextProps.items && prevProps.box === nextProps.box) {
+      return true
+    }
+    return false
   },
 )

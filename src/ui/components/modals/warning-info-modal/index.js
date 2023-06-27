@@ -1,1 +1,1 @@
-export {WarningInfoModal} from './warning-info-modal'
+export { WarningInfoModal } from './warning-info-modal'

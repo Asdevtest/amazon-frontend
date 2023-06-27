@@ -1,1 +1,1 @@
-export {SuppliersAndIdeas} from './suppliers-and-ideas'
+export { SuppliersAndIdeas } from './suppliers-and-ideas'

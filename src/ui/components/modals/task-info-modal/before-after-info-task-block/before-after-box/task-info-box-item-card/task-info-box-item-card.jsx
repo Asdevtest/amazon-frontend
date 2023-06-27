@@ -1,22 +1,22 @@
-import {Paper, Typography, Checkbox, Link} from '@mui/material'
+import { Paper, Typography, Checkbox, Link } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field'
-import {Input} from '@components/input'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field'
+import { Input } from '@components/shared/input'
 
-import {calcMaxDeliveryForProduct, calcTotalFbaForProduct} from '@utils/calculation'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {checkAndMakeAbsoluteUrl, toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { calcMaxDeliveryForProduct, calcTotalFbaForProduct } from '@utils/calculation'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './task-info-box-item-card.style'
+import { useClassNames } from './task-info-box-item-card.style'
 
-export const TaskInfoBoxItemCard = ({item, superCount}) => {
-  const {classes: classNames} = useClassNames()
+export const TaskInfoBoxItemCard = ({ item, superCount }) => {
+  const { classes: classNames } = useClassNames()
   const [collapsed, setCollapsed] = useState(false)
 
   return (
@@ -36,7 +36,11 @@ export const TaskInfoBoxItemCard = ({item, superCount}) => {
           <div className={classNames.attributeWrapper}>
             <div className={classNames.countWrapper}>
               <Typography className={classNames.subTitle}>{t(TranslationKey.Quantity) + ':'}</Typography>
-              <Input readOnly classes={{root: classNames.inputWrapper, input: classNames.input}} value={item.amount} />
+              <Input
+                readOnly
+                classes={{ root: classNames.inputWrapper, input: classNames.input }}
+                value={item.amount}
+              />
               {superCount > 1 && <Typography className={classNames.superCount}>{`x ${superCount}`}</Typography>}
             </div>
 

@@ -60,7 +60,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID тарифа.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject110() // InlineObject110 | 
+  'body': new TestSwagger.InlineObject111() // InlineObject111 | 
 };
 apiInstance.apiV1StorekeepersBoxesCommentGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID тарифа. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject110**](InlineObject110.md)|  | [optional] 
+ **body** | [**InlineObject111**](InlineObject111.md)|  | [optional] 
 
 ### Return type
 
@@ -176,7 +176,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID тарифа.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject109() // InlineObject109 | 
+  'body': new TestSwagger.InlineObject110() // InlineObject110 | 
 };
 apiInstance.apiV1StorekeepersBoxesGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -193,7 +193,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID тарифа. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject109**](InlineObject109.md)|  | [optional] 
+ **body** | [**InlineObject110**](InlineObject110.md)|  | [optional] 
 
 ### Return type
 
@@ -231,7 +231,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.StorekeepersApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject115() // InlineObject115 | 
+  'body': new TestSwagger.InlineObject116() // InlineObject116 | 
 };
 apiInstance.apiV1StorekeepersDestinationPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -247,7 +247,7 @@ apiInstance.apiV1StorekeepersDestinationPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject115**](InlineObject115.md)|  | [optional] 
+ **body** | [**InlineObject116**](InlineObject116.md)|  | [optional] 
 
 ### Return type
 
@@ -319,7 +319,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersGet
 
-> [InlineResponse20068] apiV1StorekeepersGet(opts)
+> [InlineResponse20069] apiV1StorekeepersGet(opts)
 
 # Получить всех сторкиперов(все склады).
 
@@ -339,6 +339,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.StorekeepersApi();
 let opts = {
   'boxStatus': "'IN_STOCK'", // String | Статус коробок,  которые нужно посчитать.
+  'tariffType': 56, // Number | Тип тарифа(10, 20)
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1StorekeepersGet(opts).then((data) => {
@@ -355,11 +356,12 @@ apiInstance.apiV1StorekeepersGet(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **boxStatus** | **String**| Статус коробок,  которые нужно посчитать. | [optional] [default to &#39;IN_STOCK&#39;]
+ **tariffType** | **Number**| Тип тарифа(10, 20) | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
 
-[**[InlineResponse20068]**](InlineResponse20068.md)
+[**[InlineResponse20069]**](InlineResponse20069.md)
 
 ### Authorization
 
@@ -394,7 +396,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID ордера, который мы хотим изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject108() // InlineObject108 | 
+  'body': new TestSwagger.InlineObject109() // InlineObject109 | 
 };
 apiInstance.apiV1StorekeepersOrdersSetStatusGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -411,7 +413,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID ордера, который мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject108**](InlineObject108.md)|  | [optional] 
+ **body** | [**InlineObject109**](InlineObject109.md)|  | [optional] 
 
 ### Return type
 
@@ -429,7 +431,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersPagBoxesGet
 
-> InlineResponse20067 apiV1StorekeepersPagBoxesGet(opts)
+> InlineResponse20068 apiV1StorekeepersPagBoxesGet(opts)
 
 # Получить коробки и их строки по текущему сторкиперу с пагинацией.
 
@@ -477,7 +479,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20067**](InlineResponse20067.md)
+[**InlineResponse20068**](InlineResponse20068.md)
 
 ### Authorization
 
@@ -566,7 +568,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID тарифа.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject112() // InlineObject112 | 
+  'body': new TestSwagger.InlineObject113() // InlineObject113 | 
 };
 apiInstance.apiV1StorekeepersTariffLogisticsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -583,7 +585,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID тарифа. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject112**](InlineObject112.md)|  | [optional] 
+ **body** | [**InlineObject113**](InlineObject113.md)|  | [optional] 
 
 ### Return type
 
@@ -621,6 +623,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.StorekeepersApi();
 let opts = {
   'archive': true, // Boolean | Заархивирован ли тариф
+  'tariffType': 56, // Number | Тип тарифа(10, 20)
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1StorekeepersTariffLogisticsMyGet(opts).then((data) => {
@@ -637,6 +640,7 @@ apiInstance.apiV1StorekeepersTariffLogisticsMyGet(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **archive** | **Boolean**| Заархивирован ли тариф | [optional] 
+ **tariffType** | **Number**| Тип тарифа(10, 20) | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -675,7 +679,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.StorekeepersApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject111() // InlineObject111 | 
+  'body': new TestSwagger.InlineObject112() // InlineObject112 | 
 };
 apiInstance.apiV1StorekeepersTariffLogisticsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -691,7 +695,7 @@ apiInstance.apiV1StorekeepersTariffLogisticsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject111**](InlineObject111.md)|  | [optional] 
+ **body** | [**InlineObject112**](InlineObject112.md)|  | [optional] 
 
 ### Return type
 
@@ -784,7 +788,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID тарифа.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject114() // InlineObject114 | 
+  'body': new TestSwagger.InlineObject115() // InlineObject115 | 
 };
 apiInstance.apiV1StorekeepersTariffWarehouseGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -801,7 +805,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID тарифа. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject114**](InlineObject114.md)|  | [optional] 
+ **body** | [**InlineObject115**](InlineObject115.md)|  | [optional] 
 
 ### Return type
 
@@ -891,7 +895,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.StorekeepersApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject113() // InlineObject113 | 
+  'body': new TestSwagger.InlineObject114() // InlineObject114 | 
 };
 apiInstance.apiV1StorekeepersTariffWarehousesPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -907,7 +911,7 @@ apiInstance.apiV1StorekeepersTariffWarehousesPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject113**](InlineObject113.md)|  | [optional] 
+ **body** | [**InlineObject114**](InlineObject114.md)|  | [optional] 
 
 ### Return type
 
@@ -1054,7 +1058,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID задачи, которую мы хотим изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject105() // InlineObject105 | 
+  'body': new TestSwagger.InlineObject106() // InlineObject106 | 
 };
 apiInstance.apiV1StorekeepersTasksDoneGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1071,7 +1075,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID задачи, которую мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject105**](InlineObject105.md)|  | [optional] 
+ **body** | [**InlineObject106**](InlineObject106.md)|  | [optional] 
 
 ### Return type
 
@@ -1110,7 +1114,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID задачи, которую мы хотим изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject106() // InlineObject106 | 
+  'body': new TestSwagger.InlineObject107() // InlineObject107 | 
 };
 apiInstance.apiV1StorekeepersTasksGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1127,7 +1131,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID задачи, которую мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject106**](InlineObject106.md)|  | [optional] 
+ **body** | [**InlineObject107**](InlineObject107.md)|  | [optional] 
 
 ### Return type
 
@@ -1199,7 +1203,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksLightPagMyGet
 
-> InlineResponse20066 apiV1StorekeepersTasksLightPagMyGet(opts)
+> InlineResponse20067 apiV1StorekeepersTasksLightPagMyGet(opts)
 
 # Получить задачи закрепленные за данным сторкипером с пагинацией
 
@@ -1253,7 +1257,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20066**](InlineResponse20066.md)
+[**InlineResponse20067**](InlineResponse20067.md)
 
 ### Authorization
 
@@ -1267,7 +1271,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTasksLightPagVacGet
 
-> InlineResponse20066 apiV1StorekeepersTasksLightPagVacGet(opts)
+> InlineResponse20067 apiV1StorekeepersTasksLightPagVacGet(opts)
 
 # Получить вакантные задачи закрепленные за данным сторкипером с пагинацией
 
@@ -1321,7 +1325,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20066**](InlineResponse20066.md)
+[**InlineResponse20067**](InlineResponse20067.md)
 
 ### Authorization
 
@@ -1570,7 +1574,7 @@ let apiInstance = new TestSwagger.StorekeepersApi();
 let guid = null; // String | GUID задачи, которую мы хотим изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject107() // InlineObject107 | 
+  'body': new TestSwagger.InlineObject108() // InlineObject108 | 
 };
 apiInstance.apiV1StorekeepersTasksPriorityGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -1587,7 +1591,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID задачи, которую мы хотим изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject107**](InlineObject107.md)|  | [optional] 
+ **body** | [**InlineObject108**](InlineObject108.md)|  | [optional] 
 
 ### Return type
 

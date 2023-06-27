@@ -1,1 +1,1 @@
-export {AdminUsersView} from './admin-users-view'
+export { AdminUsersView } from './admin-users-view'

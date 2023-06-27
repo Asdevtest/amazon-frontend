@@ -1,67 +1,44 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   imgBox: {
     objectFit: 'contain',
-    width: '50vw',
-    // maxWidth: "565px",
-    maxHeight: '70vh',
+    width: '100%',
+    // maxHeight: '70vh',
+    height: '100%',
   },
   carouselWrapper: {
     textAlign: 'center',
     height: '100%',
-    width: '55vw',
+    maxWidth: 720,
+    width: '100vh',
   },
 
   body: {
     display: 'flex',
-    // justifyContent: 'space-between',
     justifyContent: 'center',
-    padding: '20px 140px 70px',
+    // padding: '20px',
+    gap: '20px',
+    height: '100%',
+    minHeight: '70vh',
   },
 
-  closeIcon: {
-    color: 'white',
-  },
-  closeWrapper: {
-    backgroundColor: 'black',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: '100%',
-    width: '40px',
-    height: '40px',
-    border: '2px solid white',
-    position: 'absolute',
-    top: '0',
-    right: '0',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    zIndex: '333',
-    transition: '0.3s ease',
-    opacity: '.3',
-    '&:hover': {
-      opacity: '1',
-    },
-  },
   mainWrapper: {
-    position: 'relative',
+    // position: 'relative',
     overflow: 'visible',
-    // width: '50vw',
-    height: '70vh',
+    height: '60vh',
     display: 'flex',
     justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
+    paddingBottom: '60px',
+    gap: '20px',
   },
 
   previewListWrapper: {
     height: '92%',
-
-    position: 'absolute',
-    bottom: 20,
-    left: 30,
-    // paddingBottom: '10px',
-    marginLeft: 20,
-
-    overflowY: 'auto',
+    // position: 'absolute',
+    overflowX: 'auto',
     display: 'flex',
   },
 
@@ -69,19 +46,22 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
-
     paddingBottom: '10px',
     marginTop: 'auto',
   },
 
   previewListItem: {
-    width: '75px',
+    // width: '75px',
     height: '75px',
+    display: 'flex',
+    gap: '10px',
+    width: 'max-content',
+    cursor: 'pointer',
   },
 
   previewListImage: {
-    width: '100%',
-    height: '100%',
+    width: '75px',
+    height: '75px',
     objectFit: 'cover',
     borderRadius: '4px',
     cursor: 'pointer',
@@ -93,16 +73,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   controls: {
-    // display: 'flex',
-    // alignItems: 'flex-end',
-
     display: 'flex',
-    // flexDirection: 'column',
     gap: 20,
-    position: 'absolute',
-    bottom: 30,
-    right: 30,
-    marginRight: 20,
+    // position: 'absolute',
+    alignItems: 'flex-end',
   },
 
   indicator: {
@@ -121,5 +95,17 @@ export const useClassNames = makeStyles()(theme => ({
 
   zoomDialogContext: {
     padding: 0,
+  },
+
+  imageComment: {
+    fontSize: 18,
+    color: theme.palette.text.second,
+    wordBreak: 'break-all',
+  },
+
+  imageLeftSideComment: {
+    fontSize: 14,
+    color: theme.palette.text.second,
+    wordBreak: 'break-word',
   },
 }))

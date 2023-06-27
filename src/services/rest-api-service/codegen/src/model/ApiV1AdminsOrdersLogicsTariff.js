@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
+import ApiV1AdminsOrdersLogicsTariffDestinationVariations from './ApiV1AdminsOrdersLogicsTariffDestinationVariations';
 
 /**
  * The ApiV1AdminsOrdersLogicsTariff model module.
@@ -24,11 +25,10 @@ class ApiV1AdminsOrdersLogicsTariff {
      * Constructs a new <code>ApiV1AdminsOrdersLogicsTariff</code>.
      * @alias module:model/ApiV1AdminsOrdersLogicsTariff
      * @param name {String} Название тарифа
-     * @param conditionsByRegion {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} 
      */
-    constructor(name, conditionsByRegion) { 
+    constructor(name) { 
         
-        ApiV1AdminsOrdersLogicsTariff.initialize(this, name, conditionsByRegion);
+        ApiV1AdminsOrdersLogicsTariff.initialize(this, name);
     }
 
     /**
@@ -36,9 +36,8 @@ class ApiV1AdminsOrdersLogicsTariff {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, conditionsByRegion) { 
+    static initialize(obj, name) { 
         obj['name'] = name;
-        obj['conditionsByRegion'] = conditionsByRegion;
     }
 
     /**
@@ -52,6 +51,9 @@ class ApiV1AdminsOrdersLogicsTariff {
         if (data) {
             obj = obj || new ApiV1AdminsOrdersLogicsTariff();
 
+            if (data.hasOwnProperty('tariffType')) {
+                obj['tariffType'] = ApiClient.convertToType(data['tariffType'], 'Number');
+            }
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
@@ -79,6 +81,9 @@ class ApiV1AdminsOrdersLogicsTariff {
             if (data.hasOwnProperty('conditionsByRegion')) {
                 obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
+            if (data.hasOwnProperty('destinationVariations')) {
+                obj['destinationVariations'] = ApiClient.convertToType(data['destinationVariations'], [ApiV1AdminsOrdersLogicsTariffDestinationVariations]);
+            }
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
@@ -88,12 +93,21 @@ class ApiV1AdminsOrdersLogicsTariff {
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
         }
         return obj;
     }
 
 
 }
+
+/**
+ * Тип тарифа
+ * @member {Number} tariffType
+ */
+ApiV1AdminsOrdersLogicsTariff.prototype['tariffType'] = undefined;
 
 /**
  * Название тарифа
@@ -149,6 +163,11 @@ ApiV1AdminsOrdersLogicsTariff.prototype['archive'] = undefined;
 ApiV1AdminsOrdersLogicsTariff.prototype['conditionsByRegion'] = undefined;
 
 /**
+ * @member {Array.<module:model/ApiV1AdminsOrdersLogicsTariffDestinationVariations>} destinationVariations
+ */
+ApiV1AdminsOrdersLogicsTariff.prototype['destinationVariations'] = undefined;
+
+/**
  * @member {String} _id
  */
 ApiV1AdminsOrdersLogicsTariff.prototype['_id'] = undefined;
@@ -162,6 +181,11 @@ ApiV1AdminsOrdersLogicsTariff.prototype['storekeeperId'] = undefined;
  * @member {Date} updatedAt
  */
 ApiV1AdminsOrdersLogicsTariff.prototype['updatedAt'] = undefined;
+
+/**
+ * @member {Date} createdAt
+ */
+ApiV1AdminsOrdersLogicsTariff.prototype['createdAt'] = undefined;
 
 
 

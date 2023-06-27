@@ -1,24 +1,24 @@
 /* eslint-disable no-unused-vars */
-import {action, makeAutoObservable, reaction, runInAction} from 'mobx'
+import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {creatSupplier, patchSuppliers} from '@constants/white-list'
+import { ProductStatusByKey, ProductStatus } from '@constants/product/product-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
+import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
-import {BuyerModel} from '@models/buyer-model'
-import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
-import {SupplierModel} from '@models/supplier-model'
-import {UserModel} from '@models/user-model'
+import { BuyerModel } from '@models/buyer-model'
+import { ProductModel } from '@models/product-model'
+import { SettingsModel } from '@models/settings-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
+import { SupplierModel } from '@models/supplier-model'
+import { UserModel } from '@models/user-model'
 
-import {updateProductAutoCalculatedFields} from '@utils/calculation'
-import {isUndefined} from '@utils/checks'
-import {getNewObjectWithDefaultValue, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
-import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
+import { updateProductAutoCalculatedFields } from '@utils/calculation'
+import { isUndefined } from '@utils/checks'
+import { getNewObjectWithDefaultValue, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
+import { isValidationErrors, plainValidationErrorAndApplyFuncForEachError } from '@utils/validation'
 
 const fieldsOfProductAllowedToUpdate = [
   'reffee',
@@ -107,7 +107,6 @@ export class BuyerProductViewModel {
 
   supplierModalReadOnly = false
 
-  drawerOpen = false
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
   showEditHSCodeModal = false
@@ -128,7 +127,7 @@ export class BuyerProductViewModel {
   progressValue = 0
   showProgress = false
 
-  formFields = {...formFieldsDefault}
+  formFields = { ...formFieldsDefault }
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
@@ -140,7 +139,7 @@ export class BuyerProductViewModel {
     return SettingsModel.languageTag
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     const url = new URL(window.location.href)
 
     runInAction(() => {
@@ -151,13 +150,13 @@ export class BuyerProductViewModel {
       this.showTab = url.searchParams.get('show-tab')
     })
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.languageTag,
       () =>
         runInAction(() => {
-          this.product = this.product ? {...this.product} : undefined
+          this.product = this.product ? { ...this.product } : undefined
         }),
     )
   }
@@ -175,7 +174,7 @@ export class BuyerProductViewModel {
       const result = await ProductModel.getProductById(this.productId)
 
       runInAction(() => {
-        this.product = this.product ? {...result, status: this.product.status} : result
+        this.product = this.product ? { ...result, status: this.product.status } : result
 
         this.productBase = result
         updateProductAutoCalculatedFields.call(this)
@@ -206,14 +205,14 @@ export class BuyerProductViewModel {
 
   onChangeProductFields = fieldsName =>
     action(e => {
-      this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldsName]: ''}
+      this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldsName]: '' }
 
-      this.product = {...this.product, [fieldsName]: e.target.value}
+      this.product = { ...this.product, [fieldsName]: e.target.value }
       updateProductAutoCalculatedFields.call(this)
     })
 
   onClickSetProductStatusBtn(statusKey) {
-    this.product = {...this.product, status: ProductStatusByKey[statusKey]}
+    this.product = { ...this.product, status: ProductStatusByKey[statusKey] }
   }
 
   onChangeSelectedSupplier(supplier) {
@@ -256,8 +255,8 @@ export class BuyerProductViewModel {
         this.onTriggerAddOrEditSupplierModal()
         break
       case 'accept':
-        this.product = {...this.product, currentSupplierId: this.selectedSupplier._id}
-        this.product = {...this.product, currentSupplier: this.selectedSupplier}
+        this.product = { ...this.product, currentSupplierId: this.selectedSupplier._id }
+        this.product = { ...this.product, currentSupplier: this.selectedSupplier }
 
         this.selectedSupplier = undefined
         updateProductAutoCalculatedFields.call(this)
@@ -265,8 +264,8 @@ export class BuyerProductViewModel {
         this.onSaveForceProductData()
         break
       case 'acceptRevoke':
-        this.product = {...this.product, currentSupplierId: null}
-        this.product = {...this.product, currentSupplier: undefined}
+        this.product = { ...this.product, currentSupplierId: null }
+        this.product = { ...this.product, currentSupplier: undefined }
 
         this.selectedSupplier = undefined
         updateProductAutoCalculatedFields.call(this)
@@ -377,7 +376,7 @@ export class BuyerProductViewModel {
       this.setActionStatus(loadingStatuses.failed)
 
       if (isValidationErrors(error)) {
-        plainValidationErrorAndApplyFuncForEachError(error, ({errorProperty, constraint}) => {
+        plainValidationErrorAndApplyFuncForEachError(error, ({ errorProperty, constraint }) => {
           runInAction(() => {
             this.formFieldsValidationErrors[errorProperty] = constraint
           })
@@ -453,14 +452,14 @@ export class BuyerProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({supplier, photosOfSupplier, editPhotosOfSupplier}) {
+  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, editPhotosOfSupplier }) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       this.clearReadyImages()
 
       if (editPhotosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: editPhotosOfSupplier, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
       }
 
       supplier = {
@@ -476,7 +475,7 @@ export class BuyerProductViewModel {
       this.clearReadyImages()
 
       if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
         supplier = {
           ...supplier,
           images: [...supplier.images, ...this.readyImages],
@@ -535,10 +534,6 @@ export class BuyerProductViewModel {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onTriggerDrawerOpen() {
-    this.drawerOpen = !this.drawerOpen
   }
 
   setRequestStatus(requestStatus) {

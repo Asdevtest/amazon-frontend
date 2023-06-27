@@ -1,22 +1,22 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {CircularProgress, Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { CircularProgress, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {Navigation} from 'swiper'
-import {Swiper, SwiperSlide} from 'swiper/react'
+import { Navigation } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
-import {InventoryIcon} from '@constants/svg-icons'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {useClassNames} from '@components/dashboards/dashboard-one-line-cards-list/dashboard-one-line-cards-list.style'
+import { useClassNames } from '@components/dashboards/dashboard-one-line-cards-list/dashboard-one-line-cards-list.style'
+import { Button } from '@components/shared/buttons/button'
+import { InventoryIcon } from '@components/shared/svg-icons'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-export const DashboardOneLineCardsList = ({config, valuesData, onClickViewMore, onClickAddProduct, isClient}) => {
-  const {classes: classNames} = useClassNames()
+export const DashboardOneLineCardsList = ({ config, valuesData, onClickViewMore, onClickAddProduct, isClient }) => {
+  const { classes: classNames } = useClassNames()
   const [currentScreenWidth, setCurrentScreenWidth] = useState(window.innerWidth)
 
   useEffect(() => {
@@ -59,7 +59,7 @@ export const DashboardOneLineCardsList = ({config, valuesData, onClickViewMore, 
                 })}
                 onClick={() => onClickViewMore(item.route, item.dataGridFilter)}
               >
-                <InventoryIcon classes={{root: classNames.icon}} />
+                <InventoryIcon classes={{ root: classNames.icon }} />
                 <div className={classNames.cardSubWrapper}>
                   <Typography className={classNames.cardSubTitle}>{item.title}</Typography>
 

@@ -1,17 +1,17 @@
 /* eslint-disable no-unused-vars */
-import {Box, FormControlLabel, Grid, Radio, RadioGroup} from '@mui/material'
+import { Box, FormControlLabel, Grid, Radio, RadioGroup } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {ProductStatusByCode} from '@constants/product-status'
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
+import { ProductStatusByCode } from '@constants/product/product-status'
+import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
 
-import {Text} from '@components/text'
+import { Text } from '@components/shared/text'
 
-import {translateTooltipAttentionMessageByRole, translateTooltipMessageByRole} from '@utils/translate-tooltip-message'
+import { translateTooltipAttentionMessageByRole, translateTooltipMessageByRole } from '@utils/translate-tooltip-message'
 
 export const ProductStatusButtons = props => {
-  const {buttonsConfig, product, onClickButton, curUserRole} = props
+  const { buttonsConfig, product, onClickButton, curUserRole } = props
   const [selected, setSelected] = useState(ProductStatusByCode[product.status])
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export const ProductStatusButtons = props => {
       <Grid container item spacing={2}>
         <RadioGroup
           name="status"
-          sx={{display: 'flex', flexDirection: 'row'}}
+          sx={{ display: 'flex', flexDirection: 'row' }}
           defaultValue={ProductStatusByCode[selected]}
           value={selected}
           onChange={e => {
@@ -38,7 +38,7 @@ export const ProductStatusButtons = props => {
           {buttonsConfig.map(buttonConfig => (
             <Box key={buttonConfig.statusKey}>
               <FormControlLabel
-                sx={{paddingLeft: '20px'}}
+                sx={{ paddingLeft: '20px' }}
                 control={<Radio />}
                 value={buttonConfig.statusKey}
                 label={

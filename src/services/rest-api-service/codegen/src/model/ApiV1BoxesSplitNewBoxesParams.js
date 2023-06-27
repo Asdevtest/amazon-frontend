@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesMergeBoxBody from './ApiV1BoxesMergeBoxBody';
+import ApiV1BoxesSplitBoxBody from './ApiV1BoxesSplitBoxBody';
 import ApiV1BoxesSplitBoxItems from './ApiV1BoxesSplitBoxItems';
 
 /**
@@ -25,7 +25,7 @@ class ApiV1BoxesSplitNewBoxesParams {
      * Constructs a new <code>ApiV1BoxesSplitNewBoxesParams</code>.
      * Описание новых коробок
      * @alias module:model/ApiV1BoxesSplitNewBoxesParams
-     * @param boxBody {module:model/ApiV1BoxesMergeBoxBody} 
+     * @param boxBody {module:model/ApiV1BoxesSplitBoxBody} 
      */
     constructor(boxBody) { 
         
@@ -53,7 +53,7 @@ class ApiV1BoxesSplitNewBoxesParams {
             obj = obj || new ApiV1BoxesSplitNewBoxesParams();
 
             if (data.hasOwnProperty('boxBody')) {
-                obj['boxBody'] = ApiV1BoxesMergeBoxBody.constructFromObject(data['boxBody']);
+                obj['boxBody'] = ApiV1BoxesSplitBoxBody.constructFromObject(data['boxBody']);
             }
             if (data.hasOwnProperty('boxItems')) {
                 obj['boxItems'] = ApiClient.convertToType(data['boxItems'], [ApiV1BoxesSplitBoxItems]);
@@ -66,7 +66,7 @@ class ApiV1BoxesSplitNewBoxesParams {
 }
 
 /**
- * @member {module:model/ApiV1BoxesMergeBoxBody} boxBody
+ * @member {module:model/ApiV1BoxesSplitBoxBody} boxBody
  */
 ApiV1BoxesSplitNewBoxesParams.prototype['boxBody'] = undefined;
 

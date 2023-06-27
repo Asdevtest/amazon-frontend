@@ -1,1 +1,1 @@
-export {ServiceExchangeCard} from './service-exchange-card'
+export { ServiceExchangeCard } from './service-exchange-card'

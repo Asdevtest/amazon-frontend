@@ -1,1 +1,1 @@
-export {BuyerNotificationsView} from './buyer-notifications-view'
+export { BuyerNotificationsView } from './buyer-notifications-view'

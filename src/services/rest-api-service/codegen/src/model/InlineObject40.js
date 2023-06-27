@@ -86,6 +86,15 @@ class InlineObject40 {
             if (data.hasOwnProperty('orderSupplierId')) {
                 obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
             }
+            if (data.hasOwnProperty('partialPaymentAmountRmb')) {
+                obj['partialPaymentAmountRmb'] = ApiClient.convertToType(data['partialPaymentAmountRmb'], 'Number');
+            }
+            if (data.hasOwnProperty('partiallyPaid')) {
+                obj['partiallyPaid'] = ApiClient.convertToType(data['partiallyPaid'], 'Number');
+            }
+            if (data.hasOwnProperty('partialPayment')) {
+                obj['partialPayment'] = ApiClient.convertToType(data['partialPayment'], 'Boolean');
+            }
             if (data.hasOwnProperty('amount')) {
                 obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
@@ -171,6 +180,24 @@ InlineObject40.prototype['trackingNumberChina'] = undefined;
  * @member {String} orderSupplierId
  */
 InlineObject40.prototype['orderSupplierId'] = undefined;
+
+/**
+ * Cумма частичной оплаты
+ * @member {Number} partialPaymentAmountRmb
+ */
+InlineObject40.prototype['partialPaymentAmountRmb'] = undefined;
+
+/**
+ * Cумма частичной оплаты
+ * @member {Number} partiallyPaid
+ */
+InlineObject40.prototype['partiallyPaid'] = undefined;
+
+/**
+ * Оплачивается ли заказ частично
+ * @member {Boolean} partialPayment
+ */
+InlineObject40.prototype['partialPayment'] = undefined;
 
 /**
  * Кол-во в заказе

@@ -1,24 +1,24 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import CircleIcon from '@mui/icons-material/Circle'
-import {Typography, Select, Input, InputAdornment, MenuItem} from '@mui/material'
+import { Typography, Select, Input, InputAdornment, MenuItem } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {freelanceRequestTypeByCode, freelanceRequestTypeTranslate} from '@constants/freelance-request-type'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {NewDatePicker, DatePickerTime} from '@components/date-picker/date-picker'
-import {Field} from '@components/field'
-import {UploadFilesInputMini} from '@components/upload-files-input-mini'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { NewDatePicker, DatePickerTime } from '@components/shared/date-picker/date-picker'
+import { Field } from '@components/shared/field'
 
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './create-or-edit-services-content.style'
+import { useClassNames } from './create-or-edit-services-content.style'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 export const CreateOrEditServiceContent = ({
   data,
@@ -28,11 +28,11 @@ export const CreateOrEditServiceContent = ({
   onClickBackBtn,
   userInfo,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const isEdit = pathname?.includes('edit-service')
 
-  const whiteList = userInfo?.allowedSpec?.map(spec => String(spec)) || []
+  const whiteList = userInfo?.allowedSpec?.filter(spec => String(spec) !== '0').map(spec => String(spec)) || []
 
   const [images, setImages] = useState([])
 
@@ -53,7 +53,7 @@ export const CreateOrEditServiceContent = ({
     !formFields.title || !formFields.description || JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
 
   const onChangeField = fieldName => event => {
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
 
     newFormFields[fieldName] = event.target.value
 
@@ -67,7 +67,7 @@ export const CreateOrEditServiceContent = ({
       </div>
       <div className={classNames.fieldsWrapper}>
         <Field
-          inputProps={{maxLength: 100}}
+          inputProps={{ maxLength: 100 }}
           label={t(TranslationKey['Service name']) + '*'}
           className={classNames.nameField}
           containerClasses={classNames.nameFieldContainer}
@@ -107,7 +107,7 @@ export const CreateOrEditServiceContent = ({
 
       <Field
         multiline
-        inputProps={{maxLength: 1100}}
+        inputProps={{ maxLength: 1100 }}
         className={classNames.descriptionField}
         containerClasses={classNames.descriptionContainer}
         labelClasses={classNames.labelClass}
@@ -119,7 +119,9 @@ export const CreateOrEditServiceContent = ({
       />
 
       <div className={classNames.imageFileInputWrapper}>
-        <UploadFilesInputMini
+        <UploadFilesInput
+          fullWidth
+          minimized
           images={images}
           setImages={setImages}
           maxNumber={50}

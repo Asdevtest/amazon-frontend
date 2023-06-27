@@ -1,1 +1,1 @@
-export {AdminSettingsContent} from './admin-settings-content'
+export { AdminSettingsContent } from './admin-settings-content'

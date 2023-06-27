@@ -1,13 +1,4 @@
 export const styles = theme => ({
-  test: {
-    padding: theme.spacing(7),
-  },
-  buttonBox: {
-    textAlign: 'right',
-    marginRight: '0',
-    padding: '16px',
-  },
-
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: '290px',
@@ -15,24 +6,6 @@ export const styles = theme => ({
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
-  },
-
-  searchContainer: {
-    marginTop: 0,
-    width: 'auto',
-    marginRight: 'calc(50% - 345px)',
-    [theme.breakpoints.down(768)]: {
-      marginTop: 0,
-      width: '100%',
-      marginRight: 0,
-    },
-  },
-
-  actionsWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'flex-end',
   },
 
   subUserHeader: {
@@ -62,8 +35,6 @@ export const styles = theme => ({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
   },
 
@@ -71,7 +42,6 @@ export const styles = theme => ({
     position: 'absolute',
     top: 0,
     right: 0,
-
     borderTop: 'none !important',
     [theme.breakpoints.down(768)]: {
       '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(3)': {
@@ -93,17 +63,13 @@ export const styles = theme => ({
       height: '100px',
       display: 'grid',
       gridTemplateColumns: 'repeat(2, 1fr)',
-
       alignItems: 'start',
-
       marginTop: '40px',
-
       '& > button': {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'start',
         alignItems: 'center !important',
-
         fontSize: '12px',
       },
       '& > button > span': {

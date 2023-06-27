@@ -1,96 +1,99 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import DoneIcon from '@mui/icons-material/Done'
-import {Chip, IconButton, Link, Radio, Typography} from '@mui/material'
+import { IconButton, Link, Radio, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {operationTypes} from '@constants/operation-types'
-import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
-import {BigPlus} from '@constants/svg-icons'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {zipCodeGroups} from '@constants/zip-code-groups'
+import {
+  getConversion,
+  getWeightSizesType,
+  inchesCoefficient,
+  poundsWeightCoefficient,
+  unitsOfChangeOptions,
+} from '@constants/configs/sizes-settings'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value/copy-value'
-import {Field} from '@components/field'
-import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
-import {Modal} from '@components/modal'
-import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
-import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
-import {SearchInput} from '@components/search-input'
-import {WithSearchSelect} from '@components/selects/with-search-select'
-import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
-import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
+import { Button } from '@components/shared/buttons/button'
+import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { Field } from '@components/shared/field'
 
-import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
-import {checkIsPositiveNum, checkIsStringFilesSame} from '@utils/checks'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
-import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed} from '@utils/text'
-import {t} from '@utils/translations'
+import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
+import { checkIsPositiveNum, checkIsStringFilesSame } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
+import { checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed } from '@utils/text'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './grouping-boxes-form.style'
+import { useClassNames } from './grouping-boxes-form.style'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { Input } from '@components/shared/input'
+import { BigPlusIcon } from '@components/shared/svg-icons'
 
-const WarehouseDemensions = ({orderBox, sizeSetting}) => {
-  const {classes: classNames} = useClassNames()
+const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
+  const { classes: classNames } = useClassNames()
+
+  const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
+  const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
+  const totalWeightConversion = getConversion(sizeSetting, 12 / poundsWeightCoefficient, 12)
+  const weightSizesType = getWeightSizesType(sizeSetting)
 
   return (
     <div className={classNames.demensionsWrapper}>
       <Typography className={classNames.standartText}>
         {t(TranslationKey.Length) + ': '}
 
-        {toFixed(orderBox.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+        {toFixed(orderBox.lengthCmWarehouse / lengthConversion, 2)}
       </Typography>
       <Typography className={classNames.standartText}>
         {t(TranslationKey.Width) + ': '}
-        {toFixed(orderBox.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+        {toFixed(orderBox.widthCmWarehouse / lengthConversion, 2)}
       </Typography>
       <Typography className={classNames.standartText}>
         {t(TranslationKey.Height) + ': '}
-        {toFixed(orderBox.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+        {toFixed(orderBox.heightCmWarehouse / lengthConversion, 2)}
       </Typography>
 
       <Typography className={classNames.standartText}>
         {t(TranslationKey.Weight) + ': '}
-        {orderBox.weighGrossKgWarehouse || 0}
+        {toFixed(orderBox.weighGrossKgWarehouse / weightConversion, 2) || 0}
+        {' ' + weightSizesType}
       </Typography>
 
       <Typography className={classNames.standartText}>
         {t(TranslationKey['Volume weight']) + ': '}
-        {toFixed(orderBox.volumeWeightKgWarehouse, 4) || 0}
+        {toFixed(orderBox.volumeWeightKgWarehouse / weightConversion, 2) || 0}
+        {' ' + weightSizesType}
       </Typography>
 
       <Typography
         className={cx(classNames.standartText, {
-          [classNames.alertText]: orderBox.weightFinalAccountingKgWarehouse < 12,
+          [classNames.alertText]: orderBox.weightFinalAccountingKgWarehouse / weightConversion < totalWeightConversion,
         })}
       >
         {t(TranslationKey['Final weight']) + ': '}
-        {toFixed(orderBox.weightFinalAccountingKgWarehouse, 4) || 0}
+        {toFixed(orderBox.weightFinalAccountingKgWarehouse / weightConversion, 2) || 0}
+        {' ' + weightSizesType}
       </Typography>
 
-      {orderBox.weightFinalAccountingKgWarehouse < 12 ? (
-        <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
+      {orderBox.weightFinalAccountingKgWarehouse / weightConversion < totalWeightConversion ? (
+        <span className={classNames.alertText}>{`${t(TranslationKey['Weight less than'])} ${toFixed(
+          totalWeightConversion,
+          2,
+        )} ${weightSizesType}!`}</span>
       ) : null}
     </div>
   )
 }
 
-const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, basicBox, onClickBasicBoxRadio}) => {
-  const {classes: classNames} = useClassNames()
+const Box = ({ isNewBox, destinations, box, onChangeField, onRemoveBox, index, basicBox, onClickBasicBoxRadio }) => {
+  const { classes: classNames } = useClassNames()
 
-  const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
-
-  const handleChange = (event, newAlignment) => {
-    setSizeSetting(newAlignment)
-  }
+  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
   const [showFullCard, setShowFullCard] = useState(isNewBox ? false : true)
 
@@ -132,7 +135,7 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
             oneLine
             disabled={!isNewBox}
             label={t(TranslationKey['Boxes in group']) + ':'}
-            inputProps={{maxLength: 5}}
+            inputProps={{ maxLength: 5 }}
             // tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
             containerClasses={classNames.amountField}
             className={classNames.orderInput}
@@ -234,14 +237,14 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
               <div className={classNames.sizesTitleWrapper}>
                 <Typography className={classNames.label}>{t(TranslationKey.Dimensions)}</Typography>
 
-                <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-                  <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                    {'In'}
-                  </ToggleBtn>
-                  <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                    {'Cm'}
-                  </ToggleBtn>
-                </ToggleBtnGroup>
+                <CustomSwitcher
+                  condition={sizeSetting}
+                  nameFirstArg={unitsOfChangeOptions.EU}
+                  nameSecondArg={unitsOfChangeOptions.US}
+                  firstArgValue={unitsOfChangeOptions.EU}
+                  secondArgValue={unitsOfChangeOptions.US}
+                  changeConditionHandler={condition => setSizeSetting(condition)}
+                />
               </div>
 
               <WarehouseDemensions orderBox={box} sizeSetting={sizeSetting} />
@@ -272,7 +275,7 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
               />
 
               <Field
-                inputProps={{maxLength: 255}}
+                inputProps={{ maxLength: 255 }}
                 tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
                 containerClasses={classNames.field}
                 labelClasses={classNames.label}
@@ -306,14 +309,39 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
                   </>
                 }
               />
+
+              {!isNewBox && (
+                <Field
+                  inputProps={{ maxLength: 255 }}
+                  containerClasses={classNames.field}
+                  labelClasses={classNames.label}
+                  className={classNames.fieldInput}
+                  label={'Prep ID'}
+                  value={box.fbaShipment}
+                  inputComponent={
+                    <div className={classNames.prepIdWrapper}>
+                      <Typography className={classNames.standartText}>
+                        {box.prepId || t(TranslationKey.Missing)}
+                      </Typography>
+                      {box.prepId && <CopyValue text={box.prepId} />}
+                    </div>
+                  }
+                />
+              )}
             </div>
           </div>
         ) : null}
 
         <div className={classNames.bottomBlockWrapper}>
-          <IconButton classes={{root: classNames.icon}} onClick={() => onRemoveBox(isNewBox ? index : box._id)}>
+          <IconButton classes={{ root: classNames.icon }} onClick={() => onRemoveBox(isNewBox ? index : box._id)}>
             <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
           </IconButton>
+          {isNewBox && (
+            <div className={classNames.prepId}>
+              <Typography>Prep ID</Typography>
+              <Input value={box.prepId || ''} onChange={e => onChangeField(e, 'prepId', index)} />
+            </div>
+          )}
           <div className={classNames.incomingBtnWrapper}>
             <div className={classNames.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
               <Typography className={classNames.tablePanelViewText}>
@@ -330,8 +358,9 @@ const Box = ({isNewBox, destinations, box, onChangeField, onRemoveBox, index, ba
 }
 
 export const GroupingBoxesForm = observer(
-  ({destinations, storekeepers, onSubmit, onCloseModal, volumeWeightCoefficient, selectedBoxes}) => {
-    const {classes: classNames} = useClassNames()
+  ({ destinations, storekeepers, onSubmit, onCloseModal, volumeWeightCoefficient, selectedBoxes }) => {
+    const { classes: classNames } = useClassNames()
+    const [newPrepIds, setNewPrepIds] = useState()
     const sourceOldBoxes = selectedBoxes.map(el => ({
       ...el,
       destinationId: el.destination?._id || null,
@@ -366,7 +395,7 @@ export const GroupingBoxesForm = observer(
             el.widthCmWarehouse === box.widthCmWarehouse &&
             JSON.stringify(
               el.items.map(el => ({
-                ...getObjectFilteredByKeyArrayBlackList({...el, productId: el.product._id, orderId: el.order._id}, [
+                ...getObjectFilteredByKeyArrayBlackList({ ...el, productId: el.product._id, orderId: el.order._id }, [
                   'isBarCodeAlreadyAttachedByTheSupplier',
                   'isBarCodeAttachedByTheStorekeeper',
                   'order',
@@ -377,7 +406,7 @@ export const GroupingBoxesForm = observer(
             ) ===
               JSON.stringify(
                 box.items.map(el => ({
-                  ...getObjectFilteredByKeyArrayBlackList({...el, productId: el.product._id, orderId: el.order._id}, [
+                  ...getObjectFilteredByKeyArrayBlackList({ ...el, productId: el.product._id, orderId: el.order._id }, [
                     'isBarCodeAlreadyAttachedByTheSupplier',
                     'isBarCodeAttachedByTheStorekeeper',
                     'order',
@@ -409,7 +438,7 @@ export const GroupingBoxesForm = observer(
     }
 
     const onClickAddBox = () => {
-      setNewBoxes([...newBoxes, {...basicBox, amount: 1, humanFriendlyId: ''}])
+      setNewBoxes([...newBoxes, { ...basicBox, amount: 1, humanFriendlyId: '' }])
     }
     const onRemoveOldBox = boxId => {
       const arr = oldBoxes.filter(box => box._id !== boxId)
@@ -429,14 +458,22 @@ export const GroupingBoxesForm = observer(
 
     const onChangeField = (e, field, index) => {
       const targetBox = newBoxes.filter((newBox, i) => i === index)[0]
+      let updatedTargetBox = {}
 
-      if (!checkIsPositiveNum(e.target.value)) {
+      if (field === 'prepId') {
+        updatedTargetBox = {
+          ...targetBox,
+          [field]: e.target.value ? e.target.value : '',
+        }
+      } else if (!checkIsPositiveNum(e.target.value)) {
         return
       }
 
-      const updatedTargetBox = {
-        ...targetBox,
-        [field]: e.target.value ? parseInt(e.target.value) : 0,
+      if (checkIsPositiveNum(e.target.value)) {
+        updatedTargetBox = {
+          ...targetBox,
+          [field]: e.target.value ? parseInt(e.target.value) : 0,
+        }
       }
 
       const updatedNewBoxes = newBoxes.map((newBox, i) => (i === index ? updatedTargetBox : newBox))
@@ -445,7 +482,7 @@ export const GroupingBoxesForm = observer(
     }
 
     const onClickSubmit = () => {
-      onSubmit({oldBoxes, newBoxes})
+      onSubmit({ oldBoxes, newBoxes })
     }
 
     const leftToRedistribute =
@@ -487,7 +524,7 @@ export const GroupingBoxesForm = observer(
           <div className={classNames.currentBox}>
             <div className={classNames.newBoxes}>
               {oldBoxes.map((box, boxIndex) => (
-                <div key={boxIndex} className={cx({[classNames.marginBox]: newBoxes.length > 1})}>
+                <div key={boxIndex} className={cx({ [classNames.marginBox]: newBoxes.length > 1 })}>
                   <Box
                     basicBox={basicBox}
                     destinations={destinations}
@@ -507,7 +544,7 @@ export const GroupingBoxesForm = observer(
               /* newBoxes.length && */ basicBox ? (
                 <div className={classNames.newBoxesWrapper}>
                   {newBoxes.map((box, boxIndex) => (
-                    <div key={boxIndex} className={cx({[classNames.marginBox]: newBoxes.length > 1})}>
+                    <div key={boxIndex} className={cx({ [classNames.marginBox]: newBoxes.length > 1 })}>
                       <Box
                         isNewBox
                         destinations={destinations}
@@ -518,7 +555,7 @@ export const GroupingBoxesForm = observer(
                       />
                     </div>
                   ))}
-                  <img src="/assets/icons/big-plus.svg" className={classNames.bigPlus} onClick={onClickAddBox} />
+                  <BigPlusIcon className={classNames.bigPlus} onClick={onClickAddBox} />
                 </div>
               ) : (
                 <Typography className={classNames.needChooseMainBox}>

@@ -1,4 +1,4 @@
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class SupplierModelStatic {
   getSuppliers = async () => {
@@ -7,7 +7,7 @@ class SupplierModelStatic {
   }
 
   createSupplier = async data => {
-    const response = await restApiService.supplierApi.apiV1SuppliersPost({body: data})
+    const response = await restApiService.supplierApi.apiV1SuppliersPost({ body: data })
     return response
   }
 

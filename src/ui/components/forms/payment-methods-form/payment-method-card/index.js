@@ -1,1 +1,1 @@
-export {PaymentMethodCard} from './payment-method-card'
+export { PaymentMethodCard } from './payment-method-card'

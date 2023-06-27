@@ -1,1 +1,1 @@
-export {SupervisorSettingsView} from './supervisor-settings-view'
+export { SupervisorSettingsView } from './supervisor-settings-view'

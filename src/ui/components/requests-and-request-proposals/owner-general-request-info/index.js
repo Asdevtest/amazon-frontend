@@ -1,1 +1,1 @@
-export {OwnerGeneralRequestInfo} from './owner-general-request-info'
+export { OwnerGeneralRequestInfo } from './owner-general-request-info'

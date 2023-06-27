@@ -1,15 +1,13 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
     display: 'flex',
-    // flexDirection: 'column',
     borderRadius: '4px',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     padding: '30px 30px',
     width: '100%',
     minHeight: 'fit-content',
-    // height: '263px',
   },
   standartText: {
     color: theme.palette.text.general,
@@ -20,20 +18,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
-  middleBlockWrapper: {
-    width: '350px',
-    borderRadius: '4px',
-    border: '1px solid rgba(0,0,0, .1)',
-    padding: '10px',
-  },
-  middleBlockItemInfoWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  titleBlockWrapper: {
-    display: 'flex',
-    marginBottom: '20px',
-  },
+
   titleWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -46,42 +31,17 @@ export const useClassNames = makeStyles()(theme => ({
     objectPosition: 'center',
     marginRight: '30px',
   },
-  requestInfoWrapper: {
-    display: 'flex',
-    gap: '40px',
-  },
-  requestItemInfoWrapper: {
-    display: 'flex',
-    alignItems: 'center',
 
-    justifyContent: 'space-between',
-  },
-  blockInfoWrapper: {
-    minWidth: '403px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '23px',
-    padding: '30px',
-    border: '1px solid #E0E0E0',
-    borderRadius: '8px',
-  },
   title: {
     width: 479,
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '21px',
     color: theme.palette.text.second,
-    // overflow: 'auto',
-    // height: 80,
-    // textOverflow: 'ellipsis',
-    // whiteSpace: 'nowrap',
-    // overflow: 'hidden',
-
     height: 86,
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-
     display: '-webkit-box',
     WebkitLineClamp: 4,
     WebkitBoxOrient: 'vertical',
@@ -94,30 +54,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
   actionBtn: {
     width: '244px',
-    height: '40px',
-  },
-  btnsWrapper: {
-    display: 'flex',
-    marginBottom: '30px',
-    justifyContent: 'space-between',
-  },
-  requestStatus: {
-    marginLeft: '15px',
-    fontSize: '18px',
-    lineHeight: '140%',
+    height: '30px',
   },
 
   personInfoWrapper: {
     display: 'flex',
     height: '60px',
     alignItems: 'center',
-  },
-
-  userName: {
-    fontSize: '18px',
-    fontWeight: '600',
-    lineHeight: '140%',
-    color: theme.palette.text.general,
   },
 
   personWrapper: {
@@ -139,36 +82,11 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'end',
   },
 
-  middleSideWrapper: {
-    width: '285px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-
-  requestItemInfoProposalsWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-
   transactions: {
     color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: '400',
     lineHeight: '19px',
-  },
-
-  updatedAtWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'end',
-  },
-
-  updatedAtText: {
-    fontSize: '14px',
-    fontWeight: '400',
-    lineHeight: '16px',
-    color: theme.palette.text.general,
   },
 
   proposalsWrapper: {
@@ -202,40 +120,6 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  timeAndPriceWrapper: {
-    display: 'flex',
-    width: '506px',
-    justifyContent: 'space-between',
-  },
-
-  timeWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '58%',
-
-    '& > :first-of-type': {
-      color: theme.palette.text.general,
-      fontSize: '16px',
-      fontWeight: '400',
-      lineHeight: '19px',
-    },
-  },
-
-  rightItemSubWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '35%',
-
-    '& > :first-of-type': {
-      color: theme.palette.text.general,
-      fontSize: '16px',
-      fontWeight: '400',
-      lineHeight: '19px',
-    },
-  },
-
   statusField: {
     display: 'flex',
     alignItems: 'center',
@@ -252,14 +136,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: '400',
-    lineHeight: '19px',
-    // maxWidth: '220px',
-  },
-
-  timeCount: {
-    color: theme.palette.text.general,
-    fontSize: '16px',
-    fontWeight: '600',
     lineHeight: '19px',
   },
 
@@ -283,32 +159,9 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
   },
 
-  mainBlockFooterWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-
-  updatedWrapper: {
-    marginTop: 'auto',
-    alignSelf: 'flex-end',
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  updatedText: {
-    marginRight: 5,
-    fontWeight: '400',
-    fontSize: '16px',
-    lineHeight: '19px',
-    color: theme.palette.text.second,
-  },
-
   mainInfosWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    // justifyContent: 'space-around',
-    // alignItems: 'flex-end',
     width: '100%',
     padding: '0 20px',
     gap: 10,
@@ -319,9 +172,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-around',
     alignItems: 'flex-end',
     width: '100%',
-    // height: 300,
     alignSelf: 'center',
-
     border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: 4,
     padding: '15px 15px',
@@ -349,26 +200,6 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '0 !important',
   },
 
-  priceAmazonWrapper: {
-    display: 'flex',
-  },
-
-  redText: {
-    color: '#FB1D5B',
-    fontSize: '14px',
-    lineHeight: '16px',
-    fontWeight: '400',
-    textDecorationLine: 'line-through',
-    marginLeft: 5,
-  },
-
-  cashBackPrice: {
-    fontSize: '14px',
-    lineHeight: '16px',
-    fontWeight: '400',
-    // color: '#656565',
-  },
-
   accentText: {
     fontSize: 14,
     fontWeight: 600,
@@ -376,18 +207,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   cardTitle: {
-    // margin: '0 10px 0 20px',
-    // height: 20,
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
     color: theme.palette.text.general,
-    // overflowY: 'auto',
     width: '500px',
-    // overflow: 'hidden',
-    // whiteSpace: 'nowrap',
-    // textOverflow: 'ellipsis',
-    // marginBottom: 20,
   },
 
   headerWrapper: {
@@ -403,7 +227,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 18,
     lineHeight: '140%',
-
     color: theme.palette.text.second,
   },
   idTextDark: {
@@ -412,7 +235,6 @@ export const useClassNames = makeStyles()(theme => ({
   titleAndIdWrapper: {
     display: 'flex',
     gap: 60,
-
     marginBottom: 15,
   },
 }))

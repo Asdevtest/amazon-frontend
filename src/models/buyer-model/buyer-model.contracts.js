@@ -1,4 +1,4 @@
-import {IsInt, IsString, IsNotEmpty, IsBoolean, IsArray, IsOptional, IsNumber} from 'class-validator'
+import { IsInt, IsString, IsNotEmpty, IsBoolean, IsArray, IsOptional, IsNumber } from 'class-validator'
 
 import {
   InlineResponse200,

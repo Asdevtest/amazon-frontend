@@ -1,15 +1,14 @@
 /* eslint-disable no-unused-vars */
 import * as Sentry from '@sentry/react'
 
-import {useEffect} from 'react'
+import { useEffect } from 'react'
 
-import {useFaviconNotification} from 'react-favicon-notification'
-
-import {MainNav} from '@navigation/main-nav'
+import { useFaviconNotification } from 'react-favicon-notification'
 
 import '@styles/global.css'
 
-import {FallBack} from '@components/fall-back'
+import { FallBack } from '@components/layout/fall-back'
+import { MainNav } from '@components/layout/navigation/main-nav'
 
 const myFallback = <FallBack />
 
@@ -31,7 +30,7 @@ export const App = () => {
   const [config, setConfig] = useFaviconNotification()
 
   useEffect(() => {
-    setConfig({...startFaviconConfig})
+    setConfig({ ...startFaviconConfig })
   }, [])
 
   return (

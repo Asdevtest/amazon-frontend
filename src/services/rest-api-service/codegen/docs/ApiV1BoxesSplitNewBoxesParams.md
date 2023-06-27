@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**boxBody** | [**ApiV1BoxesMergeBoxBody**](ApiV1BoxesMergeBoxBody.md) |  | 
+**boxBody** | [**ApiV1BoxesSplitBoxBody**](ApiV1BoxesSplitBoxBody.md) |  | 
 **boxItems** | [**[ApiV1BoxesSplitBoxItems]**](ApiV1BoxesSplitBoxItems.md) | Массив элементов коробки. | [optional] 
 
 

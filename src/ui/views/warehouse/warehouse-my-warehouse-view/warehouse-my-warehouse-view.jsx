@@ -1,446 +1,377 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
-import React, {Component} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {toJS} from 'mobx'
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { toJS } from 'mobx'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {BoxStatus} from '@constants/box-status'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { BoxStatus } from '@constants/statuses/box-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
-import {DataGridCustomColumnMenuComponent} from '@components/data-grid-custom-components/data-grid-custom-column-component'
-import {DataGridCustomToolbar} from '@components/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
-import {AddOrEditHsCodeInBox} from '@components/forms/add-or-edit-hs-code-in-box-form'
-import {BoxViewForm} from '@components/forms/box-view-form'
-import {EditBoxStorekeeperForm} from '@components/forms/edit-box-storekeeper-form'
-import {EditMultipleBoxesForm} from '@components/forms/edit-multiple-boxes-form'
-import {GroupingBoxesForm} from '@components/forms/grouping-boxes-form'
-import {MoveBoxToBatchForm} from '@components/forms/move-box-to-batch-form'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {Modal} from '@components/modal'
-import {EditHSCodeModal} from '@components/modals/edit-hs-code-modal'
-import {MergeBoxesModal} from '@components/modals/merge-boxes-modal'
-import {StorekeeperRedistributeBox} from '@components/modals/storekeeper'
-import {SuccessInfoModal} from '@components/modals/success-info-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Navbar} from '@components/navbar'
-import {EditBoxTasksModal} from '@components/screens/warehouse/edit-task-modal/edit-box-tasks-modal'
-import {SearchInput} from '@components/search-input'
+import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
+import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { AddOrEditBatchForm } from '@components/forms/add-or-edit-batch-form'
+import { AddOrEditHsCodeInBox } from '@components/forms/add-or-edit-hs-code-in-box-form'
+import { BoxViewForm } from '@components/forms/box-view-form'
+import { EditBoxStorekeeperForm } from '@components/forms/edit-box-storekeeper-form'
+import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-form'
+import { GroupingBoxesForm } from '@components/forms/grouping-boxes-form'
+import { MoveBoxToBatchForm } from '@components/forms/move-box-to-batch-form'
+import { MainContent } from '@components/layout/main-content'
+import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { MergeBoxesModal } from '@components/modals/merge-boxes-modal'
+import { StorekeeperRedistributeBox } from '@components/modals/storekeeper'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
+import { EditBoxTasksModal } from '@components/warehouse/edit-task-modal/edit-box-tasks-modal'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {t} from '@utils/translations'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
 
-import {WarehouseMyWarehouseViewModel} from './warehouse-my-warehouse-view.model'
-import {styles} from './warehouse-my-warehouse-view.style'
+import { WarehouseMyWarehouseViewModel } from './warehouse-my-warehouse-view.model'
+import { styles } from './warehouse-my-warehouse-view.style'
+import { SettingsModel } from '@models/settings-model'
 
-const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
-@observer
-export class WarehouseMyWarehouseViewRaw extends Component {
-  viewModel = new WarehouseMyWarehouseViewModel({history: this.props.history})
+export const WarehouseMyWarehouseViewRaw = props => {
+  const [viewModel] = useState(() => new WarehouseMyWarehouseViewModel({ history: props.history }))
+  const { classes: classNames } = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      showEditBoxModalR,
-      onTriggerShowEditBoxModalR,
-      boxesMy,
-      showMergeBoxModal,
-      showRedistributeBoxModal,
-      showRedistributeBoxAddNewBoxModal,
-      warningInfoModalSettings,
-      showWarningInfoModal,
-      showGroupingBoxesModal,
-      destinationsFavourites,
-      userInfo,
-      rowCount,
-      destinations,
-      storekeepersData,
-      modalEditSuccessMessage,
+  const renderButtons = () => (
+    <React.Fragment>
+      <Button
+        tooltipInfoContent={t(TranslationKey['Form for changing the box data'])}
+        disabled={!viewModel.selectedBoxes.length}
+        className={classNames.editBtn}
+        onClick={viewModel.onEditBox}
+      >
+        {t(TranslationKey.Edit)}
+      </Button>
 
-      showProgress,
-      progressValue,
-      sourceBoxForBatch,
-      boxesData,
-      curBoxToMove,
-      batches,
-      curBox,
-      volumeWeightCoefficient,
-      showBoxMoveToBatchModal,
-      showAddOrEditHsCodeInBox,
-      showFullEditBoxModal,
-      showSuccessInfoModal,
-      showEditMultipleBoxesModal,
-      showAddBatchModal,
-      showBoxViewModal,
-      showEditBoxModal,
-      requestStatus,
-      currentData,
-      sortModel,
-      filterModel,
-      densityModel,
-      columnsModel,
-      drawerOpen,
-      curPage,
-      rowsPerPage,
-      selectedBoxes,
-      showEditHSCodeModal,
-      hsCodeData,
-      columnMenuSettings,
-      onClickConfirmMerge,
-      onRemoveBoxFromSelected,
-      onModalRedistributeBoxAddNewBox,
-      onClickSubmitGroupingBoxes,
-      onClickConfirmSplit,
-      onClickSaveHsCode,
-      onClickHsCode,
-      onTriggerDrawer,
-      onChangeCurPage,
-      onChangeRowsPerPage,
+      <Button
+        tooltipInfoContent={t(TranslationKey['Form for merging several boxes'])}
+        disabled={viewModel.selectedBoxes.length <= 1 /* || isMasterBoxSelected*/}
+        onClick={viewModel.onClickMergeBtn}
+      >
+        {t(TranslationKey.Merge)}
+      </Button>
 
-      onChangeFilterModel,
-      onSelectionModel,
-      setDataGridState,
-      onChangeSortingModel,
-      onTriggerOpenModal,
-      onTriggerShowEditBoxModal,
-      setCurrentOpenedBox,
-      onSubmitMoveBoxToBatch,
-      onSubmitCreateBatch,
-      onSubmitAddBatch,
-      onSubmitAddOrEditHsCode,
-      onSubmitEditBox,
-      onSearchSubmit,
-      onClickSubmitEditBox,
-      onSubmitChangeBoxFields,
-      onClickSubmitEditMultipleBoxes,
-      onClickResetFilters,
-      isSomeFilterOn,
-      setDestinationsFavouritesItem,
-      changeColumnsModel,
-    } = this.viewModel
+      <Button
+        disabled={viewModel.selectedBoxes.length !== 1}
+        tooltipInfoContent={t(TranslationKey['Form for distributing to multiple boxes'])}
+        onClick={viewModel.onClickSplitBtn}
+      >
+        {t(TranslationKey.Redistribute)}
+      </Button>
 
-    const {classes: classNames} = this.props
+      <Button disabled={!viewModel.selectedBoxes.length} onClick={viewModel.onClickGroupingBtn}>
+        {t(TranslationKey.Grouping)}
+      </Button>
+    </React.Fragment>
+  )
 
-    const getRowClassName = params => params.row.isDraft && classNames.isDraftRow
+  const getRowClassName = params => params.row.isDraft && classNames.isDraftRow
 
-    const disableSelectionCells = ['prepId']
+  const disableSelectionCells = ['prepId']
 
-    return (
-      <React.Fragment>
-        <Navbar activeCategory={activeCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
-        <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['My warehouse'])}>
-            <MainContent>
-              <div className={classNames.headerWrapper}>
-                <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.headerWrapper}>
+          <div className={classNames.leftBtnsWrapper}>{renderButtons()}</div>
 
-                <SearchInput
-                  inputClasses={classNames.searchInput}
-                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box'])}
-                  onSubmit={onSearchSubmit}
-                />
-
-                <div />
-              </div>
-              <div className={classNames.datagridWrapper}>
-                <MemoDataGrid
-                  // disableVirtualization
-                  checkboxSelection
-                  pagination
-                  localeText={getLocalizationByLanguageTag()}
-                  classes={{
-                    row: classNames.row,
-                    root: classNames.root,
-                    footerContainer: classNames.footerContainer,
-                    footerCell: classNames.footerCell,
-                    toolbarContainer: classNames.toolbarContainer,
-                    filterForm: classNames.filterForm,
-                  }}
-                  isRowSelectable={params =>
-                    params.row.isDraft === false &&
-                    params.row.originalData.status !== BoxStatus.REQUESTED_SEND_TO_BATCH &&
-                    params.row.originalData.status !== BoxStatus.IN_BATCH
-                  }
-                  getRowClassName={getRowClassName}
-                  sortingMode="server"
-                  paginationMode="server"
-                  rowCount={rowCount}
-                  selectionModel={selectedBoxes}
-                  sortModel={sortModel}
-                  filterModel={filterModel}
-                  page={curPage}
-                  pageSize={rowsPerPage}
-                  rowsPerPageOptions={[15, 25, 50, 100]}
-                  rows={currentData}
-                  // rowHeight={225}
-                  getRowHeight={() => 'auto'}
-                  components={{
-                    Toolbar: DataGridCustomToolbar,
-                    ColumnMenuIcon: FilterAltOutlinedIcon,
-                    ColumnMenu: DataGridCustomColumnMenuComponent,
-                  }}
-                  componentsProps={{
-                    columnMenu: columnMenuSettings,
-                    toolbar: {
-                      resetFiltersBtnSettings: {onClickResetFilters, isSomeFilterOn},
-                      columsBtnSettings: {columnsModel, changeColumnsModel},
-                    },
-                  }}
-                  // componentsProps={{
-                  //   toolbar: {
-                  //     columsBtnSettings: {columnsModel, changeColumnsModel},
-                  //   },
-                  // }}
-                  density={densityModel}
-                  columns={columnsModel}
-                  loading={requestStatus === loadingStatuses.isLoading}
-                  onSelectionModelChange={onSelectionModel}
-                  onSortModelChange={onChangeSortingModel}
-                  onPageSizeChange={onChangeRowsPerPage}
-                  onPageChange={onChangeCurPage}
-                  onFilterModelChange={onChangeFilterModel}
-                  onStateChange={setDataGridState}
-                  // onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-
-                  onCellDoubleClick={params =>
-                    !disableSelectionCells.includes(params.field) && setCurrentOpenedBox(params.row.originalData)
-                  }
-                />
-              </div>
-            </MainContent>
-          </Appbar>
-        </Main>
-
-        <Modal openModal={showBoxViewModal} setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}>
-          <BoxViewForm
-            userInfo={userInfo}
-            box={curBox}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
-            onSubmitChangeFields={onSubmitChangeBoxFields}
-            onClickHsCode={onClickHsCode}
+          <SearchInput
+            inputClasses={classNames.searchInput}
+            placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box'])}
+            onSubmit={viewModel.onSearchSubmit}
           />
-        </Modal>
 
-        <Modal openModal={showBoxMoveToBatchModal} setOpenModal={() => onTriggerOpenModal('showBoxMoveToBatchModal')}>
-          <MoveBoxToBatchForm
-            box={curBoxToMove}
-            batches={batches}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            setOpenModal={() => onTriggerOpenModal('showBoxMoveToBatchModal')}
-            onSubmit={onSubmitMoveBoxToBatch}
-            onSubmitCreateBatch={onSubmitCreateBatch}
-          />
-        </Modal>
-
-        <Modal openModal={showAddBatchModal} setOpenModal={() => onTriggerOpenModal('showAddBatchModal')}>
-          <AddOrEditBatchForm
-            progressValue={progressValue}
-            showProgress={showProgress}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            sourceBox={sourceBoxForBatch}
-            boxesData={boxesData}
-            onClose={() => onTriggerOpenModal('showAddBatchModal')}
-            onSubmit={onSubmitAddBatch}
-          />
-        </Modal>
-
-        <Modal
-          missClickModalOn
-          openModal={showFullEditBoxModal}
-          setOpenModal={() => onTriggerOpenModal('showFullEditBoxModal')}
-        >
-          <EditBoxStorekeeperForm
-            destinations={destinations}
-            storekeepers={storekeepersData}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            requestStatus={requestStatus}
-            formItem={curBox}
-            destinationsFavourites={destinationsFavourites}
-            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
-            onSubmit={onClickSubmitEditBox}
-            onTriggerOpenModal={() => onTriggerOpenModal('showFullEditBoxModal')}
-            onClickHsCode={onClickHsCode}
-          />
-        </Modal>
-
-        <Modal openModal={showEditHSCodeModal} setOpenModal={() => onTriggerOpenModal('showEditHSCodeModal')}>
-          <EditHSCodeModal
-            hsCodeData={hsCodeData}
-            onClickSaveHsCode={onClickSaveHsCode}
-            onCloseModal={() => onTriggerOpenModal('showEditHSCodeModal')}
-          />
-        </Modal>
-
-        <Modal
-          missClickModalOn
-          openModal={showEditMultipleBoxesModal}
-          setOpenModal={() => onTriggerOpenModal('showEditMultipleBoxesModal')}
-        >
-          <EditMultipleBoxesForm
-            userInfo={userInfo}
-            destinations={destinations}
-            storekeepers={storekeepersData}
-            selectedBoxes={currentData.filter(el => selectedBoxes.includes(el._id)).map(box => box.originalData)}
-            destinationsFavourites={destinationsFavourites}
-            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
-            onSubmit={onClickSubmitEditMultipleBoxes}
-            onCloseModal={() => onTriggerOpenModal('showEditMultipleBoxesModal')}
-          />
-        </Modal>
-
-        <Modal openModal={showAddOrEditHsCodeInBox} setOpenModal={() => onTriggerOpenModal('showAddOrEditHsCodeInBox')}>
-          <AddOrEditHsCodeInBox
-            box={curBox}
-            setOpenModal={() => onTriggerOpenModal('showAddOrEditHsCodeInBox')}
-            onSubmit={onSubmitAddOrEditHsCode}
-          />
-        </Modal>
-        <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
-          <EditBoxTasksModal
-            isInStorekeeperWarehouse
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            setEditModal={onTriggerShowEditBoxModal}
-            box={curBox}
-            storekeeperWarehouseSubmit={onSubmitEditBox}
-          />
-        </Modal>
-
-        <SuccessInfoModal
-          openModal={showSuccessInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showSuccessInfoModal')}
-          title={modalEditSuccessMessage}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => {
-            onTriggerOpenModal('showSuccessInfoModal')
-          }}
-        />
-
-        <Modal
-          missClickModalOn
-          openModal={showMergeBoxModal}
-          setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
-        >
-          <MergeBoxesModal
-            userInfo={userInfo}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            destinations={destinations}
-            storekeepers={storekeepersData}
-            selectedBoxes={
-              (selectedBoxes.length &&
-                toJS(boxesMy.filter(box => selectedBoxes.includes(box._id)))?.map(box => box.originalData)) ||
-              []
+          <div />
+        </div>
+        <div className={classNames.datagridWrapper}>
+          <MemoDataGrid
+            // disableVirtualization
+            key={SettingsModel.languageTag}
+            checkboxSelection
+            pagination
+            localeText={getLocalizationByLanguageTag()}
+            propsToRerender={{ unitsOption: viewModel.unitsOption }}
+            classes={{
+              row: classNames.row,
+              root: classNames.root,
+              footerContainer: classNames.footerContainer,
+              footerCell: classNames.footerCell,
+              toolbarContainer: classNames.toolbarContainer,
+              filterForm: classNames.filterForm,
+            }}
+            isRowSelectable={params =>
+              params.row.isDraft === false &&
+              params.row.originalData.status !== BoxStatus.REQUESTED_SEND_TO_BATCH &&
+              params.row.originalData.status !== BoxStatus.IN_BATCH
             }
-            requestStatus={requestStatus}
-            destinationsFavourites={destinationsFavourites}
-            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
-            setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
-            onRemoveBoxFromSelected={onRemoveBoxFromSelected}
-            onSubmit={onClickConfirmMerge}
-          />
-        </Modal>
+            getRowClassName={getRowClassName}
+            sortingMode="server"
+            paginationMode="server"
+            rowCount={viewModel.rowCount}
+            rowSelectionModel={viewModel.selectedBoxes}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            pageSizeOptions={[15, 25, 50, 100]}
+            rows={viewModel.currentData}
+            getRowHeight={() => 'auto'}
+            slots={{
+              toolbar: DataGridCustomToolbar,
+              columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
+            }}
+            slotProps={{
+              columnMenu: viewModel.columnMenuSettings,
 
-        <Modal
-          missClickModalOn
-          openModal={showRedistributeBoxModal}
-          setOpenModal={() => onTriggerOpenModal('showRedistributeBoxModal')}
-        >
-          <StorekeeperRedistributeBox
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            showEditBoxModalR={showEditBoxModalR}
-            destinations={destinations}
-            storekeepers={storekeepersData}
-            requestStatus={requestStatus}
-            addNewBoxModal={showRedistributeBoxAddNewBoxModal}
-            setAddNewBoxModal={value => onModalRedistributeBoxAddNewBox(value)}
-            selectedBox={
-              selectedBoxes.length && boxesMy.find(box => box._id === selectedBoxes.slice()[0])?.originalData
+              toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                },
+              },
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+            onCellDoubleClick={params =>
+              !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row.originalData)
             }
-            destinationsFavourites={destinationsFavourites}
-            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
-            onRedistribute={onClickConfirmSplit}
-            onTriggerOpenModal={onTriggerOpenModal}
-            onEditBox={onTriggerShowEditBoxModalR}
-            onTriggerShowEditBoxModalR={onTriggerShowEditBoxModalR}
           />
-        </Modal>
+        </div>
+      </MainContent>
 
-        <Modal
-          missClickModalOn
-          openModal={showGroupingBoxesModal}
-          setOpenModal={() => onTriggerOpenModal('showGroupingBoxesModal')}
-        >
-          <GroupingBoxesForm
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            destinations={destinations}
-            storekeepers={storekeepersData}
-            selectedBoxes={boxesMy.filter(el => selectedBoxes.includes(el._id)).map(box => box.originalData)}
-            onSubmit={onClickSubmitGroupingBoxes}
-            onCloseModal={() => onTriggerOpenModal('showGroupingBoxesModal')}
-          />
-        </Modal>
-
-        <WarningInfoModal
-          isWarning={warningInfoModalSettings.isWarning}
-          openModal={showWarningInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
-          title={warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showWarningInfoModal')
-          }}
+      <Modal
+        openModal={viewModel.showBoxViewModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+      >
+        <BoxViewForm
+          userInfo={viewModel.userInfo}
+          box={viewModel.curBox}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+          onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
+          onClickHsCode={viewModel.onClickHsCode}
         />
-      </React.Fragment>
-    )
-  }
+      </Modal>
 
-  renderButtons = () => {
-    const {selectedBoxes, onClickMergeBtn, onClickSplitBtn, onClickGroupingBtn, onEditBox} = this.viewModel
-    const {classes: classNames} = this.props
-    return (
-      <React.Fragment>
-        <Button
-          tooltipInfoContent={t(TranslationKey['Form for changing the box data'])}
-          disabled={!selectedBoxes.length}
-          className={classNames.editBtn}
-          onClick={onEditBox}
-        >
-          {t(TranslationKey.Edit)}
-        </Button>
+      <Modal
+        openModal={viewModel.showBoxMoveToBatchModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showBoxMoveToBatchModal')}
+      >
+        <MoveBoxToBatchForm
+          box={viewModel.curBoxToMove}
+          batches={viewModel.batches}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxMoveToBatchModal')}
+          onSubmit={viewModel.onSubmitMoveBoxToBatch}
+          onSubmitCreateBatch={viewModel.onSubmitCreateBatch}
+        />
+      </Modal>
 
-        <Button
-          tooltipInfoContent={t(TranslationKey['Form for merging several boxes'])}
-          disabled={selectedBoxes.length <= 1 /* || isMasterBoxSelected*/}
-          onClick={onClickMergeBtn}
-        >
-          {t(TranslationKey.Merge)}
-        </Button>
+      <Modal
+        openModal={viewModel.showAddBatchModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddBatchModal')}
+      >
+        <AddOrEditBatchForm
+          progressValue={viewModel.progressValue}
+          showProgress={viewModel.showProgress}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          sourceBox={viewModel.sourceBoxForBatch}
+          boxesData={viewModel.boxesData}
+          onClose={() => viewModel.onTriggerOpenModal('showAddBatchModal')}
+          onSubmit={viewModel.onSubmitAddBatch}
+        />
+      </Modal>
 
-        <Button
-          disabled={selectedBoxes.length !== 1}
-          tooltipInfoContent={t(TranslationKey['Form for distributing to multiple boxes'])}
-          onClick={onClickSplitBtn}
-        >
-          {t(TranslationKey.Redistribute)}
-        </Button>
+      <Modal
+        missClickModalOn
+        openModal={viewModel.showFullEditBoxModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showFullEditBoxModal')}
+      >
+        <EditBoxStorekeeperForm
+          showCheckbox
+          destinations={viewModel.destinations}
+          storekeepers={viewModel.storekeepersData}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          requestStatus={viewModel.requestStatus}
+          formItem={viewModel.curBox}
+          destinationsFavourites={viewModel.destinationsFavourites}
+          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          onSubmit={viewModel.onClickSubmitEditBox}
+          onTriggerOpenModal={() => viewModel.onTriggerOpenModal('showFullEditBoxModal')}
+          onClickHsCode={viewModel.onClickHsCode}
+        />
+      </Modal>
 
-        <Button disabled={!selectedBoxes.length} onClick={onClickGroupingBtn}>
-          {t(TranslationKey.Grouping)}
-        </Button>
-      </React.Fragment>
-    )
-  }
+      <Modal
+        openModal={viewModel.showEditHSCodeModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+      >
+        <EditHSCodeModal
+          hsCodeData={viewModel.hsCodeData}
+          onClickSaveHsCode={viewModel.onClickSaveHsCode}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+        />
+      </Modal>
+
+      <Modal
+        missClickModalOn
+        openModal={viewModel.showEditMultipleBoxesModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showEditMultipleBoxesModal')}
+      >
+        <EditMultipleBoxesForm
+          showCheckbox
+          userInfo={viewModel.userInfo}
+          destinations={viewModel.destinations}
+          storekeepers={viewModel.storekeepersData}
+          selectedBoxes={viewModel.currentData
+            .filter(el => viewModel.selectedBoxes.includes(el._id))
+            .map(box => box.originalData)}
+          destinationsFavourites={viewModel.destinationsFavourites}
+          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          onSubmit={viewModel.onClickSubmitEditMultipleBoxes}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showEditMultipleBoxesModal')}
+        />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showAddOrEditHsCodeInBox}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditHsCodeInBox')}
+      >
+        <AddOrEditHsCodeInBox
+          box={viewModel.curBox}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditHsCodeInBox')}
+          onSubmit={viewModel.onSubmitAddOrEditHsCode}
+        />
+      </Modal>
+      <Modal openModal={viewModel.showEditBoxModal} setOpenModal={viewModel.onTriggerShowEditBoxModal}>
+        <EditBoxTasksModal
+          isInStorekeeperWarehouse
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          setEditModal={viewModel.onTriggerShowEditBoxModal}
+          box={viewModel.curBox}
+          storekeeperWarehouseSubmit={viewModel.onSubmitEditBox}
+        />
+      </Modal>
+
+      <SuccessInfoModal
+        openModal={viewModel.showSuccessInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
+        title={viewModel.modalEditSuccessMessage}
+        successBtnText={t(TranslationKey.Ok)}
+        onClickSuccessBtn={() => {
+          viewModel.onTriggerOpenModal('showSuccessInfoModal')
+        }}
+      />
+
+      <Modal
+        missClickModalOn
+        openModal={viewModel.showMergeBoxModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showMergeBoxModal')}
+      >
+        <MergeBoxesModal
+          showCheckbox
+          userInfo={viewModel.userInfo}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          destinations={viewModel.destinations}
+          storekeepers={viewModel.storekeepersData}
+          selectedBoxes={
+            (viewModel.selectedBoxes.length &&
+              toJS(viewModel.boxesMy.filter(box => viewModel.selectedBoxes.includes(box._id)))?.map(
+                box => box.originalData,
+              )) ||
+            []
+          }
+          requestStatus={viewModel.requestStatus}
+          destinationsFavourites={viewModel.destinationsFavourites}
+          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showMergeBoxModal')}
+          onRemoveBoxFromSelected={viewModel.onRemoveBoxFromSelected}
+          onSubmit={viewModel.onClickConfirmMerge}
+        />
+      </Modal>
+
+      <Modal
+        missClickModalOn
+        openModal={viewModel.showRedistributeBoxModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRedistributeBoxModal')}
+      >
+        <StorekeeperRedistributeBox
+          showCheckbox
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          showEditBoxModalR={viewModel.showEditBoxModalR}
+          destinations={viewModel.destinations}
+          storekeepers={viewModel.storekeepersData}
+          requestStatus={viewModel.requestStatus}
+          addNewBoxModal={viewModel.showRedistributeBoxAddNewBoxModal}
+          setAddNewBoxModal={value => viewModel.onModalRedistributeBoxAddNewBox(value)}
+          selectedBox={
+            viewModel.selectedBoxes.length &&
+            viewModel.boxesMy.find(box => box._id === viewModel.selectedBoxes.slice()[0])?.originalData
+          }
+          destinationsFavourites={viewModel.destinationsFavourites}
+          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          onRedistribute={viewModel.onClickConfirmSplit}
+          onTriggerOpenModal={viewModel.onTriggerOpenModal}
+          onEditBox={viewModel.onTriggerShowEditBoxModalR}
+          onTriggerShowEditBoxModalR={viewModel.onTriggerShowEditBoxModalR}
+        />
+      </Modal>
+
+      <Modal
+        missClickModalOn
+        openModal={viewModel.showGroupingBoxesModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
+      >
+        <GroupingBoxesForm
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          destinations={viewModel.destinations}
+          storekeepers={viewModel.storekeepersData}
+          selectedBoxes={viewModel.boxesMy
+            .filter(el => viewModel.selectedBoxes.includes(el._id))
+            .map(box => box.originalData)}
+          onSubmit={viewModel.onClickSubmitGroupingBoxes}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
+        />
+      </Modal>
+
+      <WarningInfoModal
+        isWarning={viewModel.warningInfoModalSettings.isWarning}
+        openModal={viewModel.showWarningInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        title={viewModel.warningInfoModalSettings.title}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showWarningInfoModal')
+        }}
+      />
+    </React.Fragment>
+  )
 }
 
-export const WarehouseMyWarehouseView = withStyles(WarehouseMyWarehouseViewRaw, styles)
+export const WarehouseMyWarehouseView = withStyles(observer(WarehouseMyWarehouseViewRaw), styles)

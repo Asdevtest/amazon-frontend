@@ -1,24 +1,6 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  balanceWrapper: {
-    display: 'flex',
-    alignItems: 'flex-end',
-  },
-
-  balanceTitle: {
-    fontSize: 36,
-    lineHeight: '49px',
-    color: theme.palette.text.general,
-  },
-
-  balanceFreeze: {
-    fontSize: '36px',
-    lineHeight: '49px',
-    color: '#c4c4c4',
-    marginLeft: 28,
-  },
-
   title: {
     fontSize: 14,
     color: theme.palette.text.second,
@@ -81,7 +63,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: theme.palette.text.negativeMain,
+    color: '#fff',
     fontSize: '12px',
     fontWeight: '400',
     lineHeight: '14px',
@@ -97,7 +79,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
     gap: '54px',
     height: '145px',
-    marginRight: '250px',
+    marginRight: '245px',
     [theme.breakpoints.down(768)]: {
       width: '100%',
       alignItems: 'start',
@@ -110,5 +92,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    textAlign: 'center',
   },
 }))

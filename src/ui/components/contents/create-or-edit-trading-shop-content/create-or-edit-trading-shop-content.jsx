@@ -1,24 +1,24 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
-import {Typography} from '@mui/material'
+import { cx } from '@emotion/css'
+import { Typography } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {EstimateCreateTradingShopForm} from '@components/forms/estimate-create-trading-shop-form'
-import {Modal} from '@components/modal'
+import { EstimateCreateTradingShopForm } from '@components/forms/estimate-create-trading-shop-form'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { Modal } from '@components/shared/modal'
 
-import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
-import {t} from '@utils/translations'
+import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
+import { sortObjectsArrayByFiledDate } from '@utils/date-time'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './create-or-edit-trading-shop-content.style'
-import {FirstStep} from './first-step'
-import {SecondStep} from './second-step'
-import {ThirdStep} from './third-step'
+import { useClassNames } from './create-or-edit-trading-shop-content.style'
+import { FirstStep } from './first-step'
+import { SecondStep } from './second-step'
+import { ThirdStep } from './third-step'
 
 const stepVariant = {
   STEP_ONE: 'STEP_ONE',
@@ -58,7 +58,7 @@ export const CreateOrEditTradingShopContent = ({
   showProgress,
   progressValue,
 }) => {
-  const {classes: classNames} = useClassNames()
+  const { classes: classNames } = useClassNames()
 
   const [images, setImages] = useState([])
 
@@ -93,13 +93,13 @@ export const CreateOrEditTradingShopContent = ({
   const [deadlineError, setDeadlineError] = useState(false)
 
   const onChangeStatisticsField = (index, fieldName) => event => {
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
 
     if (['month'].includes(fieldName)) {
       newFormFields.statistics[index].month = event
 
       newFormFields.statistics = [
-        ...formFields.statistics.map((el, i) => (i === index ? {...el, month: event} : el)),
+        ...formFields.statistics.map((el, i) => (i === index ? { ...el, month: event } : el)),
       ].sort(sortObjectsArrayByFiledDate('month'))
     } else if (
       ['grossIncome', 'pureIncome', 'uniqueCustomers', 'webpageVisits'].includes(fieldName) &&
@@ -113,7 +113,7 @@ export const CreateOrEditTradingShopContent = ({
   }
 
   const onChangeField = fieldName => event => {
-    const newFormFields = {...formFields}
+    const newFormFields = { ...formFields }
     if (['maxAmountOfProposals', 'timeLimitInMinutes'].includes(fieldName)) {
       newFormFields[fieldName] = parseInt(event.target.value) || ''
     } else if (
@@ -273,7 +273,7 @@ export const CreateOrEditTradingShopContent = ({
           <div className={classNames.stepPaginationStartBar}></div>
 
           <div className={classNames.stepPaginationBar}>
-            <div className={classNames.step} style={{width: curStep === stepVariant.STEP_ONE ? '0%' : '100%'}}></div>
+            <div className={classNames.step} style={{ width: curStep === stepVariant.STEP_ONE ? '0%' : '100%' }}></div>
           </div>
 
           <div
@@ -286,13 +286,13 @@ export const CreateOrEditTradingShopContent = ({
           <div className={classNames.stepPaginationBar}>
             <div
               className={classNames.step}
-              style={{width: curStep === stepVariant.STEP_ONE || curStep === stepVariant.STEP_TWO ? '0%' : '100%'}}
+              style={{ width: curStep === stepVariant.STEP_ONE || curStep === stepVariant.STEP_TWO ? '0%' : '100%' }}
             ></div>
           </div>
 
           <div
             className={classNames.stepPaginationEndBar}
-            style={{backgroundColor: curStep === stepVariant.STEP_THREE ? '#00B746' : '#c4c4c4'}}
+            style={{ backgroundColor: curStep === stepVariant.STEP_THREE ? '#00B746' : '#c4c4c4' }}
           ></div>
         </div>
         <Typography className={classNames.stepTitle}>

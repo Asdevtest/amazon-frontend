@@ -1,105 +1,80 @@
-import React, {Component} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
-import {Navbar} from '@components/navbar'
-import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content'
-import {OrderContent} from '@components/screens/orders-view/order-content'
+import { SettingsModel } from '@models/settings-model'
 
-import {t} from '@utils/translations'
+import { OrderContent } from '@components/contents/order-content'
+import { MainContent } from '@components/layout/main-content'
+import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
+import { Button } from '@components/shared/buttons/button'
+import { Modal } from '@components/shared/modal'
 
-import {AdminOrderViewModel} from './admin-order-view.model'
-import {styles} from './admin-order-view.style'
+import { t } from '@utils/translations'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_ORDERS
+import { AdminOrderViewModel } from './admin-order-view.model'
+import { styles } from './admin-order-view.style'
 
-@observer
-export class AdminOrderViewRaw extends Component {
-  viewModel = new AdminOrderViewModel({
-    history: this.props.history,
-  })
+export const AdminOrderViewRaw = props => {
+  const [viewModel] = useState(
+    () =>
+      new AdminOrderViewModel({
+        history: props.history,
+      }),
+  )
+  const { classes: classNames } = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
 
-  render() {
-    const {classes: classNames} = this.props
-    const {
-      orderBoxes,
-      drawerOpen,
-      order,
-      history,
-      showAddOrEditSupplierModal,
-      yuanToDollarRate,
-      volumeWeightCoefficient,
-      selectedSupplier,
-      storekeepers,
-
-      onTriggerDrawerOpen,
-      onTriggerAddOrEditSupplierModal,
-      onChangeSelectedSupplier,
-    } = this.viewModel
-    const goBack = () => {
-      history.goBack()
+    return () => {
+      SettingsModel.changeLastCrumbAdditionalText('')
     }
+  }, [])
 
-    console.log('order', order)
-
-    return (
-      <React.Fragment>
-        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
-        <Main>
-          <Appbar
-            title={t(TranslationKey.Order)}
-            history={history}
-            setDrawerOpen={onTriggerDrawerOpen}
-            lastCrumbAdditionalText={` № ${order?.id}`}
-          >
-            <MainContent>
-              <div className={classNames.backButtonWrapper}>
-                <Button className={classNames.backButton} onClick={goBack}>
-                  {t(TranslationKey.Back)}
-                </Button>
-              </div>
-              {order ? (
-                <OrderContent
-                  selectedSupplier={selectedSupplier}
-                  order={order}
-                  boxes={orderBoxes}
-                  history={history}
-                  onChangeSelectedSupplier={onChangeSelectedSupplier}
-                  onTriggerAddOrEditSupplierModal={onTriggerAddOrEditSupplierModal}
-                />
-              ) : null}
-            </MainContent>
-          </Appbar>
-        </Main>
-
-        <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
-          <AddOrEditSupplierModalContent
-            onlyRead
-            product={order?.product}
-            storekeepersData={storekeepers}
-            sourceYuanToDollarRate={yuanToDollarRate}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            title={t(TranslationKey['Adding and editing a supplier'])}
-            supplier={selectedSupplier}
-            onTriggerShowModal={onTriggerAddOrEditSupplierModal}
-          />
-        </Modal>
-      </React.Fragment>
-    )
+  const goBack = () => {
+    viewModel.history.goBack()
   }
+
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.backButtonWrapper}>
+          <Button className={classNames.backButton} onClick={goBack}>
+            {t(TranslationKey.Back)}
+          </Button>
+        </div>
+        {viewModel.order ? (
+          <OrderContent
+            storekeepers={viewModel.storekeepers}
+            destinations={viewModel.destinations}
+            selectedSupplier={viewModel.selectedSupplier}
+            order={viewModel.order}
+            boxes={viewModel.orderBoxes}
+            history={viewModel.history}
+            onChangeSelectedSupplier={viewModel.onChangeSelectedSupplier}
+            onTriggerAddOrEditSupplierModal={viewModel.onTriggerAddOrEditSupplierModal}
+          />
+        ) : null}
+      </MainContent>
+
+      <Modal openModal={viewModel.showAddOrEditSupplierModal} setOpenModal={viewModel.onTriggerAddOrEditSupplierModal}>
+        <AddOrEditSupplierModalContent
+          onlyRead
+          product={viewModel.order?.product}
+          storekeepersData={viewModel.storekeepers}
+          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          supplier={viewModel.selectedSupplier}
+          onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
+        />
+      </Modal>
+    </React.Fragment>
+  )
 }
 
-export const AdminOrderView = withStyles(AdminOrderViewRaw, styles)
+export const AdminOrderView = withStyles(observer(AdminOrderViewRaw), styles)

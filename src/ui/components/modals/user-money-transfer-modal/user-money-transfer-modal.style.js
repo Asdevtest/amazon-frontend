@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   modalMessageWrapper: {
@@ -7,19 +7,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     gap: '20px',
   },
-  modalMessage: {
-    maxWidth: '400px',
-  },
-  modalMessageBtn: {
-    alignSelf: 'flex-end',
-  },
-  buttonsWrapper: {
-    display: 'flex',
-    gap: '10px',
-  },
-  cancelBtn: {
-    marginLeft: '10px',
-  },
+
   link: {
     width: '300px',
     overflowX: 'auto',

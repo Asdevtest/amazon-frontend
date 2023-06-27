@@ -1,34 +1,34 @@
 /* eslint-disable no-unused-vars */
-import {Modal, Typography} from '@mui/material'
+import { Modal, Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {toJS} from 'mobx'
-import {observer} from 'mobx-react'
+import { toJS } from 'mobx'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BatchesModel} from '@models/batches-model'
+import { BatchesModel } from '@models/batches-model'
 
-import {Button} from '@components/buttons/button'
-import {CopyValue} from '@components/copy-value'
-import {MemoDataGrid} from '@components/memo-data-grid'
-import {BatchInfoModal} from '@components/modals/batch-info-modal'
-import {SearchInput} from '@components/search-input'
+import { BatchInfoModal } from '@components/modals/batch-info-modal'
+import { Button } from '@components/shared/buttons/button'
+import { CopyValue } from '@components/shared/copy-value'
+import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { SearchInput } from '@components/shared/search-input'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {shortAsin} from '@utils/text'
+import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { shortAsin } from '@utils/text'
 // import {Button} from '@components/buttons/button'
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {productInTransferColumns} from './poduct-in-transfer-column'
-import {productLotDataFormColumns} from './product-lot-data-form-column'
-import {useClassNames} from './product-lot-data-form.style'
+import { productInTransferColumns } from './poduct-in-transfer-column'
+import { productLotDataFormColumns } from './product-lot-data-form-column'
+import { useClassNames } from './product-lot-data-form.style'
 
 export const ProductLotDataForm = observer(
-  ({product, batchesData, isTransfer, userInfo, onClickToggleArchiveProductLotData}) => {
-    const {classes: classNames} = useClassNames()
+  ({ product, batchesData, isTransfer, userInfo, onClickToggleArchiveProductLotData }) => {
+    const { classes: classNames } = useClassNames()
 
     const data = batchesData.map(item => {
       if (isTransfer) {
@@ -152,11 +152,11 @@ export const ProductLotDataForm = observer(
             getRowId={batches => batches?._id}
             columns={
               isTransfer
-                ? productInTransferColumns({onClickShowBatchBtn})
-                : productLotDataFormColumns({onClickShowBatchBtn})
+                ? productInTransferColumns({ onClickShowBatchBtn })
+                : productLotDataFormColumns({ onClickShowBatchBtn })
             }
             rows={toJS(batches)}
-            headerHeight={64}
+            columnHeaderHeight={64}
             rowHeight={100}
           />
         </div>

@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
@@ -35,7 +35,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
 
-    borderBottom: '5px solid #0460DE',
+    borderBottom: theme.palette.other.tableActiveFilterBtn,
 
     color: `${theme.palette.primary.main} !important`,
   },
@@ -43,5 +43,21 @@ export const useClassNames = makeStyles()(theme => ({
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: '400px',
+  },
+
+  footerContainer: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    borderTop: 'none !important',
+  },
+
+  footerCell: {
+    padding: 0,
+    margin: 0,
+  },
+
+  toolbarContainer: {
+    height: '52px',
   },
 }))

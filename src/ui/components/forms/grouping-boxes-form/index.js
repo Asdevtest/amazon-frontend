@@ -1,1 +1,1 @@
-export {GroupingBoxesForm} from './grouping-boxes-form'
+export { GroupingBoxesForm } from './grouping-boxes-form'

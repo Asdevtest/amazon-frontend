@@ -1,8 +1,14 @@
-import {TranslationKey} from '@constants/translations/translation-key'
+import React from 'react'
 
-import {MultilineTextCell, renderFieldValueCell, TrashCell} from '@components/data-grid-cells/data-grid-cells'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {t} from '@utils/translations'
+import {
+  MultilineTextCell,
+  renderFieldValueCell,
+  TrashCell,
+} from '@components/data-grid/data-grid-cells/data-grid-cells'
+
+import { t } from '@utils/translations'
 
 export const sourceColumns = () => [
   {
@@ -48,7 +54,7 @@ export const sourceColumns = () => [
   },
 ]
 
-export const chosenGoodsColumns = (handlers, firstRowId) => [
+export const chosenGoodsColumns = handlers => [
   {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
@@ -96,7 +102,7 @@ export const chosenGoodsColumns = (handlers, firstRowId) => [
     headerName: '',
     renderCell: params => (
       <TrashCell
-        isFirstRow={firstRowId === params.row.id}
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         tooltipText={t(TranslationKey['Remove from the list'])}
         onClick={() => handlers.onClickTrash(params.row.asin)}
       />

@@ -1,1 +1,1 @@
-export {AdminUserEditContent} from './admin-user-edit-content'
+export { AdminUserEditContent } from './admin-user-edit-content'

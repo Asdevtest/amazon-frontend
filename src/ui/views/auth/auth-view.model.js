@@ -1,15 +1,15 @@
-import {action, makeAutoObservable, reaction, runInAction} from 'mobx'
+import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {privateRoutesConfigs} from '@constants/routes'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { privateRoutesConfigs } from '@constants/navigation/routes'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
 
-import {getObjectKeys} from '@utils/object'
-import {setI18nConfig, t} from '@utils/translations'
+import { getObjectKeys } from '@utils/object'
+import { setI18nConfig, t } from '@utils/translations'
 
 export class AuthViewModel {
   history = undefined
@@ -26,11 +26,11 @@ export class AuthViewModel {
     password: null,
   }
 
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
     reaction(
       () => SettingsModel.languageTag,
       () => this.onLoadPage(),
@@ -87,7 +87,7 @@ export class AuthViewModel {
       } else {
         runInAction(() => {
           this.requestStatus = loadingStatuses.failed
-          this.error = new Error(t(TranslationKey['The user is waiting for confirmation by the Administrator']))
+          this.error = new Error('The user is waiting for confirmation by the Administrator')
         })
       }
     } catch (error) {

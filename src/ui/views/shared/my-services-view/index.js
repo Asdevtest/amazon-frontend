@@ -1,1 +1,1 @@
-export {MyServicesView} from './my-services-view'
+export { MyServicesView } from './my-services-view'

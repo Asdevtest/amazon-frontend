@@ -1,6 +1,6 @@
-import {keyframes} from '@emotion/react'
+import { keyframes } from '@emotion/react'
 
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 const animate_gradient = keyframes`
  0% {
@@ -23,9 +23,8 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '0 28px',
-    // gap: '20px',
-
     backgroundColor: theme.palette.background.general,
+
     [theme.breakpoints.down(768)]: {
       width: '300px',
       minHeight: '0',
@@ -34,16 +33,52 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
+  commentMessageWrapper: {
+    width: '586px',
+    minHeight: '168px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    gap: '30px',
+
+    [theme.breakpoints.down(768)]: {
+      width: '280px',
+      minHeight: '168px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      gap: '30px',
+    },
+  },
+
+  commentTitle: {
+    fontSize: '18px',
+    fontWeight: '600',
+    lineHeight: '140%',
+    color: theme.palette.text.general,
+  },
+
+  commentLabelText: {
+    fontSize: '14px',
+    fontWeight: '400',
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+  },
+
+  heightFieldAuto: {
+    height: 'auto',
+    width: '100%',
+
+    padding: 0,
+  },
+
   warningModalMessageWrapper: {
     background: theme.palette.background.general,
     borderRadius: '10px 10px',
-    // padding: '10px',
   },
 
   modalMessage: {
-    // maxWidth: '350px',
     textAlign: 'center',
-
     color: theme.palette.text.general,
     [theme.breakpoints.down(768)]: {
       fontSize: '12px',
@@ -64,27 +99,28 @@ export const useClassNames = makeStyles()(theme => ({
     margin: 0,
   },
 
-  modalMessageBtn: {
-    alignSelf: 'flex-end',
-  },
   buttonsWrapper: {
     width: '100%',
     display: 'flex',
     gap: '30px',
     justifyContent: 'center',
     alignItems: 'center',
-
     backgroundColor: theme.palette.background.general,
   },
 
   warningButtonsWrapper: {
     borderRadius: '0 0 10px 10px',
     backgroundColor: theme.palette.background.general,
-
     marginTop: '22px',
     [theme.breakpoints.down(768)]: {
       marginTop: '18px',
     },
+  },
+
+  commentButtonsWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gap: 20,
   },
 
   titleWrapper: {
@@ -109,23 +145,19 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   warningTitle: {
-    // width: '100%',
     borderRadius: '10px',
     backgroundSize: '400% 400%',
     animation: `${animate_gradient} 1.5s ease infinite`,
-
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
     textAlign: 'center',
-    // color: theme.palette.text.second
     verticalAlign: 'middle',
   },
 
   button: {
     height: '40px',
     width: '98px',
-
     [theme.breakpoints.down(768)]: {
       width: '69px',
     },
@@ -135,7 +167,5 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
     width: '98px',
     color: theme.palette.text.general,
-
-    // color: theme.palette.text.negativeMain,
   },
 }))

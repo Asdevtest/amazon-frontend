@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**inStock** | **Number** |  | [optional] 
-**requestedSendToBatch** | **Number** |  | [optional] 
-**inBatchOnTheWay** | **Number** |  | [optional] 
+**all** | **Number** |  | [optional] 
+**requestedShipment** | **Number** |  | [optional] 
 
 

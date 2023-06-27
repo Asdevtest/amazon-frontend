@@ -1,25 +1,24 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {BuyerModel} from '@models/buyer-model'
-import {ClientModel} from '@models/client-model'
-import {PermissionsModel} from '@models/permissions-model'
-import {ResearcherModel} from '@models/researcher-model'
-import {SettingsModel} from '@models/settings-model'
-import {ShopModel} from '@models/shop-model'
-import {SupervisorModel} from '@models/supervisor-model'
-import {UserModel} from '@models/user-model'
+import { BuyerModel } from '@models/buyer-model'
+import { ClientModel } from '@models/client-model'
+import { PermissionsModel } from '@models/permissions-model'
+import { ResearcherModel } from '@models/researcher-model'
+import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
+import { SupervisorModel } from '@models/supervisor-model'
+import { UserModel } from '@models/user-model'
 
-import {subUsersColumns} from '@components/table-columns/sub-users-columns/sub-users-columns'
+import { subUsersColumns } from '@components/table/table-columns/sub-users-columns/sub-users-columns'
 
-import {addIdDataConverter, clientInventoryDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
+import { addIdDataConverter, clientInventoryDataConverter } from '@utils/data-grid-data-converters'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { t } from '@utils/translations'
 
 export class SubUsersViewModel {
   history = undefined
@@ -38,17 +37,13 @@ export class SubUsersViewModel {
   curUserProductPermissions = []
   productPermissionsData = []
 
-  drawerOpen = false
-
   modalPermission = false
   showAddSubUserModal = false
   showWarningModal = false
   showPermissionModal = false
   showConfirmModal = false
 
-  selectionModel = undefined
-
-  activeSubCategory = 0
+  rowSelectionModel = undefined
 
   rowHandlers = {
     onClickRemoveBtn: row => this.onClickRemoveBtn(row),
@@ -56,13 +51,13 @@ export class SubUsersViewModel {
     onClickSaveComment: (id, comment) => this.onClickSaveComment(id, comment),
   }
 
-  firstRowId = undefined
   sortModel = []
-  filterModel = {items: []}
-  curPage = 0
-  rowsPerPage = 15
+  filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = subUsersColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = subUsersColumns(this.rowHandlers)
+
+  paginationModel = { page: 0, pageSize: 15 }
+  columnVisibilityModel = {}
 
   warningInfoModalSettings = {
     isWarning: false,
@@ -73,30 +68,11 @@ export class SubUsersViewModel {
     return UserModel.userInfo
   }
 
-  changeColumnsModel(newHideState) {
-    runInAction(() => {
-      this.columnsModel = subUsersColumns(this.rowHandlers, this.firstRowId).map(el => ({
-        ...el,
-        hide: !!newHideState[el?.field],
-      }))
-    })
-  }
-
-  constructor({history}) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
     })
-    makeAutoObservable(this, undefined, {autoBind: true})
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
-
-    reaction(
-      () => this.firstRowId,
-      () => this.updateColumnsModel(),
-    )
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.subUsersData,
@@ -115,16 +91,27 @@ export class SubUsersViewModel {
     )
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
-  }
-
   onChangeFilterModel(model) {
     runInAction(() => {
       this.filterModel = model
     })
+
+    this.setDataGridState()
+  }
+
+  onChangePaginationModelChange(model) {
+    runInAction(() => {
+      this.paginationModel = model
+    })
+
+    this.setDataGridState()
+  }
+
+  onColumnVisibilityModelChange(model) {
+    runInAction(() => {
+      this.columnVisibilityModel = model
+    })
+    this.setDataGridState()
   }
 
   async onClickSaveComment(id, comment) {
@@ -140,18 +127,13 @@ export class SubUsersViewModel {
     }
   }
 
-  setDataGridState(state) {
-    runInAction(() => {
-      this.firstRowId = state.sorting.sortedRows[0]
-    })
-
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setDataGridState(requestState, DataGridTablesKeys.OVERALL_SUB_USERS)
   }
@@ -161,15 +143,10 @@ export class SubUsersViewModel {
 
     runInAction(() => {
       if (state) {
-        this.sortModel = state.sorting.sortModel
-        this.filterModel = state.filter.filterModel
-        this.rowsPerPage = state.pagination.pageSize
-
-        this.densityModel = state.density.value
-        this.columnsModel = subUsersColumns(this.rowHandlers, this.firstRowId).map(el => ({
-          ...el,
-          hide: state.columns?.lookup[el?.field]?.hide,
-        }))
+        this.sortModel = toJS(state.sortModel)
+        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+        this.paginationModel = toJS(state.paginationModel)
+        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
       }
     })
   }
@@ -200,19 +177,7 @@ export class SubUsersViewModel {
 
   onSelectionModel(model) {
     runInAction(() => {
-      this.selectionModel = model
-    })
-  }
-
-  onChangeDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
-  onChangeCurPage = e => {
-    runInAction(() => {
-      this.curPage = e
+      this.rowSelectionModel = model
     })
   }
 
@@ -220,12 +185,8 @@ export class SubUsersViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
-  }
 
-  onChangeRowsPerPage(e) {
-    runInAction(() => {
-      this.rowsPerPage = e
-    })
+    this.setDataGridState()
   }
 
   async loadData() {
@@ -234,14 +195,12 @@ export class SubUsersViewModel {
 
       this.getDataGridState()
 
-      await this.getUsers()
-
-      if (UserRoleCodeMap[this.userInfo.role] === UserRole.CLIENT) {
-        await this.getShops()
-      }
-
-      await this.getGroupPermissions()
-      await this.getSinglePermissions()
+      await Promise.all([
+        this.getUsers(),
+        this.getGroupPermissions(),
+        this.getSinglePermissions(),
+        UserRoleCodeMap[this.userInfo.role] === UserRole.CLIENT && this.getShops(),
+      ])
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -364,7 +323,7 @@ export class SubUsersViewModel {
     try {
       await PermissionsModel.setPermissionsForUser(id, data)
 
-      await PermissionsModel.setProductsPermissionsForUser({userId: id, productIds: allowedProductsIds})
+      await PermissionsModel.setProductsPermissionsForUser({ userId: id, productIds: allowedProductsIds })
 
       runInAction(() => {
         this.warningInfoModalSettings = {
@@ -393,7 +352,7 @@ export class SubUsersViewModel {
 
   async onSubmitUserPermissionsForm(permissions, subUserId, allowedProductsIds) {
     try {
-      await this.setPermissionsForUser(subUserId, {permissions, permissionGroups: []}, allowedProductsIds)
+      await this.setPermissionsForUser(subUserId, { permissions, permissionGroups: [] }, allowedProductsIds)
 
       await this.getUsers()
     } catch (error) {
@@ -433,7 +392,7 @@ export class SubUsersViewModel {
 
   async unlinkSubUser() {
     try {
-      await UserModel.unlinkSubUser({userId: this.selectedSubUser._id})
+      await UserModel.unlinkSubUser({ userId: this.selectedSubUser._id })
 
       runInAction(() => {
         this.warningInfoModalSettings = {

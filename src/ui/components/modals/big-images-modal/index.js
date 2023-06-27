@@ -1,1 +1,1 @@
-export {BigImagesModal} from './big-images-modal'
+export { BigImagesModal } from './big-images-modal'

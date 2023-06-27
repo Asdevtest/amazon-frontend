@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/react'
-import {BrowserTracing} from '@sentry/tracing'
+import { BrowserTracing } from '@sentry/tracing'
 
 import React from 'react'
 
@@ -11,9 +11,9 @@ import 'reflect-metadata'
 
 import '@services/mobx-persist-configure'
 
-import {reportWebVitals} from '@utils/report-web-vitals'
+import { reportWebVitals } from '@utils/report-web-vitals'
 
-import {App} from './app'
+import { App } from './app'
 
 Sentry.init({
   integrations: [new BrowserTracing()],

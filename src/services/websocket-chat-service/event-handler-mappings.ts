@@ -1,4 +1,4 @@
-import {objectFlip} from '@utils/object'
+import { objectFlip } from '@utils/object'
 
 export enum ChatEventListenName {
   APP_PONG = 'App:pong',

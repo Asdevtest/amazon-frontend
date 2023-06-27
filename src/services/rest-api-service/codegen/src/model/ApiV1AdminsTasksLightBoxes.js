@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsTasksLightVariationTariff from './ApiV1AdminsTasksLightVariationTariff';
 
 /**
  * The ApiV1AdminsTasksLightBoxes model module.
@@ -59,6 +60,9 @@ class ApiV1AdminsTasksLightBoxes {
             if (data.hasOwnProperty('trackNumberFile')) {
                 obj['trackNumberFile'] = ApiClient.convertToType(data['trackNumberFile'], ['String']);
             }
+            if (data.hasOwnProperty('variationTariff')) {
+                obj['variationTariff'] = ApiV1AdminsTasksLightVariationTariff.constructFromObject(data['variationTariff']);
+            }
             if (data.hasOwnProperty('upsTrackNumber')) {
                 obj['upsTrackNumber'] = ApiClient.convertToType(data['upsTrackNumber'], 'String');
             }
@@ -94,6 +98,11 @@ ApiV1AdminsTasksLightBoxes.prototype['trackNumberText'] = undefined;
  * @member {Array.<String>} trackNumberFile
  */
 ApiV1AdminsTasksLightBoxes.prototype['trackNumberFile'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsTasksLightVariationTariff} variationTariff
+ */
+ApiV1AdminsTasksLightBoxes.prototype['variationTariff'] = undefined;
 
 /**
  * Идентификатор UPS

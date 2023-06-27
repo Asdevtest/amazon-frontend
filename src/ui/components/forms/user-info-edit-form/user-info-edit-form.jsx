@@ -1,25 +1,25 @@
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 // import {SettingsModel} from '@models/settings-model'
-import {Button} from '@components/buttons/button'
-import {Field} from '@components/field/field'
+import { Button } from '@components/shared/buttons/button'
+import { Field } from '@components/shared/field/field'
 
-import {checkIsResearcher} from '@utils/checks'
-import {t} from '@utils/translations'
-import {validationMessagesArray} from '@utils/validation'
+import { checkIsResearcher } from '@utils/checks'
+import { t } from '@utils/translations'
+import { validationMessagesArray } from '@utils/validation'
 
 // import {RegistrationForm} from '../registration-form'
-import {useClassNames} from './user-info-edit-form.style'
+import { useClassNames } from './user-info-edit-form.style'
 
 const regExpEmailChecking =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -29,8 +29,8 @@ const regExpNameCheking = /^(?! )(?!(?:.* ){1})/
 const regExpNameStartCheking = /^(?! )/
 
 export const UserInfoEditForm = observer(
-  ({user, wrongPassword, onSubmit, onCloseModal, clearError, checkValidationNameOrEmail}) => {
-    const {classes: classNames} = useClassNames()
+  ({ user, wrongPassword, onSubmit, onCloseModal, clearError, checkValidationNameOrEmail }) => {
+    const { classes: classNames } = useClassNames()
 
     const sourceFields = {
       name: user?.name || '',
@@ -45,7 +45,7 @@ export const UserInfoEditForm = observer(
     const [formFields, setFormFields] = useState(sourceFields)
 
     const onChangeField = fieldName => event => {
-      const newFormFields = {...formFields}
+      const newFormFields = { ...formFields }
 
       if (fieldName === 'email') {
         newFormFields[fieldName] = event.target.value.replace(/ /g, '').toLowerCase()
@@ -81,7 +81,7 @@ export const UserInfoEditForm = observer(
 
       for (let i = 0; i < values1.length; i++) {
         if (values1[i] !== values2[i]) {
-          res = {...res, [keys[i]]: values2[i]}
+          res = { ...res, [keys[i]]: values2[i] }
         }
       }
 
@@ -240,9 +240,12 @@ export const UserInfoEditForm = observer(
 
         <Field
           label={t(TranslationKey.Name)}
-          inputProps={{maxLength: 25}}
+          inputProps={{ maxLength: 25 }}
           labelClasses={classNames.labelField}
-          error={checkValidationNameOrEmail.nameIsUnique && t(TranslationKey['A user with this name already exists'])}
+          error={
+            checkValidationNameOrEmail.nameIsUnique === false &&
+            t(TranslationKey['A user with this name already exists'])
+          }
           className={classNames.textField}
           value={formFields.name}
           onChange={onChangeField('name')}
@@ -251,10 +254,11 @@ export const UserInfoEditForm = observer(
         <Field
           disabled
           label={t(TranslationKey.Email)}
-          inputProps={{maxLength: 35}}
+          inputProps={{ maxLength: 35 }}
           labelClasses={classNames.labelField}
           error={
-            (checkValidationNameOrEmail.emailIsUnique && t(TranslationKey['A user with this email already exists'])) ||
+            (checkValidationNameOrEmail.emailIsUnique === false &&
+              t(TranslationKey['A user with this email already exists'])) ||
             (emailInputError && t(TranslationKey['Invalid email!']))
           }
           className={classNames.textField}
@@ -266,7 +270,7 @@ export const UserInfoEditForm = observer(
         <div className={classNames.field}>
           <Field
             disabled={checkIsResearcher(UserRoleCodeMap[user.role])}
-            inputProps={{maxLength: 128}}
+            inputProps={{ maxLength: 128 }}
             labelClasses={classNames.labelField}
             error={wrongPassword && t(TranslationKey['Old password'])}
             inputClasses={classNames.input}
@@ -284,7 +288,7 @@ export const UserInfoEditForm = observer(
         <div className={classNames.field}>
           <Field
             disabled={checkIsResearcher(UserRoleCodeMap[user.role])}
-            inputProps={{maxLength: 128}}
+            inputProps={{ maxLength: 128 }}
             labelClasses={classNames.labelField}
             error={showError}
             inputClasses={classNames.input}
@@ -305,7 +309,7 @@ export const UserInfoEditForm = observer(
               errorLowercaseLetter,
               errorNoEngLetter,
             ).map((text, index) => (
-              <span key={index} className={cx(classNames.validationText, {[classNames.red]: submit && text.error})}>
+              <span key={index} className={cx(classNames.validationText, { [classNames.red]: submit && text.error })}>
                 {text.name}
               </span>
             ))}
@@ -314,8 +318,8 @@ export const UserInfoEditForm = observer(
             <Typography
               className={cx(
                 classNames.validationHiddenText,
-                {[classNames.red]: submit && errorMaxLength},
-                {[classNames.visibility]: errorMaxLength},
+                { [classNames.red]: submit && errorMaxLength },
+                { [classNames.visibility]: errorMaxLength },
               )}
             >
               {`${t(TranslationKey.maximum)} 32 ${t(TranslationKey.characters)}`}
@@ -326,7 +330,7 @@ export const UserInfoEditForm = observer(
         <div className={classNames.field}>
           <Field
             disabled={checkIsResearcher(UserRoleCodeMap[user.role])}
-            inputProps={{maxLength: 128}}
+            inputProps={{ maxLength: 128 }}
             labelClasses={classNames.labelField}
             error={submit && equalityError && t(TranslationKey["Passwords don't match"])}
             inputClasses={classNames.input}

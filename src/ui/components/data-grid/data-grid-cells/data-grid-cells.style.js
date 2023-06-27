@@ -1,0 +1,1767 @@
+export const styles = theme => ({
+  img: {
+    height: '64px',
+    width: '64px',
+    marginRight: '16px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+  },
+  productCellImg: {
+    height: '43px',
+    width: '43px',
+    marginRight: '16px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+  },
+  orderIdsItemsWrapper: {
+    whiteSpace: 'normal',
+  },
+
+  manyItemsMainWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
+  checkboxWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  priorityAndChinaDeliveryWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
+
+  clockIcon: {
+    width: 5,
+    height: 5,
+    color: theme.palette.primary.main,
+  },
+
+  productWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px',
+  },
+
+  skuAndAsinWrapper: {
+    display: 'flex',
+    gap: '10px',
+  },
+
+  asinCell: {
+    padding: '12px 0px',
+    // height: '88px',
+    scope: 'row',
+    position: 'relative',
+    width: '100%',
+  },
+  productCell: {
+    padding: '20px 0px',
+    height: '88px',
+  },
+  asinCellContainer: {
+    display: 'inline-flex',
+    width: '100%',
+  },
+  csCodeTypoWrapper: {
+    width: '100%',
+  },
+  csCodeTypo: {
+    fontSize: '14px',
+    lineHeight: '18px',
+    fontWeight: 500,
+    whiteSpace: 'nowrap',
+    maxWidth: '215px',
+    // maxWidth: '100%',
+
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+
+  typoCell: {
+    fontSize: '14px',
+    lineHeight: '21px',
+    color: 'rgba(189, 194, 209, 1)',
+  },
+
+  productTypoCell: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+    display: 'flex',
+    gap: '3px',
+  },
+
+  typoSpan: {
+    marginLeft: 10,
+    color: theme.palette.text.second,
+  },
+
+  linkSpan: {
+    marginLeft: 10,
+    color: theme.palette.primary.main,
+  },
+  cellBtn: {
+    color: 'rgba(0, 123, 255, 1)',
+    paddingTop: '0px',
+    paddingBottom: '0px',
+    textTransform: 'none',
+  },
+
+  feesTableWrapper: {
+    width: '100%',
+    maxHeight: '100px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  startIcon: {
+    color: '#C8CED3',
+    fontSize: '22px',
+  },
+
+  barcodeChip: {
+    backgroundColor: theme.palette.primary.main,
+    color: 'white',
+    fontSize: '13px',
+    borderRadius: '4px',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+  },
+  barcodeChipHover: {
+    '&:hover, &:focus': {
+      backgroundColor: theme.palette.primary.main,
+    },
+  },
+  barcodeChipIcon: {
+    color: 'rgba(255,255,255,0.26)',
+    '&:hover, &:focus': {
+      color: 'rgba(255,255,255,0.46)',
+    },
+  },
+
+  barcodeChipNoExists: {
+    // color: '#F5CF00',
+    backgroundColor: '#F5CF00',
+    color: '#001029',
+  },
+
+  inputValueNoExists: {
+    backgroundColor: '#F5CF00',
+    color: '#001029',
+  },
+
+  chipStock: {
+    width: '100%',
+
+    backgroundcolor: theme.palette.text.general,
+  },
+
+  changeInput: {
+    width: '100%',
+    height: 36,
+    textAlign: 'center',
+  },
+
+  changeInputComment: {
+    width: '100%',
+    height: 'auto',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    paddingLeft: 5,
+
+    '&::placeholder': {
+      fontSize: 14,
+    },
+  },
+
+  changeInputIcon: {
+    transition: '.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+
+  noActivebarCode: {
+    width: '170px',
+    height: '45px',
+    overflowX: 'auto',
+  },
+
+  noActiveLink: {
+    width: '150px',
+    height: '45px',
+    overflowX: 'auto',
+  },
+
+  order: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '10px 0',
+  },
+
+  orderImg: {
+    height: '64px',
+    width: '64px',
+    marginRight: '12px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+  },
+  orderTitle: {
+    fontSize: '14px',
+    fontWeight: 400,
+    whiteSpace: 'nowrap',
+    maxWidth: 190,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+  orderText: {
+    fontSize: '14px',
+
+    maxWidth: 200,
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+  },
+
+  orderTextSpan: {
+    color: 'rgb(189, 194, 209)',
+  },
+  select: {
+    backgroundcolor: theme.palette.text.general,
+  },
+
+  ordersImg: {
+    width: '30px',
+    height: '30px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+  },
+
+  taskDescriptionImg: {
+    width: '100%',
+    maxHeight: '30px',
+    height: '100%',
+    objectPosition: 'center',
+
+    [theme.breakpoints.down(1282)]: {
+      width: 39,
+      height: 39,
+    },
+  },
+
+  gridEditWrapper: {
+    // maxWidth: 550,
+    display: 'flex',
+    flexWrap: 'no-wrap',
+    gap: 16,
+  },
+
+  gridBoxesWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
+  },
+
+  superboxWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+    marginRight: 5,
+  },
+
+  renderBoxWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  standartBoxWrapper: {
+    display: 'grid',
+    gridAutoFlow: 'column',
+    gridTemplateColumns: 'repeat(3, auto)',
+    gap: 5,
+
+    maxHeight: 200,
+
+    [theme.breakpoints.down(1282)]: {
+      gridTemplateColumns: 'none',
+    },
+  },
+
+  imagesWrapper: {
+    width: 'max-content',
+
+    border: `1px solid ${theme.palette.primary.main}`,
+    borderRadius: 4,
+    gap: '5px',
+    padding: '3px',
+    marginRight: '5px',
+  },
+
+  imgNum: {
+    fontWeight: 600,
+    fontSize: 14,
+    color: theme.palette.primary.main,
+    // width: '50px',
+  },
+  taskDescriptionCountWrapper: {
+    marginLeft: 5,
+  },
+  taskDescriptionSuperBox: {
+    fontWeight: 600,
+    fontSize: 18,
+    color: theme.palette.primary.main,
+    wordWrap: 'no-wrap',
+    minWidth: 'max-content',
+  },
+
+  imgWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    gap: '2px',
+
+    [theme.breakpoints.down(1282)]: {
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  },
+
+  gridBoxWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    gap: '2px',
+    marginRight: 30,
+  },
+
+  blockProductsImagesWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  receiveOrEditWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-start',
+    gap: 10,
+    height: 50,
+
+    'img:first-of-type': {
+      width: 'fit-content',
+      height: '100%',
+    },
+  },
+
+  taskDescriptionIcon: {
+    color: theme.palette.primary.main,
+    margin: '0 8px',
+  },
+
+  sideWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+
+    padding: '10px 0',
+  },
+
+  taskTableCell: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+  },
+
+  rowCancelBtn: {
+    height: 30,
+    padding: '0 25px',
+    [theme.breakpoints.down(1282)]: {
+      width: 90,
+    },
+  },
+
+  warehouseMyTasksSuccessBtn: {
+    height: 30,
+    width: 166,
+
+    [theme.breakpoints.down(1282)]: {
+      width: 90,
+    },
+  },
+
+  marginRightBtn: {
+    marginRight: '10px',
+  },
+
+  superboxTypo: {
+    margin: '0',
+    color: theme.palette.primary.main,
+    fontSize: '20px',
+    fontWeight: '900px',
+  },
+
+  manyItemsImagesWrapper: {
+    height: '75px',
+    border: '1px solid rgba(0, 123, 255, 0.5)',
+    borderRadius: '10px',
+    gap: '3px',
+    padding: '3px',
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: '5px',
+    width: 'min-content',
+  },
+
+  manyItemsImgWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '2px',
+    whiteSpace: 'nowrap',
+  },
+
+  manyItemsOrderTitle: {
+    fontWeight: 500,
+  },
+
+  manyItemsOrderWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '5px',
+  },
+
+  scrollingValue: {
+    width: '100%',
+    overflowX: 'auto',
+  },
+
+  normDateCellTypo: {
+    fontSize: '14px',
+    fontWeight: '400',
+    textAlign: 'center',
+
+    whiteSpace: 'pre-wrap',
+
+    [theme.breakpoints.down(1282)]: {
+      fontWeight: 400,
+      fontSize: 12,
+      lineHeight: '16px',
+    },
+  },
+
+  shortDateCellTypo: {
+    textAlign: 'center',
+    width: '100%',
+    whiteSpace: 'pre-line',
+    fontSize: '12px',
+    lineHeight: '16px',
+    fontWeight: '400',
+  },
+
+  taskDescriptionScrollWrapper: {
+    width: '100%',
+    maxWidth: '650px',
+    overflowX: 'auto',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    overflowY: 'auto',
+    margin: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
+  },
+
+  smallRowImgWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  batchBoxesWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    overflowY: 'auto',
+    height: '100%',
+    width: '100%',
+    padding: '5px',
+  },
+
+  batchProductsSubWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    width: 480,
+
+    maxHeight: 500,
+    overflow: 'auto',
+  },
+
+  batchProductsWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+
+    border: '1px solid rgba(0, 123, 255, 0.5)',
+    borderRadius: '10px',
+    padding: '3px',
+    marginBottom: '5px',
+
+    width: 510,
+    maxHeight: 500,
+    overflow: 'hidden',
+  },
+
+  batchProductsBoxesLength: {
+    fontSize: 26,
+    fontWeight: 600,
+    color: theme.palette.primary.main,
+    padding: '0 5px',
+  },
+
+  batchProductTitle: {
+    whiteSpace: 'nowrap',
+    maxWidth: '360px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+
+  needPay: {
+    color: 'red',
+    fontWeight: 'bold',
+    marginLeft: '15px',
+  },
+
+  alertText: {
+    color: 'red',
+    fontWeight: 'bold',
+  },
+
+  OrderCellError: {
+    color: 'red',
+    fontWeight: 'bold',
+    marginLeft: '15px',
+  },
+
+  trashWrapper: {
+    width: '100%',
+    display: 'flex',
+    padding: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'inherit',
+    outline: 'none',
+
+    '&:hover': {
+      backgroundColor: 'inherit',
+    },
+  },
+
+  trashImg: {
+    width: '20px',
+    height: '20px',
+
+    transition: '0.3s ease',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    '&:hover': {
+      transform: 'scale(1.2)',
+    },
+  },
+
+  cancelTaskBtn: {
+    marginLeft: '20px',
+    height: 30,
+  },
+
+  infoBtn: {
+    height: 30,
+  },
+
+  superBoxQtyWrapper: {
+    width: '100%',
+    height: '100%',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 5,
+
+    padding: '5px 0',
+  },
+
+  multilineTextWrapper: {
+    width: '100%',
+    height: '100%',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'start',
+    padding: '5px 0',
+  },
+
+  illuminationCell: {
+    backgroundColor: theme.palette.background.green,
+  },
+
+  multilineText: {
+    width: '100%',
+    maxHeight: '100%',
+    textAlign: 'center',
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '16px',
+  },
+
+  threeMultilineText: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 48,
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+
+    display: '-webkit-box',
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: 'vertical',
+  },
+
+  oneMultilineText: {
+    justifyContent: 'center',
+    height: 16,
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
+  },
+
+  boxesAndQuantityText: {
+    whiteSpace: 'normal',
+    color: theme.palette.text.general,
+
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '16px',
+  },
+
+  multilineLeftAlignText: {
+    textAlign: 'left',
+  },
+
+  multilineAsinTextAlignLeft: {
+    width: '100%',
+    maxHeight: '100%',
+    // userSelect: 'none',
+    textAlign: 'start',
+    whiteSpace: 'normal',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '16px',
+  },
+
+  statusMultilineText: {
+    width: '100%',
+    maxHeight: '100%',
+    textAlign: 'center',
+    whiteSpace: 'normal',
+    textOverflow: 'ellipsis',
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '16px',
+  },
+
+  multilineTextAlignLeftHeaderWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'start',
+  },
+
+  multilineTextAlignLeftHeader: {
+    width: '100%',
+    textAlign: 'left',
+
+    whiteSpace: 'normal',
+    textOverflow: 'ellipsis',
+
+    fontWeight: '600',
+    fontSize: '14px',
+    lineHeight: '17px',
+
+    color: theme.palette.text.general,
+
+    height: '100%',
+  },
+
+  multilineTextAlignLeftWrapper: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'start',
+    flexWrap: 'no-wrap',
+    wordBreak: 'break-all',
+  },
+
+  commentOfSbWrapper: {
+    padding: '5px 0',
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  commentOfSbSubWrapper: {
+    maxHeight: '100%',
+    width: '100%',
+    overflow: 'auto',
+  },
+
+  commentOfSbSubMultiText: {
+    width: '100%',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+
+  multilineTextAlignLeft: {
+    width: '100%',
+    textAlign: 'left',
+    whiteSpace: 'pre-wrap',
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '17px',
+    fontFamily: 'inherit',
+    border: 'none',
+    backgroundColor: 'inherit',
+    color: theme.palette.text.general,
+    resize: 'none',
+    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
+  },
+
+  fourLinesTextAlignLeft: {
+    justifyContent: 'center',
+    height: 65,
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+
+    display: '-webkit-box',
+    WebkitLineClamp: 4,
+    WebkitBoxOrient: 'vertical',
+  },
+
+  multilineTextAlignLeftSub: {
+    width: '100px',
+  },
+
+  multilineTextHeaderWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  multilineTextHeaderWrapperWithComponent: {
+    justifyContent: 'space-between',
+  },
+
+  boxesAndQuantityWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'start',
+    flexWrap: 'wrap',
+  },
+
+  textHeaderWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  multilineHeaderText: {
+    width: 'fit-content',
+    textAlign: 'center',
+    // whiteSpace: 'normal',
+
+    color: theme.palette.text.general,
+
+    fontWeight: '600',
+    fontSize: '12px',
+    lineHeight: '14px',
+
+    whiteSpace: 'pre-line',
+    wordBreak: 'break-word',
+  },
+
+  adaptText: {
+    fontSize: 14,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+
+  headerText: {
+    width: '100%',
+    textAlign: 'left',
+    whiteSpace: 'normal',
+
+    color: theme.palette.text.general,
+
+    fontWeight: '600',
+    fontSize: '14px',
+    lineHeight: '16px',
+    padding: '0 10px',
+  },
+
+  multilineStatusText: {
+    textAlign: 'left',
+    whiteSpace: 'normal',
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    padding: '0 10px',
+  },
+
+  renderFieldValueCellText: {
+    fontSize: '14px',
+
+    whiteSpace: 'nowrap',
+
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+
+  warehouseTariffDatesItem: {
+    display: 'flex',
+    width: '300px',
+    justifyContent: 'space-between',
+  },
+
+  warehouseBoxesBtnsWrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    gap: '10px',
+    height: '100%',
+    padding: '6px 0',
+  },
+
+  warehouseBoxesBtn: {
+    width: 210,
+    height: 30,
+  },
+
+  shopsReportBtnsWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 15,
+    width: '100%',
+  },
+
+  tooltipWrapperMargin: {
+    marginRight: '-15px',
+  },
+
+  downloadLink: {
+    fontSize: 14,
+    color: theme.palette.primary.main,
+    transition: '0.3s ease',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+
+  copyAsin: {
+    display: 'flex',
+    gap: '2px',
+    alignItems: 'center',
+  },
+
+  flexDirectionColumn: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    flexGrow: 1,
+  },
+
+  changeChipCellLabel: {
+    fontSize: '12px',
+  },
+
+  statusText: {
+    width: '100%',
+    textAlign: 'right',
+  },
+
+  statusTextChat: {
+    fontSize: '18px',
+  },
+
+  statusWrapper: {
+    display: 'flex',
+    justifyContent: 'start',
+  },
+
+  editOrRemoveBtnsCell: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '40px',
+  },
+
+  addPermissionBtn: {
+    padding: '0 15px',
+  },
+  sabUserWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    marginLeft: '20px',
+  },
+
+  userAvatar: {
+    width: 66,
+    height: 66,
+  },
+
+  sabUserInfoWrapper: {
+    marginLeft: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
+  },
+
+  userEmail: {
+    color: theme.palette.text.general,
+
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: '19px',
+  },
+
+  sabUserRatingWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  sabUserRating: {
+    marginLeft: 10,
+  },
+
+  userRolesWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: 70,
+    overflow: 'auto',
+    width: '100%',
+  },
+
+  userRole: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+    marginBottom: 5,
+  },
+
+  tariffRatesWrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+
+  manyUserLinkWrapper: {
+    width: '100%',
+    maxWidth: 152,
+    overflowX: 'auto',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  manyUserLinkWrapperStart: {
+    display: 'flex',
+    justifyContent: 'start',
+    paddingBottom: 5,
+  },
+
+  userLinkWrapper: {
+    width: '100%',
+    display: 'flex',
+
+    alignItems: 'center',
+    gap: '10px',
+  },
+
+  clientTasksActionBtnsWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
+  normalActionBtnWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    paddingRight: 10,
+  },
+
+  warehouseMyTasksBtnsWrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '15px 0',
+    gap: '10px',
+  },
+
+  actionBtn: {
+    display: 'flex',
+    width: 175,
+    height: 30,
+    padding: '0 12px',
+
+    [theme.breakpoints.down(1282)]: {
+      width: 128,
+      fontWeight: 400,
+      fontSize: 13,
+      lineHeight: 18,
+    },
+  },
+
+  smallActionBtn: {
+    display: 'flex',
+    height: 30,
+    width: 'auto',
+
+    padding: '0 15px',
+  },
+
+  successActionBtnWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
+  copyImgButton: {
+    minWidth: 'unset !important',
+    backgroundColor: 'inherit',
+    padding: 0,
+    margin: 0,
+    '&:hover': {
+      backgroundColor: 'inherit',
+    },
+  },
+
+  inStockWrapper: {
+    width: '100%',
+  },
+
+  inStockSubWrapper: {
+    width: '100%',
+
+    display: 'flex',
+
+    justifyContent: 'space-between',
+    gap: 10,
+  },
+
+  fourMonthesStockWrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '10px 0',
+  },
+
+  CommentUsersCellWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '10px 0',
+  },
+
+  fourMonthesStockLabel: {
+    fontSize: '14px',
+    lineHeight: '16px',
+    marginBottom: '5px',
+  },
+
+  removeOrEditBtn: {
+    maxHeight: '40px',
+    maxWidth: '40px',
+  },
+
+  editOrRemoveIconBtnsCell: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '40px',
+    padding: '15px 0',
+  },
+
+  editOrRemoveIconBtnsSubCell: {
+    width: 'min-content',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 15,
+  },
+
+  editOrRemoveBtnWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    flexDirection: 'column',
+  },
+
+  editOrRemoveBtnText: {
+    fontSize: '12px',
+    lineHeight: '14px',
+    fontWeight: '400',
+    color: theme.palette.text.second,
+  },
+
+  orderStatusText: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    fontWeight: '400',
+  },
+
+  orderBoxesWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '18px',
+  },
+
+  viewBtn: {
+    height: 30,
+  },
+
+  notificationBtnsWrapper: {
+    display: 'flex',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '20px',
+  },
+
+  notificationBtn: {
+    width: '140px',
+    height: '30px',
+    padding: '0 12px',
+  },
+
+  productMyRequestsBtnsWrapper: {
+    display: 'flex',
+    width: '100%',
+    gap: '30px',
+  },
+
+  productMyRequestsBtn: {
+    width: '140px',
+    height: 30,
+  },
+
+  multilineLink: {
+    color: theme.palette.primary.main,
+    cursor: 'pointer',
+
+    transition: '.3s ease',
+    '&:hover': {
+      opacity: '.7',
+      textDecoration: 'underline',
+    },
+  },
+
+  headerIcon: {
+    width: '14px !important',
+    height: '14px !important',
+
+    color: 'gray',
+
+    // zIndex: -1000,
+    // zIndex: 100000000000,
+
+    position: 'absolute',
+    // right: -5,
+    // right: -7,
+    right: -15,
+    top: 15,
+
+    overflow: 'visible',
+  },
+
+  headerIconBlue: {
+    color: theme.palette.primary.main,
+  },
+
+  userLink: {
+    display: 'inline-flex',
+  },
+
+  normalizeLink: {
+    color: theme.palette.primary.main,
+    textDecoration: 'none',
+    transition: '.3s ease',
+    '&:hover': {
+      opacity: '.7',
+    },
+  },
+  linkWrapper: {
+    cursor: 'pointer',
+  },
+
+  shortBoxDimensionsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '5px',
+    width: '100%',
+    padding: '15px 0 5px',
+  },
+
+  shortBoxDimensionsText: {
+    fontSize: '14px',
+    lineHeight: '16px',
+  },
+
+  shortBoxDimensionsButton: {
+    width: '100%',
+    marginTop: '23px',
+  },
+
+  editPaddingButton: {
+    marginTop: 0,
+  },
+
+  photoWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '10px 0',
+  },
+
+  '@media (max-width: 768px)': {
+    actionBtn: {
+      height: '30px !important',
+    },
+    warehouseMyTasksBtnsWrapper: {
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '5px',
+    },
+
+    warehouseMyTasksSuccessBtn: {
+      width: 114,
+      height: 30,
+    },
+
+    warehouseMyTasksCancelBtn: {
+      width: 114,
+      height: 30,
+
+      [theme.breakpoints.down(1282)]: {
+        width: 90,
+      },
+    },
+  },
+
+  warehouseMyTasksCancelBtn: {
+    height: 30,
+    width: 166,
+  },
+
+  sizesLabel: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#c4c4c4',
+    cursor: 'pointer',
+  },
+
+  selectedLabel: {
+    color: theme.palette.primary.main,
+  },
+
+  toggleItemWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
+  indicator: {
+    display: 'block',
+    backgroundColor: '#006CFF',
+    width: '2px',
+    height: '10px',
+  },
+  fixedTextWidth: {
+    width: 35,
+  },
+  doneIcon: {
+    color: theme.palette.text.green,
+  },
+  clearIcon: {
+    width: '20px !important',
+    height: '20px !important',
+    transition: '.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+    color: theme.palette.text.second,
+  },
+  iconWrapper: {
+    display: 'flex',
+    gap: 5,
+    paddingLeft: 5,
+  },
+  destinationAndTariffWrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
+    padding: '10px 0',
+  },
+  storekeeperBtn: {
+    height: 'auto',
+    width: '100%',
+    whiteSpace: 'normal',
+    color: theme.palette.text.general,
+  },
+  destination: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  cursorPointer: {
+    cursor: 'pointer',
+  },
+
+  amount: {
+    marginLeft: '5px',
+  },
+  ManyItemsPriceCellMainWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    margin: '5px 0',
+    gap: 10,
+  },
+  pricesWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    height: 'auto',
+    flexGrow: 1,
+
+    gap: 77,
+  },
+
+  searchInputWrapper: {
+    width: '100%',
+    height: 30,
+    marginBottom: 10,
+  },
+
+  searchInput: {
+    border: '1px solid #E0E0E0',
+    width: '100%',
+    height: '100%',
+  },
+  userMainWrapper: {
+    width: '100%',
+    height: '100%',
+
+    display: 'flex',
+    gap: 10,
+    alignItems: 'center',
+  },
+  userCellAvatar: {
+    width: 28,
+    height: 28,
+    searchInputWrapper: {
+      width: '100%',
+      height: 30,
+      marginBottom: 10,
+    },
+    searchInput: {
+      border: '1px solid #E0E0E0',
+      width: '100%',
+      height: '100%',
+    },
+
+    stringListMenuWrapper: {
+      width: 150,
+      padding: '10px',
+      maxHeight: 400,
+    },
+
+    colorRed: {
+      color: '#FF1616 !important',
+    },
+
+    colorGreen: {
+      color: '#00B746 !important',
+      userMainWrapper: {
+        width: '100%',
+        height: '100%',
+
+        display: 'flex',
+        gap: 10,
+        alignItems: 'center',
+      },
+      userCellAvatar: {
+        width: 28,
+        height: 28,
+      },
+    },
+    userMainWrapper: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 5,
+      colorGreen: {
+        color: '#00B746 !important',
+      },
+    },
+  },
+  asinCellMainWrapper: {
+    display: 'flex',
+    width: 'fit-content',
+    height: '100%',
+
+    gap: 5,
+  },
+
+  imgMini: {
+    height: 33,
+    width: 33,
+    objectFit: 'contain',
+    objectPosition: 'center',
+  },
+  attributeWrapper: {
+    display: 'flex',
+
+    gap: 5,
+  },
+  asinAndSkuTitle: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+
+    maxWidth: 115,
+
+    whiteSpace: 'pre-wrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+
+    fontWeight: 400,
+    fontSize: 12,
+    lineHeight: '16px',
+
+    color: theme.palette.text.second,
+  },
+  attributeLink: {
+    color: theme.palette.text.general,
+  },
+  nativeSelect: {
+    [theme.breakpoints.down(1282)]: {
+      width: 130,
+    },
+    // width: '210px',
+    '& > div': {
+      display: 'flex',
+      gap: 8,
+      alignItems: 'center',
+    },
+  },
+  attributeMissing: {
+    color: theme.palette.text.second,
+  },
+  colorRed: {
+    color: '#FF1616 !important',
+  },
+
+  colorGreen: {
+    color: '#00B746 !important',
+  },
+
+  operationTypeText: {
+    [theme.breakpoints.down(1282)]: {
+      fontWeight: 400,
+      fontSize: 14,
+      lineHeight: '16px',
+    },
+  },
+  ratingScore: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+  },
+  bigBoxSvg: {
+    [theme.breakpoints.down(1282)]: {
+      width: 47,
+      height: 51,
+    },
+  },
+  boxArrowSvg: {
+    color: theme.palette.primary.main,
+
+    [theme.breakpoints.down(1282)]: {
+      width: 22,
+      height: 22,
+    },
+  },
+
+  cubeIconSvg: {
+    color: theme.palette.primary.main,
+  },
+
+  boxEditSvg: {
+    color: theme.palette.primary.main,
+
+    [theme.breakpoints.down(1282)]: {
+      width: 22,
+      height: 22,
+    },
+  },
+  ChangeInputCommentCellWrapper: {
+    padding: '16px 0',
+    display: 'flex',
+    width: '100%',
+  },
+
+  menuItem: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  rushOrderImg: {
+    width: '12px',
+    height: '13px',
+  },
+
+  dapTitle: {
+    color: theme.palette.text.second,
+    fontSize: '12px',
+  },
+
+  dapBtn: {
+    padding: '0px 44px',
+    height: 30,
+    fontSize: '14px',
+    maxWidth: '200px !important',
+    minWidth: '200px !important',
+    lineHeight: 1,
+    span: {
+      maxWidth: '92px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+    },
+  },
+
+  priceCellWrapper: {
+    width: '100%',
+    height: '100%',
+
+    display: 'flex',
+    gap: 5,
+    flexWrap: 'wrap',
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  priceCellWrapperAlignLeft: {
+    justifyContent: 'flex-start',
+  },
+  priceText: {
+    color: theme.palette.text.main,
+    fontWeight: 400,
+    fontSize: '14px',
+    lineHeight: '19px',
+  },
+  newPrice: {
+    color: '#FB1D5B',
+    fontWeight: 600,
+  },
+  oldPrice: {
+    textDecoration: 'line-through',
+  },
+  CopyLinkWrapper: {
+    width: '100%',
+
+    display: 'flex',
+    gap: 5,
+  },
+
+  linkText: {
+    width: 'fit-content',
+    maxWidth: 'calc(100% - 25px)',
+  },
+  linkTextClass: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+
+    color: theme.palette.primary.main,
+    fontSize: 14,
+    lineHeight: '140%',
+    fontWeight: 400,
+
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    transition: '.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.01)',
+      opacity: '0.8',
+    },
+  },
+  redFlags: {
+    padding: '10px 0',
+    display: 'flex',
+    flexWrap: 'wrap',
+    height: '100%',
+    gap: 12,
+
+    p: {
+      padding: 0,
+      margin: 0,
+    },
+  },
+
+  tags: {
+    p: {
+      padding: 0,
+      margin: 0,
+    },
+  },
+
+  tagItem: {
+    fontSize: 14,
+    fontWeight: 400,
+    maxWidth: 130,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+
+  batchTrackingWrapper: {
+    width: '100%',
+  },
+
+  batchTrackingTitle: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+
+    color: theme.palette.text.second,
+
+    margin: '0 !important',
+  },
+
+  batchTrackingContainer: {
+    width: '100%',
+  },
+  arrivalDateWrapper: {
+    display: 'flex',
+  },
+  iconWrapperArrivalDate: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  commentControls: {
+    alignSelf: 'flex-end',
+    paddingBottom: 20,
+  },
+
+  arrivalDateIcon: {
+    width: 15,
+    height: 15,
+  },
+  bluelinkText: {
+    color: theme.palette.primary.main,
+    fontWeight: 400,
+    cursor: 'pointer',
+  },
+
+  colorYellow: {
+    color: '#F3AF00 !important',
+  },
+
+  shopsReportBtnsSubWrapper: {
+    display: 'flex',
+    gap: 15,
+  },
+
+  errorInputActive: {
+    border: '1px solid red',
+  },
+
+  orderIdAndAmountCount: {
+    width: 'fit-content',
+    margin: '0 auto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+
+    p: {
+      textAlign: 'right',
+      width: 'fit-content',
+    },
+    div: {
+      width: 'fit-content',
+    },
+  },
+
+  amountWithClocks: {
+    display: 'flex',
+    gap: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    svg: {
+      fontSize: '16px',
+      color: theme.palette.primary.main,
+      stroke: '#fff',
+    },
+  },
+  printIcon: {
+    color: theme.palette.background.darkBlue,
+  },
+  printIconModal: {
+    color: '#fff',
+  },
+  formedCell: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    gap: 5,
+  },
+
+  asinCellCopyWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 7,
+  },
+})

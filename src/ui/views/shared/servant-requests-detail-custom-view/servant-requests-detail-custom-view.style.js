@@ -1,10 +1,4 @@
 export const styles = () => ({
-  proposalFormWrapper: {
-    backgroundColor: 'white',
-    borderRadius: '4px',
-    padding: '10px',
-  },
-
   backBtnWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -26,9 +20,6 @@ export const styles = () => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '10px 0',
-  },
-  cancelRequestProposalBtn: {
-    backgroundColor: '#C4C4C4',
   },
 
   backBtn: {

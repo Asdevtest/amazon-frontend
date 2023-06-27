@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /* eslint-disable no-unused-vars */
-import {Typography, Box} from '@mui/material'
+import { Typography, Box } from '@mui/material'
 
-import React, {FC, useEffect, useState} from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {ServiceExchangeCard} from '@components/cards/service-exchange-card'
-import {SearchInput} from '@components/search-input'
+import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
+import { Button } from '@components/shared/buttons/button'
+import { SearchInput } from '@components/shared/search-input'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {useClassNames} from './choice-of-performer-modal.style'
+import { useClassNames } from './choice-of-performer-modal.style'
 
 interface Requests {
   createdBy: CreatedBy
@@ -32,7 +32,7 @@ interface CreatedBy {
 }
 
 interface linksToMediaFilesInterface {
-  file: {name: Array<string>}
+  file: { name: Array<string> }
 }
 interface Service {
   createdBy: CreatedBy
@@ -54,8 +54,8 @@ export interface ChoiceOfPerformerModalProps {
 }
 
 export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => {
-  const {announcements, onClickThumbnail, onClickChooseBtn, onClickResetPerformerBtn, onClickCloseBtn} = props
-  const {classes: classNames} = useClassNames()
+  const { announcements, onClickThumbnail, onClickChooseBtn, onClickResetPerformerBtn, onClickCloseBtn } = props
+  const { classes: classNames } = useClassNames()
 
   const [dataToRender, setDataToRender] = useState(announcements)
 

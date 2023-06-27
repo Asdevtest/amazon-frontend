@@ -1,38 +1,42 @@
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
-import {InputAdornment, Typography, ClickAwayListener, Avatar} from '@mui/material'
+
+import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined'
+import { Avatar, ClickAwayListener, InputAdornment, Typography } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
-import React, {FC, ReactElement, useEffect, useState, KeyboardEvent, useContext} from 'react'
+import React, { FC, KeyboardEvent, ReactElement, useContext, useEffect, useRef, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
-import {chatsType} from '@constants/chats'
-import {MemberPlus, Pencil} from '@constants/svg-icons'
-import {UiTheme} from '@constants/themes'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { chatsType } from '@constants/keys/chats'
+import { UiTheme } from '@constants/theme/themes'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {ChatContract} from '@models/chat-model/contracts'
-import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
-import {SettingsModel} from '@models/settings-model'
+import { ChatContract } from '@models/chat-model/contracts'
+import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
+import { SettingsModel } from '@models/settings-model'
 
-import {Button} from '@components/buttons/button'
+import { Button } from '@components/shared/buttons/button'
+import { MemberPlus, Pencil } from '@components/shared/svg-icons'
 
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {t} from '@utils/translations'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { t } from '@utils/translations'
 
-import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
+import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import {CurrentOpponent, IFile} from '../multiple-chats'
-import {ChatFilesInput} from './chat-files-input'
-import {ChatMessagesList, ChatMessageUniversalHandlers} from './chat-messages-list'
-import {useClassNames} from './chat.style'
+import { CurrentOpponent, IFile } from '../multiple-chats'
+import { ChatFilesInput } from './chat-files-input'
+import { ChatMessagesList, ChatMessageUniversalHandlers } from './chat-messages-list'
+import { useClassNames } from './chat.style'
+import { ChatMessageByType } from './chat-messages-list/chat-message-by-type'
 
 export interface RenderAdditionalButtonsParams {
   message: string
@@ -64,7 +68,7 @@ interface Props {
   searchPhrase?: string
 
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
-  onSubmitMessage: (message: string, files: IFile[]) => void
+  onSubmitMessage: (message: string, files: IFile[], replyMessageId: string | null) => void
   updateData: () => void
   onTypingMessage: (chatId: string) => void
   onClickBackButton: () => void
@@ -92,6 +96,8 @@ export const Chat: FC<Props> = observer(
     onRemoveUsersFromGroupChat,
     onClickEditGroupChatInfo,
   }) => {
+    const messageInput = useRef<HTMLTextAreaElement | null>(null)
+
     const [showFiles, setShowFiles] = useState(false)
 
     const [showEmojis, setShowEmojis] = useState(false)
@@ -99,6 +105,11 @@ export const Chat: FC<Props> = observer(
     const [showGroupSettings, setShowGroupSettings] = useState(false)
 
     const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
+
+    const [messageToReply, setMessageToReply] = useState<null | ChatMessageContract>(null)
+    const [messageToScroll, setMessageToScroll] = useState<null | ChatMessageContract>(null)
+
+    // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
 
     const isGroupChat = chat.type === chatsType.GROUP
 
@@ -127,26 +138,33 @@ export const Chat: FC<Props> = observer(
       }
     }, [message])
 
+    useEffect(() => {
+      if (messageToReply !== null) {
+        messageInput.current?.focus()
+      }
+    }, [messageToReply])
+
     const changeMessageAndState = (value: string) => {
       setMessage(value)
-      SettingsModel.setChatMessageState({message: value, files}, chat._id)
+      SettingsModel.setChatMessageState({ message: value, files }, chat._id)
     }
 
     const changeFilesAndState = (value: IFile[]) => {
       setFiles(value)
-      SettingsModel.setChatMessageState({message, files: value}, chat._id)
+      SettingsModel.setChatMessageState({ message, files: value }, chat._id)
     }
 
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const resetAllInputs = () => {
       setMessage('')
       setFiles(() => [])
-      SettingsModel.setChatMessageState({message: '', files: []}, chat._id)
+      SettingsModel.setChatMessageState({ message: '', files: [] }, chat._id)
     }
 
     const onSubmitMessageInternal = () => {
-      onSubmitMessage(message, files)
+      onSubmitMessage(message, files, messageToReply ? messageToReply._id : null)
+      setMessageToReply(null)
       resetAllInputs()
     }
 
@@ -160,6 +178,10 @@ export const Chat: FC<Props> = observer(
       setMessage(messageInitialState.message)
       setFiles(messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files)
       setShowGroupSettings(false)
+
+      return () => {
+        setMessageToReply(null)
+      }
     }, [chat?._id])
 
     useEffect(() => {
@@ -203,6 +225,8 @@ export const Chat: FC<Props> = observer(
 
     const userContainedInChat = chat.users.some(el => el._id === userId)
 
+    // console.log('messageToReply', messageToReply)
+
     return (
       <div className={classNames.root}>
         <div className={classNames.opponentWrapper}>
@@ -221,11 +245,13 @@ export const Chat: FC<Props> = observer(
             toScrollMesId={toScrollMesId}
             messagesFound={messagesFound}
             searchPhrase={searchPhrase}
+            messageToScroll={messageToScroll}
+            setMessageToReply={setMessageToReply}
           />
 
           {isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0 ? (
             <div
-              className={cx(classNames.hideAndShowIconWrapper, {[classNames.hideAndShowIcon]: showGroupSettings})}
+              className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: showGroupSettings })}
               onClick={() => setShowGroupSettings(!showGroupSettings)}
             >
               {showGroupSettings ? (
@@ -246,7 +272,7 @@ export const Chat: FC<Props> = observer(
                 <div className={classNames.groupSettingsImageShadow}></div>
 
                 <div className={classNames.groupSettingsInfoWrapper}>
-                  <div className={classNames.groupSettingsInfo}>
+                  <div>
                     <Typography className={classNames.groupSettingsInfoTitle}>{chat.info?.title}</Typography>
                     <Typography className={classNames.usersCount}>{`${chat.users?.length} ${t(
                       TranslationKey.Members,
@@ -296,6 +322,35 @@ export const Chat: FC<Props> = observer(
             </div>
           ) : null}
         </div>
+
+        {messageToReply && (
+          <div
+            className={classNames.messageToReplyWrapper}
+            onClick={() => {
+              setMessageToScroll(messageToReply)
+              setTimeout(() => setMessageToScroll(null), 1000)
+            }}
+          >
+            <ReplyOutlinedIcon className={classNames.messageToReplyIcon} />
+            <div className={classNames.messageToReplySubWrapper}>
+              <ChatMessageByType
+                isIncomming
+                showName
+                messageItem={messageToReply}
+                unReadMessage={false}
+                isLastMessage={false}
+              />
+            </div>
+            <CloseOutlinedIcon
+              className={classNames.messageToReplyCloseIcon}
+              onClick={e => {
+                e.stopPropagation()
+                setMessageToReply(null)
+              }}
+            />
+          </div>
+        )}
+
         <div className={classNames.bottomPartWrapper}>
           {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}
 
@@ -323,20 +378,21 @@ export const Chat: FC<Props> = observer(
             <TextField
               multiline
               autoFocus
+              inputRef={messageInput}
               disabled={!userContainedInChat}
               type="text"
               id="outlined-multiline-flexible"
               size="small"
-              className={cx(classNames.input, {[classNames.inputFilled]: !!message || !!focused})}
-              classes={{root: classNames.input}}
+              className={cx(classNames.input, { [classNames.inputFilled]: !!message || !!focused })}
+              classes={{ root: classNames.input }}
               maxRows={6}
               placeholder={t(TranslationKey['Write a message'])}
-              inputProps={{maxLength: 1000}}
+              inputProps={{ maxLength: 1000 }}
               InputProps={
                 userContainedInChat ? (
                   {
                     endAdornment: (
-                      <InputAdornment position="end" classes={{root: classNames.endAdornment}}>
+                      <InputAdornment position="end" classes={{ root: classNames.endAdornment }}>
                         <div className={classNames.filesIconWrapper}>
                           <img
                             id="emoji-icon"
@@ -377,7 +433,7 @@ export const Chat: FC<Props> = observer(
             </Button>
           </div>
 
-          {renderAdditionalButtons ? renderAdditionalButtons({message, files}, resetAllInputs) : undefined}
+          {renderAdditionalButtons ? renderAdditionalButtons({ message, files }, resetAllInputs) : undefined}
         </div>
       </div>
     )

@@ -1,1 +1,1 @@
-export {MyProposalsListCard} from './my-proposals-list-card'
+export { MyProposalsListCard } from './my-proposals-list-card'

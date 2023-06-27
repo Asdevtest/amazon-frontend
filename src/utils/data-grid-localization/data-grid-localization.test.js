@@ -1,4 +1,4 @@
-import {getLocalizationByLanguageTag} from './data-grid-localization'
+import { getLocalizationByLanguageTag } from './data-grid-localization'
 
 describe('Test getLocalizationByLanguageTag()', () => {
   test('Unvalid props', () => {

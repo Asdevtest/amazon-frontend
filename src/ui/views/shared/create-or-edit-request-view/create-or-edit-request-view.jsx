@@ -1,111 +1,74 @@
-import React, {Component, createRef} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {CreateOrEditRequestContent} from '@components/contents/create-or-edit-request-content'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {BigImagesModal} from '@components/modals/big-images-modal'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {Navbar} from '@components/navbar'
+import { CreateOrEditRequestContent } from '@components/contents/create-or-edit-request-content'
+import { MainContent } from '@components/layout/main-content'
+import { BigImagesModal } from '@components/modals/big-images-modal'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {CreateOrEditRequestViewModel} from './create-or-edit-request-view.model'
+import { CreateOrEditRequestViewModel } from './create-or-edit-request-view.model'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
-const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS
-@observer
-export class CreateOrEditRequestView extends Component {
-  mainContentRef = createRef()
-  viewModel = new CreateOrEditRequestViewModel({
-    history: this.props.history,
-    location: this.props.location,
-  })
+export const CreateOrEditRequestView = observer(props => {
+  const mainContentRef = useRef()
+  const [viewModel] = useState(
+    () =>
+      new CreateOrEditRequestViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
+  }, [])
 
-  render() {
-    const {
-      confirmModalSettings,
-      progressValue,
-      showProgress,
-      requestToEdit,
-      drawerOpen,
-      announcements,
-      choosenAnnouncements,
-      showImageModal,
-      bigImagesOptions,
-      permissionsData,
-      platformSettingsData,
-      showConfirmModal,
-
-      onClickChoosePerformer,
-      onTriggerDrawerOpen,
-      onSubmitCreateRequest,
-      onSubmitEditRequest,
-      onTriggerOpenModal,
-      onClickThumbnail,
-      setBigImagesOptions,
-    } = this.viewModel
-
-    return (
-      <React.Fragment>
-        <Navbar
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawerOpen}
+  return (
+    <React.Fragment>
+      <MainContent ref={mainContentRef}>
+        <CreateOrEditRequestContent
+          mainContentRef={mainContentRef}
+          choosenAnnouncements={viewModel.choosenAnnouncements}
+          permissionsData={viewModel.permissionsData}
+          announcements={viewModel.announcements}
+          platformSettingsData={viewModel.platformSettingsData}
+          progressValue={viewModel.progressValue}
+          showProgress={viewModel.showProgress}
+          requestToEdit={viewModel.requestToEdit}
+          history={props.history}
+          checkRequestByTypeExists={viewModel.checkRequestByTypeExists}
+          onClickExistingRequest={viewModel.onClickExistingRequest}
+          onCreateSubmit={viewModel.onSubmitCreateRequest}
+          onEditSubmit={viewModel.onSubmitEditRequest}
+          onClickChoosePerformer={viewModel.onClickChoosePerformer}
+          onClickThumbnail={viewModel.onClickThumbnail}
         />
-        <Main>
-          <Appbar title={t(TranslationKey['Create a request'])} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent ref={this.mainContentRef}>
-              <CreateOrEditRequestContent
-                mainContentRef={this.mainContentRef}
-                choosenAnnouncements={choosenAnnouncements}
-                permissionsData={permissionsData}
-                announcements={announcements}
-                platformSettingsData={platformSettingsData}
-                progressValue={progressValue}
-                showProgress={showProgress}
-                requestToEdit={requestToEdit}
-                history={this.props.history}
-                onCreateSubmit={onSubmitCreateRequest}
-                onEditSubmit={onSubmitEditRequest}
-                onClickChoosePerformer={onClickChoosePerformer}
-                onClickThumbnail={onClickThumbnail}
-              />
-            </MainContent>
-          </Appbar>
+      </MainContent>
 
-          <BigImagesModal
-            openModal={showImageModal}
-            setOpenModal={() => onTriggerOpenModal('showImageModal')}
-            images={bigImagesOptions.images}
-            imgIndex={bigImagesOptions.imgIndex}
-            setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
-          />
+      <BigImagesModal
+        openModal={viewModel.showImageModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+        images={viewModel.bigImagesOptions.images}
+        imgIndex={viewModel.bigImagesOptions.imgIndex}
+        setImageIndex={imgIndex => viewModel.setBigImagesOptions(() => ({ ...viewModel.bigImagesOptions, imgIndex }))}
+      />
 
-          <ConfirmationModal
-            isWarning={confirmModalSettings.isWarning}
-            openModal={showConfirmModal}
-            setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-            title={t(TranslationKey.Attention)}
-            message={confirmModalSettings.message}
-            smallMessage={confirmModalSettings.smallMessage}
-            successBtnText={t(TranslationKey.Yes)}
-            cancelBtnText={t(TranslationKey.Cancel)}
-            onClickSuccessBtn={confirmModalSettings.onSubmit}
-            onClickCancelBtn={confirmModalSettings.onCancel}
-          />
-        </Main>
-      </React.Fragment>
-    )
-  }
-}
+      <ConfirmationModal
+        isWarning={viewModel.confirmModalSettings.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={viewModel.confirmModalSettings.message}
+        smallMessage={viewModel.confirmModalSettings.smallMessage}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+        onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
+      />
+    </React.Fragment>
+  )
+})

@@ -1,37 +1,31 @@
 /* eslint-disable no-unused-vars */
-import React, {Component} from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
+import { observer } from 'mobx-react'
+import { withStyles } from 'tss-react/mui'
 
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {RequestProposalStatus} from '@constants/request-proposal-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
-import {MultipleChats} from '@components/chat/multiple-chats'
-import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {RequestDesignerResultClientForm} from '@components/forms/request-designer-result-client-form'
-import {RequestDesignerResultForm} from '@components/forms/request-designer-result-form'
-import {Main} from '@components/main'
-import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
-import {RequestResultModal} from '@components/modals/request-result-modal'
-import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Navbar} from '@components/navbar'
-import {CustomSearchRequestDetails} from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
-import {ServantGeneralRequestInfo} from '@components/requests-and-request-proposals/servant-general-request-info'
+import { MultipleChats } from '@components/chat/multiple-chats'
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { RequestDesignerResultForm } from '@components/forms/request-designer-result-form'
+import { MainContent } from '@components/layout/main-content'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { RequestResultModal } from '@components/modals/request-result-modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
+import { ServantGeneralRequestInfo } from '@components/requests-and-request-proposals/servant-general-request-info'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { Modal } from '@components/shared/modal'
 
-import {t} from '@utils/translations'
+import { t } from '@utils/translations'
 
-import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
+import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import {RequestDetailCustomViewModel} from './servant-requests-detail-custom-view.model'
-import {styles} from './servant-requests-detail-custom-view.style'
-
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
+import { RequestDetailCustomViewModel } from './servant-requests-detail-custom-view.model'
+import { styles } from './servant-requests-detail-custom-view.style'
 
 const requestProposalCancelAllowedStatuses = [
   RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED,
@@ -40,234 +34,189 @@ const requestProposalCancelAllowedStatuses = [
   RequestProposalStatus.CORRECTED,
 ]
 
-@observer
-export class RequestDetailCustomViewRaw extends Component {
-  viewModel = new RequestDetailCustomViewModel({
-    history: this.props.history,
-    location: this.props.location,
-  })
+export const RequestDetailCustomViewRaw = props => {
+  const [viewModel] = useState(
+    () =>
+      new RequestDetailCustomViewModel({
+        history: props.history,
+        location: props.location,
+      }),
+  )
+  const { classes: classNames } = props
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  useEffect(() => {
+    viewModel.loadData()
 
-  componentWillUnmount() {
-    this.viewModel.resetChats()
-  }
+    return () => {
+      viewModel.resetChats()
+    }
+  }, [])
 
-  render() {
-    const {classes: classNames} = this.props
-    const {
-      curResultMedia,
-      showProgress,
-      typingUsers,
-      drawerOpen,
-      request,
-      showWarningModal,
-      showConfirmModal,
-      warningInfoModalSettings,
-      chats,
-      userInfo,
-      chatSelectedId,
-      chatIsConnected,
-      requestProposals,
-      showRequestResultModal,
-      showRequestDesignerResultModal,
-      showRequestDesignerResultClientModal,
-      onClickChat,
-      onSubmitMessage,
-      onTriggerDrawerOpen,
-      onTriggerOpenModal,
-      onClickBackBtn,
-      onSubmitOfferDeal,
-      onClickSendAsResult,
-      onClickCancelRequestProposal,
-      onTypingMessage,
-      onClickResultBtn,
-      onClickReworkProposal,
-      onClickOpenRequest,
-    } = this.viewModel
+  const findRequestProposalForCurChat =
+    viewModel.chatSelectedId &&
+    viewModel.requestProposals?.find(requestProposal => requestProposal?.proposal?.chatId === viewModel.chatSelectedId)
 
-    const findRequestProposalForCurChat =
-      chatSelectedId && requestProposals?.find(requestProposal => requestProposal.proposal.chatId === chatSelectedId)
+  console.log(findRequestProposalForCurChat)
 
-    return (
-      <React.Fragment>
-        <Navbar
-          drawerOpen={drawerOpen}
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={
-            this.props.location.pathname.includes('my-proposals')
-              ? navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS
-              : navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS
-          }
-          setDrawerOpen={onTriggerDrawerOpen}
-        />
-        <Main>
-          <Appbar title={t(TranslationKey.Request)} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <div className={classNames.backBtnWrapper}>
-                <Button variant="contained" color="primary" className={classNames.backBtn} onClick={onClickBackBtn}>
-                  {t(TranslationKey.Back)}
-                </Button>
-              </div>
+  return (
+    <React.Fragment>
+      <MainContent>
+        <div className={classNames.backBtnWrapper}>
+          <Button variant="contained" color="primary" className={classNames.backBtn} onClick={viewModel.onClickBackBtn}>
+            {t(TranslationKey.Back)}
+          </Button>
+        </div>
 
-              {request && requestProposals ? (
-                <div className={classNames.requestInfoWrapper}>
-                  <ServantGeneralRequestInfo
-                    requestProposals={requestProposals}
-                    request={request}
-                    onSubmit={onSubmitOfferDeal}
-                  />
-                </div>
-              ) : null}
+        {viewModel.request && viewModel.requestProposals ? (
+          <div className={classNames.requestInfoWrapper}>
+            <ServantGeneralRequestInfo
+              requestProposals={viewModel.requestProposals}
+              request={viewModel.request}
+              onSubmit={viewModel.onSubmitOfferDeal}
+            />
+          </div>
+        ) : null}
 
-              {request ? (
-                <div className={classNames.detailsWrapper}>
-                  <CustomSearchRequestDetails request={request} isOpen={!chatSelectedId} />
-                </div>
-              ) : null}
-              {chatIsConnected && chats?.length ? (
-                <div className={classNames.chatWrapper}>
-                  <ChatRequestAndRequestProposalContext.Provider
-                    value={{
-                      request,
-                      requestProposal: findRequestProposalForCurChat,
-                      requestProposals,
-                    }}
-                  >
-                    <MultipleChats
-                      chats={chats}
-                      typingUsers={typingUsers}
-                      userId={userInfo?._id}
-                      chatSelectedId={chatSelectedId}
-                      chatMessageHandlers={{
-                        onClickReworkProposal,
-                        onClickOpenRequest,
-                      }}
-                      renderAdditionalButtons={(params, resetAllInputs) => (
-                        <div className={classNames.additionalButtonsWrapper}>
-                          {findRequestProposalForCurChat &&
-                          requestProposalCancelAllowedStatuses.includes(
-                            findRequestProposalForCurChat?.proposal?.status,
-                          ) ? (
-                            <Button danger onClick={() => onTriggerOpenModal('showConfirmModal')}>
-                              {t(TranslationKey['Reject the deal'])}
-                            </Button>
-                          ) : (
-                            <div />
-                          )}
+        {viewModel.request ? (
+          <div className={classNames.detailsWrapper}>
+            <CustomSearchRequestDetails request={viewModel.request} isOpen={!viewModel.chatSelectedId} />
+          </div>
+        ) : null}
+        {viewModel.chatIsConnected && viewModel.chats?.length ? (
+          <div className={classNames.chatWrapper}>
+            <ChatRequestAndRequestProposalContext.Provider
+              value={{
+                request: viewModel.request,
+                requestProposal: findRequestProposalForCurChat,
+                requestProposals: viewModel.requestProposals,
+              }}
+            >
+              <MultipleChats
+                chats={viewModel.chats}
+                typingUsers={viewModel.typingUsers}
+                userId={viewModel.userInfo?._id}
+                chatSelectedId={viewModel.chatSelectedId}
+                chatMessageHandlers={{
+                  onClickReworkProposal: viewModel.onClickReworkProposal,
+                  onClickOpenRequest: viewModel.onClickOpenRequest,
+                }}
+                renderAdditionalButtons={(params, resetAllInputs) => (
+                  <div className={classNames.additionalButtonsWrapper}>
+                    {findRequestProposalForCurChat &&
+                    requestProposalCancelAllowedStatuses?.includes(findRequestProposalForCurChat?.proposal?.status) ? (
+                      <Button danger onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}>
+                        {t(TranslationKey['Reject the deal'])}
+                      </Button>
+                    ) : (
+                      <div />
+                    )}
+                    {((findRequestProposalForCurChat?.proposal?.sub &&
+                      findRequestProposalForCurChat?.proposal?.sub?._id === viewModel.userInfo?._id) ||
+                      (!findRequestProposalForCurChat?.proposal?.sub &&
+                        findRequestProposalForCurChat?.proposal?.createdBy?._id === viewModel.userInfo?._id)) &&
+                    (findRequestProposalForCurChat?.proposal?.status ===
+                      RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
+                      findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.TO_CORRECT ||
+                      findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY) ? (
+                      // ||
+                      // findRequestProposalForCurChat.proposal.status ===
+                      //   RequestProposalStatus.OFFER_CONDITIONS_REJECTED
+                      // eslint-disable-next-line react/jsx-indent
+                      <Button
+                        // disabled={
+                        //   !params.files.length &&
+                        //   !params.message &&
+                        //   `${request?.request?.typeTask}` !==
+                        //     `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`
+                        // }
+                        onClick={() => {
+                          // onClickSendAsResult(params)
+                          // resetAllInputs()
 
-                          {((findRequestProposalForCurChat.proposal.sub &&
-                            findRequestProposalForCurChat.proposal.sub?._id === userInfo?._id) ||
-                            (!findRequestProposalForCurChat.proposal.sub &&
-                              findRequestProposalForCurChat.proposal.createdBy?._id === userInfo?._id)) &&
-                          (findRequestProposalForCurChat?.proposal?.status ===
-                            RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
-                            findRequestProposalForCurChat?.proposal?.status === RequestProposalStatus.TO_CORRECT ||
-                            findRequestProposalForCurChat?.proposal?.status ===
-                              RequestProposalStatus.READY_TO_VERIFY) ? (
-                            // ||
-                            // findRequestProposalForCurChat.proposal.status ===
-                            //   RequestProposalStatus.OFFER_CONDITIONS_REJECTED
-                            // eslint-disable-next-line react/jsx-indent
-                            <Button
-                              // disabled={
-                              //   !params.files.length &&
-                              //   !params.message &&
-                              //   `${request?.request?.typeTask}` !==
-                              //     `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`
-                              // }
-                              onClick={() => {
-                                // onClickSendAsResult(params)
-                                // resetAllInputs()
+                          viewModel.onClickResultBtn()
+                        }}
+                      >
+                        {/* t(TranslationKey['Send as a result']) */ t(TranslationKey.Result)}
+                      </Button>
+                    ) : null}
 
-                                onClickResultBtn()
-                              }}
-                            >
-                              {/* t(TranslationKey['Send as a result']) */ t(TranslationKey.Result)}
-                            </Button>
-                          ) : undefined}
-                          {/* {findRequestProposalForCurChat?.proposal.status ===
+                    {/* {findRequestProposalForCurChat?.proposal.status ===
                         RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ? (
-                          <Button onClick={onClickReadyToVerify}>Отправить на проверку</Button>
+                          <Button onClick={viewModel.onClickReadyToVerify}>Отправить на проверку</Button>
                         ) : undefined} */}
-                        </div>
-                      )}
-                      updateData={this.viewModel.loadData}
-                      onSubmitMessage={onSubmitMessage}
-                      onClickChat={onClickChat}
-                      onTypingMessage={onTypingMessage}
-                    />
-                  </ChatRequestAndRequestProposalContext.Provider>
-                </div>
-              ) : null}
-            </MainContent>
-          </Appbar>
-        </Main>
+                  </div>
+                )}
+                updateData={viewModel.loadData}
+                onSubmitMessage={viewModel.onSubmitMessage}
+                onClickChat={viewModel.onClickChat}
+                onTypingMessage={viewModel.onTypingMessage}
+              />
+            </ChatRequestAndRequestProposalContext.Provider>
+          </div>
+        ) : null}
+      </MainContent>
 
-        <WarningInfoModal
-          isWarning={warningInfoModalSettings.isWarning}
-          openModal={showWarningModal}
-          setOpenModal={() => onTriggerOpenModal('showWarningModal')}
-          title={warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showWarningModal')
-          }}
+      <WarningInfoModal
+        isWarning={viewModel.warningInfoModalSettings.isWarning}
+        openModal={viewModel.showWarningModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
+        title={viewModel.warningInfoModalSettings.title}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          viewModel.onTriggerOpenModal('showWarningModal')
+        }}
+      />
+
+      <Modal
+        missClickModalOn
+        openModal={viewModel.showRequestDesignerResultClientModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+      >
+        <RequestDesignerResultClientForm
+          userInfo={viewModel.userInfo}
+          request={viewModel.request}
+          proposal={findRequestProposalForCurChat}
+          curResultMedia={viewModel.curResultMedia}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+          // onClickSendAsResult={viewModel.onClickSendAsResult}
         />
+      </Modal>
 
-        <Modal
-          missClickModalOn
-          openModal={showRequestDesignerResultClientModal}
-          setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
-        >
-          <RequestDesignerResultClientForm
-            userInfo={userInfo}
-            request={request}
-            proposal={findRequestProposalForCurChat}
-            curResultMedia={curResultMedia}
-            setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultClientModal')}
-            // onClickSendAsResult={onClickSendAsResult}
-          />
-        </Modal>
+      <RequestResultModal
+        request={viewModel.request}
+        openModal={viewModel.showRequestResultModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
+        onClickSendAsResult={viewModel.onClickSendAsResult}
+      />
 
-        <RequestResultModal
-          request={request}
-          openModal={showRequestResultModal}
-          setOpenModal={() => onTriggerOpenModal('showRequestResultModal')}
-          onClickSendAsResult={onClickSendAsResult}
+      <Modal
+        missClickModalOn
+        openModal={viewModel.showRequestDesignerResultModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
+      >
+        <RequestDesignerResultForm
+          request={viewModel.request}
+          proposal={findRequestProposalForCurChat}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
+          onClickSendAsResult={viewModel.onClickSendAsResult}
         />
+      </Modal>
 
-        <Modal
-          missClickModalOn
-          openModal={showRequestDesignerResultModal}
-          setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
-        >
-          <RequestDesignerResultForm
-            request={request}
-            proposal={findRequestProposalForCurChat}
-            setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
-            onClickSendAsResult={onClickSendAsResult}
-          />
-        </Modal>
+      <ConfirmationModal
+        isWarning
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={t(TranslationKey['Reject the deal'])}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={viewModel.onClickCancelRequestProposal}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      />
 
-        <ConfirmationModal
-          isWarning
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={t(TranslationKey.Attention)}
-          message={t(TranslationKey['Reject the deal'])}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={onClickCancelRequestProposal}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-        />
-
-        {showProgress && <CircularProgressWithLabel />}
-      </React.Fragment>
-    )
-  }
+      {viewModel.showProgress && <CircularProgressWithLabel />}
+    </React.Fragment>
+  )
 }
 
-export const RequestDetailCustomView = withStyles(RequestDetailCustomViewRaw, styles)
+export const RequestDetailCustomView = withStyles(observer(RequestDetailCustomViewRaw), styles)

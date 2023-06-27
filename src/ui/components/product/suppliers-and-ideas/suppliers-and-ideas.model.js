@@ -1,21 +1,20 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
-import {creatSupplier} from '@constants/white-list'
-import {patchSuppliers} from '@constants/white-list'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
+import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
-import {ClientModel} from '@models/client-model'
-import {IdeaModel} from '@models/ideas-model'
-import {ProductModel} from '@models/product-model'
-import {SupplierModel} from '@models/supplier-model'
-import {UserModel} from '@models/user-model'
+import { ClientModel } from '@models/client-model'
+import { IdeaModel } from '@models/ideas-model'
+import { ProductModel } from '@models/product-model'
+import { SupplierModel } from '@models/supplier-model'
+import { UserModel } from '@models/user-model'
 
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class SuppliersAndIdeasModel {
   history = undefined
@@ -61,14 +60,14 @@ export class SuppliersAndIdeasModel {
     return UserModel.userInfo
   }
 
-  constructor({history, productId, product}) {
+  constructor({ history, productId, product }) {
     this.history = history
 
     this.productId = productId
 
     this.product = product
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {
@@ -98,7 +97,7 @@ export class SuppliersAndIdeasModel {
 
   async createIdea(data, isForceUpdate) {
     try {
-      const res = await IdeaModel.createIdea({...data, price: data.price || 0, quantity: data.quantity || 0})
+      const res = await IdeaModel.createIdea({ ...data, price: data.price || 0, quantity: data.quantity || 0 })
 
       if (!isForceUpdate) {
         this.successModalTitle = t(TranslationKey['Idea created'])
@@ -164,7 +163,7 @@ export class SuppliersAndIdeasModel {
       this.readyFiles = []
 
       if (files.length) {
-        await onSubmitPostImages.call(this, {images: files, type: 'readyFiles'})
+        await onSubmitPostImages.call(this, { images: files, type: 'readyFiles' })
       }
 
       const submitData = getObjectFilteredByKeyArrayBlackList(
@@ -180,7 +179,7 @@ export class SuppliersAndIdeasModel {
       if (this.inEdit) {
         await this.editIdea(formFields._id, submitData, isForceUpdate)
       } else {
-        const createdIdeaId = await this.createIdea({...submitData, productId: this.productId}, isForceUpdate)
+        const createdIdeaId = await this.createIdea({ ...submitData, productId: this.productId }, isForceUpdate)
 
         const createdIdea = await IdeaModel.getIdeaById(createdIdeaId)
 
@@ -234,7 +233,7 @@ export class SuppliersAndIdeasModel {
         amazonDetail: this.dataToCreateProduct.criteria,
         clientComment: this.dataToCreateProduct.comments,
 
-        ...(this.product.buyer?._id && {buyerId: this.product.buyer?._id}),
+        ...(this.product.buyer?._id && { buyerId: this.product.buyer?._id }),
       }
 
       const result = await ClientModel.createProduct(createData)
@@ -369,14 +368,14 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async onClickSaveSupplierBtn({supplier, photosOfSupplier}) {
+  async onClickSaveSupplierBtn({ supplier, photosOfSupplier }) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       this.readyImages = []
 
       if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
       }
 
       supplier = {
@@ -395,13 +394,12 @@ export class SuppliersAndIdeasModel {
 
       if (supplier._id) {
         const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
-        console.log('supplierUpdateData', supplierUpdateData)
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
-        await IdeaModel.addSuppliersToIdea(this.curIdea._id, {suppliersIds: [createSupplierResult.guid]})
+        await IdeaModel.addSuppliersToIdea(this.curIdea._id, { suppliersIds: [createSupplierResult.guid] })
       }
 
       this.loadData()
@@ -419,7 +417,7 @@ export class SuppliersAndIdeasModel {
 
   async onRemoveSupplier() {
     try {
-      await IdeaModel.removeSupplierFromIdea(this.curIdea._id, {suppliersId: this.selectedSupplier._id})
+      await IdeaModel.removeSupplierFromIdea(this.curIdea._id, { suppliersId: this.selectedSupplier._id })
 
       await SupplierModel.removeSupplier(this.selectedSupplier._id)
 

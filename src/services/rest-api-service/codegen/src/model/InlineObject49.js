@@ -80,6 +80,9 @@ class InlineObject49 {
             if (data.hasOwnProperty('priority')) {
                 obj['priority'] = ApiClient.convertToType(data['priority'], 'String');
             }
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
         }
         return obj;
     }
@@ -139,6 +142,12 @@ InlineObject49.prototype['storekeeperComment'] = undefined;
  * @member {module:model/InlineObject49.PriorityEnum} priority
  */
 InlineObject49.prototype['priority'] = undefined;
+
+/**
+ * Причина приоритета
+ * @member {String} reason
+ */
+InlineObject49.prototype['reason'] = undefined;
 
 
 

@@ -1,1 +1,1 @@
-export {DashboardWidgetsCard} from './dashboard-widgets-card'
+export { DashboardWidgetsCard } from './dashboard-widgets-card'

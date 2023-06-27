@@ -1,21 +1,19 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, runInAction} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import {TranslationKey} from '@constants/translations/translation-key'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {AnnouncementsModel} from '@models/announcements-model'
-import {UserModel} from '@models/user-model'
+import { AnnouncementsModel } from '@models/announcements-model'
+import { UserModel } from '@models/user-model'
 
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
-import {t} from '@utils/translations'
-import {onSubmitPostImages} from '@utils/upload-files'
+import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
+import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 export class CreateOrEditServicesViewModel {
   history = undefined
   requestStatus = undefined
   actionStatus = undefined
-
-  drawerOpen = false
 
   requestToEdit = {}
 
@@ -30,7 +28,7 @@ export class CreateOrEditServicesViewModel {
   showProgress = false
   userInfo = undefined
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
       this.pathname = location.pathname
@@ -40,7 +38,7 @@ export class CreateOrEditServicesViewModel {
       }
     })
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async getAnnouncementsDataByGuid() {
@@ -77,7 +75,7 @@ export class CreateOrEditServicesViewModel {
       })
 
       if (files.length) {
-        await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
       }
 
       const dataWithFiles = {
@@ -108,7 +106,7 @@ export class CreateOrEditServicesViewModel {
   async onClickEditBtn(data, files) {
     try {
       if (files?.length) {
-        await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+        await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
       }
 
       const dataWithFiles = {
@@ -137,11 +135,5 @@ export class CreateOrEditServicesViewModel {
 
   onClickBackBtn() {
     this.history.goBack()
-  }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
   }
 }

@@ -1,1 +1,1 @@
-export {TableAsinAndReason} from './table-asin-and-reason'
+export { TableAsinAndReason } from './table-asin-and-reason'

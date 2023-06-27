@@ -1,34 +1,6 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  heightFieldAuto: {
-    height: 'auto',
-    maxWidth: '380px',
-    minWidth: '380px',
-
-    padding: 0,
-  },
-
-  button: {
-    marginRight: '10px',
-  },
-
-  boxesWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  buttonsWrapper: {},
-  currentBox: {
-    marginBottom: '20px',
-  },
-  currentBoxFooter: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    height: '60px',
-  },
-  newBoxes: {
-    marginBottom: '20px',
-  },
   box: {
     width: 527,
     backgroundColor: theme.palette.background.second,
@@ -43,18 +15,12 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '30px',
     color: theme.palette.text.general,
   },
-  divider: {
-    margin: '0 30px',
-  },
+
   img: {
     width: '66px',
     height: '66px',
     objectFit: 'contain',
     objectPosition: 'center',
-  },
-  sectionTitle: {
-    color: theme.palette.text.general,
-    marginBottom: theme.spacing(1),
   },
 
   boxTitle: {
@@ -71,32 +37,8 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '21px',
     marginRight: '10px',
     width: '299px',
-    // overflow: 'hidden',
-    // textOverflow: 'ellipsis',
-    // whiteSpace: 'wrap',
-  },
-  subTitle: {
-    fontSize: '14px',
-    color: theme.palette.text.second,
-    marginRight: theme.spacing(1),
   },
 
-  inputWrapper: {
-    border: '1px solid rgba(143, 152, 165, 1)',
-    borderRadius: '4px',
-    maxWidth: '80px',
-    height: '40px',
-  },
-  input: {
-    fontSize: '14px',
-    textAlign: 'center',
-  },
-
-  itemsWrapper: {
-    // display: 'flex',
-    // alignItems: 'center',
-    // gap: '25px',
-  },
   asinWrapper: {
     display: 'flex',
     gap: '10px',
@@ -129,17 +71,10 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.second,
   },
-  destinationSelect: {
-    height: '40px',
-  },
-  storekeeperDisableBtn: {
-    // backgroundColor: '#e4e7ea',
 
+  storekeeperDisableBtn: {
     borderRadius: '4px',
     padding: '6px 7px',
-
-    // color: '#001029',
-
     backgroundColor: theme.palette.input.customDisabled,
   },
   fieldInput: {
@@ -165,19 +100,16 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     color: theme.palette.primary.main,
   },
-  copyImg: {
-    width: '20px',
-    height: '20px',
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.07)',
-    },
-  },
+
   shippingLabelWrapper: {
     height: '40px',
     display: 'flex',
     alignItems: 'center',
     gap: '20px',
+  },
+
+  asinTextWrapper: {
+    display: 'flex',
+    gap: 5,
   },
 }))

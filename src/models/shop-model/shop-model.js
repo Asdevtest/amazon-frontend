@@ -1,8 +1,8 @@
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class ShopModelStatic {
   createShop = async data => {
-    const response = await restApiService.shopApi.apiV1ShopsPost({body: data})
+    const response = await restApiService.shopApi.apiV1ShopsPost({ body: data })
     return response
   }
 
@@ -17,7 +17,7 @@ class ShopModelStatic {
   }
 
   editShop = async (id, data) => {
-    const response = await restApiService.shopApi.apiV1ShopsGuidPatch(id, {body: data})
+    const response = await restApiService.shopApi.apiV1ShopsGuidPatch(id, { body: data })
     return response
   }
 

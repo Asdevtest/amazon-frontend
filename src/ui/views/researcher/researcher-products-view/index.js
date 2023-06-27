@@ -1,1 +1,1 @@
-export {ResearcherProductsView} from './researcher-products-view'
+export { ResearcherProductsView } from './researcher-products-view'

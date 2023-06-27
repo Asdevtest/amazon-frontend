@@ -1,4 +1,4 @@
-import {isDebug, isProduction} from './env'
+import { isDebug, isProduction } from './env'
 
 describe('Test isDebug()', () => {
   test('Valid props', () => {

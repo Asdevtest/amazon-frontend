@@ -1,1 +1,1 @@
-export {BuyerPendingOrdersView} from './buyer-pending-orders-view'
+export { BuyerPendingOrdersView } from './buyer-pending-orders-view'

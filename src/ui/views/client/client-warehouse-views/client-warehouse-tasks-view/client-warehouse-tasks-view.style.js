@@ -1,55 +1,4 @@
 export const styles = theme => ({
-  sendOwnProductBtn: {
-    marginBottom: theme.spacing(2),
-  },
-  redistributionWrapper: {},
-  modalMessageWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  modalMessage: {
-    maxWidth: '400px',
-  },
-  modalMessageBtn: {
-    alignSelf: 'flex-end',
-  },
-  btnsWrapper: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: '0 0 10px',
-    marginTop: 10,
-  },
-  leftBtnsWrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    gap: '10px',
-  },
-
-  productFilterWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    marginLeft: 50,
-  },
-
-  productFilterText: {
-    fontSize: 22,
-    fontWeight: 600,
-    color: 'rgba(247, 179, 7, .8)',
-    letterSpacing: 5,
-  },
-
-  heightFieldAuto: {
-    height: 'auto',
-    maxWidth: '380px',
-    minWidth: '250px',
-
-    padding: 0,
-  },
-  buttonsWrapper: {
-    marginTop: '15px',
-  },
   button: {
     padding: '0 45px',
     height: 'auto',
@@ -65,89 +14,18 @@ export const styles = theme => ({
     },
   },
 
-  tableWrapper: {
-    minWidth: '100%',
-  },
-
-  isDraftRow: {
-    opacity: '.5',
-  },
-
   tasksWrapper: {
     marginTop: '30px',
 
     height: 'calc(100vh - 250px)',
   },
 
-  boxesFiltersWrapper: {
-    marginTop: '5px',
-    marginBottom: '10px',
-    display: 'flex',
-    gap: '10px',
-    flexWrap: 'wrap',
-  },
-
-  selectedBoxesBtn: {
-    marginBottom: 0,
-    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
-
-    borderBottom: '5px solid #0460DE',
-
-    color: `${theme.palette.primary.main} !important`,
-  },
-
-  row: {
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
-    transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
-  },
-
-  dataGridWrapper: {
-    height: '73vh',
-    overflow: 'auto',
-  },
-
-  virtualScrollerContent: {
-    maxHeight: '69vh',
-  },
-
-  searchContainer: {
-    width: 'auto',
-  },
-
-  topHeaderBtnsWrapper: {
-    paddingTop: 5,
-    display: 'flex',
-    width: '100%',
-    justifyContent: 'space-between',
-    marginBottom: 10,
-  },
-  modalTitleWrapper: {
-    width: '100%',
-    display: 'flex',
-    gap: '20px',
-    alignItems: 'center',
-    marginBottom: '40px',
-  },
-  modalTitle: {
-    fontSize: '30px',
-    lineHeight: '40px',
-    fontWeight: '600',
-    color: theme.palette.text.general,
-  },
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: theme.palette.background.general,
-
     backgroundColor: theme.palette.background.general,
   },
-  datagridWrapper: {
-    marginTop: '10px',
-    height: '79vh',
-  },
+
   footerContainer: {
     position: 'absolute',
     top: 0,
@@ -162,35 +40,6 @@ export const styles = theme => ({
     height: '52px',
   },
 
-  columnHeaderDraggableContainer: {
-    flexDirection: 'row !important',
-
-    position: 'relative',
-    paddingRight: 20,
-  },
-  columnHeaderTitleContainer: {
-    flexDirection: 'row !important',
-    display: 'flex !important',
-    alignItems: 'center !important',
-  },
-  menuIconButton: {
-    zIndex: 1000,
-    position: 'absolute !important',
-    right: -7,
-    top: 13,
-    visibility: 'visible !important',
-
-    width: '18px !important',
-    height: '18px !important',
-
-    '.MuiSvgIcon-root': {
-      display: 'none',
-    },
-  },
-  iconSeparator: {
-    padding: '0 1px',
-  },
-
   headerWrapper: {
     width: '100%',
     display: 'flex',
@@ -201,15 +50,9 @@ export const styles = theme => ({
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: 405,
-    height: '40px',
+    height: 36,
     fontSize: '16px',
     paddingLeft: '7px',
-  },
-
-  filterHeader: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
   },
 
   filterBtn: {
@@ -217,14 +60,7 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
-
-    // textOverflow: 'ellipsis',
-    // minHeight: '20px',
-
     height: 'auto !important',
-    // overflow: 'hidden',
-    // whiteSpace: 'nowrap',
-
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },
@@ -257,5 +93,27 @@ export const styles = theme => ({
     display: 'flex',
     gap: 50,
     flexWrap: 'wrap',
+  },
+
+  pickupOrdersButton: {
+    padding: '0 20px',
+    height: 40,
+    color: '#fff',
+    display: 'flex',
+    gap: 10,
+  },
+
+  downloadIcon: {
+    color: '#fff',
+  },
+
+  disabledDownloadIcon: {
+    color: theme.palette.button.disabledText,
+  },
+
+  controls: {
+    display: 'flex',
+    gap: 20,
+    justifyContent: 'space-between',
   },
 })

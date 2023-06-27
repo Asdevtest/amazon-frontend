@@ -11,14 +11,6 @@ export const styles = theme => ({
   btnWrapperStyle: {
     width: 'fit-content',
   },
-  formWrapper: {
-    marginTop: '32px',
-  },
-  tableWrapper: {
-    marginTop: '32px',
-    width: '100%',
-    height: '100%',
-  },
 
   row: {
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
@@ -34,13 +26,6 @@ export const styles = theme => ({
     flexDirection: 'column',
     gap: 30,
     marginTop: 30,
-  },
-
-  tablePanelViewWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-
-    marginBottom: '20px',
   },
 
   emptyTableWrapper: {
@@ -61,7 +46,6 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    // height: 52,
   },
   tablePanelSortWrapper: {
     display: 'flex',
@@ -78,7 +62,6 @@ export const styles = theme => ({
     fontSize: '16px',
     lineHeight: '19px',
     color: theme.palette.primary.main,
-
     marginRight: '15px',
   },
 
@@ -88,10 +71,8 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     marginBottom: 5,
     color: theme.palette.primary.main,
-
     fontSize: 14,
     fontWeight: 600,
-
     '&>disabled': {
       backgroundColor: 'inherit',
     },
@@ -100,7 +81,7 @@ export const styles = theme => ({
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
 
-    borderBottom: '5px solid #0460DE',
+    borderBottom: theme.palette.other.tableActiveFilterBtn,
 
     color: `${theme.palette.primary.main} !important`,
   },
@@ -110,7 +91,6 @@ export const styles = theme => ({
 
   tablePanelSubWrapper: {
     display: 'flex',
-    // alignItems: 'center',
   },
 
   proposalSelect: {
@@ -122,14 +102,7 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
-
-    // textOverflow: 'ellipsis',
-    // minHeight: '20px',
-
     height: 'auto !important',
-    // overflow: 'hidden',
-    // whiteSpace: 'nowrap',
-
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },

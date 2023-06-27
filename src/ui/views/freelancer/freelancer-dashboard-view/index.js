@@ -1,1 +1,1 @@
-export {FreelancerDashboardView} from './freelancer-dashboard-view'
+export { FreelancerDashboardView } from './freelancer-dashboard-view'

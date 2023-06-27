@@ -1,10 +1,10 @@
-import {Type} from 'class-transformer'
-import {IsArray, IsNotEmpty, IsNumber, IsOptional, IsString} from 'class-validator'
+import { Type } from 'class-transformer'
+import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator'
 
-import {RequestProposalStatus} from '@constants/request-proposal-status'
-import {RequestStatus} from '@constants/request-status'
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { RequestStatus } from '@constants/requests/request-status'
 
-import {TWebsocketChatService} from '@services/websocket-chat-service'
+import { TWebsocketChatService } from '@services/websocket-chat-service'
 
 export class ChatMessageDataCreatedNewProposalProposalDescriptionContract
   implements TWebsocketChatService.ChatMessageDataCreatedNewProposalProposalDescription
@@ -72,7 +72,7 @@ export class ChatMessageDataProposalStatusChangedContract
   @IsString()
   public reason!: string
   @IsNotEmpty()
-  @IsString({each: true})
+  @IsString({ each: true })
   public linksToMediaFiles!: string[]
   @IsOptional()
   @IsNumber()
@@ -89,7 +89,7 @@ export class ChatMessageDataAddUsersToGroupChatContract
   @IsString()
   public title!: string
   @IsNotEmpty()
-  public users!: {_id: string; name: string}[]
+  public users!: { _id: string; name: string }[]
 }
 
 export class ChatMessageRemoveUsersFromGroupChatContract
@@ -102,7 +102,7 @@ export class ChatMessageRemoveUsersFromGroupChatContract
   @IsString()
   public title!: string
   @IsNotEmpty()
-  public users!: {_id: string; name: string}[]
+  public users!: { _id: string; name: string }[]
 }
 
 export class ChatMessageRemovePatchInfoGroupChatContract
@@ -116,10 +116,10 @@ export class ChatMessageRemovePatchInfoGroupChatContract
   public title!: string
 
   @IsNotEmpty()
-  public updatedData!: {image: string; title: string}
+  public updatedData!: { image: string; title: string }
 
   @IsNotEmpty()
-  public prevData!: {image: string; title: string}
+  public prevData!: { image: string; title: string }
 }
 
 export class ChatMessageDataProposalResultEditedRequestContract
@@ -159,16 +159,16 @@ export class ChatMessageDataRequestCreateNewBloggerProposalContract
   public cashBackInPercent!: number
 
   @IsNotEmpty()
-  public details!: {conditions: string; linksToMediaFiles: [string]}
+  public details!: { conditions: string; linksToMediaFiles: [string] }
 
   @IsNotEmpty()
-  public media!: {fileLink: string; commentByClient: string}[]
+  public media!: { fileLink: string; commentByClient: string }[]
 
   // @IsNotEmpty()
   // public media!: string[]
 
   @IsNotEmpty()
-  public createdBy!: {_id: string}
+  public createdBy!: { _id: string }
 
   @IsNumber()
   public priceAmazon!: number
@@ -197,16 +197,16 @@ export class ChatMessageDataRequestCreateNewDesignerProposalContract
   public cashBackInPercent!: number
 
   @IsNotEmpty()
-  public details!: {conditions: string; linksToMediaFiles: [string]}
+  public details!: { conditions: string; linksToMediaFiles: [string] }
 
   @IsNotEmpty()
-  public media!: {fileLink: string; commentByClient: string}[]
+  public media!: { fileLink: string; commentByClient: string }[]
 
   // @IsNotEmpty()
   // public media!: string[]
 
   @IsNotEmpty()
-  public createdBy!: {_id: string}
+  public createdBy!: { _id: string }
 
   @IsNumber()
   public priceAmazon!: number
@@ -302,7 +302,7 @@ export class ChatMessageDataProposalDesignerProposalResultEdited
   public title!: string
 
   @IsNotEmpty()
-  public details!: {result: string}
+  public details!: { result: string }
 
   @IsNotEmpty()
   public media!: {
@@ -317,11 +317,13 @@ export class ChatMessageDataProposalResultEditedEdited
   implements TWebsocketChatService.ChatMessageDataProposalResultEditedEdited
 {
   @IsOptional()
-  @IsString({each: true})
-  public linksToMediaFiles?: {fileLink: string; commentByPerformer: string}[] | string[]
+  @IsString({ each: true })
+  public linksToMediaFiles?: { fileLink: string; commentByPerformer: string }[] | string[]
   @IsNotEmpty()
   @IsString()
   public result!: string
+  @IsOptional()
+  public media?: { commentByPerformer: string; fileLink: string; index: number; _id: string }[]
 }
 
 export class ChatMessageDataProposalResultEditedProposalContract

@@ -1,4 +1,4 @@
-import {LanguageKey} from './language-key'
+import { LanguageKey } from './language-key'
 
 export interface LanguageOption {
   key: LanguageKey

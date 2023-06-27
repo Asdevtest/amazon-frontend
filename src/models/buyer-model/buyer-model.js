@@ -1,8 +1,8 @@
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class BuyerModelStatic {
   getProductsVacant = async isCreatedByClient => {
-    const response = await restApiService.buyerApi.apiV1BuyersProductsVacGet({isCreatedByClient})
+    const response = await restApiService.buyerApi.apiV1BuyersProductsVacGet({ isCreatedByClient })
     return response
   }
 
@@ -84,7 +84,7 @@ class BuyerModelStatic {
   }
 
   postTask = async data => {
-    const response = await restApiService.buyerApi.apiV1BuyersTasksPost({body: data})
+    const response = await restApiService.buyerApi.apiV1BuyersTasksPost({ body: data })
     return response
   }
 
@@ -114,7 +114,12 @@ class BuyerModelStatic {
   }
 
   orderReadyForPayment = async (id, data) => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersReadyForPaymentGuidPatch(id, {body: data})
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersReadyForPaymentGuidPatch(id, { body: data })
+    return response
+  }
+
+  orderPartiallyPaid = async id => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersPartiallyPaidGuidPatch(id)
     return response
   }
 
@@ -124,7 +129,7 @@ class BuyerModelStatic {
   }
 
   orderSetInStock = async (id, data) => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersSetInStockGuidPatch(id, {body: data})
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersSetInStockGuidPatch(id, { body: data })
     return response
   }
 
@@ -156,7 +161,7 @@ class BuyerModelStatic {
   }
 
   PatchBuyersOrdersPaymentByGuid = async (id, data) => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersPaymentGuidPatch(id, {body: data})
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersPaymentGuidPatch(id, { body: data })
     return response
   }
 }

@@ -2,9 +2,9 @@ import axios from 'axios'
 
 // import * as fs from 'fs'
 // import fs from 'fs'
-import {BACKEND_API_URL} from '@constants/env'
+import { BACKEND_API_URL } from '@constants/keys/env'
 
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 // const fs = require('fs')
 
@@ -54,7 +54,7 @@ class OtherModelStatic {
   }
 
   postTemplate = async file => {
-    const blob = new Blob([file], {type: file?.type})
+    const blob = new Blob([file], { type: file?.type })
     const fileData = new FormData()
     fileData.append('file', blob, file.name)
 
@@ -150,7 +150,7 @@ class OtherModelStatic {
   }
 
   uploadFileByUrl = async url => {
-    const response = await restApiService.otherApi.apiV1OtherUploadFileByUrlPost({body: {fileUrl: url}})
+    const response = await restApiService.otherApi.apiV1OtherUploadFileByUrlPost({ body: { fileUrl: url } })
     return response
   }
 
@@ -170,7 +170,7 @@ class OtherModelStatic {
   }
 
   checkAsins = async data => {
-    const response = await restApiService.otherApi.apiV1OtherCheckAsinsPost({body: data})
+    const response = await restApiService.otherApi.apiV1OtherCheckAsinsPost({ body: data })
     return response
   }
 
@@ -179,7 +179,7 @@ class OtherModelStatic {
     return response
   }
   editAsins = async (id, data) => {
-    const response = await restApiService.otherApi.apiV1OtherCheckAsinsGuidPatch(id, {body: data})
+    const response = await restApiService.otherApi.apiV1OtherCheckAsinsGuidPatch(id, { body: data })
     return response
   }
   removeAsin = async id => {
@@ -188,12 +188,12 @@ class OtherModelStatic {
   }
 
   removeAsins = async ids => {
-    const response = await restApiService.otherApi.apiV1OtherCheckAsinsDelete({body: ids})
+    const response = await restApiService.otherApi.apiV1OtherCheckAsinsDelete({ body: ids })
     return response
   }
 
   sendFeedback = async data => {
-    const response = await restApiService.otherApi.apiV1OtherFeedbackPost({body: data})
+    const response = await restApiService.otherApi.apiV1OtherFeedbackPost({ body: data })
     return response
   }
 }

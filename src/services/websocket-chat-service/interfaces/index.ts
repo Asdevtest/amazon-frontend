@@ -1,5 +1,5 @@
-import {RequestProposalStatus} from '@constants/request-proposal-status'
-import {RequestStatus} from '@constants/request-status'
+import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
+import { RequestStatus } from '@constants/requests/request-status'
 
 import {
   ChatMessageDataBloggerProposalResultEditedContract,
@@ -11,7 +11,7 @@ import {
   ChatMessageDataRequestDesignerProposalContract,
 } from '@models/chat-model/contracts/chat-message-data.contract'
 
-import {ChatHandlerName} from '../event-handler-mappings'
+import { ChatHandlerName } from '../event-handler-mappings'
 
 export interface WebsocketChatServiceHandlers {
   [ChatHandlerName.onPong]?: (result: string) => void
@@ -35,6 +35,7 @@ export interface SendMessageRequestParams {
   images?: string[]
 
   is_draft?: boolean
+  replyMessageId?: string | null
 }
 
 export interface AddUsersToGroupChatParams {
@@ -138,20 +139,20 @@ export interface ChatMessageDataCreatedNewProposalRequestDescription {
 export interface ChatMessageDataAddUsersToGroupChat {
   createdBy: string
   title: string
-  users: {_id: string; name: string}[]
+  users: { _id: string; name: string }[]
 }
 
 export interface ChatMessageRemoveUsersFromGroupChat {
   createdBy: string
   title: string
-  users: {_id: string; name: string}[]
+  users: { _id: string; name: string }[]
 }
 
 export interface ChatMessagePatchInfoGroupChat {
   createdBy: string
   title: string
-  updatedData: {image: string; title: string}
-  prevData: {image: string; title: string}
+  updatedData: { image: string; title: string }
+  prevData: { image: string; title: string }
 }
 
 export interface ChatMessageDataProposalStatusChanged {
@@ -162,8 +163,9 @@ export interface ChatMessageDataProposalStatusChanged {
 }
 
 export interface ChatMessageDataProposalResultEditedEdited {
-  linksToMediaFiles?: {fileLink: string; commentByPerformer: string}[] | string[]
+  linksToMediaFiles?: { fileLink: string; commentByPerformer: string }[] | string[]
   result: string
+  media?: { commentByPerformer: string; fileLink: string; index: number; _id: string }[]
 }
 
 export interface ChatMessageDataProposalResultEditedRequest {
@@ -171,7 +173,7 @@ export interface ChatMessageDataProposalResultEditedRequest {
   price: number
   status: keyof typeof RequestStatus
   title: string
-  media?: {fileLink: string; commentByClient: string}[] | string[]
+  media?: { fileLink: string; commentByClient: string }[] | string[]
 }
 
 export interface ChatMessageDataRequestCreateNewBloggerProposal {
@@ -180,11 +182,11 @@ export interface ChatMessageDataRequestCreateNewBloggerProposal {
   status: keyof typeof RequestStatus
   title: string
 
-  details: {conditions: string; linksToMediaFiles: [string]}
+  details: { conditions: string; linksToMediaFiles: [string] }
 
-  media: {fileLink: string; commentByClient: string}[]
+  media: { fileLink: string; commentByClient: string }[]
 
-  createdBy: {_id: string}
+  createdBy: { _id: string }
   timeoutAt: string
   priceAmazon: number
   cashBackInPercent: number
@@ -196,10 +198,10 @@ export interface ChatMessageDataRequestCreateNewDesignerProposal {
   status: keyof typeof RequestStatus
   title: string
 
-  details: {conditions: string; linksToMediaFiles: [string]}
-  media: {fileLink: string; commentByClient: string}[]
+  details: { conditions: string; linksToMediaFiles: [string] }
+  media: { fileLink: string; commentByClient: string }[]
 
-  createdBy: {_id: string}
+  createdBy: { _id: string }
   timeoutAt: string
   priceAmazon: number
   cashBackInPercent: number
@@ -233,7 +235,7 @@ export interface ChatMessageDataProposalCreateNewDesignerProposal {
 
 export interface ChatMessageDataProposalBloggerProposalResultEditedProposal {
   _id: string
-  details: {amazonOrderId: string | null; linksToMediaFiles: [string]; publicationLinks: [string]; result: string}
+  details: { amazonOrderId: string | null; linksToMediaFiles: [string]; publicationLinks: [string]; result: string }
 }
 
 export interface ChatMessageDataProposalDesignerProposalResultEditedProposal {
@@ -242,7 +244,7 @@ export interface ChatMessageDataProposalDesignerProposalResultEditedProposal {
 
   execution_time: number
   title: string
-  media: {fileLink: string}[]
+  media: { fileLink: string }[]
 }
 
 export interface ChatMessageDataProposalResultEditedProposal {

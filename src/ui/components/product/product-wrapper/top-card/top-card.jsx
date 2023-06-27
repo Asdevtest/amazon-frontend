@@ -1,43 +1,41 @@
 /* eslint-disable no-unused-vars */
-import {cx} from '@emotion/css'
+import { cx } from '@emotion/css'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import {Box, Grid, Paper, Typography, Alert} from '@mui/material'
+import { Box, Grid, Paper, Typography, Alert } from '@mui/material'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 import AddIcon from '@material-ui/icons/Add'
 import AcceptIcon from '@material-ui/icons/Check'
 import AcceptRevokeIcon from '@material-ui/icons/Clear'
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-import {loadingStatuses} from '@constants/loading-statuses'
-import {ProductDataParser} from '@constants/product-data-parser'
-import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
-import {TranslationKey} from '@constants/translations/translation-key'
+import { ProductDataParser } from '@constants/product/product-data-parser'
+import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {CustomCarousel} from '@components/custom-carousel'
-import {CustomImageGallery} from '@components/custom-image-gallery'
-import {ImageEditForm} from '@components/forms/image-edit-form'
-import {Modal} from '@components/modal'
-import {BigImagesModal} from '@components/modals/big-images-modal'
-import {UploadFilesInput} from '@components/upload-files-input'
+import { ImageEditForm } from '@components/forms/image-edit-form'
+import { BigImagesModal } from '@components/modals/big-images-modal'
+import { Button } from '@components/shared/buttons/button'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { Modal } from '@components/shared/modal'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import {checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
-import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {t} from '@utils/translations'
-import {downloadFileByLink} from '@utils/upload-files'
+import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { t } from '@utils/translations'
 
-import {TableSupplier} from '../../table-supplier'
-import {FieldsAndSuppliers} from './fields-and-suppliers'
-import {RightSideComments} from './right-side-comments'
-import {useClassNames} from './top-card.style'
+import { TableSupplier } from '../../table-supplier'
+import { FieldsAndSuppliers } from './fields-and-suppliers'
+import { RightSideComments } from './right-side-comments'
+import { useClassNames } from './top-card.style'
+import { CustomSlider } from '@components/shared/custom-slider'
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
@@ -72,11 +70,11 @@ export const TopCard = observer(
     acceptMessage,
     onClickHsCode,
   }) => {
-    const {classes: classNames} = useClassNames()
+    const { classes: classNames } = useClassNames()
 
     const [showImageModal, setShowImageModal] = useState(false)
 
-    const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+    const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
 
     const [imageEditOpen, setImageEditOpen] = useState(false)
 
@@ -217,8 +215,6 @@ export const TopCard = observer(
         productBase.status > ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT] &&
         productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS])
 
-    // console.log('product', product)
-
     return (
       <React.Fragment>
         <Paper className={classNames.mainCardWrapper}>
@@ -228,7 +224,7 @@ export const TopCard = observer(
                 <Box>
                   {product.images && product.images.length ? (
                     <div className={classNames.carouselWrapper}>
-                      <CustomCarousel>
+                      <CustomSlider>
                         {(checkIsBuyer(curUserRole) || checkIsAdmin(curUserRole) ? product.images : imagesForLoad).map(
                           (imageHash, index) => (
                             <img
@@ -257,7 +253,7 @@ export const TopCard = observer(
                             />
                           ),
                         )}
-                      </CustomCarousel>
+                      </CustomSlider>
                     </div>
                   ) : undefined}
                 </Box>
@@ -416,6 +412,7 @@ export const TopCard = observer(
                               {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
                                 <div className={classNames.supplierButtonWrapper}>
                                   <Button
+                                    danger
                                     tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
                                     className={cx(classNames.iconBtn, classNames.iconBtnRemove)}
                                     onClick={() => onClickSupplierBtns('delete')}
@@ -448,14 +445,14 @@ export const TopCard = observer(
                           {showActionBtns ? (
                             <div className={classNames.supplierButtonWrapper}>
                               <Button
+                                danger={isSupplierAcceptRevokeActive}
+                                success={!isSupplierAcceptRevokeActive}
                                 tooltipInfoContent={
                                   isSupplierAcceptRevokeActive
                                     ? t(TranslationKey['Remove the current supplier'])
                                     : t(TranslationKey['Select a supplier as the current supplier'])
                                 }
-                                className={cx(classNames.iconBtn, classNames.iconBtnAccept, {
-                                  [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
-                                })}
+                                className={classNames.iconBtn}
                                 onClick={() =>
                                   isSupplierAcceptRevokeActive
                                     ? onClickSupplierBtns('acceptRevoke')
@@ -542,7 +539,7 @@ export const TopCard = observer(
           setOpenModal={() => setShowImageModal(!showImageModal)}
           images={bigImagesOptions.images}
           imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({...bigImagesOptions, imgIndex}))}
+          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           controls={bigImagesModalControls}
         />
 

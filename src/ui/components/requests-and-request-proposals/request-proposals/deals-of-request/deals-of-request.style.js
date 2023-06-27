@@ -1,4 +1,4 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
@@ -9,9 +9,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainWrapper: {
     display: 'flex',
-
     flexDirection: 'column',
-
     width: '100%',
   },
 
@@ -36,13 +34,11 @@ export const useClassNames = makeStyles()(theme => ({
     borderBottom: '1px solid rgba(0,0,0, .1)',
     width: '100%',
     padding: '18px 0px',
-
     justifyContent: 'space-between',
   },
 
   userInfoWrapper: {
     display: 'flex',
-
     width: '300px',
   },
 
@@ -77,7 +73,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   requestItemInfoWrapper: {
     display: 'flex',
-
     alignItems: 'center',
     padding: '15px',
     gap: '10px',
@@ -91,14 +86,11 @@ export const useClassNames = makeStyles()(theme => ({
   requestStatus: {
     display: 'flex',
     alignItems: 'center',
-    // width: '300px',
     textAlign: 'center',
-
     marginLeft: '15px',
     fontSize: '18px',
     lineHeight: '140%',
     color: '#00B746',
-
     '& > span': {
       display: 'block',
       width: '13px',

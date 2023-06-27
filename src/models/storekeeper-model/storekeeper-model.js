@@ -1,4 +1,4 @@
-import {restApiService} from '@services/rest-api-service/rest-api-service'
+import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class StorekeeperModelStatic {
   getTasksVacant = async () => {
@@ -27,7 +27,7 @@ class StorekeeperModelStatic {
   }
 
   pickupManyTasks = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksPickupManyPost({body: data})
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksPickupManyPost({ body: data })
     return response
   }
 
@@ -47,7 +47,7 @@ class StorekeeperModelStatic {
   }
 
   updateTask = async (id, data) => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksGuidPatch(id, {body: data})
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksGuidPatch(id, { body: data })
     return response
   }
 
@@ -79,7 +79,7 @@ class StorekeeperModelStatic {
   }
 
   resolveTask = async (id, data) => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksDoneGuidPost(id, {body: data})
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksDoneGuidPost(id, { body: data })
     return response
   }
 
@@ -88,8 +88,8 @@ class StorekeeperModelStatic {
     return response
   }
 
-  getStorekeepers = async boxStatus => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersGet({boxStatus})
+  getStorekeepers = async (boxStatus, tariffType) => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersGet({ boxStatus, tariffType })
     return response
   }
 
@@ -99,12 +99,12 @@ class StorekeeperModelStatic {
   }
 
   createLogisticTariff = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffLogisticsPost({body: data})
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffLogisticsPost({ body: data })
     return response
   }
 
   editLogisticTariff = async (id, data) => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffLogisticsGuidPatch(id, {body: data})
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffLogisticsGuidPatch(id, { body: data })
     return response
   }
 
@@ -119,12 +119,12 @@ class StorekeeperModelStatic {
   }
 
   createWarehouseTariff = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffWarehousesPost({body: data})
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffWarehousesPost({ body: data })
     return response
   }
 
   editWarehouseTariff = async (id, data) => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffWarehouseGuidPatch(id, {body: data})
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffWarehouseGuidPatch(id, { body: data })
     return response
   }
 
@@ -134,12 +134,12 @@ class StorekeeperModelStatic {
   }
 
   editProductsHsCods = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersProductsEditHsCodePatch({body: data})
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersProductsEditHsCodePatch({ body: data })
     return response
   }
 
   editStorekeperDestination = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersDestinationPost({body: data})
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersDestinationPost({ body: data })
     return response
   }
 
@@ -149,7 +149,7 @@ class StorekeeperModelStatic {
   }
 
   editBox = async (id, data) => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersBoxesGuidPatch(id, {body: data})
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersBoxesGuidPatch(id, { body: data })
     return response
   }
 

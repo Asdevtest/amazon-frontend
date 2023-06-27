@@ -1,10 +1,16 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
+  shopWrapper: {
+    height: '100%',
+    padding: '0 10px',
+    background: theme.palette.background.second,
+  },
+
   root: {
     width: '100%',
-    boxShadow: 'inset 0 -1px 0 0 #E6ECF0',
   },
+
   indicator: {
     backgroundColor: '#1da1f2',
   },

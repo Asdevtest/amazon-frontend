@@ -1,1 +1,1 @@
-export {ClientDailySellerBoardView} from './stock-report'
+export { ClientDailySellerBoardView } from './stock-report'

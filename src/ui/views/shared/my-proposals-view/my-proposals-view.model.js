@@ -1,27 +1,24 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import {freelanceRequestType, freelanceRequestTypeByKey} from '@constants/freelance-request-type'
-import {RequestProposalStatus, RequestProposalStatusTranslate} from '@constants/request-proposal-status'
-import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
-import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/user-roles'
-import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
+import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { RequestProposalStatus, RequestProposalStatusTranslate } from '@constants/requests/request-proposal-status'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
+import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
+import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
-import {RequestModel} from '@models/request-model'
-import {RequestProposalModel} from '@models/request-proposal'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
-
-import {checkIsFreelancer} from '@utils/checks'
-import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import { RequestModel } from '@models/request-model'
+import { RequestProposalModel } from '@models/request-proposal'
+import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 export class MyProposalsViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
   actionStatus = undefined
-
-  drawerOpen = false
 
   currentData = []
 
@@ -54,7 +51,7 @@ export class MyProposalsViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history, location}) {
+  constructor({ history, location }) {
     runInAction(() => {
       this.history = history
     })
@@ -62,12 +59,12 @@ export class MyProposalsViewModel {
     if (location.state) {
       this.onClickOpenBtn(location.state?.request)
 
-      const state = {...history.location.state}
+      const state = { ...history.location.state }
       delete state.task
-      history.replace({...history.location, state})
+      history.replace({ ...history.location, state })
     }
 
-    makeAutoObservable(this, undefined, {autoBind: true})
+    makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.requests,
@@ -124,7 +121,13 @@ export class MyProposalsViewModel {
           el?.proposals?.some(item =>
             item.createdBy?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
           ) ||
-          el?.humanFriendlyId?.toString().toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          el?.humanFriendlyId?.toString().toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el?.createdBy?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el?.proposals.some(
+            el =>
+              el.sub?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+              el.createdBy?.name?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          ),
         // String(el?.humanFriendlyId)?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
       )
     } else {
@@ -141,7 +144,7 @@ export class MyProposalsViewModel {
   }
 
   setTableModeState() {
-    const state = {viewMode: this.viewMode, sortMode: this.sortMode}
+    const state = { viewMode: this.viewMode, sortMode: this.sortMode }
 
     SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.MY_PROPOSALS)
   }
@@ -189,7 +192,6 @@ export class MyProposalsViewModel {
     runInAction(() => {
       this.selectedTaskType = taskType
     })
-    // this.getRequestsCustom()
 
     this.requests = this.getFilteredRequests()
   }
@@ -203,7 +205,7 @@ export class MyProposalsViewModel {
         rating: request.createdBy.rating,
         _id: request.createdBy._id,
       },
-      details: {conditions: request.detailsCustom.conditions},
+      details: { conditions: request.detailsCustom.conditions },
       request: {
         price: request.price,
         timeoutAt: request.timeoutAt,
@@ -254,16 +256,21 @@ export class MyProposalsViewModel {
 
   async loadData() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
       await this.getUserInfo()
       await this.getRequestsCustom()
       this.getTableModeState()
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
 
   async getRequestsCustom() {
     try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
       const result = await RequestModel.getRequestsCustom(this.user._id)
 
       runInAction(() => {
@@ -281,7 +288,9 @@ export class MyProposalsViewModel {
 
         // console.log('this.requests', this.requests)
       })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -314,21 +323,6 @@ export class MyProposalsViewModel {
     })
   }
 
-  // async onClickViewMore(id) {
-  //   try {
-  //     this.history.push('/custom-search-request', {requestId: id})
-  //   } catch (error) {
-  //     this.onTriggerOpenModal('showWarningModal')
-  //     console.log(error)
-  //   }
-  // }
-
-  onTriggerDrawerOpen() {
-    runInAction(() => {
-      this.drawerOpen = !this.drawerOpen
-    })
-  }
-
   setActionStatus(actionStatus) {
     runInAction(() => {
       this.actionStatus = actionStatus
@@ -338,6 +332,12 @@ export class MyProposalsViewModel {
   onTriggerOpenModal(modal) {
     runInAction(() => {
       this[modal] = !this[modal]
+    })
+  }
+
+  setRequestStatus(requestStatus) {
+    runInAction(() => {
+      this.requestStatus = requestStatus
     })
   }
 }

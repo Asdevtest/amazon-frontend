@@ -1,1 +1,1 @@
-export {CheckPendingOrderForm} from './check-pending-order-form'
+export { CheckPendingOrderForm } from './check-pending-order-form'

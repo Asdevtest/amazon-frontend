@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusRedFlags from './ApiV1AdminsGetProductsByStatusRedFlags';
 import ApiV1AdminsGetProductsByStatusTags from './ApiV1AdminsGetProductsByStatusTags';
 
 /**
@@ -99,11 +100,20 @@ class InlineResponse20021 {
             if (data.hasOwnProperty('chinaTitle')) {
                 obj['chinaTitle'] = ApiClient.convertToType(data['chinaTitle'], 'String');
             }
-            if (data.hasOwnProperty('ideaCount')) {
-                obj['ideaCount'] = ApiClient.convertToType(data['ideaCount'], 'Number');
+            if (data.hasOwnProperty('ideasOnCheck')) {
+                obj['ideasOnCheck'] = ApiClient.convertToType(data['ideasOnCheck'], 'Number');
+            }
+            if (data.hasOwnProperty('ideasVerified')) {
+                obj['ideasVerified'] = ApiClient.convertToType(data['ideasVerified'], 'Number');
+            }
+            if (data.hasOwnProperty('ideasClosed')) {
+                obj['ideasClosed'] = ApiClient.convertToType(data['ideasClosed'], 'Number');
             }
             if (data.hasOwnProperty('tags')) {
                 obj['tags'] = ApiClient.convertToType(data['tags'], [ApiV1AdminsGetProductsByStatusTags]);
+            }
+            if (data.hasOwnProperty('redFlags')) {
+                obj['redFlags'] = ApiClient.convertToType(data['redFlags'], [ApiV1AdminsGetProductsByStatusRedFlags]);
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -220,14 +230,29 @@ InlineResponse20021.prototype['productUsage'] = undefined;
 InlineResponse20021.prototype['chinaTitle'] = undefined;
 
 /**
- * @member {Number} ideaCount
+ * @member {Number} ideasOnCheck
  */
-InlineResponse20021.prototype['ideaCount'] = undefined;
+InlineResponse20021.prototype['ideasOnCheck'] = undefined;
+
+/**
+ * @member {Number} ideasVerified
+ */
+InlineResponse20021.prototype['ideasVerified'] = undefined;
+
+/**
+ * @member {Number} ideasClosed
+ */
+InlineResponse20021.prototype['ideasClosed'] = undefined;
 
 /**
  * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusTags>} tags
  */
 InlineResponse20021.prototype['tags'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusRedFlags>} redFlags
+ */
+InlineResponse20021.prototype['redFlags'] = undefined;
 
 /**
  * Дата создания

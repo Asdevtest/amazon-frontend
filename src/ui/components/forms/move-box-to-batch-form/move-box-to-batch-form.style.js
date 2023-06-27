@@ -1,8 +1,6 @@
-import {makeStyles} from 'tss-react/mui'
+import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
-  root: {},
-
   batchesExistBlock: {
     width: '900px',
     [theme.breakpoints.down(768)]: {
@@ -40,14 +38,6 @@ export const useClassNames = makeStyles()(theme => ({
         lineHeight: '16px',
       },
     },
-  },
-
-  mainTitle: {
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontSize: '24px',
-    lineHeight: '33px',
-    color: 'black',
   },
 
   tableWrapper: {
@@ -89,6 +79,10 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       marginLeft: 0,
     },
+  },
+
+  moveBox: {
+    color: '#fff',
   },
 
   titleWrapper: {

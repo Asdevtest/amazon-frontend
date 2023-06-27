@@ -1,7 +1,4 @@
 export const styles = theme => ({
-  dashboardCardWrapper: {
-    marginTop: '24px',
-  },
   userInfoWrapper: {
     marginBottom: theme.spacing(5),
 
@@ -30,21 +27,15 @@ export const styles = theme => ({
   },
   userInfoLeftWrapper: {
     display: 'flex',
-    gap: '25px',
+    gap: '30px',
     alignItems: 'center',
-  },
-
-  addressMainWrapper: {
-    marginTop: 20,
-    // display: 'flex',
-    // alignItems: 'center',
-    // gap: 20,
   },
 
   addressSubWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: 10,
+    marginBottom: 10,
 
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',

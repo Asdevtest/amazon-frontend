@@ -1,1 +1,1 @@
-export {AddSuppliersModal} from './add-suppliers-modal'
+export { AddSuppliersModal } from './add-suppliers-modal'
