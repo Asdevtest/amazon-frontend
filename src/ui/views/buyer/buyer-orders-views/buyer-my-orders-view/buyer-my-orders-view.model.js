@@ -942,7 +942,6 @@ export class BuyerMyOrdersViewModel {
   }
 
   async saveOrderPayment(order, orderPayments) {
-    console.log('orderPayments', orderPayments)
     if (Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
       try {
         orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
@@ -1059,7 +1058,7 @@ export class BuyerMyOrdersViewModel {
 
       await this.onSaveOrder(order, orderFields)
 
-      this.saveOrderPayment(order, orderPayments)
+      await this.saveOrderPayment(order, orderPayments)
 
       if (
         boxesForCreation.length > 0 &&
@@ -1243,9 +1242,6 @@ export class BuyerMyOrdersViewModel {
 
   async onSubmitCreateBoxes({ order, boxesForCreation, trackNumber, commentToWarehouse }) {
     try {
-      console.log('order', order)
-      console.log('boxesForCreation', boxesForCreation)
-
       runInAction(() => {
         this.error = undefined
 
@@ -1270,7 +1266,7 @@ export class BuyerMyOrdersViewModel {
           const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
             {
               ...order.orderSupplier,
-              paymentMethods: order?.orderSupplier?.map(paymentMethod => ({
+              paymentMethods: order?.orderSupplier?.paymentMethods?.map(paymentMethod => ({
                 _id: paymentMethod._id,
               })),
               boxProperties: {

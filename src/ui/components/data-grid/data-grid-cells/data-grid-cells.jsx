@@ -2004,9 +2004,9 @@ export const FourMonthesStockCell = React.memo(
 
 export const CommentUsersCell = React.memo(
   withStyles(
-    ({ classes: classNames, handler, id, comment }) => (
+    ({ classes: classNames, handler, id, comment, maxLength }) => (
       <div className={classNames.CommentUsersCellWrapper}>
-        <ChangeInputCommentCell id={id} text={comment} onClickSubmit={handler} />
+        <ChangeInputCommentCell id={id} text={comment} maxLength={maxLength || 128} onClickSubmit={handler} />
       </div>
     ),
     styles,
