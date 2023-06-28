@@ -507,8 +507,6 @@ export class MyRequestsViewModel {
       runInAction(() => {
         this.searchRequests = myRequestsDataConverter(result.rows)
 
-        console.log('this.searchRequests', this.searchRequests)
-
         this.rowCount = result.count
       })
     } catch (error) {

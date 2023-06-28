@@ -1986,8 +1986,8 @@ export enum TranslationKey {
   'Unread messages' = 'Unread messages',
   'Search companion' = 'Search companion',
   'Service representative' = 'Service representative',
-  // '' = '',
-  // '' = '',
+  'Your message has been sent' = 'Your message has been sent',
+  'Thank you for your feedback' = 'Thank you for your feedback',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
   // '' = '',
   // '' = '',
