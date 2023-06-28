@@ -88,11 +88,14 @@ const imagesRegex =
 export const ChatMessageBasicText: FC<Props> = observer(
   ({ message, isIncomming, unReadMessage, isFound, searchPhrase, showName }) => {
     const { classes: classNames } = useClassNames()
-    const [photoFiles, setPhotoFiles] = useState(() => message.files.filter(url => imagesRegex.test(url)))
+    const [photoFiles, setPhotoFiles] = useState(() => [
+      ...message.files.filter(url => imagesRegex.test(url)),
+      ...message.images,
+    ])
     const [anotherFiles, setAnotherFiles] = useState(() => message.files.filter(url => !imagesRegex.test(url)))
 
     useEffect(() => {
-      setPhotoFiles(message.files.filter(url => imagesRegex.test(url)))
+      setPhotoFiles([...message.files.filter(url => imagesRegex.test(url)), ...message.images])
       setAnotherFiles(message.files.filter(url => !imagesRegex.test(url)))
     }, [message])
 
@@ -161,7 +164,7 @@ export const ChatMessageBasicText: FC<Props> = observer(
           )}
           {anotherFiles.length ? (
             <div className={classNames.filesMainWrapper}>
-              <ChatMessageFiles files={message.files} />
+              <ChatMessageFiles files={[...message.files, ...message.images]} />
             </div>
           ) : undefined}
         </div>
