@@ -4,33 +4,32 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { GeneralModel } from '@models/general-model'
 import { SettingsModel } from '@models/settings-model'
+import { ClientModel } from '@models/client-model'
+import { AdministratorModel } from '@models/administrator-model'
 
-import { tagsColumns } from '@components/table/table-columns/admin/tags-columns'
+import { destinationsColumns } from '@components/table/table-columns/admin/destinations-columns'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
-export class AdminSettingsTagsModel {
+export class AdminSettingsDestinationsModel {
   history = undefined
 
-  tags = []
+  destinations = []
 
   requestStatus = ''
-  nameSearchValue = ''
 
   showConfirmModal = false
-  showAddOrEditTagModal = false
+  showAddOrEditDestinationModal = false
 
   sortModel = []
   filterModel = { items: [] }
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
-  rowSelectionModel = []
 
-  tagToEdit = undefined
-  tagIdToRemove = ''
+  destinationToEditToEdit = undefined
+  destinationIdToRemove = undefined
   confirmModalSettings = {
     isWarning: false,
     message: '',
@@ -41,7 +40,7 @@ export class AdminSettingsTagsModel {
     onClickEditBtn: row => this.onClickEditBtn(row),
   }
 
-  columnsModel = tagsColumns(this.rowHandlers)
+  columnsModel = destinationsColumns(this.rowHandlers)
 
   constructor({ history }) {
     this.history = history
@@ -53,7 +52,7 @@ export class AdminSettingsTagsModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await this.getTags()
+      await this.getDestinations()
 
       this.getDataGridState()
 
@@ -69,33 +68,29 @@ export class AdminSettingsTagsModel {
     })
   }
 
-  async getTags() {
+  async getDestinations() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const result = await GeneralModel.getTagList()
+      const result = await ClientModel.getDestinations()
 
       runInAction(() => {
-        this.tags = addIdDataConverter(result)
+        this.destinations = addIdDataConverter(result)
       })
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.tags = []
+      this.destinations = []
       this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
   getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.tags).filter(({ title }) => title.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
-    } else {
-      return toJS(this.tags)
-    }
+    return toJS(this.destinations)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_TAGS]
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_DESTINATIONS]
 
     runInAction(() => {
       if (state) {
@@ -115,7 +110,7 @@ export class AdminSettingsTagsModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_TAGS)
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_DESTINATIONS)
   }
 
   onChangeSortingModel(sortModel) {
@@ -148,19 +143,13 @@ export class AdminSettingsTagsModel {
     this.setDataGridState()
   }
 
-  onSelectionModel(model) {
-    runInAction(() => {
-      this.rowSelectionModel = model
-    })
-  }
-
   onClickRemoveBtn(row) {
     runInAction(() => {
-      this.tagIdToRemove = row._id
+      this.destinationIdToRemove = row._id
       this.confirmModalSettings = {
         isWarning: true,
-        message: t(TranslationKey['Are you sure you want to delete the tag?']),
-        onClickSuccess: () => this.removeTag(),
+        message: t(TranslationKey['Are you sure you want to delete the destination?']),
+        onClickSuccess: () => this.removeDestination(),
       }
     })
 
@@ -169,24 +158,18 @@ export class AdminSettingsTagsModel {
 
   onClickEditBtn(row) {
     runInAction(() => {
-      this.tagToEdit = row
+      this.destinationToEdit = row
     })
 
-    this.onTriggerOpenModal('showAddOrEditTagModal')
-  }
-
-  onChangeNameSearchValue(event) {
-    runInAction(() => {
-      this.nameSearchValue = event.target.value
-    })
+    this.onTriggerOpenModal('showAddOrEditDestinationModal')
   }
 
   onClickAddBtn() {
     runInAction(() => {
-      this.tagToEdit = undefined
+      this.destinationToEdit = undefined
     })
 
-    this.onTriggerOpenModal('showAddOrEditTagModal')
+    this.onTriggerOpenModal('showAddOrEditDestinationModal')
   }
 
   onClickCancelBtn() {
@@ -202,17 +185,17 @@ export class AdminSettingsTagsModel {
   }
 
   cancelTheOrder() {
-    this.onTriggerOpenModal('showAddOrEditTagModal')
+    this.onTriggerOpenModal('showAddOrEditDestinationModal')
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async createTag(titleTag) {
+  async createDestination(data) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await GeneralModel.createTag(titleTag)
+      await AdministratorModel.createDestination(data)
 
-      this.onTriggerOpenModal('showAddOrEditTagModal')
+      this.onTriggerOpenModal('showAddOrEditDestinationModal')
 
       this.loadData()
 
@@ -222,14 +205,13 @@ export class AdminSettingsTagsModel {
     }
   }
 
-  // TODO: There isn't method to remove a tag (wait beck)
-  /* async editTag(titleTag, tagId) {
+  async editDestination(data, destinationId) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await GeneralModel.editTag(titleTag, tagId)
+      await AdministratorModel.editDestination(destinationId, data)
 
-      this.onTriggerOpenModal('showAddOrEditTagModal')
+      this.onTriggerOpenModal('showAddOrEditDestinationModal')
 
       this.loadData()
 
@@ -237,16 +219,15 @@ export class AdminSettingsTagsModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
     }
-  } */
+  }
 
-  // TODO: There isn't method to remove a tag (wait beck)
-  /* async removeTag() {
+  async removeDestination() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await GeneralModel.removeTag(this.tagIdToRemove)
+      await AdministratorModel.removeDestination(this.destinationIdToRemove)
 
-      this.onTriggerOpenModal('showAddOrEditTagModal')
+      this.onTriggerOpenModal('showConfirmModal')
 
       this.loadData()
 
@@ -254,22 +235,7 @@ export class AdminSettingsTagsModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
     }
-  } */
-
-  // TODO: There isn't method to remove a tag (wait beck)
-  /* async removeTags() {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
-      await GeneralModel.removeTags(this.tagIdToRemove)
-
-      this.loadData()
-
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-    }
-  } */
+  }
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]

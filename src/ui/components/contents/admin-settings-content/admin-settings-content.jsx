@@ -70,17 +70,17 @@ export const AdminSettingsContent = observer(() => {
     //   })
     // }
 
-    viewModel?.createAdminSettings(formFields)
+    viewModel.createAdminSettings(formFields)
 
     setIsFormFieldsChanged(false)
   }
 
   const onSubmitProxy = () => {
-    viewModel?.createProxy(proxyArr)
+    viewModel.createProxy(proxyArr)
   }
 
   const handleSubmitPaymentMethod = () => {
-    viewModel?.createPaymentMethod(fieldMethod)
+    viewModel.createPaymentMethod(fieldMethod)
 
     setFieldMethod('')
   }
@@ -114,7 +114,8 @@ export const AdminSettingsContent = observer(() => {
     !isFormFieldsChanged ||
     Number(formFields.yuanToDollarRate) === 0 ||
     Number(formFields.volumeWeightCoefficient) === 0
-  const disabledSubmitProxy = isEqual(viewModel?.serverProxy, proxyArr)
+
+  const disabledSubmitProxy = isEqual(viewModel.serverProxy, proxyArr)
 
   const disabledSubmitSecondBlock =
     !isFormFieldsChanged ||
@@ -159,7 +160,7 @@ export const AdminSettingsContent = observer(() => {
             onChangeField={onChangeField}
             onSubmit={onCreateSubmit}
             onSubmitProxy={onSubmitProxy}
-            onClickAddProxyBtn={() => viewModel?.onTriggerOpenModal('showAsinCheckerModal')}
+            onClickAddProxyBtn={() => viewModel.onTriggerOpenModal('showAsinCheckerModal')}
           />
         </div>
       </TabPanel>
@@ -216,22 +217,22 @@ export const AdminSettingsContent = observer(() => {
       </TabPanel>
 
       <WarningInfoModal
-        openModal={viewModel?.showInfoModal}
-        setOpenModal={() => viewModel?.onCloseInfoModal()}
-        title={viewModel?.infoModalText}
+        openModal={viewModel.showInfoModal}
+        setOpenModal={() => viewModel.onCloseInfoModal()}
+        title={viewModel.infoModalText}
         btnText={t(TranslationKey.Close)}
         onClickBtn={() => {
-          viewModel?.onCloseInfoModal()
+          viewModel.onCloseInfoModal()
         }}
       />
       <Modal
-        openModal={viewModel?.showAsinCheckerModal}
-        setOpenModal={() => viewModel?.onTriggerOpenModal('showAsinCheckerModal')}
+        openModal={viewModel.showAsinCheckerModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAsinCheckerModal')}
       >
         <AsinProxyCheckerForm
-          user={viewModel?.user}
+          user={viewModel.user}
           onSubmit={setProxyArr}
-          onClose={() => viewModel?.onTriggerOpenModal('showAsinCheckerModal')}
+          onClose={() => viewModel.onTriggerOpenModal('showAsinCheckerModal')}
         />
       </Modal>
     </>

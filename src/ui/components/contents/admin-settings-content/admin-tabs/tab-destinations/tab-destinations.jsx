@@ -15,14 +15,14 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './tab-destinations.style'
+import { AdminSettingsDestinationsModel } from './tab-destinations.model'
 
-import { AdminSettingsModel } from '../../admin-settings-content.model'
+import { useClassNames } from './tab-destinations.style'
 
 export const TabDestinations = observer(() => {
   const { classes: classNames } = useClassNames()
 
-  const [viewModel] = useState(() => new AdminSettingsModel({ history }))
+  const [viewModel] = useState(() => new AdminSettingsDestinationsModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -30,7 +30,7 @@ export const TabDestinations = observer(() => {
 
   return (
     <div className={classNames.wrapper}>
-      <Button success className={classNames.saveButton} onClick={() => viewModel?.onClickAddBtn()}>
+      <Button success className={classNames.saveButton} onClick={() => viewModel.onClickAddBtn()}>
         {t(TranslationKey['Add a destination'])}
       </Button>
 
@@ -44,12 +44,12 @@ export const TabDestinations = observer(() => {
             toolbarContainer: classNames.toolbarContainer,
           }}
           localeText={getLocalizationByLanguageTag()}
-          sortModel={viewModel?.sortModel}
-          filterModel={viewModel?.filterModel}
-          columnVisibilityModel={viewModel?.columnVisibilityModel}
-          paginationModel={viewModel?.paginationModel}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
           pageSizeOptions={[15, 25, 50, 100]}
-          rows={viewModel?.getCurrentData()}
+          rows={viewModel.getCurrentData()}
           rowHeight={120}
           slots={{
             toolbar: DataGridCustomToolbar,
@@ -58,43 +58,42 @@ export const TabDestinations = observer(() => {
           slotProps={{
             toolbar: {
               columsBtnSettings: {
-                columnsModel: viewModel?.columnsModel,
-                columnVisibilityModel: viewModel?.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel?.onColumnVisibilityModelChange,
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
             },
           }}
-          density={viewModel?.densityModel}
-          columns={viewModel?.columnsModel}
-          loading={viewModel?.requestStatus === loadingStatuses.isLoading}
-          onSortModelChange={viewModel?.onChangeSortingModel}
-          onPaginationModelChange={viewModel?.onChangePaginationModelChange}
-          onFilterModelChange={viewModel?.onChangeFilterModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onPaginationModelChange={viewModel.onChangePaginationModel}
+          onFilterModelChange={viewModel.onChangeFilterModel}
         />
       </div>
 
       <Modal
-        openModal={viewModel?.showAddOrEditDestinationModal}
-        setOpenModal={() => viewModel?.onTriggerOpenModal('showAddOrEditDestinationModal')}
+        openModal={viewModel.showAddOrEditDestinationModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditDestinationModal')}
       >
         <AddOrEditDestinationForm
-          destinationToEdit={viewModel?.destinationToEdit}
-          onCloseModal={() => viewModel?.onClickCancelBtn()}
-          onCreateSubmit={viewModel?.onSubmitCreateDestination}
-          onEditSubmit={viewModel?.onSubmitEditDestination}
+          destinationToEdit={viewModel.destinationToEdit}
+          onCloseModal={() => viewModel.onClickCancelBtn()}
+          onCreateSubmit={viewModel.createDestination}
+          onEditSubmit={viewModel.editDestination}
         />
       </Modal>
 
       <ConfirmationModal
-        isWarning={viewModel?.confirmModalSettings.isWarning}
-        openModal={viewModel?.showConfirmModal}
-        setOpenModal={() => viewModel?.onTriggerOpenModal('showConfirmModal')}
+        isWarning={viewModel.confirmModalSettings.isWarning}
+        openModal={viewModel.showConfirmModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         title={t(TranslationKey.Attention)}
-        message={viewModel?.confirmModalSettings.message}
+        message={viewModel.confirmModalSettings.message}
         successBtnText={t(TranslationKey.Yes)}
         cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel?.confirmModalSettings.onClickSuccess}
-        onClickCancelBtn={() => viewModel?.onTriggerOpenModal('showConfirmModal')}
+        onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
+        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
     </div>
   )
