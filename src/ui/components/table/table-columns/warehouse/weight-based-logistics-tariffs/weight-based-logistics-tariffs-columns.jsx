@@ -60,6 +60,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     sortable: false,
     hideable: false,
   },
+
   {
     field: 'inYuansRates',
     headerName: t(TranslationKey.Rate) + ', ¥',

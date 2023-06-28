@@ -186,8 +186,6 @@ export class MyRequestsViewModel {
       () => this.searchRequests,
       () => {
         this.currentData = this.getCurrentData()
-
-        console.log('this.currentData', this.currentData)
       },
     )
   }

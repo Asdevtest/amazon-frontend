@@ -1,67 +1,63 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
+
+import { Box, Tabs, Typography } from '@mui/material'
 
 import React, { useState } from 'react'
 
 import { observer } from 'mobx-react'
+
+import { ITab } from '@components/shared/i-tab/i-tab'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 
-import { calcTotalFbaForProduct, roundSafely } from '@utils/calculation'
 import { t } from '@utils/translations'
 
 import { supplierApproximateCalculationsFormColumns } from './supplier-approximate-calculations-form-columns'
 import { useClassNames } from './supplier-approximate-calculations-form.style'
+import { SettingsModel } from '@models/settings-model'
+import {
+  supplierApproximateCalculationsDataConverter,
+  supplierWeightBasedApproximateCalculationsDataConverter,
+} from '@utils/data-grid-data-converters'
 
-const supplierApproximateCalculationsDataConverter = (tariffLogistics, product, supplier, volumeWeightCoefficient) => {
-  const fInalWeightOfUnit =
-    Math.max(
-      roundSafely(
-        (supplier.boxProperties?.boxLengthCm *
-          supplier?.boxProperties?.boxWidthCm *
-          supplier?.boxProperties?.boxHeightCm) /
-          volumeWeightCoefficient,
-      ) || 0,
-      parseFloat(supplier?.boxProperties?.boxWeighGrossKg) || 0,
-    ) / supplier.boxProperties.amountInBox
+const TabPanel = ({ children, value, index, ...other }) => (
+  <div
+    role="tabpanel"
+    hidden={value !== index}
+    id={`simple-tabpanel-${index}`}
+    aria-labelledby={`simple-tab-${index}`}
+    {...other}
+  >
+    {value === index && <Box paddingTop={3}>{children}</Box>}
+  </div>
+)
 
-  return tariffLogistics.map((item, i) => {
-    const costDeliveryToChina =
-      (+supplier.price * (+supplier.amount || 0) + +supplier.batchDeliveryCostInDollar) / +supplier.amount
-
-    const costDeliveryToUsa =
-      costDeliveryToChina +
-      Math.max(
-        item.conditionsByRegion.central.rate,
-        item.conditionsByRegion.east.rate,
-        item.conditionsByRegion.west.rate,
-      ) *
-        fInalWeightOfUnit
-
-    const roi = ((product.amazon - calcTotalFbaForProduct(product) - costDeliveryToUsa) / costDeliveryToUsa) * 100
-
-    return {
-      originalData: item,
-      id: i,
-
-      name: item.name,
-      costDeliveryToChina,
-      costDeliveryToUsa,
-      roi,
-    }
-  })
+const tabsValues = {
+  WITHOUT_WEIGHT_LOGISTICS_TARIFF: 'WITHOUT_WEIGHT_LOGISTICS_TARIFF',
+  WEIGHT_BASED_LOGISTICS_TARIFF: 'WEIGHT_BASED_LOGISTICS_TARIFF',
 }
 
 export const SupplierApproximateCalculationsForm = observer(
   ({ product, supplier, storekeepers, onClose, volumeWeightCoefficient }) => {
     const { classes: classNames } = useClassNames()
 
+    const [tabIndex, setTabIndex] = React.useState(tabsValues.WITHOUT_WEIGHT_LOGISTICS_TARIFF)
+
     const [curStorekeeper, setCurStorekeeper] = useState(
       storekeepers.slice().sort((a, b) => a.name.localeCompare(b.name))[0],
+    )
+
+    console.log(
+      supplierWeightBasedApproximateCalculationsDataConverter(
+        curStorekeeper.tariffLogistics,
+        product,
+        supplier,
+        volumeWeightCoefficient,
+      ),
     )
 
     return (
@@ -87,28 +83,64 @@ export const SupplierApproximateCalculationsForm = observer(
             ))}
         </div>
 
-        <div className={classNames.tableWrapper}>
-          <MemoDataGrid
-            hideFooter
-            // sx={{
-            //   border: 0,
-            //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-            //   backgroundColor: theme.palette.background.general,
-            // }}
-            rows={
-              curStorekeeper.tariffLogistics?.length
-                ? supplierApproximateCalculationsDataConverter(
-                    curStorekeeper.tariffLogistics,
-                    product,
-                    supplier,
-                    volumeWeightCoefficient,
-                  )
-                : []
-            }
-            columns={supplierApproximateCalculationsFormColumns()}
-            rowHeight={100}
-          />
-        </div>
+        {SettingsModel.languageTag && (
+          <Tabs
+            variant={'fullWidth'}
+            classes={{
+              root: classNames.tabsRoot,
+              indicator: classNames.indicator,
+            }}
+            value={tabIndex}
+            onChange={(e, index) => setTabIndex(index)}
+          >
+            <ITab label={t(TranslationKey['Logistics tariffs'])} value={tabsValues.WITHOUT_WEIGHT_LOGISTICS_TARIFF} />
+            <ITab
+              label={t(TranslationKey['Weight-based logistics tariffs'])}
+              value={tabsValues.WEIGHT_BASED_LOGISTICS_TARIFF}
+            />
+          </Tabs>
+        )}
+
+        <TabPanel value={tabIndex} index={tabsValues.WITHOUT_WEIGHT_LOGISTICS_TARIFF}>
+          <div className={classNames.tableWrapper}>
+            <MemoDataGrid
+              hideFooter
+              rows={
+                curStorekeeper.tariffLogistics?.length
+                  ? supplierApproximateCalculationsDataConverter(
+                      curStorekeeper.tariffLogistics,
+                      product,
+                      supplier,
+                      volumeWeightCoefficient,
+                    )
+                  : []
+              }
+              columns={supplierApproximateCalculationsFormColumns()}
+              rowHeight={100}
+            />
+          </div>
+        </TabPanel>
+
+        <TabPanel value={tabIndex} index={tabsValues.WEIGHT_BASED_LOGISTICS_TARIFF}>
+          <div className={classNames.tableWrapper}>
+            {/* <MemoDataGrid
+              hideFooter
+              rows={
+                curStorekeeper.tariffLogistics?.length
+                  ? supplierApproximateCalculationsDataConverter(
+                      curStorekeeper.tariffLogistics,
+                      product,
+                      supplier,
+                      volumeWeightCoefficient,
+                    )
+                  : []
+              }
+              columns={supplierApproximateCalculationsFormColumns()}
+              rowHeight={100}
+            /> */}
+            {'22222222'}
+          </div>
+        </TabPanel>
 
         <div className={classNames.clearBtnWrapper}>
           <Button danger onClick={onClose}>

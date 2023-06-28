@@ -15,13 +15,16 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   calcFinalWeightForBox,
   calcPriceForBox,
+  calcTotalFbaForProduct,
   calcTotalPriceForBatch,
   calcVolumeWeightForBox,
   checkActualBatchWeightGreaterVolumeBatchWeight,
   getTariffRateForBoxOrOrder,
+  roundSafely,
 } from './calculation'
 import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder } from './text'
 import { t } from './translations'
+import { tariffTypes } from '@constants/keys/tariff-types'
 
 export const addIdDataConverter = data =>
   data.map((item, index) => ({ ...item, originalData: item, id: item._id ? item._id : index }))
@@ -918,3 +921,91 @@ export const SourceFilesDataConverter = data =>
     asin: item?.proposal?.request?.asin,
     client: item?.proposal?.client,
   }))
+
+export const supplierApproximateCalculationsDataConverter = (
+  tariffLogistics,
+  product,
+  supplier,
+  volumeWeightCoefficient,
+) => {
+  const fInalWeightOfUnit =
+    Math.max(
+      roundSafely(
+        (supplier.boxProperties?.boxLengthCm *
+          supplier?.boxProperties?.boxWidthCm *
+          supplier?.boxProperties?.boxHeightCm) /
+          volumeWeightCoefficient,
+      ) || 0,
+      parseFloat(supplier?.boxProperties?.boxWeighGrossKg) || 0,
+    ) / supplier.boxProperties.amountInBox
+
+  return tariffLogistics
+    ?.filter(tariffLogistic => tariffLogistic.tariffType === tariffTypes.WITHOUT_WEIGHT_LOGISTICS_TARIFF)
+    ?.map((item, i) => {
+      const costDeliveryToChina =
+        (+supplier.price * (+supplier.amount || 0) + +supplier.batchDeliveryCostInDollar) / +supplier.amount
+
+      const costDeliveryToUsa =
+        costDeliveryToChina +
+        Math.max(
+          item.conditionsByRegion.central.rate,
+          item.conditionsByRegion.east.rate,
+          item.conditionsByRegion.west.rate,
+        ) *
+          fInalWeightOfUnit
+
+      const roi = ((product.amazon - calcTotalFbaForProduct(product) - costDeliveryToUsa) / costDeliveryToUsa) * 100
+
+      return {
+        originalData: item,
+        id: i,
+
+        name: item.name,
+        costDeliveryToChina,
+        costDeliveryToUsa,
+        roi,
+      }
+    })
+}
+
+export const supplierWeightBasedApproximateCalculationsDataConverter = (
+  tariffLogistics,
+  product,
+  supplier,
+  volumeWeightCoefficient,
+) => {
+  const fInalWeightOfUnit =
+    Math.max(
+      roundSafely(
+        (supplier.boxProperties?.boxLengthCm *
+          supplier?.boxProperties?.boxWidthCm *
+          supplier?.boxProperties?.boxHeightCm) /
+          volumeWeightCoefficient,
+      ) || 0,
+      parseFloat(supplier?.boxProperties?.boxWeighGrossKg) || 0,
+    ) / supplier.boxProperties.amountInBox
+
+  return tariffLogistics
+    ?.filter(tariffLogistic => tariffLogistic.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF)
+    ?.map((tariffLogistic, i) => {
+      const costDeliveryToChina =
+        (+supplier?.price * (+supplier?.amount || 0) + +supplier?.batchDeliveryCostInDollar) / +supplier?.amount
+
+      const destinationVariations = tariffLogistic?.destinationVariations?.map(destinationVariation => {
+        const deliveryToUsa = costDeliveryToChina + destinationVariation?.pricePerKgUsd * fInalWeightOfUnit
+
+        return {
+          ...destinationVariation,
+          roi: ((product?.amazon - calcTotalFbaForProduct(product) - deliveryToUsa) / deliveryToUsa) * 100,
+        }
+      })
+
+      return {
+        id: i,
+        originalData: tariffLogistic,
+        name: tariffLogistic?.name,
+        costDeliveryToChina,
+        destinationVariations,
+      }
+    })
+}

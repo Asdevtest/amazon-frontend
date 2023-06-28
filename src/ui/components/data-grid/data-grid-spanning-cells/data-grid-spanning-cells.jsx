@@ -21,6 +21,7 @@ export const DestinationVariationsSpanningCell = React.memo(
       activeDestinationId,
       activeDedestinationVariationt,
       selectVariationTariff,
+      withoutRate,
     }) => {
       const groupedData = destinationVariations.reduce((groups, obj) => {
         const { destinationId } = obj
@@ -67,21 +68,25 @@ export const DestinationVariationsSpanningCell = React.memo(
                   </div>
                 ))}
               </div>
-              <div className={cx(classNames.destinationWrapper, classNames.rateWrapper)}>
-                {varians.map((variant, variantIndex) => (
-                  <Typography key={variantIndex} className={cx(classNames.destinationVariationText)}>
-                    {toFixed(variant.pricePerKgRmb, 2)}
-                  </Typography>
-                ))}
-              </div>
+              {!withoutRate && (
+                <div className={cx(classNames.destinationWrapper, classNames.rateWrapper)}>
+                  {varians.map((variant, variantIndex) => (
+                    <Typography key={variantIndex} className={cx(classNames.destinationVariationText)}>
+                      {toFixed(variant.pricePerKgRmb, 2)}
+                    </Typography>
+                  ))}
+                </div>
+              )}
 
-              <div className={cx(classNames.destinationWrapper, classNames.rateWrapper)}>
-                {varians.map((variant, variantIndex) => (
-                  <Typography key={variantIndex} className={cx(classNames.destinationVariationText)}>
-                    {toFixed(variant.pricePerKgUsd, 2)}
-                  </Typography>
-                ))}
-              </div>
+              {!withoutRate && (
+                <div className={cx(classNames.destinationWrapper, classNames.rateWrapper)}>
+                  {varians.map((variant, variantIndex) => (
+                    <Typography key={variantIndex} className={cx(classNames.destinationVariationText)}>
+                      {toFixed(variant.pricePerKgUsd, 2)}
+                    </Typography>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>
