@@ -7,8 +7,10 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from '../../admin-settings-content.style'
 
-export const TabOrders = ({ formFields, disabledSubmit, onSubmit, onChangeField }) => {
+export const TabOrders = ({ formFields, isFormFieldsChanged, onSubmit, onChangeField }) => {
   const { classes: classNames } = useClassNames()
+
+  const disabledSubmit = !isFormFieldsChanged || Number(formFields.timeToDeadlinePendingOrder) === 0
 
   return (
     <div className={classNames.wrapper}>

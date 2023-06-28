@@ -7,8 +7,14 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from '../../admin-settings-content.style'
 
-export const TabSearchSupplier = ({ formFields, disabledSubmit, onSubmit, onChangeField }) => {
+export const TabSearchSupplier = ({ formFields, isFormFieldsChanged, onSubmit, onChangeField }) => {
   const { classes: classNames } = useClassNames()
+
+  const disabledSubmit =
+    !isFormFieldsChanged ||
+    Number(formFields.costOfFindingSupplier) === 0 ||
+    Number(formFields.deadlineForFindingSupplier) === 0 ||
+    Number(formFields.costOfCheckingProduct) === 0
 
   return (
     <div className={classNames.wrapper}>

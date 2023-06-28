@@ -7,8 +7,15 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './tab-freelance.style'
 
-export const TabFreelance = ({ formFields, disabledSubmit, onSubmit, onChangeField }) => {
+export const TabFreelance = ({ formFields, isFormFieldsChanged, onSubmit, onChangeField }) => {
   const { classes: classNames } = useClassNames()
+
+  const disabledSubmit =
+    !isFormFieldsChanged ||
+    Number(formFields.requestPlatformMarginInPercent) === 0 ||
+    Number(formFields.requestSupervisorFeeInPercent) === 0 ||
+    Number(formFields.requestTimeLimitInHourForCancelingProposalsByClient) === 0 ||
+    Number(formFields.requestTimeLimitInHourForCheckingProposalBySuper) === 0
 
   return (
     <div className={classNames.wrapper}>

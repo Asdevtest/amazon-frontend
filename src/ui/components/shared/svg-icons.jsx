@@ -787,24 +787,9 @@ export const UploadIcon = props => (
     <g id="Frame 1283">
       <path
         id="Vector"
-        fill-rule="evenodd"
-        clip-rule="evenodd"
         d="M10.1238 11.421C10.1238 12.0169 9.66299 12.5 9.09449 12.5C8.526 12.5 8.06514 12.0169 8.06514 11.421L8.06514 5.63747L5.75722 7.75438C5.35523 8.1231 4.70348 8.1231 4.30149 7.75438C3.8995 7.38566 3.8995 6.78786 4.30149 6.41914L8.22744 2.81813C8.24107 2.80405 8.25548 2.79003 8.27019 2.77654C8.67218 2.40782 9.32392 2.40782 9.72591 2.77654L13.6985 6.42034C14.1005 6.78905 14.1005 7.38686 13.6985 7.75558C13.2965 8.12429 12.6448 8.12429 12.2428 7.75558L10.1238 5.81201L10.1238 11.421Z"
-        fill="url(#paint0_linear_22679_144961)"
       />
-      <rect id="Rectangle 266" x="2" y="14.5" width="14" height="2" rx="1" fill="url(#paint1_linear_22679_144961)" />
+      <rect id="Rectangle 266" x="2" y="14.5" width="14" height="2" rx="1" />
     </g>
-    <defs>
-      <linearGradient id="paint0_linear_22679_144961" x1="9" y1="12.5" x2="9" y2="2.5" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
-      </linearGradient>
-      <linearGradient id="paint1_linear_22679_144961" x1="9" y1="14.5" x2="9" y2="16.5" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#5BA0FE" />
-        <stop offset="0.0001" stop-color="#0164F4" />
-        <stop offset="1" stop-color="#0164F4" />
-      </linearGradient>
-    </defs>
   </SvgIcon>
 )

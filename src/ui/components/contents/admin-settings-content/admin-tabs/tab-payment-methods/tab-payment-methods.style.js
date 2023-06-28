@@ -74,6 +74,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   text: {
     fontSize: 14,
+    lineHeight: '19px',
     fontWeight: 600,
     color: theme.palette.primary.main,
   },

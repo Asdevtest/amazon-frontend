@@ -1,6 +1,8 @@
-import { Tabs, Tab } from '@mui/material'
-import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react'
+import { toJS } from 'mobx'
+import { useEffect, useState } from 'react'
+
+import { Tabs, Tab } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 import { fieldsWithoutCharsAfterDote, startValueFields, tabLabels } from './constants'
@@ -11,7 +13,6 @@ import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/check
 import { t } from '@utils/translations'
 
 import { SettingsModel } from '@models/settings-model'
-import { AdminSettingsModel } from './admin-settings-content.model'
 
 import {
   TabFreelance,
@@ -23,9 +24,9 @@ import {
   TabPaymentMethods,
   TabTags,
 } from './admin-tabs'
+import { AdminSettingsModel } from './admin-settings-content.model'
 
 import { useClassNames } from './admin-settings-content.style'
-import { toJS } from 'mobx'
 
 export const AdminSettingsContent = observer(() => {
   const { classes: classNames } = useClassNames()
@@ -38,15 +39,7 @@ export const AdminSettingsContent = observer(() => {
 
   const [tabIndex, setTabIndex] = useState(0)
   const [isFormFieldsChanged, setIsFormFieldsChanged] = useState(false)
-
-  const [fieldMethod, setFieldMethod] = useState('')
   const [formFields, setFormFields] = useState(startValueFields)
-
-  const [paymentMethods, setPaymentMethods] = useState([])
-
-  useEffect(() => {
-    setPaymentMethods(viewModel.paymentMethods)
-  }, [viewModel.paymentMethods])
 
   useEffect(() => {
     if (viewModel.adminSettings?.dynamicSettings) {
@@ -74,12 +67,6 @@ export const AdminSettingsContent = observer(() => {
     setIsFormFieldsChanged(false)
   }
 
-  const handleSubmitPaymentMethod = () => {
-    viewModel.createPaymentMethod(fieldMethod)
-
-    setFieldMethod('')
-  }
-
   const onChangeField = fieldName => event => {
     const newFormFields = { ...formFields }
 
@@ -96,23 +83,6 @@ export const AdminSettingsContent = observer(() => {
 
     setIsFormFieldsChanged(true)
   }
-
-  const handleChangeFieldMethod = event => {
-    setFieldMethod(event.target.value)
-  }
-
-  const disabledSubmitSecondBlock =
-    !isFormFieldsChanged ||
-    Number(formFields.requestPlatformMarginInPercent) === 0 ||
-    Number(formFields.requestSupervisorFeeInPercent) === 0 ||
-    Number(formFields.requestTimeLimitInHourForCancelingProposalsByClient) === 0 ||
-    Number(formFields.requestTimeLimitInHourForCheckingProposalBySuper) === 0
-
-  const disabledSubmitThirdBlock =
-    !isFormFieldsChanged ||
-    Number(formFields.costOfFindingSupplier) === 0 ||
-    Number(formFields.deadlineForFindingSupplier) === 0 ||
-    Number(formFields.costOfCheckingProduct) === 0
 
   return (
     <>
@@ -147,7 +117,7 @@ export const AdminSettingsContent = observer(() => {
         <div className={classNames.contentWrapper}>
           <TabFreelance
             formFields={formFields}
-            disabledSubmit={disabledSubmitSecondBlock}
+            isFormFieldsChanged={isFormFieldsChanged}
             onSubmit={onCreateSubmit}
             onChangeField={onChangeField}
           />
@@ -157,7 +127,7 @@ export const AdminSettingsContent = observer(() => {
         <div className={classNames.contentWrapper}>
           <TabSearchSupplier
             formFields={formFields}
-            disabledSubmit={disabledSubmitThirdBlock}
+            isFormFieldsChanged={isFormFieldsChanged}
             onChangeField={onChangeField}
             onSubmit={onCreateSubmit}
           />
@@ -167,7 +137,7 @@ export const AdminSettingsContent = observer(() => {
         <div className={classNames.contentWrapper}>
           <TabOrders
             formFields={formFields}
-            disabledSubmit={disabledSubmitThirdBlock}
+            isFormFieldsChanged={isFormFieldsChanged}
             onChangeField={onChangeField}
             onSubmit={onCreateSubmit}
           />
@@ -178,17 +148,7 @@ export const AdminSettingsContent = observer(() => {
       </TabPanel>
       <TabPanel value={tabIndex} index={5}>
         <div className={classNames.contentWrapper}>
-          <TabPaymentMethods
-            imageUrl={viewModel.imageUrl}
-            imageName={viewModel.imageName}
-            fieldMethod={fieldMethod}
-            paymentMethods={paymentMethods}
-            setPaymentMethods={setPaymentMethods}
-            onChangeFieldMethod={handleChangeFieldMethod}
-            onImageUpload={viewModel.onImageUpload}
-            onRemoveImage={viewModel.onRemoveImage}
-            onSubmitPaymentMethod={handleSubmitPaymentMethod}
-          />
+          <TabPaymentMethods />
         </div>
       </TabPanel>
       <TabPanel value={tabIndex} index={6}>

@@ -52,7 +52,7 @@ export class AdminSettingsDestinationsModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await this.getDestinations()
+      this.getDestinations()
 
       this.getDataGridState()
 

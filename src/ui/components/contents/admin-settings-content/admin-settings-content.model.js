@@ -77,7 +77,7 @@ export class AdminSettingsModel {
 
       this.onTriggerOpenModal('showInfoModal')
 
-      await this.getAdminSettings()
+      this.getAdminSettings()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -99,7 +99,7 @@ export class AdminSettingsModel {
 
       this.onTriggerOpenModal('showInfoModal')
 
-      await this.getServerProxy()
+      this.getServerProxy()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -153,6 +153,8 @@ export class AdminSettingsModel {
 
       this.onTriggerOpenModal('showInfoModal')
 
+      this.getPaymentMethods()
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.infoModalText = t(TranslationKey['Payment method is not saved'])
@@ -187,11 +189,11 @@ export class AdminSettingsModel {
   async onCloseInfoModal() {
     this.onTriggerOpenModal('showInfoModal')
 
-    await this.loadData()
+    this.loadData()
   }
 
   onToggleModalProxy() {
-    this.showAsinCheckerModal = !this.showAsinCheckerModal
+    this.onTriggerOpenModal('showAsinCheckerModal')
   }
 
   onTriggerOpenModal(modal) {
