@@ -24,6 +24,7 @@ export const Navbar = observer(
       showFeedbackModal,
       showWarningModal,
       showConfirmModal,
+      alertShieldSettings,
       onTriggerOpenModal,
       sendFeedbackAboutPlatform,
       onClickVersion,
@@ -63,6 +64,7 @@ export const Navbar = observer(
               showOverlayNavBar={showOverlayNavBar}
               setShowOverlayNavBar={setShowOverlayNavBar}
               confirmModalSettings={confirmModalSettings}
+              alertShieldSettings={alertShieldSettings}
               curNavbar={curNavbar}
               userInfo={userInfo}
               activeCategory={activeCategory}
@@ -98,6 +100,7 @@ export const Navbar = observer(
               setShortNavbar={setShortNavbar}
               showOverlayNavBar={showOverlayNavBar}
               setShowOverlayNavBar={setShowOverlayNavBar}
+              alertShieldSettings={alertShieldSettings}
               confirmModalSettings={confirmModalSettings}
               curNavbar={curNavbar}
               userInfo={userInfo}
