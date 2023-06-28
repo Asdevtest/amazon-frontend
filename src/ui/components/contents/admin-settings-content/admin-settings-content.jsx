@@ -1,14 +1,11 @@
 import { Tabs, Tab } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react'
-import isEqual from 'lodash.isequal'
 
 import { TranslationKey } from '@constants/translations/translation-key'
-import { fieldsWithoutCharactersAfterDote, tabLabels } from './constants'
+import { fieldsWithoutCharsAfterDote, startValueFields, tabLabels } from './constants'
 
-import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Modal } from '@components/shared/modal'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -28,6 +25,7 @@ import {
 } from './admin-tabs'
 
 import { useClassNames } from './admin-settings-content.style'
+import { toJS } from 'mobx'
 
 export const AdminSettingsContent = observer(() => {
   const { classes: classNames } = useClassNames()
@@ -42,22 +40,23 @@ export const AdminSettingsContent = observer(() => {
   const [isFormFieldsChanged, setIsFormFieldsChanged] = useState(false)
 
   const [fieldMethod, setFieldMethod] = useState('')
-  const [formFields, setFormFields] = useState({})
+  const [formFields, setFormFields] = useState(startValueFields)
 
-  const [proxyArr, setProxyArr] = useState([])
   const [paymentMethods, setPaymentMethods] = useState([])
-
-  useEffect(() => {
-    setProxyArr(viewModel.serverProxy)
-  }, [viewModel.serverProxy])
 
   useEffect(() => {
     setPaymentMethods(viewModel.paymentMethods)
   }, [viewModel.paymentMethods])
 
   useEffect(() => {
-    setFormFields(viewModel.sourceFormFields)
-  }, [viewModel.sourceFormFields])
+    if (viewModel.adminSettings?.dynamicSettings) {
+      setFormFields(toJS(viewModel.adminSettings?.dynamicSettings))
+    }
+  }, [viewModel.adminSettings])
+
+  const handleChangeTab = (event, newValue) => {
+    setTabIndex(newValue)
+  }
 
   const onCreateSubmit = () => {
     // if (!adminSettings) { // ЕСЛИ НУЖНО ОБНОВЛЯТЬ ОТДЕЛЬНЫЕ КЛЮЧИ
@@ -75,10 +74,6 @@ export const AdminSettingsContent = observer(() => {
     setIsFormFieldsChanged(false)
   }
 
-  const onSubmitProxy = () => {
-    viewModel.createProxy(proxyArr)
-  }
-
   const handleSubmitPaymentMethod = () => {
     viewModel.createPaymentMethod(fieldMethod)
 
@@ -91,7 +86,7 @@ export const AdminSettingsContent = observer(() => {
     if (
       !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(
         event.target.value,
-        fieldsWithoutCharactersAfterDote.includes(fieldName) ? 0 : 2,
+        fieldsWithoutCharsAfterDote.includes(fieldName) ? 0 : 2,
       )
     ) {
       return
@@ -105,17 +100,6 @@ export const AdminSettingsContent = observer(() => {
   const handleChangeFieldMethod = event => {
     setFieldMethod(event.target.value)
   }
-
-  const handleChangeTab = (event, newValue) => {
-    setTabIndex(newValue)
-  }
-
-  const disabledSubmitFirstBlock =
-    !isFormFieldsChanged ||
-    Number(formFields.yuanToDollarRate) === 0 ||
-    Number(formFields.volumeWeightCoefficient) === 0
-
-  const disabledSubmitProxy = isEqual(viewModel.serverProxy, proxyArr)
 
   const disabledSubmitSecondBlock =
     !isFormFieldsChanged ||
@@ -152,15 +136,10 @@ export const AdminSettingsContent = observer(() => {
       <TabPanel value={tabIndex} index={0}>
         <div className={classNames.contentWrapper}>
           <TabMain
-            disabledSubmit={disabledSubmitFirstBlock}
-            disabledSubmitProxy={disabledSubmitProxy}
             formFields={formFields}
-            proxyArr={proxyArr}
-            setProxyArr={setProxyArr}
+            isFormFieldsChanged={isFormFieldsChanged}
             onChangeField={onChangeField}
             onSubmit={onCreateSubmit}
-            onSubmitProxy={onSubmitProxy}
-            onClickAddProxyBtn={() => viewModel.onTriggerOpenModal('showAsinCheckerModal')}
           />
         </div>
       </TabPanel>
@@ -221,20 +200,8 @@ export const AdminSettingsContent = observer(() => {
         setOpenModal={() => viewModel.onCloseInfoModal()}
         title={viewModel.infoModalText}
         btnText={t(TranslationKey.Close)}
-        onClickBtn={() => {
-          viewModel.onCloseInfoModal()
-        }}
+        onClickBtn={() => viewModel.onCloseInfoModal()}
       />
-      <Modal
-        openModal={viewModel.showAsinCheckerModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showAsinCheckerModal')}
-      >
-        <AsinProxyCheckerForm
-          user={viewModel.user}
-          onSubmit={setProxyArr}
-          onClose={() => viewModel.onTriggerOpenModal('showAsinCheckerModal')}
-        />
-      </Modal>
     </>
   )
 })

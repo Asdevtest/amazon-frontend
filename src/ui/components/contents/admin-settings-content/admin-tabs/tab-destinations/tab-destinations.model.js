@@ -63,9 +63,7 @@ export class AdminSettingsDestinationsModel {
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   async getDestinations() {
@@ -114,72 +112,56 @@ export class AdminSettingsDestinationsModel {
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
   }
 
   onChangePaginationModel(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.setDataGridState()
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
 
     this.setDataGridState()
   }
 
   onClickRemoveBtn(row) {
-    runInAction(() => {
-      this.destinationIdToRemove = row._id
-      this.confirmModalSettings = {
-        isWarning: true,
-        message: t(TranslationKey['Are you sure you want to delete the destination?']),
-        onClickSuccess: () => this.removeDestination(),
-      }
-    })
+    this.destinationIdToRemove = row._id
+    this.confirmModalSettings = {
+      isWarning: true,
+      message: t(TranslationKey['Are you sure you want to delete the destination?']),
+      onClickSuccess: () => this.removeDestination(),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   onClickEditBtn(row) {
-    runInAction(() => {
-      this.destinationToEdit = row
-    })
+    this.destinationToEdit = row
 
     this.onTriggerOpenModal('showAddOrEditDestinationModal')
   }
 
   onClickAddBtn() {
-    runInAction(() => {
-      this.destinationToEdit = undefined
-    })
+    this.destinationToEdit = undefined
 
     this.onTriggerOpenModal('showAddOrEditDestinationModal')
   }
 
   onClickCancelBtn() {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: false,
-        message: t(TranslationKey['The data will not be saved!']),
-        onClickSuccess: () => this.cancelTheOrder(),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: t(TranslationKey['The data will not be saved!']),
+      onClickSuccess: () => this.cancelTheOrder(),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }

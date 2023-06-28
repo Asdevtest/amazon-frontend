@@ -64,9 +64,7 @@ export class AdminSettingsTagsModel {
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   async getTags() {
@@ -119,84 +117,64 @@ export class AdminSettingsTagsModel {
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
   }
 
   onChangePaginationModel(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.setDataGridState()
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
 
     this.setDataGridState()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.rowSelectionModel = model
-    })
+    this.rowSelectionModel = model
   }
 
   onClickRemoveBtn(row) {
-    runInAction(() => {
-      this.tagIdToRemove = row._id
-      this.confirmModalSettings = {
-        isWarning: true,
-        message: t(TranslationKey['Are you sure you want to delete the tag?']),
-        onClickSuccess: () => this.removeTag(),
-      }
-    })
+    this.tagIdToRemove = row._id
+    this.confirmModalSettings = {
+      isWarning: true,
+      message: t(TranslationKey['Are you sure you want to delete the tag?']),
+      onClickSuccess: () => this.removeTag(),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   onClickEditBtn(row) {
-    runInAction(() => {
-      this.tagToEdit = row
-    })
+    this.tagToEdit = row
 
     this.onTriggerOpenModal('showAddOrEditTagModal')
   }
 
   onChangeNameSearchValue(event) {
-    runInAction(() => {
-      this.nameSearchValue = event.target.value
-    })
+    this.nameSearchValue = event.target.value
   }
 
   onClickAddBtn() {
-    runInAction(() => {
-      this.tagToEdit = undefined
-    })
+    this.tagToEdit = undefined
 
     this.onTriggerOpenModal('showAddOrEditTagModal')
   }
 
   onClickCancelBtn() {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: false,
-        message: t(TranslationKey['The data will not be saved!']),
-        onClickSuccess: () => this.cancelTheOrder(),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: t(TranslationKey['The data will not be saved!']),
+      onClickSuccess: () => this.cancelTheOrder(),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }

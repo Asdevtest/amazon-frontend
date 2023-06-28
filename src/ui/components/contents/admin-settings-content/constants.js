@@ -10,7 +10,7 @@ export const tabLabels = [
   TranslationKey.Tags,
 ]
 
-export const fieldsWithoutCharactersAfterDote = [
+export const fieldsWithoutCharsAfterDote = [
   'requestPlatformMarginInPercent',
   'requestSupervisorFeeInPercent',
   'deadlineForFindingSupplier',
@@ -32,3 +32,9 @@ export const fieldNames = [
   'timeToDeadlinePendingOrder',
   'tech_pause',
 ]
+
+export const startValueFields = fieldNames.reduce((obj, fieldName) => {
+  obj[fieldName] = 0
+
+  return obj
+}, {})
