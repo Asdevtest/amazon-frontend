@@ -172,7 +172,7 @@ export const styles = theme => ({
   changeInputComment: {
     width: '100%',
     height: 'auto',
-    whiteSpace: 'nowrap',
+    whiteSpace: 'pre-wrap',
     overflow: 'hidden',
     paddingLeft: 5,
 
