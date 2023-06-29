@@ -1989,5 +1989,12 @@
   "Search companion": "Поиск собеседника",
   "Service representative": "Представитель услуг",
   "Your message has been sent": "Ваше обращение отправлено",
-  "Thank you for your feedback": "Благодарим за обратную связь"
+  "Thank you for your feedback": "Благодарим за обратную связь",
+  "Request information": "Информаци о заявке",
+  "Request creator": "Создатель заявки",
+  "Request terms": "Условия заявки",
+  "Without confirmation": "Без подтверждения",
+  "Allowed to the performer to take the application to work without confirmation": "Разрешено исполнителю брать заявку в работу без подтверждения",
+  "Announcement name": "Announcement name",
+  "Announcement creator": "Announcement creator"
 }

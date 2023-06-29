@@ -4,6 +4,8 @@ import { Avatar, Checkbox, Paper, Rating, Typography } from '@mui/material'
 
 import React, { useState } from 'react'
 
+import DoneIcon from '@mui/icons-material/Done'
+
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { RequestStatus } from '@constants/requests/request-status'
 import {
@@ -29,10 +31,12 @@ import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { useClassNames } from './owner-general-request-info.style'
+import { Text } from '@components/shared/text'
 
 export const OwnerGeneralRequestInfo = ({
-  requestProposals,
   request,
+  requestProposals,
+  requestAnnouncement,
   onClickPublishBtn,
   onClickEditBtn,
   onClickCancelBtn,
@@ -41,6 +45,8 @@ export const OwnerGeneralRequestInfo = ({
   onToggleUploadedToListing,
 }) => {
   const { classes: classNames } = useClassNames()
+
+  console.log('requestAnnouncement', requestAnnouncement)
 
   const [isRestoreModalOpen, setIsRestoreModalOpen] = useState(false)
 
@@ -55,100 +61,102 @@ export const OwnerGeneralRequestInfo = ({
     !request?.request.status === RequestStatus.DRAFT || request?.request.status === RequestStatus.PUBLISHED
 
   return (
-    <Paper className={classNames.root}>
-      <div className={classNames.mainBlockWrapper}>
-        <div className={classNames.titleBlockWrapper}>
-          {request.request.sub ? (
-            <div className={classNames.userInfo}>
-              <Avatar src={getUserAvatarSrc(request.request.sub._id)} className={classNames.userPhoto} />
+    <div className={classNames.root}>
+      <div className={cx(classNames.requestInformationWrapper, classNames.firstBlock)}>
+        <Typography className={classNames.sectionTitle}>{t(TranslationKey['Request information'])}</Typography>
 
-              <div className={classNames.nameWrapper}>
-                <UserLink
-                  blackText
-                  name={request.request.sub.name}
-                  userId={request.request.sub._id}
-                  customStyles={{ fontSize: 18 }}
-                  withAvatar={undefined}
-                  maxNameWidth={undefined}
-                  customClassNames={undefined}
-                />
-                <Rating disabled value={request.request.sub.rating} size="small" />
-              </div>
-            </div>
-          ) : (
-            <Avatar src={getUserAvatarSrc(request?.request.createdById)} className={classNames.userPhoto} />
-          )}
+        <div className={classNames.requestInformationCardWrapper}>
+          <div className={classNames.requestInformation}>
+            <div className={classNames.requestInformationCardInfoTitles}>
+              <Typography className={classNames.sectionSubTitle}>{t(TranslationKey['Request information'])}</Typography>
 
-          <div className={classNames.titleWrapper}>
-            <div className={classNames.titleAndAsinWrapper}>
-              <Typography className={classNames.title}>{request?.request.title}</Typography>
-
-              <div className={classNames.asinTitleWrapper}>
-                <Typography className={classNames.asinText}>{t(TranslationKey.ASIN) + ':'}</Typography>
-                {/* <Typography className={cx(classNames.asinText, classNames.asinTextBlue)}>
-                  {request?.request.asin || t(TranslationKey.Missing)}
-                </Typography> */}
-
-                <AsinLink
-                  asin={request?.request.asin}
-                  linkSpanClass={classNames.linkSpan}
-                  missingSpanClass={classNames.linkSpan}
-                />
-              </div>
-
-              <div className={classNames.asinTitleWrapper}>
-                <Typography className={classNames.asinText}>{t(TranslationKey.ID) + ':'}</Typography>
-                <Typography className={cx(classNames.asinText, classNames.asinTextDark)}>
-                  {request?.request.humanFriendlyId || t(TranslationKey.Missing)}
-                </Typography>
-              </div>
+              <Typography className={classNames.sectionSubTitle}>
+                {translateProposalsLeftMessage(
+                  request?.request?.maxAmountOfProposals -
+                    (requestProposals?.filter(
+                      el =>
+                        el?.proposal?.status === RequestProposalStatus?.ACCEPTED_BY_CLIENT ||
+                        el?.proposal?.status === RequestProposalStatus?.ACCEPTED_BY_CREATOR_OF_REQUEST ||
+                        el?.proposal?.status === RequestProposalStatus?.ACCEPTED_BY_SUPERVISOR,
+                    ).length || 0),
+                  request?.request?.maxAmountOfProposals,
+                )}
+              </Typography>
             </div>
 
-            <Typography className={classNames.subTitle}>
-              {translateProposalsLeftMessage(
-                request?.request?.maxAmountOfProposals -
-                  (requestProposals?.filter(
-                    el =>
-                      el?.proposal?.status === RequestProposalStatus?.ACCEPTED_BY_CLIENT ||
-                      el?.proposal?.status === RequestProposalStatus?.ACCEPTED_BY_CREATOR_OF_REQUEST ||
-                      el?.proposal?.status === RequestProposalStatus?.ACCEPTED_BY_SUPERVISOR,
-                  ).length || 0),
-                request?.request?.maxAmountOfProposals,
-              )}
-            </Typography>
+            <Typography className={classNames.sectionText}>{request?.request?.title}</Typography>
+          </div>
+          <div className={classNames.requestMoreInformation}>
+            <div className={classNames.moreInformationSection}>
+              <Typography className={classNames.sectionSubTitle}>{t(TranslationKey['Request creator'])}</Typography>
+
+              <UserLink
+                blackText
+                withAvatar
+                name={request?.request?.sub?.name || request?.request?.createdBy?.name}
+                userId={request?.request?.sub?._id || request?.request?.createdBy?._id}
+                customStyles={{ fontSize: 14, fontWeight: 400 }}
+                customAvatarStyles={{ width: 19, height: 19 }}
+                maxNameWidth={150}
+              />
+            </div>
+            <div className={classNames.moreInformationSection}>
+              <Typography className={classNames.sectionSubTitle}>{t(TranslationKey.ASIN) + ':'}</Typography>
+
+              <AsinLink
+                asin={request?.request.asin}
+                linkSpanClass={cx(classNames.sectionText, classNames.linkSpan)}
+                missingSpanClass={cx(classNames.sectionText, classNames.linkSpan)}
+              />
+            </div>
+            <div className={classNames.moreInformationSection}>
+              <Typography className={classNames.sectionSubTitle}>{t(TranslationKey.ID) + ':'}</Typography>
+
+              <Typography className={classNames.sectionText}>
+                {request?.request.humanFriendlyId || t(TranslationKey.Missing)}
+              </Typography>
+            </div>
           </div>
         </div>
+      </div>
 
-        {request?.request && (
+      {request?.request && (
+        <div className={cx(classNames.requestInformationWrapper, classNames.secondBlock)}>
+          <div className={classNames.requestInformationTitleWrapper}>
+            <Typography className={classNames.sectionTitle}>{t(TranslationKey['Request terms'])}</Typography>
+
+            {request?.request?.withoutConfirmation && (
+              <div className={classNames.confirmationWrapper}>
+                <DoneIcon className={classNames.doneIcon} />
+
+                <Text
+                  tooltipInfoContent={t(
+                    TranslationKey['Allowed to the performer to take the application to work without confirmation'],
+                  )}
+                  tooltipPosition={'baseLine'}
+                  className={classNames.sectionTitle}
+                  containerClasses={classNames.container}
+                >
+                  {`(${t(TranslationKey['Without confirmation']).toLocaleLowerCase()})`}
+                </Text>
+              </div>
+            )}
+          </div>
+
           <div className={classNames.requestInfoWrapper}>
             <div className={classNames.blockInfoWrapper}>
               <div className={classNames.blockInfoCell}>
-                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Request price'])}</Typography>
-                {request?.request.price && (
-                  <Typography className={cx(classNames.price, classNames.blockInfoCellText)}>
-                    {toFixed(request?.request.price, 2) + '$'}
-                  </Typography>
-                )}
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</Typography>
+                <Typography className={cx(classNames.blockInfoCellText)}>
+                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request?.typeTask])}
+                </Typography>
               </div>
 
               <div className={classNames.blockInfoCell}>
-                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Status)}</Typography>
-                <div className={classNames.blockInfoCellText}>
-                  {
-                    <RequestStatusCell
-                      status={request?.request.status}
-                      styles={{
-                        fontWeight: 600,
-                        fontSize: 14,
-                        lineHeight: '19px',
-                        textAlign: 'left',
-                        // width: `200px`,
-                        // whiteSpace: 'pre',
-                        // wordBreak: 'break-word',
-                      }}
-                    />
-                  }
-                </div>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Time)}</Typography>
+                <Typography className={classNames.blockInfoCellText}>
+                  {request?.request.timeoutAt && formatDateDistanceFromNowStrict(request.request.timeoutAt, now)}
+                </Typography>
               </div>
             </div>
 
@@ -188,26 +196,20 @@ export const OwnerGeneralRequestInfo = ({
 
             <div className={cx(classNames.blockInfoWrapper)}>
               <div className={classNames.blockInfoCell}>
-                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Time)}</Typography>
-                <Typography className={classNames.blockInfoCellText}>
-                  {request?.request.timeoutAt && formatDateDistanceFromNowStrict(request.request.timeoutAt, now)}
-                </Typography>
-              </div>
-
-              <div className={classNames.blockInfoCell}>
-                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</Typography>
-                <Typography className={cx(classNames.blockInfoCellText)}>
-                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request?.request?.typeTask])}
-                </Typography>
-              </div>
-            </div>
-
-            <div className={cx(classNames.blockInfoWrapper, classNames.blockInfoWrapperLast)}>
-              <div className={classNames.blockInfoCell}>
-                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Updated)}</Typography>
-                <Typography className={classNames.blockInfoCellText}>
-                  {formatNormDateTime(request?.request.updatedAt)}
-                </Typography>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Status)}</Typography>
+                <div className={classNames.blockInfoCellText}>
+                  {
+                    <RequestStatusCell
+                      status={request?.request.status}
+                      styles={{
+                        fontWeight: 600,
+                        fontSize: 14,
+                        lineHeight: '19px',
+                        textAlign: 'left',
+                      }}
+                    />
+                  }
+                </div>
               </div>
 
               <div className={classNames.blockInfoCell}>
@@ -219,85 +221,56 @@ export const OwnerGeneralRequestInfo = ({
                 </Typography>
               </div>
             </div>
+
+            <div className={cx(classNames.blockInfoWrapper, classNames.blockInfoWrapperLast)}>
+              <div className={classNames.blockInfoCell}>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Request price'])}</Typography>
+                {request?.request.price && (
+                  <Typography className={cx(classNames.price, classNames.blockInfoCellText)}>
+                    {toFixed(request?.request.price, 2) + '$'}
+                  </Typography>
+                )}
+              </div>
+
+              <div className={classNames.blockInfoCell}>
+                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.Updated)}</Typography>
+                <Typography className={classNames.blockInfoCellText}>
+                  {formatNormDateTime(request?.request.updatedAt)}
+                </Typography>
+              </div>
+            </div>
           </div>
-        )}
-      </div>
-
-      <div className={classNames.middleBlockWrapper}>
-        <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
-            {t(TranslationKey.Total)}
-          </Typography>
-          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
-            {requestProposals?.length || 0}
-          </Typography>
         </div>
+      )}
 
-        <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
-            {t(TranslationKey.Submitted)}
-          </Typography>
-          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
-            {requestProposals?.filter(el => el?.proposal?.status === RequestProposalStatus.CREATED).length || 0}
-          </Typography>
-        </div>
+      {requestAnnouncement ? (
+        <div className={cx(classNames.requestInformationWrapper, classNames.thirdBlock)}>
+          <Typography className={classNames.sectionTitle}>{t(TranslationKey.Announcement)}</Typography>
 
-        <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
-            {t(TranslationKey['In the work'])}
-          </Typography>
-          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
-            {requestProposals?.filter(el => el?.proposal?.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED)
-              .length || 0}
-          </Typography>
-        </div>
+          <div className={classNames.announcementWrapper}>
+            <div className={classNames.announcementInfoSection}>
+              <Typography className={classNames.sectionTitle}>{t(TranslationKey['Announcement name'])}</Typography>
 
-        <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
-            {t(TranslationKey['On refinement'])}
-          </Typography>
-          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
-            {requestProposals?.filter(el => el?.proposal?.status === RequestProposalStatus.TO_CORRECT).length || 0}
-          </Typography>
-        </div>
+              <Typography className={classNames.sectionText}>{requestAnnouncement?.title}</Typography>
+            </div>
+            <div className={classNames.announcementInfoSection}>
+              <Typography className={classNames.sectionTitle}>{t(TranslationKey['Announcement creator'])}</Typography>
 
-        <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
-            {t(TranslationKey['Waiting for checks'])}
-          </Typography>
-          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
-            {requestProposals?.filter(el => el?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY).length || 0}
-          </Typography>
+              <UserLink
+                blackText
+                withAvatar
+                name={requestAnnouncement?.createdBy?.name}
+                userId={requestAnnouncement?.createdBy?._id}
+                customStyles={{ fontSize: 14, fontWeight: 400 }}
+                customAvatarStyles={{ width: 19, height: 19 }}
+                maxNameWidth={150}
+              />
+            </div>
+          </div>
         </div>
-
-        <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
-            {t(TranslationKey.Accepted)}
-          </Typography>
-          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
-            {requestProposals?.filter(
-              el =>
-                el?.proposal?.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
-                el?.proposal?.status === RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST ||
-                el?.proposal?.status === RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
-            ).length || 0}
-          </Typography>
-        </div>
-
-        <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
-            {t(TranslationKey.Rejected)}
-          </Typography>
-          <Typography className={cx(classNames.standartText, { [classNames.standartTextGrey]: isDraft })}>
-            {requestProposals?.filter(
-              el =>
-                el?.proposal?.status === RequestProposalStatus.CANCELED_BY_CREATOR_OF_REQUEST ||
-                el?.proposal?.status === RequestProposalStatus.CANCELED_BY_SUPERVISOR ||
-                el?.proposal?.status === RequestProposalStatus.CANCELED_BY_EXECUTOR,
-            ).length || 0}
-          </Typography>
-        </div>
-      </div>
+      ) : (
+        <div className={classNames.thirdBlock} />
+      )}
 
       <div className={classNames.btnsBlockWrapper}>
         <Button
@@ -416,6 +389,6 @@ export const OwnerGeneralRequestInfo = ({
           </>
         )}
       </div>
-    </Paper>
+    </div>
   )
 }
