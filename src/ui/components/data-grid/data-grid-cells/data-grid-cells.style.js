@@ -1028,7 +1028,6 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    paddingRight: 10,
   },
 
   warehouseMyTasksBtnsWrapper: {
@@ -1058,8 +1057,7 @@ export const styles = theme => ({
   smallActionBtn: {
     display: 'flex',
     height: 30,
-    width: 'auto',
-
+    width: 120,
     padding: '0 15px',
   },
 
