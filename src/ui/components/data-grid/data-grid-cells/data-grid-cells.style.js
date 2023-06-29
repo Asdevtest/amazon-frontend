@@ -182,6 +182,7 @@ export const styles = theme => ({
   },
 
   changeInputIcon: {
+    color: theme.palette.primary.main,
     transition: '.3s ease',
     cursor: 'pointer',
     '&:hover': {
