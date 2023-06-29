@@ -1988,6 +1988,7 @@ export enum TranslationKey {
   'Service representative' = 'Service representative',
   'Your message has been sent' = 'Your message has been sent',
   'Thank you for your feedback' = 'Thank you for your feedback',
+  'Attach files' = 'Attach files',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
   // '' = '',
   // '' = '',
