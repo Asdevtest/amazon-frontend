@@ -411,6 +411,26 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
           <div className={classNames.dateBlockWrapper}>
             <Field
+              label={t(TranslationKey['CLS (batch closing date)'])}
+              labelClasses={classNames.fieldLabel}
+              containerClasses={classNames.blockItemContainer}
+              inputComponent={
+                <div
+                  className={cx({
+                    [classNames.deadlineError]: checkDateByDeadline(formFields.cls),
+                  })}
+                >
+                  <NewDatePicker disablePast value={formFields.cls} onChange={onChangeField('cls')} />
+                  {!!formFields.cls && checkDateByDeadline(formFields.cls) && (
+                    <p className={classNames.deadlineErrorText}>
+                      {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
+                    </p>
+                  )}
+                </div>
+              }
+            />
+
+            <Field
               label={t(TranslationKey['ETD (date of shipment)'])}
               labelClasses={classNames.fieldLabel}
               containerClasses={classNames.blockItemContainer}
@@ -443,26 +463,6 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                 >
                   <NewDatePicker disablePast value={formFields.eta} onChange={onChangeField('eta')} />
                   {!!formFields.eta && checkDateByDeadline(formFields.eta) && (
-                    <p className={classNames.deadlineErrorText}>
-                      {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
-                    </p>
-                  )}
-                </div>
-              }
-            />
-
-            <Field
-              label={t(TranslationKey['CLS (batch closing date)'])}
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.blockItemContainer}
-              inputComponent={
-                <div
-                  className={cx({
-                    [classNames.deadlineError]: checkDateByDeadline(formFields.cls),
-                  })}
-                >
-                  <NewDatePicker disablePast value={formFields.cls} onChange={onChangeField('cls')} />
-                  {!!formFields.cls && checkDateByDeadline(formFields.cls) && (
                     <p className={classNames.deadlineErrorText}>
                       {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
                     </p>
