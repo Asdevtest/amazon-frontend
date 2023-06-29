@@ -95,3 +95,87 @@ export const DestinationVariationsSpanningCell = React.memo(
     styles,
   ),
 )
+
+export const WeightBasedApproximateCalculationsSpanningCell = React.memo(
+  withStyles(
+    ({
+      classes: classNames,
+      destinationVariations,
+      destinationData,
+      costDeliveryToChina,
+      destinationVariationWidth,
+      weightWrapperWidth,
+      chinaCostWrapperWidth,
+      usaCostWrapperWidth,
+      roiWrapperWidth,
+    }) => {
+      const groupedData = destinationVariations.reduce((groups, obj) => {
+        const { destinationId } = obj
+        if (!groups[destinationId]) {
+          groups[destinationId] = []
+        }
+        groups[destinationId].push(obj)
+        return groups
+      }, {})
+
+      const arrayOfArrays = Object.values(groupedData)
+
+      return (
+        <div className={classNames.destinationVariationsWrapper}>
+          {arrayOfArrays.map((varians, itemIndex) => (
+            <div
+              key={itemIndex}
+              className={cx(classNames.destinationVariationWrapper, {
+                [classNames.noBorder]: itemIndex === arrayOfArrays?.length - 1,
+              })}
+            >
+              <div
+                style={{ width: destinationVariationWidth }}
+                className={cx(classNames.destinationWrapper, classNames.destinationVariation)}
+              >
+                <Typography className={cx(classNames.destinationVariationText)}>
+                  {destinationData?.find(obj => obj?._id === varians[0]?.destinationId)?.name ||
+                    t(TranslationKey.Missing)}
+                </Typography>
+              </div>
+              <div style={{ width: weightWrapperWidth }} className={cx(classNames.destinationWrapper)}>
+                {varians.map((variant, variantIndex) => (
+                  <div key={variantIndex} className={classNames.variantWrapper}>
+                    <Typography className={cx(classNames.destinationVariationText)}>{`${
+                      !!variant.minWeight && t(TranslationKey.From) + ' '
+                    }${variant.minWeight} ${!!variant.maxWeight && t(TranslationKey.To) + ' '}${
+                      variant.maxWeight
+                    }`}</Typography>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ width: chinaCostWrapperWidth }} className={cx(classNames.alignCenter)}>
+                <Typography className={cx(classNames.destinationVariationText)}>
+                  {toFixed(costDeliveryToChina, 2)}
+                </Typography>
+              </div>
+
+              <div style={{ width: usaCostWrapperWidth }} className={cx(classNames.destinationWrapper)}>
+                {varians.map((variant, variantIndex) => (
+                  <Typography key={variantIndex} className={cx(classNames.destinationVariationText)}>
+                    {toFixed(variant.costDeliveryToUsa, 2)}
+                  </Typography>
+                ))}
+              </div>
+
+              <div style={{ width: roiWrapperWidth }} className={cx(classNames.destinationWrapper)}>
+                {varians.map((variant, variantIndex) => (
+                  <Typography key={variantIndex} className={cx(classNames.destinationVariationText)}>
+                    {toFixed(variant.roi, 2)}
+                  </Typography>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )
+    },
+    styles,
+  ),
+)

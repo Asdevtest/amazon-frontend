@@ -997,6 +997,7 @@ export const supplierWeightBasedApproximateCalculationsDataConverter = (
         return {
           ...destinationVariation,
           roi: ((product?.amazon - calcTotalFbaForProduct(product) - deliveryToUsa) / deliveryToUsa) * 100,
+          costDeliveryToUsa: deliveryToUsa,
         }
       })
 

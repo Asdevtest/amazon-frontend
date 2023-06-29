@@ -464,6 +464,7 @@ export const OrderModalBodyRow = ({
             product={item}
             supplier={item.currentSupplier}
             storekeepers={storekeepers}
+            destinationData={destinations}
             onClose={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
           />
         </Modal>

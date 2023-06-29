@@ -74,4 +74,11 @@ export const styles = theme => ({
     alignItems: 'center',
     gap: 5,
   },
+
+  alignCenter: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 })
