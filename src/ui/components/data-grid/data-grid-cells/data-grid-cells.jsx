@@ -2163,9 +2163,14 @@ export const ToFixedWithDollarSignCell = React.memo(
 
 export const SuccessActionBtnCell = React.memo(
   withStyles(
-    ({ classes: classNames, onClickOkBtn, bTnText, tooltipText, isFirstRow }) => (
+    ({ classes: classNames, onClickOkBtn, bTnText, tooltipText, isFirstRow, smallActionBtn }) => (
       <div className={classNames.successActionBtnWrapper}>
-        <Button success tooltipInfoContent={isFirstRow && tooltipText} onClick={onClickOkBtn}>
+        <Button
+          success
+          tooltipInfoContent={isFirstRow && tooltipText}
+          className={cx(classNames.actionBtn, { [classNames.smallActionBtn]: smallActionBtn })}
+          onClick={onClickOkBtn}
+        >
           {bTnText}
         </Button>
       </div>
