@@ -334,7 +334,6 @@ export class ClientInventoryViewModel {
   }
 
   onChangePaginationModelChange(model) {
-    console.log('model', model)
     runInAction(() => {
       this.paginationModel = model
     })
