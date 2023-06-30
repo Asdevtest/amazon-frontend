@@ -852,7 +852,6 @@ test/model/ApiV1AdminsOrdersLogicsTariffDestination.spec.js
 test/model/InlineObject132.spec.js
 test/model/InlineResponse20039Batch.spec.js
 test/model/InlineResponse20039Orders.spec.js
-test/model/InlineResponse20039Products.spec.js
 test/model/InlineResponse20039Requests.spec.js
 test/model/InlineResponse20039Shops.spec.js
 test/model/InlineResponse20040Finances.spec.js

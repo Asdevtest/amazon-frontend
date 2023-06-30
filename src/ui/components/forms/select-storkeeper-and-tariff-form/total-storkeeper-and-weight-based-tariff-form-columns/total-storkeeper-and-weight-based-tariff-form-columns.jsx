@@ -12,7 +12,7 @@ import {
 import { t } from '@utils/translations'
 import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
 
-export const TotalStorkeeperAndWeightBasedTariffFormColumns = destinationsData => [
+export const TotalStorkeeperAndWeightBasedTariffFormColumns = () => [
   {
     field: 'name',
     headerName: t(TranslationKey.Title),
@@ -37,10 +37,7 @@ export const TotalStorkeeperAndWeightBasedTariffFormColumns = destinationsData =
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
     renderCell: params => (
-      <DestinationVariationsSpanningCell
-        destinationVariations={params.row.originalData.destinationVariations}
-        destinationData={destinationsData}
-      />
+      <DestinationVariationsSpanningCell destinationVariations={params.row.originalData.destinationVariations} />
     ),
     width: 149,
     filterable: false,
