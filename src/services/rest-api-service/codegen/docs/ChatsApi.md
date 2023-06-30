@@ -139,7 +139,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 //AccessTokenBearer.apiKeyPrefix = 'Token';
 
 let apiInstance = new TestSwagger.ChatsApi();
-let guid = null; // String | GUID юзера в БД.
+let guid = null; // String | GUID чата в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
@@ -156,7 +156,7 @@ apiInstance.apiV1ChatsMediaGuidGet(guid, opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **guid** | [**String**](.md)| GUID юзера в БД. | 
+ **guid** | [**String**](.md)| GUID чата в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
