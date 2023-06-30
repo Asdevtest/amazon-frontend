@@ -124,7 +124,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   middleContainer: {
     width: '190px !important',
-    marginBottom: 17,
+    marginBottom: 20,
   },
 
   shortContainer: {

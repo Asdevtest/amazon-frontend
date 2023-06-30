@@ -15,8 +15,8 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject117 from '../model/InlineObject117';
 import InlineObject118 from '../model/InlineObject118';
+import InlineObject119 from '../model/InlineObject119';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse20022 from '../model/InlineResponse20022';
 import InlineResponse20070 from '../model/InlineResponse20070';
@@ -50,7 +50,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject117} opts.body 
+     * @param {module:model/InlineObject118} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -89,7 +89,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject117} opts.body 
+     * @param {module:model/InlineObject118} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SupervisorsProductsGuidPatch(guid, opts) {
@@ -153,7 +153,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject118} opts.body 
+     * @param {module:model/InlineObject119} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SupervisorsProductsListingGuidPatchWithHttpInfo(guid, opts) {
@@ -192,7 +192,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject118} opts.body 
+     * @param {module:model/InlineObject119} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SupervisorsProductsListingGuidPatch(guid, opts) {
@@ -260,6 +260,7 @@ export default class SupervisorApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.filters                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+     * @param {String} opts.statusGroup \"allProducts\": [5, 205, 15, 20, 30, 230, 35, 235, 40, 240, 50, 250, 60, 260, 70, 270, 75, 275, 80, 280, 90, 290],     \"rejectedBySupervisor\": [20],     \"onCheckWithSupervisor\": [5, 205],     \"atTheBuyerInWork\": [230, 30, 235, 35],     \"searchComplete\": [70, 270],     \"supplierWasNotFound\": [50, 250, 80, 280],     \"supplierPriceDoesNotFit\": [60, 260, 90, 290],     \"paidByTheClient\": [275, 75],     \"productIsAppropriate\": [15],     \"buyerFoundSupplier\": [240, 40]
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20071} and HTTP response
      */
@@ -275,7 +276,8 @@ export default class SupervisorApi {
         'offset': opts['offset'],
         'sortField': opts['sortField'],
         'sortType': opts['sortType'],
-        'filters': opts['filters']
+        'filters': opts['filters'],
+        'statusGroup': opts['statusGroup']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -304,6 +306,7 @@ export default class SupervisorApi {
      * @param {String} opts.sortField Название поля
      * @param {module:model/String} opts.sortType Тип сортировки
      * @param {String} opts.filters                Возможные поля - любые поля продукта               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]=some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]=some_title;or[1][asin][$eq]=some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк             
+     * @param {String} opts.statusGroup \"allProducts\": [5, 205, 15, 20, 30, 230, 35, 235, 40, 240, 50, 250, 60, 260, 70, 270, 75, 275, 80, 280, 90, 290],     \"rejectedBySupervisor\": [20],     \"onCheckWithSupervisor\": [5, 205],     \"atTheBuyerInWork\": [230, 30, 235, 35],     \"searchComplete\": [70, 270],     \"supplierWasNotFound\": [50, 250, 80, 280],     \"supplierPriceDoesNotFit\": [60, 260, 90, 290],     \"paidByTheClient\": [275, 75],     \"productIsAppropriate\": [15],     \"buyerFoundSupplier\": [240, 40]
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20071}
      */
