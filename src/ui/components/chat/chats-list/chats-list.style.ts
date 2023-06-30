@@ -2,12 +2,10 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    width: '100%',
+    width: 310,
     height: '100%',
-    overflow: 'auto',
-
-    // border: '1px solid #E0E0E0',
-
+    overflowY: 'auto',
+    overflowX: 'hidden',
     border: `1px solid ${theme.palette.input.customBorder}`,
     [theme.breakpoints.down(768)]: {
       borderRadius: '4px',
@@ -26,7 +24,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   indicator: {
-    // backgroundColor: '#1da1f2',
     backgroundColor: theme.palette.primary.main,
   },
   row: {
