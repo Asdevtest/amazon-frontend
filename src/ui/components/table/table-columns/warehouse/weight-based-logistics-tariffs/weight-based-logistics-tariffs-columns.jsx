@@ -44,7 +44,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
         destinationData={getDestinationData()}
       />
     ),
-    width: 149,
+    width: 150,
     filterable: false,
     sortable: false,
     colSpan: 4,
@@ -55,7 +55,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     headerName: t(TranslationKey['Weight, kg']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Weight, kg'])} />,
 
-    width: 200,
+    width: 175,
     filterable: false,
     sortable: false,
     hideable: false,
@@ -118,7 +118,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    width: 200,
+    width: 130,
     renderCell: params => {
       // const handlersMemo = useMemo(() => handlers, [])
       // const rowMemo = useMemo(() => params.row, [])
