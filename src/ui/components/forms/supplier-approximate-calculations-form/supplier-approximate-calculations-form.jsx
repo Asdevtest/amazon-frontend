@@ -46,7 +46,7 @@ export const SupplierApproximateCalculationsForm = observer(
   ({ product, supplier, storekeepers, onClose, volumeWeightCoefficient, destinationData }) => {
     const { classes: classNames } = useClassNames()
 
-    const [tabIndex, setTabIndex] = React.useState(tabsValues.WITHOUT_WEIGHT_LOGISTICS_TARIFF)
+    const [tabIndex, setTabIndex] = React.useState(tabsValues.WEIGHT_BASED_LOGISTICS_TARIFF)
 
     const [curStorekeeper, setCurStorekeeper] = useState(
       storekeepers.slice().sort((a, b) => a.name.localeCompare(b.name))[0],

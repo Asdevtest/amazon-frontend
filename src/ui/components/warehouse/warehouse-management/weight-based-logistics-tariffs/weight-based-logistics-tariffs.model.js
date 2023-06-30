@@ -311,7 +311,13 @@ export class LogisticsTariffsModel {
           },
           yuanToDollarRate: data.yuanToDollarRate,
         },
-        destinationVariations: data.destinationVariations,
+        destinationVariations: data.destinationVariations.map(destinationVariation => ({
+          destinationId: destinationVariation?.destination?._id,
+          minWeight: destinationVariation?.minWeight,
+          maxWeight: destinationVariation?.maxWeight,
+          pricePerKgRmb: destinationVariation?.pricePerKgRmb,
+          pricePerKgUsd: destinationVariation?.pricePerKgUsd,
+        })),
       })
 
       this.loadData()
@@ -345,7 +351,13 @@ export class LogisticsTariffsModel {
           },
           yuanToDollarRate: data.yuanToDollarRate,
         },
-        destinationVariations: data.destinationVariations,
+        destinationVariations: data.destinationVariations.map(destinationVariation => ({
+          destinationId: destinationVariation?.destination?._id,
+          minWeight: destinationVariation?.minWeight,
+          maxWeight: destinationVariation?.maxWeight,
+          pricePerKgRmb: destinationVariation?.pricePerKgRmb,
+          pricePerKgUsd: destinationVariation?.pricePerKgUsd,
+        })),
       })
 
       this.loadData()

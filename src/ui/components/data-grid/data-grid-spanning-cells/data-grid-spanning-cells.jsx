@@ -17,18 +17,23 @@ export const DestinationVariationsSpanningCell = React.memo(
       classes: classNames,
       showCheckbox,
       destinationVariations,
-      destinationData,
       activeDestinationId,
       activeDedestinationVariationt,
       selectVariationTariff,
       withoutRate,
     }) => {
       const groupedData = destinationVariations.reduce((groups, obj) => {
-        const { destinationId } = obj
-        if (!groups[destinationId]) {
-          groups[destinationId] = []
+        const { destination } = obj
+        const { _id } = destination
+
+        if (!_id) {
+          return groups
         }
-        groups[destinationId].push(obj)
+
+        if (!groups[_id]) {
+          groups[_id] = []
+        }
+        groups[_id].push(obj)
         return groups
       }, {})
 
@@ -45,8 +50,7 @@ export const DestinationVariationsSpanningCell = React.memo(
             >
               <div className={cx(classNames.destinationWrapper, classNames.destinationVariation)}>
                 <Typography className={cx(classNames.destinationVariationText)}>
-                  {destinationData?.find(obj => obj?._id === varians[0]?.destinationId)?.name ||
-                    t(TranslationKey.Missing)}
+                  {varians[0]?.destination?.name || t(TranslationKey.Missing)}
                 </Typography>
               </div>
               <div className={cx(classNames.destinationWrapper, classNames.weightWrapper)}>
@@ -54,10 +58,10 @@ export const DestinationVariationsSpanningCell = React.memo(
                   <div key={variantIndex} className={classNames.variantWrapper}>
                     {!!showCheckbox && (
                       <Checkbox
-                        disabled={activeDestinationId && activeDestinationId !== variant.destinationId}
+                        disabled={activeDestinationId && activeDestinationId !== variant?.destination?._id}
                         checked={activeDedestinationVariationt === variant._id}
                         classes={{ root: classNames.checkboxRoot }}
-                        onClick={() => selectVariationTariff(variant._id, variant.destinationId)}
+                        onClick={() => selectVariationTariff(variant._id, variant?.destination?._id)}
                       />
                     )}
                     <Typography className={cx(classNames.destinationVariationText)}>{`${
@@ -101,7 +105,6 @@ export const WeightBasedApproximateCalculationsSpanningCell = React.memo(
     ({
       classes: classNames,
       destinationVariations,
-      destinationData,
       costDeliveryToChina,
       destinationVariationWidth,
       weightWrapperWidth,
@@ -134,8 +137,7 @@ export const WeightBasedApproximateCalculationsSpanningCell = React.memo(
                 className={cx(classNames.destinationWrapper, classNames.destinationVariation)}
               >
                 <Typography className={cx(classNames.destinationVariationText)}>
-                  {destinationData?.find(obj => obj?._id === varians[0]?.destinationId)?.name ||
-                    t(TranslationKey.Missing)}
+                  {varians[0]?.destination?.name || t(TranslationKey.Missing)}
                 </Typography>
               </div>
               <div style={{ width: weightWrapperWidth }} className={cx(classNames.destinationWrapper)}>

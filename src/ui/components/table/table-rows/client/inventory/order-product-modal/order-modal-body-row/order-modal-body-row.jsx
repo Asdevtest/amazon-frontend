@@ -87,14 +87,12 @@ export const OrderModalBodyRow = ({
   const currentStorkeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
   const currentLogicsTariff = currentStorkeeper?.tariffLogistics?.find(el => el._id === item.logicsTariffId)
 
-  console.log('currentLogicsTariff', currentLogicsTariff)
-
   const firstNumOfCode = curDestination?.zipCode[0]
 
   const tariffName = currentLogicsTariff?.name
   const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-  const tariffRate = currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate
+  // const tariffRate = currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate
 
   const curStorekeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
 

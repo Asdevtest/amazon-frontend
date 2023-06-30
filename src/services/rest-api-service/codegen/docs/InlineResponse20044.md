@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**profileId** | **String** | id созданного профайла | [optional] 
+**products** | [**InlineResponse20044Products**](InlineResponse20044Products.md) |  | [optional] 
+**checking** | [**InlineResponse20044Checking**](InlineResponse20044Checking.md) |  | [optional] 
+**finances** | [**InlineResponse20040Finances**](InlineResponse20040Finances.md) |  | [optional] 
 
 
