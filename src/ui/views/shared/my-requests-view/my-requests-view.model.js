@@ -186,8 +186,6 @@ export class MyRequestsViewModel {
       () => this.searchRequests,
       () => {
         this.currentData = this.getCurrentData()
-
-        console.log('this.currentData', this.currentData)
       },
     )
   }
@@ -201,12 +199,14 @@ export class MyRequestsViewModel {
   }
 
   onChangePaginationModelChange(model) {
+    console.log('model', model)
+
     runInAction(() => {
       this.paginationModel = model
     })
 
-    this.setDataGridState()
     this.getCustomRequests()
+    this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
@@ -506,8 +506,6 @@ export class MyRequestsViewModel {
 
       runInAction(() => {
         this.searchRequests = myRequestsDataConverter(result.rows)
-
-        console.log('this.searchRequests', this.searchRequests)
 
         this.rowCount = result.count
       })
