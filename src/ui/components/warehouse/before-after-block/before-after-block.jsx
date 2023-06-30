@@ -31,6 +31,7 @@ import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carous
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { Text } from '@components/shared/text'
+import { BoxArrow } from '@components/shared/svg-icons'
 
 import {
   checkAndMakeAbsoluteUrl,
@@ -926,28 +927,30 @@ const Box = observer(
 
 const ReceiveBoxes = ({ taskType, onClickOpenModal }) => {
   const { classes: classNames } = useClassNames()
+
   return (
     <div className={classNames.receiveBoxWrapper}>
-      <div className={classNames.receiveBox}>
-        <img src="/assets/img/receive-big.png" className={classNames.imageBox} />
-        <Typography className={classNames.receiveBoxTitle}>
-          {t(TranslationKey['Add boxes that have arrived in stock'])}
-        </Typography>
-        <div className={classNames.buttonWrapper}>
-          {taskType === TaskOperationType.RECEIVE && (
-            <Button
-              disableElevation
-              className={classNames.button}
-              // tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
-              color="primary"
-              variant="contained"
-              onClick={onClickOpenModal}
-            >
-              {t(TranslationKey.Receive)}
-            </Button>
-          )}
-        </div>
+      <div className={classNames.boxImageContainer}>
+        <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} />
+        <BoxArrow className={classNames.boxArrowSvg} />
       </div>
+
+      <Typography className={classNames.receiveBoxTitle}>
+        {t(TranslationKey['Add boxes that have arrived in stock'])}
+      </Typography>
+
+      {taskType === TaskOperationType.RECEIVE && (
+        <Button
+          disableElevation
+          className={classNames.button}
+          // tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
+          color="primary"
+          variant="contained"
+          onClick={onClickOpenModal}
+        >
+          {t(TranslationKey.Receive)}
+        </Button>
+      )}
     </div>
   )
 }
