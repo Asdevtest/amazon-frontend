@@ -260,11 +260,7 @@ export const EditBoxStorekeeperForm = observer(
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
 
-    console.log('boxFields', boxFields)
-
     const [destinationId, setDestinationId] = useState(boxFields?.destinationId)
-
-    console.log('boxFields', boxFields)
 
     useEffect(() => {
       setDestinationId(boxFields?.destinationId)

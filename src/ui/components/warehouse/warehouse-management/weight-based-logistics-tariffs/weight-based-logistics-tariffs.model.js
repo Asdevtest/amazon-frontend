@@ -352,6 +352,7 @@ export class LogisticsTariffsModel {
           yuanToDollarRate: data.yuanToDollarRate,
         },
         destinationVariations: data.destinationVariations.map(destinationVariation => ({
+          _id: destinationVariation._id,
           destinationId: destinationVariation?.destination?._id,
           minWeight: destinationVariation?.minWeight,
           maxWeight: destinationVariation?.maxWeight,
