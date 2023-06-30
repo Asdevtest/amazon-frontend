@@ -472,7 +472,6 @@ export const styles = theme => ({
 
   taskDescriptionScrollWrapper: {
     width: '100%',
-    maxWidth: '650px',
     overflowX: 'auto',
     display: 'flex',
     alignItems: 'center',
