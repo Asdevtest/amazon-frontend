@@ -47,8 +47,8 @@ export const AdminSettingsContent = observer(() => {
     }
   }, [viewModel.adminSettings])
 
-  const handleChangeTab = (event, newValue) => {
-    setTabIndex(newValue)
+  const handleChangeTab = (_, selectedTab) => {
+    setTabIndex(selectedTab)
   }
 
   const onCreateSubmit = () => {

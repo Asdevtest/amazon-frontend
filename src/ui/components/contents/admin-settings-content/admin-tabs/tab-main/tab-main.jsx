@@ -16,14 +16,14 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
 import { t } from '@utils/translations'
 
-import { AdminSettingsModel } from '../../admin-settings-content.model'
+import { AdminSettingsMainModel } from './tab-main.model'
 
 import { useClassNames } from './tab-main.style'
 
 export const TabMain = observer(({ formFields, isFormFieldsChanged, onChangeField, onSubmit }) => {
   const { classes: classNames } = useClassNames()
 
-  const [viewModel] = useState(() => new AdminSettingsModel({ history }))
+  const [viewModel] = useState(() => new AdminSettingsMainModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
