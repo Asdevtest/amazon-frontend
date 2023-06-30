@@ -32,6 +32,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './edit-multiple-boxes-form.style'
 import { tariffTypes } from '@constants/keys/tariff-types'
+import { BoxStatus } from '@constants/statuses/box-status'
 
 const Box = ({
   userInfo,
@@ -550,7 +551,7 @@ export const EditMultipleBoxesForm = observer(
     const [sharedFields, setSharedFields] = useState({
       destinationId: null,
       logicsTariffId: null,
-      variationTariffId: undefined,
+      variationTariffId: null,
       shippingLabel: null,
       fbaShipment: '',
       isShippingLabelAttachedByStorekeeper: false,
@@ -723,6 +724,16 @@ export const EditMultipleBoxesForm = observer(
               }
             : newBox,
         )
+      } else if (field === 'logicsTariffId') {
+        updatedNewBoxes = newBoxes.map(newBox =>
+          visibleBoxesIds.includes(newBox._id)
+            ? {
+                ...newBox,
+                logicsTariffId: sharedFields.logicsTariffId,
+                variationTariffId: sharedFields.variationTariffId,
+              }
+            : newBox,
+        )
       } else {
         updatedNewBoxes = newBoxes.map(newBox =>
           visibleBoxesIds.includes(newBox._id)
@@ -760,13 +771,14 @@ export const EditMultipleBoxesForm = observer(
       currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
       currentLogicsTariff?.destinationVariations?.find(el => el._id === sharedFields?.variationTariffId)?.pricePerKgUsd
 
-    const disabledSubmitBtn = newBoxes.some(
-      el =>
-        !el.logicsTariffId ||
-        ((el.shippingLabel || el.tmpShippingLabel?.length) &&
-          !el.fbaShipment &&
-          !destinations.find(e => e._id === el.destinationId)?.storekeeper),
-    )
+    const disabledSubmitBtn =
+      newBoxes.some(
+        el =>
+          !el.logicsTariffId ||
+          ((el.shippingLabel || el.tmpShippingLabel?.length) &&
+            !el.fbaShipment &&
+            !destinations.find(e => e._id === el.destinationId)?.storekeeper),
+      ) || selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK)
 
     const disabledApplyBtn = !visibleBoxes.length
 

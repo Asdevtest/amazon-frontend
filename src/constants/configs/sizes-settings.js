@@ -13,7 +13,7 @@ export const unitsOfChangeOptions = {
 
 export const inchesCoefficient = 2.54
 
-export const poundsCoefficient = 2.046223
+export const poundsCoefficient = /* 2.046223 */ 2.20462
 
 export const poundsWeightCoefficient = 0.4535923745
 

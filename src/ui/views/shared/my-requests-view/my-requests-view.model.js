@@ -59,7 +59,7 @@ export class MyRequestsViewModel {
 
   currentData = []
 
-  rowsCount = 0
+  rowCount = 0
 
   searchRequests = []
   openModal = null
@@ -217,7 +217,6 @@ export class MyRequestsViewModel {
 
   onClickChangeCatigory(value) {
     runInAction(() => {
-      // console.log('value', value)
       this.isRequestsAtWork = value
     })
   }
@@ -504,8 +503,6 @@ export class MyRequestsViewModel {
 
       runInAction(() => {
         this.searchRequests = myRequestsDataConverter(result.rows)
-
-        console.log('this.searchRequests', this.searchRequests)
 
         this.rowCount = result.count
       })

@@ -172,7 +172,7 @@ export const styles = theme => ({
   changeInputComment: {
     width: '100%',
     height: 'auto',
-    whiteSpace: 'nowrap',
+    whiteSpace: 'pre-wrap',
     overflow: 'hidden',
     paddingLeft: 5,
 
@@ -182,6 +182,7 @@ export const styles = theme => ({
   },
 
   changeInputIcon: {
+    color: theme.palette.primary.main,
     transition: '.3s ease',
     cursor: 'pointer',
     '&:hover': {
@@ -203,17 +204,23 @@ export const styles = theme => ({
 
   order: {
     display: 'flex',
-    alignItems: 'center',
-    padding: '10px 0',
+    alignItems: 'flex-start',
+    gap: 10,
   },
 
   orderImg: {
-    height: '64px',
-    width: '64px',
-    marginRight: '12px',
-    objectFit: 'contain',
+    height: 64,
+    width: 64,
+    objectFit: 'cover',
     objectPosition: 'center',
+    borderRadius: 4,
   },
+
+  orderImageBig: {
+    height: 100,
+    width: 100,
+  },
+
   orderTitle: {
     fontSize: '14px',
     fontWeight: 400,
@@ -466,7 +473,6 @@ export const styles = theme => ({
 
   taskDescriptionScrollWrapper: {
     width: '100%',
-    maxWidth: '650px',
     overflowX: 'auto',
     display: 'flex',
     alignItems: 'center',
@@ -1022,7 +1028,6 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    paddingRight: 10,
   },
 
   warehouseMyTasksBtnsWrapper: {
@@ -1052,8 +1057,7 @@ export const styles = theme => ({
   smallActionBtn: {
     display: 'flex',
     height: 30,
-    width: 'auto',
-
+    width: 120,
     padding: '0 15px',
   },
 
@@ -1746,7 +1750,7 @@ export const styles = theme => ({
     },
   },
   printIcon: {
-    color: theme.palette.background.darkBlue,
+    color: theme.palette.primary.main,
   },
   printIconModal: {
     color: '#fff',

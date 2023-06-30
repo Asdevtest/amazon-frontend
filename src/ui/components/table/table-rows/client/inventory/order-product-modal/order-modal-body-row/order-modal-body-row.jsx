@@ -3,6 +3,7 @@ import { cx } from '@emotion/css'
 import { Checkbox, Chip, IconButton, TableCell, TableRow, Typography } from '@mui/material'
 
 import React, { useEffect, useState } from 'react'
+import { isPast, isToday, isValid } from 'date-fns'
 
 import DeleteIcon from '@material-ui/icons/Delete'
 import dayjs from 'dayjs'
@@ -86,6 +87,8 @@ export const OrderModalBodyRow = ({
   const curDestination = destinations.find(el => el._id === orderState.destinationId)
   const currentStorkeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
   const currentLogicsTariff = currentStorkeeper?.tariffLogistics?.find(el => el._id === item.logicsTariffId)
+
+  const priceVariations = item.currentSupplier?.priceVariations
 
   const firstNumOfCode = curDestination?.zipCode[0]
 
@@ -176,14 +179,17 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={classNames.cell}>
           <Typography className={classNames.standartText}>
-            {item.currentSupplier && toFixed(item.currentSupplier.price, 2)}
+            {item.currentSupplier ? toFixed(item.currentSupplier.price, 2) : <span>—</span>}
           </Typography>
         </TableCell>
 
         <TableCell className={classNames.cell}>
           <Typography className={classNames.standartText}>
-            {item.currentSupplier &&
-              toFixed(item.currentSupplier.batchDeliveryCostInDollar / item.currentSupplier.amount, 2)}
+            {item.currentSupplier ? (
+              toFixed(item.currentSupplier.batchDeliveryCostInDollar / item.currentSupplier.amount, 2)
+            ) : (
+              <span>—</span>
+            )}
           </Typography>
         </TableCell>
 
@@ -242,13 +248,17 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={classNames.cell}>
           <div className={classNames.priceVariationsCell}>
-            {item.currentSupplier?.priceVariations?.map((el, index) => (
-              <div key={index}>
-                {el.quantity} {t(TranslationKey['pcs.'])}. /{' '}
-                {toFixedWithDollarSign(el.price / platformSettings.yuanToDollarRate, 2)}{' '}
-                {t(TranslationKey.Per).toLowerCase()} {t(TranslationKey['pcs.'])}
-              </div>
-            ))}
+            {priceVariations?.length > 0 ? (
+              priceVariations?.map((el, index) => (
+                <div key={index}>
+                  {el.quantity} {t(TranslationKey['pcs.'])}. /{' '}
+                  {toFixedWithDollarSign(el?.price / platformSettings?.yuanToDollarRate, 2)}{' '}
+                  {t(TranslationKey.Per).toLowerCase()} {t(TranslationKey['pcs.'])}
+                </div>
+              ))
+            ) : (
+              <span>—</span>
+            )}
           </div>
         </TableCell>
 
@@ -333,6 +343,7 @@ export const OrderModalBodyRow = ({
           <div className={classNames.datePickerWrapper}>
             <NewDatePicker
               disablePast
+              error={!isValid(item.deadline) || isPast(item.deadline) || isToday(item.deadline)}
               minDate={minDate}
               value={item.deadline}
               onChange={e => onChangeInput(e, 'deadline')}
