@@ -32,6 +32,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './edit-multiple-boxes-form.style'
 import { tariffTypes } from '@constants/keys/tariff-types'
+import { BoxStatus } from '@constants/statuses/box-status'
 
 const Box = ({
   userInfo,
@@ -748,9 +749,6 @@ export const EditMultipleBoxesForm = observer(
 
       setTimeout(() => setApplyBtnsClicked({ ...applyBtnsClicked, [field]: false }), 1000)
 
-      console.log('sharedFields', sharedFields)
-      console.log('updatedNewBoxes', updatedNewBoxes)
-
       setNewBoxes(updatedNewBoxes)
     }
 
@@ -773,13 +771,14 @@ export const EditMultipleBoxesForm = observer(
       currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
       currentLogicsTariff?.destinationVariations?.find(el => el._id === sharedFields?.variationTariffId)?.pricePerKgUsd
 
-    const disabledSubmitBtn = newBoxes.some(
-      el =>
-        !el.logicsTariffId ||
-        ((el.shippingLabel || el.tmpShippingLabel?.length) &&
-          !el.fbaShipment &&
-          !destinations.find(e => e._id === el.destinationId)?.storekeeper),
-    )
+    const disabledSubmitBtn =
+      newBoxes.some(
+        el =>
+          !el.logicsTariffId ||
+          ((el.shippingLabel || el.tmpShippingLabel?.length) &&
+            !el.fbaShipment &&
+            !destinations.find(e => e._id === el.destinationId)?.storekeeper),
+      ) || selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK)
 
     const disabledApplyBtn = !visibleBoxes.length
 

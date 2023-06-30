@@ -1998,7 +1998,8 @@ export enum TranslationKey {
   'Number of uses' = 'Number of uses',
   'Are you sure you want to delete the tag?' = 'Are you sure you want to delete the tag?',
   'Add a new tag' = 'Add a new tag',
-  // '' = '',
-  // '' = '',
+  'Your message has been sent' = 'Your message has been sent',
+  'Thank you for your feedback' = 'Thank you for your feedback',
+  'Attach files' = 'Attach files',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

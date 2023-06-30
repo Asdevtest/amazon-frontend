@@ -98,8 +98,6 @@ export class BuyerDashboardViewModel {
           [BuyerDashboardCardDataKey.FINANCES_FINES]: result.finances.fines,
           [BuyerDashboardCardDataKey.FINANCES_REFUNDS]: result.finances.refunds,
         }
-
-        console.log('this.dashboardData', this.dashboardData)
       })
     } catch (error) {
       console.log(error)

@@ -54,7 +54,7 @@ export const styles = theme => ({
   weightWrapper: {
     // minWight: 170,
     // maxWidth: 200,
-    width: 170,
+    width: 145,
   },
 
   rateWrapper: {

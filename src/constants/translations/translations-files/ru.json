@@ -1999,5 +1999,8 @@
   "Tag name": "Название тега",
   "Number of uses": "Количество использований",
   "Are you sure you want to delete the tag?": "Вы уверены, что хотите удалить тег?",
-  "Add a new tag": "Добавить новый тег"
+  "Add a new tag": "Добавить новый тег",
+  "Your message has been sent": "Ваше обращение отправлено",
+  "Thank you for your feedback": "Благодарим за обратную связь",
+  "Attach files": "Прикрепить файлы"
 }
