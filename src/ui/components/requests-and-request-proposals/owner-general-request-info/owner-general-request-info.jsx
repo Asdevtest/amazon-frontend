@@ -46,8 +46,6 @@ export const OwnerGeneralRequestInfo = ({
 }) => {
   const { classes: classNames } = useClassNames()
 
-  console.log('requestAnnouncement', requestAnnouncement)
-
   const [isRestoreModalOpen, setIsRestoreModalOpen] = useState(false)
 
   const now = new Date()

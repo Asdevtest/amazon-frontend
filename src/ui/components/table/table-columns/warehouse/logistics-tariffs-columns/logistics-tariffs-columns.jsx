@@ -106,7 +106,7 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    width: 200,
+    width: 145,
     renderCell: params => (
       <EditOrRemoveIconBtnsCell
         tooltipFirstButton={t(TranslationKey.Edit)}

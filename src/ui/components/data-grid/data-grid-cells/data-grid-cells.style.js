@@ -182,6 +182,7 @@ export const styles = theme => ({
   },
 
   changeInputIcon: {
+    color: theme.palette.primary.main,
     transition: '.3s ease',
     cursor: 'pointer',
     '&:hover': {
@@ -472,7 +473,6 @@ export const styles = theme => ({
 
   taskDescriptionScrollWrapper: {
     width: '100%',
-    maxWidth: '650px',
     overflowX: 'auto',
     display: 'flex',
     alignItems: 'center',
@@ -1028,7 +1028,6 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    paddingRight: 10,
   },
 
   warehouseMyTasksBtnsWrapper: {
@@ -1058,8 +1057,7 @@ export const styles = theme => ({
   smallActionBtn: {
     display: 'flex',
     height: 30,
-    width: 'auto',
-
+    width: 120,
     padding: '0 15px',
   },
 
