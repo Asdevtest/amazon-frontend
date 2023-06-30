@@ -12,6 +12,7 @@ import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
+import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
 import { t } from '@utils/translations'
 
@@ -108,7 +109,7 @@ export const TabMain = observer(({ formFields, isFormFieldsChanged, onChangeFiel
         <div className={classNames.proxyContent}>
           <div className={classNames.proxyAdd}>
             <Typography className={classNames.label}>{t(TranslationKey['Proxy servers for parsing'])}</Typography>
-            <Button className={classNames.buttonAdd} onClick={viewModel.onToggleModalProxy}>
+            <Button className={classNames.buttonAdd} onClick={viewModel.onClickToggleProxyModal}>
               {t(TranslationKey['Add proxy'])}
             </Button>
           </div>
@@ -143,9 +144,21 @@ export const TabMain = observer(({ formFields, isFormFieldsChanged, onChangeFiel
         </div>
       </div>
 
-      <Modal openModal={viewModel.showAsinCheckerModal} setOpenModal={viewModel.onToggleModalProxy}>
-        <AsinProxyCheckerForm user={viewModel.user} onSubmit={setProxyArr} onClose={viewModel.onToggleModalProxy} />
+      <Modal openModal={viewModel.showAsinCheckerModal} setOpenModal={viewModel.onClickToggleProxyModal}>
+        <AsinProxyCheckerForm
+          user={viewModel.user}
+          onSubmit={setProxyArr}
+          onClose={viewModel.onClickToggleProxyModal}
+        />
       </Modal>
+
+      <WarningInfoModal
+        openModal={viewModel.showInfoModal}
+        setOpenModal={viewModel.onClickToggleInfoModal}
+        title={viewModel.infoModalText}
+        btnText={t(TranslationKey.Close)}
+        onClickBtn={viewModel.onClickToggleInfoModal}
+      />
     </>
   )
 })

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { Tabs, Tab } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
-import { fieldsWithoutCharsAfterDote, startValueFields, tabLabels } from './constants'
+import { fieldsWithoutCharsAfterDote, startValueFields, tabLabels } from './admin-settings-content.constants'
 
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
@@ -157,10 +157,10 @@ export const AdminSettingsContent = observer(() => {
 
       <WarningInfoModal
         openModal={viewModel.showInfoModal}
-        setOpenModal={() => viewModel.onCloseInfoModal()}
+        setOpenModal={viewModel.onClickToggleInfoModal}
         title={viewModel.infoModalText}
         btnText={t(TranslationKey.Close)}
-        onClickBtn={() => viewModel.onCloseInfoModal()}
+        onClickBtn={viewModel.onClickToggleInfoModal}
       />
     </>
   )

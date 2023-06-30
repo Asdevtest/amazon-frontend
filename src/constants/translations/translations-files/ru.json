@@ -2002,5 +2002,6 @@
   "Add a new tag": "Добавить новый тег",
   "Your message has been sent": "Ваше обращение отправлено",
   "Thank you for your feedback": "Благодарим за обратную связь",
-  "Attach files": "Прикрепить файлы"
+  "Attach files": "Прикрепить файлы",
+  "Are you sure you want to delete the payment method?": "Вы уверены, что хотите удалить способ оплаты?"
 }

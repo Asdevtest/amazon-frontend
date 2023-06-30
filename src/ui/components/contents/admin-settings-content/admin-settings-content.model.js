@@ -7,7 +7,6 @@ import { AdministratorModel } from '@models/administrator-model'
 import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
-import { SupplierModel } from '@models/supplier-model'
 
 export class AdminSettingsModel {
   history = undefined
@@ -25,10 +24,6 @@ export class AdminSettingsModel {
 
   adminSettings = {}
 
-  paymentMethods = []
-  imageUrl = ''
-  imageName = ''
-
   constructor({ history }) {
     this.history = history
 
@@ -39,7 +34,7 @@ export class AdminSettingsModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await Promise.allSettled([this.getAdminSettings(), this.getServerProxy(), this.getPaymentMethods()])
+      await Promise.allSettled([this.getAdminSettings(), this.getServerProxy()])
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -58,7 +53,7 @@ export class AdminSettingsModel {
       const result = await AdministratorModel.getSettings()
 
       runInAction(() => {
-        this.adminSettings = result
+        this.adminSettings = toJS(result)
       })
 
       this.setRequestStatus(loadingStatuses.success)
@@ -77,7 +72,7 @@ export class AdminSettingsModel {
 
       this.onTriggerOpenModal('showInfoModal')
 
-      this.getAdminSettings()
+      this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -99,7 +94,7 @@ export class AdminSettingsModel {
 
       this.onTriggerOpenModal('showInfoModal')
 
-      this.getServerProxy()
+      this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -127,72 +122,10 @@ export class AdminSettingsModel {
     }
   }
 
-  async getPaymentMethods() {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
-      const result = await SupplierModel.getSuppliersPaymentMethods()
-
-      runInAction(() => {
-        this.paymentMethods = result
-      })
-
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-    }
-  }
-
-  async createPaymentMethod(paymentMethod) {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
-      await SupplierModel.addSuppliersPaymentMethod(paymentMethod)
-
-      this.infoModalText = t(TranslationKey['Payment method successfully saved'])
-
-      this.onTriggerOpenModal('showInfoModal')
-
-      this.getPaymentMethods()
-
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.infoModalText = t(TranslationKey['Payment method is not saved'])
-
-      this.onTriggerOpenModal('showInfoModal')
-
-      this.setRequestStatus(loadingStatuses.failed)
-    }
-  }
-
-  onImageUpload(event) {
-    const file = event.target.files?.[0]
-    const reader = new FileReader()
-
-    if (file) {
-      reader.onload = e => {
-        if (e?.target && e?.target?.result) {
-          this.imageUrl = e.target.result.toString()
-          this.imageName = file.name
-        }
-      }
-
-      reader.readAsDataURL(file)
-    }
-  }
-
-  onRemoveImage() {
-    this.imageUrl = ''
-    this.imageName = ''
-  }
-
-  async onCloseInfoModal() {
+  onClickToggleInfoModal() {
     this.onTriggerOpenModal('showInfoModal')
-
-    this.loadData()
   }
-
-  onToggleModalProxy() {
+  onClickToggleProxyModal() {
     this.onTriggerOpenModal('showAsinCheckerModal')
   }
 
