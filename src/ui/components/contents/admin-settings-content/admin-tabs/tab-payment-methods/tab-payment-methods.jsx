@@ -122,8 +122,8 @@ export const TabPaymentMethods = observer(() => {
         </div>
 
         <div className={classNames.paymentMethods}>
-          {paymentMethods?.length !== 0 &&
-            paymentMethods?.map((method, index) => (
+          {paymentMethods.length !== 0 &&
+            paymentMethods.map((method, index) => (
               <div key={index} className={classNames.paymentMethodWrapper}>
                 <Typography className={classNames.paymentMethod}>{method.title}</Typography>
 

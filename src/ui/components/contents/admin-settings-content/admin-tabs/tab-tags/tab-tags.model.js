@@ -249,6 +249,14 @@ export class AdminSettingsTagsModel {
     }
   } */
 
+  onClickToggleAddOrEditModal() {
+    this.onTriggerOpenModal('showAddOrEditTagModal')
+  }
+
+  onClickToggleConfirmModal() {
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
   }

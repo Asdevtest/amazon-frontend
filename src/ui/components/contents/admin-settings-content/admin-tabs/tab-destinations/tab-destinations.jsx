@@ -72,13 +72,10 @@ export const TabDestinations = observer(() => {
         />
       </div>
 
-      <Modal
-        openModal={viewModel.showAddOrEditDestinationModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditDestinationModal')}
-      >
+      <Modal openModal={viewModel.showAddOrEditDestinationModal} setOpenModal={viewModel.onClickToggleAddOrEditModal}>
         <AddOrEditDestinationForm
           destinationToEdit={viewModel.destinationToEdit}
-          onCloseModal={() => viewModel.onClickCancelBtn()}
+          onCloseModal={viewModel.onClickCancelBtn}
           onCreateSubmit={viewModel.createDestination}
           onEditSubmit={viewModel.editDestination}
         />
@@ -87,13 +84,13 @@ export const TabDestinations = observer(() => {
       <ConfirmationModal
         isWarning={viewModel.confirmModalSettings.isWarning}
         openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        setOpenModal={viewModel.onClickToggleConfirmModal}
         title={t(TranslationKey.Attention)}
         message={viewModel.confirmModalSettings.message}
         successBtnText={t(TranslationKey.Yes)}
         cancelBtnText={t(TranslationKey.No)}
         onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        onClickCancelBtn={viewModel.onClickToggleConfirmModal}
       />
     </div>
   )
