@@ -146,7 +146,7 @@ export default class ChatsApi {
     /**
      * Получить все файлы и имеджы с чата по гуиду
      * Получить все файлы и имеджы с чата по гуиду   
-     * @param {String} guid GUID юзера в БД.
+     * @param {String} guid GUID чата в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20029} and HTTP response
@@ -184,7 +184,7 @@ export default class ChatsApi {
     /**
      * Получить все файлы и имеджы с чата по гуиду
      * Получить все файлы и имеджы с чата по гуиду   
-     * @param {String} guid GUID юзера в БД.
+     * @param {String} guid GUID чата в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20029}

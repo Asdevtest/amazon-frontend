@@ -124,7 +124,7 @@ export const WeightBasedTariffFormColumns = (
           showCheckbox &&
           ((currentDestinationId &&
             params.row.originalData?.destinationVariations.every(
-              item => item?.destinationId !== currentDestinationId,
+              item => item?.destination?._id !== currentDestinationId,
             )) ||
             !variationTariffId ||
             params.row.originalData?.destinationVariations.every(item => item?._id !== variationTariffId))

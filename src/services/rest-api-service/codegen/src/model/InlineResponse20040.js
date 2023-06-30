@@ -12,7 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20038Finances from './InlineResponse20038Finances';
+import InlineResponse20040Finances from './InlineResponse20040Finances';
+import InlineResponse20040Orders from './InlineResponse20040Orders';
+import InlineResponse20040PendingOrders from './InlineResponse20040PendingOrders';
 import InlineResponse20040Products from './InlineResponse20040Products';
 
 /**
@@ -52,8 +54,14 @@ class InlineResponse20040 {
             if (data.hasOwnProperty('products')) {
                 obj['products'] = InlineResponse20040Products.constructFromObject(data['products']);
             }
+            if (data.hasOwnProperty('orders')) {
+                obj['orders'] = InlineResponse20040Orders.constructFromObject(data['orders']);
+            }
+            if (data.hasOwnProperty('pendingOrders')) {
+                obj['pendingOrders'] = InlineResponse20040PendingOrders.constructFromObject(data['pendingOrders']);
+            }
             if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20038Finances.constructFromObject(data['finances']);
+                obj['finances'] = InlineResponse20040Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -68,7 +76,17 @@ class InlineResponse20040 {
 InlineResponse20040.prototype['products'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20038Finances} finances
+ * @member {module:model/InlineResponse20040Orders} orders
+ */
+InlineResponse20040.prototype['orders'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20040PendingOrders} pendingOrders
+ */
+InlineResponse20040.prototype['pendingOrders'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20040Finances} finances
  */
 InlineResponse20040.prototype['finances'] = undefined;
 

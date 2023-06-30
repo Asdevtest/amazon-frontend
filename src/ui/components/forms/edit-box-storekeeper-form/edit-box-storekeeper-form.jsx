@@ -259,6 +259,9 @@ export const EditBoxStorekeeperForm = observer(
     }
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
+
+    console.log('boxFields', boxFields)
+
     const [destinationId, setDestinationId] = useState(boxFields?.destinationId)
 
     console.log('boxFields', boxFields)
@@ -1016,7 +1019,6 @@ export const EditBoxStorekeeperForm = observer(
         >
           <SelectStorekeeperAndTariffForm
             showCheckbox
-            destinationsData={destinations}
             storekeepers={storekeepers.filter(el => el._id === formItem?.storekeeper._id)}
             curStorekeeperId={boxFields.storekeeperId}
             curTariffId={boxFields.logicsTariffId}
