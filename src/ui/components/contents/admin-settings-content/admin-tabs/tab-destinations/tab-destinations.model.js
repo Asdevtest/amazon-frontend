@@ -219,6 +219,14 @@ export class AdminSettingsDestinationsModel {
     }
   }
 
+  onClickToggleAddOrEditModal() {
+    this.onTriggerOpenModal('showAddOrEditDestinationModal')
+  }
+
+  onClickToggleConfirmModal() {
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
   }

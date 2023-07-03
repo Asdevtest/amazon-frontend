@@ -155,7 +155,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  deletePaymentMethod: {
+  deleteIcon: {
     cursor: 'pointer',
     transition: '0.3s ease',
 

@@ -151,6 +151,11 @@ class AdministratorModelStatic {
     const response = await restApiService.administratorApi.apiV1AdminsToggleServerPatch()
     return response
   }
+
+  removePaymentMethod = async id => {
+    const response = await restApiService.administratorApi.apiV1AdminsPaymentMethodGuidDelete(id)
+    return response
+  }
 }
 
 export const AdministratorModel = new AdministratorModelStatic()

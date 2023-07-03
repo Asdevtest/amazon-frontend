@@ -67,7 +67,7 @@ export const TabTags = observer(() => {
           filterModel={viewModel.filterModel}
           rowSelectionModel={viewModel.rowSelectionModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel?.paginationModel}
+          paginationModel={viewModel.paginationModel}
           pageSizeOptions={[15, 25, 50, 100]}
           rows={viewModel.getCurrentData()}
           rowHeight={70}
@@ -93,13 +93,10 @@ export const TabTags = observer(() => {
         />
       </div>
 
-      <Modal
-        openModal={viewModel?.showAddOrEditTagModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditTagModal')}
-      >
+      <Modal openModal={viewModel.showAddOrEditTagModal} setOpenModal={viewModel.onClickToggleAddOrEditModal}>
         <AddOrEditTagForm
           tagToEdit={viewModel.tagToEdit}
-          onCloseModal={() => viewModel.onClickCancelBtn()}
+          onCloseModal={viewModel.onClickCancelBtn}
           onCreateSubmit={viewModel.createTag}
           // onEditSubmit={viewModel.editTag}
         />
@@ -108,13 +105,13 @@ export const TabTags = observer(() => {
       <ConfirmationModal
         isWarning={viewModel.confirmModalSettings.isWarning}
         openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        setOpenModal={viewModel.onClickToggleConfirmModal}
         title={t(TranslationKey.Attention)}
         message={viewModel.confirmModalSettings.message}
         successBtnText={t(TranslationKey.Yes)}
         cancelBtnText={t(TranslationKey.No)}
         onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        onClickCancelBtn={viewModel.onClickToggleConfirmModal}
       />
     </div>
   )

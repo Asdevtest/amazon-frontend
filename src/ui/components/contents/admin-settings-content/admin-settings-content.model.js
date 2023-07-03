@@ -4,30 +4,18 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
-import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
-import { SupplierModel } from '@models/supplier-model'
 
 export class AdminSettingsModel {
   history = undefined
 
   requestStatus = ''
 
-  serverProxy = []
-  get user() {
-    return UserModel.userInfo
-  }
-  showAsinCheckerModal = false
-
   infoModalText = ''
   showInfoModal = false
 
   adminSettings = {}
-
-  paymentMethods = []
-  imageUrl = ''
-  imageName = ''
 
   constructor({ history }) {
     this.history = history
@@ -39,7 +27,7 @@ export class AdminSettingsModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      await Promise.allSettled([this.getAdminSettings(), this.getServerProxy(), this.getPaymentMethods()])
+      await this.getAdminSettings()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -58,7 +46,7 @@ export class AdminSettingsModel {
       const result = await AdministratorModel.getSettings()
 
       runInAction(() => {
-        this.adminSettings = result
+        this.adminSettings = toJS(result)
       })
 
       this.setRequestStatus(loadingStatuses.success)
@@ -77,7 +65,7 @@ export class AdminSettingsModel {
 
       this.onTriggerOpenModal('showInfoModal')
 
-      this.getAdminSettings()
+      this.loadData()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -89,111 +77,8 @@ export class AdminSettingsModel {
     }
   }
 
-  async createProxy(proxy) {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
-      await AdministratorModel.createProxy(proxy)
-
-      this.infoModalText = t(TranslationKey['Proxy successfully saved'])
-
-      this.onTriggerOpenModal('showInfoModal')
-
-      this.getServerProxy()
-
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.infoModalText = t(TranslationKey['Proxy is not saved'])
-
-      this.onTriggerOpenModal('showInfoModal')
-
-      this.setRequestStatus(loadingStatuses.failed)
-    }
-  }
-
-  async getServerProxy() {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
-      const result = await AdministratorModel.getProxy()
-
-      runInAction(() => {
-        this.serverProxy = toJS(result)
-      })
-
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-    }
-  }
-
-  async getPaymentMethods() {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
-      const result = await SupplierModel.getSuppliersPaymentMethods()
-
-      runInAction(() => {
-        this.paymentMethods = result
-      })
-
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-    }
-  }
-
-  async createPaymentMethod(paymentMethod) {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
-      await SupplierModel.addSuppliersPaymentMethod(paymentMethod)
-
-      this.infoModalText = t(TranslationKey['Payment method successfully saved'])
-
-      this.onTriggerOpenModal('showInfoModal')
-
-      this.getPaymentMethods()
-
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.infoModalText = t(TranslationKey['Payment method is not saved'])
-
-      this.onTriggerOpenModal('showInfoModal')
-
-      this.setRequestStatus(loadingStatuses.failed)
-    }
-  }
-
-  onImageUpload(event) {
-    const file = event.target.files?.[0]
-    const reader = new FileReader()
-
-    if (file) {
-      reader.onload = e => {
-        if (e?.target && e?.target?.result) {
-          this.imageUrl = e.target.result.toString()
-          this.imageName = file.name
-        }
-      }
-
-      reader.readAsDataURL(file)
-    }
-  }
-
-  onRemoveImage() {
-    this.imageUrl = ''
-    this.imageName = ''
-  }
-
-  async onCloseInfoModal() {
+  onClickToggleInfoModal() {
     this.onTriggerOpenModal('showInfoModal')
-
-    this.loadData()
-  }
-
-  onToggleModalProxy() {
-    this.onTriggerOpenModal('showAsinCheckerModal')
   }
 
   onTriggerOpenModal(modal) {
