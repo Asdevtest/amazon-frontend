@@ -64,7 +64,6 @@ export const ImageModal = (props: ImageModalProps) => {
                   [styles.imagesListItemActive]: index === props.currentImageIndex,
                 })}
                 onClick={() => {
-                  console.log(index)
                   props.handleCurrentImageIndex(index)
                 }}
               >

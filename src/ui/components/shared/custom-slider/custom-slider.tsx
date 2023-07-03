@@ -62,7 +62,7 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
   }, [SettingsModel.languageTag, children])
 
   useEffect(() => {
-    if (index) {
+    if (index !== undefined) {
       setSlideCount(index + 1)
       setOffset(-RIGHT_BLOCK_WIDTH * index)
     }
