@@ -98,12 +98,10 @@ export const styles = theme => ({
   },
 
   typoSpan: {
-    marginLeft: 10,
     color: theme.palette.text.second,
   },
 
   linkSpan: {
-    marginLeft: 10,
     color: theme.palette.primary.main,
   },
   cellBtn: {
@@ -601,11 +599,9 @@ export const styles = theme => ({
   },
 
   multilineTextWrapper: {
-    width: '100%',
     height: '100%',
-    display: 'inline-flex',
+    display: 'flex',
     alignItems: 'center',
-    justifyContent: 'start',
     padding: '5px 0',
   },
 
@@ -614,14 +610,9 @@ export const styles = theme => ({
   },
 
   multilineText: {
-    width: '100%',
-    maxHeight: '100%',
-    textAlign: 'center',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-
-    fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',
   },
@@ -633,7 +624,6 @@ export const styles = theme => ({
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-
     display: '-webkit-box',
     WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',
@@ -778,7 +768,6 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
   },
 
   multilineTextHeaderWrapperWithComponent: {
@@ -1121,7 +1110,6 @@ export const styles = theme => ({
   editOrRemoveIconBtnsCell: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
     gap: '40px',
     padding: '15px 0',
