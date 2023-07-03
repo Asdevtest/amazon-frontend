@@ -1564,11 +1564,12 @@ export const MultilineTextAlignLeftHeaderCell = React.memo(
 
 export const MultilineTextHeaderCell = React.memo(
   withStyles(
-    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component }) => (
+    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component, textAlignStart }) => (
       <Tooltip title={text}>
         <div
           className={cx(classNames.multilineTextHeaderWrapper, {
             [classNames.multilineTextHeaderWrapperWithComponent]: component,
+            [classNames.multilineTextAlignStartWrapper]: textAlignStart,
           })}
         >
           <Typography className={classNames.multilineHeaderText}>{text}</Typography>

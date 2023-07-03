@@ -781,6 +781,10 @@ export const styles = theme => ({
     justifyContent: 'center',
   },
 
+  multilineTextAlignStartWrapper: {
+    justifyContent: 'start',
+  },
+
   multilineTextHeaderWrapperWithComponent: {
     justifyContent: 'space-between',
   },
@@ -802,8 +806,6 @@ export const styles = theme => ({
   multilineHeaderText: {
     width: 'fit-content',
     textAlign: 'center',
-    // whiteSpace: 'normal',
-
     color: theme.palette.text.general,
 
     fontWeight: '600',
