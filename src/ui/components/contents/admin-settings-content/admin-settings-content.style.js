@@ -29,7 +29,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: 40,
     borderRadius: 4,
     backgroundColor: theme.palette.background.general,
-    boxShadow: theme.palette.boxShadow.dialog,
+    boxShadow: theme.palette.boxShadow.paper,
   },
 
   // common styles for orders and supplier search

@@ -14,6 +14,7 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { ChatMessageFiles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files'
 import { ImagesTile } from '@components/chat/chat/chat-messages-list/chat-messages/images-tile/images-tile'
 import { UserLink } from '@components/user/user-link'
+import { IsReadIcon, NoReadIcon } from '@components/shared/svg-icons'
 
 import { formatDateTimeHourAndMinutes } from '@utils/date-time'
 
@@ -173,7 +174,11 @@ export const ChatMessageBasicText: FC<Props> = observer(
 
         {!isIncomming ? (
           <div className={classNames.readIconsWrapper}>
-            <img src={unReadMessage ? '/assets/icons/no-read.svg' : '/assets/icons/is-read.svg'} />
+            {unReadMessage ? (
+              <NoReadIcon className={classNames.noReadIcon} />
+            ) : (
+              <IsReadIcon className={classNames.isReadIcon} />
+            )}
           </div>
         ) : null}
       </div>

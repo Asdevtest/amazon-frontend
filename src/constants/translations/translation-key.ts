@@ -2000,7 +2000,15 @@ export enum TranslationKey {
   'Add a new tag' = 'Add a new tag',
   'Your message has been sent' = 'Your message has been sent',
   'Thank you for your feedback' = 'Thank you for your feedback',
+  'Request information' = 'Request information',
+  'Request creator' = 'Request creator',
+  'Request terms' = 'Request terms',
+  'Without confirmation' = 'Without confirmation',
+  'Allowed to the performer to take the application to work without confirmation' = 'Allowed to the performer to take the application to work without confirmation',
+  'Announcement name' = 'Announcement name',
+  'Announcement creator' = 'Announcement creator',
   'Attach files' = 'Attach files',
+  'You' = 'You',
   'Are you sure you want to delete the payment method?' = 'Are you sure you want to delete the payment method?',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

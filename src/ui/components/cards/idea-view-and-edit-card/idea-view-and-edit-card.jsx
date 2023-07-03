@@ -383,7 +383,7 @@ export const IdeaViewAndEditCard = observer(
                         <Input
                           disabled={disableFields}
                           placeholder={t(TranslationKey['Link to the product'])}
-                          inputProps={{ maxLength: 1500 }}
+                          inputProps={{ maxLength: 510 }}
                           value={linkLine}
                           className={classNames.input}
                           onChange={e => setLinkLine(e.target.value)}

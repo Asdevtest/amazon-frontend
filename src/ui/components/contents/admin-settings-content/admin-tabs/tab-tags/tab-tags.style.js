@@ -31,7 +31,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     height: 650,
     borderRadius: 4,
-    boxShadow: theme.palette.boxShadow.dialog,
+    boxShadow: theme.palette.boxShadow.paper,
   },
 
   footerContainer: {
