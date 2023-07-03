@@ -1042,7 +1042,7 @@ export const styles = theme => ({
 
   actionBtn: {
     display: 'flex',
-    width: 175,
+    width: 136,
     height: 30,
     padding: '0 12px',
 
