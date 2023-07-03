@@ -7,13 +7,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatMessageRemovePatchInfoGroupChatContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
-
-import { BigImagesModal } from '@components/modals/big-images-modal'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
 import { useClassNames } from './chat-message-patch-info-group-chat.style'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 interface Props {
   message: ChatMessageContract<ChatMessageRemovePatchInfoGroupChatContract>
@@ -94,12 +93,12 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
         ) : null}
       </div>
 
-      <BigImagesModal
-        openModal={showPhotosModal}
-        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={bigImagesOptions.images}
-        imgIndex={bigImagesOptions.imgIndex}
-        setImageIndex={(imgIndex: number) => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+      <ImageModal
+        imageList={bigImagesOptions.images}
+        currentImageIndex={bigImagesOptions.imgIndex}
+        isOpenModal={showPhotosModal}
+        handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        handleCurrentImageIndex={index => setBigImagesOptions({ ...bigImagesOptions, imgIndex: index })}
       />
     </div>
   )

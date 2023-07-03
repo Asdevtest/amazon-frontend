@@ -20,6 +20,7 @@ export const useImageModalStyles = makeStyles()(theme => ({
     overflow: 'auto',
     paddingRight: 20,
     gap: 25,
+    maxHeight: 'calc(70vh - 80px)',
   },
 
   imagesListItem: {

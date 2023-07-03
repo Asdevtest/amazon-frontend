@@ -41,8 +41,6 @@ import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
 import { mapTaskOperationTypeKeyToEnum, TaskOperationType } from '@constants/task/task-operation-type'
 import { mapTaskStatusEmumToKey, TaskStatus, TaskStatusTranslate } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { BigImagesModal } from '@components/modals/big-images-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
@@ -97,6 +95,7 @@ import {
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
 import { PrioritySelect } from '@components/shared/priority-select/priority-select'
 import { tariffTypes } from '@constants/keys/tariff-types'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 export const UserCell = React.memo(
   withStyles(
@@ -1006,10 +1005,12 @@ export const DownloadAndPrintFilesCell = React.memo(
           <img ref={imageRef} src={getAmazonImageUrl(selectedImage.fileUrl)} alt="Printed Image" />
         </Box>
 
-        <BigImagesModal
-          openModal={isOpenModal}
-          setOpenModal={() => setIsOpenModal(prevState => !prevState)}
-          images={[selectedImage.fileUrl]}
+        <ImageModal
+          isOpenModal={isOpenModal}
+          handleOpenModal={() => setIsOpenModal(prevState => !prevState)}
+          imageList={[selectedImage.fileUrl]}
+          currentImageIndex={0}
+          handleCurrentImageIndex={() => null}
           controls={() => (
             <>
               <Button onClick={() => handlePrint()}>

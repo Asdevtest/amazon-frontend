@@ -2,7 +2,7 @@
 import { cx } from '@emotion/css'
 import { Checkbox, Chip, Divider, Typography } from '@mui/material'
 
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { observer } from 'mobx-react'
 
@@ -20,7 +20,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { BigImagesModal } from '@components/modals/big-images-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -45,6 +44,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
 import { tariffTypes } from '@constants/keys/tariff-types'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
   const { classes: classNames } = useClassNames()
@@ -547,7 +547,7 @@ export const EditBoxForm = observer(
                             ? `${
                                 storekeepers.find(el => el._id === boxFields.storekeeperId)?.name ||
                                 t(TranslationKey['Not available'])
-                              } /  
+                              } /
                         ${
                           boxFields.storekeeperId
                             ? `${tariffName ? tariffName + ' / ' : ''}${
@@ -756,12 +756,12 @@ export const EditBoxForm = observer(
           </Button>
         </div>
 
-        <BigImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        <ImageModal
+          isOpenModal={showPhotosModal}
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          imageList={bigImagesOptions.images}
+          currentImageIndex={bigImagesOptions.imgIndex}
+          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
 
         <Modal

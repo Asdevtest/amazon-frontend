@@ -29,7 +29,7 @@ export const ImageModal = (props: ImageModalProps) => {
   const { classes: styles } = useImageModalStyles()
   const [isZoomActive, setIsZoomActive] = useState<boolean>(false)
   const [zoomImage, setZoomImage] = useState<string | ImageObjectType | null>(null)
-
+  console.log(props.imageList)
   const onClickDownloadBtn = (image: string | ImageObjectType) => {
     typeof image === 'string' ? downloadFileByLink(image) : downloadFile(image.file)
   }
@@ -57,27 +57,34 @@ export const ImageModal = (props: ImageModalProps) => {
 
         {props.showPreviews && (
           <div className={styles.imagesList}>
-            {props.imageList.map((image, index) => (
-              <div
-                key={index}
-                className={cx(styles.imagesListItem, {
-                  [styles.imagesListItemActive]: index === props.currentImageIndex,
-                })}
-                onClick={() => {
-                  props.handleCurrentImageIndex(index)
-                }}
-              >
-                <img
-                  src={typeof image === 'string' ? getAmazonImageUrl(image, true) : image[props.imageKey!]}
-                  alt="Image"
-                />
-                {props.getImageTitle && (
-                  <div>
-                    <Typography>{props.getImageTitle(index, image)}</Typography>
-                  </div>
-                )}
-              </div>
-            ))}
+            {!!props.imageList?.length &&
+              props.imageList.map((image, index) => (
+                <div
+                  key={index}
+                  className={cx(styles.imagesListItem, {
+                    [styles.imagesListItemActive]: index === props.currentImageIndex,
+                  })}
+                  onClick={() => {
+                    props.handleCurrentImageIndex(index)
+                  }}
+                >
+                  <img
+                    src={
+                      image
+                        ? typeof image === 'string'
+                          ? getAmazonImageUrl(image, true)
+                          : image[props.imageKey!]
+                        : '/assets/img/no-photo.jpg'
+                    }
+                    alt="Image"
+                  />
+                  {props.getImageTitle && (
+                    <div>
+                      <Typography>{props.getImageTitle(index, image)}</Typography>
+                    </div>
+                  )}
+                </div>
+              ))}
           </div>
         )}
 
@@ -90,22 +97,30 @@ export const ImageModal = (props: ImageModalProps) => {
           </Typography>
 
           <div className={styles.slider}>
-            <CustomSlider
-              isHideCounter
-              index={props.currentImageIndex}
-              arrowSize="60px"
-              onChangeIndex={props.handleCurrentImageIndex}
-            >
-              {props.imageList.map((el, index) => (
-                <div key={index} className={cx(styles.sliderItem)}>
-                  <img
-                    src={typeof el === 'string' ? getAmazonImageUrl(el, true) : el[props.imageKey!]}
-                    loading="lazy"
-                    alt={`Slide ${index + 1}`}
-                  />
-                </div>
-              ))}
-            </CustomSlider>
+            {!!props.imageList?.length && (
+              <CustomSlider
+                isHideCounter
+                index={props.currentImageIndex}
+                arrowSize="60px"
+                onChangeIndex={props.handleCurrentImageIndex}
+              >
+                {props.imageList.map((el, index) => (
+                  <div key={index} className={cx(styles.sliderItem)}>
+                    <img
+                      src={
+                        el
+                          ? typeof el === 'string'
+                            ? getAmazonImageUrl(el, true)
+                            : el[props.imageKey!]
+                          : '/assets/img/no-photo.jpg'
+                      }
+                      loading="lazy"
+                      alt={`Slide ${index + 1}`}
+                    />
+                  </div>
+                ))}
+              </CustomSlider>
+            )}
           </div>
 
           {/* Info */}
@@ -117,7 +132,7 @@ export const ImageModal = (props: ImageModalProps) => {
               </Typography>
             )}
             <Typography className={styles.currentSlide} color="primary">
-              {`${props.currentImageIndex + 1}/${props.imageList.length}`}
+              {`${props.currentImageIndex + 1}/${props.imageList?.length || 0}`}
             </Typography>
           </div>
 
