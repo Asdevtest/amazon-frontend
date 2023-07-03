@@ -73,7 +73,7 @@ export class AdminSettingsMainModel {
       const result = await AdministratorModel.getProxy()
 
       runInAction(() => {
-        this.serverProxy = toJS(result)
+        this.serverProxy = result
       })
 
       this.setRequestStatus(loadingStatuses.success)

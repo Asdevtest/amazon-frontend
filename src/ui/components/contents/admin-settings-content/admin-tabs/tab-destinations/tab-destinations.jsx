@@ -49,7 +49,7 @@ export const TabDestinations = observer(() => {
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           pageSizeOptions={[15, 25, 50, 100]}
-          rows={viewModel.getCurrentData()}
+          rows={viewModel.destinations}
           rowHeight={70}
           slots={{
             toolbar: DataGridCustomToolbar,
