@@ -219,15 +219,28 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
-  idTitleWrapper: {
+  asinAndIdWrapper: {
+    display: 'flex',
+    gap: 30,
+  },
+  idWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
+  asinWrapper: {
     display: 'flex',
     gap: 5,
   },
   idText: {
-    fontWeight: 400,
     fontSize: 18,
     lineHeight: '140%',
     color: theme.palette.text.second,
+  },
+  linkSpan: {
+    fontSize: 18,
+    fontWeight: 400,
+    lineHeight: '140%',
+    color: theme.palette.primary.main,
   },
   idTextDark: {
     color: theme.palette.text.general,
