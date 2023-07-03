@@ -112,8 +112,19 @@ const Box = observer(
 
     const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
     const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
-    const totalWeightConversion = getConversion(sizeSetting, 12 / poundsWeightCoefficient, 12)
     const weightSizesType = getWeightSizesType(sizeSetting)
+
+    const volumeWeightWarehouse =
+      ((parseFloat(box.lengthCmWarehouse) || 0) *
+        (parseFloat(box.heightCmWarehouse) || 0) *
+        (parseFloat(box.widthCmWarehouse) || 0)) /
+      volumeWeightCoefficient
+
+    const volumeWeightSupplier =
+      ((parseFloat(box.lengthCmSupplier) || 0) *
+        (parseFloat(box.heightCmSupplier) || 0) *
+        (parseFloat(box.widthCmSupplier) || 0)) /
+      volumeWeightCoefficient
 
     const renderImageInfo = (img, imgName) => (
       <div className={classNames.tooltipWrapper}>
@@ -270,22 +281,8 @@ const Box = observer(
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey['Volume weight']) + ': '}
                         {isCurrentBox
-                          ? toFixed(
-                              ((parseFloat(box.lengthCmSupplier) || 0) *
-                                (parseFloat(box.heightCmSupplier) || 0) *
-                                (parseFloat(box.widthCmSupplier) || 0)) /
-                                volumeWeightCoefficient /
-                                weightConversion,
-                              2,
-                            )
-                          : toFixed(
-                              ((parseFloat(box.lengthCmWarehouse) || 0) *
-                                (parseFloat(box.heightCmWarehouse) || 0) *
-                                (parseFloat(box.widthCmWarehouse) || 0)) /
-                                volumeWeightCoefficient /
-                                weightConversion,
-                              2,
-                            )}
+                          ? toFixed(volumeWeightSupplier / weightConversion, 2)
+                          : toFixed(volumeWeightWarehouse / weightConversion, 2)}
                         {' ' + weightSizesType}
                       </Typography>
 
@@ -293,33 +290,15 @@ const Box = observer(
                         {t(TranslationKey['Final weight']) + ': '}
                         {isCurrentBox
                           ? toFixed(
-                              box.weighGrossKgSupplier >
-                                ((parseFloat(box.lengthCmSupplier) || 0) *
-                                  (parseFloat(box.heightCmSupplier) || 0) *
-                                  (parseFloat(box.widthCmSupplier) || 0)) /
-                                  volumeWeightCoefficient /
-                                  weightConversion
-                                ? box.weighGrossKgSupplier
-                                : ((parseFloat(box.lengthCmSupplier) || 0) *
-                                    (parseFloat(box.heightCmSupplier) || 0) *
-                                    (parseFloat(box.widthCmSupplier) || 0)) /
-                                    volumeWeightCoefficient /
-                                    weightConversion,
+                              box.weighGrossKgSupplier > volumeWeightSupplier
+                                ? box.weighGrossKgSupplier / weightConversion
+                                : volumeWeightWarehouse / weightConversion,
                               2,
                             )
                           : toFixed(
-                              box.weighGrossKgWarehouse >
-                                ((parseFloat(box.lengthCmWarehouse) || 0) *
-                                  (parseFloat(box.heightCmWarehouse) || 0) *
-                                  (parseFloat(box.widthCmWarehouse) || 0)) /
-                                  volumeWeightCoefficient /
-                                  weightConversion
-                                ? box.weighGrossKgWarehouse
-                                : ((parseFloat(box.lengthCmWarehouse) || 0) *
-                                    (parseFloat(box.heightCmWarehouse) || 0) *
-                                    (parseFloat(box.widthCmWarehouse) || 0)) /
-                                    volumeWeightCoefficient /
-                                    weightConversion,
+                              box.weighGrossKgWarehouse > volumeWeightSupplier
+                                ? box.weighGrossKgWarehouse / weightConversion
+                                : volumeWeightWarehouse / weightConversion,
                               2,
                             )}
                         {' ' + weightSizesType}
@@ -357,31 +336,15 @@ const Box = observer(
                       </Typography>
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey['Volume weight']) + ': '}
-                        {toFixed(
-                          ((parseFloat(box.lengthCmWarehouse) || 0) *
-                            (parseFloat(box.heightCmWarehouse) || 0) *
-                            (parseFloat(box.widthCmWarehouse) || 0)) /
-                            volumeWeightCoefficient /
-                            weightConversion,
-                          2,
-                        )}
+                        {toFixed(volumeWeightWarehouse / weightConversion, 2)}
                         {' ' + weightSizesType}
                       </Typography>
                       <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey['Final weight']) + ': '}
                         {toFixed(
-                          box.weighGrossKgWarehouse >
-                            ((parseFloat(box.lengthCmWarehouse) || 0) *
-                              (parseFloat(box.heightCmWarehouse) || 0) *
-                              (parseFloat(box.widthCmWarehouse) || 0)) /
-                              volumeWeightCoefficient /
-                              weightConversion
-                            ? box.weighGrossKgWarehouse
-                            : ((parseFloat(box.lengthCmWarehouse) || 0) *
-                                (parseFloat(box.heightCmWarehouse) || 0) *
-                                (parseFloat(box.widthCmWarehouse) || 0)) /
-                                volumeWeightCoefficient /
-                                weightConversion,
+                          box.weighGrossKgWarehouse > volumeWeightWarehouse
+                            ? box.weighGrossKgWarehouse / weightConversion
+                            : volumeWeightWarehouse / weightConversion,
                           2,
                         )}
                         {' ' + weightSizesType}
