@@ -2010,5 +2010,6 @@ export enum TranslationKey {
   'Attach files' = 'Attach files',
   'You' = 'You',
   'Are you sure you want to delete the payment method?' = 'Are you sure you want to delete the payment method?',
+  'Management' = 'Management',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

@@ -35,6 +35,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   root: {
     width: '100%',
+    textTransform: 'none',
     color: theme.palette.text.general,
   },
 

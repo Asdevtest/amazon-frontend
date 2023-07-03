@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
-import { Box, Tabs } from '@mui/material'
+import { Tabs } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { observer } from 'mobx-react'
 
@@ -12,17 +11,18 @@ import { SettingsModel } from '@models/settings-model'
 
 import { ITab } from '@components/shared/i-tab/i-tab'
 
-import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher } from '@utils/checks'
+import { checkIsAdmin, checkIsClient, checkIsResearcher } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { Freelance } from '../freelance'
 import { Integrations } from '../integrations'
-import { Listing } from '../listing'
+
 import { Orders } from '../orders'
 import { SuppliersAndIdeas } from '../suppliers-and-ideas'
 import { BottomCard } from './bottom-card'
 import { useClassNames } from './product-wrapper.style'
 import { TopCard } from './top-card'
+import { Management } from '../management'
 
 const tabsValues = {
   MAIN_INFO: 'MAIN_INFO',
@@ -31,6 +31,7 @@ const tabsValues = {
   LISTING: 'LISTING',
   SUPPLIERS_AND_IDEAS: 'SUPPLIERS_AND_IDEAS',
   FREELANCE: 'FREELANCE',
+  MANAGEMENT: 'MANAGEMENT',
 }
 
 const getTab = tabKey => {
@@ -54,7 +55,7 @@ const TabPanel = ({ children, value, index, ...other }) => (
     aria-labelledby={`simple-tab-${index}`}
     {...other}
   >
-    {value === index && <Box paddingTop={3}>{children}</Box>}
+    {value === index && children}
   </div>
 )
 
@@ -70,7 +71,6 @@ export const ProductWrapper = observer(
     shops,
     productBase,
     userRole,
-
     handleSupplierButtons,
     selectedSupplier,
     formFieldsValidationErrors,
@@ -88,7 +88,7 @@ export const ProductWrapper = observer(
 
     const [curUserRole, seturUserRole] = useState(UserRoleCodeMap[userRole])
 
-    const [tabIndex, setTabIndex] = React.useState(getTab(showTab))
+    const [tabIndex, setTabIndex] = useState(getTab(showTab))
 
     useEffect(() => {
       seturUserRole(() => UserRoleCodeMap[userRole])
@@ -97,7 +97,7 @@ export const ProductWrapper = observer(
     return (
       <>
         {SettingsModel.languageTag && (
-          <React.Fragment>
+          <>
             <Tabs
               variant={'fullWidth'}
               classes={{
@@ -144,6 +144,8 @@ export const ProductWrapper = observer(
                   withIcon={!!product.ideaCount}
                 />
               )}
+
+              {checkIsAdmin(curUserRole) && <ITab label={t(TranslationKey.Management)} value={tabsValues.MANAGEMENT} />}
             </Tabs>
 
             <TabPanel value={tabIndex} index={tabsValues.MAIN_INFO}>
@@ -200,7 +202,11 @@ export const ProductWrapper = observer(
             <TabPanel value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
               <SuppliersAndIdeas productId={product._id} product={product} />
             </TabPanel>
-          </React.Fragment>
+
+            <TabPanel value={tabIndex} index={tabsValues.MANAGEMENT}>
+              <Management />
+            </TabPanel>
+          </>
         )}
       </>
     )
