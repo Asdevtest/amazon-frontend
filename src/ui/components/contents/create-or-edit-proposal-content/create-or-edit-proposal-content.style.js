@@ -31,9 +31,9 @@ export const useClassNames = makeStyles()(theme => ({
   checkboxWrapper: {
     display: 'flex',
     alignItems: 'center',
-    justifySelf: 'flex-end',
-    alignSelf: 'flex-end',
-    marginBottom: '20px',
+    justifyContent: 'flex-start',
+    gap: 12,
+    marginBottom: 17,
   },
 
   footerWrapper: {
@@ -182,12 +182,10 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  checkbox: { padding: 0 },
+
   checkboxLabel: {
-    fontSize: '18px',
-    lineHeight: '140%',
-    fontWeight: '600',
     color: theme.palette.text.general,
-    marginRight: '83px',
   },
 
   nameFieldWrapper: {
@@ -284,6 +282,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
+    marginBottom: 10,
   },
   imageFileInputSubTitle: {
     fontSize: 14,
