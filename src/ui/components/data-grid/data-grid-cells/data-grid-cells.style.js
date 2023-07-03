@@ -1,3 +1,5 @@
+import { color } from '@mui/system'
+
 export const styles = theme => ({
   img: {
     height: '64px',
@@ -493,10 +495,17 @@ export const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    overflowY: 'auto',
     height: '100%',
     width: '100%',
     padding: '5px',
+    maxHeight: 240,
+    overflow: 'auto',
+  },
+
+  withScrollBatchBoxesWrapper: {
+    justifyContent: 'center',
+    maxHeight: 'unset',
+    overflow: 'unset',
   },
 
   batchProductsSubWrapper: {
@@ -504,10 +513,7 @@ export const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    width: 480,
-
-    maxHeight: 500,
-    overflow: 'auto',
+    width: '100%',
   },
 
   batchProductsWrapper: {
@@ -518,10 +524,24 @@ export const styles = theme => ({
     borderRadius: '10px',
     padding: '3px',
     marginBottom: '5px',
+    width: '100%',
+  },
 
-    width: 510,
-    maxHeight: 500,
-    overflow: 'hidden',
+  batchProductInfoWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  amountBoxesWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
+
+  amountBoxesText: {
+    fontSize: 14,
+    fontWeight: 400,
+    color: theme.palette.primary.main,
   },
 
   batchProductsBoxesLength: {
@@ -1767,5 +1787,38 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 7,
+  },
+
+  abbreviatedBatchProductsWrapper: {
+    width: '100%',
+
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    gap: 5,
+  },
+
+  abbreviatedImg: {
+    width: 28,
+    height: 28,
+  },
+
+  abbreviatedTitle: {
+    fontSize: 14,
+    fontWeight: 400,
+
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+
+    flex: 1,
+  },
+
+  abbreviatedBatchProductInfoWrapper: {
+    width: '100%',
+
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
   },
 })
