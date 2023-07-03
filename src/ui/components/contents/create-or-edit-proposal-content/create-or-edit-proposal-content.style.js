@@ -185,6 +185,8 @@ export const useClassNames = makeStyles()(theme => ({
   checkbox: { padding: 0 },
 
   checkboxLabel: {
+    fontSize: 14,
+    lineHeight: '19px',
     color: theme.palette.text.general,
   },
 
