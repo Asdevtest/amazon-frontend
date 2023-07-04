@@ -26,8 +26,8 @@ export const styles = theme => ({
 
   leftBtnsWrapper: {
     display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',
+    gap: 25,
+
     [theme.breakpoints.down(768)]: {
       gap: '15px',
     },
@@ -46,7 +46,11 @@ export const styles = theme => ({
     },
   },
   createBtn: {
-    width: '200px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 10,
+
     [theme.breakpoints.down(768)]: {
       width: '280px',
     },
