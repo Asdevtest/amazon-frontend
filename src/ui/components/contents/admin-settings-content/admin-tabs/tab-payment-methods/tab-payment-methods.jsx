@@ -17,6 +17,8 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
 import { t } from '@utils/translations'
 
+import { SettingsModel } from '@models/settings-model'
+
 import { AdminSettingsPaymentMethodsModel } from './tab-payment-methods.model'
 
 import { useClassNames } from './tab-payment-methods.style'
@@ -65,86 +67,93 @@ export const TabPaymentMethods = observer(() => {
 
   return (
     <>
-      <div className={classNames.wrapper}>
-        <p className={classNames.title}>{t(TranslationKey['Adding a payment method'])}</p>
+      {SettingsModel.languageTag && (
+        <div className={classNames.wrapper}>
+          <p className={classNames.title}>{t(TranslationKey['Adding a payment method'])}</p>
 
-        <div className={classNames.container}>
-          <Field
-            label={t(TranslationKey['Add a payment method icon']) + '*'}
-            labelClasses={classNames.label}
-            classes={{ root: classNames.textField }}
-            value={externalImageUrl}
-            placeholder={t(TranslationKey.Link)}
-            onChange={handleChangeExternalImageUrl}
-          />
-
-          <label htmlFor="image-upload" className={classNames.inputContainer}>
-            <input type="file" accept="image/*" className={classNames.input} onChange={viewModel.onImageUpload} />
-            <span className={classNames.text}>{t(TranslationKey['Add photo'])}</span>
-            <UploadIcon className={classNames.icon} />
-          </label>
-
-          <Button disabled className={classNames.buttonAdd}>
-            {t(TranslationKey.Load)}
-          </Button>
-        </div>
-
-        {currentImageUrl && (
           <div className={classNames.container}>
-            <div className={classNames.containerImage}>
-              <img src={currentImageUrl} alt="payment method" />
-              <span className={classNames.paymentMethodLabel}>{currentImageName}</span>
-              <div className={classNames.actionIconsWrapper}>
-                <div className={classNames.actionIconWrapper}>
-                  <input type="file" accept="image/*" className={classNames.input} onChange={viewModel.onImageUpload} />
-                  <AutorenewIcon fontSize="small" />
-                </div>
+            <Field
+              label={t(TranslationKey['Add a payment method icon']) + '*'}
+              labelClasses={classNames.label}
+              classes={{ root: classNames.textField }}
+              value={externalImageUrl}
+              placeholder={t(TranslationKey.Link)}
+              onChange={handleChangeExternalImageUrl}
+            />
 
-                <HighlightOffIcon fontSize="small" onClick={handleRemoveImg} />
+            <label htmlFor="image-upload" className={classNames.inputContainer}>
+              <input type="file" accept="image/*" className={classNames.input} onChange={viewModel.onImageUpload} />
+              <span className={classNames.text}>{t(TranslationKey['Add photo'])}</span>
+              <UploadIcon className={classNames.icon} />
+            </label>
+
+            <Button disabled className={classNames.buttonAdd}>
+              {t(TranslationKey.Load)}
+            </Button>
+          </div>
+
+          {currentImageUrl && (
+            <div className={classNames.container}>
+              <div className={classNames.containerImage}>
+                <img src={currentImageUrl} alt="payment method" />
+                <span className={classNames.paymentMethodLabel}>{currentImageName}</span>
+                <div className={classNames.actionIconsWrapper}>
+                  <div className={classNames.actionIconWrapper}>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className={classNames.input}
+                      onChange={viewModel.onImageUpload}
+                    />
+                    <AutorenewIcon fontSize="small" />
+                  </div>
+
+                  <HighlightOffIcon fontSize="small" onClick={handleRemoveImg} />
+                </div>
               </div>
             </div>
+          )}
+
+          <div className={classNames.container}>
+            <Field
+              label={t(TranslationKey['Payment method name']) + '*'}
+              labelClasses={classNames.label}
+              classes={{ root: classNames.textFieldFullWidth }}
+              value={method}
+              placeholder={t(TranslationKey.Add)}
+              onChange={handleChangeMethod}
+            />
+
+            <Button disabled className={classNames.buttonAdd}>
+              {t(TranslationKey.Add)}
+            </Button>
           </div>
-        )}
 
-        <div className={classNames.container}>
-          <Field
-            label={t(TranslationKey['Payment method name']) + '*'}
-            labelClasses={classNames.label}
-            classes={{ root: classNames.textFieldFullWidth }}
-            value={method}
-            placeholder={t(TranslationKey.Add)}
-            onChange={handleChangeMethod}
-          />
+          <div className={classNames.paymentMethods}>
+            {paymentMethods.length !== 0 &&
+              paymentMethods.map((method, index) => (
+                <div key={index} className={classNames.paymentMethodWrapper}>
+                  <Typography className={classNames.paymentMethod}>{method.title}</Typography>
 
-          <Button disabled className={classNames.buttonAdd}>
-            {t(TranslationKey.Add)}
+                  <div className={classNames.iconsWrapper}>
+                    <CopyValue text={method} />
+                    <IconButton
+                      size="small"
+                      classes={{ root: classNames.iconDelete }}
+                      onClick={() => viewModel.onClickRemovePaymentMethod(method._id)}
+                    >
+                      <DeleteOutlineOutlinedIcon className={classNames.deleteIcon} />
+                    </IconButton>
+                  </div>
+                </div>
+              ))}
+          </div>
+
+          <Button disabled={!method} className={classNames.button} onClick={() => handleSubmitPaymentMethod()}>
+            {t(TranslationKey.Save)}
           </Button>
         </div>
-
-        <div className={classNames.paymentMethods}>
-          {paymentMethods.length !== 0 &&
-            paymentMethods.map((method, index) => (
-              <div key={index} className={classNames.paymentMethodWrapper}>
-                <Typography className={classNames.paymentMethod}>{method.title}</Typography>
-
-                <div className={classNames.iconsWrapper}>
-                  <CopyValue text={method} />
-                  <IconButton
-                    size="small"
-                    classes={{ root: classNames.iconDelete }}
-                    onClick={() => viewModel.onClickRemovePaymentMethod(method._id)}
-                  >
-                    <DeleteOutlineOutlinedIcon className={classNames.deleteIcon} />
-                  </IconButton>
-                </div>
-              </div>
-            ))}
-        </div>
-
-        <Button disabled={!method} className={classNames.button} onClick={() => handleSubmitPaymentMethod()}>
-          {t(TranslationKey.Save)}
-        </Button>
-      </div>
+      )}
 
       <WarningInfoModal
         openModal={viewModel.showInfoModal}

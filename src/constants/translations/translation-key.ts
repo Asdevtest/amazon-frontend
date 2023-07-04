@@ -2011,5 +2011,6 @@ export enum TranslationKey {
   'You' = 'You',
   'Are you sure you want to delete the payment method?' = 'Are you sure you want to delete the payment method?',
   'Management' = 'Management',
+  'AllMembers' = 'AllMembers',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
