@@ -90,8 +90,10 @@ export class OwnerRequestDetailCustomViewModel {
           this.showChat = true
         }
 
-        this.acceptMessage = location.state.acceptMessage
-        this.showAcceptMessage = location.state.showAcceptMessage
+        this.alertShieldSettings = {
+          showAlertShield: location?.state?.showAcceptMessage,
+          alertShieldMessage: location?.state?.acceptMessage,
+        }
 
         const state = { ...history.location.state }
         delete state.chatId
@@ -125,10 +127,19 @@ export class OwnerRequestDetailCustomViewModel {
     }
 
     runInAction(() => {
-      if (this.showAcceptMessage) {
+      if (this.alertShieldSettings.showAlertShield) {
         setTimeout(() => {
-          this.acceptMessage = ''
-          this.showAcceptMessage = false
+          this.alertShieldSettings = {
+            ...this.alertShieldSettings,
+            showAlertShield: false,
+          }
+
+          setTimeout(() => {
+            this.alertShieldSettings = {
+              showAlertShield: false,
+              alertShieldMessage: '',
+            }
+          }, 1000)
         }, 3000)
       }
     })

@@ -103,6 +103,11 @@ export class ClientProductViewModel {
   actionStatus = undefined
   acceptMessage = ''
 
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+  }
+
   product = undefined
   productBase = undefined
   productId = undefined
@@ -517,10 +522,31 @@ export class ClientProductViewModel {
 
       this.getProductById()
 
+      // runInAction(() => {
+      //   this.acceptMessage = t(TranslationKey['Data was successfully saved'])
+      //   setTimeout(() => {
+      //     this.acceptMessage = ''
+      //   }, 3000)
+      // })
+
       runInAction(() => {
-        this.acceptMessage = t(TranslationKey['Data was successfully saved'])
+        this.alertShieldSettings = {
+          showAlertShield: true,
+          alertShieldMessage: t(TranslationKey['Data was successfully saved']),
+        }
+
         setTimeout(() => {
-          this.acceptMessage = ''
+          this.alertShieldSettings = {
+            ...this.alertShieldSettings,
+            showAlertShield: false,
+          }
+
+          setTimeout(() => {
+            this.alertShieldSettings = {
+              showAlertShield: false,
+              alertShieldMessage: '',
+            }
+          }, 1000)
         }, 3000)
       })
 
