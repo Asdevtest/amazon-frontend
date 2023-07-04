@@ -100,4 +100,12 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'flex-end',
     marginLeft: 10,
   },
+
+  isReadIcon: {
+    color: '#00B746',
+  },
+
+  noReadIcon: {
+    color: theme.palette.text.second,
+  },
 }))

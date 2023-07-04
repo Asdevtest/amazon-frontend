@@ -41,6 +41,15 @@ import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
 import { mapTaskOperationTypeKeyToEnum, TaskOperationType } from '@constants/task/task-operation-type'
 import { mapTaskStatusEmumToKey, TaskStatus, TaskStatusTranslate } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
+import { tariffTypes } from '@constants/keys/tariff-types'
+import { UiTheme } from '@constants/theme/themes'
+import {
+  getConversion,
+  getWeightSizesType,
+  inchesCoefficient,
+  poundsWeightCoefficient,
+} from '@constants/configs/sizes-settings'
+import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
 
 import { BigImagesModal } from '@components/modals/big-images-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -55,6 +64,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { BoxArrow, ClockIcon, CubeIcon, EditIcon, EqualIcon, PlusIcon, SaveIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
+import { PrioritySelect } from '@components/shared/priority-select/priority-select'
 
 import {
   calcFinalWeightForBox,
@@ -88,15 +98,8 @@ import {
 import { t } from '@utils/translations'
 
 import { styles } from './data-grid-cells.style'
-import {
-  getConversion,
-  getWeightSizesType,
-  inchesCoefficient,
-  poundsWeightCoefficient,
-} from '@constants/configs/sizes-settings'
-import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
-import { PrioritySelect } from '@components/shared/priority-select/priority-select'
-import { tariffTypes } from '@constants/keys/tariff-types'
+
+import { SettingsModel } from '@models/settings-model'
 
 export const UserCell = React.memo(
   withStyles(
@@ -1761,7 +1764,7 @@ export const MultilineRequestStatusCell = React.memo(
 
     const colorByStatus = () => {
       if ([RequestStatus.DRAFT].includes(status)) {
-        return '#006CFF'
+        return SettingsModel.uiTheme === UiTheme.light ? '#007bff' : '#4CA1DE'
       } else if (
         [
           RequestStatus.CANCELED_BY_CREATOR,
@@ -2163,9 +2166,14 @@ export const ToFixedWithDollarSignCell = React.memo(
 
 export const SuccessActionBtnCell = React.memo(
   withStyles(
-    ({ classes: classNames, onClickOkBtn, bTnText, tooltipText, isFirstRow }) => (
+    ({ classes: classNames, onClickOkBtn, bTnText, tooltipText, isFirstRow, smallActionBtn }) => (
       <div className={classNames.successActionBtnWrapper}>
-        <Button success tooltipInfoContent={isFirstRow && tooltipText} onClick={onClickOkBtn}>
+        <Button
+          success
+          tooltipInfoContent={isFirstRow && tooltipText}
+          className={cx(classNames.actionBtn, { [classNames.smallActionBtn]: smallActionBtn })}
+          onClick={onClickOkBtn}
+        >
           {bTnText}
         </Button>
       </div>

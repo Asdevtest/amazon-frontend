@@ -29,19 +29,6 @@ export const FeedBackModal = ({ onSubmit, onClose }) => {
     onSubmit(comment, images)
   }
 
-  // useEffect(() => {
-  //   const listener = event => {
-  //     if (openModal && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
-  //       event.preventDefault()
-  //       onClickSubmit()
-  //     }
-  //   }
-  //   document.addEventListener('keydown', listener)
-  //   return () => {
-  //     document.removeEventListener('keydown', listener)
-  //   }
-  // }, [])
-
   const disabledSubmitButton = !comment
 
   return (

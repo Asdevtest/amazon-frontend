@@ -437,13 +437,19 @@ export class BuyerProductViewModel {
     try {
       await BuyerModel.updateProduct(
         this.productId,
-        getObjectFilteredByKeyArrayWhiteList(this.product, fieldsOfProductAllowedToForceUpdate, false, (key, value) => {
-          if (key === 'buyersComment' && isUndefined(value)) {
-            return ''
-          } else {
-            return value
-          }
-        }),
+        getObjectFilteredByKeyArrayWhiteList(
+          this.product,
+          fieldsOfProductAllowedToForceUpdate,
+          false,
+          (key, value) => {
+            if (key === 'buyersComment' && isUndefined(value)) {
+              return ''
+            } else {
+              return value
+            }
+          },
+          true,
+        ),
       )
 
       this.loadData()

@@ -13,6 +13,7 @@ import { UserModel } from '@models/user-model'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+import { AnnouncementsModel } from '@models/announcements-model'
 
 export class OwnerRequestDetailCustomViewModel {
   history = undefined
@@ -22,6 +23,7 @@ export class OwnerRequestDetailCustomViewModel {
   requestId = undefined
   request = undefined
   requestProposals = []
+  requestAnnouncement = undefined
   curResultMedia = []
 
   showAcceptMessage = undefined
@@ -140,8 +142,11 @@ export class OwnerRequestDetailCustomViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      this.getCustomRequestCur()
-      this.getCustomProposalsForRequestCur()
+      console.log('AYayayya')
+
+      await this.getCustomRequestCur()
+      await this.getCustomProposalsForRequestCur()
+      await this.getAnnouncementsByGuid(this.request?.request?.announcementId)
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -283,6 +288,19 @@ export class OwnerRequestDetailCustomViewModel {
       runInAction(() => {
         this.requestProposals = result
       })
+    } catch (error) {
+      console.log(error)
+      runInAction(() => {
+        this.error = error
+      })
+    }
+  }
+
+  async getAnnouncementsByGuid(guid) {
+    try {
+      const result = await AnnouncementsModel.getAnnouncementsByGuid(guid)
+
+      this.requestAnnouncement = result
     } catch (error) {
       console.log(error)
       runInAction(() => {

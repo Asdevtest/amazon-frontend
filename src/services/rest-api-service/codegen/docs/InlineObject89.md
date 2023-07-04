@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **rating** | **Number** | Поставить оценку юзеру | [optional] 
-**reason** | **String** | Комментарий причин изменения статуса. | [optional] 
-**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
+**review** | **String** | Отзыв о работе | [optional] 
+**sourceFile** | **String** | Файл для записи в FreelanceSource по этому пропоузалу | [optional] 
 
 

@@ -113,8 +113,6 @@ export const MultipleChats = observer(
 
       const findChatByChatId = filteredChats.find((chat: ChatContract) => chat._id === chatSelectedId)
 
-      console.log('findChatByChatId', findChatByChatId)
-
       return (
         <div ref={ref} className={classNames.root}>
           {
