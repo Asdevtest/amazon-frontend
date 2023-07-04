@@ -16,7 +16,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   rootTab: {
     minHeight: 0,
-    padding: '0 15px 9px',
+    padding: '9px 15px',
     fontSize: 18,
     fontWeight: 600,
     lineHeight: 1.4,

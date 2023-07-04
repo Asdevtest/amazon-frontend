@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
-    height: 'calc(100vh - 300px)',
+    height: '74vh',
     width: '100%',
   },
 

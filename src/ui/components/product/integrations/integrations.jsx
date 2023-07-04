@@ -78,6 +78,10 @@ export const Integrations = observer(({ productId }) => {
         localeText={getLocalizationByLanguageTag()}
         classes={{
           row: classNames.row,
+          root: classNames.root,
+          footerContainer: classNames.footerContainer,
+          footerCell: classNames.footerCell,
+          toolbarContainer: classNames.toolbarContainer,
         }}
         columnVisibilityModel={model.current.columnVisibilityModel}
         pageSizeOptions={[15, 25, 50, 100]}

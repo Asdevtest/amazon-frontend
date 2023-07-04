@@ -1,9 +1,10 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   wrapper: {
     width: '100%',
-    height: '80vh',
-    background: '#333',
+    padding: 40,
+    background: theme.palette.background.general,
+    borderRadius: 4,
   },
 }))

@@ -97,117 +97,142 @@ export const ProductWrapper = observer(
     return (
       <>
         {SettingsModel.languageTag && (
-          <>
-            <Tabs
-              variant={'fullWidth'}
+          <Tabs
+            variant={'fullWidth'}
+            classes={{
+              root: classNames.rootTabs,
+              indicator: classNames.indicator,
+              flexContainer: classNames.flexContainerTabs,
+            }}
+            value={tabIndex}
+            onChange={(e, value) => {
+              setTabIndex(value)
+            }}
+          >
+            <ITab
+              tooltipInfoContent={t(TranslationKey['General product information from the Amazon page'])}
+              value={tabsValues.MAIN_INFO}
+              label={t(TranslationKey['Basic information'])}
               classes={{
-                root: classNames.row,
-                indicator: classNames.indicator,
+                root: classNames.rootTab,
               }}
-              value={tabIndex}
-              onChange={(e, value) => {
-                setTabIndex(value)
-              }}
-            >
+            />
+
+            {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
               <ITab
-                tooltipInfoContent={t(TranslationKey['General product information from the Amazon page'])}
-                value={tabsValues.MAIN_INFO}
-                label={t(TranslationKey['Basic information'])}
+                tooltipInfoContent={t(TranslationKey['All orders related to this product'])}
+                label={t(TranslationKey.Orders)}
+                value={tabsValues.ORDERS}
+                classes={{
+                  root: classNames.rootTab,
+                }}
               />
+            )}
 
-              {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
-                <ITab
-                  tooltipInfoContent={t(TranslationKey['All orders related to this product'])}
-                  label={t(TranslationKey.Orders)}
-                  value={tabsValues.ORDERS}
-                />
-              )}
-
-              {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
-                <ITab
-                  tooltipInfoContent={t(TranslationKey['Goods from the store, linked to the product card'])}
-                  label={t(TranslationKey.Integrations)}
-                  value={tabsValues.INTEGRATIONS}
-                />
-              )}
-
-              {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
-                <ITab label={t(TranslationKey.Freelance)} value={tabsValues.FREELANCE} />
-              )}
-
-              {/* {!checkIsBuyer(curUserRole) && <ITab label={t(TranslationKey.Content)} value={tabsValues.LISTING} />} */}
-
-              {!checkIsResearcher(curUserRole) && (
-                <ITab
-                  label={t(TranslationKey['Suppliers and Ideas'])}
-                  value={tabsValues.SUPPLIERS_AND_IDEAS}
-                  withIcon={!!product.ideaCount}
-                />
-              )}
-
-              {checkIsAdmin(curUserRole) && <ITab label={t(TranslationKey.Management)} value={tabsValues.MANAGEMENT} />}
-            </Tabs>
-
-            <TabPanel value={tabIndex} index={tabsValues.MAIN_INFO}>
-              <TopCard
-                user={user}
-                imagesForLoad={imagesForLoad}
-                showProgress={showProgress}
-                progressValue={progressValue}
-                alertFailedText={alertFailedText}
-                curUserRole={curUserRole}
-                product={product}
-                shops={shops}
-                productBase={productBase}
-                selectedSupplier={selectedSupplier}
-                actionStatus={actionStatus}
-                acceptMessage={acceptMessage}
-                handleProductActionButtons={handleProductActionButtons}
-                formFieldsValidationErrors={formFieldsValidationErrors}
-                onChangeField={onChangeField}
-                onClickSetProductStatusBtn={onClickSetProductStatusBtn}
-                onClickSupplierBtns={handleSupplierButtons}
-                onClickSupplier={onClickSupplier}
-                onClickParseProductData={onClickParseProductData}
-                onChangeImagesForLoad={onChangeImagesForLoad}
-                onClickHsCode={onClickHsCode}
+            {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
+              <ITab
+                tooltipInfoContent={t(TranslationKey['Goods from the store, linked to the product card'])}
+                label={t(TranslationKey.Integrations)}
+                value={tabsValues.INTEGRATIONS}
+                classes={{
+                  root: classNames.rootTab,
+                }}
               />
-              {!checkIsResearcher(curUserRole) && (
-                <BottomCard
-                  curUserRole={curUserRole}
-                  product={product}
-                  productBase={productBase}
-                  formFieldsValidationErrors={formFieldsValidationErrors}
-                  onChangeField={onChangeField}
-                />
-              )}
-            </TabPanel>
+            )}
 
-            <TabPanel value={tabIndex} index={tabsValues.ORDERS}>
-              <Orders productId={product._id} showAtProcessOrders={getTab(showTab) === tabsValues.ORDERS} />
-            </TabPanel>
+            {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
+              <ITab
+                label={t(TranslationKey.Freelance)}
+                value={tabsValues.FREELANCE}
+                classes={{
+                  root: classNames.rootTab,
+                }}
+              />
+            )}
 
-            <TabPanel value={tabIndex} index={tabsValues.INTEGRATIONS}>
-              <Integrations productId={product._id} />
-            </TabPanel>
+            {/* {!checkIsBuyer(curUserRole) && <ITab label={t(TranslationKey.Content)} value={tabsValues.LISTING} />} */}
 
-            {/* <TabPanel value={tabIndex} index={tabsValues.LISTING}>
+            {!checkIsResearcher(curUserRole) && (
+              <ITab
+                label={t(TranslationKey['Suppliers and Ideas'])}
+                value={tabsValues.SUPPLIERS_AND_IDEAS}
+                withIcon={!!product.ideaCount}
+                classes={{
+                  root: classNames.rootTab,
+                }}
+              />
+            )}
+
+            {checkIsAdmin(curUserRole) && (
+              <ITab
+                label={t(TranslationKey.Management)}
+                value={tabsValues.MANAGEMENT}
+                classes={{
+                  root: classNames.rootTab,
+                }}
+              />
+            )}
+          </Tabs>
+        )}
+
+        <TabPanel value={tabIndex} index={tabsValues.MAIN_INFO}>
+          <TopCard
+            user={user}
+            imagesForLoad={imagesForLoad}
+            showProgress={showProgress}
+            progressValue={progressValue}
+            alertFailedText={alertFailedText}
+            curUserRole={curUserRole}
+            product={product}
+            shops={shops}
+            productBase={productBase}
+            selectedSupplier={selectedSupplier}
+            actionStatus={actionStatus}
+            acceptMessage={acceptMessage}
+            handleProductActionButtons={handleProductActionButtons}
+            formFieldsValidationErrors={formFieldsValidationErrors}
+            onChangeField={onChangeField}
+            onClickSetProductStatusBtn={onClickSetProductStatusBtn}
+            onClickSupplierBtns={handleSupplierButtons}
+            onClickSupplier={onClickSupplier}
+            onClickParseProductData={onClickParseProductData}
+            onChangeImagesForLoad={onChangeImagesForLoad}
+            onClickHsCode={onClickHsCode}
+          />
+          {!checkIsResearcher(curUserRole) && (
+            <BottomCard
+              curUserRole={curUserRole}
+              product={product}
+              productBase={productBase}
+              formFieldsValidationErrors={formFieldsValidationErrors}
+              onChangeField={onChangeField}
+            />
+          )}
+        </TabPanel>
+
+        <TabPanel value={tabIndex} index={tabsValues.ORDERS}>
+          <Orders productId={product._id} showAtProcessOrders={getTab(showTab) === tabsValues.ORDERS} />
+        </TabPanel>
+
+        <TabPanel value={tabIndex} index={tabsValues.INTEGRATIONS}>
+          <Integrations productId={product._id} />
+        </TabPanel>
+
+        {/* <TabPanel value={tabIndex} index={tabsValues.LISTING}>
               <Listing productId={product._id} onClickBack={() => setTabIndex(tabsValues.MAIN_INFO)} />
             </TabPanel> */}
 
-            <TabPanel value={tabIndex} index={tabsValues.FREELANCE}>
-              <Freelance productId={product._id} />
-            </TabPanel>
+        <TabPanel value={tabIndex} index={tabsValues.FREELANCE}>
+          <Freelance productId={product._id} />
+        </TabPanel>
 
-            <TabPanel value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
-              <SuppliersAndIdeas productId={product._id} product={product} />
-            </TabPanel>
+        <TabPanel value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
+          <SuppliersAndIdeas productId={product._id} product={product} />
+        </TabPanel>
 
-            <TabPanel value={tabIndex} index={tabsValues.MANAGEMENT}>
-              <Management />
-            </TabPanel>
-          </>
-        )}
+        <TabPanel value={tabIndex} index={tabsValues.MANAGEMENT}>
+          <Management />
+        </TabPanel>
       </>
     )
   },

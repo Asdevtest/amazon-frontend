@@ -14,7 +14,7 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 
 import { OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
-import { ITab } from '@components/shared/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab'
 
 import { t } from '@utils/translations'
 
@@ -57,8 +57,6 @@ export const ChatsList: FC<Props> = observer(
   ({ chats, userId, chatSelectedId, onClickChat, typingUsers, isFreelanceOwner }) => {
     const { classes: classNames } = useClassNames()
 
-    // console.log('chats', chats)
-
     const solvedChats = isFreelanceOwner
       ? useMemo(
           () =>
@@ -99,32 +97,22 @@ export const ChatsList: FC<Props> = observer(
               }}
             >
               <ITab
-                value={tabsValues.IN_WORK}
                 label={t(TranslationKey['In the work'])}
-                tooltipAttentionContent={undefined}
-                tooltipInfoContent={undefined}
-                withIcon={undefined}
+                value={tabsValues.IN_WORK}
                 classes={{
                   selected: classNames.selected,
                   root: classNames.tabRoot,
                 }}
-                textColor="primary"
               />
 
-              {
-                <ITab
-                  label={t(TranslationKey.EXECUTED_IN_PLURAL_KEY)}
-                  value={tabsValues.SOLVED}
-                  tooltipAttentionContent={undefined}
-                  tooltipInfoContent={undefined}
-                  withIcon={undefined}
-                  classes={{
-                    selected: classNames.selected,
-                    root: classNames.tabRoot,
-                  }}
-                  textColor="primary"
-                />
-              }
+              <ITab
+                label={t(TranslationKey.EXECUTED_IN_PLURAL_KEY)}
+                value={tabsValues.SOLVED}
+                classes={{
+                  selected: classNames.selected,
+                  root: classNames.tabRoot,
+                }}
+              />
             </Tabs>
 
             <TabPanel value={tabIndex} index={tabsValues.IN_WORK}>

@@ -1,16 +1,26 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
-  root: {
-    width: '100%',
-    boxShadow: 'inset 0 -1px 0 0 #E6ECF0',
+export const useClassNames = makeStyles()(theme => ({
+  rootTabs: {
+    minHeight: 0,
+    marginBottom: 10,
   },
+
   indicator: {
-    backgroundColor: '#1da1f2',
+    height: 1,
   },
-  row: {
-    width: '100%',
-    padding: '0 0px',
-    margin: '0 auto',
+
+  flexContainerTabs: {
+    gap: 20,
+  },
+
+  rootTab: {
+    minHeight: 0,
+    padding: '9px 15px',
+    fontSize: 18,
+    fontWeight: 600,
+    lineHeight: 1.4,
+    textTransform: 'none',
+    color: theme.palette.text.second,
   },
 }))
