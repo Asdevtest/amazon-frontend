@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { cx } from '@emotion/css'
-import { Box, Tabs } from '@mui/material'
+import { Tabs } from '@mui/material'
 
-import React, { FC, ReactElement, useEffect, useMemo } from 'react'
+import React, { FC, useEffect, useMemo } from 'react'
 
 import { observer } from 'mobx-react'
 
@@ -15,34 +15,17 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
 import { ITab } from '@components/shared/i-tab'
+import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
 import { ChatListItem } from './chat-list-item'
 import { useClassNames } from './chats-list.style'
 
-interface TabPanelProps {
-  children: ReactElement
-  value?: string
-  index?: string
-}
-
 const tabsValues = {
   IN_WORK: 'IN_WORK',
   SOLVED: 'SOLVED',
 }
-
-const TabPanel = ({ children, value, index, ...other }: TabPanelProps) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
-  >
-    {value === index && <Box /* paddingTop={3} */>{children}</Box>}
-  </div>
-)
 
 interface Props {
   isFreelanceOwner: boolean

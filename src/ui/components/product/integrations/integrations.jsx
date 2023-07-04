@@ -60,7 +60,7 @@ export const Integrations = observer(({ productId }) => {
             {t(TranslationKey['Bind an product from Amazon'])}
           </Button>
 
-          <Button disabled={!selectedRowIds.length} className={classNames.buttonOffset} onClick={onUnlinkSkuSProduct}>
+          <Button disabled={!selectedRowIds.length} onClick={onUnlinkSkuSProduct}>
             {t(TranslationKey['Unlink an product from Amazon'])}
           </Button>
         </div>

@@ -66,6 +66,9 @@ export const Orders = observer(({ productId, showAtProcessOrders }) => {
         localeText={getLocalizationByLanguageTag()}
         classes={{
           row: classNames.row,
+          footerContainer: classNames.footerContainer,
+          footerCell: classNames.footerCell,
+          toolbarContainer: classNames.toolbarContainer,
         }}
         columnVisibilityModel={model.current.columnVisibilityModel}
         pageSizeOptions={[15, 25, 50, 100]}

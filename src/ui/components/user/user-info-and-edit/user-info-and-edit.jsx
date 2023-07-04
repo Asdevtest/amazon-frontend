@@ -8,25 +8,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { ITab } from '@components/shared/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab'
+import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
 import { UserBalance } from './user-balance'
 import { UserEdit } from './user-edit'
 import { useClassNames } from './user-info-and-edit.style'
-
-const TabPanel = ({ children, value, index, ...other }) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
-  >
-    {value === index && <div>{children}</div>}
-  </div>
-)
 
 export const UserInfoAndEdit = observer(({ user }) => {
   const { classes: classNames } = useClassNames()

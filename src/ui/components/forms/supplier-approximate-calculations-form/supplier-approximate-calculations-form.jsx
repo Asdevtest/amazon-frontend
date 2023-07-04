@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 
-import { Box, Tabs, Typography } from '@mui/material'
+import { Tabs, Typography } from '@mui/material'
 
 import React, { useState } from 'react'
 
 import { observer } from 'mobx-react'
 
-import { ITab } from '@components/shared/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab'
+import { TabPanel } from '@components/shared/tab-panel'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -24,18 +25,6 @@ import {
   supplierWeightBasedApproximateCalculationsDataConverter,
 } from '@utils/data-grid-data-converters'
 import { SupplierWeightBasedApproximateCalculationsFormColumns } from './supplier-weight-based-approximate-calculations-form-columns'
-
-const TabPanel = ({ children, value, index, ...other }) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
-  >
-    {value === index && <Box paddingTop={3}>{children}</Box>}
-  </div>
-)
 
 const tabsValues = {
   WITHOUT_WEIGHT_LOGISTICS_TARIFF: 'WITHOUT_WEIGHT_LOGISTICS_TARIFF',

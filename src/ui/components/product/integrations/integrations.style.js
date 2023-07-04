@@ -5,17 +5,14 @@ export const useClassNames = makeStyles()(() => ({
     gap: '5px',
     width: '100%',
     flexDirection: 'column',
-    height: '74vh',
+    height: '76vh',
   },
 
   addProductBtnsWrapper: {
     width: '100%',
     display: 'flex',
-    padding: '10px',
-  },
-
-  buttonOffset: {
-    marginLeft: 20,
+    gap: 20,
+    marginBottom: 10,
   },
 
   footerContainer: {

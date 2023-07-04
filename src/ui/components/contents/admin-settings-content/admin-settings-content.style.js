@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   rootTabs: {
     minHeight: 0,
-    marginBottom: 20,
   },
 
   indicator: {

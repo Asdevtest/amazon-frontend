@@ -1,9 +1,5 @@
 import { cx } from '@emotion/css'
-import {
-  Box,
-  Tabs,
-  /* Tab, */
-} from '@mui/material'
+import { Tabs } from '@mui/material'
 
 import React, { useState } from 'react'
 
@@ -13,9 +9,10 @@ import { observer } from 'mobx-react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { ITab } from '@components/shared/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
+import { TabPanel } from '@components/shared/tab-panel'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
@@ -25,18 +22,6 @@ import { useClassNames } from './select-storkeeper-and-tariff-form.style'
 import { TotalTariffsColumns } from './total-storkeeper-and-tariff-form-columns'
 import { TotalStorkeeperAndWeightBasedTariffFormColumns } from './total-storkeeper-and-weight-based-tariff-form-columns'
 import { WeightBasedTariffFormColumns } from './weight-based-tariff-form-columns'
-
-const TabPanel = ({ children, value, index, ...other }) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
-  >
-    {value === index && <Box paddingTop={3}>{children}</Box>}
-  </div>
-)
 
 export const SelectStorekeeperAndTariffForm = observer(
   ({
