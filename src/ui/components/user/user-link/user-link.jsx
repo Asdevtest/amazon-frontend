@@ -12,7 +12,17 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { useClassNames } from './user-link.style'
 
 export const UserLink = observer(
-  ({ name, userId, blackText, withAvatar, notShowName = false, maxNameWidth, customStyles, customClassNames }) => {
+  ({
+    name,
+    userId,
+    blackText,
+    withAvatar,
+    notShowName = false,
+    maxNameWidth,
+    customStyles,
+    customClassNames,
+    customAvatarStyles = '',
+  }) => {
     const { classes: classNames } = useClassNames()
 
     const curUserId = UserModel.userId
@@ -36,7 +46,7 @@ export const UserLink = observer(
                 <Avatar
                   src={getUserAvatarSrc(userId)}
                   className={classNames.avatarWrapper}
-                  sx={{ width: 28, height: 28 }}
+                  sx={{ width: 28, height: 28, ...(customAvatarStyles && customAvatarStyles) }}
                 />
               </Tooltip>
             ) : null}

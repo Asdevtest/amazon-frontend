@@ -913,15 +913,10 @@ export class ClientOrdersViewModel {
   }
 
   onClickTableRow(order) {
-    // const win = window.open(
-    //   `/client/my-orders/orders/order?orderId=${order.originalData._id}&order-human-friendly-id=${order.originalData.id}`,
-    //   '_blank',
-    // )
-
-    // win.focus()
-
     this.history.push(
-      `/client/my-orders/orders/order?orderId=${order.originalData._id}&order-human-friendly-id=${order.originalData.id}`,
+      `/client/my-orders/${window.location.pathname.split('/').at(-1)}/order?orderId=${
+        order.originalData._id
+      }&order-human-friendly-id=${order.originalData.id}`,
     )
   }
 
