@@ -299,9 +299,9 @@ const Box = ({
                     data={
                       box.variationTariffId &&
                       currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
-                        ? destinations
-                            // .filter(el => el.storekeeper?._id !== box?.storekeeperId)
-                            .filter(el => el?._id === box?.destinationId)
+                        ? destinations.filter(
+                            el => el?._id === (box?.destinationId || box?.variationTariff?.destinationId),
+                          )
                         : destinations.filter(el => el?.storekeeper?._id !== box?.storekeeperId)
                     }
                     searchFields={['name']}
