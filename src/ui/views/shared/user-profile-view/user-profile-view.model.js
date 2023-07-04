@@ -332,4 +332,10 @@ export class ProfileViewModel {
       this[modal] = !this[modal]
     })
   }
+
+  resetProfileDataValidation() {
+    runInAction(() => {
+      this.checkValidationNameOrEmail = {}
+    })
+  }
 }
