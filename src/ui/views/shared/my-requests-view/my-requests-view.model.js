@@ -4,7 +4,6 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestStatus } from '@constants/requests/request-status'
 import { RequestSubType } from '@constants/requests/request-type'
-import { freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { RequestModel } from '@models/request-model'
@@ -37,6 +36,7 @@ const filtersFields = [
   'subUsers',
   'priority',
   'createdAt',
+  'announcementCreatedBy',
 ]
 
 export class MyRequestsViewModel {
@@ -59,7 +59,7 @@ export class MyRequestsViewModel {
 
   currentData = []
 
-  rowsCount = 0
+  rowCount = 0
 
   searchRequests = []
   openModal = null
@@ -85,7 +85,7 @@ export class MyRequestsViewModel {
   }
 
   get isSomeFilterOn() {
-    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData?.length)
   }
 
   sortModel = []
@@ -212,11 +212,11 @@ export class MyRequestsViewModel {
       this.columnVisibilityModel = model
     })
     this.setDataGridState()
+    this.getCustomRequests()
   }
 
   onClickChangeCatigory(value) {
     runInAction(() => {
-      // console.log('value', value)
       this.isRequestsAtWork = value
     })
   }
@@ -256,46 +256,63 @@ export class MyRequestsViewModel {
       this.sortModel = sortModel
     })
 
-    this.setDataGridState()
+    const clientSortColumn = sortModel.find(column => column.field === 'waitedProposals')
 
-    this.requestStatus = loadingStatuses.isLoading
-    this.getCustomRequests().then(() => {
-      this.requestStatus = loadingStatuses.success
-    })
+    if (clientSortColumn) {
+      const isAscending = clientSortColumn?.sort === 'asc'
+
+      const sortedData = [...this.currentData]?.sort((a, b) => {
+        const valueA = a?.waitedProposals
+        const valueB = b?.waitedProposals
+
+        return isAscending ? valueA - valueB : valueB - valueA
+      })
+
+      runInAction(() => {
+        this.currentData = sortedData
+      })
+
+      this.setDataGridState()
+    } else {
+      this.requestStatus = loadingStatuses.isLoading
+
+      this.getCustomRequests().then(() => {
+        this.requestStatus = loadingStatuses.success
+      })
+    }
   }
 
   getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.searchRequests)
-        .filter(
-          el =>
-            el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-            el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-            el?.humanFriendlyId?.toString().toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-        )
-        .filter(el =>
-          this.columnMenuSettings.status.currentFilterData.length
-            ? this.columnMenuSettings.status.currentFilterData.includes(el.status)
-            : el,
-        )
-        .filter(el =>
-          this.columnMenuSettings.typeTask.currentFilterData.length
-            ? this.columnMenuSettings.typeTask.currentFilterData.includes(freelanceRequestTypeByCode[el.typeTask])
-            : el,
-        )
-    } else {
-      return toJS(this.searchRequests)
-        .filter(el =>
-          this.columnMenuSettings.status.currentFilterData.length
-            ? this.columnMenuSettings.status.currentFilterData.includes(el.status)
-            : el,
-        )
-        .filter(el =>
-          this.columnMenuSettings.typeTask.currentFilterData.length
-            ? this.columnMenuSettings.typeTask.currentFilterData.includes(freelanceRequestTypeByCode[el.typeTask])
-            : el,
-        )
-    }
+    // if (this.nameSearchValue) {
+    return toJS(this.searchRequests)
+    //     .filter(
+    //       el =>
+    //         el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+    //         el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+    //         el?.humanFriendlyId?.toString().toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+    //     )
+    //     .filter(el =>
+    //       this.columnMenuSettings?.status?.currentFilterData?.length
+    //         ? this.columnMenuSettings?.status?.currentFilterData?.includes(el?.status)
+    //         : el,
+    //     )
+    //     .filter(el =>
+    //       this.columnMenuSettings?.typeTask?.currentFilterData?.length
+    //         ? this.columnMenuSettings?.typeTask?.currentFilterData?.includes(freelanceRequestTypeByCode[el?.typeTask])
+    //         : el,
+    //     )
+    // } else {
+    //   return toJS(this.searchRequests).filter(el =>
+    //     this.columnMenuSettings?.status?.currentFilterData?.length
+    //       ? this.columnMenuSettings?.status?.currentFilterData?.includes(el?.status)
+    //       : el,
+    //   )
+    // .filter(el =>
+    //   this.columnMenuSettings?.typeTask?.currentFilterData?.length
+    //     ? this.columnMenuSettings?.typeTask?.currentFilterData?.includes(freelanceRequestTypeByCode[el?.typeTask])
+    //     : el,
+    // )
+    // }
   }
 
   onHoverColumnField(field) {
@@ -465,11 +482,11 @@ export class MyRequestsViewModel {
 
   async getCustomRequests() {
     try {
-      const listingFilters = this.columnMenuSettings.onListingFiltersData
+      const listingFilters = this.columnMenuSettings?.onListingFiltersData
       const additionalFilters =
-        listingFilters.notOnListing && listingFilters.onListing
+        listingFilters?.notOnListing && listingFilters?.onListing
           ? ''
-          : `;uploadedToListing[$eq]=${listingFilters.onListing}`
+          : `;uploadedToListing[$eq]=${listingFilters?.onListing}`
 
       const result = await RequestModel.getRequests(RequestSubType.MY, {
         filters: this.getFilter() + additionalFilters,
@@ -477,12 +494,16 @@ export class MyRequestsViewModel {
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
-        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+        sortField:
+          this.sortModel?.length && this.sortModel[0]?.field !== 'waitedProposals'
+            ? this.sortModel[0]?.field
+            : 'updatedAt',
+        sortType: this.sortModel?.length ? this.sortModel[0]?.sort.toUpperCase() : 'DESC',
       })
 
       runInAction(() => {
         this.searchRequests = myRequestsDataConverter(result.rows)
+
         this.rowCount = result.count
       })
     } catch (error) {
@@ -495,33 +516,41 @@ export class MyRequestsViewModel {
 
   getFilter(exclusion) {
     const humanFriendlyIdFilter =
-      exclusion !== 'humanFriendlyId' && this.columnMenuSettings.humanFriendlyId.currentFilterData.join(',')
-    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
-    const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
-    const titleFilter = exclusion !== 'title' && this.columnMenuSettings.title.currentFilterData.join(',')
-    const typeTaskFilter = exclusion !== 'typeTask' && this.columnMenuSettings.typeTask.currentFilterData.join(',')
-    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
-    const priceFilter = exclusion !== 'price' && this.columnMenuSettings.price.currentFilterData.join(',')
-    const timeoutAtFilter = exclusion !== 'timeoutAt' && this.columnMenuSettings.timeoutAt.currentFilterData.join(',')
+      exclusion !== 'humanFriendlyId' && this.columnMenuSettings?.humanFriendlyId?.currentFilterData?.join(',')
+    const updatedAtFilter =
+      exclusion !== 'updatedAt' && this.columnMenuSettings?.updatedAt?.currentFilterData?.join(',')
+    const statusFilter = exclusion !== 'status' && this.columnMenuSettings?.status?.currentFilterData?.join(',')
+    const titleFilter = exclusion !== 'title' && this.columnMenuSettings?.title?.currentFilterData?.join(',')
+    const typeTaskFilter = exclusion !== 'typeTask' && this.columnMenuSettings?.typeTask?.currentFilterData?.join(',')
+    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings?.asin?.currentFilterData?.join(',')
+    const priceFilter = exclusion !== 'price' && this.columnMenuSettings?.price?.currentFilterData?.join(',')
+    const timeoutAtFilter =
+      exclusion !== 'timeoutAt' && this.columnMenuSettings?.timeoutAt?.currentFilterData?.join(',')
     const subUsersFilter =
       exclusion !== 'subUsers' && this.columnMenuSettings?.subUsers?.currentFilterData?.map(item => item._id)?.join(',')
     const subFilter =
-      exclusion !== 'sub' && this.columnMenuSettings.sub.currentFilterData.map(item => item._id)?.join(',')
+      exclusion !== 'sub' && this.columnMenuSettings?.sub?.currentFilterData?.map(item => item._id)?.join(',')
 
     const skusByClientFilter =
       exclusion !== 'skusByClient' &&
-      this.columnMenuSettings.skusByClient.currentFilterData /* .map(el => `"${el}"`) */
+      this.columnMenuSettings?.skusByClient?.currentFilterData /* .map(el => `"${el}"`) */
         .join(',')
     const amazonTitleFilter =
       exclusion !== 'amazonTitle' &&
-      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
+      this.columnMenuSettings?.amazonTitle?.currentFilterData?.map(el => `"${el}"`).join(',')
 
     const createdByFilter =
-      exclusion !== 'createdBy' && this.columnMenuSettings.createdBy.currentFilterData.map(item => item._id)?.join(',')
+      exclusion !== 'createdBy' &&
+      this.columnMenuSettings?.createdBy?.currentFilterData?.map(item => item._id)?.join(',')
 
-    const priorityFilter = exclusion !== 'priority' && this.columnMenuSettings.priority.currentFilterData.join(',')
+    const priorityFilter = exclusion !== 'priority' && this.columnMenuSettings?.priority?.currentFilterData?.join(',')
 
-    const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt.currentFilterData.join(',')
+    const createdAtFilter =
+      exclusion !== 'createdAt' && this.columnMenuSettings?.createdAt?.currentFilterData?.join(',')
+
+    const announcementCreatedByFilter =
+      exclusion !== 'announcementCreatedBy' &&
+      this.columnMenuSettings?.announcementCreatedBy?.currentFilterData?.map(item => item._id)?.join(',')
 
     const filter = objectToUrlQs({
       or: [
@@ -581,6 +610,10 @@ export class MyRequestsViewModel {
       }),
       ...(createdAtFilter && {
         createdAt: { $eq: createdAtFilter },
+      }),
+
+      ...(announcementCreatedByFilter && {
+        announcementCreatedBy: { $eq: announcementCreatedByFilter },
       }),
     })
 

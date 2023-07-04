@@ -28,7 +28,7 @@ export const useClassNames = makeStyles()(theme => ({
   carouselImage: {
     height: 96,
     objectFit: 'contain',
-
+    width: '100%',
     transition: '.2s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {

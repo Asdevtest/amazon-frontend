@@ -22,11 +22,10 @@ class InlineObject99 {
     /**
      * Constructs a new <code>InlineObject99</code>.
      * @alias module:model/InlineObject99
-     * @param fileLink {String} Ссылка на файл
      */
-    constructor(fileLink) { 
+    constructor() { 
         
-        InlineObject99.initialize(this, fileLink);
+        InlineObject99.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject99 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, fileLink) { 
-        obj['fileLink'] = fileLink;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,12 +47,6 @@ class InlineObject99 {
         if (data) {
             obj = obj || new InlineObject99();
 
-            if (data.hasOwnProperty('requestId')) {
-                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
-            }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
-            }
             if (data.hasOwnProperty('commentByClient')) {
                 obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
             }
@@ -64,24 +56,18 @@ class InlineObject99 {
             if (data.hasOwnProperty('fileLink')) {
                 obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
             }
+            if (data.hasOwnProperty('proposalId')) {
+                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            }
+            if (data.hasOwnProperty('requestId')) {
+                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            }
         }
         return obj;
     }
 
 
 }
-
-/**
- * Guid заявки
- * @member {String} requestId
- */
-InlineObject99.prototype['requestId'] = undefined;
-
-/**
- * Guid предложения
- * @member {String} proposalId
- */
-InlineObject99.prototype['proposalId'] = undefined;
 
 /**
  * комментарий клиента
@@ -100,6 +86,18 @@ InlineObject99.prototype['commentByPerformer'] = undefined;
  * @member {String} fileLink
  */
 InlineObject99.prototype['fileLink'] = undefined;
+
+/**
+ * Файл для записи в FreelanceSource
+ * @member {String} proposalId
+ */
+InlineObject99.prototype['proposalId'] = undefined;
+
+/**
+ * Комментарий к файлу
+ * @member {String} requestId
+ */
+InlineObject99.prototype['requestId'] = undefined;
 
 
 

@@ -47,7 +47,6 @@ export const SelectStorekeeperAndTariffForm = observer(
     onSubmit,
     inNotifications,
     total,
-    destinationsData,
     currentVariationTariffId,
     currentDestinationId,
   }) => {
@@ -166,10 +165,9 @@ export const SelectStorekeeperAndTariffForm = observer(
               }
               columns={
                 total
-                  ? TotalStorkeeperAndWeightBasedTariffFormColumns(destinationsData)
+                  ? TotalStorkeeperAndWeightBasedTariffFormColumns()
                   : WeightBasedTariffFormColumns(
                       showCheckbox,
-                      destinationsData,
                       variationTariffId,
                       currentDestinationId,
                       onClickSelectTariff,

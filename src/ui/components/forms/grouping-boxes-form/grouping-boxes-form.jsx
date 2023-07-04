@@ -32,6 +32,8 @@ import { t } from '@utils/translations'
 import { useClassNames } from './grouping-boxes-form.style'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Input } from '@components/shared/input'
+import { BigPlusIcon } from '@components/shared/svg-icons'
+import { BoxStatus } from '@constants/statuses/box-status'
 
 const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
   const { classes: classNames } = useClassNames()
@@ -359,7 +361,6 @@ const Box = ({ isNewBox, destinations, box, onChangeField, onRemoveBox, index, b
 export const GroupingBoxesForm = observer(
   ({ destinations, storekeepers, onSubmit, onCloseModal, volumeWeightCoefficient, selectedBoxes }) => {
     const { classes: classNames } = useClassNames()
-    const [newPrepIds, setNewPrepIds] = useState()
     const sourceOldBoxes = selectedBoxes.map(el => ({
       ...el,
       destinationId: el.destination?._id || null,
@@ -492,7 +493,8 @@ export const GroupingBoxesForm = observer(
       (basicBox && leftToRedistribute !== 0) ||
       JSON.stringify(oldBoxes.map(el => el.amount).sort()) === JSON.stringify(newBoxes.map(el => el.amount).sort()) ||
       // Новое условие для блокировки кнопки
-      newBoxes.some(box => box.amount === 0)
+      newBoxes.some(box => box.amount === 0) ||
+      selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK)
 
     return (
       <div className={classNames.root}>
@@ -554,7 +556,7 @@ export const GroupingBoxesForm = observer(
                       />
                     </div>
                   ))}
-                  <img src="/assets/icons/big-plus.svg" className={classNames.bigPlus} onClick={onClickAddBox} />
+                  <BigPlusIcon className={classNames.bigPlus} onClick={onClickAddBox} />
                 </div>
               ) : (
                 <Typography className={classNames.needChooseMainBox}>

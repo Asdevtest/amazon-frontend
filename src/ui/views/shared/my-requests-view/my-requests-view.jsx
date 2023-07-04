@@ -113,7 +113,7 @@ export const MyRequestsViewRaw = props => {
             pagination
             sortingMode="server"
             paginationMode="server"
-            propsToRerender={{ onHover: viewModel.onHover }}
+            propsToRerender={{ onHover: viewModel.onHover, currentData: viewModel.currentData }}
             localeText={getLocalizationByLanguageTag()}
             getCellClassName={getCellClassName}
             getRowClassName={getRowClassName}
@@ -133,7 +133,7 @@ export const MyRequestsViewRaw = props => {
             paginationModel={viewModel.paginationModel}
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
-            rows={viewModel.searchRequests}
+            rows={viewModel.currentData}
             pageSizeOptions={[15, 25, 50, 100]}
             rowHeight={130}
             slots={{

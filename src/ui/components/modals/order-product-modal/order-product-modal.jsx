@@ -1,13 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { Typography, Table, TableBody, TableCell, TableHead, TableContainer, TableRow, Checkbox } from '@mui/material'
+import { Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 
 import React, { useEffect, useState } from 'react'
 
-import { addDays, isPast, isToday, isValid } from 'date-fns'
+import { isPast, isToday, isValid } from 'date-fns'
 
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { CommentOfSbCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
@@ -75,6 +73,7 @@ export const OrderProductModal = ({
             : '',
           expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
           priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
+          deadline: reorderOrder.deadline || '',
         }))
       : selectedProductsData.map(product => ({
           ...product,
@@ -93,7 +92,6 @@ export const OrderProductModal = ({
           productId: reorderOrder.product._id,
           images: [],
           tmpBarCode: [],
-          deadline: null,
 
           destinationId: destinations.map(el => el._id).includes(reorderOrder.destination?._id)
             ? reorderOrder.destination?._id
@@ -110,6 +108,7 @@ export const OrderProductModal = ({
           expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
           priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
           _id: reorderOrder._id,
+          deadline: reorderOrder.deadline || '',
           // buyerId: reorderOrder.buyer?._id || null,
         }))
       : selectedProductsData.map(product => ({
@@ -210,11 +209,14 @@ export const OrderProductModal = ({
     order => order.storekeeperId === destinations.find(el => el._id === order.destinationId)?.storekeeper?._id,
   )
 
+  const isHaveSomeSupplier = productsForRender.some(item => item.currentSupplier)
+
   const disabledSubmit =
     orderState.some(
       (order, index) =>
-        // toFixed(calcProductsPriceWithDelivery(productsForRender[index], order), 2) <
-        //   platformSettings.orderAmountLimit ||
+        (productsForRender[index].currentSupplier &&
+          toFixed(calcProductsPriceWithDelivery(productsForRender[index], order), 2) <
+            platformSettings.orderAmountLimit) ||
         order.storekeeperId === '' ||
         order.logicsTariffId === '' ||
         Number(order.amount) <= 0 ||
@@ -227,6 +229,7 @@ export const OrderProductModal = ({
     ) ||
     storekeeperEqualsDestination ||
     // productsForRender.some(item => !item.currentSupplier) ||
+    (!isHaveSomeSupplier && productsForRender.some(order => !order.deadline)) ||
     !orderState.length ||
     submitIsClicked
 

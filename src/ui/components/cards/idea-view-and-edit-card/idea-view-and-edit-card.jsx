@@ -12,7 +12,6 @@ import { Divider, Grid, Link, Typography, IconButton, Select, InputAdornment, Me
 import React, { useEffect, useState } from 'react'
 
 import AddIcon from '@material-ui/icons/Add'
-import DeleteIcon from '@material-ui/icons/Delete'
 import { observer } from 'mobx-react'
 
 import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
@@ -43,6 +42,8 @@ import { clearEverythingExceptNumbers, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './idea-view-and-edit-card.style'
+import { useHistory } from 'react-router-dom'
+import { routsPathes } from '@constants/navigation/routs-pathes'
 
 const allowOrderStatuses = [
   `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
@@ -73,6 +74,9 @@ export const IdeaViewAndEditCard = observer(
     onClickSaveIcon,
   }) => {
     const { classes: classNames } = useClassNames()
+
+    const history = useHistory()
+    const isDisabledForAdmin = history.location.pathname === routsPathes.ADMIN_INVENTORY_PRODUCT
 
     const [linkLine, setLinkLine] = useState('')
 
@@ -233,6 +237,7 @@ export const IdeaViewAndEditCard = observer(
                   <Select
                     variant="filled"
                     value={formFields.status}
+                    disabled={isDisabledForAdmin}
                     classes={{
                       select: cx({
                         [classNames.orange]: `${formFields?.status}` === `${ideaStatusByKey[ideaStatus.ON_CHECK]}`,
@@ -378,7 +383,7 @@ export const IdeaViewAndEditCard = observer(
                         <Input
                           disabled={disableFields}
                           placeholder={t(TranslationKey['Link to the product'])}
-                          inputProps={{ maxLength: 1500 }}
+                          inputProps={{ maxLength: 510 }}
                           value={linkLine}
                           className={classNames.input}
                           onChange={e => setLinkLine(e.target.value)}

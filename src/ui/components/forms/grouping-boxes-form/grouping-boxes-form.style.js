@@ -166,7 +166,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   bigPlus: {
+    width: '67px !important',
+    height: '67px !important',
     margin: '15px 0 30px 0',
+    color: theme.palette.primary.main,
     cursor: 'pointer',
     transition: '.3s ease',
 
@@ -344,9 +347,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 5,
+    marginLeft: 24,
 
     '& > div': {
-      maxWidth: 148,
+      maxWidth: 218,
     },
   },
 

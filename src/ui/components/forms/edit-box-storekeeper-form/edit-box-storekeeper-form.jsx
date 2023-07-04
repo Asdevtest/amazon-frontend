@@ -259,13 +259,12 @@ export const EditBoxStorekeeperForm = observer(
     }
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
+
     const [destinationId, setDestinationId] = useState(boxFields?.destinationId)
 
     useEffect(() => {
       setDestinationId(boxFields?.destinationId)
     }, [boxFields?.destinationId])
-
-    console.log('boxFields', boxFields)
 
     const setFormField = fieldName => e => {
       const newFormFields = { ...boxFields }
@@ -1016,7 +1015,6 @@ export const EditBoxStorekeeperForm = observer(
         >
           <SelectStorekeeperAndTariffForm
             showCheckbox
-            destinationsData={destinations}
             storekeepers={storekeepers.filter(el => el._id === formItem?.storekeeper._id)}
             curStorekeeperId={boxFields.storekeeperId}
             curTariffId={boxFields.logicsTariffId}

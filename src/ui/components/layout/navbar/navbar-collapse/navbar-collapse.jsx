@@ -101,6 +101,13 @@ export const NavbarCollapse = ({
           </ListItemIcon>
         )
 
+      case '/freelancer/notifications/freelance-notifications':
+        return (
+          <ListItemIcon>
+            {<div className={classNames.badge}>{currentViewModel.userInfo.freelanceNotices.length}</div>}
+          </ListItemIcon>
+        )
+
       case '/client/my-orders/pending-orders':
         return <ListItemIcon>{<div className={classNames.badge}>{userInfo.pendingOrders}</div>}</ListItemIcon>
 
@@ -129,20 +136,7 @@ export const NavbarCollapse = ({
         return <ListItemIcon>{<div className={classNames.badge}>{userInfo.partiallyPaid}</div>}</ListItemIcon>
 
       case '/buyer/all-orders':
-        return (
-          <ListItemIcon>
-            {
-              <div className={classNames.badge}>
-                {userInfo.confirmationRequired +
-                  userInfo.inbound +
-                  userInfo.needTrackNumber +
-                  userInfo.notPaid +
-                  userInfo.closedAndCanceled +
-                  userInfo.readyForPayment}
-              </div>
-            }
-          </ListItemIcon>
-        )
+        return <ListItemIcon>{<div className={classNames.badge}>{userInfo.allOrders}</div>}</ListItemIcon>
 
       default:
         return null

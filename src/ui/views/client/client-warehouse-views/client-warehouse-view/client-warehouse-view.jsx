@@ -34,14 +34,9 @@ export const ClientWarehouseViewRaw = props => {
               </div>
             </Button>
 
-            <Button
-              className={classNames.button}
-              color="primary"
-              variant="outlined"
-              onClick={viewModel.onClickReadyToBatch}
-            >
+            <Button className={classNames.button} color="primary" variant="outlined" onClick={viewModel.onClickTasks}>
               <div className={classNames.btnTextWrapper}>
-                <Typography className={classNames.btnText}>{t(TranslationKey['Boxes ready to send'])}</Typography>
+                <Typography className={classNames.btnText}>{t(TranslationKey.Tasks)}</Typography>
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>

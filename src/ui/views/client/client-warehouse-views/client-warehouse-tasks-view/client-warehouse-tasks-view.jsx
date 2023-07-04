@@ -50,7 +50,13 @@ export const ClientWarehouseTasksViewRaw = props => {
   }, [])
 
   useEffect(() => {
-    setIsDisabledDownload(!viewModel.selectedBoxes?.length || viewModel.selectedBoxes?.length > 1)
+    setIsDisabledDownload(
+      !viewModel.selectedBoxes?.length ||
+        viewModel.selectedBoxes?.length > 1 ||
+        viewModel.tasksMy
+          .filter(el => viewModel.selectedBoxes.includes(el.id))
+          .some(box => box.operationType !== taskOperationTypeTranslate(TaskOperationType.RECEIVE)),
+    )
   }, [viewModel.selectedBoxes])
 
   return (

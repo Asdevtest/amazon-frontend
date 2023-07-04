@@ -6,7 +6,12 @@ import { React, useState } from 'react'
 
 import { observer } from 'mobx-react'
 
-import { inchesCoefficient, poundsCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import {
+  inchesCoefficient,
+  poundsCoefficient,
+  poundsWeightCoefficient,
+  sizesType,
+} from '@constants/configs/sizes-settings'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -822,7 +827,7 @@ export const AddOrEditSupplierModalContent = observer(
                     inputProps={{ maxLength: 10 }}
                     containerClasses={classNames.shortContainer}
                     labelClasses={classNames.normalLabel}
-                    value={toFixed(tmpSupplier.boxProperties.boxWeighGrossKg * poundsCoefficient, 2) || ''}
+                    value={toFixed(tmpSupplier.boxProperties.boxWeighGrossKg / poundsWeightCoefficient, 2) || ''}
                   />
 
                   <Field

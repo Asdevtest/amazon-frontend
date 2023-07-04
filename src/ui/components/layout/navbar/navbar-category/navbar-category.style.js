@@ -1,7 +1,7 @@
 export const styles = theme => ({
   root: {
     // position: 'relative',
-    height: 46,
+    height: 43,
     fontSize: 13,
     lineHeight: '15px',
     fontWeight: 500,

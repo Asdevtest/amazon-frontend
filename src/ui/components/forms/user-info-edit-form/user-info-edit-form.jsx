@@ -226,19 +226,6 @@ export const UserInfoEditForm = observer(
       }
     }, [formFields.oldPassword, formFields.password, formFields.confirmPassword])
 
-    // const onSubmitForm = event => {
-    //   event.preventDefault()
-    //   setSubmit(true)
-    //   !errorLowercaseLetter &&
-    //     !errorMinLength &&
-    //     !errorOneNumber &&
-    //     !errorUppercaseLetter &&
-    //     !errorMaxLength &&
-    //     !equalityError &&
-    //     !errorNoEngLetter &&
-    //     onSubmit()
-    // }
-
     const showError =
       (submit && errorLowercaseLetter) ||
       (submit && errorMinLength) ||

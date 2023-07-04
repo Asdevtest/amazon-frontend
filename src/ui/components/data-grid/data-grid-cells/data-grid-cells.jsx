@@ -41,6 +41,15 @@ import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
 import { mapTaskOperationTypeKeyToEnum, TaskOperationType } from '@constants/task/task-operation-type'
 import { mapTaskStatusEmumToKey, TaskStatus, TaskStatusTranslate } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
+import { tariffTypes } from '@constants/keys/tariff-types'
+import { UiTheme } from '@constants/theme/themes'
+import {
+  getConversion,
+  getWeightSizesType,
+  inchesCoefficient,
+  poundsWeightCoefficient,
+} from '@constants/configs/sizes-settings'
+import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
 
 import { BigImagesModal } from '@components/modals/big-images-modal'
 import { Button } from '@components/shared/buttons/button'
@@ -55,6 +64,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { BoxArrow, ClockIcon, CubeIcon, EditIcon, EqualIcon, PlusIcon, SaveIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
+import { PrioritySelect } from '@components/shared/priority-select/priority-select'
 
 import {
   calcFinalWeightForBox,
@@ -88,15 +98,8 @@ import {
 import { t } from '@utils/translations'
 
 import { styles } from './data-grid-cells.style'
-import {
-  getConversion,
-  getWeightSizesType,
-  inchesCoefficient,
-  poundsWeightCoefficient,
-} from '@constants/configs/sizes-settings'
-import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
-import { PrioritySelect } from '@components/shared/priority-select/priority-select'
-import { tariffTypes } from '@constants/keys/tariff-types'
+
+import { SettingsModel } from '@models/settings-model'
 
 export const UserCell = React.memo(
   withStyles(
@@ -526,7 +529,9 @@ export const ManyUserLinkCell = React.memo(
   withStyles(({ classes: classNames, usersData }) => {
     return (
       <div
-        className={cx(classNames.manyUserLinkWrapper, { [classNames.manyUserLinkWrapperStart]: usersData.length >= 5 })}
+        className={cx(classNames.manyUserLinkWrapper, {
+          [classNames.manyUserLinkWrapperStart]: usersData?.length >= 5,
+        })}
       >
         {usersData?.map(user => (
           <UserLink
@@ -678,6 +683,7 @@ export const ChangeInputCommentCell = React.memo(
       rowsCount,
       fieldName,
       placeholder,
+      disableMultiline,
     }) => {
       const [value, setValue] = useState(text)
       const [isEdited, setIsEdited] = useState(false)
@@ -691,7 +697,7 @@ export const ChangeInputCommentCell = React.memo(
       return (
         <div className={classNames.ChangeInputCommentCellWrapper}>
           <Input
-            multiline
+            multiline={!disableMultiline}
             autoFocus={false}
             minRows={rowsCount ?? 2}
             maxRows={rowsCount ?? 2}
@@ -848,9 +854,15 @@ export const NormDateWithParseISOCell = React.memo(
 
 export const OrderCell = React.memo(
   withStyles(
-    ({ classes: classNames, product, superbox, box, error, withoutSku, itemAmount, withQuantity }) => (
+    ({ classes: classNames, product, superbox, box, error, withoutSku, itemAmount, withQuantity, imageSize }) => (
       <div className={classNames.order}>
-        <img alt="" src={getAmazonImageUrl(product?.images[0])} className={classNames.orderImg} />
+        <img
+          src={getAmazonImageUrl(product?.images[0])}
+          alt="product"
+          className={cx(classNames.orderImg, {
+            [classNames.orderImageBig]: imageSize === 'big',
+          })}
+        />
         <div>
           <Typography className={classNames.orderTitle}>{product?.amazonTitle}</Typography>
           <div className={classNames.copyAsin}>
@@ -1120,10 +1132,11 @@ export const WarehouseTariffDatesCell = React.memo(
 export const TaskPriorityCell =
   /* React.memo( */
   withStyles(
-    ({ classes: classNames, curPriority, onChangePriority, taskId }) => (
+    ({ classes: classNames, curPriority, onChangePriority, taskId, disabled }) => (
       <PrioritySelect
         setCurrentPriority={priority => onChangePriority(taskId, priority)}
         currentPriority={curPriority}
+        disabled={disabled}
       />
     ),
     styles,
@@ -1258,7 +1271,7 @@ export const RenderFieldValueCell = React.memo(
 
 export const BatchTrackingCell = React.memo(
   withStyles(
-    ({ classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled }) => (
+    ({ classes: classNames, rowHandlers, id, trackingNumber, arrivalDate, disabled, disableMultilineForTrack }) => (
       <div className={classNames.batchTrackingWrapper}>
         <Field
           containerClasses={cx(classNames.batchTrackingContainer)}
@@ -1266,6 +1279,7 @@ export const BatchTrackingCell = React.memo(
           labelClasses={classNames.batchTrackingTitle}
           inputComponent={
             <ChangeInputCommentCell
+              disableMultiline={disableMultilineForTrack}
               disabled={disabled}
               id={id}
               rowsCount={1}
@@ -1750,7 +1764,7 @@ export const MultilineRequestStatusCell = React.memo(
 
     const colorByStatus = () => {
       if ([RequestStatus.DRAFT].includes(status)) {
-        return '#006CFF'
+        return SettingsModel.uiTheme === UiTheme.light ? '#007bff' : '#4CA1DE'
       } else if (
         [
           RequestStatus.CANCELED_BY_CREATOR,
@@ -1993,9 +2007,9 @@ export const FourMonthesStockCell = React.memo(
 
 export const CommentUsersCell = React.memo(
   withStyles(
-    ({ classes: classNames, handler, id, comment }) => (
+    ({ classes: classNames, handler, id, comment, maxLength }) => (
       <div className={classNames.CommentUsersCellWrapper}>
-        <ChangeInputCommentCell id={id} text={comment} onClickSubmit={handler} />
+        <ChangeInputCommentCell id={id} text={comment} maxLength={maxLength || 128} onClickSubmit={handler} />
       </div>
     ),
     styles,
@@ -2152,9 +2166,14 @@ export const ToFixedWithDollarSignCell = React.memo(
 
 export const SuccessActionBtnCell = React.memo(
   withStyles(
-    ({ classes: classNames, onClickOkBtn, bTnText, tooltipText, isFirstRow }) => (
+    ({ classes: classNames, onClickOkBtn, bTnText, tooltipText, isFirstRow, smallActionBtn }) => (
       <div className={classNames.successActionBtnWrapper}>
-        <Button success tooltipInfoContent={isFirstRow && tooltipText} onClick={onClickOkBtn}>
+        <Button
+          success
+          tooltipInfoContent={isFirstRow && tooltipText}
+          className={cx(classNames.actionBtn, { [classNames.smallActionBtn]: smallActionBtn })}
+          onClick={onClickOkBtn}
+        >
           {bTnText}
         </Button>
       </div>
@@ -2368,7 +2387,7 @@ export const SuperboxQtyCell = React.memo(
 )
 
 export const OrderManyItemsCell = React.memo(
-  withStyles(({ classes: classNames, box, error, withoutSku }) => {
+  withStyles(({ classes: classNames, box, error, withoutSku, imageSize }) => {
     const isEqualsItems = box.items.every(el => el.product._id === box.items[0].product._id)
 
     const renderProductInfo = () => (
@@ -2378,7 +2397,9 @@ export const OrderManyItemsCell = React.memo(
             <img
               alt=""
               src={item.product.images[0] && getAmazonImageUrl(item.product.images[0])}
-              className={classNames.orderImg}
+              className={cx(classNames.orderImg, {
+                [classNames.orderImageBig]: imageSize === 'big',
+              })}
             />
             <div>
               <Typography className={classNames.manyItemsOrderTitle}>{item.product.amazonTitle}</Typography>

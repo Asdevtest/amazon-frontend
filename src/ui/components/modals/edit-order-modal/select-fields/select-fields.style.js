@@ -306,6 +306,7 @@ export const useClassNames = makeStyles()(theme => ({
   formItem: {
     width: '100%',
     display: 'flex',
+    alignItems: 'start',
     justifyContent: 'space-between',
     margin: 0,
     gap: 30,

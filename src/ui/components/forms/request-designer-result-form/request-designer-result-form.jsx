@@ -7,7 +7,7 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ModeOutlinedIcon from '@mui/icons-material/ModeOutlined'
-import { Accordion, AccordionDetails, AccordionSummary, Typography, Avatar, Tooltip, Zoom } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Avatar, Tooltip, Typography, Zoom } from '@mui/material'
 
 import React, { useCallback, useState } from 'react'
 
@@ -457,7 +457,10 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
                 index={index}
                 imagesData={imagesData}
                 setImagesData={setImagesData}
-                setCurImageId={setCurImageId}
+                setCurImageId={id => {
+                  console.log('id:', id)
+                  setCurImageId(id)
+                }}
                 setShowImageModal={setShowImageModal}
                 showImageModal={showImageModal}
                 isRework={isRework}
@@ -515,37 +518,38 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, request, setOpe
           onSave={onClickEditImageSubmit}
         />
       </Modal>
+      {showImageModal && (
+        <BigObjectImagesModal
+          isRedImageComment
+          openModal={showImageModal}
+          setOpenModal={() => setShowImageModal(!showImageModal)}
+          imagesData={imagesData.map(el => ({ ...el, imageComment: el?.commentByClient || '' }))}
+          curImageId={curImageId}
+          renderBtns={() => (
+            <>
+              <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickEditImage()}>
+                <ModeOutlinedIcon />
+              </Button>
 
-      <BigObjectImagesModal
-        isRedImageComment
-        openModal={showImageModal}
-        setOpenModal={() => setShowImageModal(!showImageModal)}
-        imagesData={imagesData.map(el => ({ ...el, imageComment: el?.commentByClient || '' }))}
-        curImageId={curImageId}
-        renderBtns={() => (
-          <>
-            <Button className={cx(classNames.imagesModalBtn)} onClick={() => onClickEditImage()}>
-              <ModeOutlinedIcon />
-            </Button>
+              <Button className={cx(classNames.imagesModalBtn)}>
+                <AutorenewIcon />
+                <input
+                  multiple
+                  type={'file'}
+                  className={classNames.pasteInput}
+                  defaultValue={''}
+                  onChange={onUploadFile(curImageId)}
+                />
+              </Button>
 
-            <Button className={cx(classNames.imagesModalBtn)}>
-              <AutorenewIcon />
-              <input
-                multiple
-                type={'file'}
-                className={classNames.pasteInput}
-                defaultValue={''}
-                onChange={onUploadFile(curImageId)}
-              />
-            </Button>
-
-            <Button danger className={cx(classNames.imagesModalBtn)} onClick={onClickRemoveImageObj}>
-              <DeleteOutlineOutlinedIcon />
-            </Button>
-          </>
-        )}
-        setCurImageId={setCurImageId}
-      />
+              <Button danger className={cx(classNames.imagesModalBtn)} onClick={onClickRemoveImageObj}>
+                <DeleteOutlineOutlinedIcon />
+              </Button>
+            </>
+          )}
+          setCurImageId={setCurImageId}
+        />
+      )}
     </div>
   )
 }

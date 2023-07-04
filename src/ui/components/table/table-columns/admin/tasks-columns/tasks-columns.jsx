@@ -22,7 +22,6 @@ export const adminTasksViewColumns = handlers => [
 
     width: 110,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    // type: 'date',
   },
 
   {
@@ -39,7 +38,7 @@ export const adminTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 850,
+    width: 330,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
@@ -51,6 +50,7 @@ export const adminTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
     width: 180,
+    align: 'center',
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
@@ -62,10 +62,11 @@ export const adminTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 190,
+    align: 'center',
     renderCell: params => (
       <NormalActionBtnCell
         bTnText={t(TranslationKey['View more'])}
-        onClickOkBtn={handlers.setCurrentOpenedTask(params.row.originalData)}
+        onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row.originalData)}
       />
     ),
     filterable: false,
@@ -77,6 +78,7 @@ export const adminTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 130,
+    align: 'center',
     renderCell: params => <TaskStatusCell status={params.value} />,
   },
 ]

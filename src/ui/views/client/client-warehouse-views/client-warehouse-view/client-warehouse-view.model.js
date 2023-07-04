@@ -18,9 +18,9 @@ export class ClientWarehouseViewModel {
     })
   }
 
-  onClickReadyToBatch() {
+  onClickTasks() {
     this.history.push({
-      pathname: '/client/warehouse/boxes-ready-to-batch',
+      pathname: '/client/warehouse/tasks',
     })
   }
 }
