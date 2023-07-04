@@ -50,7 +50,7 @@ interface Props {
   children: ReactElement
 }
 
-export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen, lastCrumbAdditionalText }) => {
+export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen }) => {
   const history = useHistory()
   const location = useLocation()
   const { classes: classNames } = useClassNames()
@@ -124,10 +124,10 @@ export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen, las
   }, [snackNotifications])
 
   useEffect(() => {
-    if (lastCrumbAdditionalText !== undefined) {
-      localStorage.setItem('last', lastCrumbAdditionalText)
+    if (SettingsModel.lastCrumbAdditionalText !== undefined) {
+      localStorage.setItem('last', SettingsModel.lastCrumbAdditionalText)
     }
-  }, [lastCrumbAdditionalText])
+  }, [SettingsModel.lastCrumbAdditionalText])
 
   const savedLastCrumbAdditionalText = localStorage.getItem('last')
 
@@ -360,7 +360,7 @@ export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen, las
 
         <div className={classNames.breadCrumbsWrapper}>
           <BreadCrumbsLine
-            lastCrumbAdditionalText={lastCrumbAdditionalText}
+            lastCrumbAdditionalText={SettingsModel.lastCrumbAdditionalText}
             savedLastCrumbAdditionalText={savedLastCrumbAdditionalText}
           />
         </div>
