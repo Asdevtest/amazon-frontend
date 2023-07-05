@@ -186,7 +186,7 @@ export const UploadFilesInput = observer(props => {
         {/*     } */}
         {/*   /> */}
         {/* ) : ( */}
-        {/*   <Typography className={classNames.attachFiles}>{t(TranslationKey['Attach files to the ad'])}</Typography> */}
+        {/*   <Typography className={classNames.attachFiles}>{t(TranslationKey['Attach files'])}</Typography> */}
         {/* )} */}
 
         <ImageUploading
@@ -251,9 +251,7 @@ export const UploadFilesInput = observer(props => {
                   )}
 
                   {!minimized && !withoutLinks && (
-                    <Typography className={classNames.attachFiles}>
-                      {t(TranslationKey['Attach files to the ad'])}
-                    </Typography>
+                    <Typography className={classNames.attachFiles}>{t(TranslationKey['Attach files'])}</Typography>
                   )}
 
                   <button

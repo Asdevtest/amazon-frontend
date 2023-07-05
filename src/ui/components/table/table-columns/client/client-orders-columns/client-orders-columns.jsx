@@ -107,7 +107,6 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
       <>
         {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
           <NormalActionBtnCell
-            smallActionBtn
             bTnText={t(TranslationKey['Repeat order'])}
             onClickOkBtn={e => {
               e.stopPropagation()
@@ -116,7 +115,6 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
           />
         ) : (
           <SuccessActionBtnCell
-            smallActionBtn
             bTnText={t(TranslationKey['To order'])}
             onClickOkBtn={e => {
               e.stopPropagation()

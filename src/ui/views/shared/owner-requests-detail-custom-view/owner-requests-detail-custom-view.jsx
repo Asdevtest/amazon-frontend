@@ -58,8 +58,9 @@ export const OwnerRequestDetailCustomViewRaw = props => {
       <MainContent>
         {viewModel.request ? (
           <OwnerGeneralRequestInfo
-            requestProposals={viewModel.requestProposals}
             request={viewModel.request}
+            requestProposals={viewModel.requestProposals}
+            requestAnnouncement={viewModel.requestAnnouncement}
             onClickPublishBtn={viewModel.onClickPublishBtn}
             onClickEditBtn={viewModel.onClickEditBtn}
             onClickCancelBtn={viewModel.onClickCancelBtn}

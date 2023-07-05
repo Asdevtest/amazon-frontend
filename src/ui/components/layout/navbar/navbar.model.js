@@ -13,6 +13,11 @@ export class NavbarModel {
   showWarningModal = false
   showConfirmModal = false
 
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+  }
+
   confirmModalSettings = {
     isWarning: false,
     confirmTitle: '',
@@ -46,9 +51,35 @@ export class NavbarModel {
       await OtherModel.sendFeedback({ text: comment, media: this.readyImages })
       this.onTriggerOpenModal('showFeedbackModal')
 
-      this.onTriggerOpenModal('showWarningModal')
+      runInAction(() => {
+        this.alertShieldSettings = {
+          showAlertShield: true,
+          alertShieldMessage: `${t(TranslationKey['Your message has been sent'])}.
+          ${t(TranslationKey['Thank you for your feedback'])}!`,
+        }
+      })
+
+      setTimeout(() => {
+        this.alertShieldSettings = {
+          ...this.alertShieldSettings,
+          showAlertShield: false,
+        }
+
+        setTimeout(() => {
+          this.resetAlertShieldSettings()
+        }, 1000)
+      }, 3000)
+
+      // this.onTriggerOpenModal('showWarningModal')
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  resetAlertShieldSettings() {
+    this.alertShieldSettings = {
+      showAlertShield: false,
+      alertShieldMessage: '',
     }
   }
 

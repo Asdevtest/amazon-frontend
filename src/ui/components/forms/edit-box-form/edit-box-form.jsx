@@ -44,6 +44,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
 import { tariffTypes } from '@constants/keys/tariff-types'
+import { BoxStatus } from '@constants/statuses/box-status'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 const WarehouseDemensions = ({ orderBox, sizeSetting }) => {
@@ -185,6 +186,7 @@ export const EditBoxForm = observer(
     }
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
+
     const [destinationId, setDestinationId] = useState(boxFields?.destinationId)
 
     useEffect(() => {
@@ -252,7 +254,9 @@ export const EditBoxForm = observer(
       ((boxFields.shippingLabel || boxFields.tmpShippingLabel.length) &&
         !boxFields.fbaShipment &&
         !destinations.find(el => el._id === boxFields.destinationId)?.storekeeper) ||
-      (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason?.length)
+      (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] &&
+        !priorityReason?.length) ||
+      boxFields.status !== BoxStatus.IN_STOCK
     // !boxFields.destination?.storekeeperId)
 
     const curDestination = destinations.find(el => el._id === boxFields.destinationId)
