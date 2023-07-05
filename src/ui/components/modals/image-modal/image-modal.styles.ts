@@ -31,7 +31,7 @@ export const useImageModalStyles = makeStyles()(theme => ({
     borderRadius: '4px',
     cursor: 'pointer',
     maxWidth: 193,
-    width: 'fit-content',
+    width: '100%',
 
     img: {
       width: '75px',
@@ -42,6 +42,25 @@ export const useImageModalStyles = makeStyles()(theme => ({
     p: {
       overflowWrap: 'anywhere',
     },
+  },
+
+  imagesListItemTitle: {
+    fontWeight: 600,
+    fontSize: 14,
+    minHeight: 20,
+  },
+
+  imagesListItemComment: {
+    fontSize: 14,
+    color: theme.palette.text.second,
+    wordBreak: 'break-word',
+  },
+
+  shortText: {
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    maxWidth: 100,
   },
 
   imagesListItemActive: {

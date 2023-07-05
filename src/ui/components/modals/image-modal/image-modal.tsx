@@ -9,6 +9,7 @@ import { Button } from '@components/shared/buttons/button'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import ZoomOutMapOutlinedIcon from '@mui/icons-material/ZoomOutMapOutlined'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
+import { getShortenStringIfLongerThanCount } from '@utils/text'
 
 export type ImageObjectType = Record<string, unknown>
 
@@ -16,29 +17,33 @@ interface ImageModalProps {
   isOpenModal: boolean
   handleOpenModal: () => void
   imageList: string[] | ImageObjectType[]
-  imageKey?: string
   currentImageIndex: number
   handleCurrentImageIndex: (index: number) => void
   showPreviews?: boolean
   getImageTitle?: (index: number, image: string | ImageObjectType) => string
   getImageComment?: (index: number, image: string | ImageObjectType) => string
+  getImageUrl?: (index: number, image: string | ImageObjectType) => string
   controls?: (index: number, image: string | ImageObjectType) => ReactNode
 }
 
 export const ImageModal = (props: ImageModalProps) => {
   const { classes: styles } = useImageModalStyles()
   const [isZoomActive, setIsZoomActive] = useState<boolean>(false)
-  const [zoomImage, setZoomImage] = useState<string | ImageObjectType | null>(null)
-  console.log(props.imageList)
+  const [zoomImage, setZoomImage] = useState<string | null>(null)
+
   const onClickDownloadBtn = (image: string | ImageObjectType) => {
-    typeof image === 'string' ? downloadFileByLink(image) : downloadFile(image.file)
+    typeof image === 'string'
+      ? downloadFileByLink(image)
+      : image.image
+      ? downloadFileByLink(image.image)
+      : downloadFile(image.file)
   }
 
   const onClickZoomBtn = () => {
     if (typeof props.imageList[props.currentImageIndex] === 'string') {
       setZoomImage(getAmazonImageUrl(props.imageList[props.currentImageIndex], true))
-    } else {
-      setZoomImage(props.imageList[props.currentImageIndex])
+    } else if (props?.getImageUrl?.(props.currentImageIndex, props.imageList[props.currentImageIndex]) !== undefined) {
+      setZoomImage(props.getImageUrl(props.currentImageIndex, props.imageList[props.currentImageIndex]))
     }
 
     setIsZoomActive(true)
@@ -73,14 +78,25 @@ export const ImageModal = (props: ImageModalProps) => {
                       image
                         ? typeof image === 'string'
                           ? getAmazonImageUrl(image, true)
-                          : image[props.imageKey!]
+                          : props.getImageUrl?.(index, image) ?? '/assets/img/no-photo.jpg'
                         : '/assets/img/no-photo.jpg'
                     }
                     alt="Image"
                   />
-                  {props.getImageTitle && (
+
+                  {(props.getImageTitle || props.getImageComment) && (
                     <div>
-                      <Typography>{props.getImageTitle(index, image)}</Typography>
+                      {props.getImageTitle && (
+                        <Typography className={cx(styles.imagesListItemTitle, styles.shortText)}>
+                          {props.getImageTitle(index, image)}
+                        </Typography>
+                      )}
+
+                      {props.getImageComment && (
+                        <Typography className={styles.imagesListItemComment}>
+                          {getShortenStringIfLongerThanCount(props.getImageComment(index, image), 20)}
+                        </Typography>
+                      )}
                     </div>
                   )}
                 </div>
@@ -91,10 +107,11 @@ export const ImageModal = (props: ImageModalProps) => {
         {/* Slider */}
 
         <div className={styles.body}>
-          <Typography className={styles.title}>
-            {props?.getImageTitle &&
-              props.getImageTitle(props.currentImageIndex, props.imageList[props.currentImageIndex])}
-          </Typography>
+          {props.getImageTitle && (
+            <Typography className={styles.title}>
+              {props.getImageTitle(props.currentImageIndex, props.imageList[props.currentImageIndex]) || ''}
+            </Typography>
+          )}
 
           <div className={styles.slider}>
             {!!props.imageList?.length && (
@@ -111,7 +128,7 @@ export const ImageModal = (props: ImageModalProps) => {
                         el
                           ? typeof el === 'string'
                             ? getAmazonImageUrl(el, true)
-                            : el[props.imageKey!]
+                            : props.getImageUrl?.(index, el) ?? '/assets/img/no-photo.jpg'
                           : '/assets/img/no-photo.jpg'
                       }
                       loading="lazy"
@@ -128,7 +145,7 @@ export const ImageModal = (props: ImageModalProps) => {
           <div className={styles.info}>
             {props.getImageComment && (
               <Typography className={styles.comment}>
-                {props.getImageComment(props.currentImageIndex, props.imageList[props.currentImageIndex])}
+                {props.getImageComment(props.currentImageIndex, props.imageList[props.currentImageIndex]) || ''}
               </Typography>
             )}
             <Typography className={styles.currentSlide} color="primary">
@@ -162,11 +179,7 @@ export const ImageModal = (props: ImageModalProps) => {
         isWarning={false}
         dialogContextClassName={styles.zoomModal}
       >
-        <img
-          className={styles.zoomModalImage}
-          src={typeof zoomImage !== 'string' ? (zoomImage?.[props.imageKey!] as string) : zoomImage}
-          alt="Zoom"
-        />
+        <img className={styles.zoomModalImage} src={zoomImage || '/assets/img/no-photo.jpg'} alt="Zoom" />
       </Modal>
     </Modal>
   )

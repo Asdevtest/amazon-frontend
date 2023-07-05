@@ -4,17 +4,15 @@
 import { cx } from '@emotion/css'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
-import { Link, Typography, Avatar, Checkbox, ClickAwayListener, Menu, Tooltip } from '@mui/material'
+import { Avatar, Checkbox, ClickAwayListener, Link, Menu, Tooltip, Typography } from '@mui/material'
 import Zoom from '@mui/material/Zoom'
 
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { nanoid } from 'nanoid'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { BigObjectImagesModal } from '@components/modals/big-object-images-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
@@ -28,6 +26,7 @@ import { t } from '@utils/translations'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
 import { useClassNames } from './request-designer-result-client-form.style'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 const Slot = ({
   item,
@@ -192,7 +191,7 @@ export const RequestDesignerResultClientForm = ({
   // console.log('userInfo', userInfo)
 
   const isNotClient =
-    userInfo._id !== request.request?.createdBy?._id && userInfo.masterUser?._id !== request.request?.createdBy?._id
+    userInfo._id !== request?.request?.createdBy?._id && userInfo.masterUser?._id !== request?.request?.createdBy?._id
 
   const proposalIsAccepted = [
     RequestProposalStatus.ACCEPTED_BY_CLIENT,
@@ -205,6 +204,7 @@ export const RequestDesignerResultClientForm = ({
   const [showImageModal, setShowImageModal] = useState(false)
 
   const [curImageId, setCurImageId] = useState(null)
+  const [curImageIndex, setCurImageIndex] = useState(0)
 
   const [comment, setComment] = useState('')
 
@@ -219,6 +219,11 @@ export const RequestDesignerResultClientForm = ({
   }))
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
+  const [filteredImages, setFilteredImages] = useState([])
+
+  useEffect(() => {
+    setFilteredImages(imagesData.filter(el => !!el.image && checkIsImageLink(el.image?.file?.name || el.image)))
+  }, [imagesData])
 
   const onChangeImageFileds = (field, imageId) => event => {
     const findImage = { ...imagesData.find(el => el._id === imageId) }
@@ -368,7 +373,10 @@ export const RequestDesignerResultClientForm = ({
             showImageModal={showImageModal}
             setShowImageModal={setShowImageModal}
             index={index}
-            setCurImageId={setCurImageId}
+            setCurImageId={id => {
+              setCurImageId(id)
+              setCurImageIndex(filteredImages.findIndex(el => el._id === id))
+            }}
             imagesForDownload={imagesForDownload}
             onClickAddDownload={onClickAddDownload}
             onChangeImageFileds={onChangeImageFileds}
@@ -582,12 +590,22 @@ export const RequestDesignerResultClientForm = ({
         </Button>
       </div>
 
-      <BigObjectImagesModal
-        openModal={showImageModal}
-        setOpenModal={() => setShowImageModal(!showImageModal)}
-        imagesData={imagesData.map(el => ({ ...el, imageComment: el.commentByClient || '' }))}
-        curImageId={curImageId}
-        setCurImageId={setCurImageId}
+      <ImageModal
+        showPreviews
+        isOpenModal={showImageModal}
+        handleOpenModal={() => setShowImageModal(!showImageModal)}
+        imageList={filteredImages?.map(el => ({ ...el, imageComment: el.commentByClient || '' }))}
+        currentImageIndex={curImageIndex}
+        handleCurrentImageIndex={index => setCurImageIndex(index)}
+        getImageTitle={(index, item) => item?.comment}
+        getImageComment={(index, image) => image?.imageComment}
+        getImageUrl={(index, image) => {
+          return typeof image?.image === 'string'
+            ? image?.image
+            : image?.image?.file.type.includes('image')
+            ? image?.image?.data_url
+            : '/assets/icons/file.png'
+        }}
       />
     </div>
   )
