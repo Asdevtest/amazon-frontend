@@ -138,15 +138,15 @@ export const SupervisorProductsViewRaw = props => {
               <span className={classNames.badge}>{viewModel.userInfo[el.userInfoKey]}</span>
             </Button>
           ))}
-
-          <div className={classNames.searchInputWrapper}>
-            <SearchInput
-              inputClasses={classNames.searchInput}
-              value={viewModel.nameSearchValue}
-              placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-              onChange={viewModel.onChangeNameSearchValue}
-            />
-          </div>
+        </div>
+        <div className={classNames.searchInputWrapper}>
+          <SearchInput
+            inputClasses={classNames.searchInput}
+            value={viewModel.nameSearchValue}
+            placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+            onChange={viewModel.onChangeNameSearchValue}
+            onSubmit={viewModel.onSearchSubmit}
+          />
         </div>
         <div className={classNames.dataGridWrapper}>
           <MemoDataGrid
