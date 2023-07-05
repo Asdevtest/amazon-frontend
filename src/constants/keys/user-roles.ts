@@ -51,4 +51,6 @@ export const UserRolePrettyMap = {
   60: 'Moderator',
 }
 
+export const UserRolesForAdminProductBindingChange = [40, 10, 30, 20]
+
 export const mapUserRoleEnumToKey = objectFlip(UserRoleCodeMap, parseInt)

@@ -19,50 +19,17 @@ export const useClassNames = makeStyles()(theme => ({
 
   selectsWrapper: {
     marginTop: 30,
-  },
-
-  selectWrapper: {
-    width: 200,
     display: 'flex',
-    flexDirection: 'column',
-    gap: 5,
-  },
+    alignItems: 'flex-end',
+    flexWrap: 'wrap',
+    gap: 90,
 
-  subtitleClient: {
-    margin: 0,
-    color: theme.palette.text.second,
-    fontSize: 14,
-    lineHeight: '19px',
-  },
-
-  selectContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 10,
-  },
-
-  select: {
-    width: 216,
-    height: 40,
-    padding: '6px 10px',
-
-    '& > div': {
-      padding: 0,
+    [theme.breakpoints.down(1282)]: {
+      gap: 40,
     },
-  },
 
-  saveIcon: {
-    color: theme.palette.primary.main,
-    cursor: 'pointer',
-  },
-
-  disableSelect: {
-    background: theme.palette.input.customDisabled,
-    cursor: 'default',
-  },
-
-  disableIcon: {
-    color: theme.palette.input.customDisabled,
-    cursor: 'default',
+    [theme.breakpoints.down(768)]: {
+      gap: 20,
+    },
   },
 }))
