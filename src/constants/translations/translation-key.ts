@@ -1997,6 +1997,7 @@ export enum TranslationKey {
   'Announcement creator' = 'Announcement creator',
   'Attach files' = 'Attach files',
   'You' = 'You',
+  'It is possible to work without confirmation' = 'It is possible to work without confirmation',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
   // '' = '',
   // '' = '',
