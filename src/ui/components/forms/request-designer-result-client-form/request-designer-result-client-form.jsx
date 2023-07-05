@@ -197,7 +197,7 @@ export const RequestDesignerResultClientForm = ({
     RequestProposalStatus.ACCEPTED_BY_CLIENT,
     RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST,
     RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
-  ].includes(proposal.proposal.status)
+  ].includes(proposal?.proposal?.status)
 
   const noShowActions = isNotClient || proposalIsAccepted || onlyRead
 
@@ -302,7 +302,7 @@ export const RequestDesignerResultClientForm = ({
         <div className={classNames.titleWrapper}>
           <Typography className={cx(classNames.headerLabel)}>{`${t(TranslationKey['Request result'])} /`}</Typography>
 
-          <Typography className={cx(classNames.headerLabel)}>{`ID ${request.request.humanFriendlyId}`}</Typography>
+          <Typography className={cx(classNames.headerLabel)}>{`ID ${request?.request?.humanFriendlyId}`}</Typography>
         </div>
         <div className={classNames.headerRightSubWrapper}>
           <Field
@@ -310,7 +310,7 @@ export const RequestDesignerResultClientForm = ({
             label={t(TranslationKey['Source Files'])}
             containerClasses={classNames.containerField}
             inputComponent={
-              proposal.proposal.sourceFiles?.[0]?.sourceFile ? (
+              proposal?.proposal?.sourceFiles?.[0]?.sourceFile ? (
                 <div className={classNames.viewLinkWrapper}>
                   <Link href={checkAndMakeAbsoluteUrl(proposal.proposal.sourceFiles?.[0]?.sourceFile)} target="_blank">
                     {t(TranslationKey.View)}
@@ -354,9 +354,9 @@ export const RequestDesignerResultClientForm = ({
                 <a
                   target="_blank"
                   rel="noreferrer"
-                  href={`https://www.amazon.com/dp/${proposal?.request?.asin || request.request.asin}`}
+                  href={`https://www.amazon.com/dp/${proposal?.request?.asin || request?.request?.asin}`}
                 >
-                  <span className={classNames.linkSpan}>{proposal?.request?.asin || request.request.asin}</span>
+                  <span className={classNames.linkSpan}>{proposal?.request?.asin || request?.request?.asin}</span>
                 </a>
               </Typography>
             }

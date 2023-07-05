@@ -145,7 +145,7 @@ export const ImageModal = (props: ImageModalProps) => {
           <div className={styles.info}>
             {props.getImageComment && (
               <Typography className={styles.comment}>
-                {props.getImageComment(props.currentImageIndex, props.imageList[props.currentImageIndex]) || ''}
+                {props.getImageComment?.(props.currentImageIndex, props.imageList[props.currentImageIndex]) || ''}
               </Typography>
             )}
             <Typography className={styles.currentSlide} color="primary">
