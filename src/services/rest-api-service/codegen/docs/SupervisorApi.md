@@ -37,7 +37,7 @@ let apiInstance = new TestSwagger.SupervisorApi();
 let guid = null; // String | GUID продукта, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject117() // InlineObject117 | 
+  'body': new TestSwagger.InlineObject118() // InlineObject118 | 
 };
 apiInstance.apiV1SupervisorsProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject117**](InlineObject117.md)|  | [optional] 
+ **body** | [**InlineObject118**](InlineObject118.md)|  | [optional] 
 
 ### Return type
 
@@ -145,7 +145,7 @@ let apiInstance = new TestSwagger.SupervisorApi();
 let guid = null; // String | GUID продукта, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject118() // InlineObject118 | 
+  'body': new TestSwagger.InlineObject119() // InlineObject119 | 
 };
 apiInstance.apiV1SupervisorsProductsListingGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -162,7 +162,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject118**](InlineObject118.md)|  | [optional] 
+ **body** | [**InlineObject119**](InlineObject119.md)|  | [optional] 
 
 ### Return type
 
@@ -180,7 +180,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SupervisorsProductsMyGet
 
-> [InlineResponse20070] apiV1SupervisorsProductsMyGet(opts)
+> [InlineResponse20071] apiV1SupervisorsProductsMyGet(opts)
 
 # Получить список товаров взятых на проверку супервайзером.
 
@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20070]**](InlineResponse20070.md)
+[**[InlineResponse20071]**](InlineResponse20071.md)
 
 ### Authorization
 
@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SupervisorsProductsPagMyGet
 
-> InlineResponse20071 apiV1SupervisorsProductsPagMyGet(opts)
+> InlineResponse20072 apiV1SupervisorsProductsPagMyGet(opts)
 
 # Получить список товаров взятых на проверку супервайзером с пагинацией.
 
@@ -284,7 +284,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20071**](InlineResponse20071.md)
+[**InlineResponse20072**](InlineResponse20072.md)
 
 ### Authorization
 
