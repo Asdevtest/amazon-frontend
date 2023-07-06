@@ -25,7 +25,7 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { SettingsModel } from '@models/settings-model'
 
 import { Button } from '@components/shared/buttons/button'
-import { MemberPlus, Pencil } from '@components/shared/svg-icons'
+import { EmojiIcon, FileIcon, MemberPlus, Pencil } from '@components/shared/svg-icons'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
@@ -134,6 +134,16 @@ export const Chat: FC<Props> = observer(
     )
 
     const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
+
+    useEffect(() => {
+      if (showEmojis) {
+        const shadowRoot = document.querySelector('em-emoji-picker')?.shadowRoot
+        if (shadowRoot) {
+          console.log(shadowRoot.querySelector('#nav'))
+          shadowRoot.querySelector('#nav')?.classList.add(classNames.emojisWrapper)
+        }
+      }
+    }, [showEmojis])
 
     useEffect(() => {
       setStartMessagesCount(messages.length)
@@ -399,6 +409,7 @@ export const Chat: FC<Props> = observer(
               }}
             >
               <div className={classNames.emojisWrapper}>
+                <button>xxx</button>
                 <Picker
                   theme={SettingsModel.uiTheme === UiTheme.light ? 'light' : 'dark'}
                   data={data}
@@ -429,18 +440,19 @@ export const Chat: FC<Props> = observer(
                     endAdornment: (
                       <InputAdornment position="end" classes={{ root: classNames.endAdornment }}>
                         <div className={classNames.filesIconWrapper}>
-                          <img
+                          <EmojiIcon
                             id="emoji-icon"
-                            src={showEmojis ? '/assets/icons/emoji-active.svg' : '/assets/icons/emoji.svg'}
-                            className={cx(classNames.inputIcon, classNames.emojiIconPos)}
+                            className={cx(classNames.inputIcon, classNames.emojiIconPos, {
+                              [classNames.inputIconActive]: showEmojis,
+                            })}
                             onClick={() => setShowEmojis(!showEmojis)}
                           />
                         </div>
-
                         <div className={classNames.filesIconWrapper}>
-                          <img
-                            src={showFiles ? '/assets/icons/files-active.svg' : '/assets/icons/files.svg'}
-                            className={cx(classNames.inputIcon, classNames.fileIconPos)}
+                          <FileIcon
+                            className={cx(classNames.inputIcon, classNames.fileIconPos, {
+                              [classNames.inputIconActive]: showFiles,
+                            })}
                             onClick={() => setShowFiles(!showFiles)}
                           />
                           {files.length ? <div className={classNames.badge}>{files.length}</div> : undefined}

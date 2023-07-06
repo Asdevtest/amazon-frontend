@@ -92,14 +92,18 @@ export const useClassNames = makeStyles()(theme => ({
 
   inputIcon: {
     position: 'absolute',
-    width: 38,
-    height: 38,
-
+    width: '38px !important',
+    height: '38px !important',
+    color: theme.palette.text.second,
     transition: '0.3s ease',
     cursor: 'pointer',
     '&:hover': {
       transform: 'scale(1.1)',
     },
+  },
+
+  inputIconActive: {
+    color: theme.palette.primary.main,
   },
 
   emojiIconPos: {
@@ -114,6 +118,7 @@ export const useClassNames = makeStyles()(theme => ({
   fileIconPos: {
     top: -30,
     left: 32,
+
     [theme.breakpoints.down(768)]: {
       top: -30,
       left: 25,
@@ -150,6 +155,7 @@ export const useClassNames = makeStyles()(theme => ({
     right: 65,
     bottom: 70,
     transform: 'translate(-50%, 0%)',
+
     [theme.breakpoints.down(768)]: {
       zIndex: 999,
       position: 'absolute',
