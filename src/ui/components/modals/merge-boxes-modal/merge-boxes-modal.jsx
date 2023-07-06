@@ -62,8 +62,6 @@ export const MergeBoxesModal = ({
     box => box?.destination?._id !== selectedBoxes[0]?.destination?._id,
   )
 
-  console.log('selectedBoxes', selectedBoxes)
-
   const [boxBody, setBoxBody] = useState({
     shippingLabel: null,
     destinationId: hasDifferentDestinations ? null : selectedBoxes[0]?.destination?._id,
