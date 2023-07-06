@@ -4,8 +4,8 @@ export const useImageModalStyles = makeStyles()(theme => ({
   modalContainer: {
     maxHeight: '70vh',
     padding: 40,
-    // overflow: 'unset',
   },
+
   wrapper: {
     width: '100%',
     height: '100%',
@@ -113,10 +113,6 @@ export const useImageModalStyles = makeStyles()(theme => ({
   },
 
   controls: {
-    // marginTop: 'auto',
-    // display: 'grid',
-    // gridTemplateColumns: '1fr 1fr',
-    // gridAutoRows: '40px',
     alignItems: 'center',
     justifyContent: 'flex-end',
     display: 'flex',

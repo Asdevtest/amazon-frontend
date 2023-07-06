@@ -172,6 +172,7 @@ export const ImageModal = (props: ImageModalProps) => {
       </div>
 
       {/* Zoom Modal */}
+
       <Modal
         openModal={isZoomActive}
         setOpenModal={() => setIsZoomActive(prev => !prev)}
