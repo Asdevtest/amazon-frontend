@@ -1997,6 +1997,7 @@ export enum TranslationKey {
   'Announcement creator' = 'Announcement creator',
   'Attach files' = 'Attach files',
   'You' = 'You',
+  'Incorrect destination or tariff' = 'Incorrect destination or tariff',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
   // '' = '',
   // '' = '',
