@@ -140,13 +140,6 @@ export class SupervisorProductsViewModel {
         this.currentData = this.getCurrentData()
       },
     )
-
-    // reaction(
-    //   () => this.nameSearchValue,
-    //   () => {
-    //     this.currentData = this.getCurrentData()
-    //   },
-    // )
   }
 
   get userInfo() {
@@ -232,10 +225,8 @@ export class SupervisorProductsViewModel {
   }
 
   onClickStatusFilterButton(status) {
-    runInAction(() => {
-      this.currentStatusGroup = status
-      this.getProductsMy()
-    })
+    this.currentStatusGroup = status
+    this.getProductsMy()
   }
 
   getProductsCountByStatus(status) {
