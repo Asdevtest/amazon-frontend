@@ -434,8 +434,6 @@ export class ClientSentBatchesViewModel {
   }
 
   changeViewModeHandler(value) {
-    runInAction(() => {
-      this.productViewMode = value
-    })
+    this.productViewMode = value
   }
 }

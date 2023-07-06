@@ -488,9 +488,7 @@ export class ClientAwaitingBatchesViewModel {
   }
 
   changeViewModeHandler(value) {
-    runInAction(() => {
-      this.productViewMode = value
-    })
+    this.productViewMode = value
   }
 
   onTriggerOpenModal(modal) {
