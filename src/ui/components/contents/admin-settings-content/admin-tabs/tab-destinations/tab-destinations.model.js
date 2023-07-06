@@ -83,6 +83,10 @@ export class AdminSettingsDestinationsModel {
     }
   }
 
+  getCurrentData() {
+    return toJS(this.destinations)
+  }
+
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_DESTINATIONS]
 

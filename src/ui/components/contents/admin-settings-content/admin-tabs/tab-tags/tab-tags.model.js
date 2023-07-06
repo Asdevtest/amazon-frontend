@@ -86,9 +86,9 @@ export class AdminSettingsTagsModel {
 
   getCurrentData() {
     if (this.nameSearchValue) {
-      return this.tags.filter(({ title }) => title.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
+      return toJS(this.tags).filter(({ title }) => title.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
     } else {
-      return this.tags
+      return toJS(this.tags)
     }
   }
 
