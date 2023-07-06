@@ -27,6 +27,7 @@ import ApiV1AdminsOrdersDestinationStorekeeper from './model/ApiV1AdminsOrdersDe
 import ApiV1AdminsOrdersLogicsTariff from './model/ApiV1AdminsOrdersLogicsTariff';
 import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
 import ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest from './model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest';
+import ApiV1AdminsOrdersLogicsTariffDestination from './model/ApiV1AdminsOrdersLogicsTariffDestination';
 import ApiV1AdminsOrdersLogicsTariffDestinationVariations from './model/ApiV1AdminsOrdersLogicsTariffDestinationVariations';
 import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
 import ApiV1AdminsProductsVacCheckedby from './model/ApiV1AdminsProductsVacCheckedby';
@@ -145,6 +146,7 @@ import InlineObject129 from './model/InlineObject129';
 import InlineObject13 from './model/InlineObject13';
 import InlineObject130 from './model/InlineObject130';
 import InlineObject131 from './model/InlineObject131';
+import InlineObject132 from './model/InlineObject132';
 import InlineObject14 from './model/InlineObject14';
 import InlineObject15 from './model/InlineObject15';
 import InlineObject16 from './model/InlineObject16';
@@ -348,7 +350,8 @@ import InlineResponse20075 from './model/InlineResponse20075';
 import InlineResponse20076 from './model/InlineResponse20076';
 import InlineResponse20077 from './model/InlineResponse20077';
 import InlineResponse20078 from './model/InlineResponse20078';
-import InlineResponse20078Details from './model/InlineResponse20078Details';
+import InlineResponse20079 from './model/InlineResponse20079';
+import InlineResponse20079Details from './model/InlineResponse20079Details';
 import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse201 from './model/InlineResponse201';
@@ -555,6 +558,12 @@ export {
      * @property {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest}
      */
     ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest,
+
+    /**
+     * The ApiV1AdminsOrdersLogicsTariffDestination model constructor.
+     * @property {module:model/ApiV1AdminsOrdersLogicsTariffDestination}
+     */
+    ApiV1AdminsOrdersLogicsTariffDestination,
 
     /**
      * The ApiV1AdminsOrdersLogicsTariffDestinationVariations model constructor.
@@ -1263,6 +1272,12 @@ export {
      * @property {module:model/InlineObject131}
      */
     InlineObject131,
+
+    /**
+     * The InlineObject132 model constructor.
+     * @property {module:model/InlineObject132}
+     */
+    InlineObject132,
 
     /**
      * The InlineObject14 model constructor.
@@ -2483,10 +2498,16 @@ export {
     InlineResponse20078,
 
     /**
-     * The InlineResponse20078Details model constructor.
-     * @property {module:model/InlineResponse20078Details}
+     * The InlineResponse20079 model constructor.
+     * @property {module:model/InlineResponse20079}
      */
-    InlineResponse20078Details,
+    InlineResponse20079,
+
+    /**
+     * The InlineResponse20079Details model constructor.
+     * @property {module:model/InlineResponse20079Details}
+     */
+    InlineResponse20079Details,
 
     /**
      * The InlineResponse2008 model constructor.
