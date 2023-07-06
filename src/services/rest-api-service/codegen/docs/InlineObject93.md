@@ -4,6 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**totalCost** | **Number** | Для подтверждения нужно вернуть totalCost из калькулятора. | 
+**sourceFile** | **String** | Файл для записи в FreelanceSource | 
+**comment** | **String** | Комментарий к файлу | [optional] 
+**typeTask** | **Number** | Код специализации фрилансера | 
+**productId** | **String** | гуид продукта | 
+**proposalId** | **String** | Гуид пропоузала | [optional] 
 
 

@@ -22,10 +22,11 @@ class InlineObject97 {
     /**
      * Constructs a new <code>InlineObject97</code>.
      * @alias module:model/InlineObject97
+     * @param timeoutAt {Date} Время закрытия заявки.
      */
-    constructor() { 
+    constructor(timeoutAt) { 
         
-        InlineObject97.initialize(this);
+        InlineObject97.initialize(this, timeoutAt);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject97 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, timeoutAt) { 
+        obj['timeoutAt'] = timeoutAt;
     }
 
     /**
@@ -47,8 +49,11 @@ class InlineObject97 {
         if (data) {
             obj = obj || new InlineObject97();
 
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('timeoutAt')) {
+                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
+            }
+            if (data.hasOwnProperty('maxAmountOfProposals')) {
+                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
             }
         }
         return obj;
@@ -58,10 +63,16 @@ class InlineObject97 {
 }
 
 /**
- * Причины закрытия приема предложений.
- * @member {String} reason
+ * Время закрытия заявки.
+ * @member {Date} timeoutAt
  */
-InlineObject97.prototype['reason'] = undefined;
+InlineObject97.prototype['timeoutAt'] = undefined;
+
+/**
+ * Количество предложений. null без лимитов
+ * @member {Number} maxAmountOfProposals
+ */
+InlineObject97.prototype['maxAmountOfProposals'] = undefined;
 
 
 

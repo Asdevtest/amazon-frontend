@@ -22,10 +22,11 @@ class InlineObject84 {
     /**
      * Constructs a new <code>InlineObject84</code>.
      * @alias module:model/InlineObject84
+     * @param approvedByMaster {Boolean} 
      */
-    constructor() { 
+    constructor(approvedByMaster) { 
         
-        InlineObject84.initialize(this);
+        InlineObject84.initialize(this, approvedByMaster);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject84 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, approvedByMaster) { 
+        obj['approvedByMaster'] = approvedByMaster;
     }
 
     /**
@@ -47,20 +49,8 @@ class InlineObject84 {
         if (data) {
             obj = obj || new InlineObject84();
 
-            if (data.hasOwnProperty('execution_time')) {
-                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('approvedByMaster')) {
+                obj['approvedByMaster'] = ApiClient.convertToType(data['approvedByMaster'], 'Boolean');
             }
         }
         return obj;
@@ -70,34 +60,9 @@ class InlineObject84 {
 }
 
 /**
- * Время на выполнение, в минутах.
- * @member {Number} execution_time
+ * @member {Boolean} approvedByMaster
  */
-InlineObject84.prototype['execution_time'] = undefined;
-
-/**
- * Цена предложения.
- * @member {Number} price
- */
-InlineObject84.prototype['price'] = undefined;
-
-/**
- * Комментарий к предложению.
- * @member {String} comment
- */
-InlineObject84.prototype['comment'] = undefined;
-
-/**
- * Ссылки на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject84.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * Название предложения
- * @member {String} title
- */
-InlineObject84.prototype['title'] = undefined;
+InlineObject84.prototype['approvedByMaster'] = undefined;
 
 
 

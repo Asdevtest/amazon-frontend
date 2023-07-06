@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineObject107 {
     /**
      * Constructs a new <code>InlineObject107</code>.
+     * Схема магазина.
      * @alias module:model/InlineObject107
      */
     constructor() { 
@@ -47,17 +48,14 @@ class InlineObject107 {
         if (data) {
             obj = obj || new InlineObject107();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
+                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
-            }
-            if (data.hasOwnProperty('priority')) {
-                obj['priority'] = ApiClient.convertToType(data['priority'], 'Number');
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
+                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
             }
         }
         return obj;
@@ -67,28 +65,22 @@ class InlineObject107 {
 }
 
 /**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
- * @member {Number} status
+ * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+ * @member {String} name
  */
-InlineObject107.prototype['status'] = undefined;
+InlineObject107.prototype['name'] = undefined;
 
 /**
- * Массив картинок.
- * @member {Array.<String>} images
+ * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+ * @member {String} sellerBoardWarehouseReportUrlDaily
  */
-InlineObject107.prototype['images'] = undefined;
+InlineObject107.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
 
 /**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
+ * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+ * @member {String} sellerBoardWarehouseReportUrlMonthly
  */
-InlineObject107.prototype['storekeeperComment'] = undefined;
-
-/**
- * Приоритет задачи
- * @member {Number} priority
- */
-InlineObject107.prototype['priority'] = undefined;
+InlineObject107.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
 
 
 
