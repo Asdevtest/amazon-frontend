@@ -224,7 +224,7 @@ export class VacantRequestsViewModel {
 
       runInAction(() => {
         this.requests = addIdDataConverter(result.rows)
-        this.rowCount = result.length
+        this.rowCount = result.count
       })
 
       this.setRequestStatus(loadingStatuses.success)
@@ -444,6 +444,9 @@ export class VacantRequestsViewModel {
     runInAction(() => {
       this.paginationModel = model
     })
+
+    this.getRequestsVacant()
+    this.setTableModeState()
   }
 
   onChangeSortingModel(sortModel) {
