@@ -33,9 +33,9 @@ export const ImageModal = (props: ImageModalProps) => {
 
   const onClickDownloadBtn = (image: string | ImageObjectType) => {
     typeof image === 'string'
-      ? downloadFileByLink(image)
+      ? downloadFileByLink(getAmazonImageUrl(image))
       : image.image
-      ? downloadFileByLink(image.image)
+      ? downloadFileByLink(getAmazonImageUrl(image.image))
       : downloadFile(image.file)
   }
 
