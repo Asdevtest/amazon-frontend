@@ -290,7 +290,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 230,
+    width: '100%',
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
@@ -372,5 +372,9 @@ export const useClassNames = makeStyles()(theme => ({
     '.MuiInputBase-root': {
       width: 'unset',
     },
+  },
+
+  btnWrapperStyle: {
+    width: '100%',
   },
 }))
