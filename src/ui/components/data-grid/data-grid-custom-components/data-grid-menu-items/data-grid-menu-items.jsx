@@ -986,8 +986,14 @@ export const NormalFieldMenuItem = React.memo(
       }, [nameSearchValue])
 
       return (
-        <div className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}>
-          <div className={classNames.searchInputWrapper}>
+        <div
+          className={cx({
+            [classNames.universalFilterWrapper]: !asBlock,
+            [classNames.shopsDataWrapperBlocked]: asBlock,
+            [classNames.fullName]: columnKey === columnnsKeys.buyer.MY_PRODUCTS_STATUS,
+          })}
+        >
+          <div className={classNames.universalFilterSearchInputWrapper}>
             <SearchInput
               key={'client_warehouse_search_input'}
               inputClasses={classNames.searchInput}
@@ -997,38 +1003,37 @@ export const NormalFieldMenuItem = React.memo(
               }}
             />
           </div>
-          <div className={classNames.shopsWrapper}>
-            <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
-                <CircularProgress />
-              ) : (
-                <>
-                  {itemsForRender.length ? (
-                    <>
-                      <DataGridSelectAllFilters
-                        choosenItems={choosenItems}
-                        itemsForRender={itemsForRender}
-                        setChoosenItems={setChoosenItems}
-                      />
-                      {itemsForRender.map((el, index) => (
-                        <div key={index} className={classNames.shop}>
-                          <Checkbox
-                            color="primary"
-                            checked={choosenItems.some(item => item === el)}
-                            onClick={() => onClickItem(el)}
-                          />
-                          <div className={classNames.shopName}>
-                            {getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)}
-                          </div>
+
+          <div className={classNames.universalFilterBody}>
+            {filterRequestStatus === loadingStatuses.isLoading ? (
+              <CircularProgress />
+            ) : (
+              <>
+                {itemsForRender.length ? (
+                  <>
+                    <DataGridSelectAllFilters
+                      choosenItems={choosenItems}
+                      itemsForRender={itemsForRender}
+                      setChoosenItems={setChoosenItems}
+                    />
+                    {itemsForRender.map((el, index) => (
+                      <div key={index} className={classNames.shop}>
+                        <Checkbox
+                          color="primary"
+                          checked={choosenItems.some(item => item === el)}
+                          onClick={() => onClickItem(el)}
+                        />
+                        <div className={classNames.shopName}>
+                          {getStatusByColumnKeyAndStatusKey(el, columnKey) || t(TranslationKey.Empty)}
                         </div>
-                      ))}
-                    </>
-                  ) : (
-                    <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
-                  )}
-                </>
-              )}
-            </div>
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <Typography className={classNames.noOptionText}>{t(TranslationKey['No options'])}</Typography>
+                )}
+              </>
+            )}
           </div>
 
           <div className={classNames.buttonsWrapper}>

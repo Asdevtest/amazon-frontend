@@ -253,6 +253,8 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
       return humanFriendlyStategyStatus(mapProductStrategyStatusEnum[status])
     case columnnsKeys.client.INVENTORY_STATUS:
       return t(productStatusTranslateKey(ProductStatusByCode[status]))
+    case columnnsKeys.buyer.MY_PRODUCTS_STATUS:
+      return t(productStatusTranslateKey(ProductStatusByCode[status]))
     case columnnsKeys.client.FREELANCE_MY_REQUESTS:
       return MyRequestStatusTranslate(status)
     case columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY:
