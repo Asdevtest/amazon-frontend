@@ -52,6 +52,10 @@ export class AppbarModel {
     return SettingsModel.snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]?.crmItemId || null
   }
 
+  get breadcrumbsAdditionalText() {
+    return SettingsModel.lastCrumbAdditionalText
+  }
+
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })

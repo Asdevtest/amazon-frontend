@@ -64,6 +64,7 @@ export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen }) =
     clearSnackNoticeByKey: markNotificationAsReaded,
     onClickMessage,
     checkMessageIsRead,
+    breadcrumbsAdditionalText,
   } = componentModel.current
 
   useEffect(() => {
@@ -124,12 +125,12 @@ export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen }) =
   }, [snackNotifications])
 
   useEffect(() => {
-    if (SettingsModel.lastCrumbAdditionalText !== undefined) {
-      localStorage.setItem('last', SettingsModel.lastCrumbAdditionalText)
+    if (breadcrumbsAdditionalText !== undefined) {
+      localStorage.setItem('lastBreadcrumbsText', breadcrumbsAdditionalText)
     }
-  }, [SettingsModel.lastCrumbAdditionalText])
+  }, [breadcrumbsAdditionalText])
 
-  const savedLastCrumbAdditionalText = localStorage.getItem('last')
+  const savedLastCrumbAdditionalText = localStorage.getItem('lastBreadcrumbsText')
 
   useEffect(() => {
     if (location.pathname !== '/profile') {
@@ -360,7 +361,7 @@ export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen }) =
 
         <div className={classNames.breadCrumbsWrapper}>
           <BreadCrumbsLine
-            lastCrumbAdditionalText={SettingsModel.lastCrumbAdditionalText}
+            lastCrumbAdditionalText={breadcrumbsAdditionalText}
             savedLastCrumbAdditionalText={savedLastCrumbAdditionalText}
           />
         </div>
