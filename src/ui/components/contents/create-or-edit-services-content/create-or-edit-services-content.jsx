@@ -50,7 +50,10 @@ export const CreateOrEditServiceContent = ({
   const [formFields, setFormFields] = useState(sourceFormFields)
 
   const disabledSubmitButton =
-    !formFields.title || !formFields.description || JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
+    !formFields.title ||
+    !formFields.description ||
+    !formFields.type ||
+    JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
 
   const onChangeField = fieldName => event => {
     const newFormFields = { ...formFields }
