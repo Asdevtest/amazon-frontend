@@ -156,6 +156,10 @@ export const useClassNames = makeStyles()(theme => ({
     bottom: 70,
     transform: 'translate(-50%, 0%)',
 
+    'em-emoji-picker': {
+      '--rgb-accent': theme.palette.primary.mainRgb,
+    },
+
     [theme.breakpoints.down(768)]: {
       zIndex: 999,
       position: 'absolute',

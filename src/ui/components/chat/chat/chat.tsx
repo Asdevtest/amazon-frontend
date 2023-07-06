@@ -136,16 +136,6 @@ export const Chat: FC<Props> = observer(
     const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
 
     useEffect(() => {
-      if (showEmojis) {
-        const shadowRoot = document.querySelector('em-emoji-picker')?.shadowRoot
-        if (shadowRoot) {
-          console.log(shadowRoot.querySelector('#nav'))
-          shadowRoot.querySelector('#nav')?.classList.add(classNames.emojisWrapper)
-        }
-      }
-    }, [showEmojis])
-
-    useEffect(() => {
       setStartMessagesCount(messages.length)
     }, [])
 
