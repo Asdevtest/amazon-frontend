@@ -1,11 +1,9 @@
 import { cx } from '@emotion/css'
 import { Avatar, Link, Typography } from '@mui/material'
 
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, MutableRefObject, Ref, useEffect, useRef, useState } from 'react'
 
 import { observer } from 'mobx-react'
-import ScrollView from 'react-inverted-scrollview'
-import { useScrollToElement } from 'react-use-scroll-to-element-hook'
 
 import { ChatModel } from '@models/chat-model'
 import { ChatMessageContract, ChatMessageType } from '@models/chat-model/contracts/chat-message.contract'
@@ -21,6 +19,7 @@ import { ChatMessageRequestProposalStatusChangedHandlers } from './chat-messages
 import { ChatMessageRequestProposalResultEditedHandlers } from './chat-messages/chat-message-request-proposal-result-edited'
 import { ChatMessageByType } from './chat-message-by-type'
 import { ReplyIcon } from '@components/shared/svg-icons'
+import { toFixed } from '@utils/text'
 
 export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers &
   ChatMessageRequestProposalResultEditedHandlers &
@@ -36,7 +35,9 @@ interface Props {
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
   messageToScroll: ChatMessageContract | null
+  setMessageToScroll: (mes: ChatMessageContract | null) => void
   setMessageToReply: (mes: ChatMessageContract | null) => void
+  messagesWrapperRef: MutableRefObject<HTMLDivElement | null>
 }
 
 export const ChatMessagesList: FC<Props> = observer(
@@ -49,9 +50,12 @@ export const ChatMessagesList: FC<Props> = observer(
     searchPhrase,
     isGroupChat,
     messageToScroll,
+    setMessageToScroll,
     setMessageToReply,
+    messagesWrapperRef,
   }) => {
     const { classes: classNames } = useClassNames()
+    const messageToScrollRef = useRef<HTMLDivElement | null>(null)
 
     const [choosenMessageState, setChoosenMessageState] = useState<{
       message: ChatMessageContract | null
@@ -60,43 +64,42 @@ export const ChatMessagesList: FC<Props> = observer(
 
     const messagesFoundIds = messagesFound?.map(el => el._id) || []
 
-    const messagesIds = messages ? messages.map(mes => mes._id) : []
-
-    const firstUnReadMessageId = messages?.find(el => !el.isRead && el.user?._id !== userId)?._id // '44263074-838d-430f-831f-1f8ff97ed708' //
-
-    // console.log('messages', messages)
-
-    // console.log('firstUnReadMessageId', firstUnReadMessageId)
-
-    const { getScrollToElementRef, scrollToElementClickHandler } = useScrollToElement(messagesIds, {
-      behavior: 'smooth',
-    })
+    const scrollToMessage = () => {
+      if (messageToScrollRef.current) {
+        messageToScrollRef.current.scrollIntoView({
+          behavior: 'smooth',
+        })
+      }
+    }
 
     useEffect(() => {
-      if (messages?.length) {
-        setTimeout(() => scrollToElementClickHandler(firstUnReadMessageId || messages!.at(-1)!._id), 0)
+      const currentScrollPosition = toFixed(
+        messagesWrapperRef.current!.scrollTop + messagesWrapperRef.current!.clientHeight,
+      )
+      const scrolledFromBottom = messagesWrapperRef.current!.scrollHeight - currentScrollPosition
+
+      if (scrolledFromBottom < messagesWrapperRef.current!.clientHeight || messagesWrapperRef.current!.scrollTop < 20) {
+        const unreadMessages = messages?.filter(el => el.user?._id !== userId && !el.isRead)
+
+        if (unreadMessages?.length) {
+          setMessageToScroll(unreadMessages[0])
+        } else {
+          messagesWrapperRef.current?.scrollTo({
+            left: 0,
+            top: messagesWrapperRef.current.scrollHeight,
+            behavior: 'smooth',
+          })
+        }
       }
     }, [messages])
 
     useEffect(() => {
-      if (!messageToScroll) {
-        return
-      }
-
-      // setTimeout(() => scrollToElementClickHandler(messageToScroll._id), 0)
-
-      scrollToElementClickHandler(messageToScroll._id)
+      scrollToMessage()
     }, [messageToScroll])
 
     useEffect(() => {
-      if (toScrollMesId) {
-        scrollToElementClickHandler(toScrollMesId)
-      }
-      // else if (firstUnReadMessageId) {
-      //   setTimeout(() => scrollToElementClickHandler(firstUnReadMessageId), 5000)
-      //   // scrollToElementClickHandler(firstUnReadMessageId)
-      // }
-    }, [toScrollMesId, messages])
+      scrollToMessage()
+    }, [toScrollMesId])
 
     useEffect(() => {
       const unReadMessages = messages?.filter(el => el.user?._id !== userId && !el.isRead)
@@ -113,7 +116,7 @@ export const ChatMessagesList: FC<Props> = observer(
 
     return (
       <div className={classNames.root}>
-        <ScrollView width="100%" height="100%" style={{ padding: '20px 12px' }}>
+        <div ref={messagesWrapperRef} className={classNames.messagesWrapper}>
           {messages && SettingsModel.languageTag
             ? messages.map((messageItem: ChatMessageContract, index: number) => {
                 const isIncomming = userId !== messageItem.user?._id
@@ -141,8 +144,13 @@ export const ChatMessagesList: FC<Props> = observer(
 
                 return (
                   <div
+                    ref={
+                      messageToScroll?._id === messageItem._id || toScrollMesId === messageItem._id
+                        ? messageToScrollRef
+                        : undefined
+                    }
                     key={`chatMessage_${messageItem._id}`}
-                    ref={getScrollToElementRef(messageItem._id) as React.RefObject<HTMLDivElement>}
+                    // ref={getScrollToElementRef(messageItem._id) as React.RefObject<HTMLDivElement>}
                     className={cx(classNames.message, {
                       [classNames.unReadMessage]: unReadMessage && userId !== messageItem.user?._id,
                     })}
@@ -197,7 +205,7 @@ export const ChatMessagesList: FC<Props> = observer(
                                 className={classNames.repleyWrapper}
                                 onClick={e => {
                                   e.stopPropagation()
-                                  scrollToElementClickHandler(repleyMessage._id)
+                                  setMessageToScroll(repleyMessage)
                                 }}
                               >
                                 <div className={classNames.repleyDivider} />
@@ -241,7 +249,7 @@ export const ChatMessagesList: FC<Props> = observer(
                 )
               })
             : undefined}
-        </ScrollView>
+        </div>
       </div>
     )
   },

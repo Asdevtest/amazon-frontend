@@ -4,10 +4,10 @@ import { cx } from '@emotion/css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
-
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
-
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+
 import { Avatar, ClickAwayListener, InputAdornment, Typography } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
@@ -37,6 +37,7 @@ import { ChatFilesInput } from './chat-files-input'
 import { ChatMessagesList, ChatMessageUniversalHandlers } from './chat-messages-list'
 import { useClassNames } from './chat.style'
 import { ChatMessageByType } from './chat-messages-list/chat-message-by-type'
+import { toFixed } from '@utils/text'
 
 export interface RenderAdditionalButtonsParams {
   message: string
@@ -97,6 +98,10 @@ export const Chat: FC<Props> = observer(
     onClickEditGroupChatInfo,
   }) => {
     const messageInput = useRef<HTMLTextAreaElement | null>(null)
+    const messagesWrapperRef = useRef<HTMLDivElement | null>(null)
+
+    const [startMessagesCount, setStartMessagesCount] = useState(0)
+    const [unreadMessages, setUnreadMessages] = useState<null | ChatMessageContract[]>([])
 
     const [showFiles, setShowFiles] = useState(false)
 
@@ -131,6 +136,10 @@ export const Chat: FC<Props> = observer(
     const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
 
     useEffect(() => {
+      setStartMessagesCount(messages.length)
+    }, [])
+
+    useEffect(() => {
       if (isSendTypingPossible && message) {
         onTypingMessage(chat._id)
         setIsSendTypingPossible(false)
@@ -143,6 +152,43 @@ export const Chat: FC<Props> = observer(
         messageInput.current?.focus()
       }
     }, [messageToReply])
+
+    useEffect(() => {
+      if (updateData && messages?.[messages.length - 1]?.text === 'PROPOSAL_STATUS_CHANGED') {
+        updateData()
+      }
+
+      if (startMessagesCount > 0) {
+        const currentScrollPosition = toFixed(
+          messagesWrapperRef.current!.scrollTop + messagesWrapperRef.current!.clientHeight,
+        )
+        const scrolledFromBottom = messagesWrapperRef.current!.scrollHeight - currentScrollPosition
+
+        if (scrolledFromBottom > messagesWrapperRef.current!.clientHeight) {
+          setUnreadMessages(messages.slice(startMessagesCount, messages.length).filter(el => el.user?._id !== userId))
+        } else {
+          setStartMessagesCount(messages.length)
+        }
+      }
+    }, [messages?.length])
+
+    useEffect(() => {
+      setMessage(messageInitialState.message)
+      setFiles(messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files)
+      setShowGroupSettings(false)
+
+      return () => {
+        setMessageToReply(null)
+      }
+    }, [chat?._id])
+
+    useEffect(() => {
+      if (files?.length) {
+        setShowFiles(true)
+      } else {
+        setShowFiles(false)
+      }
+    }, [files?.length])
 
     const changeMessageAndState = (value: string) => {
       setMessage(value)
@@ -167,30 +213,6 @@ export const Chat: FC<Props> = observer(
       setMessageToReply(null)
       resetAllInputs()
     }
-
-    useEffect(() => {
-      if (updateData && messages?.[messages.length - 1]?.text === 'PROPOSAL_STATUS_CHANGED') {
-        updateData()
-      }
-    }, [messages?.length])
-
-    useEffect(() => {
-      setMessage(messageInitialState.message)
-      setFiles(messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files)
-      setShowGroupSettings(false)
-
-      return () => {
-        setMessageToReply(null)
-      }
-    }, [chat?._id])
-
-    useEffect(() => {
-      if (files?.length) {
-        setShowFiles(true)
-      } else {
-        setShowFiles(false)
-      }
-    }, [files?.length])
 
     const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
       if (!disabledSubmit && event.key === 'Enter' && !event.shiftKey) {
@@ -221,6 +243,12 @@ export const Chat: FC<Props> = observer(
       }
     }
 
+    const onClickScrollToBottom = () => {
+      setMessageToScroll({ ...(unreadMessages?.[0] || messages.at(-1)!) })
+      setStartMessagesCount(messages.length)
+      setUnreadMessages([])
+    }
+
     const disabledSubmit = !message.replace(/\n/g, '') && !files.length
 
     const userContainedInChat = chat.users.some(el => el._id === userId)
@@ -238,6 +266,7 @@ export const Chat: FC<Props> = observer(
         </div>
         <div className={classNames.scrollViewWrapper}>
           <ChatMessagesList
+            messagesWrapperRef={messagesWrapperRef}
             isGroupChat={isGroupChat}
             userId={userId}
             messages={messages}
@@ -246,6 +275,7 @@ export const Chat: FC<Props> = observer(
             messagesFound={messagesFound}
             searchPhrase={searchPhrase}
             messageToScroll={messageToScroll}
+            setMessageToScroll={setMessageToScroll}
             setMessageToReply={setMessageToReply}
           />
 
@@ -321,6 +351,11 @@ export const Chat: FC<Props> = observer(
               </div>
             </div>
           ) : null}
+
+          <div className={classNames.scrollToBottom} onClick={onClickScrollToBottom}>
+            <KeyboardArrowDownIcon />
+            {!!unreadMessages?.length && <div className={classNames.scrollToBottomBadge}>{unreadMessages?.length}</div>}
+          </div>
         </div>
 
         {messageToReply && (
