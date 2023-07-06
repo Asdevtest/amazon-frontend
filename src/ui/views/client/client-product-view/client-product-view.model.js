@@ -522,13 +522,6 @@ export class ClientProductViewModel {
 
       this.getProductById()
 
-      // runInAction(() => {
-      //   this.acceptMessage = t(TranslationKey['Data was successfully saved'])
-      //   setTimeout(() => {
-      //     this.acceptMessage = ''
-      //   }, 3000)
-      // })
-
       runInAction(() => {
         this.alertShieldSettings = {
           showAlertShield: true,
