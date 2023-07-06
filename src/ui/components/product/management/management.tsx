@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FC } from 'react'
 import { observer } from 'mobx-react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -7,20 +8,13 @@ import { t } from '@utils/translations'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { AdminManagementModel } from './management.model'
 import { MemberSelect } from './member-select'
 import { useManagement } from './use-management.hook'
 
 import { useClassNames } from './management.style'
 
-export const Management = observer(({ product }) => {
+export const Management: FC = observer(() => {
   const { classes: classNames } = useClassNames()
-
-  const [viewModel] = useState(() => new AdminManagementModel({ history }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
 
   const {
     client,
@@ -35,13 +29,16 @@ export const Management = observer(({ product }) => {
     isDisabledBuyer,
     isDisabledSupervisor,
     isDisabledResearcher,
-    isEditableMember,
+    isEditableClient,
+    isEditableBuyer,
+    isEditableSupervisor,
+    isEditableResearcher,
     onChangeClient,
     onChangeBuyer,
     onChangeSupervisor,
     onChangeResearcher,
     onUpdateMember,
-  } = useManagement(viewModel.members, product)
+  } = useManagement()
 
   return (
     <>
@@ -53,41 +50,41 @@ export const Management = observer(({ product }) => {
             <MemberSelect
               title={t(TranslationKey.Client)}
               value={client._id}
-              disabled={!isEditableMember}
+              disabled={!isEditableClient}
               options={clients}
               isDisabled={isDisabledClient}
-              onChange={e => onChangeClient(e)}
-              onSave={() => onUpdateMember()}
+              onChange={onChangeClient}
+              onSave={onUpdateMember}
             />
 
             <MemberSelect
               title={t(TranslationKey.Buyer)}
               value={buyer._id}
-              disabled={!isEditableMember}
+              disabled={!isEditableBuyer}
               options={buyers}
               isDisabled={isDisabledBuyer}
-              onChange={e => onChangeBuyer(e)}
-              onSave={() => onUpdateMember()}
+              onChange={onChangeBuyer}
+              onSave={onUpdateMember}
             />
 
             <MemberSelect
               title={t(TranslationKey.Supervisor)}
               value={supervisor._id}
-              disabled={isDisabledSupervisor}
+              disabled={isEditableSupervisor}
               options={supervisors}
               isDisabled={isDisabledSupervisor}
-              onChange={e => onChangeSupervisor(e)}
-              onSave={() => onUpdateMember()}
+              onChange={onChangeSupervisor}
+              onSave={onUpdateMember}
             />
 
             <MemberSelect
               title={t(TranslationKey.Researcher)}
               value={researcher._id}
-              disabled={isEditableMember}
+              disabled={!isEditableResearcher}
               options={researchers}
               isDisabled={isDisabledResearcher}
-              onChange={e => onChangeResearcher(e)}
-              onSave={() => onUpdateMember()}
+              onChange={onChangeResearcher}
+              onSave={onUpdateMember}
             />
           </div>
         </div>
