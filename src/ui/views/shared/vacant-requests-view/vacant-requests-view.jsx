@@ -82,6 +82,8 @@ export const VacantRequestsViewRaw = props => {
     }
   }
 
+  console.log('viewModel.currentData', viewModel.currentData)
+
   return (
     <React.Fragment>
       <MainContent>
@@ -210,6 +212,8 @@ export const VacantRequestsViewRaw = props => {
                 columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
                 columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
               }}
+              sortingMode="server"
+              paginationMode="server"
               rowCount={viewModel.rowCount}
               sortModel={viewModel.sortModel}
               filterModel={viewModel.filterModel}

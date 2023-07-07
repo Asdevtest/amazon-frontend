@@ -24,10 +24,11 @@ class InlineObject114 {
     /**
      * Constructs a new <code>InlineObject114</code>.
      * @alias module:model/InlineObject114
+     * @param name {String} Название тарифа
      */
-    constructor() { 
+    constructor(name) { 
         
-        InlineObject114.initialize(this);
+        InlineObject114.initialize(this, name);
     }
 
     /**
@@ -35,7 +36,8 @@ class InlineObject114 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name) { 
+        obj['name'] = name;
     }
 
     /**
@@ -49,6 +51,9 @@ class InlineObject114 {
         if (data) {
             obj = obj || new InlineObject114();
 
+            if (data.hasOwnProperty('tariffType')) {
+                obj['tariffType'] = ApiClient.convertToType(data['tariffType'], 'Number');
+            }
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
@@ -85,6 +90,12 @@ class InlineObject114 {
 
 
 }
+
+/**
+ * Тип тарифа
+ * @member {Number} tariffType
+ */
+InlineObject114.prototype['tariffType'] = undefined;
 
 /**
  * Название тарифа

@@ -22,10 +22,11 @@ class InlineObject99 {
     /**
      * Constructs a new <code>InlineObject99</code>.
      * @alias module:model/InlineObject99
+     * @param timeoutAt {Date} Время закрытия заявки.
      */
-    constructor() { 
+    constructor(timeoutAt) { 
         
-        InlineObject99.initialize(this);
+        InlineObject99.initialize(this, timeoutAt);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject99 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, timeoutAt) { 
+        obj['timeoutAt'] = timeoutAt;
     }
 
     /**
@@ -47,20 +49,11 @@ class InlineObject99 {
         if (data) {
             obj = obj || new InlineObject99();
 
-            if (data.hasOwnProperty('commentByClient')) {
-                obj['commentByClient'] = ApiClient.convertToType(data['commentByClient'], 'String');
+            if (data.hasOwnProperty('timeoutAt')) {
+                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
             }
-            if (data.hasOwnProperty('commentByPerformer')) {
-                obj['commentByPerformer'] = ApiClient.convertToType(data['commentByPerformer'], 'String');
-            }
-            if (data.hasOwnProperty('fileLink')) {
-                obj['fileLink'] = ApiClient.convertToType(data['fileLink'], 'String');
-            }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
-            }
-            if (data.hasOwnProperty('requestId')) {
-                obj['requestId'] = ApiClient.convertToType(data['requestId'], 'String');
+            if (data.hasOwnProperty('maxAmountOfProposals')) {
+                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
             }
         }
         return obj;
@@ -70,34 +63,16 @@ class InlineObject99 {
 }
 
 /**
- * комментарий клиента
- * @member {String} commentByClient
+ * Время закрытия заявки.
+ * @member {Date} timeoutAt
  */
-InlineObject99.prototype['commentByClient'] = undefined;
+InlineObject99.prototype['timeoutAt'] = undefined;
 
 /**
- * комментарий исполнителя
- * @member {String} commentByPerformer
+ * Количество предложений. null без лимитов
+ * @member {Number} maxAmountOfProposals
  */
-InlineObject99.prototype['commentByPerformer'] = undefined;
-
-/**
- * Ссылка на файл
- * @member {String} fileLink
- */
-InlineObject99.prototype['fileLink'] = undefined;
-
-/**
- * Файл для записи в FreelanceSource
- * @member {String} proposalId
- */
-InlineObject99.prototype['proposalId'] = undefined;
-
-/**
- * Комментарий к файлу
- * @member {String} requestId
- */
-InlineObject99.prototype['requestId'] = undefined;
+InlineObject99.prototype['maxAmountOfProposals'] = undefined;
 
 
 

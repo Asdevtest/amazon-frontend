@@ -22,10 +22,12 @@ class InlineObject98 {
     /**
      * Constructs a new <code>InlineObject98</code>.
      * @alias module:model/InlineObject98
+     * @param requestIds {Array.<String>} 
+     * @param uploadedToListing {Boolean} 
      */
-    constructor() { 
+    constructor(requestIds, uploadedToListing) { 
         
-        InlineObject98.initialize(this);
+        InlineObject98.initialize(this, requestIds, uploadedToListing);
     }
 
     /**
@@ -33,7 +35,9 @@ class InlineObject98 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, requestIds, uploadedToListing) { 
+        obj['requestIds'] = requestIds;
+        obj['uploadedToListing'] = uploadedToListing;
     }
 
     /**
@@ -47,8 +51,11 @@ class InlineObject98 {
         if (data) {
             obj = obj || new InlineObject98();
 
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('requestIds')) {
+                obj['requestIds'] = ApiClient.convertToType(data['requestIds'], ['String']);
+            }
+            if (data.hasOwnProperty('uploadedToListing')) {
+                obj['uploadedToListing'] = ApiClient.convertToType(data['uploadedToListing'], 'Boolean');
             }
         }
         return obj;
@@ -58,10 +65,14 @@ class InlineObject98 {
 }
 
 /**
- * Причины закрытия приема предложений.
- * @member {String} reason
+ * @member {Array.<String>} requestIds
  */
-InlineObject98.prototype['reason'] = undefined;
+InlineObject98.prototype['requestIds'] = undefined;
+
+/**
+ * @member {Boolean} uploadedToListing
+ */
+InlineObject98.prototype['uploadedToListing'] = undefined;
 
 
 
