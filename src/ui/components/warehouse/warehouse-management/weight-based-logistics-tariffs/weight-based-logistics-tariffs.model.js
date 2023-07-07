@@ -413,9 +413,7 @@ export class LogisticsTariffsModel {
 
   async removeTariff() {
     try {
-      // await StorekeeperModel.removeLogisticTariff(this.tariffIdToRemove)
-      console.log('this.tariffIdToRemove', this.tariffIdToRemove)
-
+      await StorekeeperModel.removeLogisticTariff(this.tariffIdToRemove)
       this.onTriggerOpenModal('showConfirmModal')
 
       this.loadData()
