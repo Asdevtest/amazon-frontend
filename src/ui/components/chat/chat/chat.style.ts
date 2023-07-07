@@ -205,20 +205,15 @@ export const useClassNames = makeStyles()(theme => ({
       display: 'none',
     },
   },
-  hideAndShowIcon: {
-    top: 20,
-    right: 30,
-    width: 'max-content',
-    borderRadius: 20,
-    padding: '0 10px',
-  },
+
   arrowIcon: {
     // marginLeft: 8,
     color: theme.palette.primary.main,
   },
 
-  collapseWrapper: {
-    display: 'flex',
+  hideArrow: {
+    width: '15px !important',
+    height: '15px !important',
   },
 
   collapseText: {

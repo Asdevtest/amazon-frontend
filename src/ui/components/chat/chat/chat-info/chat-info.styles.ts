@@ -17,7 +17,7 @@ export const useChatInfoStyles = makeStyles()(theme => ({
   tabBtn: {
     backgroundColor: theme.palette.primary.main,
   },
-  fileList: {
+  imageList: {
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 103px)',
     gridTemplateRows: 'auto 103px',
@@ -30,11 +30,18 @@ export const useChatInfoStyles = makeStyles()(theme => ({
     img: {
       width: '100%',
       height: '100%',
-      objectFit: 'scale-down',
+      maxWidth: '103px',
+      maxHeight: '103px',
+      objectFit: 'contain',
     },
   },
 
   noData: {
     textAlign: 'center',
+  },
+
+  files: {
+    overflowY: 'auto',
+    maxHeight: 425,
   },
 }))

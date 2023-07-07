@@ -9,15 +9,23 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import React, { useEffect, useState } from 'react'
 import { ChatGroupUsers } from '@components/chat/chat/chat-info/chat-group-users/chat-group-users'
 import { ChatsModel } from '@models/chats-model'
+import { ChatMessageFiles } from '@components/chat/chat/chat-messages-list/chat-messages/chat-message-files/chat-message-files'
 
-interface ChatFileRequestTypes {
-  files: string[]
+interface ChatAttachmentItemTypes {
+  files?: string[]
+  images?: string[]
   _id: string
 }
 
-interface ChatFileTypes {
+interface ChatAttachmentsType {
+  allFiles: ChatAttachmentItemTypes[]
+  allImages: ChatAttachmentItemTypes[]
+}
+
+interface ChatFileType {
   file: string
   _id: string
+  isVideo?: boolean
 }
 
 interface ChatInfoProps {
@@ -36,7 +44,10 @@ const tab = {
   links: 'links',
   photos: 'photos',
   videos: 'videos',
+  files: 'files',
 }
+
+const videoRegexp = /\.(mp4|avi|mov)$/
 
 const TabPanel = ({ children, value, index, ...other }: React.PropsWithChildren<{ value: string; index: string }>) => (
   <div
@@ -62,18 +73,25 @@ export const ChatInfo = (props: ChatInfoProps) => {
   } = props
   const { classes: styles } = useChatInfoStyles()
   const [currentTab, setCurrentTab] = useState(isGroupChat ? tab.groupChatUsers : tab.media)
-  const [files, setFiles] = useState<ChatFileTypes[]>()
+  const [images, setImages] = useState<ChatFileType[]>()
+  const [files, setFiles] = useState<ChatFileType[]>()
   const [isFilesLoading, setIsFilesLoading] = useState(true)
 
   useEffect(() => {
     ChatsModel.getChatMedia(chat._id)
-      .then((res: { allFiles: ChatFileRequestTypes[] }) => {
-        const fileList: ChatFileTypes[] = res.allFiles.reduce((acc: ChatFileTypes[], file) => {
-          file.files.forEach(el => acc.push({ file: el, _id: file._id }))
+      .then((res: ChatAttachmentsType) => {
+        const imagesList: ChatFileType[] = res.allImages.reduce((acc: ChatFileType[], file) => {
+          file.images?.forEach(el => acc.push({ file: el, _id: file._id, isVideo: videoRegexp.test(el) }))
           return acc
         }, [])
+
+        const fileList: ChatFileType[] = res.allFiles.reduce((acc: ChatFileType[], file) => {
+          file.files?.forEach(el => acc.push({ file: el, _id: file._id }))
+          return acc
+        }, [])
+
         setFiles(fileList)
-        console.log(fileList)
+        setImages(imagesList)
       })
       .finally(() => setIsFilesLoading(false))
   }, [])
@@ -112,6 +130,13 @@ export const ChatInfo = (props: ChatInfoProps) => {
           tooltipAttentionContent={''}
           withIcon={false}
         />
+        <ITab
+          tooltipInfoContent={''}
+          value={tab.files}
+          label={t(TranslationKey.Files)}
+          tooltipAttentionContent={''}
+          withIcon={false}
+        />
       </Tabs>
 
       <TabPanel value={currentTab} index={tab.groupChatUsers}>
@@ -125,13 +150,23 @@ export const ChatInfo = (props: ChatInfoProps) => {
       </TabPanel>
 
       <TabPanel value={currentTab} index={tab.media}>
-        {!!files?.length && (
-          <div className={styles.fileList}>
-            {files?.map((el, index) => (
+        {!!images?.length && (
+          <div className={styles.imageList}>
+            {images?.map((el, index) => (
               <img key={index} src={el.file} alt={el._id} />
             ))}
           </div>
         )}
+
+        {!images?.length && !isFilesLoading && (
+          <Typography className={styles.noData}>{t(TranslationKey['No files'])}</Typography>
+        )}
+
+        {isFilesLoading && <Typography className={styles.noData}>{t(TranslationKey['Loading data'])}...</Typography>}
+      </TabPanel>
+
+      <TabPanel value={currentTab} index={tab.files}>
+        <div className={styles.files}>{!!files?.length && <ChatMessageFiles files={files?.map(el => el.file)} />}</div>
 
         {!files?.length && !isFilesLoading && (
           <Typography className={styles.noData}>{t(TranslationKey['No files'])}</Typography>

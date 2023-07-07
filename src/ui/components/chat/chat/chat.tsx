@@ -2,7 +2,6 @@ import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import { cx } from '@emotion/css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
@@ -37,6 +36,7 @@ import { ChatMessagesList, ChatMessageUniversalHandlers } from './chat-messages-
 import { useClassNames } from './chat.style'
 import { ChatMessageByType } from './chat-messages-list/chat-message-by-type'
 import { ChatInfo } from '@components/chat/chat/chat-info/chat-info'
+import { HideArrowIcon } from '@components/shared/svg-icons'
 
 export interface RenderAdditionalButtonsParams {
   message: string
@@ -249,16 +249,9 @@ export const Chat: FC<Props> = observer(
             setMessageToReply={setMessageToReply}
           />
 
-          <div
-            className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: showChatInfo })}
-            onClick={() => setShowChatInfo(!showChatInfo)}
-          >
+          <div className={cx(classNames.hideAndShowIconWrapper)} onClick={() => setShowChatInfo(!showChatInfo)}>
             {showChatInfo ? (
-              <div className={classNames.collapseWrapper}>
-                <Typography className={classNames.collapseText}>{t(TranslationKey.Hide)}</Typography>
-
-                <ArrowRightOutlinedIcon className={classNames.arrowIcon} />
-              </div>
+              <HideArrowIcon className={cx(classNames.arrowIcon, classNames.hideArrow)} />
             ) : (
               <MoreVertOutlinedIcon className={classNames.arrowIcon} />
             )}
