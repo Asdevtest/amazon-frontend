@@ -78,6 +78,10 @@ export const styles = theme => ({
   },
 
   searchInputWrapper: {
-    marginLeft: '50%',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 10,
   },
 })

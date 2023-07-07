@@ -140,13 +140,6 @@ export class SupervisorProductsViewModel {
         this.currentData = this.getCurrentData()
       },
     )
-
-    reaction(
-      () => this.nameSearchValue,
-      () => {
-        this.currentData = this.getCurrentData()
-      },
-    )
   }
 
   get userInfo() {
@@ -223,11 +216,17 @@ export class SupervisorProductsViewModel {
     })
   }
 
-  onClickStatusFilterButton(status) {
+  onSearchSubmit(searchValue) {
     runInAction(() => {
-      this.currentStatusGroup = status
-      this.getProductsMy()
+      this.nameSearchValue = searchValue
     })
+
+    this.getProductsMy()
+  }
+
+  onClickStatusFilterButton(status) {
+    this.currentStatusGroup = status
+    this.getProductsMy()
   }
 
   setRequestStatus(requestStatus) {
@@ -268,12 +267,9 @@ export class SupervisorProductsViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getProductsMy()
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -300,6 +296,7 @@ export class SupervisorProductsViewModel {
   }
 
   async getProductsMy() {
+    this.setRequestStatus(loadingStatuses.isLoading)
     try {
       const ordered =
         this.columnMenuSettings.orderedYesNoFilterData.yes && this.columnMenuSettings.orderedYesNoFilterData.no
@@ -324,7 +321,9 @@ export class SupervisorProductsViewModel {
         this.productsMy = supervisorProductsDataConverter(result.rows)
         this.rowCount = result.count
       })
+      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       if (error.body && error.body.message) {
         runInAction(() => {
