@@ -22,8 +22,6 @@ export class AdminSettingsPaymentMethodsModel {
   }
 
   paymentMethods = []
-  imageUrl = ''
-  imageName = ''
 
   constructor({ history }) {
     this.history = history
@@ -99,27 +97,6 @@ export class AdminSettingsPaymentMethodsModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
     }
-  }
-
-  onImageUpload(event) {
-    const file = event.target.files?.[0]
-    const reader = new FileReader()
-
-    if (file) {
-      reader.onload = e => {
-        if (e?.target && e?.target?.result) {
-          this.imageUrl = e.target.result.toString()
-          this.imageName = file.name
-        }
-      }
-
-      reader.readAsDataURL(file)
-    }
-  }
-
-  onRemoveImage() {
-    this.imageUrl = ''
-    this.imageName = ''
   }
 
   onClickRemovePaymentMethod(id) {

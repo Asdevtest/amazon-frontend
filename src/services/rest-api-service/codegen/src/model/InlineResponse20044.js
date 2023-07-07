@@ -12,9 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20040Finances from './InlineResponse20040Finances';
-import InlineResponse20044Checking from './InlineResponse20044Checking';
-import InlineResponse20044Products from './InlineResponse20044Products';
 
 /**
  * The InlineResponse20044 model module.
@@ -50,14 +47,8 @@ class InlineResponse20044 {
         if (data) {
             obj = obj || new InlineResponse20044();
 
-            if (data.hasOwnProperty('products')) {
-                obj['products'] = InlineResponse20044Products.constructFromObject(data['products']);
-            }
-            if (data.hasOwnProperty('checking')) {
-                obj['checking'] = InlineResponse20044Checking.constructFromObject(data['checking']);
-            }
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20040Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('profileId')) {
+                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
             }
         }
         return obj;
@@ -67,19 +58,10 @@ class InlineResponse20044 {
 }
 
 /**
- * @member {module:model/InlineResponse20044Products} products
+ * id созданного профайла
+ * @member {String} profileId
  */
-InlineResponse20044.prototype['products'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20044Checking} checking
- */
-InlineResponse20044.prototype['checking'] = undefined;
-
-/**
- * @member {module:model/InlineResponse20040Finances} finances
- */
-InlineResponse20044.prototype['finances'] = undefined;
+InlineResponse20044.prototype['profileId'] = undefined;
 
 
 
