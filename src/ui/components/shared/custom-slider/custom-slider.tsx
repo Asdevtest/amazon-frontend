@@ -34,7 +34,7 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
 
   useEffect(() => {
     setClides(
-      children.map((child, indexChild) => (
+      children?.map((child, indexChild) => (
         <div
           key={indexChild}
           style={{

@@ -14,7 +14,12 @@ import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carous
 import { NewDatePicker, DatePickerTime } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'
 
-import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import {
+  deepCompare,
+  getObjectFilteredByKeyArrayBlackList,
+  getObjectFilteredByKeyArrayWhiteList,
+  objectDeepCompare,
+} from '@utils/object'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './create-or-edit-services-content.style'
@@ -53,7 +58,7 @@ export const CreateOrEditServiceContent = ({
     !formFields.title ||
     !formFields.description ||
     !formFields.type ||
-    JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
+    (objectDeepCompare(formFields, sourceFormFields) && !images.length)
 
   const onChangeField = fieldName => event => {
     const newFormFields = { ...formFields }
