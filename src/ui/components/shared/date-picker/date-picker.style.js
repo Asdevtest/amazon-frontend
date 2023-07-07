@@ -7,4 +7,8 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     border: 'none !important',
   },
+
+  error: {
+    color: theme.palette.text.red,
+  },
 }))

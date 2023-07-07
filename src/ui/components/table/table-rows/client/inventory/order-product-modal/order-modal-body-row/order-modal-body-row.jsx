@@ -3,6 +3,7 @@ import { cx } from '@emotion/css'
 import { Checkbox, Chip, IconButton, TableCell, TableRow, Typography } from '@mui/material'
 
 import React, { useEffect, useState } from 'react'
+import { isPast, isToday, isValid } from 'date-fns'
 
 import DeleteIcon from '@material-ui/icons/Delete'
 import dayjs from 'dayjs'
@@ -94,7 +95,7 @@ export const OrderModalBodyRow = ({
   const tariffName = currentLogicsTariff?.name
   const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
-  const tariffRate = currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate
+  // const tariffRate = currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate
 
   const curStorekeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
 
@@ -342,6 +343,7 @@ export const OrderModalBodyRow = ({
           <div className={classNames.datePickerWrapper}>
             <NewDatePicker
               disablePast
+              error={!isValid(item.deadline) || isPast(item.deadline) || isToday(item.deadline)}
               minDate={minDate}
               value={item.deadline}
               onChange={e => onChangeInput(e, 'deadline')}
@@ -471,6 +473,7 @@ export const OrderModalBodyRow = ({
             product={item}
             supplier={item.currentSupplier}
             storekeepers={storekeepers}
+            destinationData={destinations}
             onClose={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
           />
         </Modal>

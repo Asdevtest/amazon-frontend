@@ -80,7 +80,10 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
     const regex = /^[-0-9]+$/
 
     const emptyDestinationVariation = {
-      destinationId: '',
+      destination: {
+        _id: '',
+        name: '',
+      },
       minWeight: '',
       maxWeight: '',
       pricePerKgRmb: '',
@@ -114,7 +117,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       !formFields.eta ||
       formFields.destinationVariations.some(
         (variant: DestinationVariationInterface) =>
-          !variant.destinationId ||
+          !variant.destination._id ||
           !variant.pricePerKgRmb ||
           !variant.pricePerKgUsd ||
           !variant.minWeight ||
@@ -135,7 +138,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         name: tariff.name,
         description: tariff.description,
         destinationVariations: tariff.destinationVariations.map(item => ({
-          destinationId: item.destinationId,
+          destination: item.destination,
           minWeight: item.minWeight,
           maxWeight: item.maxWeight,
           pricePerKgRmb: item.pricePerKgRmb,
@@ -179,6 +182,9 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
           updatedDestinationVariation[fieldName] = toFixed(value, 2)
           updatedDestinationVariation.pricePerKgUsd = toFixed(value, 2) / Number(formFields.yuanToDollarRate)
           newDestinationVariations[index] = updatedDestinationVariation
+        } else if (fieldName === 'destinationId') {
+          const updatedDestinationVariation = { ...newDestinationVariations[index] }
+          updatedDestinationVariation.destination._id = String(value)
         } else {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }
           // @ts-ignore
@@ -235,10 +241,16 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
     }
 
     const calcWeightRangeValid = (destinationVariations: Array<DestinationVariationInterface>) => {
+      const currectArray = destinationVariations.map(variant => ({
+        destinationId: variant.destination._id,
+        minWeight: variant.minWeight,
+        maxWeight: variant.maxWeight,
+      }))
+
       const groupedByDestinationId = {}
 
       // Group objects by destinationId
-      destinationVariations.forEach(variant => {
+      currectArray.forEach(variant => {
         const { destinationId, minWeight, maxWeight } = variant
 
         if (groupedByDestinationId.hasOwnProperty(destinationId)) {
@@ -411,6 +423,26 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
           <div className={classNames.dateBlockWrapper}>
             <Field
+              label={t(TranslationKey['CLS (batch closing date)'])}
+              labelClasses={classNames.fieldLabel}
+              containerClasses={classNames.blockItemContainer}
+              inputComponent={
+                <div
+                  className={cx({
+                    [classNames.deadlineError]: checkDateByDeadline(formFields.cls),
+                  })}
+                >
+                  <NewDatePicker disablePast value={formFields.cls} onChange={onChangeField('cls')} />
+                  {!!formFields.cls && checkDateByDeadline(formFields.cls) && (
+                    <p className={classNames.deadlineErrorText}>
+                      {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
+                    </p>
+                  )}
+                </div>
+              }
+            />
+
+            <Field
               label={t(TranslationKey['ETD (date of shipment)'])}
               labelClasses={classNames.fieldLabel}
               containerClasses={classNames.blockItemContainer}
@@ -443,26 +475,6 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                 >
                   <NewDatePicker disablePast value={formFields.eta} onChange={onChangeField('eta')} />
                   {!!formFields.eta && checkDateByDeadline(formFields.eta) && (
-                    <p className={classNames.deadlineErrorText}>
-                      {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
-                    </p>
-                  )}
-                </div>
-              }
-            />
-
-            <Field
-              label={t(TranslationKey['CLS (batch closing date)'])}
-              labelClasses={classNames.fieldLabel}
-              containerClasses={classNames.blockItemContainer}
-              inputComponent={
-                <div
-                  className={cx({
-                    [classNames.deadlineError]: checkDateByDeadline(formFields.cls),
-                  })}
-                >
-                  <NewDatePicker disablePast value={formFields.cls} onChange={onChangeField('cls')} />
-                  {!!formFields.cls && checkDateByDeadline(formFields.cls) && (
                     <p className={classNames.deadlineErrorText}>
                       {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
                     </p>
@@ -542,8 +554,8 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
                   customSubMainWrapper={classNames.destinationWrapper}
                   customSearchInput={classNames.destinationSearchInput}
                   selectedItemName={
-                    variant.destinationId
-                      ? destinationData?.find(obj => obj?._id === variant?.destinationId)?.name
+                    variant.destination?._id
+                      ? destinationData?.find(obj => obj?._id === variant?.destination?._id)?.name
                       : t(TranslationKey.Select)
                   }
                   onClickSetDestinationFavourite={setDestinationsFavouritesItem}

@@ -22,12 +22,10 @@ class InlineObject94 {
     /**
      * Constructs a new <code>InlineObject94</code>.
      * @alias module:model/InlineObject94
-     * @param requestIds {Array.<String>} 
-     * @param uploadedToListing {Boolean} 
      */
-    constructor(requestIds, uploadedToListing) { 
+    constructor() { 
         
-        InlineObject94.initialize(this, requestIds, uploadedToListing);
+        InlineObject94.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject94 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, requestIds, uploadedToListing) { 
-        obj['requestIds'] = requestIds;
-        obj['uploadedToListing'] = uploadedToListing;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,11 @@ class InlineObject94 {
         if (data) {
             obj = obj || new InlineObject94();
 
-            if (data.hasOwnProperty('requestIds')) {
-                obj['requestIds'] = ApiClient.convertToType(data['requestIds'], ['String']);
+            if (data.hasOwnProperty('sourceFile')) {
+                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
             }
-            if (data.hasOwnProperty('uploadedToListing')) {
-                obj['uploadedToListing'] = ApiClient.convertToType(data['uploadedToListing'], 'Boolean');
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
             }
         }
         return obj;
@@ -65,14 +61,16 @@ class InlineObject94 {
 }
 
 /**
- * @member {Array.<String>} requestIds
+ * Файл для записи в FreelanceSource
+ * @member {String} sourceFile
  */
-InlineObject94.prototype['requestIds'] = undefined;
+InlineObject94.prototype['sourceFile'] = undefined;
 
 /**
- * @member {Boolean} uploadedToListing
+ * Комментарий к файлу
+ * @member {String} comments
  */
-InlineObject94.prototype['uploadedToListing'] = undefined;
+InlineObject94.prototype['comments'] = undefined;
 
 
 

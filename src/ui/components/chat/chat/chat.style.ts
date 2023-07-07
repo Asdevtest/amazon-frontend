@@ -277,4 +277,30 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   messageToReplySubWrapper: {},
+
+  scrollToBottom: {
+    position: 'absolute',
+    bottom: 146,
+    right: 30,
+    zIndex: 1200,
+    width: 40,
+    height: 40,
+    backgroundColor: theme.palette.background.general,
+    boxShadow: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
+    borderRadius: '50%',
+    cursor: 'pointer',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  scrollToBottomBadge: {
+    padding: '1px 6px',
+    background: theme.palette.primary.main,
+    position: 'absolute',
+    top: -10,
+    right: -10,
+    borderRadius: 20,
+    color: 'white',
+  },
 }))

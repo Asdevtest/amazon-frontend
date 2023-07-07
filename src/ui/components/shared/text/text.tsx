@@ -15,12 +15,13 @@ import { useClassNames } from './text.style'
 enum tooltipPositions {
   Corner = 'corner',
   Center = 'center',
+  BaseLine = 'baseLine',
 }
 
 interface Props {
   tooltipAttentionContent?: ReactElement | string
   tooltipInfoContent?: ReactElement | string
-  tooltipPosition?: tooltipPositions.Center | tooltipPositions.Corner
+  tooltipPosition?: tooltipPositions.Center | tooltipPositions.Corner | tooltipPositions.BaseLine
   className?: string
   containerClasses?: string
   style?: {}
@@ -43,7 +44,9 @@ export const Text: FC<Props> = observer(
     return (
       <div
         className={cx(
-          tooltipPosition === 'corner' ? classNames.noFlextextWrapper : classNames.textWrapper,
+          tooltipPosition && ['corner', 'baseLine'].includes(tooltipPosition)
+            ? classNames.noFlextextWrapper
+            : classNames.textWrapper,
           containerClasses,
         )}
       >
@@ -52,7 +55,15 @@ export const Text: FC<Props> = observer(
         </Typography>
 
         {tooltipAttentionContent || tooltipInfoContent ? (
-          <div className={tooltipPosition === 'corner' ? classNames.cornerTooltipsWrapper : classNames.tooltipsWrapper}>
+          <div
+            className={
+              tooltipPosition === 'corner'
+                ? classNames.cornerTooltipsWrapper
+                : tooltipPosition === 'baseLine'
+                ? classNames.baseLineTooltipsWrapper
+                : classNames.tooltipsWrapper
+            }
+          >
             {tooltipAttentionContent ? (
               <Tooltip
                 arrow

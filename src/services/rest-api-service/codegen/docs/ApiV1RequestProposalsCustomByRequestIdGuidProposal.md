@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
 **title** | **String** | Название предложения | [optional] 
+**approvedByMaster** | **Boolean** |  | [optional] 
 **createdBy** | [**ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy**](ApiV1RequestProposalsCustomByRequestIdGuidProposalCreatedBy.md) |  | [optional] 
 
 

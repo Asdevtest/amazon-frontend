@@ -170,16 +170,14 @@ export const MyProposalsListCard = ({
                       {t(TranslationKey.Cancel)}
                     </Button>
                     <div className={classNames.editAndOpenButtonWrapper}>
-                      {freelanceRequestTypeByCode[item.typeTask] === freelanceRequestType.DESIGNER && (
-                        <Button
-                          disabled={!showDesignerResultBtnStatuses.includes(proposal.status)}
-                          className={classNames.button}
-                          variant="contained"
-                          onClick={() => onClickResultBtn(item, proposal._id)}
-                        >
-                          {t(TranslationKey.Result)}
-                        </Button>
-                      )}
+                      <Button
+                        disabled={!showDesignerResultBtnStatuses.includes(proposal.status)}
+                        className={classNames.button}
+                        variant="contained"
+                        onClick={() => onClickResultBtn(item, proposal._id)}
+                      >
+                        {t(TranslationKey.Result)}
+                      </Button>
 
                       <Button
                         tooltipInfoContent={isFirst && t(TranslationKey['Change the current proposal'])}

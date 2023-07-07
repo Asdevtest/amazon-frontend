@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**priority** | **Number** | Выставить приоритет задачи | 
-**reason** | **String** | Reason of high priority | [optional] 
+**additionalBoxes** | [**[InlineObject19]**](InlineObject19.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
 
 
