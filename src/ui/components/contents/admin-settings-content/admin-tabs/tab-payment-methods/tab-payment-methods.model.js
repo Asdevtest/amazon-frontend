@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -54,7 +54,7 @@ export class AdminSettingsPaymentMethodsModel {
       const result = await SupplierModel.getSuppliersPaymentMethods()
 
       runInAction(() => {
-        this.paymentMethods = toJS(result)
+        this.paymentMethods = result
       })
 
       this.setRequestStatus(loadingStatuses.success)
