@@ -47,20 +47,14 @@ class InlineObject85 {
         if (data) {
             obj = obj || new InlineObject85();
 
-            if (data.hasOwnProperty('execution_time')) {
-                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -70,34 +64,22 @@ class InlineObject85 {
 }
 
 /**
- * Время на выполнение, в минутах.
- * @member {Number} execution_time
+ * Поставить оценку юзеру
+ * @member {Number} rating
  */
-InlineObject85.prototype['execution_time'] = undefined;
+InlineObject85.prototype['rating'] = undefined;
 
 /**
- * Цена предложения.
- * @member {Number} price
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
  */
-InlineObject85.prototype['price'] = undefined;
+InlineObject85.prototype['reason'] = undefined;
 
 /**
- * Комментарий к предложению.
- * @member {String} comment
- */
-InlineObject85.prototype['comment'] = undefined;
-
-/**
- * Ссылки на медиафайлы.
+ * Массив ссылок на медиафайлы.
  * @member {Array.<String>} linksToMediaFiles
  */
 InlineObject85.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * Название предложения
- * @member {String} title
- */
-InlineObject85.prototype['title'] = undefined;
 
 
 

@@ -6,7 +6,6 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiV1SupervisorsProductsGuidPatch**](SupervisorApi.md#apiV1SupervisorsProductsGuidPatch) | **PATCH** /api/v1/supervisors/products/{guid} | # Изменить продукт.
 [**apiV1SupervisorsProductsLightGet**](SupervisorApi.md#apiV1SupervisorsProductsLightGet) | **GET** /api/v1/supervisors/products/light | # Получить облегченный список товаров взятых на проверку супервайзером.
-[**apiV1SupervisorsProductsListingGuidPatch**](SupervisorApi.md#apiV1SupervisorsProductsListingGuidPatch) | **PATCH** /api/v1/supervisors/products/listing/{guid} | # Изменить листинг для продукта.
 [**apiV1SupervisorsProductsMyGet**](SupervisorApi.md#apiV1SupervisorsProductsMyGet) | **GET** /api/v1/supervisors/products/my | # Получить список товаров взятых на проверку супервайзером.
 [**apiV1SupervisorsProductsPagMyGet**](SupervisorApi.md#apiV1SupervisorsProductsPagMyGet) | **GET** /api/v1/supervisors/products/pag/my | # Получить список товаров взятых на проверку супервайзером с пагинацией.
 [**apiV1SupervisorsProductsPickupGuidPost**](SupervisorApi.md#apiV1SupervisorsProductsPickupGuidPost) | **POST** /api/v1/supervisors/products/pickup/{guid} | # Закрепить продукт за супервайзером. Взять его в работу.
@@ -37,7 +36,7 @@ let apiInstance = new TestSwagger.SupervisorApi();
 let guid = null; // String | GUID продукта, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject118() // InlineObject118 | 
+  'body': new TestSwagger.InlineObject119() // InlineObject119 | 
 };
 apiInstance.apiV1SupervisorsProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -54,7 +53,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject118**](InlineObject118.md)|  | [optional] 
+ **body** | [**InlineObject119**](InlineObject119.md)|  | [optional] 
 
 ### Return type
 
@@ -119,62 +118,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## apiV1SupervisorsProductsListingGuidPatch
-
-> String apiV1SupervisorsProductsListingGuidPatch(guid, opts)
-
-# Изменить листинг для продукта.
-
-## Изменить листинг для продукта.  
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.SupervisorApi();
-let guid = null; // String | GUID продукта, который планируем изменить
-let opts = {
-  'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject119() // InlineObject119 | 
-};
-apiInstance.apiV1SupervisorsProductsListingGuidPatch(guid, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **guid** | [**String**](.md)| GUID продукта, который планируем изменить | 
- **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject119**](InlineObject119.md)|  | [optional] 
-
-### Return type
-
-**String**
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
 - **Accept**: application/json
 
 

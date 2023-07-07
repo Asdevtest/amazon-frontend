@@ -15,7 +15,6 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject118 from '../model/InlineObject118';
 import InlineObject119 from '../model/InlineObject119';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse20022 from '../model/InlineResponse20022';
@@ -50,7 +49,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject118} opts.body 
+     * @param {module:model/InlineObject119} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SupervisorsProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -89,7 +88,7 @@ export default class SupervisorApi {
      * @param {String} guid GUID продукта, который планируем изменить
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject118} opts.body 
+     * @param {module:model/InlineObject119} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SupervisorsProductsGuidPatch(guid, opts) {
@@ -141,62 +140,6 @@ export default class SupervisorApi {
      */
     apiV1SupervisorsProductsLightGet(opts) {
       return this.apiV1SupervisorsProductsLightGetWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * # Изменить листинг для продукта.
-     * ## Изменить листинг для продукта.  
-     * @param {String} guid GUID продукта, который планируем изменить
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject119} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1SupervisorsProductsListingGuidPatchWithHttpInfo(guid, opts) {
-      opts = opts || {};
-      let postBody = opts['body'];
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1SupervisorsProductsListingGuidPatch");
-      }
-
-      let pathParams = {
-        'guid': guid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/supervisors/products/listing/{guid}', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * # Изменить листинг для продукта.
-     * ## Изменить листинг для продукта.  
-     * @param {String} guid GUID продукта, который планируем изменить
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject119} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1SupervisorsProductsListingGuidPatch(guid, opts) {
-      return this.apiV1SupervisorsProductsListingGuidPatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
