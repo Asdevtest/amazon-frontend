@@ -72,7 +72,7 @@ export const DeliveryParameters = ({
             <div className={classNames.deadlineWrapper}>
               <NewDatePicker
                 disablePast
-                disabled={isCanChange}
+                disabled={!isCanChange}
                 minDate={minDate}
                 value={formFields.deadline}
                 onChange={onChangeField('deadline')}
@@ -89,7 +89,7 @@ export const DeliveryParameters = ({
         tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
         inputComponent={
           <WithSearchSelect
-            disabled={isCanChange}
+            disabled={!isCanChange}
             width={220}
             selectedItemName={
               destinations?.find(el => el?._id === formFields?.destinationId)?.name || t(TranslationKey['Not chosen'])
@@ -112,7 +112,7 @@ export const DeliveryParameters = ({
         inputComponent={
           <Button
             disableElevation
-            disabled={isCanChange}
+            disabled={!isCanChange}
             color="primary"
             variant={formFields.storekeeperId && 'text'}
             className={cx({ [classNames.storekeeperBtn]: !formFields.storekeeperId })}

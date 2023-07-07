@@ -122,9 +122,7 @@ export const OrderContent = ({
     setShowSetBarcodeModal(!showSetBarcodeModal)
   }
 
-  const isCanChange =
-    updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] &&
-    updatedOrder.status !== OrderStatusByKey[OrderStatus.PENDING]
+  const isCanChange = updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]
 
   const disabledSaveSubmit =
     (!isValid(parseISO(formFields.deadline)) && isPast(parseISO(formFields.deadline))) || !formFields.amount

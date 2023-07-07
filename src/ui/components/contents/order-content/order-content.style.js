@@ -15,7 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
   orderNumWrapper: {
     display: 'flex',
     alignItems: 'center',
-    marginLeft: 450,
+    marginLeft: 400,
   },
 
   orderText: {
@@ -50,7 +50,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   suppliersWrapper: {
-    padding: '30px 50px',
+    padding: '0 50px 30px',
   },
 
   supplierTitle: {
@@ -77,7 +77,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '0 50px',
+    padding: '0 50px 30px',
   },
 
   button: {
