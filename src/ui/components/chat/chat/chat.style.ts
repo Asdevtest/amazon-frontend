@@ -294,6 +294,10 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
+  scrollToBottomWithChatInfo: {
+    right: 380,
+  },
+
   scrollToBottomBadge: {
     padding: '1px 6px',
     background: theme.palette.primary.main,

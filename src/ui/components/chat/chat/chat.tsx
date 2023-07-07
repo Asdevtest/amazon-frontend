@@ -287,7 +287,12 @@ export const Chat: FC<Props> = observer(
             )}
           </div>
 
-          <div className={classNames.scrollToBottom} onClick={onClickScrollToBottom}>
+          <div
+            className={cx(classNames.scrollToBottom, {
+              [classNames.scrollToBottomWithChatInfo]: showChatInfo,
+            })}
+            onClick={onClickScrollToBottom}
+          >
             <KeyboardArrowDownIcon />
             {!!unreadMessages?.length && <div className={classNames.scrollToBottomBadge}>{unreadMessages?.length}</div>}
           </div>
