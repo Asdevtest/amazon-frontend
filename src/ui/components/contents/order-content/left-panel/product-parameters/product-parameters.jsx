@@ -53,7 +53,7 @@ export const ProductParameters = ({
     <div className={classNames.container}>
       <Field
         oneLine
-        disabled={!isCanChange}
+        disabled={isCanChange}
         inputProps={{ maxLength: 8 }}
         label={t(TranslationKey['Quantity (pcs.)'])}
         inputClasses={classNames.amountInput}
