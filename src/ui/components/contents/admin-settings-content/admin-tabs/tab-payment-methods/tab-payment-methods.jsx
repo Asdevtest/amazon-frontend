@@ -117,8 +117,6 @@ export const TabPaymentMethods = observer(() => {
     }
   }
 
-  console.log(isValidUrl, !!method.title)
-
   const isDisableButton = isValidUrl && !!method.title
 
   return (
