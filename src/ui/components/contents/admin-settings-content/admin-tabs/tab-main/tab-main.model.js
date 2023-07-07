@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -73,7 +73,7 @@ export class AdminSettingsMainModel {
       const result = await AdministratorModel.getProxy()
 
       runInAction(() => {
-        this.serverProxy = toJS(result)
+        this.serverProxy = result
       })
 
       this.setRequestStatus(loadingStatuses.success)
