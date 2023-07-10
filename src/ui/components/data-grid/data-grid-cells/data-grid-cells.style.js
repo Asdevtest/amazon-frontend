@@ -624,6 +624,7 @@ export const styles = theme => ({
 
   multilineTextWrapper: {
     height: '100%',
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     padding: '5px 0',
