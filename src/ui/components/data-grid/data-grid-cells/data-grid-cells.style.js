@@ -150,6 +150,10 @@ export const styles = theme => ({
     // color: '#F5CF00',
     backgroundColor: '#F5CF00',
     color: '#001029',
+
+    '&:hover, &:focus': {
+      color: '#fff',
+    },
   },
 
   inputValueNoExists: {
