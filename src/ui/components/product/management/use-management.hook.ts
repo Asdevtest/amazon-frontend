@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 
 import { SelectChangeEvent } from '@mui/material/Select/SelectInput'
 
@@ -8,31 +8,34 @@ import { AdministratorModel } from '@models/administrator-model'
 
 import { updateObjPropsWithArr } from '@components/product/management/update-obj-props-with-arr.helper'
 
-import { mapUserRolesForAdminProduct } from '@constants/keys/user-roles'
+import { UserRolesForAdminProduct } from '@constants/keys/user-roles'
 
 import { DataType, MemberType, MembersType, IPromiseItem, Members } from './management.types'
 import { ProductModel } from '@models/product-model'
+
+const initialStateMember: MemberType = { _id: '', name: '' }
+const initialStateRequest: DataType = {
+  productId: '',
+  buyerId: '',
+  supervisorId: '',
+  clientId: '',
+}
 
 export const useManagement = () => {
   const productIdFromUrl = new URL(window.location.href).searchParams.get('product-id')
 
   const [members, setMembers] = useState<MembersType>({
-    buyers: [],
     clients: [],
-    researchers: [],
     supervisors: [],
+    researchers: [],
+    buyers: [],
   })
-  const [client, setClient] = useState<MemberType>({ _id: '', name: '' })
-  const [buyer, setBuyer] = useState<MemberType>({ _id: '', name: '' })
-  const [supervisor, setSupervisor] = useState<MemberType>({ _id: '', name: '' })
-  const [researcher, setResearcher] = useState<MemberType>({ _id: '', name: '' })
-  const [product, setProduct] = useState<any>()
-  const [data, setData] = useState<DataType>({
-    productId: '',
-    buyerId: '',
-    supervisorId: '',
-    clientId: '',
-  })
+  const [client, setClient] = useState<MemberType>(initialStateMember)
+  const [buyer, setBuyer] = useState<MemberType>(initialStateMember)
+  const [supervisor, setSupervisor] = useState<MemberType>(initialStateMember)
+  const [researcher, setResearcher] = useState<MemberType>(initialStateMember)
+  const [product, setProduct] = useState<any>({})
+  const [data, setData] = useState<DataType>(initialStateRequest)
   const [isDisabledClient, setIsDisabledClient] = useState(true)
   const [isDisabledBuyer, setIsDisabledBuyer] = useState(true)
   const [isDisabledSupervisor, setIsDisabledSupervisor] = useState(true)
@@ -53,7 +56,11 @@ export const useManagement = () => {
   }
 
   useEffect(() => {
-    const promises: Promise<IPromiseItem>[] = mapUserRolesForAdminProduct.map(roleCode =>
+    if (productIdFromUrl) {
+      handleGetProduct(productIdFromUrl)
+    }
+
+    const promises: Promise<IPromiseItem>[] = Object.keys(UserRolesForAdminProduct).map(roleCode =>
       AdministratorModel.getUsersByRole(roleCode),
     )
     const handleGetMembers = async () => {
@@ -63,12 +70,6 @@ export const useManagement = () => {
     }
     handleGetMembers()
   }, [])
-
-  useEffect(() => {
-    if (productIdFromUrl) {
-      handleGetProduct(productIdFromUrl)
-    }
-  }, [productIdFromUrl])
 
   useEffect(() => {
     if (members.clients?.length > 0) {
@@ -141,7 +142,7 @@ export const useManagement = () => {
     })
   }, [product._id, buyer._id, supervisor._id, client._id])
 
-  const handleMemberChange = useCallback((event: SelectChangeEvent<string>, memberType: number) => {
+  const handleMemberChange = (event: SelectChangeEvent<string>, memberType: number) => {
     const selectedMemberId = event.target.value
 
     let selectedMember = null
@@ -166,7 +167,7 @@ export const useManagement = () => {
       default:
         break
     }
-  }, [])
+  }
 
   const handleChangeClient = (event: SelectChangeEvent<string>) => {
     handleMemberChange(event, Members.Client)

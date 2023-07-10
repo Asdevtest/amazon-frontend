@@ -58,6 +58,4 @@ export const UserRolesForAdminProduct = {
   40: UserRole.BUYER,
 }
 
-export const mapUserRolesForAdminProduct = Object.keys(objectFlip(UserRolesForAdminProduct, parseInt))
-
 export const mapUserRoleEnumToKey = objectFlip(UserRoleCodeMap, parseInt)
