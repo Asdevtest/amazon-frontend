@@ -36,15 +36,15 @@ export const RequestStandartResultForm = ({ /* request, */ setOpenModal, proposa
       </div>
       <div className={classNames.resultTextWrapper}>
         <Linkify>
-          <Typography className={classNames.resultText}>{proposal.details.result}</Typography>
+          <Typography className={classNames.resultText}>{proposal?.details?.result}</Typography>
         </Linkify>
       </div>
       <div className={classNames.resultWrapper}>
         <PhotoAndFilesCarousel
           notToShowEmpty
           small
-          files={proposal.proposal.media?.map(el => (typeof el === 'object' ? el.fileLink : el))}
-          width="340px"
+          files={proposal?.proposal?.media?.map(el => (typeof el === 'object' ? el?.fileLink : el))}
+          width="100%"
           withoutPhotos={undefined}
           whithoutFiles={undefined}
           imagesForLoad={undefined}

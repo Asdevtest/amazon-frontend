@@ -15,6 +15,8 @@ import { clientProductsDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
 import { dataURLtoFile } from '@utils/upload-files'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { checkIsFreelancer } from '@utils/checks'
 
 export class ProfileViewModel {
   history = undefined
@@ -139,7 +141,11 @@ export class ProfileViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      await this.getProductsVacant()
+
+      if (!checkIsFreelancer(UserRoleCodeMap[UserModel.userInfo.role])) {
+        await this.getProductsVacant()
+      }
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

@@ -1,6 +1,4 @@
 /* eslint-disable no-unused-vars */
-import React, { useCallback, useMemo } from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -21,7 +19,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
+    renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Action)} />,
 
     renderCell: params => (
       <NormalActionBtnCell
@@ -39,7 +37,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
   {
     field: 'priority',
     headerName: t(TranslationKey.Priority),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
+    renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Priority)} />,
 
     width: window.innerWidth < 1282 ? 140 : 170,
     renderCell: params => (
@@ -54,7 +52,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
   {
     field: 'reason',
     headerName: t(TranslationKey.Comment),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+    renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Comment)} />,
 
     width: 271,
 
@@ -73,7 +71,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
   {
     field: 'operationType',
     headerName: t(TranslationKey.Type),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
+    renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Type)} />,
 
     width: 180,
     renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
@@ -82,7 +80,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
   {
     field: 'description',
     headerName: t(TranslationKey.Description),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
+    renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Description)} />,
 
     // width: window.innerWidth < 1282 ? 338 : 850,
     width: 290,
@@ -93,7 +91,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
   {
     field: 'asin',
     headerName: 'ASIN',
-    renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
+    renderHeader: () => <MultilineTextHeaderCell textAlignStart text={'ASIN'} />,
 
     renderCell: params => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />

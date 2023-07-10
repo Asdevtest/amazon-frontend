@@ -362,6 +362,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsFreelanceSourcesGuidPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsFreelanceSourcesGuidPatch) | **PATCH** /api/v1/request-proposals/freelance-sources/{guid} | #  Изменить исходник.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsFreelanceSourcesPost**](docs/RequestProposalsApi.md#apiV1RequestProposalsFreelanceSourcesPost) | **POST** /api/v1/request-proposals/freelance-sources | #  Создать исходник.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGet**](docs/RequestProposalsApi.md#apiV1RequestProposalsGet) | **GET** /api/v1/request-proposals/ | Получить все предложения для супервизора.
+*TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidApprovePatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidApprovePatch) | **PATCH** /api/v1/request-proposals/{guid}/approve | #  Одобрить/отклонить роботу над предложением саба
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidCancelBeforeDealPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidCancelBeforeDealPatch) | **PATCH** /api/v1/request-proposals/{guid}/cancel_before_deal | # Отмена предложения до заключения сделки.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidCancelPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidCancelPatch) | **PATCH** /api/v1/request-proposals/{guid}/cancel | # Отмена предложения после заключения сделки, в зависимости от того кто вызвал ставится статус.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch) | **PATCH** /api/v1/request-proposals/{guid}/link_or_unlink_supervisor | #  Привязать или \&quot;отвязать\&quot; супервайзера от предложения.
@@ -373,6 +374,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidResultAcceptPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidResultAcceptPatch) | **PATCH** /api/v1/request-proposals/{guid}/result_accept | #  Принять результаты работы.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidResultCorrectedPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidResultCorrectedPatch) | **PATCH** /api/v1/request-proposals/{guid}/result_corrected | #  Отправить обратно на утверждение, после доработки.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidResultToCorrectPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidResultToCorrectPatch) | **PATCH** /api/v1/request-proposals/{guid}/result_to_correct | # Отправить на доработку результат работы.
+*TestSwagger.RequestsApi* | [**apiV1RequestsByProductLightGuidGet**](docs/RequestsApi.md#apiV1RequestsByProductLightGuidGet) | **GET** /api/v1/requests/by_product/light/{guid} | Получить облегченный список заявок по продукту
 *TestSwagger.RequestsApi* | [**apiV1RequestsCalculateRequestCostGuidGet**](docs/RequestsApi.md#apiV1RequestsCalculateRequestCostGuidGet) | **GET** /api/v1/requests/calculate_request_cost/{guid} | Получить детализацию стоимости заявки
 *TestSwagger.RequestsApi* | [**apiV1RequestsCustomGet**](docs/RequestsApi.md#apiV1RequestsCustomGet) | **GET** /api/v1/requests/custom/ | Получить все уникальные заявки для исполнителя.
 *TestSwagger.RequestsApi* | [**apiV1RequestsCustomGuidGet**](docs/RequestsApi.md#apiV1RequestsCustomGuidGet) | **GET** /api/v1/requests/custom/{guid} | Получить уникальную заявку по его guid.
@@ -439,7 +441,6 @@ Class | Method | HTTP request | Description
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTasksVacGet**](docs/StorekeepersApi.md#apiV1StorekeepersTasksVacGet) | **GET** /api/v1/storekeepers/tasks/vac | # Deprecated! Получить задачи не закрепленные за сотрудниками склада.
 *TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsGuidPatch**](docs/SupervisorApi.md#apiV1SupervisorsProductsGuidPatch) | **PATCH** /api/v1/supervisors/products/{guid} | # Изменить продукт.
 *TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsLightGet**](docs/SupervisorApi.md#apiV1SupervisorsProductsLightGet) | **GET** /api/v1/supervisors/products/light | # Получить облегченный список товаров взятых на проверку супервайзером.
-*TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsListingGuidPatch**](docs/SupervisorApi.md#apiV1SupervisorsProductsListingGuidPatch) | **PATCH** /api/v1/supervisors/products/listing/{guid} | # Изменить листинг для продукта.
 *TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsMyGet**](docs/SupervisorApi.md#apiV1SupervisorsProductsMyGet) | **GET** /api/v1/supervisors/products/my | # Получить список товаров взятых на проверку супервайзером.
 *TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsPagMyGet**](docs/SupervisorApi.md#apiV1SupervisorsProductsPagMyGet) | **GET** /api/v1/supervisors/products/pag/my | # Получить список товаров взятых на проверку супервайзером с пагинацией.
 *TestSwagger.SupervisorApi* | [**apiV1SupervisorsProductsPickupGuidPost**](docs/SupervisorApi.md#apiV1SupervisorsProductsPickupGuidPost) | **POST** /api/v1/supervisors/products/pickup/{guid} | # Закрепить продукт за супервайзером. Взять его в работу.
@@ -748,30 +749,30 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20035](docs/InlineResponse20035.md)
  - [TestSwagger.InlineResponse20036](docs/InlineResponse20036.md)
  - [TestSwagger.InlineResponse20037](docs/InlineResponse20037.md)
+ - [TestSwagger.InlineResponse20037Batch](docs/InlineResponse20037Batch.md)
+ - [TestSwagger.InlineResponse20037Boxes](docs/InlineResponse20037Boxes.md)
+ - [TestSwagger.InlineResponse20037Orders](docs/InlineResponse20037Orders.md)
+ - [TestSwagger.InlineResponse20037Products](docs/InlineResponse20037Products.md)
+ - [TestSwagger.InlineResponse20037Requests](docs/InlineResponse20037Requests.md)
+ - [TestSwagger.InlineResponse20037Shops](docs/InlineResponse20037Shops.md)
  - [TestSwagger.InlineResponse20038](docs/InlineResponse20038.md)
+ - [TestSwagger.InlineResponse20038Finances](docs/InlineResponse20038Finances.md)
+ - [TestSwagger.InlineResponse20038Orders](docs/InlineResponse20038Orders.md)
+ - [TestSwagger.InlineResponse20038PendingOrders](docs/InlineResponse20038PendingOrders.md)
+ - [TestSwagger.InlineResponse20038Products](docs/InlineResponse20038Products.md)
  - [TestSwagger.InlineResponse20039](docs/InlineResponse20039.md)
- - [TestSwagger.InlineResponse20039Batch](docs/InlineResponse20039Batch.md)
+ - [TestSwagger.InlineResponse20039Batches](docs/InlineResponse20039Batches.md)
  - [TestSwagger.InlineResponse20039Boxes](docs/InlineResponse20039Boxes.md)
- - [TestSwagger.InlineResponse20039Orders](docs/InlineResponse20039Orders.md)
- - [TestSwagger.InlineResponse20039Products](docs/InlineResponse20039Products.md)
- - [TestSwagger.InlineResponse20039Requests](docs/InlineResponse20039Requests.md)
- - [TestSwagger.InlineResponse20039Shops](docs/InlineResponse20039Shops.md)
+ - [TestSwagger.InlineResponse20039Tasks](docs/InlineResponse20039Tasks.md)
  - [TestSwagger.InlineResponse2004](docs/InlineResponse2004.md)
  - [TestSwagger.InlineResponse20040](docs/InlineResponse20040.md)
- - [TestSwagger.InlineResponse20040Finances](docs/InlineResponse20040Finances.md)
- - [TestSwagger.InlineResponse20040Orders](docs/InlineResponse20040Orders.md)
- - [TestSwagger.InlineResponse20040PendingOrders](docs/InlineResponse20040PendingOrders.md)
  - [TestSwagger.InlineResponse20040Products](docs/InlineResponse20040Products.md)
  - [TestSwagger.InlineResponse20041](docs/InlineResponse20041.md)
- - [TestSwagger.InlineResponse20041Batches](docs/InlineResponse20041Batches.md)
- - [TestSwagger.InlineResponse20041Boxes](docs/InlineResponse20041Boxes.md)
- - [TestSwagger.InlineResponse20041Tasks](docs/InlineResponse20041Tasks.md)
  - [TestSwagger.InlineResponse20042](docs/InlineResponse20042.md)
+ - [TestSwagger.InlineResponse20042Checking](docs/InlineResponse20042Checking.md)
  - [TestSwagger.InlineResponse20042Products](docs/InlineResponse20042Products.md)
  - [TestSwagger.InlineResponse20043](docs/InlineResponse20043.md)
  - [TestSwagger.InlineResponse20044](docs/InlineResponse20044.md)
- - [TestSwagger.InlineResponse20044Checking](docs/InlineResponse20044Checking.md)
- - [TestSwagger.InlineResponse20044Products](docs/InlineResponse20044Products.md)
  - [TestSwagger.InlineResponse20045](docs/InlineResponse20045.md)
  - [TestSwagger.InlineResponse20046](docs/InlineResponse20046.md)
  - [TestSwagger.InlineResponse20047](docs/InlineResponse20047.md)
@@ -791,12 +792,12 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20059](docs/InlineResponse20059.md)
  - [TestSwagger.InlineResponse2006](docs/InlineResponse2006.md)
  - [TestSwagger.InlineResponse20060](docs/InlineResponse20060.md)
- - [TestSwagger.InlineResponse20060Announcement](docs/InlineResponse20060Announcement.md)
- - [TestSwagger.InlineResponse20060CountProposalsByStatuses](docs/InlineResponse20060CountProposalsByStatuses.md)
- - [TestSwagger.InlineResponse20060Media](docs/InlineResponse20060Media.md)
- - [TestSwagger.InlineResponse20060Product](docs/InlineResponse20060Product.md)
- - [TestSwagger.InlineResponse20060Rows](docs/InlineResponse20060Rows.md)
  - [TestSwagger.InlineResponse20061](docs/InlineResponse20061.md)
+ - [TestSwagger.InlineResponse20061Announcement](docs/InlineResponse20061Announcement.md)
+ - [TestSwagger.InlineResponse20061CountProposalsByStatuses](docs/InlineResponse20061CountProposalsByStatuses.md)
+ - [TestSwagger.InlineResponse20061Media](docs/InlineResponse20061Media.md)
+ - [TestSwagger.InlineResponse20061Product](docs/InlineResponse20061Product.md)
+ - [TestSwagger.InlineResponse20061Rows](docs/InlineResponse20061Rows.md)
  - [TestSwagger.InlineResponse20062](docs/InlineResponse20062.md)
  - [TestSwagger.InlineResponse20063](docs/InlineResponse20063.md)
  - [TestSwagger.InlineResponse20064](docs/InlineResponse20064.md)
@@ -815,7 +816,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20076](docs/InlineResponse20076.md)
  - [TestSwagger.InlineResponse20077](docs/InlineResponse20077.md)
  - [TestSwagger.InlineResponse20078](docs/InlineResponse20078.md)
- - [TestSwagger.InlineResponse20078Details](docs/InlineResponse20078Details.md)
+ - [TestSwagger.InlineResponse20079](docs/InlineResponse20079.md)
+ - [TestSwagger.InlineResponse20079Details](docs/InlineResponse20079Details.md)
  - [TestSwagger.InlineResponse2008](docs/InlineResponse2008.md)
  - [TestSwagger.InlineResponse2009](docs/InlineResponse2009.md)
  - [TestSwagger.InlineResponse201](docs/InlineResponse201.md)

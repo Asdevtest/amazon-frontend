@@ -51,7 +51,8 @@ export const ClientProductView = observer(props => {
             progressValue={viewModel.progressValue}
             product={viewModel.getCurrentData()}
             shops={viewModel.shopsData}
-            acceptMessage={viewModel.acceptMessage}
+            acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+            showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
             actionStatus={viewModel.actionStatus}
             productBase={viewModel.productBase}
             selectedSupplier={viewModel.selectedSupplier}

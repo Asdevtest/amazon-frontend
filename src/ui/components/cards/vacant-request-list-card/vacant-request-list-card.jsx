@@ -29,6 +29,7 @@ import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { useClassNames } from './vacant-request-list-card.style'
+import { requestPriority } from '@constants/requests/request-priority'
 
 export const VacantRequestListCard = ({ item, onClickViewMore, isFirst }) => {
   const { classes: classNames } = useClassNames()
@@ -83,7 +84,7 @@ export const VacantRequestListCard = ({ item, onClickViewMore, isFirst }) => {
         </div>
 
         <div className={classNames.mainInfosWrapper}>
-          <div className={classNames.mainInfosSubWrapper}>
+          <div>
             {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
               <Field
                 labelClasses={classNames.fieldLabel}
@@ -105,7 +106,9 @@ export const VacantRequestListCard = ({ item, onClickViewMore, isFirst }) => {
                   </div>
                 }
               />
-            ) : null}
+            ) : (
+              <div className={classNames.emptyDiv} />
+            )}
 
             {item.typeTask === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] ? (
               <Field
@@ -183,6 +186,12 @@ export const VacantRequestListCard = ({ item, onClickViewMore, isFirst }) => {
               }
             />
           </div>
+        </div>
+
+        <div className={classNames.priorityWrapper}>
+          {Number(item?.priority) === requestPriority.urgentPriority && (
+            <img className={classNames.priorityIcon} src="/assets/icons/fire.svg" />
+          )}
         </div>
 
         <div className={classNames.buttonWrapper}>

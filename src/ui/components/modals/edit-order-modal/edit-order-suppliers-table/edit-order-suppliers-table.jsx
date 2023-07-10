@@ -5,7 +5,7 @@ import React from 'react'
 
 import { observer } from 'mobx-react'
 
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'

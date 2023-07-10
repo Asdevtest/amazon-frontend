@@ -50,6 +50,7 @@ export const styles = theme => ({
   },
   csCodeTypoWrapper: {
     width: '100%',
+    marginLeft: 10,
   },
   csCodeTypo: {
     fontSize: '14px',

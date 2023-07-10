@@ -127,7 +127,17 @@ const Box = ({
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
 
   const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId, destinationId) => {
-    onChangeField({ storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId }, 'part', box._id)
+    onChangeField(
+      {
+        storekeeperId,
+        logicsTariffId: tariffId,
+        variationTariffId,
+        destinationId,
+        isSameDestination: variationTariffId ? isSameDestination : true,
+      },
+      'part',
+      box._id,
+    )
 
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
@@ -143,9 +153,20 @@ const Box = ({
 
   const tariffName = currentLogicsTariff?.name
 
+  const selectedVariationTariff = currentLogicsTariff?.destinationVariations?.find(
+    el => el._id === box?.variationTariffId,
+  )
+
   const tariffRate =
-    currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
-    currentLogicsTariff?.destinationVariations?.find(el => el._id === box?.variationTariffId)?.pricePerKgUsd
+    currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate || selectedVariationTariff?.pricePerKgUsd
+
+  const isSameDestination = selectedVariationTariff?.destination?._id === curDestination?._id
+
+  useEffect(() => {
+    if (box?.variationTariffId) {
+      onChangeField({ isSameDestination }, 'part', box._id)
+    }
+  }, [isSameDestination, box?.variationTariffId, box?._id])
 
   return (
     <div className={classNames.box}>
@@ -285,6 +306,7 @@ const Box = ({
           {showFullCard ? (
             <div className={classNames.itemSubWrapper}>
               <Field
+                error={!box.isSameDestination && t(TranslationKey['Incorrect destination or tariff'])}
                 containerClasses={classNames.field}
                 tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the USA, available for change"])}
                 label={t(TranslationKey.Destination)}
@@ -635,6 +657,8 @@ export const EditMultipleBoxesForm = observer(
 
         tmpShippingLabel: [],
         items: el?.items ? [...el.items.map(el => ({ ...el, changeBarCodInInventory: false, tmpBarCode: [] }))] : [],
+
+        isSameDestination: true,
       })),
     )
 
@@ -661,28 +685,55 @@ export const EditMultipleBoxesForm = observer(
       }
     }, [newBoxes.length])
 
+    // const onChangeField = (e, field, boxId) => {
+    //   console.log('VALUE', e)
+
+    //   const targetBox = newBoxes.filter(newBox => newBox._id === boxId)[0]
+
+    //   if (field === 'part') {
+    //     const updatedTargetBox = {
+    //       ...targetBox,
+    //       ...e,
+    //     }
+
+    //     const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
+
+    //     console.log('updatedNewBoxes', updatedNewBoxes)
+
+    //     setNewBoxes(updatedNewBoxes)
+    //   } else {
+    //     const updatedTargetBox = {
+    //       ...targetBox,
+    //       [field]: field === 'isShippingLabelAttachedByStorekeeper' ? e.target.checked : e.target.value,
+    //     }
+
+    //     const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
+
+    //     setNewBoxes(updatedNewBoxes)
+    //   }
+    // }
+
     const onChangeField = (e, field, boxId) => {
-      const targetBox = newBoxes.filter(newBox => newBox._id === boxId)[0]
+      setNewBoxes(prevBoxes => {
+        const updatedBoxes = prevBoxes.map(newBox => {
+          if (newBox._id === boxId) {
+            if (field === 'part') {
+              return {
+                ...newBox,
+                ...e,
+              }
+            } else {
+              return {
+                ...newBox,
+                [field]: field === 'isShippingLabelAttachedByStorekeeper' ? e.target.checked : e.target.value,
+              }
+            }
+          }
+          return newBox
+        })
 
-      if (field === 'part') {
-        const updatedTargetBox = {
-          ...targetBox,
-          ...e,
-        }
-
-        const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
-
-        setNewBoxes(updatedNewBoxes)
-      } else {
-        const updatedTargetBox = {
-          ...targetBox,
-          [field]: field === 'isShippingLabelAttachedByStorekeeper' ? e.target.checked : e.target.value,
-        }
-
-        const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
-
-        setNewBoxes(updatedNewBoxes)
-      }
+        return updatedBoxes
+      })
     }
 
     const onApplySharedValuesToAllBoxes = field => {
@@ -774,6 +825,7 @@ export const EditMultipleBoxesForm = observer(
     const disabledSubmitBtn =
       newBoxes.some(
         el =>
+          !el.isSameDestination ||
           !el.logicsTariffId ||
           ((el.shippingLabel || el.tmpShippingLabel?.length) &&
             !el.fbaShipment &&
