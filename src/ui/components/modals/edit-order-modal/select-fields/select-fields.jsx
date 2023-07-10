@@ -5,7 +5,7 @@ import { Box, Checkbox, Grid, Link, Typography } from '@mui/material'
 
 import React, { useState } from 'react'
 
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomSelectPaymentDetails } from '@components/custom-select-payment-details'

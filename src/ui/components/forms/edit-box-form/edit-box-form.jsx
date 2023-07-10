@@ -513,9 +513,9 @@ export const EditBoxForm = observer(
                           data={
                             boxFields.logicsTariffId &&
                             currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
-                              ? destinations
-                                  .filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
-                                  .filter(el => el?._id === destinationId)
+                              ? destinations.filter(
+                                  el => el?._id === (destinationId || formItem?.variationTariff?.destinationId),
+                                )
                               : destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
                           }
                           searchFields={['name']}

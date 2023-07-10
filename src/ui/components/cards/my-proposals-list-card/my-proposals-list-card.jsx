@@ -170,7 +170,7 @@ export const MyProposalsListCard = ({
                       {t(TranslationKey.Cancel)}
                     </Button>
                     <div className={classNames.editAndOpenButtonWrapper}>
-                      {freelanceRequestTypeByCode[item.typeTask] === freelanceRequestType.DESIGNER && (
+                      {freelanceRequestTypeByCode[item.typeTask] !== freelanceRequestType.BLOGGER && (
                         <Button
                           disabled={!showDesignerResultBtnStatuses.includes(proposal.status)}
                           className={classNames.button}

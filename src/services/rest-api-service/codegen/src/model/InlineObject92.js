@@ -22,13 +22,11 @@ class InlineObject92 {
     /**
      * Constructs a new <code>InlineObject92</code>.
      * @alias module:model/InlineObject92
-     * @param sourceFile {String} Файл для записи в FreelanceSource
-     * @param typeTask {Number} Код специализации фрилансера
-     * @param productId {String} гуид продукта
+     * @param action {module:model/InlineObject92.ActionEnum} 
      */
-    constructor(sourceFile, typeTask, productId) { 
+    constructor(action) { 
         
-        InlineObject92.initialize(this, sourceFile, typeTask, productId);
+        InlineObject92.initialize(this, action);
     }
 
     /**
@@ -36,10 +34,8 @@ class InlineObject92 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, sourceFile, typeTask, productId) { 
-        obj['sourceFile'] = sourceFile;
-        obj['typeTask'] = typeTask;
-        obj['productId'] = productId;
+    static initialize(obj, action) { 
+        obj['action'] = action;
     }
 
     /**
@@ -53,20 +49,11 @@ class InlineObject92 {
         if (data) {
             obj = obj || new InlineObject92();
 
-            if (data.hasOwnProperty('sourceFile')) {
-                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            if (data.hasOwnProperty('action')) {
+                obj['action'] = ApiClient.convertToType(data['action'], 'String');
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('typeTask')) {
-                obj['typeTask'] = ApiClient.convertToType(data['typeTask'], 'Number');
-            }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('proposalId')) {
-                obj['proposalId'] = ApiClient.convertToType(data['proposalId'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -76,37 +63,39 @@ class InlineObject92 {
 }
 
 /**
- * Файл для записи в FreelanceSource
- * @member {String} sourceFile
+ * @member {module:model/InlineObject92.ActionEnum} action
  */
-InlineObject92.prototype['sourceFile'] = undefined;
+InlineObject92.prototype['action'] = undefined;
 
 /**
- * Комментарий к файлу
- * @member {String} comment
+ * Причина смены статуса.
+ * @member {String} reason
  */
-InlineObject92.prototype['comment'] = undefined;
+InlineObject92.prototype['reason'] = undefined;
+
+
+
+
 
 /**
- * Код специализации фрилансера
- * @member {Number} typeTask
+ * Allowed values for the <code>action</code> property.
+ * @enum {String}
+ * @readonly
  */
-InlineObject92.prototype['typeTask'] = undefined;
+InlineObject92['ActionEnum'] = {
 
-/**
- * гуид продукта
- * @member {String} productId
- */
-InlineObject92.prototype['productId'] = undefined;
+    /**
+     * value: "LINK"
+     * @const
+     */
+    "LINK": "LINK",
 
-/**
- * Гуид пропоузала
- * @member {String} proposalId
- */
-InlineObject92.prototype['proposalId'] = undefined;
-
-
-
+    /**
+     * value: "UNLINK"
+     * @const
+     */
+    "UNLINK": "UNLINK"
+};
 
 
 

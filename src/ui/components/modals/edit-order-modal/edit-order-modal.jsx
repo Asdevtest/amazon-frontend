@@ -20,7 +20,7 @@ import {
   OrderStatusByCode,
   OrderStatusByKey,
   OrderStatusTranslate,
-} from '@constants/statuses/order-status'
+} from '@constants/orders/order-status'
 import { BUYER_WAREHOUSE_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { TranslationKey } from '@constants/translations/translation-key'
 

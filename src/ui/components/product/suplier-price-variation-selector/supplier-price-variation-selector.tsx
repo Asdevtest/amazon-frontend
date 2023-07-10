@@ -59,7 +59,7 @@ export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorPr
                     setQuantity(String(999_999))
                     return
                   }
-                  setQuantity(e.target.value)
+                  setQuantity(String(Math.trunc(Number(e.target.value))))
                 }
               }}
             />

@@ -47,8 +47,10 @@ export class MyRequestsViewModel {
   showRequestForm = false
   showConfirmModal = false
 
-  showAcceptMessage = undefined
-  acceptMessage = undefined
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+  }
 
   selectedIndex = null
   selectedRequests = []
@@ -145,8 +147,10 @@ export class MyRequestsViewModel {
       this.history = history
 
       if (location?.state) {
-        this.acceptMessage = location?.state?.acceptMessage
-        this.showAcceptMessage = location?.state?.showAcceptMessage
+        this.alertShieldSettings = {
+          showAlertShield: location?.state?.showAcceptMessage,
+          alertShieldMessage: location?.state?.acceptMessage,
+        }
 
         const state = { ...history?.location?.state }
         delete state?.acceptMessage
@@ -160,10 +164,19 @@ export class MyRequestsViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     runInAction(() => {
-      if (this.showAcceptMessage) {
+      if (this.alertShieldSettings.showAlertShield) {
         setTimeout(() => {
-          this.acceptMessage = ''
-          this.showAcceptMessage = false
+          this.alertShieldSettings = {
+            ...this.alertShieldSettings,
+            showAlertShield: false,
+          }
+
+          setTimeout(() => {
+            this.alertShieldSettings = {
+              showAlertShield: false,
+              alertShieldMessage: '',
+            }
+          }, 1000)
         }, 3000)
       }
     })
@@ -203,8 +216,8 @@ export class MyRequestsViewModel {
       this.paginationModel = model
     })
 
-    this.setDataGridState()
     this.getCustomRequests()
+    this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {

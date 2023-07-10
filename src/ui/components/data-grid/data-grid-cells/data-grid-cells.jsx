@@ -24,7 +24,7 @@ import {
   Typography,
 } from '@mui/material'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 
 import { fromUnixTime } from 'date-fns'
 import { flushSync } from 'react-dom'
@@ -37,7 +37,7 @@ import { mapUserRoleEnumToKey, UserRole, UserRolePrettyMap } from '@constants/ke
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { RequestStatus } from '@constants/requests/request-status'
 import { BoxStatus } from '@constants/statuses/box-status'
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { mapTaskOperationTypeKeyToEnum, TaskOperationType } from '@constants/task/task-operation-type'
 import { mapTaskStatusEmumToKey, TaskStatus, TaskStatusTranslate } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -100,6 +100,9 @@ import { styles } from './data-grid-cells.style'
 import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 import { SettingsModel } from '@models/settings-model'
+import { tableProductViewMode } from '@constants/keys/table-product-view'
+import { requestPriority } from '@constants/requests/request-priority'
+import { orderPriority } from '@constants/orders/order-priority'
 
 export const UserCell = React.memo(
   withStyles(
@@ -1566,11 +1569,12 @@ export const MultilineTextAlignLeftHeaderCell = React.memo(
 
 export const MultilineTextHeaderCell = React.memo(
   withStyles(
-    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component }) => (
+    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component, textAlignStart }) => (
       <Tooltip title={text}>
         <div
           className={cx(classNames.multilineTextHeaderWrapper, {
             [classNames.multilineTextHeaderWrapperWithComponent]: component,
+            [classNames.multilineTextAlignStartWrapper]: textAlignStart,
           })}
         >
           <Typography className={classNames.multilineHeaderText}>{text}</Typography>
@@ -1600,7 +1604,8 @@ export const PriorityAndChinaDeliverCell = React.memo(
         {isPendingOrder ? <ClockIcon className={classNames.clockIcon} /> : null}
 
         <div>
-          {priority === '40' || (isRequest && Number(priority) === 30) ? (
+          {Number(priority) === orderPriority.urgentPriority ||
+          (isRequest && Number(priority) === requestPriority.urgentPriority) ? (
             <div className={classNames.priority}>
               <img src="/assets/icons/fire.svg" />
             </div>
@@ -2722,50 +2727,8 @@ export const EditOrRemoveIconBtnsCell = React.memo(
 )
 
 export const BatchBoxesCell = React.memo(
-  withStyles(({ classes: classNames, boxes }) => {
-    const renderProductInfo = (box, boxesLength) => (
-      <div className={classNames.batchProductsWrapper}>
-        {boxesLength > 1 ? (
-          <Typography className={classNames.batchProductsBoxesLength}>{`x${boxesLength}`}</Typography>
-        ) : null}
-
-        <div className={classNames.batchProductsSubWrapper}>
-          {box.items.map((item, itemIndex) => (
-            <div key={itemIndex} className={classNames.order}>
-              <img alt="" src={getAmazonImageUrl(item.image)} className={classNames.orderImg} />
-              <div>
-                <Typography className={classNames.batchProductTitle}>{item.amazonTitle}</Typography>
-                <div className={classNames.copyAsin}>
-                  <Typography className={classNames.orderText}>
-                    <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
-                    {item.asin}
-                  </Typography>
-                  {item.asin ? <CopyValue text={item.asin} /> : null}
-                  <Typography className={classNames.orderText}>
-                    {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
-                      <span className={classNames.needPay}>{`${t(
-                        TranslationKey['Extra payment required!'],
-                      )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
-                    )}
-                  </Typography>
-                </div>
-
-                <Typography className={classNames.imgNum}>{`x ${item.amount}`}</Typography>
-                {box.amount > 1 && (
-                  <Typography className={classNames.superboxTypo}>{`Superbox x ${box.amount}`}</Typography>
-                )}
-              </div>
-            </div>
-          ))}
-
-          {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
-            <span className={classNames.needPay}>
-              {t(TranslationKey['The tariff is invalid or has been removed!'])}
-            </span>
-          )}
-        </div>
-      </div>
-    )
+  withStyles(({ classes: classNames, boxes, productViewMode }) => {
+    const isAbbreviatedView = productViewMode === tableProductViewMode.ABBREVIATED
 
     const simpleBoxes = boxes.map(box => ({
       amount: box.amount,
@@ -2798,9 +2761,19 @@ export const BatchBoxesCell = React.memo(
     const filteredBoxes = Object.values(object)
 
     return (
-      <div className={classNames.batchBoxesWrapper}>
+      <div
+        className={cx(classNames.batchBoxesWrapper, {
+          [classNames.withScrollBatchBoxesWrapper]: isAbbreviatedView,
+        })}
+      >
         {filteredBoxes.map((boxes, i) => (
-          <div key={i}>{renderProductInfo(boxes[0], boxes.length)}</div>
+          <Fragment key={i}>
+            {isAbbreviatedView ? (
+              <ProductInfoAbbreviated box={boxes[0]} boxesLength={boxes.length} />
+            ) : (
+              <ProductInfoExtended box={boxes[0]} boxesLength={boxes.length} />
+            )}
+          </Fragment>
         ))}
       </div>
     )
@@ -3071,100 +3044,95 @@ export const FormedCell = React.memo(
   ),
 )
 
-// export const ShortBoxDimensions = React.memo( withStyles(
-//   ({classes: classNames, box, volumeWeightCoefficient, curUser, handlers}) => {
-//     const dimensionsConfig = {
-//       PRIMARY: 'PRIMARY',
-//       SHIPPING: 'SHIPPING',
-//     }
+export const ProductInfoExtended = React.memo(
+  withStyles(
+    ({ classes: classNames, box, boxesLength }) => (
+      <div className={classNames.batchProductsWrapper}>
+        {boxesLength > 1 ? (
+          <Typography className={classNames.batchProductsBoxesLength}>{`x${boxesLength}`}</Typography>
+        ) : null}
 
-//     const [toggleDimensionsValue, setToggleDimensionsValue] = useState(
-//       (box.deliveryHeight || box.deliveryLength || box.deliveryMass || box.deliveryWidth) && !box.fitsInitialDimensions
-//         ? dimensionsConfig.SHIPPING
-//         : dimensionsConfig.PRIMARY,
-//     )
+        <div className={classNames.batchProductsSubWrapper}>
+          {box.items.map((item, itemIndex) => (
+            <div key={itemIndex} className={classNames.order}>
+              <img alt="" src={getAmazonImageUrl(item.image)} className={classNames.orderImg} />
+              <div className={classNames.batchProductInfoWrapper}>
+                <Typography className={classNames.batchProductTitle}>{item.amazonTitle}</Typography>
+                <div className={classNames.copyAsin}>
+                  <Typography className={classNames.orderText}>
+                    <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
+                    {item.asin}
+                  </Typography>
+                  {item.asin ? <CopyValue text={item.asin} /> : null}
+                  <Typography className={classNames.orderText}>
+                    {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
+                      <span className={classNames.needPay}>{`${t(
+                        TranslationKey['Extra payment required!'],
+                      )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
+                    )}
+                  </Typography>
+                </div>
 
-//     const finalWeight = calcFinalWeightForBox(
-//       box,
-//       volumeWeightCoefficient,
-//       toggleDimensionsValue === dimensionsConfig.SHIPPING,
-//     )
+                <div className={classNames.amountBoxesWrapper}>
+                  <Typography className={classNames.amountBoxesText}>{`x ${item.amount}`}</Typography>
+                  {box.amount > 1 && (
+                    <Typography className={classNames.amountBoxesText}>{`Superbox x ${box.amount}`}</Typography>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
 
-//     return (
-//       <div className={classNames.shortBoxDimensionsWrapper}>
-//         <div className={classNames.toggleSizesWrapper}>
-//           <div className={classNames.toggleItemWrapper}>
-//             {toggleDimensionsValue === dimensionsConfig.PRIMARY ? <span className={classNames.indicator}></span> : null}
+          {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
+            <span className={classNames.needPay}>
+              {t(TranslationKey['The tariff is invalid or has been removed!'])}
+            </span>
+          )}
+        </div>
+      </div>
+    ),
+    styles,
+  ),
+)
 
-//             <Typography
-//               className={cx(classNames.sizesLabel, {
-//                 [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.PRIMARY,
-//               })}
-//               onClick={() => setToggleDimensionsValue(dimensionsConfig.PRIMARY)}
-//             >
-//               {t(TranslationKey['Primary dimensions'])}
-//             </Typography>
+export const ProductInfoAbbreviated = React.memo(
+  withStyles(
+    ({ classes: classNames, box, boxesLength }) => (
+      <div className={classNames.abbreviatedBatchProductsWrapper}>
+        {/* {boxesLength > 1 ? <Typography className={classNames.amountBoxesText}>{`x${boxesLength}`}</Typography> : null} */}
 
-//             {box.fitsInitialDimensions ? <DoneOutlineRoundedIcon color="success" fontSize="small" /> : null}
-//           </div>
-//           <div className={classNames.toggleItemWrapper}>
-//             {toggleDimensionsValue === dimensionsConfig.SHIPPING ? (
-//               <span className={classNames.indicator}></span>
-//             ) : null}
+        {box.items.map((item, itemIndex) => (
+          <div key={itemIndex} className={classNames.abbreviatedBatchProductInfoWrapper}>
+            <img alt="" src={getAmazonImageUrl(item.image)} className={classNames.abbreviatedImg} />
 
-//             <Typography
-//               className={cx(classNames.sizesLabel, {
-//                 [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.SHIPPING,
-//               })}
-//               onClick={() => setToggleDimensionsValue(dimensionsConfig.SHIPPING)}
-//             >
-//               {t(TranslationKey['Shipping dimensions'])}
-//             </Typography>
-//           </div>
-//         </div>
+            <Typography className={classNames.abbreviatedTitle}>{item.amazonTitle}</Typography>
 
-//         <Typography className={classNames.shortBoxDimensionsText}>{`${toFixed(
-//           toggleDimensionsValue === dimensionsConfig.SHIPPING ? box.deliveryLength : box.lengthCmWarehouse,
-//           2,
-//         )}x${toFixed(
-//           toggleDimensionsValue === dimensionsConfig.SHIPPING ? box.deliveryWidth : box.widthCmWarehouse,
-//           2,
-//         )}x${toFixed(
-//           toggleDimensionsValue === dimensionsConfig.SHIPPING ? box.deliveryHeight : box.heightCmWarehouse,
-//           2,
-//         )}`}</Typography>
+            {box.amount > 1 && <Typography className={classNames.amountBoxesText}>{`SBX${box.amount}`}</Typography>}
 
-//         <Typography className={classNames.shortBoxDimensionsText}>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(
-//           toggleDimensionsValue === dimensionsConfig.SHIPPING ? box.deliveryMass : box.weighGrossKgWarehouse,
-//           2,
-//         )}`}</Typography>
-//         <Typography className={classNames.shortBoxDimensionsText}>{`${t(
-//           TranslationKey['Volume weight'],
-//         )}: ${toFixedWithKg(
-//           calcVolumeWeightForBox(box, volumeWeightCoefficient, toggleDimensionsValue === dimensionsConfig.SHIPPING),
-//           2,
-//         )}`}</Typography>
-//         <Typography
-//           className={cx(classNames.shortBoxDimensionsText, {
-//             [classNames.alertText]: !box.isDraft && finalWeight < 12,
-//           })}
-//         >{`${t(TranslationKey['Final weight'])}: ${toFixedWithKg(finalWeight, 2)}`}</Typography>
+            <div className={classNames.copyAsin}>
+              <Typography className={classNames.orderText}>
+                <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
+                {item.asin}
+              </Typography>
+              {item.asin ? <CopyValue text={item.asin} /> : null}
+              <Typography className={classNames.orderText}>
+                {box.deliveryTotalPriceChanged - box.deliveryTotalPrice > 0 && itemIndex === 0 && (
+                  <span className={classNames.needPay}>{`${t(
+                    TranslationKey['Extra payment required!'],
+                  )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
+                )}
+              </Typography>
+            </div>
 
-//         {!box.isDraft && finalWeight < 12 ? (
-//           <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
-//         ) : null}
-//         {checkIsStorekeeper(UserRoleCodeMap[curUser]) ? (
-//           <Button
-//             disabled={box.isDraft}
-//             className={cx(classNames.shortBoxDimensionsButton, {
-//               [classNames.editPaddingButton]: !box.isDraft && finalWeight < 12,
-//             })}
-//             onClick={() => handlers.setDimensions(box)}
-//           >
-//             {t(TranslationKey.Set)}
-//           </Button>
-//         ) : null}
-//       </div>
-//     )
-//   },
-// )
+            <Typography className={classNames.amountBoxesText}>{`X${item.amount}`}</Typography>
+          </div>
+        ))}
+
+        {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
+          <span className={classNames.needPay}>{t(TranslationKey['The tariff is invalid or has been removed!'])}</span>
+        )}
+      </div>
+    ),
+    styles,
+  ),
+)
