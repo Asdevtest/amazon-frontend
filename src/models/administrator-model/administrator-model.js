@@ -156,6 +156,16 @@ class AdministratorModelStatic {
     const response = await restApiService.administratorApi.apiV1AdminsPaymentMethodGuidDelete(id)
     return response
   }
+
+  getUsersByRole = async role => {
+    const response = await restApiService.administratorApi.apiV1AdminsUsersByRoleGet(role)
+    return response
+  }
+
+  bindOrUnbindUserToProduct = async data => {
+    const response = await restApiService.administratorApi.apiV1AdminsProductLinkOrUnlinkUserRolePatch({ body: data })
+    return response
+  }
 }
 
 export const AdministratorModel = new AdministratorModelStatic()

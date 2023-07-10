@@ -1,6 +1,5 @@
-import { cx } from '@emotion/css'
-import { observer } from 'mobx-react'
 import { useState, useEffect } from 'react'
+import { observer } from 'mobx-react'
 
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
@@ -16,9 +15,9 @@ import { Field } from '@components/shared/field/field'
 import { UploadIcon } from '@components/shared/svg-icons'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
-import { checkValidImageUrl } from '@utils/checks'
 import { t } from '@utils/translations'
-import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
+
+import { SettingsModel } from '@models/settings-model'
 
 import { AdminSettingsPaymentMethodsModel } from './tab-payment-methods.model'
 
@@ -33,156 +32,128 @@ export const TabPaymentMethods = observer(() => {
     viewModel.loadData()
   }, [])
 
-  const [method, setMethod] = useState({ title: '', iconImage: '' })
+  const [method, setMethod] = useState('')
   const [paymentMethods, setPaymentMethods] = useState([])
-  const [isValidUrl, setIsValidUrl] = useState(false)
-  const [currentImageName, setCurrentImageName] = useState('true')
+  const [externalImageUrl, setExternalImageUrl] = useState('')
 
   useEffect(() => {
-    if (viewModel.paymentMethods.length > 0) {
-      setPaymentMethods(viewModel.paymentMethods)
-    }
+    setPaymentMethods(viewModel.paymentMethods)
   }, [viewModel.paymentMethods])
 
-  const handleSubmitPaymentMethod = async () => {
-    const result =
-      typeof method.iconImage === 'string'
-        ? await uploadFileByUrl(method.iconImage)
-        : await onPostImage(method.iconImage)
+  const handleSubmitPaymentMethod = () => {
+    viewModel.createPaymentMethod(method)
 
-    const updatedMethod = { ...method, iconImage: result }
-
-    await viewModel.createPaymentMethod(updatedMethod)
-
-    setMethod({ title: '', iconImage: '' })
+    setMethod('')
   }
 
-  const handleChangeTitle = event => {
-    setMethod(state => ({
-      ...state,
-      title: event.target.value,
-    }))
+  const handleChangeMethod = event => {
+    setMethod(event.target.value)
   }
 
-  const handleChangeIconImage = event => {
-    checkValidImageUrl(event.target.value, setIsValidUrl)
-
-    setCurrentImageName(method.title)
-
-    setMethod(state => ({
-      ...state,
-      iconImage: event.target.value,
-    }))
+  const handleChangeExternalImageUrl = event => {
+    setExternalImageUrl(event.target.value)
   }
+
+  const currentImageName = viewModel.imageName || externalImageUrl.split('/').pop()
+  const currentImageUrl = viewModel.imageUrl || externalImageUrl
 
   const handleRemoveImg = () => {
-    setMethod(state => ({
-      ...state,
-      iconImage: '',
-    }))
-  }
-
-  const handleImageUpload = event => {
-    const file = event.target.files?.[0]
-    const reader = new FileReader()
-
-    if (file) {
-      reader.onload = e => {
-        setCurrentImageName(file.name)
-
-        checkValidImageUrl(e.target.result, setIsValidUrl)
-
-        setMethod(state => ({
-          ...state,
-          iconImage: {
-            data_url: e.target.result,
-            file,
-          },
-        }))
-      }
-
-      reader.readAsDataURL(file)
+    if (viewModel.imageUrl) {
+      viewModel.onRemoveImage()
+    } else {
+      setExternalImageUrl('')
     }
   }
-
-  const isDisableButton = isValidUrl && !!method.title
 
   return (
     <>
-      <div className={classNames.wrapper}>
-        <p className={classNames.title}>{t(TranslationKey['Adding a payment method'])}</p>
+      {SettingsModel.languageTag && (
+        <div className={classNames.wrapper}>
+          <p className={classNames.title}>{t(TranslationKey['Adding a payment method'])}</p>
 
-        <div className={classNames.container}>
-          <Field
-            label={t(TranslationKey['Add a payment method icon']) + '*'}
-            labelClasses={classNames.label}
-            classes={{ root: classNames.textField }}
-            value={method.iconImage?.data_url ?? method.iconImage}
-            placeholder={t(TranslationKey.Link)}
-            onChange={handleChangeIconImage}
-          />
-
-          <label htmlFor="image-upload" className={classNames.inputContainer}>
-            <input type="file" accept="image/*" className={classNames.input} onChange={handleImageUpload} />
-            <span className={classNames.text}>{t(TranslationKey['Add photo'])}</span>
-            <UploadIcon className={classNames.icon} />
-          </label>
-        </div>
-
-        {method.iconImage && (
           <div className={classNames.container}>
-            <div className={cx(classNames.containerImage, { [classNames.error]: !isValidUrl })}>
-              <img src={method.iconImage?.data_url ?? method.iconImage} alt="payment method" />
-              <span className={classNames.paymentMethodLabel}>{currentImageName}</span>
-              <div className={classNames.actionIconWrapper}>
-                <div className={classNames.actionIcon}>
-                  <input type="file" accept="image/*" className={classNames.input} onChange={handleImageUpload} />
-                  <AutorenewIcon fontSize="small" />
-                </div>
+            <Field
+              label={t(TranslationKey['Add a payment method icon']) + '*'}
+              labelClasses={classNames.label}
+              classes={{ root: classNames.textField }}
+              value={externalImageUrl}
+              placeholder={t(TranslationKey.Link)}
+              onChange={handleChangeExternalImageUrl}
+            />
 
-                <HighlightOffIcon fontSize="small" onClick={handleRemoveImg} />
+            <label htmlFor="image-upload" className={classNames.inputContainer}>
+              <input type="file" accept="image/*" className={classNames.input} onChange={viewModel.onImageUpload} />
+              <span className={classNames.text}>{t(TranslationKey['Add photo'])}</span>
+              <UploadIcon className={classNames.icon} />
+            </label>
+
+            <Button disabled className={classNames.buttonAdd}>
+              {t(TranslationKey.Load)}
+            </Button>
+          </div>
+
+          {currentImageUrl && (
+            <div className={classNames.container}>
+              <div className={classNames.containerImage}>
+                <img src={currentImageUrl} alt="payment method" />
+                <span className={classNames.paymentMethodLabel}>{currentImageName}</span>
+                <div className={classNames.actionIconsWrapper}>
+                  <div className={classNames.actionIconWrapper}>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className={classNames.input}
+                      onChange={viewModel.onImageUpload}
+                    />
+                    <AutorenewIcon fontSize="small" />
+                  </div>
+
+                  <HighlightOffIcon fontSize="small" onClick={handleRemoveImg} />
+                </div>
               </div>
             </div>
+          )}
+
+          <div className={classNames.container}>
+            <Field
+              label={t(TranslationKey['Payment method name']) + '*'}
+              labelClasses={classNames.label}
+              classes={{ root: classNames.textFieldFullWidth }}
+              value={method}
+              placeholder={t(TranslationKey.Add)}
+              onChange={handleChangeMethod}
+            />
+
+            <Button disabled className={classNames.buttonAdd}>
+              {t(TranslationKey.Add)}
+            </Button>
           </div>
-        )}
 
-        <Field
-          label={t(TranslationKey['Payment method name']) + '*'}
-          labelClasses={classNames.label}
-          classes={{ root: classNames.textField }}
-          value={method.title}
-          placeholder={t(TranslationKey.Add)}
-          onChange={handleChangeTitle}
-        />
-
-        <div className={classNames.paymentMethods}>
-          {paymentMethods.length !== 0 &&
-            paymentMethods.map(method => (
-              <div key={method._id} className={classNames.paymentMethodWrapper}>
-                <div className={classNames.iconContainer}>
-                  <img src={method.iconImage} alt={method.title} className={classNames.iconImage} />
-
+          <div className={classNames.paymentMethods}>
+            {paymentMethods.length !== 0 &&
+              paymentMethods.map((method, index) => (
+                <div key={index} className={classNames.paymentMethodWrapper}>
                   <Typography className={classNames.paymentMethod}>{method.title}</Typography>
-                </div>
 
-                <div className={classNames.iconsWrapper}>
-                  <CopyValue text={method} />
-                  <IconButton
-                    size="small"
-                    classes={{ root: classNames.iconDelete }}
-                    onClick={() => viewModel.onClickRemovePaymentMethod(method._id)}
-                  >
-                    <DeleteOutlineOutlinedIcon className={classNames.deleteIcon} />
-                  </IconButton>
+                  <div className={classNames.iconsWrapper}>
+                    <CopyValue text={method} />
+                    <IconButton
+                      size="small"
+                      classes={{ root: classNames.iconDelete }}
+                      onClick={() => viewModel.onClickRemovePaymentMethod(method._id)}
+                    >
+                      <DeleteOutlineOutlinedIcon className={classNames.deleteIcon} />
+                    </IconButton>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+          </div>
+
+          <Button disabled={!method} className={classNames.button} onClick={() => handleSubmitPaymentMethod()}>
+            {t(TranslationKey.Save)}
+          </Button>
         </div>
-
-        <Button disabled={!isDisableButton} className={classNames.button} onClick={() => handleSubmitPaymentMethod()}>
-          {t(TranslationKey.Save)}
-        </Button>
-      </div>
+      )}
 
       <WarningInfoModal
         openModal={viewModel.showInfoModal}

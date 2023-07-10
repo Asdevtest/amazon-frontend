@@ -252,12 +252,11 @@ export const useClassNames = makeStyles()(theme => ({
   breadCrumbsWrapper: {
     width: '100%',
     display: 'flex',
-    paddingLeft: 30,
+    padding: '10px 30px',
     alignItems: 'center',
-    margin: '10px 0 5px 0',
     height: 'min-content',
     [theme.breakpoints.down(768)]: {
-      paddingLeft: 10,
+      padding: 10,
     },
   },
 

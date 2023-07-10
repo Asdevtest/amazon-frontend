@@ -1,4 +1,4 @@
-import { Box, Tabs } from '@mui/material'
+import { Tabs } from '@mui/material'
 
 import React, { useEffect } from 'react'
 
@@ -8,7 +8,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { ITab } from '@components/shared/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab'
+import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
@@ -16,18 +17,6 @@ import { LogisticsTariffs } from './logistics-tariffs'
 import { useClassNames } from './warehouse-management.style'
 import { WarehouseTariffs } from './warehouse-tariffs'
 import { WeightBasedLogisticsTariffs } from './weight-based-logistics-tariffs'
-
-const TabPanel = ({ children, value, index, ...other }) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
-  >
-    {value === index && <Box paddingTop={3}>{children}</Box>}
-  </div>
-)
 
 export const WarehouseManagement = observer(() => {
   const { classes: classNames } = useClassNames()

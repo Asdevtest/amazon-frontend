@@ -60,7 +60,7 @@ export const Integrations = observer(({ productId }) => {
             {t(TranslationKey['Bind an product from Amazon'])}
           </Button>
 
-          <Button disabled={!selectedRowIds.length} className={classNames.buttonOffset} onClick={onUnlinkSkuSProduct}>
+          <Button disabled={!selectedRowIds.length} onClick={onUnlinkSkuSProduct}>
             {t(TranslationKey['Unlink an product from Amazon'])}
           </Button>
         </div>
@@ -78,6 +78,10 @@ export const Integrations = observer(({ productId }) => {
         localeText={getLocalizationByLanguageTag()}
         classes={{
           row: classNames.row,
+          root: classNames.root,
+          footerContainer: classNames.footerContainer,
+          footerCell: classNames.footerCell,
+          toolbarContainer: classNames.toolbarContainer,
         }}
         columnVisibilityModel={model.current.columnVisibilityModel}
         pageSizeOptions={[15, 25, 50, 100]}

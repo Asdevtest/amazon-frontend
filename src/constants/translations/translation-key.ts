@@ -2012,5 +2012,7 @@ export enum TranslationKey {
   'It is possible to work without confirmation' = 'It is possible to work without confirmation',
   'Incorrect destination or tariff' = 'Incorrect destination or tariff',
   'Are you sure you want to delete the payment method?' = 'Are you sure you want to delete the payment method?',
+  'Management' = 'Management',
+  'AllMembers' = 'AllMembers',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

@@ -8,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { fieldsWithoutCharsAfterDote, startValueFields, tabLabels } from './admin-settings-content.constants'
 
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { TabPanel } from '@components/shared/tab-panel'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -19,7 +20,6 @@ import {
   TabMain,
   TabOrders,
   TabSearchSupplier,
-  TabPanel,
   TabDestinations,
   TabPaymentMethods,
   TabTags,

@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
-import { Box, Tabs } from '@mui/material'
+import { Tabs } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { observer } from 'mobx-react'
 
@@ -10,19 +9,21 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { ITab } from '@components/shared/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab'
+import { TabPanel } from '@components/shared/tab-panel'
 
-import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher } from '@utils/checks'
+import { checkIsAdmin, checkIsClient, checkIsResearcher } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { Freelance } from '../freelance'
 import { Integrations } from '../integrations'
-import { Listing } from '../listing'
+
 import { Orders } from '../orders'
 import { SuppliersAndIdeas } from '../suppliers-and-ideas'
 import { BottomCard } from './bottom-card'
 import { useClassNames } from './product-wrapper.style'
 import { TopCard } from './top-card'
+import { Management } from '../management'
 
 const tabsValues = {
   MAIN_INFO: 'MAIN_INFO',
@@ -31,6 +32,7 @@ const tabsValues = {
   LISTING: 'LISTING',
   SUPPLIERS_AND_IDEAS: 'SUPPLIERS_AND_IDEAS',
   FREELANCE: 'FREELANCE',
+  MANAGEMENT: 'MANAGEMENT',
 }
 
 const getTab = tabKey => {
@@ -46,18 +48,6 @@ const getTab = tabKey => {
   }
 }
 
-const TabPanel = ({ children, value, index, ...other }) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
-  >
-    {value === index && <Box paddingTop={3}>{children}</Box>}
-  </div>
-)
-
 export const ProductWrapper = observer(
   ({
     showTab,
@@ -70,7 +60,6 @@ export const ProductWrapper = observer(
     shops,
     productBase,
     userRole,
-
     handleSupplierButtons,
     selectedSupplier,
     formFieldsValidationErrors,
@@ -89,21 +78,22 @@ export const ProductWrapper = observer(
 
     const [curUserRole, seturUserRole] = useState(UserRoleCodeMap[userRole])
 
-    const [tabIndex, setTabIndex] = React.useState(getTab(showTab))
+    const [tabIndex, setTabIndex] = useState(getTab(showTab))
 
     useEffect(() => {
       seturUserRole(() => UserRoleCodeMap[userRole])
-    }, [SettingsModel.languageTag, userRole])
+    }, [userRole])
 
     return (
       <>
         {SettingsModel.languageTag && (
-          <React.Fragment>
+          <>
             <Tabs
               variant={'fullWidth'}
               classes={{
-                root: classNames.row,
+                root: classNames.rootTabs,
                 indicator: classNames.indicator,
+                flexContainer: classNames.flexContainerTabs,
               }}
               value={tabIndex}
               onChange={(e, value) => {
@@ -114,6 +104,9 @@ export const ProductWrapper = observer(
                 tooltipInfoContent={t(TranslationKey['General product information from the Amazon page'])}
                 value={tabsValues.MAIN_INFO}
                 label={t(TranslationKey['Basic information'])}
+                classes={{
+                  root: classNames.rootTab,
+                }}
               />
 
               {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
@@ -121,6 +114,9 @@ export const ProductWrapper = observer(
                   tooltipInfoContent={t(TranslationKey['All orders related to this product'])}
                   label={t(TranslationKey.Orders)}
                   value={tabsValues.ORDERS}
+                  classes={{
+                    root: classNames.rootTab,
+                  }}
                 />
               )}
 
@@ -129,11 +125,20 @@ export const ProductWrapper = observer(
                   tooltipInfoContent={t(TranslationKey['Goods from the store, linked to the product card'])}
                   label={t(TranslationKey.Integrations)}
                   value={tabsValues.INTEGRATIONS}
+                  classes={{
+                    root: classNames.rootTab,
+                  }}
                 />
               )}
 
               {(checkIsClient(curUserRole) || checkIsAdmin(curUserRole)) && (
-                <ITab label={t(TranslationKey.Freelance)} value={tabsValues.FREELANCE} />
+                <ITab
+                  label={t(TranslationKey.Freelance)}
+                  value={tabsValues.FREELANCE}
+                  classes={{
+                    root: classNames.rootTab,
+                  }}
+                />
               )}
 
               {/* {!checkIsBuyer(curUserRole) && <ITab label={t(TranslationKey.Content)} value={tabsValues.LISTING} />} */}
@@ -143,6 +148,19 @@ export const ProductWrapper = observer(
                   label={t(TranslationKey['Suppliers and Ideas'])}
                   value={tabsValues.SUPPLIERS_AND_IDEAS}
                   withIcon={!!product.ideaCount}
+                  classes={{
+                    root: classNames.rootTab,
+                  }}
+                />
+              )}
+
+              {checkIsAdmin(curUserRole) && (
+                <ITab
+                  label={t(TranslationKey.Management)}
+                  value={tabsValues.MANAGEMENT}
+                  classes={{
+                    root: classNames.rootTab,
+                  }}
                 />
               )}
             </Tabs>
@@ -192,8 +210,8 @@ export const ProductWrapper = observer(
             </TabPanel>
 
             {/* <TabPanel value={tabIndex} index={tabsValues.LISTING}>
-              <Listing productId={product._id} onClickBack={() => setTabIndex(tabsValues.MAIN_INFO)} />
-            </TabPanel> */}
+        <Listing productId={product._id} onClickBack={() => setTabIndex(tabsValues.MAIN_INFO)} />
+      </TabPanel> */}
 
             <TabPanel value={tabIndex} index={tabsValues.FREELANCE}>
               <Freelance productId={product._id} />
@@ -202,7 +220,11 @@ export const ProductWrapper = observer(
             <TabPanel value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
               <SuppliersAndIdeas productId={product._id} product={product} />
             </TabPanel>
-          </React.Fragment>
+
+            <TabPanel value={tabIndex} index={tabsValues.MANAGEMENT}>
+              <Management product={product} />
+            </TabPanel>
+          </>
         )}
       </>
     )

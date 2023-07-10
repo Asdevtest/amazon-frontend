@@ -1,5 +1,5 @@
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Box, Tabs } from '@mui/material'
+import { Tabs } from '@mui/material'
 
 import React, { useEffect, useRef } from 'react'
 
@@ -14,10 +14,11 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditAsinCheckerModal } from '@components/modals/edit-asin-checker-modal'
 import { FailedAsinsModal } from '@components/modals/failed-asins-modal'
 import { Button } from '@components/shared/buttons/button'
-import { ITab } from '@components/shared/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab'
 import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { TabPanel } from '@components/shared/tab-panel'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
@@ -31,18 +32,6 @@ const tabsValues = {
   PRIVATE_LABEL: 'PRIVATE_LABEL',
   WHOLE_SALE_USA: 'WHOLE_SALE_USA',
 }
-
-const TabPanel = ({ children, value, index, ...other }) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
-  >
-    {value === index && <Box paddingTop={3}>{children}</Box>}
-  </div>
-)
 
 export const SupervisorSettingsContent = observer(() => {
   const [tabIndex, setTabIndex] = React.useState(tabsValues.ONLINE_ARBITRAGE_CHINA)

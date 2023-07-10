@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
-    height: 'calc(100vh - 300px)',
+    height: '75vh',
     width: '100%',
   },
 
@@ -13,8 +13,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-
-    marginBottom: '20px',
+    marginBottom: '10px',
   },
 
   button: {
