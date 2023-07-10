@@ -18,11 +18,11 @@ export const useClassNames = makeStyles()(theme => ({
     marginLeft: 400,
   },
 
-  orderText: {
+  orderTitle: {
     color: theme.palette.text.general,
   },
 
-  titleSpan: {
+  orderText: {
     marginLeft: 15,
     fontWeight: 600,
     color: theme.palette.text.general,

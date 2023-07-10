@@ -122,7 +122,7 @@ export const OrderContent = ({
     setShowSetBarcodeModal(!showSetBarcodeModal)
   }
 
-  const isCanChange = updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]
+  const isOrderEditable = updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]
 
   const disabledSaveSubmit =
     (!isValid(parseISO(formFields.deadline)) && isPast(parseISO(formFields.deadline))) || !formFields.amount
@@ -138,8 +138,8 @@ export const OrderContent = ({
           />
 
           <div className={classNames.orderNumWrapper}>
-            <Typography className={classNames.orderText}>{t(TranslationKey['Order number'])}</Typography>
-            <Typography className={classNames.titleSpan}>{`№ ${updatedOrder.id}`}</Typography>
+            <Typography className={classNames.orderTitle}>{t(TranslationKey['Order number'])}</Typography>
+            <Typography className={classNames.orderText}>{`№ ${updatedOrder.id}`}</Typography>
           </div>
 
           <div className={classNames.orderItemWrapper}>
@@ -147,10 +147,10 @@ export const OrderContent = ({
               oneLine
               tooltipInfoContent={t(TranslationKey['Total order amount'])}
               label={t(TranslationKey['Order amount'])}
-              labelClasses={classNames.orderText}
+              labelClasses={classNames.orderTitle}
               containerClasses={classNames.field}
               inputComponent={
-                <Typography className={classNames.titleSpan}>
+                <Typography className={classNames.orderText}>
                   {toFixedWithDollarSign(formFields.totalPrice, 2)}
                 </Typography>
               }
@@ -158,13 +158,13 @@ export const OrderContent = ({
           </div>
 
           <div className={classNames.orderItemWrapper}>
-            <Typography className={classNames.orderText}>{'item'}</Typography>
-            <Typography className={classNames.titleSpan}>{updatedOrder.item || '-'}</Typography>
+            <Typography className={classNames.orderTitle}>{'item'}</Typography>
+            <Typography className={classNames.orderText}>{updatedOrder.item || '-'}</Typography>
           </div>
 
           <div className={classNames.orderItemWrapper}>
-            <Typography className={classNames.orderText}>{t(TranslationKey.Created)}</Typography>
-            <Typography className={classNames.titleSpan}>{formatShortDateTime(updatedOrder.createdAt)}</Typography>
+            <Typography className={classNames.orderTitle}>{t(TranslationKey.Created)}</Typography>
+            <Typography className={classNames.orderText}>{formatShortDateTime(updatedOrder.createdAt)}</Typography>
           </div>
         </div>
 
@@ -172,7 +172,7 @@ export const OrderContent = ({
 
         <div className={classNames.panelsWrapper}>
           <LeftPanel
-            isCanChange={isCanChange}
+            isCanChange={isOrderEditable}
             order={updatedOrder}
             formFields={formFields}
             collapsed={collapsed}
@@ -190,7 +190,7 @@ export const OrderContent = ({
           <Divider orientation={'vertical'} className={classNames.divider} />
 
           <DeliveryParameters
-            isCanChange={isCanChange}
+            isCanChange={isOrderEditable}
             storekeepers={storekeepers}
             order={updatedOrder}
             formFields={formFields}
@@ -212,7 +212,7 @@ export const OrderContent = ({
         </div>
 
         <div className={classNames.btnsWrapper}>
-          {(updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] || (isClient && isCanChange)) &&
+          {(updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] || (isClient && isOrderEditable)) &&
             onClickCancelOrder && (
               <Button
                 danger
@@ -226,7 +226,7 @@ export const OrderContent = ({
                 {t(TranslationKey['Cancel order'])}
               </Button>
             )}
-          {isClient && isCanChange ? (
+          {isClient && isOrderEditable ? (
             <div className={classNames.btnsSubWrapper}>
               {isClient && updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] && (
                 <Button success className={classNames.button} onClick={onClickReorder}>
