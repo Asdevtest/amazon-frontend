@@ -6,7 +6,7 @@ import React from 'react'
 import { t } from 'i18n-js'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey } from '@constants/statuses/order-status'
+import { orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {

@@ -4,7 +4,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import React from 'react'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey } from '@constants/statuses/order-status'
+import { orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {

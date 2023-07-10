@@ -20,7 +20,7 @@ import { MyRequestStatus, MyRequestStatusTranslate } from '@constants/requests/r
 import { BoxStatus, boxStatusTranslateKey } from '@constants/statuses/box-status'
 import { freelanceRequestType, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatusTranslate } from '@constants/statuses/order-status'
+import { OrderStatusTranslate } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridSelectAllFilters } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters'
