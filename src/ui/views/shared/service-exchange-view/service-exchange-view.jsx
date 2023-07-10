@@ -14,7 +14,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
 import { MainContent } from '@components/layout/main-content'
-import { BigImagesModal } from '@components/modals/big-images-modal'
 import { Button } from '@components/shared/buttons/button'
 import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
@@ -25,6 +24,7 @@ import { t } from '@utils/translations'
 
 import { ServiceExchangeViewModel } from './service-exchange-view.model'
 import { styles } from './service-exchange-view.style'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 export const ServiceExchangeViewRaw = props => {
   const [viewModel] = useState(() => new ServiceExchangeViewModel({ history: props.history }))
@@ -131,12 +131,12 @@ export const ServiceExchangeViewRaw = props => {
         )}
       </MainContent>
 
-      <BigImagesModal
-        openModal={viewModel.showImageModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-        images={viewModel.bigImagesOptions.images}
-        imgIndex={viewModel.bigImagesOptions.imgIndex}
-        setImageIndex={imgIndex => viewModel.setBigImagesOptions({ ...viewModel.bigImagesOptions, imgIndex })}
+      <ImageModal
+        imageList={viewModel.bigImagesOptions.images}
+        currentImageIndex={viewModel.bigImagesOptions.imgIndex}
+        isOpenModal={viewModel.showImageModal}
+        handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+        handleCurrentImageIndex={imgIndex => viewModel.setBigImagesOptions({ ...viewModel.bigImagesOptions, imgIndex })}
       />
     </React.Fragment>
   )

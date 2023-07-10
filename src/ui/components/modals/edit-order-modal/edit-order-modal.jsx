@@ -31,7 +31,6 @@ import { CreateBoxForm } from '@components/forms/create-box-form'
 import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
 import { SupplierPaymentForm } from '@components/forms/supplier-payment-form'
 import { CommentsForm } from '@components/forms/сomments-form'
-import { BigImagesModal } from '@components/modals/big-images-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
@@ -62,6 +61,7 @@ import { ProductTable } from './product-table'
 import { SelectFields } from './select-fields'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { SaveIcon } from '@components/shared/svg-icons'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 const orderStatusesThatTriggersEditBoxBlock = [OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]]
 
@@ -1169,12 +1169,12 @@ export const EditOrderModal = observer(
           />
         </Modal>
 
-        <BigImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        <ImageModal
+          currentImageIndex={bigImagesOptions.imgIndex}
+          imageList={bigImagesOptions.images}
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          isOpenModal={showPhotosModal}
+          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
 
         <Modal

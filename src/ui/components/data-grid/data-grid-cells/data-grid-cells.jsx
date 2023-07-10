@@ -51,7 +51,6 @@ import {
 } from '@constants/configs/sizes-settings'
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
 
-import { BigImagesModal } from '@components/modals/big-images-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
@@ -98,6 +97,7 @@ import {
 import { t } from '@utils/translations'
 
 import { styles } from './data-grid-cells.style'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 import { SettingsModel } from '@models/settings-model'
 import { tableProductViewMode } from '@constants/keys/table-product-view'
@@ -1012,10 +1012,12 @@ export const DownloadAndPrintFilesCell = React.memo(
           <img ref={imageRef} src={getAmazonImageUrl(selectedImage.fileUrl)} alt="Printed Image" />
         </Box>
 
-        <BigImagesModal
-          openModal={isOpenModal}
-          setOpenModal={() => setIsOpenModal(prevState => !prevState)}
-          images={[selectedImage.fileUrl]}
+        <ImageModal
+          isOpenModal={isOpenModal}
+          handleOpenModal={() => setIsOpenModal(prevState => !prevState)}
+          imageList={[selectedImage.fileUrl]}
+          currentImageIndex={0}
+          handleCurrentImageIndex={() => null}
           controls={() => (
             <>
               <Button onClick={() => handlePrint()}>

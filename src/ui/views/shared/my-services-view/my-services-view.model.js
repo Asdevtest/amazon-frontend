@@ -105,6 +105,10 @@ export class MyServicesViewModel {
     })
   }
 
+  handleBigImageModal = index => {
+    this.bigImagesOptions.imgIndex = index
+  }
+
   async getUserInfo() {
     const result = await UserModel.userInfo
     this.userInfo = result
