@@ -96,3 +96,16 @@ export const checkIsStringFilesSame = (str1, str2) => {
 export const isStringInArray = (str, arr) => arr.includes(str)
 
 export const checkDateByDeadline = date => (date !== null ? date < new Date() : false)
+
+export const checkValidImageUrl = (selectedImageUrl, setState) => {
+  const img = new Image()
+  img.src = selectedImageUrl
+
+  img.onload = () => {
+    setState(true)
+  }
+
+  img.onerror = () => {
+    setState(false)
+  }
+}

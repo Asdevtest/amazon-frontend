@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   wrapper: {
+    width: 620,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
@@ -22,22 +23,11 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 15,
 
     '& > div:first-of-type': {
-      width: 'max-content',
       margin: 0,
     },
   },
 
   textField: {
-    width: 300,
-    height: 40,
-    color: theme.palette.text.general,
-    outline: 'none',
-    border: '1px solid var(--light-thin-lines, #E0E0E0)',
-    borderRadius: 4,
-  },
-
-  textFieldFullWidth: {
-    width: 499,
     height: 40,
     color: theme.palette.text.general,
     outline: 'none',
@@ -46,7 +36,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   inputContainer: {
-    width: 184,
+    width: 180,
     height: 40,
     position: 'relative',
     display: 'flex',
@@ -96,7 +86,7 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     gap: 5,
-    border: `1px solid ${theme.palette.primary.main}`,
+    border: `1px solid #0B903E`,
     borderRadius: 8,
 
     '& > img': {
@@ -106,15 +96,23 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  actionIconsWrapper: {
+  error: {
+    border: `1px solid #D70D0D`,
+  },
+
+  actionIconWrapper: {
     display: 'flex',
     gap: 10,
     cursor: 'pointer',
   },
 
-  actionIconWrapper: { position: 'relative' },
+  actionIcon: { position: 'relative' },
 
   paymentMethodLabel: {
+    maxWidth: 73,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
     fontSize: 12,
     color: theme.palette.text.second,
   },
@@ -126,14 +124,26 @@ export const useClassNames = makeStyles()(theme => ({
     overflowX: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    gap: 15,
+    gap: 14,
   },
 
   paymentMethodWrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 10,
+    gap: 40,
+  },
+
+  iconContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
+
+  iconImage: {
+    width: 32,
+    height: 32,
+    fontSize: 10,
   },
 
   paymentMethod: {
