@@ -2,7 +2,7 @@ import { Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
 
 import React from 'react'
 
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Field } from '@components/shared/field'

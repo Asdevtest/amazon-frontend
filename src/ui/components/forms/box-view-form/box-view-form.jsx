@@ -1,29 +1,22 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Checkbox, Divider, Grid, Link, Typography, Tooltip } from '@mui/material'
+import { Checkbox, Divider, Grid, Link, Tooltip, Typography } from '@mui/material'
 
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 
 import { observer } from 'mobx-react'
 
 import {
   getConversion,
-  getWeightConversion,
   getWeightSizesType,
-  getlengthConversion,
   inchesCoefficient,
   poundsWeightCoefficient,
-  sizesType,
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { BigImagesModal } from '@components/modals/big-images-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { Field } from '@components/shared/field/field'
@@ -35,19 +28,18 @@ import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculatio
 import { checkIsBuyer, checkIsClient, checkIsStorekeeper } from '@utils/checks'
 import { formatShortDateTime } from '@utils/date-time'
 import {
-  getShortenStringIfLongerThanCount,
   checkAndMakeAbsoluteUrl,
-  getFullTariffTextForBoxOrOrder,
+  getNewTariffTextForBoxOrOrder,
+  getShortenStringIfLongerThanCount,
   shortAsin,
   toFixed,
-  toFixedWithKg,
-  getNewTariffTextForBoxOrOrder,
 } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './box-view-form.style'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 export const BoxViewForm = observer(
   ({
@@ -504,12 +496,12 @@ export const BoxViewForm = observer(
           />
         </Modal>
 
-        <BigImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        <ImageModal
+          handleCurrentImageIndex={bigImagesOptions.imgIndex}
+          imageList={bigImagesOptions.images}
+          currentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          isOpenModal={showPhotosModal}
         />
       </div>
     )

@@ -2,7 +2,6 @@
 import { cx } from '@emotion/css'
 import DeleteIcon from '@mui/icons-material/Delete'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Alert } from '@mui/material'
 
 import React, { useEffect, useState } from 'react'
 
@@ -44,6 +43,7 @@ import { t } from '@utils/translations'
 
 import { ClientInventoryViewModel } from './client-inventory-view.model'
 import { styles } from './client-inventory-view.style'
+import { AlertShield } from '@components/shared/alert-shield'
 
 export const ClientInventoryViewRaw = props => {
   const [viewModel] = useState(
@@ -526,13 +526,13 @@ export const ClientInventoryViewRaw = props => {
         onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
-      {viewModel.acceptMessage && viewModel.showAcceptMessage ? (
-        <div className={classNames.acceptMessageWrapper}>
-          <Alert elevation={5} severity="success">
-            {viewModel.acceptMessage}
-          </Alert>
-        </div>
-      ) : null}
+
+      {viewModel.alertShieldSettings.alertShieldMessage && (
+        <AlertShield
+          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
+          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+        />
+      )}
     </React.Fragment>
   )
 }

@@ -152,4 +152,16 @@ export const useClassNames = makeStyles()(theme => ({
   idText: {
     color: theme.palette.text.general,
   },
+
+  idAndPriorityWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    gap: 5,
+  },
+
+  priorityIcon: {
+    width: 16,
+    height: 18,
+  },
 }))

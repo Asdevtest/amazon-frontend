@@ -120,6 +120,7 @@ export const ClientSentBatchesViewRaw = props => {
             pagination
             useResizeContainer
             checkboxSelection
+            propsToRerender={{ productViewMode: viewModel.productViewMode }}
             localeText={getLocalizationByLanguageTag()}
             classes={{
               row: className.row,

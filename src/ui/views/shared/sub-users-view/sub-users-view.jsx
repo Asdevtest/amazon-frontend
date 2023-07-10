@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 import { observer } from 'mobx-react'
 import { withStyles } from 'tss-react/mui'
+import AddIcon from '@mui/icons-material/Add'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -55,6 +56,7 @@ export const SubUsersViewRaw = props => {
               className={classNames.addUserButton}
               onClick={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
             >
+              <AddIcon />
               {t(TranslationKey['Add a user'])}
             </Button>
           </div>

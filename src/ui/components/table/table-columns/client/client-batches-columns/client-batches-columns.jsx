@@ -16,17 +16,28 @@ import {
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+import { DataGridSelectViewProductBatch } from '@components/data-grid/data-grid-custom-components/data-grid-select-view-product-batch'
 
-export const clientBatchesViewColumns = rowHandlers => [
+export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
   {
     field: 'orders',
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+    renderHeader: () => (
+      <MultilineTextHeaderCell
+        text={t(TranslationKey.Product)}
+        component={
+          <DataGridSelectViewProductBatch
+            changeViewModeHandler={rowHandlers?.changeViewModeHandler}
+            selectedViewMode={getProductViewMode()}
+          />
+        }
+      />
+    ),
     headerName: t(TranslationKey.Product),
     width: 540,
     renderCell: params => {
       // const boxesMemo = useMemo(() => params.row.originalData.boxes, [])
 
-      return <BatchBoxesCell boxes={params.row.originalData.boxes} />
+      return <BatchBoxesCell boxes={params.row.originalData.boxes} productViewMode={getProductViewMode()} />
     },
     filterable: false,
     sortable: false,

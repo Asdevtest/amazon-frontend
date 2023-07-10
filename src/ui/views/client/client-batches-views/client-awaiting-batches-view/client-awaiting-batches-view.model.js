@@ -19,6 +19,7 @@ import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
 import { objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+import { tableProductViewMode } from '@constants/keys/table-product-view'
 
 export class ClientAwaitingBatchesViewModel {
   history = undefined
@@ -60,11 +61,18 @@ export class ClientAwaitingBatchesViewModel {
     title: '',
   }
 
+  productViewMode = tableProductViewMode.EXTENDED
+
   rowCount = 0
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = clientBatchesViewColumns()
+
+  rowHandlers = {
+    changeViewModeHandler: value => this.changeViewModeHandler(value),
+  }
+
+  columnsModel = clientBatchesViewColumns(this.rowHandlers, () => this.productViewMode)
 
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
@@ -477,6 +485,10 @@ export class ClientAwaitingBatchesViewModel {
         this.error = error
       })
     }
+  }
+
+  changeViewModeHandler(value) {
+    this.productViewMode = value
   }
 
   onTriggerOpenModal(modal) {

@@ -11,7 +11,6 @@ import { useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ImageEditForm } from '@components/forms/image-edit-form'
-import { BigImagesModal } from '@components/modals/big-images-modal'
 import { Button } from '@components/shared/buttons/button'
 import { Modal } from '@components/shared/modal'
 import { NoDocumentIcon, NoPhotoIcon } from '@components/shared/svg-icons'
@@ -23,6 +22,7 @@ import { t } from '@utils/translations'
 import { useClassNames } from './photo-and-files-carousel.styles'
 import { openPdfFile } from '@utils/open-pdf-file/open-pdf-file'
 import { CustomSlider } from '../custom-slider'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 export const PhotoAndFilesCarousel = props => {
   const { classes: classNames } = useClassNames()
@@ -276,27 +276,16 @@ export const PhotoAndFilesCarousel = props => {
         />
       </Modal>
 
-      <BigImagesModal
+      <ImageModal
         showPreviews
-        openModal={showPhotosModal}
-        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={bigImagesOptions.images}
-        imgIndex={bigImagesOptions.imgIndex}
-        setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        isOpenModal={showPhotosModal}
+        handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        imageList={bigImagesOptions.images}
+        currentImageIndex={bigImagesOptions.imgIndex}
+        handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         controls={isEditable ? bigImagesModalControls : undefined}
-        getComment={index => filteredImagesTitles[index]}
+        getImageComment={index => filteredImagesTitles[index]}
       />
-
-      {/* <BigImagesModal */}
-      {/*   showPreviews */}
-      {/*   openModal={showPhotosModal} */}
-      {/*   setOpenModal={() => setShowPhotosModal(!showPhotosModal)} */}
-      {/*   images={bigImagesOptions.images} */}
-      {/*   imgIndex={bigImagesOptions.imgIndex} */}
-      {/*   setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))} */}
-      {/*   controls={isEditable ? bigImagesModalControls : undefined} */}
-      {/*   getComment={index => filteredImagesTitles[index]} */}
-      {/* /> */}
     </div>
   ) : (
     <div className={classNames.emptyIconWrapper}>
