@@ -1900,6 +1900,7 @@ export const NumberFieldMenuItem = React.memo(
           'purchaseQuantity',
           'sentToFbaSum',
           'reservedSum',
+          'bsr',
         ]
         return whiteList.includes(field)
       }, [field])
