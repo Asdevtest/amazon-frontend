@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## apiV1GologinProfilePost
 
-> InlineResponse20044 apiV1GologinProfilePost(opts)
+> InlineResponse20043 apiV1GologinProfilePost(opts)
 
 # Создать новый профайл пользователя.
 
@@ -33,7 +33,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.GoLoginApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject58() // InlineObject58 | 
+  'body': new TestSwagger.InlineObject57() // InlineObject57 | 
 };
 apiInstance.apiV1GologinProfilePost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -49,11 +49,11 @@ apiInstance.apiV1GologinProfilePost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject58**](InlineObject58.md)|  | [optional] 
+ **body** | [**InlineObject57**](InlineObject57.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse20044**](InlineResponse20044.md)
+[**InlineResponse20043**](InlineResponse20043.md)
 
 ### Authorization
 
@@ -88,7 +88,7 @@ let apiInstance = new TestSwagger.GoLoginApi();
 let profileId = "profileId_example"; // String | id профайла который нужно изменить.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject59() // InlineObject59 | 
+  'body': new TestSwagger.InlineObject58() // InlineObject58 | 
 };
 apiInstance.apiV1GologinProfileProfileIdPatch(profileId, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **profileId** | **String**| id профайла который нужно изменить. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject59**](InlineObject59.md)|  | [optional] 
+ **body** | [**InlineObject58**](InlineObject58.md)|  | [optional] 
 
 ### Return type
 
@@ -123,7 +123,7 @@ Name | Type | Description  | Notes
 
 ## apiV1GologinProfileStartPost
 
-> InlineResponse2019 apiV1GologinProfileStartPost(opts)
+> InlineResponse2018 apiV1GologinProfileStartPost(opts)
 
 # Запустить пользователя.
 
@@ -143,7 +143,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.GoLoginApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject60() // InlineObject60 | 
+  'body': new TestSwagger.InlineObject59() // InlineObject59 | 
 };
 apiInstance.apiV1GologinProfileStartPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -159,11 +159,11 @@ apiInstance.apiV1GologinProfileStartPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject60**](InlineObject60.md)|  | [optional] 
+ **body** | [**InlineObject59**](InlineObject59.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2019**](InlineResponse2019.md)
+[**InlineResponse2018**](InlineResponse2018.md)
 
 ### Authorization
 
@@ -197,7 +197,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.GoLoginApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject61() // InlineObject61 | 
+  'body': new TestSwagger.InlineObject60() // InlineObject60 | 
 };
 apiInstance.apiV1GologinProfileStopPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -213,7 +213,7 @@ apiInstance.apiV1GologinProfileStopPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject61**](InlineObject61.md)|  | [optional] 
+ **body** | [**InlineObject60**](InlineObject60.md)|  | [optional] 
 
 ### Return type
 
