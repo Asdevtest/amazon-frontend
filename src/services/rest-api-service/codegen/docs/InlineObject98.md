@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**reason** | **String** | Причины закрытия приема предложений. | [optional] 
+**requestIds** | **[String]** |  | 
+**uploadedToListing** | **Boolean** |  | 
 
 

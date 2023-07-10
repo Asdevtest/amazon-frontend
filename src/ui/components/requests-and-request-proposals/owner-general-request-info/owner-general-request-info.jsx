@@ -63,7 +63,7 @@ export const OwnerGeneralRequestInfo = ({
       <div className={cx(classNames.requestInformationWrapper, classNames.firstBlock)}>
         <Typography className={classNames.sectionTitle}>{t(TranslationKey['Request information'])}</Typography>
 
-        <div className={classNames.requestInformationCardWrapper}>
+        <Paper className={classNames.requestInformationCardWrapper}>
           <div className={classNames.requestInformation}>
             <div className={classNames.requestInformationCardInfoTitles}>
               <Typography className={classNames.sectionSubTitle}>{t(TranslationKey['Request information'])}</Typography>
@@ -115,7 +115,7 @@ export const OwnerGeneralRequestInfo = ({
               </Typography>
             </div>
           </div>
-        </div>
+        </Paper>
       </div>
 
       {request?.request && (
@@ -141,7 +141,7 @@ export const OwnerGeneralRequestInfo = ({
             )}
           </div>
 
-          <div className={classNames.requestInfoWrapper}>
+          <Paper className={classNames.requestInfoWrapper}>
             <div className={classNames.blockInfoWrapper}>
               <div className={classNames.blockInfoCell}>
                 <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</Typography>
@@ -237,7 +237,7 @@ export const OwnerGeneralRequestInfo = ({
                 </Typography>
               </div>
             </div>
-          </div>
+          </Paper>
         </div>
       )}
 
@@ -245,7 +245,7 @@ export const OwnerGeneralRequestInfo = ({
         <div className={cx(classNames.requestInformationWrapper, classNames.thirdBlock)}>
           <Typography className={classNames.sectionTitle}>{t(TranslationKey.Announcement)}</Typography>
 
-          <div className={classNames.announcementWrapper}>
+          <Paper className={classNames.announcementWrapper}>
             <div className={classNames.announcementInfoSection}>
               <Typography className={classNames.sectionTitle}>{t(TranslationKey['Announcement name'])}</Typography>
 
@@ -264,7 +264,7 @@ export const OwnerGeneralRequestInfo = ({
                 maxNameWidth={150}
               />
             </div>
-          </div>
+          </Paper>
         </div>
       ) : (
         <div className={classNames.thirdBlock} />

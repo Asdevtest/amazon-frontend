@@ -32,6 +32,7 @@ import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { useClassNames } from './vacant-request-short-card.style'
+import { requestPriority } from '@constants/requests/request-priority'
 
 export const VacantRequestShortCard = ({ item, onClickViewMore, isFirst }) => {
   const { classes: classNames } = useClassNames()
@@ -50,9 +51,15 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, isFirst }) => {
             </div>
           </div>
 
-          <div className={classNames.idWrapper}>
-            <Typography className={classNames.idTitle}>{t(TranslationKey.ID) + ':'}</Typography>
-            <Typography className={cx(classNames.idTitle, classNames.idText)}>{item.humanFriendlyId}</Typography>
+          <div className={classNames.idAndPriorityWrapper}>
+            <div className={classNames.idWrapper}>
+              <Typography className={classNames.idTitle}>{t(TranslationKey.ID) + ':'}</Typography>
+              <Typography className={cx(classNames.idTitle, classNames.idText)}>{item.humanFriendlyId}</Typography>
+            </div>
+
+            {Number(item?.priority) === requestPriority.urgentPriority && (
+              <img className={classNames.priorityIcon} src="/assets/icons/fire.svg" />
+            )}
           </div>
         </div>
 

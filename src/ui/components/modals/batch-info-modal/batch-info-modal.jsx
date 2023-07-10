@@ -33,20 +33,15 @@ import {
 import { checkIsImageLink } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { formatDateWithoutTime } from '@utils/date-time'
-import {
-  getFullTariffTextForBoxOrOrder,
-  getNewTariffTextForBoxOrOrder,
-  getShortenStringIfLongerThanCount,
-  toFixed,
-} from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { BigImagesModal } from '../big-images-modal'
 import { batchInfoModalColumn } from './batch-info-modal-column'
 import { useClassNames } from './batch-info-modal.style'
 import { PhotoAndFilesCarouselMini } from '@components/shared/photo-and-files-carousel-mini'
 import { DownloadIcon } from '@components/shared/svg-icons'
 import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 export const BatchInfoModal = observer(
   ({
@@ -122,6 +117,7 @@ export const BatchInfoModal = observer(
     const [curBox, setCurBox] = useState({})
 
     const [showPhotosModal, setShowPhotosModal] = useState(false)
+    const [curImageIndex, setCurImageIndex] = useState(0)
 
     const openBoxView = box => {
       setShowBoxViewModal(!showBoxViewModal)
@@ -467,10 +463,12 @@ export const BatchInfoModal = observer(
             />
           </Modal>
 
-          <BigImagesModal
-            openModal={showPhotosModal}
-            setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            images={currentBatch.attachedDocuments?.filter(el => checkIsImageLink(el)) || []}
+          <ImageModal
+            isOpenModal={showPhotosModal}
+            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            imageList={currentBatch.attachedDocuments?.filter(el => checkIsImageLink(el)) || []}
+            currentImageIndex={curImageIndex}
+            handleCurrentImageIndex={index => setCurImageIndex(index)}
           />
         </div>
         {isFileDownloading && <CircularProgressWithLabel />}

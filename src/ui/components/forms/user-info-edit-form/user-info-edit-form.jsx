@@ -29,8 +29,22 @@ const regExpNameCheking = /^(?! )(?!(?:.* ){1})/
 const regExpNameStartCheking = /^(?! )/
 
 export const UserInfoEditForm = observer(
-  ({ user, wrongPassword, onSubmit, onCloseModal, clearError, checkValidationNameOrEmail }) => {
+  ({
+    user,
+    wrongPassword,
+    onSubmit,
+    onCloseModal,
+    clearError,
+    checkValidationNameOrEmail,
+    resetProfileDataValidation,
+  }) => {
     const { classes: classNames } = useClassNames()
+
+    useEffect(() => {
+      return () => {
+        resetProfileDataValidation()
+      }
+    }, [])
 
     const sourceFields = {
       name: user?.name || '',

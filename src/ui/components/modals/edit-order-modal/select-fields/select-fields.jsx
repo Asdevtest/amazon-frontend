@@ -1,18 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import AddIcon from '@mui/icons-material/Add'
-import AutorenewIcon from '@mui/icons-material/Autorenew'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { Box, Checkbox, Grid, Link, Typography } from '@mui/material'
 
 import React, { useState } from 'react'
 
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomSelectPaymentDetails } from '@components/custom-select-payment-details'
 import { UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { BigImagesModal } from '@components/modals/big-images-modal'
 import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
@@ -30,18 +27,17 @@ import { convertDaysToSeconds, formatDateWithoutTime, getDistanceBetweenDatesInS
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import {
   checkAndMakeAbsoluteUrl,
-  getFullTariffTextForBoxOrOrder,
   getNewTariffTextForBoxOrOrder,
   toFixed,
   toFixedWithDollarSign,
   toFixedWithYuanSign,
 } from '@utils/text'
 import { t } from '@utils/translations'
-import { downloadFileByLink } from '@utils/upload-files'
 
 import { useClassNames } from './select-fields.style'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 export const SelectFields = ({
   userInfo,
@@ -538,6 +534,7 @@ export const SelectFields = ({
               variant={
                 !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length ? 'outlined' : 'contained'
               }
+              btnWrapperStyle={classNames.supplierPaymentButtonBtnWrapperStyle}
               onClick={onClickSupplierPaymentButton}
             >
               <Typography
@@ -779,20 +776,13 @@ export const SelectFields = ({
         <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
       )}
 
-      {/* <BigImagesModal
-        openModal={showPhotosModal}
-        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={order.images || []}
-      /> */}
-
-      <BigImagesModal
+      <ImageModal
         showPreviews
-        openModal={showImageModal}
-        setOpenModal={() => setShowImageModal(!showImageModal)}
-        images={bigImagesOptions.images}
-        imgIndex={bigImagesOptions.imgIndex}
-        setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-        // controls={bigImagesModalControls}
+        isOpenModal={showImageModal}
+        handleOpenModal={() => setShowImageModal(!showImageModal)}
+        imageList={bigImagesOptions.images}
+        currentImageIndex={bigImagesOptions.imgIndex}
+        handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
       />
     </Grid>
   )

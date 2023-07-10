@@ -234,10 +234,12 @@ export const NavbarDrawerContent = observer((props: NavbarDrawerContentProps) =>
         onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
       />
 
-      <AlertShield
-        showAcceptMessage={alertShieldSettings.showAlertShield}
-        acceptMessage={alertShieldSettings.alertShieldMessage}
-      />
+      {alertShieldSettings.alertShieldMessage && (
+        <AlertShield
+          showAcceptMessage={alertShieldSettings.showAlertShield}
+          acceptMessage={alertShieldSettings.alertShieldMessage}
+        />
+      )}
     </div>
   )
 })
