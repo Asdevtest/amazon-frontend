@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Alert, Box, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 
 import React, { useEffect, useState } from 'react'
 
@@ -32,6 +32,7 @@ import { t } from '@utils/translations'
 
 import { MyServicesViewModel } from './my-services-view.model'
 import { styles } from './my-services-view.style'
+import { AlertShield } from '@components/shared/alert-shield'
 
 export const MyServicesViewRaw = props => {
   const [viewModel] = useState(() => new MyServicesViewModel({ history: props.history, location: props.location }))
@@ -157,13 +158,12 @@ export const MyServicesViewRaw = props => {
         imgIndex={viewModel.bigImagesOptions.imgIndex}
       />
 
-      {viewModel.acceptMessage && viewModel.showAcceptMessage ? (
-        <div className={classNames.acceptMessageWrapper}>
-          <Alert elevation={5} severity="success">
-            {viewModel.acceptMessage}
-          </Alert>
-        </div>
-      ) : null}
+      {viewModel.alertShieldSettings.alertShieldMessage && (
+        <AlertShield
+          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
+          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+        />
+      )}
     </React.Fragment>
   )
 }

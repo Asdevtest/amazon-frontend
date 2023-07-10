@@ -72,8 +72,10 @@ export class ClientOrdersViewModel {
   checkPendingData = []
   shopsData = []
 
-  showAcceptMessage = undefined
-  acceptMessage = undefined
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+  }
 
   selectedProduct = undefined
   reorderOrdersData = []
@@ -878,14 +880,24 @@ export class ClientOrdersViewModel {
 
       if (!this.error) {
         runInAction(() => {
-          this.acceptMessage = t(TranslationKey['The order has been created'])
-          this.showAcceptMessage = true
-          if (this.showAcceptMessage) {
-            setTimeout(() => {
-              this.acceptMessage = ''
-              this.showAcceptMessage = false
-            }, 3000)
+          this.alertShieldSettings = {
+            showAlertShield: true,
+            alertShieldMessage: t(TranslationKey['The order has been created']),
           }
+
+          setTimeout(() => {
+            this.alertShieldSettings = {
+              ...this.alertShieldSettings,
+              showAlertShield: false,
+            }
+
+            setTimeout(() => {
+              this.alertShieldSettings = {
+                showAlertShield: false,
+                alertShieldMessage: '',
+              }
+            }, 1000)
+          }, 3000)
         })
       }
       this.onTriggerOpenModal('showConfirmModal')
