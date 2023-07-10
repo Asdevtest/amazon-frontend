@@ -100,6 +100,8 @@ export const Chat: FC<Props> = observer(
     const messageInput = useRef<HTMLTextAreaElement | null>(null)
     const messagesWrapperRef = useRef<HTMLDivElement | null>(null)
 
+    const [isShowScrollToBottomBtn, setIsShowScrollToBottomBtn] = useState(false)
+
     const [startMessagesCount, setStartMessagesCount] = useState(0)
     const [unreadMessages, setUnreadMessages] = useState<null | ChatMessageContract[]>([])
 
@@ -121,6 +123,27 @@ export const Chat: FC<Props> = observer(
     const [focused, setFocused] = useState(false)
     const onFocus = () => setFocused(true)
     const onBlur = () => setFocused(false)
+
+    useEffect(() => {
+      const handleScrollToBottomButtonVisibility = (e: Event) => {
+        const target = e.target as HTMLDivElement
+        if (target.clientHeight / 2 < target.scrollHeight - (target.scrollTop + target.clientHeight)) {
+          setIsShowScrollToBottomBtn(true)
+        } else {
+          setIsShowScrollToBottomBtn(false)
+        }
+      }
+
+      if (messagesWrapperRef.current) {
+        messagesWrapperRef.current?.addEventListener('scroll', handleScrollToBottomButtonVisibility)
+      }
+
+      return () => {
+        if (messagesWrapperRef.current) {
+          messagesWrapperRef.current?.removeEventListener('scroll', handleScrollToBottomButtonVisibility)
+        }
+      }
+    }, [])
 
     const messageInitialState: MessageStateParams = SettingsModel.chatMessageState?.[chat._id] || {
       message: '',

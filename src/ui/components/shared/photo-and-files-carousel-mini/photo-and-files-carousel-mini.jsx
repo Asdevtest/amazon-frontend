@@ -9,14 +9,13 @@ import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BigImagesModal } from '@components/modals/big-images-modal'
-
 import { checkIsImageLink } from '@utils/checks'
 import { shortenDocumentString } from '@utils/text'
 import { t } from '@utils/translations'
 import { openPdfFile } from '@utils/open-pdf-file/open-pdf-file'
 
 import { useClassNames } from './photo-and-files-carousel-mini.styles'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 export const PhotoAndFilesCarouselMini = ({
   files,
@@ -120,12 +119,13 @@ export const PhotoAndFilesCarouselMini = ({
           )}
         </div>
       ) : null}
-      <BigImagesModal
-        openModal={showPhotosModal}
-        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={bigImagesOptions.images}
-        imgIndex={bigImagesOptions.imgIndex}
-        setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+
+      <ImageModal
+        isOpenModal={showPhotosModal}
+        imageList={bigImagesOptions.images}
+        handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        currentImageIndex={bigImagesOptions.imgIndex}
+        handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
       />
     </div>
   ) : (

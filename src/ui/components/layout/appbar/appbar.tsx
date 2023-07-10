@@ -50,7 +50,7 @@ interface Props {
   children: ReactElement
 }
 
-export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen, lastCrumbAdditionalText }) => {
+export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen }) => {
   const history = useHistory()
   const location = useLocation()
   const { classes: classNames } = useClassNames()
@@ -64,6 +64,7 @@ export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen, las
     clearSnackNoticeByKey: markNotificationAsReaded,
     onClickMessage,
     checkMessageIsRead,
+    breadcrumbsAdditionalText,
   } = componentModel.current
 
   useEffect(() => {
@@ -124,12 +125,12 @@ export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen, las
   }, [snackNotifications])
 
   useEffect(() => {
-    if (lastCrumbAdditionalText !== undefined) {
-      localStorage.setItem('last', lastCrumbAdditionalText)
+    if (breadcrumbsAdditionalText !== undefined) {
+      localStorage.setItem('lastBreadcrumbsText', breadcrumbsAdditionalText)
     }
-  }, [lastCrumbAdditionalText])
+  }, [breadcrumbsAdditionalText])
 
-  const savedLastCrumbAdditionalText = localStorage.getItem('last')
+  const savedLastCrumbAdditionalText = localStorage.getItem('lastBreadcrumbsText')
 
   useEffect(() => {
     if (location.pathname !== '/profile') {
@@ -360,7 +361,7 @@ export const Appbar: FC<Props> = observer(({ children, title, setDrawerOpen, las
 
         <div className={classNames.breadCrumbsWrapper}>
           <BreadCrumbsLine
-            lastCrumbAdditionalText={lastCrumbAdditionalText}
+            lastCrumbAdditionalText={breadcrumbsAdditionalText}
             savedLastCrumbAdditionalText={savedLastCrumbAdditionalText}
           />
         </div>

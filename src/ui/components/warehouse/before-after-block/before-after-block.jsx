@@ -13,7 +13,6 @@ import {
   getWeightSizesType,
   inchesCoefficient,
   poundsWeightCoefficient,
-  sizesType,
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
 import { TaskOperationType } from '@constants/task/task-operation-type'
@@ -21,11 +20,7 @@ import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
-
-import { BigImagesModal } from '@components/modals/big-images-modal'
 import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { Field } from '@components/shared/field'
@@ -35,11 +30,9 @@ import { BoxArrow } from '@components/shared/svg-icons'
 
 import {
   checkAndMakeAbsoluteUrl,
-  getFullTariffTextForBoxOrOrder,
   getNewTariffTextForBoxOrOrder,
   getShortenStringIfLongerThanCount,
   toFixed,
-  toFixedWithKg,
 } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -49,7 +42,7 @@ import { BoxItemCard } from './box-item-card'
 import { ShortBoxItemCard } from './short-box-item-card'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { calcVolumeWeightForBox } from '@utils/calculation'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 const Box = observer(
   ({
@@ -876,12 +869,12 @@ const Box = observer(
           </div>
         )}
 
-        <BigImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        <ImageModal
+          isOpenModal={showPhotosModal}
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          imageList={bigImagesOptions.images}
+          currentImageIndex={bigImagesOptions.imgIndex}
+          handleCurrentImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
         />
       </div>
     )

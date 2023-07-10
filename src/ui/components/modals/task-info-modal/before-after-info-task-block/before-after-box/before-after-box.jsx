@@ -2,7 +2,7 @@ import { Typography, Paper, Checkbox, Link } from '@mui/material'
 
 import React from 'react'
 
-import { getOrderStatusOptionByCode } from '@constants/statuses/order-status'
+import { getOrderStatusOptionByCode } from '@constants/orders/order-status'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 

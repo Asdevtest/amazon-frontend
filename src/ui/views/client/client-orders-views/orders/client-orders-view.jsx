@@ -1,6 +1,5 @@
 import { cx } from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Alert } from '@mui/material'
 
 import React, { useEffect, useState } from 'react'
 
@@ -27,6 +26,7 @@ import { t } from '@utils/translations'
 
 import { ClientOrdersViewModel } from './client-orders-view.model'
 import { styles } from './client-orders-view.style'
+import { AlertShield } from '@components/shared/alert-shield'
 
 export const ClientOrdersViewRaw = props => {
   const [viewModel] = useState(
@@ -192,13 +192,12 @@ export const ClientOrdersViewRaw = props => {
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
 
-      {viewModel.acceptMessage && viewModel.showAcceptMessage ? (
-        <div className={classNames.acceptMessageWrapper}>
-          <Alert elevation={5} severity="success">
-            {viewModel.acceptMessage}
-          </Alert>
-        </div>
-      ) : null}
+      {viewModel.alertShieldSettings.alertShieldMessage && (
+        <AlertShield
+          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
+          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+        />
+      )}
     </React.Fragment>
   )
 }

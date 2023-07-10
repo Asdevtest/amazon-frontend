@@ -12,17 +12,16 @@ interface AlertShieldProps {
 export const AlertShield: FC<AlertShieldProps> = React.memo(props => {
   const { classes: classNames } = useClassNames()
 
-  const { acceptMessage, showAcceptMessage } = props
+  const { acceptMessage, showAcceptMessage, ...rest } = props
 
   return (
     <div
-      // @ts-ignore
       className={cx(classNames.acceptMessageWrapper, {
-        [classNames.fadeInAnimation]: showAcceptMessage && acceptMessage,
-        [classNames.fadeOutAnimation]: !showAcceptMessage && acceptMessage,
+        [classNames.fadeInAnimation]: !!showAcceptMessage && !!acceptMessage,
+        [classNames.fadeOutAnimation]: !showAcceptMessage && !!acceptMessage,
       })}
     >
-      <Alert classes={{ root: classNames.alertRoot, icon: classNames.alertIcon }} severity="success">
+      <Alert classes={{ root: classNames.alertRoot, icon: classNames.alertIcon }} {...rest}>
         {acceptMessage}
       </Alert>
     </div>
