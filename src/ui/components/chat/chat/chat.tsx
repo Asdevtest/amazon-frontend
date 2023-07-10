@@ -105,7 +105,7 @@ export const Chat: FC<Props> = observer(
 
     const [showFiles, setShowFiles] = useState(false)
 
-    const [showEmojis, setShowEmojis] = useState(false)
+    const [isShowEmojis, setIsShowEmojis] = useState(false)
 
     const [showGroupSettings, setShowGroupSettings] = useState(false)
 
@@ -389,17 +389,16 @@ export const Chat: FC<Props> = observer(
         <div className={classNames.bottomPartWrapper}>
           {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}
 
-          {showEmojis ? (
+          {isShowEmojis ? (
             <ClickAwayListener
               mouseEvent="onMouseDown"
               onClickAway={event => {
                 if ((event.target as HTMLElement).id !== 'emoji-icon') {
-                  setShowEmojis(false)
+                  setIsShowEmojis(false)
                 }
               }}
             >
               <div className={classNames.emojisWrapper}>
-                <button>xxx</button>
                 <Picker
                   theme={SettingsModel.uiTheme === UiTheme.light ? 'light' : 'dark'}
                   data={data}
@@ -433,9 +432,9 @@ export const Chat: FC<Props> = observer(
                           <EmojiIcon
                             id="emoji-icon"
                             className={cx(classNames.inputIcon, classNames.emojiIconPos, {
-                              [classNames.inputIconActive]: showEmojis,
+                              [classNames.inputIconActive]: isShowEmojis,
                             })}
-                            onClick={() => setShowEmojis(!showEmojis)}
+                            onClick={() => setIsShowEmojis(!isShowEmojis)}
                           />
                         </div>
                         <div className={classNames.filesIconWrapper}>
