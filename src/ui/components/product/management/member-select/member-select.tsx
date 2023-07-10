@@ -28,7 +28,7 @@ export const MemberSelect: FC<Props> = memo(({ title, value, disabled, options, 
 
   return (
     <div className={classNames.selectWrapper}>
-      {title && <p className={classNames.subtitle}>{title}</p>}
+      {title && <p className={classNames.title}>{title}</p>}
       <div className={classNames.selectContainer}>
         <Select
           displayEmpty

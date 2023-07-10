@@ -8,7 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 5,
   },
 
-  subtitle: {
+  title: {
     margin: 0,
     color: theme.palette.text.second,
     fontSize: 14,

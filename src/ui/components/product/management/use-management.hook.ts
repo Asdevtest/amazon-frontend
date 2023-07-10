@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 
 import { SelectChangeEvent } from '@mui/material/Select/SelectInput'
 
@@ -8,12 +8,14 @@ import { AdministratorModel } from '@models/administrator-model'
 
 import { updateObjPropsWithArr } from '@components/product/management/update-obj-props-with-arr.helper'
 
-import { UserRolesForAdminProductBindingChange } from '@constants/keys/user-roles'
+import { mapUserRolesForAdminProduct } from '@constants/keys/user-roles'
 
 import { DataType, MemberType, MembersType, IPromiseItem, Members } from './management.types'
 import { ProductModel } from '@models/product-model'
 
 export const useManagement = () => {
+  const productIdFromUrl = new URL(window.location.href).searchParams.get('product-id')
+
   const [members, setMembers] = useState<MembersType>({
     buyers: [],
     clients: [],
@@ -24,8 +26,7 @@ export const useManagement = () => {
   const [buyer, setBuyer] = useState<MemberType>({ _id: '', name: '' })
   const [supervisor, setSupervisor] = useState<MemberType>({ _id: '', name: '' })
   const [researcher, setResearcher] = useState<MemberType>({ _id: '', name: '' })
-  const [productId, setProductId] = useState<string | null>('')
-  const [product, setProduct] = useState<any>({})
+  const [product, setProduct] = useState<any>()
   const [data, setData] = useState<DataType>({
     productId: '',
     buyerId: '',
@@ -46,19 +47,13 @@ export const useManagement = () => {
   const handleUpdateMember = async () => {
     await AdministratorModel.bindOrUnbindUserToProduct(data)
 
-    if (productId) {
-      await handleGetProduct(productId)
+    if (productIdFromUrl) {
+      await handleGetProduct(productIdFromUrl)
     }
   }
 
   useEffect(() => {
-    const url = new URL(window.location.href)
-
-    if (url) {
-      setProductId(url.searchParams.get('product-id'))
-    }
-
-    const promises: Promise<IPromiseItem>[] = UserRolesForAdminProductBindingChange.map(roleCode =>
+    const promises: Promise<IPromiseItem>[] = mapUserRolesForAdminProduct.map(roleCode =>
       AdministratorModel.getUsersByRole(roleCode),
     )
     const handleGetMembers = async () => {
@@ -70,10 +65,10 @@ export const useManagement = () => {
   }, [])
 
   useEffect(() => {
-    if (productId) {
-      handleGetProduct(productId)
+    if (productIdFromUrl) {
+      handleGetProduct(productIdFromUrl)
     }
-  }, [productId])
+  }, [productIdFromUrl])
 
   useEffect(() => {
     if (members.clients?.length > 0) {
@@ -146,7 +141,7 @@ export const useManagement = () => {
     })
   }, [product._id, buyer._id, supervisor._id, client._id])
 
-  const handleMemberChange = (event: SelectChangeEvent<string>, memberType: number) => {
+  const handleMemberChange = useCallback((event: SelectChangeEvent<string>, memberType: number) => {
     const selectedMemberId = event.target.value
 
     let selectedMember = null
@@ -171,7 +166,7 @@ export const useManagement = () => {
       default:
         break
     }
-  }
+  }, [])
 
   const handleChangeClient = (event: SelectChangeEvent<string>) => {
     handleMemberChange(event, Members.Client)
