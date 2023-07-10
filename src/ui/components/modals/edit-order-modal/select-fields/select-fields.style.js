@@ -374,7 +374,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  btnWrapperStyle: {
+  supplierPaymentButtonBtnWrapperStyle: {
     width: '100%',
   },
 }))

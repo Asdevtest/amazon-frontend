@@ -538,7 +538,7 @@ export const SelectFields = ({
               variant={
                 !orderFields?.paymentDetails.length && !paymentDetailsPhotosToLoad.length ? 'outlined' : 'contained'
               }
-              btnWrapperStyle={classNames.btnWrapperStyle}
+              btnWrapperStyle={classNames.supplierPaymentButtonBtnWrapperStyle}
               onClick={onClickSupplierPaymentButton}
             >
               <Typography
