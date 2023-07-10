@@ -55,6 +55,11 @@ export class OwnerRequestDetailCustomViewModel {
   scrollToChat = undefined
   showResultToCorrectFormModal = false
 
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+  }
+
   get user() {
     return UserModel.userInfo
   }

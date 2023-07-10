@@ -10,7 +10,9 @@ export const useClassNames = makeStyles()(theme => ({
     minHeight: 'fit-content',
   },
   standartText: {
-    color: theme.palette.text.general,
+    fontSize: 14,
+    fontWeight: 400,
+    color: theme.palette.text.second,
   },
 
   mainBlockWrapper: {
@@ -34,17 +36,13 @@ export const useClassNames = makeStyles()(theme => ({
 
   title: {
     width: 479,
-    fontWeight: '600',
-    fontSize: '18px',
+    fontWeight: 600,
+    fontSize: 18,
     lineHeight: '21px',
-    color: theme.palette.text.second,
-    height: 86,
-    whiteSpace: 'pre-wrap',
+
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-    display: '-webkit-box',
-    WebkitLineClamp: 4,
-    WebkitBoxOrient: 'vertical',
+    whiteSpace: 'nowrap',
   },
 
   btnsBlockWrapper: {
@@ -244,10 +242,32 @@ export const useClassNames = makeStyles()(theme => ({
   },
   idTextDark: {
     color: theme.palette.text.general,
+    fontWeight: 600,
   },
   titleAndIdWrapper: {
     display: 'flex',
     gap: 60,
-    marginBottom: 15,
+  },
+
+  confirmationToWorkText: {
+    color: '#09BB49',
+  },
+
+  urgentWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
+
+  urgentText: {
+    fontSize: 14,
+    fontWeight: 400,
+    color: theme.palette.text.second,
+  },
+
+  requestInfoWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 15,
   },
 }))

@@ -37,8 +37,6 @@ import { requestPriority } from '@constants/requests/request-priority'
 export const VacantRequestShortCard = ({ item, onClickViewMore, isFirst }) => {
   const { classes: classNames } = useClassNames()
 
-  console.log('item', item)
-
   return (
     <Grid item>
       <div className={classNames.cardWrapper}>

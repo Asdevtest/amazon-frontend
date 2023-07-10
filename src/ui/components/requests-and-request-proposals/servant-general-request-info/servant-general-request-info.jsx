@@ -33,6 +33,8 @@ import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { useClassNames } from './servant-general-request-info.style'
 
+import { requestPriority } from '@constants/requests/request-priority'
+
 export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals }) => {
   const { classes: classNames } = useClassNames()
 
@@ -183,8 +185,6 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
     </div>
   )
 
-  // console.log('request', request)
-
   return requestProposals.length === 0 ? (
     <Paper className={classNames.root}>
       <div className={classNames.mainBlockWrapper}>
@@ -226,7 +226,7 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
           </div>
         </div>
 
-        <div>
+        <div className={classNames.requestInfoWrapper}>
           <div className={classNames.titleAndIdWrapper}>
             <Typography className={classNames.title}>{request?.request.title}</Typography>
 
@@ -252,6 +252,20 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
               )}
             </Typography>
           </div>
+
+          {request?.request?.withoutConfirmation && (
+            <Typography className={classNames.confirmationToWorkText}>
+              {t(TranslationKey['It is possible to work without confirmation'])}
+            </Typography>
+          )}
+
+          {request?.request?.priority === requestPriority.urgentPriority && (
+            <div className={classNames.urgentWrapper}>
+              <img src="/assets/icons/fire.svg" />
+
+              <Typography className={classNames.urgentText}>{t(TranslationKey['Urgent request'])}</Typography>
+            </div>
+          )}
         </div>
 
         {getMainInfos()}
