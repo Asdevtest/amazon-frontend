@@ -51,6 +51,8 @@ export const supervisorProductsViewColumns = () => [
         color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
       />
     ),
+
+    columnKey: columnnsKeys.client.INVENTORY_STATUS,
   },
 
   {

@@ -307,8 +307,7 @@ export class SupervisorProductsViewModel {
         filters: this.getFilter() + `${ordered !== null ? `;ordered[$eq]=${ordered}` : ''}`,
 
         statusGroup: this.currentStatusGroup,
-        // status:
-        //   this.currentFilterStatus === ProductStatusByKey[ProductStatus.DEFAULT] ? null : this.currentFilterStatus,
+
         limit: this.paginationModel.pageSize,
 
         offset: this.paginationModel.page * this.paginationModel.pageSize,
@@ -380,6 +379,8 @@ export class SupervisorProductsViewModel {
 
     const fbafeeFilter = exclusion !== 'fbafee' && this.columnMenuSettings.fbafee.currentFilterData.join(',')
 
+    const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
+
     const filter = objectToUrlQs({
       or: [
         { asin: { $contains: this.nameSearchValue } },
@@ -429,6 +430,10 @@ export class SupervisorProductsViewModel {
 
       ...(fbafeeFilter && {
         fbafee: { $eq: fbafeeFilter },
+      }),
+
+      ...(statusFilter && {
+        status: { $eq: statusFilter },
       }),
     })
 
