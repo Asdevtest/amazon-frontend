@@ -37,6 +37,7 @@ const updateBoxWhiteList = [
   'items',
   'storekeeperComment',
   'logicsTariffId',
+  'variationTariffId',
   'referenceId',
   'storekeeperTaskComment',
   'trackNumberFile',

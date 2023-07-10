@@ -113,8 +113,6 @@ export const MultipleChats = observer(
 
       const findChatByChatId = filteredChats.find((chat: ChatContract) => chat._id === chatSelectedId)
 
-      console.log('findChatByChatId', findChatByChatId)
-
       return (
         <div ref={ref} className={classNames.root}>
           {
@@ -146,6 +144,7 @@ export const MultipleChats = observer(
                   searchPhrase={searchPhrase}
                   renderAdditionalButtons={renderAdditionalButtons}
                   updateData={updateData}
+                  currentOpponent={currentOpponent}
                   onSubmitMessage={(message: string, files: IFile[], replyMessageId: string | null) =>
                     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     onSubmitMessage(message, files, chatSelectedId!, replyMessageId)

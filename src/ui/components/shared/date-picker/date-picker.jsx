@@ -25,6 +25,7 @@ import { LanguageKey } from '@constants/translations/language-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { useClassNames } from './date-picker.style'
+import { cx } from '@emotion/css'
 
 const getLocalByLanguageTag = languageTag => {
   switch (languageTag) {
@@ -170,7 +171,7 @@ export const DateMonthYearPicker = ({ value, onChange, ...restProps }) => {
   )
 }
 
-export const NewDatePicker = ({ value, onChange, ...restProps }) => {
+export const NewDatePicker = ({ value, onChange, error = false, ...restProps }) => {
   const { classes: classNames } = useClassNames()
 
   const [local, setLocal] = useState(enLocale)
@@ -198,7 +199,7 @@ export const NewDatePicker = ({ value, onChange, ...restProps }) => {
           }}
           inputProps={{
             placeholder,
-            className: classNames.root,
+            className: cx(classNames.root, { [classNames.error]: error }),
           }}
           value={value ? value : null}
           renderInput={params => <TextField {...params} helperText={null} variant="standard" size="small" />}

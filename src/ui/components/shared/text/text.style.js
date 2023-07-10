@@ -44,4 +44,12 @@ export const useClassNames = makeStyles()(theme => ({
 
     display: 'flex',
   },
+
+  baseLineTooltipsWrapper: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    transform: 'translateX(100%)',
+    zIndex: '10',
+  },
 }))

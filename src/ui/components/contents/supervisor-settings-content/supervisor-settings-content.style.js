@@ -20,9 +20,6 @@ export const useClassNames = makeStyles()(theme => ({
   row: {
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
   },
 
   footerContainer: {

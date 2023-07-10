@@ -47,8 +47,10 @@ export class MyRequestsViewModel {
   showRequestForm = false
   showConfirmModal = false
 
-  showAcceptMessage = undefined
-  acceptMessage = undefined
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+  }
 
   selectedIndex = null
   selectedRequests = []
@@ -59,7 +61,7 @@ export class MyRequestsViewModel {
 
   currentData = []
 
-  rowsCount = 0
+  rowCount = 0
 
   searchRequests = []
   openModal = null
@@ -145,8 +147,10 @@ export class MyRequestsViewModel {
       this.history = history
 
       if (location?.state) {
-        this.acceptMessage = location?.state?.acceptMessage
-        this.showAcceptMessage = location?.state?.showAcceptMessage
+        this.alertShieldSettings = {
+          showAlertShield: location?.state?.showAcceptMessage,
+          alertShieldMessage: location?.state?.acceptMessage,
+        }
 
         const state = { ...history?.location?.state }
         delete state?.acceptMessage
@@ -160,10 +164,19 @@ export class MyRequestsViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     runInAction(() => {
-      if (this.showAcceptMessage) {
+      if (this.alertShieldSettings.showAlertShield) {
         setTimeout(() => {
-          this.acceptMessage = ''
-          this.showAcceptMessage = false
+          this.alertShieldSettings = {
+            ...this.alertShieldSettings,
+            showAlertShield: false,
+          }
+
+          setTimeout(() => {
+            this.alertShieldSettings = {
+              showAlertShield: false,
+              alertShieldMessage: '',
+            }
+          }, 1000)
         }, 3000)
       }
     })
@@ -186,8 +199,6 @@ export class MyRequestsViewModel {
       () => this.searchRequests,
       () => {
         this.currentData = this.getCurrentData()
-
-        console.log('this.currentData', this.currentData)
       },
     )
   }
@@ -205,8 +216,8 @@ export class MyRequestsViewModel {
       this.paginationModel = model
     })
 
-    this.setDataGridState()
     this.getCustomRequests()
+    this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
@@ -219,7 +230,6 @@ export class MyRequestsViewModel {
 
   onClickChangeCatigory(value) {
     runInAction(() => {
-      // console.log('value', value)
       this.isRequestsAtWork = value
     })
   }
@@ -506,8 +516,6 @@ export class MyRequestsViewModel {
 
       runInAction(() => {
         this.searchRequests = myRequestsDataConverter(result.rows)
-
-        console.log('this.searchRequests', this.searchRequests)
 
         this.rowCount = result.count
       })

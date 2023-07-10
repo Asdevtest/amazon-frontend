@@ -6,14 +6,13 @@ import { FC, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BigImagesModal } from '@components/modals/big-images-modal'
-
 import { checkIsImageLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './photo-carousel.style'
 import { CustomSlider } from '../custom-slider'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 interface FilesInterface {
   file: { name: Array<string> }
@@ -85,12 +84,18 @@ export const PhotoCarousel: FC<PhotoCarouselProps> = props => {
         )}
       </div>
 
-      <BigImagesModal
-        openModal={showPhotosModal}
-        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={bigImagesOptions.images}
-        imgIndex={bigImagesOptions.imgIndex}
-        setImageIndex={(imgIndex: number) => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+      <ImageModal
+        showPreviews
+        imageList={bigImagesOptions.images}
+        currentImageIndex={bigImagesOptions.imgIndex}
+        handleCurrentImageIndex={imgIndex =>
+          setBigImagesOptions(() => ({
+            ...bigImagesOptions,
+            imgIndex,
+          }))
+        }
+        handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        isOpenModal={showPhotosModal}
       />
     </div>
   ) : (

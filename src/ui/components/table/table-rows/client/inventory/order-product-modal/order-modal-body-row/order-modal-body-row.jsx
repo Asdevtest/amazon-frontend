@@ -3,6 +3,7 @@ import { cx } from '@emotion/css'
 import { Checkbox, Chip, IconButton, TableCell, TableRow, Typography } from '@mui/material'
 
 import React, { useEffect, useState } from 'react'
+import { isPast, isToday, isValid } from 'date-fns'
 
 import DeleteIcon from '@material-ui/icons/Delete'
 import dayjs from 'dayjs'
@@ -46,28 +47,20 @@ export const OrderModalBodyRow = ({
   onClickSetDestinationFavourite,
 }) => {
   const { classes: classNames } = useClassNames()
+
   const [isLocalPriseOutOfLimit, setIsLocalPriseOutOfLimit] = useState(false)
-
-  const onChangeInput = (event, nameInput) => {
-    if (nameInput === 'deadline') {
-      setOrderStateFiled(nameInput)(event)
-    } else {
-      setOrderStateFiled(nameInput)(event.target.value)
-    }
-  }
-
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
-
   const [showSupplierApproximateCalculationsModal, setShowSupplierApproximateCalculationsModal] = useState(false)
-
   const [pricePerUnit, setPerPriceUnit] = useState(null)
 
-  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-    onChangeInput({ target: { value: storekeeperId } }, 'storekeeperId')
-    onChangeInput({ target: { value: tariffId } }, 'logicsTariffId')
-    setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-  }
-
+  const curDestination = destinations.find(el => el._id === orderState.destinationId)
+  const currentStorkeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
+  const currentLogicsTariff = currentStorkeeper?.tariffLogistics?.find(el => el._id === item.logicsTariffId)
+  const priceVariations = item.currentSupplier?.priceVariations
+  const firstNumOfCode = curDestination?.zipCode[0]
+  const tariffName = currentLogicsTariff?.name
+  const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+  const curStorekeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
   const weightOfOneBox = item.currentSupplier
     ? Math.max(
         Math.round(
@@ -80,28 +73,45 @@ export const OrderModalBodyRow = ({
         item.currentSupplier.boxProperties?.boxWeighGrossKg,
       ) / item.currentSupplier.boxProperties?.amountInBox
     : ''
-
   const weightOfBatch = weightOfOneBox * orderState.amount || ''
-
-  const curDestination = destinations.find(el => el._id === orderState.destinationId)
-  const currentStorkeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
-  const currentLogicsTariff = currentStorkeeper?.tariffLogistics?.find(el => el._id === item.logicsTariffId)
-
-  const priceVariations = item.currentSupplier?.priceVariations
-
-  const firstNumOfCode = curDestination?.zipCode[0]
-
-  const tariffName = currentLogicsTariff?.name
-  const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-  const tariffRate = currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate
-
-  const curStorekeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
-
   const curTariffRate = curStorekeeper?.tariffLogistics.find(el => el._id === orderState.logicsTariffId)
     ?.conditionsByRegion[regionOfDeliveryName]?.rate
-
   const costDeliveryOfBatch = weightOfBatch * curTariffRate || ''
+
+  const minDate = dayjs().add(2, 'day')
+  const parsedDeadline = new Date(item.deadline)
+
+  const boxPropertiesIsFull =
+    item.currentSupplier?.boxProperties?.amountInBox &&
+    item.currentSupplier?.boxProperties?.boxLengthCm &&
+    item.currentSupplier?.boxProperties?.boxWidthCm &&
+    item.currentSupplier?.boxProperties?.boxHeightCm &&
+    item.currentSupplier?.boxProperties?.boxWeighGrossKg &&
+    item.currentSupplier?.amount &&
+    item.currentSupplier?.minlot &&
+    item.currentSupplier?.priceInYuan &&
+    item.currentSupplier?.price
+  const onChangeInput = (event, nameInput) => {
+    if (nameInput === 'deadline') {
+      setOrderStateFiled(nameInput)(event)
+    } else {
+      setOrderStateFiled(nameInput)(event.target.value)
+    }
+  }
+
+  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
+    onChangeInput({ target: { value: storekeeperId } }, 'storekeeperId')
+    onChangeInput({ target: { value: tariffId } }, 'logicsTariffId')
+    setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+  }
+
+  useEffect(() => {
+    if (toFixed(calcProductsPriceWithDelivery(item, orderState), 2) < platformSettings.orderAmountLimit) {
+      setIsLocalPriseOutOfLimit(true)
+    } else {
+      setIsLocalPriseOutOfLimit(false)
+    }
+  }, [orderState.amount])
 
   useEffect(() => {
     if (orderState.amount > 0 && costDeliveryOfBatch) {
@@ -116,29 +126,6 @@ export const OrderModalBodyRow = ({
       setPerPriceUnit(t(TranslationKey['No data']))
     }
   }, [costDeliveryOfBatch, item, orderState, orderState.amount])
-
-  const boxPropertiesIsFull =
-    item.currentSupplier?.boxProperties?.amountInBox &&
-    item.currentSupplier?.boxProperties?.boxLengthCm &&
-    item.currentSupplier?.boxProperties?.boxWidthCm &&
-    item.currentSupplier?.boxProperties?.boxHeightCm &&
-    item.currentSupplier?.boxProperties?.boxWeighGrossKg &&
-    item.currentSupplier?.amount &&
-    item.currentSupplier?.minlot &&
-    item.currentSupplier?.priceInYuan &&
-    item.currentSupplier?.price
-
-  const minDate = dayjs().add(2, 'day')
-
-  const maxAmount = calcProductsMaxAmountByPriceLimit(item, platformSettings.orderAmountLimit)
-
-  React.useEffect(() => {
-    if (toFixed(calcProductsPriceWithDelivery(item, orderState), 2) < platformSettings.orderAmountLimit) {
-      setIsLocalPriseOutOfLimit(true)
-    } else {
-      setIsLocalPriseOutOfLimit(false)
-    }
-  }, [orderState.amount])
 
   return (
     <React.Fragment>
@@ -193,14 +180,6 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         <TableCell className={classNames.cell}>
-          {/* <Input
-
-            inputProps={{maxLength: 6, min: 0}}
-            value={orderState.amount}
-            className={classNames.amountCell}
-            onChange={e => onChangeInput(e, 'amount')}
-          /> */}
-
           <Field
             containerClasses={classNames.containerField}
             inputClasses={cx(classNames.amountCell, {
@@ -251,7 +230,7 @@ export const OrderModalBodyRow = ({
               priceVariations?.map((el, index) => (
                 <div key={index}>
                   {el.quantity} {t(TranslationKey['pcs.'])}. /{' '}
-                  {toFixedWithDollarSign(el.price / platformSettings.yuanToDollarRate, 2)}{' '}
+                  {toFixedWithDollarSign(el?.price / platformSettings?.yuanToDollarRate, 2)}{' '}
                   {t(TranslationKey.Per).toLowerCase()} {t(TranslationKey['pcs.'])}
                 </div>
               ))
@@ -293,17 +272,6 @@ export const OrderModalBodyRow = ({
             )}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
-            {/* {item.storekeeperId
-              ? `${currentStorkeeper.name} / 
-                
-                ${
-                  item.logicsTariffId
-                    ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-                        tariffRate ? ' / ' + tariffRate + ' $' : ''
-                      }`
-                    : 'none'
-                }`
-              : t(TranslationKey.Select)} */}
             {item.storekeeperId
               ? `                
                 ${item.logicsTariffId ? `${tariffName}` : 'none'}`
@@ -342,8 +310,9 @@ export const OrderModalBodyRow = ({
           <div className={classNames.datePickerWrapper}>
             <NewDatePicker
               disablePast
+              error={!isValid(parsedDeadline) || isPast(parsedDeadline)}
               minDate={minDate}
-              value={item.deadline}
+              value={parsedDeadline}
               onChange={e => onChangeInput(e, 'deadline')}
             />
           </div>
@@ -471,6 +440,7 @@ export const OrderModalBodyRow = ({
             product={item}
             supplier={item.currentSupplier}
             storekeepers={storekeepers}
+            destinationData={destinations}
             onClose={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
           />
         </Modal>

@@ -273,6 +273,20 @@ export const useClassNames = makeStyles()(theme => ({
       // marginBottom: '20px',
     },
   },
+  boxSvgContainer: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    gap: 2,
+  },
+  bigBoxSvg: {
+    height: 32,
+    width: 32,
+  },
+  boxArrowSvg: {
+    height: '12px !important',
+    width: '12px !important',
+    color: theme.palette.primary.main,
+  },
   hideBlock: {
     [theme.breakpoints.down(768)]: {
       display: 'none',

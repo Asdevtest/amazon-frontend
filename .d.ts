@@ -16,6 +16,4 @@ declare module 'react-highlight-words'
 
 declare module 'he'
 
-declare module 'react-inverted-scrollview'
-
 declare module '@opuscapita/react-markdown'

@@ -17,10 +17,100 @@ export const DestinationVariationsSpanningCell = React.memo(
       classes: classNames,
       showCheckbox,
       destinationVariations,
-      destinationData,
       activeDestinationId,
       activeDedestinationVariationt,
       selectVariationTariff,
+      withoutRate,
+    }) => {
+      const groupedData = destinationVariations.reduce((groups, obj) => {
+        const { destination } = obj
+        const { _id } = destination
+
+        if (!_id) {
+          return groups
+        }
+
+        if (!groups[_id]) {
+          groups[_id] = []
+        }
+        groups[_id].push(obj)
+        return groups
+      }, {})
+
+      const arrayOfArrays = Object.values(groupedData)
+
+      return (
+        <div className={classNames.destinationVariationsWrapper}>
+          {arrayOfArrays.map((varians, itemIndex) => (
+            <div
+              key={itemIndex}
+              className={cx(classNames.destinationVariationWrapper, {
+                [classNames.noBorder]: itemIndex === arrayOfArrays?.length - 1,
+              })}
+            >
+              <div className={cx(classNames.destinationWrapper, classNames.destinationVariation)}>
+                <Typography className={cx(classNames.destinationVariationText)}>
+                  {varians[0]?.destination?.name || t(TranslationKey.Missing)}
+                </Typography>
+              </div>
+              <div className={cx(classNames.destinationWrapper, classNames.weightWrapper)}>
+                {varians.map((variant, variantIndex) => (
+                  <div key={variantIndex} className={classNames.variantWrapper}>
+                    {!!showCheckbox && (
+                      <Checkbox
+                        disabled={activeDestinationId && activeDestinationId !== variant?.destination?._id}
+                        checked={activeDedestinationVariationt === variant._id}
+                        classes={{ root: classNames.checkboxRoot }}
+                        onClick={() => selectVariationTariff(variant._id, variant?.destination?._id)}
+                      />
+                    )}
+                    <Typography className={cx(classNames.destinationVariationText)}>{`${
+                      !!variant.minWeight && t(TranslationKey.From) + ' '
+                    }${variant.minWeight} ${!!variant.maxWeight && t(TranslationKey.To) + ' '}${
+                      variant.maxWeight
+                    }`}</Typography>
+                  </div>
+                ))}
+              </div>
+              {!withoutRate && (
+                <div className={cx(classNames.destinationWrapper, classNames.rateWrapper)}>
+                  {varians.map((variant, variantIndex) => (
+                    <Typography key={variantIndex} className={cx(classNames.destinationVariationText)}>
+                      {toFixed(variant.pricePerKgRmb, 2)}
+                    </Typography>
+                  ))}
+                </div>
+              )}
+
+              {!withoutRate && (
+                <div className={cx(classNames.destinationWrapper, classNames.rateWrapper)}>
+                  {varians.map((variant, variantIndex) => (
+                    <Typography key={variantIndex} className={cx(classNames.destinationVariationText)}>
+                      {toFixed(variant.pricePerKgUsd, 2)}
+                    </Typography>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )
+    },
+    styles,
+  ),
+)
+
+export const WeightBasedApproximateCalculationsSpanningCell = React.memo(
+  withStyles(
+    ({
+      classes: classNames,
+      destinationVariations,
+      costDeliveryToChina,
+      destinationVariationWidth,
+      weightWrapperWidth,
+      chinaCostWrapperWidth,
+      usaCostWrapperWidth,
+      roiWrapperWidth,
     }) => {
       const groupedData = destinationVariations.reduce((groups, obj) => {
         const { destinationId } = obj
@@ -42,23 +132,17 @@ export const DestinationVariationsSpanningCell = React.memo(
                 [classNames.noBorder]: itemIndex === arrayOfArrays?.length - 1,
               })}
             >
-              <div className={cx(classNames.destinationWrapper, classNames.destinationVariation)}>
+              <div
+                style={{ width: destinationVariationWidth }}
+                className={cx(classNames.destinationWrapper, classNames.destinationVariation)}
+              >
                 <Typography className={cx(classNames.destinationVariationText)}>
-                  {destinationData?.find(obj => obj?._id === varians[0]?.destinationId)?.name ||
-                    t(TranslationKey.Missing)}
+                  {varians[0]?.destination?.name || t(TranslationKey.Missing)}
                 </Typography>
               </div>
-              <div className={cx(classNames.destinationWrapper, classNames.weightWrapper)}>
+              <div style={{ width: weightWrapperWidth }} className={cx(classNames.destinationWrapper)}>
                 {varians.map((variant, variantIndex) => (
                   <div key={variantIndex} className={classNames.variantWrapper}>
-                    {!!showCheckbox && (
-                      <Checkbox
-                        disabled={activeDestinationId && activeDestinationId !== variant.destinationId}
-                        checked={activeDedestinationVariationt === variant._id}
-                        classes={{ root: classNames.checkboxRoot }}
-                        onClick={() => selectVariationTariff(variant._id, variant.destinationId)}
-                      />
-                    )}
                     <Typography className={cx(classNames.destinationVariationText)}>{`${
                       !!variant.minWeight && t(TranslationKey.From) + ' '
                     }${variant.minWeight} ${!!variant.maxWeight && t(TranslationKey.To) + ' '}${
@@ -67,18 +151,25 @@ export const DestinationVariationsSpanningCell = React.memo(
                   </div>
                 ))}
               </div>
-              <div className={cx(classNames.destinationWrapper, classNames.rateWrapper)}>
+
+              <div style={{ width: chinaCostWrapperWidth }} className={cx(classNames.alignCenter)}>
+                <Typography className={cx(classNames.destinationVariationText)}>
+                  {toFixed(costDeliveryToChina, 2)}
+                </Typography>
+              </div>
+
+              <div style={{ width: usaCostWrapperWidth }} className={cx(classNames.destinationWrapper)}>
                 {varians.map((variant, variantIndex) => (
                   <Typography key={variantIndex} className={cx(classNames.destinationVariationText)}>
-                    {toFixed(variant.pricePerKgRmb, 2)}
+                    {toFixed(variant.costDeliveryToUsa, 2)}
                   </Typography>
                 ))}
               </div>
 
-              <div className={cx(classNames.destinationWrapper, classNames.rateWrapper)}>
+              <div style={{ width: roiWrapperWidth }} className={cx(classNames.destinationWrapper)}>
                 {varians.map((variant, variantIndex) => (
                   <Typography key={variantIndex} className={cx(classNames.destinationVariationText)}>
-                    {toFixed(variant.pricePerKgUsd, 2)}
+                    {toFixed(variant.roi, 2) + ' %'}
                   </Typography>
                 ))}
               </div>

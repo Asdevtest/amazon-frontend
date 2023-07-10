@@ -2,7 +2,7 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { ActiveSubCategoryTablesKeys } from '@constants/table/active-sub-category-tables-keys'
 
 import { AdministratorModel } from '@models/administrator-model'

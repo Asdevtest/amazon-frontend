@@ -3,7 +3,7 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { routsPathes } from '@constants/navigation/routs-pathes'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
@@ -72,8 +72,10 @@ export class ClientOrdersViewModel {
   checkPendingData = []
   shopsData = []
 
-  showAcceptMessage = undefined
-  acceptMessage = undefined
+  alertShieldSettings = {
+    showAlertShield: false,
+    alertShieldMessage: '',
+  }
 
   selectedProduct = undefined
   reorderOrdersData = []
@@ -878,14 +880,24 @@ export class ClientOrdersViewModel {
 
       if (!this.error) {
         runInAction(() => {
-          this.acceptMessage = t(TranslationKey['The order has been created'])
-          this.showAcceptMessage = true
-          if (this.showAcceptMessage) {
-            setTimeout(() => {
-              this.acceptMessage = ''
-              this.showAcceptMessage = false
-            }, 3000)
+          this.alertShieldSettings = {
+            showAlertShield: true,
+            alertShieldMessage: t(TranslationKey['The order has been created']),
           }
+
+          setTimeout(() => {
+            this.alertShieldSettings = {
+              ...this.alertShieldSettings,
+              showAlertShield: false,
+            }
+
+            setTimeout(() => {
+              this.alertShieldSettings = {
+                showAlertShield: false,
+                alertShieldMessage: '',
+              }
+            }, 1000)
+          }, 3000)
         })
       }
       this.onTriggerOpenModal('showConfirmModal')
@@ -913,15 +925,10 @@ export class ClientOrdersViewModel {
   }
 
   onClickTableRow(order) {
-    // const win = window.open(
-    //   `/client/my-orders/orders/order?orderId=${order.originalData._id}&order-human-friendly-id=${order.originalData.id}`,
-    //   '_blank',
-    // )
-
-    // win.focus()
-
     this.history.push(
-      `/client/my-orders/orders/order?orderId=${order.originalData._id}&order-human-friendly-id=${order.originalData.id}`,
+      `/client/my-orders/${window.location.pathname.split('/').at(-1)}/order?orderId=${
+        order.originalData._id
+      }&order-human-friendly-id=${order.originalData.id}`,
     )
   }
 

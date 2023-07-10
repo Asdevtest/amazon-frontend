@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { BuyerDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -12,28 +12,9 @@ export class BuyerDashboardViewModel {
   error = undefined
   balance = UserModel.userInfo?.balance
 
-  dashboardData = {
-    [BuyerDashboardCardDataKey.ALL_PRODUCTS]: '',
-    [BuyerDashboardCardDataKey.SUCCESS_PRODUCTS]: '',
-    [BuyerDashboardCardDataKey.PAYED_PRODUCTS]: '',
+  currentData = undefined
 
-    [BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_SUPERVISOR]: '',
-    [BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT]: '',
-    [BuyerDashboardCardDataKey.IN_SEARCH_PRODUCTS]: '',
-    [BuyerDashboardCardDataKey.REJECTED_PRODUCTS]: '',
-
-    [BuyerDashboardCardDataKey.MY_ORDERS_NOT_PAID]: '',
-    [BuyerDashboardCardDataKey.MY_ORDERS_NEED_TRACK_NUMBER]: '',
-    [BuyerDashboardCardDataKey.MY_ORDERS_INBOUND]: '',
-    [BuyerDashboardCardDataKey.MY_ORDERS_CONFIRMATION_REQUIRED]: '',
-    [BuyerDashboardCardDataKey.MY_ORDERS_CLOSED_AND_CANCELED]: '',
-    [BuyerDashboardCardDataKey.MY_ORDERS_ALL_ORDERS]: '',
-
-    [BuyerDashboardCardDataKey.PENDING_ORDERS]: '',
-
-    [BuyerDashboardCardDataKey.REPLENISH]: '',
-    [BuyerDashboardCardDataKey.FINES]: '',
-  }
+  dashboardData = undefined
 
   get userInfo() {
     return UserModel.userInfo
@@ -44,6 +25,13 @@ export class BuyerDashboardViewModel {
       this.history = history
     })
     makeAutoObservable(this, undefined, { autoBind: true })
+
+    reaction(
+      () => this.dashboardData,
+      () => {
+        this.currentData = this.getCurrentData()
+      },
+    )
   }
 
   async loadData() {
@@ -65,6 +53,10 @@ export class BuyerDashboardViewModel {
     }
   }
 
+  getCurrentData() {
+    return this.dashboardData
+  }
+
   onClickInfoCardViewMode(route, dataGridFilter) {
     if (dataGridFilter) {
       this.history.push(route, { dataGridFilter })
@@ -76,6 +68,7 @@ export class BuyerDashboardViewModel {
   async getDashboardElementCount() {
     try {
       const result = await DashboardModel.getBuyerDashboadItems()
+
       runInAction(() => {
         this.dashboardData = {
           ...this.dashboardData,

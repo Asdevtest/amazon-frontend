@@ -6,13 +6,12 @@ import { React, useState } from 'react'
 
 import { observer } from 'mobx-react'
 
-import { inchesCoefficient, poundsCoefficient, sizesType } from '@constants/configs/sizes-settings'
+import { inchesCoefficient, poundsWeightCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomSelectPaymentDetails } from '@components/custom-select-payment-details'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
-import { BigImagesModal } from '@components/modals/big-images-modal'
 import { Button } from '@components/shared/buttons/button'
 import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
@@ -28,6 +27,7 @@ import { t } from '@utils/translations'
 
 import { useClassNames } from './add-or-edit-supplier-modal-content.style'
 import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 export const AddOrEditSupplierModalContent = observer(
   ({
@@ -170,6 +170,7 @@ export const AddOrEditSupplierModalContent = observer(
     }
 
     const [showPhotosModal, setShowPhotosModal] = useState(false)
+    const [curImageIndex, setCurImageIndex] = useState(0)
 
     const renderFooterModalButtons = () => {
       if (outsideProduct) {
@@ -822,7 +823,7 @@ export const AddOrEditSupplierModalContent = observer(
                     inputProps={{ maxLength: 10 }}
                     containerClasses={classNames.shortContainer}
                     labelClasses={classNames.normalLabel}
-                    value={toFixed(tmpSupplier.boxProperties.boxWeighGrossKg * poundsCoefficient, 2) || ''}
+                    value={toFixed(tmpSupplier.boxProperties.boxWeighGrossKg / poundsWeightCoefficient, 2) || ''}
                   />
 
                   <Field
@@ -976,10 +977,12 @@ export const AddOrEditSupplierModalContent = observer(
           <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
         )}
 
-        <BigImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={tmpSupplier.images}
+        <ImageModal
+          isOpenModal={showPhotosModal}
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          imageList={tmpSupplier.images}
+          currentImageIndex={curImageIndex}
+          handleCurrentImageIndex={index => setCurImageIndex(index)}
         />
 
         <Modal

@@ -15,6 +15,7 @@ import {
   NormalActionBtnCell,
   AsinCell,
   VacantRequestPriceCell,
+  PriorityAndChinaDeliverCell,
 } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
 import { timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign } from '@utils/text'
@@ -30,6 +31,25 @@ export const FreelancerVacantRequestColumns = handlers => [
     width: 159,
 
     columnKey: columnnsKeys.shared.STRING,
+  },
+
+  {
+    field: 'priority',
+    headerName: t(TranslationKey.Priority),
+    renderHeader: params => (
+      <MultilineTextHeaderCell
+        component={<img src="/assets/icons/bookmark.svg" />}
+        // isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
+        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+      />
+    ),
+    width: 60,
+    renderCell: params => <PriorityAndChinaDeliverCell isRequest priority={params.row.originalData.priority} />,
+
+    filterable: false,
+    sortable: false,
+
+    // columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
   },
 
   {

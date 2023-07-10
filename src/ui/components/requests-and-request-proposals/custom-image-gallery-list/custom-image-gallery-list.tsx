@@ -7,9 +7,6 @@ import { observer } from 'mobx-react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
-
-import { BigImagesModal } from '@components/modals/big-images-modal'
-import { BigObjectImagesModal } from '@components/modals/big-object-images-modal'
 import { NoPhotoIcon } from '@components/shared/svg-icons'
 
 import { checkIsImageLink } from '@utils/checks'
@@ -17,6 +14,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useClassNames } from './custom-image-gallery-list.style'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 interface FilesObject {
   fileLink: string
@@ -25,6 +23,7 @@ interface FilesObject {
   commentByPerformer: string
   _id: string
 }
+
 interface CustomImageGalleryListProps {
   files: (string | FilesObject)[]
   isAmazonPhoto: boolean
@@ -45,6 +44,19 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
   const [filesForRender, setFilesForRender] = useState(files)
 
   const [curImageId, setCurImageId] = useState<string | null>(null)
+  const [filteredFiles, setFilteredFiles] = useState<unknown[]>()
+
+  useEffect(() => {
+    setFilteredFiles(
+      files
+        .map(el => {
+          if (typeof el === 'object') {
+            return { ...el, image: el.fileLink, imageComment: el.commentByClient || '' }
+          }
+        })
+        .filter(el => !!el),
+    )
+  }, [files])
 
   // console.log('filesForRender', filesForRender)
 
@@ -113,24 +125,46 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
       ))}
 
       {isObjectFiles ? (
-        <BigObjectImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          imagesData={files.map(
-            el => typeof el === 'object' && { ...el, image: el.fileLink, imageComment: el.commentByClient || '' },
-          )}
-          curImageId={curImageId}
-          setCurImageId={setCurImageId}
-          renderBtns={undefined}
-          isRedImageComment={undefined}
-        />
+        <>
+          <ImageModal
+            showPreviews
+            isOpenModal={showPhotosModal}
+            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            imageList={filteredFiles as Record<string, unknown>[]}
+            currentImageIndex={bigImagesOptions.imgIndex}
+            handleCurrentImageIndex={imgIndex =>
+              setBigImagesOptions(() => ({
+                ...bigImagesOptions,
+                imgIndex,
+              }))
+            }
+            getImageTitle={(index, item) => (typeof item === 'string' ? item : (item?.commentByClient as string))}
+            getImageComment={(index, image) => (typeof image === 'string' ? image : (image?.imageComment as string))}
+            getImageUrl={(index, image: string | Record<string, any>) => {
+              if (typeof image === 'string') {
+                return image
+              }
+              return typeof image?.image === 'string'
+                ? image?.image
+                : image?.image?.file.type.includes('image')
+                ? image?.image?.data_url
+                : '/assets/icons/file.png'
+            }}
+          />
+        </>
       ) : (
-        <BigImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={(imgIndex: number) => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+        <ImageModal
+          showPreviews
+          imageList={bigImagesOptions.images}
+          currentImageIndex={bigImagesOptions.imgIndex}
+          handleCurrentImageIndex={imgIndex =>
+            setBigImagesOptions(() => ({
+              ...bigImagesOptions,
+              imgIndex,
+            }))
+          }
+          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          isOpenModal={showPhotosModal}
         />
       )}
     </div>

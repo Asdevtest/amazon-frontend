@@ -121,6 +121,7 @@ export const ClientAwaitingBatchesViewRaw = props => {
             useResizeContainer
             checkboxSelection
             localeText={getLocalizationByLanguageTag()}
+            propsToRerender={{ productViewMode: viewModel.productViewMode }}
             classes={{
               row: className.row,
               root: className.root,

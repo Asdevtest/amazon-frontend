@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Alert, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import React, { useEffect, useState } from 'react'
 
@@ -27,6 +27,7 @@ import { t } from '@utils/translations'
 
 import { MyRequestsViewModel } from './my-requests-view.model'
 import { styles } from './my-requests-view.style'
+import { AlertShield } from '@components/shared/alert-shield'
 
 export const MyRequestsViewRaw = props => {
   const [viewModel] = useState(
@@ -195,13 +196,12 @@ export const MyRequestsViewRaw = props => {
         }}
         onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
       />
-      {viewModel.acceptMessage && viewModel.showAcceptMessage ? (
-        <div className={classNames.acceptMessageWrapper}>
-          <Alert elevation={5} severity="success">
-            {viewModel.acceptMessage}
-          </Alert>
-        </div>
-      ) : null}
+      {viewModel.alertShieldSettings.alertShieldMessage && (
+        <AlertShield
+          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
+          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+        />
+      )}
     </React.Fragment>
   )
 }

@@ -64,6 +64,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   itemInputIcon: {
+    color: theme.palette.primary.main,
     transition: '.3s ease',
     cursor: 'pointer',
     '&:hover': {
@@ -340,5 +341,9 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
+  },
+
+  productCell: {
+    width: 225,
   },
 }))

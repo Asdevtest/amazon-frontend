@@ -4,84 +4,94 @@ export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '100%',
     display: 'flex',
-    padding: '10px 10px 10px 4px',
-
+    alignItems: 'flex-start',
+    gap: 12,
+    padding: '15px 10px',
     borderLeft: '2px solid transparent',
-
-    // borderLeft: `2px solid ${theme.palette.primary.main}`,
-
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
+
   rootIsSelected: {
     borderLeftColor: theme.palette.primary.main,
   },
 
   avatarWrapper: {
-    height: '50px',
-    width: '50px',
+    height: 49,
+    width: 49,
   },
 
   miniAvatar: {
-    height: '15px',
-    width: '15px',
-
+    height: 15,
+    width: 15,
     marginRight: 5,
   },
 
   rightSide: {
-    marginLeft: '12px',
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'column',
+    width: '100%',
   },
 
   titleWrapper: {
     display: 'flex',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
+    marginBottom: 5,
   },
 
   titleText: {
-    margin: '0',
-    fontWeight: 600,
+    margin: 0,
     fontSize: 18,
+    fontWeight: 600,
+    lineHeight: '25px',
     color: theme.palette.text.general,
-
-    maxWidth: 120,
+    maxWidth: 140,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+  },
+
+  messageDate: {
+    margin: 0,
+    fontSize: 12,
+    color: theme.palette.text.second,
   },
 
   lastMessageWrapper: {
-    marginTop: '10px',
-
     display: 'flex',
-
+    alignItems: 'center',
     justifyContent: 'space-between',
-  },
-
-  lastMessageText: {
-    margin: 0,
-
-    fontSize: 14,
-    color: theme.palette.text.second,
-
-    // whiteSpace: 'nowrap',
-
-    width: '140px',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
+    gap: 10,
   },
 
   lastMessageSubWrapper: {
     display: 'flex',
     alignItems: 'center',
+    gap: 5,
+    maxWidth: 180,
+  },
+
+  nickName: {
+    margin: 0,
+    fontSize: 14,
+    fontWeight: 600,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+  },
+
+  lastMessageText: {
+    margin: 0,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+
+  lastMessageTextBold: {
+    fontWeight: 600,
   },
 
   badge: {
-    marginTop: 5,
-    alignSelf: 'flex-start',
     height: 18,
     width: 18,
     backgroundColor: theme.palette.primary.main,
@@ -89,21 +99,20 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: theme.palette.text.negativeMain,
-    fontSize: '12px',
+    color: '#fff',
+    fontSize: 12,
     lineHeight: '14px',
   },
 
-  messageDate: {
-    margin: 0,
-    fontSize: 14,
-    color: theme.palette.text.second,
+  isReadIcon: {
+    width: '18px !important',
+    height: '18px !important',
+    color: '#00B746',
   },
 
-  readIconsWrapper: {
-    width: 35,
-    display: 'flex',
-    alignItems: 'flex-end',
-    // marginLeft: 10,
+  noReadIcon: {
+    width: '18px !important',
+    height: '18px !important',
+    color: theme.palette.text.second,
   },
 }))

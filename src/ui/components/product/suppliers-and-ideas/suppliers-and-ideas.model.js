@@ -393,7 +393,13 @@ export class SuppliersAndIdeasModel {
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
+          supplier,
+          patchSuppliers,
+          undefined,
+          undefined,
+          true,
+        )
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)

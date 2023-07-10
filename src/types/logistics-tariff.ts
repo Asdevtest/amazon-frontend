@@ -1,5 +1,8 @@
 export interface DestinationVariationInterface {
-  destinationId: string
+  destination: {
+    name: string
+    _id: string
+  }
   minWeight: number
   maxWeight: number
   pricePerKgRmb: number

@@ -73,6 +73,7 @@ export const OrderProductModal = ({
             : '',
           expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
           priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
+          deadline: reorderOrder.deadline || '',
         }))
       : selectedProductsData.map(product => ({
           ...product,
@@ -91,7 +92,6 @@ export const OrderProductModal = ({
           productId: reorderOrder.product._id,
           images: [],
           tmpBarCode: [],
-          deadline: null,
 
           destinationId: destinations.map(el => el._id).includes(reorderOrder.destination?._id)
             ? reorderOrder.destination?._id
@@ -108,6 +108,7 @@ export const OrderProductModal = ({
           expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
           priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
           _id: reorderOrder._id,
+          deadline: reorderOrder.deadline || '',
           // buyerId: reorderOrder.buyer?._id || null,
         }))
       : selectedProductsData.map(product => ({
@@ -368,13 +369,25 @@ export const OrderProductModal = ({
 
       <div className={classNames.buttonsWrapper}>
         <div className={classNames.pendingOrderWrapper} onClick={() => setIsResearchSupplier(!isResearchSupplier)}>
-          <Checkbox checked={isResearchSupplier} color="primary" />
+          <Checkbox
+            checked={isResearchSupplier}
+            color="primary"
+            classes={{
+              root: classNames.checkbox,
+            }}
+          />
           <Typography className={classNames.sumText}>{t(TranslationKey['Re-search supplier'])}</Typography>
         </div>
 
         {!isPendingOrdering ? (
           <div className={classNames.pendingOrderWrapper} onClick={() => setIsPendingOrder(!isPendingOrder)}>
-            <Checkbox checked={isPendingOrder} color="primary" />
+            <Checkbox
+              checked={isPendingOrder}
+              color="primary"
+              classes={{
+                root: classNames.checkbox,
+              }}
+            />
             <Typography className={classNames.sumText}>{t(TranslationKey['Pending order'])}</Typography>
           </div>
         ) : null}

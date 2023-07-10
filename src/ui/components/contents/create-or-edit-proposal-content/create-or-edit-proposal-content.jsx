@@ -3,7 +3,7 @@ import { cx } from '@emotion/css'
 import CircleIcon from '@mui/icons-material/Circle'
 import { Avatar, Checkbox, Link, List, ListItem, ListItemText, Rating, Typography } from '@mui/material'
 
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -314,8 +314,13 @@ export const CreateOrEditProposalContent = ({
           </div>
 
           <div className={classNames.checkboxWrapper}>
+            <Checkbox
+              color="primary"
+              checked={checked}
+              classes={{ root: classNames.checkbox }}
+              onChange={() => setChecked(!checked)}
+            />
             <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Offer your price?'])}</Typography>
-            <Checkbox color="primary" checked={checked} onChange={() => setChecked(!checked)} />
           </div>
 
           <div className={classNames.middleSubWrapper}>

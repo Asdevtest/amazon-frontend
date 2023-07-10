@@ -47,7 +47,6 @@ export const SelectStorekeeperAndTariffForm = observer(
     onSubmit,
     inNotifications,
     total,
-    destinationsData,
     currentVariationTariffId,
     currentDestinationId,
   }) => {
@@ -70,6 +69,8 @@ export const SelectStorekeeperAndTariffForm = observer(
         ? storekeepers.find(el => el._id === curStorekeeperId)
         : storekeepers.slice().sort((a, b) => a.name?.localeCompare(b?.name))[0],
     )
+
+    console.log('storekeepers', storekeepers)
 
     const [variationTariffId, setVariationTariffId] = useState(currentVariationTariffId)
     const [destinationId, setDestinationId] = useState(currentDestinationId)
@@ -166,10 +167,9 @@ export const SelectStorekeeperAndTariffForm = observer(
               }
               columns={
                 total
-                  ? TotalStorkeeperAndWeightBasedTariffFormColumns(destinationsData)
+                  ? TotalStorkeeperAndWeightBasedTariffFormColumns()
                   : WeightBasedTariffFormColumns(
                       showCheckbox,
-                      destinationsData,
                       variationTariffId,
                       currentDestinationId,
                       onClickSelectTariff,

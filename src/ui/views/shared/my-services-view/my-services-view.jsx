@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
-import { Alert, Box, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 
 import React, { useEffect, useState } from 'react'
 
@@ -19,7 +19,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
 import { MainContent } from '@components/layout/main-content'
-import { BigImagesModal } from '@components/modals/big-images-modal'
 import { Button } from '@components/shared/buttons/button'
 import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
 import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
@@ -32,6 +31,8 @@ import { t } from '@utils/translations'
 
 import { MyServicesViewModel } from './my-services-view.model'
 import { styles } from './my-services-view.style'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { AlertShield } from '@components/shared/alert-shield'
 
 export const MyServicesViewRaw = props => {
   const [viewModel] = useState(() => new MyServicesViewModel({ history: props.history, location: props.location }))
@@ -150,20 +151,22 @@ export const MyServicesViewRaw = props => {
         )}
       </MainContent>
 
-      <BigImagesModal
+      <ImageModal
+        showPreviews
+        isOpenModal={viewModel.showImageModal}
+        imageList={viewModel.bigImagesOptions.images}
+        currentImageIndex={viewModel.bigImagesOptions.imgIndex}
+        handleCurrentImageIndex={index => viewModel.handleBigImageModal(index)}
         openModal={viewModel.showImageModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-        images={viewModel.bigImagesOptions.images}
-        imgIndex={viewModel.bigImagesOptions.imgIndex}
+        handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
       />
 
-      {viewModel.acceptMessage && viewModel.showAcceptMessage ? (
-        <div className={classNames.acceptMessageWrapper}>
-          <Alert elevation={5} severity="success">
-            {viewModel.acceptMessage}
-          </Alert>
-        </div>
-      ) : null}
+      {viewModel.alertShieldSettings.alertShieldMessage && (
+        <AlertShield
+          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
+          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+        />
+      )}
     </React.Fragment>
   )
 }

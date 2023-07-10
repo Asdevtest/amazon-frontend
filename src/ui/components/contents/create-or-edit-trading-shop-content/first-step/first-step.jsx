@@ -168,7 +168,7 @@ export const FirstStep = ({
               multiline
               inputProps={{ maxLength: 100 }}
               labelClasses={classNames.spanLabelSmall}
-              label={`${t(TranslationKey['Attach files to the ad'])} *`}
+              label={`${t(TranslationKey['Attach files'])} *`}
               inputComponent={
                 <div className={classNames.imageFileInputWrapper}>
                   <UploadFilesInput withoutTitle images={images} setImages={setImages} maxNumber={50} />

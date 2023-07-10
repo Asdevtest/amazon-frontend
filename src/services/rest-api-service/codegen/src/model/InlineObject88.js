@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestProposalsGuidResultToCorrectMedia from './ApiV1RequestProposalsGuidResultToCorrectMedia';
 
 /**
  * The InlineObject88 model module.
@@ -50,11 +51,17 @@ class InlineObject88 {
             if (data.hasOwnProperty('rating')) {
                 obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
-            if (data.hasOwnProperty('review')) {
-                obj['review'] = ApiClient.convertToType(data['review'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
-            if (data.hasOwnProperty('sourceFile')) {
-                obj['sourceFile'] = ApiClient.convertToType(data['sourceFile'], 'String');
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('timeLimitInMinutes')) {
+                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
+            }
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [ApiV1RequestProposalsGuidResultToCorrectMedia]);
             }
         }
         return obj;
@@ -70,16 +77,26 @@ class InlineObject88 {
 InlineObject88.prototype['rating'] = undefined;
 
 /**
- * Отзыв о работе
- * @member {String} review
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
  */
-InlineObject88.prototype['review'] = undefined;
+InlineObject88.prototype['reason'] = undefined;
 
 /**
- * Файл для записи в FreelanceSource по этому пропоузалу
- * @member {String} sourceFile
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineObject88.prototype['sourceFile'] = undefined;
+InlineObject88.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * @member {Number} timeLimitInMinutes
+ */
+InlineObject88.prototype['timeLimitInMinutes'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1RequestProposalsGuidResultToCorrectMedia>} media
+ */
+InlineObject88.prototype['media'] = undefined;
 
 
 
