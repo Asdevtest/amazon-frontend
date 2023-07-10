@@ -2003,7 +2003,7 @@ export const FourMonthesStockCell = React.memo(
           isInts
           rowId={rowId}
           text={fourMonthesStock}
-          checkValue={value => value > 50}
+          checkValue={value => value >= 0}
           onClickSubmit={onClickSaveFourMonthsStock}
         />
       </div>
