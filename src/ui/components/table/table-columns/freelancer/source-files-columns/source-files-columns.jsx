@@ -28,6 +28,8 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value || '-'} />,
     width: 50,
+    headerAlign: 'center',
+    align: 'center',
   },
 
   {
@@ -36,7 +38,6 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 97,
-    // type: 'date',
   },
 
   {
