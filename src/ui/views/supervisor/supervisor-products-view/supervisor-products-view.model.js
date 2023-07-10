@@ -381,6 +381,12 @@ export class SupervisorProductsViewModel {
 
     const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
 
+    const tagsFilter =
+      exclusion !== 'tags' && this.columnMenuSettings.tags.currentFilterData.map(el => el._id).join(',')
+
+    const redFlagsFilter =
+      exclusion !== 'redFlags' && this.columnMenuSettings.redFlags.currentFilterData.map(el => el._id).join(',')
+
     const filter = objectToUrlQs({
       or: [
         { asin: { $contains: this.nameSearchValue } },
@@ -434,6 +440,14 @@ export class SupervisorProductsViewModel {
 
       ...(statusFilter && {
         status: { $eq: statusFilter },
+      }),
+
+      ...(tagsFilter && {
+        tags: { $eq: tagsFilter },
+      }),
+
+      ...(redFlagsFilter && {
+        redFlags: { $eq: redFlagsFilter },
       }),
     })
 
