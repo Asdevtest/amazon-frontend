@@ -184,4 +184,31 @@ export const styles = theme => ({
     alignItems: 'center',
     gap: 15,
   },
+
+  universalFilterWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: 300,
+    padding: '20px 21px',
+    gap: 20,
+  },
+
+  universalFilterSearchInputWrapper: {
+    width: '100%',
+    height: 30,
+  },
+
+  universalFilterBody: {
+    width: '100%',
+    minHeight: 50,
+    maxHeight: 245,
+    overflowY: 'auto',
+    textAlign: 'center',
+    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+  },
+
+  fullName: {
+    width: 'max-content',
+  },
 })

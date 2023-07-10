@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react'
 
 import { isPast, isValid, parseISO } from 'date-fns'
 
-import { OrderStatus, OrderStatusByCode, OrderStatusByKey, OrderStatusText } from '@constants/statuses/order-status'
+import { OrderStatus, OrderStatusByCode, OrderStatusByKey, OrderStatusText } from '@constants/orders/order-status'
 import { CLIENT_WAREHOUSE_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'

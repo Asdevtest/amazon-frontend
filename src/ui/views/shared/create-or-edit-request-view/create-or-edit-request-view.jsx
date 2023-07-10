@@ -6,12 +6,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CreateOrEditRequestContent } from '@components/contents/create-or-edit-request-content'
 import { MainContent } from '@components/layout/main-content'
-import { BigImagesModal } from '@components/modals/big-images-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 
 import { t } from '@utils/translations'
 
 import { CreateOrEditRequestViewModel } from './create-or-edit-request-view.model'
+import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 export const CreateOrEditRequestView = observer(props => {
   const mainContentRef = useRef()
@@ -49,12 +49,18 @@ export const CreateOrEditRequestView = observer(props => {
         />
       </MainContent>
 
-      <BigImagesModal
-        openModal={viewModel.showImageModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-        images={viewModel.bigImagesOptions.images}
-        imgIndex={viewModel.bigImagesOptions.imgIndex}
-        setImageIndex={imgIndex => viewModel.setBigImagesOptions(() => ({ ...viewModel.bigImagesOptions, imgIndex }))}
+      <ImageModal
+        showPreviews
+        imageList={viewModel.bigImagesOptions.images}
+        handleCurrentImageIndex={index =>
+          viewModel.setBigImagesOptions({
+            ...viewModel.bigImagesOptions,
+            imgIndex: index,
+          })
+        }
+        currentImageIndex={viewModel.bigImagesOptions.imgIndex}
+        isOpenModal={viewModel.showImageModal}
+        handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
       />
 
       <ConfirmationModal

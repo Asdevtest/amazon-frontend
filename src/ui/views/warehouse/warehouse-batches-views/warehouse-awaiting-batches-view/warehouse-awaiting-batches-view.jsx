@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 import { observer } from 'mobx-react'
 import { withStyles } from 'tss-react/mui'
+import AddIcon from '@mui/icons-material/Add'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -85,6 +86,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
             className={classNames.createBtn}
             onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}
           >
+            <AddIcon />
             {t(TranslationKey['Create a batch'])}
           </Button>
         </div>

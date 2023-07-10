@@ -227,7 +227,7 @@ export const IdeaViewAndEditCard = observer(
           {!inCreate && !checkIsSupervisor(UserRoleCodeMap[curUser.role]) && (
             <div className={classNames.orderStatusWrapper}>
               <Typography variant="h5" className={classNames.label}>
-                {t(TranslationKey['Order status']) + ':'}
+                {t(TranslationKey['Idea Status']) + ':'}
               </Typography>
               <Field
                 tooltipInfoContent={t(TranslationKey['Current idea status'])}

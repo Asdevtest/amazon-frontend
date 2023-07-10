@@ -161,16 +161,7 @@ export class VacantRequestsViewModel {
   }
 
   getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.requests).filter(
-        el =>
-          el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          String(el?.humanFriendlyId)?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
-    } else {
-      return toJS(this.requests)
-    }
+    return toJS(this.requests)
   }
 
   onClickTaskType(taskType) {
@@ -224,6 +215,7 @@ export class VacantRequestsViewModel {
 
       runInAction(() => {
         this.requests = addIdDataConverter(result.rows)
+
         this.rowCount = result.count
       })
 

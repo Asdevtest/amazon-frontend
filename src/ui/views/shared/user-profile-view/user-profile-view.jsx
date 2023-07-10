@@ -134,6 +134,7 @@ export const UserProfileViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showUserInfoModal')}
       >
         <UserInfoEditForm
+          resetProfileDataValidation={viewModel.resetProfileDataValidation}
           user={viewModel.user}
           clearError={viewModel.clearError}
           wrongPassword={viewModel.wrongPassword}

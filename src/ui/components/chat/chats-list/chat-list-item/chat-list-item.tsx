@@ -128,29 +128,36 @@ export const ChatListItem: FC<Props> = observer(({ chat, isSelected, userId, onC
             {typingUsers?.find(el => el.chatId === chat._id && el.userId === oponentUser?._id) ? (
               <div className={classNames.lastMessageSubWrapper}>
                 <p className={classNames.nickName}>{oponentUser?.name}</p>
-                <p className={classNames.lastMessageText}>{t(TranslationKey.Writes) + '...'}</p>
+                <p
+                  className={cx(classNames.lastMessageText, {
+                    [classNames.lastMessageTextBold]: unReadMessages.length > 0,
+                  })}
+                >
+                  {t(TranslationKey.Writes) + '...'}
+                </p>
               </div>
             ) : (
               <div className={classNames.lastMessageSubWrapper}>
                 {isCurrentUser && isGroupChat && <p className={classNames.nickName}>{`${t(TranslationKey.You)}:`}</p>}
+                {!isCurrentUser && isGroupChat && <p className={classNames.nickName}>{`${lastMessage.user?.name}:`}</p>}
 
-                {!isCurrentUser && lastMessage.user?.name && (
-                  <p className={classNames.nickName}>{`${lastMessage.user?.name}:`}</p>
-                )}
-
-                <p className={classNames.lastMessageText}>
+                <p
+                  className={cx(classNames.lastMessageText, {
+                    [classNames.lastMessageTextBold]: unReadMessages.length > 0,
+                  })}
+                >
                   {message + (lastMessage.files?.length ? `*${t(TranslationKey.Files)}*` : '')}
                 </p>
               </div>
             )}
 
-            {isCurrentUser && lastMessage.isRead ? (
+            {unReadMessages.length > 0 ? (
+              <span className={classNames.badge}>{unReadMessages.length}</span>
+            ) : isCurrentUser && lastMessage.isRead ? (
               <IsReadIcon className={classNames.isReadIcon} />
             ) : (
               <NoReadIcon className={classNames.noReadIcon} />
             )}
-
-            {unReadMessages.length > 0 && <span className={classNames.badge}>{unReadMessages.length}</span>}
           </div>
         )}
       </div>

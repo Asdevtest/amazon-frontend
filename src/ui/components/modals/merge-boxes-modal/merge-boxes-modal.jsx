@@ -58,11 +58,13 @@ export const MergeBoxesModal = ({
   const [priority, setPriority] = useState()
   const [priorityReason, setPriorityReason] = useState()
 
+  const hasDifferentDestinations = selectedBoxes.some(
+    box => box?.destination?._id !== selectedBoxes[0]?.destination?._id,
+  )
+
   const [boxBody, setBoxBody] = useState({
     shippingLabel: null,
-    destinationId: selectedBoxes.some(box => box?.destination?._id !== selectedBoxes[0]?.destination?._id)
-      ? null
-      : selectedBoxes[0]?.destination?._id,
+    destinationId: hasDifferentDestinations ? null : selectedBoxes[0]?.destination?._id,
 
     storekeeperId: selectedBoxes.some(box => box.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
       ? ''
@@ -317,9 +319,9 @@ export const MergeBoxesModal = ({
                     data={
                       boxBody.logicsTariffId &&
                       currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
-                        ? destinations
-                            // ?.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
-                            .filter(el => el?._id === destinationId)
+                        ? destinations.filter(
+                            el => el?._id === (destinationId || selectedBoxes[0]?.variationTariff?.destinationId),
+                          )
                         : destinations?.filter(el => el.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
                     }
                     searchFields={['name']}
