@@ -90,7 +90,7 @@ export const MyServicesInfo = ({ announcementData, onClickEditBtn, onClickBackBt
 
         <div className={classNames.buttonsWrapper}>
           <Button danger className={classNames.deleteButton} onClick={onClickCloseAnnouncementBtn}>
-            {t(TranslationKey['Close the announcement'])}
+            {t(TranslationKey['Delete ad'])}
           </Button>
 
           <Button className={classNames.editButton} onClick={onClickEditBtn}>
