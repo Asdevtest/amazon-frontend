@@ -70,7 +70,6 @@ export const onSubmitPostFilesInData = async ({ dataWithFiles, nameOfField }) =>
 }
 
 export async function onSubmitPostImages({ images, type, withoutShowProgress }) {
-  console.log(images)
   this[type] = []
   const loadingStep = 100 / images.length
 

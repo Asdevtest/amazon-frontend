@@ -16,6 +16,7 @@ import { Field } from '@components/shared/field/field'
 import { UploadIcon } from '@components/shared/svg-icons'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
+import { checkValidImageUrl } from '@utils/checks'
 import { t } from '@utils/translations'
 import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
@@ -43,19 +44,6 @@ export const TabPaymentMethods = observer(() => {
     }
   }, [viewModel.paymentMethods])
 
-  const checkIsValidImageUrl = imageUrl => {
-    const img = new Image()
-    img.src = imageUrl
-
-    img.onload = () => {
-      setIsValidUrl(true)
-    }
-
-    img.onerror = () => {
-      setIsValidUrl(false)
-    }
-  }
-
   const handleSubmitPaymentMethod = async () => {
     const result =
       typeof method.iconImage === 'string'
@@ -77,7 +65,7 @@ export const TabPaymentMethods = observer(() => {
   }
 
   const handleChangeIconImage = event => {
-    checkIsValidImageUrl(event.target.value)
+    checkValidImageUrl(event.target.value, setIsValidUrl)
 
     setCurrentImageName(method.title)
 
@@ -102,7 +90,7 @@ export const TabPaymentMethods = observer(() => {
       reader.onload = e => {
         setCurrentImageName(file.name)
 
-        checkIsValidImageUrl(e.target.result)
+        checkValidImageUrl(e.target.result, setIsValidUrl)
 
         setMethod(state => ({
           ...state,
