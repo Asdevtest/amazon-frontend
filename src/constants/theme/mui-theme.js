@@ -247,6 +247,7 @@ export const lightTheme = createTheme({
 
     primary: {
       main: '#007bff',
+      mainRgb: '0, 123, 255',
     },
     text: {
       general: '#001029',
@@ -703,6 +704,7 @@ export const darkTheme = createTheme({
       primary: {
         // main: '#008CF1',
         main: '#4CA1DE',
+        mainRgb: '76, 161, 222',
       },
       text: {
         general: '#fff',

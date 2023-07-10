@@ -2,7 +2,6 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   orderContainer: {
-    padding: '15px 15px',
     width: '500px',
   },
   amazonTitle: {
