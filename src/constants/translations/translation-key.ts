@@ -1999,6 +1999,11 @@ export enum TranslationKey {
   'You' = 'You',
   'It is possible to work without confirmation' = 'It is possible to work without confirmation',
   'Incorrect destination or tariff' = 'Incorrect destination or tariff',
+  'Participants' = 'Participants',
+  'Photo and Video' = 'Photo and Video',
+  // '' = '',
+  // '' = '',
+  // '' = '',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
   // '' = '',
   // '' = '',

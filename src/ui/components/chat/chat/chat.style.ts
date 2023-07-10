@@ -196,15 +196,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  groupSettingsWrapper: {
-    width: 350,
-    background: theme.palette.background.general,
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-
   hideAndShowIconWrapper: {
     position: 'absolute',
     top: 20,
@@ -224,84 +215,20 @@ export const useClassNames = makeStyles()(theme => ({
       display: 'none',
     },
   },
-  hideAndShowIcon: {
-    top: 20,
-    right: 155,
-    width: 'max-content',
-    borderRadius: 20,
-    padding: '0 10px',
-  },
+
   arrowIcon: {
     // marginLeft: 8,
     color: theme.palette.primary.main,
   },
 
-  collapseWrapper: {
-    display: 'flex',
+  hideArrow: {
+    width: '15px !important',
+    height: '15px !important',
   },
 
   collapseText: {
     color: theme.palette.primary.main,
     marginRight: 5,
-  },
-
-  groupSettingsImageWrapper: {
-    width: '100%',
-    height: 180,
-    display: 'flex',
-    alignItems: 'flex-end',
-    position: 'relative',
-    // background: 'black',
-    padding: 10,
-    marginBottom: 15,
-  },
-
-  groupSettingsImageShadow: {
-    width: '100%',
-    height: 180,
-    background: 'black',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    opacity: 0.4,
-  },
-
-  groupSettingsImage: {
-    width: '100%',
-    height: 180,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    objectFit: 'contain',
-    objectPosition: 'center',
-    // opacity: 0.6,
-  },
-
-  groupSettingsInfoWrapper: {
-    zIndex: 99,
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-  },
-
-  groupSettingsInfoTitle: {
-    fontWeight: 600,
-    fontSize: 14,
-    // color: theme.palette.text.general,
-    color: '#fff',
-
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    maxWidth: 200,
-  },
-
-  usersCount: {
-    // marginLeft: 15,
-    fontWeight: 400,
-    fontSize: 14,
-    color: '#E1E1E1',
   },
 
   pencilEditIcon: {
@@ -312,43 +239,11 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  addMemberBtnWrapper: {
-    display: 'flex',
-  },
-
-  addMemberBtnText: {
-    color: '#fff',
-    marginRight: 5,
-  },
-
-  membersWrapper: {
-    marginTop: 30,
-    width: '100%',
-    height: 420,
-
-    padding: '0 15px',
-
-    overflow: 'auto',
-  },
-
   avatarWrapper: {
     width: 30,
     height: 30,
 
     marginRight: 10,
-  },
-
-  memberWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-
-  memberInfo: {
-    display: 'flex',
-    alignItems: 'center',
   },
 
   opponentName: {
@@ -357,11 +252,6 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-  },
-
-  ownerSign: {
-    color: theme.palette.text.second,
-    marginLeft: 5,
   },
 
   messageToReplyWrapper: {
@@ -412,6 +302,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  scrollToBottomWithChatInfo: {
+    right: 380,
   },
 
   scrollToBottomBadge: {

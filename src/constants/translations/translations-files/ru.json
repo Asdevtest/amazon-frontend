@@ -1728,7 +1728,7 @@
   "Proxy": "Прокси",
   "Such dialogue already exists": "Такой диалог уже существует",
   "Name of group chat": "Название группового чата",
-  "Members": "Участников",
+  "Members": "Участники",
   "Add member": "Добавить участника",
   "Owner": "Владелец",
   "Update supplier data": "Обновить данные поставщика",
@@ -2000,5 +2000,7 @@
   "Announcement name": "Announcement name",
   "Announcement creator": "Announcement creator",
   "It is possible to work without confirmation": "Можно брать в работу без подтверждения",
-  "Incorrect destination or tariff": "Неправильный пункт назначения или тариф"
+  "Incorrect destination or tariff": "Неправильный пункт назначения или тариф",
+  "Participants": "Участников",
+  "Photo and Video": "Фото и Видео"
 }
