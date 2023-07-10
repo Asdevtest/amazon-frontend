@@ -107,7 +107,7 @@ export const Chat: FC<Props> = observer(
 
     const [showEmojis, setShowEmojis] = useState(false)
 
-    const [showChatInfo, setShowChatInfo] = useState(false)
+    const [isShowChatInfo, setIsShowChatInfo] = useState(false)
 
     const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
@@ -175,7 +175,7 @@ export const Chat: FC<Props> = observer(
     useEffect(() => {
       setMessage(messageInitialState.message)
       setFiles(messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files)
-      setShowChatInfo(false)
+      setIsShowChatInfo(false)
 
       return () => {
         setMessageToReply(null)
@@ -279,8 +279,8 @@ export const Chat: FC<Props> = observer(
             setMessageToReply={setMessageToReply}
           />
 
-          <div className={cx(classNames.hideAndShowIconWrapper)} onClick={() => setShowChatInfo(!showChatInfo)}>
-            {showChatInfo ? (
+          <div className={cx(classNames.hideAndShowIconWrapper)} onClick={() => setIsShowChatInfo(!isShowChatInfo)}>
+            {isShowChatInfo ? (
               <HideArrowIcon className={cx(classNames.arrowIcon, classNames.hideArrow)} />
             ) : (
               <MoreVertOutlinedIcon className={classNames.arrowIcon} />
@@ -289,14 +289,14 @@ export const Chat: FC<Props> = observer(
 
           <div
             className={cx(classNames.scrollToBottom, {
-              [classNames.scrollToBottomWithChatInfo]: showChatInfo,
+              [classNames.scrollToBottomWithChatInfo]: isShowChatInfo,
             })}
             onClick={onClickScrollToBottom}
           >
             <KeyboardArrowDownIcon />
             {!!unreadMessages?.length && <div className={classNames.scrollToBottomBadge}>{unreadMessages?.length}</div>}
           </div>
-          {showChatInfo && (
+          {isShowChatInfo && (
             <ChatInfo
               chat={chat}
               currentOpponent={currentOpponent}
