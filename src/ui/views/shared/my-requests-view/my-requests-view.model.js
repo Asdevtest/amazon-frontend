@@ -216,8 +216,8 @@ export class MyRequestsViewModel {
       this.paginationModel = model
     })
 
-    this.setDataGridState()
     this.getCustomRequests()
+    this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {

@@ -22,6 +22,8 @@ import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/da
 import { Button } from '@components/shared/buttons/button'
 import { Field } from '@components/shared/field'
 import { UserLink } from '@components/user/user-link'
+import { CustomSlider } from '@components/shared/custom-slider'
+import { AsinLink } from '@components/shared/asin-link'
 
 import { formatNormDateTime, formatNormDateTimeWithParseISO } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -30,7 +32,7 @@ import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { useClassNames } from './servant-general-request-info.style'
-import { CustomSlider } from '@components/shared/custom-slider'
+
 import { requestPriority } from '@constants/requests/request-priority'
 
 export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals }) => {
@@ -60,11 +62,21 @@ export const ServantGeneralRequestInfo = ({ request, onSubmit, requestProposals 
         )}
 
         {requestProposals.length === 0 ? null : (
-          <div className={classNames.idTitleWrapper}>
-            <Typography className={classNames.idText}>{t(TranslationKey.ID) + ':'}</Typography>
-            <Typography className={cx(classNames.idText, classNames.idTextDark)}>
-              {request?.request?.humanFriendlyId || t(TranslationKey.Missing)}
-            </Typography>
+          <div className={classNames.asinAndIdWrapper}>
+            <div className={classNames.asinWrapper}>
+              <Typography className={classNames.idText}>{t(TranslationKey.ASIN) + ':'}</Typography>
+              <AsinLink
+                asin={requestProposals[0]?.request?.asin}
+                linkSpanClass={classNames.linkSpan}
+                missingSpanClass={classNames.idText}
+              />
+            </div>
+            <div className={classNames.idWrapper}>
+              <Typography className={classNames.idText}>{t(TranslationKey.ID) + ':'}</Typography>
+              <Typography className={cx(classNames.idText, classNames.idTextDark)}>
+                {request?.request?.humanFriendlyId || t(TranslationKey.Missing)}
+              </Typography>
+            </div>
           </div>
         )}
       </div>

@@ -66,7 +66,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
         status={params.row.originalData.status}
       />
     ),
-    width: 50,
+    width: 75,
     // sortable: false,
 
     columnKey: columnnsKeys.client.MY_ORDERS_PRIORITY,
@@ -93,7 +93,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
         color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
       />
     ),
-    width: 100,
+    width: 160,
     sortable: false,
 
     columnKey: columnnsKeys.client.ORDERS_STATUS,
@@ -124,7 +124,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
         )}
       </>
     ),
-    width: 200,
+    width: 180,
     filterable: false,
     sortable: false,
   },
@@ -147,7 +147,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 80,
+    width: 100,
     type: 'number',
     sortable: false,
 
@@ -172,7 +172,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     headerName: t(TranslationKey['Where to']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Where to'])} />,
     renderCell: params => <RenderFieldValueCell value={params.row.originalData.destination?.name} />,
-    width: 120,
+    width: 140,
     sortable: false,
 
     columnKey: columnnsKeys.shared.OBJECT,
@@ -204,7 +204,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
       ) : (
         <MultilineTextCell text={'-'} />
       ),
-    width: 200,
+    width: 150,
 
     columnKey: columnnsKeys.shared.DATE,
   },
