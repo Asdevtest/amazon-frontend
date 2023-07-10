@@ -978,7 +978,11 @@ export const NormalFieldMenuItem = React.memo(
 
       useEffect(() => {
         if (nameSearchValue) {
-          const filter = filterData?.filter(item => String(item).toLowerCase().includes(nameSearchValue.toLowerCase()))
+          const filter = filterData?.filter(item =>
+            String(getStatusByColumnKeyAndStatusKey(item, columnKey))
+              .toLowerCase()
+              .includes(nameSearchValue.toLowerCase()),
+          )
           setItemsForRender(filter)
         } else {
           setItemsForRender(filterData)
