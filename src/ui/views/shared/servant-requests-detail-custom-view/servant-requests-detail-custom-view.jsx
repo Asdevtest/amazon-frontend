@@ -56,8 +56,6 @@ export const RequestDetailCustomViewRaw = props => {
     viewModel.chatSelectedId &&
     viewModel.requestProposals?.find(requestProposal => requestProposal?.proposal?.chatId === viewModel.chatSelectedId)
 
-  console.log(findRequestProposalForCurChat)
-
   return (
     <React.Fragment>
       <MainContent>

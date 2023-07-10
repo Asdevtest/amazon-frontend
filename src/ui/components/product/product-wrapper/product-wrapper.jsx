@@ -82,6 +82,7 @@ export const ProductWrapper = observer(
     onClickParseProductData,
     onChangeImagesForLoad,
     acceptMessage,
+    showAcceptMessage,
     onClickHsCode,
   }) => {
     const { classes: classNames } = useClassNames()
@@ -160,6 +161,7 @@ export const ProductWrapper = observer(
                 selectedSupplier={selectedSupplier}
                 actionStatus={actionStatus}
                 acceptMessage={acceptMessage}
+                showAcceptMessage={showAcceptMessage}
                 handleProductActionButtons={handleProductActionButtons}
                 formFieldsValidationErrors={formFieldsValidationErrors}
                 onChangeField={onChangeField}

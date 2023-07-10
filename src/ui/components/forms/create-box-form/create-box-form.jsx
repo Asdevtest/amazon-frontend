@@ -12,7 +12,7 @@ import {
   OrderStatus,
   OrderStatusByKey,
   OrderStatusTranslate,
-} from '@constants/statuses/order-status'
+} from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'

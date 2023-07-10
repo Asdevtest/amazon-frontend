@@ -37,7 +37,7 @@ import { mapUserRoleEnumToKey, UserRole, UserRolePrettyMap } from '@constants/ke
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { RequestStatus } from '@constants/requests/request-status'
 import { BoxStatus } from '@constants/statuses/box-status'
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { mapTaskOperationTypeKeyToEnum, TaskOperationType } from '@constants/task/task-operation-type'
 import { mapTaskStatusEmumToKey, TaskStatus, TaskStatusTranslate } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -101,6 +101,8 @@ import { styles } from './data-grid-cells.style'
 
 import { SettingsModel } from '@models/settings-model'
 import { tableProductViewMode } from '@constants/keys/table-product-view'
+import { requestPriority } from '@constants/requests/request-priority'
+import { orderPriority } from '@constants/orders/order-priority'
 
 export const UserCell = React.memo(
   withStyles(
@@ -1565,11 +1567,12 @@ export const MultilineTextAlignLeftHeaderCell = React.memo(
 
 export const MultilineTextHeaderCell = React.memo(
   withStyles(
-    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component }) => (
+    ({ classes: classNames, text, withIcon, isShowIconOnHover, isFilterActive, component, textAlignStart }) => (
       <Tooltip title={text}>
         <div
           className={cx(classNames.multilineTextHeaderWrapper, {
             [classNames.multilineTextHeaderWrapperWithComponent]: component,
+            [classNames.multilineTextAlignStartWrapper]: textAlignStart,
           })}
         >
           <Typography className={classNames.multilineHeaderText}>{text}</Typography>
@@ -1599,7 +1602,8 @@ export const PriorityAndChinaDeliverCell = React.memo(
         {isPendingOrder ? <ClockIcon className={classNames.clockIcon} /> : null}
 
         <div>
-          {priority === '40' || (isRequest && Number(priority) === 30) ? (
+          {Number(priority) === orderPriority.urgentPriority ||
+          (isRequest && Number(priority) === requestPriority.urgentPriority) ? (
             <div className={classNames.priority}>
               <img src="/assets/icons/fire.svg" />
             </div>

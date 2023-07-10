@@ -169,7 +169,7 @@ export const WeightBasedApproximateCalculationsSpanningCell = React.memo(
               <div style={{ width: roiWrapperWidth }} className={cx(classNames.destinationWrapper)}>
                 {varians.map((variant, variantIndex) => (
                   <Typography key={variantIndex} className={cx(classNames.destinationVariationText)}>
-                    {toFixed(variant.roi, 2)}
+                    {toFixed(variant.roi, 2) + ' %'}
                   </Typography>
                 ))}
               </div>

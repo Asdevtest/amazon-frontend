@@ -4,7 +4,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
 
-import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { WeightBasedApproximateCalculationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
 
@@ -13,7 +12,7 @@ export const SupplierWeightBasedApproximateCalculationsFormColumns = destination
     field: 'name',
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-    width: 135,
+    width: 125,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -76,8 +75,8 @@ export const SupplierWeightBasedApproximateCalculationsFormColumns = destination
 
   {
     field: 'roi',
-    headerName: t(TranslationKey['ROI calculation']) + ', %',
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ROI calculation']) + ', %'} />,
+    headerName: t(TranslationKey['ROI calculation']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ROI calculation'])} />,
     width: 120,
     filterable: false,
     sortable: false,

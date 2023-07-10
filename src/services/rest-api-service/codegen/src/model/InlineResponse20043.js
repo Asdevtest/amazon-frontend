@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20040Finances from './InlineResponse20040Finances';
 
 /**
  * The InlineResponse20043 model module.
@@ -48,8 +47,8 @@ class InlineResponse20043 {
         if (data) {
             obj = obj || new InlineResponse20043();
 
-            if (data.hasOwnProperty('finances')) {
-                obj['finances'] = InlineResponse20040Finances.constructFromObject(data['finances']);
+            if (data.hasOwnProperty('profileId')) {
+                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
             }
         }
         return obj;
@@ -59,9 +58,10 @@ class InlineResponse20043 {
 }
 
 /**
- * @member {module:model/InlineResponse20040Finances} finances
+ * id созданного профайла
+ * @member {String} profileId
  */
-InlineResponse20043.prototype['finances'] = undefined;
+InlineResponse20043.prototype['profileId'] = undefined;
 
 
 
