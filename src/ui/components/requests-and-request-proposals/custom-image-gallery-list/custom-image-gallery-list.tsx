@@ -49,12 +49,12 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
   useEffect(() => {
     setFilteredFiles(
       files
-        .map(el => {
+        ?.map(el => {
           if (typeof el === 'object') {
-            return { ...el, image: el.fileLink, imageComment: el.commentByClient || '' }
+            return { ...el, image: el?.fileLink, imageComment: el?.commentByClient || '' }
           }
         })
-        .filter(el => !!el),
+        ?.filter(el => !!el),
     )
   }, [files])
 
