@@ -62,9 +62,6 @@ export const FieldsAndSuppliers = observer(
       onChangeField('shopIds')({ target: { value: shopId ? [shopId] : [] } })
     }
 
-    console.log('shops', shops)
-    console.log('product', product)
-
     const isEditRedFlags =
       showActionBtns && (checkIsSupervisor(curUserRole) || checkIsResearcher(curUserRole) || checkIsClient(curUserRole))
 
