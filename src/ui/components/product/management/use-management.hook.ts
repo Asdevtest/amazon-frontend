@@ -183,8 +183,8 @@ export const useManagement = () => {
     handleMemberChange(event, Members.Researcher)
   }
 
-  const isEditableClient = product.status === 200
-  const isEditableBuyer = product.status <= 200
+  const isEditableClient = product.status === 200 || product.status === 275
+  const isEditableBuyer = product.status <= 200 || product.status === 275
   const isEditableSupervisor = true
   const isEditableResearcher = product.status < 200
 
