@@ -10,7 +10,7 @@ import { updateObjPropsWithArr } from '@components/product/management/update-obj
 
 import { UserRolesForAdminProduct } from '@constants/keys/user-roles'
 
-import { DataType, MemberType, MembersType, IPromiseItem, Members } from './management.types'
+import { DataType, MemberType, MembersType, Members } from './management.types'
 import { ProductModel } from '@models/product-model'
 
 const initialStateMember: MemberType = { _id: '', name: '' }
@@ -60,11 +60,9 @@ export const useManagement = () => {
       handleGetProduct(productIdFromUrl)
     }
 
-    const promises: Promise<IPromiseItem>[] = Object.keys(UserRolesForAdminProduct).map(roleCode =>
-      AdministratorModel.getUsersByRole(roleCode),
-    )
+    const promises = Object.keys(UserRolesForAdminProduct).map(roleCode => AdministratorModel.getUsersByRole(roleCode))
     const handleGetMembers = async () => {
-      const resultArray: PromiseSettledResult<IPromiseItem>[] = await Promise.allSettled(promises)
+      const resultArray = await Promise.all(promises)
 
       setMembers(updateObjPropsWithArr(members, resultArray))
     }
@@ -185,8 +183,8 @@ export const useManagement = () => {
     handleMemberChange(event, Members.Researcher)
   }
 
-  const isEditableClient = product.status === 200 || product.status === 275
-  const isEditableBuyer = product.status <= 200 || product.status === 275
+  const isEditableClient = product.status === 200
+  const isEditableBuyer = product.status <= 200
   const isEditableSupervisor = true
   const isEditableResearcher = product.status < 200
 
