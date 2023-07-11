@@ -1,5 +1,3 @@
-import { color } from '@mui/system'
-
 export const styles = theme => ({
   img: {
     height: '64px',
@@ -1137,16 +1135,10 @@ export const styles = theme => ({
   editOrRemoveIconBtnsCell: {
     width: '100%',
     display: 'flex',
-    alignItems: 'center',
-    gap: '40px',
-    padding: '15px 0',
-  },
-
-  editOrRemoveIconBtnsSubCell: {
-    width: 'min-content',
-    display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
     gap: 15,
+    padding: '15px 0',
   },
 
   editOrRemoveBtnWrapper: {
