@@ -1,21 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { cloneDeep } from '@utils/object'
+import { MembersType, MemberType } from './management.types'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+export const updateObjPropsWithArr = (obj: MembersType, arr: MemberType[][]) => {
+  const updatedObj = { ...obj }
 
-import { ObjWithProps } from './management.types'
-
-export const updateObjPropsWithArr = (obj: ObjWithProps, arr: any[]) => {
-  let index = 0
-  const updatedObj = cloneDeep(obj)
-
-  for (const key in updatedObj) {
-    if (updatedObj.hasOwnProperty.call(updatedObj, key)) {
-      updatedObj[key] = arr[index]?.status === loadingStatuses.fulfilled ? arr[index]?.value : []
-      index++
-    }
-  }
+  Object.keys(updatedObj).forEach((key, index) => {
+    updatedObj[key] = arr[index]
+  })
 
   return updatedObj
 }

@@ -10,7 +10,7 @@ import { updateObjPropsWithArr } from '@components/product/management/update-obj
 
 import { UserRolesForAdminProduct } from '@constants/keys/user-roles'
 
-import { DataType, MemberType, MembersType, IPromiseItem, Members } from './management.types'
+import { DataType, MemberType, MembersType, Members } from './management.types'
 import { ProductModel } from '@models/product-model'
 
 const initialStateMember: MemberType = { _id: '', name: '' }
@@ -60,11 +60,9 @@ export const useManagement = () => {
       handleGetProduct(productIdFromUrl)
     }
 
-    const promises: Promise<IPromiseItem>[] = Object.keys(UserRolesForAdminProduct).map(roleCode =>
-      AdministratorModel.getUsersByRole(roleCode),
-    )
+    const promises = Object.keys(UserRolesForAdminProduct).map(roleCode => AdministratorModel.getUsersByRole(roleCode))
     const handleGetMembers = async () => {
-      const resultArray: PromiseSettledResult<IPromiseItem>[] = await Promise.allSettled(promises)
+      const resultArray = await Promise.all(promises)
 
       setMembers(updateObjPropsWithArr(members, resultArray))
     }
@@ -150,19 +148,19 @@ export const useManagement = () => {
     switch (memberType) {
       case Members.Client:
         selectedMember = members.clients.find(member => member._id === selectedMemberId)
-        setClient(selectedMember || { _id: '', name: '' })
+        setClient(selectedMember || initialStateMember)
         break
       case Members.Buyer:
         selectedMember = members.buyers.find(member => member._id === selectedMemberId)
-        setBuyer(selectedMember || { _id: '', name: '' })
+        setBuyer(selectedMember || initialStateMember)
         break
       case Members.Supervisor:
         selectedMember = members.supervisors.find(member => member._id === selectedMemberId)
-        setSupervisor(selectedMember || { _id: '', name: '' })
+        setSupervisor(selectedMember || initialStateMember)
         break
       case Members.Researcher:
         selectedMember = members.researchers.find(member => member._id === selectedMemberId)
-        setResearcher(selectedMember || { _id: '', name: '' })
+        setResearcher(selectedMember || initialStateMember)
         break
       default:
         break
@@ -185,8 +183,8 @@ export const useManagement = () => {
     handleMemberChange(event, Members.Researcher)
   }
 
-  const isEditableClient = product.status === 200 || product.status === 275
-  const isEditableBuyer = product.status <= 200 || product.status === 275
+  const isEditableClient = product.status === 200
+  const isEditableBuyer = product.status <= 200
   const isEditableSupervisor = true
   const isEditableResearcher = product.status < 200
 
