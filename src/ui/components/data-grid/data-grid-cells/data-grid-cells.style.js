@@ -1,5 +1,3 @@
-import { color } from '@mui/system'
-
 export const styles = theme => ({
   img: {
     height: '64px',
@@ -234,9 +232,8 @@ export const styles = theme => ({
     textOverflow: 'ellipsis',
   },
   orderText: {
-    fontSize: '14px',
-
-    maxWidth: 200,
+    fontSize: 13,
+    maxWidth: 250,
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -550,7 +547,7 @@ export const styles = theme => ({
     fontSize: 26,
     fontWeight: 600,
     color: theme.palette.primary.main,
-    padding: '0 5px',
+    paddingRight: 5,
   },
 
   batchProductTitle: {
@@ -563,7 +560,6 @@ export const styles = theme => ({
   needPay: {
     color: 'red',
     fontWeight: 'bold',
-    marginLeft: '15px',
   },
 
   alertText: {
@@ -913,7 +909,7 @@ export const styles = theme => ({
 
   copyAsin: {
     display: 'flex',
-    gap: '2px',
+    gap: 5,
     alignItems: 'center',
   },
 
