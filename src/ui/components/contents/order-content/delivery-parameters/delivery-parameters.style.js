@@ -75,13 +75,23 @@ export const useClassNames = makeStyles()(theme => ({
   buyerWrapper: {
     marginTop: '40px',
   },
+
   avatar: {
     width: '28px',
     height: '28px',
   },
+
   intWarehouseWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: '5px',
+  },
+
+  chosenTariff: {
+    color: theme.palette.text.general,
+  },
+
+  notChosenTariff: {
+    color: '#fff',
   },
 }))
