@@ -92,6 +92,7 @@ export const IsFormedMenuItem = React.memo(
               <div className={classNames.shopsBody}>
                 <div className={classNames.shop}>
                   <Checkbox
+                    title=""
                     color="primary"
                     checked={isFormedData.isFormed || isFormedData.isFormed === null}
                     onClick={() =>
@@ -110,6 +111,7 @@ export const IsFormedMenuItem = React.memo(
 
                 <div className={classNames.shop}>
                   <Checkbox
+                    title=""
                     color="primary"
                     checked={!isFormedData.isFormed || isFormedData.isFormed === null}
                     onClick={() =>
@@ -207,6 +209,7 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
                 <Typography>{t(TranslationKey['Not need refills'])}</Typography>
 
                 <Checkbox
+                  title=""
                   color="primary"
                   checked={isNeedPurchaseFilterData.isNotNeedPurchaseFilter}
                   onClick={() => {
@@ -223,6 +226,7 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
                 <Typography>{t(TranslationKey['Need refills'])}</Typography>
 
                 <Checkbox
+                  title=""
                   color="primary"
                   checked={isNeedPurchaseFilterData.isNeedPurchaseFilter}
                   onClick={() => {
@@ -265,6 +269,7 @@ export const IsHaveBarCodeFilterMenuItem = React.memo(
           <Typography>{t(TranslationKey['Got barcode'])}</Typography>
 
           <Checkbox
+            title=""
             color="primary"
             checked={
               !isHaveBarCodeFilterData.isHaveBarCodeFilter || isHaveBarCodeFilterData.isHaveBarCodeFilter === null
@@ -285,6 +290,7 @@ export const IsHaveBarCodeFilterMenuItem = React.memo(
           <Typography>{t(TranslationKey['No barcode'])}</Typography>
 
           <Checkbox
+            title=""
             color="primary"
             checked={
               isHaveBarCodeFilterData.isHaveBarCodeFilter || isHaveBarCodeFilterData.isHaveBarCodeFilter === null
@@ -316,6 +322,7 @@ export const OrderStatusMenuItem = React.memo(
           <Typography>{t(TranslationKey.All)}</Typography>
 
           <Checkbox
+            title=""
             color="primary"
             checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.ALL}
             onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.ALL)}
@@ -326,6 +333,7 @@ export const OrderStatusMenuItem = React.memo(
           <Typography>{t(TranslationKey['At process'])}</Typography>
 
           <Checkbox
+            title=""
             color="primary"
             checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.AT_PROCESS}
             onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.AT_PROCESS)}
@@ -336,6 +344,7 @@ export const OrderStatusMenuItem = React.memo(
           <Typography>{t(TranslationKey.Canceled)}</Typography>
 
           <Checkbox
+            title=""
             color="primary"
             checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.CANCELED}
             onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.CANCELED)}
@@ -346,6 +355,7 @@ export const OrderStatusMenuItem = React.memo(
           <Typography>{t(TranslationKey.Completed)}</Typography>
 
           <Checkbox
+            title=""
             color="primary"
             checked={orderStatusData.chosenStatus === orderStatusData.chosenStatusSettings.COMPLETED}
             onClick={() => orderStatusData.onChangeOrderStatusData(orderStatusData.chosenStatusSettings.COMPLETED)}
@@ -417,6 +427,7 @@ export const MyRequestsStatusMenuItem = React.memo(
                   {itemsForRender.map((el, index) => (
                     <div key={index} className={classNames.shop}>
                       <Checkbox
+                        title=""
                         color="primary"
                         checked={choosenItems.some(item => item === el)}
                         onClick={() => onClickItem(el)}
@@ -515,6 +526,7 @@ export const FreelanceRequestType = React.memo(
                       freelanceRequestType.DEFAULT !== el && (
                         <div key={index} className={classNames.shop}>
                           <Checkbox
+                            title=""
                             color="primary"
                             checked={choosenItems.some(item => item === el)}
                             onClick={() => onClickItem(freelanceRequestType[el])}
@@ -562,12 +574,12 @@ export const ClientOrderAllStatusesMenuItem = React.memo(
       <div className={classNames.orderStatusDataWrapper}>
         <div className={classNames.orderStatusDataBody}>
           <div className={classNames.orderStatus} onClick={() => onClickOrderStatusData('ALL')}>
-            <Checkbox color="primary" checked={!chosenStatus?.length} />
+            <Checkbox title="" color="primary" checked={!chosenStatus?.length} />
             <div className={classNames.orderStatusName}>{t(TranslationKey.All)}</div>
           </div>
           {orderStatusDataBase.map((item, itemIndex) => (
             <div key={itemIndex} className={classNames.orderStatus} onClick={() => onClickOrderStatusData(item)}>
-              <Checkbox color="primary" checked={chosenStatus?.some(status => status === item)} />
+              <Checkbox title="" color="primary" checked={chosenStatus?.some(status => status === item)} />
               <div className={classNames.orderStatusName}>{OrderStatusTranslate(item)}</div>
             </div>
           ))}
@@ -661,6 +673,7 @@ export const CreatedByMenuItem = React.memo(
                       {itemsForRender.map(obj => (
                         <div key={obj?._id} className={classNames.shop}>
                           <Checkbox
+                            title=""
                             color="primary"
                             checked={choosenItems.some(item => item?._id === obj?._id)}
                             onClick={() => onClickItem(obj)}
@@ -811,6 +824,7 @@ export const ObJectFieldMenuItem = React.memo(
                             obj && (
                               <div key={obj._id} className={classNames.shop}>
                                 <Checkbox
+                                  title=""
                                   color="primary"
                                   checked={choosenItems.some(item => item._id === obj._id)}
                                   onClick={() => onClickItem(obj)}
@@ -890,7 +904,7 @@ export const BoxestatusMenuItem = React.memo(
       <div className={classNames.shopsDataWrapper}>
         <div className={classNames.orderStatusDataBody}>
           <div className={classNames.orderStatus} onClick={() => onClickItem('ALL')}>
-            <Checkbox color="primary" checked={choosenItems.length === 4 || !choosenItems.length} />
+            <Checkbox title="" color="primary" checked={choosenItems.length === 4 || !choosenItems.length} />
             <div className={classNames.orderStatusName}>{t(TranslationKey.All)}</div>
           </div>
           {[
@@ -902,7 +916,7 @@ export const BoxestatusMenuItem = React.memo(
             BoxStatus.NEED_TO_UPDATE_THE_TARIFF,
           ].map(item => (
             <div key={item} className={classNames.orderStatus} onClick={() => onClickItem(item)}>
-              <Checkbox color="primary" checked={choosenItems?.some(status => status === item)} />
+              <Checkbox title="" color="primary" checked={choosenItems?.some(status => status === item)} />
               <div className={classNames.orderStatusName}>{t(boxStatusTranslateKey(item))}</div>
             </div>
           ))}
@@ -1023,6 +1037,7 @@ export const NormalFieldMenuItem = React.memo(
                     {itemsForRender.map((el, index) => (
                       <div key={index} className={classNames.shop}>
                         <Checkbox
+                          title=""
                           color="primary"
                           checked={choosenItems.some(item => item === el)}
                           onClick={() => onClickItem(el)}
@@ -1108,6 +1123,7 @@ export const PriorityMenuItem = React.memo(
             <div className={classNames.shopsBody}>
               <div className={classNames.shop}>
                 <Checkbox
+                  title=""
                   color="primary"
                   checked={choosenItems.some(item => urgentPriority.includes(Number(item)))}
                   onClick={() => onClickItem(urgentPriority)}
@@ -1119,6 +1135,7 @@ export const PriorityMenuItem = React.memo(
 
               <div className={classNames.shop}>
                 <Checkbox
+                  title=""
                   color="primary"
                   checked={choosenItems.some(item => withoutPriority.includes(Number(item)))}
                   onClick={() => {
@@ -1192,6 +1209,7 @@ export const FreelancerToWorkConfirmationMenuItem = React.memo(
             <div className={classNames.shopsBody}>
               <div className={classNames.shop}>
                 <Checkbox
+                  title=""
                   color="primary"
                   checked={choosenItems.some(item => item === true)}
                   onClick={() => onClickItem(true)}
@@ -1201,6 +1219,7 @@ export const FreelancerToWorkConfirmationMenuItem = React.memo(
 
               <div className={classNames.shop}>
                 <Checkbox
+                  title=""
                   color="primary"
                   checked={choosenItems.some(item => item === false)}
                   onClick={() => onClickItem(false)}
@@ -1356,6 +1375,7 @@ export const ProductMenuItem = React.memo(
                     {itemsForRender?.map((el, index) => (
                       <div key={index} className={classNames.shop}>
                         <Checkbox
+                          title=""
                           color="primary"
                           checked={choosenItems?.some(item => item === el)}
                           onClick={() => onClickItem(el)}
@@ -1505,6 +1525,7 @@ export const OrderOrItemMenuItem = React.memo(
                         .map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox
+                              title=""
                               color="primary"
                               checked={choosenItems?.some(item => item === el)}
                               onClick={() => onClickItem(el)}
@@ -1659,6 +1680,7 @@ export const DestinationMenuItem = React.memo(
                     {itemsForRender.map(obj => (
                       <div key={obj?._id} className={classNames.shop}>
                         <Checkbox
+                          title=""
                           color="primary"
                           checked={choosenItems.some(item => item?._id === obj?._id)}
                           onClick={() => onClickItem(obj)}
@@ -1795,6 +1817,7 @@ export const FromToDateMenuItem = React.memo(
                         ?.map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox
+                              title=""
                               color="primary"
                               checked={choosenItems?.some(item => item === el)}
                               onClick={() => onClickItem(el)}
@@ -1970,6 +1993,7 @@ export const NumberFieldMenuItem = React.memo(
                         ?.map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox
+                              title=""
                               color="primary"
                               checked={choosenItems?.some(item => item === el)}
                               onClick={() => onClickItem(el)}
@@ -2166,6 +2190,7 @@ export const InStockMenuItem = React.memo(
                         ?.map((el, index) => (
                           <div key={index} className={classNames.shop}>
                             <Checkbox
+                              title=""
                               color="primary"
                               checked={choosenItems?.some(item => item._id === el._id)}
                               onClick={() => onClickItem(el)}
@@ -2259,6 +2284,7 @@ export const OnListingCellMenuItem = React.memo(
           <div className={classNames.shopsBody}>
             <div className={classNames.shop}>
               <Checkbox
+                title=""
                 color="primary"
                 checked={data.onListingFiltersData.onListing}
                 onClick={() => {
@@ -2275,6 +2301,7 @@ export const OnListingCellMenuItem = React.memo(
 
             <div className={classNames.shop}>
               <Checkbox
+                title=""
                 color="primary"
                 checked={data.onListingFiltersData.notOnListing}
                 onClick={() => {
