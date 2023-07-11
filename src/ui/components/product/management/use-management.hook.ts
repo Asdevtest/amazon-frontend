@@ -148,19 +148,19 @@ export const useManagement = () => {
     switch (memberType) {
       case Members.Client:
         selectedMember = members.clients.find(member => member._id === selectedMemberId)
-        setClient(selectedMember || { _id: '', name: '' })
+        setClient(selectedMember || initialStateMember)
         break
       case Members.Buyer:
         selectedMember = members.buyers.find(member => member._id === selectedMemberId)
-        setBuyer(selectedMember || { _id: '', name: '' })
+        setBuyer(selectedMember || initialStateMember)
         break
       case Members.Supervisor:
         selectedMember = members.supervisors.find(member => member._id === selectedMemberId)
-        setSupervisor(selectedMember || { _id: '', name: '' })
+        setSupervisor(selectedMember || initialStateMember)
         break
       case Members.Researcher:
         selectedMember = members.researchers.find(member => member._id === selectedMemberId)
-        setResearcher(selectedMember || { _id: '', name: '' })
+        setResearcher(selectedMember || initialStateMember)
         break
       default:
         break
