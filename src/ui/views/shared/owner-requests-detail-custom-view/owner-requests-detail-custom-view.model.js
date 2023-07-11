@@ -157,9 +157,6 @@ export class OwnerRequestDetailCustomViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-
-      console.log('AYayayya')
-
       await this.getCustomRequestCur()
       await this.getCustomProposalsForRequestCur()
       await this.getAnnouncementsByGuid(this.request?.request?.announcementId)
@@ -314,9 +311,11 @@ export class OwnerRequestDetailCustomViewModel {
 
   async getAnnouncementsByGuid(guid) {
     try {
-      const result = await AnnouncementsModel.getAnnouncementsByGuid(guid)
+      if (guid) {
+        const result = await AnnouncementsModel.getAnnouncementsByGuid(guid)
 
-      this.requestAnnouncement = result
+        this.requestAnnouncement = result
+      }
     } catch (error) {
       console.log(error)
       runInAction(() => {
