@@ -22,9 +22,8 @@ export const styles = theme => ({
 
   addUserButton: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
     gap: 10,
+    padding: '8px 20px 8px 15px',
 
     height: '40px',
 

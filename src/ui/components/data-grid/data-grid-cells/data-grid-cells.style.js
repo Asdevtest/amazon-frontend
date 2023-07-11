@@ -627,6 +627,7 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     padding: '5px 0',
+    overflow: 'hidden',
   },
 
   illuminationCell: {

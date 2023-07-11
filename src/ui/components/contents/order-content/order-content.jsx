@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import { Container, Divider, Paper, TableCell, TableRow, Typography, useMediaQuery, useTheme } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { isPast, isValid, parseISO } from 'date-fns'
 
@@ -123,9 +122,7 @@ export const OrderContent = ({
     setShowSetBarcodeModal(!showSetBarcodeModal)
   }
 
-  const isCanChange =
-    updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] &&
-    updatedOrder.status !== OrderStatusByKey[OrderStatus.PENDING]
+  const isOrderEditable = updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]
 
   const disabledSaveSubmit =
     (!isValid(parseISO(formFields.deadline)) && isPast(parseISO(formFields.deadline))) || !formFields.amount
@@ -133,194 +130,182 @@ export const OrderContent = ({
   return (
     <Paper>
       <Container disableGutters maxWidth={false}>
-        <div>
-          <div className={classNames.orderContainer}>
-            <div>
-              <OrderStatusText
-                isClient={isClient}
-                status={OrderStatusByCode[updatedOrder.status]}
-                className={classNames.containerTitle}
-              />
-            </div>
+        <div className={classNames.orderContainer}>
+          <OrderStatusText
+            isClient={isClient}
+            status={OrderStatusByCode[updatedOrder.status]}
+            className={classNames.containerTitle}
+          />
 
-            <div className={classNames.orderNumWrapper}>
-              <Typography className={classNames.orderNum}>{t(TranslationKey['Order number'])}</Typography>
-              <Typography className={classNames.titleSpan}>{`№ ${updatedOrder.id}`}</Typography>
-            </div>
+          <div className={classNames.orderNumWrapper}>
+            <Typography className={classNames.orderTitle}>{t(TranslationKey['Order number'])}</Typography>
+            <Typography className={classNames.orderText}>{`№ ${updatedOrder.id}`}</Typography>
+          </div>
 
-            <div className={classNames.orderPriceWrapper}>
-              <Field
-                oneLine
-                tooltipInfoContent={t(TranslationKey['Total order amount'])}
-                label={t(TranslationKey['Order amount'])}
-                labelClasses={classNames.orderPrice}
-                containerClasses={classNames.field}
-                inputComponent={
-                  <Typography className={classNames.titleSpan}>
-                    {toFixedWithDollarSign(formFields.totalPrice, 2)}
-                  </Typography>
+          <div className={classNames.orderItemWrapper}>
+            <Field
+              oneLine
+              tooltipInfoContent={t(TranslationKey['Total order amount'])}
+              label={t(TranslationKey['Order amount'])}
+              labelClasses={classNames.orderTitle}
+              containerClasses={classNames.field}
+              inputComponent={
+                <Typography className={classNames.orderText}>
+                  {toFixedWithDollarSign(formFields.totalPrice, 2)}
+                </Typography>
+              }
+            />
+          </div>
+
+          <div className={classNames.orderItemWrapper}>
+            <Typography className={classNames.orderTitle}>{'item'}</Typography>
+            <Typography className={classNames.orderText}>{updatedOrder.item || '-'}</Typography>
+          </div>
+
+          <div className={classNames.orderItemWrapper}>
+            <Typography className={classNames.orderTitle}>{t(TranslationKey.Created)}</Typography>
+            <Typography className={classNames.orderText}>{formatShortDateTime(updatedOrder.createdAt)}</Typography>
+          </div>
+        </div>
+
+        <Divider orientation={'horizontal'} />
+
+        <div className={classNames.panelsWrapper}>
+          <LeftPanel
+            isCanChange={isOrderEditable}
+            order={updatedOrder}
+            formFields={formFields}
+            collapsed={collapsed}
+            narrow={narrow}
+            setCollapsed={setCollapsed}
+            onChangeField={onChangeField}
+            onClickBarcode={() => {
+              triggerBarcodeModal()
+            }}
+            onDeleteBarcode={() => {
+              onChangeField('barCode')('')
+            }}
+          />
+
+          <Divider orientation={'vertical'} className={classNames.divider} />
+
+          <DeliveryParameters
+            isCanChange={isOrderEditable}
+            storekeepers={storekeepers}
+            order={updatedOrder}
+            formFields={formFields}
+            destinations={destinations}
+            destinationsFavourites={destinationsFavourites}
+            setDestinationsFavouritesItem={setDestinationsFavouritesItem}
+            setFormFields={setFormFields}
+            onChangeField={onChangeField}
+          />
+
+          <Divider orientation={'vertical'} className={classNames.divider} />
+
+          <ExtraOrderInfo
+            order={updatedOrder}
+            isClient={isClient}
+            formFields={formFields}
+            onChangeField={onChangeField}
+          />
+        </div>
+
+        <div className={classNames.btnsWrapper}>
+          {(updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] || (isClient && isOrderEditable)) &&
+            onClickCancelOrder && (
+              <Button
+                danger
+                tooltipInfoContent={
+                  updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] &&
+                  t(TranslationKey['Cancel order, refund of frozen funds'])
                 }
-              />
-            </div>
-
-            <div className={classNames.orderItemWrapper}>
-              <Typography className={classNames.orderNum}>{'item'}</Typography>
-              <Typography className={classNames.titleSpan}>{updatedOrder.item || '-'}</Typography>
-            </div>
-
-            <div className={classNames.orderItemWrapper}>
-              <Typography className={classNames.orderNum}>{t(TranslationKey.Created)}</Typography>
-              <Typography className={classNames.titleSpan}>{formatShortDateTime(updatedOrder.createdAt)}</Typography>
-            </div>
-          </div>
-
-          <Divider orientation={'horizontal'} />
-
-          <div className={classNames.panelsWrapper}>
-            <LeftPanel
-              isCanChange={isCanChange}
-              order={updatedOrder}
-              formFields={formFields}
-              collapsed={collapsed}
-              narrow={narrow}
-              setCollapsed={setCollapsed}
-              onChangeField={onChangeField}
-              onClickBarcode={() => {
-                triggerBarcodeModal()
-              }}
-              onDeleteBarcode={() => {
-                onChangeField('barCode')('')
-              }}
-            />
-
-            <Divider orientation={'vertical'} className={classNames.divider} />
-
-            <DeliveryParameters
-              isCanChange={isCanChange}
-              storekeepers={storekeepers}
-              order={updatedOrder}
-              formFields={formFields}
-              destinations={destinations}
-              destinationsFavourites={destinationsFavourites}
-              setDestinationsFavouritesItem={setDestinationsFavouritesItem}
-              setFormFields={setFormFields}
-              onChangeField={onChangeField}
-            />
-
-            <Divider orientation={'vertical'} className={classNames.divider} />
-
-            <ExtraOrderInfo
-              order={updatedOrder}
-              isClient={isClient}
-              formFields={formFields}
-              onChangeField={onChangeField}
-            />
-          </div>
-
-          <Divider orientation={'horizontal'} />
-
-          <div className={classNames.suppliersWrapper}>
-            <Typography variant="h6" className={classNames.supplierTitle}>
-              {t(TranslationKey['List of suppliers'])}
-            </Typography>
-
-            <div className={classNames.supplierActionsWrapper}>
-              <div className={classNames.supplierContainer}>
-                <div className={classNames.supplierButtonWrapper}>
-                  <Button
-                    disabled={!selectedSupplier}
-                    tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                    className={classNames.iconBtn}
-                    onClick={onTriggerAddOrEditSupplierModal}
-                  >
-                    <VisibilityOutlinedIcon />
-                  </Button>
-                  <Typography className={classNames.supplierButtonText}>
-                    {t(TranslationKey['Open the parameters supplier'])}
-                  </Typography>
-                </div>
-              </div>
-            </div>
-
-            <TableSupplier
-              isClient
-              product={updatedOrder.product}
-              productBaseData={updatedOrder}
-              selectedSupplier={selectedSupplier}
-              onClickSupplier={onChangeSelectedSupplier}
-            />
-          </div>
-
-          <div className={classNames.btnsWrapper}>
-            {(updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] || (isClient && isCanChange)) &&
-              onClickCancelOrder && (
-                <Button
-                  danger
-                  tooltipInfoContent={
-                    updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] &&
-                    t(TranslationKey['Cancel order, refund of frozen funds'])
-                  }
-                  className={cx(classNames.button, classNames.cancelBtn)}
-                  onClick={onClickCancelOrder}
-                >
-                  {t(TranslationKey['Cancel order'])}
+                className={cx(classNames.button, classNames.cancelBtn)}
+                onClick={onClickCancelOrder}
+              >
+                {t(TranslationKey['Cancel order'])}
+              </Button>
+            )}
+          {isClient && isOrderEditable ? (
+            <div className={classNames.btnsSubWrapper}>
+              {isClient && updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] && (
+                <Button success className={classNames.button} onClick={onClickReorder}>
+                  {t(TranslationKey['To order'])}
                 </Button>
               )}
-            {isClient && isCanChange ? (
-              <div className={classNames.btnsSubWrapper}>
-                {isClient && updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] && (
-                  <Button success className={classNames.button} onClick={onClickReorder}>
-                    {t(TranslationKey['To order'])}
-                  </Button>
-                )}
 
-                <Button
-                  disabled={disabledSaveSubmit}
-                  className={classNames.button}
-                  onClick={() => {
-                    onSubmitSaveOrder(
-                      {
-                        data: getObjectFilteredByKeyArrayBlackList(
-                          { ...formFields, images: formFields.images ? formFields.images : [] },
-                          formFields.deadline ? [] : ['deadline'],
-                          true,
-                        ),
-                      },
-                      // update(),
-                    )
-                  }}
-                >
-                  {t(TranslationKey.Save)}
-                </Button>
-              </div>
-            ) : null}
-          </div>
+              <Button
+                disabled={disabledSaveSubmit}
+                className={classNames.button}
+                onClick={() => {
+                  onSubmitSaveOrder(
+                    {
+                      data: getObjectFilteredByKeyArrayBlackList(
+                        { ...formFields, images: formFields.images ? formFields.images : [] },
+                        formFields.deadline ? [] : ['deadline'],
+                        true,
+                      ),
+                    },
+                    // update(),
+                  )
+                }}
+              >
+                {t(TranslationKey.Save)}
+              </Button>
+            </div>
+          ) : null}
+        </div>
 
-          <div className={classNames.tableWrapper}>
-            <Text
-              tooltipInfoContent={t(TranslationKey['All boxes received/received by the prep center on order'])}
-              className={classNames.tableText}
-              containerClasses={classNames.container}
+        <div className={classNames.suppliersWrapper}>
+          <Typography className={classNames.supplierTitle}>{t(TranslationKey['List of suppliers'])}</Typography>
+
+          <div className={classNames.supplierButtonWrapper}>
+            <Button
+              disabled={!selectedSupplier}
+              tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
+              className={classNames.iconBtn}
+              onClick={onTriggerAddOrEditSupplierModal}
             >
-              {t(TranslationKey['Boxes to order'])}
-            </Text>
-
-            {boxes.length > 0 ? (
-              <Table
-                rowsOnly
-                data={boxes}
-                BodyRow={WarehouseBodyRow}
-                renderHeadRow={renderHeadRow()}
-                mainProductId={updatedOrder.product._id}
-                volumeWeightCoefficient={volumeWeightCoefficient}
-                userInfo={userInfo}
-                onSubmitChangeBoxFields={onSubmitChangeBoxFields}
-                onClickHsCode={onClickHsCode}
-              />
-            ) : (
-              <Typography className={classNames.noBoxesText}>{t(TranslationKey['No boxes...'])}</Typography>
-            )}
+              <VisibilityOutlinedIcon />
+            </Button>
+            <Typography className={classNames.supplierButtonText}>
+              {t(TranslationKey['Open the parameters supplier'])}
+            </Typography>
           </div>
+
+          <TableSupplier
+            isClient
+            product={updatedOrder.product}
+            productBaseData={updatedOrder}
+            selectedSupplier={selectedSupplier}
+            onClickSupplier={onChangeSelectedSupplier}
+          />
+        </div>
+
+        <div className={classNames.tableWrapper}>
+          <Text
+            tooltipInfoContent={t(TranslationKey['All boxes received/received by the prep center on order'])}
+            className={classNames.tableText}
+            containerClasses={classNames.container}
+          >
+            {t(TranslationKey['Boxes to order'])}
+          </Text>
+
+          {boxes.length > 0 ? (
+            <Table
+              rowsOnly
+              data={boxes}
+              BodyRow={WarehouseBodyRow}
+              renderHeadRow={renderHeadRow()}
+              mainProductId={updatedOrder.product._id}
+              volumeWeightCoefficient={volumeWeightCoefficient}
+              userInfo={userInfo}
+              onSubmitChangeBoxFields={onSubmitChangeBoxFields}
+              onClickHsCode={onClickHsCode}
+            />
+          ) : (
+            <Typography className={classNames.noBoxesText}>{t(TranslationKey['No boxes...'])}</Typography>
+          )}
         </div>
 
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => triggerBarcodeModal()}>

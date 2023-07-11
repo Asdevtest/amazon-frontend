@@ -2,7 +2,6 @@ import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import { cx } from '@emotion/css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined'
@@ -25,7 +24,7 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { SettingsModel } from '@models/settings-model'
 
 import { Button } from '@components/shared/buttons/button'
-import { MemberPlus, Pencil } from '@components/shared/svg-icons'
+import { EmojiIcon, FileIcon, HideArrowIcon } from '@components/shared/svg-icons'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
@@ -38,6 +37,7 @@ import { ChatMessagesList, ChatMessageUniversalHandlers } from './chat-messages-
 import { useClassNames } from './chat.style'
 import { ChatMessageByType } from './chat-messages-list/chat-message-by-type'
 import { toFixed } from '@utils/text'
+import { ChatInfo } from '@components/chat/chat/chat-info/chat-info'
 
 export interface RenderAdditionalButtonsParams {
   message: string
@@ -107,9 +107,9 @@ export const Chat: FC<Props> = observer(
 
     const [showFiles, setShowFiles] = useState(false)
 
-    const [showEmojis, setShowEmojis] = useState(false)
+    const [isShowEmojis, setIsShowEmojis] = useState(false)
 
-    const [showGroupSettings, setShowGroupSettings] = useState(false)
+    const [isShowChatInfo, setIsShowChatInfo] = useState(false)
 
     const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
@@ -198,7 +198,7 @@ export const Chat: FC<Props> = observer(
     useEffect(() => {
       setMessage(messageInitialState.message)
       setFiles(messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files)
-      setShowGroupSettings(false)
+      setIsShowChatInfo(false)
 
       return () => {
         setMessageToReply(null)
@@ -302,86 +302,33 @@ export const Chat: FC<Props> = observer(
             setMessageToReply={setMessageToReply}
           />
 
-          {isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0 ? (
-            <div
-              className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: showGroupSettings })}
-              onClick={() => setShowGroupSettings(!showGroupSettings)}
-            >
-              {showGroupSettings ? (
-                <div className={classNames.collapseWrapper}>
-                  <Typography className={classNames.collapseText}>{t(TranslationKey.Hide)}</Typography>
+          <div className={cx(classNames.hideAndShowIconWrapper)} onClick={() => setIsShowChatInfo(!isShowChatInfo)}>
+            {isShowChatInfo ? (
+              <HideArrowIcon className={cx(classNames.arrowIcon, classNames.hideArrow)} />
+            ) : (
+              <MoreVertOutlinedIcon className={classNames.arrowIcon} />
+            )}
+          </div>
 
-                  <ArrowRightOutlinedIcon className={classNames.arrowIcon} />
-                </div>
-              ) : (
-                <MoreVertOutlinedIcon className={classNames.arrowIcon} />
-              )}
-            </div>
-          ) : null}
-          {showGroupSettings ? (
-            <div className={classNames.groupSettingsWrapper}>
-              <div className={classNames.groupSettingsImageWrapper}>
-                <img src={chat.info?.image || '/assets/img/no-photo.jpg'} className={classNames.groupSettingsImage} />
-                <div className={classNames.groupSettingsImageShadow}></div>
-
-                <div className={classNames.groupSettingsInfoWrapper}>
-                  <div>
-                    <Typography className={classNames.groupSettingsInfoTitle}>{chat.info?.title}</Typography>
-                    <Typography className={classNames.usersCount}>{`${chat.users?.length} ${t(
-                      TranslationKey.Members,
-                    ).toLocaleLowerCase()}`}</Typography>
-                  </div>
-
-                  {userId === chat.info?.createdBy ? (
-                    <Pencil className={classNames.pencilEditIcon} onClick={onClickEditGroupChatInfo} />
-                  ) : null}
-                </div>
-              </div>
-
-              {userId === chat.info?.createdBy ? (
-                <Button onClick={onClickAddUsersToGroupChat}>
-                  <div className={classNames.addMemberBtnWrapper}>
-                    <Typography className={classNames.addMemberBtnText}>{t(TranslationKey['Add member'])}</Typography>
-
-                    <MemberPlus className={classNames.arrowIcon} />
-                  </div>
-                </Button>
-              ) : null}
-
-              <div className={classNames.membersWrapper}>
-                {chat.users
-                  .slice()
-                  .sort((a, b) => Number(b._id === chat.info?.createdBy) - Number(a._id === chat.info?.createdBy))
-                  .map(el => (
-                    <div key={el._id} className={classNames.memberWrapper}>
-                      <div className={classNames.memberInfo}>
-                        <Avatar src={getUserAvatarSrc(el._id)} className={classNames.avatarWrapper} />
-                        <Typography className={classNames.opponentName}>{el?.name}</Typography>
-                        {el._id === chat.info?.createdBy ? (
-                          <Typography className={classNames.ownerSign}>{`(${t(TranslationKey.Owner)})`}</Typography>
-                        ) : null}
-                      </div>
-
-                      {el._id !== chat.info?.createdBy && userId === chat.info?.createdBy ? (
-                        <CloseOutlinedIcon
-                          className={classNames.pencilEditIcon}
-                          fontSize="small"
-                          onClick={() => onRemoveUsersFromGroupChat([el._id])}
-                        />
-                      ) : null}
-                    </div>
-                  ))}
-              </div>
-            </div>
-          ) : null}
-
-          {isShowScrollToBottomBtn && (
-            <div className={classNames.scrollToBottom} onClick={onClickScrollToBottom}>
-              <KeyboardArrowDownIcon />
-              {!!unreadMessages?.length && (
-                <div className={classNames.scrollToBottomBadge}>{unreadMessages?.length}</div>
-              )}
-            </div>
+          <div
+            className={cx(classNames.scrollToBottom, {
+              [classNames.scrollToBottomWithChatInfo]: isShowChatInfo,
+            })}
+            onClick={onClickScrollToBottom}
+          >
+            <KeyboardArrowDownIcon />
+            {!!unreadMessages?.length && <div className={classNames.scrollToBottomBadge}>{unreadMessages?.length}</div>}
+          </div>
+          {isShowChatInfo && (
+            <ChatInfo
+              chat={chat}
+              currentOpponent={currentOpponent}
+              isGroupChat={isGroupChat}
+              userId={userId}
+              onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}
+              onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
+              onClickEditGroupChatInfo={onClickEditGroupChatInfo}
+            />
           )}
         </div>
 
@@ -416,12 +363,12 @@ export const Chat: FC<Props> = observer(
         <div className={classNames.bottomPartWrapper}>
           {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}
 
-          {showEmojis ? (
+          {isShowEmojis ? (
             <ClickAwayListener
               mouseEvent="onMouseDown"
               onClickAway={event => {
                 if ((event.target as HTMLElement).id !== 'emoji-icon') {
-                  setShowEmojis(false)
+                  setIsShowEmojis(false)
                 }
               }}
             >
@@ -456,18 +403,19 @@ export const Chat: FC<Props> = observer(
                     endAdornment: (
                       <InputAdornment position="end" classes={{ root: classNames.endAdornment }}>
                         <div className={classNames.filesIconWrapper}>
-                          <img
+                          <EmojiIcon
                             id="emoji-icon"
-                            src={showEmojis ? '/assets/icons/emoji-active.svg' : '/assets/icons/emoji.svg'}
-                            className={cx(classNames.inputIcon, classNames.emojiIconPos)}
-                            onClick={() => setShowEmojis(!showEmojis)}
+                            className={cx(classNames.inputIcon, classNames.emojiIconPos, {
+                              [classNames.inputIconActive]: isShowEmojis,
+                            })}
+                            onClick={() => setIsShowEmojis(!isShowEmojis)}
                           />
                         </div>
-
                         <div className={classNames.filesIconWrapper}>
-                          <img
-                            src={showFiles ? '/assets/icons/files-active.svg' : '/assets/icons/files.svg'}
-                            className={cx(classNames.inputIcon, classNames.fileIconPos)}
+                          <FileIcon
+                            className={cx(classNames.inputIcon, classNames.fileIconPos, {
+                              [classNames.inputIconActive]: showFiles,
+                            })}
                             onClick={() => setShowFiles(!showFiles)}
                           />
                           {files.length ? <div className={classNames.badge}>{files.length}</div> : undefined}
