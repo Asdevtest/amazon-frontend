@@ -24,7 +24,7 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
-import { checkIsFreelancer } from '@utils/checks'
+import { checkIsClient, checkIsFreelancer } from '@utils/checks'
 
 export class AnotherProfileViewModel {
   history = undefined
@@ -412,11 +412,13 @@ export class AnotherProfileViewModel {
 
       await this.getUserById()
 
-      if (!checkIsFreelancer(UserRoleCodeMap[this.user.role])) {
+      if (!checkIsFreelancer(UserRoleCodeMap[this.curUser.role])) {
         await this.getProductsVacant()
       }
 
-      this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT] && (await this.getShops())
+      if (checkIsClient(UserRoleCodeMap[this.curUser.role])) {
+        await this.getShops()
+      }
 
       await this.getDataGridState()
 
