@@ -301,6 +301,8 @@ export class OwnerRequestDetailCustomViewModel {
 
       runInAction(() => {
         this.requestProposals = result
+
+        console.log('result', result)
       })
     } catch (error) {
       console.log(error)

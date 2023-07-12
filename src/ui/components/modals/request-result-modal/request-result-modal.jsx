@@ -3,16 +3,19 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import { IconButton, Input, Link, Typography } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
+import IconButton from '@mui/material/IconButton'
+import Input from '@mui/material/Input'
+import Link from '@mui/material/Link'
+import Typography from '@mui/material/Typography'
+
+import React, { useState } from 'react'
 
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
 import { CopyValue } from '@components/shared/copy-value'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { UploadFilesInput } from '@components/shared/upload-files-input'

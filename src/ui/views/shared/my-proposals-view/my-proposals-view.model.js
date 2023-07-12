@@ -47,6 +47,7 @@ export class MyProposalsViewModel {
   showConfirmModal = false
   showRequestDesignerResultClientModal = false
   showRequestStandartResultModal = false
+  showRequestResultModal = false
   selectedProposal = undefined
 
   viewMode = tableViewMode.LIST
@@ -304,6 +305,8 @@ export class MyProposalsViewModel {
     try {
       const result = await RequestProposalModel.getRequestProposalsCustom(proposalId)
 
+      console.log('result', result)
+
       runInAction(() => {
         this.currentProposal = result
       })
@@ -319,6 +322,8 @@ export class MyProposalsViewModel {
 
     if (freelanceRequestTypeByCode[request.typeTask] === freelanceRequestType.DESIGNER) {
       this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+    } else if (freelanceRequestTypeByCode[request.typeTask] === freelanceRequestType.BLOGGER) {
+      this.onTriggerOpenModal('showRequestResultModal')
     } else {
       this.onTriggerOpenModal('showRequestStandartResultModal')
     }

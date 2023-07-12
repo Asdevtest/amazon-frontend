@@ -347,7 +347,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.ProductApi* | [**apiV1ProductsGuidGet**](docs/ProductApi.md#apiV1ProductsGuidGet) | **GET** /api/v1/products/{guid} | # Получить товар оп id.
 *TestSwagger.ProductApi* | [**apiV1ProductsHsCodeGuidGet**](docs/ProductApi.md#apiV1ProductsHsCodeGuidGet) | **GET** /api/v1/products/hs_code/{guid} | # Получить  “chinaTitle“, “material“ , “productUsage“, “hsCode“ по id.
 *TestSwagger.ProductApi* | [**apiV1ProductsKeepaPost**](docs/ProductApi.md#apiV1ProductsKeepaPost) | **POST** /api/v1/products/keepa | # Отфильтровать и получить данные  о продуктах через Keepa
-*TestSwagger.ProductApi* | [**apiV1ProductsParentGuidPatch**](docs/ProductApi.md#apiV1ProductsParentGuidPatch) | **PATCH** /api/v1/products/parent/{guid} | # Поменять/убрать родительский продукт
+*TestSwagger.ProductApi* | [**apiV1ProductsParentPatch**](docs/ProductApi.md#apiV1ProductsParentPatch) | **PATCH** /api/v1/products/parent | # Поменять/убрать родительский продукт у множества продуктов
 *TestSwagger.ProductApi* | [**apiV1ProductsParseAmazonIdGet**](docs/ProductApi.md#apiV1ProductsParseAmazonIdGet) | **GET** /api/v1/products/parse_amazon/{id} | Получить данные о продукте с сайта Амазон по id(asin)
 *TestSwagger.ProductApi* | [**apiV1ProductsParseSellercentralGet**](docs/ProductApi.md#apiV1ProductsParseSellercentralGet) | **GET** /api/v1/products/parse_sellercentral | Получить данные о продукте с SellerCentral
 *TestSwagger.ProductApi* | [**apiV1ProductsRedFlagsGet**](docs/ProductApi.md#apiV1ProductsRedFlagsGet) | **GET** /api/v1/products/red_flags | # Получить красные флаги
@@ -792,12 +792,12 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20059](docs/InlineResponse20059.md)
  - [TestSwagger.InlineResponse2006](docs/InlineResponse2006.md)
  - [TestSwagger.InlineResponse20060](docs/InlineResponse20060.md)
+ - [TestSwagger.InlineResponse20060Announcement](docs/InlineResponse20060Announcement.md)
+ - [TestSwagger.InlineResponse20060CountProposalsByStatuses](docs/InlineResponse20060CountProposalsByStatuses.md)
+ - [TestSwagger.InlineResponse20060Media](docs/InlineResponse20060Media.md)
+ - [TestSwagger.InlineResponse20060Product](docs/InlineResponse20060Product.md)
+ - [TestSwagger.InlineResponse20060Rows](docs/InlineResponse20060Rows.md)
  - [TestSwagger.InlineResponse20061](docs/InlineResponse20061.md)
- - [TestSwagger.InlineResponse20061Announcement](docs/InlineResponse20061Announcement.md)
- - [TestSwagger.InlineResponse20061CountProposalsByStatuses](docs/InlineResponse20061CountProposalsByStatuses.md)
- - [TestSwagger.InlineResponse20061Media](docs/InlineResponse20061Media.md)
- - [TestSwagger.InlineResponse20061Product](docs/InlineResponse20061Product.md)
- - [TestSwagger.InlineResponse20061Rows](docs/InlineResponse20061Rows.md)
  - [TestSwagger.InlineResponse20062](docs/InlineResponse20062.md)
  - [TestSwagger.InlineResponse20063](docs/InlineResponse20063.md)
  - [TestSwagger.InlineResponse20064](docs/InlineResponse20064.md)

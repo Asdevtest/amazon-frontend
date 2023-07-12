@@ -473,24 +473,18 @@ export default class ProductApi {
 
 
     /**
-     * # Поменять/убрать родительский продукт
-     * Поменять/убрать родительский продукт
-     * @param {String} guid id товара.
+     * # Поменять/убрать родительский продукт у множества продуктов
+     * Поменять/убрать родительский продукт у множества продуктов, можно ставить null
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject82} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1ProductsParentGuidPatchWithHttpInfo(guid, opts) {
+    apiV1ProductsParentPatchWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = opts['body'];
-      // verify the required parameter 'guid' is set
-      if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1ProductsParentGuidPatch");
-      }
 
       let pathParams = {
-        'guid': guid
       };
       let queryParams = {
       };
@@ -505,23 +499,22 @@ export default class ProductApi {
       let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
-        '/api/v1/products/parent/{guid}', 'PATCH',
+        '/api/v1/products/parent', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * # Поменять/убрать родительский продукт
-     * Поменять/убрать родительский продукт
-     * @param {String} guid id товара.
+     * # Поменять/убрать родительский продукт у множества продуктов
+     * Поменять/убрать родительский продукт у множества продуктов, можно ставить null
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject82} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1ProductsParentGuidPatch(guid, opts) {
-      return this.apiV1ProductsParentGuidPatchWithHttpInfo(guid, opts)
+    apiV1ProductsParentPatch(opts) {
+      return this.apiV1ProductsParentPatchWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
