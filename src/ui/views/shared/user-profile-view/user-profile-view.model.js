@@ -119,6 +119,7 @@ export class ProfileViewModel {
     })
     this.setDataGridState()
   }
+
   setRequestStatus(requestStatus) {
     runInAction(() => {
       this.requestStatus = requestStatus
@@ -355,5 +356,9 @@ export class ProfileViewModel {
     runInAction(() => {
       this[modal] = !this[modal]
     })
+  }
+
+  resetProfileDataValidation() {
+    this.checkValidationNameOrEmail = {}
   }
 }

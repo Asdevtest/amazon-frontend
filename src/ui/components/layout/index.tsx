@@ -5,8 +5,6 @@ import { useLocation } from 'react-router-dom'
 
 import { privateRoutesConfigs } from '@constants/navigation/routes'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { Appbar } from '@components/layout/appbar'
 import { Main } from '@components/layout/main'
 import { Navbar } from '@components/layout/navbar'
@@ -48,11 +46,7 @@ export const Layout: FC<LayoutProps> = props => {
         onChangeSubCategory={undefined}
       />
       <Main>
-        <Appbar
-          setDrawerOpen={() => setIsDrawerOpen(!isDrawerOpen)}
-          title={currentPageInfo.title}
-          lastCrumbAdditionalText={SettingsModel.lastCrumbAdditionalText}
-        >
+        <Appbar setDrawerOpen={() => setIsDrawerOpen(!isDrawerOpen)} title={currentPageInfo.title}>
           {/* @ts-ignore */}
           {props.children}
         </Appbar>

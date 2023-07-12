@@ -10,6 +10,7 @@ import { styles } from './data-grid-spanning-cells.style'
 import { cx } from '@emotion/css'
 import { t } from '@utils/translations'
 import { TranslationKey } from '@constants/translations/translation-key'
+import { getGroupDataByDestinationId } from '@utils/array'
 
 export const DestinationVariationsSpanningCell = React.memo(
   withStyles(
@@ -22,20 +23,7 @@ export const DestinationVariationsSpanningCell = React.memo(
       selectVariationTariff,
       withoutRate,
     }) => {
-      const groupedData = destinationVariations.reduce((groups, obj) => {
-        const { destination } = obj
-        const { _id } = destination
-
-        if (!_id) {
-          return groups
-        }
-
-        if (!groups[_id]) {
-          groups[_id] = []
-        }
-        groups[_id].push(obj)
-        return groups
-      }, {})
+      const groupedData = getGroupDataByDestinationId(destinationVariations)
 
       const arrayOfArrays = Object.values(groupedData)
 
@@ -112,14 +100,7 @@ export const WeightBasedApproximateCalculationsSpanningCell = React.memo(
       usaCostWrapperWidth,
       roiWrapperWidth,
     }) => {
-      const groupedData = destinationVariations.reduce((groups, obj) => {
-        const { destinationId } = obj
-        if (!groups[destinationId]) {
-          groups[destinationId] = []
-        }
-        groups[destinationId].push(obj)
-        return groups
-      }, {})
+      const groupedData = getGroupDataByDestinationId(destinationVariations)
 
       const arrayOfArrays = Object.values(groupedData)
 
@@ -169,7 +150,7 @@ export const WeightBasedApproximateCalculationsSpanningCell = React.memo(
               <div style={{ width: roiWrapperWidth }} className={cx(classNames.destinationWrapper)}>
                 {varians.map((variant, variantIndex) => (
                   <Typography key={variantIndex} className={cx(classNames.destinationVariationText)}>
-                    {toFixed(variant.roi, 2)}
+                    {toFixed(variant.roi, 2) + ' %'}
                   </Typography>
                 ))}
               </div>

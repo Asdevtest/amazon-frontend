@@ -98,12 +98,10 @@ export const styles = theme => ({
   },
 
   typoSpan: {
-    marginLeft: 10,
     color: theme.palette.text.second,
   },
 
   linkSpan: {
-    marginLeft: 10,
     color: theme.palette.primary.main,
   },
   cellBtn: {
@@ -150,6 +148,10 @@ export const styles = theme => ({
     // color: '#F5CF00',
     backgroundColor: '#F5CF00',
     color: '#001029',
+
+    '&:hover, &:focus': {
+      color: '#fff',
+    },
   },
 
   inputValueNoExists: {
@@ -230,9 +232,8 @@ export const styles = theme => ({
     textOverflow: 'ellipsis',
   },
   orderText: {
-    fontSize: '14px',
-
-    maxWidth: 200,
+    fontSize: 13,
+    maxWidth: 250,
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -493,10 +494,17 @@ export const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    overflowY: 'auto',
     height: '100%',
     width: '100%',
     padding: '5px',
+    maxHeight: 240,
+    overflow: 'auto',
+  },
+
+  withScrollBatchBoxesWrapper: {
+    justifyContent: 'center',
+    maxHeight: 'unset',
+    overflow: 'unset',
   },
 
   batchProductsSubWrapper: {
@@ -504,10 +512,7 @@ export const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    width: 480,
-
-    maxHeight: 500,
-    overflow: 'auto',
+    width: '100%',
   },
 
   batchProductsWrapper: {
@@ -518,17 +523,31 @@ export const styles = theme => ({
     borderRadius: '10px',
     padding: '3px',
     marginBottom: '5px',
+    width: '100%',
+  },
 
-    width: 510,
-    maxHeight: 500,
-    overflow: 'hidden',
+  batchProductInfoWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  amountBoxesWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
+
+  amountBoxesText: {
+    fontSize: 14,
+    fontWeight: 400,
+    color: theme.palette.primary.main,
   },
 
   batchProductsBoxesLength: {
     fontSize: 26,
     fontWeight: 600,
     color: theme.palette.primary.main,
-    padding: '0 5px',
+    paddingRight: 5,
   },
 
   batchProductTitle: {
@@ -541,7 +560,6 @@ export const styles = theme => ({
   needPay: {
     color: 'red',
     fontWeight: 'bold',
-    marginLeft: '15px',
   },
 
   alertText: {
@@ -601,12 +619,11 @@ export const styles = theme => ({
   },
 
   multilineTextWrapper: {
-    width: '100%',
     height: '100%',
-    display: 'inline-flex',
+    display: 'flex',
     alignItems: 'center',
-    justifyContent: 'start',
     padding: '5px 0',
+    overflow: 'hidden',
   },
 
   illuminationCell: {
@@ -614,14 +631,9 @@ export const styles = theme => ({
   },
 
   multilineText: {
-    width: '100%',
-    maxHeight: '100%',
-    textAlign: 'center',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-
-    fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',
   },
@@ -633,7 +645,6 @@ export const styles = theme => ({
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-
     display: '-webkit-box',
     WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',
@@ -778,7 +789,10 @@ export const styles = theme => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+  },
+
+  multilineTextAlignStartWrapper: {
+    justifyContent: 'start',
   },
 
   multilineTextHeaderWrapperWithComponent: {
@@ -802,8 +816,6 @@ export const styles = theme => ({
   multilineHeaderText: {
     width: 'fit-content',
     textAlign: 'center',
-    // whiteSpace: 'normal',
-
     color: theme.palette.text.general,
 
     fontWeight: '600',
@@ -897,7 +909,7 @@ export const styles = theme => ({
 
   copyAsin: {
     display: 'flex',
-    gap: '2px',
+    gap: 5,
     alignItems: 'center',
   },
 
@@ -1042,7 +1054,7 @@ export const styles = theme => ({
 
   actionBtn: {
     display: 'flex',
-    width: 175,
+    width: 136,
     height: 30,
     padding: '0 12px',
 
@@ -1123,15 +1135,8 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: '40px',
-    padding: '15px 0',
-  },
-
-  editOrRemoveIconBtnsSubCell: {
-    width: 'min-content',
-    display: 'flex',
-    alignItems: 'center',
     gap: 15,
+    padding: '15px 0',
   },
 
   editOrRemoveBtnWrapper: {
@@ -1767,5 +1772,38 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 7,
+  },
+
+  abbreviatedBatchProductsWrapper: {
+    width: '100%',
+
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    gap: 5,
+  },
+
+  abbreviatedImg: {
+    width: 28,
+    height: 28,
+  },
+
+  abbreviatedTitle: {
+    fontSize: 14,
+    fontWeight: 400,
+
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+
+    flex: 1,
+  },
+
+  abbreviatedBatchProductInfoWrapper: {
+    width: '100%',
+
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
   },
 })

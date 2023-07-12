@@ -342,4 +342,8 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
   },
+
+  productCell: {
+    width: 225,
+  },
 }))

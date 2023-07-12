@@ -19,6 +19,7 @@ import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carous
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
+import { BoxArrow } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -86,8 +87,6 @@ export const EditTaskModal = observer(
       switch (type) {
         case TaskOperationType.EDIT:
           return '/assets/img/edit.png'
-        case TaskOperationType.RECEIVE:
-          return '/assets/img/receive.png'
         case TaskOperationType.SPLIT:
           return '/assets/img/split.png'
         case TaskOperationType.MERGE:
@@ -140,7 +139,15 @@ export const EditTaskModal = observer(
 
           <div className={classNames.modalSubHeader}>
             <div className={classNames.typeTaskWrapper}>
-              <img src={renderTypeTaskImages(task.operationType)} className={classNames.hideBlock} />
+              {task.operationType === TaskOperationType.RECEIVE ? (
+                <div className={classNames.boxSvgContainer}>
+                  <img src="/assets/icons/big-box.svg" className={classNames.bigBoxSvg} />
+                  <BoxArrow className={classNames.boxArrowSvg} />
+                </div>
+              ) : (
+                <img src={renderTypeTaskImages(task.operationType)} className={classNames.hideBlock} />
+              )}
+
               <Typography className={classNames.typeTaskTitle}>{`${t(TranslationKey['Task type'])}:`}</Typography>
               <Typography className={classNames.typeTaskSubTitle}>{renderTypeTaskTitle(task.operationType)}</Typography>
             </div>

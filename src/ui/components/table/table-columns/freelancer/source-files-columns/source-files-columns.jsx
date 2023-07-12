@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -31,6 +28,8 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value || '-'} />,
     width: 50,
+    headerAlign: 'center',
+    align: 'center',
   },
 
   {
@@ -39,7 +38,6 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 97,
-    // type: 'date',
   },
 
   {
@@ -88,7 +86,7 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     field: 'comments',
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-    width: 239,
+    width: 240,
     // renderCell: params => (
     //   <ChangeInputCommentCell
     //     text={params?.value}
@@ -98,7 +96,7 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     // ),
     renderCell: params => (
       <ChangeInputCommentCell
-        rowsCount={2}
+        rowsCount={1}
         text={params.row.originalData.reason}
         id={params.row.originalData._id}
         onClickSubmit={rowHandlers.onChangeText}
@@ -111,7 +109,7 @@ export const sourceFilesColumns = (rowHandlers, getEditField) => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    width: 510,
+    width: 150,
     renderCell: params => (
       <EditOrRemoveIconBtnsCell
         tooltipFirstButton={t(TranslationKey['Change store name or links to reports'])}

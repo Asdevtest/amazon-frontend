@@ -20,9 +20,9 @@ import AddIcon from '@mui/icons-material/Add'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/keys/currency'
 
-import { DestinationVariationInterface, LogisticTariffInterface } from '../../../../types/logistics-tariff'
+import { LogisticTariffInterface } from '../../../../types/logistics-tariff'
 import { toFixed } from '@utils/text'
-import { DestinationInterface } from '../../../../types/destination'
+import { DestinationType, DestinationVariationType } from '../../../../types/destination'
 
 interface FormFields {
   tariffType: number
@@ -35,12 +35,12 @@ interface FormFields {
   minWeightInKg: number
   archive: boolean
   yuanToDollarRate: number
-  destinationVariations: Array<DestinationVariationInterface>
+  destinationVariations: Array<DestinationVariationType>
 }
 
 interface DestinationVariationsContentProps {
-  destinationVariations: Array<DestinationVariationInterface>
-  destinationData: Array<DestinationInterface>
+  destinationVariations: Array<DestinationVariationType>
+  destinationData: Array<DestinationType>
   currentCurrency: string
   destinationsFavourites: Array<Array<string>>
   setDestinationsFavouritesItem: () => void
@@ -53,7 +53,7 @@ interface AddOrEditWeightBasedLogisticsTariffFormProps {
   tariffToEdit: LogisticTariffInterface
   sourceYuanToDollarRate: number
   logisticsTariffsData: Array<LogisticTariffInterface>
-  destinationData: Array<DestinationInterface>
+  destinationData: Array<DestinationType>
   destinationsFavourites: Array<Array<string>>
   setDestinationsFavouritesItem: () => void
   onCreateSubmit: (formFields: FormFields) => void
@@ -101,7 +101,11 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       minWeightInKg: tariffToEdit?.minWeightInKg || 0,
       archive: tariffToEdit?.archive || false,
       yuanToDollarRate: tariffToEdit?.conditionsByRegion.yuanToDollarRate || sourceYuanToDollarRate || 6.5,
-      destinationVariations: tariffToEdit?.destinationVariations || [emptyDestinationVariation],
+      destinationVariations: tariffToEdit?.destinationVariations?.map(variation => ({
+        ...variation,
+        pricePerKgUsd: toFixed(variation.pricePerKgUsd, 2),
+        pricePerKgRmb: toFixed(variation.pricePerKgRmb, 2),
+      })) || [emptyDestinationVariation],
     }
 
     const [formFields, setFormFields] = useState<FormFields>(initialState)
@@ -116,7 +120,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       !formFields.etd ||
       !formFields.eta ||
       formFields.destinationVariations.some(
-        (variant: DestinationVariationInterface) =>
+        (variant: DestinationVariationType) =>
           !variant.destination._id ||
           !variant.pricePerKgRmb ||
           !variant.pricePerKgUsd ||
@@ -150,7 +154,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
     const [currentCurrency, setCurrentCurrency] = useState(currencyTypes.DOLLAR)
 
-    const onChangeField = (fieldName: string) => (value: string | number | Array<DestinationVariationInterface>) => {
+    const onChangeField = (fieldName: string) => (value: string | number | Array<DestinationVariationType>) => {
       const newFormFields = { ...formFields }
       if (fieldName === 'yuanToDollarRate') {
         newFormFields[fieldName] = Number(value)
@@ -240,7 +244,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       }
     }
 
-    const calcWeightRangeValid = (destinationVariations: Array<DestinationVariationInterface>) => {
+    const calcWeightRangeValid = (destinationVariations: Array<DestinationVariationType>) => {
       const currectArray = destinationVariations.map(variant => ({
         destinationId: variant.destination._id,
         minWeight: variant.minWeight,
@@ -267,7 +271,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
           // @ts-ignore
           const group = groupedByDestinationId[destinationId]
           const sortedRanges = group.sort(
-            (a: DestinationVariationInterface, b: DestinationVariationInterface) => a.minWeight - b.minWeight,
+            (a: DestinationVariationType, b: DestinationVariationType) => a.minWeight - b.minWeight,
           )
 
           for (let i = 0; i < sortedRanges.length - 1; i++) {
@@ -529,7 +533,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
 
     return (
       <>
-        {destinationVariations?.map((variant: DestinationVariationInterface, variantIndex: number) => (
+        {destinationVariations?.map((variant: DestinationVariationType, variantIndex: number) => (
           <div key={variantIndex} className={classNames.optionsWrapper}>
             <Field
               label={t(TranslationKey.Destination)}
@@ -559,7 +563,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = Reac
                       : t(TranslationKey.Select)
                   }
                   onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-                  onClickSelect={(el: DestinationInterface) => {
+                  onClickSelect={(el: DestinationType) => {
                     onChangeDestinationVariations('destinationId')(variantIndex)(el._id)
                   }}
                 />

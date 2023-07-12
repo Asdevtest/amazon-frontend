@@ -27,6 +27,7 @@ export const MemoDataGrid = observer(({ ...restProps }) => {
       restProps.propsToRerender?.unitsOption,
       restProps.propsToRerender?.isArchive,
       restProps.propsToRerender?.currentData,
+      restProps.propsToRerender?.productViewMode,
     ],
   )
 

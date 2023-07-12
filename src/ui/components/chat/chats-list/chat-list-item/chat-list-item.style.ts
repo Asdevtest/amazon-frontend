@@ -40,6 +40,7 @@ export const useClassNames = makeStyles()(theme => ({
   titleText: {
     margin: 0,
     fontSize: 18,
+    fontWeight: 600,
     lineHeight: '25px',
     color: theme.palette.text.general,
     maxWidth: 140,
@@ -71,6 +72,7 @@ export const useClassNames = makeStyles()(theme => ({
   nickName: {
     margin: 0,
     fontSize: 14,
+    fontWeight: 600,
     lineHeight: '19px',
     color: theme.palette.text.second,
   },
@@ -85,6 +87,10 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
   },
 
+  lastMessageTextBold: {
+    fontWeight: 600,
+  },
+
   badge: {
     height: 18,
     width: 18,
@@ -93,9 +99,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: theme.palette.text.second,
+    // color: theme.palette.text.second,
+    color: '#fff',
     fontSize: 12,
-    lineHeight: 14,
+    lineHeight: '14px',
   },
 
   isReadIcon: {
