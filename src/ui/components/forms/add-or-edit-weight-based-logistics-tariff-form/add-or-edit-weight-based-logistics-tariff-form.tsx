@@ -101,7 +101,11 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       minWeightInKg: tariffToEdit?.minWeightInKg || 0,
       archive: tariffToEdit?.archive || false,
       yuanToDollarRate: tariffToEdit?.conditionsByRegion.yuanToDollarRate || sourceYuanToDollarRate || 6.5,
-      destinationVariations: tariffToEdit?.destinationVariations || [emptyDestinationVariation],
+      destinationVariations: tariffToEdit?.destinationVariations?.map(variation => ({
+        ...variation,
+        pricePerKgUsd: toFixed(variation.pricePerKgUsd, 2),
+        pricePerKgRmb: toFixed(variation.pricePerKgRmb, 2),
+      })) || [emptyDestinationVariation],
     }
 
     const [formFields, setFormFields] = useState<FormFields>(initialState)

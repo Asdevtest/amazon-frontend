@@ -1992,7 +1992,7 @@
   "Thank you for your feedback": "Благодарим за обратную связь",
   "Attach files": "Прикрепить файлы",
   "You": "Вы",
-  "Request information": "Информаци о заявке",
+  "Request information": "Информация о заявке",
   "Request creator": "Создатель заявки",
   "Request terms": "Условия заявки",
   "Without confirmation": "Без подтверждения",
@@ -2002,5 +2002,7 @@
   "It is possible to work without confirmation": "Можно брать в работу без подтверждения",
   "Incorrect destination or tariff": "Неправильный пункт назначения или тариф",
   "Participants": "Участников",
-  "Photo and Video": "Фото и Видео"
+  "Photo and Video": "Фото и Видео",
+  "Photo track numbers": "Фото трек номеров",
+  "no photo track number": "нет фото трек номера"
 }

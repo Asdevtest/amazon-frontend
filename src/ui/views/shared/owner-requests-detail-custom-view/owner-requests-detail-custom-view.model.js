@@ -158,8 +158,6 @@ export class OwnerRequestDetailCustomViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      console.log('AYayayya')
-
       await this.getCustomRequestCur()
       await this.getCustomProposalsForRequestCur()
       await this.getAnnouncementsByGuid(this.request?.request?.announcementId)

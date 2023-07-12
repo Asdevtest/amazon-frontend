@@ -1869,8 +1869,6 @@ export const NumberFieldMenuItem = React.memo(
         }
       }
 
-      console.log('choosenItems', choosenItems)
-
       useEffect(() => {
         setChoosenItems(currentFilterData)
       }, [currentFilterData])
@@ -1914,6 +1912,9 @@ export const NumberFieldMenuItem = React.memo(
           'sentToFbaSum',
           'sumStock',
           'humanFriendlyId',
+          'ideasOnCheck',
+          'ideasClosed',
+          'ideasVerified',
         ]
         return whiteList.includes(field)
       }, [field])
