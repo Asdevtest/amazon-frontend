@@ -44,7 +44,6 @@ import { t } from '@utils/translations'
 
 import { VacantRequestsViewModel } from './vacant-requests-view.model'
 import { styles } from './vacant-requests-view.style'
-import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
 export const VacantRequestsViewRaw = props => {
   const [viewModel] = useState(() => new VacantRequestsViewModel({ history: props.history, location: props.location }))
