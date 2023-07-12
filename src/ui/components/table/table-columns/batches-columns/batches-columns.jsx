@@ -87,6 +87,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch tracking'])} />,
     renderCell: params => (
       <BatchTrackingCell
+        disableMultilineForTrack
         disabled={getStatus() !== BatchStatus.HAS_DISPATCHED}
         id={params.row?.originalData?._id}
         arrivalDate={params.row?.originalData?.arrivalDate}
