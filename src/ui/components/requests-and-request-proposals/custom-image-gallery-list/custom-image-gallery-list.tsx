@@ -57,7 +57,7 @@ export const CustomImageGalleryList: FC<CustomImageGalleryListProps> = observer(
           }
         }
       })
-      .filter(el => el !== undefined) as ImageObjectType[]
+      .filter((el): el is Exclude<typeof el, undefined> => el !== undefined)
     setFilteredFiles(images)
   }, [files])
 
