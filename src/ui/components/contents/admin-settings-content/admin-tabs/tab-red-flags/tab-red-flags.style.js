@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   wrapper: {
-    width: 620,
+    width: 420,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
@@ -36,7 +36,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   inputContainer: {
-    width: '45%',
+    width: '80%',
     height: 40,
     position: 'relative',
     display: 'flex',
@@ -90,8 +90,8 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 8,
 
     '& > img': {
-      width: 76,
-      height: 76,
+      width: 54,
+      height: 44,
       borderRadius: '8px 8px 0 0',
     },
   },
@@ -102,14 +102,14 @@ export const useClassNames = makeStyles()(theme => ({
 
   actionIconWrapper: {
     display: 'flex',
-    gap: 10,
+    gap: 5,
     cursor: 'pointer',
   },
 
   actionIcon: { position: 'relative' },
 
-  paymentMethodLabel: {
-    maxWidth: 66,
+  redFlagLabel: {
+    maxWidth: 73,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -117,17 +117,16 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
   },
 
-  paymentMethods: {
+  redFlags: {
     width: '100%',
-    height: 170,
-    margin: '10px 0',
+    height: 250,
     overflowX: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    gap: 14,
+    gap: 6,
   },
 
-  paymentMethodWrapper: {
+  redFlagWrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -141,18 +140,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   iconImage: {
-    width: 32,
-    height: 32,
+    width: 24,
+    height: 24,
     fontSize: 10,
   },
 
-  paymentMethod: {
+  redFlag: {
     color: theme.palette.primary.main,
-  },
-
-  iconsWrapper: {
-    display: 'flex',
-    gap: 5,
   },
 
   iconDelete: {

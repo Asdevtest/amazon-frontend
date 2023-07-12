@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { Tabs, Tab } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
-import { fieldsWithoutCharsAfterDote, startValueFields, tabLabels } from './admin-settings-content.constants'
+import { fieldsWithoutCharsAfterDote, startValueFields, tabIndexes, tabLabels } from './admin-settings.constants'
 
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { TabPanel } from '@components/shared/tab-panel'
@@ -21,14 +21,15 @@ import {
   TabOrders,
   TabSearchSupplier,
   TabDestinations,
+  TabRedFlags,
   TabPaymentMethods,
   TabTags,
 } from './admin-tabs'
-import { AdminSettingsModel } from './admin-settings-content.model'
+import { AdminSettingsModel } from './admin-settings.model'
 
-import { useClassNames } from './admin-settings-content.style'
+import { useClassNames } from './admin-settings.style'
 
-export const AdminSettingsContent = observer(() => {
+export const AdminSettings = observer(() => {
   const { classes: classNames } = useClassNames()
 
   const [viewModel] = useState(() => new AdminSettingsModel({ history }))
@@ -37,7 +38,7 @@ export const AdminSettingsContent = observer(() => {
     viewModel.loadData()
   }, [])
 
-  const [tabIndex, setTabIndex] = useState(0)
+  const [tabIndex, setTabIndex] = useState(tabIndexes.main)
   const [isFormFieldsChanged, setIsFormFieldsChanged] = useState(false)
   const [formFields, setFormFields] = useState(startValueFields)
 
@@ -52,16 +53,6 @@ export const AdminSettingsContent = observer(() => {
   }
 
   const onCreateSubmit = () => {
-    // if (!adminSettings) { // ЕСЛИ НУЖНО ОБНОВЛЯТЬ ОТДЕЛЬНЫЕ КЛЮЧИ
-    //   createAdminSettings(formFields)
-    // } else {
-    //   keys.map(key => {
-    //     if (formFields[key] !== adminSettings.dynamicSettings[key]) {
-    //       createAdminSettings({[key]: parseInt(formFields[key])})
-    //     }
-    //   })
-    // }
-
     viewModel.createAdminSettings(formFields)
 
     setIsFormFieldsChanged(false)
@@ -78,6 +69,7 @@ export const AdminSettingsContent = observer(() => {
     ) {
       return
     }
+
     newFormFields[fieldName] = event.target.value
     setFormFields(newFormFields)
 
@@ -103,17 +95,17 @@ export const AdminSettingsContent = observer(() => {
         </Tabs>
       )}
 
-      <TabPanel value={tabIndex} index={0}>
+      <TabPanel value={tabIndex} index={tabIndexes.main}>
         <div className={classNames.contentWrapper}>
           <TabMain
             formFields={formFields}
             isFormFieldsChanged={isFormFieldsChanged}
-            onChangeField={onChangeField}
             onSubmit={onCreateSubmit}
+            onChangeField={onChangeField}
           />
         </div>
       </TabPanel>
-      <TabPanel value={tabIndex} index={1}>
+      <TabPanel value={tabIndex} index={tabIndexes.freelance}>
         <div className={classNames.contentWrapper}>
           <TabFreelance
             formFields={formFields}
@@ -123,17 +115,17 @@ export const AdminSettingsContent = observer(() => {
           />
         </div>
       </TabPanel>
-      <TabPanel value={tabIndex} index={2}>
+      <TabPanel value={tabIndex} index={tabIndexes.supplierSearch}>
         <div className={classNames.contentWrapper}>
           <TabSearchSupplier
             formFields={formFields}
             isFormFieldsChanged={isFormFieldsChanged}
-            onChangeField={onChangeField}
             onSubmit={onCreateSubmit}
+            onChangeField={onChangeField}
           />
         </div>
       </TabPanel>
-      <TabPanel value={tabIndex} index={3}>
+      <TabPanel value={tabIndex} index={tabIndexes.orders}>
         <div className={classNames.contentWrapper}>
           <TabOrders
             formFields={formFields}
@@ -143,23 +135,28 @@ export const AdminSettingsContent = observer(() => {
           />
         </div>
       </TabPanel>
-      <TabPanel value={tabIndex} index={4}>
+      <TabPanel value={tabIndex} index={tabIndexes.destinations}>
         <TabDestinations />
       </TabPanel>
-      <TabPanel value={tabIndex} index={5}>
+      <TabPanel value={tabIndex} index={tabIndexes.redFlags}>
+        <div className={classNames.contentWrapper}>
+          <TabRedFlags />
+        </div>
+      </TabPanel>
+      <TabPanel value={tabIndex} index={tabIndexes.paymentMethods}>
         <div className={classNames.contentWrapper}>
           <TabPaymentMethods />
         </div>
       </TabPanel>
-      <TabPanel value={tabIndex} index={6}>
+      <TabPanel value={tabIndex} index={tabIndexes.tags}>
         <TabTags />
       </TabPanel>
 
       <WarningInfoModal
-        openModal={viewModel.showInfoModal}
-        setOpenModal={viewModel.onClickToggleInfoModal}
         title={viewModel.infoModalText}
         btnText={t(TranslationKey.Close)}
+        openModal={viewModel.showInfoModal}
+        setOpenModal={viewModel.onClickToggleInfoModal}
         onClickBtn={viewModel.onClickToggleInfoModal}
       />
     </>

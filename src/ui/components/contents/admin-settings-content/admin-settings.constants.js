@@ -6,9 +6,21 @@ export const tabLabels = [
   TranslationKey['Supplier search'],
   TranslationKey.Orders,
   TranslationKey.Destinations,
+  TranslationKey['Red flags'],
   TranslationKey['Payment methods'],
   TranslationKey.Tags,
 ]
+
+export const tabIndexes = {
+  main: 0,
+  freelance: 1,
+  supplierSearch: 2,
+  orders: 3,
+  destinations: 4,
+  redFlags: 5,
+  paymentMethods: 6,
+  tags: 7,
+}
 
 export const fieldsWithoutCharsAfterDote = [
   'requestPlatformMarginInPercent',

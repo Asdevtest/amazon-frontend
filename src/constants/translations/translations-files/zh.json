@@ -2014,5 +2014,11 @@
   "Incorrect destination or tariff": "Incorrect destination or tariff",
   "Are you sure you want to delete the payment method?": "Are you sure you want to delete the payment method?",
   "Management": "Management",
-  "AllMembers": "Members"
+  "AllMembers": "Members",
+  "Adding red flags": "Adding red flags",
+  "Add red flag icon": "Add red flag icon",
+  "Name of the red flag": "Name of the red flag",
+  "Red flag successfully saved": "Red flag successfully saved",
+  "Red flag is not saved": "Red flag is not saved",
+  "Are you sure you want to delete the red flag?": "Are you sure you want to delete the red flag?"
 }

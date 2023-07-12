@@ -4,7 +4,7 @@ import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AdminSettingsContent } from '@components/contents/admin-settings-content/admin-settings-content'
+import { AdminSettings } from '@components/contents/admin-settings-content'
 import { MainContent } from '@components/layout/main-content'
 import { Button } from '@components/shared/buttons/button'
 
@@ -29,7 +29,7 @@ export const AdminSettingsViewRaw = props => {
           {t(TranslationKey['Technical work and notices'])}
         </Button>
 
-        <AdminSettingsContent />
+        <AdminSettings />
       </MainContent>
     </>
   )

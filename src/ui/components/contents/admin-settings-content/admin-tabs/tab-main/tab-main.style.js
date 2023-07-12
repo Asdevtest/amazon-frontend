@@ -54,6 +54,7 @@ export const useClassNames = makeStyles()(theme => ({
   proxyList: {
     width: '100%',
     height: 160,
+    margin: '10px 0',
     overflowX: 'auto',
     display: 'flex',
     flexDirection: 'column',

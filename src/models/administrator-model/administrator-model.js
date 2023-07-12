@@ -166,6 +166,16 @@ class AdministratorModelStatic {
     const response = await restApiService.administratorApi.apiV1AdminsProductLinkOrUnlinkUserRolePatch({ body: data })
     return response
   }
+
+  removeRedFlag = async id => {
+    const response = await restApiService.administratorApi.apiV1AdminsRedFlagsGuidDelete(id)
+    return response
+  }
+
+  createRedFlag = async data => {
+    const response = await restApiService.administratorApi.apiV1AdminsRedFlagsPost({ body: data })
+    return response
+  }
 }
 
 export const AdministratorModel = new AdministratorModelStatic()

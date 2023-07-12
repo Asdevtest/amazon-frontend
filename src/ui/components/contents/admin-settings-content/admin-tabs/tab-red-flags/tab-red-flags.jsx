@@ -10,7 +10,6 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/buttons/button'
-import { CopyValue } from '@components/shared/copy-value'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { UploadIcon } from '@components/shared/svg-icons'
 import { Field } from '@components/shared/field/field'
@@ -22,45 +21,43 @@ import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { AdminSettingsPaymentMethodsModel } from './tab-payment-methods.model'
+import { AdminSettingsRedFlagsModel } from './tab-red-flags.model'
 
-import { useClassNames } from './tab-payment-methods.style'
+import { useClassNames } from './tab-red-flags.style'
 
-export const TabPaymentMethods = observer(() => {
+export const TabRedFlags = observer(() => {
   const { classes: classNames } = useClassNames()
 
-  const [viewModel] = useState(() => new AdminSettingsPaymentMethodsModel({ history }))
+  const [viewModel] = useState(() => new AdminSettingsRedFlagsModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
-  const [method, setMethod] = useState({ title: '', iconImage: '' })
-  const [paymentMethods, setPaymentMethods] = useState([])
+  const [flag, setFlag] = useState({ title: '', iconImage: '' })
+  const [redFlags, setRedFlags] = useState([])
   const [isValidUrl, setIsValidUrl] = useState(false)
   const [currentImageName, setCurrentImageName] = useState('true')
 
   useEffect(() => {
-    if (viewModel.paymentMethods.length > 0) {
-      setPaymentMethods(viewModel.paymentMethods)
+    if (viewModel.redFlags.length > 0) {
+      setRedFlags(viewModel.redFlags)
     }
-  }, [viewModel.paymentMethods])
+  }, [viewModel.redFlags])
 
-  const handleSubmitPaymentMethod = async () => {
+  const handleSubmitRedFlag = async () => {
     const result =
-      typeof method.iconImage === 'string'
-        ? await uploadFileByUrl(method.iconImage)
-        : await onPostImage(method.iconImage)
+      typeof flag.iconImage === 'string' ? await uploadFileByUrl(flag.iconImage) : await onPostImage(flag.iconImage)
 
-    const updatedMethod = { ...method, iconImage: result }
+    const updatedFlag = { ...flag, iconImage: result }
 
-    await viewModel.createPaymentMethod(updatedMethod)
+    await viewModel.createRedFlag(updatedFlag)
 
-    setMethod({ title: '', iconImage: '' })
+    setFlag({ title: '', iconImage: '' })
   }
 
   const handleChangeTitle = event => {
-    setMethod(state => ({
+    setFlag(state => ({
       ...state,
       title: event.target.value,
     }))
@@ -68,15 +65,15 @@ export const TabPaymentMethods = observer(() => {
 
   const handleChangeIconImage = event => {
     checkValidImageUrl(event.target.value, setIsValidUrl)
-    setCurrentImageName(method.title)
-    setMethod(state => ({
+    setCurrentImageName(flag.title)
+    setFlag(state => ({
       ...state,
       iconImage: event.target.value,
     }))
   }
 
   const handleRemoveImg = () => {
-    setMethod(state => ({
+    setFlag(state => ({
       ...state,
       iconImage: '',
     }))
@@ -89,7 +86,7 @@ export const TabPaymentMethods = observer(() => {
       reader.onload = e => {
         setCurrentImageName(file.name)
         checkValidImageUrl(e.target.result, setIsValidUrl)
-        setMethod(state => ({
+        setFlag(state => ({
           ...state,
           iconImage: {
             data_url: e.target.result,
@@ -101,20 +98,20 @@ export const TabPaymentMethods = observer(() => {
     }
   }
 
-  const isDisableButton = isValidUrl && !!method.title
+  const isDisableButton = isValidUrl && !!flag.title
 
   return (
     <>
       {SettingsModel.languageTag && (
         <div className={classNames.wrapper}>
-          <p className={classNames.title}>{t(TranslationKey['Adding a payment method'])}</p>
+          <p className={classNames.title}>{t(TranslationKey['Adding red flags'])}</p>
 
           <div className={classNames.container}>
             <Field
-              label={t(TranslationKey['Add a payment method icon']) + '*'}
+              label={t(TranslationKey['Add red flag icon']) + '*'}
               labelClasses={classNames.label}
               classes={{ root: classNames.textField }}
-              value={method.iconImage?.data_url ?? method.iconImage}
+              value={flag.iconImage?.data_url ?? flag.iconImage}
               placeholder={t(TranslationKey.Link)}
               onChange={handleChangeIconImage}
             />
@@ -126,11 +123,11 @@ export const TabPaymentMethods = observer(() => {
             </label>
           </div>
 
-          {method.iconImage && (
+          {flag.iconImage && (
             <div className={classNames.container}>
               <div className={cx(classNames.containerImage, { [classNames.error]: !isValidUrl })}>
-                <img src={method.iconImage?.data_url ?? method.iconImage} alt="payment method" />
-                <span className={classNames.paymentMethodLabel}>{currentImageName}</span>
+                <img src={flag.iconImage?.data_url ?? flag.iconImage} alt="red flag" />
+                <span className={classNames.redFlagLabel}>{currentImageName}</span>
                 <div className={classNames.actionIconWrapper}>
                   <div className={classNames.actionIcon}>
                     <input type="file" accept="image/*" className={classNames.input} onChange={handleImageUpload} />
@@ -145,39 +142,40 @@ export const TabPaymentMethods = observer(() => {
 
           <div className={classNames.container}>
             <Field
-              label={t(TranslationKey['Payment method name']) + '*'}
+              label={t(TranslationKey['Name of the red flag']) + '*'}
               labelClasses={classNames.label}
               classes={{ root: classNames.textField }}
-              value={method.title}
+              value={flag.title}
               placeholder={t(TranslationKey.Add)}
               onChange={handleChangeTitle}
             />
           </div>
 
-          <div className={classNames.paymentMethods}>
-            {paymentMethods.length !== 0 &&
-              paymentMethods.map(method => (
-                <div key={method._id} className={classNames.paymentMethodWrapper}>
+          <div className={classNames.redFlags}>
+            {redFlags.length !== 0 &&
+              redFlags.map(flag => (
+                <div key={flag._id} className={classNames.redFlagWrapper}>
                   <div className={classNames.iconContainer}>
-                    <img src={method.iconImage} alt={method.title} className={classNames.iconImage} />
-                    <Typography className={classNames.paymentMethod}>{method.title}</Typography>
+                    <img
+                      src={`/assets/icons/redflags/${flag.title}.svg`}
+                      alt={flag.title}
+                      className={classNames.iconImage}
+                    />
+                    <Typography className={classNames.redFlag}>{flag.title}</Typography>
                   </div>
 
-                  <div className={classNames.iconsWrapper}>
-                    <CopyValue text={method} />
-                    <IconButton
-                      size="small"
-                      classes={{ root: classNames.iconDelete }}
-                      onClick={() => viewModel.onClickRemovePaymentMethod(method._id)}
-                    >
-                      <DeleteOutlineOutlinedIcon className={classNames.deleteIcon} />
-                    </IconButton>
-                  </div>
+                  <IconButton
+                    size="small"
+                    classes={{ root: classNames.iconDelete }}
+                    onClick={() => viewModel.onClickRemoveRedFlag(flag._id)}
+                  >
+                    <DeleteOutlineOutlinedIcon className={classNames.deleteIcon} />
+                  </IconButton>
                 </div>
               ))}
           </div>
 
-          <Button disabled={!isDisableButton} className={classNames.button} onClick={() => handleSubmitPaymentMethod()}>
+          <Button disabled={!isDisableButton} className={classNames.button} onClick={handleSubmitRedFlag}>
             {t(TranslationKey.Save)}
           </Button>
         </div>
