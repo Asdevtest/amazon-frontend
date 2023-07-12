@@ -248,18 +248,12 @@ export const MyProposalsViewRaw = props => {
       )}
 
       {viewModel.currentRequest && viewModel.currentProposal && (
-        <Modal
+        <RequestResultModal
+          request={{ request: viewModel.currentRequest }}
+          proposal={viewModel.currentProposal}
           openModal={viewModel.showRequestResultModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
-        >
-          <RequestResultModal
-            request={{ request: viewModel.currentRequest }}
-            proposal={viewModel.currentProposal}
-            openModal={viewModel.showRequestResultModal}
-            setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
-            onClickSendAsResult={viewModel.onClickSendAsResult}
-          />
-        </Modal>
+        />
       )}
     </React.Fragment>
   )
