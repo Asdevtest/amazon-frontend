@@ -510,13 +510,13 @@ export const AddOrEditSupplierModalContent = observer(
             />
           </div>
 
-          <div className={classNames.nameBlock}>
+          <div className={cx(classNames.nameBlock, classNames.nameBlockFlexStart)}>
             {onlyRead ? (
               <Field
                 tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
                 label={t(TranslationKey.Link) + '*'}
                 inputProps={{ maxLength: 2000 }}
-                containerClasses={classNames.linkContainerOnlyRead}
+                containerClasses={classNames.linkContainer}
                 labelClasses={classNames.normalLabel}
                 inputComponent={
                   <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(tmpSupplier.link)}>
