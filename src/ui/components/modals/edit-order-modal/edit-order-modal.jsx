@@ -1030,7 +1030,7 @@ export const EditOrderModal = observer(
                     className={classNames.trackNumberPhotoBtn}
                     onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
                   >
-                    {trackNumber.files[0] ? t(TranslationKey['File added']) : 'Photo track numbers'}
+                    {trackNumber.files[0] ? t(TranslationKey['File added']) : t(TranslationKey['Photo track numbers'])}
                   </Button>
                 </div>
 
@@ -1062,7 +1062,7 @@ export const EditOrderModal = observer(
                       ))}
                     </CustomSlider>
                   ) : (
-                    <Typography>{'no photo track number...'}</Typography>
+                    <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
                   )}
                 </div>
               </div>
@@ -1158,7 +1158,7 @@ export const EditOrderModal = observer(
 
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
-            title={'Track number'}
+            title={t(TranslationKey['Track number'])}
             tmpCode={trackNumber.files}
             maxNumber={50 - trackNumber.files.length}
             onClickSaveBarcode={value => {

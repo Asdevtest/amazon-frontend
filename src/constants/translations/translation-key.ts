@@ -2001,6 +2001,8 @@ export enum TranslationKey {
   'Incorrect destination or tariff' = 'Incorrect destination or tariff',
   'Participants' = 'Participants',
   'Photo and Video' = 'Photo and Video',
+  'Photo track numbers' = 'Photo track numbers',
+  'no photo track number' = 'no photo track number',
   // '' = '',
   // '' = '',
   // '' = '',
