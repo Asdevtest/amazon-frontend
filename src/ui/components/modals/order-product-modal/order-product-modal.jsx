@@ -52,9 +52,6 @@ export const OrderProductModal = ({
     setShowSetBarcodeModal(!showSetBarcodeModal)
   }
 
-  console.log('selectedProductsData', selectedProductsData)
-  console.log('reorderOrdersData', reorderOrdersData)
-
   const [productsForRender, setProductsForRender] = useState(
     reorderOrdersData?.length
       ? reorderOrdersData.map(reorderOrder => ({
