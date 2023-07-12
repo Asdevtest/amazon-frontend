@@ -5,13 +5,13 @@ import { useEffect, useState } from 'react'
 import { SelectChangeEvent } from '@mui/material/Select/SelectInput'
 
 import { AdministratorModel } from '@models/administrator-model'
+import { ProductModel } from '@models/product-model'
 
 import { updateObjPropsWithArr } from '@components/product/management/update-obj-props-with-arr.helper'
 
 import { UserRolesForAdminProduct } from '@constants/keys/user-roles'
 
 import { DataType, MemberType, MembersType, Members } from './management.types'
-import { ProductModel } from '@models/product-model'
 
 const initialStateMember: MemberType = { _id: '', name: '' }
 const initialStateRequest: DataType = {
@@ -42,16 +42,24 @@ export const useManagement = () => {
   const [isDisabledResearcher, setIsDisabledResearcher] = useState(true)
 
   const handleGetProduct = async (id: string) => {
-    const result = await ProductModel.getProductById(id)
+    try {
+      const result = await ProductModel.getProductById(id)
 
-    setProduct(result)
+      setProduct(result)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const handleUpdateMember = async () => {
-    await AdministratorModel.bindOrUnbindUserToProduct(data)
+    try {
+      await AdministratorModel.bindOrUnbindUserToProduct(data)
 
-    if (productIdFromUrl) {
-      await handleGetProduct(productIdFromUrl)
+      if (productIdFromUrl) {
+        await handleGetProduct(productIdFromUrl)
+      }
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -183,8 +191,9 @@ export const useManagement = () => {
     handleMemberChange(event, Members.Researcher)
   }
 
-  const isEditableClient = product.status === 200 || product.status === 275
-  const isEditableBuyer = product.status <= 200 || product.status === 275
+  const isEmptyStore = product?.shopIds?.length === 0
+  const isEditableClient = product.status === 200 || (product.status === 275 && isEmptyStore)
+  const isEditableBuyer = product.status <= 200 || (product.status === 275 && isEmptyStore)
   const isEditableSupervisor = true
   const isEditableResearcher = product.status < 200
 
