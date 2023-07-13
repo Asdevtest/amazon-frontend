@@ -22,12 +22,10 @@ class InlineObject98 {
     /**
      * Constructs a new <code>InlineObject98</code>.
      * @alias module:model/InlineObject98
-     * @param requestIds {Array.<String>} 
-     * @param uploadedToListing {Boolean} 
      */
-    constructor(requestIds, uploadedToListing) { 
+    constructor() { 
         
-        InlineObject98.initialize(this, requestIds, uploadedToListing);
+        InlineObject98.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject98 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, requestIds, uploadedToListing) { 
-        obj['requestIds'] = requestIds;
-        obj['uploadedToListing'] = uploadedToListing;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,20 @@ class InlineObject98 {
         if (data) {
             obj = obj || new InlineObject98();
 
-            if (data.hasOwnProperty('requestIds')) {
-                obj['requestIds'] = ApiClient.convertToType(data['requestIds'], ['String']);
+            if (data.hasOwnProperty('execution_time')) {
+                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
             }
-            if (data.hasOwnProperty('uploadedToListing')) {
-                obj['uploadedToListing'] = ApiClient.convertToType(data['uploadedToListing'], 'Boolean');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -65,14 +70,34 @@ class InlineObject98 {
 }
 
 /**
- * @member {Array.<String>} requestIds
+ * Время на выполнение, в минутах.
+ * @member {Number} execution_time
  */
-InlineObject98.prototype['requestIds'] = undefined;
+InlineObject98.prototype['execution_time'] = undefined;
 
 /**
- * @member {Boolean} uploadedToListing
+ * Цена предложения.
+ * @member {Number} price
  */
-InlineObject98.prototype['uploadedToListing'] = undefined;
+InlineObject98.prototype['price'] = undefined;
+
+/**
+ * Комментарий к предложению.
+ * @member {String} comment
+ */
+InlineObject98.prototype['comment'] = undefined;
+
+/**
+ * Ссылки на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject98.prototype['linksToMediaFiles'] = undefined;
+
+/**
+ * Название предложения
+ * @member {String} title
+ */
+InlineObject98.prototype['title'] = undefined;
 
 
 

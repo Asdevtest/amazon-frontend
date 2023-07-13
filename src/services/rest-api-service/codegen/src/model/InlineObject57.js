@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 
 /**
  * The InlineObject57 model module.
@@ -23,11 +22,11 @@ class InlineObject57 {
     /**
      * Constructs a new <code>InlineObject57</code>.
      * @alias module:model/InlineObject57
-     * @param name {String} Название профиля
+     * @param title {String} Тег
      */
-    constructor(name) { 
+    constructor(title) { 
         
-        InlineObject57.initialize(this, name);
+        InlineObject57.initialize(this, title);
     }
 
     /**
@@ -35,8 +34,8 @@ class InlineObject57 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name) { 
-        obj['name'] = name;
+    static initialize(obj, title) { 
+        obj['title'] = title;
     }
 
     /**
@@ -50,14 +49,8 @@ class InlineObject57 {
         if (data) {
             obj = obj || new InlineObject57();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('os')) {
-                obj['os'] = ApiClient.convertToType(data['os'], 'String');
-            }
-            if (data.hasOwnProperty('navigator')) {
-                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -67,22 +60,10 @@ class InlineObject57 {
 }
 
 /**
- * Название профиля
- * @member {String} name
+ * Тег
+ * @member {String} title
  */
-InlineObject57.prototype['name'] = undefined;
-
-/**
- * Название ОС
- * @member {String} os
- * @default 'mac'
- */
-InlineObject57.prototype['os'] = 'mac';
-
-/**
- * @member {module:model/ApiV1GologinProfileNavigator} navigator
- */
-InlineObject57.prototype['navigator'] = undefined;
+InlineObject57.prototype['title'] = undefined;
 
 
 
