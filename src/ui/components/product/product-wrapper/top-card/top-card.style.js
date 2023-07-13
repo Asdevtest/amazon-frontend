@@ -172,7 +172,7 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
   },
 
-  mainCard222: {
+  topPartCardWrapper: {
     width: '100%',
     display: 'flex',
     gap: 30,

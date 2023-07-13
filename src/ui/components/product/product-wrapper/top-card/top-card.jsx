@@ -218,7 +218,7 @@ export const TopCard = observer(
     return (
       <React.Fragment>
         <Paper className={classNames.mainCardWrapper}>
-          <div className={classNames.mainCard222}>
+          <div className={classNames.topPartCardWrapper}>
             <div className={classNames.mainCard}>
               <div className={classNames.card}>
                 <Box>

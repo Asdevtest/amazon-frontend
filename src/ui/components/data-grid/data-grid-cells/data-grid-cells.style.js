@@ -1342,7 +1342,6 @@ export const styles = theme => ({
   iconWrapper: {
     display: 'flex',
     gap: 5,
-    paddingLeft: 5,
   },
   destinationAndTariffWrapper: {
     width: '100%',
@@ -1788,7 +1787,8 @@ export const styles = theme => ({
   },
 
   shareLinkIcon: {
-    color: theme.palette.primary.main,
+    // color: theme.palette.primary.main,
+    color: '#0056B2',
     width: '21px !important',
     height: '21px !important',
     cursor: 'pointer',

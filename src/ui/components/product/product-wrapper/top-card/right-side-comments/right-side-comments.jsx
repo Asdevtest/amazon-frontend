@@ -218,7 +218,13 @@ export const RightSideComments = observer(
             </>
           )}
 
-          {acceptMessage && <AlertShield showAcceptMessage={showAcceptMessage} acceptMessage={acceptMessage} />}
+          {acceptMessage && (
+            <AlertShield
+              showAcceptMessage={showAcceptMessage}
+              acceptMessage={acceptMessage}
+              alertShieldWrapperStyle={classNames.alertShieldWrapperStyle}
+            />
+          )}
         </div>
       </div>
     )

@@ -110,14 +110,14 @@ export const ProductCardModal = observer(props => {
             progressValue={viewModel.progressValue}
             product={viewModel.getCurrentData()}
             shops={viewModel.shopsData}
-            acceptMessage={viewModel.acceptMessage}
-            actionStatus={viewModel.actionStatus}
             productBase={viewModel.productBase}
             selectedSupplier={viewModel.selectedSupplier}
             handleSupplierButtons={viewModel.onClickSupplierButtons}
             handleProductActionButtons={viewModel.handleProductActionButtons}
             formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
             setCurrentTab={tab => setCurrentTab(tab)}
+            acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+            showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
             onClickSupplier={viewModel.onChangeSelectedSupplier}
             onChangeField={viewModel.onChangeProductFields}
             onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
