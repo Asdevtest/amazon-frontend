@@ -330,4 +330,19 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     gap: 7,
   },
+
+  priorityWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  prioritySubWrapper: {
+    display: 'flex',
+    gap: 5,
+  },
+
+  priorityIcon: {
+    width: 16,
+    height: 18,
+  },
 }))
